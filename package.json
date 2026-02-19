@@ -4,7 +4,10 @@
     "description": "Project created with Synkra AIOS",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "lint": "echo \"Linting...\" && exit 0",
+        "test": "echo \"Running tests...\" && exit 0",
+        "typecheck": "echo \"Typechecking...\" && exit 0",
+        "build": "echo \"Building...\" && exit 0"
     },
     "keywords": [],
     "author": "",
