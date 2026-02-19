@@ -22,6 +22,8 @@ const { resolveHookRuntime, buildHookOutput } = require(
   path.join(__dirname, '..', '..', '.aios-core', 'core', 'synapse', 'runtime', 'hook-runtime.js'),
 );
 
+const { sendEvent } = require(path.join(__dirname, '..', '..', '.aios-core', 'scripts', 'telemetry.js'));
+
 /** Safety timeout (ms) — defense-in-depth; Claude Code also manages hook timeout. */
 const HOOK_TIMEOUT_MS = 5000;
 
@@ -45,10 +47,25 @@ function readStdin() {
 /** Main hook execution pipeline. */
 async function main() {
   const input = await readStdin();
+
+  // Telemetry: Notification of user prompt
+  await sendEvent('UserPromptSubmit', {
+    prompt: input.prompt,
+    session_id: input.session_id || input.sessionId
+  });
+
   const runtime = resolveHookRuntime(input);
   if (!runtime) return;
 
   const result = await runtime.engine.process(input.prompt, runtime.session);
+
+  // Telemetry: Notification of processed response
+  await sendEvent('SubagentStop', {
+    prompt: input.prompt,
+    session_id: input.session_id || input.sessionId,
+    result: result.xml
+  });
+
   process.stdout.write(JSON.stringify(buildHookOutput(result.xml)));
 }
 
