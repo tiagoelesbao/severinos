@@ -1,0 +1,139 @@
+# virals-ops-squad/workflows/launch-orchestration.yaml
+workflow:
+  id: launch-orchestration
+  name: Orquestração de Lançamentos
+  versao: 1.0.0
+  agente_coordenador: "@walker-launch"
+  tipo: por-demanda
+  duracao_tipica: "6-10 semanas (da decisão à abertura)"
+
+  descricao: |
+    Workflow completo de orquestração de lançamentos da Virals.
+    Coordena todos os squads envolvidos, garante gates de qualidade
+    em cada fase e documenta aprendizados para lançamentos futuros.
+
+  squads_participantes:
+    ops: "Orquestração, cronograma, gates, métricas"
+    marketing: "Conteúdo PLC, criativos, email sequences"
+    vendas: "Oferta, página de vendas, argumentário de suporte"
+    produto: "Entrega, onboarding pós-compra, suporte"
+
+  sequence:
+    - fase_0_decisao
+    - fase_1_planejamento
+    - fase_2_producao
+    - fase_3_pre_lancamento
+    - fase_4_open_cart
+    - fase_5_pos_lancamento
+
+  fases:
+    fase_0_decisao:
+      duracao: "1 semana"
+      responsavel: "@walker-launch + liderança"
+      steps:
+        - "Definir produto, tipo de lançamento e meta de receita"
+        - "Validar que o produto está pronto (ou tem prazo claro)"
+        - "Definir data de abertura do carrinho"
+        - "Confirmar budget"
+      
+      gate_go_nogo_0:
+        criterios:
+          - "Produto validado (ou timeline de validação definida)"
+          - "Meta de receita realista (baseada em lista atual)"
+          - "Budget aprovado"
+          - "Todos os squads envolvidos confirmaram disponibilidade"
+        acao_se_nao: "Adiar decisão até critérios serem atendidos"
+    
+    fase_1_planejamento:
+      duracao: "1-2 semanas"
+      responsavel: "@walker-launch"
+      steps:
+        - "Executar task: walker-launch-plan"
+        - "Criar cronograma reverso detalhado"
+        - "Briefar todos os squads"
+        - "Configurar tracking de métricas"
+      
+      gate_go_nogo_1:
+        criterios:
+          - "Plano completo com dono em cada item"
+          - "Todos os squads alinhados e com suas tarefas"
+          - "Métricas de acompanhamento configuradas"
+    
+    fase_2_producao:
+      duracao: "3-5 semanas"
+      responsavel: "Por squad conforme plano"
+      steps:
+        - "Marketing: produzir PLCs e sequência de emails"
+        - "Vendas: finalizar oferta e página de vendas"
+        - "Produto: preparar entrega e onboarding"
+        - "OPS: montar dashboard de acompanhamento"
+        - "Check-in semanal coordenado por @walker-launch"
+      
+      gate_go_nogo_2:
+        quando: "1 semana antes do pré-lançamento"
+        criterios:
+          - "Todo conteúdo PLC produzido e aprovado"
+          - "Página de vendas no ar e testada"
+          - "Automações configuradas e testadas"
+          - "Time de suporte briefado"
+        acao_se_nao: "Avaliar adiamento de 1 semana"
+    
+    fase_3_pre_lancamento:
+      duracao: "7-14 dias"
+      responsavel: "@walker-launch + @marketing"
+      steps:
+        - "Publicar PLCs conforme sequência"
+        - "Monitorar engajamento diariamente"
+        - "Ajustar táticas com base em dados (@kaushik)"
+        - "Gerar antecipação e colher provas sociais"
+      
+      gate_go_nogo_3:
+        quando: "24h antes da abertura"
+        criterios:
+          - "Checkout funcional (teste real com pagamento)"
+          - "Emails de abertura agendados e aprovados"
+          - "Dashboard de acompanhamento ao vivo funcionando"
+          - "Plano de contingência definido para top 3 riscos"
+        acao_se_nao: "BLOQUEIO — não abrir carrinho sem todos os critérios"
+    
+    fase_4_open_cart:
+      duracao: "5-7 dias"
+      responsavel: "@walker-launch coordena, todos squads em alerta"
+      steps:
+        - "Executar sequência de emails conforme PLF"
+        - "Monitorar conversão diariamente (@kaushik)"
+        - "Suporte ativo para dúvidas de compradores"
+        - "Decisões táticas baseadas em dados (abrir bônus? ampliar tráfego?)"
+      
+      regras_inegociaveis:
+        - "Urgência DEVE ser real — nunca estender prazo prometido"
+        - "Suporte responde em até 4h durante open cart"
+        - "Qualquer decisão que muda o plano passa por @walker-launch"
+    
+    fase_5_pos_lancamento:
+      duracao: "1-2 semanas"
+      responsavel: "@walker-launch + @dalio"
+      steps:
+        - "Onboarding imediato de novos clientes"
+        - "Post-mortem quantitativo (receita, conversão, CAC)"
+        - "Post-mortem qualitativo (o que funcionou, o que falhou)"
+        - "Documentar aprendizados como POP de lançamento"
+        - "Criar lista de espera para próxima turma"
+
+  metricas_lancamento:
+    pre_lancamento:
+      - "Inscrições na lista de espera por PLC"
+      - "Taxa de abertura de emails"
+      - "Engajamento nos PLCs (views, comments, shares)"
+    
+    open_cart:
+      - "Receita por dia"
+      - "Taxa de conversão (compradores / lista aquecida)"
+      - "Ticket médio"
+      - "Número de refunds / chargebacks"
+    
+    pos_lancamento:
+      - "CAC do lançamento"
+      - "LTV esperado dos novos clientes"
+      - "NPS dos compradores (7 dias pós-compra)"
+      - "Lições para próximo lançamento"

@@ -1,0 +1,59 @@
+# virals-ops-squad/workflows/bi-sprint.yaml
+workflow:
+  id: bi-sprint
+  name: Sprint de Business Intelligence
+  versao: 1.0.0
+  agente_coordenador: "@kaushik"
+  tipo: recorrente
+  cadencia: "A cada 2 semanas (ou mensal)"
+
+  descricao: |
+    Sprint de BI para análise das métricas da Virals, geração de insights
+    acionáveis e atualização do dashboard operacional.
+
+  sequence:
+    - semana_1
+    - semana_2
+
+  fases:
+    semana_1:
+      dias_1_2:
+        titulo: "Coleta e Organização"
+        acoes:
+          - "Exportar dados de todas as fontes (CRM, analytics, financeiro)"
+          - "Consolidar em planilha única com comparativo"
+          - "Identificar anomalias óbvias"
+      
+      dias_3_5:
+        titulo: "Análise Profunda"
+        acoes:
+          - "Análise por segmento (não só médias)"
+          - "Identificar correlações entre métricas"
+          - "Formular hipóteses sobre causas de variações"
+    
+    semana_2:
+      dias_1_2:
+        titulo: "Geração de Insights"
+        acoes:
+          - "Para cada insight: What / So What / Now What"
+          - "Priorizar por impacto potencial"
+          - "Formatar como recomendações acionáveis"
+      
+      dias_3_4:
+        titulo: "Produção do Relatório"
+        acoes:
+          - "Usar BI Report Template"
+          - "Dashboard visual atualizado no ClickUp"
+          - "Executivo summary em 1 página"
+      
+      dia_5:
+        titulo: "Apresentação e Decisão"
+        acoes:
+          - "Apresentar para liderança (30 min)"
+          - "Definir OMTM do próximo ciclo"
+          - "Confirmar 3 recomendações com dono e prazo"
+          - "Registrar decisões no ClickUp"
+
+  integracao_scorecard:
+    - "OMTM definida no BI Sprint alimenta o Scorecard da L10"
+    - "@wickman recebe output do bi-sprint para atualizar Scorecard"

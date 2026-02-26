@@ -1,0 +1,34 @@
+# virals-ops-squad/workflows/quarterly-rocks-planning.yaml
+workflow:
+  id: quarterly-rocks-planning
+  name: Planejamento Trimestral de Rocks
+  versao: 1.0.0
+  agente_coordenador: "@wickman"
+  tipo: recorrente
+  cadencia: "A cada 90 dias (início do trimestre)"
+  duracao: "1 dia completo"
+
+  sequence:
+    - agenda_dia
+
+  fases:
+    agenda_dia:
+      manha:
+        09h00: "Revisão do trimestre anterior (Rocks + Scorecard + V/TO)"
+        10h30: "Identificar e celebrar vitórias"
+        11h00: "IDS dos maiores issues do trimestre"
+        12h00: "Almoço"
+      
+      tarde:
+        13h00: "Brain dump de candidatos a Rocks"
+        14h30: "Votação e seleção dos Rocks"
+        15h30: "Refinamento: donos, critérios, subtasks"
+        16h30: "Atualização do V/TO se necessário"
+        17h00: "Encerramento: todos saem sabendo suas responsabilidades"
+
+  outputs_esperados:
+    - "3-7 Rocks definidos e publicados"
+    - "Scorecard atualizado"
+    - "Issues list limpa (resolvida ou priorizada)"
+    - "V/TO atualizado se necessário"
+    - "Time alinhado e comprometido"

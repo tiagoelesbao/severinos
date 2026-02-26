@@ -1,0 +1,89 @@
+# virals-ops-squad/workflows/pop-documentation-cycle.yaml
+workflow:
+  id: pop-documentation-cycle
+  name: Ciclo de Documentação de POPs
+  versao: 1.0.0
+  agente_coordenador: "@wickman"
+  tipo: recorrente
+  cadencia: contínuo (conforme demanda) + revisão semestral
+
+  descricao: |
+    Workflow para criar, revisar e deprecar POPs (Procedimentos Operacionais Padrão)
+    da Virals. Garante que a memória operacional da empresa esteja sempre
+    atualizada e seja realmente usada — não só um repositório esquecido.
+
+  trigger:
+    - "Novo processo identificado que será executado mais de 3x"
+    - "Processo existente mudou significativamente"
+    - "Falha operacional causada por falta de processo documentado"
+    - "Revisão semestral agendada"
+
+  sequence:
+    - fase_1_identificacao
+    - fase_2_rascunho
+    - fase_3_teste
+    - fase_4_aprovacao
+    - fase_5_manutencao
+
+  fases:
+    fase_1_identificacao:
+      responsavel: "@dalio ou @wickman"
+      duracao: "30 min"
+      steps:
+        - "Identificar o processo a documentar"
+        - "Confirmar que é recorrente (≥3x uso esperado)"
+        - "Designar dono do processo"
+        - "Criar task no ClickUp > OPS > POPs com status 'Em Criação'"
+      
+      gate_saida:
+        criterio: "Dono do processo confirmado e comprometido"
+    
+    fase_2_rascunho:
+      responsavel: "Dono do processo"
+      duracao: "1-3 horas"
+      steps:
+        - "Usar POP Template"
+        - "Documentar o processo como atualmente executado"
+        - "Identificar pontos de decisão e variações"
+        - "Estimar tempo de cada etapa"
+      
+      gate_saida:
+        criterio: "Rascunho completo em todas as seções obrigatórias"
+    
+    fase_3_teste:
+      responsavel: "Pessoa que NÃO criou o POP"
+      duracao: "Tempo real de execução do processo"
+      steps:
+        - "Pessoa nova executa o processo usando APENAS o POP"
+        - "Anotar: onde ficou confuso, onde precisou de ajuda"
+        - "Feedback estruturado ao dono"
+      
+      gate_saida:
+        criterio: "Pessoa conseguiu executar sem ajuda externa"
+    
+    fase_4_aprovacao:
+      responsavel: "@wickman ou @dalio"
+      duracao: "30 min"
+      steps:
+        - "Revisão usando Checklist de Qualidade de POP"
+        - "Aprovação com assinatura digital (nome + data no documento)"
+        - "Versão: 1.0.0"
+        - "Publicar no ClickUp com status 'Ativo'"
+    
+    fase_5_manutencao:
+      responsavel: "Dono do processo"
+      cadencia: "Revisão a cada 6 meses ou quando processo muda"
+      steps:
+        - "Verificar se POP ainda reflete a realidade"
+        - "Atualizar versão conforme mudanças (MAJOR.MINOR.PATCH)"
+        - "Comunicar mudanças a quem executa o processo"
+      
+      criterio_deprecacao:
+        - "Processo não é mais executado"
+        - "Processo foi completamente substituído"
+        - Ação: "Marcar como 'Deprecado' com nota de qual POP substituiu"
+
+  metricas_sucesso:
+    - "% de processos críticos documentados"
+    - "% de POPs usados pelo menos 1x no mês"
+    - "Tempo médio para onboarding de nova pessoa em um processo"

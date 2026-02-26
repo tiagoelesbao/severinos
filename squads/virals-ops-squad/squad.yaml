@@ -1,0 +1,72 @@
+# virals-ops-squad/squad.yaml
+id: virals-ops-squad
+name: virals-ops-squad
+version: 1.0.0
+description: |
+  Squad operacional responsável pelos sistemas, processos, métricas e
+  orquestração de lançamentos da Virals. Baseado nos frameworks de
+  Ray Dalio, Gino Wickman, Avinash Kaushik, Alex Hormozi e Jeff Walker.
+
+icon: ⚙️
+color: "#1A4A8A"  # Azul corporativo profundo
+
+type: operational
+visibility: local  # squad interno da Virals, não público no marketplace
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - dalio.md
+    - wickman.md
+    - kaushik.md
+    - hormozi-sys.md
+    - walker-launch.md
+  tasks:
+    - wickman-rocks-planning.md
+    - kaushik-bi-sprint.md
+    - walker-launch-plan.md
+    - pop-create.md
+    - ops-health-check.md
+  workflows:
+    - pop-documentation-cycle.yaml
+    - launch-orchestration.yaml
+    - bi-sprint.yaml
+    - quarterly-rocks-planning.yaml
+  checklists:
+    - launch-go-nogo.md
+    - pop-quality-gate.md
+    - sprint-ops-review.md
+    - quarterly-health.md
+  templates:
+    - pop-template.md
+    - rock-template.md
+    - launch-plan-template.md
+    - scorecard-template.md
+    - bi-report-template.md
+
+integrations:
+  clickup:
+    space: "OPS"
+    lists:
+      - "Rocks Trimestrais"
+      - "POPs"
+      - "Lançamentos"
+      - "BI & Métricas"
+      - "Saúde Operacional"
+  primary_tool: clickup
+
+metadata:
+  created_by: squad-creator
+  created_at: 2026-02-26
+  authors:
+    - Virals Strategy Team
+  tags:
+    - ops
+    - processos
+    - metricas
+    - launch
+    - EOS
+    - traction
