@@ -37,6 +37,7 @@ AIOS uses Docker MCP Toolkit as the primary MCP infrastructure:
 | **EXA** | Web search, research, company/competitor analysis |
 | **Context7** | Library documentation lookup |
 | **Apify** | Web scraping, Actors, social media data extraction |
+| **ClickUp** | Task management, time tracking, workspace sync |
 
 ## CRITICAL: Tool Selection Priority
 
@@ -136,6 +137,22 @@ mcp__docker-gateway__fetch-apify-docs              # Fetch documentation page
 | Scrape specific website | Apify (`call-actor`) |
 | Social media data extraction | Apify (use specialized Actors) |
 | Library documentation | Context7 |
+| Task & Project Management | ClickUp |
+
+## ClickUp MCP Usage (via Docker)
+
+### Use ClickUp (mcp__docker-gateway__clickup) for:
+1. Managing ClickUp tasks (create, update, get)
+2. Tracking time on projects
+3. Syncing progress with workspace data
+
+### Access pattern:
+```text
+mcp__docker-gateway__clickup-create-task
+mcp__docker-gateway__clickup-get-task
+mcp__docker-gateway__clickup-get-all-tasks
+mcp__docker-gateway__clickup-get-all-lists
+```
 
 ---
 

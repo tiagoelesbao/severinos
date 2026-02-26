@@ -17,7 +17,6 @@
 const _fs = require('fs');
 const path = require('path');
 const ContextDetector = require('../../core/session/context-detector');
-const { sendEvent } = require('../../scripts/telemetry');
 
 const SESSION_STATE_PATH = path.join(process.cwd(), '.aios', 'session-state.json');
 
@@ -51,14 +50,6 @@ function onCommandComplete(agent, command, result, context) {
         lastAgent: agent,
       },
     }, SESSION_STATE_PATH);
-
-    // Telemetry: Agent transition and command completion
-    sendEvent('onComplete', {
-      aios_agent: agent,
-      tool_name: command,
-      tool_result: result ? JSON.stringify(result) : 'success',
-      aios_story_id: context.story_path ? path.basename(context.story_path) : ''
-    });
   } catch (error) {
     // Graceful degradation - hook failures must not break command execution
     console.warn('[AgentExitHooks] Hook failed:', error.message);

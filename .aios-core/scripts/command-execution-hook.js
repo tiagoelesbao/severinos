@@ -19,7 +19,6 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const { sendEvent } = require('./telemetry');
 
 /**
  * Session state storage location
@@ -46,10 +45,10 @@ async function updateSessionAfterCommand(agentId, commandName, options = {}) {
   try {
     // Ensure session directory exists
     await fs.mkdir(SESSION_DIR, { recursive: true });
-
+    
     // Load current session or create new
     const session = await loadSession();
-
+    
     // Update command history
     const commandEntry = {
       command: commandName,
@@ -57,18 +56,18 @@ async function updateSessionAfterCommand(agentId, commandName, options = {}) {
       timestamp: Date.now(),
       success: options.result !== undefined ? !options.result.error : true,
     };
-
+    
     session.commandHistory = session.commandHistory || [];
     session.commandHistory.push(commandEntry);
-
+    
     // Keep only last MAX_HISTORY_LENGTH commands
     if (session.commandHistory.length > MAX_HISTORY_LENGTH) {
       session.commandHistory = session.commandHistory.slice(-MAX_HISTORY_LENGTH);
     }
-
+    
     // Update session type based on history
     session.sessionType = determineSessionType(session.commandHistory);
-
+    
     // Track agent transitions
     if (options.previousAgent && options.previousAgent !== agentId) {
       session.previousAgent = options.previousAgent;
@@ -79,23 +78,16 @@ async function updateSessionAfterCommand(agentId, commandName, options = {}) {
         timestamp: Date.now(),
       });
     }
-
+    
     // Update current agent
     session.currentAgent = agentId;
     session.lastUpdated = Date.now();
-
+    
     // Save session
     await saveSession(session);
-
-    // Telemetry: Track command execution
-    await sendEvent('PostToolUse', {
-      tool_name: commandName,
-      aios_agent: agentId,
-      tool_result: options.result ? JSON.stringify(options.result) : 'success'
-    });
-
+    
     return session;
-
+    
   } catch (error) {
     console.warn('[command-execution-hook] Failed to update session:', error.message);
     // Non-blocking: return empty session on error
@@ -154,16 +146,16 @@ function determineSessionType(commandHistory) {
   if (!commandHistory || commandHistory.length === 0) {
     return 'new';
   }
-
+  
   if (commandHistory.length === 1) {
     return 'existing';
   }
-
+  
   // Workflow detection: 3+ commands or agent transitions
   if (commandHistory.length >= 3) {
     return 'workflow';
   }
-
+  
   return 'existing';
 }
 

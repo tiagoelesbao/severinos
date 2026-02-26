@@ -8,6 +8,15 @@
             "command": "node \".claude/hooks/synapse-engine.js\""
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\.claude\\\\hooks\\\\precompact-session-digest.cjs\"",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }

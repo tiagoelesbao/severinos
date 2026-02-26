@@ -28,9 +28,10 @@ async function getClickUpTool() {
   } catch (error) {
     // Fall back to global references (current production pattern)
     return {
-      updateTask: global.mcp__clickup__update_task,
-      createComment: global.mcp__clickup__create_task_comment,
-      getTask: global.mcp__clickup__get_task,
+      updateTask: global.mcp__clickup__update_task || global.mcp__clickup__update_task_tool,
+      createTask: global.mcp__clickup__create_task || global.mcp__clickup__create_task_tool,
+      getTask: global.mcp__clickup__get_task || global.mcp__clickup__get_task_tool,
+      createComment: global.mcp__clickup__create_task_comment || global.mcp__clickup__create_comment,
     };
   }
 }
