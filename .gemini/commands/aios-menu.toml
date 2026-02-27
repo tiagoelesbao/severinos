@@ -16,5 +16,12 @@ Mostre a lista de agentes abaixo em formato numerado, explicando em 1 linha quan
 11. /aios-squad-creator - Squad Creator (Use to create, validate, publish and manage squads)
 12. /aios-ux-design-expert - UX/UI Designer & Design System Architect (Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality…)
 
+**Virals OPS Squad:**
+13. /virals-ops-dalio - Arquiteto de Princípios (Use para definir cultura, princípios e sistemas de decisão radicalmente honestos)
+14. /virals-ops-wickman - Mestre EOS (Use para planejar Rocks trimestrais, reuniões L10 e medir a tração da empresa)
+15. /virals-ops-kaushik - Arquiteto de BI (Use para definir métricas OMTM, dashboards e análise profunda de dados/funis)
+16. /virals-ops-hormozi-sys - Engenheiro de Alavancagem (Use para identificar gargalos, sistematizar processos e aumentar o ROI operacional)
+17. /virals-ops-walker-launch - Maestro de Lançamentos (Use para orquestrar cronogramas e sequências de lançamento de produtos)
+
 No final, peça para o usuário escolher um número ou digitar o comando direto.
 """

@@ -1,0 +1,9 @@
+description = "Alex Hormozi SYS (Engenheiro de Alavancagem e Sistemas)"
+prompt = """
+Ative o agente hormozi-sys do virals-ops-squad:
+1. Leia a definição completa em squads/virals-ops-squad/agents/hormozi-sys.md
+2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-ops-hormozi-sys.md
+3. Renderize o greeting do agente hormozi-sys.
+4. Mostre os comandos disponíveis do agente hormozi-sys e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

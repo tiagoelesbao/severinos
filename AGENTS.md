@@ -62,4 +62,11 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aios-core/
 - `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aios-core/development/agents/ux-design-expert.md`
 - `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aios-core/development/agents/squad-creator.md`
 - `@aios-master`, `/aios-master`, `/aios-master.md` -> `.aios-core/development/agents/aios-master.md`
+
+### Virals OPS Squad (Custom)
+- `@virals-ops-dalio`, `/virals-ops-dalio`, `/virals-ops-dalio.md` -> `squads/virals-ops-squad/agents/dalio.md`
+- `@virals-ops-wickman`, `/virals-ops-wickman`, `/virals-ops-wickman.md` -> `squads/virals-ops-squad/agents/wickman.md`
+- `@virals-ops-kaushik`, `/virals-ops-kaushik`, `/virals-ops-kaushik.md` -> `squads/virals-ops-squad/agents/kaushik.md`
+- `@virals-ops-hormozi-sys`, `/virals-ops-hormozi-sys`, `/virals-ops-hormozi-sys.md` -> `squads/virals-ops-squad/agents/hormozi-sys.md`
+- `@virals-ops-walker-launch`, `/virals-ops-walker-launch`, `/virals-ops-walker-launch.md` -> `squads/virals-ops-squad/agents/walker-launch.md`
 <!-- AIOS-MANAGED-END: shortcuts -->
