@@ -1,0 +1,124 @@
+# virals-vendas-squad/squad.yaml
+id: virals-vendas-squad
+name: Virals Vendas Squad
+version: 1.0.0
+description: |
+  Squad de vendas responsável por offer architecture, pipeline management,
+  scripts de fechamento, follow-up sistemático e gestão de receita da Virals.
+  Baseado nos frameworks de Alex Hormozi, Jordan Belfort, Aaron Ross,
+  Jeb Blount e Thiago Reis.
+
+icon: 💰
+color: "#DC2626"  # Vermelho vendas — urgência e energia
+
+type: revenue
+visibility: local
+
+agents:
+  - id: hormozi-sales
+    file: agents/hormozi-sales.md
+  - id: belfort-sales
+    file: agents/belfort-sales.md
+  - id: ross-sales
+    file: agents/ross-sales.md
+  - id: blount-sales
+    file: agents/blount-sales.md
+  - id: thiago-reis
+    file: agents/thiago-reis.md
+
+tasks:
+  # Oferta & Pricing
+  - id: hormozi-offer-build
+    file: tasks/hormozi-offer-build.md
+  - id: hormozi-pricing-audit
+    file: tasks/hormozi-pricing-audit.md
+  # Fechamento & Scripts
+  - id: belfort-script-create
+    file: tasks/belfort-script-create.md
+  - id: belfort-objection-map
+    file: tasks/belfort-objection-map.md
+  - id: belfort-closer-training
+    file: tasks/belfort-closer-training.md
+  # Pipeline & Outbound
+  - id: ross-pipeline-design
+    file: tasks/ross-pipeline-design.md
+  - id: ross-outbound-setup
+    file: tasks/ross-outbound-setup.md
+  # Follow-up & CRM
+  - id: blount-cadencia-create
+    file: tasks/blount-cadencia-create.md
+  - id: blount-pipeline-review
+    file: tasks/blount-pipeline-review.md
+  # Inside Sales BR
+  - id: thiago-whatsapp-playbook
+    file: tasks/thiago-whatsapp-playbook.md
+  - id: thiago-inside-sales-setup
+    file: tasks/thiago-inside-sales-setup.md
+  # Integração
+  - id: sales-performance-review
+    file: tasks/sales-performance-review.md
+  - id: crm-autonomous-hygiene
+    file: tasks/crm-autonomous-hygiene.md
+
+workflows:
+  - id: offer-creation-cycle
+    file: workflows/offer-creation-cycle.yaml
+  - id: sales-process-lifecycle
+    file: workflows/sales-process-lifecycle.yaml
+  - id: outbound-prospecting-cycle
+    file: workflows/outbound-prospecting-cycle.yaml
+  - id: follow-up-reactivation
+    file: workflows/follow-up-reactivation.yaml
+  - id: weekly-sales-review
+    file: workflows/weekly-sales-review.yaml
+
+checklists:
+  - id: offer-launch-checklist
+    file: checklists/offer-launch-checklist.md
+  - id: closer-onboarding-checklist
+    file: checklists/closer-onboarding-checklist.md
+  - id: deal-review-checklist
+    file: checklists/deal-review-checklist.md
+  - id: pipeline-health-checklist
+    file: checklists/pipeline-health-checklist.md
+  - id: script-quality-checklist
+    file: checklists/script-quality-checklist.md
+
+templates:
+  - id: offer-document-template
+    file: templates/offer-document-template.md
+  - id: sales-script-template
+    file: templates/sales-script-template.md
+  - id: cadencia-template
+    file: templates/cadencia-template.md
+  - id: proposta-comercial-template
+    file: templates/proposta-comercial-template.md
+  - id: sales-report-template
+    file: templates/sales-report-template.md
+  - id: playbook-closer-template
+    file: templates/playbook-closer-template.md
+
+integrations:
+  clickup:
+    space: "Vendas"
+    lists:
+      - "Pipeline Ativo"
+      - "Ofertas & Produtos"
+      - "Scripts & Playbooks"
+      - "Cadências & Follow-up"
+      - "Relatórios & Métricas"
+      - "Closers & Treinamento"
+  primary_tool: clickup
+
+metadata:
+  created_by: squad-creator
+  created_at: 2026-03-01
+  tags:
+    - vendas
+    - pipeline
+    - fechamento
+    - oferta
+    - inside-sales
+    - whatsapp
+    - crm
+    - closer

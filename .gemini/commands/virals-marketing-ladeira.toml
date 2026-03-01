@@ -1,0 +1,9 @@
+description = "Paulo (Copywriter Master — Persuasão, Storytelling e Copy BR)"
+prompt = """
+Ative o agente ladeira do virals-marketing-squad:
+1. Leia a definição completa em squads/virals-marketing-squad/agents/ladeira.md
+2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-marketing-ladeira.md
+3. Renderize o greeting do agente ladeira.
+4. Mostre os comandos disponíveis do agente ladeira e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

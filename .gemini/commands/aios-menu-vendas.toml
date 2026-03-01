@@ -1,0 +1,25 @@
+description = "Menu rápido AIOS"
+prompt = """
+Escolha um agente:
+1. /aios-master
+2. /analyst
+3. /architect
+4. /data-engineer
+5. /dev
+6. /devops
+7. /pm
+8. /po
+9. /qa
+10. /sm
+11. /squad-creator
+12. /ux-design-expert
+
+**Virals Vendas Squad:**
+25. /virals-vendas-hormozi-sales
+26. /virals-vendas-belfort-sales
+27. /virals-vendas-ross-sales
+28. /virals-vendas-blount-sales
+29. /virals-vendas-thiago-reis
+
+Digite o número.
+"""

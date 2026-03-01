@@ -1,0 +1,55 @@
+# Workflow: Ciclo de Prospecção Outbound
+id: outbound-prospecting-cycle
+name: Ciclo de Prospecção Outbound
+versao: 1.0.0
+agente_coordenador: "@ross-sales"
+tipo: contínuo
+
+descricao: |
+  Pipeline de prospecção outbound sistemática.
+  Baseado no Predictable Revenue — define ICP,
+  cria sequência multicanal e monitora conversão.
+
+fases:
+  fase_1_preparacao:
+    responsavel: "@ross-sales"
+    steps:
+      - "Definir ou revisar ICP (Ideal Customer Profile)"
+      - "Identificar triggers de compra (eventos que indicam timing)"
+      - "Criar lista de prospects qualificados"
+      - "Definir mensagem central de valor (não do produto)"
+    gate: "ICP e lista aprovados"
+
+  fase_2_sequencia:
+    responsavel: "@ross-sales + @thiago-reis"
+    steps:
+      - "@ross: criar sequência de 14 dias (5 toques multicanal)"
+      - "@thiago: adaptar mensagens para WhatsApp BR"
+      - "Criar templates personalizáveis para cada toque"
+      - "Testar sequência com 10-20 prospects piloto"
+    sequencia:
+      dia_1: "Email personalizado (1-3 parágrafos, valor, CTA único)"
+      dia_3: "LinkedIn connection + mensagem de follow-up"
+      dia_6: "Email 2 (ângulo diferente — case study)"
+      dia_10: "WhatsApp ou ligação breve (se sinal de interesse)"
+      dia_14: "Email de break-up (última tentativa)"
+
+  fase_3_execucao:
+    responsavel: "SDR / Closer"
+    steps:
+      - "Executar sequência diariamente (Golden Hour)"
+      - "Registrar todas as interações no CRM"
+      - "Qualificar respondentes (BANT)"
+      - "Passar leads qualificados para closer"
+    metricas:
+      - "Taxa de resposta target: ≥ 5%"
+      - "Taxa de agendamento target: ≥ 2%"
+
+  fase_4_otimizacao:
+    responsavel: "@ross-sales"
+    cadencia: "Quinzenal"
+    steps:
+      - "Analisar taxa de resposta por canal e ângulo"
+      - "Identificar top performing messages"
+      - "Ajustar sequência baseado em dados"
+      - "Expandir ou refinar lista de prospects"

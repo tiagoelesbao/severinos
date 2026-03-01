@@ -3,22 +3,26 @@
 > "A máquina que faz a Virals funcionar"
 
 ## 🧭 Missão
-Garantir que a Virals opera como um sistema de alta performance — processos documentados, métricas claras, lançamentos orquestrados e cultura de responsabilidade em cada nível da organização.
+Transformar o Planejamento Estratégico Virals em uma máquina operacional de alta performance — validando a narrativa viral, escalando via Hunter Ads, copy framework e traffic performance, garantindo a infraestrutura para o Squad de Vendas.
 
 ## 👥 Agentes
-- **@dalio (Ray):** Arquiteto de Princípios e Sistemas de Decisão.
-- **@wickman (Gino):** Mestre do Sistema Operacional EOS/Traction.
-- **@kaushik (Avinash):** Arquiteto de Métricas, Analytics e BI.
-- **@hormozi-sys (Lex):** Engenheiro de Sistemas Operacionais e Alavancagem.
-- **@walker-launch (Jeff):** Maestro de Lançamentos e Sequências de Produto.
+- **@dalio (Ray):** Arquiteto de Princípios e Sistemas de Decisão. (Foco: Estratégia & Auditoria)
+- **@wickman (Gino):** Mestre do EOS. (Foco: Operação & POPs)
+- **@kaushik (Avinash):** Arquiteto de Métricas. (Foco: Revenue Share & BI)
+- **@hormozi-sys (Lex):** Engenheiro de Alavancagem. (Foco: Oferta & Sistemas)
+- **@walker-launch (Jeff):** Maestro de Lançamentos. (Foco: Viral Starter Execution)
+
+## 🎯 Foco Atual (Momento 0)
+1. **Viral Starter Sprint (Mês 1):** Execução do motor de Creators (Hunter Ads).
+2. **OPS Foundation:** Documentação de POPs críticos e VSM (Lead to UGC).
+3. **Sales Readiness:** Configuração de CRM e ativos para o próximo squad (Vendas).
 
 ## 🚀 Como Usar
 Este squad deve ser invocado para:
-1. **Planejamento Trimestral:** Use `*rocks-planning` com @wickman.
-2. **Documentação de Processos:** Use `*pop-create` com @dalio ou @wickman.
-3. **Análise de Dados:** Use `*bi-sprint` com @kaushik.
-4. **Lançamentos:** Use `*launch-plan` com @walker-launch.
-5. **Auditoria de Alavancagem:** Use `*leverage-audit` com @hormozi-sys.
+1. **Viral Starter Execution:** Use `@walker-launch` + `@dalio`.
+2. **Setup de Hunting:** Use `@hormozi-sys`.
+3. **Auditoria de 1%:** Use `@kaushik`.
+4. **Documentação de POPs:** Use `@wickman`.
 
 ## 📂 Estrutura
 - `/agents`: Definições dos agentes especialistas.
@@ -29,12 +33,11 @@ Este squad deve ser invocado para:
 - `/config`: Configurações de padrões e stack técnica.
 
 ## 🛠️ Integração ClickUp
-Este squad está configurado para interagir com o espaço **OPS** no ClickUp, gerenciando as seguintes listas:
-- Rocks Trimestrais
-- POPs
-- Lançamentos
-- BI & Métricas
-- Saúde Operacional
+Este squad interage com o espaço **OPS** no ClickUp:
+- **Vendas Q1:** (Novo) Funil de aquisição.
+- **Viral Starter:** (Novo) Gestão de Creators.
+- **POPs:** Biblioteca de processos.
+- **Rocks Trimestrais:** Objetivos Estratégicos.
 
 ---
-*Squad criado por @squad-creator (Craft) em 2026-02-26*
+*Squad atualizado por @dalio (Ray) em 2026-02-27 - Foco Momento 0*

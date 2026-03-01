@@ -50,9 +50,10 @@ components:
 integrations:
   clickup:
     space: "OPS"
-    lists:
+    Folders:
       - "Rocks Trimestrais"
-      - "POPs"
+      - "Processos & POPs"
+      - "Objetivos & Metas (OKR)"
       - "Lançamentos"
       - "BI & Métricas"
       - "Saúde Operacional"

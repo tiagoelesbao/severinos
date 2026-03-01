@@ -1,0 +1,47 @@
+# Workflow: Cadência de Reativação de Leads
+id: follow-up-reactivation
+name: Cadência de Reativação de Leads
+versao: 1.0.0
+agente_coordenador: "@blount-sales"
+tipo: contínuo
+
+descricao: |
+  Pipeline de leads perdidos ou inativos nunca é descartado —
+  é colocado em reativação sistemática.
+  "Não agora" significa "talvez em 30-90 dias".
+
+segmentos:
+  leads_inativos_30_dias:
+    criterio: "Leads sem interação por 30 dias"
+    cadencia:
+      dia_1: "Mensagem de valor genuíno (insight, case, novidade)"
+      dia_7: "Case study de cliente com perfil similar"
+      dia_14: "Pergunta de check-in ('O que mudou desde a nossa última conversa?')"
+      dia_21: "Novo ângulo — foco em dor específica diferente"
+      dia_30: "Mensagem de 'break-up' estratégico"
+
+  leads_perdidos_por_preco:
+    criterio: "Motivo de perda = preço"
+    cadencia:
+      dia_7: "Case study com ROI calculado"
+      dia_30: "Oferta de entrada (produto de menor ticket)"
+      dia_60: "Convite para evento gratuito / webinar"
+      dia_90: "Requalificação: 'O que mudou na sua situação?'"
+
+  leads_perdidos_por_timing:
+    criterio: "Motivo de perda = 'não é o momento certo'"
+    gatilho: "Aproximação do início do trimestre ou evento relevante"
+    mensagem: "'Você me disse que [mês] seria melhor. Chegou!'"
+
+  ex_clientes:
+    criterio: "Compraram antes, não compraram novamente"
+    cadencia:
+      dia_45: "Check-in de resultado ('Como está indo com [produto anterior]?')"
+      dia_60: "Apresentação de produto complementar"
+      dia_90: "Oferta exclusiva para ex-cliente"
+
+regras_gerais:
+  - "Toda mensagem de reativação traz valor — nunca é apenas cobrança"
+  - "Segmentar por motivo de perda para personalizar a abordagem"
+  - "Respeitar se o lead pediu para não ser contatado"
+  - "Leads que reagirem positivamente → retornam ao pipeline ativo"

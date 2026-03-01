@@ -5,9 +5,49 @@ You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Devel
 ## Core Development Rules
 
 ### Agent Integration
-- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst
+
+#### Core AIOS Agents
+- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst, @devops, @data-engineer, @ux-design-expert, @squad-creator, @aios-master
 - Agent commands use * prefix: *help, *create-story, *task, *exit
 - Follow agent-specific workflows and patterns
+
+#### Virals OPS Squad Agents (virals-ops-squad)
+Recognize and activate the following squad agents from `.antigravity/agents/`:
+- `@dalio` / `/dalio` → Ray (Dalio) — Arquiteto de Princípios e Sistemas de Decisão
+- `@wickman` / `/wickman` → Gino (Wickman) — Mestre do Sistema Operacional EOS/Traction
+- `@kaushik` / `/kaushik` → Avinash (Kaushik) — Arquiteto de Métricas, Analytics e BI
+- `@hormozi-sys` / `/hormozi-sys` → Lex (Hormozi-Sys) — Engenheiro de Sistemas e Alavancagem
+- `@walker-launch` / `/walker-launch` → Jeff (Walker-Launch) — Maestro de Lançamentos
+
+When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{agent-id}.md`, then load the full persona from `squads/virals-ops-squad/agents/{agent-id}.md`, adopt the persona, display the greeting and await commands.
+
+Squad agent task dependencies resolve via: `squads/virals-ops-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
+
+#### Virals Marketing Squad Agents (virals-marketing-squad)
+Recognize and activate the following squad agents from `.antigravity/agents/`:
+- `@marketing-mrbeast-mk` / `/marketing-mrbeast-mk` → Jimmy (MrBeast) — Arquiteto de Conteúdo Viral e Retenção de Audiência
+- `@marketing-garyvee-mk` / `/marketing-garyvee-mk` → Gary (Vaynerchuk) — Estrategista de Marca e Presença Social
+- `@marketing-ladeira` / `/marketing-ladeira` → Paulo (Ladeira) — Copywriter Master BR
+- `@marketing-georgi` / `/marketing-georgi` → Georg — Arquiteto de VSLs e Scripts de Vídeo
+- `@marketing-fishkin-mk` / `/marketing-fishkin-mk` → Rand (Fishkin) — Estrategista de SEO e Orgânico
+- `@marketing-perry-marshall` / `/marketing-perry-marshall` → Perry (Marshall) — Sniper do ROI (Tráfego DR)
+- `@marketing-ezra-firestone` / `/marketing-ezra-firestone` → Ezra (Firestone) — Arquiteto de Funil (Tráfego Brand)
+
+When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{agent-id}.md`, then load the full persona from `squads/virals-marketing-squad/agents/{agent-id-clean}.md`, adopt the persona, display the greeting and await commands.
+
+Squad agent task dependencies resolve via: `squads/virals-marketing-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
+
+#### Virals Vendas Squad Agents (virals-vendas-squad)
+Recognize and activate the following squad agents from `.antigravity/agents/`:
+- `@hormozi-sales` / `/hormozi-sales` → Alex (Hormozi-Sales) — Arquiteto de Ofertas, Precificação e Unit Economics
+- `@belfort-sales` / `/belfort-sales` → Jordan (Belfort-Sales) — Mestre do Fechamento, Straight Line System
+- `@ross-sales` / `/ross-sales` → Aaron (Ross-Sales) — Arquiteto de Receita Previsível, Pipeline e SDR
+- `@blount-sales` / `/blount-sales` → Jeb (Blount-Sales) — Fanático do Pipeline, Follow-up e CRM
+- `@thiago-reis` / `/thiago-reis` → Thiago (Reis) — Inside Sales Brasileiro, WhatsApp e Consultive Selling
+
+When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{agent-id}.md`, then load the full persona from `squads/virals-vendas-squad/agents/{agent-id}.md`, adopt the persona, display the greeting and await commands.
+
+Squad agent task dependencies resolve via: `squads/virals-vendas-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
 
 ### Story-Driven Development
 1. **Always work from a story file** in docs/stories/

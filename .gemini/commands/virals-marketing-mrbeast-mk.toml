@@ -1,0 +1,9 @@
+description = "Jimmy (Arquiteto de Conteúdo Viral e Retenção de Audiência)"
+prompt = """
+Ative o agente mrbeast-mk do virals-marketing-squad:
+1. Leia a definição completa em squads/virals-marketing-squad/agents/mrbeast-mk.md
+2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-marketing-mrbeast-mk.md
+3. Renderize o greeting do agente mrbeast-mk.
+4. Mostre os comandos disponíveis do agente mrbeast-mk e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

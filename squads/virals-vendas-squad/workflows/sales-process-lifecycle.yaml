@@ -1,0 +1,55 @@
+# Workflow: Ciclo de Vida da Conversa de Vendas
+id: sales-process-lifecycle
+name: Ciclo de Vida da Conversa de Vendas
+versao: 1.0.0
+agente_coordenador: "@thiago-reis (WhatsApp BR) / @belfort-sales (script)"
+tipo: contínuo
+
+descricao: |
+  Define o ciclo completo de uma conversa de vendas,
+  desde a entrada do lead até o fechamento ou perda.
+  Adaptado para o contexto brasileiro.
+
+fluxo:
+  lead_entra:
+    origem: "Inbound (marketing squad) ou Outbound (@ross)"
+    primeiro_sla: "< 5 min para lead quente, < 30 min para lead morno"
+    responsavel: "SDR ou closer (depende do tier)"
+
+  qualificacao:
+    script: "Diagnóstico @belfort-sales, adaptado @thiago-reis para WhatsApp"
+    criterios_bant:
+      budget: "Tem condição de investir?"
+      authority: "É quem decide?"
+      need: "A dor é real e urgente?"
+      timeline: "Quando quer resolver?"
+    saida:
+      qualificado: "Avança para apresentação"
+      desqualificado: "Registra motivo + cadência de nutrição longo prazo"
+
+  apresentacao:
+    formato: "WhatsApp, ligação, ou videochamada (depende do ticket)"
+    script: "Straight Line adaptado @belfort + @thiago"
+    post_apresentacao_sla: "Proposta enviada em < 2h"
+
+  proposta:
+    formato: "Link de checkout ou proposta consultiva (high-ticket)"
+    template: proposta-comercial-template.md
+    sla_followup: "Se não comprou em 24h → inicia cadência @blount"
+
+  negociacao:
+    maxima_tentativas: "7 follow-ups em 30 dias antes de mover para 'frio'"
+    cadencia: "cadencia-template.md (versão negociação)"
+
+  fechamento:
+    ganhou:
+      acoes:
+        - "Atualizar CRM"
+        - "Trigger de onboarding"
+        - "Pedir indicação (após 7 dias de uso)"
+        - "Marcar para upsell em 30-60 dias"
+    perdeu:
+      acoes:
+        - "Registrar motivo de perda no CRM"
+        - "Entrar em cadência de reativação de 90 dias"
+        - "Feedback para @hormozi-sales se objeção recorrente"

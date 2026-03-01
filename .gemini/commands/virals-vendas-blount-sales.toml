@@ -1,0 +1,9 @@
+description = "Jeb Blount-Sales (Fanático do Pipeline e CRM)"
+prompt = """
+Ative o agente blount-sales do virals-vendas-squad:
+1. Leia a definição completa em squads/virals-vendas-squad/agents/blount-sales.md
+2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-vendas-blount-sales.md
+3. Renderize o greeting do agente blount-sales.
+4. Mostre os comandos disponíveis do agente blount-sales e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

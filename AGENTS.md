@@ -69,4 +69,20 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aios-core/
 - `@virals-ops-kaushik`, `/virals-ops-kaushik`, `/virals-ops-kaushik.md` -> `squads/virals-ops-squad/agents/kaushik.md`
 - `@virals-ops-hormozi-sys`, `/virals-ops-hormozi-sys`, `/virals-ops-hormozi-sys.md` -> `squads/virals-ops-squad/agents/hormozi-sys.md`
 - `@virals-ops-walker-launch`, `/virals-ops-walker-launch`, `/virals-ops-walker-launch.md` -> `squads/virals-ops-squad/agents/walker-launch.md`
+
+### Virals Marketing Squad (Custom)
+- `@marketing-mrbeast-mk`, `/marketing-mrbeast-mk`, `/marketing-mrbeast-mk.md` -> `squads/virals-marketing-squad/agents/mrbeast-mk.md`
+- `@marketing-garyvee-mk`, `/marketing-garyvee-mk`, `/marketing-garyvee-mk.md` -> `squads/virals-marketing-squad/agents/garyvee-mk.md`
+- `@marketing-ladeira`, `/marketing-ladeira`, `/marketing-ladeira.md` -> `squads/virals-marketing-squad/agents/ladeira.md`
+- `@marketing-georgi`, `/marketing-georgi`, `/marketing-georgi.md` -> `squads/virals-marketing-squad/agents/georgi.md`
+- `@marketing-fishkin-mk`, `/marketing-fishkin-mk`, `/marketing-fishkin-mk.md` -> `squads/virals-marketing-squad/agents/fishkin-mk.md`
+- `@marketing-perry-marshall`, `/marketing-perry-marshall`, `/marketing-perry-marshall.md` -> `squads/virals-marketing-squad/agents/perry-marshall.md`
+- `@marketing-ezra-firestone`, `/marketing-ezra-firestone`, `/marketing-ezra-firestone.md` -> `squads/virals-marketing-squad/agents/ezra-firestone.md`
+
+### Virals Vendas Squad (Custom)
+- `@virals-vendas-hormozi-sales`, `/virals-vendas-hormozi-sales`, `/virals-vendas-hormozi-sales.md` -> `squads/virals-vendas-squad/agents/hormozi-sales.md`
+- `@virals-vendas-belfort-sales`, `/virals-vendas-belfort-sales`, `/virals-vendas-belfort-sales.md` -> `squads/virals-vendas-squad/agents/belfort-sales.md`
+- `@virals-vendas-ross-sales`, `/virals-vendas-ross-sales`, `/virals-vendas-ross-sales.md` -> `squads/virals-vendas-squad/agents/ross-sales.md`
+- `@virals-vendas-blount-sales`, `/virals-vendas-blount-sales`, `/virals-vendas-blount-sales.md` -> `squads/virals-vendas-squad/agents/blount-sales.md`
+- `@virals-vendas-thiago-reis`, `/virals-vendas-thiago-reis`, `/virals-vendas-thiago-reis.md` -> `squads/virals-vendas-squad/agents/thiago-reis.md`
 <!-- AIOS-MANAGED-END: shortcuts -->

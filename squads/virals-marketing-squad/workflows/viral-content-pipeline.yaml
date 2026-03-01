@@ -1,0 +1,27 @@
+# virals-marketing-squad/workflows/viral-content-pipeline.yaml
+id: viral-content-pipeline
+name: Pipeline de Conteúdo Viral e Distribuição
+versao: 1.0.0
+agente_coordenador: "@mrbeast-mk"
+tipo: contínuo
+
+fases:
+  fase_1_ideacao:
+    responsavel: "@mrbeast-mk"
+    steps:
+      - "Gerar conceito viral (*viral-concept)"
+      - "Definir título e thumbnail (*thumbnail-brief)"
+    gate: "Ideia aprovada pelo responsável"
+  
+  fase_2_distribuicao:
+    responsavel: "@garyvee-mk"
+    steps:
+      - "Criar calendário de micro-conteúdo (*content-distribution)"
+      - "Adaptar peças para múltiplas plataformas (*brand-voice)"
+    gate: "Calendário aprovado"
+  
+  fase_3_amplificacao:
+    responsavel: "@ezra-firestone"
+    steps:
+      - "Boosting estratégico de posts com CTR > 3% (*boosting-strategy)"
+      - "Monitorar alcance e engajamento nativo"

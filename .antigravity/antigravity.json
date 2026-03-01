@@ -22,5 +22,134 @@
         "architecture": "docs/architecture",
         "tasks": ".aios-core/tasks",
         "workflows": ".aios-core/workflows"
+    },
+    "squads": {
+        "enabled": true,
+        "directory": "squads",
+        "registered": [
+            {
+                "id": "virals-ops-squad",
+                "path": "squads/virals-ops-squad",
+                "manifest": "squads/virals-ops-squad/squad.yaml",
+                "agents": [
+                    {
+                        "id": "dalio",
+                        "name": "Ray",
+                        "file": ".antigravity/agents/dalio.md",
+                        "source": "squads/virals-ops-squad/agents/dalio.md"
+                    },
+                    {
+                        "id": "wickman",
+                        "name": "Gino",
+                        "file": ".antigravity/agents/wickman.md",
+                        "source": "squads/virals-ops-squad/agents/wickman.md"
+                    },
+                    {
+                        "id": "kaushik",
+                        "name": "Avinash",
+                        "file": ".antigravity/agents/kaushik.md",
+                        "source": "squads/virals-ops-squad/agents/kaushik.md"
+                    },
+                    {
+                        "id": "hormozi-sys",
+                        "name": "Lex",
+                        "file": ".antigravity/agents/hormozi-sys.md",
+                        "source": "squads/virals-ops-squad/agents/hormozi-sys.md"
+                    },
+                    {
+                        "id": "walker-launch",
+                        "name": "Jeff",
+                        "file": ".antigravity/agents/walker-launch.md",
+                        "source": "squads/virals-ops-squad/agents/walker-launch.md"
+                    }
+                ]
+            },
+            {
+                "id": "virals-marketing-squad",
+                "path": "squads/virals-marketing-squad",
+                "manifest": "squads/virals-marketing-squad/squad.yaml",
+                "agents": [
+                    {
+                        "id": "marketing-mrbeast-mk",
+                        "name": "Jimmy",
+                        "file": ".antigravity/agents/marketing-mrbeast-mk.md",
+                        "source": "squads/virals-marketing-squad/agents/mrbeast-mk.md"
+                    },
+                    {
+                        "id": "marketing-garyvee-mk",
+                        "name": "Gary",
+                        "file": ".antigravity/agents/marketing-garyvee-mk.md",
+                        "source": "squads/virals-marketing-squad/agents/garyvee-mk.md"
+                    },
+                    {
+                        "id": "marketing-ladeira",
+                        "name": "Paulo",
+                        "file": ".antigravity/agents/marketing-ladeira.md",
+                        "source": "squads/virals-marketing-squad/agents/ladeira.md"
+                    },
+                    {
+                        "id": "marketing-georgi",
+                        "name": "Georg",
+                        "file": ".antigravity/agents/marketing-georgi.md",
+                        "source": "squads/virals-marketing-squad/agents/georgi.md"
+                    },
+                    {
+                        "id": "marketing-fishkin-mk",
+                        "name": "Rand",
+                        "file": ".antigravity/agents/marketing-fishkin-mk.md",
+                        "source": "squads/virals-marketing-squad/agents/fishkin-mk.md"
+                    },
+                    {
+                        "id": "marketing-perry-marshall",
+                        "name": "Perry",
+                        "file": ".antigravity/agents/marketing-perry-marshall.md",
+                        "source": "squads/virals-marketing-squad/agents/perry-marshall.md"
+                    },
+                    {
+                        "id": "marketing-ezra-firestone",
+                        "name": "Ezra",
+                        "file": ".antigravity/agents/marketing-ezra-firestone.md",
+                        "source": "squads/virals-marketing-squad/agents/ezra-firestone.md"
+                    }
+                ]
+            },
+            {
+                "id": "virals-vendas-squad",
+                "path": "squads/virals-vendas-squad",
+                "manifest": "squads/virals-vendas-squad/squad.yaml",
+                "agents": [
+                    {
+                        "id": "hormozi-sales",
+                        "name": "Alex",
+                        "file": ".antigravity/agents/hormozi-sales.md",
+                        "source": "squads/virals-vendas-squad/agents/hormozi-sales.md"
+                    },
+                    {
+                        "id": "belfort-sales",
+                        "name": "Jordan",
+                        "file": ".antigravity/agents/belfort-sales.md",
+                        "source": "squads/virals-vendas-squad/agents/belfort-sales.md"
+                    },
+                    {
+                        "id": "ross-sales",
+                        "name": "Aaron",
+                        "file": ".antigravity/agents/ross-sales.md",
+                        "source": "squads/virals-vendas-squad/agents/ross-sales.md"
+                    },
+                    {
+                        "id": "blount-sales",
+                        "name": "Jeb",
+                        "file": ".antigravity/agents/blount-sales.md",
+                        "source": "squads/virals-vendas-squad/agents/blount-sales.md"
+                    },
+                    {
+                        "id": "thiago-reis",
+                        "name": "Thiago",
+                        "file": ".antigravity/agents/thiago-reis.md",
+                        "source": "squads/virals-vendas-squad/agents/thiago-reis.md"
+                    }
+                ]
+            }
+        ]
     }
 }

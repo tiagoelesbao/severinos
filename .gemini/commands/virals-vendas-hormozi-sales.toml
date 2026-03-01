@@ -1,0 +1,9 @@
+description = "Alex Hormozi-Sales (Arquiteto de Ofertas e Revenue Engineering)"
+prompt = """
+Ative o agente hormozi-sales do virals-vendas-squad:
+1. Leia a definição completa em squads/virals-vendas-squad/agents/hormozi-sales.md
+2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-vendas-hormozi-sales.md
+3. Renderize o greeting do agente hormozi-sales.
+4. Mostre os comandos disponíveis do agente hormozi-sales e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

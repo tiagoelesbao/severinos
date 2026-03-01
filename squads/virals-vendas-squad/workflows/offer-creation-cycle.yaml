@@ -1,0 +1,74 @@
+# Workflow: Ciclo de Criação de Oferta
+id: offer-creation-cycle
+name: Ciclo de Criação de Oferta
+versao: 1.0.0
+agente_coordenador: "@hormozi-sales"
+tipo: por-demanda
+
+descricao: |
+  Processo completo para criar ou redesenhar uma oferta —
+  desde o diagnóstico do mercado até o lançamento do playbook
+  de vendas para os closers.
+
+fases:
+  fase_1_diagnostico:
+    responsavel: "@hormozi-sales"
+    steps:
+      - "Mapear a transformação principal que o produto entrega"
+      - "Quantificar o valor econômico/emocional dessa transformação"
+      - "Identificar as objeções primárias de compra"
+      - "Analisar unit economics: CAC atual, LTV, ticket médio"
+    gate: "Diagnóstico aprovado pelo founder/responsável"
+  
+  fase_2_arquitetura_da_oferta:
+    responsavel: "@hormozi-sales"
+    steps:
+      - "Definir o produto core e stack de valor completo"
+      - "Calcular preço baseado em valor percebido (não custo)"
+      - "Criar garantia que elimina o risco de compra"
+      - "Definir tiers (entrada, core, high-ticket se aplicável)"
+    entregaveis:
+      - "Offer Document completo (template: offer-document-template.md)"
+    gate: "Oferta aprovada"
+  
+  fase_3_argumentario:
+    responsavel: "@belfort-sales + @thiago-reis"
+    steps:
+      - "@belfort: criar script de vendas principal (Straight Line)"
+      - "@belfort: mapear top 10 objeções e respostas"
+      - "@thiago: adaptar script para WhatsApp e contexto BR"
+      - "@thiago: criar versão de script para cada perfil de comprador"
+    entregaveis:
+      - "Script de vendas principal"
+      - "Mapa de objeções com respostas"
+      - "Playbook WhatsApp"
+  
+  fase_4_pipeline:
+    responsavel: "@ross-sales"
+    steps:
+      - "Definir estágios do pipeline para este produto"
+      - "Criar critérios de qualificação (ICP + BANT)"
+      - "Calcular volume necessário no pipeline"
+      - "Definir SLA por estágio"
+    entregaveis:
+      - "Estrutura de pipeline no ClickUp"
+  
+  fase_5_cadencias:
+    responsavel: "@blount-sales"
+    steps:
+      - "Criar cadência de follow-up para lead inbound"
+      - "Criar cadência de reativação para lead perdido"
+      - "Configurar alertas automáticos no ClickUp"
+    entregaveis:
+      - "Cadências documentadas (template: cadencia-template.md)"
+  
+  fase_6_playbook_closer:
+    responsavel: "@thiago-reis + @belfort-sales"
+    steps:
+      - "Compilar: offer document + scripts + objeções + cadências"
+      - "Criar guia de tonalidade e comportamento"
+      - "Criar 3 roleplays de treinamento (fácil, médio, difícil)"
+      - "Criar quiz de certificação para novos closers"
+    entregaveis:
+      - "Playbook completo do closer (template: playbook-closer-template.md)"
+    gate: "Playbook aprovado → oferta pronta para vender"

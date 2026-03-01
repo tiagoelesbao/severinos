@@ -1,0 +1,44 @@
+# Workflow: Revisão Semanal de Vendas
+id: weekly-sales-review
+name: Revisão Semanal de Vendas
+versao: 1.0.0
+agente_coordenador: "@blount-sales"
+tipo: recorrente-semanal
+
+descricao: |
+  Revisão semanal de pipeline e higiene de CRM.
+  Combina a revisão de @blount-sales (sexta) com
+  o relatório integrado de performance (segunda).
+
+fluxo:
+  sexta_17h_higiene:
+    responsavel: "@blount-sales"
+    task: blount-pipeline-review.md
+    steps:
+      - "Revisar todos os deals em aberto"
+      - "Descartar deals com > 60 dias sem atividade"
+      - "Confirmar próxima ação agendada em cada deal"
+      - "Atualizar probabilidades de fechamento"
+      - "Gerar relatório de pipeline"
+    checklist: pipeline-health-checklist.md
+    saida: "Pipeline report (sales-report-template.md)"
+
+  segunda_10h_performance:
+    responsavel: "Todos os agents"
+    task: sales-performance-review.md
+    steps:
+      - "Analisar resultados da semana anterior"
+      - "Comparar vs. meta e vs. semana anterior"
+      - "Identificar estágio com maior vazamento"
+      - "Avaliar performance de scripts e objeções"
+      - "Definir top 3 ações da semana"
+    saida: "Relatório integrado (sales-report-template.md)"
+
+  diario_7h30_alertas:
+    responsavel: "@blount-sales (autônomo)"
+    task: crm-autonomous-hygiene.md
+    steps:
+      - "Verificar leads inbound sem contato > 30 min"
+      - "Verificar deals em negociação sem atividade > 3 dias"
+      - "Gerar lista de follow-ups do dia"
+    saida: "Alertas urgentes + lista de follow-ups"

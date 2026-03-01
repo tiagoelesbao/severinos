@@ -1,0 +1,98 @@
+# virals-marketing-squad-blueprint.yaml
+# Versão: 1.0.0
+# Squad Creator: Craft
+
+squad:
+  id: virals-marketing-squad
+  name: Virals Marketing Squad
+  icon: 🎯
+  tagline: "Audiência, atenção e conversão — em escala"
+  type: growth
+  visibility: local
+
+agents:
+  - id: mrbeast-mk
+    file: agents/mrbeast-mk.md
+  - id: garyvee-mk
+    file: agents/garyvee-mk.md
+  - id: ladeira
+    file: agents/ladeira.md
+  - id: georgi
+    file: agents/georgi.md
+  - id: fishkin-mk
+    file: agents/fishkin-mk.md
+  - id: perry-marshall
+    file: agents/perry-marshall.md
+  - id: ezra-firestone
+    file: agents/ezra-firestone.md
+
+tasks:
+  - id: mrbeast-viral-framework
+    file: tasks/mrbeast-viral-framework.md
+  - id: garyvee-content-calendar
+    file: tasks/garyvee-content-calendar.md
+  - id: ladeira-copy-create
+    file: tasks/ladeira-copy-create.md
+  - id: georgi-vsl-write
+    file: tasks/georgi-vsl-write.md
+  - id: fishkin-seo-audit
+    file: tasks/fishkin-seo-audit.md
+  - id: perry-dr-campaign-create
+    file: tasks/perry-dr-campaign-create.md
+  - id: perry-dr-campaign-scale
+    file: tasks/perry-dr-campaign-scale.md
+  - id: perry-dr-autonomous-optimize
+    file: tasks/perry-dr-autonomous-optimize.md
+  - id: ezra-funnel-build
+    file: tasks/ezra-funnel-build.md
+  - id: ezra-brand-campaign-create
+    file: tasks/ezra-brand-campaign-create.md
+  - id: ezra-audience-architecture
+    file: tasks/ezra-audience-architecture.md
+  - id: ezra-autonomous-optimize
+    file: tasks/ezra-autonomous-optimize.md
+  - id: traffic-performance-review
+    file: tasks/traffic-performance-review.md
+
+workflows:
+  - id: viral-content-pipeline
+    file: workflows/viral-content-pipeline.yaml
+  - id: dr-campaign-lifecycle
+    file: workflows/dr-campaign-lifecycle.yaml
+  - id: brand-funnel-lifecycle
+    file: workflows/brand-funnel-lifecycle.yaml
+  - id: weekly-marketing-review
+    file: workflows/weekly-marketing-review.yaml
+  - id: launch-traffic-coordination
+    file: workflows/launch-traffic-coordination.yaml
+
+checklists:
+  - id: dr-campaign-launch-checklist
+    file: checklists/dr-campaign-launch-checklist.md
+  - id: brand-campaign-launch-checklist
+    file: checklists/brand-campaign-launch-checklist.md
+  - id: copy-review-checklist
+    file: checklists/copy-review-checklist.md
+  - id: content-publish-checklist
+    file: checklists/content-publish-checklist.md
+  - id: weekly-traffic-health-checklist
+    file: checklists/weekly-traffic-health-checklist.md
+
+templates:
+  - id: vsl-template
+    file: templates/vsl-template.md
+  - id: email-sequence-template
+    file: templates/email-sequence-template.md
+  - id: dr-campaign-brief-template
+    file: templates/dr-campaign-brief-template.md
+  - id: brand-campaign-brief-template
+    file: templates/brand-campaign-brief-template.md
+  - id: content-calendar-template
+    file: templates/content-calendar-template.md
+  - id: traffic-report-template
+    file: templates/traffic-report-template.md
+
+integrations:
+  clickup:
+    space: "Marketing"
+  primary_tool: clickup

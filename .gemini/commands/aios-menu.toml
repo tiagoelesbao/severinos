@@ -3,25 +3,41 @@ prompt = """
 Você está no launcher AIOS para Gemini.
 
 Mostre a lista de agentes abaixo em formato numerado, explicando em 1 linha quando usar cada um:
-1. /aios-master - AIOS Master Orchestrator & Framework Developer (Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orche…)
-2. /aios-analyst - Business Analyst (Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation w…)
-3. /aios-architect - Architect (Use for system architecture (fullstack, backend, frontend, infrastructure), technology stack selection (technical evalu…)
-4. /aios-data-engineer - Database Architect & Operations Engineer (Use for database design, schema architecture, Supabase configuration, RLS policies, migrations, query optimization, dat…)
-5. /aios-dev - Full Stack Developer (Use for code implementation, debugging, refactoring, and development best practices)
-6. /aios-devops - GitHub Repository Manager & DevOps Specialist (Use for repository operations, version management, CI/CD, quality gates, and GitHub push operations)
-7. /aios-pm - Product Manager (Use for PRD creation (greenfield and brownfield), epic creation and management, product strategy and vision, feature pr…)
-8. /aios-po - Product Owner (Use for backlog management, story refinement, acceptance criteria, sprint planning, and prioritization decisions)
-9. /aios-qa - Test Architect & Quality Advisor (Use for comprehensive test architecture review, quality gate decisions, and code improvement)
-10. /aios-sm - Scrum Master (Use for user story creation from PRD, story validation and completeness checking, acceptance criteria definition, story…)
-11. /aios-squad-creator - Squad Creator (Use to create, validate, publish and manage squads)
-12. /aios-ux-design-expert - UX/UI Designer & Design System Architect (Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality…)
+1. /aios-master - AIOS Master Orchestrator & Framework Developer (Acesso completo ao framework e orquestração)
+2. /aios-analyst - Business Analyst (Pesquisa de mercado, análise competitiva e ideação estruturada)
+3. /aios-architect - Architect (Arquitetura de sistemas, tech stack e avaliações técnicas)
+4. /aios-data-engineer - Database Architect (Design de banco, Supabase, RLS e migrações)
+5. /aios-dev - Full Stack Developer (Implementação de código, debug e refatoração)
+6. /aios-devops - DevOps Specialist (Gestão de repositório, CI/CD e operações GitHub)
+7. /aios-pm - Product Manager (Criação de PRDs, gestão de épicos e estratégia de produto)
+8. /aios-po - Product Owner (Gestão de backlog, refinamento de histórias e priorização)
+9. /aios-qa - Test Architect (Arquitetura de testes e garantia de qualidade)
+10. /aios-sm - Scrum Master (Criação de histórias de usuário, ACs e rituais ágeis)
+11. /aios-squad-creator - Squad Creator (Criação e gestão de squads e agentes)
+12. /aios-ux-design-expert - UX/UI Designer (Design systems, wireframes e qualidade visual)
 
 **Virals OPS Squad:**
-13. /virals-ops-dalio - Arquiteto de Princípios (Use para definir cultura, princípios e sistemas de decisão radicalmente honestos)
-14. /virals-ops-wickman - Mestre EOS (Use para planejar Rocks trimestrais, reuniões L10 e medir a tração da empresa)
-15. /virals-ops-kaushik - Arquiteto de BI (Use para definir métricas OMTM, dashboards e análise profunda de dados/funis)
-16. /virals-ops-hormozi-sys - Engenheiro de Alavancagem (Use para identificar gargalos, sistematizar processos e aumentar o ROI operacional)
-17. /virals-ops-walker-launch - Maestro de Lançamentos (Use para orquestrar cronogramas e sequências de lançamento de produtos)
+13. /virals-ops-dalio - Arquiteto de Princípios (Cultura, princípios e sistemas de decisão)
+14. /virals-ops-wickman - Mestre EOS (Rocks trimestrais, reuniões L10 e tração)
+15. /virals-ops-kaushik - Arquiteto de BI (Métricas OMTM, dashboards e análise de funis)
+16. /virals-ops-hormozi-sys - Engenheiro de Alavancagem (Sistematização de processos e ROI operacional)
+17. /virals-ops-walker-launch - Maestro de Lançamentos (Orquestração de cronogramas e sequências PLF)
+
+**Virals Marketing Squad:**
+18. /virals-marketing-mrbeast-mk - Arquiteto Viral (Conceitos virais, hooks e thumbnails)
+19. /virals-marketing-garyvee-mk - Estrategista de Marca (Presença social e brand voice)
+20. /virals-marketing-ladeira - Copywriter Master (Copy de alta conversão e storytelling BR)
+21. /virals-marketing-georgi - Arquiteto de VSL (Scripts de vídeo de vendas e webinars)
+22. /virals-marketing-fishkin-mk - Estrategista de SEO (SEO, keywords e distribuição orgânica)
+23. /virals-marketing-perry-marshall - Sniper do ROI (Tráfego de conversão direta/DR)
+24. /virals-marketing-ezra-firestone - Arquiteto de Funil (Tráfego de brand e aquecimento)
+
+**Virals Vendas Squad:**
+25. /virals-vendas-hormozi-sales - Arquiteto de Ofertas (Ofertas Grand Slam e Unit Economics)
+26. /virals-vendas-belfort-sales - Mestre do Fechamento (Straight Line e Manejo de Objeções)
+27. /virals-vendas-ross-sales - Arquiteto de Pipeline (Receita Previsível, SDR e Outbound)
+28. /virals-vendas-blount-sales - Fanático do Follow-up (Disciplina de CRM e Cadências)
+29. /virals-vendas-thiago-reis - Inside Sales BR (Adaptação para WhatsApp e Cultura BR)
 
 No final, peça para o usuário escolher um número ou digitar o comando direto.
 """
