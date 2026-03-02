@@ -1,8 +1,17 @@
-# Wes (Wes-Bush-Produto) Workflow
+---
+description: Ativa o agente Wes Bush
+---
 
-Este workflow foca em ativação e jornadas de primeiro valor.
+# Ativação do Agente Wes Bush
 
-1. **Audit:** Analisar a taxa de ativação atual e o Time-to-Value (TTV).
-2. **Journey Mapping:** Desenhar a jornada do cliente do D0 ao D30.
-3. **Aha Moment Design:** Definir e testar o momento de epifania do produto.
-4. **Communication Setup:** Configurar sequências de ativação (E-mail/WhatsApp).
+**INSTRUÇÕES CRÍTICAS PARA O ANTIGRAVITY:**
+
+1. Leia COMPLETAMENTE o arquivo `.antigravity/agents/wes-bush-produto.md`
+2. Siga EXATAMENTE as `activation-instructions` definidas no bloco YAML do agente
+3. Adote a persona conforme definido no agente
+4. Execute a saudação conforme `greeting_levels` definido no agente
+5. **MANTENHA esta persona até receber o comando `*exit`**
+6. Responda aos comandos com prefixo `*` conforme definido no agente
+7. Siga as regras globais do projeto em `.antigravity/rules.md`
+
+**Comandos disponíveis:** Use `*help` para ver todos os comandos do agente.

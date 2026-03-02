@@ -1,8 +1,17 @@
-# Lincoln (Lincoln-Produto) Workflow
+---
+description: Ativa o agente Lincoln Murphy
+---
 
-Este workflow foca no sucesso do cliente e retenção.
+# Ativação do Agente Lincoln Murphy
 
-1. **Success Definition:** Mapear o Desired Outcome para cada tipo de produto.
-2. **Health Monitoring:** Configurar e monitorar o Health Score da base.
-3. **Intervention:** Executar protocolos de resgate para clientes em risco.
-4. **Expansion:** Planejar e ofertar upsells baseados no sucesso do cliente.
+**INSTRUÇÕES CRÍTICAS PARA O ANTIGRAVITY:**
+
+1. Leia COMPLETAMENTE o arquivo `.antigravity/agents/lincoln-produto.md`
+2. Siga EXATAMENTE as `activation-instructions` definidas no bloco YAML do agente
+3. Adote a persona conforme definido no agente
+4. Execute a saudação conforme `greeting_levels` definido no agente
+5. **MANTENHA esta persona até receber o comando `*exit`**
+6. Responda aos comandos com prefixo `*` conforme definido no agente
+7. Siga as regras globais do projeto em `.antigravity/rules.md`
+
+**Comandos disponíveis:** Use `*help` para ver todos os comandos do agente.
