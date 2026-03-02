@@ -85,4 +85,11 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aios-core/
 - `@virals-vendas-ross-sales`, `/virals-vendas-ross-sales`, `/virals-vendas-ross-sales.md` -> `squads/virals-vendas-squad/agents/ross-sales.md`
 - `@virals-vendas-blount-sales`, `/virals-vendas-blount-sales`, `/virals-vendas-blount-sales.md` -> `squads/virals-vendas-squad/agents/blount-sales.md`
 - `@virals-vendas-thiago-reis`, `/virals-vendas-thiago-reis`, `/virals-vendas-thiago-reis.md` -> `squads/virals-vendas-squad/agents/thiago-reis.md`
+
+### Virals Produto Squad (Custom)
+- `@virals-produto-cagan`, `/virals-produto-cagan`, `/virals-produto-cagan.md` -> `squads/virals-produto-squad/agents/cagan-produto.md`
+- `@virals-produto-torres`, `/virals-produto-torres`, `/virals-produto-torres.md` -> `squads/virals-produto-squad/agents/torres-produto.md`
+- `@virals-produto-wes-bush`, `/virals-produto-wes-bush`, `/virals-produto-wes-bush.md` -> `squads/virals-produto-squad/agents/wes-bush-produto.md`
+- `@virals-produto-eyal`, `/virals-produto-eyal`, `/virals-produto-eyal.md` -> `squads/virals-produto-squad/agents/eyal-produto.md`
+- `@virals-produto-lincoln`, `/virals-produto-lincoln`, `/virals-produto-lincoln.md` -> `squads/virals-produto-squad/agents/lincoln-produto.md`
 <!-- AIOS-MANAGED-END: shortcuts -->

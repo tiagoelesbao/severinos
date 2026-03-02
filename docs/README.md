@@ -41,5 +41,8 @@ Bem-vindo a base de conhecimento oficial da Virals. Este repositorio e o centro 
 ### Virals-Vendas (@virals-vendas-squad)
 - Hormozi-sales (@hormozi-sales) | Belfort (@belfort-sales) | Ross (@ross-sales) | Blount (@blount-sales) | Thiago-reis (@thiago-reis)
 
+### Virals-Produto (@virals-produto-squad)
+- Cagan-produto (@cagan-produto) | Torres-produto (@torres-produto) | Wes-bush-produto (@wes-bush-produto) | Eyal-produto (@eyal-produto) | Lincoln-produto (@lincoln-produto)
+
 ---
 "Dor + Reflexao = Progresso."

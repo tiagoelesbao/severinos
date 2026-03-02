@@ -1,8 +1,14 @@
 ---
 criado: 2026-02-28T11:10:37-03:00
-atualizado: 2026-02-28T16:30:38-03:00
+atualizado: 2026-03-02T11:35:25-03:00
 ---
 # Estrutura Virals
+
+Esta e a estrutura de espacos, pastas e listas do clickup que serao utilizados para a gestao do ecossistema virals. 
+
+* Departamento (Espacos)
+* Área (Pastas)
+* Processo (Listas)
 
 ## Marketing (Departamento)
 
@@ -116,3 +122,39 @@ atualizado: 2026-02-28T16:30:38-03:00
 
  ### - Saúde Operacional (Área)
  		 - <Process, Process Maping e Pops a Definir>
+
+
+## Produto
+
+ ### - Gestão de Produtos (Área)
+	 - Painel de Produtos (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Estratégia de Produto (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Controle de Qualidade & Usabilidade (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Reestruturação & Melhorias (Process)
+		 - <Process Maping e Pops a Definir>
+
+ ### - Sucesso do Cliente (Área)
+	 - Entrada do Cliente (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Atendimento & Suporte (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Processo de NPS (Process) 
+		 - <Process Maping e Pops a Definir>
+	 - Mapeamento dos Problemas (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Gestão de Crise (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Saída do Cliente (Process)
+		 - <Process Maping e Pops a Definir>
+
+ ### - Gestão de Entregas (Área)
+	 - Mentorias & Consultorias(Process)
+		 - <Process Maping e Pops a Definir>
+	 - Check-ins (Process)
+		 - <Process Maping e Pops a Definir>
+	 - Prestação de Contas (Process)
+		 - <Process Maping e Pops a Definir>
+

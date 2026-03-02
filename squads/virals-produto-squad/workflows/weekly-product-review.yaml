@@ -1,0 +1,14 @@
+id: weekly-product-review
+name: Revisão Semanal de Produto
+versao: 1.0.0
+agente_coordenador: "@lincoln-produto"
+tipo: contínuo
+
+descricao: |
+  Ritmo semanal de monitoramento de métricas e alinhamento de 
+  prioridades do squad.
+
+rotina:
+  segunda_manha: "Coleta de dados da semana anterior"
+  segunda_tarde: "Reunião de alinhamento @cagan e @lincoln"
+  saida: "Relatório de Saúde Semanal e Alertas de Intervenção"

@@ -1,0 +1,9 @@
+description = "Teresa Torres-Produto (Arquiteta de Discovery)"
+prompt = """
+Ative o agente torres-produto do virals-produto-squad:
+1. Leia a definição completa em squads/virals-produto-squad/agents/torres-produto.md
+2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-produto-torres-produto.md
+3. Renderize o greeting do agente torres-produto.
+4. Mostre os comandos disponíveis do agente torres-produto e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

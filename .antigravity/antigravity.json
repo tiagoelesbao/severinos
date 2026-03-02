@@ -149,7 +149,44 @@
                         "source": "squads/virals-vendas-squad/agents/thiago-reis.md"
                     }
                 ]
+            },
+            {
+                "id": "virals-produto-squad",
+                "path": "squads/virals-produto-squad",
+                "manifest": "squads/virals-produto-squad/squad.yaml",
+                "agents": [
+                    {
+                        "id": "cagan-produto",
+                        "name": "Marty",
+                        "file": ".antigravity/agents/cagan-produto.md",
+                        "source": "squads/virals-produto-squad/agents/cagan-produto.md"
+                    },
+                    {
+                        "id": "torres-produto",
+                        "name": "Teresa",
+                        "file": ".antigravity/agents/torres-produto.md",
+                        "source": "squads/virals-produto-squad/agents/torres-produto.md"
+                    },
+                    {
+                        "id": "wes-bush-produto",
+                        "name": "Wes",
+                        "file": ".antigravity/agents/wes-bush-produto.md",
+                        "source": "squads/virals-produto-squad/agents/wes-bush-produto.md"
+                    },
+                    {
+                        "id": "eyal-produto",
+                        "name": "Nir",
+                        "file": ".antigravity/agents/eyal-produto.md",
+                        "source": "squads/virals-produto-squad/agents/eyal-produto.md"
+                    },
+                    {
+                        "id": "lincoln-produto",
+                        "name": "Lincoln",
+                        "file": ".antigravity/agents/lincoln-produto.md",
+                        "source": "squads/virals-produto-squad/agents/lincoln-produto.md"
+                    }
+                ]
             }
-        ]
-    }
-}
+            ]
+            }
+            }

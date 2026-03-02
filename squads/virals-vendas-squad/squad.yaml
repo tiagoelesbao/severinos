@@ -100,14 +100,18 @@ templates:
 
 integrations:
   clickup:
-    space: "Vendas"
-    lists:
-      - "Pipeline Ativo"
-      - "Ofertas & Produtos"
-      - "Scripts & Playbooks"
-      - "Cadências & Follow-up"
-      - "Relatórios & Métricas"
-      - "Closers & Treinamento"
+    space: "Comercial / Vendas"
+    folders:
+      - name: "CRM"
+        lists: ["Gestão de Clientes", "Processo de Renovação", "Gestão de Novas Oportunidades"]
+      - name: "Consultorias, Serviços & Mentorias"
+        lists: ["Prospecção Direta", "Social Selling", "Aplicação Direta", "Reunião Closer"]
+      - name: "Treinamentos, Cursos & Templates"
+        lists: ["Prospecção Direta", "Social Selling", "Recuperação de Vendas"]
+      - name: "Hunter ADS System"
+        lists: ["Mineração", "Qualificação", "Propostas"]
+      - name: "CRM Hunter"
+        lists: ["Processos CRM Hunter"]
   primary_tool: clickup
 
 metadata:

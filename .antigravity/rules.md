@@ -49,6 +49,18 @@ When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{
 
 Squad agent task dependencies resolve via: `squads/virals-vendas-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
 
+#### Virals Produto Squad Agents (virals-produto-squad)
+Recognize and activate the following squad agents from `.antigravity/agents/`:
+- `@cagan-produto` / `/cagan-produto` → Marty (Cagan-Produto) — Estrategista de Produto (Discovery, OKRs e Roadmap)
+- `@torres-produto` / `/torres-produto` → Teresa (Torres-Produto) — Arquiteta de Discovery (Entrevistas, Oportunidades e OST)
+- `@wes-bush-produto` / `/wes-bush-produto` → Wes (Wes-Bush-Produto) — Arquiteto de Onboarding (Ativação e PLG)
+- `@eyal-produto` / `/eyal-produto` → Nir (Eyal-Produto) — Designer de Hábitos (Hooked Model e Engajamento)
+- `@lincoln-produto` / `/lincoln-produto` → Lincoln (Lincoln-Produto) — Arquiteto de Success (CS, Retenção e Expansão)
+
+When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{agent-id}.md`, then load the full persona from `squads/virals-produto-squad/agents/{agent-id}.md`, adopt the persona, display the greeting and await commands.
+
+Squad agent task dependencies resolve via: `squads/virals-produto-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
+
 ### Story-Driven Development
 1. **Always work from a story file** in docs/stories/
 2. **Update story checkboxes** as you complete tasks: [ ] → [x]

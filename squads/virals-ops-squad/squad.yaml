@@ -49,14 +49,20 @@ components:
 
 integrations:
   clickup:
-    space: "OPS"
-    Folders:
-      - "Rocks Trimestrais"
-      - "Processos & POPs"
-      - "Objetivos & Metas (OKR)"
-      - "Lançamentos"
-      - "BI & Métricas"
-      - "Saúde Operacional"
+    space: "Operações"
+    folders:
+      - name: "Processos & POPs"
+        lists: ["Mapeamento de Processos", "Construção de POPs"]
+      - name: "Objetivos & Metas OKR"
+        lists: ["Q1 - FUNDAÇÃO", "Q2 - TRAÇÃO", "Q3 - AUTORIDADE", "Q4 - CONSOLIDAÇÃO"]
+      - name: "Rocks Trimestrais"
+        lists: ["Processos de Rocks"]
+      - name: "Lançamentos"
+        lists: ["Processos de Lançamentos"]
+      - name: "BI & Métricas"
+        lists: ["Processos de BI & Métricas"]
+      - name: "Saúde Operacional"
+        lists: ["Processos de Saúde Operacional"]
   primary_tool: clickup
 
 metadata:

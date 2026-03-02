@@ -1,0 +1,93 @@
+# virals-produto-squad-design.yaml
+# Gerado por Craft (@squad-creator)
+# Baseado em: virals-produto-squad-spec.md + Planejamento Estratégico 2026 + Accountability Chart
+
+squad:
+  id: virals-produto-squad
+  name: Virals Produto
+  icon: 🚀
+  tagline: "Produto é retenção. Retenção é receita recorrente."
+  description: |
+    Responsável pela estratégia, discovery, onboarding e customer success dos produtos da Virals,
+    incluindo infoprodutos, mentorias e serviços-produto (Hunter Ads, Copy Strategy, Traffic Protocol).
+    Garante que a promessa de marketing/vendas é entregue e superada na experiência.
+
+analysis:
+  domain: Product Strategy & Customer Success (Productized Services)
+  entities:
+    - Hunter Ads System (Service-Product)
+    - Copy Strategy Framework (Service-Product)
+    - Traffic Performance Protocol (Service-Product)
+    - Productized Service (Model)
+    - Aha Moment (Activation)
+    - Health Score (Retention)
+    - Opportunity Solution Tree (Discovery)
+    - NPS (Satisfaction)
+  workflows:
+    - new-product-creation-cycle: Do discovery à pós-lançamento.
+    - onboarding-lifecycle: Do D0 ao D30 focado em ativação (PLG).
+    - continuous-discovery-cycle: Ritmo semanal de entrevistas e insights (Teresa Torres).
+    - churn-intervention-cycle: Protocolo de resgate de clientes em risco (Lincoln Murphy).
+    - weekly-product-review: Revisão de métricas e saúde do produto (Cagan + Lincoln).
+  integrations:
+    - clickup: Space "Produto" (Roadmap, Discovery, CS, Métricas).
+    - virals-marketing-squad: Cases de sucesso e prova social.
+    - virals-vendas-squad: Onboarding sincronizado com fechamento.
+
+recommendations:
+  agents:
+    - id: cagan-produto
+      name: Marty
+      role: Estrategista de Produto — Discovery, OKRs e Roadmap Orientado a Resultado (Cagan Method)
+      commands: [*roadmap-quarterly, *okr-product, *product-spec, *prioritization, *risk-audit]
+      confidence: 1.0
+    - id: torres-produto
+      name: Teresa
+      role: Arquiteta de Discovery Contínuo — Entrevistas e Opportunity Trees (Torres Method)
+      commands: [*discovery-sprint, *opportunity-tree, *customer-interview, *insight-synthesis]
+      confidence: 1.0
+    - id: wes-bush-produto
+      name: Wes
+      role: Arquiteto de Onboarding e PLG — Ativação e Time-to-Value (Wes Bush Method)
+      commands: [*onboarding-design, *aha-moment-map, *activation-audit, *time-to-value]
+      confidence: 1.0
+    - id: eyal-produto
+      name: Nir
+      role: Arquiteto de Hábito e Engajamento — Hooked Model e Loops de Retenção (Nir Eyal Method)
+      commands: [*engagement-loop, *trigger-design, *habit-audit, *retention-loop]
+      confidence: 1.0
+    - id: lincoln-produto
+      name: Lincoln
+      role: Arquiteto de Customer Success — Resultado, Retenção e Expansão (Lincoln Murphy Method)
+      commands: [*cs-playbook, *churn-diagnosis, *health-score, *expansion-plan, *nps-action]
+      confidence: 1.0
+
+  tasks:
+    - name: cagan-roadmap-quarterly.md
+      agent: cagan-produto
+      entrada: [okrs_empresa, feedback_vendas, insights_discovery]
+      saida: [roadmap_produto_trimestral, priorizacao_backlog]
+    - name: torres-discovery-sprint.md
+      agent: torres-produto
+      entrada: [segmento_alvo, problema_hipotetico]
+      saida: [relatorio_entrevistas, oportunidade_priorizada]
+    - name: wes-bush-onboarding-design.md
+      agent: wes-bush-produto
+      entrada: [fluxo_produto, aha_moment_definido]
+      saida: [jornada_onboarding_d0_d30, sequencia_emails_ativacao]
+    - name: lincoln-cs-playbook.md
+      agent: lincoln-produto
+      entrada: [desired_outcome_cliente, health_score_config]
+      saida: [playbook_touchpoints, protocolo_resgate_churn]
+    - name: product-health-review.md
+      agent: lincoln-produto
+      entrada: [metricas_semana, nps_coletados]
+      saida: [relatorio_saude_semanal, alertas_intervencao]
+
+  templates: [product-spec-template, roadmap-template, customer-interview-template, onboarding-flow-template, cs-playbook-template, product-health-report-template]
+  checklists: [product-launch-readiness, onboarding-quality-checklist, cs-touchpoint-checklist, discovery-sprint-checklist, product-health-checklist]
+
+metadata:
+  created_at: "2026-03-02T10:00:00Z"
+  source_docs: ["docs/05-Squads/virals-produto-squad-spec.md", "drafts/Planejamento Estratégico-20260227093556.md"]
+  overall_confidence: 0.95

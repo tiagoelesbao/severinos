@@ -54,7 +54,7 @@
 - **Responsável:** @user (Todos os Rocks interinos)
 - **Rocks (Prioridades):**
   1. **Rock 1:** Fechar os 3 primeiros clientes pilotos (Plano Starter).
-  2. **Rock 2:** Finalizar o Setup do Hunter Ads System (Prospecção Virals).
+  2. **Rock 2:** Finalizar o Setup do Hunter Ads System, Copy Viral Framework e Traffic Performance Protocol.
   3. **Rock 3:** Documentar os 20% dos processos (POPs) que geram 80% do resultado operacional.
   4. **Rock 4:** Validar a Big Idea da Virals no mercado (Ads Próprio).
 

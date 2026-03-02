@@ -1,0 +1,14 @@
+id: continuous-discovery-cycle
+name: Ciclo de Discovery Contínuo
+versao: 1.0.0
+agente_coordenador: "@torres-produto"
+tipo: contínuo
+
+descricao: |
+  Ritmo semanal de entrevistas para manter o roadmap alimentado por 
+  evidências reais do cliente.
+
+rotina:
+  segunda: "Identificar perfis para entrevista"
+  durante_semana: "Conduzir 1-2 entrevistas de 45 min"
+  sexta: "Sintetizar insights e atualizar Opportunity Solution Tree"

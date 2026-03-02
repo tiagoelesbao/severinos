@@ -1,0 +1,22 @@
+# Ciclo de Criação de Produto (V1.0.0)
+## Responsável: @cagan-produto
+
+1. **Fase 0: Discovery (2 semanas)**
+   - @torres-produto realiza 5 entrevistas de discovery.
+   - @cagan-produto mapeia oportunidades na OST.
+   - Gate: Decisão baseada em evidência de demanda real.
+
+2. **Fase 1: Concepção & Spec (1 semana)**
+   - @cagan-produto escreve a Product Spec.
+   - @wes-bush-produto define o Aha Moment.
+   - Gate: Spec aprovada e alinhada com vendas.
+
+3. **Fase 2: Build & Onboarding (2-4 semanas)**
+   - Produção do core do produto.
+   - @wes-bush-produto cria fluxo de onboarding e ativação.
+   - @eyal-produto projeta o loop de hábito inicial.
+
+4. **Fase 3: Lançamento & CS (Mês 1)**
+   - @lincoln-produto ativa playbook de Customer Success.
+   - @lincoln-produto monitora health score e NPS D7/D30.
+   - Gate: Post-launch retrospective executada.

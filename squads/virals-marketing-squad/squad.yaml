@@ -103,13 +103,17 @@ templates:
 integrations:
   clickup:
     space: "Marketing"
-    lists:
-      - "Conteúdo & Editorial"
-      - "Copy & Criação"
-      - "Tráfego DR (@perry)"
-      - "Tráfego Brand (@ezra)"
-      - "SEO & Orgânico"
-      - "Métricas & Relatórios"
+    folders:
+      - name: "Produção de conteúdo"
+        lists: ["Máquina de Ideias", "Planejamento & Criação", "Process de Copywriting", "Processo de Design e Criação", "Agendamento, Publicação e Disparos"]
+      - name: "Planejamento Estratégico de Marketing"
+        lists: ["Estratégias e Funis"]
+      - name: "Traffic Performance & Growth"
+        lists: ["Gestão de Campanhas", "Processo de Otimização", "Gestão de Investimentos", "Trackeamento & Dashboards", "Laboratório de Criativos"]
+      - name: "Automações e Integrações"
+        lists: ["Gestão de Fluxos", "Gestão de WhatsApp"]
+      - name: "Desenvolvimento Web"
+        lists: ["Landing Page & Website", "Manutenção & Atualizações", "Gestão de Domínios & Hospedagens"]
   primary_tool: clickup
 
 metadata:
