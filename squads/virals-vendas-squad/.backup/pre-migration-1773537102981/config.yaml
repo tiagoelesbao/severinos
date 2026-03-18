@@ -1,0 +1,44 @@
+squad:
+  name: virals-vendas-squad
+  version: 1.1.0
+  short-title: Virals Sales Squad
+  description: >-
+    Squad comercial responsável pela orquestração de prospecção, 
+    fechamento, estruturação de ofertas irresistíveis e gestão de CRM.
+  author: Virals
+  icon: "💰"
+  entry_agent: sales-chief
+  slashPrefix: viralsSales
+agents:
+  - id: sales-chief
+    file: agents/sales-chief.md
+  - id: belfort-sales
+    file: agents/belfort-sales.md
+  - id: blount-sales
+    file: agents/blount-sales.md
+  - id: hormozi-sales
+    file: agents/hormozi-sales.md
+  - id: ross-sales
+    file: agents/ross-sales.md
+  - id: thiago-reis
+    file: agents/thiago-reis.md
+workspace_integration:
+  level: read_write
+  rationale: "Reads lead data and CRM status from ClickUp and writes sales reports and pipeline updates."
+  read_paths:
+    - workspace/businesses/virals/sales/
+  write_paths:
+    - workspace/businesses/virals/sales/
+  template_namespace: sales
+task_standards:
+  enforce_anatomy: true
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+tested: true

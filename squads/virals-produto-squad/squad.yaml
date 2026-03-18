@@ -6,13 +6,10 @@ description: |
   onboarding, engajamento, retenção e customer success da Virals.
   Baseado nos frameworks de Marty Cagan, Teresa Torres, Wes Bush,
   Nir Eyal e Lincoln Murphy.
-
 icon: 🚀
-color: "#7C3AED"  # Roxo produto — criação e profundidade
-
+color: '#7C3AED'
 type: product
 visibility: local
-
 agents:
   - id: cagan-produto
     file: agents/cagan-produto.md
@@ -24,9 +21,7 @@ agents:
     file: agents/eyal-produto.md
   - id: lincoln-produto
     file: agents/lincoln-produto.md
-
 tasks:
-  # Strategy & Discovery
   - id: cagan-roadmap-quarterly
     file: tasks/cagan-roadmap-quarterly.md
   - id: cagan-okr-product
@@ -37,29 +32,24 @@ tasks:
     file: tasks/torres-opportunity-tree.md
   - id: torres-customer-interview
     file: tasks/torres-customer-interview.md
-  # Onboarding & Ativação
   - id: wes-bush-onboarding-design
     file: tasks/wes-bush-onboarding-design.md
   - id: wes-bush-activation-audit
     file: tasks/wes-bush-activation-audit.md
-  # Engajamento & Hábito
   - id: eyal-engagement-loop
     file: tasks/eyal-engagement-loop.md
   - id: eyal-retention-audit
     file: tasks/eyal-retention-audit.md
-  # Customer Success
   - id: lincoln-cs-playbook
     file: tasks/lincoln-cs-playbook.md
   - id: lincoln-churn-diagnosis
     file: tasks/lincoln-churn-diagnosis.md
   - id: lincoln-expansion-plan
     file: tasks/lincoln-expansion-plan.md
-  # Integração
   - id: product-health-review
     file: tasks/product-health-review.md
   - id: post-launch-retrospective
     file: tasks/post-launch-retrospective.md
-
 workflows:
   - id: new-product-creation-cycle
     file: workflows/new-product-creation-cycle.yaml
@@ -71,7 +61,6 @@ workflows:
     file: workflows/churn-intervention-cycle.yaml
   - id: weekly-product-review
     file: workflows/weekly-product-review.yaml
-
 checklists:
   - id: product-launch-readiness
     file: checklists/product-launch-readiness.md
@@ -83,7 +72,6 @@ checklists:
     file: checklists/discovery-sprint-checklist.md
   - id: product-health-checklist
     file: checklists/product-health-checklist.md
-
 templates:
   - id: product-spec-template
     file: templates/product-spec-template.md
@@ -97,22 +85,33 @@ templates:
     file: templates/cs-playbook-template.md
   - id: product-health-report-template
     file: templates/product-health-report-template.md
-
 integrations:
   clickup:
-    space: "Produto"
+    space: Produto
     folders:
-      - name: "Gestão de Produtos"
-        lists: ["Painel de Produtos", "Estratégia de Produto", "Controle de Qualidade & Usabilidade", "Reestruturação & Melhorias"]
-      - name: "Sucesso do Cliente"
-        lists: ["Entrada do Cliente", "Atendimento & Suporte", "Processo de NPS", "Mapeamento dos Problemas", "Gestão de Crise", "Saída do Cliente"]
-      - name: "Gestão de Entregas"
-        lists: ["Mentorias & Consultorias", "Check-ins", "Prestação de Contas"]
+      - name: Gestão de Produtos
+        lists:
+          - Painel de Produtos
+          - Estratégia de Produto
+          - Controle de Qualidade & Usabilidade
+          - Reestruturação & Melhorias
+      - name: Sucesso do Cliente
+        lists:
+          - Entrada do Cliente
+          - Atendimento & Suporte
+          - Processo de NPS
+          - Mapeamento dos Problemas
+          - Gestão de Crise
+          - Saída do Cliente
+      - name: Gestão de Entregas
+        lists:
+          - Mentorias & Consultorias
+          - Check-ins
+          - Prestação de Contas
   primary_tool: clickup
-
 metadata:
   created_by: squad-creator
-  created_at: 2026-03-02
+  created_at: 2026-03-02T00:00:00.000Z
   tags:
     - produto
     - discovery
@@ -123,3 +122,6 @@ metadata:
     - hooked
     - roadmap
     - productized-service
+aios:
+  type: squad
+  minVersion: 2.1.0

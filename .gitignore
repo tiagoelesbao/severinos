@@ -52,3 +52,7 @@ node_modules
 .aios-core/local/
 .claude/settings.local.json
 .aios/install-log.txt
+
+# AIOX Local (AIOX)
+.aiox-core/local/
+.aiox/install-log.txt

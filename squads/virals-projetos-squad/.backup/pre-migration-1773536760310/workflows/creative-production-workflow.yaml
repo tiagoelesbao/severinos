@@ -1,0 +1,35 @@
+id: creative-production-workflow
+name: Produção Criativa (Braintrust Edition)
+versao: 1.0.0
+agente_coordenador: "@catmull-proj + @sutherland-proj"
+tipo: por-demanda
+
+descricao: |
+  Garanti a manutenção da barra de qualidade para ativos criativos
+  antes de entrarem em tráfego ou serem entregues.
+
+fases:
+  fase_1_briefing_e_desenvolvimento:
+    responsavel: "@catmull-proj (briefing) -> virals-marketing-squad (criação)"
+    steps:
+      - "Geração do `creative-brief-template.md` com limites claros"
+      - "Passeio (Handoff) para a equipe de Marketing/Redação"
+      - "Desenvolvimento R1 da peça (fora do virals-projetos-squad)"
+  
+  fase_2_review_gate:
+    responsavel: "@catmull-proj"
+    trigger: "Submissão da R1 do marketing"
+    steps:
+      - "Check do `creative-review-checklist.md`"
+      - "O 'Braintrust' detectou falha no Prometo Principal, CTA ou Formato?"
+      - "Feedback franco entregue pontuando problemas, não soluções presunçosas."
+    
+    decisao:
+      aprovado: "Move para fase_3"
+      reprovado: "Volta para fase_1 com log das falhas"
+  
+  fase_3_aprovacao_e_deploy:
+    responsavel: "@sutherland-proj"
+    steps:
+      - "Marca task de produção de conteúdo como Concluída"
+      - "Inicia a task dependente de Setup de Campanha"

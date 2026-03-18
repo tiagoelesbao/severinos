@@ -1,86 +1,104 @@
-task: opsHealthCheck()
-id: ops-health-check
-agent: "@wickman (primário) + @dalio (revisão)"
-responsavel: "@wickman"
-responsavel_type: agent
-versao: 1.0.0
-atomic_layer: Organism
+# Auditoria de Saúde Operacional @ops-chief
 
-descricao: |
-  Diagnóstico trimestral de saúde operacional da Virals.
-  Avalia os 6 componentes EOS + métricas de alavancagem sistêmica.
-  Resultado: nota de saúde operacional e plano de ação.
+**Task ID:** `ops-health-check`
+**Pattern:** HO-TP-001 (Task Anatomy Standard)
+**Version:** 1.0.0
+**Last Updated:** 2026-03-12
+**Governance Protocol:** `squads/squad-creator/protocols/ai-first-governance.md`
 
-entrada:
-  - campo: trimestre
-    tipo: string
-    obrigatorio: true
+## AI-First Governance Gate
 
-saida:
-  - campo: relatorio_saude
-    tipo: document
-    destino: ClickUp > OPS > Saúde Operacional
-    persistido: true
-  
-  - campo: nota_saude
-    tipo: number
-    descricao: "Score de 0-100 por componente e geral"
-    persistido: true
-  
-  - campo: top3_prioridades_melhoria
-    tipo: array
-    persistido: true
+- [ ] Applied `squads/squad-creator/protocols/ai-first-governance.md`
+- [ ] Mapped `Existing -> Gap -> Decision`
+- [ ] Validated canonical sources (EOS Health Check / Scaling Up)
+- [ ] Documented contradictions and unresolved items
 
-Checklist:
-  - "[ ] Avaliar componente: Visão"
-  - "[ ] Avaliar componente: Pessoas"
-  - "[ ] Avaliar componente: Dados"
-  - "[ ] Avaliar componente: Issues"
-  - "[ ] Avaliar componente: Processos"
-  - "[ ] Avaliar componente: Tração"
-  - "[ ] Calcular nota final e plano de ação"
+## Task Anatomy
 
-avaliacao_por_componente:
-  visao:
-    perguntas:
-      - "Todos sabem onde a empresa quer chegar em 3-10 anos?"
-      - "V/TO está atualizado e compartilhado?"
-      - "Todos entendem o core values e os aplicam?"
-    escala: "0-10 por pergunta"
-  
-  pessoas:
-    perguntas:
-      - "Temos as pessoas certas nos lugares certos? (GWC test)"
-      - "Accountability chart reflete a realidade atual?"
-      - "Issues de pessoas estão sendo endereçados, não ignorados?"
-    escala: "0-10 por pergunta"
-  
-  dados:
-    perguntas:
-      - "Scorecard com métricas semanais atualizado?"
-      - "Todos sabem sua métrica principal?"
-      - "Decisões são baseadas em dados ou em feeling?"
-    escala: "0-10 por pergunta"
-  
-  issues:
-    perguntas:
-      - "Issues list está sendo mantida honestamente?"
-      - "IDS está sendo aplicado nas L10s?"
-      - "Issues crônicos estão sendo resolvidos ou evitados?"
-    escala: "0-10 por pergunta"
-  
-  processos:
-    perguntas:
-      - "Processos críticos estão documentados como POPs?"
-      - "POPs estão sendo seguidos ou são 'decoração'?"
-      - "Novos processos são documentados antes de escalar?"
-    escala: "0-10 por pergunta"
-  
-  tracao:
-    perguntas:
-      - "L10s acontecem toda semana no horário combinado?"
-      - "Rocks estão sendo executados com disciplina?"
-      - "Accountability está presente (pessoas entregam o que prometem)?"
-    escala: "0-10 por pergunta"
+| Field | Value |
+|-------|-------|
+| **task_name** | Realizar Health-check Operacional |
+| **status** | `pending` |
+| **responsible_executor** | @ops-chief |
+| **execution_type** | `Hybrid` |
+| **input** | ["Status dos Rocks", "Scorecard Semanal", "Feedback da Equipe", "Issues List"] |
+| **output** | ["Relatório de Saúde 0-100", "Top 3 Prioridades de Melhoria", "Diagnóstico por Componente"] |
+| **action_items** | 6 steps |
+| **acceptance_criteria** | 3 criteria |
 
-duracao_esperada: "Half-day da sessão trimestral"
+## Executor Specification
+
+| Attribute | Value |
+|-----------|-------|
+| **Type** | Hybrid |
+| **Pattern** | HO-EP-003 |
+| **Executor** | @ops-chief (AI) + COO (Human Review) |
+| **Rationale** | Requer análise de conformidade de processos documentados vs. execução real e avaliação qualitativa de cultura. |
+
+## Overview
+
+Diagnóstico trimestral profundo que avalia os 6 componentes vitais da empresa (Visão, Pessoas, Dados, Issues, Processos e Tração), identificando onde o sistema está falhando e onde está escalando.
+
+## Input
+
+- **Métricas do Trimestre** (json/table)
+  - Description: Status final de Rocks e Scorecard.
+- **Lista de Issues** (array)
+  - Description: Problemas recorrentes não resolvidos.
+
+## Output
+
+- **Relatório de Saúde** (markdown)
+  - Description: Nota de 0 a 100 para cada um dos 6 componentes.
+
+## Action Items
+
+### Step 1: Avaliar Componente Visão
+
+Verificar se todos na empresa sabem para onde a Virals está indo e se o V/TO está atualizado.
+
+### Step 2: Avaliar Componente Pessoas
+
+Executar o teste GWC (Gets it, Wants it, Capacity) para cargos críticos e revisar o Accountability Chart.
+
+### Step 3: Avaliar Componente Dados
+
+Checar se o Scorecard semanal é confiável e se as métricas são realmente acionáveis.
+
+### Step 4: Avaliar Componente Issues
+
+Analisar se a "Issues List" é honesta e se o framework IDS está resolvendo problemas na causa-raiz.
+
+### Step 5: Avaliar Componente Processos
+
+Verificar se os POPs fundamentais estão documentados, atualizados e, mais importante, sendo seguidos.
+
+### Step 6: Avaliar Componente Tração
+
+Medir a disciplina de reuniões L10 e a taxa de conclusão de Rocks (meta: ≥ 80%).
+
+## Acceptance Criteria
+
+- [ ] **AC-1:** O relatório identifica pelo menos um componente crítico que está abaixo da nota 70.
+- [ ] **AC-2:** Cada componente avaliado possui um parágrafo de "evidência real" (por que da nota).
+- [ ] **AC-3:** O plano de ação foca apenas nas 3 maiores alavancas para o próximo trimestre.
+
+## Validation Checklist (HO-TP-001)
+
+### Mandatory Fields Check
+
+- [ ] `task_name` follows "Verb + Object" format
+- [ ] `status` is one of: pending | in_progress | completed
+- [ ] `responsible_executor` is clearly specified
+- [ ] `execution_type` is one of: Human | Agent | Hybrid | Worker
+- [ ] `input` array has at least 1 item
+- [ ] `output` array has at least 1 item
+- [ ] `action_items` has clear, actionable steps
+- [ ] `acceptance_criteria` has measurable criteria
+
+---
+
+_Task Version: 1.0.0_
+_Pattern: HO-TP-001 (Task Anatomy Standard)_
+_Last Updated: 2026-03-12_
+_Compliant: Yes_

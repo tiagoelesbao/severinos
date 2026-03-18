@@ -1,0 +1,44 @@
+squad:
+  name: virals-produto-squad
+  version: 1.1.0
+  short-title: Virals Product Squad
+  description: >-
+    Squad focado na experiência do cliente, sucesso do produto, product discovery, 
+    onboarding de alta conversão e retenção estratégica da Virals.
+  author: Virals
+  icon: "📦"
+  entry_agent: product-chief
+  slashPrefix: viralsProduct
+agents:
+  - id: product-chief
+    file: agents/product-chief.md
+  - id: cagan-produto
+    file: agents/cagan-produto.md
+  - id: eyal-produto
+    file: agents/eyal-produto.md
+  - id: lincoln-produto
+    file: agents/lincoln-produto.md
+  - id: torres-produto
+    file: agents/torres-produto.md
+  - id: wes-bush-produto
+    file: agents/wes-bush-produto.md
+workspace_integration:
+  level: read_write
+  rationale: "Reads usage data and customer feedback from ClickUp/CRM and writes roadmaps, discovery logs and CS playbooks."
+  read_paths:
+    - workspace/businesses/virals/product/
+  write_paths:
+    - workspace/businesses/virals/product/
+  template_namespace: product
+task_standards:
+  enforce_anatomy: true
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+tested: true

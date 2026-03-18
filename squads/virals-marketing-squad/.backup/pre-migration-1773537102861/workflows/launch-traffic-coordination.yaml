@@ -1,0 +1,52 @@
+# virals-marketing-squad/workflows/launch-traffic-coordination.yaml
+id: launch-traffic-coordination
+name: Coordenação de Tráfego para Lançamento
+versao: 1.0.0
+agente_coordenador: "@perry-marshall (operação) + @ezra-firestone (audiência)"
+tipo: por-demanda
+integracao: "virals-ops-squad: launch-orchestration.yaml"
+
+timeline_8_semanas:
+  semana_1_4:
+    lider: "@ezra-firestone"
+    objetivo: "Construir audiência aquecida"
+    acao:
+      - "Intensificar campanhas de topo de funil"
+      - "Lançar conteúdo de pré-lançamento com boost"
+      - "Capturar leads para lista de espera"
+    budget_split: "90% brand / 10% DR (manutenção)"
+  
+  semana_5_6:
+    lider: "@ezra-firestone"
+    objetivo: "Nutrir audiência com conteúdo mais profundo"
+    acao:
+      - "Retargeting intensivo de meio de funil"
+      - "Case studies e depoimentos em formato de vídeo"
+      - "Lead magnet de alto valor para base aquecida"
+    budget_split: "80% brand / 20% DR"
+  
+  semana_7:
+    lider: "Ambos — transição"
+    objetivo: "Finalizar aquecimento e preparar conversão"
+    acao:
+      - "@ezra: relatório de estado do funil para @perry"
+      - "@perry: criar estrutura de campanha de conversão"
+      - "Teste de copy de anúncio DR com audiência quente (pequena escala)"
+    budget_split: "60% brand / 40% DR"
+  
+  semana_8_lancamento:
+    lider: "@perry-marshall"
+    objetivo: "Maximizar conversão da audiência aquecida"
+    acao:
+      - "@perry: escalar campanhas DR para audiência aquecida"
+      - "@ezra: manter brand mínima (não conflitar com mensagem DR)"
+      - "Relatório diário conjunto no ClickUp"
+    budget_split: "20% brand / 80% DR"
+  
+  pos_lancamento:
+    lider: "@ezra-firestone retoma"
+    objetivo: "Reiniciar ciclo"
+    acao:
+      - "Post-mortem de atribuição (quanto do brand impactou o DR?)"
+      - "Refinamento de audiências com dados dos compradores"
+      - "Início do próximo ciclo de construção"

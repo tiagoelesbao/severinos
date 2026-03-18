@@ -1,90 +1,104 @@
-task: popCreate()
-id: pop-create
-agent: "@dalio ou @wickman (qualquer um do virals-ops-squad)"
-responsavel: "@wickman"
-responsavel_type: agent
-versao: 1.0.0
-atomic_layer: Molecule
+# Criar Procedimento Padrão (POP) @ops-chief
 
-descricao: |
-  Criar um novo POP (Procedimento Operacional Padrão) para um processo
-  da Virals. POPs garantem que processos funcionem independente de quem
-  executa — são a memória operacional da empresa.
+**Task ID:** `pop-create`
+**Pattern:** HO-TP-001 (Task Anatomy Standard)
+**Version:** 1.0.0
+**Last Updated:** 2026-03-12
+**Governance Protocol:** `squads/squad-creator/protocols/ai-first-governance.md`
 
-elicit: true
+## AI-First Governance Gate
 
-versioning:
-  sistema: "MAJOR.MINOR.PATCH adaptado"
-  regras:
-    MAJOR: "Mudança completa no processo (fluxo diferente)"
-    MINOR: "Adição de etapas ou responsabilidades"
-    PATCH: "Correções, clarificações, pequenos ajustes"
-  
-  nota_aios_insight: |
-    Inspirado no versionamento semântico do sistema AIOS DevOps:
-    assim como código evolui com MAJOR.MINOR.PATCH,
-    POPs evoluem com a mesma lógica — permitindo rastrear
-    quando um processo mudou fundamentalmente vs. foi apenas refinado.
+- [ ] Applied `squads/squad-creator/protocols/ai-first-governance.md`
+- [ ] Mapped `Existing -> Gap -> Decision`
+- [ ] Validated canonical sources (Standard Operating Procedures)
+- [ ] Documented contradictions and unresolved items
 
-entrada:
-  - campo: nome_processo
-    tipo: string
-    obrigatorio: true
-  
-  - campo: area
-    tipo: string
-    opcoes: ["marketing", "vendas", "produto", "ops", "backoffice"]
-    obrigatorio: true
-  
-  - campo: dono_processo
-    tipo: string
-    descricao: "Pessoa responsável pela execução e manutenção"
-    obrigatorio: true
-  
-  - campo: gatilho
-    tipo: string
-    descricao: "O que inicia este processo?"
-    obrigatorio: true
+## Task Anatomy
 
-saida:
-  - campo: pop_documento
-    tipo: document
-    formato: "POP Template"
-    destino: ClickUp > OPS > POPs
-    persistido: true
+| Field | Value |
+|-------|-------|
+| **task_name** | Criar Procedimento Operacional Padrão |
+| **status** | `pending` |
+| **responsible_executor** | @ops-chief |
+| **execution_type** | `Agent` |
+| **input** | ["Processo a mapear", "Dono do processo", "Gatilho de início"] |
+| **output** | ["Documento POP", "Diagrama de fluxo", "Checklist de execução"] |
+| **action_items** | 6 steps |
+| **acceptance_criteria** | 3 criteria |
 
-Checklist:
-  - "[ ] Identificar e mapear processo"
-  - "[ ] Criar rascunho seguindo template"
-  - "[ ] Testar com pessoa neutra"
-  - "[ ] Aprovar com o dono do processo"
-  - "[ ] Publicar e versionar"
+## Executor Specification
 
-pre_conditions:
-  - "Processo existe e é executado regularmente (senão, definir antes de documentar)"
-  - "Dono do processo disponível para validar"
+| Attribute | Value |
+|-----------|-------|
+| **Type** | Agent |
+| **Pattern** | HO-EP-002 |
+| **Executor** | @ops-chief |
+| **Rationale** | Requer habilidade em transformar fluxos complexos em instruções atômicas e inequívocas para qualquer executor. |
 
-post_conditions:
-  - "POP completo com todas as seções obrigatórias"
-  - "Testado com alguém que não conhece o processo"
-  - "Aprovado pelo dono"
-  - "Registrado no ClickUp com versão 1.0.0"
+## Overview
 
-acceptance_criteria:
-  - "Qualquer pessoa nova consegue executar o processo só com o POP"
-  - "Todas as decisões possíveis estão mapeadas (árvore de decisão se necessário)"
-  - "Tempo estimado de execução está correto"
-  - "Ferramentas e acessos necessários estão listados"
+Documenta um processo recorrente da empresa, garantindo que ele funcione de forma previsível independente de quem o execute, servindo como a "memória operacional" da Virals.
 
-checklist_qualidade_pop:
-  - "[ ] Objetivo claro em uma frase"
-  - "[ ] Gatilho definido (o que inicia)"
-  - "[ ] Pré-condições listadas"
-  - "[ ] Passo a passo sem ambiguidade"
-  - "[ ] Responsável de cada etapa definido"
-  - "[ ] Ferramentas e acessos listados"
-  - "[ ] O que fazer em caso de erro"
-  - "[ ] Tempo estimado por etapa"
-  - "[ ] Aprovação do dono registrada"
+## Input
 
-duracao_esperada: "1-3 horas dependendo da complexidade do processo"
+- **Nome do Processo** (string)
+  - Description: O que está sendo mapeado.
+- **Dono do Processo** (string)
+  - Description: Pessoa que manterá o POP atualizado.
+
+## Output
+
+- **Documento POP** (markdown)
+  - Description: Guia passo a passo com versão MAJOR.MINOR.PATCH.
+
+## Action Items
+
+### Step 1: Identificar o Gatilho
+
+Definir exatamente o que inicia o processo (ex: um ticket no ClickUp, uma data específica).
+
+### Step 2: Mapear os Insumos
+
+Listar todas as ferramentas, acessos e dados necessários para iniciar a execução.
+
+### Step 3: Desenhar o Passo a Passo
+
+Escrever cada etapa de forma atômica, usando verbos de ação e evitando ambiguidades.
+
+### Step 4: Definir Árvores de Decisão
+
+Mapear o que fazer quando o caminho feliz falha (ex: "Se der erro X, então faça Y").
+
+### Step 5: Estabelecer Critérios de Saída
+
+Definir como o executor sabe que a tarefa foi concluída com sucesso.
+
+### Step 6: Testar e Aprovar
+
+Pedir para alguém que não conhece o processo executar o POP e validar sua clareza.
+
+## Acceptance Criteria
+
+- [ ] **AC-1:** Uma pessoa neutra consegue executar o processo completo sem pedir ajuda externa.
+- [ ] **AC-2:** O POP contém o tempo estimado de execução por etapa.
+- [ ] **AC-3:** O documento segue o versionamento semântico (MAJOR para mudanças de fluxo).
+
+## Validation Checklist (HO-TP-001)
+
+### Mandatory Fields Check
+
+- [ ] `task_name` follows "Verb + Object" format
+- [ ] `status` is one of: pending | in_progress | completed
+- [ ] `responsible_executor` is clearly specified
+- [ ] `execution_type` is one of: Human | Agent | Hybrid | Worker
+- [ ] `input` array has at least 1 item
+- [ ] `output` array has at least 1 item
+- [ ] `action_items` has clear, actionable steps
+- [ ] `acceptance_criteria` has measurable criteria
+
+---
+
+_Task Version: 1.0.0_
+_Pattern: HO-TP-001 (Task Anatomy Standard)_
+_Last Updated: 2026-03-12_
+_Compliant: Yes_

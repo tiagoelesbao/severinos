@@ -1,113 +1,102 @@
-task: kaushikBiSprint()
-id: kaushik-bi-sprint
-agent: "@kaushik"
-responsavel: "@kaushik"
-responsavel_type: agent
-versao: 1.0.0
-atomic_layer: Organism
+# Sprint de Business Intelligence @kaushik
 
-descricao: |
-  Sprint de Business Intelligence de 2 semanas para analisar o estado
-  atual das métricas da Virals, identificar insights acionáveis e
-  definir a OMTM do próximo ciclo.
+**Task ID:** `kaushik-bi-sprint`
+**Pattern:** HO-TP-001 (Task Anatomy Standard)
+**Version:** 1.0.0
+**Last Updated:** 2026-03-12
+**Governance Protocol:** `squads/squad-creator/protocols/ai-first-governance.md`
 
-elicit: true
+## AI-First Governance Gate
 
-entrada:
-  - campo: periodo_analise
-    tipo: string
-    exemplo: "Jan-Mar 2026"
-    obrigatorio: true
-  
-  - campo: area_foco
-    tipo: string
-    opcoes: ["empresa", "marketing", "vendas", "produto", "ops"]
-    obrigatorio: false
-    default: "empresa"
-  
-  - campo: omtm_ciclo_anterior
-    tipo: string
-    descricao: "OMTM do ciclo anterior para comparação"
-    obrigatorio: false
+- [ ] Applied `squads/squad-creator/protocols/ai-first-governance.md`
+- [ ] Mapped `Existing -> Gap -> Decision`
+- [ ] Validated canonical sources (Avinash Kaushik Analytics Framework)
+- [ ] Documented contradictions and unresolved items
 
-saida:
-  - campo: relatorio_bi
-    tipo: document
-    formato: "BI Report Template"
-    destino: ClickUp > OPS > BI & Métricas
-    persistido: true
-  
-  - campo: omtm_proximo_ciclo
-    tipo: string
-    descricao: "OMTM definida para o próximo ciclo"
-    persistido: true
-  
-  - campo: recomendacoes_acionaveis
-    tipo: array
-    descricao: "Mínimo 3 recomendações com dono e prazo"
-    persistido: true
+## Task Anatomy
 
-Checklist:
-  - "[ ] Coletar e organizar dados"
-  - "[ ] Analisar padrões e segmentações"
-  - "[ ] Gerar insights What/So What/Now What"
-  - "[ ] Definir OMTM do próximo ciclo"
-  - "[ ] Produzir relatório final"
+| Field | Value |
+|-------|-------|
+| **task_name** | Executar Sprint de BI |
+| **status** | `pending` |
+| **responsible_executor** | @kaushik |
+| **execution_type** | `Agent` |
+| **input** | ["Período de análise", "Área de foco", "Acessos às ferramentas de dados"] |
+| **output** | ["Relatório de Insights", "OMTM definida", "3 Recomendações Priorizadas"] |
+| **action_items** | 5 steps |
+| **acceptance_criteria** | 3 criteria |
 
-pre_conditions:
-  - "Acesso aos dados do período (Google Analytics, ClickUp, CRM, financeiro)"
-  - "Contexto do negócio no período (lançamentos, campanhas, mudanças)"
+## Executor Specification
 
-post_conditions:
-  - "Relatório de BI produzido com análise de todas as métricas nível 1 e 2"
-  - "OMTM do próximo ciclo definida e justificada"
-  - "Mínimo 3 recomendações acionáveis com dono e prazo"
-  - "Dashboard atualizado no ClickUp"
+| Attribute | Value |
+|-----------|-------|
+| **Type** | Agent |
+| **Pattern** | HO-EP-002 |
+| **Executor** | @kaushik |
+| **Rationale** | Requer análise estatística, segmentação de dados e capacidade de extrair "o porquê" por trás dos números. |
 
-acceptance_criteria:
-  - "Métricas apresentadas com contexto (Y/Y ou MoM comparativo)"
-  - "Distinção clara entre métricas de vaidade e métricas acionáveis"
-  - "OMTM tem critério de medição definido"
-  - "Recomendações são específicas (não genéricas)"
+## Overview
 
-processo:
-  step_1_coleta:
-    titulo: "Coleta e Organização de Dados"
-    acoes:
-      - "Extrair métricas nível 1 (empresa): MRR, CAC, LTV, Churn"
-      - "Extrair métricas nível 2 (produto): DAU/MAU, Onboarding, NPS"
-      - "Extrair métricas nível 3 (marketing/vendas): CPL, conversão, ROAS"
-      - "Organizar em planilha com comparativo período anterior"
-  
-  step_2_analise:
-    titulo: "Análise e Identificação de Padrões"
-    acoes:
-      - "Identificar tendências (subindo, caindo, estável)"
-      - "Segmentar anomalias (o que explica variações inesperadas?)"
-      - "Correlacionar: qual ação causou qual resultado?"
-      - "Separar vaidade de ação"
-  
-  step_3_insights:
-    titulo: "Geração de Insights"
-    acoes:
-      - "Para cada insight: O quê? Por quê? E daí? (what, so what, now what)"
-      - "Priorizar insights por impacto potencial"
-      - "Formatar como recomendações acionáveis com dono e prazo"
-  
-  step_4_omtm:
-    titulo: "Definição da OMTM"
-    acoes:
-      - "Identificar o maior limitante do crescimento atual"
-      - "Definir a métrica que, se melhorar, move mais o negócio"
-      - "Garantir que a OMTM é mensurável semanalmente"
-      - "Definir meta para a OMTM no próximo ciclo"
-  
-  step_5_relatorio:
-    titulo: "Produção do Relatório"
-    acoes:
-      - "Usar BI Report Template"
-      - "Dashboard visual no ClickUp"
-      - "Apresentação executiva (máx. 1 página de insights)"
-      - "Anexar dados brutos para referência"
+Sprint de 2 semanas focada em transformar dados brutos em inteligência competitiva, identificando falhas de funil e definindo a métrica única que guiará o próximo ciclo de crescimento.
 
-duracao_esperada: "Semana 1: coleta e análise. Semana 2: insights e relatório."
+## Input
+
+- **Período de Análise** (string)
+  - Description: Ex: "Últimos 90 dias" ou "Q1 2026".
+- **Ferramentas** (array)
+  - Description: GA4, ClickUp, CRM, Planilhas Financeiras.
+
+## Output
+
+- **Relatório de BI** (markdown)
+  - Description: Documento com análise What/So What/Now What.
+- **OMTM** (string)
+  - Description: One Metric That Matters para o próximo ciclo.
+
+## Action Items
+
+### Step 1: Coletar e Limpar Dados
+
+Extrair métricas de todos os níveis (Empresa, Produto, Marketing, Vendas) e validar a integridade da coleta.
+
+### Step 2: Segmentar por Padrões
+
+Diferenciar a performance por dispositivo, canal, cohort de cliente ou região para evitar o erro das médias.
+
+### Step 3: Gerar Insights "E daí?"
+
+Para cada variação de dados, explicar o impacto no negócio e o que aconteceria se não agíssemos.
+
+### Step 4: Definir a OMTM do Ciclo
+
+Identificar qual métrica, se otimizada, removerá o maior limitador do crescimento atual.
+
+### Step 5: Produzir Plano de Ação
+
+Transformar os insights em pelo menos 3 tarefas concretas com dono e prazo.
+
+## Acceptance Criteria
+
+- [ ] **AC-1:** O relatório separa claramente métricas de vaidade de métricas acionáveis.
+- [ ] **AC-2:** A OMTM definida possui um método de medição semanal e uma meta clara.
+- [ ] **AC-3:** Cada recomendação é acompanhada por uma projeção de impacto financeiro ou operacional.
+
+## Validation Checklist (HO-TP-001)
+
+### Mandatory Fields Check
+
+- [ ] `task_name` follows "Verb + Object" format
+- [ ] `status` is one of: pending | in_progress | completed
+- [ ] `responsible_executor` is clearly specified
+- [ ] `execution_type` is one of: Human | Agent | Hybrid | Worker
+- [ ] `input` array has at least 1 item
+- [ ] `output` array has at least 1 item
+- [ ] `action_items` has clear, actionable steps
+- [ ] `acceptance_criteria` has measurable criteria
+
+---
+
+_Task Version: 1.0.0_
+_Pattern: HO-TP-001 (Task Anatomy Standard)_
+_Last Updated: 2026-03-12_
+_Compliant: Yes_

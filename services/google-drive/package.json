@@ -1,0 +1,13 @@
+{
+  "name": "@virals/service-google-drive",
+  "version": "1.0.0",
+  "description": "Google Drive integration for Virals Squad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "googleapis": "^126.0.0",
+    "dotenv": "^16.3.1"
+  }
+}

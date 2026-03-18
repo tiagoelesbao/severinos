@@ -1,0 +1,19 @@
+name: Internal Project Pipeline
+description: Fluxo completo de criação de novo projeto interno, da análise de briefing à criação de marcos.
+
+steps:
+  - id: analysis
+    agent: singer-proj
+    task: singer-proj-briefing-intake.md
+
+  - id: council
+    agents: [kaushik, dalio]
+    task: project-intelligence-council.md
+    depends_on: analysis
+
+  - id: milestone_creation
+    agent: sutherland-proj
+    task: sutherland-proj-criar-marcos.md
+    depends_on: council
+    inputs:
+      - term_link: status.google_doc_url

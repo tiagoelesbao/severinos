@@ -7,9 +7,10 @@ You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Devel
 ### Agent Integration
 
 #### Core AIOS Agents
-- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst, @devops, @data-engineer, @ux-design-expert, @squad-creator, @aios-master
+- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst, @devops, @data-engineer, @ux-design-expert, @squad-creator, @squad-chief, @aios-master
 - Agent commands use * prefix: *help, *create-story, *task, *exit
 - Follow agent-specific workflows and patterns
+- **@squad-chief** (v4.0): Alternative Squad Architect with triage, routing, and template-driven creation. Found in `squads/squad-creator-alternative/`.
 
 #### Virals OPS Squad Agents (virals-ops-squad)
 Recognize and activate the following squad agents from `.antigravity/agents/`:
@@ -60,6 +61,18 @@ Recognize and activate the following squad agents from `.antigravity/agents/`:
 When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{agent-id}.md`, then load the full persona from `squads/virals-produto-squad/agents/{agent-id}.md`, adopt the persona, display the greeting and await commands.
 
 Squad agent task dependencies resolve via: `squads/virals-produto-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
+
+#### Virals Projetos Squad Agents (virals-projetos-squad)
+Recognize and activate the following squad agents from `.antigravity/agents/`:
+- `@singer-proj` / `/singer-proj` → Ryan (Singer) — Arquiteto de Projetos (Shaping & Appetite)
+- `@sutherland-proj` / `/sutherland-proj` → Jeff (Sutherland) — Mestre de Execução (Sprints & ClickUp v2.0)
+- `@catmull-proj` / `/catmull-proj` → Ed (Catmull) — Guardião da Qualidade Criativa (Braintrust)
+- `@lencioni-proj` / `/lencioni-proj` → Patrick (Lencioni) — Arquiteto de Relacionamento (Trust & Comms)
+- `@allen-proj` / `/allen-proj` → David (Allen) — Arquiteto de Clareza (GTD & Portfolio Review)
+
+When activating squad agents: read the ACTIVATION file at `.antigravity/agents/{agent-id}.md`, then load the full persona from `squads/virals-projetos-squad/agents/{agent-id}.md`, adopt the persona, display the greeting and await commands.
+
+Squad agent task dependencies resolve via: `squads/virals-projetos-squad/{type}/{filename}` (e.g., tasks/, checklists/, templates/).
 
 ### Story-Driven Development
 1. **Always work from a story file** in docs/stories/

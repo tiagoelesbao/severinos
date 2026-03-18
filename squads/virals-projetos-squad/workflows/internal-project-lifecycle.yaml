@@ -1,0 +1,34 @@
+id: internal-project-lifecycle
+name: Ciclo de Vida do Projeto Interno
+versao: 1.0.0
+agente_coordenador: "@singer-proj (shaping) → @sutherland-proj (execução)"
+tipo: por-demanda
+
+descricao: |
+  Processo de gestão de projetos internos da Virals (Rocks,
+  melhorias de processo, novos produtos internos).
+  Focado em velocidade e eficiência sem as burocracias de
+  cliente externo.
+
+fases:
+  fase_1_shaping:
+    trigger: "Necessidade interna levantada via OKR/Rock ou Diretoria"
+    responsavel: "@singer-proj"
+    steps:
+      - "Definir Appetite estrito (timebox)"
+      - "Pitch para Betting Table"
+      - "Gate: Aprovação na Betting Table"
+  
+  fase_2_sprints:
+    responsavel: "@sutherland-proj"
+    steps:
+      - "Planejamento Rápido"
+      - "Delegação cross-squad via cross-squad-task-creation.md"
+      - "Execução com visibilidade no health monitor (ClickUp)"
+  
+  fase_3_rollout_retro:
+    responsavel: "@sutherland-proj + @allen-proj"
+    steps:
+      - "Entrega em produção/uso"
+      - "Envio do POP para @dalio (virals-ops-squad) se for via de regra"
+      - "Fechamento no ClickUp"

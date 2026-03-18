@@ -1,0 +1,28 @@
+id: onboarding-lifecycle
+name: Ciclo de Vida do Onboarding
+versao: 1.0.0
+agente_coordenador: "@wes-bush-produto"
+tipo: contínuo
+
+descricao: |
+  Gerenciamento da jornada do cliente nos primeiros 30 dias para garantir 
+  a ativação e o primeiro valor (Aha Moment).
+
+fases:
+  pre_acesso:
+    acao: "Calibrar expectativa (E-mail D0)"
+    responsavel: "@lincoln-produto"
+  
+  ativacao_inicial:
+    acao: "Quick Win nas primeiras 24h"
+    responsavel: "@wes-bush-produto"
+  
+  aha_moment:
+    acao: "Alcançar primeiro resultado em 7 dias"
+    responsavel: "@wes-bush-produto"
+    check: "NPS D7"
+  
+  retencao_inicial:
+    acao: "Construção de hábito (D8-D30)"
+    responsavel: "@eyal-produto"
+    check: "NPS D30"

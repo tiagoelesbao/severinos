@@ -1,0 +1,13 @@
+{
+  "name": "clickup-service",
+  "version": "1.0.0",
+  "description": "ClickUp Integration Service for Virals AIOS Squads",
+  "main": "index.js",
+  "scripts": {
+    "test": "node __tests__/test-superagent.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.5",
+    "dotenv": "^16.4.1"
+  }
+}

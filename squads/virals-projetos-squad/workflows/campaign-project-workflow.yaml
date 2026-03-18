@@ -1,0 +1,47 @@
+id: campaign-project-workflow
+name: Workflow de Projeto de Campanha (Interno ou Externo)
+versao: 1.0.0
+agente_coordenador: "@catmull-proj (brief) + @sutherland-proj (execução)"
+tipo: por-demanda
+
+descricao: |
+  Orquestra a criação de campanhas de marketing —
+  desde o briefing criativo até a campanha ao ar.
+  Conecta virals-projetos-squad com virals-marketing-squad.
+
+fases:
+  fase_1_brief:
+    responsavel: "@catmull-proj"
+    steps:
+      - "Receber objetivo da campanha do squad requisitante"
+      - "Criar creative brief completo (template: creative-brief-template.md)"
+      - "Gate 1: brief aprovado por PM e cliente/stakeholder"
+    output: "Creative brief aprovado → enviado para virals-marketing-squad"
+  
+  fase_2_producao_criativa:
+    responsavel: "@mrbeast-mk + @ladeira (virals-marketing-squad)"
+    monitora: "@catmull-proj"
+    steps:
+      - "Criação de copy (@ladeira)"
+      - "Criação de criativos (@mrbeast-mk)"
+      - "Gate 2 (@catmull-proj): revisão estrutural R1"
+      - "Ajustes baseados no feedback"
+      - "Gate 3 (@catmull-proj): aprovação de produção R2"
+    prazo_referencia: "5-10 dias úteis dependendo do volume"
+  
+  fase_3_configuracao:
+    responsavel: "@perry-marshall ou @ezra-firestone (virals-marketing-squad)"
+    monitora: "@sutherland-proj"
+    steps:
+      - "Configuração da campanha na plataforma"
+      - "Tracking e UTMs configurados"
+      - "Gate 4 (checklist técnica): dr-campaign-launch-checklist ou brand-campaign-launch-checklist"
+    
+  fase_4_lancamento:
+    acao: "Campanha vai ao ar"
+    monitoramento: "@perry-marshall ou @ezra-firestone"
+    relatorio: "@sutherland-proj atualiza status no projeto"
+  
+  fase_5_resultado:
+    acao: "@lencioni-proj envia resultado para cliente (se externo)"
+    aprendizado: "@allen-proj documenta no projeto para histórico"

@@ -1,0 +1,44 @@
+# virals-marketing-squad/workflows/weekly-marketing-review.yaml
+id: weekly-marketing-review
+name: Review Semanal de Marketing
+versao: 1.0.0
+agente_coordenador: "@garyvee-mk (facilitador)"
+tipo: recorrente
+cadencia: "Toda segunda-feira"
+duracao: "60 minutos"
+
+participantes:
+  - "@mrbeast-mk (conteúdo)"
+  - "@garyvee-mk (distribuição/brand)"
+  - "@perry-marshall (DR)"
+  - "@ezra-firestone (brand/funil)"
+  - "@fishkin-mk (SEO/orgânico)"
+  - "Responsável humano de marketing"
+
+agenda:
+  0_10min:
+    titulo: "Headlines da semana"
+    owner: "Cada agent: 1 resultado positivo + 1 aprendizado"
+  
+  10_25min:
+    titulo: "Review de métricas (BI rápido)"
+    owner: "@perry-marshall + @ezra-firestone"
+    conteudo:
+      - "ROAS DR vs. meta"
+      - "Estado do funil brand (por temperatura)"
+      - "Conteúdo da semana: melhor performer"
+  
+  25_45min:
+    titulo: "Decisões e prioridades"
+    conteudo:
+      - "Aprovações de campanha necessárias"
+      - "Briefings de criativo a lançar"
+      - "Ajustes de budget se necessário"
+  
+  45_60min:
+    titulo: "Próxima semana"
+    conteudo:
+      - "Conteúdo planejado (@mrbeast, @garyvee)"
+      - "Campanhas a testar (@perry, @ezra)"
+      - "SEO e orgânico (@fishkin)"
+      - "Dependências do virals-ops-squad (lançamentos, rocks)"

@@ -1,0 +1,19 @@
+id: churn-intervention-cycle
+name: Ciclo de Intervenção de Churn
+versao: 1.0.0
+agente_coordenador: "@lincoln-produto"
+tipo: contínuo + sob-demanda
+
+descricao: |
+  Protocolo proativo para identificar e resgatar clientes em risco de 
+  cancelamento baseado em health score.
+
+gatilhos:
+  amarelo: "Health Score < 70 (Check-in proativo < 48h)"
+  vermelho: "Health Score < 40 (Intervenção imediata < 24h)"
+  inatividade: "Inatividade > 7 dias (Trigger automático @eyal)"
+
+protocolo:
+  - Diagnóstico do motivo (Produto vs Expectativa)
+  - Contato empático CS (Script gerado por @lincoln)
+  - Plano de ação personalizado de 2 semanas

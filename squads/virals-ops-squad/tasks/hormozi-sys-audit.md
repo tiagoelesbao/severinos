@@ -1,63 +1,102 @@
-task: hormoziSysAudit()
-id: hormozi-sys-audit
-agent: "@hormozi-sys"
-responsavel: "@hormozi-sys"
-responsavel_type: agent
-versao: 1.0.0
-atomic_layer: Organism
+# Auditoria de Alavancagem Operacional @hormozi-sys
 
-descricao: |
-  Auditoria sistêmica de alavancagem operacional da Virals.
-  Identifica onde a empresa está perdendo dinheiro e tempo por falta
-  de sistemas, processos manuais e gargalos de dono/gestor.
+**Task ID:** `hormozi-sys-audit`
+**Pattern:** HO-TP-001 (Task Anatomy Standard)
+**Version:** 1.0.0
+**Last Updated:** 2026-03-12
+**Governance Protocol:** `squads/squad-creator/protocols/ai-first-governance.md`
 
-elicit: true
+## AI-First Governance Gate
 
-entrada:
-  - campo: area_foco
-    tipo: string
-    descricao: "Área de análise (ex: vendas, onboarding, marketing)"
-    obrigatorio: true
-  
-  - campo: horas_semanais_fundador
-    tipo: number
-    descricao: "Quantas horas o fundador/gestor dedica a esta área atualmente?"
-    obrigatorio: false
+- [ ] Applied `squads/squad-creator/protocols/ai-first-governance.md`
+- [ ] Mapped `Existing -> Gap -> Decision`
+- [ ] Validated canonical sources (Alex Hormozi Operational Framework)
+- [ ] Documented contradictions and unresolved items
 
-saida:
-  - campo: blueprint_escala
-    tipo: document
-    destino: ClickUp > OPS > Saúde Operacional
-    persistido: true
-  
-  - campo: multiplicador_alavancagem
-    tipo: number
-    descricao: "Quanto a área melhora se automatizada/sistematizada"
-    persistido: true
+## Task Anatomy
 
-Checklist:
-  - "[ ] Mapear fluxos de trabalho manuais"
-  - "[ ] Identificar gargalos (onde o humano é o único caminho)"
-  - "[ ] Calcular ROI operacional (horas x custo/hora)"
-  - "[ ] Priorizar automações"
-  - "[ ] Definir o stack de alavancagem (código, capital, conteúdo, colaboração)"
+| Field | Value |
+|-------|-------|
+| **task_name** | Realizar Auditoria de Alavancagem |
+| **status** | `pending` |
+| **responsible_executor** | @hormozi-sys |
+| **execution_type** | `Agent` |
+| **input** | ["Área de foco", "Tempo investido pelo gestor", "Lista de tarefas recorrentes"] |
+| **output** | ["Blueprint de Escala", "Mapa de Gargalos", "ROI Operacional"] |
+| **action_items** | 5 steps |
+| **acceptance_criteria** | 3 criteria |
 
-acceptance_criteria:
-  - "O plano deve reduzir o tempo de envolvimento humano direto em pelo menos 20%"
-  - "Deve propor uma automação ou sistema de baixo custo e alto impacto"
+## Executor Specification
 
-processo:
-  step_1_mapeamento:
-    titulo: "Mapeamento da Ineficiência"
-    acoes:
-      - "Listar todas as tarefas recorrentes da área"
-      - "Cronometrar o tempo médio de cada execução"
-      - "Identificar a frequência semanal"
-  
-  step_2_classificacao:
-    titulo: "Eliminar / Simplificar / Automatizar / Delegar"
-    acoes:
-      - "Eliminar: O que não deveria estar sendo feito?"
-      - "Simplificar: Como reduzir o esforço em 50%?"
-      - "Automatizar: O que o software pode fazer 24/7?"
-      - "Delegar: O que pode ser passado para um colaborador com POP?"
+| Attribute | Value |
+|-----------|-------|
+| **Type** | Agent |
+| **Pattern** | HO-EP-002 |
+| **Executor** | @hormozi-sys |
+| **Rationale** | Requer análise quantitativa de tempo/custo e visão sistêmica para identificar pontos de maior alavancagem. |
+
+## Overview
+
+Identifica ineficiências operacionais onde o humano (especialmente o gestor) é o único caminho, propondo a transição para sistemas de código, conteúdo ou colaboração escalável.
+
+## Input
+
+- **Área de Foco** (string)
+  - Description: Unidade de negócio ou processo específico.
+- **Lista de Tarefas** (array)
+  - Description: O que é feito manualmente hoje.
+
+## Output
+
+- **Blueprint de Escala** (markdown)
+  - Description: Plano de ação para remover o gestor do fluxo crítico.
+- **ROI Operacional** (number)
+  - Description: Valor economizado projetado.
+
+## Action Items
+
+### Step 1: Mapear o Gargalo
+
+Identificar em quais tarefas o fluxo para e espera por uma decisão ou ação manual do gestor.
+
+### Step 2: Calcular o Custo da Ineficiência
+
+Multiplicar as horas gastas pelo valor/hora do gestor para visualizar o desperdício financeiro.
+
+### Step 3: Aplicar Filtro E.S.A.D.
+
+Para cada tarefa: Eliminar (se inútil), Simplificar (se complexa), Automatizar (via software) ou Delegar (via POP).
+
+### Step 4: Definir o Stack de Alavancagem
+
+Escolher qual multiplicador será usado: Código (automação), Conteúdo (treinamento) ou Colaboração (equipe).
+
+### Step 5: Priorizar Implementação
+
+Criar um cronograma de automação baseado no maior ROI com o menor esforço de desenvolvimento.
+
+## Acceptance Criteria
+
+- [ ] **AC-1:** O blueprint propõe a redução de pelo menos 20% do tempo do gestor na área auditada.
+- [ ] **AC-2:** Pelo menos uma automação de "baixo custo/alto impacto" é detalhada com ferramentas.
+- [ ] **AC-3:** O plano identifica claramente a métrica de "Revenue per Employee" projetada.
+
+## Validation Checklist (HO-TP-001)
+
+### Mandatory Fields Check
+
+- [ ] `task_name` follows "Verb + Object" format
+- [ ] `status` is one of: pending | in_progress | completed
+- [ ] `responsible_executor` is clearly specified
+- [ ] `execution_type` is one of: Human | Agent | Hybrid | Worker
+- [ ] `input` array has at least 1 item
+- [ ] `output` array has at least 1 item
+- [ ] `action_items` has clear, actionable steps
+- [ ] `acceptance_criteria` has measurable criteria
+
+---
+
+_Task Version: 1.0.0_
+_Pattern: HO-TP-001 (Task Anatomy Standard)_
+_Last Updated: 2026-03-12_
+_Compliant: Yes_

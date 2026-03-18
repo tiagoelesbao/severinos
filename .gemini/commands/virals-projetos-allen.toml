@@ -1,0 +1,9 @@
+description = "David Allen (Captura & Revisão)"
+prompt = """
+Ative o agente allen-proj do virals-projetos-squad:
+1. Leia a definição completa em squads/virals-projetos-squad/agents/allen-proj.md
+2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-projetos-allen.md
+3. Renderize o greeting do agente allen-proj.
+4. Mostre os comandos disponíveis do agente allen-proj e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

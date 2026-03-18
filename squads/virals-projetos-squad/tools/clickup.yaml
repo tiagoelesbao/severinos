@@ -1,0 +1,14 @@
+name: clickup
+description: Interage com o ClickUp para operações avançadas (hierarchy, sprints, tasks, etc), provendo integração para o Squad de Projetos.
+type: action
+executor: node
+command: node ../../../services/clickup/index.js
+parameters:
+  - name: action
+    type: string
+    required: true
+    description: A ação a ser realizada (ex. create_task, get_hierarchy)
+  - name: payload
+    type: string
+    required: false
+    description: "Payload em JSON para a ação"

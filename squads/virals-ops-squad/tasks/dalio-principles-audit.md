@@ -1,71 +1,100 @@
-task: dalioPrinciplesAudit()
-id: dalio-principles-audit
-agent: "@dalio"
-responsavel: "@dalio"
-responsavel_type: agent
-versao: 1.0.0
-atomic_layer: Organism
+# Auditoria de Princípios Operacionais @dalio
 
-descricao: |
-  Auditoria de princípios operacionais da Virals. Verifica se as decisões
-  e processos atuais estão alinhados com a cultura de transparência radical
-  e meritocracia de ideias de Ray Dalio.
+**Task ID:** `dalio-principles-audit`
+**Pattern:** HO-TP-001 (Task Anatomy Standard)
+**Version:** 1.0.0
+**Last Updated:** 2026-03-12
+**Governance Protocol:** `squads/squad-creator/protocols/ai-first-governance.md`
 
-elicit: true
+## AI-First Governance Gate
 
-entrada:
-  - campo: area_auditoria
-    tipo: string
-    descricao: "Área específica para auditar (ex: contratação, feedback, produto)"
-    obrigatorio: true
-  
-  - campo: incidentes_recentes
-    tipo: array
-    descricao: "Lista de problemas ou decisões recentes para análise"
-    obrigatorio: false
+- [ ] Applied `squads/squad-creator/protocols/ai-first-governance.md`
+- [ ] Mapped `Existing -> Gap -> Decision`
+- [ ] Validated canonical sources (Ray Dalio Principles)
+- [ ] Documented contradictions and unresolved items
 
-saida:
-  - campo: relatório_auditoria
-    tipo: document
-    destino: ClickUp > OPS > Saúde Operacional
-    persistido: true
+## Task Anatomy
 
-Checklist:
-  - "[ ] Identificar decisões chave do período"
-  - "[ ] Confrontar decisões com os princípios documentados"
-  - "[ ] Identificar desvios (onde a realidade foi ignorada)"
-  - "[ ] Propor novos princípios ou ajustes nos existentes"
-  - "[ ] Documentar aprendizados no Post-Mortem"
+| Field | Value |
+|-------|-------|
+| **task_name** | Realizar Auditoria de Princípios |
+| **status** | `pending` |
+| **responsible_executor** | @dalio |
+| **execution_type** | `Agent` |
+| **input** | ["Área da auditoria", "Incidentes recentes", "Princípios documentados"] |
+| **output** | ["Relatório de Alinhamento Cultural", "Ações Corretivas", "Ajustes de Princípios"] |
+| **action_items** | 5 steps |
+| **acceptance_criteria** | 3 criteria |
 
-pre_conditions:
-  - "Princípios da Virals documentados e acessíveis"
-  - "Dados reais sobre os incidentes (sem filtros)"
+## Executor Specification
 
-post_conditions:
-  - "Relatório de auditoria gerado com nota de alinhamento cultural"
-  - "Mínimo 2 ajustes de princípios propostos"
+| Attribute | Value |
+|-----------|-------|
+| **Type** | Agent |
+| **Pattern** | HO-EP-002 |
+| **Executor** | @dalio |
+| **Rationale** | Requer análise imparcial, confronto de realidade e aplicação de frameworks de causa-efeito para diagnósticos culturais. |
 
-acceptance_criteria:
-  - "A análise não deve ser complacente; deve buscar a 'verdade brutal'"
-  - "Cada falha identificada deve ter uma causa raiz sistêmica mapeada"
+## Overview
 
-processo:
-  step_1_coleta:
-    titulo: "Coleta de Realidade"
-    acoes:
-      - "Ouvir as partes envolvidas no incidente"
-      - "Coletar dados brutos (logs, métricas, mensagens)"
-      - "Remover opiniões subjetivas da análise inicial"
-  
-  step_2_confronto:
-    titulo: "Confronto com Princípios"
-    acoes:
-      - "Qual princípio deveria ter governado esta decisão?"
-      - "O princípio foi seguido? Se não, por quê?"
-      - "O resultado foi ruim por causa do princípio ou da execução?"
-  
-  step_3_sistematizacao:
-    titulo: "Sistematização da Dor"
-    acoes:
-      - "Dor + Reflexão = Progresso"
-      - "Transformar a falha em um padrão documentado para evitar repetição"
+Auditoria sistemática para verificar se as decisões e processos da Virals estão alinhados com a cultura de transparência radical e meritocracia de ideias, identificando onde a realidade foi ignorada.
+
+## Input
+
+- **Área da Auditoria** (string)
+  - Description: Ex: Contratação, Feedback, Lançamentos.
+- **Incidentes Recentes** (array)
+  - Description: Problemas ou decisões críticas do último período.
+
+## Output
+
+- **Relatório de Auditoria** (markdown)
+  - Description: Diagnóstico honesto do estado atual da cultura operacional.
+
+## Action Items
+
+### Step 1: Coleta de Realidade
+
+Coletar dados brutos, logs e depoimentos sobre os incidentes sem filtros ou opiniões subjetivas.
+
+### Step 2: Confronto com Princípios
+
+Identificar qual princípio deveria ter governado cada decisão e verificar se ele foi seguido ou ignorado.
+
+### Step 3: Identificação de Causa-Raiz
+
+Determinar se a falha foi de execução individual ou se o sistema/princípio está quebrado.
+
+### Step 4: Reflexão Sistemática (Post-Mortem)
+
+Aplicar a fórmula "Dor + Reflexão = Progresso" para extrair aprendizados de cada erro.
+
+### Step 5: Propor Ajustes
+
+Criar ou revisar princípios para evitar que o mesmo erro ocorra pela segunda vez.
+
+## Acceptance Criteria
+
+- [ ] **AC-1:** O relatório identifica pelo menos uma "verdade brutal" que não estava sendo dita.
+- [ ] **AC-2:** Cada falha mapeada possui uma ação corretiva sistêmica vinculada.
+- [ ] **AC-3:** O relatório contém uma nota de 1-10 para o nível de transparência radical da área.
+
+## Validation Checklist (HO-TP-001)
+
+### Mandatory Fields Check
+
+- [ ] `task_name` follows "Verb + Object" format
+- [ ] `status` is one of: pending | in_progress | completed
+- [ ] `responsible_executor` is clearly specified
+- [ ] `execution_type` is one of: Human | Agent | Hybrid | Worker
+- [ ] `input` array has at least 1 item
+- [ ] `output` array has at least 1 item
+- [ ] `action_items` has clear, actionable steps
+- [ ] `acceptance_criteria` has measurable criteria
+
+---
+
+_Task Version: 1.0.0_
+_Pattern: HO-TP-001 (Task Anatomy Standard)_
+_Last Updated: 2026-03-12_
+_Compliant: Yes_

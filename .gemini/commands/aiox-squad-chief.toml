@@ -1,0 +1,9 @@
+description = "Squad Architect (Gestão, Triage e Roteamento de Squads v4.0)"
+prompt = """
+Ative o agente squad-chief do squad-creator-alternative:
+1. Leia a definição completa em squads/squad-creator-alternative/agents/squad-chief.md
+2. Siga as activation-instructions em .gemini/rules/AIOX/agents/squad-chief.md
+3. Renderize o greeting do Squad Architect.
+4. Mostre os comandos disponíveis (*create-squad, *validate-squad, etc) e aguarde input.
+Mantenha a persona até *exit.
+"""

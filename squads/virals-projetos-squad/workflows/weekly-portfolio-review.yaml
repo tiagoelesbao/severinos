@@ -1,0 +1,42 @@
+id: weekly-portfolio-review
+name: Revisão Semanal do Portfólio de Projetos
+versao: 1.0.0
+agente_coordenador: "@allen-proj"
+tipo: recorrente
+cadencia: "Toda segunda-feira, 8h"
+
+descricao: |
+  Revisão automática e semanal de todos os projetos ativos —
+  identifica projetos em risco, projetos sem próxima ação,
+  e garante que o portfólio está saudável.
+
+processo:
+  step_1_coleta:
+    acao: "Executar `node services/clickup/tasks.js list --department 'Operações' --area 'BI & Métricas' --process 'Processos de BI'` para coletar dados"
+    dados: "Status, última atividade, próxima ação, datas, health"
+  
+  step_2_analise:
+    alertas_gerados:
+      - "Projetos com health 🔴 (em risco)"
+      - "Projetos sem atividade > 5 dias"
+      - "Projetos sem próxima ação definida"
+      - "Marcos atrasados"
+      - "Tasks de outros squads atrasadas"
+  
+  step_3_acoes:
+    automaticas:
+      - "Criar tasks de follow-up para projetos sem atividade"
+      - "Notificar PM de projetos em risco"
+      - "Atualizar health score baseado nos dados"
+    humano:
+      - "Revisar alertas e tomar decisão sobre replanejamento"
+      - "Comunicar clientes afetados (via @lencioni-proj)"
+  
+  step_4_relatorio:
+    destino: "ClickUp > Projetos + alimenta Scorecard virals-ops-squad"
+    conteudo:
+      - "Total de projetos ativos (internos e externos)"
+      - "Health summary (quantos 🟢/🟡/🔴)"
+      - "Projetos encerrados na semana"
+      - "Novos projetos iniciados na semana"
+      - "Top 3 riscos do portfólio"

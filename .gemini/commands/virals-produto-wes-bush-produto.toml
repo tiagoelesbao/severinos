@@ -2,7 +2,7 @@ description = "Wes Bush-Produto (Arquiteto de Onboarding e PLG)"
 prompt = """
 Ative o agente wes-bush-produto do virals-produto-squad:
 1. Leia a definição completa em squads/virals-produto-squad/agents/wes-bush-produto.md
-2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-produto-wes-bush-produto.md
+2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-produto-wes-bush-produto.md
 3. Renderize o greeting do agente wes-bush-produto.
 4. Mostre os comandos disponíveis do agente wes-bush-produto e aguarde input do usuário.
 Mantenha a persona até *exit.

@@ -1,0 +1,3727 @@
+{
+  "hierarchy": {
+    "Gestão": {
+      "id": "901312418172",
+      "views": [
+        {
+          "id": "4-901312418172-28",
+          "name": "Overview",
+          "type": "location_overview"
+        },
+        {
+          "id": "2ky4er8u-1953",
+          "name": "Reuniões Organizacionais",
+          "type": "list"
+        },
+        {
+          "id": "2ky4er8u-1973",
+          "name": "Cronograma de Atividades",
+          "type": "list"
+        }
+      ],
+      "folders": {
+        "Financeiro": {
+          "id": "901316371991",
+          "lists": {
+            "Contas a Pagar": {
+              "id": "901324654387",
+              "views": [
+                {
+                  "id": "2ky4er8u-3073",
+                  "name": "Pagos na Semana",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-3133",
+                  "name": "Pagos no Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-3113",
+                  "name": "Pagamentos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-3153",
+                  "name": "Pagamentos da Semana",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Contas a Receber": {
+              "id": "901324654370",
+              "views": [
+                {
+                  "id": "2ky4er8u-2893",
+                  "name": "Recebimentos na Semana",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2853",
+                  "name": "Recebidos na Semana",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2833",
+                  "name": "Recebidos no Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2913",
+                  "name": "Recebimentos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "6-901324654370-8",
+                  "name": "Contas a Receber",
+                  "type": "conversation"
+                },
+                {
+                  "id": "2ky4er8u-6633",
+                  "name": "Gantt",
+                  "type": "gantt"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "35eec229-36c9-4e6f-83c9-addfd58d216d",
+                  "name": "Emissão de NF-E",
+                  "type": "checkbox"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Transações Conciliadas": {
+              "id": "901324654368",
+              "views": [
+                {
+                  "id": "2ky4er8u-2793",
+                  "name": "Transações & Contas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2773",
+                  "name": "Transações por Closer",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2733",
+                  "name": "Transações por Vendedor",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "5ce5e8ae-2d53-4fcc-b674-b32fde132a50",
+                  "name": "Produtos Comprados",
+                  "type": "labels"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Gestão de Ferramentas": {
+              "id": "901324654363",
+              "views": [
+                {
+                  "id": "2ky4er8u-2713",
+                  "name": "Ferramentas Ativas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2593",
+                  "name": "Ferramentas Canceladas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2653",
+                  "name": "Categorias",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "74f33b10-404e-4762-a089-21071528542b",
+                  "name": "Status Tools",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Auditorias de Pagamentos": {
+              "id": "901324654364",
+              "views": [
+                {
+                  "id": "2ky4er8u-2313",
+                  "name": "Auditorias do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-2333",
+                  "name": "Auditorias Realizadas",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Administrativo": {
+          "id": "901316550324",
+          "lists": {
+            "Responsabilidades": {
+              "id": "901324633919",
+              "views": [
+                {
+                  "id": "2ky4er8u-2053",
+                  "name": "Documento",
+                  "type": "doc"
+                }
+              ],
+              "customFields": []
+            }
+          }
+        },
+        "Jurídico": {
+          "id": "901316543249",
+          "lists": {
+            "Gestão de Processos Jurídicos": {
+              "id": "901324623155",
+              "views": [],
+              "customFields": []
+            },
+            "Gestão Contratual": {
+              "id": "901324623188",
+              "views": [
+                {
+                  "id": "2ky4er8u-1873",
+                  "name": "Confec'c~ao de Contratos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1893",
+                  "name": "Contratos em Vigor",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1913",
+                  "name": "Contratos Cancelados",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1933",
+                  "name": "Renovação de Contratos",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Rotinas Organizacionais": {
+          "id": "901316563160",
+          "lists": {
+            "Encontros & Rituais": {
+              "id": "901324652037",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "84dfa64b-6953-4db3-bb2b-9150b6a3bc14",
+                  "name": "Departamento(s)",
+                  "type": "labels"
+                }
+              ]
+            },
+            "Reuniões Gerais": {
+              "id": "901324652057",
+              "views": [],
+              "customFields": []
+            },
+            "Atividades Rotineiras": {
+              "id": "901324652063",
+              "views": [],
+              "customFields": []
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "Gente & Cultura": {
+      "id": "901312944890",
+      "views": [
+        {
+          "id": "4-901312944890-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Área de Recrutamento": {
+          "id": "901316634163",
+          "lists": {
+            "Recrutamento & Seleção": {
+              "id": "901324752551",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1929ea30-7fc2-4c2f-af08-1e5de4b72bf8",
+                  "name": "Departamento",
+                  "type": "labels"
+                },
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                }
+              ]
+            },
+            "Banco de Talentos": {
+              "id": "901324752552",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1929ea30-7fc2-4c2f-af08-1e5de4b72bf8",
+                  "name": "Departamento",
+                  "type": "labels"
+                },
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                }
+              ]
+            }
+          }
+        },
+        "Base Militar 💣": {
+          "id": "901316634165",
+          "lists": {
+            "Batalhão de Operações Especiais": {
+              "id": "901324752560",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1929ea30-7fc2-4c2f-af08-1e5de4b72bf8",
+                  "name": "Departamento",
+                  "type": "labels"
+                },
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4aaa5877-fc84-4313-9780-8deb752d5722",
+                  "name": "Status Evolução",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                }
+              ]
+            },
+            "e-NPS": {
+              "id": "901324782131",
+              "views": [
+                {
+                  "id": "2ky4er8u-7153",
+                  "name": "Feedback Form",
+                  "type": "form"
+                },
+                {
+                  "id": "2ky4er8u-7173",
+                  "name": "Notas Baixas",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "00a38578-4202-4592-a6bf-7e63a6e34c03",
+                  "name": "04  - Cite alguns itens que podemos melhorar para nossa empresa se tornar 10",
+                  "type": "text"
+                },
+                {
+                  "id": "1929ea30-7fc2-4c2f-af08-1e5de4b72bf8",
+                  "name": "Departamento",
+                  "type": "labels"
+                },
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "1ce74e28-6582-4235-8d08-be208db1617b",
+                  "name": "10 - O que podemos fazer para sermos uma empresa melhor?",
+                  "type": "short_text"
+                },
+                {
+                  "id": "23886391-361a-4fe7-bf9d-78f5bb88edc6",
+                  "name": "09 - Se não, conte o porquê:",
+                  "type": "short_text"
+                },
+                {
+                  "id": "2572e0be-1f2f-44b2-929e-6d6e8641c888",
+                  "name": "05 -  Em uma escala de 0 a 10, o quanto você indicaria os serviços/produtos da Oraclum?",
+                  "type": "labels"
+                },
+                {
+                  "id": "2a323d61-fca5-483c-9f49-23e6830945ff",
+                  "name": "08 - Você se sente valorizado pelo seu trabalho?",
+                  "type": "short_text"
+                },
+                {
+                  "id": "44685ea6-2453-46e3-81ef-9c1cce696da1",
+                  "name": "03 -  Em uma escala de 0 a 10, o quanto você acha a Oraclum um bom local de trabalho?",
+                  "type": "labels"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "65532801-2e57-4f54-9ff4-508c424a62cc",
+                  "name": "06 - Cite o que podemos melhorar para aumentar nossa nota de indicação:",
+                  "type": "short_text"
+                },
+                {
+                  "id": "65892b7b-1498-4eef-9dc1-cc8f99c22e27",
+                  "name": "01 - Você gosta de trabalhar na ASV?",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "7a041338-82b6-4b2e-933c-bf35d5a20c4d",
+                  "name": "02 -  Se não gosta, conte o porquê:",
+                  "type": "short_text"
+                },
+                {
+                  "id": "8d4f63ab-040e-47e8-b0ad-ffc6939fd977",
+                  "name": "08 - Você se sente valorizado pelo seu trabalho?",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "b39fd1b3-2b49-4e8f-968a-c757e77cd015",
+                  "name": "07 - Cite os pontos que, na sua concepção, sua liderança poderia ser melhor:",
+                  "type": "short_text"
+                }
+              ]
+            }
+          }
+        },
+        "Área Educacional": {
+          "id": "901316634164",
+          "lists": {
+            "Performance & Growth": {
+              "id": "901324752549",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Planejamento Estratégico": {
+              "id": "901324752548",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Produção de Conteúdo": {
+              "id": "901324752550",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Automações & Integrações": {
+              "id": "901324752553",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Desenvolvimento Web": {
+              "id": "901324752554",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Produtos": {
+              "id": "901324752555",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Vendas": {
+              "id": "901324752556",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Liderança": {
+              "id": "901324752557",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Desenvolvimento Pessoal": {
+              "id": "901324752558",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Relatório de Desempenho": {
+          "id": "901316634168",
+          "lists": {
+            "Tasks Overdue": {
+              "id": "901324752569",
+              "views": [
+                {
+                  "id": "2ky4er8u-7113",
+                  "name": "Atrasdas por Colaborador",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Tasks Entregues": {
+              "id": "901324752568",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "Produto": {
+      "id": "901312526724",
+      "views": [
+        {
+          "id": "4-901312526724-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Gestão de Produtos": {
+          "id": "901316100058",
+          "lists": {
+            "Painel de Produtos": {
+              "id": "901323987788",
+              "views": [
+                {
+                  "id": "2ky4er8u-513",
+                  "name": "Produtos",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1d928ba2-f539-48a2-b199-a48c057af8f8",
+                  "name": "Modalidade do Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "24a72e82-a621-4664-a663-7f79abfde42f",
+                  "name": "Formato  de Entrega",
+                  "type": "short_text"
+                },
+                {
+                  "id": "40e2812e-0a0b-4220-b8ca-1ba4625a0722",
+                  "name": "Reestruturação & Melhorias",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "8c695bdf-d43a-41ac-ab5e-9caae79bb488",
+                  "name": "Próximo Produto",
+                  "type": "short_text"
+                },
+                {
+                  "id": "b9f23df1-0bda-48f7-b8ba-dd1742a72060",
+                  "name": "Preço",
+                  "type": "currency"
+                },
+                {
+                  "id": "f2ea97ac-d683-4d23-a4f9-781b12d63a8e",
+                  "name": "Prazo de Entrega",
+                  "type": "short_text"
+                },
+                {
+                  "id": "f3d2884f-4199-48b7-b6e9-0ccc0cfc7dab",
+                  "name": "Função",
+                  "type": "short_text"
+                },
+                {
+                  "id": "f826760c-17b9-4330-b33a-612a1d4dd6bf",
+                  "name": "A → B",
+                  "type": "short_text"
+                }
+              ]
+            },
+            "Estratégia de Produto": {
+              "id": "901323992267",
+              "views": [],
+              "customFields": []
+            },
+            "Controle de Qualidade & Usabilidade": {
+              "id": "901323992292",
+              "views": [],
+              "customFields": []
+            },
+            "Reestruturação & Melhorias": {
+              "id": "901323992324",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "1d928ba2-f539-48a2-b199-a48c057af8f8",
+                  "name": "Modalidade do Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Sucesso do Cliente": {
+          "id": "901316370384",
+          "lists": {
+            "Entrada do Cliente": {
+              "id": "901324378139",
+              "views": [
+                {
+                  "id": "2ky4er8u-993",
+                  "name": "Agrupamento por Cliente",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1033",
+                  "name": "Reunião de Onboarding",
+                  "type": "doc"
+                },
+                {
+                  "id": "2ky4er8u-1053",
+                  "name": "Briefing do Cliente",
+                  "type": "doc"
+                },
+                {
+                  "id": "2ky4er8u-1073",
+                  "name": "Reunião de Entrega",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "d53429e8-657a-4837-ae33-77360a827182",
+                  "name": "Instrutor",
+                  "type": "users"
+                }
+              ]
+            },
+            "Atendimento & Suporte": {
+              "id": "901324378336",
+              "views": [
+                {
+                  "id": "2ky4er8u-1093",
+                  "name": "Formulário",
+                  "type": "form"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "d53429e8-657a-4837-ae33-77360a827182",
+                  "name": "Instrutor",
+                  "type": "users"
+                }
+              ]
+            },
+            "Processo de NPS": {
+              "id": "901324837380",
+              "views": [
+                {
+                  "id": "2ky4er8u-9093",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9113",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9133",
+                  "name": "Acompanhamento por Produto",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "d53429e8-657a-4837-ae33-77360a827182",
+                  "name": "Instrutor",
+                  "type": "users"
+                }
+              ]
+            },
+            "Mapeamento dos Problemas": {
+              "id": "901324837379",
+              "views": [
+                {
+                  "id": "2ky4er8u-9073",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9053",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9013",
+                  "name": "Acompanhamento por Produto",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "d53429e8-657a-4837-ae33-77360a827182",
+                  "name": "Instrutor",
+                  "type": "users"
+                }
+              ]
+            },
+            "Gestão de Crise": {
+              "id": "901324837385",
+              "views": [
+                {
+                  "id": "2ky4er8u-9473",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9493",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9513",
+                  "name": "Acompanhamento por Produto",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "d53429e8-657a-4837-ae33-77360a827182",
+                  "name": "Instrutor",
+                  "type": "users"
+                }
+              ]
+            },
+            "Saída do Cliente": {
+              "id": "901324837390",
+              "views": [
+                {
+                  "id": "2ky4er8u-9713",
+                  "name": "Acompanhamento por Produto",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9733",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-9753",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "d53429e8-657a-4837-ae33-77360a827182",
+                  "name": "Instrutor",
+                  "type": "users"
+                }
+              ]
+            }
+          }
+        },
+        "Gestão de Entregas": {
+          "id": "901316738859",
+          "lists": {
+            "Mentorias & Consultorias": {
+              "id": "901324898532",
+              "views": [
+                {
+                  "id": "2ky4er8u-10973",
+                  "name": "Hoje",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10913",
+                  "name": "Realizadas Este Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10893",
+                  "name": "Esta Semana",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10933",
+                  "name": "Realizadas Esta Semana",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            },
+            "Check-ins": {
+              "id": "901324898534",
+              "views": [
+                {
+                  "id": "2ky4er8u-11013",
+                  "name": "Realizadas Este Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10993",
+                  "name": "Realizadas Esta Semana",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-11053",
+                  "name": "Hoje",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-11073",
+                  "name": "Esta Semana",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            },
+            "Prestação de Contas": {
+              "id": "901324898530",
+              "views": [
+                {
+                  "id": "2ky4er8u-10853",
+                  "name": "Próximo Quarter",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10773",
+                  "name": "Este Quarter",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10873",
+                  "name": "Este Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10793",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-10833",
+                  "name": "Último Quarter",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "Projetos": {
+      "id": "901312966335",
+      "views": [
+        {
+          "id": "4-901312966335-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Painel de Projetos": {
+          "id": "901316668858",
+          "lists": {
+            "Projetos Internos": {
+              "id": "901324798951",
+              "views": [
+                {
+                  "id": "2ky4er8u-8033",
+                  "name": "Gantt",
+                  "type": "gantt"
+                },
+                {
+                  "id": "2ky4er8u-8053",
+                  "name": "Pipeline de Projetos",
+                  "type": "board"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "4c1c83a0-f9a5-4f29-a64f-988830d401a6",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "63b12894-df43-44a9-b9d6-d852db4ae33a",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "6856798c-55a8-4a95-91e3-93cc94ebe872",
+                  "name": "Instrutor",
+                  "type": "users"
+                },
+                {
+                  "id": "68fde949-0485-4628-8d64-ba6e84a22e6f",
+                  "name": "Social Media",
+                  "type": "users"
+                },
+                {
+                  "id": "76f5843a-434c-4a82-a7b5-e8bd81c3c649",
+                  "name": "Webdesigner",
+                  "type": "users"
+                },
+                {
+                  "id": "8f11eb2c-6a63-4bd4-a803-a5fb84b8ee1f",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "c756408a-0d06-45fb-99d0-543b158a6db6",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "caf96393-d003-40b3-a9d9-ab4f47fdfc8b",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                }
+              ]
+            },
+            "Projetos Externos": {
+              "id": "901324799752",
+              "views": [
+                {
+                  "id": "2ky4er8u-8733",
+                  "name": "Gantt",
+                  "type": "gantt"
+                },
+                {
+                  "id": "2ky4er8u-8693",
+                  "name": "Pipeline de Projetos",
+                  "type": "board"
+                },
+                {
+                  "id": "2ky4er8u-14693",
+                  "name": "Processos & POPs",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "4c1c83a0-f9a5-4f29-a64f-988830d401a6",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "63b12894-df43-44a9-b9d6-d852db4ae33a",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "6856798c-55a8-4a95-91e3-93cc94ebe872",
+                  "name": "Instrutor",
+                  "type": "users"
+                },
+                {
+                  "id": "68fde949-0485-4628-8d64-ba6e84a22e6f",
+                  "name": "Social Media",
+                  "type": "users"
+                },
+                {
+                  "id": "76f5843a-434c-4a82-a7b5-e8bd81c3c649",
+                  "name": "Webdesigner",
+                  "type": "users"
+                },
+                {
+                  "id": "8f11eb2c-6a63-4bd4-a803-a5fb84b8ee1f",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "c756408a-0d06-45fb-99d0-543b158a6db6",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "caf96393-d003-40b3-a9d9-ab4f47fdfc8b",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                }
+              ]
+            }
+          }
+        },
+        "Virals Starter & Growth": {
+          "id": "901316668857",
+          "lists": {
+            "Implementação [Kickoff]": {
+              "id": "901324798950",
+              "views": [
+                {
+                  "id": "2ky4er8u-7953",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-7973",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            },
+            "Ativação & Testes": {
+              "id": "901324798948",
+              "views": [
+                {
+                  "id": "2ky4er8u-7733",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-7713",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            },
+            "Validação & Escala": {
+              "id": "901324798949",
+              "views": [
+                {
+                  "id": "2ky4er8u-7933",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-7893",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            },
+            "Encerramento & Upgrade": {
+              "id": "901324798947",
+              "views": [
+                {
+                  "id": "2ky4er8u-7793",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-7773",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            }
+          }
+        },
+        "Gestão de Projetos Externos": {
+          "id": "901317784149",
+          "lists": {
+            "Planejamento & Preparação": {
+              "id": "901326390257",
+              "views": [
+                {
+                  "id": "2ky4er8u-14553",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14513",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            },
+            "Execução & Monitoramento": {
+              "id": "901326390256",
+              "views": [
+                {
+                  "id": "2ky4er8u-14473",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14453",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            },
+            "Finalização & Encerramento": {
+              "id": "901326390258",
+              "views": [
+                {
+                  "id": "2ky4er8u-14573",
+                  "name": "Andamento das Prioridades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14613",
+                  "name": "Andamento das Atividades ",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+                  "name": "Progresso ⏳",
+                  "type": "automatic_progress"
+                },
+                {
+                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "Marketing": {
+      "id": "901312175004",
+      "views": [
+        {
+          "id": "4-901312175004-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Planejamento Estratégico": {
+          "id": "901316477565",
+          "lists": {
+            "Estratégias & Funis": {
+              "id": "901324531491",
+              "views": [
+                {
+                  "id": "2ky4er8u-1333",
+                  "name": "Cliente",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1353",
+                  "name": "Empresa",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1373",
+                  "name": "Produto",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14713",
+                  "name": "Processos & POPs",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "2bcd81ed-ac06-431c-b035-c3c14793b4bd",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "3dd10fad-f8b6-47a6-80ab-597d850f6888",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "52fda770-6de2-48ca-afd8-723fc5202b85",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                },
+                {
+                  "id": "53a4c2b7-d200-43a3-b417-629f798e88c6",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "7b4764aa-b62e-4b3c-bf0c-404ce9f93786",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "84c07dfa-b9b1-4b42-a98f-917c92591ea3",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "930b2a09-ee06-4a2a-be99-e70a29526be2",
+                  "name": "Data da Publicação",
+                  "type": "date"
+                },
+                {
+                  "id": "9344438c-f6c4-4737-b33f-a88a51711272",
+                  "name": "Canais de Publicação",
+                  "type": "labels"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "cc027d1e-48f5-40fb-bd3d-a0c24b0e5e39",
+                  "name": "Social Midia",
+                  "type": "users"
+                },
+                {
+                  "id": "e144852c-0759-4c05-9554-3d2bfd30d690",
+                  "name": "Formato do Conteúdo",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Produção de Conteúdo": {
+          "id": "901316010865",
+          "lists": {
+            "Máquina de Idéias": {
+              "id": "901323880800",
+              "views": [
+                {
+                  "id": "2ky4er8u-1253",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1233",
+                  "name": "Atividades por Responsável",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14353",
+                  "name": "POP - Máquina de Idéias",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "2bcd81ed-ac06-431c-b035-c3c14793b4bd",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "3dd10fad-f8b6-47a6-80ab-597d850f6888",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "52fda770-6de2-48ca-afd8-723fc5202b85",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                },
+                {
+                  "id": "53a4c2b7-d200-43a3-b417-629f798e88c6",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "7b4764aa-b62e-4b3c-bf0c-404ce9f93786",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "84c07dfa-b9b1-4b42-a98f-917c92591ea3",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "86d69ba1-1002-40f1-b938-86bf2621f170",
+                  "name": "Anexo",
+                  "type": "attachment"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "930b2a09-ee06-4a2a-be99-e70a29526be2",
+                  "name": "Data da Publicação",
+                  "type": "date"
+                },
+                {
+                  "id": "9344438c-f6c4-4737-b33f-a88a51711272",
+                  "name": "Canais de Publicação",
+                  "type": "labels"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "cc027d1e-48f5-40fb-bd3d-a0c24b0e5e39",
+                  "name": "Social Midia",
+                  "type": "users"
+                },
+                {
+                  "id": "e144852c-0759-4c05-9554-3d2bfd30d690",
+                  "name": "Formato do Conteúdo",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Planejamentos & Cronogramas": {
+              "id": "901323880825",
+              "views": [
+                {
+                  "id": "2ky4er8u-1273",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14373",
+                  "name": "PROCESSO - Planejamento & Cronogramas",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "2bcd81ed-ac06-431c-b035-c3c14793b4bd",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "2f17c525-b32e-48af-abec-cd7d04af7bd4",
+                  "name": "Blocking",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "3dd10fad-f8b6-47a6-80ab-597d850f6888",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "52fda770-6de2-48ca-afd8-723fc5202b85",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                },
+                {
+                  "id": "53a4c2b7-d200-43a3-b417-629f798e88c6",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "7b4764aa-b62e-4b3c-bf0c-404ce9f93786",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "84c07dfa-b9b1-4b42-a98f-917c92591ea3",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "86d69ba1-1002-40f1-b938-86bf2621f170",
+                  "name": "Anexo",
+                  "type": "attachment"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "930b2a09-ee06-4a2a-be99-e70a29526be2",
+                  "name": "Data da Publicação",
+                  "type": "date"
+                },
+                {
+                  "id": "9344438c-f6c4-4737-b33f-a88a51711272",
+                  "name": "Canais de Publicação",
+                  "type": "labels"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "cc027d1e-48f5-40fb-bd3d-a0c24b0e5e39",
+                  "name": "Social Midia",
+                  "type": "users"
+                },
+                {
+                  "id": "e144852c-0759-4c05-9554-3d2bfd30d690",
+                  "name": "Formato do Conteúdo",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Processo de Copywriting": {
+              "id": "901323880831",
+              "views": [
+                {
+                  "id": "2ky4er8u-1313",
+                  "name": "Copy dos Posts",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "2bcd81ed-ac06-431c-b035-c3c14793b4bd",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "3dd10fad-f8b6-47a6-80ab-597d850f6888",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "52fda770-6de2-48ca-afd8-723fc5202b85",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                },
+                {
+                  "id": "53a4c2b7-d200-43a3-b417-629f798e88c6",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "7b4764aa-b62e-4b3c-bf0c-404ce9f93786",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "84c07dfa-b9b1-4b42-a98f-917c92591ea3",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "86d69ba1-1002-40f1-b938-86bf2621f170",
+                  "name": "Anexo",
+                  "type": "attachment"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "930b2a09-ee06-4a2a-be99-e70a29526be2",
+                  "name": "Data da Publicação",
+                  "type": "date"
+                },
+                {
+                  "id": "9344438c-f6c4-4737-b33f-a88a51711272",
+                  "name": "Canais de Publicação",
+                  "type": "labels"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "cc027d1e-48f5-40fb-bd3d-a0c24b0e5e39",
+                  "name": "Social Midia",
+                  "type": "users"
+                },
+                {
+                  "id": "e144852c-0759-4c05-9554-3d2bfd30d690",
+                  "name": "Formato do Conteúdo",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Processo de Design e Criação": {
+              "id": "901323855100",
+              "views": [
+                {
+                  "id": "2ky4er8u-1293",
+                  "name": "Criativos Finalizados",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "2bcd81ed-ac06-431c-b035-c3c14793b4bd",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "3dd10fad-f8b6-47a6-80ab-597d850f6888",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "52fda770-6de2-48ca-afd8-723fc5202b85",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                },
+                {
+                  "id": "53a4c2b7-d200-43a3-b417-629f798e88c6",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "7b4764aa-b62e-4b3c-bf0c-404ce9f93786",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "84c07dfa-b9b1-4b42-a98f-917c92591ea3",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "86d69ba1-1002-40f1-b938-86bf2621f170",
+                  "name": "Anexo",
+                  "type": "attachment"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "930b2a09-ee06-4a2a-be99-e70a29526be2",
+                  "name": "Data da Publicação",
+                  "type": "date"
+                },
+                {
+                  "id": "9344438c-f6c4-4737-b33f-a88a51711272",
+                  "name": "Canais de Publicação",
+                  "type": "labels"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "cc027d1e-48f5-40fb-bd3d-a0c24b0e5e39",
+                  "name": "Social Midia",
+                  "type": "users"
+                },
+                {
+                  "id": "e144852c-0759-4c05-9554-3d2bfd30d690",
+                  "name": "Formato do Conteúdo",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Agendamento, Publicações & Disparos": {
+              "id": "901323880843",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "2bcd81ed-ac06-431c-b035-c3c14793b4bd",
+                  "name": "Gestor de Projetos",
+                  "type": "users"
+                },
+                {
+                  "id": "3dd10fad-f8b6-47a6-80ab-597d850f6888",
+                  "name": "Designer",
+                  "type": "users"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "52fda770-6de2-48ca-afd8-723fc5202b85",
+                  "name": "Gestor de Tráfego",
+                  "type": "users"
+                },
+                {
+                  "id": "53a4c2b7-d200-43a3-b417-629f798e88c6",
+                  "name": "Editor de Vídeos",
+                  "type": "users"
+                },
+                {
+                  "id": "7b4764aa-b62e-4b3c-bf0c-404ce9f93786",
+                  "name": "Copywriter",
+                  "type": "users"
+                },
+                {
+                  "id": "84c07dfa-b9b1-4b42-a98f-917c92591ea3",
+                  "name": "Estrategista",
+                  "type": "users"
+                },
+                {
+                  "id": "86d69ba1-1002-40f1-b938-86bf2621f170",
+                  "name": "Anexo",
+                  "type": "attachment"
+                },
+                {
+                  "id": "90bf078d-9d00-44c9-bd47-c8cf538dd587",
+                  "name": "Produto",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "930b2a09-ee06-4a2a-be99-e70a29526be2",
+                  "name": "Data da Publicação",
+                  "type": "date"
+                },
+                {
+                  "id": "9344438c-f6c4-4737-b33f-a88a51711272",
+                  "name": "Canais de Publicação",
+                  "type": "labels"
+                },
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "cc027d1e-48f5-40fb-bd3d-a0c24b0e5e39",
+                  "name": "Social Midia",
+                  "type": "users"
+                },
+                {
+                  "id": "e144852c-0759-4c05-9554-3d2bfd30d690",
+                  "name": "Formato do Conteúdo",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Performance & Growth 🚫": {
+          "id": "901317466678",
+          "lists": {
+            "Gestão de Campanhas": {
+              "id": "901325936644",
+              "views": [
+                {
+                  "id": "2ky4er8u-13453",
+                  "name": "Todas as Campanhas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13513",
+                  "name": "Em Otimização",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13493",
+                  "name": "Cronograma de Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13533",
+                  "name": "ASV",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13553",
+                  "name": "Init Marketing",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "2032379f-6a9c-4cbc-a89a-b7158a8eb220",
+                  "name": "Conta de Anúncio",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Processo de Otimização": {
+              "id": "901325936638",
+              "views": [
+                {
+                  "id": "2ky4er8u-13013",
+                  "name": "Todos os Processos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13073",
+                  "name": "Otimizações Realizadas",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            },
+            "Gestão de Investimentos": {
+              "id": "901325936642",
+              "views": [
+                {
+                  "id": "2ky4er8u-13393",
+                  "name": "Acompanhamento dos Investimentos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13433",
+                  "name": "Acompanhamento por Cliente",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                }
+              ]
+            },
+            "Trackeamento & Dashboards": {
+              "id": "901325936637",
+              "views": [
+                {
+                  "id": "2ky4er8u-13213",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13253",
+                  "name": "Prioridade das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13033",
+                  "name": "copy of Cronograma de Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13233",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "6bc014bd-85a9-4814-ba99-7207aa160311",
+                  "name": "Link",
+                  "type": "url"
+                }
+              ]
+            },
+            "🔬 Laboratório de Criativos": {
+              "id": "901325936634",
+              "views": [
+                {
+                  "id": "2ky4er8u-12893",
+                  "name": "Para Testar",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12913",
+                  "name": "Lançamento Atual",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12933",
+                  "name": "Criativos Validados",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "49af402a-7aaa-4506-91a6-9c1b78236729",
+                  "name": "Desempenho",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "a8d37a21-b04b-4051-851a-959555c6155c",
+                  "name": "Status Lab.",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "c17ad0ec-8edb-4c91-926b-52e14818c97b",
+                  "name": "Conclusão do Teste",
+                  "type": "date"
+                },
+                {
+                  "id": "dec763d2-04fc-4f61-9275-8f988ecc8e41",
+                  "name": "Inicio do Teste",
+                  "type": "date"
+                }
+              ]
+            }
+          }
+        },
+        "Processos de Automações": {
+          "id": "901317466681",
+          "lists": {
+            "Gestão de Fluxos": {
+              "id": "901325936640",
+              "views": [
+                {
+                  "id": "2ky4er8u-13113",
+                  "name": "Fluxos Em Veiculação",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13133",
+                  "name": "Fluxos Vencidos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13153",
+                  "name": "Fluxos Por Cliente",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13173",
+                  "name": "Fluxos Em Veiculação",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            },
+            "Gestão de WhatsApp": {
+              "id": "901325936641",
+              "views": [
+                {
+                  "id": "2ky4er8u-13293",
+                  "name": "Aquecimento",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13333",
+                  "name": "Status dos Chips",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13313",
+                  "name": "Aquecidos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-13273",
+                  "name": "Poder de Disparo",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "75e4930a-b8d7-4d3e-9ba8-d4539665212e",
+                  "name": "Capacidade de Disparo",
+                  "type": "number"
+                },
+                {
+                  "id": "95f29709-2ff2-4373-9bd6-fad088ad959d",
+                  "name": "Ativação de Chip",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Desenvolvimento Web": {
+          "id": "901317466675",
+          "lists": {
+            "Landing Page & Website": {
+              "id": "901325936633",
+              "views": [
+                {
+                  "id": "2ky4er8u-12813",
+                  "name": "Finalizadas por Cliente",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12773",
+                  "name": "Ativas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12833",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12853",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "6bc014bd-85a9-4814-ba99-7207aa160311",
+                  "name": "Link",
+                  "type": "url"
+                }
+              ]
+            },
+            "Manutenção & Atualizações": {
+              "id": "901325936629",
+              "views": [
+                {
+                  "id": "2ky4er8u-12513",
+                  "name": "Andamento das Atividades",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12533",
+                  "name": "Atividades por Responsáveis",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            },
+            "Gestão de Domínios & Hospedagens": {
+              "id": "901325936630",
+              "views": [
+                {
+                  "id": "2ky4er8u-12573",
+                  "name": "Ativos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12593",
+                  "name": "Em Renovação",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-12553",
+                  "name": "Domínios & Hospedagens",
+                  "type": "list"
+                }
+              ],
+              "customFields": []
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "Comercial": {
+      "id": "901312526794",
+      "views": [
+        {
+          "id": "4-901312526794-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Consultorias, Serviços & Mentorias": {
+          "id": "901316170726",
+          "lists": {
+            "Prospecção Direta": {
+              "id": "901324091180",
+              "views": [
+                {
+                  "id": "2ky4er8u-813",
+                  "name": "Prospecção do Dia",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-833",
+                  "name": "Prospects Quentes",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-853",
+                  "name": "Métricas da Semana",
+                  "type": "table"
+                },
+                {
+                  "id": "2ky4er8u-873",
+                  "name": "Playbook",
+                  "type": "doc"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "01728137-7965-4fe9-a1d2-fbfece0165d7",
+                  "name": "Nome do Contato",
+                  "type": "short_text"
+                },
+                {
+                  "id": "05ef2356-ac79-42e3-9bab-b2e07081e7c7",
+                  "name": "Agendamento",
+                  "type": "date"
+                },
+                {
+                  "id": "060094ad-e749-47a4-a370-e6098b93093a",
+                  "name": "Investimento em Tráfego",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "1e17352a-3a53-4ed3-8217-0b13f71a74cb",
+                  "name": "SDR",
+                  "type": "users"
+                },
+                {
+                  "id": "31193c35-22eb-4540-ac37-b2b68c0dd5ad",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4897d270-fe13-4bbc-8208-c9031ea45751",
+                  "name": "Status",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "603fa970-8814-4d15-a689-37f610a374e7",
+                  "name": "Meeting",
+                  "type": "url"
+                },
+                {
+                  "id": "74d4463b-e313-4c81-955d-23bab8cef8ed",
+                  "name": "Instagram",
+                  "type": "url"
+                },
+                {
+                  "id": "7ecb31e7-87bb-42da-8335-d124e3ca0b6c",
+                  "name": "Data Última Interação",
+                  "type": "date"
+                },
+                {
+                  "id": "8341c3d5-6a6f-4011-a484-ac31840f2a01",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "9dab1463-834d-4dd0-94f1-5329238580ff",
+                  "name": "Data 1º Contato",
+                  "type": "date"
+                },
+                {
+                  "id": "a2b8ef22-e934-489c-bd73-e4d1cb5eb638",
+                  "name": "Cargo",
+                  "type": "short_text"
+                },
+                {
+                  "id": "ae164a71-461d-4dd2-9c3e-250366a78950",
+                  "name": "Site",
+                  "type": "url"
+                },
+                {
+                  "id": "b1f84b16-acb4-40ba-b898-138e990e534f",
+                  "name": "Closer",
+                  "type": "users"
+                },
+                {
+                  "id": "b4b1eccd-68a6-48b6-a927-476d1c1c7874",
+                  "name": "Score ICP",
+                  "type": "emoji"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "d612f960-0efe-47d0-be9a-735fff53dc7c",
+                  "name": "Nome da Empresa",
+                  "type": "short_text"
+                },
+                {
+                  "id": "eb36ac45-0106-49e5-9402-d6b11cd6765a",
+                  "name": "Tentativas de Contato",
+                  "type": "number"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                },
+                {
+                  "id": "f9447e5d-e589-4f84-bebf-d06445062384",
+                  "name": "Temperatura",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Aplicação Direta": {
+              "id": "901324135434",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "05ef2356-ac79-42e3-9bab-b2e07081e7c7",
+                  "name": "Agendamento",
+                  "type": "date"
+                },
+                {
+                  "id": "1e17352a-3a53-4ed3-8217-0b13f71a74cb",
+                  "name": "SDR",
+                  "type": "users"
+                },
+                {
+                  "id": "31193c35-22eb-4540-ac37-b2b68c0dd5ad",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4897d270-fe13-4bbc-8208-c9031ea45751",
+                  "name": "Status",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "603fa970-8814-4d15-a689-37f610a374e7",
+                  "name": "Meeting",
+                  "type": "url"
+                },
+                {
+                  "id": "8341c3d5-6a6f-4011-a484-ac31840f2a01",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "b1f84b16-acb4-40ba-b898-138e990e534f",
+                  "name": "Closer",
+                  "type": "users"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                }
+              ]
+            },
+            "Social Selling": {
+              "id": "901325938258",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "05ef2356-ac79-42e3-9bab-b2e07081e7c7",
+                  "name": "Agendamento",
+                  "type": "date"
+                },
+                {
+                  "id": "1e17352a-3a53-4ed3-8217-0b13f71a74cb",
+                  "name": "SDR",
+                  "type": "users"
+                },
+                {
+                  "id": "31193c35-22eb-4540-ac37-b2b68c0dd5ad",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4897d270-fe13-4bbc-8208-c9031ea45751",
+                  "name": "Status",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "603fa970-8814-4d15-a689-37f610a374e7",
+                  "name": "Meeting",
+                  "type": "url"
+                },
+                {
+                  "id": "8341c3d5-6a6f-4011-a484-ac31840f2a01",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "b1f84b16-acb4-40ba-b898-138e990e534f",
+                  "name": "Closer",
+                  "type": "users"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                }
+              ]
+            },
+            "Reunião Closer": {
+              "id": "901324091695",
+              "views": [
+                {
+                  "id": "2ky4er8u-593",
+                  "name": "Agenda do Closer",
+                  "type": "calendar"
+                },
+                {
+                  "id": "2ky4er8u-613",
+                  "name": "Followups  Inativos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-633",
+                  "name": "Fechamentos do mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-893",
+                  "name": "Playbooks",
+                  "type": "doc"
+                },
+                {
+                  "id": "6-901324091695-8",
+                  "name": "Reunião Closer",
+                  "type": "conversation"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "01728137-7965-4fe9-a1d2-fbfece0165d7",
+                  "name": "Nome do Contato",
+                  "type": "short_text"
+                },
+                {
+                  "id": "05ef2356-ac79-42e3-9bab-b2e07081e7c7",
+                  "name": "Agendamento",
+                  "type": "date"
+                },
+                {
+                  "id": "1e17352a-3a53-4ed3-8217-0b13f71a74cb",
+                  "name": "SDR",
+                  "type": "users"
+                },
+                {
+                  "id": "31193c35-22eb-4540-ac37-b2b68c0dd5ad",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4897d270-fe13-4bbc-8208-c9031ea45751",
+                  "name": "Status",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "603fa970-8814-4d15-a689-37f610a374e7",
+                  "name": "Meeting",
+                  "type": "url"
+                },
+                {
+                  "id": "64d91fef-f36c-4765-9980-0b43f1f74e0c",
+                  "name": "Anotações do SDR",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "8341c3d5-6a6f-4011-a484-ac31840f2a01",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "b1f84b16-acb4-40ba-b898-138e990e534f",
+                  "name": "Closer",
+                  "type": "users"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "d612f960-0efe-47d0-be9a-735fff53dc7c",
+                  "name": "Nome da Empresa",
+                  "type": "short_text"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                }
+              ]
+            },
+            "Recuperação & Nutrição": {
+              "id": "901323855361",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "05ef2356-ac79-42e3-9bab-b2e07081e7c7",
+                  "name": "Agendamento",
+                  "type": "date"
+                },
+                {
+                  "id": "1e17352a-3a53-4ed3-8217-0b13f71a74cb",
+                  "name": "SDR",
+                  "type": "users"
+                },
+                {
+                  "id": "31193c35-22eb-4540-ac37-b2b68c0dd5ad",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4897d270-fe13-4bbc-8208-c9031ea45751",
+                  "name": "Status",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "603fa970-8814-4d15-a689-37f610a374e7",
+                  "name": "Meeting",
+                  "type": "url"
+                },
+                {
+                  "id": "8341c3d5-6a6f-4011-a484-ac31840f2a01",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "b1f84b16-acb4-40ba-b898-138e990e534f",
+                  "name": "Closer",
+                  "type": "users"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                }
+              ]
+            }
+          }
+        },
+        "Treinamentos, Cursos & Templates": {
+          "id": "901317467847",
+          "lists": {
+            "Recuperação de Vendas 🔥": {
+              "id": "901325938240",
+              "views": [
+                {
+                  "id": "2ky4er8u-14273",
+                  "name": "Compras Recusadas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14333",
+                  "name": "Carrinho Abandonado",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14293",
+                  "name": "Compras Reembolsadas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-14253",
+                  "name": "Pipeline de Vendas",
+                  "type": "board"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "1225de49-134d-448c-b4a1-be5eed495cf7",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "c63398ec-98d5-4f11-821c-b79a06c321ed",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                }
+              ]
+            }
+          }
+        },
+        "CRM": {
+          "id": "901316170771",
+          "lists": {
+            "Gestão de Clientes": {
+              "id": "901324091242",
+              "views": [
+                {
+                  "id": "2ky4er8u-933",
+                  "name": "Mapa",
+                  "type": "map"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "01728137-7965-4fe9-a1d2-fbfece0165d7",
+                  "name": "Nome do Contato",
+                  "type": "short_text"
+                },
+                {
+                  "id": "05ef2356-ac79-42e3-9bab-b2e07081e7c7",
+                  "name": "Agendamento",
+                  "type": "date"
+                },
+                {
+                  "id": "1e17352a-3a53-4ed3-8217-0b13f71a74cb",
+                  "name": "SDR",
+                  "type": "users"
+                },
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "25a4ab89-65a5-44ed-b9af-4bf65dd9f1c3",
+                  "name": "Localização",
+                  "type": "location"
+                },
+                {
+                  "id": "30643dcc-c132-4bf1-9b0e-873f4316ed00",
+                  "name": "Projetos Externos",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "31193c35-22eb-4540-ac37-b2b68c0dd5ad",
+                  "name": "Faturamento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "46162c5e-aba9-49f4-8986-54eb9ce411f3",
+                  "name": "Contas a Receber",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "4897d270-fe13-4bbc-8208-c9031ea45751",
+                  "name": "Status",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "603fa970-8814-4d15-a689-37f610a374e7",
+                  "name": "Meeting",
+                  "type": "url"
+                },
+                {
+                  "id": "8341c3d5-6a6f-4011-a484-ac31840f2a01",
+                  "name": "Produtos Ofertados",
+                  "type": "labels"
+                },
+                {
+                  "id": "992903ec-79df-45ea-91ed-65f957aeb8cc",
+                  "name": "Produtos Comprados",
+                  "type": "labels"
+                },
+                {
+                  "id": "b1f84b16-acb4-40ba-b898-138e990e534f",
+                  "name": "Closer",
+                  "type": "users"
+                },
+                {
+                  "id": "b406e3a5-1569-4248-ae2b-04c14a26eda3",
+                  "name": "Transações Liquidadas",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "b5a4e4e3-c94b-4d7b-aa73-98496b667c50",
+                  "name": "Processo de Renovação",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "b947902e-dd92-4cdc-ae8d-e554ac2d9391",
+                  "name": "Oportunidade",
+                  "type": "currency"
+                },
+                {
+                  "id": "c2c00557-210d-4401-bcf5-880cdb1d19b9",
+                  "name": "Anotações do SDR",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "c50a62fd-b878-40a0-957b-da976daf5c27",
+                  "name": "Gestão de Crise",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "d612f960-0efe-47d0-be9a-735fff53dc7c",
+                  "name": "Nome da Empresa",
+                  "type": "short_text"
+                },
+                {
+                  "id": "d787a898-be4a-4902-a457-4a64f120f84d",
+                  "name": "Recuperação de Vendas",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "dd76710e-3e75-4c0e-8b6c-2d4a87530365",
+                  "name": "Reunião com Closer",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "df818a1e-56c9-402f-9c69-7d88c4e455b7",
+                  "name": "Processo de NPS",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "eef2796a-6216-4f95-8954-e1281d15df39",
+                  "name": "Projetos Internos",
+                  "type": "list_relationship"
+                },
+                {
+                  "id": "f8dc2dcb-ba7f-42c5-bcb3-38b25739335e",
+                  "name": "WhatsApp",
+                  "type": "phone"
+                }
+              ]
+            },
+            "Processo de Renovação": {
+              "id": "901324392047",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "25a4ab89-65a5-44ed-b9af-4bf65dd9f1c3",
+                  "name": "Localização",
+                  "type": "location"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "992903ec-79df-45ea-91ed-65f957aeb8cc",
+                  "name": "Produtos Comprados",
+                  "type": "labels"
+                }
+              ]
+            },
+            "Gestão de Novas Oportunidades": {
+              "id": "901324406313",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+                  "name": "Valor",
+                  "type": "currency"
+                },
+                {
+                  "id": "25a4ab89-65a5-44ed-b9af-4bf65dd9f1c3",
+                  "name": "Localização",
+                  "type": "location"
+                },
+                {
+                  "id": "4944747e-7ff0-44ec-9084-0c36e2db4149",
+                  "name": "Evento",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "4b05a41b-423f-46c4-8a43-87c039eca0e7",
+                  "name": "Empresa",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "53e5b1d9-ff2e-4710-9340-353d98bf6ac0",
+                  "name": "E-mail",
+                  "type": "email"
+                },
+                {
+                  "id": "992903ec-79df-45ea-91ed-65f957aeb8cc",
+                  "name": "Produtos Comprados",
+                  "type": "labels"
+                }
+              ]
+            }
+          }
+        },
+        "Hunter ADS System": {
+          "id": "901317132090",
+          "lists": {
+            "Prospecção": {
+              "id": "901325463808",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "aac462ad-2ee8-40e2-bc92-3517275a293e",
+                  "name": "Cliente",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "CRM Hunter ": {
+          "id": "901317132094",
+          "lists": {
+            "List": {
+              "id": "901325463813",
+              "views": [],
+              "customFields": []
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "legacy": {
+      "id": "901312822492",
+      "views": [
+        {
+          "id": "4-901312822492-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Disparos WhatsApp  (API Oficial)": {
+          "id": "901315471214",
+          "lists": {
+            "Processo de Disparo  (API Oficial)": {
+              "id": "901323066124",
+              "views": [],
+              "customFields": [
+                {
+                  "id": "0fd56cb9-b376-4b5c-a128-c517cf4fb898",
+                  "name": "Aceso Perfil",
+                  "type": "text"
+                },
+                {
+                  "id": "26d88609-7b69-48e7-b83e-fb3532c6dc0f",
+                  "name": "Proxy",
+                  "type": "short_text"
+                },
+                {
+                  "id": "7320ba81-d831-4e05-ac1f-719f0b066bb9",
+                  "name": "BM ID",
+                  "type": "short_text"
+                },
+                {
+                  "id": "aac06ef7-03d9-4114-afd3-d38e4162a51d",
+                  "name": "Número WA ",
+                  "type": "phone"
+                },
+                {
+                  "id": "ee8505d1-15e8-4cd4-8f4c-7348f98256fb",
+                  "name": "Lista de Disparo",
+                  "type": "attachment"
+                }
+              ]
+            },
+            "Processo de Farm Perfil (API Oficial)": {
+              "id": "901323102165",
+              "views": [],
+              "customFields": []
+            }
+          }
+        },
+        "Disparos WhatsApp  (API não Oficial)": {
+          "id": "901315872084",
+          "lists": {
+            "Processo de Farm de Whats (API não Oficial)": {
+              "id": "901323650370",
+              "views": [],
+              "customFields": []
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "OPS": {
+      "id": "901313436808",
+      "views": [
+        {
+          "id": "4-901313436808-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Rocks Trimestrais": {
+          "id": "901317466926",
+          "lists": {
+            "List": {
+              "id": "901325936960",
+              "views": [],
+              "customFields": []
+            }
+          }
+        },
+        "Objetivos & Metas (OKR)": {
+          "id": "901316483302",
+          "lists": {
+            "Q1 - FUNDAÇÃO": {
+              "id": "901324539965",
+              "views": [
+                {
+                  "id": "2ky4er8u-1453",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1473",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1493",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Q2 - TRAÇÃO": {
+              "id": "901324542703",
+              "views": [
+                {
+                  "id": "2ky4er8u-1633",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1613",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1673",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Q3 - AUTORIDADE": {
+              "id": "901324542712",
+              "views": [
+                {
+                  "id": "2ky4er8u-1713",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1693",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1753",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Q4 - CONSOLIDAÇÃO": {
+              "id": "901324542728",
+              "views": [
+                {
+                  "id": "2ky4er8u-1793",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1773",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1833",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
+        "Processos & POPs": {
+          "id": "901316565019",
+          "lists": {
+            "Mapeamento de Processos": {
+              "id": "901324654421",
+              "views": [
+                {
+                  "id": "2ky4er8u-5953",
+                  "name": "Processos de Marketing",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5993",
+                  "name": "Processos de Projetos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5933",
+                  "name": "Processos de Produtos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-6013",
+                  "name": "Processos de Gente & Cultura",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5913",
+                  "name": "Processos de Vendas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-6033",
+                  "name": "Processos de Gestão",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "7ffeef8a-3afd-41fa-9a5d-51fcdf00592a",
+                  "name": "Departamento",
+                  "type": "labels"
+                }
+              ]
+            },
+            "Construção de POPs": {
+              "id": "901324654420",
+              "views": [
+                {
+                  "id": "2ky4er8u-5793",
+                  "name": "Processos de Marketing",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5853",
+                  "name": "Processos de Projetos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5833",
+                  "name": "Processos de Produtos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5873",
+                  "name": "Processos de Gente & Cultura",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5813",
+                  "name": "Processos de Vendas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5893",
+                  "name": "Processos de Gestão",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "7ffeef8a-3afd-41fa-9a5d-51fcdf00592a",
+                  "name": "Departamento",
+                  "type": "labels"
+                }
+              ]
+            }
+          }
+        },
+        "Lançamentos": {
+          "id": "901317466930",
+          "lists": {
+            "List": {
+              "id": "901325936969",
+              "views": [],
+              "customFields": []
+            }
+          }
+        },
+        "BI & Métricas": {
+          "id": "901317466936",
+          "lists": {
+            "List": {
+              "id": "901325936978",
+              "views": [],
+              "customFields": []
+            }
+          }
+        },
+        "Saúde Operacional": {
+          "id": "901317466942",
+          "lists": {
+            "List": {
+              "id": "901325936985",
+              "views": [],
+              "customFields": []
+            }
+          }
+        }
+      },
+      "folderless_lists": {}
+    }
+  },
+  "customTaskTypes": [
+    {
+      "id": 1,
+      "name": "milestone",
+      "name_plural": null,
+      "description": null,
+      "avatar": {
+        "source": null,
+        "value": null
+      }
+    },
+    {
+      "id": 3,
+      "name": "form_response",
+      "name_plural": null,
+      "description": null,
+      "avatar": {
+        "source": null,
+        "value": null
+      }
+    },
+    {
+      "id": 4,
+      "name": "meeting_note",
+      "name_plural": null,
+      "description": null,
+      "avatar": {
+        "source": null,
+        "value": null
+      }
+    },
+    {
+      "id": 1001,
+      "name": "Recurso",
+      "name_plural": "Recursos",
+      "description": "Aloque e monitore recursos, como equipes ou equipamentos",
+      "avatar": {
+        "source": "fas",
+        "value": "book"
+      }
+    },
+    {
+      "id": 1002,
+      "name": "Mensagem",
+      "name_plural": "Mensagens",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "paper-plane"
+      }
+    },
+    {
+      "id": 1003,
+      "name": "Reunião",
+      "name_plural": "Reuniões",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "file-lines"
+      }
+    },
+    {
+      "id": 1004,
+      "name": "Lead",
+      "name_plural": "Leads",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "toggle-off"
+      }
+    },
+    {
+      "id": 1005,
+      "name": "Vídeo Curto",
+      "name_plural": "Vídeos Curtos",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "tablet-screen-button"
+      }
+    },
+    {
+      "id": 1006,
+      "name": "Vídeo Longo",
+      "name_plural": "Vídeos Longos",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "youtube"
+      }
+    },
+    {
+      "id": 1007,
+      "name": "Planejamento",
+      "name_plural": "Planejamentos",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "compass"
+      }
+    },
+    {
+      "id": 1008,
+      "name": "Produto",
+      "name_plural": "Produtos",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "cubes"
+      }
+    },
+    {
+      "id": 1009,
+      "name": "Prospect",
+      "name_plural": "Prospects",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "user-alt"
+      }
+    },
+    {
+      "id": 1010,
+      "name": "Cliente",
+      "name_plural": "Clientes",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "circle-dollar-to-slot"
+      }
+    },
+    {
+      "id": 1011,
+      "name": "Ticket",
+      "name_plural": "Tickets",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "hand-holding-medical"
+      }
+    },
+    {
+      "id": 1012,
+      "name": "Copywriting",
+      "name_plural": "Copywritings",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "pen-to-square"
+      }
+    },
+    {
+      "id": 1013,
+      "name": "Contrato",
+      "name_plural": "Contratos",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "file-lines"
+      }
+    },
+    {
+      "id": 1014,
+      "name": "Conta",
+      "name_plural": "Contas",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "barcode"
+      }
+    },
+    {
+      "id": 1017,
+      "name": "Transação",
+      "name_plural": "Transações",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "credit-card"
+      }
+    },
+    {
+      "id": 1018,
+      "name": "Aula",
+      "name_plural": "Aulas",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "circle-play"
+      }
+    },
+    {
+      "id": 1019,
+      "name": "Projeto",
+      "name_plural": "Projetos",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "book"
+      }
+    }
+  ],
+  "globalFieldsFound": {}
+}

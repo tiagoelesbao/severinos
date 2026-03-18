@@ -1,0 +1,44 @@
+squad:
+  name: virals-ops-squad
+  version: 1.1.0
+  short-title: Virals Operations Squad
+  description: >-
+    Squad responsável pela excelência operacional, automação de processos, 
+    gestão de OKRs, planejamento de lançamentos e Business Intelligence da Virals.
+  author: Virals
+  icon: "⚙️"
+  entry_agent: ops-chief
+  slashPrefix: viralsOps
+agents:
+  - id: ops-chief
+    file: agents/ops-chief.md
+  - id: dalio
+    file: agents/dalio.md
+  - id: hormozi-sys
+    file: agents/hormozi-sys.md
+  - id: kaushik
+    file: agents/kaushik.md
+  - id: walker-launch
+    file: agents/walker-launch.md
+  - id: wickman
+    file: agents/wickman.md
+workspace_integration:
+  level: read_write
+  rationale: "Reads operational goals and metrics from ClickUp and writes POPs, audit reports and OKR status."
+  read_paths:
+    - workspace/businesses/virals/ops/
+  write_paths:
+    - workspace/businesses/virals/ops/
+  template_namespace: ops
+task_standards:
+  enforce_anatomy: true
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+tested: true

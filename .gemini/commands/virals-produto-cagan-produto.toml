@@ -2,7 +2,7 @@ description = "Marty Cagan-Produto (Estrategista de Produto)"
 prompt = """
 Ative o agente cagan-produto do virals-produto-squad:
 1. Leia a definição completa em squads/virals-produto-squad/agents/cagan-produto.md
-2. Siga as activation-instructions em .gemini/rules/AIOS/agents/virals-produto-cagan-produto.md
+2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-produto-cagan-produto.md
 3. Renderize o greeting do agente cagan-produto.
 4. Mostre os comandos disponíveis do agente cagan-produto e aguarde input do usuário.
 Mantenha a persona até *exit.

@@ -1,0 +1,125 @@
+id: virals-produto-squad
+name: Virals Produto Squad
+version: 1.0.0
+description: |
+  Squad de produto responsável por estratégia de produto, discovery,
+  onboarding, engajamento, retenção e customer success da Virals.
+  Baseado nos frameworks de Marty Cagan, Teresa Torres, Wes Bush,
+  Nir Eyal e Lincoln Murphy.
+
+icon: 🚀
+color: "#7C3AED"  # Roxo produto — criação e profundidade
+
+type: product
+visibility: local
+
+agents:
+  - id: cagan-produto
+    file: agents/cagan-produto.md
+  - id: torres-produto
+    file: agents/torres-produto.md
+  - id: wes-bush-produto
+    file: agents/wes-bush-produto.md
+  - id: eyal-produto
+    file: agents/eyal-produto.md
+  - id: lincoln-produto
+    file: agents/lincoln-produto.md
+
+tasks:
+  # Strategy & Discovery
+  - id: cagan-roadmap-quarterly
+    file: tasks/cagan-roadmap-quarterly.md
+  - id: cagan-okr-product
+    file: tasks/cagan-okr-product.md
+  - id: torres-discovery-sprint
+    file: tasks/torres-discovery-sprint.md
+  - id: torres-opportunity-tree
+    file: tasks/torres-opportunity-tree.md
+  - id: torres-customer-interview
+    file: tasks/torres-customer-interview.md
+  # Onboarding & Ativação
+  - id: wes-bush-onboarding-design
+    file: tasks/wes-bush-onboarding-design.md
+  - id: wes-bush-activation-audit
+    file: tasks/wes-bush-activation-audit.md
+  # Engajamento & Hábito
+  - id: eyal-engagement-loop
+    file: tasks/eyal-engagement-loop.md
+  - id: eyal-retention-audit
+    file: tasks/eyal-retention-audit.md
+  # Customer Success
+  - id: lincoln-cs-playbook
+    file: tasks/lincoln-cs-playbook.md
+  - id: lincoln-churn-diagnosis
+    file: tasks/lincoln-churn-diagnosis.md
+  - id: lincoln-expansion-plan
+    file: tasks/lincoln-expansion-plan.md
+  # Integração
+  - id: product-health-review
+    file: tasks/product-health-review.md
+  - id: post-launch-retrospective
+    file: tasks/post-launch-retrospective.md
+
+workflows:
+  - id: new-product-creation-cycle
+    file: workflows/new-product-creation-cycle.yaml
+  - id: onboarding-lifecycle
+    file: workflows/onboarding-lifecycle.yaml
+  - id: continuous-discovery-cycle
+    file: workflows/continuous-discovery-cycle.yaml
+  - id: churn-intervention-cycle
+    file: workflows/churn-intervention-cycle.yaml
+  - id: weekly-product-review
+    file: workflows/weekly-product-review.yaml
+
+checklists:
+  - id: product-launch-readiness
+    file: checklists/product-launch-readiness.md
+  - id: onboarding-quality-checklist
+    file: checklists/onboarding-quality-checklist.md
+  - id: cs-touchpoint-checklist
+    file: checklists/cs-touchpoint-checklist.md
+  - id: discovery-sprint-checklist
+    file: checklists/discovery-sprint-checklist.md
+  - id: product-health-checklist
+    file: checklists/product-health-checklist.md
+
+templates:
+  - id: product-spec-template
+    file: templates/product-spec-template.md
+  - id: roadmap-template
+    file: templates/roadmap-template.md
+  - id: customer-interview-template
+    file: templates/customer-interview-template.md
+  - id: onboarding-flow-template
+    file: templates/onboarding-flow-template.md
+  - id: cs-playbook-template
+    file: templates/cs-playbook-template.md
+  - id: product-health-report-template
+    file: templates/product-health-report-template.md
+
+integrations:
+  clickup:
+    space: "Produto"
+    folders:
+      - name: "Gestão de Produtos"
+        lists: ["Painel de Produtos", "Estratégia de Produto", "Controle de Qualidade & Usabilidade", "Reestruturação & Melhorias"]
+      - name: "Sucesso do Cliente"
+        lists: ["Entrada do Cliente", "Atendimento & Suporte", "Processo de NPS", "Mapeamento dos Problemas", "Gestão de Crise", "Saída do Cliente"]
+      - name: "Gestão de Entregas"
+        lists: ["Mentorias & Consultorias", "Check-ins", "Prestação de Contas"]
+  primary_tool: clickup
+
+metadata:
+  created_by: squad-creator
+  created_at: 2026-03-02
+  tags:
+    - produto
+    - discovery
+    - onboarding
+    - retencao
+    - customer-success
+    - plg
+    - hooked
+    - roadmap
+    - productized-service

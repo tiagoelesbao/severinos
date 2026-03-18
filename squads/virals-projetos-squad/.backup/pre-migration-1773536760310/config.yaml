@@ -1,0 +1,121 @@
+squad:
+  name: virals-projetos-squad
+  version: 1.0.0
+  short-title: Virals Projetos Squad
+  description: >-
+    Squad transversal responsável pela criação, estruturação, monitoramento 
+    e encerramento de projetos internos e externos da Virals. Conecta todos 
+    os outros squads através da orquestração de entregáveis e prazos.
+  author: Virals
+  icon: "📋"
+  entry_agent: singer-proj
+  slashPrefix: viralsProjetos
+workspace_integration:
+  level: read_write
+  rationale: "Reads project briefings and writes tasks/milestones across all squad domains in ClickUp"
+  read_paths:
+    - workspace/businesses/virals/projects/
+    - workspace/businesses/virals/clients/
+  write_paths:
+    - workspace/businesses/virals/projects/
+  template_namespace: projetos
+pattern_library:
+  prefix: VP
+  naming_convention:
+    format: "{PREFIX}-{CATEGORY}-{NUMBER}"
+    example: "VP-TP-001"
+  categories:
+    - id: TP
+      name: "Task Patterns"
+      description: "Patterns for project management tasks"
+    - id: EP
+      name: "Executor Patterns"
+      description: "Patterns for project executor selection"
+    - id: PP
+      name: "Process Patterns"
+      description: "Patterns for workflow processes and lifecycles"
+  patterns: []
+task_standards:
+  enforce_anatomy: true
+  validator: "VP-TP-001"
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+  optional_fields:
+    - estimated_time
+    - dependencies
+    - templates
+    - quality_gate
+    - handoff
+executor_types:
+  human:
+    id: "VP-EP-001"
+    name: "Human Executor"
+    characteristics:
+      - judgment
+      - creativity
+      - relationships
+    cost: "$$$"
+    speed: slow
+    use_for:
+      - "Stakeholder meetings"
+      - "Critical project decisions"
+      - "Client communication"
+  agent:
+    id: "VP-EP-002"
+    name: "Agent Executor"
+    characteristics:
+      - analysis
+      - generation
+      - pattern_recognition
+    cost: "$$$$"
+    speed: fast
+    use_for:
+      - "Project shaping"
+      - "Sprint planning"
+      - "Quality reviews"
+  hybrid:
+    id: "VP-EP-003"
+    name: "Hybrid Executor"
+    characteristics:
+      - ai_assisted
+      - human_validated
+    cost: "$$"
+    speed: moderate
+    use_for:
+      - "Status reports"
+      - "Backlog refinement"
+  worker:
+    id: "VP-EP-004"
+    name: "Worker Executor"
+    characteristics:
+      - deterministic
+      - api_integration
+      - file_operations
+    cost: "$"
+    speed: very_fast
+    use_for:
+      - "ClickUp task creation"
+      - "Portfolio data extraction"
+executor_selection:
+  requires_creativity: human
+  requires_judgment: [human, hybrid]
+  requires_speed: [agent, worker]
+  requires_consistency: worker
+  requires_validation: hybrid
+  requires_learning: agent
+workflow_config:
+  checkpoint_policy: always_active
+  checkpoint_modes:
+    always_active: "Every checkpoint MUST pass"
+    skip_on_override: "Can skip with manual approval"
+    advisory: "Only alerts, doesn't block"
+  fail_fast: true
+  allow_manual_override: false
+tested: false

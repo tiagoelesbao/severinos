@@ -1,0 +1,79 @@
+squad:
+  name: virals-marketing-squad
+  version: 1.0.0
+  short-title: Virals Marketing Squad
+  description: >-
+    Squad de marketing responsável por conteúdo viral, copy de alta conversão,
+    SEO e gestão dual de tráfego pago (direct response + brand/funil) da Virals.
+  author: Virals
+  icon: "🎯"
+  entry_agent: marketing-chief
+  slashPrefix: viralsMarketing
+agents:
+  - id: marketing-chief
+    file: agents/marketing-chief.md
+  - id: mrbeast-mk
+    file: agents/mrbeast-mk.md
+  - id: garyvee-mk
+    file: agents/garyvee-mk.md
+  - id: ladeira
+    file: agents/ladeira.md
+  - id: georgi
+    file: agents/georgi.md
+  - id: fishkin-mk
+    file: agents/fishkin-mk.md
+  - id: perry-marshall
+    file: agents/perry-marshall.md
+  - id: ezra-firestone
+    file: agents/ezra-firestone.md
+workspace_integration:
+  level: read_write
+  rationale: "Reads marketing context from workspace and writes marketing artifacts back"
+  read_paths:
+    - workspace/businesses/virals/marketing/
+  write_paths:
+    - workspace/businesses/virals/marketing/
+  template_namespace: marketing
+pattern_library:
+  prefix: VM
+  naming_convention:
+    format: "{PREFIX}-{CATEGORY}-{NUMBER}"
+    example: "VM-TP-001"
+  categories:
+    - id: TP
+      name: "Task Patterns"
+      description: "Patterns for marketing task structure"
+    - id: EP
+      name: "Executor Patterns"
+      description: "Patterns for marketing executor selection"
+  patterns: []
+task_standards:
+  enforce_anatomy: true
+  validator: "VM-TP-001"
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+executor_types:
+  human:
+    id: "VM-EP-001"
+    use_for: ["Strategic decisions", "Final approvals"]
+  agent:
+    id: "VM-EP-002"
+    use_for: ["Content generation", "Initial analysis"]
+  hybrid:
+    id: "VM-EP-003"
+    use_for: ["Campaign optimization", "Copy review"]
+  worker:
+    id: "VM-EP-004"
+    use_for: ["Report generation", "Data sync"]
+workflow_config:
+  checkpoint_policy: always_active
+  fail_fast: true
+  allow_manual_override: false
+tested: true

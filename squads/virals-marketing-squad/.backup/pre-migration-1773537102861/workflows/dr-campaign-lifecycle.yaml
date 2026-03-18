@@ -1,0 +1,36 @@
+# virals-marketing-squad/workflows/dr-campaign-lifecycle.yaml
+id: dr-campaign-lifecycle
+name: Ciclo de Vida Campanha Direct Response
+versao: 1.0.0
+agente_coordenador: "@perry-marshall"
+tipo: por-demanda
+
+fases:
+  fase_1_briefing:
+    responsavel: "@perry-marshall"
+    steps:
+      - "Receber objetivo (CPA, budget, prazo)"
+      - "Definir estrutura de campanha (audiência, criativos)"
+      - "Briefar @ladeira e @mrbeast para criativos"
+    gate: "Briefing aprovado pelo humano"
+  
+  fase_2_producao:
+    responsavel: "@ladeira + @mrbeast-mk"
+    steps:
+      - "Criar copy de anúncio (*copy-create)"
+      - "Criar criativos visuais (*thumbnail-brief)"
+    gate: "Criativos aprovados"
+  
+  fase_3_lancamento:
+    responsavel: "@perry-marshall"
+    steps:
+      - "Subir campanha com budget de teste"
+      - "Otimização autônoma diária (*dr-optimize)"
+    gate_automatico: "CPA <= meta (Meta de conversão atingida)"
+  
+  fase_4_escala:
+    responsavel: "@perry-marshall"
+    steps:
+      - "Escalar budget +20-30% (*dr-campaign-scale)"
+      - "Monitorar saturação e frequência"
+    gate_encerramento: "CPA > meta + 30% por 5 dias = suspender e revisar"

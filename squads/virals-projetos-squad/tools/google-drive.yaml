@@ -1,0 +1,18 @@
+name: google-drive
+description: Interage com o Google Drive/Docs para criação e leitura de roteiros e arquivos para o Squad de Projetos.
+type: action
+executor: node
+command: node ../../../services/google-drive/docs.js
+parameters:
+  - name: action
+    type: string
+    required: true
+    description: A ação a ser realizada (ex. create_doc, read_doc)
+  - name: title
+    type: string
+    required: true
+    description: "Título do documento"
+  - name: body
+    type: string
+    required: false
+    description: "Conteúdo do documento (para criação)"

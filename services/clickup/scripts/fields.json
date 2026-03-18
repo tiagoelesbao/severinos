@@ -1,0 +1,188 @@
+[
+  {
+    "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
+    "name": "Valor",
+    "type": "currency",
+    "type_config": {
+      "precision": 2,
+      "currency_type": "BRL"
+    },
+    "date_created": "1768492232768",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "4c1c83a0-f9a5-4f29-a64f-988830d401a6",
+    "name": "Estrategista",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "500c9145-016e-43b6-bc5d-b5449c846b62",
+    "name": "Produtos",
+    "type": "list_relationship",
+    "type_config": {
+      "fields": [],
+      "subcategory_id": "901323987788",
+      "subcategory_inverted_name": "Painel de Produtos"
+    },
+    "date_created": "1773604372687",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
+    "name": "Progresso ⏳",
+    "type": "automatic_progress",
+    "type_config": {
+      "tracking": {
+        "subtasks": true,
+        "checklists": true,
+        "assigned_comments": true
+      },
+      "complete_on": 3,
+      "subtask_rollup": false
+    },
+    "date_created": "1769510347932",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "63b12894-df43-44a9-b9d6-d852db4ae33a",
+    "name": "Editor de Vídeos",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "6856798c-55a8-4a95-91e3-93cc94ebe872",
+    "name": "Instrutor",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "68fde949-0485-4628-8d64-ba6e84a22e6f",
+    "name": "Social Media",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "76f5843a-434c-4a82-a7b5-e8bd81c3c649",
+    "name": "Webdesigner",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "803878f4-1035-4ba8-bb5f-7d7ce468ecdf",
+    "name": "Termo de Abertura do Projeto",
+    "type": "url",
+    "type_config": {},
+    "date_created": "1773607190534",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "8f11eb2c-6a63-4bd4-a803-a5fb84b8ee1f",
+    "name": "Copywriter",
+    "type": "users",
+    "type_config": {
+      "single_user": true,
+      "include_groups": false,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
+    "name": "Gestor de Projetos",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510347932",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "c756408a-0d06-45fb-99d0-543b158a6db6",
+    "name": "Designer",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "caf96393-d003-40b3-a9d9-ab4f47fdfc8b",
+    "name": "Gestor de Tráfego",
+    "type": "users",
+    "type_config": {
+      "single_user": false,
+      "include_groups": true,
+      "include_guests": true,
+      "include_team_members": true
+    },
+    "date_created": "1769510350555",
+    "hide_from_guests": false,
+    "required": false
+  },
+  {
+    "id": "e76db335-41b1-4c05-bc84-cacf67dc46d9",
+    "name": "Briefing",
+    "type": "attachment",
+    "type_config": {},
+    "date_created": "1773589339271",
+    "hide_from_guests": false,
+    "required": false
+  }
+]

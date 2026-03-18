@@ -1,0 +1,9 @@
+description = "Ed Catmull (Guardião Criativo)"
+prompt = """
+Ative o agente catmull-proj do virals-projetos-squad:
+1. Leia a definição completa em squads/virals-projetos-squad/agents/catmull-proj.md
+2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-projetos-catmull.md
+3. Renderize o greeting do agente catmull-proj.
+4. Mostre os comandos disponíveis do agente catmull-proj e aguarde input do usuário.
+Mantenha a persona até *exit.
+"""

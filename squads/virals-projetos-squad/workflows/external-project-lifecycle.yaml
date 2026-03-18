@@ -1,0 +1,68 @@
+id: external-project-lifecycle
+name: Ciclo de Vida do Projeto Externo (Cliente)
+versao: 1.0.0
+agente_coordenador: "@singer-proj (shaping) → @sutherland-proj (execução) → @lencioni-proj (comunicação)"
+tipo: por-demanda
+
+descricao: |
+  Processo completo de um projeto externo — desde o fechamento
+  pelo virals-vendas-squad até o encerramento e upsell.
+
+fases:
+  fase_0_handoff_vendas:
+    trigger: "virals-vendas-squad fecha cliente"
+    acao: "@singer-proj recebe briefing comercial do @ross-sales ou @thiago-reis"
+    steps:
+      - "Coletar briefing comercial (o que foi prometido na venda)"
+      - "Agendar kick-off com cliente (< 5 dias úteis do fechamento)"
+      - "Criar card em Painel de Projetos > Projetos Externos"
+    output: "Card criado no ClickUp com dados do cliente e escopo inicial"
+  
+  fase_1_planejamento:
+    clickup: "Gestão de Projetos > Planejamento & Preparação"
+    responsavel: "@singer-proj + @sutherland-proj"
+    duracao: "3-7 dias úteis"
+    steps:
+      - "@singer-proj: shaping do projeto (escopo, appetite, buracos)"
+      - "@lencioni-proj: mapa de stakeholders do cliente"
+      - "@sutherland-proj: estruturar sprints e marcos"
+      - "@catmull-proj: briefing criativo (se projeto criativo)"
+      - "@allen-proj: criar todas as tasks no ClickUp (cross-squad)"
+      - "@sutherland-proj: conduzir kick-off com cliente"
+      - "@lencioni-proj: criar plano de comunicação"
+    
+    gate_para_execucao:
+      checklist: project-kickoff-checklist.md
+      criterio: "Kick-off realizado + plano aprovado pelo cliente + todas as tasks criadas"
+  
+  fase_2_execucao:
+    clickup: "Gestão de Projetos > Execução & Monitoramento"
+    responsavel: "@sutherland-proj (sprint) + @lencioni-proj (comunicação)"
+    steps:
+      - "Sprints semanais ou quinzenais rodando"
+      - "@lencioni-proj: status report semanal para cliente"
+      - "@sutherland-proj: remoção de impedimentos"
+      - "@catmull-proj: gates de qualidade (projetos criativos)"
+      - "@allen-proj: revisão semanal do portfólio"
+      - "@lencioni-proj: reunião quinzenal de check-in"
+    
+    alertas_automaticos:
+      - "Task atrasada > 2 dias → notificar PM"
+      - "Health score do projeto muda para 🟡 → comunicar cliente"
+      - "Health score muda para 🔴 → escalar imediatamente"
+  
+  fase_3_finalizacao:
+    clickup: "Gestão de Projetos > Finalização & Encerramento"
+    responsavel: "@lencioni-proj + @sutherland-proj"
+    steps:
+      - "Entrega final com aprovação formal do cliente"
+      - "Retrospectiva interna do projeto (@sutherland-proj)"
+      - "Relatório final para o cliente (@lencioni-proj)"
+      - "Coleta de depoimento/NPS (@lincoln-produto se envolver produto)"
+      - "Identificação de upsell → handoff para virals-vendas-squad"
+      - "Documentação do que foi aprendido (@allen-proj)"
+      - "Encerramento formal no ClickUp"
+    
+    gate_encerramento:
+      checklist: project-closure-checklist.md
+      criterio: "Cliente aprovou + depoimento solicitado + upsell mapeado"

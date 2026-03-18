@@ -1,0 +1,36 @@
+# virals-marketing-squad/workflows/brand-funnel-lifecycle.yaml
+id: brand-funnel-lifecycle
+name: Ciclo de Vida Brand & Funil
+versao: 1.0.0
+agente_coordenador: "@ezra-firestone"
+tipo: contínuo
+
+fases:
+  fase_construcao_permanente:
+    responsavel: "@ezra-firestone"
+    steps:
+      - "Campanhas de topo de funil rodando (*brand-campaign-create)"
+      - "Boosting de conteúdo orgânico de alto desempenho (*boosting-strategy)"
+      - "Monitoramento semanal do funil (*audience-audit)"
+  
+  fase_aquecimento_pre_lancamento:
+    responsavel: "@ezra-firestone"
+    steps:
+      - "Aumentar frequência de conteúdo de valor"
+      - "Intensificar retargeting de meio de funil (*pre-launch-warmup)"
+      - "Capturar leads para lista de espera"
+    gate: "Audiência aquecida quantificada para @perry-marshall"
+  
+  fase_lancamento_coordenado:
+    responsavel: "@ezra-firestone (reduz) + @perry-marshall (assume)"
+    steps:
+      - "Manter awareness mínima (não competir com DR)"
+      - "Fornecer audiência de retargeting quente para @perry"
+      - "Monitorar saturação para não queimar a audiência"
+  
+  fase_pos_lancamento:
+    responsavel: "@ezra-firestone"
+    steps:
+      - "Análise de cohort (quem converteu?)"
+      - "Refinamento de audiências baseado em compradores"
+      - "Novo ciclo de construção para o próximo lançamento"

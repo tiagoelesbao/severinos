@@ -1,0 +1,29 @@
+description = "Menu rápido AIOX (lista agentes e orienta qual ativar)"
+prompt = """
+Você está no launcher AIOX para Gemini. O sistema foi totalmente migrado para o padrão AIOX.
+
+**Core Agents:**
+1. /aiox-master - Master Orchestrator (Framework development & complex problem solving)
+2. /aiox-squad-chief - Squad Architect (Triage, Routing & Squad Creator v4.0)
+3. /aiox-squad-creator - Squad Creator (Legacy squad generator)
+4. /aiox-architect - System Architect
+5. /aiox-dev - Full Stack Developer
+6. /aiox-qa - Quality & Tests
+7. /aiox-pm - Product Manager
+8. /aiox-po - Product Owner
+9. /aiox-sm - Scrum Master
+10. /aiox-devops - DevOps & GitHub Operations
+11. /aiox-analyst - Business Analyst
+12. /aiox-data-engineer - Database & Supabase
+13. /aiox-ux-design-expert - UI/UX Design
+
+**Virals Squads:**
+- /virals-ops-dalio (Ray Dalio - Ops Principles)
+- /virals-ops-wickman (Gino Wickman - EOS/Traction)
+- /virals-projetos-singer (Ryan Singer - Shape Up)
+- /virals-vendas-hormozi-sales (Alex Hormozi - High Ticket Sales)
+- /virals-marketing-mrbeast-mk (MrBeast - Viral Content)
+- (Use `/virals-` para ver todos os agentes especializados de cada squad)
+
+No final, peça para o usuário escolher um número ou digitar o comando direto.
+"""

@@ -1,109 +1,100 @@
-task: wickmanRocksPlanning()
-id: wickman-rocks-planning
-agent: "@wickman"
-responsavel: "@wickman"
-responsavel_type: agent
-versao: 1.0.0
-atomic_layer: Organism
+# Planejamento de Rocks Trimestrais @wickman
 
-descricao: |
-  Facilitar o planejamento de Rocks trimestrais da Virals usando
-  o framework EOS/Traction. Define as 3-7 prioridades absolutas
-  para os próximos 90 dias, com donos e critérios de sucesso claros.
+**Task ID:** `wickman-rocks-planning`
+**Pattern:** HO-TP-001 (Task Anatomy Standard)
+**Version:** 1.0.0
+**Last Updated:** 2026-03-12
+**Governance Protocol:** `squads/squad-creator/protocols/ai-first-governance.md`
 
-elicit: true
+## AI-First Governance Gate
 
-entrada:
-  - campo: trimestre_alvo
-    tipo: string
-    exemplo: "Q2 2026"
-    obrigatorio: true
-  
-  - campo: revisao_trimestre_anterior
-    tipo: object
-    descricao: "Rocks do trimestre anterior e seus status"
-    obrigatorio: false
-  
-  - campo: metas_anuais
-    tipo: array
-    descricao: "Metas do V/TO para o ano"
-    obrigatorio: false
+- [ ] Applied `squads/squad-creator/protocols/ai-first-governance.md`
+- [ ] Mapped `Existing -> Gap -> Decision`
+- [ ] Validated canonical sources (Gino Wickman EOS Traction)
+- [ ] Documented contradictions and unresolved items
 
-saida:
-  - campo: rocks_trimestrais
-    tipo: array
-    formato: "Rock Template"
-    destino: ClickUp > OPS > Rocks Trimestrais
-    persistido: true
-  
-  - campo: scorecard_atualizado
-    tipo: object
-    destino: ClickUp > OPS > Scorecard
-    persistido: true
+## Task Anatomy
 
-Checklist:
-  - "[ ] Revisar trimestre anterior"
-  - "[ ] Brainstorm de candidatos"
-  - "[ ] Selecionar 3-7 Rocks"
-  - "[ ] Definir donos e critérios"
-  - "[ ] Registrar no ClickUp"
+| Field | Value |
+|-------|-------|
+| **task_name** | Planejar Rocks Trimestrais |
+| **status** | `pending` |
+| **responsible_executor** | @wickman |
+| **execution_type** | `Agent` |
+| **input** | ["Trimestre alvo", "Metas anuais (V/TO)", "Revisão do trimestre anterior"] |
+| **output** | ["Lista de 3-7 Rocks", "Donos definidos", "Critérios binários de conclusão"] |
+| **action_items** | 5 steps |
+| **acceptance_criteria** | 3 criteria |
 
-pre_conditions:
-  - "V/TO da Virals disponível (ou resumo das metas anuais)"
-  - "Revisão do trimestre anterior concluída"
-  - "Stakeholders relevantes disponíveis para input"
+## Executor Specification
 
-post_conditions:
-  - "3-7 Rocks definidos, cada um com: descrição, dono, prazo (último dia do trimestre), critério de conclusão binário"
-  - "Cada Rock aprovado pelo responsável"
-  - "Rocks registrados no ClickUp"
+| Attribute | Value |
+|-----------|-------|
+| **Type** | Agent |
+| **Pattern** | HO-EP-002 |
+| **Executor** | @wickman |
+| **Rationale** | Requer facilitação de priorização estratégica e garantia de accountability real no planejamento. |
 
-acceptance_criteria:
-  - "Todo Rock tem UM único dono (não um time)"
-  - "Todo Rock tem critério de conclusão binário (feito ou não feito)"
-  - "Rocks estão alinhados com pelo menos uma meta do V/TO"
-  - "Não mais que 7 Rocks no total"
-  - "Prazo de todos os Rocks = último dia do trimestre"
+## Overview
 
-processo:
-  step_1_revisao:
-    titulo: "Revisão do Trimestre Anterior"
-    acoes:
-      - "Revisar cada Rock do trimestre anterior: ✅ Completo / ❌ Incompleto / 🔄 Moved"
-      - "Para incompletos: causa raiz + decisão (encerrar, mover ou revisar)"
-      - "Celebrar os completos genuinamente"
-    output: "Resumo de trimestre anterior (% conclusão)"
-  
-  step_2_brainstorm:
-    titulo: "Identificar Candidatos a Rocks"
-    acoes:
-      - "Listar tudo que é prioritário para o próximo trimestre (brain dump)"
-      - "Aplicar filtro: isso move o negócio significativamente em 90 dias?"
-      - "Eliminar to-dos disfarçados de Rocks"
-    output: "Lista de 10-20 candidatos"
-  
-  step_3_priorizacao:
-    titulo: "Priorizar e Selecionar"
-    acoes:
-      - "Filtrar: impacto × viabilidade em 90 dias"
-      - "Selecionar no máximo 7"
-      - "Definir dono para cada Rock (uma pessoa, não um time)"
-    output: "Lista final de 3-7 Rocks"
-  
-  step_4_refinamento:
-    titulo: "Refinar com Donos"
-    acoes:
-      - "Para cada Rock: dono confirma responsabilidade e viabilidade"
-      - "Definir critério de conclusão: 'Este Rock está completo quando...'"
-      - "Criar subtasks de apoio no ClickUp (opcional)"
-    output: "Rocks refinados e validados pelos donos"
-  
-  step_5_registro:
-    titulo: "Registro e Publicação"
-    acoes:
-      - "Criar tasks no ClickUp > OPS > Rocks Trimestrais"
-      - "Compartilhar com toda a empresa"
-      - "Agendar check-in de Rocks na L10 semanal"
-    output: "Rocks publicados e time alinhado"
+Facilita o ciclo de planejamento de 90 dias, definindo as prioridades absolutas da empresa (Rocks) que moverão o negócio em direção às metas anuais, com foco em simplicidade e execução.
 
-duracao_esperada: "2-4 horas (sessão de planejamento trimestral)"
+## Input
+
+- **Trimestre Alvo** (string)
+  - Description: Ex: "Q2 2026".
+- **V/TO** (document)
+  - Description: Vision/Traction Organizer com as metas de longo prazo.
+
+## Output
+
+- **Lista de Rocks** (markdown/list)
+  - Description: Metas prioritárias com dono e critério binário.
+
+## Action Items
+
+### Step 1: Revisar o Trimestre Anterior
+
+Avaliar quais Rocks foram concluídos, quais falharam e por quê, extraindo os "Issues" para a lista de resolução.
+
+### Step 2: Brainstorm de Prioridades
+
+Listar todos os projetos e metas possíveis para os próximos 90 dias sem filtros iniciais.
+
+### Step 3: Aplicar o Filtro de Foco
+
+Reduzir a lista para apenas 3 a 7 Rocks. Se tudo é prioridade, nada é prioridade.
+
+### Step 4: Definir Accountability (Donos)
+
+Garantir que cada Rock tenha UM ÚNICO dono responsável por levar o projeto até o fim.
+
+### Step 5: Estabelecer Critérios Binários
+
+Escrever exatamente o que significa o Rock estar concluído (ex: "X implementado" e não "Melhorar X").
+
+## Acceptance Criteria
+
+- [ ] **AC-1:** Cada Rock possui um critério de conclusão binário (concluído ou não concluído).
+- [ ] **AC-2:** Nenhum Rock possui mais de um dono.
+- [ ] **AC-3:** O conjunto de Rocks está diretamente conectado a pelo menos uma meta anual do V/TO.
+
+## Validation Checklist (HO-TP-001)
+
+### Mandatory Fields Check
+
+- [ ] `task_name` follows "Verb + Object" format
+- [ ] `status` is one of: pending | in_progress | completed
+- [ ] `responsible_executor` is clearly specified
+- [ ] `execution_type` is one of: Human | Agent | Hybrid | Worker
+- [ ] `input` array has at least 1 item
+- [ ] `output` array has at least 1 item
+- [ ] `action_items` has clear, actionable steps
+- [ ] `acceptance_criteria` has measurable criteria
+
+---
+
+_Task Version: 1.0.0_
+_Pattern: HO-TP-001 (Task Anatomy Standard)_
+_Last Updated: 2026-03-12_
+_Compliant: Yes_

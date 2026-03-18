@@ -58,7 +58,7 @@ fases:
     steps:
       - "Criar cadência de follow-up para lead inbound"
       - "Criar cadência de reativação para lead perdido"
-      - "Configurar alertas automáticos no ClickUp"
+      - "Executar `node services/clickup/tasks.js create --name 'Setup Alertas Pipeline' --department 'Comercial / Vendas' --area 'CRM' --process 'Gestão de Novas Oportunidades'`"
     entregaveis:
       - "Cadências documentadas (template: cadencia-template.md)"
   
