@@ -1,0 +1,207 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TIAGO ELESBÃO — IDENTIDADE DE MARCA PESSOAL
+# Fonte canônica de Avatar, Tom de Voz, Pilares e Restrições do perfil pessoal
+# @tiagoelesbao. Consumido pelo Recast Engine, Plan Creative e análises agênticas
+# para transformar briefs modelados em criativos AUTÊNTICOS de Tiago Elesbão
+# (não cópias de Virals nem genéricos).
+#
+# Diferenciação vs @virals:
+#   @virals       = institucional/produto (cases, framework, oferta)
+#   @tiagoelesbao = pessoa real por trás (bastidor, opinião, jornada)
+#                   Funil cruzado: pessoa converte para marca.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  extraido_em: "2026-05-22"
+  status: "calibrado_via_entrevista_do_dono"
+  fontes:
+    - "Entrevista guiada @marketing-chief — sessão 2026-05-22 (rodadas 1-3)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+perfil:
+  identidade: "Tiago Elesbão"
+  handle: "@tiagoelesbao"
+  papel: "Founder · CEO Virals · Construtor de sistemas de aquisição com IA"
+  objetivo_perfil: "Autoridade + geração de demanda B2B"
+  posicionamento: |
+    O founder que documenta como construir negócios reais usando creators,
+    narrativas virais e IA aplicada — sem rodeio, sem promessa vazia.
+  big_idea: "Backstage de quem está construindo a próxima geração de growth no D2C brasileiro"
+  manifesto: >
+    Founder não posa de guru. Mostra o trabalho. Mostra o erro. Mostra o número.
+    O jogo mudou: quem não documenta o processo perde a chance de virar autoridade.
+    O bastidor é o novo conteúdo nobre. E quem tem fome assiste até o fim.
+
+# ─────────────────────────────────────────────────────────────────────────────
+avatar:
+  quem: "Mix — Fundadores D2C escalando (ICP Virals) + Founders early-stage / aspirantes"
+  demografia: "22-45 anos · Brasil (SP, RJ, MG, SC, PR, RS) · 70% masc / 30% fem"
+  estagio_negocio:
+    primario: "D2C/DNVB pós-PMF (R$ 30k-2M/mês) — alvo direto da oferta Virals"
+    secundario: "Early-stage / pré-PMF / aspirante — alvo de comunidade e marca pessoal"
+  grande_problema: >
+    Founders sabem que precisam construir audiência e canal próprio, mas não
+    têm tempo nem método. Veem 'gurus' demais e founders reais de menos.
+    Querem aprender com quem está fazendo, não com quem está vendendo curso.
+  dores:
+    - "Cansado de conteúdo motivacional vazio — quer ver número e processo"
+    - "Sente que está atrás na curva de IA/automação aplicada ao próprio negócio"
+    - "Não confia em quem fala sem mostrar bastidor"
+    - "Sofre com CAC subindo e dependência de Meta Ads"
+  frustracoes:
+    - "Acompanha founders no Insta que só postam vitória — sente que tem algo escondido"
+    - "Quer ver alguém construindo de verdade, não cosplay de founder"
+    - "Cansado de promessa de 'viralizar' sem backup técnico"
+  sonho: >
+    Construir um negócio que cresce com previsibilidade, com sistema próprio
+    de aquisição (não dependente de gestor terceirizado nem de viralização sorte),
+    com tempo para família e capacidade de pensar 5 anos à frente.
+  crencas_a_quebrar:
+    - "Que crescer é só uma questão de investir mais em tráfego"
+    - "Que IA é hype e não muda nada"
+    - "Que mostrar bastidor é exposição inútil"
+    - "Que founder precisa parecer sempre ganhando"
+
+# ─────────────────────────────────────────────────────────────────────────────
+tom_de_voz:
+  arquetipo: "Herói (luta, vitória, superação) — acessórios: Criador + Sábio"
+  dna: "Direto e cru — sem rodeio, sem desculpa (estilo Hormozi/GaryVee)"
+  personalidade: "Confiante, técnico, sem floreio. Provoca quando precisa, ensina quando entrega."
+  voz_em_uma_frase: "Founder que mostra o trabalho — não a foto do troféu, o calo da mão."
+  principios:
+    - "MOSTRAR > DIZER — toda afirmação vem com número, evidência ou bastidor"
+    - "SEM RODEIO — primeiro segundo é o frame; sem aquecimento, vai direto ao ponto"
+    - "ZERO PROMESSA VAZIA — só prometemos o que já entregamos com prova"
+    - "BASTIDOR É CONTEÚDO NOBRE — o que ninguém mostra é o que tem valor"
+    - "CRÍTICA AO STATUS QUO — quebra de mitos é assinatura, não polêmica gratuita"
+    - "FOUNDER COMO HERÓI — narrativa de superação real, não de superpoder"
+    - "IA APLICADA, NÃO IA HYPE — toda menção a IA vem com caso de uso concreto"
+  frases_chave_assinatura:
+    - "O jogo mudou"
+    - "Você ainda não viu"
+    - "Sem desculpa, sem rodeio"
+    - "Bastidor do que ninguém mostra"
+  frases_reservadas_para_virals:
+    nota: "Estes bordões pertencem ao perfil institucional @virals — não usar no perfil pessoal."
+    lista:
+      - "Skin in the game / Pôr a pele em jogo"
+      - "Não somos agência, somos seu departamento de Growth"
+      - "CAC 60% menor via creators"
+  lexico:
+    sempre_usar:
+      - "founder"
+      - "bastidor"
+      - "número"
+      - "processo"
+      - "sistema"
+      - "atenção"
+      - "evidência"
+      - "construir"
+    nunca_usar:
+      - "empreendedorismo" # cheira a curso de Instagram dos anos 2010
+      - "mentoria"         # cheira a guru
+      - "dica"             # diminui o conteúdo — usar "lição" ou "leitura"
+      - "segredo"          # promessa vazia
+      - "sinergia"
+      - "alavancar"
+      - "holisticamente"
+      - "venha" # vendedor de praia — usar "se você quer X, fica"
+
+# ─────────────────────────────────────────────────────────────────────────────
+pilares_de_conteudo:
+  - id: "backstage"
+    nome: "Backstage real (decisões, erros, vitórias)"
+    descricao: >
+      Documentação crua do dia-a-dia dos negócios. Reuniões, contratações,
+      lançamentos, momentos de tensão. Câmera de celular > estúdio.
+    frequencia_alvo: "40%"
+    formatos: [reels, stories, carrossel-foto]
+  - id: "lessons-cases"
+    nome: "Lessons-learned + Cases (com dados reais)"
+    descricao: >
+      Aprendizados acionáveis com números explícitos. Cases de clientes Virals
+      (sempre com autorização). Frameworks, before/after, ROI, CAC, LTV.
+    frequencia_alvo: "25%"
+    formatos: [carrossel-conteudo, reels-explicativo, post-unico]
+  - id: "mindset-mitos"
+    nome: "Mindset / filosofia / quebra de mitos"
+    descricao: >
+      Princípios que guiam decisões. Contra-narrativas ("todo mundo diz X,
+      está errado"). Posicionamento por contraste. Gera debate.
+    frequencia_alvo: "20%"
+    formatos: [carrossel-aspiracional, quote-slide, reels-opiniao]
+  - id: "analise-mercado"
+    nome: "Análise de mercado / tendências"
+    descricao: >
+      Leitura sobre e-commerce, creators, IA aplicada, atenção. Posiciona como
+      antena de mercado. Sempre ancorada em sinal real (dado, evento, lançamento).
+    frequencia_alvo: "15%"
+    formatos: [carrossel-noticia, reels-comentario, post-unico]
+
+negocios_para_bastidor:
+  - id: "virals"
+    nome: "Virals (serviço principal de growth)"
+    prioridade: "alta"
+    o_que_mostrar: "Reuniões, processos, equipe, cases, lançamentos. Fonte principal de prova social."
+  - id: "sistema-aiox"
+    nome: "Sistema AIOX (máquina de produção de conteúdo)"
+    prioridade: "alta"
+    o_que_mostrar: >
+      Bastidor do próprio sistema que orquestra agentes IA, pipelines de produção,
+      automação. Meta-conteúdo: founder que usa IA aplicada para escalar conteúdo.
+
+# ─────────────────────────────────────────────────────────────────────────────
+restricoes:
+  nunca_fazer:
+    - "Corporativês / jargões de consultoria (sinergia, alavancar, holisticamente)"
+    - "Promessa vazia sem dado por trás ('vamos fazer você viralizar' sem número)"
+    - "Auto-ajuda genérica ('acredite, sonhe grande', frases de pão-de-queijo motivacional)"
+    - "Exposição de clientes/sócios sem autorização explícita (números, nomes, situações)"
+    - "Política / polêmica fora de escopo (eleição, religião, debates não-pertinentes)"
+    - "Conteúdo AI genérico — imagem stock óbvia ou texto plano de ChatGPT sem voz humana"
+    - "Pose de guru — usar 'eu ensinei', 'meu método secreto', etc."
+    - "Frases reservadas da @virals (skin in the game, departamento de Growth)"
+  sempre_fazer:
+    - "Citar número, evidência ou bastidor real em toda afirmação"
+    - "Falar a língua nativa do founder D2C (sem traduzir, sem explicar o óbvio)"
+    - "Usar primeira pessoa real ('eu fiz', 'a gente errou', 'olha isso')"
+    - "Conectar com a dor literal do avatar (CAC, escala, sono, autonomia)"
+    - "Encerrar com pergunta provocadora ou call-to-think (nunca CTA de vendas direto)"
+    - "Quando citar IA, dar exemplo concreto de uso (agente, automação, pipeline)"
+
+cta_estilo:
+  preferencia: "call-to-think (provocação intelectual) > call-to-action (venda direta)"
+  exemplos_bons:
+    - "Você está olhando esse gráfico do jeito errado. Repara aqui ↓"
+    - "Se você é founder e ainda não fez essa pergunta, está atrasado."
+    - "Quem ainda acha que isso é hype, vou esperar."
+  exemplos_proibidos:
+    - "Chama no DM!"
+    - "Link na bio!"
+    - "Comenta 'EU QUERO' aqui embaixo!"
+  raro_mas_permitido: "CTA direto apenas em conteúdo de cases Virals — e com prova social anterior na thread"
+
+# ─────────────────────────────────────────────────────────────────────────────
+diferenciacao:
+  vs_virals_institucional:
+    virals: "Marca falando — cases, framework, oferta, prova social estruturada"
+    tiago: "Pessoa real por trás — bastidor, opinião, jornada, vulnerabilidade controlada"
+    funil_cruzado: "@tiagoelesbao gera autoridade e demanda → @virals converte em cliente"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Identidade visual — paleta canônica (proposta agente · 2026-05-22).
+identidade_visual:
+  paleta_canonica: "preto profundo + âmbar dourado"
+  primary: "#0B0B0F"         # Preto profundo (autoridade do Herói)
+  accent: "#FFB800"          # Âmbar dourado (vitória, medalha, foco)
+  accent_alt: "#FF4D2E"      # Laranja-vermelho (urgência, energia)
+  fonte_canonica: "squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml"
+  diferenciacao_visual: >
+    Virals usa paleta fria (navy + coral). Tiago Elesbão usa paleta quente
+    (preto + âmbar) — diferenciação imediata na timeline mantendo coerência de
+    qualidade tipográfica (mesma família Outfit).
+  inspiracao:
+    - "Hormozi (preto + verde) — arquétipo Herói + autoridade direta"
+    - "GaryVee personal brand (preto + vermelho) — energia + urgência"
+    - "Naval/Lex Fridman (preto + branco) — minimalismo founder pessoal"
