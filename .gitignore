@@ -49,6 +49,10 @@ services/ETL/Extract/outputs/discovery_debug/
 outputs/
 apps/creative-design/public/render-assets/
 
+# Python bytecode (squad scripts)
+__pycache__/
+*.pyc
+
 # Environment & Secrets (AIOS)
 *.key
 *.pem
