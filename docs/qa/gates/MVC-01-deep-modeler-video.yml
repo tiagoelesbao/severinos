@@ -1,0 +1,35 @@
+storyId: MVC-01
+epic: EPIC-MKT-Video-Creative
+title: "Schema do video-brief + deep_modeler_video"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-20"
+
+acceptance_criteria:
+  AC1: { status: met, note: "Gera video-brief-<slug>.yaml; validado com benchmark real 30-hormozi-fc605e (PASS)" }
+  AC2: { status: met, note: "transcript[] preserva start/end/text (13 segmentos no real)" }
+  AC3: { status: met, note: "frames[] mapeados 1:1 aos key_moments reais com timestamp" }
+  AC4: { status: met, note: "client_slug=tiago-elesbao resolvido via _client_resolver" }
+  AC5: { status: met, note: "FAIL não-fatal (exit 2, brief salvo); falta de Transcrição.md = fatal (exit 1)" }
+
+tests:
+  unit: { total: 11, passed: 11, file: "squads/virals-marketing-squad/scripts/test_deep_modeler_video.py" }
+  real_data_e2e: { benchmark: "30-hormozi-fc605e", client: "tiago-elesbao", result: PASS }
+  regression: { status: clean, note: "transcript_adapter, deep_modeler, deep_modeler_video importam sem erro" }
+
+issues:
+  - severity: low
+    category: code
+    description: "build_frames pode gerar timestamps não-monotônicos se len(key_moments) < len(screenshots) com tempos divergentes do spread uniforme."
+    recommendation: "Ordenar frames por t_seconds ou usar estratégia única de timestamp. Relevante para MVC-02 (alinhamento frame↔fala)."
+    status: tracked_followup
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit (WSL) não executado nesta sessão."
+    recommendation: "Rodar antes do push (via @devops)."
+  - severity: info
+    category: design
+    description: "Atribuição de role em beats é heurística (último=cta)."
+    recommendation: "Refinamento semântico é escopo de MVC-02/03 — correto para extração determinística."
+
+next: "MVC-02 (analyze_video_benchmark) consome o video-brief. Push pendente → @devops."

@@ -1,0 +1,39 @@
+storyId: MVC-06
+epic: EPIC-MKT-Video-Creative
+title: "video-templates.yaml por cliente + loader/CLI + wire MVC-03"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-20"
+
+acceptance_criteria:
+  AC1: { status: met, note: "video-templates.yaml p/ virals + tiago, >=3 por categoria (hook=4)" }
+  AC2: { status: met, note: "palette_ref + cores das legendas = accent do brand-config (coral/âmbar)" }
+  AC3: { status: met, note: "scoring_match recomenda por hook_type (bold→hardcut, curiosity→whip/question)" }
+  AC4: { status: met, note: "plan_video_creative anexa edit_spec.template_refs com IDs válidos (verificado)" }
+  AC5: { status: met, note: "--list-video-templates imprime presets por categoria" }
+
+integrity_checks:
+  scoring_match_dangling_ids: none
+  tiago_taboo_lexicon: clean
+  fidelity_coherence: "presets de número avisam 'só com dado real' (alinhado MVC-04)"
+
+tests:
+  unit: { total: 7, passed: 7, file: "squads/virals-marketing-squad/scripts/test_video_templates.py" }
+  wire_check: { result: "curiosity gap → hook-direct-question (válido)" }
+  regression: { status: clean, note: "MVC-03 c/ wire 7/7; Fase A 74 testes verdes" }
+
+issues:
+  - severity: low
+    category: ux
+    description: "template_refs gravado no brief mas não exibido no Plano-de-Criativo.md (render MVC-05)."
+    recommendation: "Surfaceá-lo no .md numa iteração futura (serve à Fase B hoje)."
+  - severity: info
+    category: design
+    description: "Presets são metadados; implementação React/Remotion é Fase B (MVC-09)."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+phase_a_status: "COMPLETA (MVC-01..06 todas com gate PASS; MVC-03 CONCERNS fechada pela MVC-04)."
+next: "Push da Fase A → @devops. Depois Fase B (app Remotion, MVC-07..11 a draftar)."

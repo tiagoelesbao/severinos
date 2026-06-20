@@ -1,0 +1,125 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# VIRALS — IDENTIDADE DE MARCA
+# Fonte canônica de Oferta, Avatar, Tom de Voz e Restrições.
+# Consumido pelo Recast Engine para transformar briefs modelados de benchmark
+# em criativos AUTÊNTICOS Virals (não cópias).
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  extraido_em: "2026-05-16"
+  status: "aguardando_validacao_do_dono"
+  fontes:
+    - "docs/01-Strategy/Planejamento Estratégico/01-FUNDAÇÃO ESTRATÉGICA/05-ICP PROFUNDO.md"
+    - "docs/01-Strategy/Planejamento Estratégico/03-DIRETIZ DE BRANDING E NARRATIVAS/03-Arquétipo e Emoção Predominante.md"
+    - "docs/01-Strategy/Planejamento Estratégico/03-DIRETIZ DE BRANDING E NARRATIVAS/04-Big Idea e Manifesto Viral.md"
+    - "docs/01-Strategy/Planejamento Estratégico/03-DIRETIZ DE BRANDING E NARRATIVAS/07-Guia de Comunicação (Tone of Voice).md"
+    - "docs/04-Products/Projetos/Virals Starter & Growth/Brand-Bible-Identidade-e-Voz.md"
+    - "docs/04-Products/Ecossistema de Serviços/01-PROJETO VIRAL STARTER (LITE).md"
+    - "docs/04-Products/Ecossistema de Serviços/02-PROJETO VIRAL GROWTH (FULL STACK).md"
+
+# ─────────────────────────────────────────────────────────────────────────────
+oferta:
+  posicionamento: "Não somos agência. Somos seu departamento de Growth."
+  big_idea: "Creators + Narrativas Virais = Nova Era do E-commerce D2C"
+  modelo: "Skin in the game — revenue share de 1%"
+  promessa_central: "CAC até 60% menor via creators; crescimento exponencial, não linear."
+  manifesto: >
+    Toda marca D2C merece as mesmas armas que marcas milionárias têm. Creators
+    são o futuro da aquisição, não exceção. Narrativas virais vencem criativos
+    genéricos. Crescimento sustentável vem de comunidades apaixonadas — e
+    fundadores talentosos merecem dormir 8h, não checar criativos de madrugada.
+  pilares_de_entrega:
+    - "Hunter Ads System — prospecção, ativação e gestão de creators"
+    - "Copy Strategy Framework — roteiros e narrativa viral"
+    - "Traffic Performance Protocol — gestão e escala de tráfego"
+  produtos:
+    - nome: "Viral Starter (Lite)"
+      para: "marca saindo do amadorismo digital, validando aquisição"
+      escopo: "5-10 micro-creators · 10 roteiros/mês · 1 canal (Meta Ads)"
+      investimento: "R$ 6.397-7.997/mês + setup"
+      revenue_share: "1% sobre vendas geradas pelos creators"
+    - nome: "Viral Growth (Full Stack)"
+      para: "marca pronta para escala agressiva (departamento de Growth completo)"
+      escopo: "20-50 creators · 40 roteiros/mês · omnichannel · consultoria CMO"
+      investimento: "R$ 7.197-8.997/mês + setup"
+      revenue_share: "1% sobre as vendas gerais da marca"
+
+# ─────────────────────────────────────────────────────────────────────────────
+avatar:
+  quem: "Fundadores de marcas D2C / DNVB (Direct-to-Consumer)"
+  demografia: "25-45 anos · Brasil (SP, RJ, MG, SC, PR, RS) · 60% masc / 40% fem"
+  faturamento: "R$ 30k-2M/mês · sweet spot R$ 50-500k/mês"
+  estagio: "Pós-Product-Market-Fit, vendas recorrentes, já roda Meta Ads"
+  nichos: [moda, beauty/skincare, fitness/wellness, casa/decor, pet, tech-acessórios, sustentabilidade]
+  grande_problema: >
+    CAC subindo 10-30% todo mês, dependência total de Meta Ads, criativos que
+    queimam em 3-5 dias e nenhum processo estruturado de creators.
+  dores:
+    - "Não sabe estruturar creators como canal de aquisição escalável"
+    - "Não tem tempo nem bandwidth para testar e errar (trabalha 14-16h/dia)"
+    - "Medo de investir e ser mais uma promessa vazia sem ROI"
+  frustracoes:
+    - "Acorda de madrugada checando se os anúncios queimaram"
+    - "Trabalha 16h/dia apagando incêndio e sente que não sai do lugar"
+    - "Se compara com concorrentes que escalam 'fácil' e não entende como"
+  sonho: >
+    Marca dominando o nicho com crescimento previsível e sustentável, ecossistema
+    de creators promovendo organicamente, margem saudável (40%+) e tranquilidade
+    para dormir 8h por noite.
+  crencas_erradas:
+    - "Investir mais em tráfego pago vai resolver"
+    - "Contratar agência tradicional vai resolver"
+    - "Fazer curso e aprender sozinho vai resolver"
+    - "Contratar gestor de tráfego CLT vai resolver"
+    - "Apenas melhorar os criativos vai resolver"
+
+# ─────────────────────────────────────────────────────────────────────────────
+tom_de_voz:
+  arquetipo: "Mago (transformação) — acessórios: Criador + Herói"
+  dna: "GaryVee Style — a voz educa até doer (Jab, Jab, Jab, Right Hook)"
+  personalidade: "Confiante, direto, técnico mas acessível, ousado com pé no chão"
+  principios:
+    - "Zero Desculpas — não 'o mercado mudou', e sim 'você não se adaptou à atenção'"
+    - "Documentar > Criar — linguagem de bastidor, menos estúdio mais realidade"
+    - "Nativo ou Nada — a voz se adapta a cada plataforma"
+    - "Atenção é a Única Moeda — se o 1º segundo não parou o scroll, falhou"
+    - "Confiança baseada em dados concretos, nunca em promessa vazia"
+    - "Empatia real com a dor do fundador D2C"
+  frases_chave:
+    - "CAC 60% menor via creators"
+    - "Não somos agência. Somos seu departamento de Growth."
+    - "Skin in the game: 1% revenue share"
+    - "Creators + Narrativas Virais = Nova Era do D2C"
+    - "Crescimento exponencial, não linear"
+  lexico:  # vocabulário a SEMPRE usar (substituições obrigatórias)
+    alcance: "atenção"
+    posts: "micro-content"
+    adaptado: "nativo"
+    conteudo_de_valor_gratuito: "jab"
+
+# ─────────────────────────────────────────────────────────────────────────────
+restricoes:
+  nunca_fazer:
+    - "Promessa vazia — ex.: 'vamos fazer sua marca viralizar'"
+    - "Corporativês — ex.: 'utilizamos estratégias omnichannel'"
+    - "Genérico — ex.: 'trabalhamos com influenciadores'"
+    - "Ego-driven — ex.: 'nosso serviço é o melhor'"
+    - "Mistério desnecessário — ex.: 'temos segredos proprietários'"
+  sempre_fazer:
+    - "Citar dados concretos e específicos (números, prazos, %)"
+    - "Falar a língua nativa do D2C"
+    - "Nomear os sistemas proprietários (Hunter Ads System etc.)"
+    - "Conectar com a dor literal do avatar"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Identidade visual — paleta canônica (decisão do dono · 2026-05-16).
+identidade_visual:
+  paleta_canonica: "navy + coral"
+  primary: "#1A1A2E"
+  accent: "#E94560"
+  fonte_canonica: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
+  nota: >
+    Paleta navy/coral mantida (já usada pelo motor de render desde a era Casey
+    e validada pela Brand Bible). Em 2026-05-22 a fonte canonical foi migrada
+    para a estrutura multi-cliente (data/clients/virals/brand-config.yaml).

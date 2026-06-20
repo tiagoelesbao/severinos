@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  /* Virals Brand Tokens — Paleta Aurora (2026-05-18) */
+  --virals-primary: #0C0A1F;      /* Deep Void — preto-violeta (arquétipo Mago) */
+  --virals-secondary: #181436;    /* Nebula — profundidade dos degradês */
+  --virals-accent: #FF3D68;       /* Viral Pulse — coral-magenta, CTAs */
+  --virals-accent-alt: #7B5BFF;   /* Magic Indigo — transformação, glow boreal */
+  --virals-aurora: #2DE2C8;       /* Aurora Teal — crescimento/dados, glow boreal */
+  --virals-text-primary: #FFFFFF;
+  --virals-text-secondary: #B9B6CC;
+  
+  --background: var(--virals-primary);
+  --foreground: var(--virals-text-primary);
+}
+
+@theme inline {
+  --color-virals-primary: var(--virals-primary);
+  --color-virals-secondary: var(--virals-secondary);
+  --color-virals-accent: var(--virals-accent);
+  --color-virals-accent-alt: var(--virals-accent-alt);
+  --color-virals-aurora: var(--virals-aurora);
+  --color-virals-text-primary: var(--virals-text-primary);
+  --color-virals-text-secondary: var(--virals-text-secondary);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Outfit', Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita scrollbars na renderização */
+}
+
+/* REMOVE LOGO NEXT.JS PERMANENTEMENTE */
+#NEXT_DEV_STYLE, 
+.nextjs-portal, 
+[data-nextjs-toast], 
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
