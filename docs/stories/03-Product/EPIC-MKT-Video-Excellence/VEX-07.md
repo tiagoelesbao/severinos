@@ -1,6 +1,6 @@
 # VEX-07: Design system do Studio — de protótipo a produto profissional
 
-**Status:** InProgress — fundação + Storybook entregues (ver Dev Record); migração dos painéis internos/splitters em andamento
+**Status:** InProgress — inc.1 (fundação+Storybook) e inc.2 (splitters 3-eixos + bin com abas + tokenização do inspector + AC1 nos controles) entregues; falta inc.3 (tokens da timeline + piso de fonte ≥11px, a calibrar no dev)
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2** — base estética/estrutural de todas as stories de UI seguintes
 **Complexidade:** L (Standard — 12 pontos)
@@ -38,11 +38,12 @@
 - [x] Kit de componentes (`src/components/ui.tsx`): Button (5 variantes), IconButton, Section, Badge, Tip (Radix), ConfirmDialog (Radix) — com focus rings e estados.
 - [x] `alert()`/`confirm()` ELIMINADOS: remover criativo, resetar edição e guard do auto-cut agora usam ConfirmDialog; sucesso/erro de export/remoção/reset viram toasts (sonner) com Toaster global no layout.
 - [x] Transport bar redesenhada: ícones lucide + tooltips com atalhos + dot de não-salvo no Salvar + export com progresso.
-- [ ] Shell com splitters redimensionáveis persistidos (react-resizable-panels instalado; aplicação no layout pendente).
-- [ ] Migrar sidebar esquerda para bin com abas (Criativos/Mídia/Áudio/Texto).
-- [ ] Migrar inspector para painéis contextuais (Section/tokens nos blocos internos).
-- [ ] Timeline: adotar tokens nas réguas/playhead (cores de papel já centralizadas em roleColor).
-- [ ] Empty states desenhados + passe de a11y completo.
+- [x] Shell com splitters redimensionáveis persistidos (react-resizable-panels **v4** — `Group`/`Panel`/`Separator`; 3 eixos; layout persistido em localStorage via `defaultLayout`/`onLayoutChanged`).
+- [x] Migrar sidebar esquerda para bin com abas (Criativos/Mídia/Áudio) + empty states desenhados.
+- [x] Tokenizar blocos internos do inspector: `box`/`btn` puxam das CSS vars (@theme) — ~40 usos migrados de uma vez; superfícies do preview/inspector via `--color-surface-*`.
+- [x] AC1 nos controles: emoji-como-ícone eliminados no inspector/bin (🗑→Trash2, ▶→Play, ✂→Scissors, ＋→Plus) + aria-labels nos icon buttons do transporte.
+- [ ] Timeline: adotar tokens nas réguas/playhead (cores de papel já centralizadas em roleColor) — pendente.
+- [ ] Piso de fonte global ≥ 11px (labels em 9–10px no inspector) — **calibrar no `npm run dev` antes do passe** (pedido do dono).
 
 ## Critérios de Aceite
 - [ ] **AC1:** Zero `alert()`/`confirm()` nativos; zero emoji-como-ícone nos controles; nenhum texto de UI < 11px.
@@ -80,7 +81,11 @@ claude-fable-5 (Claude no papel @dev)
 - `src/app/studio/page.tsx` (accent por cliente; transport com lucide+Tip; confirm()→ConfirmDialog ×3; toasts de export/remoção/reset)
 - `package.json` (scripts storybook/build-storybook; deps), `.gitignore` (storybook-static)
 
+### File List (incremento 2 — shell + tokenização)
+- `src/app/studio/page.tsx` (shell `Group`/`Panel`/`Separator` v4 nos 3 eixos + persistência localStorage; `loadLayout`/`saveLayout`; bin com abas Criativos/Mídia/Áudio + empty states; `box`/`btn` via CSS vars; preview/inspector em `--color-surface-*`; emoji-controle→lucide; aria-labels)
+
 ## Change Log
 - 2026-07-02 — Claude — Story criada a partir da auditoria (Draft).
 - 2026-07-04 — Claude (@po) — Validada (GO 9/10) + **aditivo do dono: Storybook para tokenizar/documentar o design system**. Draft → Ready.
 - 2026-07-04 — Claude (@dev) — Incremento 1 (fundação): tokens+accent dinâmico+kit+Storybook+transport+dialogs/toasts. Build Next, Storybook build, 102/102 testes e typecheck limpos. Ready → InProgress (splitters/abas/inspector/empty-states pendentes).
+- 2026-07-04 — Claude (@dev) — Incremento 2 (shell + tokenização): splitters redimensionáveis nos 3 eixos com persistência em localStorage (**react-resizable-panels v4** — a API antiga `PanelGroup`/`PanelResizeHandle`/`autoSaveId` não existe mais; migrado para `Group`/`Panel`/`Separator` + persistência manual). Bin com abas + empty states. `box`/`btn` do inspector tokenizados via CSS vars. Emoji-como-controle eliminados no inspector/bin + aria-labels no transporte. Typecheck, `next build` (/studio OK) e 102/102 testes limpos. **Pendente (inc. 3):** tokens da timeline + piso de fonte ≥11px (a calibrar no dev).

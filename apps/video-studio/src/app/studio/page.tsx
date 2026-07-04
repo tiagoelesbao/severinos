@@ -44,15 +44,18 @@ import {
   HelpCircle,
   Play,
   Pause,
+  Plus,
   Redo2,
   RotateCcw,
   Save,
   Scissors,
   SkipBack,
   SkipForward,
+  Trash2,
   Undo2,
 } from "lucide-react";
 import { Button, ConfirmDialog, IconButton, Tip } from "@/components/ui";
+import { Group, Panel, Separator, type Layout } from "react-resizable-panels";
 
 interface Snapshot {
   timeline: Timeline;
@@ -98,6 +101,20 @@ const PPS_DEFAULT = 80;
 
 interface CreativeItem { id: string; label: string; hasMaterials: boolean }
 
+// VEX-07 inc.2: react-resizable-panels v4 removeu o autoSaveId — persistimos o
+// layout dos splitters manualmente (Layout = { [panelId]: flexGrow }). Os
+// painéis só montam client-side (após o fetch da timeline), então ler o
+// localStorage aqui não gera mismatch de hidratação.
+function loadLayout(key: "rows" | "cols"): Layout | undefined {
+  if (typeof window === "undefined") return undefined;
+  try {
+    const raw = window.localStorage.getItem(`studio-layout-${key}`);
+    return raw ? (JSON.parse(raw) as Layout) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 function StudioInner() {
   const router = useRouter();
   const params = useSearchParams();
@@ -138,6 +155,14 @@ function StudioInner() {
   const [confirmReset, setConfirmReset] = useState(false);
   const pendingAutocut = useRef<(() => void) | null>(null);
   const [confirmAutocut, setConfirmAutocut] = useState(false);
+  // VEX-07 inc.2: aba ativa do bin da esquerda.
+  const [binTab, setBinTab] = useState<"criativos" | "midia" | "audio">("criativos");
+  // VEX-07 inc.2: layout dos splitters (3 eixos) persistido entre sessões.
+  const [rowsLayout] = useState<Layout | undefined>(() => loadLayout("rows"));
+  const [colsLayout] = useState<Layout | undefined>(() => loadLayout("cols"));
+  const saveLayout = useCallback((key: "rows" | "cols", layout: Layout) => {
+    try { window.localStorage.setItem(`studio-layout-${key}`, JSON.stringify(layout)); } catch { /* quota/private mode */ }
+  }, []);
   const captionStyle = useMemo(
     () => CAPTION_STYLES.find((s) => s.id === styleId)?.opts,
     [styleId],
@@ -670,17 +695,20 @@ function StudioInner() {
   const curSec = (currentFrame / timeline.fps).toFixed(2);
   const totSec = (timeline.durationInFrames / timeline.fps).toFixed(2);
 
+  // VEX-07 inc.2: os dois estilos compartilhados do inspector puxam dos tokens
+  // (@theme gera as CSS vars) — tokeniza ~40 usos de uma vez e faz o accent/
+  // superfícies reagirem por cliente sem tocar cada JSX.
   const box: React.CSSProperties = {
-    background: "#0c0c16",
-    border: "1px solid rgba(255,255,255,.08)",
-    borderRadius: 10,
+    background: "var(--color-surface-2)",
+    border: "1px solid var(--color-line)",
+    borderRadius: "var(--radius-panel)",
     padding: 12,
   };
   const btn: React.CSSProperties = {
-    background: "#1a1a24",
-    color: "#fff",
-    border: "1px solid rgba(255,255,255,.12)",
-    borderRadius: 8,
+    background: "var(--color-surface-4)",
+    color: "var(--color-fg)",
+    border: "1px solid var(--color-line-strong)",
+    borderRadius: "var(--radius-control)",
     padding: "6px 12px",
     cursor: "pointer",
     fontSize: 13,
@@ -712,16 +740,37 @@ function StudioInner() {
   })();
 
   return (
-    <div style={{ display: "grid", gridTemplateRows: "1fr auto", height: "100vh", background: "#000", color: "#fff" }}>
+    <>
+    {/* VEX-07 inc.2: shell com splitters persistidos (react-resizable-panels v4) */}
+    <Group orientation="vertical" defaultLayout={rowsLayout} onLayoutChanged={(l) => saveLayout("rows", l)} className="h-screen bg-surface-0 text-fg">
       {/* ── Parte superior: criativos + preview + inspector ─────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "230px 1fr 320px", minHeight: 0 }}>
-        {/* Esquerda: cliente + switcher de criativos (N3) */}
-        <aside style={{ background: "#0a0a12", borderRight: "1px solid rgba(255,255,255,.08)", padding: 14, overflowY: "auto", display: "flex", flexDirection: "column", gap: 10 }}>
-          <button onClick={() => router.push("/")} style={{ ...btn, fontSize: 11, alignSelf: "flex-start", padding: "4px 10px" }}>← Trocar cliente</button>
+      <Panel id="top" defaultSize={66} minSize={40}>
+      <Group orientation="horizontal" defaultLayout={colsLayout} onLayoutChanged={(l) => saveLayout("cols", l)} className="h-full">
+        {/* Esquerda: bin com abas (Criativos / Mídia / Áudio) */}
+        <Panel id="bin" defaultSize={17} minSize={12} maxSize={30}>
+        <aside className="h-full bg-surface-1 overflow-y-auto flex flex-col gap-2.5 p-3.5">
+          <Button variant="ghost" size="sm" className="self-start" onClick={() => router.push("/")}>← Trocar cliente</Button>
           <div>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "rgba(255,255,255,.55)", fontWeight: 800 }}>{client}</div>
-            <div style={{ fontSize: 10, color: "#666" }}>{creatives.length} criativo{creatives.length === 1 ? "" : "s"}</div>
+            <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold">{client}</div>
+            <div className="text-[10px] text-fg-faint">{creatives.length} criativo{creatives.length === 1 ? "" : "s"}</div>
           </div>
+
+          {/* Abas do bin (VEX-07 inc.2) */}
+          <div className="flex gap-1 border-b border-line pb-2">
+            {([["criativos", "Criativos"], ["midia", "Mídia"], ["audio", "Áudio"]] as const).map(([id, label]) => (
+              <button
+                key={id}
+                onClick={() => setBinTab(id)}
+                className={`px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer transition-colors ${
+                  binTab === id ? "bg-accent text-black" : "text-fg-muted hover:bg-surface-4 hover:text-fg"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {binTab === "criativos" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {creatives.map((c) => {
               const isSel = c.id === creative;
@@ -744,28 +793,36 @@ function StudioInner() {
                   <button
                     onClick={() => setConfirmRemove(c.id)}
                     title="Remover criativo (apaga a pasta, incl. Materiais Brutos!)"
-                    style={{ position: "absolute", right: 4, top: "50%", transform: "translateY(-50%)", width: 22, height: 22, borderRadius: 6, border: "none", background: "transparent", color: "rgba(255,255,255,.25)", cursor: "pointer", fontSize: 12 }}
-                  >🗑</button>
+                    aria-label={`Remover criativo ${c.label}`}
+                    className="absolute right-1 top-1/2 -translate-y-1/2 grid place-items-center size-[22px] rounded-md text-fg-faint hover:text-danger hover:bg-surface-4 transition-colors"
+                  ><Trash2 className="size-3.5" /></button>
                 </div>
               );
             })}
-            {creatives.length === 0 && <div style={{ fontSize: 10, color: "#666" }}>Nenhum criativo.</div>}
+            {creatives.length === 0 && (
+              <div className="text-[11px] text-fg-faint py-3 text-center border border-dashed border-line rounded-lg">
+                Nenhum criativo ainda.<br />
+                <span className="text-[10px]">Rode <code>*industrialize-video</code> (Fase A) para criar o primeiro.</span>
+              </div>
+            )}
           </div>
+          )}
 
-          {/* Media bin (N2): biblioteca + materiais + uploads, arrastáveis p/ timeline */}
-          <div style={{ borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 10 }}>
+          {/* Media bin (N2): materiais + uploads + biblioteca visual, arrastáveis */}
+          {binTab === "midia" && (
+          <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-              <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "rgba(255,255,255,.55)", fontWeight: 800 }}>Biblioteca</span>
-              <label style={{ ...btn, padding: "3px 8px", fontSize: 10, cursor: "pointer" }}>
+              <span className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold">Mídia</span>
+              <label className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold cursor-pointer bg-surface-4 border border-line-strong hover:brightness-125">
                 ↑ Upload
                 <input type="file" accept="audio/*,video/*,image/*" style={{ display: "none" }} onChange={onUpload} />
               </label>
             </div>
-            <div style={{ fontSize: 9, color: "#666", marginBottom: 6 }}>Arraste um item para a timeline.</div>
+            <div className="text-[10px] text-fg-faint mb-1.5">Arraste um item para a timeline.</div>
             {([
               { title: "Uploads", items: assets.uploads },
               { title: "Materiais", items: assets.materials },
-              { title: "Biblioteca", items: assets.library },
+              { title: "Biblioteca", items: assets.library.filter((a) => a.kind !== "audio") },
             ] as const).map((g) => (g.items.length > 0 ? (
               <div key={g.title} style={{ marginBottom: 8 }}>
                 <div style={{ fontSize: 9, color: "#777", textTransform: "uppercase", letterSpacing: 1, marginBottom: 3 }}>{g.title} · {g.items.length}</div>
@@ -788,33 +845,65 @@ function StudioInner() {
                 </div>
               </div>
             ) : null))}
-            {assets.uploads.length + assets.materials.length + assets.library.length === 0 && (
-              <div style={{ fontSize: 10, color: "#666" }}>Nenhum asset. Faça upload ou solte arquivos em public/library/.</div>
-            )}
-          </div>
-
-          {/* Trilha de fundo (música que acompanha o vídeo inteiro) */}
-          <div style={{ borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 10 }}>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 1, color: "rgba(255,255,255,.55)", fontWeight: 800 }}>🎵 Trilha de fundo</div>
-            <div style={{ fontSize: 9, color: "#666", margin: "2px 0 6px" }}>Acompanha o vídeo inteiro (volume baixo, sob a fala).</div>
-            {musicTracks.length === 0 && (
-              <div style={{ fontSize: 10, color: "#666" }}>Nenhuma trilha em public/library/music.</div>
-            )}
-            {musicTracks.map((a) => (
-              <div key={a.url} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6, padding: "4px 7px", borderRadius: 6, background: "#0c0c16", border: "1px solid rgba(255,255,255,.08)", marginBottom: 3 }}>
-                <span style={{ fontSize: 10, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>🎵 {baseName(a.name).replace(/\.\w+$/, "")}</span>
-                <button onClick={() => addBackground(a)} title="Adicionar como trilha de fundo do vídeo inteiro" style={{ ...btn, padding: "2px 8px", fontSize: 10 }}>＋ fundo</button>
+            {assets.uploads.length + assets.materials.length + assets.library.filter((a) => a.kind !== "audio").length === 0 && (
+              <div className="text-[11px] text-fg-faint py-3 text-center border border-dashed border-line rounded-lg">
+                Nenhum asset visual.<br />
+                <span className="text-[10px]">Faça upload ou solte arquivos em public/library/.</span>
               </div>
-            ))}
+            )}
           </div>
+          )}
 
-          <div style={{ fontSize: 9, color: "#555", marginTop: "auto", lineHeight: 1.5 }}>
+          {/* Áudio: SFX arrastáveis + trilha de fundo (VEX-07 inc.2) */}
+          {binTab === "audio" && (
+          <div className="flex flex-col gap-3">
+            <div>
+              <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold mb-1">SFX</div>
+              <div className="text-[10px] text-fg-faint mb-1.5">Arraste para a timeline (com ducking pelo inspector).</div>
+              <div className="flex flex-col gap-1">
+                {assets.library.filter((a) => a.kind === "audio" && !a.name.toLowerCase().startsWith("music/")).map((a) => (
+                  <div
+                    key={a.url}
+                    draggable
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData("application/json", JSON.stringify({ src: a.url, name: a.name, kind: a.kind }));
+                      e.dataTransfer.effectAllowed = "copy";
+                    }}
+                    title={a.name}
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-surface-2 border border-line cursor-grab text-[11px] hover:border-line-strong"
+                  >
+                    <span className="opacity-70">♪</span>
+                    <span className="truncate">{baseName(a.name).replace(/\.\w+$/, "")}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold mb-1">Trilha de fundo</div>
+              <div className="text-[10px] text-fg-faint mb-1.5">Cobre o vídeo inteiro, com ducking sob a fala.</div>
+              {musicTracks.length === 0 && (
+                <div className="text-[11px] text-fg-faint">Nenhuma trilha em public/library/music.</div>
+              )}
+              {musicTracks.map((a) => (
+                <div key={a.url} className="flex items-center justify-between gap-1.5 px-2 py-1 rounded-md bg-surface-2 border border-line mb-1">
+                  <span className="text-[11px] truncate">🎵 {baseName(a.name).replace(/\.\w+$/, "")}</span>
+                  <Button size="sm" onClick={() => addBackground(a)} title="Adicionar como trilha de fundo do vídeo inteiro"><Plus className="size-3" /> fundo</Button>
+                </div>
+              ))}
+            </div>
+          </div>
+          )}
+
+          <div className="text-[10px] text-fg-faint mt-auto leading-relaxed">
             Novos criativos vêm do pipeline <code>*industrialize-video</code> (Fase A).
           </div>
         </aside>
+        </Panel>
+        <Separator className="w-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
 
         {/* Preview (palco) */}
-        <main style={{ position: "relative", background: "#08080e", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 16, minHeight: 0 }}>
+        <Panel id="preview" minSize={34}>
+        <main style={{ position: "relative", height: "100%", background: "var(--color-surface-0)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 16, minHeight: 0 }}>
           <div ref={stageRef} onMouseDown={() => setSelectedLayerClip("")} style={{ position: "relative", height: "calc(100% - 56px)", aspectRatio: "9 / 16", background: "#000", borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,.6)" }}>
             <Player
               ref={playerRef}
@@ -865,20 +954,20 @@ function StudioInner() {
           </div>
           {/* Transporte (VEX-07: design system — ícones, tooltips, accent do cliente) */}
           <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 14 }}>
-            <Tip label="Início (Home)"><IconButton onClick={() => seek(0)}><SkipBack className="size-4" /></IconButton></Tip>
+            <Tip label="Início (Home)"><IconButton aria-label="Ir para o início" onClick={() => seek(0)}><SkipBack className="size-4" /></IconButton></Tip>
             <Tip label="Play/Pause (Espaço)">
-              <IconButton onClick={togglePlay}>{playing ? <Pause className="size-4" /> : <Play className="size-4" />}</IconButton>
+              <IconButton aria-label={playing ? "Pausar" : "Reproduzir"} onClick={togglePlay}>{playing ? <Pause className="size-4" /> : <Play className="size-4" />}</IconButton>
             </Tip>
-            <Tip label="Fim (End)"><IconButton onClick={() => seek(timeline.durationInFrames - 1)}><SkipForward className="size-4" /></IconButton></Tip>
+            <Tip label="Fim (End)"><IconButton aria-label="Ir para o fim" onClick={() => seek(timeline.durationInFrames - 1)}><SkipForward className="size-4" /></IconButton></Tip>
             <span className="text-[12px] text-fg-muted tabular-nums ml-2">
               {curSec}s / {totSec}s
             </span>
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
-            <Tip label="Desfazer (Ctrl+Z)"><IconButton onClick={undo}><Undo2 className="size-4" /></IconButton></Tip>
-            <Tip label="Refazer (Ctrl+Shift+Z)"><IconButton onClick={redo}><Redo2 className="size-4" /></IconButton></Tip>
+            <Tip label="Desfazer (Ctrl+Z)"><IconButton aria-label="Desfazer" onClick={undo}><Undo2 className="size-4" /></IconButton></Tip>
+            <Tip label="Refazer (Ctrl+Shift+Z)"><IconButton aria-label="Refazer" onClick={redo}><Redo2 className="size-4" /></IconButton></Tip>
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <Tip label={razorMode ? "Cortar: clique num clipe para dividir (C desliga)" : "Ferramenta de corte (C)"}>
-              <IconButton active={razorMode} onClick={() => setRazorMode((v) => !v)}>
+              <IconButton aria-label="Ferramenta de corte" aria-pressed={razorMode} active={razorMode} onClick={() => setRazorMode((v) => !v)}>
                 <Scissors className="size-4" />
               </IconButton>
             </Tip>
@@ -901,7 +990,7 @@ function StudioInner() {
             </Tip>
             {persisted && (
               <Tip label="Descartar a edição salva e voltar ao plano">
-                <IconButton onClick={() => setConfirmReset(true)}><RotateCcw className="size-4" /></IconButton>
+                <IconButton aria-label="Descartar edição salva" onClick={() => setConfirmReset(true)}><RotateCcw className="size-4" /></IconButton>
               </Tip>
             )}
             {(() => {
@@ -928,7 +1017,7 @@ function StudioInner() {
             {status && <span className="text-[11px] text-fg-muted">{status}</span>}
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <Tip label="Atalhos de teclado">
-              <IconButton variant="ghost" onClick={() => setShowKeys((v) => !v)}><HelpCircle className="size-4" /></IconButton>
+              <IconButton aria-label="Atalhos de teclado" variant="ghost" onClick={() => setShowKeys((v) => !v)}><HelpCircle className="size-4" /></IconButton>
             </Tip>
           </div>
           {showKeys && (
@@ -941,9 +1030,12 @@ function StudioInner() {
             </div>
           )}
         </main>
+        </Panel>
+        <Separator className="w-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
 
         {/* Inspector */}
-        <aside style={{ background: "#0a0a12", padding: 16, overflowY: "auto", borderLeft: "1px solid rgba(255,255,255,.08)" }}>
+        <Panel id="inspector" defaultSize={24} minSize={16} maxSize={42}>
+        <aside style={{ height: "100%", background: "var(--color-surface-1)", padding: 16, overflowY: "auto" }}>
           <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: 1, margin: "0 0 4px" }}>Inspector</h2>
           <p style={{ fontSize: 11, color: "#666", margin: 0 }}>
             {timeline.videoTrack.length} clips · {(timeline.durationInFrames / timeline.fps).toFixed(1)}s · narração-driven
@@ -963,7 +1055,7 @@ function StudioInner() {
                 <button style={btn} onClick={() => apply({ timeline: moveClip(timeline, sel, +1), fxPlan })}>Depois →</button>
                 <button style={btn} onClick={() => apply({ timeline: trimClip(timeline, sel, +15), fxPlan })}>+0,5s</button>
                 <button style={btn} onClick={() => apply({ timeline: trimClip(timeline, sel, -15), fxPlan })}>−0,5s</button>
-                <button style={btn} onClick={() => { apply({ timeline: removeClip(timeline, sel), fxPlan }); setSel(0); }}>🗑</button>
+                <button style={btn} aria-label="Remover clipe" title="Remover clipe" onClick={() => { apply({ timeline: removeClip(timeline, sel), fxPlan }); setSel(0); }}><Trash2 className="size-3.5" /></button>
               </div>
 
               {/* Transição de entrada (clipes a partir do 2º) */}
@@ -1070,10 +1162,10 @@ function StudioInner() {
               </div>
             )}
             <button
-              style={{ ...btn, width: "100%", background: autocutOn ? "#2DE2C8" : "#1a1a24", color: autocutOn ? "#06121a" : "#fff", fontWeight: 700 }}
+              style={{ ...btn, width: "100%", background: autocutOn ? "var(--color-ok)" : "var(--color-surface-4)", color: autocutOn ? "#06121a" : "var(--color-fg)", fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6 }}
               onClick={() => guardedAutocut(() => setAutocutOn((v) => !v))}
             >
-              {autocutOn ? "✂ Auto-cut ATIVO — reverter" : "✂ Auto-cut silêncios"}
+              <Scissors className="size-3.5" /> {autocutOn ? "Auto-cut ATIVO — reverter" : "Auto-cut silêncios"}
             </button>
             {autocutOn && (
               <div style={{ marginTop: 12 }}>
@@ -1103,11 +1195,11 @@ function StudioInner() {
           <section style={{ ...box, marginTop: 12 }}>
             <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>🎚️ Camadas extras</div>
             <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
-              <button style={{ ...btn, flex: 1, fontSize: 12 }} onClick={() => apply({ timeline: addLayer(timeline, "audio", "SFX/Trilha"), fxPlan })}>＋ Áudio</button>
-              <button style={{ ...btn, flex: 1, fontSize: 12 }} onClick={() => apply({ timeline: addLayer(timeline, "video", "Overlay"), fxPlan })}>＋ Overlay</button>
+              <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addLayer(timeline, "audio", "SFX/Trilha"), fxPlan })}><Plus className="size-3.5" /> Áudio</button>
+              <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addLayer(timeline, "video", "Overlay"), fxPlan })}><Plus className="size-3.5" /> Overlay</button>
             </div>
             <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-              <button style={{ ...btn, flex: 1, fontSize: 12 }} onClick={() => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrame, timeline.fps)), fxPlan })}>＋ Texto</button>
+              <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrame, timeline.fps)), fxPlan })}><Plus className="size-3.5" /> Texto</button>
             </div>
             {(timeline.extraLayers ?? []).length === 0 && (
               <div style={{ fontSize: 10, color: "#666" }}>Nenhuma camada. Adicione uma trilha/SFX ou overlay.</div>
@@ -1121,8 +1213,8 @@ function StudioInner() {
                       {L.kind === "audio" ? "♪" : "▦"} {L.name} · {L.clips.length}
                     </span>
                     <div style={{ display: "flex", gap: 4 }}>
-                      <button style={{ ...btn, padding: "2px 8px", fontSize: 11 }} onClick={() => setPickerFor(pickerFor === L.id ? "" : L.id)}>＋ clip</button>
-                      <button style={{ ...btn, padding: "2px 8px", fontSize: 11 }} onClick={() => apply({ timeline: removeLayer(timeline, L.id), fxPlan })}>🗑</button>
+                      <button style={{ ...btn, padding: "2px 8px", fontSize: 11, display: "inline-flex", alignItems: "center", gap: 4 }} onClick={() => setPickerFor(pickerFor === L.id ? "" : L.id)}><Plus className="size-3" /> clip</button>
+                      <button style={{ ...btn, padding: "2px 8px", fontSize: 11 }} aria-label={`Remover camada ${L.name}`} title="Remover camada" onClick={() => apply({ timeline: removeLayer(timeline, L.id), fxPlan })}><Trash2 className="size-3.5" /></button>
                     </div>
                   </div>
                   {pickerFor === L.id && (
@@ -1229,7 +1321,7 @@ function StudioInner() {
                     );
                   })()}
 
-                  <button style={{ ...btn, width: "100%", fontSize: 11, marginTop: 8 }} onClick={() => { apply({ timeline: removeLayerClip(timeline, lid, cid), fxPlan }); setSelectedLayerClip(""); }}>🗑 Remover elemento</button>
+                  <button style={{ ...btn, width: "100%", fontSize: 11, marginTop: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6 }} onClick={() => { apply({ timeline: removeLayerClip(timeline, lid, cid), fxPlan }); setSelectedLayerClip(""); }}><Trash2 className="size-3.5" /> Remover elemento</button>
                 </div>
               );
             })()}
@@ -1244,7 +1336,7 @@ function StudioInner() {
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 6, alignItems: "flex-start" }}>
                       <span>{f.message}</span>
                       {typeof f.atMs === "number" && (
-                        <button onClick={() => seek(Math.round((f.atMs! / 1000) * timeline.fps))} title="Ir para o ponto" style={{ ...btn, padding: "0 6px", fontSize: 10 }}>▶</button>
+                        <button onClick={() => seek(Math.round((f.atMs! / 1000) * timeline.fps))} title="Ir para o ponto" aria-label="Ir para o ponto" style={{ ...btn, padding: "2px 6px", display: "inline-flex", alignItems: "center" }}><Play className="size-3" /></button>
                       )}
                     </div>
                     {f.suggestion && <div style={{ color: "#777", marginTop: 2 }}>{f.suggestion}</div>}
@@ -1312,9 +1404,15 @@ function StudioInner() {
             )}
           </section>
         </aside>
-      </div>
+        </Panel>
+      </Group>
+      </Panel>
 
-      {/* ── Faixa inferior: timeline NLE ────────────────────────────────── */}
+      {/* ── Faixa inferior: timeline NLE (altura redimensionável) ───────── */}
+      <Separator className="h-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
+      <Panel id="timeline" defaultSize={34} minSize={15}>
+      <div className="h-full overflow-auto bg-surface-1">
+
       {/* VEX-07: confirmações do design system (substituem window.confirm) */}
       <ConfirmDialog
         open={confirmRemove !== null}
@@ -1389,7 +1487,10 @@ function StudioInner() {
           }
         }}
       />
-    </div>
+      </div>
+      </Panel>
+    </Group>
+    </>
   );
 }
 
