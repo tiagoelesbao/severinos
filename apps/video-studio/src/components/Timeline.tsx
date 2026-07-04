@@ -5,6 +5,7 @@ import type { Timeline as TL, ExtraLayer } from "@/lib/timeline";
 import type { FxPlan } from "@/lib/fxPlan";
 import type { CaptionCue } from "@/lib/cues";
 import { Waveform } from "./Waveform";
+import { Filmstrip } from "./Filmstrip";
 
 const ROLE_COLOR: Record<string, string> = {
   hook: "#FFB800",
@@ -38,6 +39,8 @@ export function Timeline({
   pps,
   selectedIndex,
   mediaBaseUrl,
+  client = "",
+  creative = "",
   onSelectClip,
   onSeek,
   onTrim,
@@ -68,6 +71,9 @@ export function Timeline({
   pps: number;
   selectedIndex: number;
   mediaBaseUrl: string;
+  /** VEX-08: filmstrip pede thumbs por client/creative. */
+  client?: string;
+  creative?: string;
   onSelectClip: (i: number) => void;
   onSeek: (frame: number) => void;
   onTrim: (index: number, deltaFrames: number) => void;
@@ -444,11 +450,24 @@ export function Timeline({
                   userSelect: "none",
                 }}
               >
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", paddingLeft: 14, paddingRight: 14, pointerEvents: "none" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-fg)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {/* VEX-08: filmstrip do arquivo (thumbs com cache) atrás do rótulo */}
+                {!c.gap && c.file && client && creative && (
+                  <Filmstrip
+                    client={client}
+                    creative={creative}
+                    file={c.file}
+                    srcFromFrame={c.trimStartFrames ?? 0}
+                    spanFrames={c.durationInFrames * c.playbackRate}
+                    fps={fps}
+                    width={w}
+                    height={ROW_H - 8}
+                  />
+                )}
+                <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", paddingLeft: 14, paddingRight: 14, pointerEvents: "none", background: "linear-gradient(90deg, rgba(6,6,12,.88) 0%, rgba(6,6,12,.55) 42%, rgba(6,6,12,0) 82%)" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-fg)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textShadow: "0 1px 3px rgba(0,0,0,.9)" }}>
                     {c.role} {c.audioEnabled ? "🔊" : "🔇"}
                   </span>
-                  <span style={{ fontSize: 11, color: "var(--color-fg-muted)", whiteSpace: "nowrap" }}>
+                  <span style={{ fontSize: 11, color: "var(--color-fg-muted)", whiteSpace: "nowrap", textShadow: "0 1px 3px rgba(0,0,0,.9)" }}>
                     {c.durationSeconds}s{c.playbackRate !== 1 ? ` · ${c.playbackRate.toFixed(2)}×` : ""}
                   </span>
                 </div>

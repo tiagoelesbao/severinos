@@ -1,6 +1,6 @@
 # VEX-08: Timeline pro — thumbnails, snap visual, track headers, multi-seleção e markers
 
-**Status:** Draft
+**Status:** InProgress — inc.1 (filmstrip/thumbnails) entregue; snap visual, track headers, seleção múltipla e markers pendentes
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2**
 **Complexidade:** L (Standard — 13 pontos)
@@ -28,7 +28,7 @@
 - **Régua adaptativa:** frames em zoom alto (pps > 150), meio-segundos em zoom médio.
 
 ## Tarefas (Checklist)
-- [ ] Rota de thumbnails com cache + filmstrip nos clipes de vídeo (lazy).
+- [x] Rota de thumbnails com cache + filmstrip nos clipes de vídeo (lazy). `/api/thumbs` (ffmpeg `-ss` seek + cache em `Materiais Brutos/.thumbs/`, gitignored via `outputs/`); componente `Filmstrip.tsx` (N frames por largura/zoom, teto 40, `loading=lazy`, scrim para o rótulo). Verificado via Playwright: 44/44 thumbs carregados, 0 erros.
 - [ ] Linha de snap visível + toggle de ímã (UI + tecla N).
 - [ ] Track headers com mute/solo/lock (modelo + UI + respeito no render/preview).
 - [ ] Modelo de seleção unificado + shift-click + marquee + ações em lote (delete/nudge).
@@ -38,7 +38,7 @@
 - [ ] Testes puros: seleção em lote, ripple em camadas, serialização de markers/mute.
 
 ## Critérios de Aceite
-- [ ] **AC1:** Clipes de vídeo mostram filmstrip real do arquivo; zoom muda a densidade de frames; scroll não trava (cache + lazy).
+- [x] **AC1:** Clipes de vídeo mostram filmstrip real do arquivo; zoom muda a densidade de frames; scroll não trava (cache + lazy). ✓ verificado no `/studio` real.
 - [ ] **AC2:** Arrastar perto de uma borda mostra a linha magnética; N desliga o snap.
 - [ ] **AC3:** Mute numa camada silencia no preview E no mp4 exportado; lock bloqueia qualquer edição na track.
 - [ ] **AC4:** Shift+click seleciona N clipes; Delete em lote com ripple mantém a timeline contígua; tudo em 1 passo de undo.
@@ -57,3 +57,10 @@
 
 ## Change Log
 - 2026-07-02 — Claude — Story criada a partir da auditoria (Draft).
+- 2026-07-04 — Claude (@dev) — Inc.1 (filmstrip): `/api/thumbs` (ffmpeg + cache em disco) + `Filmstrip.tsx` nos clipes de vídeo (lazy, densidade por zoom, scrim para o rótulo); `client`/`creative` passados ao Timeline. AC1 atendido e verificado via Playwright (44/44 thumbs). Typecheck, build e 102/102 testes limpos. Draft → InProgress.
+
+### File List (inc.1 — filmstrip)
+- `src/app/api/thumbs/route.ts` (novo — rota de miniaturas ffmpeg com cache)
+- `src/components/Filmstrip.tsx` (novo — tira de frames lazy)
+- `src/components/Timeline.tsx` (props `client`/`creative`; Filmstrip + scrim no clipe de vídeo)
+- `src/app/studio/page.tsx` (passa `client`/`creative` ao TimelineView)

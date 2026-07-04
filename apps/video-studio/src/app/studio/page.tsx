@@ -1451,6 +1451,8 @@ function StudioInner() {
         pps={pps}
         selectedIndex={sel}
         mediaBaseUrl={mediaBaseUrl}
+        client={client}
+        creative={creative}
         onSelectClip={(i) => { setSel(i); setSelectedLayerClip(""); }}
         onSeek={seek}
         onTrimStart={beginEdit}
