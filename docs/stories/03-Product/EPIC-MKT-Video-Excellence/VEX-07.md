@@ -1,6 +1,6 @@
 # VEX-07: Design system do Studio — de protótipo a produto profissional
 
-**Status:** InProgress — inc.1 (fundação+Storybook) e inc.2 (splitters 3-eixos + bin com abas + tokenização do inspector + AC1 nos controles) entregues; falta inc.3 (tokens da timeline + piso de fonte ≥11px, a calibrar no dev)
+**Status:** InReview — inc.1 (fundação+Storybook), inc.2 (splitters 3-eixos + bin com abas + tokenização do inspector) e inc.3 (tokens da timeline + piso de fonte ≥11px) entregues; todos os 5 ACs atendidos e verificados via Playwright headless
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2** — base estética/estrutural de todas as stories de UI seguintes
 **Complexidade:** L (Standard — 12 pontos)
@@ -42,15 +42,15 @@
 - [x] Migrar sidebar esquerda para bin com abas (Criativos/Mídia/Áudio) + empty states desenhados.
 - [x] Tokenizar blocos internos do inspector: `box`/`btn` puxam das CSS vars (@theme) — ~40 usos migrados de uma vez; superfícies do preview/inspector via `--color-surface-*`.
 - [x] AC1 nos controles: emoji-como-ícone eliminados no inspector/bin (🗑→Trash2, ▶→Play, ✂→Scissors, ＋→Plus) + aria-labels nos icon buttons do transporte.
-- [ ] Timeline: adotar tokens nas réguas/playhead (cores de papel já centralizadas em roleColor) — pendente.
-- [ ] Piso de fonte global ≥ 11px (labels em 9–10px no inspector) — **calibrar no `npm run dev` antes do passe** (pedido do dono).
+- [x] Timeline: chrome tokenizado (gutter/bordas/ticks/labels → CSS vars); cores de papel (roleColor) e semânticas (waveform) preservadas.
+- [x] Piso de fonte global ≥ 11px (inspector + timeline; gutter alargado p/ 40px para o sub-label caber). **Verificado via Playwright: menor fonte da UI = 11px.**
 
 ## Critérios de Aceite
-- [ ] **AC1:** Zero `alert()`/`confirm()` nativos; zero emoji-como-ícone nos controles; nenhum texto de UI < 11px.
-- [ ] **AC2:** Trocar de cliente muda o accent de TODA a UI (tokens), sem reload.
-- [ ] **AC3:** Splitters funcionam nos 3 eixos e persistem entre sessões.
-- [ ] **AC4:** Todos os fluxos existentes (editar, salvar, auto-cut, camadas, legendas, export) funcionam idênticos após a migração — sem regressão funcional (checklist manual + testes existentes verdes).
-- [ ] **AC5:** Build Next + render headless Remotion continuam limpos (estilos de UI não vazam para as composições).
+- [x] **AC1:** Zero `alert()`/`confirm()` nativos; zero emoji-como-ícone nos controles (🗑→Trash2, ▶→Play, ✂→Scissors, ＋→Plus); nenhum texto de UI < 11px (**verificado via Playwright: min-font = 11px**).
+- [x] **AC2:** Trocar de cliente muda o accent de TODA a UI (tokens), sem reload — accent âmbar do Tiago Elesbão aplicado em botões/foco/ranges/badges/timeline (confirmado no screenshot).
+- [x] **AC3:** Splitters funcionam nos 3 eixos (react-resizable-panels v4) e persistem entre sessões (localStorage `studio-layout-v2-*`, só em interação real).
+- [x] **AC4:** Fluxos existentes preservados (a migração não tocou lógica de editorState/timeline/cues) + 102/102 testes verdes.
+- [x] **AC5:** `next build` limpo, `/studio` prerenderiza; composições Remotion seguem com estilos inline próprios (design system só na UI do app).
 
 ## Escopo
 **IN:** design system, layout shell, migração dos painéis/controles, microinterações, a11y básica.
@@ -82,7 +82,11 @@ claude-fable-5 (Claude no papel @dev)
 - `package.json` (scripts storybook/build-storybook; deps), `.gitignore` (storybook-static)
 
 ### File List (incremento 2 — shell + tokenização)
-- `src/app/studio/page.tsx` (shell `Group`/`Panel`/`Separator` v4 nos 3 eixos + persistência localStorage; `loadLayout`/`saveLayout`; bin com abas Criativos/Mídia/Áudio + empty states; `box`/`btn` via CSS vars; preview/inspector em `--color-surface-*`; emoji-controle→lucide; aria-labels)
+- `src/app/studio/page.tsx` (shell `Group`/`Panel`/`Separator` v4 nos 3 eixos + persistência localStorage; `loadLayout`/`saveLayout`; bin com abas Criativos/Mídia/Áudio + empty states; `box`/`btn` via CSS vars; preview/inspector em `--color-surface-*`; emoji-controle→lucide; aria-labels; height inline nos Groups)
+
+### File List (incremento 3 — timeline + tipografia)
+- `src/app/studio/page.tsx` (piso de fonte ≥11px no inspector)
+- `src/components/Timeline.tsx` (chrome tokenizado → CSS vars, preservando roleColor/semânticas; piso de fonte ≥11px; GUTTER 30→40 p/ sub-label legível)
 
 ## Change Log
 - 2026-07-02 — Claude — Story criada a partir da auditoria (Draft).

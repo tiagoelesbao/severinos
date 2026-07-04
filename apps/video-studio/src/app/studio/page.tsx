@@ -754,7 +754,7 @@ function StudioInner() {
           <Button variant="ghost" size="sm" className="self-start" onClick={() => router.push("/")}>← Trocar cliente</Button>
           <div>
             <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold">{client}</div>
-            <div className="text-[10px] text-fg-faint">{creatives.length} criativo{creatives.length === 1 ? "" : "s"}</div>
+            <div className="text-[11px] text-fg-faint">{creatives.length} criativo{creatives.length === 1 ? "" : "s"}</div>
           </div>
 
           {/* Abas do bin (VEX-07 inc.2) */}
@@ -788,7 +788,7 @@ function StudioInner() {
                     }}
                   >
                     <div style={{ fontSize: 11, fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
-                    <div style={{ fontSize: 9, color: c.hasMaterials ? "#2DE2C8" : "#FF8C42", marginTop: 2 }}>
+                    <div style={{ fontSize: 11, color: c.hasMaterials ? "#2DE2C8" : "#FF8C42", marginTop: 2 }}>
                       {c.hasMaterials ? "ingestável" : "sem materiais"}
                     </div>
                   </button>
@@ -804,7 +804,7 @@ function StudioInner() {
             {creatives.length === 0 && (
               <div className="text-[11px] text-fg-faint py-3 text-center border border-dashed border-line rounded-lg">
                 Nenhum criativo ainda.<br />
-                <span className="text-[10px]">Rode <code>*industrialize-video</code> (Fase A) para criar o primeiro.</span>
+                <span className="text-[11px]">Rode <code>*industrialize-video</code> (Fase A) para criar o primeiro.</span>
               </div>
             )}
           </div>
@@ -815,19 +815,19 @@ function StudioInner() {
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
               <span className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold">Mídia</span>
-              <label className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold cursor-pointer bg-surface-4 border border-line-strong hover:brightness-125">
+              <label className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold cursor-pointer bg-surface-4 border border-line-strong hover:brightness-125">
                 ↑ Upload
                 <input type="file" accept="audio/*,video/*,image/*" style={{ display: "none" }} onChange={onUpload} />
               </label>
             </div>
-            <div className="text-[10px] text-fg-faint mb-1.5">Arraste um item para a timeline.</div>
+            <div className="text-[11px] text-fg-faint mb-1.5">Arraste um item para a timeline.</div>
             {([
               { title: "Uploads", items: assets.uploads },
               { title: "Materiais", items: assets.materials },
               { title: "Biblioteca", items: assets.library.filter((a) => a.kind !== "audio") },
             ] as const).map((g) => (g.items.length > 0 ? (
               <div key={g.title} style={{ marginBottom: 8 }}>
-                <div style={{ fontSize: 9, color: "#777", textTransform: "uppercase", letterSpacing: 1, marginBottom: 3 }}>{g.title} · {g.items.length}</div>
+                <div style={{ fontSize: 11, color: "#777", textTransform: "uppercase", letterSpacing: 1, marginBottom: 3 }}>{g.title} · {g.items.length}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {g.items.map((a) => (
                     <div
@@ -838,7 +838,7 @@ function StudioInner() {
                         e.dataTransfer.effectAllowed = "copy";
                       }}
                       title={a.name}
-                      style={{ display: "flex", alignItems: "center", gap: 6, padding: "4px 7px", borderRadius: 6, background: "#0c0c16", border: "1px solid rgba(255,255,255,.08)", cursor: "grab", fontSize: 10 }}
+                      style={{ display: "flex", alignItems: "center", gap: 6, padding: "4px 7px", borderRadius: 6, background: "#0c0c16", border: "1px solid rgba(255,255,255,.08)", cursor: "grab", fontSize: 11 }}
                     >
                       <span style={{ opacity: 0.7 }}>{assetIcon(a.kind)}</span>
                       <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{baseName(a.name)}</span>
@@ -850,7 +850,7 @@ function StudioInner() {
             {assets.uploads.length + assets.materials.length + assets.library.filter((a) => a.kind !== "audio").length === 0 && (
               <div className="text-[11px] text-fg-faint py-3 text-center border border-dashed border-line rounded-lg">
                 Nenhum asset visual.<br />
-                <span className="text-[10px]">Faça upload ou solte arquivos em public/library/.</span>
+                <span className="text-[11px]">Faça upload ou solte arquivos em public/library/.</span>
               </div>
             )}
           </div>
@@ -861,7 +861,7 @@ function StudioInner() {
           <div className="flex flex-col gap-3">
             <div>
               <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold mb-1">SFX</div>
-              <div className="text-[10px] text-fg-faint mb-1.5">Arraste para a timeline (com ducking pelo inspector).</div>
+              <div className="text-[11px] text-fg-faint mb-1.5">Arraste para a timeline (com ducking pelo inspector).</div>
               <div className="flex flex-col gap-1">
                 {assets.library.filter((a) => a.kind === "audio" && !a.name.toLowerCase().startsWith("music/")).map((a) => (
                   <div
@@ -882,7 +882,7 @@ function StudioInner() {
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold mb-1">Trilha de fundo</div>
-              <div className="text-[10px] text-fg-faint mb-1.5">Cobre o vídeo inteiro, com ducking sob a fala.</div>
+              <div className="text-[11px] text-fg-faint mb-1.5">Cobre o vídeo inteiro, com ducking sob a fala.</div>
               {musicTracks.length === 0 && (
                 <div className="text-[11px] text-fg-faint">Nenhuma trilha em public/library/music.</div>
               )}
@@ -896,7 +896,7 @@ function StudioInner() {
           </div>
           )}
 
-          <div className="text-[10px] text-fg-faint mt-auto leading-relaxed">
+          <div className="text-[11px] text-fg-faint mt-auto leading-relaxed">
             Novos criativos vêm do pipeline <code>*industrialize-video</code> (Fase A).
           </div>
         </aside>
@@ -1063,7 +1063,7 @@ function StudioInner() {
               {/* Transição de entrada (clipes a partir do 2º) */}
               {sel > 0 && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>Transição de entrada</div>
+                  <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>Transição de entrada</div>
                   <div style={{ display: "flex", gap: 6 }}>
                     <select
                       value={clip.transitionIn?.type ?? "dissolve"}
@@ -1086,7 +1086,7 @@ function StudioInner() {
               {/* Volume do áudio próprio (talking-heads: hook/CTA) — VEX-05 */}
               {clip.audioEnabled && !clip.gap && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>
+                  <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>
                     Volume da fala {Math.round((clip.volume ?? 1) * 100)}%
                   </div>
                   <input
@@ -1102,7 +1102,7 @@ function StudioInner() {
               {/* Parâmetros de screen-capture (inserts: skill/reference/generation/result) */}
               {!clip.audioEnabled && !clip.gap && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>
+                  <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>
                     Enquadramento · velocidade {clip.playbackRate.toFixed(2)}×
                   </div>
                   <select
@@ -1114,7 +1114,7 @@ function StudioInner() {
                     <option value="panel">painel (aspect real, sem corte)</option>
                     <option value="cover">cover (preenche, corta laterais)</option>
                   </select>
-                  <div style={{ fontSize: 10, color: "#888", margin: "8px 0 2px" }}>
+                  <div style={{ fontSize: 11, color: "#888", margin: "8px 0 2px" }}>
                     Zoom (Ken Burns) {Math.round((clip.kenBurns ?? 0) * 100)}%
                   </div>
                   <input
@@ -1153,12 +1153,12 @@ function StudioInner() {
                         : "⏳ Preparando…"}
                 </button>
                 {preparing?.state === "error" && (
-                  <div style={{ fontSize: 10, color: "#FF4D2E", marginTop: 4 }}>{preparing.error}</div>
+                  <div style={{ fontSize: 11, color: "#FF4D2E", marginTop: 4 }}>{preparing.error}</div>
                 )}
               </div>
             )}
             {autocutInfo.length > 0 && (
-              <div style={{ fontSize: 10, color: "#888", marginBottom: 8, lineHeight: 1.5 }}>
+              <div style={{ fontSize: 11, color: "#888", marginBottom: 8, lineHeight: 1.5 }}>
                 Silêncio detectado:{" "}
                 {autocutInfo.map((a) => `${a.role} ${a.silenceSeconds}s`).join(" · ")}
               </div>
@@ -1185,7 +1185,7 @@ function StudioInner() {
                   onChange={(e) => guardedAutocut(() => setMaxGap(Number((1.05 - Number(e.target.value)).toFixed(2))))}
                   style={{ width: "100%" }}
                 />
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "#555" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555" }}>
                   <span>suave</span>
                   <span>agressivo</span>
                 </div>
@@ -1204,7 +1204,7 @@ function StudioInner() {
               <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrame, timeline.fps)), fxPlan })}><Plus className="size-3.5" /> Texto</button>
             </div>
             {(timeline.extraLayers ?? []).length === 0 && (
-              <div style={{ fontSize: 10, color: "#666" }}>Nenhuma camada. Adicione uma trilha/SFX ou overlay.</div>
+              <div style={{ fontSize: 11, color: "#666" }}>Nenhuma camada. Adicione uma trilha/SFX ou overlay.</div>
             )}
             {(timeline.extraLayers ?? []).map((L) => {
               const pool = [...assets.uploads, ...assets.materials, ...assets.library].filter((a) => assetLayerKind(a.kind) === L.kind);
@@ -1221,11 +1221,11 @@ function StudioInner() {
                   </div>
                   {pickerFor === L.id && (
                     <div style={{ marginTop: 6, maxHeight: 140, overflowY: "auto", display: "flex", flexDirection: "column", gap: 3 }}>
-                      {pool.length === 0 && <div style={{ fontSize: 10, color: "#666" }}>Sem assets {L.kind}. Solte arquivos em public/library/.</div>}
+                      {pool.length === 0 && <div style={{ fontSize: 11, color: "#666" }}>Sem assets {L.kind}. Solte arquivos em public/library/.</div>}
                       {pool.map((a) => (
                         <button
                           key={a.url}
-                          style={{ ...btn, textAlign: "left", fontSize: 10, padding: "4px 6px" }}
+                          style={{ ...btn, textAlign: "left", fontSize: 11, padding: "4px 6px" }}
                           onClick={() => {
                             const dur = Math.max(30, Math.min(timeline.fps * 5, timeline.durationInFrames - currentFrame));
                             const isAudio = a.kind === "audio";
@@ -1255,11 +1255,11 @@ function StudioInner() {
 
                   {t === "media-audio" && (
                     <div style={{ marginBottom: 6 }}>
-                      <div style={{ fontSize: 10, color: "#888" }}>Volume {Math.round((cl.volume ?? 1) * 100)}%</div>
+                      <div style={{ fontSize: 11, color: "#888" }}>Volume {Math.round((cl.volume ?? 1) * 100)}%</div>
                       <input type="range" min={0} max={1} step={0.05} value={cl.volume ?? 1}
                         onPointerDown={beginEdit}
                         onChange={(e) => live({ volume: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, color: "#888", marginTop: 6, cursor: "pointer" }}>
+                      <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "#888", marginTop: 6, cursor: "pointer" }}>
                         <input
                           type="checkbox"
                           checked={!!cl.ducking}
@@ -1289,13 +1289,13 @@ function StudioInner() {
                   {/* Transform (posição/escala/opacidade) — elementos visuais */}
                   {t !== "media-audio" && (
                     <div style={{ marginTop: 8, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                      <div style={{ fontSize: 10, color: "#888" }}>Posição X {Math.round(cl.x ?? 50)}%</div>
+                      <div style={{ fontSize: 11, color: "#888" }}>Posição X {Math.round(cl.x ?? 50)}%</div>
                       <input type="range" min={0} max={100} value={cl.x ?? 50} onPointerDown={beginEdit} onChange={(e) => live({ x: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <div style={{ fontSize: 10, color: "#888" }}>Posição Y {Math.round(cl.y ?? 50)}%</div>
+                      <div style={{ fontSize: 11, color: "#888" }}>Posição Y {Math.round(cl.y ?? 50)}%</div>
                       <input type="range" min={0} max={100} value={cl.y ?? 50} onPointerDown={beginEdit} onChange={(e) => live({ y: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <div style={{ fontSize: 10, color: "#888" }}>Escala {Math.round((cl.scale ?? 1) * 100)}%</div>
+                      <div style={{ fontSize: 11, color: "#888" }}>Escala {Math.round((cl.scale ?? 1) * 100)}%</div>
                       <input type="range" min={0.1} max={3} step={0.05} value={cl.scale ?? 1} onPointerDown={beginEdit} onChange={(e) => live({ scale: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <div style={{ fontSize: 10, color: "#888" }}>Opacidade {Math.round((cl.opacity ?? 1) * 100)}%</div>
+                      <div style={{ fontSize: 11, color: "#888" }}>Opacidade {Math.round((cl.opacity ?? 1) * 100)}%</div>
                       <input type="range" min={0} max={1} step={0.05} value={cl.opacity ?? 1} onPointerDown={beginEdit} onChange={(e) => live({ opacity: Number(e.target.value) })} style={{ width: "100%" }} />
                     </div>
                   )}
@@ -1307,10 +1307,10 @@ function StudioInner() {
                       patch({ [w]: { ...anim(w), ...p } } as Partial<typeof cl>);
                     return (
                       <div style={{ marginTop: 8, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                        <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>Animação</div>
+                        <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>Animação</div>
                         {(["animateIn", "animateOut"] as const).map((w) => (
                           <div key={w} style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 6 }}>
-                            <span style={{ fontSize: 10, color: "#888", width: 46 }}>{w === "animateIn" ? "Entrada" : "Saída"}</span>
+                            <span style={{ fontSize: 11, color: "#888", width: 46 }}>{w === "animateIn" ? "Entrada" : "Saída"}</span>
                             <select value={anim(w).type} onChange={(e) => setAnim(w, { type: e.target.value as AnimType })} style={{ ...btn, flex: 1, fontSize: 11 }}>
                               {(["none", "fade", "slide", "zoom"] as const).map((o) => <option key={o} value={o}>{o}</option>)}
                             </select>
@@ -1334,7 +1334,7 @@ function StudioInner() {
               <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>🔊 Sound design — revisão</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                 {soundFindings.map((f) => (
-                  <div key={f.id} style={{ fontSize: 10, color: "#bbb", borderLeft: `2px solid ${f.severity === "aviso" ? "#FF8C42" : "#2DE2C8"}`, paddingLeft: 7 }}>
+                  <div key={f.id} style={{ fontSize: 11, color: "#bbb", borderLeft: `2px solid ${f.severity === "aviso" ? "#FF8C42" : "#2DE2C8"}`, paddingLeft: 7 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 6, alignItems: "flex-start" }}>
                       <span>{f.message}</span>
                       {typeof f.atMs === "number" && (

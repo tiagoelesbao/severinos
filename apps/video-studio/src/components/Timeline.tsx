@@ -28,7 +28,7 @@ function roleColor(role: string): string {
 
 const ROW_H = 54;
 const RULER_H = 26;
-const GUTTER = 30; // calha à esquerda para os rótulos de track (V/A/T)
+const GUTTER = 40; // calha à esquerda para os rótulos de track (V/A/T) — largura p/ sub-label ≥11px
 const SCROLLBAR = 16;
 
 export function Timeline({
@@ -245,9 +245,9 @@ export function Timeline({
   for (let s = 0; s <= Math.ceil(totalSec); s++) {
     ticks.push(
       <div key={s} style={{ position: "absolute", left: s * pps, top: 0, height: RULER_H }}>
-        <div style={{ width: 1, height: s % 5 === 0 ? 12 : 6, background: "#555" }} />
+        <div style={{ width: 1, height: s % 5 === 0 ? 12 : 6, background: "var(--color-fg-faint)" }} />
         {s % 5 === 0 && (
-          <span style={{ position: "absolute", left: 3, top: 10, fontSize: 10, color: "#888" }}>{s}s</span>
+          <span style={{ position: "absolute", left: 3, top: 10, fontSize: 11, color: "var(--color-fg-muted)" }}>{s}s</span>
         )}
       </div>,
     );
@@ -351,13 +351,13 @@ export function Timeline({
         height: totalH,
         overflowX: "auto",
         overflowY: "hidden",
-        background: "#0a0a12",
+        background: "var(--color-surface-1)",
         borderTop: "1px solid rgba(255,255,255,.1)",
       }}
     >
       <div style={{ position: "relative", width: width + GUTTER, height: tracksH }}>
         {/* Calha de rótulos (sticky horizontal, sempre visível) */}
-        <div style={{ position: "sticky", left: 0, top: 0, width: GUTTER, height: tracksH, zIndex: 5, background: "#0a0a12", borderRight: "1px solid rgba(255,255,255,.08)" }}>
+        <div style={{ position: "sticky", left: 0, top: 0, width: GUTTER, height: tracksH, zIndex: 5, background: "var(--color-surface-1)", borderRight: "1px solid var(--color-line)" }}>
           {rows.map((r, i) => {
             if (r.type === "text") return <Label key="T" top={rowTop(i)} text="T" sub="texto" color={fxPlan.brand.accent} />;
             if (r.type === "video") return <Label key="V" top={rowTop(i)} text="V" sub="vídeo" color="#7B5BFF" />;
@@ -408,7 +408,7 @@ export function Timeline({
                 title={kind === "trimL" ? "Aparar início (in-point)" : "Aparar fim"}
                 style={{ position: "absolute", [kind === "trimL" ? "left" : "right"]: 0, top: 0, width: 11, height: "100%", cursor: "ew-resize", background: selected ? "rgba(255,255,255,.4)" : "rgba(255,255,255,.2)", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
-                <div style={{ width: 3, height: "45%", background: "#fff", opacity: 0.8, borderRadius: 2 }} />
+                <div style={{ width: 3, height: "45%", background: "var(--color-fg)", opacity: 0.8, borderRadius: 2 }} />
               </div>
             );
             return (
@@ -432,7 +432,7 @@ export function Timeline({
                   top: 4,
                   height: ROW_H - 8,
                   background: c.gap ? "#3a1a1a" : `${color}2e`,
-                  border: `2px solid ${selected ? "#fff" : color}`,
+                  border: `2px solid ${selected ? "var(--color-fg)" : color}`,
                   boxShadow: dragging ? "0 6px 20px rgba(0,0,0,.6)" : selected ? "0 0 0 2px rgba(255,255,255,.25)" : "none",
                   borderRadius: 6,
                   cursor: razorMode ? "crosshair" : dragging ? "grabbing" : "grab",
@@ -445,10 +445,10 @@ export function Timeline({
                 }}
               >
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", paddingLeft: 14, paddingRight: 14, pointerEvents: "none" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-fg)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {c.role} {c.audioEnabled ? "🔊" : "🔇"}
                   </span>
-                  <span style={{ fontSize: 10, color: "#aaa", whiteSpace: "nowrap" }}>
+                  <span style={{ fontSize: 11, color: "var(--color-fg-muted)", whiteSpace: "nowrap" }}>
                     {c.durationSeconds}s{c.playbackRate !== 1 ? ` · ${c.playbackRate.toFixed(2)}×` : ""}
                   </span>
                 </div>
@@ -458,7 +458,7 @@ export function Timeline({
                   <div
                     onMouseDown={(e) => { e.stopPropagation(); onSelectClip(i); }}
                     title={`Transição: ${tr} (edite no inspector)`}
-                    style={{ position: "absolute", left: -9, top: "50%", transform: "translateY(-50%)", width: 18, height: 18, borderRadius: "50%", background: "#0b0b14", border: "1px solid rgba(255,255,255,.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: "#fff", cursor: "pointer", zIndex: 4 }}
+                    style={{ position: "absolute", left: -9, top: "50%", transform: "translateY(-50%)", width: 18, height: 18, borderRadius: "50%", background: "#0b0b14", border: "1px solid rgba(255,255,255,.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "var(--color-fg)", cursor: "pointer", zIndex: 4 }}
                   >
                     {trIcon}
                   </div>
@@ -479,7 +479,7 @@ export function Timeline({
             const isNarr = b.id.startsWith("narr-");
             const nextIsNarr = audioBlocks[i + 1]?.id.startsWith("narr-");
             const cutMark = isNarr && nextIsNarr;
-            const side = `${sel ? 2 : 1.5}px solid ${sel ? "#fff" : b.color}`;
+            const side = `${sel ? 2 : 1.5}px solid ${sel ? "var(--color-fg)" : b.color}`;
             const dragging = drag?.kind === "reorder" && drag.index === b.clipIndex;
             return (
               <div
@@ -507,7 +507,7 @@ export function Timeline({
                   width: w,
                   top: 4,
                   height: ROW_H - 8,
-                  background: b.linked ? `${b.color}22` : "#14141e",
+                  background: b.linked ? `${b.color}22` : "var(--color-surface-3)",
                   borderTop: side,
                   borderBottom: side,
                   borderLeft: side,
@@ -532,7 +532,7 @@ export function Timeline({
                   buckets={Math.max(20, Math.floor(w / 3))}
                 />
                 {b.linked && (
-                  <span style={{ position: "absolute", left: 4, top: 2, fontSize: 9, color: "#fff", textShadow: "0 1px 2px #000" }}>
+                  <span style={{ position: "absolute", left: 4, top: 2, fontSize: 11, color: "var(--color-fg)", textShadow: "0 1px 2px #000" }}>
                     🔗 {b.label}
                   </span>
                 )}
@@ -547,7 +547,7 @@ export function Timeline({
                   title={b.linked ? "Arraste para aparar o clipe" : "Arraste para mover o corte"}
                   style={{ position: "absolute", right: 0, top: 0, width: 9, height: "100%", cursor: "ew-resize", background: sel ? "rgba(255,255,255,.35)" : "rgba(255,255,255,.18)", display: "flex", alignItems: "center", justifyContent: "center" }}
                 >
-                  <div style={{ width: 2, height: "40%", background: "#fff", opacity: 0.7 }} />
+                  <div style={{ width: 2, height: "40%", background: "var(--color-fg)", opacity: 0.7 }} />
                 </div>
               </div>
             );
@@ -578,7 +578,7 @@ export function Timeline({
                   top: 8,
                   height: ROW_H - 16,
                   background: sel ? `${fxPlan.brand.accent}55` : `${fxPlan.brand.accent}22`,
-                  border: `${sel ? 2 : 1}px solid ${sel ? "#fff" : `${fxPlan.brand.accent}99`}`,
+                  border: `${sel ? 2 : 1}px solid ${sel ? "var(--color-fg)" : `${fxPlan.brand.accent}99`}`,
                   borderRadius: 4,
                   overflow: "hidden",
                   display: "flex",
@@ -588,7 +588,7 @@ export function Timeline({
                   boxSizing: "border-box",
                 }}
               >
-                <span style={{ fontSize: 9, color: "#fff", whiteSpace: "nowrap" }}>{text}</span>
+                <span style={{ fontSize: 11, color: "var(--color-fg)", whiteSpace: "nowrap" }}>{text}</span>
               </div>
             );
           })}
@@ -616,7 +616,7 @@ export function Timeline({
                   title={`${cl.label} — arraste p/ mover`}
                   style={{
                     position: "absolute", left, width: w, top: 6, height: ROW_H - 12,
-                    background: `${col}2e`, border: `${sel ? 2 : 1.5}px solid ${sel ? "#fff" : col}`,
+                    background: `${col}2e`, border: `${sel ? 2 : 1.5}px solid ${sel ? "var(--color-fg)" : col}`,
                     borderRadius: 5, overflow: "hidden", cursor: "grab", boxSizing: "border-box",
                     display: "flex", alignItems: "center", paddingLeft: 6,
                   }}
@@ -624,7 +624,7 @@ export function Timeline({
                   {L.kind === "audio" && src ? (
                     <Waveform src={src} width={w} height={ROW_H - 12} color={col} buckets={Math.max(20, Math.floor(w / 3))} />
                   ) : null}
-                  <span style={{ position: "absolute", left: 6, fontSize: 9, fontWeight: 700, color: "#fff", textShadow: "0 1px 2px #000", whiteSpace: "nowrap" }}>
+                  <span style={{ position: "absolute", left: 6, fontSize: 11, fontWeight: 700, color: "var(--color-fg)", textShadow: "0 1px 2px #000", whiteSpace: "nowrap" }}>
                     {(() => {
                       const t = cl.type ?? (L.kind === "audio" ? "media-audio" : "media-video");
                       const icon = t === "media-audio" ? "♪" : t === "text" ? "T" : t === "image" ? "🖼" : "▦";
@@ -649,7 +649,7 @@ export function Timeline({
 
         {/* Playhead — linha + alça arrastável (scrub frame a frame) */}
         <div style={{ position: "absolute", left: GUTTER + fToX(currentFrame), top: 0, height: tracksH, pointerEvents: "none" }}>
-          <div style={{ position: "absolute", left: 0, top: 0, width: 2, height: "100%", background: "#fff", boxShadow: "0 0 6px rgba(255,255,255,.6)" }} />
+          <div style={{ position: "absolute", left: 0, top: 0, width: 2, height: "100%", background: "var(--color-fg)", boxShadow: "0 0 6px rgba(255,255,255,.6)" }} />
           {/* alça (knob) no topo — grabbável */}
           <div
             onMouseDown={(e) => {
@@ -657,7 +657,7 @@ export function Timeline({
               setDrag({ kind: "scrub" });
             }}
             title="Arraste para mover o playhead"
-            style={{ position: "absolute", left: -7, top: 0, width: 16, height: 16, background: "#fff", clipPath: "polygon(0 0, 100% 0, 50% 100%)", cursor: "ew-resize", pointerEvents: "auto" }}
+            style={{ position: "absolute", left: -7, top: 0, width: 16, height: 16, background: "var(--color-fg)", clipPath: "polygon(0 0, 100% 0, 50% 100%)", cursor: "ew-resize", pointerEvents: "auto" }}
           />
           {/* faixa de captura larga ao longo da linha (mais fácil de pegar) */}
           <div
@@ -677,7 +677,7 @@ function Label({ top, text, sub, color }: { top: number; text: string; sub: stri
   return (
     <div style={{ position: "absolute", top, left: 0, width: GUTTER, height: ROW_H, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, borderRight: `2px solid ${color}` }}>
       <span style={{ fontSize: 13, color, fontWeight: 800, lineHeight: 1 }}>{text}</span>
-      <span style={{ fontSize: 7, color: "#777", lineHeight: 1 }}>{sub}</span>
+      <span style={{ fontSize: 11, color: "var(--color-fg-faint)", lineHeight: 1 }}>{sub}</span>
     </div>
   );
 }
