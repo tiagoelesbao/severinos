@@ -407,9 +407,18 @@ industrialize_video_protocol:
     # ── FASE A — Planejamento ────────────────────────────────────────────────
     - step: 2A
       when: 'Fase A (planejar)'
-      action: 'Solicitar o path da pasta de benchmark de VÍDEO via AskUserQuestion'
-      question: 'Insira o path da pasta de benchmark de vídeo (extraída pelo *creative-benchmark):'
-      placeholder: 'workspaces/businesses/<slug>/marketing/daily-monitoring/{DATE}/benchmark/instagram/NN-handle-hash'
+      action: |
+        Listar AUTOMATICAMENTE os benchmarks de VÍDEO disponíveis e apresentar
+        via AskUserQuestion (VEX-02 — sem digitar path). Implementação:
+          a) Varrer (Glob) workspaces/businesses/{clientSlug}/marketing/daily-monitoring/*/benchmark/*/*/Benchmark.json
+             das datas mais recentes (ordenar desc; limitar ~2 datas).
+          b) Filtrar type vídeo/reel (Benchmark.json: type/subtype contém video|reel).
+          c) Options = "{DATE} · {plataforma} · {rank}-{handle}" (máx 3 + Other).
+          d) Incluir a opção "Digitar path manualmente" como fallback.
+        Mapear a escolha para o path da pasta do benchmark.
+      question: 'Qual benchmark de vídeo vamos usar como bússola?'
+      header: 'Benchmark'
+      multiSelect: false
     - step: 3A
       when: 'Fase A (planejar)'
       action: |
@@ -422,24 +431,35 @@ industrialize_video_protocol:
       when: 'Fase A (planejar)'
       action: |
         Reportar: status do gate (PASS/CONCERNS/FAIL). Se PASS/CONCERNS → path do
-        Plano-de-Criativo.md (outputs/{slug}/video-plans/{slug}/) e próximo passo
-        (gravar a shotlist). Se FAIL → listar as razões do bloqueio (fidelidade)
+        Plano-de-Criativo.md (outputs/{slug}/video-plans/{slug}/) + a pasta de
+        gravação criada (Materiais Brutos/_COMO-GRAVAR.md) e o próximo passo:
+        gravar a shotlist → soltar os arquivos em Materiais Brutos/ → Fase B no
+        app próprio. Se FAIL → listar as razões do bloqueio (fidelidade)
         e sugerir re-rodar. NÃO entregar plano com fabricação.
-    # ── FASE B — Produção ────────────────────────────────────────────────────
+    # ── FASE B — Edição no app próprio (video-studio) ────────────────────────
     - step: 2B
-      when: 'Fase B (produção)'
-      action: 'Solicitar caminho do vídeo gravado via AskUserQuestion'
-      question: 'Qual o path completo do vídeo que vamos industrializar?'
-      example: 'C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\assets\meu_video.mp4'
+      when: 'Fase B (editar no app)'
+      action: |
+        Confirmar que o material gravado está em
+        outputs/{clientSlug}/video-plans/{criativo}/Materiais Brutos/ e abrir o
+        editor: `npm run dev` em apps/video-studio (se não estiver rodando) →
+        http://localhost:3000/studio?client={clientSlug}&creative={criativo}.
+        No Studio: ⚙ Preparar criativo (transcrição Whisper + montagem
+        narração-driven automáticas) → ajuste fino → 💾 Salvar → ⬇ Exportar
+        (mp4 final em outputs/.../exports/).
     - step: 3B
-      when: 'Fase B (produção)'
-      action: 'Executar via Bash: python {task_ref_production} {user_input} --client={clientSlug}'
+      when: 'Fase B (editar no app)'
+      action: |
+        (Legado/opcional) Export para DaVinci Resolve ainda disponível:
+        python {task_ref_production} {video_path} --client={clientSlug}.
+        Usar apenas quando o dono pedir DaVinci explicitamente — o destino
+        padrão da Fase B é o app próprio (VEX-01/02).
     - step: 4B
-      when: 'Fase B (produção)'
-      action: 'Apresentar o relatório (cliente, EXPORT_DIR, LUT path) + instruções de import no DaVinci Resolve; sugerir auditoria de retenção com @sam-kolder-vid / @mrbeast-mk'
+      when: 'Fase B (editar no app)'
+      action: 'Reportar: criativo preparado/exportado (path do mp4 em exports/) + sugerir auditoria de retenção com @sam-kolder-vid / @mrbeast-mk'
   no_friction_rule: |
-    Fase A: após 3 inputs (fase + cliente + path do benchmark), flui até o report.
-    Fase B: após 3 inputs (fase + cliente + path do vídeo), flui até o report.
+    Fase A: após 3 inputs (fase + cliente + benchmark selecionado), flui até o report.
+    Fase B: após 2 inputs (fase + cliente), flui até o report (o app faz o resto).
     NÃO fazer perguntas adicionais.
 
 design_creative_protocol:

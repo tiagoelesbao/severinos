@@ -162,6 +162,35 @@ def render_plan_md(brief):
                  f"{s.get('locacao', '')} | {s.get('falas_chave', '')} |")
     L.append("")
 
+    # Sound design (F4.1) — planejado ANTES de gravar (SFX + trilha)
+    sd = plan.get("sound_design", {}) or {}
+    sfx = sd.get("sfx") or []
+    music = sd.get("music", {}) or {}
+    if sfx or music.get("recommended") or sd.get("rationale"):
+        esc = lambda v: str(v).replace("|", "/")  # noqa: E731 — escape de célula
+        L.append("## 🔊 Sound design (planejar antes de gravar)")
+        L.append("")
+        if sfx:
+            L.append("| Momento | SFX | Intenção | Intensidade |")
+            L.append("|---------|-----|----------|-------------|")
+            for s in sfx:
+                L.append(f"| {esc(s.get('moment', ''))} | {esc(s.get('category', ''))} | "
+                         f"{esc(s.get('intent', ''))} | {esc(s.get('intensity', ''))} |")
+            L.append("")
+        if music.get("recommended"):
+            extra = (f" · {esc(music.get('genre'))}" if music.get("genre") else "") \
+                + (" · ducking sob a fala" if music.get("ducking") else "")
+            L.append(f"- **Trilha:** {esc(music.get('mood', ''))} · energia "
+                     f"{esc(music.get('energy', ''))}{extra}")
+            if music.get("rationale"):
+                L.append(f"  - _{music['rationale']}_")
+        else:
+            L.append("- **Trilha:** não recomendada para este criativo.")
+        if sd.get("rationale"):
+            L.append("")
+            L.append(f"_{sd['rationale']}_")
+        L.append("")
+
     if plan.get("rationale"):
         L.append("## 💡 Racional")
         L.append("")
@@ -174,6 +203,43 @@ def render_plan_md(brief):
                  + (f" — suspeitos: {fid.get('fabricated_numbers')}"
                     if fid.get("fabricated_numbers") else "") + "  ")
     L.append("\n---\n*Gerado por `*industrialize-video` (EPIC-MKT-Video-Creative · Fase A).*")
+    return "\n".join(L)
+
+
+def render_como_gravar_md(brief):
+    """_COMO-GRAVAR.md (VEX-02): guia da pasta Materiais Brutos, da shotlist.
+
+    Instrui os NOMES de arquivo esperados (a Fase B classifica por papel via
+    filename e ancora os inserts na narração) e o fluxo pós-gravação.
+    """
+    plan = brief.get("content_plan", {}) or {}
+    shots = plan.get("shotlist", []) or []
+    L = ["# Como gravar este criativo", ""]
+    L.append("Solte os arquivos GRAVADOS nesta pasta (`Materiais Brutos/`). "
+             "Nomeie pelo papel — a montagem automática classifica pelo nome:")
+    L.append("")
+    L.append("| Papel | Nome sugerido | O que gravar |")
+    L.append("|-------|---------------|--------------|")
+    esc = lambda v: str(v or "").replace("|", "/")  # noqa: E731
+    n_inserts = 0
+    for i, s in enumerate(shots):
+        first, last = i == 0, i == len(shots) - 1
+        if first:
+            nome, papel = "hook.mp4", "hook (fala à câmera)"
+        elif last:
+            nome, papel = "cta-final.mp4", "cta (fala à câmera)"
+        else:
+            n_inserts += 1
+            nome, papel = f"insert-{n_inserts:02d}-<tema>.mp4", "insert (screen capture/b-roll, mudo)"
+        L.append(f"| {papel} | `{nome}` | {esc(s.get('plano'))} — fala: {esc(s.get('falas_chave'))[:80]} |")
+    L.append("| narração | `audio_narrado.ogg` (ou .mp3/.wav) | roteiro integral do miolo, voz limpa |")
+    L.append("")
+    L.append("Depois de gravar: abra o app de vídeo (`apps/video-studio` → `/studio`), "
+             "selecione o criativo e clique em **⚙ Preparar criativo** — a transcrição "
+             "(Whisper) e a montagem narração-driven são geradas automaticamente.")
+    L.append("")
+    L.append("---")
+    L.append("*Gerado pelo `*industrialize-video` (Fase A · VEX-02).*")
     return "\n".join(L)
 
 
@@ -239,13 +305,24 @@ def video_plan(benchmark_dir, client_slug=None, bench_platform=None, force=False
     with open(md_path, "w", encoding="utf-8") as f:
         f.write(render_plan_md(data))
 
+    # VEX-02 — scaffold da Fase B: pasta de gravação + guia + brief co-localizado
+    # (a Fase B lê o co-localizado com precedência; data/ segue como fallback).
+    materials_dir = os.path.join(out_dir, "Materiais Brutos")
+    os.makedirs(materials_dir, exist_ok=True)
+    with open(os.path.join(materials_dir, "_COMO-GRAVAR.md"), "w", encoding="utf-8") as f:
+        f.write(render_como_gravar_md(data))
+    with open(os.path.join(out_dir, "video-brief.yaml"), "w", encoding="utf-8") as f:
+        yaml.dump(data, f, allow_unicode=True, sort_keys=False)
+
     rel = os.path.relpath(md_path, ROOT).replace("\\", "/")
     qg = (data.get("quality_gate_video", {}) or {}).get("status", "?")
     print(f"\n{'=' * 64}")
     print(f"OK — *industrialize-video (planejamento) concluído: {slug}")
     print(f"   Gate: {qg}")
     print(f"   Plano: {rel}")
-    print("   Próximo: gravar o material da shotlist → (Fase B) editar no app de vídeo.")
+    print(f"   Gravação: {os.path.relpath(materials_dir, ROOT)} (_COMO-GRAVAR.md)")
+    print("   Próximo: gravar a shotlist → soltar em Materiais Brutos/ → abrir o")
+    print("   video-studio (/studio) e clicar em ⚙ Preparar criativo (Fase B).")
     print('=' * 64)
     return md_path
 
