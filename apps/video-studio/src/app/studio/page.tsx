@@ -105,10 +105,12 @@ interface CreativeItem { id: string; label: string; hasMaterials: boolean }
 // layout dos splitters manualmente (Layout = { [panelId]: flexGrow }). Os
 // painéis só montam client-side (após o fetch da timeline), então ler o
 // localStorage aqui não gera mismatch de hidratação.
+// Chave v2: a v1 podia ter gravado um layout em px quebrado (ver Change Log).
+const LAYOUT_KEY = (key: "rows" | "cols") => `studio-layout-v2-${key}`;
 function loadLayout(key: "rows" | "cols"): Layout | undefined {
   if (typeof window === "undefined") return undefined;
   try {
-    const raw = window.localStorage.getItem(`studio-layout-${key}`);
+    const raw = window.localStorage.getItem(LAYOUT_KEY(key));
     return raw ? (JSON.parse(raw) as Layout) : undefined;
   } catch {
     return undefined;
@@ -161,7 +163,7 @@ function StudioInner() {
   const [rowsLayout] = useState<Layout | undefined>(() => loadLayout("rows"));
   const [colsLayout] = useState<Layout | undefined>(() => loadLayout("cols"));
   const saveLayout = useCallback((key: "rows" | "cols", layout: Layout) => {
-    try { window.localStorage.setItem(`studio-layout-${key}`, JSON.stringify(layout)); } catch { /* quota/private mode */ }
+    try { window.localStorage.setItem(LAYOUT_KEY(key), JSON.stringify(layout)); } catch { /* quota/private mode */ }
   }, []);
   const captionStyle = useMemo(
     () => CAPTION_STYLES.find((s) => s.id === styleId)?.opts,
@@ -742,12 +744,12 @@ function StudioInner() {
   return (
     <>
     {/* VEX-07 inc.2: shell com splitters persistidos (react-resizable-panels v4) */}
-    <Group orientation="vertical" defaultLayout={rowsLayout} onLayoutChanged={(l) => saveLayout("rows", l)} className="h-screen bg-surface-0 text-fg">
+    <Group orientation="vertical" defaultLayout={rowsLayout} onLayoutChanged={(l, meta) => { if (meta?.isUserInteraction) saveLayout("rows", l); }} className="h-screen bg-surface-0 text-fg">
       {/* ── Parte superior: criativos + preview + inspector ─────────────── */}
-      <Panel id="top" defaultSize={66} minSize={40}>
-      <Group orientation="horizontal" defaultLayout={colsLayout} onLayoutChanged={(l) => saveLayout("cols", l)} className="h-full">
+      <Panel id="top" defaultSize="66%" minSize="40%">
+      <Group orientation="horizontal" defaultLayout={colsLayout} onLayoutChanged={(l, meta) => { if (meta?.isUserInteraction) saveLayout("cols", l); }} className="h-full">
         {/* Esquerda: bin com abas (Criativos / Mídia / Áudio) */}
-        <Panel id="bin" defaultSize={17} minSize={12} maxSize={30}>
+        <Panel id="bin" defaultSize="17%" minSize="12%" maxSize="30%">
         <aside className="h-full bg-surface-1 overflow-y-auto flex flex-col gap-2.5 p-3.5">
           <Button variant="ghost" size="sm" className="self-start" onClick={() => router.push("/")}>← Trocar cliente</Button>
           <div>
@@ -902,7 +904,7 @@ function StudioInner() {
         <Separator className="w-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
 
         {/* Preview (palco) */}
-        <Panel id="preview" minSize={34}>
+        <Panel id="preview" defaultSize="59%" minSize="34%">
         <main style={{ position: "relative", height: "100%", background: "var(--color-surface-0)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 16, minHeight: 0 }}>
           <div ref={stageRef} onMouseDown={() => setSelectedLayerClip("")} style={{ position: "relative", height: "calc(100% - 56px)", aspectRatio: "9 / 16", background: "#000", borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,.6)" }}>
             <Player
@@ -1034,7 +1036,7 @@ function StudioInner() {
         <Separator className="w-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
 
         {/* Inspector */}
-        <Panel id="inspector" defaultSize={24} minSize={16} maxSize={42}>
+        <Panel id="inspector" defaultSize="24%" minSize="16%" maxSize="42%">
         <aside style={{ height: "100%", background: "var(--color-surface-1)", padding: 16, overflowY: "auto" }}>
           <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: 1, margin: "0 0 4px" }}>Inspector</h2>
           <p style={{ fontSize: 11, color: "#666", margin: 0 }}>
@@ -1410,7 +1412,7 @@ function StudioInner() {
 
       {/* ── Faixa inferior: timeline NLE (altura redimensionável) ───────── */}
       <Separator className="h-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
-      <Panel id="timeline" defaultSize={34} minSize={15}>
+      <Panel id="timeline" defaultSize="34%" minSize="15%">
       <div className="h-full overflow-auto bg-surface-1">
 
       {/* VEX-07: confirmações do design system (substituem window.confirm) */}
