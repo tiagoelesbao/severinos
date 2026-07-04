@@ -9,7 +9,7 @@ import {
   materialsDirFor,
   applyTalkingHeadAutocut,
 } from "@/lib/ingest";
-import { loadBrandTokens } from "@/lib/brand";
+import { loadBrandKeywords, loadBrandTokens } from "@/lib/brand";
 import { buildFxPlan } from "@/lib/fxPlan";
 import {
   loadTranscript,
@@ -128,6 +128,8 @@ export async function GET(req: NextRequest) {
       primary: bt.primary,
       displayName: bt.displayName,
       fontFamily: bt.fontFamily,
+      // VEX-05: keywords das legendas vêm do léxico do cliente.
+      keywords: loadBrandKeywords(REPO, client),
     };
     const audioMs =
       (timeline.audioTrack?.durationSeconds ?? timeline.meta.videoSeconds) * 1000;

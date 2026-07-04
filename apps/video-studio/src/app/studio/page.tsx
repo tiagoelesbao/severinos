@@ -32,6 +32,7 @@ import {
   setClipTransition,
   setClipFrameMode,
   setClipKenBurns,
+  setClipVolume,
 } from "@/lib/editorState";
 import type { TransitionType, AnimType } from "@/lib/timeline";
 import { buildCues, editCueText, shiftCaptions, type CueOptions } from "@/lib/cues";
@@ -665,7 +666,8 @@ function StudioInner() {
     apply({
       timeline: addElementLayer(timeline, "audio", "Trilha de fundo", {
         type: "media-audio", src: a.url, label: `fundo · ${baseName(a.name)}`,
-        startFrame: 0, durationInFrames: timeline.durationInFrames, volume: 0.25,
+        startFrame: 0, durationInFrames: timeline.durationInFrames,
+        volume: 0.4, ducking: true, // VEX-05: abaixa sozinha sob a fala
       }),
       fxPlan,
     });
@@ -971,6 +973,22 @@ function StudioInner() {
                 </div>
               )}
 
+              {/* Volume do áudio próprio (talking-heads: hook/CTA) — VEX-05 */}
+              {clip.audioEnabled && !clip.gap && (
+                <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>
+                    Volume da fala {Math.round((clip.volume ?? 1) * 100)}%
+                  </div>
+                  <input
+                    type="range" min={0} max={1} step={0.05}
+                    value={clip.volume ?? 1}
+                    onPointerDown={beginEdit}
+                    onChange={(e) => liveUpdate({ timeline: setClipVolume(timeline, sel, Number(e.target.value)), fxPlan })}
+                    style={{ width: "100%" }}
+                  />
+                </div>
+              )}
+
               {/* Parâmetros de screen-capture (inserts: skill/reference/generation/result) */}
               {!clip.audioEnabled && !clip.gap && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
@@ -1131,6 +1149,14 @@ function StudioInner() {
                       <input type="range" min={0} max={1} step={0.05} value={cl.volume ?? 1}
                         onPointerDown={beginEdit}
                         onChange={(e) => live({ volume: Number(e.target.value) })} style={{ width: "100%" }} />
+                      <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, color: "#888", marginTop: 6, cursor: "pointer" }}>
+                        <input
+                          type="checkbox"
+                          checked={!!cl.ducking}
+                          onChange={(e) => patch({ ducking: e.target.checked })}
+                        />
+                        Ducking — abaixa sozinho sob a fala
+                      </label>
                     </div>
                   )}
 

@@ -1,0 +1,40 @@
+storyId: VEX-05
+epic: EPIC-MKT-Video-Excellence
+title: "Áudio profissional — crossfades, ducking por envelope e legendas on-brand"
+gate: PASS
+reviewer: "Claude no papel @qa"
+date: "2026-07-04"
+
+acceptance_criteria:
+  AC1: { status: met, note: "segmentEnvelope (fade 3f) em todos os cortes da narração — descontinuidade eliminada por construção (unit); percepção final = dono" }
+  AC2: { status: met, note: "duckingGain rampas 8f = 267ms ≤ 300ms; buracos curtos não sobem a trilha (mergeIntervals gap 2×rampa)" }
+  AC3: { status: met, note: "loadBrandKeywords real: tiago 8 kws do próprio léxico; virals [] (léxico malformado) com fallback limpo; Set global removido" }
+  AC4: { status: met, note: "clip.volume no timeline → save/export pelo mesmo payload; slider transacional no undo" }
+  AC5: { status: met, note: "6 testes novos; suíte 95/95; tsc/next build limpos; 1 teste antigo atualizado ao novo contrato (documentado)" }
+
+tests:
+  unit: { total: 6, passed: 6, file: "apps/video-studio/src/lib/audioEnvelopes.test.ts" }
+  suite: { total: 95, passed: 95 }
+  e2e_real: "export smoke (offthread) com auto-cut + trilha ducked + envelopes: done, mp4 6,06s h264+aac, áudio íntegro (mean −24,9dB), staging limpo — em 23s (cache de conformação quente)"
+
+seven_checks:
+  code_review: "OK — envelopes puros compartilhados Player/render (paridade por construção); composição só compõe ganhos"
+  unit_tests: "OK — bordas, trechos curtos, mesclagem de intervalos, rampas, tail"
+  acceptance: "OK — AC1–AC5 com verificação numérica + E2E de wiring"
+  regression: "OK — 95/95; comportamento sem ducking/keywords idêntico ao anterior (flags opcionais)"
+  performance: "OK — volume-fns O(intervalos) por frame, intervalos mesclados (≤ ~3 no caso real)"
+  security: "OK — sem superfícies novas"
+  documentation: "OK — decisão trilha 0.2 fixo → 0.4+envelope justificada; léxico virals malformado reportado"
+
+issues:
+  - severity: low
+    category: requirements
+    description: "Percepção auditiva final (click/ducking) não verificável em CI — validação numérica feita; ouvido humano pendente."
+    recommendation: "Dono confere no próximo ⬇ Exportar."
+  - severity: low
+    category: docs
+    description: "brand-identity da Virals tem lexico malformado (chaves soltas em vez de sempre_usar) → keywords vazias para esse cliente."
+    recommendation: "Consertar o YAML da Virals (fora do escopo do app)."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."

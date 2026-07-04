@@ -63,7 +63,9 @@ test("buildSoundLayers — SFX nos frames + trilha; placeholder sem src quando n
   assert.equal(sfxLayer.clips[1].startFrame, 60); // @2s
   const musicLayer = layers[1];
   assert.equal(musicLayer.clips[0].durationInFrames, 300); // cobre o vídeo
-  assert.equal(musicLayer.clips[0].volume, 0.2); // ducking
+  // VEX-05: ducking virou envelope real — base 0.4 + flag (abaixa sob a fala).
+  assert.equal(musicLayer.clips[0].volume, 0.4);
+  assert.equal(musicLayer.clips[0].ducking, true);
   assert.equal(musicLayer.clips[0].src, undefined); // sem música na lib
 });
 

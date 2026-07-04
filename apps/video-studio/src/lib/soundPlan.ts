@@ -150,6 +150,9 @@ export function buildSoundLayers(
   const music = sd.music;
   if (music?.recommended) {
     const asset = pickAudio(library, [music.genre, music.mood]);
+    // VEX-05: ducking agora é ENVELOPE real (abaixa sob a fala) — a trilha
+    // entra mais presente (0.4) porque cai sozinha para ~35% quando há voz.
+    const ducking = music.ducking !== false;
     layers.push({
       id: "L-music-plan",
       kind: "audio",
@@ -161,7 +164,8 @@ export function buildSoundLayers(
         label: `trilha ${music.mood ?? ""}`.trim(),
         startFrame: 0,
         durationInFrames: timeline.durationInFrames,
-        volume: music.ducking ? 0.2 : 0.45,
+        volume: ducking ? 0.4 : 0.45,
+        ducking,
       }],
     });
   }

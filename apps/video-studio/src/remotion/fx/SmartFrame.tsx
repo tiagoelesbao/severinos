@@ -23,7 +23,9 @@ const Media: React.FC<{
   preview: boolean;
   startFrom: number;
   style: React.CSSProperties;
-}> = ({ src, muted, playbackRate, preview, startFrom, style }) => {
+  /** Volume do áudio próprio (número ou envelope por frame). VEX-05. */
+  volume?: number | ((f: number) => number);
+}> = ({ src, muted, playbackRate, preview, startFrom, style, volume }) => {
   const Comp = preview ? Video : OffthreadVideo;
   // onError evita o MediaPlaybackError não tratado (codec/formato), que dispara
   // re-render storm da Remotion → "Maximum update depth". Degrada em silêncio.
@@ -34,6 +36,7 @@ const Media: React.FC<{
       playbackRate={playbackRate}
       startFrom={startFrom}
       style={style}
+      {...(volume !== undefined && !muted ? { volume } : {})}
       onError={() => {}}
     />
   );
@@ -51,7 +54,9 @@ export const SmartFrame: React.FC<{
   startFrom?: number;
   /** Zoom lento (Ken Burns) 0..0.2. */
   kenBurns?: number;
-}> = ({ src, mode, muted = true, playbackRate = 1, aspect = 16 / 9, preview = false, startFrom = 0, kenBurns = 0 }) => {
+  /** Volume do áudio próprio (número ou envelope por frame). VEX-05. */
+  volume?: number | ((f: number) => number);
+}> = ({ src, mode, muted = true, playbackRate = 1, aspect = 16 / 9, preview = false, startFrom = 0, kenBurns = 0, volume }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const kb =
@@ -109,6 +114,7 @@ export const SmartFrame: React.FC<{
             playbackRate={playbackRate}
             preview={preview}
             startFrom={startFrom}
+            volume={volume}
             style={{ width: "100%", height: "100%", objectFit: "contain", transform: `scale(${kb})` }}
           />
         </div>
@@ -123,6 +129,7 @@ export const SmartFrame: React.FC<{
       playbackRate={playbackRate}
       preview={preview}
       startFrom={startFrom}
+      volume={volume}
       style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${kb})` }}
     />
   );

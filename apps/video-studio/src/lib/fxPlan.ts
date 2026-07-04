@@ -20,6 +20,8 @@ export interface FxBrand {
   primary: string;
   displayName: string;
   fontFamily: string;
+  /** Keywords do léxico do cliente destacadas nas legendas (VEX-05). */
+  keywords?: string[];
 }
 
 export interface FxPlan {

@@ -11,12 +11,6 @@ import type { CaptionRenderer } from "../../lib/fxRegistry";
  * (legibilidade sobre fundo claro), contorno e destaque de keywords on-brand.
  */
 
-const KEYWORDS = new Set([
-  "skill", "ia", "playbook", "pagina", "escaneia", "brand", "kit", "conversao",
-  "virals", "credibilidade", "upsells", "crossells", "recorde", "completo",
-  "claude", "comenta", "site", "identidade", "objecoes", "loja", "ofertas",
-]);
-
 const norm = (s: string) =>
   s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]/g, "");
 
@@ -31,17 +25,24 @@ export const CaptionsOverlay: React.FC<{
   renderer?: CaptionRenderer;
   /** Calibração do chunking (estilo: nº de linhas/palavras, etc.). */
   cueOptions?: CueOptions;
+  /** Keywords do LÉXICO do cliente (VEX-05) — substitui o Set hardcoded. */
+  keywords?: string[];
 }> = ({
   captions,
   accentColor,
   fontFamily = "system-ui, sans-serif",
   renderer = "word-pop",
   cueOptions,
+  keywords,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const ms = (frame / fps) * 1000;
 
+  const kwSet = React.useMemo(
+    () => new Set((keywords ?? []).map(norm).filter(Boolean)),
+    [keywords],
+  );
   const cues = React.useMemo(() => buildCues(captions, cueOptions), [captions, cueOptions]);
   const idx = activeCueIndex(cues, ms);
   if (idx < 0) return null;
@@ -86,7 +87,7 @@ export const CaptionsOverlay: React.FC<{
             {line.map((w) => {
               const k = wordCounter++;
               const isActive = k === activeWord;
-              const isKeyword = KEYWORDS.has(norm(w.text));
+              const isKeyword = kwSet.has(norm(w.text));
               const color = mono ? "#fff" : isActive || isKeyword ? accentColor : "#fff";
               const scale = isActive && renderer === "word-pop" ? 0.9 + pop * 0.24 : 1;
               return (

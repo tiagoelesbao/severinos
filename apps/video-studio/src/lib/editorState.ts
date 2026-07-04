@@ -232,6 +232,11 @@ export function setClipKenBurns(tl: Timeline, index: number, kenBurns: number): 
   return setClip(tl, index, { kenBurns: Math.max(0, Math.min(0.2, kenBurns)) });
 }
 
+/** Volume do áudio PRÓPRIO do clipe (talking-heads). VEX-05. */
+export function setClipVolume(tl: Timeline, index: number, volume: number): Timeline {
+  return setClip(tl, index, { volume: Math.max(0, Math.min(1, volume)) });
+}
+
 // ── Camadas extras (SFX, trilha, overlays) ───────────────────────────────────
 
 let uidCounter = 0;

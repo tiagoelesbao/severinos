@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, Video } from "remotion";
 import type { Timeline, TransitionType, ElementAnim } from "../lib/timeline";
+import { duckingGain, segmentEnvelope, speechIntervals, tailGain } from "../lib/audioEnvelopes";
 import type { FxPlan } from "../lib/fxPlan";
 import { roleToFrameMode, SmartFrame } from "./fx/SmartFrame";
 import { HookFx } from "./fx/HookFx";
@@ -127,6 +128,9 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
   const audioGap = timeline.audioTrack
     ? timeline.meta.gaps.includes(timeline.audioTrack.file)
     : true;
+  // VEX-05: intervalos de fala (ducking) + duração total (fade-out do tail).
+  const speech = React.useMemo(() => speechIntervals(timeline), [timeline]);
+  const totalFrames = timeline.durationInFrames;
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
@@ -157,6 +161,10 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             preview={preview}
             startFrom={clip.trimStartFrames ?? 0}
             kenBurns={clip.kenBurns ?? 0}
+            // VEX-05: ganho por clipe + fade-out global (f local inclui o pre-roll F).
+            volume={clip.audioEnabled
+              ? (f: number) => (clip.volume ?? 1) * tailGain(clip.startFrame - F + f, totalFrames)
+              : undefined}
           />
         );
         return (
@@ -185,16 +193,21 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             return at.segments!.map((seg, i) => {
               const rel = seg.startFrame ?? cum;
               cum += seg.durationInFrames;
+              const segStart = at.startFrame + rel;
               return (
                 <Sequence
                   key={i}
-                  from={at.startFrame + rel}
+                  from={segStart}
                   durationInFrames={seg.durationInFrames}
                 >
                   <Audio
                     src={mediaSrc(at.file)}
                     startFrom={seg.srcFromFrame}
                     endAt={seg.srcFromFrame + seg.durationInFrames}
+                    // VEX-05: micro-crossfade anti-click + fade-out do tail.
+                    volume={(f) =>
+                      segmentEnvelope(f, seg.durationInFrames) * tailGain(segStart + f, totalFrames)
+                    }
                   />
                 </Sequence>
               );
@@ -205,7 +218,13 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             from={timeline.audioTrack.startFrame}
             durationInFrames={timeline.audioTrack.windowFrames}
           >
-            <Audio src={mediaSrc(timeline.audioTrack.file)} />
+            <Audio
+              src={mediaSrc(timeline.audioTrack.file)}
+              volume={(f) =>
+                segmentEnvelope(f, timeline.audioTrack!.windowFrames) *
+                tailGain(timeline.audioTrack!.startFrame + f, totalFrames)
+              }
+            />
           </Sequence>
         )
       ) : null}
@@ -219,14 +238,16 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
           const src = clip.src ?? (clip.file ? mediaSrc(clip.file) : "");
           let node: React.ReactNode = null;
           if (type === "media-audio") {
-            // Volume com fade de entrada/saída (animações "fade" no áudio).
+            // Volume com fade de entrada/saída (animações "fade" no áudio)
+            // + ducking sob a fala (VEX-05) + fade-out do tail.
             const vol = (f: number) => {
               let v = clip.volume ?? 1;
               const inA = clip.animateIn;
               const outA = clip.animateOut;
               if (inA?.type === "fade" && inA.durationInFrames > 0) v *= clamp01(f / inA.durationInFrames);
               if (outA?.type === "fade" && outA.durationInFrames > 0) v *= clamp01((clip.durationInFrames - f) / outA.durationInFrames);
-              return v;
+              if (clip.ducking) v *= duckingGain(clip.startFrame + f, speech);
+              return v * tailGain(clip.startFrame + f, totalFrames);
             };
             // Placeholder do plano (sem arquivo ainda) não emite Audio.
             node = src ? <Audio src={src} startFrom={clip.srcFromFrame ?? 0} volume={vol} onError={() => {}} /> : null;
@@ -277,6 +298,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
         fontFamily={brand.fontFamily}
         renderer={fxPlan.captionRenderer}
         cueOptions={fxPlan.captionStyle}
+        keywords={brand.keywords}
       />
 
       {fxPlan.motionRenderers.includes("progress-bar") ? (

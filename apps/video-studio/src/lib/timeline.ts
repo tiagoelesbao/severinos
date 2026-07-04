@@ -45,6 +45,8 @@ export interface TimelineClip {
   audioEnabled: boolean;
   /** Clip não encontrado no disco → placeholder visível (não quebra o render). */
   gap?: boolean;
+  /** Volume 0..1 do áudio PRÓPRIO do clipe (talking-heads). Default 1. */
+  volume?: number;
   /** Transição de ENTRADA (do clipe anterior para este). idx 0 não usa. */
   transitionIn?: { type: TransitionType; durationInFrames: number };
   /** Enquadramento (override): auto = por papel; cover; panel (tela cheia no aspect). */
@@ -129,6 +131,8 @@ export interface ExtraClip {
   srcFromFrame?: number;
   /** Volume 0..1 (elementos de áudio). */
   volume?: number;
+  /** Ducking: abaixa automaticamente sob a fala (trilhas de fundo). VEX-05. */
+  ducking?: boolean;
   /** Opacidade 0..1 (elementos visuais). */
   opacity?: number;
   // ── Parâmetros de texto ──

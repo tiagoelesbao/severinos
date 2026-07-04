@@ -16,6 +16,31 @@ export interface BrandTokens {
   fontFamily: string;
 }
 
+/**
+ * Keywords de destaque das legendas (VEX-05): vêm do LÉXICO do cliente
+ * (`brand-identity.yaml` → tom_de_voz.lexico.sempre_usar [+ palavras_chave]),
+ * não mais de um Set hardcoded na UI. Lista vazia = só a palavra ativa destaca.
+ */
+export function loadBrandKeywords(repoRoot: string, slug = "virals"): string[] {
+  try {
+    const p = path.join(
+      repoRoot,
+      "squads/virals-marketing-squad/data/clients",
+      slug,
+      "brand-identity.yaml",
+    );
+    const data = (parse(fs.readFileSync(p, "utf-8")) as Record<string, any>) || {};
+    const lex = data?.tom_de_voz?.lexico ?? {};
+    const words = [
+      ...(Array.isArray(lex.sempre_usar) ? lex.sempre_usar : []),
+      ...(Array.isArray(lex.palavras_chave) ? lex.palavras_chave : []),
+    ];
+    return [...new Set(words.map((w: unknown) => String(w).trim()).filter(Boolean))];
+  } catch {
+    return [];
+  }
+}
+
 const DISPLAY: Record<string, string> = {
   virals: "Virals",
   "tiago-elesbao": "Tiago Elesbão",
