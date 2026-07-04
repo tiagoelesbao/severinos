@@ -11,7 +11,7 @@ Requisitos cravados pelo gate @qa da MVC-03 (CONCERNS):
   1. Fidelidade COMPLETA — não só números: liga detect_fabricated_numbers +
      detect_fabricated_claims + source_entities do recast_engine.
   2. BLOQUEANTE de verdade — violação de fidelidade/voz/CTA → FAIL (exit 2).
-  3. Self-healing — tenta corrigir via LLM antes de barrar (máx 2 iterações).
+  3. Self-healing — tenta corrigir via LLM antes de barrar (máx 3 iterações).
 
 Checklists V1–V7 (determinísticos):
   V1 Hook        — 3 variantes; text_overlay 4–7 palavras; pattern_interrupt.

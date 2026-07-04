@@ -268,6 +268,10 @@ def video_plan(benchmark_dir, client_slug=None, bench_platform=None, force=False
     if rc1 != 0:
         print("AVISO: extração incompleta — seguindo; etapas seguintes decidem.")
 
+    # Etapa 1b — DNA visual (VEX-04, não-fatal: sem visão → visual_analysis=null).
+    _run("Etapa 1b - DNA visual (vision_video_benchmark)",
+         [f"{ENG}/vision_video_benchmark.py", brief], fatal=False)
+
     # Etapa 2/4 — Análise (não-fatal).
     _run("Etapa 2/4 - Análise de retenção (analyze_video_benchmark)",
          [f"{ENG}/analyze_video_benchmark.py", brief], fatal=False)

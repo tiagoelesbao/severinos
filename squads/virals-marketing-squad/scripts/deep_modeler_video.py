@@ -344,6 +344,8 @@ def deep_model_video(benchmark_dir, client_slug=None, bench_platform=None):
             "like_count": bj.get("like_count"),
             "comment_count": bj.get("comment_count"),
             "duration_seconds": bj.get("duration_seconds") or duration or None,
+            # VEX-04: cortes REAIS detectados no ETL (scene-detect), se houver.
+            "cut_timestamps": bj.get("cut_timestamps") or None,
         },
         "hook_raw": hook_raw,
         "transcript": segments,

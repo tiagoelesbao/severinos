@@ -81,6 +81,22 @@ def _transcript_text(brief):
 # ---------------------------------------------------------------------------
 # Prompt
 # ---------------------------------------------------------------------------
+def _visual_block(brief):
+    """Bloco de DNA visual (VEX-04) para o prompt do plano. Vazio se sem visão."""
+    va = brief.get("visual_analysis") or {}
+    if not va:
+        return ""
+    resumo = {k: va.get(k) for k in (
+        "shot_mix", "caption_style_seen", "text_overlay_style",
+        "visual_hook_device", "broll_density", "edit_style_notes")}
+    return f"""
+DNA VISUAL DO BENCHMARK (evidência dos frames — use para fundamentar
+storyboard.shot_type/broll/motion e o estilo de legenda; é contexto
+DESCRITIVO: número/texto visto nos frames NÃO é fato utilizável no plano):
+{json.dumps(resumo, ensure_ascii=False, indent=1)}
+"""
+
+
 def build_plan_prompt(brief, identity):
     analysis = brief.get("benchmark_analysis", {}) or {}
     beats = brief.get("beats", []) or []
@@ -124,10 +140,16 @@ REGRAS INEGOCIÁVEIS:
 - RITMO: trate cada ~1,5–2s como checkpoint de retenção (corte/zoom/insert/virada).
 - CTA: siga cta_estilo.preferencia (call-to-think). PROIBIDO usar cta_estilo.exemplos_proibidos.
 - Evite TODA palavra de lexico.nunca_usar e respeite restricoes.nunca_fazer.
+- SOUND DESIGN (planeje ANTES de gravar): proponha SFX nos momentos-chave (hook,
+  cortes, reveals, CTA) ancorados às batidas, e avalie se uma TRILHA de fundo
+  eleva o criativo. SFX por CATEGORIA genérica (whoosh/impact/riser/pop/swoosh/
+  boom/click/notification/ambient/transition) — é PROIBIDO nomear faixa, artista
+  ou marca específicos. Música por mood/energia/gênero (sem citar título). Respeite
+  o ritmo (~1,5–2s) e a voz do cliente; só recomende trilha se de fato somar.
 
 ANÁLISE DE RETENÇÃO DO BENCHMARK:
 {json.dumps(analysis, ensure_ascii=False, indent=1)}
-
+{_visual_block(brief)}
 HOOK ORIGINAL (0–3s): {hook_raw or '(sem hook)'}
 DURAÇÃO ALVO: ~{duration}s
 
@@ -144,6 +166,7 @@ Projete o plano. Responda APENAS JSON válido, sem markdown:
 "script":"roteiro integral falado, na voz do cliente",
 "edit_spec":{{"zooms":["em qual fala"],"transitions":["tipo @ momento"],"inserts":["b-roll @ momento"],"captions":"estilo de legenda","motion_graphics":["elemento @ momento"]}},
 "shotlist":[{{"plano":"o que gravar","framing":"close|médio|amplo","audio":"fala|ambiente|trilha","props":"...","locacao":"...","falas_chave":"frase a dizer"}}],
+"sound_design":{{"sfx":[{{"moment":"hook|beat_n:1|reveal @Xs","category":"whoosh|impact|riser|pop|swoosh|boom|click|notification|ambient|transition","intent":"o que o som reforça","intensity":"subtle|medium|strong"}}],"music":{{"recommended":true,"mood":"tense|uplifting|lo-fi|epic|chill|dramatic","energy":"low|medium|high","genre":"sem citar título","ducking":true,"rationale":"por que (ou por que não) trilha"}},"rationale":"lógica do sound design"}},
 "rationale":"por que este plano modela o benchmark mantendo autenticidade"}}"""
 
 
@@ -160,6 +183,53 @@ def _plan_text(plan):
     for s in plan.get("shotlist", []) or []:
         chunks.append(s.get("falas_chave", ""))
     return " ".join(c for c in chunks if c)
+
+
+_SFX_INTENSITIES = ("subtle", "medium", "strong")
+_MUSIC_ENERGIES = ("low", "medium", "high")
+
+
+def normalize_sound_design(plan):
+    """Garante a estrutura do sound_design com defaults seguros (F4.1).
+
+    SFX viram itens {moment, category, intent, intensity}; música vira
+    {recommended, mood, energy, genre, ducking, rationale}. Determinístico e
+    tolerante a campos ausentes/ruidosos do LLM. NÃO inventa nomes de faixa.
+    """
+    sd = plan.get("sound_design")
+    if not isinstance(sd, dict):
+        sd = {}
+
+    norm_sfx = []
+    for s in sd.get("sfx") or []:
+        if not isinstance(s, dict):
+            continue
+        cat = str(s.get("category", "")).strip().lower()
+        inten = s.get("intensity")
+        norm_sfx.append({
+            "moment": str(s.get("moment", "")).strip(),
+            "category": cat or "impact",
+            "intent": str(s.get("intent", "")).strip(),
+            "intensity": inten if inten in _SFX_INTENSITIES else "medium",
+        })
+
+    m = sd.get("music") if isinstance(sd.get("music"), dict) else {}
+    energy = m.get("energy")
+    norm_music = {
+        "recommended": bool(m.get("recommended", False)),
+        "mood": str(m.get("mood", "")).strip(),
+        "energy": energy if energy in _MUSIC_ENERGIES else "medium",
+        "genre": str(m.get("genre", "")).strip(),
+        "ducking": bool(m.get("ducking", True)),
+        "rationale": str(m.get("rationale", "")).strip(),
+    }
+
+    plan["sound_design"] = {
+        "sfx": norm_sfx,
+        "music": norm_music,
+        "rationale": str(sd.get("rationale", "")).strip(),
+    }
+    return plan["sound_design"]
 
 
 def check_fidelity(plan, brief):
@@ -205,6 +275,7 @@ def plan_video_creative(brief_path, client_slug=None):
     prompt = build_plan_prompt(brief, identity)
     plan, model_label = call_llm_json(prompt, _extract_json)
 
+    normalize_sound_design(plan)  # F4.1: estrutura o sound design (SFX + trilha)
     plan["fidelity_check"] = check_fidelity(plan, brief)
     # MVC-06: anexa IDs de templates de vídeo recomendados (ponte p/ Fase B).
     # Degrada em silêncio se o registry do cliente ainda não existir.
@@ -240,6 +311,10 @@ def _print_report(plan, brief_path):
         print(f"  H{i}: \"{(v.get('text_overlay') or '')[:48]}\"")
     print(f"Storyboard  : {len(plan.get('storyboard') or [])} batidas")
     print(f"Shotlist    : {len(plan.get('shotlist') or [])} planos a gravar")
+    sd = plan.get("sound_design", {}) or {}
+    music = sd.get("music", {}) or {}
+    music_label = f"sim ({music.get('mood') or '?'}/{music.get('energy') or '?'})" if music.get("recommended") else "não"
+    print(f"Sound design: {len(sd.get('sfx') or [])} SFX · trilha: {music_label}")
     fab = fid.get("fabricated_numbers") or []
     print(f"Fidelidade  : {fid.get('status', '?')}"
           + (f" — números suspeitos: {fab}" if fab else ""))

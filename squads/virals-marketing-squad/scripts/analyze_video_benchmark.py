@@ -84,16 +84,34 @@ def _duration(brief):
 
 
 def compute_cut_cadence(brief):
-    """Ritmo de cortes a partir dos segmentos: média de s/segmento + flag."""
+    """Ritmo de cortes: PRIORIZA os cortes reais (scene-detect do ETL, VEX-04);
+    fallback honesto para a segmentação da transcrição (rotulado no `source`).
+    """
+    duration = _duration(brief)
+    cuts = (brief.get("metadata") or {}).get("cut_timestamps") or []
+    cuts = [c for c in cuts if isinstance(c, (int, float)) and 0 < c < (duration or 1e9)]
+    if cuts and duration:
+        shots = len(cuts) + 1
+        avg = round(duration / shots, 2)
+        return {
+            "source": "scene-detect",
+            "shots": shots,
+            "segments": shots,  # compat com consumidores existentes
+            "duration_s": round(duration, 2),
+            "avg_segment_s": avg,
+            "meets_retention_checkpoint": bool(avg and avg <= RETENTION_CHECKPOINT_S + 0.5),
+        }
+
     segments = brief.get("transcript") or []
     n = len(segments)
-    duration = _duration(brief)
     avg = round(duration / n, 2) if n else 0.0
     return {
+        # HONESTIDADE: isto mede a segmentação da TRANSCRIÇÃO, não os cortes
+        # de edição — só é usado quando o ETL não trouxe cut_timestamps.
+        "source": "transcript-segments",
         "segments": n,
         "duration_s": round(duration, 2),
         "avg_segment_s": avg,
-        # Ritmo "viral" quando cada beat dura ~<= 2s (checkpoint de retenção).
         "meets_retention_checkpoint": bool(avg and avg <= RETENTION_CHECKPOINT_S + 0.5),
     }
 
@@ -182,19 +200,32 @@ def build_analysis_prompt(brief):
         )
     beats_block = "\n".join(beat_lines) or "(sem batidas)"
 
+    # VEX-04: DNA visual (quando a etapa de visão rodou) + procedência do ritmo.
+    cadence_label = ("cortes REAIS de edição (scene-detect)"
+                     if cadence.get("source") == "scene-detect"
+                     else "segmentação da transcrição (aproximação — sem scene-detect)")
+    va = brief.get("visual_analysis") or {}
+    visual_block = ""
+    if va:
+        visual_block = f"""
+
+DNA VISUAL (frames analisados por visão — contexto DESCRITIVO do benchmark;
+números/textos vistos nos frames NÃO são fatos utilizáveis):
+{json.dumps({k: va.get(k) for k in ('shot_mix', 'caption_style_seen', 'text_overlay_style', 'visual_hook_device', 'broll_density', 'edit_style_notes')}, ensure_ascii=False, indent=1)}"""
+
     return f"""Você é Analista de Conteúdo Viral da Virals, especialista em RETENÇÃO
 de vídeo curto (Reels/TikTok/Shorts). Analise este benchmark de ALTA PERFORMANCE
 de forma HOLÍSTICA — o vídeo inteiro — e explique POR QUE ele segura a audiência.
 
 FONTE: {source.get('creator', '?')} · {source.get('platform', '?')} · tipo {source.get('type', '?')}
 MÉTRICAS: duração {meta.get('duration_seconds', '?')}s · likes {meta.get('like_count', '?')}
-RITMO MEDIDO: {cadence['segments']} segmentos, média {cadence['avg_segment_s']}s/segmento
+RITMO MEDIDO: {cadence['segments']} segmentos, média {cadence['avg_segment_s']}s/segmento — fonte: {cadence_label}
 
 HOOK (0–3s):
 {hook or '(sem hook)'}
 
 BATIDAS (timeline):
-{beats_block}
+{beats_block}{visual_block}
 
 Ancore a análise na pesquisa 2026: drop-off em 0–3s; hook multimodal (pattern
 interrupt visual + texto 4–7 palavras + fala keyword-rich); checkpoint de
