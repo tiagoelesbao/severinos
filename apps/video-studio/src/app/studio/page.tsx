@@ -38,6 +38,21 @@ import type { TransitionType, AnimType } from "@/lib/timeline";
 import { buildCues, editCueText, shiftCaptions, type CueOptions } from "@/lib/cues";
 import type { HookRenderer, CaptionRenderer } from "@/lib/fxRegistry";
 import type { AuditReport } from "@/lib/audit";
+import { toast } from "sonner";
+import {
+  Download,
+  HelpCircle,
+  Play,
+  Pause,
+  Redo2,
+  RotateCcw,
+  Save,
+  Scissors,
+  SkipBack,
+  SkipForward,
+  Undo2,
+} from "lucide-react";
+import { Button, ConfirmDialog, IconButton, Tip } from "@/components/ui";
 
 interface Snapshot {
   timeline: Timeline;
@@ -118,6 +133,11 @@ function StudioInner() {
   // VEX-03: edições não salvas (dot no Salvar, guards de perda de trabalho).
   const [dirty, setDirty] = useState(false);
   const [showKeys, setShowKeys] = useState(false);
+  // VEX-07: diálogos de confirmação do design system (substituem confirm()).
+  const [confirmRemove, setConfirmRemove] = useState<string | null>(null);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const pendingAutocut = useRef<(() => void) | null>(null);
+  const [confirmAutocut, setConfirmAutocut] = useState(false);
   const captionStyle = useMemo(
     () => CAPTION_STYLES.find((s) => s.id === styleId)?.opts,
     [styleId],
@@ -194,15 +214,12 @@ function StudioInner() {
     router.replace(`/studio?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(id)}`);
   }, [creative, client, router]);
 
+  // VEX-07: a confirmação vive num ConfirmDialog (setConfirmRemove abre).
   const removeCreative = useCallback(async (id: string) => {
-    if (!confirm(
-      `Remover o criativo "${id}"?\n\n` +
-      "ISSO APAGA A PASTA DO CRIATIVO no disco, incluindo os Materiais Brutos gravados. " +
-      "Não há como desfazer.",
-    )) return;
     try {
       const res = await fetch(`/api/creatives?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(id)}`, { method: "DELETE" });
-      if (!res.ok) { alert("Falha ao remover o criativo."); return; }
+      if (!res.ok) { toast.error("Falha ao remover o criativo."); return; }
+      toast.success(`Criativo "${id}" removido.`);
       const d = await fetch(`/api/creatives?client=${encodeURIComponent(client)}`).then((r) => r.json());
       const list: CreativeItem[] = d.creatives ?? [];
       setCreatives(list);
@@ -213,7 +230,7 @@ function StudioInner() {
           ? `/studio?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(next)}`
           : `/studio?client=${encodeURIComponent(client)}`);
       }
-    } catch { alert("Erro ao remover o criativo."); }
+    } catch { toast.error("Erro ao remover o criativo."); }
   }, [client, creative, router]);
 
   // Debounce: reage ao toggle e ao slider de agressividade (ao vivo).
@@ -223,14 +240,14 @@ function StudioInner() {
   }, [autocutOn, maxGap, load]);
 
   // VEX-03: mudar o auto-cut recarrega do servidor (descarta edições não
-  // salvas) — com trabalho pendente, pede confirmação antes.
+  // salvas) — com trabalho pendente, pede confirmação (ConfirmDialog, VEX-07).
   const guardedAutocut = useCallback(
     (fn: () => void) => {
-      if (
-        dirty &&
-        !confirm("Há edições NÃO SALVAS — mudar o auto-cut recarrega a timeline e as descarta.\n\nContinuar?")
-      )
+      if (dirty) {
+        pendingAutocut.current = fn;
+        setConfirmAutocut(true);
         return;
+      }
       fn();
     },
     [dirty],
@@ -299,6 +316,13 @@ function StudioInner() {
 
   // Espelha o snap num ref para os listeners de drag do palco lerem o estado atual.
   useEffect(() => { snapRef.current = snap; }, [snap]);
+
+  // VEX-07: o editor "veste" a marca do cliente ativo — accent dinâmico nos
+  // tokens (--accent dirige botões, foco, ranges, badges).
+  useEffect(() => {
+    const accent = snap?.fxPlan.brand.accent;
+    if (accent) document.documentElement.style.setProperty("--accent", accent);
+  }, [snap?.fxPlan.brand.accent]);
 
   // N1.c: arraste/resize do elemento selecionado direto no palco (overlay).
   useEffect(() => {
@@ -413,15 +437,16 @@ function StudioInner() {
   }, [snap, client, creative, captionSource, styleId, autocutOn, maxGap]);
 
   // MVC-11: descarta a edição salva e recarrega o estado fresco do plano.
+  // VEX-07: confirmação via ConfirmDialog (setConfirmReset abre).
   const resetEdit = useCallback(async () => {
     if (!client || !creative) return;
-    if (!confirm("Descartar a edição salva e voltar ao estado do plano?")) return;
     try {
       await fetch(`/api/timeline?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(creative)}`, { method: "DELETE" });
       setPersisted(false);
+      toast.success("Edição descartada — de volta ao estado do plano.");
       load(autocutOn, maxGap);
     } catch {
-      setStatus("✗ Erro ao resetar");
+      toast.error("Erro ao resetar a edição.");
     }
   }, [client, creative, load, autocutOn, maxGap]);
 
@@ -460,7 +485,11 @@ function StudioInner() {
             `/api/render?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(creative)}`,
           ).then((r) => r.json());
           setExporting(s);
-          if (s.state === "done" || s.state === "error") stopExportPoll();
+          if (s.state === "done" || s.state === "error") {
+            stopExportPoll();
+            if (s.state === "done") toast.success(`Export concluído: ${s.output ?? "exports/"}`, { duration: 8000 });
+            else toast.error(`Export falhou: ${s.error ?? "erro desconhecido"}`, { duration: 10000 });
+          }
         } catch {
           /* mantém o poll — pode ser hiccup do dev server */
         }
@@ -713,7 +742,7 @@ function StudioInner() {
                     </div>
                   </button>
                   <button
-                    onClick={() => removeCreative(c.id)}
+                    onClick={() => setConfirmRemove(c.id)}
                     title="Remover criativo (apaga a pasta, incl. Materiais Brutos!)"
                     style={{ position: "absolute", right: 4, top: "50%", transform: "translateY(-50%)", width: 22, height: 22, borderRadius: 6, border: "none", background: "transparent", color: "rgba(255,255,255,.25)", cursor: "pointer", fontSize: 12 }}
                   >🗑</button>
@@ -834,29 +863,27 @@ function StudioInner() {
               );
             })()}
           </div>
-          {/* Transporte */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 14 }}>
-            <button style={btn} onClick={() => seek(0)} title="Início">⏮</button>
-            <button style={{ ...btn, minWidth: 44 }} onClick={togglePlay} title="Espaço">
-              {playing ? "⏸" : "▶"}
-            </button>
-            <button style={btn} onClick={() => seek(timeline.durationInFrames - 1)} title="Fim">⏭</button>
-            <span style={{ fontSize: 12, color: "#888", fontVariantNumeric: "tabular-nums", marginLeft: 8 }}>
+          {/* Transporte (VEX-07: design system — ícones, tooltips, accent do cliente) */}
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 14 }}>
+            <Tip label="Início (Home)"><IconButton onClick={() => seek(0)}><SkipBack className="size-4" /></IconButton></Tip>
+            <Tip label="Play/Pause (Espaço)">
+              <IconButton onClick={togglePlay}>{playing ? <Pause className="size-4" /> : <Play className="size-4" />}</IconButton>
+            </Tip>
+            <Tip label="Fim (End)"><IconButton onClick={() => seek(timeline.durationInFrames - 1)}><SkipForward className="size-4" /></IconButton></Tip>
+            <span className="text-[12px] text-fg-muted tabular-nums ml-2">
               {curSec}s / {totSec}s
             </span>
-            <span style={{ width: 1, height: 18, background: "rgba(255,255,255,.12)", margin: "0 6px" }} />
-            <button style={btn} onClick={undo} title="Desfazer">↶</button>
-            <button style={btn} onClick={redo} title="Refazer">↷</button>
-            <span style={{ width: 1, height: 18, background: "rgba(255,255,255,.12)", margin: "0 6px" }} />
-            <button
-              style={{ ...btn, background: razorMode ? "#FF4D2E" : "#1a1a24", fontWeight: 700 }}
-              onClick={() => setRazorMode((v) => !v)}
-              title="Ferramenta de corte: clique num clipe para dividir"
-            >
-              ✂ {razorMode ? "Cortar ON" : "Cortar"}
-            </button>
-            <span style={{ width: 1, height: 18, background: "rgba(255,255,255,.12)", margin: "0 6px" }} />
-            <label style={{ fontSize: 11, color: "#666" }}>zoom</label>
+            <span className="w-px h-[18px] bg-line-strong mx-1.5" />
+            <Tip label="Desfazer (Ctrl+Z)"><IconButton onClick={undo}><Undo2 className="size-4" /></IconButton></Tip>
+            <Tip label="Refazer (Ctrl+Shift+Z)"><IconButton onClick={redo}><Redo2 className="size-4" /></IconButton></Tip>
+            <span className="w-px h-[18px] bg-line-strong mx-1.5" />
+            <Tip label={razorMode ? "Cortar: clique num clipe para dividir (C desliga)" : "Ferramenta de corte (C)"}>
+              <IconButton active={razorMode} onClick={() => setRazorMode((v) => !v)}>
+                <Scissors className="size-4" />
+              </IconButton>
+            </Tip>
+            <span className="w-px h-[18px] bg-line-strong mx-1.5" />
+            <label className="text-[11px] text-fg-faint">zoom</label>
             <input
               type="range"
               min={PPS_MIN}
@@ -865,55 +892,44 @@ function StudioInner() {
               onChange={(e) => setPps(Number(e.target.value))}
               style={{ width: 90 }}
             />
-            <span style={{ width: 1, height: 18, background: "rgba(255,255,255,.12)", margin: "0 6px" }} />
-            <button style={{ ...btn, background: "#2DE2C8", color: "#06121a", fontWeight: 700, position: "relative" }} onClick={save} title="Salvar edição (Ctrl+S)">
-              💾 Salvar
-              {dirty && <span title="Edições não salvas" style={{ position: "absolute", top: -4, right: -4, width: 10, height: 10, borderRadius: "50%", background: "#FF4D2E", border: "2px solid #000" }} />}
-            </button>
+            <span className="w-px h-[18px] bg-line-strong mx-1.5" />
+            <Tip label="Salvar edição (Ctrl+S)">
+              <Button variant="ok" onClick={save} className="relative">
+                <Save className="size-4" /> Salvar
+                {dirty && <span className="absolute -top-1 -right-1 size-2.5 rounded-full bg-danger border-2 border-black" />}
+              </Button>
+            </Tip>
             {persisted && (
-              <button style={{ ...btn, fontSize: 11 }} onClick={resetEdit} title="Descartar a edição salva e voltar ao plano">↺ Resetar</button>
+              <Tip label="Descartar a edição salva e voltar ao plano">
+                <IconButton onClick={() => setConfirmReset(true)}><RotateCcw className="size-4" /></IconButton>
+              </Tip>
             )}
             {(() => {
               const busy = exporting && !["done", "error", "idle"].includes(exporting.state);
-              const label = !exporting || exporting.state === "idle"
-                ? "⬇ Exportar"
+              const label = !exporting || ["idle", "done", "error"].includes(exporting.state)
+                ? "Exportar"
                 : exporting.state === "rendering"
-                  ? `⏳ ${Math.round(exporting.progress * 100)}%`
-                  : exporting.state === "done"
-                    ? "✓ Exportado"
-                    : exporting.state === "error"
-                      ? "✗ Export falhou"
-                      : `⏳ ${exporting.state}…`;
+                  ? `${Math.round(exporting.progress * 100)}%`
+                  : `${exporting.state}…`;
               return (
-                <button
-                  style={{ ...btn, background: busy ? "#1a1a24" : "#FFB800", color: busy ? "#fff" : "#1a1200", fontWeight: 700, opacity: busy ? 0.85 : 1 }}
-                  onClick={exportVideo}
-                  disabled={!!busy}
-                  title={
+                <Tip
+                  label={
                     exporting?.state === "done" && exporting.output
                       ? `mp4 em ${exporting.output} — clique para exportar de novo`
-                      : exporting?.state === "error"
-                        ? `${exporting.error ?? "erro"} — clique para tentar de novo`
-                        : "Renderiza o estado atual da tela em mp4 (exports/)"
+                      : "Renderiza o estado atual da tela em mp4 (exports/)"
                   }
                 >
-                  {label}
-                </button>
+                  <Button variant="accent" onClick={exportVideo} disabled={!!busy}>
+                    <Download className="size-4" /> {label}
+                  </Button>
+                </Tip>
               );
             })()}
-            {exporting?.state === "done" && exporting.output && (
-              <span style={{ fontSize: 10, color: "#2DE2C8", maxWidth: 260, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} title={exporting.output}>
-                {exporting.output}
-              </span>
-            )}
-            {exporting?.state === "error" && exporting.error && (
-              <span style={{ fontSize: 10, color: "#FF4D2E", maxWidth: 260, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} title={exporting.error}>
-                {exporting.error}
-              </span>
-            )}
-            {status && <span style={{ fontSize: 11, color: "#888" }}>{status}</span>}
-            <span style={{ width: 1, height: 18, background: "rgba(255,255,255,.12)", margin: "0 6px" }} />
-            <button style={{ ...btn, padding: "6px 10px" }} onClick={() => setShowKeys((v) => !v)} title="Atalhos de teclado">?</button>
+            {status && <span className="text-[11px] text-fg-muted">{status}</span>}
+            <span className="w-px h-[18px] bg-line-strong mx-1.5" />
+            <Tip label="Atalhos de teclado">
+              <IconButton variant="ghost" onClick={() => setShowKeys((v) => !v)}><HelpCircle className="size-4" /></IconButton>
+            </Tip>
           </div>
           {showKeys && (
             <div style={{ position: "absolute", bottom: 70, right: 24, zIndex: 30, background: "#0c0c16", border: "1px solid rgba(255,255,255,.15)", borderRadius: 10, padding: "12px 16px", boxShadow: "0 12px 40px rgba(0,0,0,.6)", fontSize: 11, lineHeight: 1.9, color: "#ccc" }}>
@@ -1299,6 +1315,35 @@ function StudioInner() {
       </div>
 
       {/* ── Faixa inferior: timeline NLE ────────────────────────────────── */}
+      {/* VEX-07: confirmações do design system (substituem window.confirm) */}
+      <ConfirmDialog
+        open={confirmRemove !== null}
+        onOpenChange={(v) => !v && setConfirmRemove(null)}
+        title={`Remover o criativo "${confirmRemove ?? ""}"?`}
+        description="Isso APAGA a pasta do criativo no disco, incluindo os Materiais Brutos gravados. Não há como desfazer."
+        confirmLabel="Apagar tudo"
+        danger
+        onConfirm={() => { if (confirmRemove) removeCreative(confirmRemove); setConfirmRemove(null); }}
+      />
+      <ConfirmDialog
+        open={confirmReset}
+        onOpenChange={setConfirmReset}
+        title="Descartar a edição salva?"
+        description="A timeline volta ao estado do plano (ingest fresco). A edição salva atual será apagada."
+        confirmLabel="Descartar edição"
+        danger
+        onConfirm={resetEdit}
+      />
+      <ConfirmDialog
+        open={confirmAutocut}
+        onOpenChange={(v) => { setConfirmAutocut(v); if (!v) pendingAutocut.current = null; }}
+        title="Recarregar a timeline?"
+        description="Há edições NÃO SALVAS — mudar o auto-cut recarrega a timeline do servidor e as descarta."
+        confirmLabel="Descartar e recarregar"
+        danger
+        onConfirm={() => { pendingAutocut.current?.(); pendingAutocut.current = null; }}
+      />
+
       <TimelineView
         timeline={timeline}
         fxPlan={fxPlan}

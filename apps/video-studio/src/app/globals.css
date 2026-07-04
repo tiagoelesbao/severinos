@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens do Video Studio (VEX-07).
+ * Superfícies frias escuras + accent DINÂMICO por cliente: --accent é
+ * sobrescrito em runtime a partir do brand-config (o editor "veste" a marca).
+ * Documentação viva: Storybook (npm run storybook) → Tokens.
+ */
+@theme {
+  /* Superfícies (escala fria, do fundo ao topo) */
+  --color-surface-0: #08080e; /* palco / fundo do app */
+  --color-surface-1: #0a0a12; /* painéis laterais / timeline */
+  --color-surface-2: #0c0c16; /* cards / seções */
+  --color-surface-3: #14141e; /* elementos elevados */
+  --color-surface-4: #1a1a24; /* botões / inputs */
+
+  /* Texto */
+  --color-fg: #f4f4f6;
+  --color-fg-muted: #9a9aa8;
+  --color-fg-faint: #62626e;
+
+  /* Bordas */
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  /* Accent do CLIENTE (default Virals; sobrescrito em runtime) */
+  --color-accent: var(--accent, #ff3d68);
+
+  /* Semânticas fixas */
+  --color-ok: #2de2c8;
+  --color-warn: #ff8c42;
+  --color-danger: #ff4d2e;
+
+  /* Tipografia de UI (a fonte de RENDER do vídeo é a do brand, não esta) */
+  --font-ui: "Inter", "Segoe UI", system-ui, sans-serif;
+
+  /* Raios e sombras */
+  --radius-panel: 10px;
+  --radius-control: 8px;
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.6);
+}
+
+:root {
+  /* Accent default (Virals) — o Studio troca via style no <html> por cliente. */
+  --accent: #ff3d68;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface-1);
+  color: var(--color-fg);
+  font-family: var(--font-ui);
+  font-size: 13px;
+}
+
+/* Range inputs no tom do design system (usados em toda a UI do editor). */
+input[type="range"] {
+  accent-color: var(--accent);
+}
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+/* Scrollbars discretas (painéis escuros). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+}

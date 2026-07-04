@@ -1,6 +1,6 @@
 # VEX-07: Design system do Studio — de protótipo a produto profissional
 
-**Status:** Draft
+**Status:** InProgress — fundação + Storybook entregues (ver Dev Record); migração dos painéis internos/splitters em andamento
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2** — base estética/estrutural de todas as stories de UI seguintes
 **Complexidade:** L (Standard — 12 pontos)
@@ -31,16 +31,18 @@
 - **Microinterações:** hover/active/focus visíveis, transições 120–160ms, skeleton no load, focus rings acessíveis (a11y básica: navegação por teclado nos menus, aria-labels nos icon buttons).
 
 ## Tarefas (Checklist)
-- [ ] Setup Tailwind v4 + shadcn/ui + lucide + sonner no app (sem quebrar o build Remotion — escopo de estilos fora das composições de render).
-- [ ] Arquivo de tokens (CSS vars) + accent por cliente via brand-config.
-- [ ] Shell do layout: 3 colunas + timeline com splitters redimensionáveis persistidos.
-- [ ] Migrar sidebar esquerda para bin com abas (Criativos/Mídia/Áudio/Texto) com ícones lucide.
-- [ ] Migrar inspector para painéis contextuais shadcn (clip / elemento / legendas / áudio).
-- [ ] Substituir todos os `alert/confirm` por Dialog + toasts sonner; status do header (Salvando/Salvo/Erro) via toast + badge.
-- [ ] Transport bar redesenhada (ícones, tooltips com atalhos, indicador não-salvo da VEX-03).
-- [ ] Timeline: adotar tokens (cores de papel/track, réguas, playhead) sem mudar a mecânica.
-- [ ] Empty states desenhados (sem criativos / sem materiais / preparação em andamento).
-- [ ] Passe de acessibilidade básico (focus, aria, contraste AA nos textos de UI).
+- [x] Setup Tailwind v4 (@tailwindcss/postcss) + Radix (Dialog/Tooltip) + lucide + sonner + react-resizable-panels — build Next e composições Remotion intactos (estilos de render seguem inline).
+- [x] **Storybook 10 (decisão do dono, 2026-07-04):** `npm run storybook` — documentação VIVA do design system: story de Tokens (superfícies, semânticas, tipografia, controles) com **switcher de accent por cliente** + story do kit de componentes (estados/variantes). `build-storybook` validado.
+- [x] Tokens em `globals.css` (@theme): superfícies frias, fg em 3 níveis, semânticas, raios/sombras, fonte de UI 13px; `--accent` dinâmico (ranges/checkboxes nativos herdam via accent-color).
+- [x] Accent por cliente em runtime: o Studio seta `--accent` do `fxPlan.brand.accent` ao carregar — o editor "veste" a marca.
+- [x] Kit de componentes (`src/components/ui.tsx`): Button (5 variantes), IconButton, Section, Badge, Tip (Radix), ConfirmDialog (Radix) — com focus rings e estados.
+- [x] `alert()`/`confirm()` ELIMINADOS: remover criativo, resetar edição e guard do auto-cut agora usam ConfirmDialog; sucesso/erro de export/remoção/reset viram toasts (sonner) com Toaster global no layout.
+- [x] Transport bar redesenhada: ícones lucide + tooltips com atalhos + dot de não-salvo no Salvar + export com progresso.
+- [ ] Shell com splitters redimensionáveis persistidos (react-resizable-panels instalado; aplicação no layout pendente).
+- [ ] Migrar sidebar esquerda para bin com abas (Criativos/Mídia/Áudio/Texto).
+- [ ] Migrar inspector para painéis contextuais (Section/tokens nos blocos internos).
+- [ ] Timeline: adotar tokens nas réguas/playhead (cores de papel já centralizadas em roleColor).
+- [ ] Empty states desenhados + passe de a11y completo.
 
 ## Critérios de Aceite
 - [ ] **AC1:** Zero `alert()`/`confirm()` nativos; zero emoji-como-ícone nos controles; nenhum texto de UI < 11px.
@@ -60,5 +62,25 @@
 - **[Médio] Regressão funcional na migração:** mitigar migrando painel a painel com o app utilizável em cada commit (não big-bang).
 - **[Baixo] Conflito Tailwind × Remotion bundling:** estilos de UI ficam fora de `src/remotion/` (as composições continuam com estilos inline próprios — correto para render).
 
+## Dev Agent Record
+
+### Agent Model Used
+claude-fable-5 (Claude no papel @dev)
+
+### Decisões
+- **Storybook 10 + react-vite** (pedido do dono) em vez de páginas de doc estáticas: o Vite do Storybook lê o MESMO `postcss.config.mjs` (Tailwind v4) do app — tokens e componentes renderizam idênticos ao produto. A story de Tokens tem o switcher de accent que reproduz o mecanismo runtime do Studio.
+- **Componentes hand-rolled sobre Radix** (Dialog/Tooltip) em vez do CLI do shadcn: mesmo padrão, menos boilerplate, controle total dos tokens.
+- **Fonte de render ≠ fonte de UI**: as composições Remotion seguem com estilos inline próprios (correto para render headless); o design system cobre só a UI do app.
+
+### File List (incremento 1 — fundação)
+- `postcss.config.mjs`, `src/app/globals.css` (novos — Tailwind v4 + @theme tokens)
+- `src/app/layout.tsx` (globals + Toaster sonner)
+- `src/components/ui.tsx` (novo — kit: Button/IconButton/Section/Badge/Tip/ConfirmDialog)
+- `.storybook/main.ts`, `.storybook/preview.ts` (novos) + `src/components/Tokens.stories.tsx`, `UiKit.stories.tsx` (novos)
+- `src/app/studio/page.tsx` (accent por cliente; transport com lucide+Tip; confirm()→ConfirmDialog ×3; toasts de export/remoção/reset)
+- `package.json` (scripts storybook/build-storybook; deps), `.gitignore` (storybook-static)
+
 ## Change Log
 - 2026-07-02 — Claude — Story criada a partir da auditoria (Draft).
+- 2026-07-04 — Claude (@po) — Validada (GO 9/10) + **aditivo do dono: Storybook para tokenizar/documentar o design system**. Draft → Ready.
+- 2026-07-04 — Claude (@dev) — Incremento 1 (fundação): tokens+accent dinâmico+kit+Storybook+transport+dialogs/toasts. Build Next, Storybook build, 102/102 testes e typecheck limpos. Ready → InProgress (splitters/abas/inspector/empty-states pendentes).
