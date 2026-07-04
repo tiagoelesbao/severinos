@@ -455,9 +455,17 @@ function readJsonSafe<T>(file: string): T | null {
   }
 }
 
+export interface AssemblyClip {
+  file: string;
+  role?: string;
+  order?: number;
+}
+
 interface AssemblyFile {
   narrationFile?: string;
   mioloAnchors?: MioloAnchor[];
+  /** VEX-06: papéis/ordem dirigidos pelo PLANO (fonte primária de montagem). */
+  clips?: AssemblyClip[];
 }
 type TranscriptFile = Record<string, { words?: TranscriptWord[]; duration?: number }>;
 
@@ -476,13 +484,27 @@ export function ingestCreative(
 ): Timeline {
   const FPS_LOCAL = 30;
   const dir = creativeDirFor(repoRoot, client, creative);
-  const materials = resolveMaterials(path.join(dir, "Materiais Brutos"));
+  let materials = resolveMaterials(path.join(dir, "Materiais Brutos"));
 
   // Montagem narração-driven (se houver assembly + transcript cacheados).
   let mioloWindows: MioloWindow[] | undefined;
   let narrationSegments: AudioSegment[] | undefined;
   const assembly = readJsonSafe<AssemblyFile>(path.join(dir, "assembly.json"));
   const transcript = readJsonSafe<TranscriptFile>(path.join(dir, "transcript.json"));
+
+  // VEX-06: papéis/ordem do PLANO (assembly.clips) têm precedência sobre a
+  // heurística de filename; ordem explícita substitui a canônica de papéis.
+  let assemblyOrder: string[] | undefined;
+  if (assembly?.clips?.length) {
+    const roleFor = new Map(assembly.clips.map((c) => [c.file, c.role]));
+    materials = materials.map((m) =>
+      roleFor.get(m.file) ? { ...m, role: roleFor.get(m.file)! as ClipRole } : m,
+    );
+    assemblyOrder = [...assembly.clips]
+      .filter((c) => c.file)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+      .map((c) => c.file);
+  }
   if (assembly?.mioloAnchors?.length && transcript) {
     const narrName = assembly.narrationFile ?? "audio_narrado.ogg";
     const narr = transcript[narrName];
@@ -517,7 +539,7 @@ export function ingestCreative(
   return buildTimeline(materials, {
     client,
     creative,
-    order: opts.order,
+    order: opts.order ?? assemblyOrder,
     mioloWindows,
     narrationSegments,
   });

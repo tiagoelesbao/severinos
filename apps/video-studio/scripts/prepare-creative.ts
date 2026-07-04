@@ -171,6 +171,18 @@ function run(
   }));
   const { anchors, method } = generateMioloAnchors(narr.words, candidates);
 
+  // VEX-06: papéis/ordem explícitos — a Fase B monta por isto (filename é
+  // só fallback). Inserts sem papel conhecido recebem o genérico "insert".
+  const clips = [
+    ...(hook ? [{ file: hook.file, role: "hook", order: 0 }] : []),
+    ...inserts.map((ins, i) => ({
+      file: ins.file,
+      role: ins.role !== "unknown" ? ins.role : "insert",
+      order: i + 1,
+    })),
+    ...(cta ? [{ file: cta.file, role: "cta", order: inserts.length + 1 }] : []),
+  ];
+
   const assembly = {
     _doc:
       "Montagem narração-driven (GERADO pelo prepare-creative — VEX-02). Cada insert " +
@@ -178,6 +190,7 @@ function run(
     narrationFile,
     ...(hook ? { hookFile: hook.file } : {}),
     ...(cta ? { ctaFile: cta.file } : {}),
+    clips,
     mioloAnchors: anchors.map((a) => ({ clip: a.clip, anchor: a.anchor })),
     _generated: {
       at: new Date().toISOString(),

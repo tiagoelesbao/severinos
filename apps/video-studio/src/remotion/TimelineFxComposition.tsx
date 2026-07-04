@@ -251,6 +251,10 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             };
             // Placeholder do plano (sem arquivo ainda) não emite Audio.
             node = src ? <Audio src={src} startFrom={clip.srcFromFrame ?? 0} volume={vol} onError={() => {}} /> : null;
+          } else if (!src && type !== "text") {
+            // Placeholder do plano (insert sem asset ainda) — visível só na
+            // timeline; o usuário arrasta um asset por cima para substituir.
+            node = null;
           } else {
             let inner: React.ReactNode;
             if (type === "image") {

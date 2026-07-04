@@ -3,6 +3,11 @@
  * Fase A (o plano + material bruto) e a composição Remotion da Fase B.
  */
 
+/**
+ * Papel do clipe no arco. Os literais conhecidos ganham cor/ordem canônica;
+ * VEX-06: papéis NOVOS vindos do plano (assembly.clips) são aceitos — a UI
+ * degrada com cor derivada e o enquadramento cai no default de insert.
+ */
 export type ClipRole =
   | "hook"
   | "skill"
@@ -10,7 +15,8 @@ export type ClipRole =
   | "generation"
   | "result"
   | "cta"
-  | "unknown";
+  | "unknown"
+  | (string & {});
 
 export interface TimelineClip {
   /** Nome do arquivo (servido via publicDir = pasta de materiais). */

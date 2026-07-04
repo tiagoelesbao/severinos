@@ -13,8 +13,18 @@ const ROLE_COLOR: Record<string, string> = {
   generation: "#FF3D68",
   result: "#36C5F0",
   cta: "#FF4D2E",
+  insert: "#8FA3B8",
   unknown: "#666",
 };
+
+// VEX-06: papel NOVO vindo do plano ganha cor estável derivada do nome.
+const FALLBACK_HUES = ["#B58900", "#859900", "#2AA198", "#6C71C4", "#D33682", "#CB4B16"];
+function roleColor(role: string): string {
+  if (ROLE_COLOR[role]) return ROLE_COLOR[role];
+  let h = 0;
+  for (let i = 0; i < role.length; i++) h = (h * 31 + role.charCodeAt(i)) >>> 0;
+  return FALLBACK_HUES[h % FALLBACK_HUES.length];
+}
 
 const ROW_H = 54;
 const RULER_H = 26;
@@ -287,7 +297,7 @@ export function Timeline({
         blocks.push({
           id: `talk-${ci}`, label: c.role, startFrame: c.startFrame,
           frames: c.durationInFrames, src: mediaUrl(c.file), srcStart: 0,
-          srcEnd: c.durationSeconds, color: ROLE_COLOR[c.role] ?? "#888", linked: true,
+          srcEnd: c.durationSeconds, color: roleColor(c.role), linked: true,
           clipIndex: ci,
         });
       }
@@ -379,7 +389,7 @@ export function Timeline({
         <Row top={rowTop(videoRow)} tint="rgba(123,91,255,.06)">
           {timeline.videoTrack.map((c, i) => {
             const w = Math.max(10, fToX(c.durationInFrames));
-            const color = ROLE_COLOR[c.role] ?? "#666";
+            const color = roleColor(c.role);
             const selected = i === selectedIndex;
             const dragging = drag?.kind === "reorder" && drag.index === i;
             const tr = i > 0 ? c.transitionIn?.type ?? "dissolve" : null;

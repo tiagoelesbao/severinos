@@ -22,6 +22,8 @@ import {
 } from "@/lib/transcript";
 import { buildAudit } from "@/lib/audit";
 import { buildSoundLayers, deriveSfxFromTimeline, type LibraryAsset, type SoundDesign } from "@/lib/soundPlan";
+import { applyEditSpec, makeSpeechFinder, type EditSpecInput, type SpeechWord } from "@/lib/editSpec";
+import { mapViaSegments } from "@/lib/transcript";
 
 // Monta o timeline (MVC-08) + FxPlan (MVC-09) de um criativo para o editor.
 export const runtime = "nodejs";
@@ -114,12 +116,14 @@ export async function GET(req: NextRequest) {
     let script = "";
     let templateRefs = null;
     let soundDesign: SoundDesign | null = null;
+    let editSpec: EditSpecInput | null = null;
     if (briefPath && fs.existsSync(briefPath)) {
       const brief = (parse(fs.readFileSync(briefPath, "utf-8")) as Record<string, any>) || {};
       const cp = brief.content_plan || {};
       script = cp.script || "";
       templateRefs = (cp.edit_spec || {}).template_refs || null;
       soundDesign = cp.sound_design || null;
+      editSpec = cp.edit_spec || null; // VEX-06: zooms/inserts/transições/motion
     }
 
     const bt = loadBrandTokens(REPO, client);
@@ -204,6 +208,23 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    // VEX-06: pré-plota o edit_spec do plano (zooms/transições/inserts/motion)
+    // — só no estado fresco; momentos não-resolvidos viram aviso E1 abaixo.
+    let editSpecWarnings: string[] = [];
+    if (!persisted && editSpec) {
+      const narr = timeline.audioTrack;
+      const entry = transcript && narr ? transcript[narr.file] : undefined;
+      const speechWords: SpeechWord[] = (entry?.words ?? []).map((w) => ({
+        w: w.w,
+        absFrame: narr!.startFrame + Math.round(
+          mapViaSegments(w.start, narr!.segments, timeline.fps) * timeline.fps,
+        ),
+      }));
+      const res = applyEditSpec(timeline, editSpec, makeSpeechFinder(speechWords), timeline.fps);
+      timeline = res.timeline;
+      editSpecWarnings = res.warnings;
+    }
+
     // F4.3: pré-monta SFX/trilha — só no estado fresco. Se o plano não trouxe
     // SFX, deriva dos cortes reais (todo criativo abre com SFX nos momentos).
     if (!persisted) {
@@ -245,6 +266,31 @@ export async function GET(req: NextRequest) {
       }
     } catch {
       /* sem assembly gerado — nada a auditar */
+    }
+
+    // VEX-06: momentos do edit_spec não-resolvidos + papéis por fallback de
+    // filename (sem assembly.clips) viram avisos de congruência.
+    for (let i = 0; i < editSpecWarnings.length; i++) {
+      audit.findings.push({
+        id: `editspec-${i}`,
+        category: "congruencia",
+        severity: "aviso",
+        message: editSpecWarnings[i],
+        suggestion: "Posicionar manualmente na timeline (o momento do plano não foi localizado).",
+      });
+      audit.stats.aviso += 1;
+    }
+    for (const c of timeline.videoTrack) {
+      if (c.role === "unknown") {
+        audit.findings.push({
+          id: `role-${c.file}`,
+          category: "congruencia",
+          severity: "aviso",
+          message: `Clipe sem papel reconhecido: ${c.file} (nome fora do padrão e sem assembly.clips)`,
+          suggestion: "Rodar ⚙ Preparar criativo (gera papéis pelo plano) ou renomear o arquivo.",
+        });
+        audit.stats.aviso += 1;
+      }
     }
 
     return NextResponse.json({
