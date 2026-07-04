@@ -53,16 +53,18 @@ video_plan.py  (orquestrador — mesmo padrão de design_creative.py)
 - [x] **MVC-03** — `plan_video_creative` (hook×3 + storyboard + roteiro + edit_spec + shotlist) — gate @qa CONCERNS (fechado pela MVC-04)
 - [x] **MVC-04** — `quality_gate_video` (gate terminal V1–V7 + self-healing + fidelidade completa) — re-gate pendente (cobertura ampliada na MVC-05)
 - [x] **MVC-05** — Orquestrador `video_plan.py` + `Plano-de-Criativo.md` + wire `*industrialize-video` (2 fases) — Ready for Review
-- [ ] **MVC-06** — `video-templates.yaml` por cliente (registry de packs hook/legenda/transição/motion)
+- [x] **MVC-06** — `video-templates.yaml` por cliente (registry de packs hook/legenda/transição/motion) — gate @qa PASS
 
-> **Fase A ~completa** (MVC-01..05 implementadas; MVC-06 é o registry-ponte para a Fase B). Pipeline end-to-end validado em benchmark real (Hormozi→Tiago): planeja, audita fidelidade e **bloqueia fabricação** antes da entrega.
+> **Fase A COMPLETA E AUDITADA** (MVC-01..06, todos gate @qa PASS; MVC-03 CONCERNS fechada). Pipeline end-to-end validado em benchmark real (Chase Chappell→Tiago): planeja, audita fidelidade e **bloqueia fabricação**. Pushada em `feat/benchmark-derived-templates` (c3d862f + 33eced3). Criativo real gravado + skill-entregável (`conversion-page-modeler.zip`) produzidos.
 
-### Fase B — App de edição viral (Frente 2 · Remotion) — **draftar quando a Fase A fechar**
-- [ ] **MVC-07** — Scaffold `apps/video-studio` (Next.js + Remotion), composição base, brand tokens, render headless
-- [ ] **MVC-08** — Ingestão automática: video-brief + material bruto → timeline auto-montada
-- [ ] **MVC-09** — Biblioteca de FX/templates: hook FX, transições, legendas word-by-word, inserts/b-roll, motion graphics
-- [ ] **MVC-10** — Editor timeline `/studio` (tracks/clips/keyframes, ajuste fino, undo/redo)
-- [ ] **MVC-11** — Export & render final (mp4) + persistência; DaVinci vira target opcional
+### Fase B — App de edição viral (Frente 2 · Remotion) — **stories drafted (2026-06-21)**
+- [ ] **MVC-07** — Scaffold `apps/video-studio` (Next.js + Remotion), composição base, brand tokens, render headless — Draft
+- [ ] **MVC-08** — Ingestão automática: video-brief + material bruto → timeline auto-montada — Draft
+- [ ] **MVC-09** — Biblioteca de FX/templates: hook FX, transições, legendas word-by-word, inserts/b-roll, motion graphics — Draft
+- [ ] **MVC-10** — Editor timeline `/studio` (tracks/clips/keyframes, ajuste fino, undo/redo) — Draft
+- [ ] **MVC-11** — Export & render final (mp4) + persistência; DaVinci vira target opcional — Draft
+
+> **Caso de validação da Fase B:** o criativo `13-realchasechappell-84d69e` (6 clips + `audio_narrado.ogg` em `Materiais Brutos/`) é o material real que atravessa MVC-08→11 — cada feature do app é validada contra ele.
 
 ## Decisões (resolvidas pelo dono · 2026-06-19)
 1. **Motor de vídeo:** ✅ Remotion (continuidade com o stack React do `creative-design`).
