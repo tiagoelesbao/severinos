@@ -744,10 +744,10 @@ function StudioInner() {
   return (
     <>
     {/* VEX-07 inc.2: shell com splitters persistidos (react-resizable-panels v4) */}
-    <Group orientation="vertical" defaultLayout={rowsLayout} onLayoutChanged={(l, meta) => { if (meta?.isUserInteraction) saveLayout("rows", l); }} className="h-screen bg-surface-0 text-fg">
+    <Group orientation="vertical" defaultLayout={rowsLayout} onLayoutChanged={(l, meta) => { if (meta?.isUserInteraction) saveLayout("rows", l); }} style={{ height: "100vh" }} className="bg-surface-0 text-fg">
       {/* ── Parte superior: criativos + preview + inspector ─────────────── */}
       <Panel id="top" defaultSize="66%" minSize="40%">
-      <Group orientation="horizontal" defaultLayout={colsLayout} onLayoutChanged={(l, meta) => { if (meta?.isUserInteraction) saveLayout("cols", l); }} className="h-full">
+      <Group orientation="horizontal" defaultLayout={colsLayout} onLayoutChanged={(l, meta) => { if (meta?.isUserInteraction) saveLayout("cols", l); }} style={{ height: "100%" }}>
         {/* Esquerda: bin com abas (Criativos / Mídia / Áudio) */}
         <Panel id="bin" defaultSize="17%" minSize="12%" maxSize="30%">
         <aside className="h-full bg-surface-1 overflow-y-auto flex flex-col gap-2.5 p-3.5">
