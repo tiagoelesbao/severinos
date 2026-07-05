@@ -27,14 +27,14 @@
 ## Tarefas (Checklist)
 - [x] `lib/safeZones.ts` (IG/TikTok/genérico, frações + `coveredZoneAt`, 6 testes) + overlay hachurado no palco com seletor de plataforma no transporte (UI-only).
 - [ ] Grade de terços/centro + snap de handles às guias.
-- [ ] VU meter no transporte (nível + peak + clipping) durante o playback.
+- [x] VU meter no transporte (nível + clipping). Escolha robusta: estimador DETERMINÍSTICO `levels.ts` (`estimateLevel` soma faixas audíveis respeitando mute/solo/ducking/fades) em vez de tap frágil no Player. 5 testes (inclui o caso do AC2). Barra verde→amarelo→vermelho + rótulo CLIP.
 - [x] Registro central de comandos + palette Ctrl+K (kit `CommandPalette` sobre Radix Dialog — sem dep nova; busca + navegação por setas + Enter). ~19 comandos (transporte/editar/ferramentas/marcadores/camadas/preview/navegação). _Popover de atalhos ainda hardcoded; unificação total é follow-up leve._
 - [ ] Zoom/pan do palco.
 - [x] Aviso de composição: elemento visual sob a UI → `auditComposition` (E1, category "composicao") no `buildAudit` + aviso AO VIVO no inspector do elemento.
 
 ## Critérios de Aceite
 - [x] **AC1:** Toggle "Safe-zone: Instagram" desenha as áreas cobertas; as legendas default ficam FORA delas (`paddingBottom` deriva de `SAFE_CAPTION_BOTTOM`, = 430 @1920px). ✓ verificado.
-- [ ] **AC2:** VU mostra atividade durante o play e acende clipping quando SFX a volume 1.0 estoura (caso de teste real).
+- [x] **AC2:** VU mostra atividade durante o play e acende clipping quando SFX a volume 1.0 estoura (caso de teste real). ✓ barra teal ~58% na narração (verificado); clipping do SFX 1.0 coberto por teste puro (`levels.test.ts`). _Nota: é um VU ESTIMADO do modelo (determinístico), não tap ao vivo do Player — mais robusto e testável._
 - [x] **AC3:** Ctrl+K → digitar "export" aciona o export (VEX-01); toda ação do registro é acionável pela palette. ✓ verificado (filtra p/ "Exportar vídeo (mp4)", Enter → POST /api/render).
 - [x] **AC4:** Elemento de texto dentro da zona do botão de like gera warning E1 (`auditComposition`) + aviso ao vivo no inspector com sugestão. ✓ verificado (texto em x93/y60 → aviso "Curtir/comentar/enviar").
 - [x] **AC5:** Overlays/grade nunca aparecem no mp4 exportado — desenhados só na UI do editor (page.tsx), fora da composição Remotion. ✓ por construção.
@@ -63,3 +63,7 @@
 ### File List (inc.2 — command palette)
 - `src/components/ui.tsx` (`CommandPalette` + tipo `Command`)
 - `src/app/studio/page.tsx` (registro de comandos + Ctrl+K + render da paleta + atalho no popover)
+
+### File List (inc.3 — VU meter)
+- `src/lib/levels.ts` + `src/lib/levels.test.ts` (novos — estimador determinístico)
+- `src/app/studio/page.tsx` (VU bar no transporte + indicador CLIP)

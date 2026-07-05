@@ -43,6 +43,7 @@ import {
 import { sampleTrack, hasKeyframes } from "@/lib/keyframes";
 import type { KfProp } from "@/lib/editorState";
 import { PLATFORMS, platformById, coveredZoneAt } from "@/lib/safeZones";
+import { estimateLevel } from "@/lib/levels";
 import type { TransitionType, AnimType } from "@/lib/timeline";
 import { buildCues, editCueText, shiftCaptions, type CueOptions } from "@/lib/cues";
 import type { HookRenderer, CaptionRenderer } from "@/lib/fxRegistry";
@@ -1070,6 +1071,22 @@ function StudioInner() {
             <span className="text-[12px] text-fg-muted tabular-nums ml-2">
               {curSec}s / {totSec}s
             </span>
+            {/* VEX-10: VU meter estimado do mix no frame atual (clipping em vermelho) */}
+            {(() => {
+              const lvl = estimateLevel(timeline, currentFrame);
+              const pct = Math.min(1, lvl.level / 1.2);
+              const grad = "linear-gradient(90deg, #2DE2C8 0%, #2DE2C8 58%, #FFB800 58%, #FFB800 83%, #FF4D2E 83%, #FF4D2E 100%)";
+              return (
+                <Tip label={lvl.clipping ? "Áudio ESTOURANDO no mix (some SFX/trilha ou ative ducking)" : `Nível do mix ~${Math.round(lvl.level * 100)}%`}>
+                  <div className="flex items-center gap-1 ml-1" aria-label="Medidor de áudio">
+                    <div style={{ width: 60, height: 8, borderRadius: 4, background: "var(--color-surface-4)", overflow: "hidden", position: "relative" }}>
+                      <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${pct * 100}%`, background: grad, backgroundSize: "60px 100%" }} />
+                    </div>
+                    {lvl.clipping && <span style={{ fontSize: 9, fontWeight: 800, color: "#FF4D2E" }}>CLIP</span>}
+                  </div>
+                </Tip>
+              );
+            })()}
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <Tip label="Desfazer (Ctrl+Z)"><IconButton aria-label="Desfazer" onClick={undo}><Undo2 className="size-4" /></IconButton></Tip>
             <Tip label="Refazer (Ctrl+Shift+Z)"><IconButton aria-label="Refazer" onClick={redo}><Redo2 className="size-4" /></IconButton></Tip>
