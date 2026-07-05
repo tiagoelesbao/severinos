@@ -1,8 +1,9 @@
 import React from "react";
 import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, Video } from "remotion";
-import type { Timeline, TransitionType, ElementAnim } from "../lib/timeline";
+import type { Timeline, TransitionType, ElementAnim, KeyframeTracks } from "../lib/timeline";
 import { duckingGain, segmentEnvelope, speechIntervals, tailGain } from "../lib/audioEnvelopes";
 import { resolveAudible } from "../lib/trackMix";
+import { sampleTrack } from "../lib/keyframes";
 import type { FxPlan } from "../lib/fxPlan";
 import { roleToFrameMode, SmartFrame } from "./fx/SmartFrame";
 import { HookFx } from "./fx/HookFx";
@@ -87,9 +88,13 @@ const ElementWrap: React.FC<{
   opacity?: number;
   animateIn?: ElementAnim;
   animateOut?: ElementAnim;
+  /** VEX-09: keyframes (têm precedência sobre os estáticos). */
+  tracks?: KeyframeTracks;
+  fadeIn?: number;
+  fadeOut?: number;
   durationInFrames: number;
   children: React.ReactNode;
-}> = ({ x = 50, y = 50, scale = 1, opacity = 1, animateIn, animateOut, durationInFrames, children }) => {
+}> = ({ x = 50, y = 50, scale = 1, opacity = 1, animateIn, animateOut, tracks, fadeIn, fadeOut, durationInFrames, children }) => {
   const f = useCurrentFrame();
   const inA = animateIn;
   const outA = animateOut;
@@ -97,10 +102,14 @@ const ElementWrap: React.FC<{
   const pOut = outA && outA.type !== "none" && outA.durationInFrames > 0
     ? clamp01((durationInFrames - f) / outA.durationInFrames)
     : 1;
-  let op = opacity;
-  let tx = x - 50;
-  let ty = y - 50;
-  let sc = scale;
+  // VEX-09: valor animado = keyframes (se houver) senão o estático.
+  let op = sampleTrack(tracks?.opacity, f, opacity);
+  let tx = sampleTrack(tracks?.x, f, x) - 50;
+  let ty = sampleTrack(tracks?.y, f, y) - 50;
+  let sc = sampleTrack(tracks?.scale, f, scale);
+  // Fades por clipe (opacidade nas pontas) — compõem com o resto.
+  if (fadeIn && fadeIn > 0) op *= clamp01(f / fadeIn);
+  if (fadeOut && fadeOut > 0) op *= clamp01((durationInFrames - f) / fadeOut);
   if (inA?.type === "fade") op *= pIn;
   if (outA?.type === "fade") op *= pOut;
   if (inA?.type === "slide") tx += (1 - pIn) * -14;
@@ -250,11 +259,14 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             // + ducking sob a fala (VEX-05) + fade-out do tail.
             const vol = (f: number) => {
               if (!layerAudible) return 0;
-              let v = clip.volume ?? 1;
+              // VEX-09: volume por keyframes (senão o estático) × fades × ducking.
+              let v = sampleTrack(clip.tracks?.volume, f, clip.volume ?? 1);
               const inA = clip.animateIn;
               const outA = clip.animateOut;
               if (inA?.type === "fade" && inA.durationInFrames > 0) v *= clamp01(f / inA.durationInFrames);
               if (outA?.type === "fade" && outA.durationInFrames > 0) v *= clamp01((clip.durationInFrames - f) / outA.durationInFrames);
+              if (clip.fadeIn && clip.fadeIn > 0) v *= clamp01(f / clip.fadeIn);
+              if (clip.fadeOut && clip.fadeOut > 0) v *= clamp01((clip.durationInFrames - f) / clip.fadeOut);
               if (clip.ducking) v *= duckingGain(clip.startFrame + f, speech);
               return v * tailGain(clip.startFrame + f, totalFrames);
             };
@@ -291,6 +303,9 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
                 opacity={clip.opacity}
                 animateIn={clip.animateIn}
                 animateOut={clip.animateOut}
+                tracks={clip.tracks}
+                fadeIn={clip.fadeIn}
+                fadeOut={clip.fadeOut}
                 durationInFrames={clip.durationInFrames}
               >
                 {inner}

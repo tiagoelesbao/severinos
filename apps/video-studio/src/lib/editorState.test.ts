@@ -26,6 +26,10 @@ import {
   setClipKenBurns,
   addElementLayer,
   setElementParams,
+  setElementKfValue,
+  toggleElementKeyframe,
+  moveKeyframesAt,
+  removeKeyframesAt,
   elementType,
   makeTextElement,
 } from "./editorState.ts";
@@ -187,6 +191,30 @@ test("addElementLayer + setElementParams — cria camada com elemento e edita pa
   const t2 = setElementParams(t, L.id, L.clips[0].id, { text: "novo", fontSize: 80, color: "#FF0000" });
   assert.equal(t2.extraLayers![0].clips[0].text, "novo");
   assert.equal(t2.extraLayers![0].clips[0].fontSize, 80);
+});
+
+test("keyframes de elemento — toggle/auto-keyframe/move/remove (round-trip VEX-09)", () => {
+  const t = addElementLayer(tl(), "video", "Overlay", { type: "media-video", src: "/x.mp4", label: "ov", startFrame: 0, durationInFrames: 60 });
+  const L = t.extraLayers![0];
+  const cid = L.clips[0].id;
+  // sem keyframes: setElementKfValue muda só o valor estático base
+  let s = setElementKfValue(t, L.id, cid, "scale", 10, 1.5);
+  assert.equal(s.extraLayers![0].clips[0].scale, 1.5);
+  assert.equal(s.extraLayers![0].clips[0].tracks?.scale, undefined);
+  // ◇ cria o 1º keyframe; a partir daí setElementKfValue faz upsert (anima)
+  s = toggleElementKeyframe(s, L.id, cid, "scale", 0, 1.0);
+  s = setElementKfValue(s, L.id, cid, "scale", 30, 2.0); // upsert num frame novo
+  const kf = s.extraLayers![0].clips[0].tracks!.scale!;
+  assert.deepEqual(kf.map((k) => [k.frame, k.value]), [[0, 1], [30, 2]]);
+  // move o keyframe do frame 0 → 15
+  s = moveKeyframesAt(s, L.id, cid, 0, 15);
+  assert.deepEqual(s.extraLayers![0].clips[0].tracks!.scale!.map((k) => k.frame), [15, 30]);
+  // remove todos no frame 30
+  s = removeKeyframesAt(s, L.id, cid, 30);
+  assert.deepEqual(s.extraLayers![0].clips[0].tracks!.scale!.map((k) => k.frame), [15]);
+  // remover o último limpa a trilha
+  s = removeKeyframesAt(s, L.id, cid, 15);
+  assert.equal(s.extraLayers![0].clips[0].tracks!.scale, undefined);
 });
 
 test("elementType — legado resolve por kind da camada", () => {

@@ -48,6 +48,8 @@ export function Timeline({
   snapEnabled = true,
   onTrackFlag,
   onRemoveMarker,
+  onKeyframeMove,
+  onKeyframeRemove,
   onSelectTrim,
   onSelectClip,
   onSeek,
@@ -92,6 +94,9 @@ export function Timeline({
   onTrackFlag?: (key: TrackKey, flag: TrackFlag) => void;
   /** VEX-08: remover um marcador (alt+clique na régua). */
   onRemoveMarker?: (frame: number) => void;
+  /** VEX-09: mover/remover o losango de keyframe (frame LOCAL) do elemento selecionado. */
+  onKeyframeMove?: (layerId: string, clipId: string, fromFrame: number, toFrame: number) => void;
+  onKeyframeRemove?: (layerId: string, clipId: string, frame: number) => void;
   /** VEX-08: seleciona uma pinça (borda de aparo) p/ ajuste pelas setas. */
   onSelectTrim?: (index: number, edge: "L" | "R") => void;
   /** `additive` = shift pressionado (multi-seleção). */
@@ -143,6 +148,7 @@ export function Timeline({
     | { kind: "segMove"; index: number; startX: number }
     | { kind: "layerMove"; layerId: string; clipId: string; startX: number }
     | { kind: "layerTrimR"; layerId: string; clipId: string; startX: number }
+    | { kind: "kfMove"; layerId: string; clipId: string; fromFrame: number; clipStart: number; dur: number }
     | null
   >(null);
 
@@ -240,6 +246,16 @@ export function Timeline({
         setDrag({ ...drag, dx: e.clientX - drag.startX });
         return;
       }
+      // VEX-09: arrastar um losango de keyframe (frame LOCAL ao clipe).
+      if (drag.kind === "kfMove") {
+        const raw = snapFrame(frameAtClientX(e.clientX));
+        const to = Math.max(0, Math.min(drag.dur, Math.round(raw - drag.clipStart)));
+        if (to !== drag.fromFrame) {
+          onKeyframeMove?.(drag.layerId, drag.clipId, drag.fromFrame, to);
+          setDrag({ ...drag, fromFrame: to });
+        }
+        return;
+      }
       // Pinças do clipe de vídeo: alvo ABSOLUTO com snap → delta até a borda atual.
       if (drag.kind === "trimR" || drag.kind === "trimL") {
         const c = timeline.videoTrack[drag.index];
@@ -275,7 +291,7 @@ export function Timeline({
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
     };
-  }, [drag, pps, fps, onTrim, onAudioTrim, onTrimStartLeft, onCueShift, onNarrShift, onSegMove, onLayerClipMove, onLayerClipTrim, onReorder, onTrimEnd, onSeek, frameAtClientX, snapFrame, timeline, reorderTarget]);
+  }, [drag, pps, fps, onTrim, onAudioTrim, onTrimStartLeft, onCueShift, onNarrShift, onSegMove, onLayerClipMove, onLayerClipTrim, onKeyframeMove, onReorder, onTrimEnd, onSeek, frameAtClientX, snapFrame, timeline, reorderTarget]);
 
   // Régua ADAPTATIVA (VEX-08): o intervalo entre rótulos cresce/encolhe com o
   // zoom para manter ~60px entre labels; minor ticks = 1/5 do intervalo. Em
@@ -736,6 +752,26 @@ export function Timeline({
                     title="Aparar fim"
                     style={{ position: "absolute", right: 0, top: 0, width: 10, height: "100%", cursor: "ew-resize", background: "rgba(255,255,255,.2)" }}
                   />
+                  {/* VEX-09: losangos de keyframe do elemento SELECIONADO (frames locais
+                      unidos de todas as trilhas). Clique busca, alt+clique remove, arrasta move. */}
+                  {sel && cl.tracks && (() => {
+                    const frames = [...new Set(Object.values(cl.tracks).flat().map((k) => k.frame))].sort((a, b) => a - b);
+                    const dur = Math.max(1, cl.durationInFrames);
+                    return frames.map((kf) => (
+                      <div
+                        key={kf}
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          if (e.altKey) { onKeyframeRemove?.(L.id, cl.id, kf); return; }
+                          onSeek(cl.startFrame + kf);
+                          onTrimStart?.();
+                          setDrag({ kind: "kfMove", layerId: L.id, clipId: cl.id, fromFrame: kf, clipStart: cl.startFrame, dur });
+                        }}
+                        title={`Keyframe @ frame local ${kf} — clique busca, arraste move, Alt+clique remove`}
+                        style={{ position: "absolute", bottom: 1, left: (kf / dur) * w - 5, width: 10, height: 10, background: "var(--color-accent)", border: "1px solid #06121a", transform: "rotate(45deg)", cursor: "grab", zIndex: 3 }}
+                      />
+                    ));
+                  })()}
                 </div>
               );
             })}

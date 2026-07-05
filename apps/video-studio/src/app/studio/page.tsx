@@ -34,7 +34,13 @@ import {
   setClipFrameMode,
   setClipKenBurns,
   setClipVolume,
+  setElementKfValue,
+  toggleElementKeyframe,
+  moveKeyframesAt,
+  removeKeyframesAt,
 } from "@/lib/editorState";
+import { sampleTrack, hasKeyframes } from "@/lib/keyframes";
+import type { KfProp } from "@/lib/editorState";
 import type { TransitionType, AnimType } from "@/lib/timeline";
 import { buildCues, editCueText, shiftCaptions, type CueOptions } from "@/lib/cues";
 import type { HookRenderer, CaptionRenderer } from "@/lib/fxRegistry";
@@ -43,6 +49,7 @@ import { toast } from "sonner";
 import {
   Download,
   HelpCircle,
+  Diamond,
   Magnet,
   Play,
   Pause,
@@ -1301,16 +1308,41 @@ function StudioInner() {
               const t = elementType(layer.kind, cl);
               const patch = (p: Partial<typeof cl>) => apply({ timeline: setElementParams(timeline, lid, cid, p), fxPlan });
               const live = (p: Partial<typeof cl>) => liveUpdate({ timeline: setElementParams(timeline, lid, cid, p), fxPlan });
+              // VEX-09: frame LOCAL do elemento (o playhead relativo ao clipe).
+              const lf = Math.max(0, Math.min(cl.durationInFrames, currentFrame - cl.startFrame));
+              const kfVal = (prop: KfProp, base: number) => sampleTrack(cl.tracks?.[prop], lf, cl[prop] ?? base);
+              const kfLive = (prop: KfProp, value: number) => liveUpdate({ timeline: setElementKfValue(timeline, lid, cid, prop, lf, value), fxPlan });
+              const kfToggle = (prop: KfProp, base: number) => apply({ timeline: toggleElementKeyframe(timeline, lid, cid, prop, lf, kfVal(prop, base)), fxPlan });
+              // Linha de propriedade animável: label + valor + botão ◇ + slider.
+              const KfRow = (prop: KfProp, label: string, min: number, max: number, step: number, base: number, fmt: (v: number) => string) => {
+                const arr = cl.tracks?.[prop];
+                const on = hasKeyframes(arr);
+                const atKf = (arr ?? []).some((k) => k.frame === lf);
+                return (
+                  <div key={prop}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: 20 }}>
+                      <span style={{ fontSize: 11, color: "#888" }}>{label} {fmt(kfVal(prop, base))}</span>
+                      <button
+                        onClick={() => kfToggle(prop, base)}
+                        title={atKf ? "Remover keyframe no playhead" : "Adicionar keyframe no playhead (◇)"}
+                        aria-label={`Keyframe de ${label}`}
+                        style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 18, borderRadius: 5, cursor: "pointer", border: "1px solid var(--color-line)", background: atKf ? "var(--color-accent)" : "transparent", color: atKf ? "#06121a" : on ? "var(--color-accent)" : "var(--color-fg-faint)" }}
+                      >
+                        <Diamond size={11} fill={atKf ? "#06121a" : on ? "var(--color-accent)" : "none"} />
+                      </button>
+                    </div>
+                    <input type="range" min={min} max={max} step={step} value={kfVal(prop, base)}
+                      onPointerDown={beginEdit} onChange={(e) => kfLive(prop, Number(e.target.value))} style={{ width: "100%" }} />
+                  </div>
+                );
+              };
               return (
                 <div style={{ ...box, padding: 8, marginTop: 8, borderColor: "#fff" }}>
                   <div style={{ fontSize: 11, color: "#fff", marginBottom: 6 }}>Elemento: {cl.label} <span style={{ color: "#666" }}>· {t}</span></div>
 
                   {t === "media-audio" && (
                     <div style={{ marginBottom: 6 }}>
-                      <div style={{ fontSize: 11, color: "#888" }}>Volume {Math.round((cl.volume ?? 1) * 100)}%</div>
-                      <input type="range" min={0} max={1} step={0.05} value={cl.volume ?? 1}
-                        onPointerDown={beginEdit}
-                        onChange={(e) => live({ volume: Number(e.target.value) })} style={{ width: "100%" }} />
+                      {KfRow("volume", "Volume", 0, 1, 0.05, 1, (v) => `${Math.round(v * 100)}%`)}
                       <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "#888", marginTop: 6, cursor: "pointer" }}>
                         <input
                           type="checkbox"
@@ -1338,17 +1370,15 @@ function StudioInner() {
                     </>
                   )}
 
-                  {/* Transform (posição/escala/opacidade) — elementos visuais */}
+                  {/* Transform (posição/escala/opacidade) — elementos visuais.
+                      ◇ por propriedade adiciona keyframe no playhead (VEX-09). */}
                   {t !== "media-audio" && (
                     <div style={{ marginTop: 8, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                      <div style={{ fontSize: 11, color: "#888" }}>Posição X {Math.round(cl.x ?? 50)}%</div>
-                      <input type="range" min={0} max={100} value={cl.x ?? 50} onPointerDown={beginEdit} onChange={(e) => live({ x: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <div style={{ fontSize: 11, color: "#888" }}>Posição Y {Math.round(cl.y ?? 50)}%</div>
-                      <input type="range" min={0} max={100} value={cl.y ?? 50} onPointerDown={beginEdit} onChange={(e) => live({ y: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <div style={{ fontSize: 11, color: "#888" }}>Escala {Math.round((cl.scale ?? 1) * 100)}%</div>
-                      <input type="range" min={0.1} max={3} step={0.05} value={cl.scale ?? 1} onPointerDown={beginEdit} onChange={(e) => live({ scale: Number(e.target.value) })} style={{ width: "100%" }} />
-                      <div style={{ fontSize: 11, color: "#888" }}>Opacidade {Math.round((cl.opacity ?? 1) * 100)}%</div>
-                      <input type="range" min={0} max={1} step={0.05} value={cl.opacity ?? 1} onPointerDown={beginEdit} onChange={(e) => live({ opacity: Number(e.target.value) })} style={{ width: "100%" }} />
+                      <div style={{ fontSize: 10, color: "#666", marginBottom: 4 }}>◇ = keyframe no playhead · anima ao mover o cursor + slider</div>
+                      {KfRow("x", "Posição X", 0, 100, 1, 50, (v) => `${Math.round(v)}%`)}
+                      {KfRow("y", "Posição Y", 0, 100, 1, 50, (v) => `${Math.round(v)}%`)}
+                      {KfRow("scale", "Escala", 0.1, 3, 0.05, 1, (v) => `${Math.round(v * 100)}%`)}
+                      {KfRow("opacity", "Opacidade", 0, 1, 0.05, 1, (v) => `${Math.round(v * 100)}%`)}
                     </div>
                   )}
 
@@ -1508,6 +1538,8 @@ function StudioInner() {
         snapEnabled={snapOn}
         onTrackFlag={(key, flag) => apply({ timeline: toggleTrackFlag(timeline, key, flag), fxPlan })}
         onRemoveMarker={(frame) => apply({ timeline: { ...timeline, markers: removeMarkerNear(timeline.markers, frame) }, fxPlan })}
+        onKeyframeMove={(layerId, clipId, from, to) => liveUpdate({ timeline: moveKeyframesAt(timeline, layerId, clipId, from, to), fxPlan })}
+        onKeyframeRemove={(layerId, clipId, frame) => apply({ timeline: removeKeyframesAt(timeline, layerId, clipId, frame), fxPlan })}
         selectedIndices={selVideo}
         selectedTrim={trimSel}
         onSelectTrim={(index, edge) => {

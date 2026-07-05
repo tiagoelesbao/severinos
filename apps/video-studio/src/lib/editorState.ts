@@ -1,6 +1,7 @@
-import type { Timeline, TimelineClip, ExtraLayer, ExtraClip, ElementType, TransitionType } from "./timeline";
+import type { Timeline, TimelineClip, ExtraLayer, ExtraClip, ElementType, TransitionType, Keyframe } from "./timeline";
 import type { FxPlan } from "./fxPlan";
 import type { CaptionRenderer, HookRenderer } from "./fxRegistry";
+import { deleteKeyframe, hasKeyframes, upsertKeyframe } from "./keyframes.ts";
 
 /**
  * Operações de edição da timeline (MVC-10), puras e testáveis. Toda mutação
@@ -337,6 +338,93 @@ export function setLayerClipVolume(tl: Timeline, layerId: string, clipId: string
 /** Patch genérico dos parâmetros de um elemento (texto/lower-third/imagem/mídia). */
 export function setElementParams(tl: Timeline, layerId: string, clipId: string, patch: Partial<ExtraClip>): Timeline {
   return mapClip(tl, layerId, clipId, (c) => ({ ...c, ...patch }));
+}
+
+// ── VEX-09: keyframes de elementos (x/y/scale/opacity/volume) ────────────────
+export type KfProp = "x" | "y" | "scale" | "opacity" | "volume";
+
+/**
+ * Ajusta o valor de uma propriedade no `frame` (local). Se a propriedade JÁ tem
+ * keyframes, faz upsert nesse frame (auto-keyframe ao animar); senão, muda só o
+ * valor estático base.
+ */
+export function setElementKfValue(
+  tl: Timeline, layerId: string, clipId: string, prop: KfProp, frame: number, value: number,
+): Timeline {
+  return mapClip(tl, layerId, clipId, (c) => {
+    if (hasKeyframes(c.tracks?.[prop])) {
+      return { ...c, tracks: { ...c.tracks, [prop]: upsertKeyframe(c.tracks?.[prop], frame, value) } };
+    }
+    return { ...c, [prop]: value };
+  });
+}
+
+/** Alterna um keyframe no `frame` (◇): adiciona com `value` ou remove se existir. */
+export function toggleElementKeyframe(
+  tl: Timeline, layerId: string, clipId: string, prop: KfProp, frame: number, value: number,
+): Timeline {
+  return mapClip(tl, layerId, clipId, (c) => {
+    const cur = c.tracks?.[prop];
+    const exists = (cur ?? []).some((k) => k.frame === frame);
+    const tracks = { ...(c.tracks ?? {}) };
+    if (exists) {
+      const nk = deleteKeyframe(cur, frame);
+      if (nk.length) tracks[prop] = nk; else delete tracks[prop];
+    } else {
+      tracks[prop] = upsertKeyframe(cur, frame, value);
+    }
+    return { ...c, tracks };
+  });
+}
+
+/** Move um keyframe de `fromFrame` para `toFrame` (arrastar o losango). */
+export function moveElementKeyframe(
+  tl: Timeline, layerId: string, clipId: string, prop: KfProp, fromFrame: number, toFrame: number,
+): Timeline {
+  return mapClip(tl, layerId, clipId, (c) => {
+    const cur = c.tracks?.[prop];
+    const kf = (cur ?? []).find((k) => k.frame === fromFrame);
+    if (!kf) return c;
+    return { ...c, tracks: { ...c.tracks, [prop]: upsertKeyframe(deleteKeyframe(cur, fromFrame), toFrame, kf.value, kf.ease) } };
+  });
+}
+
+/** Remove o keyframe no `frame` (alt+clique no losango). */
+export function removeElementKeyframe(
+  tl: Timeline, layerId: string, clipId: string, prop: KfProp, frame: number,
+): Timeline {
+  return mapClip(tl, layerId, clipId, (c) => {
+    const nk = deleteKeyframe(c.tracks?.[prop], frame);
+    const tracks = { ...(c.tracks ?? {}) };
+    if (nk.length) tracks[prop] = nk; else delete tracks[prop];
+    return { ...c, tracks };
+  });
+}
+
+/** Remove TODOS os keyframes (de todas as props) num frame (losango na timeline). */
+export function removeKeyframesAt(tl: Timeline, layerId: string, clipId: string, frame: number): Timeline {
+  return mapClip(tl, layerId, clipId, (c) => {
+    if (!c.tracks) return c;
+    const tracks: NonNullable<typeof c.tracks> = {};
+    for (const [k, arr] of Object.entries(c.tracks) as [KfProp, Keyframe[]][]) {
+      const nk = deleteKeyframe(arr, frame);
+      if (nk.length) tracks[k] = nk;
+    }
+    return { ...c, tracks };
+  });
+}
+
+/** Move TODOS os keyframes num frame para outro (arrastar o losango). */
+export function moveKeyframesAt(tl: Timeline, layerId: string, clipId: string, fromFrame: number, toFrame: number): Timeline {
+  return mapClip(tl, layerId, clipId, (c) => {
+    if (!c.tracks) return c;
+    const tracks: NonNullable<typeof c.tracks> = {};
+    for (const [k, arr] of Object.entries(c.tracks) as [KfProp, Keyframe[]][]) {
+      const kf = arr.find((x) => x.frame === fromFrame);
+      tracks[k] = kf ? upsertKeyframe(deleteKeyframe(arr, fromFrame), toFrame, kf.value, kf.ease) : arr;
+    }
+    return { ...c, tracks };
+  });
 }
 
 /** Resolve o tipo efetivo de um elemento (legado: por kind da camada). */

@@ -59,6 +59,11 @@ export interface TimelineClip {
   frameMode?: "auto" | "cover" | "panel";
   /** Zoom lento (Ken Burns): 0 = nenhum; ~0.06 = sutil. */
   kenBurns?: number;
+  // ── VEX-09: keyframes (scale/opacity/volume) + fades por clipe ──
+  tracks?: KeyframeTracks;
+  /** Fade visual (para preto/transparente) e de áudio, em frames. */
+  fadeIn?: number;
+  fadeOut?: number;
 }
 
 export type TransitionType = "none" | "dissolve" | "slide" | "zoom";
@@ -125,6 +130,31 @@ export interface ElementAnim {
   durationInFrames: number;
 }
 
+/** VEX-09: easing de um segmento entre dois keyframes. */
+export type Ease = "linear" | "in" | "out" | "inOut";
+
+/**
+ * VEX-09: keyframe de uma propriedade animável. `frame` é LOCAL ao clipe
+ * (0 = início do clipe) — assim mover/aparar o clipe preserva a animação.
+ */
+export interface Keyframe {
+  frame: number;
+  value: number;
+  ease?: Ease;
+}
+
+/**
+ * Trilhas de keyframes por propriedade. Ausente/vazia = usa o valor estático
+ * (x/y/scale/opacity/volume) como base. Presente = tem precedência.
+ */
+export interface KeyframeTracks {
+  x?: Keyframe[];
+  y?: Keyframe[];
+  scale?: Keyframe[];
+  opacity?: Keyframe[];
+  volume?: Keyframe[];
+}
+
 /**
  * Elemento de uma camada extra (NLE): objeto tipado, arrastável, com transform
  * (posição/escala) e animações de entrada/saída. `type` ausente = legado:
@@ -159,6 +189,11 @@ export interface ExtraClip {
   // ── Animações de entrada/saída ──
   animateIn?: ElementAnim;
   animateOut?: ElementAnim;
+  // ── VEX-09: keyframes (transform/opacidade/volume) — precedem os estáticos ──
+  tracks?: KeyframeTracks;
+  /** Fade de entrada/saída em frames (áudio: rampa; visual: opacidade). */
+  fadeIn?: number;
+  fadeOut?: number;
 }
 
 /** Camada extra inserível: áudio (trilha/SFX), overlay (vídeo/imagem) ou texto. */
