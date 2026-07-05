@@ -1,6 +1,6 @@
 # VEX-08: Timeline pro — thumbnails, snap visual, track headers, multi-seleção e markers
 
-**Status:** InProgress — inc.1 (filmstrip) e inc.2 (snap visual + régua adaptativa) entregues; track headers, seleção múltipla e markers pendentes
+**Status:** InProgress — inc.1 (filmstrip), inc.2 (snap + régua) e inc.3 (track headers mute/solo/lock) entregues; seleção múltipla e markers pendentes
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2**
 **Complexidade:** L (Standard — 13 pontos)
@@ -30,7 +30,7 @@
 ## Tarefas (Checklist)
 - [x] Rota de thumbnails com cache + filmstrip nos clipes de vídeo (lazy). `/api/thumbs` (ffmpeg `-ss` seek + cache em `Materiais Brutos/.thumbs/`, gitignored via `outputs/`); componente `Filmstrip.tsx` (N frames por largura/zoom, teto 40, `loading=lazy`, scrim para o rótulo). Verificado via Playwright: 44/44 thumbs carregados, 0 erros.
 - [x] Linha de snap visível + toggle de ímã (UI + tecla N). Linha âmbar (accent) com dot ao grudar num ponto; `snapEnabled` desliga o snap; botão Magnet no transporte + tecla N + no popover de atalhos. Verificado via Playwright (grudou em 123 posições no scrub; aria-pressed alterna).
-- [ ] Track headers com mute/solo/lock (modelo + UI + respeito no render/preview).
+- [x] Track headers com mute/solo/lock (modelo + UI + respeito no render/preview). Modelo: `videoMuted/Solo/Locked`, `TimelineAudio.{muted,solo,locked}`, `ExtraLayer.{muted,solo,locked}`. `trackMix.ts` puro (`resolveAudible` com regra de solo + `toggleTrackFlag`); a composição aplica o mix → vale no preview E no export. Calha alargada (GUTTER 122) com header por faixa. Lock bloqueia drag/trim/reorder/split/delete (Timeline + guard no Delete do page). 7 testes puros.
 - [ ] Modelo de seleção unificado + shift-click + marquee + ações em lote (delete/nudge).
 - [ ] Markers (modelo, régua, atalhos, persistência no save).
 - [x] Régua adaptativa por zoom. Intervalo de rótulo escolhido p/ manter ~60px entre labels (candidatos 0.2s→120s); minor ticks = 1/5; decimais em zoom alto (sub-segundo). Verificado: pps≈20 → labels 5s; pps alto → 1s/decimais.
@@ -40,7 +40,7 @@
 ## Critérios de Aceite
 - [x] **AC1:** Clipes de vídeo mostram filmstrip real do arquivo; zoom muda a densidade de frames; scroll não trava (cache + lazy). ✓ verificado no `/studio` real.
 - [x] **AC2:** Arrastar perto de uma borda mostra a linha magnética; N desliga o snap. ✓ verificado no `/studio` real.
-- [ ] **AC3:** Mute numa camada silencia no preview E no mp4 exportado; lock bloqueia qualquer edição na track.
+- [x] **AC3:** Mute numa camada silencia no preview E no mp4 exportado (mix aplicado na composição compartilhada Player/render); lock bloqueia qualquer edição na track. ✓ toggle verificado no `/studio`; lógica coberta por testes puros.
 - [ ] **AC4:** Shift+click seleciona N clipes; Delete em lote com ripple mantém a timeline contígua; tudo em 1 passo de undo.
 - [ ] **AC5:** M cria marker no playhead; markers sobrevivem ao save/reload e aparecem na régua.
 
@@ -68,3 +68,11 @@
 ### File List (inc.2 — snap visual + régua adaptativa)
 - `src/components/Timeline.tsx` (prop `snapEnabled`; `snapFrame` respeita o toggle; estado `snapGuide` + linha magnética `data-snap-guide`; régua adaptativa por zoom)
 - `src/app/studio/page.tsx` (estado `snapOn`, tecla N, botão Magnet no transporte, `snapEnabled` ao Timeline, N no popover de atalhos)
+
+### File List (inc.3 — track headers mute/solo/lock)
+- `src/lib/trackMix.ts` (novo — `resolveAudible`/`toggleTrackFlag`/`trackFlag`, regra de solo)
+- `src/lib/trackMix.test.ts` (novo — 7 testes puros)
+- `src/lib/timeline.ts` (flags `muted/solo/locked` em video/narração/camadas)
+- `src/remotion/TimelineFxComposition.tsx` (aplica o mix no áudio do vídeo/narração/camadas + `muted` no overlay)
+- `src/components/Timeline.tsx` (`TrackHeader` com mute/solo/lock; GUTTER 122; guards de lock nos handlers; prop `onTrackFlag`)
+- `src/app/studio/page.tsx` (`onTrackFlag` → `toggleTrackFlag`; guard de lock no Delete)

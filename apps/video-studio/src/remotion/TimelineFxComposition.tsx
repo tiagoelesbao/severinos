@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, Video } from "remotion";
 import type { Timeline, TransitionType, ElementAnim } from "../lib/timeline";
 import { duckingGain, segmentEnvelope, speechIntervals, tailGain } from "../lib/audioEnvelopes";
+import { resolveAudible } from "../lib/trackMix";
 import type { FxPlan } from "../lib/fxPlan";
 import { roleToFrameMode, SmartFrame } from "./fx/SmartFrame";
 import { HookFx } from "./fx/HookFx";
@@ -130,6 +131,8 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
     : true;
   // VEX-05: intervalos de fala (ducking) + duração total (fade-out do tail).
   const speech = React.useMemo(() => speechIntervals(timeline), [timeline]);
+  // VEX-08: mute/solo por faixa — aplicado aqui vale no preview E no export.
+  const mix = React.useMemo(() => resolveAudible(timeline), [timeline]);
   const totalFrames = timeline.durationInFrames;
 
   return (
@@ -155,7 +158,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
           <SmartFrame
             src={mediaSrc(clip.file)}
             mode={mode}
-            muted={!clip.audioEnabled}
+            muted={!clip.audioEnabled || !mix.video}
             playbackRate={clip.playbackRate}
             aspect={clip.height ? clip.width / clip.height : 16 / 9}
             preview={preview}
@@ -205,7 +208,9 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
                     startFrom={seg.srcFromFrame}
                     endAt={seg.srcFromFrame + seg.durationInFrames}
                     // VEX-05: micro-crossfade anti-click + fade-out do tail.
+                    // VEX-08: mute/solo da narração.
                     volume={(f) =>
+                      (mix.narration ? 1 : 0) *
                       segmentEnvelope(f, seg.durationInFrames) * tailGain(segStart + f, totalFrames)
                     }
                   />
@@ -221,6 +226,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             <Audio
               src={mediaSrc(timeline.audioTrack.file)}
               volume={(f) =>
+                (mix.narration ? 1 : 0) *
                 segmentEnvelope(f, timeline.audioTrack!.windowFrames) *
                 tailGain(timeline.audioTrack!.startFrame + f, totalFrames)
               }
@@ -236,11 +242,14 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
         layer.clips.map((clip) => {
           const type = clip.type ?? (layer.kind === "audio" ? "media-audio" : "media-video");
           const src = clip.src ?? (clip.file ? mediaSrc(clip.file) : "");
+          // VEX-08: camada muda (por mute/solo) → áudio zerado, overlay silenciado.
+          const layerAudible = mix.layers[layer.id] !== false;
           let node: React.ReactNode = null;
           if (type === "media-audio") {
             // Volume com fade de entrada/saída (animações "fade" no áudio)
             // + ducking sob a fala (VEX-05) + fade-out do tail.
             const vol = (f: number) => {
+              if (!layerAudible) return 0;
               let v = clip.volume ?? 1;
               const inA = clip.animateIn;
               const outA = clip.animateOut;
@@ -269,9 +278,9 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
               );
             } else {
               inner = preview ? (
-                <Video src={src} startFrom={clip.srcFromFrame ?? 0} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                <Video src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
               ) : (
-                <OffthreadVideo src={src} startFrom={clip.srcFromFrame ?? 0} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                <OffthreadVideo src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
               );
             }
             node = (

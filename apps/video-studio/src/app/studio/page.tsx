@@ -56,6 +56,7 @@ import {
   Undo2,
 } from "lucide-react";
 import { Button, ConfirmDialog, IconButton, Tip } from "@/components/ui";
+import { toggleTrackFlag } from "@/lib/trackMix";
 import { Group, Panel, Separator, type Layout } from "react-resizable-panels";
 
 interface Snapshot {
@@ -645,9 +646,12 @@ function StudioInner() {
         e.preventDefault();
         if (selectedLayerClip) {
           const [lid, cid] = selectedLayerClip.split("/");
+          // VEX-08: camada travada bloqueia a remoção.
+          if ((snap.timeline.extraLayers ?? []).find((L) => L.id === lid)?.locked) return;
           apply({ timeline: removeLayerClip(snap.timeline, lid, cid), fxPlan: snap.fxPlan });
           setSelectedLayerClip("");
         } else if (snap.timeline.videoTrack.length > 1) {
+          if (snap.timeline.videoLocked) return; // faixa de vídeo travada
           apply({ timeline: removeClip(snap.timeline, sel), fxPlan: snap.fxPlan });
           setSel(0);
         }
@@ -1463,6 +1467,7 @@ function StudioInner() {
         client={client}
         creative={creative}
         snapEnabled={snapOn}
+        onTrackFlag={(key, flag) => apply({ timeline: toggleTrackFlag(timeline, key, flag), fxPlan })}
         onSelectClip={(i) => { setSel(i); setSelectedLayerClip(""); }}
         onSeek={seek}
         onTrimStart={beginEdit}

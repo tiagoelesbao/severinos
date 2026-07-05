@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Timeline as TL, ExtraLayer } from "@/lib/timeline";
 import type { FxPlan } from "@/lib/fxPlan";
 import type { CaptionCue } from "@/lib/cues";
+import { trackFlag, type TrackFlag, type TrackKey } from "@/lib/trackMix";
+import { Headphones, Lock, Volume2, VolumeX } from "lucide-react";
 import { Waveform } from "./Waveform";
 import { Filmstrip } from "./Filmstrip";
 
@@ -29,7 +31,7 @@ function roleColor(role: string): string {
 
 const ROW_H = 54;
 const RULER_H = 26;
-const GUTTER = 40; // calha à esquerda para os rótulos de track (V/A/T) — largura p/ sub-label ≥11px
+const GUTTER = 122; // calha à esquerda: track headers com nome + mute/solo/lock (VEX-08)
 const SCROLLBAR = 16;
 
 export function Timeline({
@@ -42,6 +44,7 @@ export function Timeline({
   client = "",
   creative = "",
   snapEnabled = true,
+  onTrackFlag,
   onSelectClip,
   onSeek,
   onTrim,
@@ -77,6 +80,8 @@ export function Timeline({
   creative?: string;
   /** VEX-08: snap magnético ligado (tecla N desliga no page). */
   snapEnabled?: boolean;
+  /** VEX-08: alterna mute/solo/lock de uma faixa (track headers). */
+  onTrackFlag?: (key: TrackKey, flag: TrackFlag) => void;
   onSelectClip: (i: number) => void;
   onSeek: (frame: number) => void;
   onTrim: (index: number, deltaFrames: number) => void;
@@ -390,16 +395,34 @@ export function Timeline({
         {/* Calha de rótulos (sticky horizontal, sempre visível) */}
         <div style={{ position: "sticky", left: 0, top: 0, width: GUTTER, height: tracksH, zIndex: 5, background: "var(--color-surface-1)", borderRight: "1px solid var(--color-line)" }}>
           {rows.map((r, i) => {
-            if (r.type === "text") return <Label key="T" top={rowTop(i)} text="T" sub="texto" color={fxPlan.brand.accent} />;
-            if (r.type === "video") return <Label key="V" top={rowTop(i)} text="V" sub="vídeo" color="#7B5BFF" />;
-            if (r.type === "narration") return <Label key="A" top={rowTop(i)} text="A" sub="áudio" color="#2DE2C8" />;
+            if (r.type === "text") {
+              return <TrackHeader key="T" top={rowTop(i)} name="Legendas" color={fxPlan.brand.accent} />;
+            }
+            if (r.type === "video") {
+              return (
+                <TrackHeader
+                  key="V" top={rowTop(i)} name="Vídeo" color="#7B5BFF" trackKey="video" audio
+                  muted={trackFlag(timeline, "video", "muted")} solo={trackFlag(timeline, "video", "solo")} locked={trackFlag(timeline, "video", "locked")}
+                  onFlag={onTrackFlag}
+                />
+              );
+            }
+            if (r.type === "narration") {
+              return (
+                <TrackHeader
+                  key="A" top={rowTop(i)} name="Narração" color="#2DE2C8" trackKey="narration" audio
+                  muted={trackFlag(timeline, "narration", "muted")} solo={trackFlag(timeline, "narration", "solo")} locked={trackFlag(timeline, "narration", "locked")}
+                  onFlag={onTrackFlag}
+                />
+              );
+            }
+            const L = r.layer;
             return (
-              <Label
-                key={r.layer.id}
-                top={rowTop(i)}
-                text={r.layer.kind === "audio" ? "♪" : "▦"}
-                sub={r.layer.name.slice(0, 5)}
-                color={r.layer.kind === "audio" ? "#FF9F1C" : "#A06CD5"}
+              <TrackHeader
+                key={L.id} top={rowTop(i)} name={L.name} color={L.kind === "audio" ? "#FF9F1C" : "#A06CD5"}
+                trackKey={L.id} audio={L.kind === "audio"}
+                muted={!!L.muted} solo={!!L.solo} locked={!!L.locked}
+                onFlag={onTrackFlag}
               />
             );
           })}
@@ -448,6 +471,7 @@ export function Timeline({
                 onMouseDown={(e) => {
                   e.stopPropagation();
                   onSelectClip(i);
+                  if (timeline.videoLocked) return; // faixa travada: seleciona, não edita
                   if (razorMode) {
                     onSplit?.(i, snapFrame(frameAtClientX(e.clientX)));
                     return;
@@ -496,8 +520,8 @@ export function Timeline({
                     {c.durationSeconds}s{c.playbackRate !== 1 ? ` · ${c.playbackRate.toFixed(2)}×` : ""}
                   </span>
                 </div>
-                {!razorMode && handle("trimL")}
-                {!razorMode && handle("trimR")}
+                {!razorMode && !timeline.videoLocked && handle("trimL")}
+                {!razorMode && !timeline.videoLocked && handle("trimR")}
                 {tr && (
                   <div
                     onMouseDown={(e) => { e.stopPropagation(); onSelectClip(i); }}
@@ -531,6 +555,8 @@ export function Timeline({
                 onMouseDown={(e) => {
                   e.stopPropagation();
                   onSelectAudio?.(b.id);
+                  // Lock: talking-head segue a faixa de vídeo; narração/cortes, a narração.
+                  if (b.linked ? timeline.videoLocked : timeline.audioTrack?.locked) return;
                   if (b.linked && b.clipIndex != null) {
                     // talking-head: arrastar reordena o clipe vinculado
                     setDrag({ kind: "reorder", index: b.clipIndex, startX: e.clientX, dx: 0 });
@@ -585,6 +611,7 @@ export function Timeline({
                   onMouseDown={(e) => {
                     e.stopPropagation();
                     onSelectAudio?.(b.id);
+                    if (b.linked ? timeline.videoLocked : timeline.audioTrack?.locked) return;
                     onTrimStart?.();
                     setDrag({ kind: "audio", id: b.id, startX: e.clientX });
                   }}
@@ -654,6 +681,7 @@ export function Timeline({
                   onMouseDown={(e) => {
                     e.stopPropagation();
                     onSelectLayerClip?.(L.id, cl.id);
+                    if (L.locked) return; // camada travada: seleciona, não edita
                     onTrimStart?.();
                     setDrag({ kind: "layerMove", layerId: L.id, clipId: cl.id, startX: e.clientX });
                   }}
@@ -679,6 +707,7 @@ export function Timeline({
                     onMouseDown={(e) => {
                       e.stopPropagation();
                       onSelectLayerClip?.(L.id, cl.id);
+                      if (L.locked) return;
                       onTrimStart?.();
                       setDrag({ kind: "layerTrimR", layerId: L.id, clipId: cl.id, startX: e.clientX });
                     }}
@@ -725,11 +754,57 @@ export function Timeline({
   );
 }
 
-function Label({ top, text, sub, color }: { top: number; text: string; sub: string; color: string }) {
+/**
+ * VEX-08: header de faixa na calha — nome + toggles mute/solo/lock (NLE).
+ * Faixas de áudio (vídeo/narração/camada-áudio) mostram mute+solo; todas as
+ * faixas mostram lock. O mute vale no preview E no export (composição).
+ */
+function TrackHeader({
+  top, name, color, trackKey, audio, muted, solo, locked, onFlag,
+}: {
+  top: number;
+  name: string;
+  color: string;
+  trackKey?: TrackKey;
+  audio?: boolean;
+  muted?: boolean;
+  solo?: boolean;
+  locked?: boolean;
+  onFlag?: (key: TrackKey, flag: TrackFlag) => void;
+}) {
+  const toggle = (flag: TrackFlag) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (trackKey && onFlag) onFlag(trackKey, flag);
+  };
+  const btn = (active: boolean, activeColor: string, title: string, on: (e: React.MouseEvent) => void, icon: React.ReactNode) => (
+    <button
+      onMouseDown={(e) => e.stopPropagation()}
+      onClick={on}
+      title={title}
+      aria-label={title}
+      aria-pressed={active}
+      style={{
+        display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 20,
+        borderRadius: 5, cursor: "pointer", border: "1px solid var(--color-line)",
+        background: active ? activeColor : "var(--color-surface-3)",
+        color: active ? "#06121a" : "var(--color-fg-muted)",
+      }}
+    >
+      {icon}
+    </button>
+  );
   return (
-    <div style={{ position: "absolute", top, left: 0, width: GUTTER, height: ROW_H, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, borderRight: `2px solid ${color}` }}>
-      <span style={{ fontSize: 13, color, fontWeight: 800, lineHeight: 1 }}>{text}</span>
-      <span style={{ fontSize: 11, color: "var(--color-fg-faint)", lineHeight: 1 }}>{sub}</span>
+    <div style={{ position: "absolute", top, left: 0, width: GUTTER, height: ROW_H, display: "flex", flexDirection: "column", justifyContent: "center", gap: 5, padding: "0 8px", boxSizing: "border-box", borderRight: `2px solid ${color}`, background: "var(--color-surface-1)" }}>
+      <span style={{ fontSize: 11, color: "var(--color-fg)", fontWeight: 700, lineHeight: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+        <span style={{ color, marginRight: 5 }}>▍</span>{name}
+      </span>
+      {trackKey && (
+        <div style={{ display: "flex", gap: 4 }}>
+          {audio && btn(!!muted, "var(--color-warn)", muted ? "Reativar áudio" : "Silenciar (mute)", toggle("muted"), muted ? <VolumeX size={12} /> : <Volume2 size={12} />)}
+          {audio && btn(!!solo, "var(--color-ok)", solo ? "Desfazer solo" : "Solo (só esta soa)", toggle("solo"), <Headphones size={12} />)}
+          {btn(!!locked, "var(--color-accent)", locked ? "Destravar faixa" : "Travar faixa (bloqueia edição)", toggle("locked"), <Lock size={12} />)}
+        </div>
+      )}
     </div>
   );
 }

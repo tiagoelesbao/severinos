@@ -99,6 +99,13 @@ export interface TimelineAudio {
    * Presente = toca só estes trechos, consecutivos (silêncios removidos).
    */
   segments?: AudioSegment[];
+  // ── VEX-08: mixagem da faixa de narração ──
+  /** Silencia a narração no preview E no export. */
+  muted?: boolean;
+  /** Solo: quando algum track está em solo, só os solados soam. */
+  solo?: boolean;
+  /** Bloqueia qualquer edição desta faixa na timeline. */
+  locked?: boolean;
 }
 
 /**
@@ -160,6 +167,13 @@ export interface ExtraLayer {
   kind: "audio" | "video";
   name: string;
   clips: ExtraClip[];
+  // ── VEX-08: mixagem/estado da camada (track headers) ──
+  /** Silencia a camada (áudio próprio) no preview E no export. */
+  muted?: boolean;
+  /** Solo: quando algum track está em solo, só os solados soam. */
+  solo?: boolean;
+  /** Bloqueia qualquer edição desta camada na timeline. */
+  locked?: boolean;
 }
 
 export interface Timeline {
@@ -169,6 +183,13 @@ export interface Timeline {
   /** Duração total = faixa de vídeo (max entre vídeo e áudio). */
   durationInFrames: number;
   videoTrack: TimelineClip[];
+  // ── VEX-08: mixagem/estado da faixa de vídeo (áudio dos talking-heads) ──
+  /** Silencia o áudio próprio dos clipes de vídeo (hook/CTA) no preview E export. */
+  videoMuted?: boolean;
+  /** Solo da faixa de vídeo. */
+  videoSolo?: boolean;
+  /** Bloqueia edição na faixa de vídeo. */
+  videoLocked?: boolean;
   /** Narração (audio_narrado) — uma faixa paralela. */
   audioTrack: TimelineAudio | null;
   /** Faixa de legenda — placeholder nesta story (estilização é a MVC-09). */
