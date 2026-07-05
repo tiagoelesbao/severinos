@@ -1400,7 +1400,52 @@ function StudioInner() {
                       {KfRow("x", "Posição X", 0, 100, 1, 50, (v) => `${Math.round(v)}%`)}
                       {KfRow("y", "Posição Y", 0, 100, 1, 50, (v) => `${Math.round(v)}%`)}
                       {KfRow("scale", "Escala", 0.1, 3, 0.05, 1, (v) => `${Math.round(v * 100)}%`)}
-                      {KfRow("opacity", "Opacidade", 0, 1, 0.05, 1, (v) => `${Math.round(v * 100)}%`)}
+                  {KfRow("opacity", "Opacidade", 0, 1, 0.05, 1, (v) => `${Math.round(v * 100)}%`)}
+                    </div>
+                  )}
+
+                  {/* VEX-09 (PiP): enquadramento + moldura + trim de origem — vídeo/imagem */}
+                  {(t === "media-video" || t === "image") && (
+                    <div style={{ marginTop: 8, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                        <span style={{ fontSize: 11, color: "#888" }}>PiP / moldura</span>
+                        <button
+                          style={{ ...btn, fontSize: 10, padding: "2px 8px" }}
+                          title="Preset CapCut: canto superior direito, 35%, cantos arredondados + sombra"
+                          onClick={() => patch({ scale: 0.35, x: 76, y: 24, radius: 28, shadow: true, fit: "cover" })}
+                        >◱ PiP canto</button>
+                      </div>
+                      <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
+                        {(["contain", "cover"] as const).map((f) => (
+                          <button key={f} onClick={() => patch({ fit: f })}
+                            style={{ ...btn, flex: 1, fontSize: 11, background: (cl.fit ?? "contain") === f ? "var(--color-accent)" : "var(--color-surface-4)", color: (cl.fit ?? "contain") === f ? "#06121a" : "var(--color-fg)" }}>
+                            {f === "contain" ? "conter" : "preencher"}
+                          </button>
+                        ))}
+                      </div>
+                      <div style={{ fontSize: 10, color: "#888" }}>Cantos arredondados {cl.radius ?? 0}px</div>
+                      <input type="range" min={0} max={120} value={cl.radius ?? 0} onPointerDown={beginEdit}
+                        onChange={(e) => live({ radius: Number(e.target.value) })} style={{ width: "100%" }} />
+                      <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 6 }}>
+                        <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4 }}>
+                          Borda
+                          <input type="number" min={0} max={30} value={cl.borderW ?? 0}
+                            onChange={(e) => patch({ borderW: Number(e.target.value) || undefined })} style={{ ...btn, width: 52 }} />
+                        </label>
+                        <input type="color" value={cl.borderColor ?? "#FFFFFF"} title="Cor da borda"
+                          onChange={(e) => patch({ borderColor: e.target.value })} style={{ ...btn, width: 40, padding: 2 }} />
+                        <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
+                          <input type="checkbox" checked={!!cl.shadow} onChange={(e) => patch({ shadow: e.target.checked })} />
+                          Sombra
+                        </label>
+                      </div>
+                      {t === "media-video" && (
+                        <div style={{ marginTop: 6 }}>
+                          <div style={{ fontSize: 10, color: "#888" }}>Trim de origem (in-point) {Math.round(((cl.srcFromFrame ?? 0) / (snap.timeline.fps || 30)) * 10) / 10}s</div>
+                          <input type="range" min={0} max={300} value={cl.srcFromFrame ?? 0} onPointerDown={beginEdit}
+                            onChange={(e) => live({ srcFromFrame: Number(e.target.value) })} style={{ width: "100%" }} />
+                        </div>
+                      )}
                     </div>
                   )}
 

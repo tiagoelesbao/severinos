@@ -186,6 +186,16 @@ export interface ExtraClip {
   x?: number;
   y?: number;
   scale?: number;
+  // ── VEX-09 (PiP): enquadramento e moldura de overlays de vídeo/imagem ──
+  /** objectFit do overlay (default "contain"). */
+  fit?: "contain" | "cover";
+  /** Raio de canto (px na resolução do vídeo). */
+  radius?: number;
+  /** Largura da borda (px) + cor. */
+  borderW?: number;
+  borderColor?: string;
+  /** Sombra projetada (estilo PiP CapCut). */
+  shadow?: boolean;
   // ── Animações de entrada/saída ──
   animateIn?: ElementAnim;
   animateOut?: ElementAnim;

@@ -298,9 +298,21 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             // timeline; o usuário arrasta um asset por cima para substituir.
             node = null;
           } else {
+            // VEX-09 (PiP): moldura opcional (raio/borda/sombra estilo CapCut) +
+            // objectFit. Envolve o vídeo/imagem num quadro estilizado.
+            const fit = clip.fit ?? "contain";
+            const framed = (media: React.ReactNode): React.ReactNode => (
+              <div style={{
+                position: "absolute", inset: 0, overflow: "hidden",
+                borderRadius: clip.radius ? clip.radius : undefined,
+                border: clip.borderW ? `${clip.borderW}px solid ${clip.borderColor ?? "#fff"}` : undefined,
+                boxShadow: clip.shadow ? "0 30px 90px rgba(0,0,0,.55)" : undefined,
+                boxSizing: "border-box", background: clip.shadow || clip.borderW ? "#000" : undefined,
+              }}>{media}</div>
+            );
             let inner: React.ReactNode;
             if (type === "image") {
-              inner = <Img src={src} style={{ width: "100%", height: "100%", objectFit: "contain" }} />;
+              inner = framed(<Img src={src} style={{ width: "100%", height: "100%", objectFit: fit }} />);
             } else if (type === "text") {
               inner = (
                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: 64 }}>
@@ -310,11 +322,11 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
                 </div>
               );
             } else {
-              inner = preview ? (
-                <Video src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              inner = framed(preview ? (
+                <Video src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: fit }} />
               ) : (
-                <OffthreadVideo src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-              );
+                <OffthreadVideo src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: fit }} />
+              ));
             }
             node = (
               <ElementWrap
