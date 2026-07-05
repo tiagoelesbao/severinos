@@ -3,7 +3,7 @@ import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, static
 import type { Timeline, TransitionType, ElementAnim, KeyframeTracks } from "../lib/timeline";
 import { duckingGain, segmentEnvelope, speechIntervals, tailGain } from "../lib/audioEnvelopes";
 import { resolveAudible } from "../lib/trackMix";
-import { sampleTrack } from "../lib/keyframes";
+import { sampleTrack, fadeGain } from "../lib/keyframes";
 import type { FxPlan } from "../lib/fxPlan";
 import { roleToFrameMode, SmartFrame } from "./fx/SmartFrame";
 import { HookFx } from "./fx/HookFx";
@@ -75,6 +75,22 @@ const Transition: React.FC<{ type: TransitionType; frames: number; children: Rea
 };
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+
+/**
+ * VEX-09: fade visual por clipe (opacidade → revela o preto do palco = fade to
+ * black). `durationInFrames` inclui o pre-roll da transição (frame local).
+ */
+const FadeWrap: React.FC<{
+  fadeIn?: number;
+  fadeOut?: number;
+  durationInFrames: number;
+  children: React.ReactNode;
+}> = ({ fadeIn, fadeOut, durationInFrames, children }) => {
+  const f = useCurrentFrame();
+  const g = fadeGain(f, durationInFrames, fadeIn, fadeOut);
+  if (g >= 1) return <>{children}</>;
+  return <AbsoluteFill style={{ opacity: g }}>{children}</AbsoluteFill>;
+};
 
 /**
  * Wrapper de elemento visual (overlay/imagem/texto): aplica transform
@@ -175,7 +191,10 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             kenBurns={clip.kenBurns ?? 0}
             // VEX-05: ganho por clipe + fade-out global (f local inclui o pre-roll F).
             volume={clip.audioEnabled
-              ? (f: number) => (clip.volume ?? 1) * tailGain(clip.startFrame - F + f, totalFrames)
+              ? (f: number) =>
+                  (clip.volume ?? 1) *
+                  fadeGain(f, clip.durationInFrames + F, clip.fadeIn, clip.fadeOut) *
+                  tailGain(clip.startFrame - F + f, totalFrames)
               : undefined}
           />
         );
@@ -185,11 +204,13 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             from={clip.startFrame - F}
             durationInFrames={clip.durationInFrames + F}
           >
-            {idx === 0 ? (
-              <HookFx renderer={fxPlan.hookRenderer}>{inner}</HookFx>
-            ) : (
-              <Transition type={tr!.type} frames={F}>{inner}</Transition>
-            )}
+            <FadeWrap fadeIn={clip.fadeIn} fadeOut={clip.fadeOut} durationInFrames={clip.durationInFrames + F}>
+              {idx === 0 ? (
+                <HookFx renderer={fxPlan.hookRenderer}>{inner}</HookFx>
+              ) : (
+                <Transition type={tr!.type} frames={F}>{inner}</Transition>
+              )}
+            </FadeWrap>
           </Sequence>
         );
       })}

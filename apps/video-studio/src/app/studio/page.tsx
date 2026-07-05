@@ -34,6 +34,7 @@ import {
   setClipFrameMode,
   setClipKenBurns,
   setClipVolume,
+  setClipFade,
   setElementKfValue,
   toggleElementKeyframe,
   moveKeyframesAt,
@@ -1158,6 +1159,27 @@ function StudioInner() {
                 </div>
               )}
 
+              {/* VEX-09: fades do clipe (também arrastáveis pelos cantos na timeline) */}
+              {!clip.gap && (
+                <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                  <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>Fades (frames) — visual + áudio</div>
+                  <div style={{ display: "flex", gap: 6 }}>
+                    <label style={{ flex: 1, fontSize: 10, color: "#888" }}>
+                      Entrada
+                      <input type="number" min={0} max={clip.durationInFrames} value={clip.fadeIn ?? 0}
+                        onChange={(e) => apply({ timeline: setClipFade(timeline, sel, "in", Number(e.target.value)), fxPlan })}
+                        style={{ ...btn, width: "100%", marginTop: 2 }} />
+                    </label>
+                    <label style={{ flex: 1, fontSize: 10, color: "#888" }}>
+                      Saída
+                      <input type="number" min={0} max={clip.durationInFrames} value={clip.fadeOut ?? 0}
+                        onChange={(e) => apply({ timeline: setClipFade(timeline, sel, "out", Number(e.target.value)), fxPlan })}
+                        style={{ ...btn, width: "100%", marginTop: 2 }} />
+                    </label>
+                  </div>
+                </div>
+              )}
+
               {/* Parâmetros de screen-capture (inserts: skill/reference/generation/result) */}
               {!clip.audioEnabled && !clip.gap && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
@@ -1542,6 +1564,7 @@ function StudioInner() {
         onKeyframeRemove={(layerId, clipId, frame) => apply({ timeline: removeKeyframesAt(timeline, layerId, clipId, frame), fxPlan })}
         selectedIndices={selVideo}
         selectedTrim={trimSel}
+        onClipFade={(index, edge, frames) => liveUpdate({ timeline: setClipFade(timeline, index, edge, frames), fxPlan })}
         onSelectTrim={(index, edge) => {
           setSel(index); setTrimSel({ index, edge });
           // Playhead vai para a borda: as setas passam a afinar 1 frame por vez

@@ -248,6 +248,14 @@ export function setClipVolume(tl: Timeline, index: number, volume: number): Time
   return setClip(tl, index, { volume: Math.max(0, Math.min(1, volume)) });
 }
 
+/** VEX-09: fade de entrada/saída do clipe de vídeo (frames; ≥0, ≤ duração). */
+export function setClipFade(tl: Timeline, index: number, edge: "in" | "out", frames: number): Timeline {
+  const c = tl.videoTrack[index];
+  if (!c) return tl;
+  const v = Math.max(0, Math.min(c.durationInFrames, Math.round(frames)));
+  return setClip(tl, index, edge === "in" ? { fadeIn: v || undefined } : { fadeOut: v || undefined });
+}
+
 // ── Camadas extras (SFX, trilha, overlays) ───────────────────────────────────
 
 let uidCounter = 0;

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { Keyframe } from "./timeline.ts";
-import { sampleTrack, upsertKeyframe, deleteKeyframe, shiftKeyframes, hasKeyframes } from "./keyframes.ts";
+import { sampleTrack, upsertKeyframe, deleteKeyframe, shiftKeyframes, hasKeyframes, fadeGain } from "./keyframes.ts";
 
 test("sampleTrack — sem keyframes usa o base", () => {
   assert.equal(sampleTrack(undefined, 10, 0.5), 0.5);
@@ -53,6 +53,20 @@ test("upsertKeyframe — insere ordenado e substitui no mesmo frame", () => {
   k = upsertKeyframe(k, 10, 9); // substitui
   assert.equal(k.length, 3);
   assert.equal(k.find((x) => x.frame === 10)!.value, 9);
+});
+
+test("fadeGain — rampas de entrada e saída", () => {
+  // fade-in de 10 frames
+  assert.equal(fadeGain(0, 100, 10, 0), 0);
+  assert.equal(fadeGain(5, 100, 10, 0), 0.5);
+  assert.equal(fadeGain(10, 100, 10, 0), 1);
+  assert.equal(fadeGain(50, 100, 10, 0), 1);
+  // fade-out de 20 frames (dur 100)
+  assert.equal(fadeGain(100, 100, 0, 20), 0);
+  assert.equal(fadeGain(90, 100, 0, 20), 0.5);
+  assert.equal(fadeGain(80, 100, 0, 20), 1);
+  // sem fades = 1
+  assert.equal(fadeGain(50, 100), 1);
 });
 
 test("deleteKeyframe / shiftKeyframes / hasKeyframes", () => {

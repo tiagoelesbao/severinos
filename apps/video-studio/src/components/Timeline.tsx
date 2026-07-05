@@ -51,6 +51,7 @@ export function Timeline({
   onKeyframeMove,
   onKeyframeRemove,
   onSelectTrim,
+  onClipFade,
   onSelectClip,
   onSeek,
   onTrim,
@@ -99,6 +100,8 @@ export function Timeline({
   onKeyframeRemove?: (layerId: string, clipId: string, frame: number) => void;
   /** VEX-08: seleciona uma pinça (borda de aparo) p/ ajuste pelas setas. */
   onSelectTrim?: (index: number, edge: "L" | "R") => void;
+  /** VEX-09: define o fade (frames) de entrada/saída do clipe de vídeo (handle). */
+  onClipFade?: (index: number, edge: "in" | "out", frames: number) => void;
   /** `additive` = shift pressionado (multi-seleção). */
   onSelectClip: (i: number, additive?: boolean) => void;
   onSeek: (frame: number) => void;
@@ -149,6 +152,8 @@ export function Timeline({
     | { kind: "layerMove"; layerId: string; clipId: string; startX: number }
     | { kind: "layerTrimR"; layerId: string; clipId: string; startX: number }
     | { kind: "kfMove"; layerId: string; clipId: string; fromFrame: number; clipStart: number; dur: number }
+    | { kind: "fadeIn"; index: number; clipStart: number; clipEnd: number }
+    | { kind: "fadeOut"; index: number; clipStart: number; clipEnd: number }
     | null
   >(null);
 
@@ -246,6 +251,15 @@ export function Timeline({
         setDrag({ ...drag, dx: e.clientX - drag.startX });
         return;
       }
+      // VEX-09: arrastar o handle de fade (comprimento em frames).
+      if (drag.kind === "fadeIn" || drag.kind === "fadeOut") {
+        const at = frameAtClientX(e.clientX);
+        const frames = drag.kind === "fadeIn"
+          ? Math.max(0, Math.round(at - drag.clipStart))
+          : Math.max(0, Math.round(drag.clipEnd - at));
+        onClipFade?.(drag.index, drag.kind === "fadeIn" ? "in" : "out", frames);
+        return;
+      }
       // VEX-09: arrastar um losango de keyframe (frame LOCAL ao clipe).
       if (drag.kind === "kfMove") {
         const raw = snapFrame(frameAtClientX(e.clientX));
@@ -291,7 +305,7 @@ export function Timeline({
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
     };
-  }, [drag, pps, fps, onTrim, onAudioTrim, onTrimStartLeft, onCueShift, onNarrShift, onSegMove, onLayerClipMove, onLayerClipTrim, onKeyframeMove, onReorder, onTrimEnd, onSeek, frameAtClientX, snapFrame, timeline, reorderTarget]);
+  }, [drag, pps, fps, onTrim, onAudioTrim, onTrimStartLeft, onCueShift, onNarrShift, onSegMove, onLayerClipMove, onLayerClipTrim, onKeyframeMove, onClipFade, onReorder, onTrimEnd, onSeek, frameAtClientX, snapFrame, timeline, reorderTarget]);
 
   // Régua ADAPTATIVA (VEX-08): o intervalo entre rótulos cresce/encolhe com o
   // zoom para manter ~60px entre labels; minor ticks = 1/5 do intervalo. Em
@@ -569,6 +583,30 @@ export function Timeline({
                     {trIcon}
                   </div>
                 )}
+                {/* VEX-09: fades por clipe — só no selecionado; handle arrastável +
+                    triângulo escuro indicando a rampa (fade to black). */}
+                {selected && !razorMode && !timeline.videoLocked && (() => {
+                  const fIn = fToX(c.fadeIn ?? 0);
+                  const fOut = fToX(c.fadeOut ?? 0);
+                  const down = (edge: "in" | "out") => (e: React.MouseEvent) => {
+                    e.stopPropagation();
+                    onTrimStart?.();
+                    const common = { index: i, clipStart: c.startFrame, clipEnd: c.startFrame + c.durationInFrames };
+                    setDrag(edge === "in" ? { kind: "fadeIn", ...common } : { kind: "fadeOut", ...common });
+                  };
+                  return (
+                    <>
+                      {(c.fadeIn ?? 0) > 0 && (
+                        <div style={{ position: "absolute", left: 0, top: 0, width: fIn, height: "100%", background: "linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,0))", pointerEvents: "none", zIndex: 2 }} />
+                      )}
+                      <div onMouseDown={down("in")} title="Fade de entrada — arraste" style={{ position: "absolute", left: Math.max(0, fIn) - 5, top: 1, width: 10, height: 10, background: "var(--color-fg)", border: "1px solid #000", borderRadius: "50%", cursor: "ew-resize", zIndex: 5 }} />
+                      {(c.fadeOut ?? 0) > 0 && (
+                        <div style={{ position: "absolute", right: 0, top: 0, width: fOut, height: "100%", background: "linear-gradient(270deg, rgba(0,0,0,.85), rgba(0,0,0,0))", pointerEvents: "none", zIndex: 2 }} />
+                      )}
+                      <div onMouseDown={down("out")} title="Fade de saída — arraste" style={{ position: "absolute", right: Math.max(0, fOut) - 5, top: 1, width: 10, height: 10, background: "var(--color-fg)", border: "1px solid #000", borderRadius: "50%", cursor: "ew-resize", zIndex: 5 }} />
+                    </>
+                  );
+                })()}
               </div>
             );
           })}

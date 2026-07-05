@@ -74,3 +74,17 @@ export function shiftKeyframes(kfs: Keyframe[] | undefined, deltaFrames: number)
   if (!kfs || kfs.length === 0) return kfs;
   return kfs.map((k) => ({ ...k, frame: k.frame + deltaFrames }));
 }
+
+const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+
+/**
+ * VEX-09: ganho de fade de um clipe no frame LOCAL `f` (0..1). Rampa linear de
+ * `fadeIn` frames no início e `fadeOut` frames no fim. Usado para opacidade
+ * (fade visual p/ preto) E volume (rampa de áudio) — preview == export.
+ */
+export function fadeGain(f: number, durationInFrames: number, fadeIn?: number, fadeOut?: number): number {
+  let g = 1;
+  if (fadeIn && fadeIn > 0) g *= clamp01(f / fadeIn);
+  if (fadeOut && fadeOut > 0) g *= clamp01((durationInFrames - f) / fadeOut);
+  return g;
+}
