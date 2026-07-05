@@ -243,6 +243,9 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
                       (mix.narration ? 1 : 0) *
                       segmentEnvelope(f, seg.durationInFrames) * tailGain(segStart + f, totalFrames)
                     }
+                    // Erro de mídia degrada em silêncio (evita re-render storm da
+                    // Remotion → "Maximum update depth").
+                    onError={() => {}}
                   />
                 </Sequence>
               );
@@ -260,6 +263,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
                 segmentEnvelope(f, timeline.audioTrack!.windowFrames) *
                 tailGain(timeline.audioTrack!.startFrame + f, totalFrames)
               }
+              onError={() => {}}
             />
           </Sequence>
         )
@@ -312,7 +316,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             );
             let inner: React.ReactNode;
             if (type === "image") {
-              inner = framed(<Img src={src} style={{ width: "100%", height: "100%", objectFit: fit }} />);
+              inner = framed(<Img src={src} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: fit }} />);
             } else if (type === "text") {
               inner = (
                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: 64 }}>
