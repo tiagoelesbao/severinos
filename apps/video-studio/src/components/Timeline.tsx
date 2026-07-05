@@ -45,6 +45,7 @@ export function Timeline({
   creative = "",
   snapEnabled = true,
   onTrackFlag,
+  onRemoveMarker,
   onSelectClip,
   onSeek,
   onTrim,
@@ -82,6 +83,8 @@ export function Timeline({
   snapEnabled?: boolean;
   /** VEX-08: alterna mute/solo/lock de uma faixa (track headers). */
   onTrackFlag?: (key: TrackKey, flag: TrackFlag) => void;
+  /** VEX-08: remover um marcador (alt+clique na régua). */
+  onRemoveMarker?: (frame: number) => void;
   onSelectClip: (i: number) => void;
   onSeek: (frame: number) => void;
   onTrim: (index: number, deltaFrames: number) => void;
@@ -741,6 +744,26 @@ export function Timeline({
             style={{ position: "absolute", left: -5, top: RULER_H, width: 12, height: ROW_H * rowCount, cursor: "ew-resize", pointerEvents: "auto" }}
           />
         </div>
+
+        {/* VEX-08: marcadores (tecla M) — bandeira na régua + linha fina; clique
+            busca, alt+clique remove. */}
+        {(timeline.markers ?? []).map((mk) => {
+          const c = mk.color ?? "#36C5F0";
+          return (
+            <div key={mk.frame} style={{ position: "absolute", left: GUTTER + fToX(mk.frame), top: 0, height: tracksH, width: 0, zIndex: 6 }}>
+              <div style={{ position: "absolute", left: 0, top: RULER_H, width: 1, height: ROW_H * rowCount, background: c, opacity: 0.35, pointerEvents: "none" }} />
+              <div
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  if (e.altKey) onRemoveMarker?.(mk.frame);
+                  else onSeek(mk.frame);
+                }}
+                title={`Marcador @ ${(mk.frame / fps).toFixed(2)}s — clique busca, Alt+clique remove`}
+                style={{ position: "absolute", left: 0, top: 1, width: 10, height: 10, background: c, clipPath: "polygon(0 0, 100% 0, 50% 100%)", cursor: "pointer", pointerEvents: "auto" }}
+              />
+            </div>
+          );
+        })}
 
         {/* VEX-08: linha magnética de snap (visível só enquanto gruda num ponto) */}
         {snapGuide !== null && (

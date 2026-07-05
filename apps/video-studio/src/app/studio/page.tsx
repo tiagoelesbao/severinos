@@ -57,6 +57,7 @@ import {
 } from "lucide-react";
 import { Button, ConfirmDialog, IconButton, Tip } from "@/components/ui";
 import { toggleTrackFlag } from "@/lib/trackMix";
+import { toggleMarker, removeMarkerNear, nextMarkerFrame } from "@/lib/markers";
 import { Group, Panel, Separator, type Layout } from "react-resizable-panels";
 
 interface Snapshot {
@@ -674,6 +675,16 @@ function StudioInner() {
         setRazorMode((v) => !v);
       } else if (e.code === "KeyN" && !ctrl) {
         setSnapOn((v) => !v);
+      } else if (e.code === "KeyM" && !ctrl) {
+        // M: cria/remove marcador no playhead; Shift+M: vai ao próximo (com wrap).
+        if (e.shiftKey) {
+          const nf = nextMarkerFrame(snap.timeline.markers, cf);
+          const first = (snap.timeline.markers ?? [])[0]?.frame;
+          if (nf !== null) seek(nf);
+          else if (first !== undefined) seek(first);
+        } else {
+          apply({ timeline: { ...snap.timeline, markers: toggleMarker(snap.timeline.markers, cf) }, fxPlan: snap.fxPlan });
+        }
       } else if (e.code === "Escape") {
         setSelectedLayerClip("");
         setShowKeys(false);
@@ -1040,6 +1051,7 @@ function StudioInner() {
               <div style={{ fontWeight: 800, color: "#fff", marginBottom: 4 }}>Atalhos</div>
               <div><kbd>Espaço</kbd> play/pause · <kbd>← →</kbd> ±1s · <kbd>, .</kbd> ±1 frame</div>
               <div><kbd>Home</kbd>/<kbd>End</kbd> início/fim · <kbd>C</kbd> cortar (razor) · <kbd>N</kbd> snap ímã</div>
+              <div><kbd>M</kbd> marcador (toggle) · <kbd>Shift+M</kbd> próximo marcador</div>
               <div><kbd>Ctrl+Z</kbd> desfazer · <kbd>Ctrl+Shift+Z</kbd>/<kbd>Ctrl+Y</kbd> refazer</div>
               <div><kbd>Delete</kbd> remover selecionado · <kbd>Ctrl+S</kbd> salvar · <kbd>Esc</kbd> desselecionar</div>
             </div>
@@ -1468,6 +1480,7 @@ function StudioInner() {
         creative={creative}
         snapEnabled={snapOn}
         onTrackFlag={(key, flag) => apply({ timeline: toggleTrackFlag(timeline, key, flag), fxPlan })}
+        onRemoveMarker={(frame) => apply({ timeline: { ...timeline, markers: removeMarkerNear(timeline.markers, frame) }, fxPlan })}
         onSelectClip={(i) => { setSel(i); setSelectedLayerClip(""); }}
         onSeek={seek}
         onTrimStart={beginEdit}

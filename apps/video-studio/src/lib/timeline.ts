@@ -176,6 +176,13 @@ export interface ExtraLayer {
   locked?: boolean;
 }
 
+/** VEX-08: marcador na régua (frame + cor/label opcionais). */
+export interface Marker {
+  frame: number;
+  color?: string;
+  label?: string;
+}
+
 export interface Timeline {
   fps: number;
   width: number;
@@ -196,6 +203,8 @@ export interface Timeline {
   captionTrack: [];
   /** Camadas extras inseríveis pelo usuário (SFX, trilha, overlays). */
   extraLayers?: ExtraLayer[];
+  /** VEX-08: marcadores na régua (tecla M). Persistidos no save. */
+  markers?: Marker[];
   meta: {
     client: string;
     creative: string;
