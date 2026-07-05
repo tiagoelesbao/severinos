@@ -41,6 +41,7 @@ export function Timeline({
   mediaBaseUrl,
   client = "",
   creative = "",
+  snapEnabled = true,
   onSelectClip,
   onSeek,
   onTrim,
@@ -74,6 +75,8 @@ export function Timeline({
   /** VEX-08: filmstrip pede thumbs por client/creative. */
   client?: string;
   creative?: string;
+  /** VEX-08: snap magnético ligado (tecla N desliga no page). */
+  snapEnabled?: boolean;
   onSelectClip: (i: number) => void;
   onSeek: (frame: number) => void;
   onTrim: (index: number, deltaFrames: number) => void;
@@ -158,9 +161,12 @@ export function Timeline({
     return pts;
   }, [timeline, currentFrame]);
 
-  // Gruda `f` no ponto de snap mais próximo dentro de ~8px.
+  // Gruda `f` no ponto de snap mais próximo dentro de ~8px (se o snap estiver
+  // ligado). VEX-08: `snapGuide` guarda o frame grudado p/ desenhar a linha ímã.
+  const [snapGuide, setSnapGuide] = useState<number | null>(null);
   const snapFrame = useCallback(
     (f: number) => {
+      if (!snapEnabled) return f;
       const thr = (8 / pps) * fps;
       let best = f;
       let bestD = thr;
@@ -173,7 +179,7 @@ export function Timeline({
       }
       return best;
     },
-    [snapPoints, pps, fps],
+    [snapPoints, pps, fps, snapEnabled],
   );
 
   // Frame absoluto sob um clientX (para o razor).
@@ -204,7 +210,9 @@ export function Timeline({
     if (!drag) return;
     const onMove = (e: MouseEvent) => {
       if (drag.kind === "scrub") {
-        const f = snapFrame(frameAtClientX(e.clientX));
+        const raw = frameAtClientX(e.clientX);
+        const f = snapFrame(raw);
+        setSnapGuide(f !== raw ? f : null);
         onSeek(Math.max(0, Math.min(timeline.durationInFrames - 1, f)));
         return;
       }
@@ -216,7 +224,9 @@ export function Timeline({
       if (drag.kind === "trimR" || drag.kind === "trimL") {
         const c = timeline.videoTrack[drag.index];
         if (!c) return;
-        const target = snapFrame(frameAtClientX(e.clientX));
+        const raw = frameAtClientX(e.clientX);
+        const target = snapFrame(raw);
+        setSnapGuide(target !== raw ? target : null);
         if (drag.kind === "trimR") onTrim(drag.index, target - (c.startFrame + c.durationInFrames));
         else onTrimStartLeft?.(drag.index, target - c.startFrame);
         return;
@@ -236,6 +246,7 @@ export function Timeline({
         if (to !== drag.index) onReorder?.(drag.index, to);
       }
       setDrag(null);
+      setSnapGuide(null);
       if (drag.kind !== "scrub") onTrimEnd?.();
     };
     window.addEventListener("mousemove", onMove);
@@ -246,18 +257,32 @@ export function Timeline({
     };
   }, [drag, pps, fps, onTrim, onAudioTrim, onTrimStartLeft, onCueShift, onNarrShift, onSegMove, onLayerClipMove, onLayerClipTrim, onReorder, onTrimEnd, onSeek, frameAtClientX, snapFrame, timeline, reorderTarget]);
 
-  // Marcas da régua (1s; label a cada 5s).
-  const ticks = [];
-  for (let s = 0; s <= Math.ceil(totalSec); s++) {
-    ticks.push(
-      <div key={s} style={{ position: "absolute", left: s * pps, top: 0, height: RULER_H }}>
-        <div style={{ width: 1, height: s % 5 === 0 ? 12 : 6, background: "var(--color-fg-faint)" }} />
-        {s % 5 === 0 && (
-          <span style={{ position: "absolute", left: 3, top: 10, fontSize: 11, color: "var(--color-fg-muted)" }}>{s}s</span>
-        )}
-      </div>,
-    );
-  }
+  // Régua ADAPTATIVA (VEX-08): o intervalo entre rótulos cresce/encolhe com o
+  // zoom para manter ~60px entre labels; minor ticks = 1/5 do intervalo. Em
+  // zoom alto os rótulos ganham decimais (sub-segundo/nível de frame).
+  const ticks = useMemo(() => {
+    const CANDIDATES = [0.2, 0.5, 1, 2, 5, 10, 15, 30, 60, 120];
+    const labelStep = CANDIDATES.find((s) => s * pps >= 60) ?? 120;
+    const minorStep = labelStep / 5;
+    const decimals = labelStep < 1 ? 1 : 0;
+    const out: React.ReactNode[] = [];
+    const n = Math.ceil(totalSec / minorStep);
+    for (let k = 0; k <= n; k++) {
+      const t = k * minorStep;
+      const isMajor = Math.abs(t / labelStep - Math.round(t / labelStep)) < 1e-6;
+      out.push(
+        <div key={k} style={{ position: "absolute", left: t * pps, top: 0, height: RULER_H }}>
+          <div style={{ width: 1, height: isMajor ? 12 : 6, background: "var(--color-fg-faint)" }} />
+          {isMajor && (
+            <span style={{ position: "absolute", left: 3, top: 10, fontSize: 11, color: "var(--color-fg-muted)", whiteSpace: "nowrap" }}>
+              {t.toFixed(decimals)}s
+            </span>
+          )}
+        </div>,
+      );
+    }
+    return out;
+  }, [totalSec, pps]);
 
   const audio = timeline.audioTrack;
   const mediaUrl = (f: string) => `${mediaBaseUrl}/${encodeURIComponent(f)}`;
@@ -687,6 +712,14 @@ export function Timeline({
             style={{ position: "absolute", left: -5, top: RULER_H, width: 12, height: ROW_H * rowCount, cursor: "ew-resize", pointerEvents: "auto" }}
           />
         </div>
+
+        {/* VEX-08: linha magnética de snap (visível só enquanto gruda num ponto) */}
+        {snapGuide !== null && (
+          <div data-snap-guide style={{ position: "absolute", left: GUTTER + fToX(snapGuide), top: 0, height: tracksH, width: 0, pointerEvents: "none", zIndex: 9 }}>
+            <div style={{ position: "absolute", left: -1, top: 0, width: 2, height: "100%", background: "var(--color-accent)", boxShadow: "0 0 6px var(--color-accent)", opacity: 0.9 }} />
+            <div style={{ position: "absolute", left: -3, top: RULER_H - 5, width: 6, height: 6, borderRadius: "50%", background: "var(--color-accent)" }} />
+          </div>
+        )}
       </div>
     </div>
   );

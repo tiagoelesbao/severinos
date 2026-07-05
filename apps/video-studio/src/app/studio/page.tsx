@@ -42,6 +42,7 @@ import { toast } from "sonner";
 import {
   Download,
   HelpCircle,
+  Magnet,
   Play,
   Pause,
   Plus,
@@ -140,6 +141,7 @@ function StudioInner() {
   const [selectedCue, setSelectedCue] = useState(-1);
   const [selectedAudio, setSelectedAudio] = useState("");
   const [razorMode, setRazorMode] = useState(false);
+  const [snapOn, setSnapOn] = useState(true); // VEX-08: snap magnético (tecla N)
   const [selectedLayerClip, setSelectedLayerClip] = useState(""); // "layerId/clipId"
   const [assets, setAssets] = useState<{ library: Asset[]; materials: Asset[]; uploads: Asset[] }>({ library: [], materials: [], uploads: [] });
   const [pickerFor, setPickerFor] = useState(""); // layerId aberto no picker
@@ -666,6 +668,8 @@ function StudioInner() {
         seek(durationInFrames - 1);
       } else if (e.code === "KeyC" && !ctrl) {
         setRazorMode((v) => !v);
+      } else if (e.code === "KeyN" && !ctrl) {
+        setSnapOn((v) => !v);
       } else if (e.code === "Escape") {
         setSelectedLayerClip("");
         setShowKeys(false);
@@ -973,6 +977,11 @@ function StudioInner() {
                 <Scissors className="size-4" />
               </IconButton>
             </Tip>
+            <Tip label={snapOn ? "Snap magnético ligado (N desliga)" : "Snap desligado (N liga)"}>
+              <IconButton aria-label="Snap magnético" aria-pressed={snapOn} active={snapOn} onClick={() => setSnapOn((v) => !v)}>
+                <Magnet className="size-4" />
+              </IconButton>
+            </Tip>
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <label className="text-[11px] text-fg-faint">zoom</label>
             <input
@@ -1026,7 +1035,7 @@ function StudioInner() {
             <div style={{ position: "absolute", bottom: 70, right: 24, zIndex: 30, background: "#0c0c16", border: "1px solid rgba(255,255,255,.15)", borderRadius: 10, padding: "12px 16px", boxShadow: "0 12px 40px rgba(0,0,0,.6)", fontSize: 11, lineHeight: 1.9, color: "#ccc" }}>
               <div style={{ fontWeight: 800, color: "#fff", marginBottom: 4 }}>Atalhos</div>
               <div><kbd>Espaço</kbd> play/pause · <kbd>← →</kbd> ±1s · <kbd>, .</kbd> ±1 frame</div>
-              <div><kbd>Home</kbd>/<kbd>End</kbd> início/fim · <kbd>C</kbd> cortar (razor)</div>
+              <div><kbd>Home</kbd>/<kbd>End</kbd> início/fim · <kbd>C</kbd> cortar (razor) · <kbd>N</kbd> snap ímã</div>
               <div><kbd>Ctrl+Z</kbd> desfazer · <kbd>Ctrl+Shift+Z</kbd>/<kbd>Ctrl+Y</kbd> refazer</div>
               <div><kbd>Delete</kbd> remover selecionado · <kbd>Ctrl+S</kbd> salvar · <kbd>Esc</kbd> desselecionar</div>
             </div>
@@ -1453,6 +1462,7 @@ function StudioInner() {
         mediaBaseUrl={mediaBaseUrl}
         client={client}
         creative={creative}
+        snapEnabled={snapOn}
         onSelectClip={(i) => { setSel(i); setSelectedLayerClip(""); }}
         onSeek={seek}
         onTrimStart={beginEdit}
