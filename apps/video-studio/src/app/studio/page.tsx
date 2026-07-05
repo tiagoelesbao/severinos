@@ -65,7 +65,7 @@ import {
   Trash2,
   Undo2,
 } from "lucide-react";
-import { Button, ConfirmDialog, IconButton, Tip } from "@/components/ui";
+import { Button, CommandPalette, ConfirmDialog, IconButton, Tip, type Command } from "@/components/ui";
 import { toggleTrackFlag } from "@/lib/trackMix";
 import { toggleMarker, removeMarkerNear, nextMarkerFrame } from "@/lib/markers";
 import { Group, Panel, Separator, type Layout } from "react-resizable-panels";
@@ -158,6 +158,19 @@ function StudioInner() {
   const [razorMode, setRazorMode] = useState(false);
   const [snapOn, setSnapOn] = useState(true); // VEX-08: snap magnético (tecla N)
   const [safeZone, setSafeZone] = useState<string>(""); // VEX-10: "" = off; senão platform id
+  const [paletteOpen, setPaletteOpen] = useState(false); // VEX-10: command palette (Ctrl+K)
+
+  // VEX-10: Ctrl+K abre a paleta de comandos (global, mesmo com foco em input).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.code === "KeyK") {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
   const [selectedLayerClip, setSelectedLayerClip] = useState(""); // "layerId/clipId"
   const [assets, setAssets] = useState<{ library: Asset[]; materials: Asset[]; uploads: Asset[] }>({ library: [], materials: [], uploads: [] });
   const [pickerFor, setPickerFor] = useState(""); // layerId aberto no picker
@@ -752,6 +765,29 @@ function StudioInner() {
   const curSec = (currentFrame / timeline.fps).toFixed(2);
   const totSec = (timeline.durationInFrames / timeline.fps).toFixed(2);
 
+  // VEX-10: registro central de comandos (paleta Ctrl+K). Cada ação é acionável.
+  const commands: Command[] = [
+    { id: "play", group: "Transporte", label: playing ? "Pausar" : "Reproduzir", shortcut: "Espaço", run: togglePlay },
+    { id: "home", group: "Transporte", label: "Ir para o início", shortcut: "Home", run: () => seek(0) },
+    { id: "end", group: "Transporte", label: "Ir para o fim", shortcut: "End", run: () => seek(timeline.durationInFrames - 1) },
+    { id: "undo", group: "Editar", label: "Desfazer", shortcut: "Ctrl+Z", run: undo },
+    { id: "redo", group: "Editar", label: "Refazer", shortcut: "Ctrl+Shift+Z", run: redo },
+    { id: "save", group: "Editar", label: "Salvar edição", shortcut: "Ctrl+S", run: save },
+    { id: "export", group: "Editar", label: "Exportar vídeo (mp4)", run: exportVideo },
+    { id: "razor", group: "Ferramentas", label: razorMode ? "Desligar ferramenta de corte" : "Ferramenta de corte (razor)", shortcut: "C", run: () => setRazorMode((v) => !v) },
+    { id: "snap", group: "Ferramentas", label: snapOn ? "Desligar snap magnético" : "Ligar snap magnético", shortcut: "N", run: () => setSnapOn((v) => !v) },
+    { id: "autocut", group: "Ferramentas", label: autocutOn ? "Reverter auto-cut de silêncios" : "Auto-cut de silêncios", run: () => guardedAutocut(() => setAutocutOn((v) => !v)) },
+    { id: "marker", group: "Marcadores", label: "Adicionar/remover marcador no playhead", shortcut: "M", run: () => apply({ timeline: { ...timeline, markers: toggleMarker(timeline.markers, currentFrameRef.current) }, fxPlan }) },
+    { id: "marker-next", group: "Marcadores", label: "Ir para o próximo marcador", shortcut: "Shift+M", run: () => { const nf = nextMarkerFrame(timeline.markers, currentFrameRef.current); if (nf !== null) seek(nf); } },
+    { id: "add-audio", group: "Camadas", label: "Adicionar camada de áudio", run: () => apply({ timeline: addLayer(timeline, "audio", "SFX/Trilha"), fxPlan }) },
+    { id: "add-overlay", group: "Camadas", label: "Adicionar camada de overlay", run: () => apply({ timeline: addLayer(timeline, "video", "Overlay"), fxPlan }) },
+    { id: "add-text", group: "Camadas", label: "Adicionar texto", run: () => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrameRef.current, timeline.fps)), fxPlan }) },
+    { id: "sz-off", group: "Preview", label: "Safe-zone: desligar", run: () => setSafeZone("") },
+    ...PLATFORMS.map((p) => ({ id: `sz-${p.id}`, group: "Preview", label: `Safe-zone: ${p.label}`, run: () => setSafeZone(p.id) })),
+    { id: "switch-client", group: "Navegação", label: "Trocar de cliente", run: () => router.push("/") },
+    ...(persisted ? [{ id: "reset", group: "Editar", label: "Descartar edição salva (voltar ao plano)", run: () => setConfirmReset(true) }] : []),
+  ];
+
   // VEX-07 inc.2: os dois estilos compartilhados do inspector puxam dos tokens
   // (@theme gera as CSS vars) — tokeniza ~40 usos de uma vez e faz o accent/
   // superfícies reagirem por cliente sem tocar cada JSX.
@@ -1114,7 +1150,7 @@ function StudioInner() {
               <div style={{ fontWeight: 800, color: "#fff", marginBottom: 4 }}>Atalhos</div>
               <div><kbd>Espaço</kbd> play/pause · <kbd>← →</kbd> ±1s · <kbd>, .</kbd> ±1 frame</div>
               <div><kbd>Home</kbd>/<kbd>End</kbd> início/fim · <kbd>C</kbd> cortar (razor) · <kbd>N</kbd> snap ímã</div>
-              <div><kbd>M</kbd> marcador (toggle) · <kbd>Shift+M</kbd> próximo marcador</div>
+              <div><kbd>M</kbd> marcador (toggle) · <kbd>Shift+M</kbd> próximo marcador · <kbd>Ctrl+K</kbd> comandos</div>
               <div>Clique numa <b>pinça</b> do clipe + <kbd>← →</kbd> apara ±1 frame · <kbd>Shift+← →</kbd> playhead 1 frame</div>
               <div><kbd>Ctrl+Z</kbd> desfazer · <kbd>Ctrl+Shift+Z</kbd>/<kbd>Ctrl+Y</kbd> refazer</div>
               <div><kbd>Delete</kbd> remover selecionado · <kbd>Ctrl+S</kbd> salvar · <kbd>Esc</kbd> desselecionar</div>
@@ -1603,6 +1639,9 @@ function StudioInner() {
       <Separator className="h-[3px] bg-line hover:bg-accent/60 active:bg-accent transition-colors" />
       <Panel id="timeline" defaultSize="34%" minSize="15%">
       <div className="h-full overflow-auto bg-surface-1">
+
+      {/* VEX-10: paleta de comandos (Ctrl+K) */}
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} commands={commands} />
 
       {/* VEX-07: confirmações do design system (substituem window.confirm) */}
       <ConfirmDialog

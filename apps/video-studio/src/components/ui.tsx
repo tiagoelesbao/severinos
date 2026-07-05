@@ -2,7 +2,7 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from "react";
+import { type ButtonHTMLAttributes, type ReactNode, forwardRef, useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * Kit de componentes do design system (VEX-07). Tokens em globals.css
@@ -131,6 +131,94 @@ export function Tip({ label, children }: { label: ReactNode; children: ReactNode
         </TooltipPrimitive.Portal>
       </TooltipPrimitive.Root>
     </TooltipPrimitive.Provider>
+  );
+}
+
+// ── CommandPalette (Ctrl+K) — registro central de comandos ───────────────────
+export interface Command {
+  id: string;
+  label: string;
+  /** Grupo/seção opcional (ex.: "Transporte", "Editar"). */
+  group?: string;
+  /** Atalho exibido (ex.: "Ctrl+S"). */
+  shortcut?: string;
+  run: () => void;
+}
+
+export function CommandPalette({
+  open,
+  onOpenChange,
+  commands,
+}: {
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  commands: Command[];
+}) {
+  const [q, setQ] = useState("");
+  const [active, setActive] = useState(0);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const filtered = useMemo(() => {
+    const n = q.trim().toLowerCase();
+    if (!n) return commands;
+    return commands.filter((c) => `${c.label} ${c.group ?? ""}`.toLowerCase().includes(n));
+  }, [q, commands]);
+
+  useEffect(() => { if (open) { setQ(""); setActive(0); } }, [open]);
+  useEffect(() => { setActive(0); }, [q]);
+
+  const runAt = (i: number) => {
+    const cmd = filtered[i];
+    if (cmd) { onOpenChange(false); cmd.run(); }
+  };
+
+  return (
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-black/50 backdrop-blur-[2px]" />
+        <DialogPrimitive.Content
+          aria-label="Paleta de comandos"
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          className="fixed left-1/2 top-[18%] z-50 w-[520px] max-w-[calc(100vw-32px)] -translate-x-1/2 rounded-(--radius-panel) bg-surface-2 border border-line-strong shadow-(--shadow-pop) overflow-hidden"
+        >
+          <DialogPrimitive.Title className="sr-only">Paleta de comandos</DialogPrimitive.Title>
+          <input
+            autoFocus
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => Math.min(filtered.length - 1, a + 1)); }
+              else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(0, a - 1)); }
+              else if (e.key === "Enter") { e.preventDefault(); runAt(active); }
+            }}
+            placeholder="Buscar comando… (ex.: exportar, salvar, marcador)"
+            className="w-full bg-transparent text-fg text-[14px] px-4 py-3 outline-none border-b border-line placeholder:text-fg-faint"
+          />
+          <div ref={listRef} className="max-h-[320px] overflow-y-auto py-1">
+            {filtered.length === 0 && (
+              <div className="px-4 py-6 text-center text-[12px] text-fg-faint">Nenhum comando encontrado.</div>
+            )}
+            {filtered.map((c, i) => (
+              <button
+                key={c.id}
+                onMouseEnter={() => setActive(i)}
+                onClick={() => runAt(i)}
+                className={cx(
+                  "w-full flex items-center justify-between gap-3 px-4 py-2 text-left text-[13px] cursor-pointer",
+                  i === active ? "bg-accent text-black" : "text-fg hover:bg-surface-4",
+                )}
+              >
+                <span className="flex items-center gap-2 min-w-0">
+                  {c.group && <span className={cx("text-[10px] uppercase tracking-wide shrink-0", i === active ? "text-black/60" : "text-fg-faint")}>{c.group}</span>}
+                  <span className="truncate">{c.label}</span>
+                </span>
+                {c.shortcut && <kbd className={cx("text-[10px] font-mono shrink-0", i === active ? "text-black/70" : "text-fg-muted")}>{c.shortcut}</kbd>}
+              </button>
+            ))}
+          </div>
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 }
 
