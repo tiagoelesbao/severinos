@@ -77,6 +77,43 @@ export function removeClips(tl: Timeline, indices: number[]): Timeline {
   return withVideoTrack(tl, tl.videoTrack.filter((_, i) => !set.has(i)));
 }
 
+/**
+ * VEX-11: troca a variante de hook ATIVA (client-side, preservando o corpo).
+ * Substitui o videoTrack[0] pelo clip da variante → recompõe (narração/inserts
+ * re-ancoram). As legendas do hook são trocadas pelas da variante e as do corpo
+ * deslocadas pela diferença de duração. Retorna { timeline, fxPlan }.
+ */
+export function switchHookVariant(
+  tl: Timeline, fx: FxPlan, index: number,
+): { timeline: Timeline; fxPlan: FxPlan } {
+  const variants = tl.hookVariants;
+  const oldHook = tl.videoTrack[0];
+  if (!variants || index < 0 || index >= variants.length || !oldHook || oldHook.role !== "hook") {
+    return { timeline: tl, fxPlan: fx };
+  }
+  const v = variants[index];
+  const fps = tl.fps;
+  const oldMs = (oldHook.durationInFrames / fps) * 1000;
+  const newMs = (v.clip.durationInFrames / fps) * 1000;
+  const deltaMs = newMs - oldMs;
+
+  // Swap do hook + recompose (startFrames/narração re-ancoram).
+  const newTrack = [{ ...v.clip, startFrame: 0 }, ...tl.videoTrack.slice(1)];
+  const timeline = { ...withVideoTrack(tl, newTrack), activeHookVariant: index };
+
+  // Legendas: fala do hook = as com startMs < fim do hook antigo; corpo = resto.
+  const body = fx.captions
+    .filter((c) => c.startMs >= oldMs)
+    .map((c) => ({
+      ...c,
+      startMs: c.startMs + deltaMs,
+      endMs: c.endMs + deltaMs,
+      timestampMs: c.timestampMs == null ? c.timestampMs : c.timestampMs + deltaMs,
+    }));
+  const fxPlan = { ...fx, captions: [...(v.captions ?? []), ...body] };
+  return { timeline, fxPlan };
+}
+
 /** Reordena um clip de `from` para `to` (drag-and-drop). */
 export function reorderClip(tl: Timeline, from: number, to: number): Timeline {
   const n = tl.videoTrack.length;

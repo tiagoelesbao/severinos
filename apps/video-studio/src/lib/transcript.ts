@@ -60,6 +60,28 @@ export function loadTranscript(creativeDir: string): Transcript | null {
  * sobre o miolo (que foi dimensionado para a duração dela), então as palavras
  * caem no tempo real do áudio — sincronizadas com o que se ouve.
  */
+/**
+ * Converte as palavras de um arquivo transcrito em Captions, com `offsetSec` de
+ * saída e um mapeamento opcional do tempo de fonte (auto-cut). Puro — usado pela
+ * montagem de legendas e pelas variantes de hook (VEX-11, offset 0).
+ */
+export function wordsToCaptions(
+  entry: TEntry | undefined,
+  offsetSec: number,
+  mapSrc: (s: number) => number = (s) => s,
+): Caption[] {
+  const out: Caption[] = [];
+  if (!entry?.words?.length) return out;
+  for (const wd of entry.words) {
+    const text = wd.w.trim();
+    if (!text) continue;
+    const startMs = Math.round((offsetSec + mapSrc(wd.start)) * 1000);
+    const endMs = Math.max(startMs + 80, Math.round((offsetSec + mapSrc(wd.end)) * 1000));
+    out.push({ text, startMs, endMs, timestampMs: Math.round((startMs + endMs) / 2), confidence: null });
+  }
+  return out;
+}
+
 export function buildRealCaptions(timeline: Timeline, transcript: Transcript): Caption[] {
   const { fps } = timeline;
   const caps: Caption[] = [];
@@ -70,20 +92,7 @@ export function buildRealCaptions(timeline: Timeline, transcript: Transcript): C
     offsetSec: number,
     mapSrc: (s: number) => number = (s) => s,
   ) => {
-    if (!entry?.words?.length) return;
-    for (const wd of entry.words) {
-      const text = wd.w.trim();
-      if (!text) continue;
-      const startMs = Math.round((offsetSec + mapSrc(wd.start)) * 1000);
-      const endMs = Math.max(startMs + 80, Math.round((offsetSec + mapSrc(wd.end)) * 1000));
-      caps.push({
-        text,
-        startMs,
-        endMs,
-        timestampMs: Math.round((startMs + endMs) / 2),
-        confidence: null,
-      });
-    }
+    caps.push(...wordsToCaptions(entry, offsetSec, mapSrc));
   };
 
   const hook = timeline.videoTrack.find((c) => c.role === "hook");

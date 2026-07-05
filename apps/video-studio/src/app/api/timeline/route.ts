@@ -14,6 +14,7 @@ import { buildFxPlan } from "@/lib/fxPlan";
 import {
   loadTranscript,
   buildRealCaptions,
+  wordsToCaptions,
   detectSilences,
   silenceSeconds,
   tokenizeScript,
@@ -161,6 +162,16 @@ export async function GET(req: NextRequest) {
       if (real.length) {
         fxPlan.captions = real;
         captionSource = "transcript";
+      }
+      // VEX-11: legendas próprias de cada variante de hook (offset 0).
+      if (timeline.hookVariants?.length) {
+        timeline = {
+          ...timeline,
+          hookVariants: timeline.hookVariants.map((v) => ({
+            ...v,
+            captions: wordsToCaptions(correctedTranscript[v.file], 0),
+          })),
+        };
       }
       const spoken: Array<{ file: string; role: string }> = [];
       const hook = timeline.videoTrack.find((c) => c.role === "hook");

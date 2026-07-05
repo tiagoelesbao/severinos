@@ -39,6 +39,7 @@ import {
   toggleElementKeyframe,
   moveKeyframesAt,
   removeKeyframesAt,
+  switchHookVariant,
 } from "@/lib/editorState";
 import { sampleTrack, hasKeyframes } from "@/lib/keyframes";
 import type { KfProp } from "@/lib/editorState";
@@ -1215,6 +1216,32 @@ function StudioInner() {
               <div style={{ fontSize: 11, color: "#666", marginBottom: 10 }}>
                 {clip.file} · {clip.durationSeconds}s
               </div>
+
+              {/* VEX-11: seletor de variante de hook (1 body × 3 hooks) */}
+              {clip.role === "hook" && (timeline.hookVariants?.length ?? 0) > 1 && (
+                <div style={{ marginBottom: 10, borderBottom: "1px solid rgba(255,255,255,.08)", paddingBottom: 10 }}>
+                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>Variante do hook (A/B) — o corpo é o mesmo</div>
+                  <div style={{ display: "flex", gap: 6 }}>
+                    {timeline.hookVariants!.map((v, i) => {
+                      const on = (timeline.activeHookVariant ?? 0) === i;
+                      return (
+                        <button
+                          key={v.file}
+                          onClick={() => { const r = switchHookVariant(timeline, fxPlan, i); apply({ timeline: r.timeline, fxPlan: r.fxPlan }); }}
+                          title={`${v.file} · ${(v.clip.durationInFrames / timeline.fps).toFixed(1)}s`}
+                          style={{ ...btn, flex: 1, fontSize: 12, fontWeight: 700, background: on ? "var(--color-accent)" : "var(--color-surface-4)", color: on ? "#06121a" : "var(--color-fg)" }}
+                        >
+                          {v.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div style={{ fontSize: 9, color: "#666", marginTop: 4 }}>
+                    Ativa: {timeline.hookVariants![timeline.activeHookVariant ?? 0]?.label} · {(timeline.hookVariants![timeline.activeHookVariant ?? 0]?.clip.durationInFrames / timeline.fps).toFixed(1)}s
+                  </div>
+                </div>
+              )}
+
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 <button style={btn} onClick={() => apply({ timeline: moveClip(timeline, sel, -1), fxPlan })}>← Antes</button>
                 <button style={btn} onClick={() => apply({ timeline: moveClip(timeline, sel, +1), fxPlan })}>Depois →</button>

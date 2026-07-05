@@ -469,6 +469,23 @@ interface AssemblyFile {
 }
 type TranscriptFile = Record<string, { words?: TranscriptWord[]; duration?: number }>;
 
+/** VEX-11: constrói o clip de uma variante de hook (talking-head, sem stretch). */
+function hookVariantClip(m: RawMaterial, probe: (p: string) => ProbeResult): TimelineClip {
+  let durationSeconds = GAP_SECONDS, width = TARGET_W, height = TARGET_H, gap = false;
+  try {
+    const p = probe(m.absPath);
+    durationSeconds = p.durationSeconds || GAP_SECONDS;
+    width = p.width; height = p.height;
+  } catch { gap = true; }
+  const frames = toFrames(durationSeconds);
+  return {
+    file: m.file, absPath: m.absPath, role: "hook",
+    durationSeconds: Number((frames / FPS).toFixed(2)), durationInFrames: frames,
+    nativeDurationInFrames: frames, playbackRate: 1, width, height,
+    startFrame: 0, audioEnabled: true, ...(gap ? { gap: true } : {}),
+  };
+}
+
 /** Pipeline completo: resolve materiais → (assembly+transcript) → timeline. */
 export function ingestCreative(
   repoRoot: string,
@@ -480,6 +497,8 @@ export function ingestCreative(
     /** Agressividade do auto-cut: corta pausas acima disto (s). */
     maxGapSec?: number;
     padSec?: number;
+    /** VEX-11: arquivo do hook ativo na espinha (default: 1º em ordem). */
+    activeHook?: string;
   } = {},
 ): Timeline {
   const FPS_LOCAL = 30;
@@ -536,11 +555,41 @@ export function ingestCreative(
     }
   }
 
-  return buildTimeline(materials, {
+  // VEX-11: detecta variantes de hook (hook-1/2/3). Mantém só a ATIVA na espinha
+  // (as demais viram `hookVariants`); assim o assembly narração-driven fica certo.
+  const hookMats = materials.filter((m) => m.kind === "video" && m.role === "hook");
+  const hookMatsSorted = [...hookMats].sort((a, b) => a.file.localeCompare(b.file));
+  let activeHookFile: string | undefined;
+  if (hookMatsSorted.length > 1) {
+    activeHookFile = opts.activeHook && hookMatsSorted.some((m) => m.file === opts.activeHook)
+      ? opts.activeHook
+      : hookMatsSorted[0].file;
+    materials = materials.filter((m) => m.role !== "hook" || m.file === activeHookFile);
+  }
+
+  const timeline = buildTimeline(materials, {
     client,
     creative,
     order: opts.order ?? assemblyOrder,
     mioloWindows,
     narrationSegments,
   });
+
+  // Anexa as variantes de hook (clips; legendas por variante são preenchidas na
+  // rota, onde o transcript está disponível). ≤1 hook → sem seletor A/B.
+  if (hookMatsSorted.length > 1) {
+    const activeClip = timeline.videoTrack.find((c) => c.role === "hook");
+    const variants = hookMatsSorted.map((m, i) => ({
+      file: m.file,
+      label: `H${i + 1}`,
+      clip: m.file === activeHookFile && activeClip ? activeClip : hookVariantClip(m, probeMedia),
+    }));
+    return {
+      ...timeline,
+      hookVariants: variants,
+      activeHookVariant: Math.max(0, variants.findIndex((v) => v.file === activeHookFile)),
+    };
+  }
+
+  return timeline;
 }

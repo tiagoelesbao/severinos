@@ -228,6 +228,21 @@ export interface Marker {
   label?: string;
 }
 
+/**
+ * VEX-11: variante de HOOK ("1 body, 3 hooks"). Cada variante é um talking-head
+ * próprio (clip + legendas). A timeline usa a variante ATIVA no videoTrack[0];
+ * trocar re-monta a espinha (narração/inserts re-ancoram) sem tocar o corpo.
+ */
+export interface HookVariant {
+  file: string;
+  /** Rótulo curto (H1/H2/H3 ou slug do text_overlay). */
+  label: string;
+  /** Clip completo do hook (talking-head, playbackRate 1). */
+  clip: TimelineClip;
+  /** Legendas próprias do hook (ms a partir de 0), quando transcrito. */
+  captions?: import("@remotion/captions").Caption[];
+}
+
 export interface Timeline {
   fps: number;
   width: number;
@@ -250,6 +265,10 @@ export interface Timeline {
   extraLayers?: ExtraLayer[];
   /** VEX-08: marcadores na régua (tecla M). Persistidos no save. */
   markers?: Marker[];
+  /** VEX-11: variantes de hook detectadas (hook-1/2/3). Ausente/≤1 = sem A/B. */
+  hookVariants?: HookVariant[];
+  /** Índice da variante de hook ativa (default 0). */
+  activeHookVariant?: number;
   meta: {
     client: string;
     creative: string;

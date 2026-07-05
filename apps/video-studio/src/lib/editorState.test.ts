@@ -6,6 +6,7 @@ import {
   trimClip,
   removeClip,
   removeClips,
+  switchHookVariant,
   setHookRenderer,
   editCaption,
   editAudioSegmentBoundary,
@@ -61,6 +62,35 @@ test("trimClip — reposiciona a narração (startFrame no 1º clip mudo)", () =
   // skill (mudo) começa em 60 → narração começa em 60.
   assert.equal(out.videoTrack[1].startFrame, 60);
   assert.equal(out.audioTrack?.startFrame, 60);
+});
+
+test("switchHookVariant — troca o hook, re-ancora o corpo e re-tempo as legendas", () => {
+  const base = tl();
+  const t: Timeline = {
+    ...base,
+    activeHookVariant: 0,
+    hookVariants: [
+      { file: "hook-1.mp4", label: "H1", clip: clip("hook-1.mp4", "hook", 90, 0), captions: [{ text: "Olha", startMs: 0, endMs: 900, timestampMs: 450, confidence: 1 }] },
+      { file: "hook-2.mp4", label: "H2", clip: clip("hook-2.mp4", "hook", 120, 0), captions: [{ text: "Espera", startMs: 0, endMs: 1200, timestampMs: 600, confidence: 1 }] },
+    ],
+  };
+  // corpo: 1 legenda da narração começando aos 3000ms (após o hook de 90f=3s).
+  const fx: FxPlan = { brand: { accent: "#000", primary: "#000", displayName: "x", fontFamily: "x" }, hookRenderer: "hard-cut", captionRenderer: "word-pop", motionRenderers: [], captions: [
+    { text: "Olha", startMs: 0, endMs: 900, timestampMs: 450, confidence: 1 },
+    { text: "corpo", startMs: 3000, endMs: 3500, timestampMs: 3200, confidence: 1 },
+  ] };
+  const out = switchHookVariant(t, fx, 1);
+  // hook agora é a H2 (120f) → skill começa em 120, narração em 120.
+  assert.equal(out.timeline.videoTrack[0].file, "hook-2.mp4");
+  assert.equal(out.timeline.videoTrack[1].startFrame, 120);
+  assert.equal(out.timeline.audioTrack?.startFrame, 120);
+  assert.equal(out.timeline.activeHookVariant, 1);
+  // legendas: hook trocado por "Espera"; corpo deslocado +1000ms (120f-90f=1s).
+  assert.deepEqual(out.fxPlan.captions.map((c) => c.text), ["Espera", "corpo"]);
+  assert.equal(out.fxPlan.captions[1].startMs, 4000);
+  assert.equal(out.fxPlan.captions[1].timestampMs, 4200);
+  // idempotência do índice inválido = no-op
+  assert.equal(switchHookVariant(t, fx, 9).timeline, t);
 });
 
 test("reorderClip — move um clip de from para to", () => {
