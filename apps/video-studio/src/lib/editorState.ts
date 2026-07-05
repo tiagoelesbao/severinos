@@ -66,6 +66,16 @@ export function removeClip(tl: Timeline, index: number): Timeline {
   return withVideoTrack(tl, tl.videoTrack.filter((_, i) => i !== index));
 }
 
+/**
+ * VEX-08: remove VÁRIOS clips de uma vez (ripple delete em lote) — 1 operação,
+ * logo 1 passo de undo. Nunca esvazia a track (mantém ≥1 clipe).
+ */
+export function removeClips(tl: Timeline, indices: number[]): Timeline {
+  const set = new Set(indices.filter((i) => i >= 0 && i < tl.videoTrack.length));
+  if (set.size === 0 || set.size >= tl.videoTrack.length) return tl;
+  return withVideoTrack(tl, tl.videoTrack.filter((_, i) => !set.has(i)));
+}
+
 /** Reordena um clip de `from` para `to` (drag-and-drop). */
 export function reorderClip(tl: Timeline, from: number, to: number): Timeline {
   const n = tl.videoTrack.length;

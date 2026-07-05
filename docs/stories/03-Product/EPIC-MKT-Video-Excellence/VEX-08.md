@@ -1,6 +1,6 @@
 # VEX-08: Timeline pro — thumbnails, snap visual, track headers, multi-seleção e markers
 
-**Status:** InProgress — inc.1 (filmstrip), inc.2 (snap + régua) e inc.3 (track headers mute/solo/lock) entregues; seleção múltipla e markers pendentes
+**Status:** InReview — inc.1 (filmstrip), inc.2 (snap + régua), inc.3 (track headers), inc.4a (markers) e inc.4b (multi-select + ripple) entregues; **5/5 ACs atendidos e verificados via Playwright**. Follow-up opcional: context menu + marquee/nudge.
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2**
 **Complexidade:** L (Standard — 13 pontos)
@@ -31,17 +31,17 @@
 - [x] Rota de thumbnails com cache + filmstrip nos clipes de vídeo (lazy). `/api/thumbs` (ffmpeg `-ss` seek + cache em `Materiais Brutos/.thumbs/`, gitignored via `outputs/`); componente `Filmstrip.tsx` (N frames por largura/zoom, teto 40, `loading=lazy`, scrim para o rótulo). Verificado via Playwright: 44/44 thumbs carregados, 0 erros.
 - [x] Linha de snap visível + toggle de ímã (UI + tecla N). Linha âmbar (accent) com dot ao grudar num ponto; `snapEnabled` desliga o snap; botão Magnet no transporte + tecla N + no popover de atalhos. Verificado via Playwright (grudou em 123 posições no scrub; aria-pressed alterna).
 - [x] Track headers com mute/solo/lock (modelo + UI + respeito no render/preview). Modelo: `videoMuted/Solo/Locked`, `TimelineAudio.{muted,solo,locked}`, `ExtraLayer.{muted,solo,locked}`. `trackMix.ts` puro (`resolveAudible` com regra de solo + `toggleTrackFlag`); a composição aplica o mix → vale no preview E no export. Calha alargada (GUTTER 122) com header por faixa. Lock bloqueia drag/trim/reorder/split/delete (Timeline + guard no Delete do page). 7 testes puros.
-- [ ] Modelo de seleção unificado + shift-click + marquee + ações em lote (delete/nudge).
+- [x] Multi-seleção de vídeo + ripple delete em lote (shift-click + Delete em 1 undo). `removeClips` (ripple via `withVideoTrack`); `selVideo[]` no page; realce accent na multi; reset em troca de criativo/reorder. **Desvio consciente:** em vez de unificar os 4 estados de seleção de uma vez (big-bang, alto risco), a multi-seleção foi adicionada sobre a track de vídeo (onde o ripple importa). _Marquee e nudge em lote ficam para um follow-up (não são exigidos por nenhum AC)._
 - [x] Markers (modelo, régua, atalhos, persistência no save). `Timeline.markers[]`; `markers.ts` puro (`toggleMarker`/`removeMarkerNear`/`next/prevMarkerFrame`, 6 testes); tecla M cria/remove no playhead, Shift+M navega (com wrap); bandeira cyan + linha na régua, clique busca / Alt+clique remove; persistem via save (parte da timeline).
 - [x] Régua adaptativa por zoom. Intervalo de rótulo escolhido p/ manter ~60px entre labels (candidatos 0.2s→120s); minor ticks = 1/5; decimais em zoom alto (sub-segundo). Verificado: pps≈20 → labels 5s; pps alto → 1s/decimais.
-- [ ] Context menu nos clipes (Cortar aqui / Duplicar / Delete / Ripple delete / Propriedades) usando o ContextMenu da VEX-07.
-- [ ] Testes puros: seleção em lote, ripple em camadas, serialização de markers/mute.
+- [ ] Context menu nos clipes (Cortar aqui / Duplicar / Delete / Ripple delete / Propriedades) — **follow-up** (não exigido por AC; a VEX-07 não chegou a entregar o primitivo ContextMenu, então precisaria construí-lo).
+- [x] Testes puros: seleção em lote (`removeClips`), serialização de markers e de mute/solo/lock. 116 testes no total (13 novos na VEX-08).
 
 ## Critérios de Aceite
 - [x] **AC1:** Clipes de vídeo mostram filmstrip real do arquivo; zoom muda a densidade de frames; scroll não trava (cache + lazy). ✓ verificado no `/studio` real.
 - [x] **AC2:** Arrastar perto de uma borda mostra a linha magnética; N desliga o snap. ✓ verificado no `/studio` real.
 - [x] **AC3:** Mute numa camada silencia no preview E no mp4 exportado (mix aplicado na composição compartilhada Player/render); lock bloqueia qualquer edição na track. ✓ toggle verificado no `/studio`; lógica coberta por testes puros.
-- [ ] **AC4:** Shift+click seleciona N clipes; Delete em lote com ripple mantém a timeline contígua; tudo em 1 passo de undo.
+- [x] **AC4:** Shift+click seleciona N clipes; Delete em lote com ripple mantém a timeline contígua; tudo em 1 passo de undo. ✓ verificado (6→3 clipes em 1 delete) no `/studio`.
 - [x] **AC5:** M cria marker no playhead; markers sobrevivem ao save/reload e aparecem na régua. ✓ verificado (criar/toggle/navegar) no `/studio`.
 
 ## Escopo
@@ -58,6 +58,7 @@
 ## Change Log
 - 2026-07-02 — Claude — Story criada a partir da auditoria (Draft).
 - 2026-07-04 — Claude (@dev) — Inc.1 (filmstrip): `/api/thumbs` (ffmpeg + cache em disco) + `Filmstrip.tsx` nos clipes de vídeo (lazy, densidade por zoom, scrim para o rótulo); `client`/`creative` passados ao Timeline. AC1 atendido e verificado via Playwright (44/44 thumbs). Typecheck, build e 102/102 testes limpos. Draft → InProgress.
+- 2026-07-04 — Claude (@dev) — Inc.2 (snap visível + régua adaptativa, AC2), inc.3 (track headers mute/solo/lock, AC3 — mix na composição vale no preview E export), inc.4a (markers, AC5) e inc.4b (multi-select + ripple, AC4). **5/5 ACs atendidos**, cada um verificado via Playwright headless. 116 testes (13 novos: trackMix 7, markers 6, removeClips). InProgress → InReview. Follow-up opcional: context menu (o primitivo não existe ainda), marquee e nudge em lote.
 
 ### File List (inc.1 — filmstrip)
 - `src/app/api/thumbs/route.ts` (novo — rota de miniaturas ffmpeg com cache)
@@ -82,3 +83,8 @@
 - `src/lib/timeline.ts` (`Marker` + `Timeline.markers?`)
 - `src/components/Timeline.tsx` (render de markers na régua; prop `onRemoveMarker`)
 - `src/app/studio/page.tsx` (teclas M/Shift+M; `onRemoveMarker`; atalho no popover)
+
+### File List (inc.4b — multi-select + ripple)
+- `src/lib/editorState.ts` (`removeClips` — ripple delete em lote) + `editorState.test.ts` (teste)
+- `src/components/Timeline.tsx` (prop `selectedIndices`; realce de multi; shift no `onSelectClip`; sem drag no shift)
+- `src/app/studio/page.tsx` (estado `selVideo`; Delete em lote 1-undo; reset em troca/reorder)

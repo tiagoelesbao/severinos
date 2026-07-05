@@ -40,6 +40,7 @@ export function Timeline({
   currentFrame,
   pps,
   selectedIndex,
+  selectedIndices,
   mediaBaseUrl,
   client = "",
   creative = "",
@@ -75,6 +76,8 @@ export function Timeline({
   currentFrame: number;
   pps: number;
   selectedIndex: number;
+  /** VEX-08: índices de vídeo em multi-seleção (shift+clique). */
+  selectedIndices?: number[];
   mediaBaseUrl: string;
   /** VEX-08: filmstrip pede thumbs por client/creative. */
   client?: string;
@@ -85,7 +88,8 @@ export function Timeline({
   onTrackFlag?: (key: TrackKey, flag: TrackFlag) => void;
   /** VEX-08: remover um marcador (alt+clique na régua). */
   onRemoveMarker?: (frame: number) => void;
-  onSelectClip: (i: number) => void;
+  /** `additive` = shift pressionado (multi-seleção). */
+  onSelectClip: (i: number, additive?: boolean) => void;
   onSeek: (frame: number) => void;
   onTrim: (index: number, deltaFrames: number) => void;
   onTrimStart?: () => void;
@@ -448,6 +452,7 @@ export function Timeline({
             const w = Math.max(10, fToX(c.durationInFrames));
             const color = roleColor(c.role);
             const selected = i === selectedIndex;
+            const multiSel = (selectedIndices ?? []).includes(i); // VEX-08: multi-seleção
             const dragging = drag?.kind === "reorder" && drag.index === i;
             const tr = i > 0 ? c.transitionIn?.type ?? "dissolve" : null;
             const trIcon = tr === "none" ? "⊣" : tr === "slide" ? "▷" : tr === "zoom" ? "⊙" : "◑";
@@ -473,7 +478,8 @@ export function Timeline({
                 key={`${c.file}-${i}`}
                 onMouseDown={(e) => {
                   e.stopPropagation();
-                  onSelectClip(i);
+                  onSelectClip(i, e.shiftKey);
+                  if (e.shiftKey) return; // shift = só (des)marca; não arrasta
                   if (timeline.videoLocked) return; // faixa travada: seleciona, não edita
                   if (razorMode) {
                     onSplit?.(i, snapFrame(frameAtClientX(e.clientX)));
@@ -490,8 +496,8 @@ export function Timeline({
                   top: 4,
                   height: ROW_H - 8,
                   background: c.gap ? "#3a1a1a" : `${color}2e`,
-                  border: `2px solid ${selected ? "var(--color-fg)" : color}`,
-                  boxShadow: dragging ? "0 6px 20px rgba(0,0,0,.6)" : selected ? "0 0 0 2px rgba(255,255,255,.25)" : "none",
+                  border: `2px solid ${selected ? "var(--color-fg)" : multiSel ? "var(--color-accent)" : color}`,
+                  boxShadow: dragging ? "0 6px 20px rgba(0,0,0,.6)" : selected ? "0 0 0 2px rgba(255,255,255,.25)" : multiSel ? "0 0 0 2px var(--color-accent)" : "none",
                   borderRadius: 6,
                   cursor: razorMode ? "crosshair" : dragging ? "grabbing" : "grab",
                   overflow: "hidden",

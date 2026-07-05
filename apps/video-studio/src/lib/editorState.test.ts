@@ -5,6 +5,7 @@ import {
   moveClip,
   trimClip,
   removeClip,
+  removeClips,
   setHookRenderer,
   editCaption,
   editAudioSegmentBoundary,
@@ -253,6 +254,16 @@ test("removeClip — remove e re-sequencia; não esvazia", () => {
   // não remove o último restante
   const one = removeClip(removeClip(t, 0), 0);
   assert.equal(one.videoTrack.length, 1);
+});
+
+test("removeClips — remove em lote com ripple (1 operação)", () => {
+  const t = removeClips(tl(), [0, 2]); // tira hook e cta, sobra skill
+  assert.deepEqual(t.videoTrack.map((c) => c.role), ["skill"]);
+  assert.deepEqual(t.videoTrack.map((c) => c.startFrame), [0]); // ripple: começa em 0
+  // nunca esvazia
+  assert.equal(removeClips(tl(), [0, 1, 2]).videoTrack.length, 3);
+  // índices inválidos são ignorados
+  assert.equal(removeClips(tl(), [99, -1]).videoTrack.length, 3);
 });
 
 test("setHookRenderer / editCaption — imutável", () => {

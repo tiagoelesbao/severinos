@@ -11,6 +11,7 @@ import {
   moveClip,
   trimClip,
   removeClip,
+  removeClips,
   setHookRenderer,
   setCaptionRenderer,
   setElementParams,
@@ -131,6 +132,7 @@ function StudioInner() {
   const [audit, setAudit] = useState<AuditReport | null>(null);
   const [persisted, setPersisted] = useState(false);
   const [sel, setSel] = useState(0);
+  const [selVideo, setSelVideo] = useState<number[]>([0]); // VEX-08: multi-seleção de vídeo
   const [status, setStatus] = useState("Carregando…");
   const [currentFrame, setCurrentFrame] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -241,7 +243,7 @@ function StudioInner() {
   const switchCreative = useCallback((id: string) => {
     if (id === creative) return;
     setCreative(id);
-    setSel(0); setSelectedLayerClip(""); setSelectedCue(-1); setSelectedAudio("");
+    setSel(0); setSelVideo([0]); setSelectedLayerClip(""); setSelectedCue(-1); setSelectedAudio("");
     router.replace(`/studio?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(id)}`);
   }, [creative, client, router]);
 
@@ -651,10 +653,15 @@ function StudioInner() {
           if ((snap.timeline.extraLayers ?? []).find((L) => L.id === lid)?.locked) return;
           apply({ timeline: removeLayerClip(snap.timeline, lid, cid), fxPlan: snap.fxPlan });
           setSelectedLayerClip("");
+        } else if (snap.timeline.videoLocked) {
+          return; // faixa de vídeo travada
+        } else if (selVideo.length > 1) {
+          // VEX-08: ripple delete em lote — 1 passo de undo.
+          apply({ timeline: removeClips(snap.timeline, selVideo), fxPlan: snap.fxPlan });
+          setSel(0); setSelVideo([0]);
         } else if (snap.timeline.videoTrack.length > 1) {
-          if (snap.timeline.videoLocked) return; // faixa de vídeo travada
           apply({ timeline: removeClip(snap.timeline, sel), fxPlan: snap.fxPlan });
-          setSel(0);
+          setSel(0); setSelVideo([0]);
         }
       } else if (e.code === "Space") {
         e.preventDefault();
@@ -692,7 +699,7 @@ function StudioInner() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [snap, seek, togglePlay, save, undo, redo, apply, sel, selectedLayerClip]);
+  }, [snap, seek, togglePlay, save, undo, redo, apply, sel, selVideo, selectedLayerClip]);
 
   if (!snap || !inputProps) {
     const empty = !!client && creatives.length === 0;
@@ -1481,13 +1488,20 @@ function StudioInner() {
         snapEnabled={snapOn}
         onTrackFlag={(key, flag) => apply({ timeline: toggleTrackFlag(timeline, key, flag), fxPlan })}
         onRemoveMarker={(frame) => apply({ timeline: { ...timeline, markers: removeMarkerNear(timeline.markers, frame) }, fxPlan })}
-        onSelectClip={(i) => { setSel(i); setSelectedLayerClip(""); }}
+        selectedIndices={selVideo}
+        onSelectClip={(i, additive) => {
+          setSelectedLayerClip("");
+          setSel(i);
+          setSelVideo((cur) => additive
+            ? (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i])
+            : [i]);
+        }}
         onSeek={seek}
         onTrimStart={beginEdit}
         onTrim={(index, deltaFrames) => liveUpdate({ timeline: trimClip(timeline, index, deltaFrames), fxPlan })}
         onTrimStartLeft={(index, deltaFrames) => liveUpdate({ timeline: trimClipStart(timeline, index, deltaFrames), fxPlan })}
         razorMode={razorMode}
-        onReorder={(from, to) => apply({ timeline: reorderClip(timeline, from, to), fxPlan })}
+        onReorder={(from, to) => { apply({ timeline: reorderClip(timeline, from, to), fxPlan }); setSel(to); setSelVideo([to]); }}
         onSplit={(index, atFrame) => { apply({ timeline: splitClip(timeline, index, atFrame), fxPlan }); setRazorMode(false); }}
         cues={cues}
         selectedCue={selectedCue}
