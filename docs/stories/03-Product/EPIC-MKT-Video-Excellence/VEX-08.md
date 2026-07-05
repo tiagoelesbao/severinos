@@ -88,3 +88,7 @@
 - `src/lib/editorState.ts` (`removeClips` — ripple delete em lote) + `editorState.test.ts` (teste)
 - `src/components/Timeline.tsx` (prop `selectedIndices`; realce de multi; shift no `onSelectClip`; sem drag no shift)
 - `src/app/studio/page.tsx` (estado `selVideo`; Delete em lote 1-undo; reset em troca/reorder)
+
+### File List (inc.4c — pinça frame-a-frame pelas setas, pedido do dono)
+- `src/components/Timeline.tsx` (props `selectedTrim`/`onSelectTrim`; clique numa pinça a seleciona e realça em accent)
+- `src/app/studio/page.tsx` (estado `trimSel`; ← → aparam a borda ±1 frame com o playhead pulando p/ o corte; Shift+← → = playhead 1 frame; limpa a pinça ao clicar no corpo/Esc/troca; atalho no popover)

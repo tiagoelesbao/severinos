@@ -41,12 +41,14 @@ export function Timeline({
   pps,
   selectedIndex,
   selectedIndices,
+  selectedTrim,
   mediaBaseUrl,
   client = "",
   creative = "",
   snapEnabled = true,
   onTrackFlag,
   onRemoveMarker,
+  onSelectTrim,
   onSelectClip,
   onSeek,
   onTrim,
@@ -78,6 +80,8 @@ export function Timeline({
   selectedIndex: number;
   /** VEX-08: índices de vídeo em multi-seleção (shift+clique). */
   selectedIndices?: number[];
+  /** VEX-08: pinça (alça de aparar) selecionada p/ nudge pelas setas. */
+  selectedTrim?: { index: number; edge: "L" | "R" } | null;
   mediaBaseUrl: string;
   /** VEX-08: filmstrip pede thumbs por client/creative. */
   client?: string;
@@ -88,6 +92,8 @@ export function Timeline({
   onTrackFlag?: (key: TrackKey, flag: TrackFlag) => void;
   /** VEX-08: remover um marcador (alt+clique na régua). */
   onRemoveMarker?: (frame: number) => void;
+  /** VEX-08: seleciona uma pinça (borda de aparo) p/ ajuste pelas setas. */
+  onSelectTrim?: (index: number, edge: "L" | "R") => void;
   /** `additive` = shift pressionado (multi-seleção). */
   onSelectClip: (i: number, additive?: boolean) => void;
   onSeek: (frame: number) => void;
@@ -456,10 +462,14 @@ export function Timeline({
             const dragging = drag?.kind === "reorder" && drag.index === i;
             const tr = i > 0 ? c.transitionIn?.type ?? "dissolve" : null;
             const trIcon = tr === "none" ? "⊣" : tr === "slide" ? "▷" : tr === "zoom" ? "⊙" : "◑";
-            const handle = (kind: "trimL" | "trimR") => (
+            const handle = (kind: "trimL" | "trimR") => {
+              const edge = kind === "trimL" ? "L" : "R";
+              const trimActive = selectedTrim?.index === i && selectedTrim.edge === edge;
+              return (
               <div
                 onMouseDown={(e) => {
                   e.stopPropagation();
+                  onSelectTrim?.(i, edge); // seleciona a pinça (setas afinam ±1 frame)
                   onTrimStart?.();
                   setDrag(
                     kind === "trimL"
@@ -467,12 +477,13 @@ export function Timeline({
                       : { kind: "trimR", index: i, startX: e.clientX },
                   );
                 }}
-                title={kind === "trimL" ? "Aparar início (in-point)" : "Aparar fim"}
-                style={{ position: "absolute", [kind === "trimL" ? "left" : "right"]: 0, top: 0, width: 11, height: "100%", cursor: "ew-resize", background: selected ? "rgba(255,255,255,.4)" : "rgba(255,255,255,.2)", display: "flex", alignItems: "center", justifyContent: "center" }}
+                title={`${kind === "trimL" ? "Aparar início (in-point)" : "Aparar fim"} — clique e use ← → p/ ±1 frame`}
+                style={{ position: "absolute", [kind === "trimL" ? "left" : "right"]: 0, top: 0, width: trimActive ? 13 : 11, height: "100%", cursor: "ew-resize", background: trimActive ? "var(--color-accent)" : selected ? "rgba(255,255,255,.4)" : "rgba(255,255,255,.2)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: trimActive ? 3 : undefined }}
               >
-                <div style={{ width: 3, height: "45%", background: "var(--color-fg)", opacity: 0.8, borderRadius: 2 }} />
+                <div style={{ width: 3, height: "45%", background: trimActive ? "#06121a" : "var(--color-fg)", opacity: 0.85, borderRadius: 2 }} />
               </div>
-            );
+              );
+            };
             return (
               <div
                 key={`${c.file}-${i}`}

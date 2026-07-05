@@ -133,6 +133,8 @@ function StudioInner() {
   const [persisted, setPersisted] = useState(false);
   const [sel, setSel] = useState(0);
   const [selVideo, setSelVideo] = useState<number[]>([0]); // VEX-08: multi-seleção de vídeo
+  // VEX-08: pinça (alça de aparar) selecionada p/ ajuste frame-a-frame pelas setas.
+  const [trimSel, setTrimSel] = useState<{ index: number; edge: "L" | "R" } | null>(null);
   const [status, setStatus] = useState("Carregando…");
   const [currentFrame, setCurrentFrame] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -243,7 +245,7 @@ function StudioInner() {
   const switchCreative = useCallback((id: string) => {
     if (id === creative) return;
     setCreative(id);
-    setSel(0); setSelVideo([0]); setSelectedLayerClip(""); setSelectedCue(-1); setSelectedAudio("");
+    setSel(0); setSelVideo([0]); setTrimSel(null); setSelectedLayerClip(""); setSelectedCue(-1); setSelectedAudio("");
     router.replace(`/studio?client=${encodeURIComponent(client)}&creative=${encodeURIComponent(id)}`);
   }, [creative, client, router]);
 
@@ -670,10 +672,26 @@ function StudioInner() {
         seek(Math.max(0, cf - 1)); // 1 frame
       } else if (e.code === "Period") {
         seek(Math.min(durationInFrames - 1, cf + 1));
-      } else if (e.code === "ArrowLeft") {
-        seek(Math.max(0, cf - fps));
-      } else if (e.code === "ArrowRight") {
-        seek(Math.min(durationInFrames - 1, cf + fps));
+      } else if (e.code === "ArrowLeft" || e.code === "ArrowRight") {
+        const dir = e.code === "ArrowRight" ? 1 : -1;
+        if (trimSel && !e.shiftKey) {
+          // VEX-08: pinça selecionada → move a borda ±1 frame (afinação fina).
+          e.preventDefault();
+          const t = snap.timeline;
+          if (trimSel.index < 0 || trimSel.index >= t.videoTrack.length) { setTrimSel(null); return; }
+          if (t.videoLocked) return; // faixa travada
+          const nt = trimSel.edge === "R"
+            ? trimClip(t, trimSel.index, dir)
+            : trimClipStart(t, trimSel.index, dir);
+          apply({ timeline: nt, fxPlan: snap.fxPlan });
+          // playhead pula para a borda p/ ver o frame exato do corte
+          const c = nt.videoTrack[trimSel.index];
+          if (c) seek(trimSel.edge === "R" ? c.startFrame + c.durationInFrames - 1 : c.startFrame);
+        } else {
+          // Sem pinça: navega ±1s (Shift = 1 frame fino).
+          const step = e.shiftKey ? 1 : fps;
+          seek(dir > 0 ? Math.min(durationInFrames - 1, cf + step) : Math.max(0, cf - step));
+        }
       } else if (e.code === "Home") {
         seek(0);
       } else if (e.code === "End") {
@@ -694,12 +712,13 @@ function StudioInner() {
         }
       } else if (e.code === "Escape") {
         setSelectedLayerClip("");
+        setTrimSel(null);
         setShowKeys(false);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [snap, seek, togglePlay, save, undo, redo, apply, sel, selVideo, selectedLayerClip]);
+  }, [snap, seek, togglePlay, save, undo, redo, apply, sel, selVideo, trimSel, selectedLayerClip]);
 
   if (!snap || !inputProps) {
     const empty = !!client && creatives.length === 0;
@@ -1059,6 +1078,7 @@ function StudioInner() {
               <div><kbd>Espaço</kbd> play/pause · <kbd>← →</kbd> ±1s · <kbd>, .</kbd> ±1 frame</div>
               <div><kbd>Home</kbd>/<kbd>End</kbd> início/fim · <kbd>C</kbd> cortar (razor) · <kbd>N</kbd> snap ímã</div>
               <div><kbd>M</kbd> marcador (toggle) · <kbd>Shift+M</kbd> próximo marcador</div>
+              <div>Clique numa <b>pinça</b> do clipe + <kbd>← →</kbd> apara ±1 frame · <kbd>Shift+← →</kbd> playhead 1 frame</div>
               <div><kbd>Ctrl+Z</kbd> desfazer · <kbd>Ctrl+Shift+Z</kbd>/<kbd>Ctrl+Y</kbd> refazer</div>
               <div><kbd>Delete</kbd> remover selecionado · <kbd>Ctrl+S</kbd> salvar · <kbd>Esc</kbd> desselecionar</div>
             </div>
@@ -1489,8 +1509,11 @@ function StudioInner() {
         onTrackFlag={(key, flag) => apply({ timeline: toggleTrackFlag(timeline, key, flag), fxPlan })}
         onRemoveMarker={(frame) => apply({ timeline: { ...timeline, markers: removeMarkerNear(timeline.markers, frame) }, fxPlan })}
         selectedIndices={selVideo}
+        selectedTrim={trimSel}
+        onSelectTrim={(index, edge) => { setSel(index); setTrimSel({ index, edge }); }}
         onSelectClip={(i, additive) => {
           setSelectedLayerClip("");
+          setTrimSel(null); // clicar no corpo do clipe solta a pinça
           setSel(i);
           setSelVideo((cur) => additive
             ? (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i])
