@@ -1,6 +1,6 @@
 # VEX-10: Preview pro — safe-zones de plataforma, grade, medidores de áudio e command palette
 
-**Status:** InProgress — inc.1 (safe-zones + warning de composição) entregue; VU meter, command palette, grade e zoom pendentes
+**Status:** InReview — inc.1 (safe-zones+warning), inc.2 (command palette), inc.3 (VU meter) e inc.4 (grade de terços) entregues; **5/5 ACs atendidos e verificados via Playwright**. Follow-up opcional (sem AC): zoom/pan do palco, snap de handles às guias, unificação total do popover de atalhos com o registro.
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2**
 **Complexidade:** M (Standard — 8 pontos)
@@ -26,10 +26,10 @@
 
 ## Tarefas (Checklist)
 - [x] `lib/safeZones.ts` (IG/TikTok/genérico, frações + `coveredZoneAt`, 6 testes) + overlay hachurado no palco com seletor de plataforma no transporte (UI-only).
-- [ ] Grade de terços/centro + snap de handles às guias.
+- [x] Grade de terços/centro (toggle no transporte + comando na paleta; UI-only). _Snap de handles às guias = follow-up opcional._
 - [x] VU meter no transporte (nível + clipping). Escolha robusta: estimador DETERMINÍSTICO `levels.ts` (`estimateLevel` soma faixas audíveis respeitando mute/solo/ducking/fades) em vez de tap frágil no Player. 5 testes (inclui o caso do AC2). Barra verde→amarelo→vermelho + rótulo CLIP.
 - [x] Registro central de comandos + palette Ctrl+K (kit `CommandPalette` sobre Radix Dialog — sem dep nova; busca + navegação por setas + Enter). ~19 comandos (transporte/editar/ferramentas/marcadores/camadas/preview/navegação). _Popover de atalhos ainda hardcoded; unificação total é follow-up leve._
-- [ ] Zoom/pan do palco.
+- [~] Zoom/pan do palco — **follow-up opcional** (nenhum AC depende; o palco já ajusta ao 9:16).
 - [x] Aviso de composição: elemento visual sob a UI → `auditComposition` (E1, category "composicao") no `buildAudit` + aviso AO VIVO no inspector do elemento.
 
 ## Critérios de Aceite
@@ -67,3 +67,9 @@
 ### File List (inc.3 — VU meter)
 - `src/lib/levels.ts` + `src/lib/levels.test.ts` (novos — estimador determinístico)
 - `src/app/studio/page.tsx` (VU bar no transporte + indicador CLIP)
+
+### File List (inc.4 — grade de terços)
+- `src/app/studio/page.tsx` (overlay de grade + toggle no transporte + comando na paleta)
+
+## Change Log (continuação)
+- 2026-07-05 — Claude (@dev) — Inc.2 (command palette Ctrl+K, ~19 comandos), inc.3 (VU meter determinístico `levels.ts`, 5 testes) e inc.4 (grade de terços). **5/5 ACs**. Typecheck, `next build`, 137 testes. Verificado via Playwright a cada peça. InProgress → InReview.

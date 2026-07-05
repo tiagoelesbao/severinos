@@ -53,6 +53,7 @@ import {
   Download,
   HelpCircle,
   Diamond,
+  Grid3x3,
   Magnet,
   Play,
   Pause,
@@ -159,6 +160,7 @@ function StudioInner() {
   const [razorMode, setRazorMode] = useState(false);
   const [snapOn, setSnapOn] = useState(true); // VEX-08: snap magnético (tecla N)
   const [safeZone, setSafeZone] = useState<string>(""); // VEX-10: "" = off; senão platform id
+  const [showGrid, setShowGrid] = useState(false); // VEX-10: grade de terços no palco
   const [paletteOpen, setPaletteOpen] = useState(false); // VEX-10: command palette (Ctrl+K)
 
   // VEX-10: Ctrl+K abre a paleta de comandos (global, mesmo com foco em input).
@@ -783,6 +785,7 @@ function StudioInner() {
     { id: "add-audio", group: "Camadas", label: "Adicionar camada de áudio", run: () => apply({ timeline: addLayer(timeline, "audio", "SFX/Trilha"), fxPlan }) },
     { id: "add-overlay", group: "Camadas", label: "Adicionar camada de overlay", run: () => apply({ timeline: addLayer(timeline, "video", "Overlay"), fxPlan }) },
     { id: "add-text", group: "Camadas", label: "Adicionar texto", run: () => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrameRef.current, timeline.fps)), fxPlan }) },
+    { id: "grid", group: "Preview", label: showGrid ? "Ocultar grade de terços" : "Grade de terços", run: () => setShowGrid((v) => !v) },
     { id: "sz-off", group: "Preview", label: "Safe-zone: desligar", run: () => setSafeZone("") },
     ...PLATFORMS.map((p) => ({ id: `sz-${p.id}`, group: "Preview", label: `Safe-zone: ${p.label}`, run: () => setSafeZone(p.id) })),
     { id: "switch-client", group: "Navegação", label: "Trocar de cliente", run: () => router.push("/") },
@@ -1045,6 +1048,19 @@ function StudioInner() {
                 </div>
               );
             })()}
+            {/* VEX-10: grade de terços + centro (UI-only, nunca no export) */}
+            {showGrid && (
+              <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 3 }}>
+                {[1, 2].map((i) => (
+                  <div key={`v${i}`} style={{ position: "absolute", left: `${(i / 3) * 100}%`, top: 0, width: 1, height: "100%", background: "rgba(255,255,255,.22)" }} />
+                ))}
+                {[1, 2].map((i) => (
+                  <div key={`h${i}`} style={{ position: "absolute", top: `${(i / 3) * 100}%`, left: 0, height: 1, width: "100%", background: "rgba(255,255,255,.22)" }} />
+                ))}
+                <div style={{ position: "absolute", left: "50%", top: "50%", width: 14, height: 1, background: "rgba(255,255,255,.5)", transform: "translate(-50%,-50%)" }} />
+                <div style={{ position: "absolute", left: "50%", top: "50%", width: 1, height: 14, background: "rgba(255,255,255,.5)", transform: "translate(-50%,-50%)" }} />
+              </div>
+            )}
             {/* VEX-10: safe-zones da plataforma — só na UI do editor (nunca no export) */}
             {safeZone && (() => {
               const plat = PLATFORMS.find((p) => p.id === safeZone);
@@ -1122,6 +1138,11 @@ function StudioInner() {
                 <option value="">Safe-zone: off</option>
                 {PLATFORMS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
               </select>
+            </Tip>
+            <Tip label={showGrid ? "Ocultar grade de terços" : "Grade de terços"}>
+              <IconButton aria-label="Grade de terços" aria-pressed={showGrid} active={showGrid} onClick={() => setShowGrid((v) => !v)}>
+                <Grid3x3 className="size-4" />
+              </IconButton>
             </Tip>
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <Tip label="Salvar edição (Ctrl+S)">
