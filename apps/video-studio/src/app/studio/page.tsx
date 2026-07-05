@@ -1510,7 +1510,13 @@ function StudioInner() {
         onRemoveMarker={(frame) => apply({ timeline: { ...timeline, markers: removeMarkerNear(timeline.markers, frame) }, fxPlan })}
         selectedIndices={selVideo}
         selectedTrim={trimSel}
-        onSelectTrim={(index, edge) => { setSel(index); setTrimSel({ index, edge }); }}
+        onSelectTrim={(index, edge) => {
+          setSel(index); setTrimSel({ index, edge });
+          // Playhead vai para a borda: as setas passam a afinar 1 frame por vez
+          // a partir do frame do corte (sem salto em bloco na 1ª tecla).
+          const c = timeline.videoTrack[index];
+          if (c) seek(edge === "R" ? c.startFrame + c.durationInFrames - 1 : c.startFrame);
+        }}
         onSelectClip={(i, additive) => {
           setSelectedLayerClip("");
           setTrimSel(null); // clicar no corpo do clipe solta a pinça

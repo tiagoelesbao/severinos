@@ -185,7 +185,9 @@ export function Timeline({
   const snapFrame = useCallback(
     (f: number) => {
       if (!snapEnabled) return f;
-      const thr = (8 / pps) * fps;
+      // Raio de ~8px, mas no máx. 5 frames: em zoom baixo 8px valem dezenas de
+      // frames e a borda "saltava em bloco" ao grudar. Cap mantém o arraste fino.
+      const thr = Math.min((8 / pps) * fps, 5);
       let best = f;
       let bestD = thr;
       for (const p of snapPoints) {
