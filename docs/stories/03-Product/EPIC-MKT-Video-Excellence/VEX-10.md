@@ -1,6 +1,6 @@
 # VEX-10: Preview pro — safe-zones de plataforma, grade, medidores de áudio e command palette
 
-**Status:** Draft
+**Status:** InProgress — inc.1 (safe-zones + warning de composição) entregue; VU meter, command palette, grade e zoom pendentes
 **Epic:** EPIC-MKT-Video-Excellence (F3 — Paridade NLE + estética)
 **Prioridade:** **P2**
 **Complexidade:** M (Standard — 8 pontos)
@@ -25,19 +25,19 @@
 - **Zoom do palco:** fit / 50% / 100% + pan (espaço+drag), útil para posicionar elementos com precisão.
 
 ## Tarefas (Checklist)
-- [ ] `lib/safeZones.ts` (IG/TikTok/genérico) + overlay com toggle e seletor de plataforma.
+- [x] `lib/safeZones.ts` (IG/TikTok/genérico, frações + `coveredZoneAt`, 6 testes) + overlay hachurado no palco com seletor de plataforma no transporte (UI-only).
 - [ ] Grade de terços/centro + snap de handles às guias.
 - [ ] VU meter no transporte (nível + peak + clipping) durante o playback.
 - [ ] Registro central de comandos + palette Ctrl+K + popover de atalhos alimentado pelo mesmo registro.
 - [ ] Zoom/pan do palco.
-- [ ] Aviso de composição: legenda/texto dentro de zona coberta → warning na auditoria E1 (usa as mesmas zonas).
+- [x] Aviso de composição: elemento visual sob a UI → `auditComposition` (E1, category "composicao") no `buildAudit` + aviso AO VIVO no inspector do elemento.
 
 ## Critérios de Aceite
-- [ ] **AC1:** Toggle "Safe-zone: Instagram" desenha as áreas cobertas; as legendas default ficam FORA delas (e o número mágico 430 passa a derivar de `safeZones`).
+- [x] **AC1:** Toggle "Safe-zone: Instagram" desenha as áreas cobertas; as legendas default ficam FORA delas (`paddingBottom` deriva de `SAFE_CAPTION_BOTTOM`, = 430 @1920px). ✓ verificado.
 - [ ] **AC2:** VU mostra atividade durante o play e acende clipping quando SFX a volume 1.0 estoura (caso de teste real).
 - [ ] **AC3:** Ctrl+K → digitar "export" aciona o export (VEX-01); toda ação do registro é acionável pela palette.
-- [ ] **AC4:** Elemento de texto posicionado dentro da zona do botão de like gera warning E1 com sugestão de reposicionamento.
-- [ ] **AC5:** Overlays/grade nunca aparecem no mp4 exportado.
+- [x] **AC4:** Elemento de texto dentro da zona do botão de like gera warning E1 (`auditComposition`) + aviso ao vivo no inspector com sugestão. ✓ verificado (texto em x93/y60 → aviso "Curtir/comentar/enviar").
+- [x] **AC5:** Overlays/grade nunca aparecem no mp4 exportado — desenhados só na UI do editor (page.tsx), fora da composição Remotion. ✓ por construção.
 
 ## Escopo
 **IN:** safe-zones, grade/guias, VU, palette, zoom do palco, warning E1 de composição.
@@ -52,3 +52,10 @@
 
 ## Change Log
 - 2026-07-02 — Claude — Story criada a partir da auditoria (Draft).
+- 2026-07-05 — Claude (@dev) — Inc.1 (safe-zones): `safeZones.ts` (IG/TikTok/genérico, 6 testes) + overlay hachurado no palco + seletor no transporte; `auditComposition` (E1) + aviso ao vivo no inspector; `paddingBottom` das legendas derivado de `SAFE_CAPTION_BOTTOM`. AC1/AC4/AC5 ✓. Typecheck, `next build`, 132 testes. Verificado via Playwright. Draft → InProgress.
+
+### File List (inc.1 — safe-zones)
+- `src/lib/safeZones.ts` + `src/lib/safeZones.test.ts` (novos)
+- `src/lib/audit.ts` (`auditComposition` + category "composicao" no buildAudit)
+- `src/remotion/fx/Captions.tsx` (paddingBottom derivado de SAFE_CAPTION_BOTTOM)
+- `src/app/studio/page.tsx` (overlay no palco + seletor no transporte + aviso ao vivo no inspector)

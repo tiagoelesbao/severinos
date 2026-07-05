@@ -3,6 +3,7 @@ import type { Timeline } from "./timeline";
 import type { Transcript } from "./transcript";
 import { buildCues } from "./cues.ts";
 import { momentToFrame, type SoundDesign } from "./soundPlan.ts";
+import { coveredZoneAt, platformById } from "./safeZones.ts";
 
 /**
  * Motor de auditoria (E1) — revalida o criativo para garantir qualidade na
@@ -14,7 +15,7 @@ import { momentToFrame, type SoundDesign } from "./soundPlan.ts";
  */
 
 export type AuditSeverity = "info" | "aviso" | "erro";
-export type AuditCategory = "congruencia" | "legenda" | "ritmo" | "edicao" | "som";
+export type AuditCategory = "congruencia" | "legenda" | "ritmo" | "edicao" | "som" | "composicao";
 
 export interface AuditFinding {
   id: string;
@@ -228,6 +229,35 @@ export function auditSoundDesign(sd: SoundDesign | null | undefined, timeline: T
 
 const WEIGHT: Record<AuditSeverity, number> = { erro: 15, aviso: 5, info: 1 };
 
+/**
+ * VEX-10: composição — elemento de texto/overlay cujo CENTRO cai sob a UI da
+ * plataforma (safe-zones) gera aviso com sugestão de reposicionamento.
+ */
+export function auditComposition(timeline: Timeline, platformId = "instagram"): AuditFinding[] {
+  const out: AuditFinding[] = [];
+  const zones = platformById(platformId).zones;
+  for (const layer of timeline.extraLayers ?? []) {
+    for (const cl of layer.clips) {
+      const type = cl.type ?? (layer.kind === "audio" ? "media-audio" : "media-video");
+      if (type === "media-audio") continue;
+      const cx = (cl.x ?? 50) / 100;
+      const cy = (cl.y ?? 50) / 100;
+      const zone = coveredZoneAt(cx, cy, zones);
+      if (zone) {
+        out.push({
+          id: `comp-${layer.id}-${cl.id}`,
+          category: "composicao",
+          severity: "aviso",
+          message: `"${cl.label}" está sob a UI da plataforma (${zone.label}).`,
+          atMs: Math.round((cl.startFrame / timeline.fps) * 1000),
+          suggestion: "Reposicione para a área segura (centro do vídeo) para não ficar coberto.",
+        });
+      }
+    }
+  }
+  return out;
+}
+
 /** Auditoria completa (Gate A + B) + score de qualidade. */
 export function buildAudit(
   timeline: Timeline,
@@ -242,6 +272,7 @@ export function buildAudit(
     ...auditCaptions(captions, vocab),
     ...auditEdit(timeline),
     ...auditSoundDesign(soundDesign, timeline),
+    ...auditComposition(timeline),
   ];
   const stats = { erro: 0, aviso: 0, info: 0 };
   let penalty = 0;

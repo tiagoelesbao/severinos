@@ -42,6 +42,7 @@ import {
 } from "@/lib/editorState";
 import { sampleTrack, hasKeyframes } from "@/lib/keyframes";
 import type { KfProp } from "@/lib/editorState";
+import { PLATFORMS, platformById, coveredZoneAt } from "@/lib/safeZones";
 import type { TransitionType, AnimType } from "@/lib/timeline";
 import { buildCues, editCueText, shiftCaptions, type CueOptions } from "@/lib/cues";
 import type { HookRenderer, CaptionRenderer } from "@/lib/fxRegistry";
@@ -156,6 +157,7 @@ function StudioInner() {
   const [selectedAudio, setSelectedAudio] = useState("");
   const [razorMode, setRazorMode] = useState(false);
   const [snapOn, setSnapOn] = useState(true); // VEX-08: snap magnético (tecla N)
+  const [safeZone, setSafeZone] = useState<string>(""); // VEX-10: "" = off; senão platform id
   const [selectedLayerClip, setSelectedLayerClip] = useState(""); // "layerId/clipId"
   const [assets, setAssets] = useState<{ library: Asset[]; materials: Asset[]; uploads: Asset[] }>({ library: [], materials: [], uploads: [] });
   const [pickerFor, setPickerFor] = useState(""); // layerId aberto no picker
@@ -1006,6 +1008,21 @@ function StudioInner() {
                 </div>
               );
             })()}
+            {/* VEX-10: safe-zones da plataforma — só na UI do editor (nunca no export) */}
+            {safeZone && (() => {
+              const plat = PLATFORMS.find((p) => p.id === safeZone);
+              if (!plat) return null;
+              return (
+                <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 4 }}>
+                  {plat.zones.map((z) => (
+                    <div key={z.id} title={z.label}
+                      style={{ position: "absolute", left: `${z.x * 100}%`, top: `${z.y * 100}%`, width: `${z.w * 100}%`, height: `${z.h * 100}%`, background: "repeating-linear-gradient(45deg, rgba(255,77,46,.16) 0 8px, rgba(255,77,46,.06) 8px 16px)", border: "1px dashed rgba(255,77,46,.7)", boxSizing: "border-box" }}>
+                      <span style={{ position: "absolute", left: 3, top: 2, fontSize: 9, color: "#FFB4A6", textShadow: "0 1px 2px #000", whiteSpace: "nowrap" }}>{z.label}</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
           {/* Transporte (VEX-07: design system — ícones, tooltips, accent do cliente) */}
           <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 14 }}>
@@ -1041,6 +1058,18 @@ function StudioInner() {
               onChange={(e) => setPps(Number(e.target.value))}
               style={{ width: 90 }}
             />
+            <span className="w-px h-[18px] bg-line-strong mx-1.5" />
+            <Tip label="Safe-zones da plataforma no palco (não vão para o export)">
+              <select
+                value={safeZone}
+                onChange={(e) => setSafeZone(e.target.value)}
+                aria-label="Safe-zone"
+                className="text-[11px] rounded-(--radius-control) bg-surface-4 text-fg border border-line-strong px-1.5 py-1 cursor-pointer"
+              >
+                <option value="">Safe-zone: off</option>
+                {PLATFORMS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
+              </select>
+            </Tip>
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <Tip label="Salvar edição (Ctrl+S)">
               <Button variant="ok" onClick={save} className="relative">
@@ -1361,6 +1390,17 @@ function StudioInner() {
               return (
                 <div style={{ ...box, padding: 8, marginTop: 8, borderColor: "#fff" }}>
                   <div style={{ fontSize: 11, color: "#fff", marginBottom: 6 }}>Elemento: {cl.label} <span style={{ color: "#666" }}>· {t}</span></div>
+
+                  {/* VEX-10: aviso ao vivo — elemento visual sob a UI da plataforma */}
+                  {t !== "media-audio" && (() => {
+                    const zone = coveredZoneAt((cl.x ?? 50) / 100, (cl.y ?? 50) / 100, platformById(safeZone || "instagram").zones);
+                    if (!zone) return null;
+                    return (
+                      <div style={{ fontSize: 10, color: "#FF8C42", background: "rgba(255,140,66,.10)", border: "1px solid rgba(255,140,66,.35)", borderRadius: 6, padding: "5px 7px", marginBottom: 6, lineHeight: 1.4 }}>
+                        ⚠ Sob a UI {safeZone ? "" : "(Instagram) "}— {zone.label}. Mova para o centro para não ficar coberto.
+                      </div>
+                    );
+                  })()}
 
                   {t === "media-audio" && (
                     <div style={{ marginBottom: 6 }}>

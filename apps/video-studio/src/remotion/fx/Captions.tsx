@@ -3,6 +3,7 @@ import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion"
 import type { Caption } from "@remotion/captions";
 import { buildCues, activeCueIndex, type CueOptions } from "../../lib/cues";
 import type { CaptionRenderer } from "../../lib/fxRegistry";
+import { SAFE_CAPTION_BOTTOM } from "../../lib/safeZones";
 
 /**
  * Legendas por CUE (bloco estável de 1–2 linhas), padrão Netflix adaptado ao
@@ -36,8 +37,10 @@ export const CaptionsOverlay: React.FC<{
   keywords,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, height } = useVideoConfig();
   const ms = (frame / fps) * 1000;
+  // VEX-10: padding derivado das safe-zones (era o número mágico 430 @1920px).
+  const captionPadBottom = Math.round(height * SAFE_CAPTION_BOTTOM);
 
   const kwSet = React.useMemo(
     () => new Set((keywords ?? []).map(norm).filter(Boolean)),
@@ -66,7 +69,7 @@ export const CaptionsOverlay: React.FC<{
   let wordCounter = 0;
 
   return (
-    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 430 }}>
+    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: captionPadBottom }}>
       <div
         style={{
           display: "flex",
