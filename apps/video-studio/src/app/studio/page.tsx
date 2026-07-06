@@ -392,6 +392,20 @@ function StudioInner() {
     if (accent) document.documentElement.style.setProperty("--accent", accent);
   }, [snap?.fxPlan.brand.accent]);
 
+  // Fontes das legendas (Montserrat/Playfair) carregam ASSÍNCRONAS. O Player já
+  // pintou a legenda com o fallback e não re-renderiza sozinho quando a fonte
+  // chega — força um repaint (re-seek) quando as fontes ficam prontas.
+  useEffect(() => {
+    let cancelled = false;
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      const f = currentFrameRef.current;
+      playerRef.current?.seekTo(f > 0 ? f - 1 : 1);
+      requestAnimationFrame(() => { if (!cancelled) playerRef.current?.seekTo(f); });
+    });
+    return () => { cancelled = true; };
+  }, [snap]);
+
   // N1.c: arraste/resize do elemento selecionado direto no palco (overlay).
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
