@@ -42,6 +42,12 @@ export interface CaptionTheme {
   /** togi/gradient: cores do gradiente horizontal da palavra (from → to). */
   gradientFrom?: string;
   gradientTo?: string;
+  /**
+   * Módulo performático SÓ no hook (ref. Talis v1): "serif-gold" = serifada
+   * dourada, maior, com entrada dinâmica (escala/fade). "none" = usa o estilo
+   * padrão também no hook.
+   */
+  hookStyle?: "none" | "serif-gold";
 }
 
 export interface FxPlan {

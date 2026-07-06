@@ -365,6 +365,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
         cueOptions={fxPlan.captionStyle}
         keywords={brand.keywords}
         theme={fxPlan.captionTheme}
+        hookEndFrame={timeline.videoTrack[0]?.role === "hook" ? timeline.videoTrack[0].durationInFrames : 0}
       />
 
       {fxPlan.motionRenderers.includes("progress-bar") ? (

@@ -23,6 +23,11 @@ const STROKE =
 // contraste vem do bold caixa-alta + sombra suave), preservando legibilidade.
 const STROKE_SOFT =
   "-1px -1px 0 rgba(0,0,0,.55), 1px 1px 0 rgba(0,0,0,.55), 0 3px 16px rgba(0,0,0,.7)";
+// Hook serifado (dourado): contorno FINO sem blur grande — os traços finos da
+// serifada somem sob blur pesado, então usamos só um outline escuro de 1.5px.
+const STROKE_THIN =
+  "-1px -1px 0 rgba(30,18,0,.9), 1px 1px 0 rgba(30,18,0,.9), 1px -1px 0 rgba(30,18,0,.9), " +
+  "-1px 1px 0 rgba(30,18,0,.9), 0 3px 10px rgba(0,0,0,.85), 0 0 3px rgba(0,0,0,.9)";
 
 export const CaptionsOverlay: React.FC<{
   captions: Caption[];
@@ -35,6 +40,8 @@ export const CaptionsOverlay: React.FC<{
   keywords?: string[];
   /** Personalização visual (cor/tamanho/caixa/gradiente). */
   theme?: CaptionTheme;
+  /** VEX-caption: fim do hook (frames) — legenda performática vale só até aqui. */
+  hookEndFrame?: number;
 }> = ({
   captions,
   accentColor,
@@ -43,6 +50,7 @@ export const CaptionsOverlay: React.FC<{
   cueOptions,
   keywords,
   theme,
+  hookEndFrame = 0,
 }) => {
   const frame = useCurrentFrame();
   const { fps, height } = useVideoConfig();
@@ -83,6 +91,15 @@ export const CaptionsOverlay: React.FC<{
   const gFrom = theme?.gradientFrom ?? "#4AA3F0"; // togi: azul vibrante → branco
   const gTo = theme?.gradientTo ?? "#FFFFFF";
 
+  // ── Módulo performático do HOOK (ref. Talis v1): serifada dourada + entrada
+  // dinâmica (escala/fade), só enquanto o playhead está no clip do hook. ──────
+  const inHook = theme?.hookStyle === "serif-gold" && frame < hookEndFrame;
+  const HOOK_SERIF = "'Playfair Display', 'Georgia', 'Times New Roman', serif";
+  const HOOK_GOLD = "#F2D488"; // dourado sólido (uniforme, robusto — ref. Talis v1)
+  const hookIntro = inHook
+    ? spring({ frame: frame - (cue.startMs / 1000) * fps, fps, config: { damping: 14, mass: 0.6 }, durationInFrames: 12 })
+    : 1;
+
   let wordCounter = 0;
 
   return (
@@ -108,38 +125,42 @@ export const CaptionsOverlay: React.FC<{
               const isKeyword = kwSet.has(norm(w.text));
               const highlight = isActive || isKeyword;
 
-              // Estilo por renderer ────────────────────────────────────────
+              // Estilo por renderer (+ override performático do hook) ────────
               const gradient = renderer === "gradient";
-              // cor: gradient = fill via background-clip; clean/mono = base;
-              // word-pop/underline = base, destaque na palavra ativa/keyword.
+              const clipText = { WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" } as React.CSSProperties;
               const solidColor =
-                renderer === "clean" || renderer === "mono-bold"
-                  ? base
-                  : highlight ? active : base;
-              const scale = isActive && (renderer === "word-pop" || renderer === "gradient")
-                ? 0.9 + pop * 0.24 : 1;
+                renderer === "clean" || renderer === "mono-bold" ? base : highlight ? active : base;
 
-              const gradientStyle: React.CSSProperties = gradient
-                ? { backgroundImage: `linear-gradient(100deg, ${gFrom} 0%, ${gTo} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }
-                : { color: solidColor };
+              const fill: React.CSSProperties = inHook
+                ? { color: HOOK_GOLD } // dourado sólido (serifada fina + gradiente clip = frágil)
+                : gradient
+                  ? { backgroundImage: `linear-gradient(100deg, ${gFrom} 0%, ${gTo} 100%)`, ...clipText }
+                  : { color: solidColor };
+
+              const wScale = inHook
+                ? 0.7 + hookIntro * 0.3
+                : isActive && (renderer === "word-pop" || renderer === "gradient")
+                  ? 0.9 + pop * 0.24 : 1;
 
               return (
                 <span
                   key={`${w.startMs}-${k}`}
                   style={{
-                    fontSize,
+                    fontSize: inHook ? Math.round(fontSize * 1.3) : fontSize,
+                    fontFamily: inHook ? HOOK_SERIF : undefined,
                     fontWeight: 900,
-                    letterSpacing: -1,
+                    letterSpacing: inHook ? 0 : -1,
                     textTransform: upper ? "uppercase" : "none",
-                    textShadow: gradient ? STROKE_SOFT : STROKE,
-                    transform: `scale(${scale})`,
+                    textShadow: inHook ? STROKE_THIN : gradient ? STROKE_SOFT : STROKE,
+                    transform: `scale(${wScale})`,
                     transformOrigin: "center bottom",
+                    opacity: inHook ? hookIntro : 1,
                     borderBottom:
-                      isActive && renderer === "underline" ? `8px solid ${active}` : "none",
+                      !inHook && isActive && renderer === "underline" ? `8px solid ${active}` : "none",
                     lineHeight: 1.04,
                     display: "inline-block",
                     whiteSpace: "nowrap",
-                    ...gradientStyle,
+                    ...fill,
                   }}
                 >
                   {w.text}

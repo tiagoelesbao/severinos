@@ -1733,6 +1733,11 @@ function StudioInner() {
                       <input type="checkbox" checked={th.boxed ?? !(isGrad || fxPlan.captionRenderer === "clean")} onChange={(e) => setTheme({ boxed: e.target.checked })} /> Caixa de fundo
                     </label>
                   </div>
+                  {/* Bônus: legenda performática SÓ no hook (serifada dourada dinâmica) */}
+                  <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4, cursor: "pointer", marginTop: 8, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                    <input type="checkbox" checked={th.hookStyle === "serif-gold"} onChange={(e) => setTheme({ hookStyle: e.target.checked ? "serif-gold" : "none" })} />
+                    <span>✨ Hook performático (serifada dourada, entrada dinâmica)</span>
+                  </label>
                 </div>
               );
             })()}
