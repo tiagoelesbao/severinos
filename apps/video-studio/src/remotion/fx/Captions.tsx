@@ -138,6 +138,8 @@ export const CaptionsOverlay: React.FC<{
               let wScale = 1;
               let wSize = fontSize;
               let wFamily: string | undefined;
+              // togi: quantas LETRAS já "acenderam" azul (karaokê por letra).
+              let togiLit = 0;
 
               if (isHook) {
                 // Talis v1: Playfair dourado, número/keyword ENORME, entrada dramática.
@@ -147,11 +149,12 @@ export const CaptionsOverlay: React.FC<{
                 wShadow = STROKE_THIN;
                 wScale = 0.55 + enter * 0.45;
               } else if (isTogi) {
-                // togi: Montserrat branco, palavra JÁ falada em AZUL (karaokê) —
-                // cor SÓLIDA (background-clip:text é instável no Player) + stroke
-                // forte = alto contraste branco/azul sobre o vídeo.
-                const spoken = k < activeWord || (isActive && ms >= (w.startMs + w.endMs) / 2);
-                fill = { color: spoken ? togiBlue : "#ffffff" };
+                // togi: Montserrat, karaokê por LETRA — as letras já ditas ficam
+                // AZUL, as demais brancas (como "NOW"). Cores SÓLIDAS por letra
+                // (background-clip:text é instável no Player) + stroke forte.
+                const prog = k < activeWord ? 1 : isActive ? Math.max(0, Math.min(1, (ms - w.startMs) / Math.max(1, w.endMs - w.startMs))) : 0;
+                togiLit = Math.round(prog * w.text.length);
+                fill = {}; // cor vai por letra
                 wShadow = STROKE;
                 wScale = isActive ? 0.96 + enter * 0.12 : 1;
               } else {
@@ -181,7 +184,11 @@ export const CaptionsOverlay: React.FC<{
                     ...fill,
                   }}
                 >
-                  {w.text}
+                  {isTogi
+                    ? [...w.text].map((ch, ci) => (
+                        <span key={ci} style={{ color: ci < togiLit ? togiBlue : "#ffffff" }}>{ch}</span>
+                      ))
+                    : w.text}
                 </span>
               );
             })}
