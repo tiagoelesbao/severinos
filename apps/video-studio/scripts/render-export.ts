@@ -27,6 +27,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const REPO = path.resolve(ROOT, "../..");
 
+/** VEX-11: uma variante de hook a exportar no batch (1 body × N hooks). */
+interface ExportVariant {
+  label: string;
+  timeline: Timeline;
+  fxPlan: FxPlan;
+}
+
 interface ExportJob {
   jobId: string;
   client: string;
@@ -43,6 +50,8 @@ interface ExportJob {
    * (<Video> do browser) fica como fallback opt-in — flicker sob carga.
    */
   videoTag?: "tag" | "offthread";
+  /** VEX-11: exporta N variantes de hook (mesmo corpo). Ausente = export único. */
+  variants?: ExportVariant[];
 }
 
 interface RenderStatus {
@@ -52,6 +61,11 @@ interface RenderStatus {
   output?: string;
   error?: string;
   missingAssets?: string[];
+  // VEX-11: progresso agregado do batch.
+  outputs?: string[];
+  batchTotal?: number;
+  batchDone?: number;
+  batchLabel?: string;
   startedAt: string;
   updatedAt: string;
 }
@@ -140,17 +154,26 @@ function ensureWebSafe(srcAbs: string, cacheDir: string): string {
   return out;
 }
 
-async function run(
+/** Slug curto e seguro para nome de arquivo (rótulo da variante). */
+function slugify(s: string): string {
+  return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24) || "v";
+}
+
+/** Renderiza UMA timeline num mp4 (staging → bundle → render). Retorna o path relativo. */
+async function renderOne(
   job: ExportJob,
-  creativeDir: string,
+  timeline0: Timeline,
+  fxPlan0: FxPlan,
+  outputPath: string,
   exportsDir: string,
-  setStatus: (p: Partial<RenderStatus>) => void,
-) {
-  const staging = path.join(exportsDir, `.staging-${job.jobId}`);
+  stageSuffix: string,
+  onProgress: (p: number) => void,
+  onMissing: (m: string[]) => void,
+): Promise<string> {
+  const staging = path.join(exportsDir, `.staging-${job.jobId}${stageSuffix}`);
   try {
-    // ── 1. Rewrite + staging (com normalização de fontes VFR) ───────────────
-    setStatus({ state: "staging", progress: 0 });
-    const rewritten = rewriteForRender(job.timeline, job.client, job.creative);
+    const rewritten = rewriteForRender(timeline0, job.client, job.creative);
     let timeline = rewritten.timeline;
     const { assets, unresolved } = rewritten;
     if (unresolved.length) console.warn("[export] refs não interpretadas (mantidas):", unresolved);
@@ -162,71 +185,82 @@ async function run(
     const remap: Record<string, string> = {};
     for (const ref of assets) {
       const src = sourcePathFor(ref, job.client, job.creative);
-      if (!fs.existsSync(src)) {
-        missing.push(`${ref.kind}:${ref.name}`);
-        continue;
-      }
+      if (!fs.existsSync(src)) { missing.push(`${ref.kind}:${ref.name}`); continue; }
       const safe = ensureWebSafe(src, transcodeCache);
       let stagedRel = stagedPathFor(ref);
       if (safe !== src) {
-        const normalized = `${stagedRel}.mp4`; // Skill_activate.mov → Skill_activate.mov.mp4
+        const normalized = `${stagedRel}.mp4`;
         remap[stagedRel] = normalized;
         stagedRel = normalized;
       }
       linkOrCopy(safe, path.join(staging, stagedRel));
     }
     timeline = remapFiles(timeline, remap);
-    if (missing.length) {
-      console.warn("[export] assets ausentes (viram gap/silêncio):", missing);
-      setStatus({ missingAssets: missing });
-    }
+    if (missing.length) { console.warn("[export] assets ausentes:", missing); onMissing(missing); }
 
-    // ── 2. Bundle (publicDir = staging) ─────────────────────────────────────
-    setStatus({ state: "bundling" });
-    console.log(`[export] ${job.client}/${job.creative} — ${timeline.videoTrack.length} clips, ` +
-      `${timeline.durationInFrames} frames, ${assets.length} assets (${missing.length} ausentes)`);
-    const serveUrl = await bundle({
-      entryPoint: path.join(ROOT, "src/remotion/index.ts"),
-      publicDir: staging,
-    });
-
-    // ── 3. Render ───────────────────────────────────────────────────────────
-    const fxPlan: FxPlan = { ...job.fxPlan, ...(job.captionStyle ? { captionStyle: job.captionStyle } : {}) };
+    const serveUrl = await bundle({ entryPoint: path.join(ROOT, "src/remotion/index.ts"), publicDir: staging });
+    const fxPlan: FxPlan = { ...fxPlan0, ...(job.captionStyle ? { captionStyle: job.captionStyle } : {}) };
     const inputProps = { timeline, fxPlan, forceTagVideo: job.videoTag === "tag" };
-    // Cache do OffthreadVideo: o contain-blur decodifica a MESMA fonte 2×/frame
-    // e transições sobrepõem clipes → o default despeja frames cedo demais
-    // ("No frame found", causa nº 1 da doc). 1–2 GB explícitos resolvem.
     const offthreadCache = Math.min(2 * 1024 ** 3, Math.max(512 * 1024 ** 2, Math.floor(os.freemem() * 0.3)));
     const composition = await selectComposition({ serveUrl, id: "TimelineFx", inputProps });
 
-    const output = path.join(exportsDir, `export-${job.jobId}.mp4`);
-    setStatus({ state: "rendering", progress: 0 });
     let lastWritten = -1;
     await renderMedia({
-      composition,
-      serveUrl,
-      codec: "h264",
-      outputLocation: output,
-      inputProps,
-      // Materiais pesados (.mov screen captures) + camadas extras: a extração
-      // OffthreadVideo pode passar dos 30s default sob contenção de disco/CPU.
+      composition, serveUrl, codec: "h264", outputLocation: outputPath, inputProps,
       timeoutInMilliseconds: 180000,
       offthreadVideoCacheSizeInBytes: offthreadCache,
       ...(job.frameRange ? { frameRange: job.frameRange } : {}),
       onProgress: ({ progress }) => {
         const pct = Math.floor(progress * 100);
-        if (pct !== lastWritten) {
-          lastWritten = pct;
-          setStatus({ state: "rendering", progress });
-        }
+        if (pct !== lastWritten) { lastWritten = pct; onProgress(progress); }
       },
     });
-
-    setStatus({ state: "done", progress: 1, output: path.relative(REPO, output).replace(/\\/g, "/") });
-    console.log(`[export] OK → ${path.relative(REPO, output)}`);
+    const rel = path.relative(REPO, outputPath).replace(/\\/g, "/");
+    console.log(`[export] OK → ${rel}`);
+    return rel;
   } finally {
     fs.rmSync(staging, { recursive: true, force: true });
   }
+}
+
+async function run(
+  job: ExportJob,
+  creativeDir: string,
+  exportsDir: string,
+  setStatus: (p: Partial<RenderStatus>) => void,
+) {
+  // ── VEX-11: batch de variantes de hook (1 body × N hooks) ─────────────────
+  if (job.variants?.length) {
+    const total = job.variants.length;
+    const outputs: string[] = [];
+    setStatus({ state: "staging", progress: 0, batchTotal: total, batchDone: 0 });
+    for (let i = 0; i < total; i++) {
+      const v = job.variants[i];
+      const out = path.join(exportsDir, `export-${job.jobId}-${slugify(v.label)}.mp4`);
+      setStatus({ state: "rendering", batchDone: i, batchLabel: v.label, progress: i / total });
+      const rel = await renderOne(
+        job, v.timeline, v.fxPlan, out, exportsDir, `-${i}`,
+        (p) => setStatus({ state: "rendering", progress: (i + p) / total, batchDone: i, batchLabel: v.label }),
+        (m) => setStatus({ missingAssets: m }),
+      );
+      outputs.push(rel);
+      setStatus({ batchDone: i + 1, outputs, progress: (i + 1) / total });
+    }
+    setStatus({ state: "done", progress: 1, batchDone: total, outputs, output: outputs[0] });
+    console.log(`[export] BATCH OK → ${outputs.join(", ")}`);
+    return;
+  }
+
+  // ── Export único (comportamento original) ─────────────────────────────────
+  setStatus({ state: "staging", progress: 0 });
+  const output = path.join(exportsDir, `export-${job.jobId}.mp4`);
+  setStatus({ state: "rendering", progress: 0 });
+  const rel = await renderOne(
+    job, job.timeline, job.fxPlan, output, exportsDir, "",
+    (p) => setStatus({ state: "rendering", progress: p }),
+    (m) => setStatus({ missingAssets: m }),
+  );
+  setStatus({ state: "done", progress: 1, output: rel });
 }
 
 main();

@@ -67,10 +67,13 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // VEX-11: batch de variantes de hook (cada uma com sua timeline/fxPlan).
+  const variants = Array.isArray(body.variants) && body.variants.length ? body.variants : null;
+
   // Estado a renderizar: body (o que está na tela) OU o save do Studio.
   let timeline = body.timeline;
   let fxPlan = body.fxPlan;
-  if (!timeline || !fxPlan) {
+  if (!variants && (!timeline || !fxPlan)) {
     try {
       const saved = JSON.parse(
         fs.readFileSync(path.join(creativeDir, "studio-edit.json"), "utf-8"),
@@ -81,7 +84,7 @@ export async function POST(req: NextRequest) {
       /* sem save */
     }
   }
-  if (!timeline || !fxPlan) {
+  if (!variants && (!timeline || !fxPlan)) {
     return NextResponse.json(
       { error: "timeline/fxPlan ausentes (envie no body ou salve no Studio antes)" },
       { status: 400 },
@@ -100,6 +103,7 @@ export async function POST(req: NextRequest) {
     fxPlan,
     captionStyle: body.captionStyle,
     ...(Array.isArray(body.frameRange) ? { frameRange: body.frameRange } : {}),
+    ...(variants ? { variants } : {}), // VEX-11: export batch
   };
   const jobFile = path.join(exportsDir, `render-job-${jobId}.json`);
   fs.writeFileSync(jobFile, JSON.stringify(job), "utf-8");

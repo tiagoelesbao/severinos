@@ -26,14 +26,14 @@
 - [x] Convenção/detecção de múltiplos hooks (`hook-*.mp4` por `role === "hook"`): mantém 1 na espinha, coleta as demais como `hookVariants` (ingest). Verificado (2 hooks → 1 no track + 2 variantes).
 - [x] `hookVariants` no modelo (clip + legendas por variante, preenchidas na rota via `wordsToCaptions`) + `switchHookVariant` puro (swap + recompose + re-timing das legendas do corpo) undoable. Teste de round-trip.
 - [x] Seletor de variante (H1/H2/H3) no inspector do hook, com duração; troca client-side preserva o corpo.
-- [ ] Export batch das variantes no worker da VEX-01 (nomes identificáveis + resumo final).
+- [x] Export batch das variantes no worker da VEX-01 (nomes identificáveis + progresso agregado). Worker refatorado (`renderOne` + loop); saída `export-<jobid>-<label>.mp4`; status com `batchTotal/batchDone/batchLabel/outputs`. Botão "Exportar N variantes" + comando na paleta; cliente gera as N timelines via `switchHookVariant`. **Fiação verificada** (POST com `variants:[H1,H2]`, worker entra no batch, faz staging/conform/bundle/render por variante). _Render completo dos 3 mp4s pende um criativo real com múltiplos hooks — a fixture byte-a-byte dispara o "No frame found" documentado (fonte, não a lógica de batch); usa o mesmo caminho do export único da VEX-01._
 - [ ] Auditoria E1: aviso se as variantes divergem demais em duração (> 2s) ou se falta transcript de alguma.
 - [ ] E2E: criativo com 3 hooks gravados → 3 mp4s exportados, cada um com legendas do próprio hook.
 
 ## Critérios de Aceite
 - [x] **AC1:** `hook-*.mp4` na pasta → o Studio detecta as variantes e abre com a 1ª ativa. ✓ verificado (2 hooks → seletor H1/H2, H1 ativa).
 - [x] **AC2:** Trocar para H2 re-monta a timeline (durações/âncoras corretas) e as legendas do hook trocam para a fala da variante. ✓ switch verificado (Ativa H1→H2); re-timing das legendas coberto por teste puro.
-- [ ] **AC3:** "Exportar 3 variantes" gera 3 mp4s com corpo idêntico (bit a bit no miolo não é exigido; conteúdo/timing sim) e hooks distintos.
+- [~] **AC3:** "Exportar 3 variantes" gera N mp4s com corpo idêntico e hooks distintos. **Implementado + fiação verificada** (botão/comando → POST `variants` → worker batch por variante com progresso agregado e nomes `export-<jobid>-h*.mp4`). Falta a prova do render completo num criativo real com múltiplos hooks (fixture byte-a-byte disparou o "No frame found" da fonte, não da lógica).
 - [x] **AC4:** Edições do corpo (miolo/CTA/camadas) valem para as variantes sem retrabalho — a troca é client-side pura (só o hook + suas legendas mudam; o resto do timeline editado é preservado). ✓ por construção.
 - [x] **AC5:** Criativo com 1 hook segue 100% igual — `hookVariants` só é anexado com >1 hook; o seletor não aparece. ✓.
 

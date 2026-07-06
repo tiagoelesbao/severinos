@@ -179,7 +179,7 @@ function StudioInner() {
   const [assets, setAssets] = useState<{ library: Asset[]; materials: Asset[]; uploads: Asset[] }>({ library: [], materials: [], uploads: [] });
   const [pickerFor, setPickerFor] = useState(""); // layerId aberto no picker
   // VEX-01: export final em andamento (poll de exports/render-status.json).
-  const [exporting, setExporting] = useState<{ state: string; progress: number; output?: string; error?: string } | null>(null);
+  const [exporting, setExporting] = useState<{ state: string; progress: number; output?: string; error?: string; outputs?: string[]; batchLabel?: string; batchDone?: number; batchTotal?: number } | null>(null);
   const exportPoll = useRef<ReturnType<typeof setInterval> | null>(null);
   // VEX-02: preparação automática (whisper + assembly) em andamento.
   const [preparing, setPreparing] = useState<{ state: string; error?: string } | null>(null);
@@ -520,21 +520,15 @@ function StudioInner() {
     }
   }, []);
 
-  const exportVideo = useCallback(async () => {
-    if (!snap || !client || !creative || exportPoll.current) return;
+  // VEX-01/VEX-11: dispara o export (único ou batch) e inicia o poll de status.
+  const runExport = useCallback(async (payload: Record<string, unknown>, batch: boolean) => {
+    if (!client || !creative || exportPoll.current) return;
     setExporting({ state: "queued", progress: 0 });
     try {
       const res = await fetch("/api/render", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          client,
-          creative,
-          timeline: snap.timeline,
-          fxPlan: snap.fxPlan,
-          captionStyle,
-          captionSource,
-        }),
+        body: JSON.stringify({ client, creative, captionStyle, captionSource, ...payload }),
       });
       const d = await res.json();
       if (!res.ok) {
@@ -549,8 +543,10 @@ function StudioInner() {
           setExporting(s);
           if (s.state === "done" || s.state === "error") {
             stopExportPoll();
-            if (s.state === "done") toast.success(`Export concluído: ${s.output ?? "exports/"}`, { duration: 8000 });
-            else toast.error(`Export falhou: ${s.error ?? "erro desconhecido"}`, { duration: 10000 });
+            if (s.state === "done") {
+              const outs = Array.isArray(s.outputs) && s.outputs.length ? s.outputs.join(" · ") : (s.output ?? "exports/");
+              toast.success(`${batch ? `${s.outputs?.length ?? ""} variantes exportadas` : "Export concluído"}: ${outs}`, { duration: 9000 });
+            } else toast.error(`Export falhou: ${s.error ?? "erro desconhecido"}`, { duration: 10000 });
           }
         } catch {
           /* mantém o poll — pode ser hiccup do dev server */
@@ -559,7 +555,23 @@ function StudioInner() {
     } catch {
       setExporting({ state: "error", progress: 0, error: "erro de rede" });
     }
-  }, [snap, client, creative, captionStyle, captionSource, stopExportPoll]);
+  }, [client, creative, captionStyle, captionSource, stopExportPoll]);
+
+  const exportVideo = useCallback(() => {
+    if (!snap) return;
+    runExport({ timeline: snap.timeline, fxPlan: snap.fxPlan }, false);
+  }, [snap, runExport]);
+
+  // VEX-11: exporta todas as variantes de hook (1 body × N hooks) → N mp4s.
+  const exportVariants = useCallback(() => {
+    const vs = snap?.timeline.hookVariants;
+    if (!snap || !vs?.length) return;
+    const variants = vs.map((v, i) => {
+      const r = switchHookVariant(snap.timeline, snap.fxPlan, i);
+      return { label: v.label, timeline: r.timeline, fxPlan: r.fxPlan };
+    });
+    runExport({ variants }, true);
+  }, [snap, runExport]);
 
   // Troca de criativo/desmontagem encerra o poll (o job continua no servidor).
   useEffect(() => () => stopExportPoll(), [creative, stopExportPoll]);
@@ -778,6 +790,9 @@ function StudioInner() {
     { id: "redo", group: "Editar", label: "Refazer", shortcut: "Ctrl+Shift+Z", run: redo },
     { id: "save", group: "Editar", label: "Salvar edição", shortcut: "Ctrl+S", run: save },
     { id: "export", group: "Editar", label: "Exportar vídeo (mp4)", run: exportVideo },
+    ...((timeline.hookVariants?.length ?? 0) > 1
+      ? [{ id: "export-variants", group: "Editar", label: `Exportar ${timeline.hookVariants!.length} variantes de hook`, run: exportVariants }]
+      : []),
     { id: "razor", group: "Ferramentas", label: razorMode ? "Desligar ferramenta de corte" : "Ferramenta de corte (razor)", shortcut: "C", run: () => setRazorMode((v) => !v) },
     { id: "snap", group: "Ferramentas", label: snapOn ? "Desligar snap magnético" : "Ligar snap magnético", shortcut: "N", run: () => setSnapOn((v) => !v) },
     { id: "autocut", group: "Ferramentas", label: autocutOn ? "Reverter auto-cut de silêncios" : "Auto-cut de silêncios", run: () => guardedAutocut(() => setAutocutOn((v) => !v)) },
@@ -1174,6 +1189,21 @@ function StudioInner() {
                 >
                   <Button variant="accent" onClick={exportVideo} disabled={!!busy}>
                     <Download className="size-4" /> {label}
+                  </Button>
+                </Tip>
+              );
+            })()}
+            {/* VEX-11: export batch das variantes de hook */}
+            {(timeline.hookVariants?.length ?? 0) > 1 && (() => {
+              const busy = exporting && !["done", "error", "idle"].includes(exporting.state);
+              const n = timeline.hookVariants!.length;
+              const lbl = busy && exporting?.batchLabel
+                ? `${exporting.batchLabel} ${(exporting.batchDone ?? 0) + 1}/${n}`
+                : `Exportar ${n} variantes`;
+              return (
+                <Tip label={`Renderiza os ${n} hooks com o mesmo corpo → ${n} mp4s (export-<jobid>-h*.mp4)`}>
+                  <Button variant="default" onClick={exportVariants} disabled={!!busy}>
+                    <Download className="size-4" /> {lbl}
                   </Button>
                 </Tip>
               );
