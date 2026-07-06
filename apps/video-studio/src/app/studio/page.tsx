@@ -100,7 +100,13 @@ const assetIcon = (k: AssetKind) => (k === "audio" ? "♪" : k === "image" ? "�
 const baseName = (n: string) => n.split("/").pop() ?? n;
 
 const HOOKS: HookRenderer[] = ["snap-zoom", "hard-cut", "whip"];
-const CAPS: CaptionRenderer[] = ["word-pop", "mono-bold", "underline"];
+const CAPS: { id: CaptionRenderer; label: string }[] = [
+  { id: "word-pop", label: "Word-pop (destaque + escala)" },
+  { id: "clean", label: "Clean (branco limpo — Talis miolo)" },
+  { id: "gradient", label: "Gradiente caixa-alta (togi)" },
+  { id: "mono-bold", label: "Mono bold" },
+  { id: "underline", label: "Sublinhado" },
+];
 
 // Modelos de legenda (chunking): 1/2 linhas, densidade de palavras.
 const CAPTION_STYLES: { id: string; label: string; opts: CueOptions }[] = [
@@ -1678,14 +1684,58 @@ function StudioInner() {
               {HOOKS.map((h) => <option key={h} value={h}>{h}</option>)}
             </select>
 
-            <div style={{ fontSize: 12, color: "#888", margin: "12px 0 8px" }}>Destaque de palavra</div>
+            <div style={{ fontSize: 12, color: "#888", margin: "12px 0 8px" }}>Estilo de legenda</div>
             <select
               value={fxPlan.captionRenderer}
               onChange={(e) => apply({ timeline, fxPlan: setCaptionRenderer(fxPlan, e.target.value as CaptionRenderer) })}
               style={{ ...btn, width: "100%" }}
             >
-              {CAPS.map((c) => <option key={c} value={c}>{c}</option>)}
+              {CAPS.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
             </select>
+
+            {/* Personalização visual da legenda (cor/tamanho/caixa/gradiente) */}
+            {(() => {
+              const th = fxPlan.captionTheme ?? {};
+              const setTheme = (patch: Record<string, unknown>) => {
+                const next = { ...th, ...patch };
+                apply({ timeline, fxPlan: { ...fxPlan, captionTheme: next } });
+              };
+              const isGrad = fxPlan.captionRenderer === "gradient";
+              return (
+                <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                  {isGrad ? (
+                    <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
+                      <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4 }}>
+                        Gradiente
+                        <input type="color" value={th.gradientFrom ?? "#2E7FE8"} onChange={(e) => setTheme({ gradientFrom: e.target.value })} title="cor inicial" style={{ ...btn, width: 40, padding: 2 }} />
+                        <input type="color" value={th.gradientTo ?? "#FFFFFF"} onChange={(e) => setTheme({ gradientTo: e.target.value })} title="cor final" style={{ ...btn, width: 40, padding: 2 }} />
+                      </label>
+                    </div>
+                  ) : (
+                    <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 8 }}>
+                      <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4 }}>
+                        Base
+                        <input type="color" value={th.baseColor ?? "#FFFFFF"} onChange={(e) => setTheme({ baseColor: e.target.value })} style={{ ...btn, width: 40, padding: 2 }} />
+                      </label>
+                      <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4 }}>
+                        Destaque
+                        <input type="color" value={th.activeColor ?? fxPlan.brand.accent} onChange={(e) => setTheme({ activeColor: e.target.value })} style={{ ...btn, width: 40, padding: 2 }} />
+                      </label>
+                    </div>
+                  )}
+                  <div style={{ fontSize: 10, color: "#888" }}>Tamanho {th.fontSize ?? 64}px</div>
+                  <input type="range" min={36} max={120} value={th.fontSize ?? 64} onChange={(e) => setTheme({ fontSize: Number(e.target.value) })} style={{ width: "100%" }} />
+                  <div style={{ display: "flex", gap: 12, marginTop: 6 }}>
+                    <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
+                      <input type="checkbox" checked={th.uppercase ?? true} onChange={(e) => setTheme({ uppercase: e.target.checked })} /> Caixa-alta
+                    </label>
+                    <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
+                      <input type="checkbox" checked={th.boxed ?? !(isGrad || fxPlan.captionRenderer === "clean")} onChange={(e) => setTheme({ boxed: e.target.checked })} /> Caixa de fundo
+                    </label>
+                  </div>
+                </div>
+              );
+            })()}
           </section>
 
           <section style={{ ...box, marginTop: 12 }}>

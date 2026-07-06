@@ -3,6 +3,7 @@ import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion"
 import type { Caption } from "@remotion/captions";
 import { buildCues, activeCueIndex, type CueOptions } from "../../lib/cues";
 import type { CaptionRenderer } from "../../lib/fxRegistry";
+import type { CaptionTheme } from "../../lib/fxPlan";
 import { SAFE_CAPTION_BOTTOM } from "../../lib/safeZones";
 
 /**
@@ -18,6 +19,10 @@ const norm = (s: string) =>
 const STROKE =
   "-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, " +
   "0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000, 0 6px 22px rgba(0,0,0,.9)";
+// togi/gradient: contorno LEVE para não abafar o fill do gradiente (alto
+// contraste vem do bold caixa-alta + sombra suave), preservando legibilidade.
+const STROKE_SOFT =
+  "-1px -1px 0 rgba(0,0,0,.55), 1px 1px 0 rgba(0,0,0,.55), 0 3px 16px rgba(0,0,0,.7)";
 
 export const CaptionsOverlay: React.FC<{
   captions: Caption[];
@@ -28,6 +33,8 @@ export const CaptionsOverlay: React.FC<{
   cueOptions?: CueOptions;
   /** Keywords do LÉXICO do cliente (VEX-05) — substitui o Set hardcoded. */
   keywords?: string[];
+  /** Personalização visual (cor/tamanho/caixa/gradiente). */
+  theme?: CaptionTheme;
 }> = ({
   captions,
   accentColor,
@@ -35,6 +42,7 @@ export const CaptionsOverlay: React.FC<{
   renderer = "word-pop",
   cueOptions,
   keywords,
+  theme,
 }) => {
   const frame = useCurrentFrame();
   const { fps, height } = useVideoConfig();
@@ -65,7 +73,16 @@ export const CaptionsOverlay: React.FC<{
     durationInFrames: 9,
   });
 
-  const mono = renderer === "mono-bold";
+  // ── Tema (customização + defaults on-brand / extraídos de benchmark) ──────
+  const base = theme?.baseColor ?? "#fff";
+  const active = theme?.activeColor ?? accentColor;
+  const fontSize = theme?.fontSize ?? 64;
+  const upper = theme?.uppercase ?? true;
+  // `clean` (Talis miolo) e `gradient` (togi) não usam a caixa por padrão.
+  const boxed = theme?.boxed ?? !(renderer === "clean" || renderer === "gradient");
+  const gFrom = theme?.gradientFrom ?? "#4AA3F0"; // togi: azul vibrante → branco
+  const gTo = theme?.gradientTo ?? "#FFFFFF";
+
   let wordCounter = 0;
 
   return (
@@ -76,13 +93,11 @@ export const CaptionsOverlay: React.FC<{
           flexDirection: "column",
           alignItems: "center",
           gap: 6,
-          maxWidth: "86%",
+          maxWidth: "90%",
           fontFamily,
-          background: "rgba(8,8,16,0.55)",
-          padding: "16px 28px",
-          borderRadius: 22,
-          backdropFilter: "blur(2px)",
-          boxShadow: "0 12px 50px rgba(0,0,0,.45)",
+          ...(boxed
+            ? { background: "rgba(8,8,16,0.55)", padding: "16px 28px", borderRadius: 22, backdropFilter: "blur(2px)", boxShadow: "0 12px 50px rgba(0,0,0,.45)" }
+            : {}),
         }}
       >
         {cue.lines.map((line, li) => (
@@ -91,25 +106,40 @@ export const CaptionsOverlay: React.FC<{
               const k = wordCounter++;
               const isActive = k === activeWord;
               const isKeyword = kwSet.has(norm(w.text));
-              const color = mono ? "#fff" : isActive || isKeyword ? accentColor : "#fff";
-              const scale = isActive && renderer === "word-pop" ? 0.9 + pop * 0.24 : 1;
+              const highlight = isActive || isKeyword;
+
+              // Estilo por renderer ────────────────────────────────────────
+              const gradient = renderer === "gradient";
+              // cor: gradient = fill via background-clip; clean/mono = base;
+              // word-pop/underline = base, destaque na palavra ativa/keyword.
+              const solidColor =
+                renderer === "clean" || renderer === "mono-bold"
+                  ? base
+                  : highlight ? active : base;
+              const scale = isActive && (renderer === "word-pop" || renderer === "gradient")
+                ? 0.9 + pop * 0.24 : 1;
+
+              const gradientStyle: React.CSSProperties = gradient
+                ? { backgroundImage: `linear-gradient(100deg, ${gFrom} 0%, ${gTo} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }
+                : { color: solidColor };
+
               return (
                 <span
                   key={`${w.startMs}-${k}`}
                   style={{
-                    fontSize: 64,
+                    fontSize,
                     fontWeight: 900,
                     letterSpacing: -1,
-                    textTransform: "uppercase",
-                    color,
-                    textShadow: STROKE,
+                    textTransform: upper ? "uppercase" : "none",
+                    textShadow: gradient ? STROKE_SOFT : STROKE,
                     transform: `scale(${scale})`,
                     transformOrigin: "center bottom",
                     borderBottom:
-                      isActive && renderer === "underline" ? `8px solid ${accentColor}` : "none",
+                      isActive && renderer === "underline" ? `8px solid ${active}` : "none",
                     lineHeight: 1.04,
                     display: "inline-block",
                     whiteSpace: "nowrap",
+                    ...gradientStyle,
                   }}
                 >
                   {w.text}

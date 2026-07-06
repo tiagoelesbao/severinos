@@ -364,6 +364,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
         renderer={fxPlan.captionRenderer}
         cueOptions={fxPlan.captionStyle}
         keywords={brand.keywords}
+        theme={fxPlan.captionTheme}
       />
 
       {fxPlan.motionRenderers.includes("progress-bar") ? (

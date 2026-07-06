@@ -24,6 +24,26 @@ export interface FxBrand {
   keywords?: string[];
 }
 
+/**
+ * Personalização visual das legendas (cor/tamanho/caixa/gradiente). Ausente =
+ * defaults on-brand. Extraído de benchmarks (Talis clean, togi gradiente).
+ */
+export interface CaptionTheme {
+  /** Cor das palavras normais (default #fff). */
+  baseColor?: string;
+  /** Cor da palavra ativa/keyword (default = accent da marca). */
+  activeColor?: string;
+  /** Tamanho da fonte em px na comp 1080×1920 (default 64). */
+  fontSize?: number;
+  /** Caixa-alta (default true). */
+  uppercase?: boolean;
+  /** Scrim de fundo atrás do texto (default true). */
+  boxed?: boolean;
+  /** togi/gradient: cores do gradiente horizontal da palavra (from → to). */
+  gradientFrom?: string;
+  gradientTo?: string;
+}
+
 export interface FxPlan {
   brand: FxBrand;
   hookRenderer: HookRenderer;
@@ -32,6 +52,8 @@ export interface FxPlan {
   captions: Caption[];
   /** Calibração do chunking das legendas (estilo: 1/2 linhas, palavras/cue). */
   captionStyle?: CueOptions;
+  /** VEX-caption: personalização visual (cor/tamanho/caixa/gradiente). */
+  captionTheme?: CaptionTheme;
 }
 
 export interface BuildFxPlanInput {

@@ -5,7 +5,7 @@
  */
 
 export type HookRenderer = "snap-zoom" | "hard-cut" | "whip";
-export type CaptionRenderer = "word-pop" | "mono-bold" | "underline";
+export type CaptionRenderer = "word-pop" | "mono-bold" | "underline" | "clean" | "gradient";
 export type TransitionRenderer = "fade" | "slide" | "wipe";
 export type MotionRenderer = "lower-third" | "progress-bar" | "big-number" | "underline";
 
@@ -19,8 +19,10 @@ export function resolveHook(id: string): HookRenderer {
 
 export function resolveCaption(id: string): CaptionRenderer {
   const n = id.toLowerCase();
+  if (/gradient|knockout|togi/.test(n)) return "gradient";
   if (/underline|highlight|keyword/.test(n)) return "underline";
-  if (/mono|clean|bold/.test(n)) return "mono-bold";
+  if (/clean|minimal|plain/.test(n)) return "clean";
+  if (/mono|bold/.test(n)) return "mono-bold";
   // pop, kinetic, stack, amber, coral → word-by-word com destaque
   return "word-pop";
 }
