@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Garantido Prêmios — 100 números, resultado no mesmo dia</title>
+<meta name="description" content="Rapidinhas Garantido Prêmios: apenas 100 números, extração pela PT-Rio e resultado no mesmo dia. Conheça a ação disponível." />
+<meta name="theme-color" content="#f3f8f3" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="preload" as="image" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ===========================================================
+     GARANTIDO PRÊMIOS — variação 2 ("mint lab / duas dobras")
+
+     MESMA identidade da variação 1 (apps/garantido-premios-lp/
+     index.html): tokens de cor idênticos, Anton + Plus Jakarta
+     Sans, aurora de blobs radiais animada só por transform/
+     opacity, malha de pontos estática, grão SVG inline, glass nos
+     rótulos. A diferença é de LAYOUT, não de marca:
+
+       v1 = uma dobra, sem scroll, bento de 3 tiles
+       v2 = duas dobras (clara + escura), mockup de celular 3D
+            reativo a scroll, grid de 4 selos, 3 cards numerados
+
+     Paleta segue deliberadamente restrita a verde/preto/branco:
+     qualquer tom quente (âmbar/ocre/metálico) pertence à
+     identidade do outro cliente do mesmo nicho e NÃO entra aqui.
+     Vale também para a tela reconstruída dentro do celular — o
+     app real usa um banner vermelho, que foi retonalizado para o
+     verde da marca para a peça não brigar com ela mesma.
+     =========================================================== */
+  :root {
+    /* superfícies — tema claro (dobra 1) */
+    --bg:        #f3f8f3;
+    --surface:   #ffffff;
+    --line:      #d9e4da;
+    --line-soft: rgba(13, 42, 22, .07);
+
+    /* texto claro */
+    --ink:   #0d2216;
+    --ink-2: #3f5848;
+    --ink-3: #6b8071;
+
+    /* verde da marca — tokens reais do bicho-stats-garantido */
+    --green:      #097f23;
+    --green-deep: #045a16;
+    --green-mid:  #0b9a2a;
+    --neon:       #01bf01;
+    --neon-hi:    #37e332;
+    --mint:       #cef4d2;
+
+    /* superfícies — tema escuro (dobra 2). Derivadas do --ink:
+       é o mesmo preto-esverdeado da marca, só mais fundo. */
+    --dk:       #06100a;
+    --dk-2:     #0b1a11;
+    --dk-card:  rgba(255,255,255,.042);
+    --dk-card2: rgba(255,255,255,.07);
+    --dk-line:  rgba(255,255,255,.085);
+    --dk-ink:   #eaf5ec;
+    --dk-ink-2: #9cb3a3;
+
+    --radius:    15px;
+    --radius-sm: 11px;
+    --shadow:     0 1px 2px rgba(13,42,22,.04), 0 10px 26px -18px rgba(13,42,22,.30);
+    --shadow-cta: 0 10px 26px -10px rgba(9,127,35,.52);
+
+    /* geometria do mockup 3D — num só lugar, porque a espessura
+       do aparelho é lida por 5 camadas diferentes */
+    --phone-w: 206px;
+    --phone-r: 30px;
+    --depth:   15px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; min-width: 0; }
+
+  html {
+    /* v2 ROLA (duas dobras) — ao contrário da v1, que trava em
+       100dvh. O scroll é o que alimenta a animação do celular. */
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* trava o eixo X: o celular rotacionado e os selos flutuantes
+       podem transbordar alguns px e isso nunca pode virar scroll
+       horizontal dentro do feed. */
+    overflow-x: hidden;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .wrap { width: 100%; max-width: 620px; margin: 0 auto; padding: 0 clamp(16px, 4.6vw, 26px); overflow-wrap: break-word; }
+  h1, h2, h3, p { overflow-wrap: break-word; }
+  img { max-width: 100%; }
+
+  /* ---------- AURORA: 3 blobs radiais desfocados ----------
+     Mesma técnica da v1: keyframes só com transform/opacity
+     (trabalho de compositor). Nunca background-position, que
+     repinta o gradiente inteiro a cada frame e derruba o FPS em
+     celular — e é em celular, dentro do feed, que 100% deste
+     tráfego chega. Aqui a aurora é por-seção (position:absolute
+     dentro de cada dobra) em vez de fixed, porque as duas dobras
+     têm temas opostos. */
+  .aurora {
+    position: absolute; inset: 0; z-index: 0;
+    overflow: hidden; pointer-events: none; contain: strict;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(54px); will-change: transform; }
+  .blob-1 {
+    width: 64vmax; height: 64vmax; top: -34vmax; left: -20vmax;
+    background: radial-gradient(circle, rgba(55,227,50,.42), rgba(55,227,50,0) 68%);
+    animation: drift-1 26s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 48vmax; height: 48vmax; top: -14vmax; right: -22vmax;
+    background: radial-gradient(circle, rgba(1,191,1,.30), rgba(1,191,1,0) 70%);
+    animation: drift-2 32s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 58vmax; height: 58vmax; bottom: -34vmax; right: -16vmax;
+    background: radial-gradient(circle, rgba(9,127,35,.22), rgba(9,127,35,0) 70%);
+    animation: drift-3 29s ease-in-out infinite;
+  }
+  @keyframes drift-1 {
+    0%,100% { transform: translate3d(0,0,0) scale(1); }
+    50%     { transform: translate3d(8%, 6%, 0) scale(1.12); }
+  }
+  @keyframes drift-2 {
+    0%,100% { transform: translate3d(0,0,0) scale(1.06); }
+    50%     { transform: translate3d(-10%, 8%, 0) scale(.92); }
+  }
+  @keyframes drift-3 {
+    0%,100% { transform: translate3d(0,0,0) scale(.94); }
+    50%     { transform: translate3d(-9%, -7%, 0) scale(1.12); }
+  }
+
+  /* malha de pontos — pintada uma vez, nunca animada: custo zero
+     por frame. É o que dá o caráter de "painel de números" e
+     afasta o resultado do look genérico de gradiente. */
+  .mesh {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(9,127,35,.30) .9px, transparent .9px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 60% at 50% 34%, #000 18%, transparent 76%);
+    mask-image: radial-gradient(ellipse 85% 60% at 50% 34%, #000 18%, transparent 76%);
+    opacity: .5;
+  }
+
+  /* grão fino: tira o aspecto "gradiente de CSS" e dá textura
+     impressa. Um elemento, SVG inline, zero request. */
+  .grain {
+    position: fixed; inset: 0; z-index: 90; pointer-events: none;
+    opacity: .04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* =================== HEADER (glass, fixo) =================== */
+  header {
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(255,255,255,.66);
+    -webkit-backdrop-filter: blur(14px) saturate(165%);
+    backdrop-filter: blur(14px) saturate(165%);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  header .wrap {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-top: 9px; padding-bottom: 9px;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .brand img { height: clamp(22px, 6.4vw, 30px); width: auto; display: block; }
+  .brand b {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800; font-size: clamp(12px, 3.3vw, 15px);
+    letter-spacing: -.015em; color: var(--ink); white-space: nowrap;
+  }
+  .nav-cta {
+    flex: 0 0 auto; text-decoration: none; white-space: nowrap;
+    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green) 48%, var(--green-deep) 100%);
+    color: #fff; border-radius: 999px;
+    padding: 8px clamp(11px, 3.2vw, 16px);
+    font-weight: 800; font-size: clamp(10.5px, 2.9vw, 12.5px);
+    letter-spacing: -.005em;
+    box-shadow: 0 6px 18px -8px rgba(9,127,35,.6);
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(9,127,35,.7); }
+  .nav-cta:active { transform: scale(.97); }
+  .nav-cta:focus-visible { outline: 3px solid var(--neon); outline-offset: 2px; }
+
+  /* ================== DOBRA 1 — clara / hero ================== */
+  .fold-1 { position: relative; overflow: hidden; }
+  .fold-1 > .wrap {
+    position: relative; z-index: 1;
+    padding-top: clamp(22px, 6vw, 44px);
+    padding-bottom: clamp(26px, 7vw, 52px);
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: clamp(8.5px, 2.4vw, 10.5px);
+    font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--green);
+  }
+  .eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--neon); flex: 0 0 auto;
+    animation: pulse 2.1s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%  { box-shadow: 0 0 0 0 rgba(1,191,1,.55); }
+    70% { box-shadow: 0 0 0 7px rgba(1,191,1,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(1,191,1,0); }
+  }
+
+  .hero { text-align: center; }
+  /* Tipografia em dois degraus de cor, não de corpo: a linha 1 em
+     tinta e a linha 2 no verde da marca. É o contraste que o
+     rascunho do founder pede, e sai mais barato em altura do que
+     mudar o corpo. */
+  .hero h1 {
+    font-family: 'Anton', 'Plus Jakarta Sans', Impact, sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(30px, 8.9vw, 56px);
+    line-height: .99; letter-spacing: -.004em;
+    color: var(--ink);
+    margin-top: clamp(9px, 2.6vw, 16px);
+  }
+  .hero h1 .l2 { display: block; color: var(--green); }
+  /* pincelada verde atrás da frase-chave — eco do traço sob
+     "PRÊMIOS" no logo. inline-block + nowrap mantêm a mancha presa
+     a uma linha só, então ela nunca vaza para a linha seguinte. */
+  .mark {
+    position: relative; display: inline-block; white-space: nowrap;
+    padding: 0 .18em; color: #06230f; z-index: 0;
+  }
+  .mark::before {
+    content: ''; position: absolute; z-index: -1;
+    left: 0; right: 0; bottom: .09em; height: .50em;
+    background: linear-gradient(100deg, var(--neon), var(--neon-hi));
+    border-radius: 3px 9px 4px 8px;
+    transform: rotate(-.8deg);
+    box-shadow: 0 5px 16px -7px rgba(1,191,1,.8);
+  }
+  .hero .sub {
+    font-size: clamp(12.5px, 3.5vw, 16px);
+    line-height: 1.5; color: var(--ink-2);
+    max-width: 44ch; margin: clamp(10px, 2.8vw, 16px) auto 0;
+  }
+
+  /* ------------- 4 SELOS DE CHECK (grid 2x2) -------------
+     Glass só em rótulo curto — texto corrido nunca sobre vidro
+     (contraste imprevisível). Mesma regra da v1. */
+  .checks {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(7px, 2vw, 11px);
+    margin-top: clamp(16px, 4.2vw, 26px);
+  }
+  .check {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.80);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    padding: clamp(9px, 2.5vw, 13px) clamp(9px, 2.6vw, 14px);
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .check:hover {
+    transform: translateY(-2px);
+    border-color: rgba(9,127,35,.34);
+    box-shadow: 0 1px 2px rgba(13,42,22,.04), 0 16px 32px -20px rgba(9,127,35,.45);
+  }
+  .check i {
+    flex: 0 0 auto;
+    width: clamp(17px, 4.6vw, 21px); height: clamp(17px, 4.6vw, 21px);
+    border-radius: 50%;
+    background: var(--mint);
+    border: 1px solid rgba(9,127,35,.25);
+    display: grid; place-items: center;
+  }
+  .check i svg { width: 60%; height: 60%; display: block; }
+  .check span {
+    font-weight: 800; letter-spacing: -.012em;
+    font-size: clamp(10.5px, 2.95vw, 13.5px);
+    line-height: 1.2; color: var(--ink);
+  }
+
+  /* -------------------------- CTAs -------------------------- */
+  .btn {
+    display: block; width: 100%; text-align: center;
+    border: none; cursor: pointer; text-decoration: none;
+    border-radius: var(--radius);
+    padding: clamp(13px, 3.5vw, 17px) 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(13.5px, 3.8vw, 17px);
+    letter-spacing: -.008em;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease, color .16s ease, border-color .16s ease;
+    position: relative; overflow: hidden;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn:focus-visible { outline: 3px solid var(--neon); outline-offset: 2px; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green) 48%, var(--green-deep) 100%);
+    color: #fff; box-shadow: var(--shadow-cta);
+  }
+  .btn-primary:hover { box-shadow: 0 14px 34px -10px rgba(9,127,35,.62); transform: translateY(-1px); }
+  /* varredura de brilho: transform puro, barato no compositor */
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 42%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.32), transparent);
+    transform: skewX(-18deg);
+    animation: sweep 4.6s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    0%, 62%  { transform: translateX(0) skewX(-18deg); }
+    88%,100% { transform: translateX(420%) skewX(-18deg); }
+  }
+  .btn .btn-sub {
+    display: block;
+    font-size: clamp(9.5px, 2.6vw, 11.5px);
+    font-weight: 600; letter-spacing: .01em;
+    opacity: .88; margin-top: 2px;
+  }
+  .cta-block { margin-top: clamp(16px, 4.2vw, 26px); }
+  .disclaim {
+    text-align: center; margin-top: clamp(8px, 2.2vw, 11px);
+    font-size: clamp(9px, 2.5vw, 11px);
+    line-height: 1.4; color: var(--ink-3);
+  }
+
+  /* ===========================================================
+     MOCKUP DE CELULAR 3D
+     -----------------------------------------------------------
+     Pilha de camadas, de fora pra dentro:
+
+       .stage        perspective (a "câmera")
+        .ph-scroll   tilt dirigido pelo SCROLL
+         .ph-idle    flutuação idle (respiração constante)
+          .phone     preserve-3d — o corpo
+           .ph-slab  4 placas em translateZ negativo = espessura
+           .ph-side  botões físicos (power / volume)
+           .ph-body  bezel metálico + tela
+        .ph-floor    sombra no chão (FORA do 3D, não inclina)
+
+     Por que DOIS wrappers (.ph-scroll + .ph-idle): as duas
+     animações escrevem em `transform`. Uma única propriedade não
+     aceita duas animações somadas sem `animation-composition:add`
+     (suporte mais fino). Aninhar multiplica as matrizes de graça
+     e funciona em todo lugar.
+
+     A espessura é feita por EXTRUSÃO (placas empilhadas em Z com
+     o mesmo border-radius), não por rotateY(90deg) de uma parede:
+     parede plana não acompanha canto arredondado e abre fenda.
+     =========================================================== */
+  .stage {
+    position: relative;
+    width: 100%;
+    margin-top: clamp(26px, 7vw, 20px);
+    perspective: 1150px;
+    perspective-origin: 50% 42%;
+    display: flex; justify-content: center;
+    /* altura reservada = o aparelho + folga pra inclinação e pros
+       selos, para o tilt nunca empurrar o layout. */
+    padding: clamp(12px, 3.4vw, 22px) 0 clamp(26px, 7vw, 38px);
+  }
+
+  .ph-scroll {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    /* POSE DE REPOUSO: é também o estado final se nada animar
+       (sem suporte a scroll timeline e sem JS, ou reduced-motion).
+       A peça tem que nascer bonita parada. */
+    transform: rotateX(3deg) rotateY(-9deg) rotateZ(-1deg);
+  }
+  .ph-idle {
+    transform-style: preserve-3d;
+    will-change: transform;
+    animation: ph-float 9s ease-in-out infinite;
+  }
+  /* respiração: sobe/desce de leve e gira alguns décimos de grau
+     em dois eixos — é isso que faz o aparelho parecer suspenso em
+     vez de colado na página. Só transform. */
+  @keyframes ph-float {
+    0%, 100% { transform: translate3d(0, 0, 0)     rotateY(-2.2deg) rotateX(1deg)   rotateZ(-.5deg); }
+    35%      { transform: translate3d(0, -9px, 0)  rotateY(1.6deg)  rotateX(-1.1deg) rotateZ(.45deg); }
+    70%      { transform: translate3d(0, -4px, 0)  rotateY(2.4deg)  rotateX(.5deg)  rotateZ(.2deg); }
+  }
+
+  .phone {
+    position: relative;
+    width: var(--phone-w);
+    aspect-ratio: 206 / 420;
+    transform-style: preserve-3d;
+  }
+
+  /* --- espessura: 4 placas atrás, do mesmo raio --- */
+  .ph-slab {
+    position: absolute; inset: 0;
+    border-radius: var(--phone-r);
+    background: linear-gradient(100deg, #30403a 0%, #0e1612 38%, #1d2a24 62%, #050807 100%);
+  }
+  .ph-slab:nth-of-type(1) { transform: translateZ(calc(var(--depth) * -1)); }
+  .ph-slab:nth-of-type(2) { transform: translateZ(calc(var(--depth) * -.72)); }
+  .ph-slab:nth-of-type(3) { transform: translateZ(calc(var(--depth) * -.44)); }
+  .ph-slab:nth-of-type(4) { transform: translateZ(calc(var(--depth) * -.18)); }
+
+  /* --- botões físicos: finos, em Z intermediário, meio pra fora --- */
+  .ph-btn {
+    position: absolute; width: 3px; border-radius: 2px;
+    background: linear-gradient(180deg, #4a5a52, #141c18 60%, #39473f);
+    transform: translateZ(calc(var(--depth) * -.5));
+  }
+  .ph-btn.pwr  { right: -2px; top: 26%;   height: 10%; }
+  .ph-btn.vup  { left:  -2px; top: 20%;   height: 6.5%; }
+  .ph-btn.vdn  { left:  -2px; top: 28.5%; height: 6.5%; }
+
+  /* --- corpo: bezel metálico. A sensação de "rim polido" vem de
+         insets empilhados, não de uma borda só. E a sombra
+         ambiente é uma escada de 6 degraus (cada um dobra o blur
+         e corta a opacidade), que é o que separa penumbra real de
+         sombra chapada. --- */
+  .ph-body {
+    position: absolute; inset: 0;
+    border-radius: var(--phone-r);
+    padding: 7px;
+    background: linear-gradient(145deg, #4d5a53 0%, #171f1b 22%, #0b100d 55%, #212b26 82%, #070a09 100%);
+    transform-style: preserve-3d;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.14),
+      inset 0 1px 1px rgba(255,255,255,.26),
+      inset 0 -1px 1px rgba(0,0,0,.5),
+      0 1px 2px rgba(6,16,10,.16),
+      0 2px 4px rgba(6,16,10,.14),
+      0 5px 9px rgba(6,16,10,.12),
+      0 10px 19px rgba(6,16,10,.10),
+      0 21px 38px rgba(6,16,10,.08),
+      0 40px 70px -10px rgba(6,16,10,.22);
+  }
+
+  /* --- a tela --- */
+  .ph-screen {
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: calc(var(--phone-r) - 7px);
+    overflow: hidden;
+    background: #eef2ef;
+    display: flex; flex-direction: column;
+    contain: paint;
+    transform: translateZ(.5px);
+  }
+  .s-shot {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    display: block;
+  }
+
+  /* dynamic island */
+  .ph-island {
+    position: absolute; z-index: 6; top: 7px; left: 50%;
+    transform: translateX(-50%) translateZ(1.5px);
+    width: 34%; height: 11px; border-radius: 999px;
+    background: #04070500;
+    background: #050807;
+    box-shadow: inset 0 0 0 .5px rgba(255,255,255,.1);
+  }
+  .ph-island::after {
+    content: ''; position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%);
+    width: 4px; height: 4px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #26384a, #080c10 70%);
+    box-shadow: inset 0 0 0 .5px rgba(120,160,200,.28);
+  }
+
+  /* --- vidro: dois brilhos. O glint duro varre devagar no mesmo
+         período da flutuação, então a luz parece reagir ao
+         movimento sem custar uma linha de JS. --- */
+  .ph-glare {
+    position: absolute; inset: 0; z-index: 7; pointer-events: none;
+    border-radius: calc(var(--phone-r) - 7px);
+    transform: translateZ(2px);
+    overflow: hidden;
+  }
+  .ph-glare::before {
+    content: ''; position: absolute; top: -40%; bottom: -40%; left: -30%; width: 46%;
+    background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.34) 44%, rgba(255,255,255,.44) 54%, rgba(255,255,255,0) 100%);
+    transform: rotate(14deg);
+    animation: ph-glint 9s ease-in-out infinite;
+  }
+  .ph-glare::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(255,255,255,.20) 0%, rgba(255,255,255,0) 34%),
+      linear-gradient(20deg, rgba(4,20,10,.14) 0%, rgba(4,20,10,0) 42%);
+  }
+  @keyframes ph-glint {
+    0%, 100% { transform: translateX(0)    rotate(14deg); opacity: .5; }
+    35%      { transform: translateX(165%) rotate(14deg); opacity: .95; }
+    70%      { transform: translateX(95%)  rotate(14deg); opacity: .7; }
+  }
+
+  /* --- sombra no chão: irmã de .ph-scroll, FORA da cadeia 3D,
+         então não inclina junto. Conta-fase com a flutuação:
+         quando o aparelho sobe, a sombra abre e clareia. --- */
+  .ph-floor {
+    position: absolute; z-index: -1;
+    left: 50%; bottom: clamp(12px, 3.4vw, 22px);
+    width: calc(var(--phone-w) * .86); height: 24px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(6,32,16,.30), rgba(6,32,16,0) 72%);
+    filter: blur(5px);
+    animation: ph-floor 9s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  @keyframes ph-floor {
+    0%, 100% { transform: translateX(-50%) scale(1);          opacity: .95; }
+    35%      { transform: translateX(-50%) scale(1.13, .82);  opacity: .6; }
+    70%      { transform: translateX(-50%) scale(1.05, .92);  opacity: .78; }
+  }
+
+  /* ===== SELOS FLUTUANTES ao lado do aparelho =====
+     Posicionados no .stage (não no celular), então não herdam a
+     rotação: ficam planos e legíveis, que é o ponto — eles são
+     rótulo, o celular é objeto. */
+  .ph-tag {
+    position: absolute; z-index: 5; max-width: 46%;
+    background: rgba(255,255,255,.90);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    backdrop-filter: blur(10px) saturate(150%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 4px rgba(13,42,22,.05), 0 18px 34px -20px rgba(13,42,22,.40);
+    padding: clamp(7px, 2vw, 10px) clamp(9px, 2.5vw, 13px);
+    will-change: transform;
+  }
+  .ph-tag b {
+    display: block;
+    font-family: 'Anton', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(11px, 3vw, 14px);
+    line-height: 1.08; letter-spacing: .004em;
+    color: var(--green);
+  }
+  .ph-tag span {
+    display: block; margin-top: 2px;
+    font-size: clamp(8.5px, 2.35vw, 10.5px);
+    line-height: 1.26; font-weight: 600; color: var(--ink-3);
+  }
+  /* t1 fica no TOPO, sobre a moldura/notch — não sobre o banner. A
+     11% ela caía exatamente em cima do "R$ 200,00", que é o número
+     que a dobra existe pra mostrar. t2 pode sobrepor o grid: ali o
+     conteúdo é repetitivo e cobrir duas células não custa nada. */
+  .ph-tag.t1 { top: 4%;     right: 0; animation: tag-a 9s ease-in-out infinite; }
+  .ph-tag.t2 { bottom: 16%; left:  0; animation: tag-b 9s ease-in-out infinite; }
+  /* contra-fase com o aparelho: a leve diferença de ritmo é o que
+     cria profundidade (paralaxe de brinquedo, custo zero). */
+  @keyframes tag-a {
+    0%,100% { transform: translate3d(0,0,0); }
+    35%     { transform: translate3d(-3px, 5px, 0); }
+    70%     { transform: translate3d(-1px, 2px, 0); }
+  }
+  @keyframes tag-b {
+    0%,100% { transform: translate3d(0,0,0); }
+    35%     { transform: translate3d(3px, -6px, 0); }
+    70%     { transform: translate3d(1px, -3px, 0); }
+  }
+
+  /* =========== TELA RECONSTRUÍDA (UI do app, em CSS) ===========
+     Reconstruída em HTML/CSS em vez de recortada da referência: o
+     recorte disponível tem ~134px de largura e está comprimido —
+     viraria papa em qualquer densidade de tela. Em CSS fica
+     nítido em 1x, 2x e 3x e ainda herda os tokens da marca.
+     A estrutura é fiel ao app real (cabeçalho escuro, banner de
+     prêmio, passo de quantidade + "aleatório", grid de 6 colunas
+     com disponível em verde e indisponível em grafite). */
+  .s-head {
+    flex: 0 0 auto;
+    background: #060f0a;
+    padding: 19px 9px 7px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .s-head img { height: 13px; width: auto; display: block; }
+  .s-burger { display: grid; gap: 2.5px; }
+  .s-burger i { display: block; width: 11px; height: 1.5px; border-radius: 1px; background: #5d7266; }
+
+  .s-banner {
+    flex: 0 0 auto; position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse 90% 70% at 20% 10%, rgba(1,191,1,.30), rgba(1,191,1,0) 60%),
+      radial-gradient(ellipse 80% 80% at 85% 90%, rgba(55,227,50,.22), rgba(55,227,50,0) 58%),
+      linear-gradient(160deg, #0b2314 0%, #04120a 55%, #081c10 100%);
+    padding: 11px 9px 10px;
+    text-align: center;
+  }
+  /* malha fina dentro do banner — mesma ideia da malha da página,
+     em miniatura: dá textura e evita o "retângulo de gradiente". */
+  .s-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(1,191,1,.30) .5px, transparent .5px);
+    background-size: 7px 7px; opacity: .55;
+  }
+  .s-banner > * { position: relative; }
+  .s-seal {
+    position: absolute; z-index: 2; top: 8px; right: 8px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: linear-gradient(140deg, var(--neon-hi), var(--green-deep));
+    box-shadow: 0 0 0 1.5px rgba(255,255,255,.22), 0 3px 10px -2px rgba(1,191,1,.7);
+    display: grid; place-items: center;
+    font-family: 'Anton', sans-serif; font-size: 6px; line-height: .95;
+    color: #fff; letter-spacing: .02em; text-align: center;
+  }
+  .s-kick {
+    font-size: 5.5px; font-weight: 800; letter-spacing: .3em;
+    text-transform: uppercase; color: rgba(206,244,210,.72);
+  }
+  .s-prize {
+    font-family: 'Anton', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400; line-height: .9; margin-top: 1px;
+    color: #fff; letter-spacing: -.01em;
+    display: flex; align-items: baseline; justify-content: center; gap: 2px;
+    text-shadow: 0 0 14px rgba(55,227,50,.55), 0 2px 0 rgba(4,90,22,.6);
+  }
+  .s-prize .cur  { font-size: 13px; color: var(--neon-hi); }
+  .s-prize .big  { font-size: 34px; }
+  .s-prize .cent { font-size: 13px; }
+  .s-pills { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
+  .s-pill {
+    flex: 1 1 0; min-width: 0;
+    background: rgba(0,0,0,.42);
+    border: .5px solid rgba(55,227,50,.32);
+    border-radius: 5px; padding: 3px 2px;
+  }
+  .s-pill u {
+    display: block; text-decoration: none;
+    font-size: 4.5px; font-weight: 800; letter-spacing: .14em;
+    text-transform: uppercase; color: rgba(206,244,210,.62);
+  }
+  .s-pill b {
+    display: block;
+    font-family: 'Anton', sans-serif; font-weight: 400;
+    font-size: 9px; line-height: 1.05; color: var(--neon-hi);
+  }
+  .s-unit {
+    margin-top: 6px;
+    font-size: 5px; font-weight: 700; letter-spacing: .06em;
+    color: rgba(206,244,210,.55);
+  }
+  .s-unit b { color: #fff; font-family: 'Anton', sans-serif; font-weight: 400; font-size: 8px; letter-spacing: .01em; }
+
+  /* barra de progresso dos números */
+  .s-prog { flex: 0 0 auto; background: #fff; padding: 6px 9px 5px; border-bottom: .5px solid #e2e9e3; }
+  .s-prog-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 5px; font-weight: 800; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 3px;
+  }
+  .s-prog-top b { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 8px; letter-spacing: 0; color: var(--green); }
+  .s-bar { height: 3px; border-radius: 2px; background: #e4ebe5; overflow: hidden; }
+  .s-bar i { display: block; height: 100%; width: 73%; border-radius: 2px; background: linear-gradient(90deg, var(--neon-hi), var(--green)); }
+
+  /* passo de quantidade + atalho aleatório */
+  .s-tools { flex: 0 0 auto; display: flex; gap: 4px; align-items: center; background: #fff; padding: 5px 9px 6px; }
+  .s-step {
+    flex: 0 0 auto; display: flex; align-items: center;
+    border: .5px solid #d6dfd8; border-radius: 5px; overflow: hidden;
+  }
+  .s-step i, .s-step b {
+    display: grid; place-items: center; height: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 7px; font-weight: 800; color: var(--ink-2);
+  }
+  .s-step i { width: 13px; background: #f3f6f3; }
+  .s-step b { width: 15px; background: #fff; color: var(--ink); }
+  .s-rand {
+    flex: 1 1 auto; min-width: 0; height: 15px; border-radius: 5px;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
+    display: grid; place-items: center;
+    font-size: 5.5px; font-weight: 800; letter-spacing: .12em;
+    text-transform: uppercase; color: #fff;
+    box-shadow: 0 2px 7px -2px rgba(9,127,35,.75);
+  }
+
+  /* grid de números — 6 colunas, igual ao app real */
+  .s-grid {
+    flex: 1 1 auto; min-height: 0; position: relative;
+    background: #fff; padding: 5px 7px 0;
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 2.5px; align-content: start;
+  }
+  .s-grid .n {
+    border-radius: 3px; height: 13px;
+    display: grid; place-items: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: normal; font-size: 5.5px; font-weight: 800;
+    color: #fff; letter-spacing: -.02em;
+    background: linear-gradient(170deg, #35cf3b, #15a128);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.14);
+  }
+  .s-grid .n.t {
+    background: #2c3c48; color: rgba(255,255,255,.5);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.2);
+  }
+  /* esfumaçado no pé: diz "tem mais pra rolar" sem precisar de
+     mais células no DOM. */
+  .s-grid::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 34px;
+    background: linear-gradient(180deg, rgba(255,255,255,0), #fff 72%);
+    pointer-events: none;
+  }
+  /* barra de ação fixa no pé da tela do app */
+  .s-foot {
+    position: absolute; z-index: 3; left: 0; right: 0; bottom: 0;
+    padding: 6px 9px 8px;
+    background: linear-gradient(180deg, rgba(255,255,255,.4), #fff 42%);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .s-foot-l { flex: 0 0 auto; }
+  .s-foot-l u {
+    display: block; text-decoration: none;
+    font-size: 4.5px; font-weight: 800; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .s-foot-l b { display: block; font-family: 'Anton', sans-serif; font-weight: 400; font-size: 9px; color: var(--ink); }
+  .s-go {
+    flex: 1 1 auto; min-width: 0; height: 16px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
+    display: grid; place-items: center;
+    font-size: 6px; font-weight: 800; letter-spacing: .08em;
+    text-transform: uppercase; color: #fff;
+    box-shadow: 0 3px 9px -3px rgba(9,127,35,.8);
+  }
+
+  /* ---------------- pista de scroll ---------------- */
+  .cue {
+    margin-top: clamp(14px, 4vw, 20px);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    text-decoration: none; color: var(--ink-3);
+    font-size: clamp(8.5px, 2.3vw, 10px); font-weight: 800;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .cue svg { width: 15px; height: 15px; animation: bob 1.9s ease-in-out infinite; }
+  @keyframes bob {
+    0%,100% { transform: translateY(0); opacity: .6; }
+    50%     { transform: translateY(4px); opacity: 1; }
+  }
+
+  /* ============ DOBRA 2 — escura / como funciona ============ */
+  .fold-2 {
+    position: relative; overflow: hidden;
+    /* o header é sticky: sem esta margem o atalho "#como-funciona"
+       encosta a seção no topo da viewport e o header tampa o selo
+       "COMO FUNCIONA". */
+    scroll-margin-top: 52px;
+    background: var(--dk);
+    color: var(--dk-ink);
+    border-top: 1px solid rgba(55,227,50,.14);
+  }
+  .fold-2 > .wrap {
+    position: relative; z-index: 1; text-align: center;
+    padding-top: clamp(34px, 9vw, 64px);
+    padding-bottom: clamp(20px, 5vw, 34px);
+  }
+  /* aurora escura: mesmos blobs, opacidade menor e mix-blend
+     screen, porque sobre preto o verde precisa somar luz. */
+  .fold-2 .aurora { mix-blend-mode: screen; opacity: .55; }
+  .fold-2 .mesh {
+    background-image: radial-gradient(rgba(55,227,50,.26) .9px, transparent .9px);
+    -webkit-mask-image: radial-gradient(ellipse 80% 55% at 50% 22%, #000 12%, transparent 72%);
+    mask-image: radial-gradient(ellipse 80% 55% at 50% 22%, #000 12%, transparent 72%);
+    opacity: .42;
+  }
+
+  .eyebrow-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(9,127,35,.20);
+    border: 1px solid rgba(55,227,50,.26);
+    border-radius: 999px; padding: 6px 13px 6px 11px;
+    font-size: clamp(8.5px, 2.4vw, 10.5px);
+    font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--neon-hi);
+  }
+  .eyebrow-pill::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--neon-hi); flex: 0 0 auto;
+    animation: pulse 2.1s ease-out infinite;
+  }
+  .fold-2 h2 {
+    font-family: 'Anton', 'Plus Jakarta Sans', Impact, sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(27px, 8vw, 50px);
+    line-height: 1.0; letter-spacing: -.004em;
+    color: #fff;
+    margin-top: clamp(11px, 3vw, 18px);
+  }
+  .fold-2 .sub {
+    font-size: clamp(12px, 3.4vw, 15.5px);
+    line-height: 1.5; color: var(--dk-ink-2);
+    max-width: 44ch; margin: clamp(9px, 2.6vw, 15px) auto 0;
+  }
+  .fold-2 .cta-block { max-width: 420px; margin-left: auto; margin-right: auto; }
+  .btn-ghost {
+    background: var(--dk-card2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--dk-ink);
+    border: 1.5px solid rgba(255,255,255,.16);
+    margin-top: clamp(8px, 2.2vw, 11px);
+  }
+  .btn-ghost:hover { background: rgba(55,227,50,.14); border-color: rgba(55,227,50,.55); color: #fff; transform: translateY(-1px); }
+
+  /* --------- 3 cards numerados --------- */
+  .steps {
+    display: grid; gap: clamp(9px, 2.4vw, 14px);
+    grid-template-columns: 1fr;
+    margin-top: clamp(22px, 5.6vw, 38px);
+    text-align: left;
+  }
+  .step {
+    background: var(--dk-card);
+    border: 1px solid var(--dk-line);
+    border-radius: var(--radius);
+    padding: clamp(13px, 3.4vw, 20px);
+    position: relative; overflow: hidden;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+  /* filete verde na borda esquerda: mesmo marcador de marca dos
+     tiles da v1. */
+  .step::before {
+    content: ''; position: absolute; left: 0; top: 18%; bottom: 18%;
+    width: 2.5px; border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, var(--neon-hi), var(--green));
+  }
+  .step:hover { transform: translateY(-2px); border-color: rgba(55,227,50,.34); background: rgba(255,255,255,.06); }
+  .step em {
+    display: grid; place-items: center;
+    width: clamp(25px, 6.6vw, 31px); height: clamp(25px, 6.6vw, 31px);
+    border-radius: 9px; font-style: normal;
+    background: linear-gradient(140deg, var(--neon-hi), var(--green-deep));
+    font-family: 'Anton', sans-serif; font-weight: 400;
+    font-size: clamp(13px, 3.5vw, 16px); color: #fff;
+    box-shadow: 0 5px 15px -5px rgba(1,191,1,.7);
+  }
+  .step h3 {
+    font-family: 'Anton', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(13.5px, 3.8vw, 17px);
+    line-height: 1.08; letter-spacing: .006em;
+    color: #fff; margin-top: clamp(9px, 2.4vw, 13px);
+  }
+  .step p {
+    font-size: clamp(10.5px, 2.95vw, 13px);
+    line-height: 1.42; color: var(--dk-ink-2); margin-top: 4px;
+  }
+
+  /* -------------------------- FOOTER -------------------------- */
+  footer {
+    position: relative; z-index: 1;
+    background: var(--dk-2);
+    border-top: 1px solid var(--dk-line);
+    padding: clamp(14px, 3.6vw, 22px) 0 max(clamp(14px, 3.6vw, 22px), env(safe-area-inset-bottom));
+  }
+  footer .wrap { display: flex; flex-direction: column; gap: clamp(7px, 1.8vw, 11px); }
+  .foot-top { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 6px 10px; }
+  .badge-18 {
+    flex: 0 0 auto;
+    background: var(--neon-hi); color: #04210b;
+    border-radius: 6px; padding: 2px 7px;
+    font-size: 10px; font-weight: 800; letter-spacing: .04em;
+  }
+  footer p {
+    flex: 1 1 220px; min-width: 180px;
+    font-size: clamp(8.5px, 2.4vw, 10.5px);
+    line-height: 1.42; color: #7e9386;
+  }
+  .legal { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: clamp(9px, 2.5vw, 11px); }
+  .legal a {
+    color: var(--neon-hi); text-decoration: none; font-weight: 700; white-space: nowrap;
+    border-bottom: 1px solid rgba(55,227,50,.3);
+  }
+  .legal span { color: #3b4a40; }
+
+  /* ===========================================================
+     REAÇÃO A SCROLL — scroll-driven animations nativas
+     -----------------------------------------------------------
+     `animation-timeline: view()` roda FORA da main thread: o
+     compositor amarra o progresso da animação à visibilidade do
+     elemento, sem listener de scroll, sem rAF, sem jank. É a
+     diferença que importa aqui, porque o tráfego todo chega em
+     celular dentro do feed, onde a main thread já está ocupada.
+
+     `animation-duration: auto` é obrigatório: duração em segundos
+     não significa nada numa timeline de progresso.
+
+     A faixa `cover 12% cover 88%` evita os extremos (o aparelho
+     nunca chega deitado) e deixa o estado de carregamento — com o
+     celular visível no meio da tela — perto do meio da animação,
+     que é justamente a pose desenhada.
+
+     Sem suporte, o bloco @supports é ignorado inteiro e o
+     aparelho fica na pose de repouso do `.ph-scroll` — e aí o
+     fallback em JS (um único listener passivo, coalescido por
+     rAF) assume. Ordem de prioridade: CSS nativo > JS > estático.
+     =========================================================== */
+  @supports (animation-timeline: view()) {
+    .ph-scroll {
+      animation: ph-tilt linear both;
+      animation-timeline: view(block);
+      animation-range: cover 12% cover 88%;
+      animation-duration: auto;
+    }
+    @keyframes ph-tilt {
+      0%   { transform: rotateX(13deg)  rotateY(-19deg) rotateZ(-2.4deg) translateY(16px) scale(.955); }
+      50%  { transform: rotateX(2.5deg) rotateY(-8deg)  rotateZ(-.9deg)  translateY(0)    scale(1); }
+      100% { transform: rotateX(-9deg)  rotateY(9deg)   rotateZ(1.8deg)  translateY(-16px) scale(.975); }
+    }
+
+    /* revelação dos cards da dobra 2 — mesma timeline, custo zero.
+       O estado final é o default no CSS acima, então quem não
+       suporta vê tudo pronto. */
+    .step, .fold-2 .eyebrow-pill, .fold-2 h2, .fold-2 .sub, .fold-2 .cta-block {
+      animation: rise linear both;
+      animation-timeline: view(block);
+      animation-range: entry 8% entry 70%;
+      animation-duration: auto;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* escalonamento dos 3 cards: faixas levemente deslocadas dão
+       o efeito de cascata sem delay (delay não existe em timeline
+       de progresso). */
+    .step:nth-child(2) { animation-range: entry 14% entry 78%; }
+    .step:nth-child(3) { animation-range: entry 20% entry 86%; }
+  }
+
+  /* ---- fallback em JS: o script marca <html> com esta classe só
+          quando view() NÃO existe (hoje: Firefox sem a flag). Aí o
+          transform vem de variáveis escritas por rAF. ---- */
+  html.js-tilt .ph-scroll {
+    transform:
+      rotateX(calc(var(--rx, 2.5) * 1deg))
+      rotateY(calc(var(--ry, -8) * 1deg))
+      rotateZ(calc(var(--rz, -.9) * 1deg))
+      translateY(calc(var(--ty, 0) * 1px));
+  }
+
+  /* ---- 2 colunas a partir de 560px nos cards ---- */
+  @media (min-width: 560px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ---- desktop: hero vira split (texto | aparelho). O rascunho
+          do founder é empilhado porque foi desenhado em celular;
+          numa tela larga o split é o que entrega a peça com ar de
+          produto, e é o padrão que Framer/Webflow consolidaram
+          pra hero com mockup. ---- */
+  @media (min-width: 940px) {
+    :root { --phone-w: 258px; --depth: 18px; }
+    .wrap { max-width: 1120px; }
+    /* Coluna de texto num bloco só (.hero-col). Antes os quatro
+       blocos eram grid items irmãos: com o aparelho ocupando
+       `grid-row: 1 / -1`, o grid distribuía a altura DELE entre as
+       linhas do texto e o CTA era empurrado para fora da tela.
+       Um item só = nada pra distribuir. */
+    .fold-1 > .wrap {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      grid-template-areas: "txt phone" "cue phone";
+      align-items: center; align-content: center;
+      gap: clamp(10px, 1.6vw, 18px) clamp(28px, 4vw, 60px);
+      padding-top: 46px; padding-bottom: 56px;
+      min-height: calc(100vh - 118px);
+    }
+    .hero-col { grid-area: txt; }
+    .hero { text-align: left; }
+    .hero .sub { margin-left: 0; }
+    .checks { max-width: 520px; }
+    .cta-block { max-width: 430px; }
+    .disclaim { text-align: left; }
+    .cue { grid-area: cue; justify-content: flex-start; flex-direction: row; gap: 8px; margin-top: 0; }
+    /* `width: fit-content` encolhe o palco até a largura do aparelho,
+       então os selos (`left/right: -18px`) encostam NELE e não nas
+       bordas de uma coluna de 440px, onde ficavam soltos no vazio. */
+    .stage {
+      grid-area: phone;
+      width: fit-content; justify-self: center; align-self: center;
+      margin-top: 0;
+      perspective: 1500px;
+    }
+    .ph-tag { max-width: 190px; }
+    /* no desktop o aparelho é maior e o selo t1 encostava no rótulo
+       "PRÊMIO TOTAL"; sobe e sai mais pra fora pra limpar a leitura. */
+    .ph-tag.t1 { top: 1.5%; right: -48px; }
+    .ph-tag.t2 { left: -34px; }
+    .fold-2 > .wrap { max-width: 1040px; }
+    .steps { margin-top: 44px; }
+  }
+
+  /* ---- telas muito estreitas (320px): o aparelho encolhe pra os
+          selos flutuantes continuarem caber sem cobrir a tela. ---- */
+  @media (max-width: 360px) {
+    :root { --phone-w: 176px; --phone-r: 26px; --depth: 13px; }
+    .ph-tag { max-width: 50%; }
+    .checks { gap: 6px; }
+  }
+
+  /* ===========================================================
+     ACESSIBILIDADE: quem pediu menos movimento recebe a peça
+     PARADA, não a peça quebrada. Desliga a flutuação idle, o
+     brilho do vidro, a aurora e a reação a scroll — e trava a
+     pose de repouso do aparelho (que é 3D, só imóvel). Nada
+     desaparece: as revelações da dobra 2 voltam a opacity 1.
+     =========================================================== */
+  @media (prefers-reduced-motion: reduce) {
+    .blob, .ph-idle, .ph-floor, .ph-glare::before, .ph-tag,
+    .btn-primary::after, .cue svg, .eyebrow::before, .eyebrow-pill::before {
+      animation: none !important;
+    }
+    .btn, .check, .step { transition: none; }
+    .ph-scroll {
+      animation: none !important;
+      transform: rotateX(2.5deg) rotateY(-8deg) rotateZ(-.9deg) !important;
+    }
+    .step, .fold-2 .eyebrow-pill, .fold-2 h2, .fold-2 .sub, .fold-2 .cta-block {
+      animation: none !important; opacity: 1 !important; transform: none !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- grão global: decorativo, fora do fluxo, sem pointer-events —
+     nunca intercepta o toque nos CTAs. -->
+<div class="grain" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap">
+    <span class="brand">
+      <img src="logo.png" alt="Garantido Prêmios" width="600" height="150" />
+    </span>
+    <a href="https://garantidopremios.com/" class="nav-cta" data-cta id="cta-nav" target="_blank" rel="noopener">Ver ação disponível</a>
+  </div>
+</header>
+
+<!-- ======================= DOBRA 1 ======================= -->
+<section class="fold-1">
+
+  <div class="aurora" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+  <div class="mesh" aria-hidden="true"></div>
+
+  <div class="wrap">
+
+    <div class="hero-col">
+
+    <div class="hero">
+      <span class="eyebrow">Rapidinhas Garantido Prêmios</span>
+      <h1>
+        100 números.
+        <!-- O ponto final vai DENTRO do .mark (que é nowrap): solto do
+             lado de fora ele não cabia na linha e caía sozinho na linha
+             seguinte, virando um quadradinho verde órfão em Anton. -->
+        <span class="l2">Resultado <span class="mark">no mesmo dia.</span></span>
+      </h1>
+      <p class="sub">
+        Escolha seu número pelo celular, acompanhe a extração pela PT-Rio
+        e confira o resultado de forma simples.
+      </p>
+    </div>
+
+    <div class="checks">
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="#097f23" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Apenas 100 números</span>
+      </div>
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="#097f23" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Extração pela PT-Rio</span>
+      </div>
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="#097f23" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Resultado no mesmo dia</span>
+      </div>
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="#097f23" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Pagamento imediato</span>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a href="https://garantidopremios.com/" class="btn btn-primary" data-cta id="cta-site-hero" target="_blank" rel="noopener">
+        Conhecer a ação disponível
+        <span class="btn-sub">Veja prêmio, valor e números livres</span>
+      </a>
+      <p class="disclaim">Confira as informações e o regulamento antes de escolher.</p>
+    </div>
+
+    </div><!-- /.hero-col -->
+
+    <!-- =============== MOCKUP 3D =============== -->
+    <div class="stage">
+
+      <div class="ph-scroll">
+        <div class="ph-idle">
+          <div class="phone" role="img" aria-label="Celular mostrando a tela real do site da Garantido Prêmios: prêmio em destaque e grade de números para escolher.">
+
+            <!-- espessura: 4 placas em Z -->
+            <span class="ph-slab" aria-hidden="true"></span>
+            <span class="ph-slab" aria-hidden="true"></span>
+            <span class="ph-slab" aria-hidden="true"></span>
+            <span class="ph-slab" aria-hidden="true"></span>
+
+            <!-- botões físicos -->
+            <span class="ph-btn pwr" aria-hidden="true"></span>
+            <span class="ph-btn vup" aria-hidden="true"></span>
+            <span class="ph-btn vdn" aria-hidden="true"></span>
+
+            <div class="ph-body">
+              <div class="ph-screen" aria-hidden="true">
+                <!-- Screenshot real do site (2026-10-08), a pedido do founder:
+                     fiel ao app de verdade em vez da reconstrução em CSS. -->
+                <img class="s-shot" src="./tela-app-garantido.png" alt="" width="484" height="896" loading="eager" />
+              </div>
+              <span class="ph-island" aria-hidden="true"></span>
+              <span class="ph-glare" aria-hidden="true"></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <span class="ph-floor" aria-hidden="true"></span>
+
+      <div class="ph-tag t1">
+        <b>100 números</b>
+        <span>rápido de acompanhar</span>
+      </div>
+      <div class="ph-tag t2">
+        <b>Pagamento imediato</b>
+        <span>após a confirmação</span>
+      </div>
+
+    </div>
+
+    <!-- A pista fica DEPOIS do aparelho: em celular ela é a última
+         coisa da dobra 1, então aponta de verdade pro que vem a
+         seguir. Antes do mockup ela prometia "como funciona" e
+         entregava o celular. -->
+    <a href="#como-funciona" class="cue">
+      Como funciona
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10l6 6 6-6"/></svg>
+    </a>
+
+  </div>
+</section>
+
+<!-- ======================= DOBRA 2 ======================= -->
+<section class="fold-2" id="como-funciona">
+
+  <div class="aurora" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+  <div class="mesh" aria-hidden="true"></div>
+
+  <div class="wrap">
+
+    <span class="eyebrow-pill">Como funciona</span>
+    <h2>Direto, rápido e fácil de entender.</h2>
+    <p class="sub">Você vê todas as informações antes de acessar a ação.</p>
+
+    <div class="cta-block">
+      <!-- Os DOIS botões vão pro site (decisão do cliente: esta LP não
+           direciona pra grupo de WhatsApp). Enquadramentos diferentes de
+           propósito — um é o destino institucional, o outro é a rodada de
+           agora — para não repetir a mesma frase duas vezes na tela. -->
+      <a href="https://garantidopremios.com/" class="btn btn-primary" data-cta id="cta-site" target="_blank" rel="noopener">
+        Acessar o site oficial
+      </a>
+      <a href="https://garantidopremios.com/" class="btn btn-ghost" data-cta id="cta-site-alt" target="_blank" rel="noopener">
+        Ver a ação disponível agora
+        <span class="btn-sub">Prêmio, valor por número e quais ainda estão livres</span>
+      </a>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <em>1</em>
+        <h3>Veja a ação</h3>
+        <p>Confira prêmio, valor e números disponíveis.</p>
+      </article>
+      <article class="step">
+        <em>2</em>
+        <h3>Escolha o número</h3>
+        <p>Faça sua escolha diretamente pelo celular.</p>
+      </article>
+      <article class="step">
+        <em>3</em>
+        <h3>Acompanhe</h3>
+        <p>Confira a extração e o resultado no mesmo dia.</p>
+      </article>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-top">
+        <span class="badge-18">18+</span>
+        <p>
+          Conteúdo destinado a maiores de 18 anos. Consulte sempre o
+          regulamento da ação. A Garantido está em conformidade com as
+          normas aplicáveis. Resultados por extração pública — sem
+          garantia de retorno. Participe com responsabilidade.
+        </p>
+      </div>
+      <div class="legal">
+        <a href="https://garantidopremios.com/" target="_blank" rel="noopener">Site</a>
+        <span>·</span>
+        <a href="../termos.html" target="_blank" rel="noopener">Termos</a>
+        <span>·</span>
+        <a href="../privacidade.html" target="_blank" rel="noopener">Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+</section>
+
+<script>
+/* ===========================================================
+   1) FALLBACK DO TILT POR SCROLL
+   -----------------------------------------------------------
+   Só entra em cena se `animation-timeline: view()` não existir.
+   Em Chrome/Edge/Safari 18+/Samsung — que é praticamente todo o
+   tráfego de feed em celular — este bloco não roda linha nenhuma
+   e a animação fica no compositor.
+
+   Quando roda: UM listener passivo, coalescido por
+   requestAnimationFrame (nunca escreve layout dentro do evento de
+   scroll) e usando a mesma curva de 3 pontos dos keyframes, para
+   as duas rotas ficarem visualmente idênticas.
+   =========================================================== */
+(function () {
+  var supportsSDA = window.CSS && CSS.supports && CSS.supports('animation-timeline', 'view()');
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (supportsSDA || reduced) return;
+
+  var el = document.querySelector('.ph-scroll');
+  var stage = document.querySelector('.stage');
+  if (!el || !stage) return;
+
+  document.documentElement.classList.add('js-tilt');
+
+  /* mesmos 3 estados dos @keyframes ph-tilt */
+  var K = [
+    { rx:  13,  ry: -19, rz: -2.4, ty:  16 },
+    { rx:  2.5, ry:  -8, rz:  -.9, ty:   0 },
+    { rx:  -9,  ry:   9, rz:  1.8, ty: -16 }
+  ];
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  var queued = false;
+  function apply() {
+    queued = false;
+    var r = stage.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    /* progresso equivalente à faixa `cover 12% .. 88%`: 0 quando o
+       bloco está entrando por baixo, 1 quando já saiu por cima. */
+    var span = vh + r.height;
+    if (span <= 0) return;
+    var raw = (vh - r.top) / span;
+    var p = (raw - 0.12) / 0.76;
+    p = p < 0 ? 0 : (p > 1 ? 1 : p);
+
+    var i = p < 0.5 ? 0 : 1;
+    var t = p < 0.5 ? p / 0.5 : (p - 0.5) / 0.5;
+    var a = K[i], b = K[i + 1];
+    var s = el.style;
+    s.setProperty('--rx', lerp(a.rx, b.rx, t).toFixed(2));
+    s.setProperty('--ry', lerp(a.ry, b.ry, t).toFixed(2));
+    s.setProperty('--rz', lerp(a.rz, b.rz, t).toFixed(2));
+    s.setProperty('--ty', lerp(a.ty, b.ty, t).toFixed(2));
+  }
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(apply);
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  apply();
+})();
+</script>
+
+<!-- Meta Pixel base code — mesma estrutura já validada em produção na
+     variação 1 e na LP do outro cliente do nicho. Dispara PageView
+     (pré-requisito de qualquer campanha de retargeting) e eventos
+     customizados no clique de cada CTA.
+     TODO: substituir 1099998719036800 pelo Pixel ID real
+     quando a conta de Ads da Garantido existir — hoje ela não está
+     configurada, então o ID é placeholder (idêntico ao da v1, de
+     propósito: as duas variações compartilham o mesmo pixel para o
+     teste A/B ser comparável). -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1099998719036800');
+fbq('track', 'PageView');
+
+// Repassa UTM/fbclid da URL de entrada (vindos do url_tags do anúncio)
+// pros links de saída. Sem isso o rastreio se perde ao sair da LP: os
+// <a href> são estáticos, então o Ads Manager pode estar com url_tags
+// perfeito e ainda assim chegar 0% de UTM no destino — foi exatamente
+// o que aconteceu na LP irmã antes deste trecho existir. É lógica pura,
+// não depende de nenhum dado da Garantido, então já funciona hoje.
+// Aqui a v2 itera sobre [data-cta] em vez de uma lista de IDs: são 4
+// CTAs (header + hero + 2 na dobra escura) e a lista fixa da v1 ficaria
+// fácil de esquecer de atualizar.
+(function () {
+  var qs = window.location.search;
+  if (!qs) return;
+  var incoming = new URLSearchParams(qs);
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-cta]'), function (a) {
+    // Guard defensivo: só carimba UTM se o href já for uma URL de
+    // verdade (não um placeholder tipo #TODO-...), caso algum CTA
+    // volte a ficar sem destino real no futuro.
+    var raw = a.getAttribute('href') || '';
+    if (raw.charAt(0) === '#') return;
+    try {
+      var url = new URL(a.href);
+      incoming.forEach(function (value, key) { url.searchParams.set(key, value); });
+      a.href = url.toString();
+    } catch (e) {}
+  });
+})();
+
+// Mesmo padrão aplicado na v1 e na LP irmã do Império (2026-10-08):
+// event_id explícito em todo evento customizado/clique, e evento
+// customizado no lugar do Lead padrão — evita o alerta "Alta
+// prioridade" de desduplicação do Events Manager mesmo sem nenhuma
+// fonte servidor hoje.
+function gerarEventId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return Date.now() + '-' + Math.random().toString(36).slice(2);
+}
+
+(function () {
+  // Os 4 CTAs vão pro MESMO destino (o site), então todos disparam
+  // ClickSorteios e quem separa é o content_name — não existe mais
+  // ClickGroup nesta LP, porque não existe mais botão de grupo.
+  // `variant: 'v2'` é o que torna o teste A/B legível no Events
+  // Manager: os dois layouts compartilham o pixel, então sem este
+  // parâmetro os cliques das duas variações chegam indistinguíveis.
+  var map = {
+    'cta-nav':       ['ClickSorteios', { content_name: 'site_header',    variant: 'v2' }],
+    'cta-site-hero': ['ClickSorteios', { content_name: 'site_hero',      variant: 'v2' }],
+    'cta-site':      ['ClickSorteios', { content_name: 'site_fold2',     variant: 'v2' }],
+    'cta-site-alt':  ['ClickSorteios', { content_name: 'site_fold2_alt', variant: 'v2' }]
+  };
+  Object.keys(map).forEach(function (id) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    a.addEventListener('click', function () {
+      fbq('trackCustom', map[id][0], map[id][1], { eventID: gerarEventId() });
+    });
+  });
+})();
+</script>
+<!-- TODO: substituir 1099998719036800 abaixo pelo mesmo ID real -->
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1099998719036800&ev=PageView&noscript=1"
+/></noscript>
+
+</body>
+</html>
