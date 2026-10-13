@@ -1,0 +1,100 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# VIRALS — VIDEO TEMPLATE REGISTRY (Pipeline *industrialize-video · MVC-06)
+# Catálogo de packs visuais/cinéticos para vídeo curto da marca @virals.
+# Paleta navy + coral (de brand-config.yaml) é aplicada via brand-config; este
+# YAML define os PRESETS (hook FX, legendas, transições, motion graphics).
+#
+# Consumido por: plan_video_creative.py (recomenda IDs no edit_spec) e, na
+# Fase B, pelo app proprietário de vídeo (apps/video-studio · Remotion).
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "virals"
+  last_updated: "2026-06-20"
+  status: "active"
+  palette_ref: "brand-config.yaml (navy #0C0A1F + coral #FF3D68)"
+
+# ── Packs de HOOK (0–3s) — pattern interrupt da abertura ─────────────────────
+hook_packs:
+  - id: hook-snap-zoom
+    label: "Snap-Zoom Punch"
+    device: snap-zoom
+    description: "Zoom abrupto no rosto/objeto no segundo 0 + texto coral gigante."
+    best_for_hook_types: [bold claim, pattern interrupt]
+  - id: hook-hardcut-bigtext
+    label: "Hard-Cut Big Text"
+    device: hard-cut
+    description: "Corte seco para tela com claim em caixa-alta, fundo navy."
+    best_for_hook_types: [bold claim]
+  - id: hook-curiosity-whip
+    label: "Curiosity Whip-Pan"
+    device: whip-pan
+    description: "Whip-pan revelando uma pergunta/loop de curiosidade na tela."
+    best_for_hook_types: [curiosity gap, pattern interrupt]
+  - id: hook-data-reveal
+    label: "Data Reveal"
+    device: number-reveal
+    description: "Número-âncora (real) surge com glow aurora — só com dado da fonte."
+    best_for_hook_types: [bold claim]
+
+# ── Estilos de LEGENDA (word-by-word) ───────────────────────────────────────
+caption_styles:
+  - id: cap-coral-pop
+    label: "Coral Word-Pop"
+    style: word-by-word
+    color: "#FF3D68"
+    description: "Palavra-a-palavra com keyword em coral, escala no impacto."
+  - id: cap-clean-bold
+    label: "Clean Bold"
+    style: line-by-line
+    color: "#FFFFFF"
+    description: "Linhas curtas em Outfit Bold branco, alto contraste sobre navy."
+  - id: cap-kinetic-stack
+    label: "Kinetic Stack"
+    style: kinetic
+    color: "#2DE2C8"
+    description: "Tipografia cinética empilhada, glow aurora nas viradas."
+
+# ── Packs de TRANSIÇÃO ──────────────────────────────────────────────────────
+transition_packs:
+  - id: trans-whip
+    label: "Whip Cut"
+    type: whip
+    description: "Whip-pan rápido entre batidas — mantém energia."
+  - id: trans-zoom-punch
+    label: "Zoom Punch"
+    type: zoom
+    description: "Zoom-in/out brusco na troca de ideia."
+  - id: trans-glitch
+    label: "Glitch Snap"
+    type: glitch
+    description: "Glitch curto coral/aurora para ênfase de virada."
+
+# ── Presets de MOTION GRAPHICS ──────────────────────────────────────────────
+motion_presets:
+  - id: motion-lower-third
+    label: "Lower-Third Navy"
+    kind: lower-third
+    description: "Faixa inferior navy + nome/handle em coral."
+  - id: motion-progress-bar
+    label: "Progress Bar"
+    kind: progress-bar
+    description: "Barra de progresso aurora no topo (retenção/segmentos)."
+  - id: motion-kinetic-headline
+    label: "Kinetic Headline"
+    kind: kinetic-type
+    description: "Headline cinética que entra por palavra no payoff."
+
+# ── Recomendação por tipo de hook (scoring_match) ───────────────────────────
+scoring_match:
+  hook:
+    from_bold_claim: [hook-hardcut-bigtext, hook-snap-zoom, hook-data-reveal]
+    from_curiosity_gap: [hook-curiosity-whip, hook-snap-zoom]
+    from_pattern_interrupt: [hook-snap-zoom, hook-curiosity-whip]
+  caption:
+    default: [cap-coral-pop, cap-clean-bold, cap-kinetic-stack]
+  transition:
+    default: [trans-whip, trans-zoom-punch, trans-glitch]
+  motion:
+    default: [motion-lower-third, motion-progress-bar, motion-kinetic-headline]

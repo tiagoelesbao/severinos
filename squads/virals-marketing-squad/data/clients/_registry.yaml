@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# CLIENTES — REGISTRY CANONICAL
+# Fonte única de verdade sobre quais clientes/marcas o pipeline `*design-creative`
+# está apto a produzir criativos. Cada entrada aponta para os 2 YAMLs de
+# identidade (voz/avatar/restrições + paleta/tipografia/logo) e define o
+# output_dir-base segregado.
+#
+# Consumido por:
+#   - squads/virals-marketing-squad/scripts/_client_resolver.py
+#   - design_creative_protocol (step 0 do @marketing-chief)
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  criado_em: "2026-05-22"
+  default_client: "virals"
+
+clients:
+  virals:
+    nome_exibicao: "Virals"
+    descricao: "Marca institucional — serviço de Growth via creators + narrativas virais"
+    tipo: "marca_institucional"
+    handle_instagram: "@virals"
+    brand_identity: "squads/virals-marketing-squad/data/clients/virals/brand-identity.yaml"
+    brand_config: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
+    monitoring_dir: "squads/virals-marketing-squad/data/clients/virals/monitoring/"
+    lut_dir: "squads/virals-marketing-squad/data/clients/virals/luts/"
+    workspace_dir: "workspaces/businesses/virals/marketing/"
+    output_dir: "outputs/virals/"
+    status: "active"
+    tags: [d2c, growth, creators, b2b]
+
+  tiago-elesbao:
+    nome_exibicao: "Tiago Elesbão"
+    descricao: "Perfil pessoal do dono — backstage dos negócios e construção da máquina AIOX/Virals"
+    tipo: "perfil_pessoal"
+    handle_instagram: "@tiagoelesbao"
+    brand_identity: "squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-identity.yaml"
+    brand_config: "squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml"
+    monitoring_dir: "squads/virals-marketing-squad/data/clients/tiago-elesbao/monitoring/"
+    lut_dir: "squads/virals-marketing-squad/data/clients/tiago-elesbao/luts/"
+    workspace_dir: "workspaces/businesses/tiago-elesbao/marketing/"
+    output_dir: "outputs/tiago-elesbao/"
+    status: "active"
+    tags: [personal-brand, backstage, founder, b2b]

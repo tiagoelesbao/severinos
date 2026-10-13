@@ -41,6 +41,18 @@ tmp/
 temp/
 *.tmp
 
+# Virals Daily Monitor — runtime artifacts
+services/ETL/Extract/Links/.runtime/
+services/ETL/Extract/outputs/discovery_debug/
+
+# Creative pipeline — generated artifacts (NÃO versionar: regeneráveis e pesados)
+outputs/
+apps/creative-design/public/render-assets/
+
+# Python bytecode (squad scripts)
+__pycache__/
+*.pyc
+
 # Environment & Secrets (AIOS)
 *.key
 *.pem

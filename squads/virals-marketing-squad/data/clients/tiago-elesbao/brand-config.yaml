@@ -1,0 +1,155 @@
+# Tiago Elesbão — Brand Config (Visual)
+# Configuração central de identidade visual para geração de posts e carrosséis
+# do perfil pessoal @tiagoelesbao.
+# Utilizado por: design_creative pipeline (deep_modeler, orchestrators, templates React).
+#
+# Arquétipo Herói + tom direto e cru. Paleta quente (preto + âmbar dourado)
+# para diferenciação imediata da @virals (que usa navy + coral).
+
+brand:
+  name: "Tiago Elesbão"
+  slug: "tiago-elesbao"
+  version: "1.0.0"
+  last_updated: "2026-05-22"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PALETA DE CORES — Hero Amber
+# ─────────────────────────────────────────────────────────────────────────────
+palette:
+  primary: "#0B0B0F"        # Preto profundo — autoridade do Herói
+  secondary: "#1A1A24"      # Variação para gradientes/profundidade
+  accent: "#FFB800"         # Âmbar dourado — vitória, medalha, foco (Hero)
+  accent_alt: "#FF4D2E"     # Laranja-vermelho — urgência, energia
+  accent_aurora: "#FFD86B"  # Âmbar claro — glow/destaques sutis
+  text_primary: "#FFFFFF"   # Texto sobre fundo escuro
+  text_secondary: "#B5B5C0" # Texto de apoio, subtítulos
+  overlay_dark: "#00000080" # Overlay sobre imagens (50% — mais denso que Virals)
+  overlay_light: "#FFFFFF1A"
+
+  light:
+    background: "#F2F2F2"
+    text: "#0B0B0F"
+    accent: "#FFB800"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIPOGRAFIA — Outfit (compartilhada com Virals, economia de assets)
+# ─────────────────────────────────────────────────────────────────────────────
+typography:
+  headline:
+    font_file: "assets/fonts/Outfit-Bold.ttf"
+    fallback: "Arial Bold"
+    fallback_strategy: "system_default"
+    sizes:
+      xl: 80
+      lg: 64
+      md: 52
+      sm: 40
+    color: "#FFFFFF"
+    letter_spacing: -1.0
+
+  body:
+    font_file: "assets/fonts/Outfit-Regular.ttf"
+    fallback: "Arial"
+    fallback_strategy: "system_default"
+    sizes:
+      lg: 32
+      md: 28
+      sm: 24
+    color: "#C8C8D0"
+
+  cta:
+    font_file: "assets/fonts/Outfit-SemiBold.ttf"
+    fallback: "Arial"
+    size: 36
+    color: "#0B0B0F"          # Texto preto sobre fundo âmbar (contraste forte)
+    background: "#FFB800"     # Âmbar dourado — CTAs raros, alta visibilidade
+    padding: [12, 32]
+
+  slide_number:
+    font_file: "assets/fonts/Outfit-Regular.ttf"
+    fallback: "Arial"
+    size: 22
+    color: "#C8C8D0"
+    format: "{current}/{total}"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LOGO — placeholder até receber assets reais do Tiago
+# ─────────────────────────────────────────────────────────────────────────────
+logo:
+  default: "assets/logos/tiago-elesbao-white.png"      # TODO: gerar/receber
+  dark_bg: "assets/logos/tiago-elesbao-white.png"      # TODO
+  light_bg: "assets/logos/tiago-elesbao-dark.png"      # TODO
+  icon_only: "assets/logos/tiago-elesbao-icon.png"     # TODO
+  fallback_text: "@tiagoelesbao"  # Se assets não existirem, renderiza o handle como wordmark
+
+  positions:
+    default:
+      anchor: "bottom-right"
+      margin: 40
+      max_width: 140
+      opacity: 0.9
+    stories:
+      anchor: "top-right"
+      margin: 60
+      max_width: 120
+      opacity: 0.9
+    carousel_slide:
+      anchor: "bottom-right"
+      margin: 36
+      max_width: 100
+      opacity: 0.85
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LAYOUT DEFAULTS
+# ─────────────────────────────────────────────────────────────────────────────
+layout:
+  safe_zone_px: 60
+  text_max_width_pct: 0.85
+
+  text_positions:
+    headline_center: 0.50
+    headline_top: 0.15
+    headline_bottom: 0.65
+    body_offset: 0.12
+
+  overlays:
+    dark_standard: {color: "#000000", opacity: 0.50}   # Mais denso que Virals (0.40)
+    dark_strong: {color: "#000000", opacity: 0.70}
+    brand_subtle: {color: "#0B0B0F", opacity: 0.30}
+    none: {opacity: 0.0}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ELEMENTOS VETORIAIS
+# ─────────────────────────────────────────────────────────────────────────────
+vector_elements:
+  accent_line:
+    color: "#FFB800"          # Âmbar dourado
+    thickness: 4
+    margin_from_text: 16
+
+  separator:
+    color: "#FFFFFF33"
+    thickness: 1
+
+  corner_accent:
+    enabled: false
+    color: "#FFB800"
+    size: 40
+    thickness: 3
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OUTPUTS — segregado por cliente (consumido pela Fase 3 / MKT-MC-03)
+# ─────────────────────────────────────────────────────────────────────────────
+output:
+  base_dir: "outputs/tiago-elesbao/"
+  posts_dir: "outputs/tiago-elesbao/posts/"
+  carousels_dir: "outputs/tiago-elesbao/carousels/"
+  ai_generated_dir: "outputs/tiago-elesbao/ai-generated/"
+
+  quality:
+    png_optimize: true
+    webp_quality: 85
+    jpeg_quality: 92
+    max_size_mb:
+      png: 2.0
+      webp: 0.5

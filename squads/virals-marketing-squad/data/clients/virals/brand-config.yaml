@@ -1,0 +1,153 @@
+# Casey Neistat — Brand Config
+# Configuração central de identidade visual para geração de posts e carrosséis
+# Utilizado por: casey-pillow-composer, casey-post-single-create, casey-carousel-create
+
+brand:
+  name: "Virals"
+  version: "1.0.0"
+  last_updated: "2026-05-10"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PALETA DE CORES
+# ─────────────────────────────────────────────────────────────────────────────
+# Paleta Aurora — estudo do Planejamento Estratégico (aprovada 2026-05-18).
+palette:
+  primary: "#0C0A1F"        # Deep Void — preto-violeta (arquétipo Mago)
+  secondary: "#181436"      # Nebula — variação para gradientes/profundidade
+  accent: "#FF3D68"         # Viral Pulse — coral-magenta, CTAs e destaques
+  accent_alt: "#7B5BFF"     # Magic Indigo — transformação, degradê boreal
+  accent_aurora: "#2DE2C8"  # Aurora Teal — crescimento/dados, glow boreal
+  text_primary: "#FFFFFF"   # Texto sobre fundo escuro
+  text_secondary: "#B9B6CC" # Texto de apoio, subtítulos
+  overlay_dark: "#00000066" # Overlay sobre imagens (40% opacidade)
+  overlay_light: "#FFFFFF1A"# Overlay claro sutil
+
+  # Paleta alternativa (claro)
+  light:
+    background: "#F5F4FA"
+    text: "#0C0A1F"
+    accent: "#FF3D68"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIPOGRAFIA
+# ─────────────────────────────────────────────────────────────────────────────
+typography:
+  headline:
+    font_file: "assets/fonts/Outfit-Bold.ttf"
+    fallback: "Arial Bold"
+    fallback_strategy: "system_default" # Dex: Usar system_default se o arquivo .ttf não for encontrado
+    sizes:
+      xl: 80    # Posts com headline única
+      lg: 64    # Posts com headline + body
+      md: 52    # Slides de carrossel
+      sm: 40    # Subtítulos de carrossel
+    color: "#FFFFFF"
+    letter_spacing: -1.0  # Negativo para headlines modernas
+
+  body:
+    font_file: "assets/fonts/Outfit-Regular.ttf"
+    fallback: "Arial"
+    fallback_strategy: "system_default"
+    sizes:
+      lg: 32
+      md: 28
+      sm: 24
+    color: "#C8C8D0"
+
+  cta:
+    font_file: "assets/fonts/Outfit-SemiBold.ttf"
+    fallback: "Arial"
+    size: 36
+    color: "#FFFFFF"
+    background: "#E94560"
+    padding: [12, 32]  # [vertical, horizontal] em pixels
+
+  slide_number:
+    font_file: "assets/fonts/Outfit-Regular.ttf"
+    fallback: "Arial"
+    size: 22
+    color: "#C8C8D0"
+    format: "{current}/{total}"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LOGO
+# ─────────────────────────────────────────────────────────────────────────────
+logo:
+  default: "assets/logos/logo-white.png"
+  dark_bg: "assets/logos/logo-white.png"
+  light_bg: "assets/logos/logo-dark.png"
+  icon_only: "assets/logos/logo-icon.png"
+
+  positions:
+    default:
+      anchor: "bottom-right"
+      margin: 40
+      max_width: 140
+      opacity: 0.9
+    stories:
+      anchor: "top-right"
+      margin: 60
+      max_width: 120
+      opacity: 0.9
+    carousel_slide:
+      anchor: "bottom-right"
+      margin: 36
+      max_width: 100
+      opacity: 0.85
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LAYOUT DEFAULTS
+# ─────────────────────────────────────────────────────────────────────────────
+layout:
+  safe_zone_px: 60         # Margem mínima de todos os lados
+  text_max_width_pct: 0.85 # Texto ocupa no máximo 85% da largura do canvas
+
+  # Posições padrão de texto no canvas (em fração de altura 0.0-1.0)
+  text_positions:
+    headline_center: 0.50   # Centralizado verticalmente
+    headline_top: 0.15      # Terço superior
+    headline_bottom: 0.65   # Dois terços para baixo
+    body_offset: 0.12       # Deslocamento do body em relação à headline
+
+  # Overlays
+  overlays:
+    dark_standard: {color: "#000000", opacity: 0.40}
+    dark_strong: {color: "#000000", opacity: 0.60}
+    brand_subtle: {color: "#1A1A2E", opacity: 0.25}
+    none: {opacity: 0.0}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ELEMENTOS VETORIAIS (PyCairo)
+# ─────────────────────────────────────────────────────────────────────────────
+vector_elements:
+  accent_line:
+    color: "#E94560"
+    thickness: 4
+    margin_from_text: 16
+
+  separator:
+    color: "#FFFFFF33"
+    thickness: 1
+
+  corner_accent:
+    enabled: false          # Ativar para estética de moldura
+    color: "#E94560"
+    size: 40
+    thickness: 3
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OUTPUTS
+# ─────────────────────────────────────────────────────────────────────────────
+output:
+  base_dir: "outputs/"
+  posts_dir: "outputs/posts/"
+  carousels_dir: "outputs/carousels/"
+  ai_generated_dir: "outputs/ai-generated/"
+
+  quality:
+    png_optimize: true
+    webp_quality: 85
+    jpeg_quality: 92
+    max_size_mb:
+      png: 2.0
+      webp: 0.5
