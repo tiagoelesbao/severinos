@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/l/:code", "destination": "https://link-garantido.vercel.app/api/r?code=:code" },
+    { "source": "/tela-app-garantido.png", "destination": "/v2/tela-app-garantido.png" }
+  ]
+}
