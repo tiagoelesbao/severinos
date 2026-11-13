@@ -42,7 +42,7 @@ export const CarouselSlide: React.FC<CarouselSlideProps> = ({
            <div className="h-full bg-virals-accent transition-all duration-500" style={{ width: progressWidth }} />
         </div>
         <div className="flex justify-between items-center px-12 py-8">
-          <BrandingLogo variant="icon" color={isDark ? 'white' : 'original'} size="sm" />
+          <BrandingLogo variant="v-star" color={isDark ? 'white' : 'original'} size="sm" />
           <BrandTypography variant="body" size="sm" className="font-mono">
             {slideNumber.toString().padStart(2, '0')} / {totalSlides.toString().padStart(2, '0')}
           </BrandTypography>

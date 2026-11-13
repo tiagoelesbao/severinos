@@ -55,7 +55,7 @@ export const VDramatic_White: Story = {
   args: {
     variant: 'v-star',
     color: 'white',
-    size: 'giant',
+    size: 'xl',
   },
   parameters: {
     backgrounds: { default: 'dark' },

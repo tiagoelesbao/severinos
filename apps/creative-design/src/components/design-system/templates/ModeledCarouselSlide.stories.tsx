@@ -17,7 +17,7 @@ export const PremiumHook: Story = {
   args: {
     slideNumber: 1,
     totalSlides: 10,
-    type: 'hook',
+    variant: 'HOOK',
     subHeadline: 'Tendência 2026',
     headline: 'O Futuro é Visual e Inteligente',
     bodyText: 'Como a Inteligência Artificial está redefinindo os limites do design criativo em escala industrial.',
@@ -30,7 +30,7 @@ export const PremiumValue: Story = {
   args: {
     slideNumber: 4,
     totalSlides: 10,
-    type: 'valor',
+    variant: 'CONTENT',
     subHeadline: 'Design System',
     headline: 'Fidelidade Absoluta',
     bodyText: 'Cada pixel é calculado para manter a integridade da sua marca em qualquer formato, de forma automatizada.',
@@ -42,7 +42,7 @@ export const PremiumCTA: Story = {
   args: {
     slideNumber: 10,
     totalSlides: 10,
-    type: 'cta',
+    variant: 'CTA',
     subHeadline: 'Próximo Passo',
     headline: 'Construa seu Futuro Agora',
     bodyText: 'Acesse virals.ai e transforme sua produção criativa hoje mesmo.',

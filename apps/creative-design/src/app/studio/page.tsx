@@ -7,11 +7,11 @@ import { LayersPanel } from '@/components/studio/LayersPanel';
 import { Inspector } from '@/components/studio/Inspector';
 import { panelField } from '@/components/studio/controls';
 import {
-  type Layer, type LayerType, type SlideBackground,
-  makeTextLayer, makeImageLayer, makeShapeLayer, newId,
+  type CanvasFormat, type Layer, type LayerType, type SlideBackground,
+  canvasOf, makeTextLayer, makeImageLayer, makeShapeLayer, newId,
 } from '@/lib/layers';
 import {
-  STUDIO_TEMPLATES, buildPreset, extractContent,
+  STUDIO_TEMPLATES, buildPreset, extractContent, formatOfTemplate,
   type PresetContent, type PresetPalette,
 } from '@/lib/templatePresets';
 
@@ -21,6 +21,8 @@ interface StudioSlide {
   slide_n: number;
   source_slide_n?: number;
   templateId: string;
+  /** Formato do canvas do slide. Ausente = retrato 4:5 (todos os criativos antigos). */
+  format?: CanvasFormat;
   background: SlideBackground;
   layers: Layer[];
   /** UI-only: slide confirmado/salvo pelo usuário (não persistido). */
@@ -55,8 +57,34 @@ const repaginate = (arr: StudioSlide[]): StudioSlide[] => {
   });
 };
 
+const VARIABLE_TEMPLATE_IDS = new Set(['clean-variable', 'clean-variable-paper']);
+
+/**
+ * Templates "variável" (MED-DS-03) escolhem a FORMA (hook/manifesto/prova)
+ * pela posição do slide — ao contrário dos demais templates, não basta
+ * repaginar (corrigir só o texto de paginação): adicionar/remover slide muda
+ * a forma que cada posição deveria usar, então é preciso reconstruir via
+ * buildPreset. addSlide/deleteSlide chamam isso depois de repaginate.
+ */
+function rebuildVariableSlides(arr: StudioSlide[], palette: PresetPalette, signature: string): StudioSlide[] {
+  const total = arr.length;
+  return arr.map((sd, i) => {
+    if (!VARIABLE_TEMPLATE_IDS.has(sd.templateId)) return sd;
+    // Mesma razão do switchTemplate: não forçar pal.accent (tom escuro) por
+    // cima do default do preset, senão a variante "-paper" perde seu acento.
+    const content = extractContent(sd.layers);
+    const preset = buildPreset(sd.templateId, content, palette, {
+      slideNumber: i + 1, totalSlides: total, signature,
+    });
+    return { ...sd, ...preset, format: preset.format };
+  });
+}
+
 const inferTemplate = (archetype: string, total: number): string => {
   if (archetype === 'quote') return 'quote-slide';
+  // Criativo de thumb sem `template_id` no slide cai no estilo padrão do
+  // sistema (E3, "serve para qualquer pauta") em vez de virar carrossel 4:5.
+  if (archetype === 'thumb') return 'thumb-e3';
   if (total === 1) return 'single-post';
   return 'carousel-slide';
 };
@@ -135,6 +163,28 @@ function StudioContent() {
     } catch { alert('Erro ao excluir o criativo.'); }
   }, [selectedId, loadBriefs]);
 
+  // MED-06/G1: busca foto no Pexels para camadas de imagem com `query` e sem
+  // `src` (casa o default do Studio com o pipeline automático). Salvar persiste
+  // o src e evita re-busca nos próximos loads.
+  const hydratePexels = useCallback((docs: StudioSlide[]) => {
+    docs.forEach((doc, i) => {
+      doc.layers.forEach((l) => {
+        if (l.type !== 'image' || !l.query || l.src) return;
+        const orientation = canvasOf(doc.format).w > canvasOf(doc.format).h
+          ? 'landscape' : 'portrait';
+        fetch(`/api/pexels?q=${encodeURIComponent(l.query)}&orientation=${orientation}`)
+          .then((r) => r.json())
+          .then((d) => {
+            if (!d?.url) return;
+            setSlides((prev) => prev.map((sd, idx) => (idx === i
+              ? { ...sd, layers: sd.layers.map((x) => (x.id === l.id ? { ...x, src: d.url } as Layer : x)) }
+              : sd)));
+          })
+          .catch(() => { /* degrada em silêncio */ });
+      });
+    });
+  }, []);
+
   const loadBrief = useCallback((id: string) => {
     fetch(`/api/briefs/${id}`).then((r) => r.json()).then((d) => {
       const clientSlug = (d.client_slug as string) || 'virals';
@@ -142,7 +192,7 @@ function StudioContent() {
       const resolved: PresetPalette = {
         primary: pal?.primary || (clientSlug === 'virals' ? '#0C0A1F' : '#0B0B0F'),
         secondary: pal?.secondary || (clientSlug === 'virals' ? '#181436' : '#1A1A24'),
-        accent: pal?.accent || (clientSlug === 'virals' ? '#FF3D68' : '#FFB800'),
+        accent: pal?.accent || (clientSlug === 'virals' ? '#FF5B3F' : '#FFB800'),
         accentAlt: pal?.accent_alt || (clientSlug === 'virals' ? '#7B5BFF' : '#FF4D2E'),
         accentAurora: pal?.accent_aurora || (clientSlug === 'virals' ? '#2DE2C8' : '#FFD86B'),
       };
@@ -160,7 +210,12 @@ function StudioContent() {
         if (Array.isArray(s.layers) && s.layers.length && s.background) {
           return {
             slide_n: n, source_slide_n: (s.source_slide_n as number) ?? n,
-            templateId: tid, background: s.background as SlideBackground, layers: s.layers as Layer[],
+            templateId: tid,
+            // Formato gravado no brief; se o slide é antigo (não gravou nada),
+            // deduz do template — assim uma thumb salva antes deste campo
+            // existir ainda abre em 1280×720 em vez de ser recortada em 4:5.
+            format: (s.format as CanvasFormat) ?? formatOfTemplate(tid),
+            background: s.background as SlideBackground, layers: s.layers as Layer[],
             committed: true, // veio da persistência → já confirmado
           };
         }
@@ -174,6 +229,12 @@ function StudioContent() {
           accentColor: (s.accent_color as string) || resolved.accent,
           image: (s.image_url as string) ?? null,
           pexelsQuery: (s.pexels_query as string) ?? '',
+          // Campos exclusivos dos presets de thumb (thumb-system.yaml).
+          imageB: (s.image_b_url as string) ?? null,
+          imagePosY: (s.image_pos_y as number) ?? undefined,
+          imageBPosY: (s.image_b_pos_y as number) ?? undefined,
+          label: (s.label as string) ?? '',
+          sealImage: (s.seal_image as string) ?? null,
         };
         const preset = buildPreset(tid, content, resolved, { slideNumber: i + 1, totalSlides: total, signature: sig });
         return { slide_n: n, source_slide_n: (s.source_slide_n as number) ?? n, templateId: tid, ...preset };
@@ -183,27 +244,7 @@ function StudioContent() {
       hist.current = { past: [], future: [], last: 0 };
       hydratePexels(docs);
     }).catch(() => setSlides([]));
-  }, []);
-
-  // MED-06/G1: busca foto no Pexels para camadas de imagem com `query` e sem
-  // `src` (casa o default do Studio com o pipeline automático). Salvar persiste
-  // o src e evita re-busca nos próximos loads.
-  const hydratePexels = useCallback((docs: StudioSlide[]) => {
-    docs.forEach((doc, i) => {
-      doc.layers.forEach((l) => {
-        if (l.type !== 'image' || !l.query || l.src) return;
-        fetch(`/api/pexels?q=${encodeURIComponent(l.query)}&orientation=portrait`)
-          .then((r) => r.json())
-          .then((d) => {
-            if (!d?.url) return;
-            setSlides((prev) => prev.map((sd, idx) => (idx === i
-              ? { ...sd, layers: sd.layers.map((x) => (x.id === l.id ? { ...x, src: d.url } as Layer : x)) }
-              : sd)));
-          })
-          .catch(() => { /* degrada em silêncio */ });
-      });
-    });
-  }, []);
+  }, [hydratePexels]);
 
   useEffect(() => { if (selectedId) loadBrief(selectedId); }, [selectedId, loadBrief]);
 
@@ -223,17 +264,40 @@ function StudioContent() {
   }, [setCurrent]);
 
   // Troca de template → recalcula camadas mantendo o conteúdo (calibração).
+  //
+  // Caso especial (pedido 2026-08-17): escolher "Clean / Variável" aplica o
+  // motor dinâmico ao CARROSSEL INTEIRO de uma vez (hook/manifesto/prova por
+  // posição + fechamento no último slide) — o usuário escolhe uma vez, o
+  // resto já nasce variando. Escolher uma forma FIXA (Clean/Hook, Editorial
+  // etc.) continua trocando só o slide atual, pra permitir ajustar um slide
+  // específico sem desarrumar os outros.
   const switchTemplate = useCallback((templateId: string) => {
     pushHistory(true);
-    setSlides((prev) => prev.map((sd, i) => {
-      if (i !== slideIdx) return sd;
-      const content = extractContent(sd.layers);
-      content.accentColor = palette.accent;
-      const preset = buildPreset(templateId, content, palette, {
-        slideNumber: i + 1, totalSlides: prev.length, signature,
+    const isCascade = (templateId === 'clean-variable' || templateId === 'clean-variable-paper');
+    setSlides((prev) => {
+      const total = prev.length;
+      if (isCascade && total > 1) {
+        return prev.map((sd, i) => {
+          const content = extractContent(sd.layers);
+          const preset = buildPreset(templateId, content, palette, {
+            slideNumber: i + 1, totalSlides: total, signature,
+          });
+          return { ...sd, templateId, ...preset, format: preset.format, committed: false };
+        });
+      }
+      return prev.map((sd, i) => {
+        if (i !== slideIdx) return sd;
+        // Não força accentColor aqui: cada preset já resolve seu próprio default
+        // (pal.accent nos templates normais, tema claro/escuro nos Clean) — forçar
+        // pal.accent (sempre o tom ESCURO) sobrecrevia o acento correto do papel
+        // ao trocar para um template "— Paper".
+        const content = extractContent(sd.layers);
+        const preset = buildPreset(templateId, content, palette, {
+          slideNumber: i + 1, totalSlides: total, signature,
+        });
+        return { ...sd, templateId, ...preset, format: preset.format, committed: false };
       });
-      return { ...sd, templateId, ...preset, committed: false };
-    }));
+    });
     setSelectedLayerId(null);
   }, [slideIdx, palette, signature, pushHistory]);
 
@@ -277,14 +341,14 @@ function StudioContent() {
     if (slides.length <= 1) { alert('O criativo precisa de ao menos 1 slide.'); return; }
     if (!confirm(`Excluir o slide ${idx + 1}?\n\nOs demais serão renumerados e a paginação recomputada.`)) return;
     pushHistory(true);
-    setSlides((prev) => repaginate(prev.filter((_, i) => i !== idx)));
+    setSlides((prev) => rebuildVariableSlides(repaginate(prev.filter((_, i) => i !== idx)), palette, signature));
     setSlideIdx((cur) => {
       const newLen = slides.length - 1;
       const next = idx < cur ? cur - 1 : idx === cur ? Math.min(cur, newLen - 1) : cur;
       return Math.max(0, next);
     });
     setSelectedLayerId(null);
-  }, [slides.length, pushHistory]);
+  }, [slides.length, palette, signature, pushHistory]);
 
   // Duplica o slide atual como um novo slide (clona camadas com ids frescos).
   const addSlide = useCallback(() => {
@@ -298,11 +362,11 @@ function StudioContent() {
         layers: base.layers.map((l) => ({ ...l, id: newId(l.type[0]) })),
       };
       const next = [...prev.slice(0, slideIdx + 1), clone, ...prev.slice(slideIdx + 1)];
-      return repaginate(next);
+      return rebuildVariableSlides(repaginate(next), palette, signature);
     });
     setSlideIdx((cur) => cur + 1);
     setSelectedLayerId(null);
-  }, [slideIdx, pushHistory]);
+  }, [slideIdx, palette, signature, pushHistory]);
 
   const uploadImage = useCallback(async (file: File): Promise<string | null> => {
     const fd = new FormData(); fd.append('file', file);
@@ -343,6 +407,7 @@ function StudioContent() {
         headlineFontSize: null, bodyFontSize: null,
         mainObjectImage: null, imageZoom: 1, imagePosX: 50, imagePosY: 50,
         template_id: sd.templateId,
+        format: sd.format ?? null,
         layers: sd.layers,
         background: sd.background,
       })),
@@ -394,7 +459,10 @@ function StudioContent() {
   const selectedLayer = current?.layers.find((l) => l.id === selectedLayerId) ?? null;
 
   return (
-    <div className="h-screen bg-[#0a0a12] text-white flex overflow-hidden">
+    <div
+      className="h-screen bg-[#0a0a12] text-white flex overflow-hidden"
+      style={{ '--ui-accent': palette.accent } as React.CSSProperties}
+    >
       {/* Esquerda */}
       <aside className="w-72 shrink-0 border-r border-white/10 flex flex-col bg-[#0c0c16]">
         <div className="p-4 border-b border-white/10 shrink-0">
@@ -537,6 +605,7 @@ function StudioContent() {
             <StudioCanvas
               layers={current.layers}
               background={current.background}
+              format={current.format}
               palette={palette}
               scale={scale}
               selectedId={selectedLayerId}

@@ -9,8 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "studio": "remotion studio src/remotion/index.ts",
+    "studio:garantido": "remotion studio src/remotion/index.ts --public-dir=\"../../squads/virals-marketing-squad/data/clients/garantido-premios/meta-ads/creatives/campanha-1-whitelist-social/takes-base\"",
     "render": "node scripts/render.mjs",
     "typecheck": "tsc --noEmit",
+    "test": "node --test \"src/**/*.test.ts\"",
+    "test:watch": "node --test --watch \"src/**/*.test.ts\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

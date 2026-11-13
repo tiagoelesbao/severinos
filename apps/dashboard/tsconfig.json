@@ -30,5 +30,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    // server/ e um pacote Bun separado (package.json + bun.lock proprios).
+    // Checar codigo Bun com os types do Next produzia 8 erros falsos.
+    "server"
+  ]
 }
