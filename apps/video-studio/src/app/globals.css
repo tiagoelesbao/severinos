@@ -24,7 +24,7 @@
   --color-line-strong: rgb(255 255 255 / 0.16);
 
   /* Accent do CLIENTE (default Virals; sobrescrito em runtime) */
-  --color-accent: var(--accent, #ff3d68);
+  --color-accent: var(--accent, #ff5b3f);
 
   /* Semânticas fixas */
   --color-ok: #2de2c8;
@@ -42,7 +42,7 @@
 
 :root {
   /* Accent default (Virals) — o Studio troca via style no <html> por cliente. */
-  --accent: #ff3d68;
+  --accent: #ff5b3f;
 }
 
 body {

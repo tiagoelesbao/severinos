@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  /* Virals Brand Tokens — Paleta Aurora (2026-05-18) */
+  /* Virals Brand Tokens — Paleta Aurora (2026-05-18); acento atualizado p/
+     Vermelho Sinal em 2026-08-16 (coral lia "beauty feminino" demais p/ o
+     leque D2C unissex que a marca passou a mirar). */
   --virals-primary: #0C0A1F;      /* Deep Void — preto-violeta (arquétipo Mago) */
   --virals-secondary: #181436;    /* Nebula — profundidade dos degradês */
-  --virals-accent: #FF3D68;       /* Viral Pulse — coral-magenta, CTAs */
+  --virals-accent: #FF5B3F;       /* Vermelho Sinal — CTAs e destaques */
   --virals-accent-alt: #7B5BFF;   /* Magic Indigo — transformação, glow boreal */
   --virals-aurora: #2DE2C8;       /* Aurora Teal — crescimento/dados, glow boreal */
   --virals-text-primary: #FFFFFF;
@@ -36,6 +38,28 @@ body {
   overflow: hidden; /* Evita scrollbars na renderização */
 }
 
+/*
+ * Contraste de <select>/<option> no Studio (MED-DS-04): o popup nativo de
+ * opções é renderizado pelo browser fora do stacking context da página, então
+ * um fundo translúcido (bg-white/5) nele "resolve" pra quase-branco e some
+ * atrás do texto branco. `color-scheme: dark` faz o Chrome/Firefox desenhar o
+ * chrome nativo do popup (fundo, hover, scrollbar) já em modo escuro; o
+ * background-color explícito no <option> é o reforço para os browsers que
+ * ignoram color-scheme nesse elemento.
+ */
+select {
+  color-scheme: dark;
+}
+select option {
+  background-color: #14141e;
+  color: #f4f4f6;
+}
+select option:checked,
+select option:hover {
+  background-color: var(--ui-accent, #ffb800);
+  color: #000;
+}
+
 /* REMOVE LOGO NEXT.JS PERMANENTEMENTE */
 #NEXT_DEV_STYLE, 
 .nextjs-portal, 
@@ -44,4 +68,24 @@ body {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+}
+
+/*
+ * Anton — a família condensada/pesada exigida pelo thumb-system.yaml do canal
+ * Bora de Bola ("condensada, pesada, itálica"). Servida do PRÓPRIO app
+ * (public/fonts) em vez de next/font/google porque o export da thumb roda em
+ * Playwright headless contra o dev server: uma fonte de CDN externo depende de
+ * rede no momento do screenshot, e a peça sairia com fallback silencioso —
+ * exatamente o defeito mais caro numa thumb, onde a tipografia É o produto.
+ *
+ * Anton não tem corte itálico real; o `font-style: italic` das camadas produz
+ * oblíquo sintético — que é o mesmo que o template de referência
+ * (apps/canal-futebol/thumb/estilos.html) já usa e o founder aprovou.
+ */
+@font-face {
+  font-family: 'Anton';
+  src: url('/fonts/anton.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: block; /* block: melhor um atraso curto que um screenshot com fallback */
 }

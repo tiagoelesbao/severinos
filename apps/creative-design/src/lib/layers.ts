@@ -6,13 +6,60 @@
  * via /render) usam EXATAMENTE este modelo — garantindo WYSIWYG entre o que se
  * edita e o que se exporta.
  *
- * Sistema de coordenadas: canvas canônico de 1080×1350 (4:5). Todas as posições
- * e tamanhos das camadas são absolutos nesse espaço; o preview apenas aplica um
+ * Sistema de coordenadas: canvas canônico DO DOCUMENTO. Todas as posições e
+ * tamanhos das camadas são absolutos nesse espaço; o preview apenas aplica um
  * `scale` visual.
+ *
+ * FORMATO POR DOCUMENTO (2026-09-04): o canvas deixou de ser uma constante de
+ * módulo fixa em 1080×1350 e passou a vir do `SlideDoc.format`. O motivo é que
+ * o mesmo editor de camadas agora precisa produzir DOIS formatos —
+ * carrossel/post de Instagram (4:5) e thumbnail de YouTube (16:9) — e travar o
+ * canvas no módulo impedia qualquer peça que não fosse retrato.
+ *
+ * `CANVAS_W`/`CANVAS_H` continuam exportados como o DEFAULT (retrato), porque
+ * dezenas de posições dos presets antigos são calculadas contra eles. Código
+ * novo deve usar `canvasOf(format)`.
  */
 
-export const CANVAS_W = 1080;
-export const CANVAS_H = 1350;
+/** Formatos de peça suportados pelo editor. */
+export type CanvasFormat = 'instagram-portrait' | 'youtube-thumb';
+
+export interface CanvasSpec {
+  id: CanvasFormat;
+  label: string;
+  w: number;
+  h: number;
+}
+
+export const CANVAS_FORMATS: Record<CanvasFormat, CanvasSpec> = {
+  // Grade do Instagram: o feed exibe 4:5 inteiro e o perfil recorta pra 3:4.
+  'instagram-portrait': {
+    id: 'instagram-portrait', label: 'Instagram · 1080×1350 (4:5)', w: 1080, h: 1350,
+  },
+  // Thumb de YouTube: 1280×720 é a resolução normativa (thumb-system.yaml).
+  'youtube-thumb': {
+    id: 'youtube-thumb', label: 'Thumb YouTube · 1280×720 (16:9)', w: 1280, h: 720,
+  },
+};
+
+/** Formato assumido quando o documento não declara nenhum (back-compat). */
+export const DEFAULT_CANVAS_FORMAT: CanvasFormat = 'instagram-portrait';
+
+/**
+ * Resolve o canvas de um formato. Aceita `undefined`/string desconhecida
+ * (briefs antigos, dados vindos de YAML sem validação) e cai no default —
+ * nenhum documento existente pode quebrar por causa de um campo que não tem.
+ */
+export function canvasOf(format?: CanvasFormat | string | null): CanvasSpec {
+  if (format && format in CANVAS_FORMATS) {
+    return CANVAS_FORMATS[format as CanvasFormat];
+  }
+  return CANVAS_FORMATS[DEFAULT_CANVAS_FORMAT];
+}
+
+/** Default de retrato — mantido para os presets 4:5 já calibrados nesses números. */
+export const CANVAS_W = CANVAS_FORMATS[DEFAULT_CANVAS_FORMAT].w;
+export const CANVAS_H = CANVAS_FORMATS[DEFAULT_CANVAS_FORMAT].h;
 
 export type LayerType = 'text' | 'image' | 'shape';
 
@@ -27,7 +74,7 @@ export type Mood = 'editorial' | 'cinematic' | 'technical' | 'data' | 'diary';
 export type LayerRole =
   | 'headline' | 'body' | 'kicker' | 'number' | 'unit' | 'callToThink'
   | 'signature' | 'ghost' | 'divider' | 'decor' | 'image' | 'badge' | 'counter'
-  | 'pagination' | 'swipe' | 'progressTrack' | 'progressFill';
+  | 'pagination' | 'swipe' | 'progressTrack' | 'progressFill' | 'dot';
 
 export interface BaseLayer {
   id: string;
@@ -35,7 +82,7 @@ export interface BaseLayer {
   name: string;
   /** Papel semântico (presets). Opcional para camadas livres do usuário. */
   role?: LayerRole;
-  /** Coordenadas absolutas no canvas 1080×1350. */
+  /** Coordenadas absolutas no canvas do documento (ver `SlideDoc.format`). */
   x: number;
   y: number;
   w: number;
@@ -62,6 +109,39 @@ export interface TextLayer extends BaseLayer {
   shadow?: boolean;
   /** Brilho de acento (glow) na cor do texto — usado em kicker/destaques (MED-06/G2). */
   glow?: boolean;
+  /**
+   * Riscado inline (MED-DS-03): trechos de `content` entre `~~..~~` renderizam
+   * riscados. `strikeColor` tinge o próprio texto riscado (default: `color` com
+   * opacidade reduzida); `strikeAccent` tinge a LINHA do riscado, que pode ter
+   * cor diferente do texto (efeito "hook cancelado" do template clean-hook).
+   */
+  strikeColor?: string;
+  strikeAccent?: string;
+  /**
+   * Ênfase de cor inline (MED-DS-03): trechos entre `**..**` renderizam na cor
+   * `emphasisColor` (default: acento do preset) — para frases tipo "Somos seu
+   * **departamento de Growth**" sem precisar quebrar em múltiplas camadas.
+   */
+  emphasisColor?: string;
+  /**
+   * Contorno do texto (thumb-system.yaml § tipografia.linha_principal:
+   * "contorno de 6 a 10px em #0C0C0C"). Renderiza via `-webkit-text-stroke` +
+   * `paint-order: stroke fill` — sem o paint-order o contorno é desenhado por
+   * CIMA do preenchimento e come metade do peso do glifo; com ele, o contorno
+   * só aparece PARA FORA, que é o comportamento que a thumb precisa para se
+   * ler aos 168px de largura.
+   */
+  outlineWidth?: number;
+  outlineColor?: string;
+  /**
+   * Sombra DURA e deslocada (não o blur suave do `shadow`). O sistema de thumb
+   * pede "projetada, dura, deslocada 4px" — é ela que separa a tipografia do
+   * gramado quando a peça encolhe no feed.
+   */
+  hardShadow?: boolean;
+  /** Deslocamento da sombra dura, em px. Default: 5×6 (o do template de referência). */
+  hardShadowX?: number;
+  hardShadowY?: number;
 }
 
 export interface ImageLayer extends BaseLayer {
@@ -75,6 +155,16 @@ export interface ImageLayer extends BaseLayer {
   blur: number;
   flipX?: boolean;
   flipY?: boolean;
+  /**
+   * Enquadramento do recorte quando `objectFit: 'cover'` (percentuais 0..100,
+   * default 50/50) — equivale ao `object-position` do CSS.
+   *
+   * Numa thumb é o controle mais usado de todos: a foto ocupa o quadro inteiro
+   * e o que decide se a peça funciona é ONDE o rosto cai em relação à faixa de
+   * texto. Sem isto, a única saída seria recortar a imagem fora do editor.
+   */
+  posX?: number;
+  posY?: number;
   /**
    * Enquadramento premium "grau Photoshop" (MED-05 / fechamento do gap de
    * qualidade): 'card' aplica ring, sombra profunda, duotone de acento, grão e
@@ -92,6 +182,18 @@ export interface ShapeLayer extends BaseLayer {
   type: 'shape';
   kind: 'rect' | 'ellipse' | 'line';
   fill: string;
+  /**
+   * Preenchimento por gradiente CSS (`linear-gradient(...)`,
+   * `radial-gradient(...)`, ou várias camadas separadas por vírgula). Quando
+   * presente, SUBSTITUI o `fill` chapado.
+   *
+   * Por que existe: o fundo de gramado + luz de estádio da thumb e o disco
+   * escuro atrás do escudo são gradientes, e a alternativa (assar isso no
+   * componente de template) tiraria do usuário justamente o que o Studio
+   * promete — poder mover, apagar ou repintar cada elemento. Como gradiente,
+   * o fundo continua sendo UMA CAMADA editável.
+   */
+  fillGradient?: string;
   stroke: string;
   strokeWidth: number;
   radius: number;
@@ -128,6 +230,8 @@ export interface SlideBackground {
 export interface SlideDoc {
   slide_n: number;
   source_slide_n?: number;
+  /** Formato do canvas deste documento. Ausente = 'instagram-portrait'. */
+  format?: CanvasFormat;
   background: SlideBackground;
   layers: Layer[];
 }

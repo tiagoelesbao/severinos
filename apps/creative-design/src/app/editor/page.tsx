@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ModeledCarouselSlide } from '@/components/design-system/templates/ModeledCarouselSlide';
 import { QuoteSlide } from '@/components/design-system/templates/QuoteSlide';
 import { SinglePostSlide } from '@/components/design-system/templates/SinglePostSlide';
+import { TemplateSwitch } from '@/components/design-system/TemplateSwitch';
+import { canvasOf, type CanvasFormat } from '@/lib/layers';
+import { formatOfTemplate } from '@/lib/templatePresets';
 
 interface BriefClient {
   slug: string;
@@ -33,6 +36,7 @@ interface BrandPreviewProps {
   footerText?: string;
   primaryColor?: string;
   secondaryColor?: string;
+  accentColor?: string;
   accentAlt?: string;
   accentAurora?: string;
 }
@@ -51,12 +55,18 @@ interface EditableSlide {
   imageZoom: number;
   imagePosX: number;
   imagePosY: number;
+  /** Template do slide (Creative Studio v2). Define o formato do canvas. */
+  template_id?: string;
+  /** Campos de thumb — o editor clássico só os repassa ao preview. */
+  label?: string;
+  seal_image?: string | null;
+  image_b_url?: string | null;
 }
 
-// Formato vertical 4:5 (1080x1350) — alinhado à grade do Instagram.
+// A caixa de preview segue o FORMATO DO DOCUMENTO (4:5 do Instagram ou 16:9 da
+// thumb de YouTube) — antes era 1080×1350 fixo, e qualquer peça que não fosse
+// retrato aparecia recortada.
 const PREVIEW_SCALE = 0.42;
-const PREVIEW_WIDTH = Math.round(1080 * PREVIEW_SCALE);
-const PREVIEW_HEIGHT = Math.round(1350 * PREVIEW_SCALE);
 
 function pickTemplate(archetype: string, total: number): 'quote' | 'single' | 'news' {
   if (archetype === 'quote') return 'quote';
@@ -90,20 +100,54 @@ function SlidePreview({
     // Brand-agnostic props (MKT-MC4-04 + MC4-05) — preview reflete o cliente.
     ...brand,
   };
+  // O formato sai do template do slide. Os três templates legados abaixo só
+  // existem em retrato; qualquer template de outro formato (hoje, as thumbs)
+  // é previsto pelo caminho de PRESET, que é o mesmo motor do Studio e do
+  // export — evita ter de reescrever aqui cada família nova de peça.
+  const format: CanvasFormat = formatOfTemplate(slide.template_id);
+  const { w: canvasW, h: canvasH } = canvasOf(format);
+
   const tpl = pickTemplate(archetype, total);
-  const node =
-    tpl === 'quote' ? <QuoteSlide {...props} />
+  const node = format !== 'instagram-portrait'
+    ? (
+      <TemplateSwitch
+        templateId="preset"
+        presetTemplate={slide.template_id}
+        content={{
+          headline: slide.headline,
+          subHeadline: slide.sub_headline,
+          bodyText: slide.body_text,
+          accentColor: slide.accent_color,
+          image: slide.mainObjectImage,
+          imageB: slide.image_b_url,
+          label: slide.label,
+          sealImage: slide.seal_image,
+        }}
+        palette={{
+          primary: brand.primaryColor || '#0B0B0F',
+          secondary: brand.secondaryColor || '#1A1A24',
+          accent: brand.accentColor || slide.accent_color,
+          accentAlt: brand.accentAlt || '#FF4D2E',
+          accentAurora: brand.accentAurora || '#FFD86B',
+        }}
+        meta={{ slideNumber: displayN, totalSlides: total, signature: brand.signatureHandle }}
+      />
+    )
+    : tpl === 'quote' ? <QuoteSlide {...props} />
       : tpl === 'single' ? <SinglePostSlide {...props} />
         : <ModeledCarouselSlide {...props} />;
 
   return (
     <div
       className="rounded-xl overflow-hidden border border-white/10 shrink-0"
-      style={{ width: PREVIEW_WIDTH, height: PREVIEW_HEIGHT }}
+      style={{
+        width: Math.round(canvasW * PREVIEW_SCALE),
+        height: Math.round(canvasH * PREVIEW_SCALE),
+      }}
     >
       <div
         style={{
-          width: 1080, height: 1350,
+          width: canvasW, height: canvasH,
           transform: `scale(${PREVIEW_SCALE})`, transformOrigin: 'top left',
         }}
       >
@@ -126,7 +170,7 @@ function FontControl({
         <span className="flex items-center gap-2">
           <span className="text-white/70">{value ? `${value}px` : 'Auto'}</span>
           {value !== null && (
-            <button onClick={() => onChange(null)} className="text-[#FF3D68] hover:underline">
+            <button onClick={() => onChange(null)} className="text-[#FF5B3F] hover:underline">
               auto
             </button>
           )}
@@ -135,7 +179,7 @@ function FontControl({
       <input
         type="range" min={min} max={max} value={value ?? autoDefault}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#FF3D68]"
+        className="w-full accent-[#FF5B3F]"
       />
     </div>
   );
@@ -156,7 +200,7 @@ function Slider({
       <input
         type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#FF3D68]"
+        className="w-full accent-[#FF5B3F]"
       />
     </div>
   );
@@ -164,7 +208,7 @@ function Slider({
 
 const fieldCls =
   'w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-sm '
-  + 'text-white focus:border-[#FF3D68] outline-none';
+  + 'text-white focus:border-[#FF5B3F] outline-none';
 
 function EditorContent() {
   const router = useRouter();
@@ -243,6 +287,7 @@ function EditorContent() {
         setBrandPreview({
           signatureHandle: clientSlug === 'virals' ? '' : handle,
           footerText: clientSlug === 'virals' ? 'Virals Intelligence Engine' : '',
+          accentColor:    palette?.accent,
           primaryColor:   passPalette ? palette?.primary       : undefined,
           secondaryColor: passPalette ? palette?.secondary     : undefined,
           accentAlt:      passPalette ? palette?.accent_alt    : undefined,
@@ -257,13 +302,17 @@ function EditorContent() {
             headline: (s.headline as string) ?? '',
             sub_headline: (s.sub_headline as string) ?? '',
             body_text: (s.body_text as string) ?? '',
-            accent_color: (s.accent_color as string) ?? '#FF3D68',
+            accent_color: (s.accent_color as string) ?? '#FF5B3F',
             headlineFontSize: null,
             bodyFontSize: null,
             mainObjectImage: null,
             imageZoom: 1,
             imagePosX: 50,
             imagePosY: 50,
+            template_id: s.template_id as string | undefined,
+            label: (s.label as string) ?? undefined,
+            seal_image: (s.seal_image as string) ?? null,
+            image_b_url: (s.image_b_url as string) ?? null,
           })),
         );
       })
@@ -323,9 +372,16 @@ function EditorContent() {
         body: JSON.stringify({ id: selectedId }),
       });
       const data = await res.json();
-      setExportStatus(
-        data.ok ? '✓ Exportado — veja outputs/carousels/' : '✗ Falha no export',
-      );
+      if (!data.ok) {
+        setExportStatus('✗ Falha no export');
+      } else if (data.sync?.ok) {
+        setExportStatus(`✓ Exportado e sincronizado no ClickUp (${data.sync.count ?? '?'} arquivo(s))`);
+      } else {
+        // Render OK, mas sem task vinculada no ClickUp — comum ao testar um
+        // criativo que ainda não passou por um Lote aprovado. Não é erro do
+        // export, é só "isso aqui não tem card pra atualizar".
+        setExportStatus(`✓ Exportado — não sincronizado no ClickUp (${data.sync?.reason ?? 'sem task vinculada'})`);
+      }
     } catch {
       setExportStatus('✗ Erro ao exportar');
     }
@@ -363,7 +419,7 @@ function EditorContent() {
 
         <h1 className="text-lg font-black uppercase tracking-wide">Editor de Criativos</h1>
         <p className="text-xs text-white/40 mb-2">
-          <span className="text-[#FF3D68]">{currentClientDisplay}</span> · {visibleBriefs.length} criativo{visibleBriefs.length === 1 ? '' : 's'}
+          <span className="text-[#FF5B3F]">{currentClientDisplay}</span> · {visibleBriefs.length} criativo{visibleBriefs.length === 1 ? '' : 's'}
         </p>
         <a
           href={`/studio?client=${activeClient}`}
@@ -380,7 +436,7 @@ function EditorContent() {
                 onClick={() => setSelectedId(b.id)}
                 className={`w-full text-left rounded-lg px-4 py-3 border transition pr-10 ${
                   selectedId === b.id
-                    ? 'border-[#FF3D68] bg-[#FF3D68]/10'
+                    ? 'border-[#FF5B3F] bg-[#FF5B3F]/10'
                     : 'border-white/10 hover:border-white/30'
                 }`}
               >
@@ -391,7 +447,7 @@ function EditorContent() {
               </button>
               <button
                 onClick={(e) => deleteBrief(e, b.id)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white/20 hover:text-[#FF3D68] transition opacity-0 group-hover:opacity-100"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white/20 hover:text-[#FF5B3F] transition opacity-0 group-hover:opacity-100"
                 title="Deletar criativo"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -438,7 +494,7 @@ function EditorContent() {
                 </button>
                 <button
                   onClick={handleExport}
-                  className="text-xs font-bold rounded-md px-4 py-2 bg-[#FF3D68] hover:bg-[#FF3D68]/80 transition"
+                  className="text-xs font-bold rounded-md px-4 py-2 bg-[#FF5B3F] hover:bg-[#FF5B3F]/80 transition"
                 >
                   Salvar e Exportar
                 </button>
@@ -470,7 +526,7 @@ function EditorContent() {
                             ? 'Não é possível remover o único slide'
                             : 'Remover este slide do carrossel'
                         }
-                        className="flex items-center gap-1 text-[11px] text-white/40 hover:text-[#FF3D68] disabled:opacity-30 disabled:hover:text-white/40 disabled:cursor-not-allowed transition"
+                        className="flex items-center gap-1 text-[11px] text-white/40 hover:text-[#FF5B3F] disabled:opacity-30 disabled:hover:text-white/40 disabled:cursor-not-allowed transition"
                       >
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />

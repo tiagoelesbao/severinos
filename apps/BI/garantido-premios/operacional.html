@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Garantido — Operacional</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<main class="wrap">
+  <h1 class="titulo-pagina">Operacional</h1>
+  <p class="subtitulo-pagina">Pra quem opera a campanha no dia a dia — mesma estrutura do Ads Manager (campanha → anúncio) + funil do pixel nativo + link do grupo de WhatsApp.</p>
+
+  <div id="filtro-periodo"></div>
+  <p class="periodo-label" id="periodo-label"></p>
+
+  <h2>Funil do Pixel por origem (período selecionado)</h2>
+  <p class="funil-fonte">Fonte: Pixel da Meta, separado por domínio (<code>aggregation=host</code>) — mesmo pixel é usado na pressel e na plataforma, então sem esse recorte os dois funis ficam somados e a conversão de cada um fica falsa. São <strong>dois funis distintos</strong>: a pressel termina no clique, a plataforma é onde a compra acontece. Percentual ao lado do número = conversão sobre a 1ª etapa daquele funil.</p>
+  <div id="funil-bars"></div>
+
+  <h2>Funil por Versão de LP (período selecionado)</h2>
+  <p class="periodo-label">Fonte: beacon próprio (<code>/api/beacon</code> → tabela <code>lp_eventos</code>), não o pixel da Meta — a API de stats do pixel não quebra por parâmetro customizado, só por nome de evento, então não dava pra comparar v1×v2 entre si. Dado 100% nosso, desde 2026-10-30 (data de nascimento do beacon — não compare contra período anterior).</p>
+  <div class="table-wrap">
+    <table id="tabela-lp-eventos">
+      <thead><tr><th>Versão</th><th class="num">PresselPageView</th><th class="num">ClickSorteios</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2>Cliques no link do grupo de WhatsApp (período selecionado)</h2>
+  <div id="bloco-grupo"></div>
+
+  <h2>Performance por anúncio (período selecionado)</h2>
+  <p class="periodo-label">Compras/Valor/ROAS aqui são o que o próprio Meta reporta (auto-atribuição do pixel) — ainda não é confirmado contra pedido real, por isso "ROAS Meta", não "ROAS confirmado". Clique na miniatura pra ver o anúncio real.</p>
+  <div class="table-wrap">
+    <table id="tabela-ads">
+      <thead><tr><th>Anúncio</th><th>Campanha</th><th class="num">Gasto</th><th class="num">Cliques</th><th class="num">Compras (Meta)</th><th class="num">Valor (Meta)</th><th class="num">ROAS Meta</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="bloco-pedido-real"></div>
+
+  <h2>Campanhas (janela inteira puxada — <span id="janela-dias">—</span> dias, não responde ao filtro acima)</h2>
+  <p class="periodo-label">Sem ROAS/pedidos confirmados aqui ainda — depende de pedido real (ver Visão Executiva). Essa tabela não é filtrável por período porque hoje só temos o total por campanha da janela puxada, não o detalhe dia×campanha.</p>
+  <div class="table-wrap">
+    <table id="tabela-campanhas">
+      <thead><tr><th>Campanha</th><th class="num">Gasto</th><th class="num">Impressões</th><th class="num">Cliques</th><th class="num">CTR</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2>Gasto por dia (período selecionado)</h2>
+  <div class="table-wrap">
+    <table id="tabela-diario">
+      <thead><tr><th>Dia</th><th class="num">Gasto</th><th class="num">Impressões</th><th class="num">Cliques</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer class="nota">BI Garantido · Operacional</footer>
+</main>
+
+<div class="criativo-modal" id="criativo-modal">
+  <button class="fechar" id="criativo-fechar">✕</button>
+  <div class="conteudo" id="criativo-conteudo"></div>
+</div>
+
+<script src="nav.js"></script>
+<script src="periodo.js"></script>
+<script>
+let DADOS = null;
+const ORDEM_FUNIL = ['PageView', 'ViewContent', 'AddToCart', 'InitiateCheckout', 'Purchase', 'Lead', 'ClickSorteios'];
+const FUNIS = [
+  { origem: 'pressel', titulo: 'Funil da pressel', nota: 'Página-ponte: o clique acontece aqui, a compra acontece na plataforma. Base de 100% é o PageView da pressel.', ordem: ['PageView', 'ViewContent', 'ClickSorteios'] },
+  { origem: 'site', titulo: 'Funil da plataforma (garantidopremios.com)', nota: 'Todas as origens de tráfego somadas (anúncio, grupo, orgânico, direto) — não é só uma campanha. Base de 100% é o PageView da plataforma.', ordem: ['PageView', 'ViewContent', 'AddToCart', 'InitiateCheckout', 'Purchase', 'Lead'] },
+];
+
+function abrirCriativo(ad) {
+  if (!ad || !ad.criativo) return;
+  const c = ad.criativo;
+  const modal = document.getElementById('criativo-modal');
+  const conteudo = document.getElementById('criativo-conteudo');
+  if (c.preview_html) {
+    conteudo.innerHTML = `${c.preview_html}<div class="legenda">${ad.nome}</div>`;
+  } else if (c.tipo === 'video') {
+    conteudo.innerHTML = `<div class="legenda">Vídeo sem prévia disponível — <a href="https://www.facebook.com/${c.video_id}" target="_blank" rel="noopener">abrir no Facebook</a>.<br>${ad.nome}</div>`;
+  } else {
+    const src = c.image_url || c.thumbnail_url;
+    conteudo.innerHTML = `<img src="${src}" alt="" /><div class="legenda">${ad.nome}</div>`;
+  }
+  modal.classList.add('aberto');
+}
+document.getElementById('criativo-fechar').addEventListener('click', () => document.getElementById('criativo-modal').classList.remove('aberto'));
+document.getElementById('criativo-modal').addEventListener('click', (e) => { if (e.target.id === 'criativo-modal') e.currentTarget.classList.remove('aberto'); });
+
+function render(periodoInicio, periodoFim) {
+  const d = DADOS;
+  document.getElementById('periodo-label').textContent = `Período selecionado: ${periodoInicio} até ${periodoFim}.`;
+
+  // --- Funil do pixel por origem, filtrado por período ---
+  const porOrigem = {};
+  (d.pixel_funil_host_diario.dados || [])
+    .filter(r => r.dia >= periodoInicio && r.dia <= periodoFim)
+    .forEach(r => {
+      if (!porOrigem[r.origem]) porOrigem[r.origem] = {};
+      porOrigem[r.origem][r.evento] = (porOrigem[r.origem][r.evento] || 0) + r.count;
+    });
+  document.getElementById('funil-bars').innerHTML = FUNIS.map(f => {
+    const tot = porOrigem[f.origem] || {};
+    const presentes = f.ordem.filter(k => tot[k] !== undefined);
+    if (!presentes.length) {
+      return `<div class="funil-bloco"><h3>${f.titulo}</h3><p class="funil-nota">Sem evento no período.</p></div>`;
+    }
+    const max = Math.max(...presentes.map(k => tot[k] || 0), 1);
+    const base = tot[presentes[0]] || 0;
+    const barras = presentes.map(k => {
+      const n = tot[k] || 0;
+      const pct = Math.max(2, (n / max) * 100);
+      const taxa = base > 0 && k !== presentes[0] ? ` <span class="funil-taxa">${((n / base) * 100).toFixed(1)}%</span>` : '';
+      return `<div class="bar-row"><span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><span class="n">${formatNum(n)}${taxa}</span></div>`;
+    }).join('');
+    return `<div class="funil-bloco"><h3>${f.titulo}</h3><p class="funil-nota">${f.nota}</p><div class="bars">${barras}</div></div>`;
+  }).join('');
+
+  // --- Funil por versão de LP, filtrado por período ---
+  const tbodyLp = document.querySelector('#tabela-lp-eventos tbody');
+  if (!d.lp_eventos_diario || !d.lp_eventos_diario.length) {
+    tbodyLp.innerHTML = '<tr><td colspan="3" style="color:var(--muted);">Sem dado — tabela lp_eventos ainda não existe ou beacon não recebeu evento no período.</td></tr>';
+  } else {
+    const porVariant = {};
+    d.lp_eventos_diario.filter(r => r.dia >= periodoInicio && r.dia <= periodoFim).forEach(r => {
+      if (!porVariant[r.variant]) porVariant[r.variant] = {};
+      porVariant[r.variant][r.evento] = (porVariant[r.variant][r.evento] || 0) + r.count;
+    });
+    const variants = Object.keys(porVariant).sort();
+    tbodyLp.innerHTML = variants.map(v => `
+      <tr><td>${v}</td><td class="num">${formatNum(porVariant[v].PresselPageView || 0)}</td><td class="num">${formatNum(porVariant[v].ClickSorteios || 0)}</td></tr>
+    `).join('') || '<tr><td colspan="3" style="color:var(--muted);">Sem evento no período.</td></tr>';
+  }
+
+  // --- Cliques do grupo, filtrado por período ---
+  const g = d.grupo_whatsapp_cliques;
+  const blocoGrupo = document.getElementById('bloco-grupo');
+  if (!g.disponivel) {
+    blocoGrupo.innerHTML = `<div class="aviso-mock">🔒 <span><b>Sem dado ainda.</b> ${g.motivo}</span></div>`;
+  } else {
+    const totalPeriodo = g.por_dia.filter(r => r.dia >= periodoInicio && r.dia <= periodoFim).reduce((a, r) => a + r.cliques, 0);
+    blocoGrupo.innerHTML = `<div class="cards">
+      <div class="card"><div class="label">Cliques no período</div><div class="value green">${formatNum(totalPeriodo)}</div></div>
+    </div>`;
+  }
+
+  // --- Performance por anúncio, filtrado por período ---
+  const porAnuncio = {};
+  (d.meta_ads.ads_diario || []).filter(x => x.dia >= periodoInicio && x.dia <= periodoFim).forEach(x => {
+    if (!porAnuncio[x.ad_id]) porAnuncio[x.ad_id] = { nome: x.nome, campanha_nome: x.campanha_nome, spend: 0, clicks: 0, purchases: 0, purchase_value: 0 };
+    porAnuncio[x.ad_id].spend += x.spend;
+    porAnuncio[x.ad_id].clicks += x.clicks;
+    porAnuncio[x.ad_id].purchases += x.purchases;
+    porAnuncio[x.ad_id].purchase_value += x.purchase_value;
+  });
+  const infoAnuncio = {};
+  (d.meta_ads.ads || []).forEach(a => { infoAnuncio[a.ad_id] = a; });
+  const adsRows = Object.entries(porAnuncio)
+    .map(([ad_id, a]) => ({ ad_id, ...a, criativo: (infoAnuncio[ad_id] || {}).criativo }))
+    .sort((a, b) => b.spend - a.spend);
+  document.querySelector('#tabela-ads tbody').innerHTML = adsRows.map(a => {
+    const roas = a.spend > 0 ? (a.purchase_value / a.spend).toFixed(2) : '—';
+    const thumb = a.criativo && a.criativo.thumbnail_url
+      ? `<img class="ad-thumb" src="${a.criativo.thumbnail_url}" alt="" loading="lazy" data-ad-id="${a.ad_id}" />`
+      : '';
+    return `<tr><td><div class="ad-nome">${thumb}<span>${a.nome}</span></div></td><td>${a.campanha_nome || '—'}</td><td class="num">${formatBRL(a.spend)}</td><td class="num">${formatNum(a.clicks)}</td><td class="num">${formatNum(a.purchases)}</td><td class="num">${formatBRL(a.purchase_value)}</td><td class="num">${roas}${roas !== '—' ? 'x' : ''}</td></tr>`;
+  }).join('') || '<tr><td colspan="7" style="color:var(--muted);">Sem dado no período.</td></tr>';
+  document.querySelectorAll('.ad-thumb').forEach(img => {
+    img.addEventListener('click', () => abrirCriativo(infoAnuncio[img.dataset.adId]));
+  });
+
+  // --- Canal de atribuição / Reconciliação / UTM — só com pedido real ---
+  if (!d.pedidos_reais._mock) {
+    const canalDiarioFiltrado = (d.canal_diario || []).filter(x => x.dia >= periodoInicio && x.dia <= periodoFim);
+    const grupos = {};
+    canalDiarioFiltrado.forEach(x => {
+      if (!grupos[x.canal_grupo]) grupos[x.canal_grupo] = { pedidos: 0, valor: 0, detalhes: {} };
+      grupos[x.canal_grupo].pedidos += x.pedidos;
+      grupos[x.canal_grupo].valor += x.valor;
+      if (!grupos[x.canal_grupo].detalhes[x.canal_detalhe]) grupos[x.canal_grupo].detalhes[x.canal_detalhe] = { pedidos: 0, valor: 0 };
+      grupos[x.canal_grupo].detalhes[x.canal_detalhe].pedidos += x.pedidos;
+      grupos[x.canal_grupo].detalhes[x.canal_detalhe].valor += x.valor;
+    });
+    const linhasCanal = [];
+    Object.entries(grupos).sort((a, b) => b[1].valor - a[1].valor).forEach(([grupo, info], i) => {
+      const grupoId = `canal-grupo-${i}`;
+      linhasCanal.push(`<tr class="canal-grupo" data-alvo="${grupoId}"><td>${grupo}</td><td class="num">${info.pedidos}</td><td class="num">${formatBRL(info.valor)}</td></tr>`);
+      Object.entries(info.detalhes).sort((a, b) => b[1].valor - a[1].valor).forEach(([canal, dinfo]) => {
+        linhasCanal.push(`<tr class="canal-detalhe ${grupoId}"><td>${canal}</td><td class="num">${dinfo.pedidos}</td><td class="num">${formatBRL(dinfo.valor)}</td></tr>`);
+      });
+    });
+    document.querySelector('#tabela-canal tbody').innerHTML = linhasCanal.join('') || '<tr><td colspan="3" style="color:var(--muted);">Sem dado no período.</td></tr>';
+    document.querySelectorAll('tr.canal-grupo').forEach(tr => {
+      tr.addEventListener('click', () => {
+        tr.classList.toggle('aberto');
+        document.querySelectorAll(`tr.${tr.dataset.alvo}`).forEach(e => e.classList.toggle('aberto'));
+      });
+    });
+
+    // UTM: 3 blocos (Grupo WhatsApp / Meta Ads / Outras origens)
+    const utmDiarioFiltrado = (d.utm_diario || []).filter(x => x.dia >= periodoInicio && x.dia <= periodoFim);
+    const totalUtm = { pedidos: 0, valor: 0 };
+    const origens = {};
+    utmDiarioFiltrado.forEach(x => {
+      totalUtm.pedidos += x.pedidos;
+      totalUtm.valor += x.valor;
+      if (!origens[x.utm_source]) origens[x.utm_source] = { pedidos: 0, valor: 0, campanhas: {} };
+      origens[x.utm_source].pedidos += x.pedidos;
+      origens[x.utm_source].valor += x.valor;
+      if (!origens[x.utm_source].campanhas[x.utm_campaign]) origens[x.utm_source].campanhas[x.utm_campaign] = { pedidos: 0, valor: 0 };
+      origens[x.utm_source].campanhas[x.utm_campaign].pedidos += x.pedidos;
+      origens[x.utm_source].campanhas[x.utm_campaign].valor += x.valor;
+    });
+    const whatsappKey = Object.keys(origens).find(k => k.toLowerCase() === 'whatsapp');
+    const metaKey = Object.keys(origens).find(k => k.toLowerCase() === 'meta');
+    const whatsapp = whatsappKey ? origens[whatsappKey] : { pedidos: 0, valor: 0, campanhas: {} };
+    const metaAds = metaKey ? origens[metaKey] : { pedidos: 0, valor: 0, campanhas: {} };
+    const outrasOrigens = { pedidos: totalUtm.pedidos - whatsapp.pedidos - metaAds.pedidos, valor: totalUtm.valor - whatsapp.valor - metaAds.valor };
+
+    const nomesCampanha = {};
+    (d.meta_ads.campanhas || []).forEach(c => { nomesCampanha[String(c.id)] = c.nome; });
+
+    document.getElementById('cards-utm').innerHTML = [
+      { label: 'Total com UTM (período)', value: formatBRL(totalUtm.valor), sub: `${totalUtm.pedidos} pedido(s)` },
+      { label: 'Grupo (WhatsApp)', value: formatBRL(whatsapp.valor), sub: `${whatsapp.pedidos} pedido(s)`, cls: 'green' },
+      { label: 'Meta Ads', value: formatBRL(metaAds.valor), sub: `${metaAds.pedidos} pedido(s)`, cls: 'gold' },
+      { label: 'Outras origens', value: formatBRL(outrasOrigens.valor), sub: `${outrasOrigens.pedidos} pedido(s)` },
+    ].map(c => `<div class="card"><div class="label">${c.label}</div><div class="value ${c.cls||''}">${c.value}</div><div class="sub">${c.sub}</div></div>`).join('');
+
+    const hojeStr = hojeISO();
+    const metaHoje = (d.utm_diario || []).filter(x => x.dia === hojeStr && x.utm_source.toLowerCase() === 'meta');
+    const metaHojePedidos = metaHoje.reduce((a, x) => a + x.pedidos, 0);
+    const metaHojeValor = metaHoje.reduce((a, x) => a + x.valor, 0);
+    document.getElementById('utm-hoje-destaque').textContent = metaHojePedidos > 0
+      ? `Hoje (${hojeStr}): ${metaHojePedidos} pedido(s) de Meta Ads já chegam com UTM de campanha (${formatBRL(metaHojeValor)}).`
+      : `Hoje (${hojeStr}): ainda nenhum pedido de Meta Ads com UTM de campanha.`;
+
+    function renderTabelaUtm(seletor, campanhasMap) {
+      const linhas = Object.entries(campanhasMap).sort((a, b) => b[1].valor - a[1].valor)
+        .map(([campanha, info]) => `<tr><td>${campanha}</td><td class="num">${info.pedidos}</td><td class="num">${formatBRL(info.valor)}</td></tr>`);
+      document.querySelector(`${seletor} tbody`).innerHTML = linhas.join('') || '<tr><td colspan="3" style="color:var(--muted);">Sem pedido no período.</td></tr>';
+    }
+    renderTabelaUtm('#tabela-utm-whatsapp', whatsapp.campanhas);
+
+    const criativoDiarioFiltrado = (d.utm_criativo_diario || []).filter(x => x.dia >= periodoInicio && x.dia <= periodoFim);
+    const criativosPorCampanha = {};
+    criativoDiarioFiltrado.forEach(x => {
+      const alvo = criativosPorCampanha[x.utm_campaign] || (criativosPorCampanha[x.utm_campaign] = {});
+      if (!alvo[x.utm_content]) alvo[x.utm_content] = { pedidos: 0, valor: 0 };
+      alvo[x.utm_content].pedidos += x.pedidos;
+      alvo[x.utm_content].valor += x.valor;
+    });
+    const linhasMeta = [];
+    Object.entries(metaAds.campanhas).sort((a, b) => b[1].valor - a[1].valor).forEach(([campanha, info], i) => {
+      const nome = nomesCampanha[campanha] || campanha;
+      const criativos = criativosPorCampanha[campanha] || {};
+      const temCriativo = Object.keys(criativos).length > 0;
+      const grupoId = `utm-meta-grupo-${i}`;
+      linhasMeta.push(`<tr class="${temCriativo ? 'utm-grupo' : ''}" ${temCriativo ? `data-alvo="${grupoId}"` : ''}><td>${nome}</td><td class="num">${info.pedidos}</td><td class="num">${formatBRL(info.valor)}</td></tr>`);
+      Object.entries(criativos).sort((a, b) => b[1].valor - a[1].valor).forEach(([adId, cinfo]) => {
+        const infoAd = infoAnuncio[adId];
+        const nomeAd = infoAd ? infoAd.nome : `Anúncio ID ${adId} (fora da conta ativa atual)`;
+        linhasMeta.push(`<tr class="utm-detalhe ${grupoId}"><td>${nomeAd}</td><td class="num">${cinfo.pedidos}</td><td class="num">${formatBRL(cinfo.valor)}</td></tr>`);
+      });
+    });
+    document.querySelector('#tabela-utm-meta tbody').innerHTML = linhasMeta.join('') || '<tr><td colspan="3" style="color:var(--muted);">Sem pedido no período.</td></tr>';
+
+    const outrasEntries = Object.entries(origens).filter(([k]) => k !== whatsappKey && k !== metaKey);
+    const linhasOutras = [];
+    outrasEntries.sort((a, b) => b[1].valor - a[1].valor).forEach(([origem, info], i) => {
+      const grupoId = `utm-outras-grupo-${i}`;
+      linhasOutras.push(`<tr class="utm-grupo" data-alvo="${grupoId}"><td>UTM: ${origem}</td><td class="num">${info.pedidos}</td><td class="num">${formatBRL(info.valor)}</td></tr>`);
+      Object.entries(info.campanhas).sort((a, b) => b[1].valor - a[1].valor).forEach(([campanha, cinfo]) => {
+        linhasOutras.push(`<tr class="utm-detalhe ${grupoId}"><td>${campanha}</td><td class="num">${cinfo.pedidos}</td><td class="num">${formatBRL(cinfo.valor)}</td></tr>`);
+      });
+    });
+    document.querySelector('#tabela-utm-outras tbody').innerHTML = linhasOutras.join('') || '<tr><td colspan="3" style="color:var(--muted);">Sem outra origem com UTM no período.</td></tr>';
+    document.querySelectorAll('tr.utm-grupo').forEach(tr => {
+      tr.addEventListener('click', () => {
+        tr.classList.toggle('aberto');
+        document.querySelectorAll(`tr.${tr.dataset.alvo}`).forEach(e => e.classList.toggle('aberto'));
+      });
+    });
+
+    // Reconciliação por campanha: gasto/valor Meta (auto-atribuído) vs. valor confirmado via UTM
+    const gastoMetaPorCampanha = {};
+    (d.meta_ads.ads_diario || []).filter(x => x.dia >= periodoInicio && x.dia <= periodoFim).forEach(x => {
+      const c = gastoMetaPorCampanha[x.campanha_id] || (gastoMetaPorCampanha[x.campanha_id] = { spend: 0, purchase_value: 0, campanha_nome: x.campanha_nome });
+      c.spend += x.spend;
+      c.purchase_value += x.purchase_value;
+    });
+    const utmConfirmadoPorCampanha = {};
+    Object.entries(metaAds.campanhas || {}).forEach(([utmCampanha, info]) => {
+      const campanhaBatida = (d.meta_ads.campanhas || []).find(c => utmCampanha.includes(String(c.id)));
+      if (!campanhaBatida) return;
+      const alvo = utmConfirmadoPorCampanha[campanhaBatida.id] || (utmConfirmadoPorCampanha[campanhaBatida.id] = { pedidos: 0, valor: 0 });
+      alvo.pedidos += info.pedidos;
+      alvo.valor += info.valor;
+    });
+    const idsReconciliacao = new Set([...Object.keys(gastoMetaPorCampanha), ...Object.keys(utmConfirmadoPorCampanha)]);
+    const linhasReconciliacao = [...idsReconciliacao].map(cid => {
+      const meta = gastoMetaPorCampanha[cid] || { spend: 0, purchase_value: 0, campanha_nome: nomesCampanha[cid] || cid };
+      const utm = utmConfirmadoPorCampanha[cid] || { pedidos: 0, valor: 0 };
+      const roasMeta = meta.spend > 0 ? (meta.purchase_value / meta.spend) : null;
+      const roasUtm = meta.spend > 0 ? (utm.valor / meta.spend) : null;
+      return { nome: meta.campanha_nome || nomesCampanha[cid] || cid, spend: meta.spend, purchase_value: meta.purchase_value, utmPedidos: utm.pedidos, utmValor: utm.valor, roasMeta, roasUtm };
+    }).sort((a, b) => b.spend - a.spend);
+    document.querySelector('#tabela-reconciliacao tbody').innerHTML = linhasReconciliacao.map(l => `<tr>
+        <td>${l.nome}</td>
+        <td class="num">${formatBRL(l.spend)}</td>
+        <td class="num">${formatBRL(l.purchase_value)}</td>
+        <td class="num">${l.roasMeta !== null ? l.roasMeta.toFixed(2) + 'x' : '—'}</td>
+        <td class="num">${formatBRL(l.utmValor)}</td>
+        <td class="num">${l.utmPedidos}</td>
+        <td class="num">${l.roasUtm !== null ? l.roasUtm.toFixed(2) + 'x' : '—'}</td>
+      </tr>`).join('') || '<tr><td colspan="7" style="color:var(--muted);">Sem dado no período.</td></tr>';
+  }
+
+  // --- Gasto por dia, filtrado por período ---
+  const diarioFiltrado = d.meta_ads.diario.filter(x => x.dia >= periodoInicio && x.dia <= periodoFim);
+  document.querySelector('#tabela-diario tbody').innerHTML = [...diarioFiltrado].reverse().map(x => `
+    <tr>
+      <td>${x.dia}</td>
+      <td class="num">${formatBRL(x.gasto)}</td>
+      <td class="num">${formatNum(x.impressoes)}</td>
+      <td class="num">${formatNum(x.cliques)}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="4" style="color:var(--muted);">Sem dado no período.</td></tr>';
+}
+
+async function carregar() {
+  await injetarNav('operacional');
+  const res = await fetch('/api/dados?tipo=operacional&t=' + Date.now());
+  DADOS = await res.json();
+
+  document.querySelector('.bi-nav').insertAdjacentHTML('afterend',
+    `<div class="meta wrap">Atualizado em ${new Date(DADOS.atualizado_em).toLocaleString('pt-BR')} · conta ${DADOS.conta_anuncio_ativa}</div>`);
+
+  document.getElementById('janela-dias').textContent = DADOS.periodo_dias;
+
+  if (!DADOS.pedidos_reais._mock) {
+    document.getElementById('bloco-pedido-real').innerHTML = `
+      <h2>Canal de atribuição (período selecionado)</h2>
+      <p class="periodo-label">Clique num canal pra ver o detalhe técnico (idade do fbc, UTM, etc.) por trás do agrupamento.</p>
+      <div class="table-wrap">
+        <table id="tabela-canal">
+          <thead><tr><th>Canal</th><th class="num">Pedidos</th><th class="num">Valor (R$)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h2>Reconciliação por Campanha (período selecionado)</h2>
+      <p class="periodo-label">Lado a lado: o que a própria Meta reporta de gasto/valor/ROAS (pode incluir venda de cliente recorrente) vs. a receita que CONSEGUIMOS CONFIRMAR via UTM do anúncio (nosso pedido real, com UTM_Campaign batendo o ID da campanha).</p>
+      <div class="table-wrap">
+        <table id="tabela-reconciliacao">
+          <thead><tr><th>Campanha</th><th class="num">Gasto (Meta)</th><th class="num">Valor Meta (reportado)</th><th class="num">ROAS Meta</th><th class="num">Valor confirmado (UTM)</th><th class="num">Pedidos (UTM)</th><th class="num">ROAS real (UTM)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h2>UTM — campanha e origem (período selecionado)</h2>
+      <p class="periodo-label">Só pedidos com UTM preenchida (o resto já aparece em "Canal de atribuição" acima).</p>
+      <div class="cards" id="cards-utm"></div>
+      <p class="periodo-label" id="utm-hoje-destaque" style="margin-top:10px;"></p>
+
+      <h3 style="margin-top:18px;font-size:14px;">Grupo (WhatsApp)</h3>
+      <div class="table-wrap">
+        <table id="tabela-utm-whatsapp">
+          <thead><tr><th>Campanha (UTM_Campaign)</th><th class="num">Pedidos</th><th class="num">Valor (R$)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:18px;font-size:14px;">Meta Ads</h3>
+      <p class="periodo-label">UTM_Campaign aqui vem do <code>url_tags</code> do anúncio. Campanha com ▸ tem criativo identificado — clique pra ver qual anúncio específico gerou cada venda.</p>
+      <div class="table-wrap">
+        <table id="tabela-utm-meta">
+          <thead><tr><th>Campanha (Meta Ads)</th><th class="num">Pedidos</th><th class="num">Valor (R$)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:18px;font-size:14px;">Outras origens</h3>
+      <div class="table-wrap">
+        <table id="tabela-utm-outras">
+          <thead><tr><th>Origem (UTM_Source) / Campanha</th><th class="num">Pedidos</th><th class="num">Valor (R$)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  document.querySelector('#tabela-campanhas tbody').innerHTML = DADOS.meta_ads.campanha_totais.map(c => `
+    <tr>
+      <td>${c.nome}</td>
+      <td class="num">${formatBRL(c.gasto)}</td>
+      <td class="num">${formatNum(c.impressoes)}</td>
+      <td class="num">${formatNum(c.cliques)}</td>
+      <td class="num">${c.ctr !== null ? c.ctr + '%' : '—'}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="color:var(--muted);">Sem campanha com gasto na janela.</td></tr>';
+
+  // Achado 2026-11-08: usar SÓ meta_ads.diario pra decidir se a página tem
+  // dado deixava a Operacional inteira "órfã" (sem filtro, todas as
+  // tabelas vazias — inclusive Canal de Atribuição e UTM, que vêm de
+  // pedido real e nem dependem de Ads) sempre que a conta de Ads tivesse
+  // um problema (ex.: conta em grace period na Meta). Pedido real e pixel
+  // próprio não dependem da conta de Ads estar saudável, então viram
+  // fonte primária; Meta Ads só como fallback se nem isso tiver chegado.
+  const diasComDado = Array.from(new Set([
+    ...(DADOS.canal_diario || []).map(x => x.dia),
+    ...((DADOS.pixel_funil_host_diario || {}).dados || []).map(x => x.dia),
+    ...(DADOS.meta_ads.diario || []).map(x => x.dia),
+  ])).sort();
+  if (!diasComDado.length) {
+    document.getElementById('filtro-periodo').innerHTML = '<p class="periodo-label">Sem dado na janela puxada.</p>';
+    return;
+  }
+  montarFiltroPeriodo('filtro-periodo', {
+    campanhaInicio: diasComDado[0],
+    min: diasComDado[0],
+    max: diasComDado[diasComDado.length - 1],
+    presets: ['hoje', 'ontem', '7d', '30d', 'tudo', 'custom'],
+    inicial: 'hoje',
+    onChange: render,
+  });
+}
+carregar().catch(err => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#e3543e;padding:20px;">Erro: ${err.message}</p>`); console.error(err); });
+</script>
+
+</body>
+</html>

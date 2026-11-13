@@ -1,0 +1,6 @@
+{
+  "name": "ORACLUM TECH — Cofre de Recursos de IA",
+  "description": "26 guias gratuitos de IA da ORACLUM TECH: prompts de Claude, automação de conteúdo, anúncios no Meta e no Google e integração com CRM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

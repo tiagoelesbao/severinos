@@ -176,6 +176,151 @@ export function probeMedia(absPath: string): ProbeResult {
   };
 }
 
+/**
+ * Ângulo de rotação (graus) cravado na "Display Matrix" do track de vídeo —
+ * comum em .mov de iPhone gravado com o sensor físico em paisagem e a
+ * própria Display Matrix dizendo "mostre como retrato" (2026-10-19, achado
+ * real: `IMG_5652.MOV` tinha `width/height` crus 3840×2160 — paisagem — só a
+ * matriz avisava retrato). `width`/`height` de `probeMedia` NÃO leem essa
+ * matriz (são os valores crus do stream) — qualquer consumidor que confie
+ * neles sem checar rotação vê a orientação ERRADA. `ffprobe -show_entries
+ * format=...:stream=...` (usado em `probeMedia`) não inclui side_data por
+ * padrão — precisa de uma 2ª chamada específica. Retorna 0 quando ausente/
+ * falha (maioria dos arquivos — vídeo já vem reto).
+ */
+export function probeRotation(absPath: string): number {
+  try {
+    const out = execFileSync(
+      "ffprobe",
+      ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream_side_data=rotation", "-of", "json", absPath],
+      { encoding: "utf-8", windowsHide: true },
+    );
+    const data = JSON.parse(out) as { streams?: Array<{ side_data_list?: Array<{ rotation?: number }> }> };
+    const sideData = data.streams?.[0]?.side_data_list ?? [];
+    const rotation = sideData.find((s) => typeof s.rotation === "number")?.rotation;
+    return rotation ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * Corrige a rotação FISICAMENTE (reencoda os pixels) quando a Display
+ * Matrix não é 0° — achado 2026-10-19 (founder, vídeo real de campanha
+ * "esticou/distorceu" ao virar criativo): o extrator de frame do Remotion
+ * (`OffthreadVideo`, usado no render headless) NÃO aplica essa matriz como
+ * o `<video>` do navegador faz — lê os pixels CRUS (paisagem), gerando o
+ * vídeo deitado/espremido dentro do quadro retrato. `ffmpeg` sem NENHUM
+ * filtro de vídeo já decodifica respeitando a matriz (testado com o arquivo
+ * real: saída sem `-vf` already sai 2160×3840 correto, upright) — não
+ * precisa calcular `transpose` manualmente (sinal fácil de errar e piorar).
+ * Reencoda pra H.264 de propósito (não só remuxa): além de cravar os pixels
+ * já rotacionados, troca HEVC por um codec mais amplamente suportado pelo
+ * extrator do Remotion. Lança se o ffmpeg falhar — quem chama decide o que
+ * fazer (não decide sozinho ficar com o vídeo girado).
+ *
+ * TAMBÉM normaliza o frame rate pra CFR (constant frame rate) em `targetFps`
+ * — achado 2026-10-23 (founder: "vídeos ficaram com várias travadas"): os 4
+ * vídeos-fonte reais (WhatsApp Video + IMG_*.MOV) são VFR (frame rate
+ * variável) — confirmado via ffprobe (`avg_frame_rate` ≠ `r_frame_rate`,
+ * ex.: IMG_6200.MOV cravava 30/1 no container mas tinha média real
+ * 29.9496fps). O `OffthreadVideo` do Remotion extrai frame POR TIMESTAMP da
+ * composição (CFR, 30fps fixo) — contra uma fonte VFR isso produz
+ * duplicação/salto de frame (percebido como "travada"/soluço), mesmo sem
+ * nenhuma rotação pra corrigir. `-vsync cfr -r {targetFps}` força o ffmpeg a
+ * reamostrar pra um grid de tempo fixo ANTES do Remotion tocar no arquivo —
+ * resolve na raiz, não só pros 4 vídeos de hoje.
+ */
+export function bakeRotation(absPath: string, outPath: string, targetFps = 30): void {
+  const res = spawnSync(
+    "ffmpeg",
+    [
+      "-y", "-i", absPath,
+      "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
+      "-vsync", "cfr", "-r", String(targetFps),
+      "-c:a", "aac", "-movflags", "+faststart", outPath,
+    ],
+    { windowsHide: true },
+  );
+  if (res.status !== 0 || !fs.existsSync(outPath)) {
+    throw new Error(`ffmpeg falhou ao normalizar vídeo: ${res.stderr?.toString().slice(-800) ?? "sem log"}`);
+  }
+}
+
+/**
+ * VFR (frame rate variável) pela MESMA assinatura que o ffprobe usa pra
+ * reportar: `r_frame_rate` (nominal, cravado no container) divergindo de
+ * `avg_frame_rate` (frames reais ÷ duração real). Fora de uma tolerância
+ * pequena (soluços de arredondamento são normais), é sinal de que o Remotion
+ * vai extrair frame errado/duplicado — ver nota em `bakeRotation`.
+ */
+export function probeIsVariableFrameRate(absPath: string): boolean {
+  try {
+    const out = execFileSync(
+      "ffprobe",
+      ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate,avg_frame_rate", "-of", "json", absPath],
+      { encoding: "utf-8", windowsHide: true },
+    );
+    const data = JSON.parse(out) as { streams?: Array<{ r_frame_rate?: string; avg_frame_rate?: string }> };
+    const s = data.streams?.[0];
+    if (!s?.r_frame_rate || !s?.avg_frame_rate) return false;
+    const toNum = (frac: string) => {
+      const [n, d] = frac.split("/").map(Number);
+      return d ? n / d : n;
+    };
+    const r = toNum(s.r_frame_rate);
+    const avg = toNum(s.avg_frame_rate);
+    if (!Number.isFinite(r) || !Number.isFinite(avg) || r <= 0) return false;
+    return Math.abs(r - avg) / r > 0.01; // >1% de divergência = VFR real, não ruído de arredondamento
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Transcreve o ÁUDIO DE VERDADE (sem roteiro pré-escrito) via
+ * `scripts/transcribe.py` (faster-whisper, já validado instalado neste
+ * ambiente — 2026-10-19, founder: "o motor de legendar vídeo automático
+ * pronto"). Diferente de `captionsFromScript` (lib/captions.ts — distribui
+ * palavras de um ROTEIRO JÁ CONHECIDO pela duração): aqui não existe
+ * roteiro algum — é um talking-head cru que o usuário subiu no fluxo
+ * "Gerar variações", o texto em si é desconhecido até este ponto. Retorna
+ * o `Caption[]` já no formato que `CaptionsOverlay` (src/remotion/fx/
+ * Captions.tsx) consome direto. ~2,5× a duração do clipe em tempo de CPU
+ * (medido: 12s de áudio ≈ 30s) — rodar 1x por sessão (cachear), não por
+ * variação.
+ */
+export function transcribeVideo(absPath: string): import("@remotion/captions").Caption[] {
+  const scriptPath = path.join(process.cwd(), "scripts", "transcribe.py");
+  const outTmp = path.join(path.dirname(absPath), `_transcribe-${Date.now()}.json`);
+  try {
+    execFileSync("python", [scriptPath, "--out", outTmp, absPath], {
+      windowsHide: true,
+      stdio: ["ignore", "ignore", "ignore"],
+      timeout: 10 * 60 * 1000, // 10min — teto generoso, nunca deve chegar perto
+    });
+    const raw = JSON.parse(fs.readFileSync(outTmp, "utf-8")) as Record<
+      string,
+      { words?: { w: string; start: number; end: number }[]; error?: string }
+    >;
+    const entry = raw[path.basename(absPath)];
+    if (!entry || entry.error || !entry.words) {
+      throw new Error(entry?.error ?? "transcrição sem palavras");
+    }
+    return entry.words.map((w) => {
+      const startMs = Math.round(w.start * 1000);
+      const endMs = Math.round(w.end * 1000);
+      return { text: w.w, startMs, endMs, timestampMs: Math.round((startMs + endMs) / 2), confidence: null };
+    });
+  } finally {
+    try {
+      fs.unlinkSync(outTmp);
+    } catch {
+      /* best-effort */
+    }
+  }
+}
+
 export interface SilenceInterval {
   start: number;
   end: number;

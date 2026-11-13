@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic';
 import { Backdrop, AtmosphereOverlay, FilmGrain, resolvePalette, type Palette } from '../design-system/fx';
 import { LayerView } from './LayerView';
 import {
-  CANVAS_W, CANVAS_H, sortedVisibleLayers,
-  type Layer, type SlideBackground,
+  canvasOf, sortedVisibleLayers,
+  type CanvasFormat, type Layer, type SlideBackground,
 } from '@/lib/layers';
 
 const Moveable = dynamic(() => import('react-moveable'), { ssr: false });
@@ -14,6 +14,7 @@ const Moveable = dynamic(() => import('react-moveable'), { ssr: false });
 export function StudioCanvas({
   layers,
   background,
+  format,
   palette,
   scale,
   selectedId,
@@ -24,6 +25,8 @@ export function StudioCanvas({
 }: {
   layers: Layer[];
   background: SlideBackground;
+  /** Formato do documento (define o tamanho do palco). Ausente = retrato 4:5. */
+  format?: CanvasFormat;
   palette: Partial<Palette>;
   scale: number;
   selectedId: string | null;
@@ -34,6 +37,7 @@ export function StudioCanvas({
   /** Grade de referência (colunas × linhas), 2..16. null = oculta. */
   grid?: { cols: number; rows: number } | null;
 }) {
+  const { w: canvasW, h: canvasH } = canvasOf(format);
   const stageRef = useRef<HTMLDivElement>(null);
   const [target, setTarget] = useState<HTMLElement | null>(null);
 
@@ -61,13 +65,13 @@ export function StudioCanvas({
   return (
     <div
       className="relative shadow-2xl"
-      style={{ width: CANVAS_W * scale, height: CANVAS_H * scale }}
+      style={{ width: canvasW * scale, height: canvasH * scale }}
       onMouseDown={(e) => { if (e.target === e.currentTarget) onSelect(null); }}
     >
       <div
         ref={stageRef}
         className="absolute top-0 left-0 overflow-hidden bg-black"
-        style={{ width: CANVAS_W, height: CANVAS_H, transform: `scale(${scale})`, transformOrigin: 'top left' }}
+        style={{ width: canvasW, height: canvasH, transform: `scale(${scale})`, transformOrigin: 'top left' }}
         // Clique no fundo/área vazia desseleciona. Camadas dão stopPropagation,
         // então este handler só dispara para cliques fora de qualquer objeto.
         onMouseDown={() => onSelect(null)}
@@ -122,12 +126,12 @@ export function StudioCanvas({
         <div
           className="absolute top-0 left-0 pointer-events-none"
           style={{
-            width: CANVAS_W * scale,
-            height: CANVAS_H * scale,
+            width: canvasW * scale,
+            height: canvasH * scale,
             backgroundImage:
               'linear-gradient(to right, rgba(45,226,200,0.35) 1px, transparent 1px),'
               + 'linear-gradient(to bottom, rgba(45,226,200,0.35) 1px, transparent 1px)',
-            backgroundSize: `${(CANVAS_W * scale) / grid.cols}px ${(CANVAS_H * scale) / grid.rows}px`,
+            backgroundSize: `${(canvasW * scale) / grid.cols}px ${(canvasH * scale) / grid.rows}px`,
           }}
         />
       )}
@@ -143,8 +147,8 @@ export function StudioCanvas({
           snapThreshold={7}
           snapDirections={{ center: true, middle: true, left: true, right: true, top: true, bottom: true }}
           elementSnapDirections={{ center: true, middle: true, left: true, right: true, top: true, bottom: true }}
-          verticalGuidelines={[90, CANVAS_W / 2, CANVAS_W - 90]}
-          horizontalGuidelines={[90, CANVAS_H / 2, CANVAS_H - 90]}
+          verticalGuidelines={[90, canvasW / 2, canvasW - 90]}
+          horizontalGuidelines={[90, canvasH / 2, canvasH - 90]}
           elementGuidelines={elementGuidelines}
           // Padrão Moveable: durante o gesto escrevemos direto no DOM (sem
           // setState → sem re-render → sem flicker) e só commitamos no *End.

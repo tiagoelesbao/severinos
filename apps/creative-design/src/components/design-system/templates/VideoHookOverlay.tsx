@@ -14,7 +14,7 @@ interface VideoHookOverlayProps {
 export const VideoHookOverlay: React.FC<VideoHookOverlayProps> = ({
   headline,
   subHeadline,
-  accentColor = '#E94560',
+  accentColor = '#FF5B3F',
   viewport = { width: 1080, height: 1920 }
 }) => {
   return (

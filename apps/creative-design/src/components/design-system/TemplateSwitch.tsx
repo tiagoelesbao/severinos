@@ -11,9 +11,10 @@ import { ProvocationHeroSlide } from './templates/ProvocationHeroSlide';
 import { BenchmarkDerivedSlide } from './templates/BenchmarkDerivedSlide';
 import { LayeredSlide } from './templates/LayeredSlide';
 import { LayerView } from '../studio/LayerView';
-import { sortedVisibleLayers, type Layer } from '@/lib/layers';
+import { canvasOf, sortedVisibleLayers, type Layer } from '@/lib/layers';
 import {
-  buildPreset, type PresetContent, type PresetPalette, type PresetMeta,
+  buildPreset, formatOfTemplate,
+  type PresetContent, type PresetPalette, type PresetMeta,
 } from '@/lib/templatePresets';
 
 /**
@@ -30,11 +31,12 @@ function PresetRender(props: any) {
     accentAlt: '#FF4D2E', accentAurora: '#FFD86B',
   };
   const meta: PresetMeta = props.meta || { slideNumber: 1, totalSlides: 1 };
-  const { background, layers } = buildPreset(presetTemplate, content, palette, meta);
+  const { background, layers, format } = buildPreset(presetTemplate, content, palette, meta);
   return (
     <LayeredSlide
       layers={layers}
       background={background}
+      format={format}
       primaryColor={palette.primary}
       secondaryColor={palette.secondary}
       accentColor={palette.accent}
@@ -83,8 +85,14 @@ function BaseTemplate(props: any) {
 export function TemplateSwitch(props: TemplateProps) {
   const overlays = props.overlayLayers ?? [];
   if (!overlays.length) return <BaseTemplate {...props} />;
+  // O wrapper de sobreposicoes precisa ter o tamanho do DOCUMENTO, nao 1080x1350
+  // fixo: com o canvas por formato, uma thumb com overlays era recortada em
+  // 1080x1350. `format` explicito ganha do inferido pelo template.
+  const { w, h } = canvasOf(
+    props.format ?? formatOfTemplate(props.presetTemplate ?? props.templateId),
+  );
   return (
-    <div className="relative" style={{ width: 1080, height: 1350 }}>
+    <div className="relative" style={{ width: w, height: h }}>
       <BaseTemplate {...props} />
       <div className="absolute inset-0">
         {sortedVisibleLayers(overlays).map((l) => (

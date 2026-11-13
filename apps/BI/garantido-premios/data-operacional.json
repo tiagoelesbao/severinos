@@ -1,0 +1,3436 @@
+{
+  "atualizado_em": "2026-11-12T21:52:58.067320-03:00",
+  "periodo_dias": 30,
+  "conta_anuncio_ativa": "act_28685818161087189",
+  "meta_ads": {
+    "_mock": false,
+    "campanhas": [
+      {
+        "id": "52590612488572",
+        "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — Cópia",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "52585846881972",
+        "nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "52585837725172",
+        "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — v3 — Cópia",
+        "status": "PAUSED"
+      },
+      {
+        "id": "52585109921372",
+        "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — v3",
+        "status": "PAUSED"
+      },
+      {
+        "id": "52585083931572",
+        "nome": "Nova campanha de Engajamento",
+        "status": "PAUSED"
+      }
+    ],
+    "campanha_totais": [
+      {
+        "id": "52585846881972",
+        "nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "gasto": 1999.82,
+        "impressoes": 22970,
+        "cliques": 596,
+        "ctr": 2.59
+      },
+      {
+        "id": "52585109921372",
+        "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — v3",
+        "gasto": 236.53,
+        "impressoes": 6021,
+        "cliques": 98,
+        "ctr": 1.63
+      },
+      {
+        "id": "52585083931572",
+        "nome": "Nova campanha de Engajamento",
+        "gasto": 23.68,
+        "impressoes": 2164,
+        "cliques": 3,
+        "ctr": 0.14
+      }
+    ],
+    "diario": [
+      {
+        "dia": "2026-10-20",
+        "gasto": 29.77,
+        "impressoes": 1729,
+        "cliques": 14
+      },
+      {
+        "dia": "2026-10-21",
+        "gasto": 118.02,
+        "impressoes": 3787,
+        "cliques": 54
+      },
+      {
+        "dia": "2026-10-22",
+        "gasto": 82.46,
+        "impressoes": 2030,
+        "cliques": 30
+      },
+      {
+        "dia": "2026-10-23",
+        "gasto": 51.12,
+        "impressoes": 924,
+        "cliques": 7
+      },
+      {
+        "dia": "2026-10-24",
+        "gasto": 101.44,
+        "impressoes": 1856,
+        "cliques": 38
+      },
+      {
+        "dia": "2026-10-25",
+        "gasto": 131.17,
+        "impressoes": 2040,
+        "cliques": 35
+      },
+      {
+        "dia": "2026-10-26",
+        "gasto": 117.77,
+        "impressoes": 2478,
+        "cliques": 45
+      },
+      {
+        "dia": "2026-10-27",
+        "gasto": 82.56,
+        "impressoes": 1440,
+        "cliques": 33
+      },
+      {
+        "dia": "2026-10-28",
+        "gasto": 112.03,
+        "impressoes": 1598,
+        "cliques": 33
+      },
+      {
+        "dia": "2026-10-29",
+        "gasto": 93.0,
+        "impressoes": 1315,
+        "cliques": 34
+      },
+      {
+        "dia": "2026-10-30",
+        "gasto": 80.61,
+        "impressoes": 799,
+        "cliques": 44
+      },
+      {
+        "dia": "2026-10-31",
+        "gasto": 79.22,
+        "impressoes": 816,
+        "cliques": 21
+      },
+      {
+        "dia": "2026-11-01",
+        "gasto": 125.34,
+        "impressoes": 1286,
+        "cliques": 40
+      },
+      {
+        "dia": "2026-11-02",
+        "gasto": 87.44,
+        "impressoes": 1175,
+        "cliques": 39
+      },
+      {
+        "dia": "2026-11-03",
+        "gasto": 47.87,
+        "impressoes": 609,
+        "cliques": 11
+      },
+      {
+        "dia": "2026-11-04",
+        "gasto": 135.65,
+        "impressoes": 1436,
+        "cliques": 51
+      },
+      {
+        "dia": "2026-11-05",
+        "gasto": 135.27,
+        "impressoes": 917,
+        "cliques": 43
+      },
+      {
+        "dia": "2026-11-06",
+        "gasto": 82.21,
+        "impressoes": 550,
+        "cliques": 25
+      },
+      {
+        "dia": "2026-11-07",
+        "gasto": 79.49,
+        "impressoes": 616,
+        "cliques": 11
+      },
+      {
+        "dia": "2026-11-08",
+        "gasto": 123.78,
+        "impressoes": 611,
+        "cliques": 17
+      },
+      {
+        "dia": "2026-11-09",
+        "gasto": 0.0,
+        "impressoes": 0,
+        "cliques": 0
+      },
+      {
+        "dia": "2026-11-10",
+        "gasto": 100.83,
+        "impressoes": 997,
+        "cliques": 19
+      },
+      {
+        "dia": "2026-11-11",
+        "gasto": 142.1,
+        "impressoes": 1044,
+        "cliques": 28
+      },
+      {
+        "dia": "2026-11-12",
+        "gasto": 120.88,
+        "impressoes": 1102,
+        "cliques": 25
+      }
+    ],
+    "totais": {
+      "gasto": 2260.03,
+      "impressoes": 31155,
+      "cliques": 697,
+      "ctr": 2.24
+    },
+    "total_anuncios": 14,
+    "ads": [
+      {
+        "ad_id": "52590612489372",
+        "nome": "[VD][20261112] - Copy 01",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897554453_1159556416614071_913352446198235736_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=W8O9327D25AQ7kNvwH1WKFY&_nc_oc=AdqOTKqR75Cx3z0-pLq1lAR6y5Os400oALSpjY8Jcb9PIe98QGr-gAx0w46FxBvMNPD4WjQj40ScP6lOV9lhpXEV&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQK-x4OtKayjz6aC3n5JeR5emaCsS0R9wyT3-h4_x-FF2NLYaU3dSrRtsuCP_eoUJFco7ArLBchTeQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQ6ZixjlvBpiUuA0xVQRD0RTekCrbc0BaUDkD_kT3ZDCQ&oe=6AFC392D",
+          "image_url": null,
+          "video_id": "1422792029841931",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJNBkJvR8upEhtjW1J1uB7VEfZhPNIDdnXQQHUxN6v8zOv_davSKLpb7rbpKSyqQp3b-YZuaMqQ70DMOEo8chxdJXbRvSpDlH7pHSh0TSoAjE3kcw6jrsNmYVGzDsDtt_dwmA7zopJ31-2bSGBbK8fRbHgxzJB_zcvDYITB_8Lknk2o0Oxey4P2sF2wyY2tu1EStlrRoNd4IkEiZeYMhWlD3y8Gcm4x6w_FFkForkt4ATEpV9nIXNkNtwJmTAy6zjZ6g-neHWX81PZLYYJ1MMFLGVVTZZBOg6tk-vcl2F1mcp_kAHvFoSM5jwOhrxB7REf1jRiUxyugGs4mgVymbUjEn0Gg8eHH3VL5dXFHA0qlYW3rlEKpdB1vn5Hos-DmODQClFojC3EbQlY3MKBMAxctpe99rDO-xsKOlT5qrtRQb09jNHN2D2VasiMpsRw1LEQ&amp;t=AQLAbL8b7k7ELLpmRMo\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52590614161572",
+        "nome": "[PUBLI][20261112] - Copy 01",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899863634_1181146617636197_2256294393784777869_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=X9r6zDZmsdkQ7kNvwFw3l7R&_nc_oc=AdqSK-58r4R47QZeVg6dhnex5DLP67MEDWXpbqidZc5cPKlgNOHlGU34WjlnXBRBjmnacf4niSjbe1lgrw4t33-q&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQKNaDW-lBflQcDNfRl5h1BoeaLKndJsLXKX6HN2xJGjuVRbhfRAros_GiDI0VBbvcTRXclJVAcgeg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQS5zc1fG8K_mVVvIovPHPEjT5eLInwTUSDssveMjEIFFA&oe=6AFC30A8",
+          "image_url": null,
+          "video_id": "1181146604302865",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQIrPbn8G1wz2KDBK0GV9Kt1x-7t1LMyxkVE_xAEyyRMTO0cgOrtdJaAGx7-ow8lRmuIWLadH4Bc3w8FotjFj6RvOsN0TM1k6vvmt8HutpZ69qHVR2vBr24WsWAS2WPrLsU_ns8mDhfGNyJ8IJAKHc0VJzxRawln622z4KDfIohidRXCt8KgKHNQvN61ewPleC4aypcAF5ptEDk1JAgZtva7tB11csVFwWyrxby0zTzteo8Xe6bDjKSWE3rACtXU0SNTEJj6gRcvvf2SDUeNvnF3IJkpRANTYkqXcJdIdDbJ4dLsQtrFIKO-nXyvenmGAg1eDAgPYZ6LQrkV5n-hCC3bpP_Hy2lIl0BLp_qZIEfOAzUF5xB7N1heifKSnngsa2AoAtTmKcrDsGXcxh9hVCagqCP_g0CMFmm5hlnKG59hlkwjM962xQETZJDqJ4Fi82o&amp;t=AQKk68599URPOhxKNco\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52590614020572",
+        "nome": "[VD][20261112] - Motion 02",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899828647_1659319905840185_7680304498610929074_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=iwsCOtSIWo4Q7kNvwEjzm-q&_nc_oc=Adou9LU-HwAEnKZHAVXPvise15LKaCts-9QovQSG2IlyuX06jb7ejkvDiN8EJFUkXgLNM_2rnzXLkHwgCgTtj39F&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQKsV0_cpT-_L9yUlFu1rBgsnjqHRD_iTXFgqGbvxqzYeJS1SYD_u6LpqDQHF5H7m5PDdczSYHRGlA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQjrhCPVUq6Bm4fSzCYjQHrPkSTSQA_NCRsMK7LRACaew&oe=6AFC338B",
+          "image_url": null,
+          "video_id": "1427712879432740",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLvql2U_4AcXCoRkpSFKVhDqsVwfc_1w9MRk7dwO_Fy2bM7g2DH8pKo9MESKLYw7kdFbL4jFhhTlcqTTDQbn1Eqint5VM82xz47FavN8vAPnWoIl2xt_-eHgV76LXW3uQ-DIviS9MHTffkhl1vXd2Eacz8ybnSvR1WsiG8NyEkL7q1jus-WUMe3O88_J9za0-RFK07eM-qwNAs2NDQGl5xXil29V7MYTgsbPWBzGe7xOmbniQvfCvt7iOgfoA5UxHhLHWHxAZICqAfY2QaSmrt1Y9IdImXlOwlx6_F5hQyZXAkYhe7X0nPePU2GWqtphLTifHPje3urSDSpUM62fkfv2OFjrYo1k6G0hkjtDnZQ6Q-XKQT6BV6ZkzFF1fjNQ5kbraHbv28_R3sKw1VTFgXegP1IhQouHy9f1UR82EZaChZoxi5n2F6naBx2j2Kyb5g&amp;t=AQI85girNdJ_-NuG90g\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52590614126972",
+        "nome": "[VD][20261112] - Motivação 02",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/896560887_1078610721864170_1573138927780442158_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=NMaF4esAKbsQ7kNvwGl0U-5&_nc_oc=AdpskCcyk89IahnEeFsADBcPgZnhccSACqexevHUYKAM29-auO_dX3NlsyREhHupISw881oYop-EII1eMBro3gSC&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQKA6LLkunByHcY3GYYlVMYwf8h_7B0zosUk3wiWk808U22uB_xLZ3Kpl3IXx9ag469Rg4xtMPryXg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQ9RDzwMmBxqUBMTuxAKuf549BYc11CPZ7abaY7BpLSFQ&oe=6AFC4614",
+          "image_url": null,
+          "video_id": "1814922109557208",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLFbI3aQStfesF0ne-Aziobv5kNY_Ka4D3NVlgIHdpchWrCO9nUwW-iKbY3c6YK-Wjax7uJreibvoSu7SNuxz-ahOgvMWI14ioy1NXu4zR_CHwC0FhC-Lah2rmqvUyhTddoYHImAYUWBa4Z1Cjk9dDOqMQTSwPXIIMPss0iXxLTB-mihLydlWWJc_UEweYChpCtVoJpjd0SOD-UmhocVr_LDmqBi8bLaOk_U4GqlBHFjAUQAkk20PtWdiEB0UjEmaFiKL0JZvkItAPiON7rxbZ2eHiCB9ebgl2cDvML9SiLlekhmK8m7qQuBmgoQtK8ADoSHUCBNeqJn8LT15wnWgiKA9mXlWN5j6_fAAps7ECT_Ko-QBZeLCtWY9RAPMGyp39z26OzmS9hpYMrkZo3mwVUHU4f1TBpuhy189AkfqSAWw4O1XtWG3P17j4MoxCwprg&amp;t=AQKQBOy3ajFWlgC5J3o\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52590613881972",
+        "nome": "[VD][20261112] - Motion 01",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899532957_1675915267515250_4721453333417776775_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=urn-rmGc1cQQ7kNvwEc9XXb&_nc_oc=Adp95HIoL1yBQRUYdZGB77qUfnJC0h_bDPklKKr0u5sf468SQ6odhEnbkwefsj6B2LJikmm_RTIuk513Udfdw4bQ&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQJyklYcW5tpgSEI40SElbVYuZrJnJ1PkSL7Jkphw98r8jgy15JziHl9yiRA2-TmaDA37k3AMqmePw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQSSH6ST8RAz9vqp1wTCL65RGJyXMHF-DNpLIwHRy6OKlw&oe=6AFC3E0E",
+          "image_url": null,
+          "video_id": "1792175955331319",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJLMH_raJ7-jHFPORyy0RkDzhHB54BcG7Emx8NvrBjtzN1tjDWAHtQZEH5gr01Hplw8OTgyxk_SarNbOeDrvqWmzpHjJJZSGWUlhVDu8za8V281ZlqIWMN30Vj8y3FhB8i6YpMdrWvqOEMjvboca7mZ9ZTfkkmH4bvHvuheQxrF5RONpEMnbfWiTnCrom_Ud519S3T4rVHFh24b_bdR6AN8cRoHIgadcIu2xAUQ7rSvGTadYI4IH_AEXxLhTNBgs_4isoRQ-m-CreiOEg7LFvIVdqzkGwRLpBf30d0q-tZlYYPOZzgxGJ0nKQC1TvAqmMeWllEOs8IDisyKNui7k7cmkTN_RdQ976-NioTZNSMShUAZM7ue1ZLZfNjn87S6zowRim8fQigXVzuuaqNnjShktJix7phCYSPkjshQE4L3u4GPtrtJbDmwIZ2FdnoK5kk&amp;t=AQJbulbjEeGTueriQi0\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52590613535572",
+        "nome": "[VD][20261112] - Copy Carro 01",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899613467_3243063019228442_1094024962540166266_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=WSI77hD0rcMQ7kNvwHbo4e_&_nc_oc=Adr4d8jtiF1kbFAwH5UiaEu_aOxQRvaJyMkHk_D5o6PpF7lhiauWrmEXBhKiP0_DUoK_ChfQdde6HJlTzMlUTx-Y&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQLTnSpe9X2IIe5YRz9almutY-z_lRD3Gwp5WFkdQPT82e06CtPKdc75-HnO8KyjFq7PPRXJohc4lQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQTUXKzIg0cb2qweOotg_agmKo4h_loYOh26wE1KXLOVLw&oe=6AFC3837",
+          "image_url": null,
+          "video_id": "2244918033085963",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJlQuMNcwZZS0y_FKS_mqCJwT-zIZQin_WALHQUK8UnySzLGpiOxm_2nRxou1vgykVilMmUOIL1_3FlivJq3948LH45rkKLp6i0glzsDiQtwtdlQRdY31Bm3Pa58sywX-_SxRhgtEycG3IH_mH7qdopHM_ZsaA2U39wr50nRB23c5NRsF9OoGzDme4glAAJrVZEtnCeqS8gHktqqN09HPfyj5lDso1PMZnLeQpz2FAhAV34qvs6grLSMbEVyZmWrGM1GZ8Fxn39_kli7i_ixLmEF4tcb1jaVGxlHqmqHF7-Ymzg6C7J1IHcHwvmNaFyFsr0S-bloqTf92aCHFyAR18GUH4W4m86OcnwN2geoGJz8kSQM697K2dR-18LnN3AFo2hXm1x0jE8-tmY_qy-OOlD8bLyEtkVbpqosLFWJ-Qs0bihUJ4g-Y6hd3Br14yEpZk&amp;t=AQKZDVPshUEfEjalxf8\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52590614064572",
+        "nome": "[VD][20261112] - Motivação 01",
+        "campanha_id": "52590612488572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/906063051_1410446187539526_8325949869523098070_n.jpg?_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Z6gJAHKDloEQ7kNvwE3qX57&_nc_oc=Adonz6R9mWt1bzm_b6aWI39ZavxCKrqQNxV-NxqcJiw3DUG1624YxdkP8r7s7rbEaHOxnTsMESP7wDCZjBHCw0s2&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=iSLur3Q0DxayyJk1NZa9cw&_nc_tpa=Q5bMBQL0aaCiIm0nhNcRkri0ArHddBxUNNAkjtz23GjcxxglMdVcyycDmDbuzLSITXW9ASnsQFOqdIlvIA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQTNtqs-hmrSBjNgecXQi6oUtu2zpGIcL5Ry6D3PDe-aYQ&oe=6AFC17C1",
+          "image_url": null,
+          "video_id": "1080083171680600",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQIFiVZdCPmUpnKpUtGYOktQDevUwx4WlE7YKQ2nweMINeUL5OwqpG7YeOAGFiTbRAvDf1_0s7ORAz1Npvq9DaOyNAMR7tQvlrjDyoPtYVq5s6xmWiI3_apVrvdx3EykVHAKtce37L-BkDZCzRTD4ER60d8_LAqwISIRs1HYkM4_GPQMSjk7YoJ7xbj9rYg1K1I4Wyx_UVoZ1ndIOnnsjn7_26Kmz9cQ184cUpXm12V8yNsrxW_XGL8Fg7sI1IMVr30P1HF72x1f4e08tYkrVrgJ6Q0zZYSQ_E3brySeerFNQW_w02Y6Z1iPBDp1-1WjIwDMp1fhjL7eQMteYt3nRztYVy8TP-4xub321H2uOJKZ47wgMJ3c2-LJ5OaWTz5VJpPmrG_bDysvB9U6TWztMN8IkIqAOLovCdWZtEIv8eQbA12dnC_N8wbg5ht-ILfeDME&amp;t=AQI5rfANrFNVU9VWLE8\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/863143288_2166282390642718_5736572618940579395_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=uv0Zptb-s9UQ7kNvwE706Vp&_nc_oc=Ado_Dm46FkqEyfHYYBX2KZQA0SotQrmkDPRgDn-2-NPZQuUcra6gqe9l_eKexphFpGi6ILucYq9WyxOZacbjEhYB&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=L--zC-SpJ5Q7TkviIqHVyw&_nc_tpa=Q5bMBQL2e4jPd5p6ob8T_sw4EQGxPqI1tmIRFbg2pbO0FAjD1iRviwMmj0dQWipMEisG4EwwslkflENWnA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQSWv0tW1lWXP47vNgbtv1zE8RPfdC-1CplnSaDcj6EJ2A&oe=6AFC29C1",
+          "image_url": null,
+          "video_id": "2178264233116468",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJH3bxdar35NRlhb2S_35Kw1nGCRWikOGpoMVDdeWmz5KwgrDS2wgopOka3rE5NlJPbH9rP-RR5nwXFNXFmnQSFafwGx9-sJdnxlXuO9tuxlUmOUXCcTU57abAoJEbypBApeZdoKkOYw9LCLxYnyy8qGT6cb8zMCMoZjuqrBrOgNv9u8bHROOCgeVCDHUwDkh7SI59ENAKZvQ4GgP0N4B6903IIrsyLAW9sVEqGtWHt-1pdfA-wdfFKCeHYwm7QD_dVKTqaG1ybBoEh8itGzZ6_IhcdYpvLm8U94y4XGx3rNu4NpDP8nzLAvFwYYPTe5IHXuxyvfNQaQupIcwjVVkp9WjoY5NzHQuNGyEGFFrYx4VxFK0cV6Ti9N7537lO3GzFYbkPleYsi7JMLm291qThDzNgvf2XaSghmqKzPTHF4guFwop9vTdClXF6m4IF94eA&amp;t=AQJcziRZ3X-gOcm7Qgs\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52589975221172",
+        "nome": "[VD][20261110] - Teste - var 03",
+        "campanha_id": "52585846881972",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897569699_2674804219589172_6524929539832938228_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=GKfhWvKLxAsQ7kNvwEPYmLJ&_nc_oc=AdqARFPcx-7e2Jpa9NGjknaA6hba2ST-ThhglzMRG4lHiP0udj8r5RTiGNIdunAOh1ElUAtar3dLfWSDj8H3zGoT&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=L--zC-SpJ5Q7TkviIqHVyw&_nc_tpa=Q5bMBQJ5BYLBjtRhkL05z4CBvavVbYey_k6Yhe0Yu2eSPK2p4yx6bKunxI0bSqCmTlshwyNaKKxCXdy2uw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRjzAo_vAsDP300UfRbH891upSTnme5lO56xSyN_uoNKg&oe=6AFC335C",
+          "image_url": null,
+          "video_id": "2160919921171748",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQImCjanE1AbTsL76dEKQr2MSt3DF3dRfOE1Pde1f8IJ9moKxUhV0tyIh4S0dgN3hNypDps56oSp20RdAO7-760ewXhtWHXcvZ4mCaydxXnjaQUcK8aZISArswQr9JZo_FWe7PJZO_SJU0c7qTfYfPTmt4S03dq8GbZ8zJQM-O2afOrNUEQejLrHE9GohSRGzPQAcBHtzLnuw1nQOdZUgZFVGJpX1uFMNODmGLiDYkDuskEB_egynXFppOOU-761kd3A2hQDOcHuUnzy5ku7JU_JKW-bOXJdv4gVWMrJIZkKwNy7woFcLqQ6G9OzIDUFuW7DCY_V6MrHZnI0mujCbJpdeDXsh-_guVRKb_IyKCWTi0kN7MTB38FrbSXTSAVigEc8xkytsZjZLwmFu8h63BCin3xB3LGomgiFPPsTUgXEgUjLYJlvq15n2Coyg0htY0g&amp;t=AQLSp8yCTFwWTHENPbA\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52589975220772",
+        "nome": "[VD][20261110] -Teste - publi 02",
+        "campanha_id": "52585846881972",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/895742796_1917290950033023_7093485775472767886_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=qGlYS_JuZGYQ7kNvwFmwgWB&_nc_oc=AdpJeS5nRxG2AGSfYq2TbHUPrq-rjcnNDPuAzuXR0kNyIQBDPmJDusYAPx74OihZjRSnvQNQq3ha6GsHiaSvTMX-&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=L--zC-SpJ5Q7TkviIqHVyw&_nc_tpa=Q5bMBQJGS-KrIhnbdzJTrKSOPOzT6oVD3FJwf6bkJpAaITGUurrx8rzlhi8ZzoBK-10kJmUMiJtkwPRcTQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQRGAvX-AlRgGuHkcr7bafAMSnCC6ketBanqD2UjvB39HA&oe=6AFC4396",
+          "image_url": null,
+          "video_id": "1917290930033025",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKVyqDny_nDkNqPjvCk1OkA9j4R5d-THvtTTij2W8vtXOUbNEXR0YeSMfTCmrnkRQD7jlgNiVBpfOFBAS-PrZOXRAq_bLQnjcqOfLxqZ6WAZwY1rTPIZH_7EuSfTGf63Li8wKuqEzZaROPea_28LVs54OLuwYYH_WXBaWzmJg8-2IWcEBvI0C-IpG9ZVJ2nwnoqG3XXR0jzDyItwBAHGQ8gElJGL6KCPMzTSHXQVT0iD--btrGbf_HAbWFKOoKdbDdBidexjJP057UOqcKkjQh1UYl-tVLlumPH_m6hSP4__yjZi2rIsniVhIWBKP4b34sGih4FWPDacBuXr7QMFVkFNopZCksoa6W-blxuBNZoIaNmBFwf9HlUU2D29o4LVT5pQIi9R10QRuedCIQj1DH5LWdcmx8XCHvgQXQrIAE_gGfo9HRO-4AmmbQDozJG76k&amp;t=AQIiZ7ySmEfv9h0s_tE\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/869211442_1871741020498939_9166051802392609664_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=7s5uyF_IAUMQ7kNvwHWEthR&_nc_oc=AdoHf5ZjYeQC6ZikYGMsWkwgOsWzSyGfefGjBzBa49_DDD0qZ0sFlhM3TrsZPv06K-svHpRp8QWlXlhj5RD4ZHfW&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=L--zC-SpJ5Q7TkviIqHVyw&_nc_tpa=Q5bMBQLRozY0OMjhxTs1AUVUy45Gkta5nlBDfj3uonmyvWDnUvkkzBQjaXmBmk5wjJ1BvRCCREmGaSEX5w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQTNyssuJcWmziOYbty5t8rmJYlUktRzpCNFUnlyIuAbyQ&oe=6AFC34F1",
+          "image_url": null,
+          "video_id": "1645174723652350",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQIfmPo98m1pZDABwL1q7E3LEbLguRdbDJ1d5ANge5G1SZEJuoSFYkoxjNVeH_2un08MUoDK1nGjkAytx7NHr3VkpoubtTlp25nwMBO8lozG15m_GSLK_gx7q5VUqv_qhAdJ5EPx5eIEPFRYVwGQvHXhSHlXeFIXZJl-0k1UBKwyMbA0-sF1vXcjrhoOxw2AdcXJ3QabOhdy6OLH_TTnS4uB0cuIj-5E4Ni8vPeTEOKA22-keSOltSZs9IEmdw_H_LqtHaxickx2lSF7V9H2f9Qn_HWX8QsJXgbQ5264t54AGgEjppOP-dFpzO_ZgXYlexrEu6h6mSBj_cbjKHk5cDFy3ixkwY5nvSnRNKcmlRLQNcA6IzoQS6Y2TX00RnAhIkSRlse1hEjwhupUnKyJLPdWxRCbXxaKIIx_uFpR3wpEcSvKzmgs3FZTMSoOxgO8458&amp;t=AQIwvOFTV_KuOSTqihA\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897191015_1145443771189066_6514907466175099297_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=VhBewruWCxsQ7kNvwHSa86_&_nc_oc=AdpD_RtmdiVaejBhP-betNvwHdvIilgfJl2og40J8YM8z7uH0PpVnWX2IuGI5AQCxyefYjO9gZcWsA5NpZMZPpgs&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=L--zC-SpJ5Q7TkviIqHVyw&_nc_tpa=Q5bMBQJsZJxxSyOwz6ouRwr92TeygKHy5NaGGv234Qk1m4isJG6PWx7NUrifwfwAssmav8vKrt7zXMj7zg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQRfc3duSVG9ElMqrV626m6ru4CbDCg58URQlbRSZ808wA&oe=6AFC1EFB",
+          "image_url": null,
+          "video_id": "1145443747855735",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLjGExqfuOmspP-YoCAoYCgW9R8BcVpSDu5ArKZ64uln1HgpaAN8YUp99MSzc1rr850hQv518_aVFkoWMwqwZwEEbRXyUlirynCbsNjtnlsZ_B6oP19FU3GG_7T8SROED-IHgkeLinrc8HFMlTyUw0WEaPrdB4tA59rMa8kxEaWSkpzkuME90UCrPI9W_vTdv3Tu-QwppK6WNXoC7SyLQu8fQkimGftBoIpUDhDg0Wu1m3yf9xHsJgjmsfPq_NxDv3d8yNbC_JreAFo1Ga6jf-cF4Vr8hmJKuxXT5x9z6X4w_g5Cm9bY52FZTOXTfEKN8YEsUcPluAkxuHxhsITdtEUN4kfRAhlXDKrpNVLmIwi49_f_HMz0-E6-Zg7j6baDJRjeoa_pyMR6ZBuNGbCfHRJHtcZlsOjZZdz0MBWI0mu7Hj1rZoviHhOd16LTzv_1mQ&amp;t=AQLCO1FD9jOmnH7tB9w\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/901263456_2682609665541534_4822846768482585726_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Wggu_yj20SwQ7kNvwH6MSYy&_nc_oc=Adq0EtY1PIQwt2vTHMaoM4EQKEZ3nVvoK6NZwoRsx55sdMPpkZP1sZQ4o7rULVZe-dyz9bcQMR2_-k5OeT3nFZX8&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=L--zC-SpJ5Q7TkviIqHVyw&_nc_tpa=Q5bMBQKXvF1k9Pf5bDBHg33-SUe6Jx6t9TW6eRarQu_sM0vywv7ajCpyN4SBONqD0mhlKAabPydx6QfGEg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQRRNFTLO0iH4Xx5snbcfORVwkgObnqlLhkoS0_aIqCjpg&oe=6AFC48F6",
+          "image_url": null,
+          "video_id": "2682609628874871",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKoDXJOhtg3ZGaJxCT6bOK3FuDjI7hrpTi7k5e0kjdXlAdizBJZKYk-Z0F1QxigTWFhGvYga2he5Mw_hURlxkGokcqiRl9VXeroZ_vfa6XIIll69ezOzy6F_yUxmhmZtp04oy_K6HOvg-dnErcY9gBGIWZr1yBRXMkP_HuTQ650UwxbqAasvmuI4iASldeYo3C3_DL4jRtTJK2LXosROUl58MYG0DGU356HIcgoBwCndOmfvu_eV2_z5-P9P3NjBNLdeqpckNGiVKNGy9hHBe9wNNNQrj4vzHrZXKjGf95_87yTEpzr57kEsReDk6HR9kR-ZRznKOtyXg6ewbyD3WfxH6_x2hoAsCYhnPmUCmx0mQO5yGjMZ2rpaU4TacgDQKJiba0S6tFtpySMrHjZ0r-yqesrsOGnZ5ieBMU5S_9ormpM-49e-y_uL6RS4065dYs&amp;t=AQLHZeGFlRFJWKjDS9A\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "52585083931772",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "52585083931572",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/858213934_1145360591480475_2394374149960411737_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=1V-tAPPSFlcQ7kNvwFTFLBZ&_nc_oc=AdofS4CP1JEJ0cKckjKiQstcCpwOoS08Y0XhXX6ZU4s0y-_uejeKgVRKzzv4sipcLKFtUbrLqCwyTzVJniir9j4X&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=Po3vWV7CveVabw7WW_2rcQ&_nc_tpa=Q5bMBQK3GzOYsFRxnFdrdD64OBJibkqJSnF_z02_IU1r_DoXEyn70b-Hnjjzqx61KTmHCyibG3p6bURU7w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQS5JS_zU3LCC0JaFZJGr57fgVSo5ZZ6PUrhS27WSbateg&oe=6AFC342E",
+          "image_url": null,
+          "video_id": "1145360561480478",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLnhLW-1vN0m9gYay3663bz-p547FHkaPBLpT9EIeX9v2mLIHyTLCtVe-RJOF2SEOsJ6mRXL_i-AHbOI-rka-dElhSm-VHu7Ydzo2Ob5nbDPgYK49uAYxI_PAvxx_RoeXxSmO6ZjnWvh_qPc6cCwrV3a48IU4tNuBdpy3RmqhBKDYjd7u0K7O9MDNnVW2Pa6L2GKuqw_LPC1Z82GbnFgc0LvSCfDCCl8GBSuyKewExJVaBnrH5GULbmBU_zv2a7oH8IweTF4igsX1yzF_qCNnXwvWda9Nr8PO2ymWeXjOKK8CqarF3w_Wu74ifEM_5rxu0KJyDCrRiRmvWAaw5bt0dssXJmC2XLy_sxMRBHgMtd5Ei8TQ9SPOjxD_q4Y3h8SxE4RtX0EMtPhKmnWzkW3fFJVBfDLrCb32s5U6N3au9ioxQTlX0hqa29Mv1VGBQAFCQ&amp;t=AQK-xpNktY3qW4hTlA4\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      }
+    ],
+    "ads_diario": [
+      {
+        "dia": "2026-10-23",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 21.16,
+        "clicks": 4,
+        "purchases": 1,
+        "purchase_value": 7.5
+      },
+      {
+        "dia": "2026-10-24",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 101.44,
+        "clicks": 38,
+        "purchases": 3,
+        "purchase_value": 49.5
+      },
+      {
+        "dia": "2026-10-25",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 131.17,
+        "clicks": 35,
+        "purchases": 1,
+        "purchase_value": 11.0
+      },
+      {
+        "dia": "2026-10-26",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 117.77,
+        "clicks": 45,
+        "purchases": 3,
+        "purchase_value": 14.5
+      },
+      {
+        "dia": "2026-10-27",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 35.41,
+        "clicks": 15,
+        "purchases": 1,
+        "purchase_value": 30.0
+      },
+      {
+        "dia": "2026-10-28",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 20.84,
+        "clicks": 6,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-29",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 10.02,
+        "clicks": 4,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-30",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 1.85,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-31",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 5.93,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-01",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 6.78,
+        "clicks": 3,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-02",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 5.93,
+        "clicks": 5,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-03",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 4.45,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-04",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 6.25,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-05",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 2.68,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-06",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 2.7,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-07",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.42,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-08",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 3.34,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-09",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-10",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 4.2,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-11",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 4.19,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-12",
+        "ad_id": "52585846988572",
+        "nome": "var 01",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 1.36,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-10",
+        "ad_id": "52589975221172",
+        "nome": "[VD][20261110] - Teste - var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 7.9,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-11",
+        "ad_id": "52589975221172",
+        "nome": "[VD][20261110] - Teste - var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 2.1,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-12",
+        "ad_id": "52589975221172",
+        "nome": "[VD][20261110] - Teste - var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 1.56,
+        "clicks": 0,
+        "purchases": 6,
+        "purchase_value": 236.0
+      },
+      {
+        "dia": "2026-11-10",
+        "ad_id": "52589975220772",
+        "nome": "[VD][20261110] -Teste - publi 02",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 5.85,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-11",
+        "ad_id": "52589975220772",
+        "nome": "[VD][20261110] -Teste - publi 02",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 21.34,
+        "clicks": 9,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-12",
+        "ad_id": "52589975220772",
+        "nome": "[VD][20261110] -Teste - publi 02",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 17.94,
+        "clicks": 4,
+        "purchases": 11,
+        "purchase_value": 784.0
+      },
+      {
+        "dia": "2026-10-27",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 47.15,
+        "clicks": 18,
+        "purchases": 2,
+        "purchase_value": 17.0
+      },
+      {
+        "dia": "2026-10-28",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 81.34,
+        "clicks": 25,
+        "purchases": 2,
+        "purchase_value": 60.0
+      },
+      {
+        "dia": "2026-10-29",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 81.68,
+        "clicks": 30,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-30",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 74.46,
+        "clicks": 39,
+        "purchases": 3,
+        "purchase_value": 23.0
+      },
+      {
+        "dia": "2026-10-31",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 70.94,
+        "clicks": 20,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-01",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 108.96,
+        "clicks": 35,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-02",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 70.54,
+        "clicks": 28,
+        "purchases": 2,
+        "purchase_value": 35.0
+      },
+      {
+        "dia": "2026-11-03",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 43.42,
+        "clicks": 9,
+        "purchases": 1,
+        "purchase_value": 7.5
+      },
+      {
+        "dia": "2026-11-04",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 129.4,
+        "clicks": 50,
+        "purchases": 4,
+        "purchase_value": 26.5
+      },
+      {
+        "dia": "2026-11-05",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 132.12,
+        "clicks": 43,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-06",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 75.41,
+        "clicks": 25,
+        "purchases": 3,
+        "purchase_value": 83.5
+      },
+      {
+        "dia": "2026-11-07",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 76.05,
+        "clicks": 11,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-08",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 114.93,
+        "clicks": 17,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-09",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-10",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 82.78,
+        "clicks": 15,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-11",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 114.47,
+        "clicks": 17,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-12",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 100.87,
+        "clicks": 20,
+        "purchases": 21,
+        "purchase_value": 753.0
+      },
+      {
+        "dia": "2026-10-28",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 9.85,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-29",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 1.3,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-31",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.41,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-01",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 4.33,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-02",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 2.37,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-05",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.47,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-06",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 4.1,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-07",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 3.02,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-08",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 5.51,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-09",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-10",
+        "ad_id": "52586859758572",
+        "nome": "publicação 27/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.1,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-30",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 4.3,
+        "clicks": 5,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-31",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 1.94,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-01",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 5.27,
+        "clicks": 1,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-02",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 8.6,
+        "clicks": 5,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-03",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-04",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-05",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-06",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-07",
+        "ad_id": "52587198454972",
+        "nome": "publicação 28/10",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-20",
+        "ad_id": "52585083931772",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "52585083931572",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 2.51,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-21",
+        "ad_id": "52585083931772",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "52585083931572",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 11.58,
+        "clicks": 3,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-10-22",
+        "ad_id": "52585083931772",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "52585083931572",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 9.59,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      }
+    ]
+  },
+  "pixel_funil_diario": {
+    "_mock": false,
+    "dados": [
+      {
+        "dia": "2026-10-15",
+        "evento": "PageView",
+        "count": 376
+      },
+      {
+        "dia": "2026-10-15",
+        "evento": "ViewContent",
+        "count": 220
+      },
+      {
+        "dia": "2026-10-15",
+        "evento": "AddToCart",
+        "count": 58
+      },
+      {
+        "dia": "2026-10-15",
+        "evento": "InitiateCheckout",
+        "count": 46
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "PageView",
+        "count": 3530
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "ViewContent",
+        "count": 2074
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "AddToCart",
+        "count": 486
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "InitiateCheckout",
+        "count": 471
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "Purchase",
+        "count": 19
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "PageView",
+        "count": 4485
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "ViewContent",
+        "count": 2700
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "InitiateCheckout",
+        "count": 582
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "Lead",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "Purchase",
+        "count": 21
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "ClickSorteios",
+        "count": 11
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "PageView",
+        "count": 627
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "ViewContent",
+        "count": 300
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "AddToCart",
+        "count": 72
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "InitiateCheckout",
+        "count": 66
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "Purchase",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "PageView",
+        "count": 4006
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "ViewContent",
+        "count": 2389
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "AddToCart",
+        "count": 577
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "InitiateCheckout",
+        "count": 536
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "Purchase",
+        "count": 19
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "PageView",
+        "count": 5073
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "ViewContent",
+        "count": 2990
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "AddToCart",
+        "count": 821
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "InitiateCheckout",
+        "count": 726
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "ClickSorteios",
+        "count": 7
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "Purchase",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "Lead",
+        "count": 18
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "PageView",
+        "count": 5225
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "ViewContent",
+        "count": 2904
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "AddToCart",
+        "count": 762
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "InitiateCheckout",
+        "count": 678
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "Lead",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "Purchase",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "ClickSorteios",
+        "count": 11
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "PageView",
+        "count": 4049
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "ViewContent",
+        "count": 2271
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "AddToCart",
+        "count": 630
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "InitiateCheckout",
+        "count": 585
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "ClickSorteios",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "PageView",
+        "count": 3860
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "ViewContent",
+        "count": 2192
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "ClickSorteios",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "InitiateCheckout",
+        "count": 603
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "Purchase",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "PageView",
+        "count": 3604
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "ViewContent",
+        "count": 1953
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "AddToCart",
+        "count": 624
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "InitiateCheckout",
+        "count": 568
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "ClickSorteios",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "Purchase",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "Lead",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "PageView",
+        "count": 637
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "ViewContent",
+        "count": 272
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "ClickSorteios",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "AddToCart",
+        "count": 43
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "InitiateCheckout",
+        "count": 43
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "Purchase",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "PageView",
+        "count": 2815
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "ViewContent",
+        "count": 1443
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "ClickSorteios",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "AddToCart",
+        "count": 569
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "InitiateCheckout",
+        "count": 541
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "Purchase",
+        "count": 31
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "PageView",
+        "count": 3962
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "ViewContent",
+        "count": 2143
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "ClickSorteios",
+        "count": 40
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "AddToCart",
+        "count": 710
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "InitiateCheckout",
+        "count": 671
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "Lead",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "Purchase",
+        "count": 39
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "PageView",
+        "count": 3791
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "ViewContent",
+        "count": 2103
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "InitiateCheckout",
+        "count": 599
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "ClickSorteios",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "Purchase",
+        "count": 12
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "PageView",
+        "count": 2969
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "AddToCart",
+        "count": 555
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "InitiateCheckout",
+        "count": 525
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "ViewContent",
+        "count": 1689
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "ClickSorteios",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "Lead",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "PageView",
+        "count": 3652
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "ViewContent",
+        "count": 2090
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "Purchase",
+        "count": 22
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "InitiateCheckout",
+        "count": 612
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "ClickSorteios",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "PageView",
+        "count": 2885
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "ViewContent",
+        "count": 1688
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "AddToCart",
+        "count": 490
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "InitiateCheckout",
+        "count": 450
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "ClickSorteios",
+        "count": 16
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "PageView",
+        "count": 878
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "ClickSorteios",
+        "count": 40
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "ViewContent",
+        "count": 417
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "AddToCart",
+        "count": 80
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "InitiateCheckout",
+        "count": 77
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "PageView",
+        "count": 3615
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "ClickSorteios",
+        "count": 54
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "ViewContent",
+        "count": 2124
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "AddToCart",
+        "count": 580
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "InitiateCheckout",
+        "count": 560
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "Purchase",
+        "count": 30
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "PageView",
+        "count": 3364
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "ViewContent",
+        "count": 1859
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "ClickSorteios",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "AddToCart",
+        "count": 575
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "InitiateCheckout",
+        "count": 546
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "Purchase",
+        "count": 1
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "PageView",
+        "count": 3634
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "ViewContent",
+        "count": 2052
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "AddToCart",
+        "count": 672
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "InitiateCheckout",
+        "count": 648
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "ClickSorteios",
+        "count": 52
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "Lead",
+        "count": 12
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "Purchase",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "PageView",
+        "count": 4201
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "ViewContent",
+        "count": 2364
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "AddToCart",
+        "count": 724
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "InitiateCheckout",
+        "count": 687
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "ClickSorteios",
+        "count": 50
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "Purchase",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "PageView",
+        "count": 3718
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "ViewContent",
+        "count": 2111
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "ClickSorteios",
+        "count": 28
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "AddToCart",
+        "count": 637
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "InitiateCheckout",
+        "count": 611
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "Purchase",
+        "count": 35
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "PageView",
+        "count": 3915
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "AddToCart",
+        "count": 681
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "ViewContent",
+        "count": 2375
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "InitiateCheckout",
+        "count": 630
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "Purchase",
+        "count": 17
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "ClickSorteios",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "PageView",
+        "count": 731
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "ViewContent",
+        "count": 355
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "ClickSorteios",
+        "count": 10
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "AddToCart",
+        "count": 94
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "InitiateCheckout",
+        "count": 92
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "PageView",
+        "count": 3439
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "ViewContent",
+        "count": 1942
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "AddToCart",
+        "count": 646
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "InitiateCheckout",
+        "count": 609
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "Purchase",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "PageView",
+        "count": 3655
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "ViewContent",
+        "count": 2246
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "AddToCart",
+        "count": 638
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "InitiateCheckout",
+        "count": 604
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "ClickSorteios",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "Purchase",
+        "count": 15
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "PageView",
+        "count": 5220
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "ViewContent",
+        "count": 3212
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "AddToCart",
+        "count": 774
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "InitiateCheckout",
+        "count": 686
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "ClickSorteios",
+        "count": 13
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "Purchase",
+        "count": 19
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PageView",
+        "count": 3855
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ViewContent",
+        "count": 2404
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "AddToCart",
+        "count": 704
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "InitiateCheckout",
+        "count": 649
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ClickSorteios",
+        "count": 34
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "Lead",
+        "count": 10
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ViewContentPlataforma",
+        "count": 1061
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PageViewPlataforma",
+        "count": 861
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "AddToCartPlataforma",
+        "count": 285
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 246
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "Purchase",
+        "count": 214
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PurchaseGroup",
+        "count": 112
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PurchasePlataforma",
+        "count": 123
+      }
+    ]
+  },
+  "pixel_funil_host_diario": {
+    "_mock": false,
+    "dados": [
+      {
+        "dia": "2026-10-15",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 376
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3502
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 10
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 4408
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 39
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 613
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 10
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3991
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 4957
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 94
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 5051
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 145
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3988
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 57
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3818
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 37
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3523
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 81
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 568
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 68
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 2734
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 78
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3867
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 83
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3678
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 84
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 2893
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 76
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3562
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 77
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 2821
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 42
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 801
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 77
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3524
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 87
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3327
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 25
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3545
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 87
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 4114
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 83
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3666
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 52
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3903
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 12
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 698
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3428
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 7
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3610
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 44
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 5175
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 43
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 3769
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 83
+      },
+      {
+        "dia": "2026-10-15",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 220
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2069
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2685
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 297
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2387
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2983
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2892
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2270
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2187
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 1953
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 272
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 1443
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2139
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2091
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 1689
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2087
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 1675
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 417
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2124
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 1851
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2052
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2364
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2111
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2375
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 355
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 1938
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2246
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 3210
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ViewContent",
+        "origem": "site",
+        "count": 2404
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 19
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 21
+      },
+      {
+        "dia": "2026-10-18",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 19
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 31
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 39
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 12
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 30
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 1
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 35
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 17
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 15
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 19
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "Purchase",
+        "origem": "site",
+        "count": 214
+      },
+      {
+        "dia": "2026-10-16",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 2
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 18
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 12
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "Lead",
+        "origem": "site",
+        "count": 10
+      },
+      {
+        "dia": "2026-10-17",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 11
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 7
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 9
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 40
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 16
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 40
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 50
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 52
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 50
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 28
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 10
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 13
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 34
+      }
+    ]
+  },
+  "lp_eventos_diario": [],
+  "grupo_whatsapp_cliques": {
+    "disponivel": true,
+    "motivo": null,
+    "total_periodo": 17851,
+    "por_dia": [
+      {
+        "dia": "2026-10-13",
+        "cliques": 1
+      },
+      {
+        "dia": "2026-10-14",
+        "cliques": 1
+      },
+      {
+        "dia": "2026-10-19",
+        "cliques": 704
+      },
+      {
+        "dia": "2026-10-20",
+        "cliques": 890
+      },
+      {
+        "dia": "2026-10-21",
+        "cliques": 911
+      },
+      {
+        "dia": "2026-10-22",
+        "cliques": 767
+      },
+      {
+        "dia": "2026-10-23",
+        "cliques": 847
+      },
+      {
+        "dia": "2026-10-24",
+        "cliques": 631
+      },
+      {
+        "dia": "2026-10-25",
+        "cliques": 196
+      },
+      {
+        "dia": "2026-10-26",
+        "cliques": 617
+      },
+      {
+        "dia": "2026-10-27",
+        "cliques": 841
+      },
+      {
+        "dia": "2026-10-28",
+        "cliques": 697
+      },
+      {
+        "dia": "2026-10-29",
+        "cliques": 607
+      },
+      {
+        "dia": "2026-10-30",
+        "cliques": 718
+      },
+      {
+        "dia": "2026-10-31",
+        "cliques": 525
+      },
+      {
+        "dia": "2026-11-01",
+        "cliques": 172
+      },
+      {
+        "dia": "2026-11-02",
+        "cliques": 490
+      },
+      {
+        "dia": "2026-11-03",
+        "cliques": 1060
+      },
+      {
+        "dia": "2026-11-04",
+        "cliques": 761
+      },
+      {
+        "dia": "2026-11-05",
+        "cliques": 887
+      },
+      {
+        "dia": "2026-11-06",
+        "cliques": 763
+      },
+      {
+        "dia": "2026-11-07",
+        "cliques": 473
+      },
+      {
+        "dia": "2026-11-08",
+        "cliques": 128
+      },
+      {
+        "dia": "2026-11-09",
+        "cliques": 693
+      },
+      {
+        "dia": "2026-11-10",
+        "cliques": 951
+      },
+      {
+        "dia": "2026-11-11",
+        "cliques": 1258
+      },
+      {
+        "dia": "2026-11-12",
+        "cliques": 1262
+      }
+    ]
+  },
+  "pedidos_reais": {
+    "_mock": false
+  },
+  "canal_diario": [
+    {
+      "dia": "2026-11-03",
+      "canal_grupo": "Meta Ads — sinal expirado (não confirmável)",
+      "canal_detalhe": "Meta Ads (fbc expirado, 31-90d — não atribuível)",
+      "pedidos": 1,
+      "valor": 7.5
+    },
+    {
+      "dia": "2026-11-03",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 15,
+      "valor": 598.5
+    },
+    {
+      "dia": "2026-11-03",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 139,
+      "valor": 3657.5
+    },
+    {
+      "dia": "2026-11-04",
+      "canal_grupo": "Direto/Orgânico/Desconhecido",
+      "canal_detalhe": "Direto/Orgânico/Desconhecido",
+      "pedidos": 4,
+      "valor": 33.0
+    },
+    {
+      "dia": "2026-11-04",
+      "canal_grupo": "Meta Ads — confirmado",
+      "canal_detalhe": "Meta Ads (clique confirmado, sem UTM)",
+      "pedidos": 5,
+      "valor": 34.0
+    },
+    {
+      "dia": "2026-11-04",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 39,
+      "valor": 988.0
+    },
+    {
+      "dia": "2026-11-04",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 224,
+      "valor": 4534.5
+    },
+    {
+      "dia": "2026-11-05",
+      "canal_grupo": "Meta Ads — confirmado",
+      "canal_detalhe": "Meta Ads (clique confirmado, sem UTM)",
+      "pedidos": 7,
+      "valor": 30.5
+    },
+    {
+      "dia": "2026-11-05",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 54,
+      "valor": 2703.0
+    },
+    {
+      "dia": "2026-11-05",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 242,
+      "valor": 5198.0
+    },
+    {
+      "dia": "2026-11-06",
+      "canal_grupo": "Meta Ads — confirmado",
+      "canal_detalhe": "Meta Ads (clique confirmado, sem UTM)",
+      "pedidos": 5,
+      "valor": 87.5
+    },
+    {
+      "dia": "2026-11-06",
+      "canal_grupo": "Meta Ads — sinal expirado (não confirmável)",
+      "canal_detalhe": "Meta Ads (fbc expirado, 31-90d — não atribuível)",
+      "pedidos": 1,
+      "valor": 11.0
+    },
+    {
+      "dia": "2026-11-06",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 41,
+      "valor": 2339.5
+    },
+    {
+      "dia": "2026-11-06",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 235,
+      "valor": 5977.0
+    },
+    {
+      "dia": "2026-11-07",
+      "canal_grupo": "Direto/Orgânico/Desconhecido",
+      "canal_detalhe": "Direto/Orgânico/Desconhecido",
+      "pedidos": 3,
+      "valor": 75.0
+    },
+    {
+      "dia": "2026-11-07",
+      "canal_grupo": "Meta Ads — sinal expirado (não confirmável)",
+      "canal_detalhe": "Meta Ads (fbc expirado, 31-90d — não atribuível)",
+      "pedidos": 1,
+      "valor": 3.5
+    },
+    {
+      "dia": "2026-11-07",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 61,
+      "valor": 2429.5
+    },
+    {
+      "dia": "2026-11-07",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 162,
+      "valor": 2632.5
+    },
+    {
+      "dia": "2026-11-08",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 2,
+      "valor": 201.5
+    },
+    {
+      "dia": "2026-11-08",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 41,
+      "valor": 677.5
+    },
+    {
+      "dia": "2026-11-09",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 37,
+      "valor": 1816.0
+    },
+    {
+      "dia": "2026-11-09",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 219,
+      "valor": 4135.0
+    },
+    {
+      "dia": "2026-11-10",
+      "canal_grupo": "Meta Ads — sinal expirado (não confirmável)",
+      "canal_detalhe": "Meta Ads (fbc expirado, 31-90d — não atribuível)",
+      "pedidos": 1,
+      "valor": 8.5
+    },
+    {
+      "dia": "2026-11-10",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 43,
+      "valor": 1772.5
+    },
+    {
+      "dia": "2026-11-10",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 226,
+      "valor": 4773.0
+    },
+    {
+      "dia": "2026-11-11",
+      "canal_grupo": "Meta Ads — sinal expirado (não confirmável)",
+      "canal_detalhe": "Meta Ads (fbc expirado, 31-90d — não atribuível)",
+      "pedidos": 1,
+      "valor": 12.5
+    },
+    {
+      "dia": "2026-11-11",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 44,
+      "valor": 3018.5
+    },
+    {
+      "dia": "2026-11-11",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 264,
+      "valor": 10155.0
+    },
+    {
+      "dia": "2026-11-12",
+      "canal_grupo": "Direto/Orgânico/Desconhecido",
+      "canal_detalhe": "Direto/Orgânico/Desconhecido",
+      "pedidos": 1,
+      "valor": 25.0
+    },
+    {
+      "dia": "2026-11-12",
+      "canal_grupo": "Meta Ads — confirmado",
+      "canal_detalhe": "Meta Ads (clique confirmado, sem UTM)",
+      "pedidos": 1,
+      "valor": 9.5
+    },
+    {
+      "dia": "2026-11-12",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 34,
+      "valor": 2117.0
+    },
+    {
+      "dia": "2026-11-12",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 264,
+      "valor": 7668.5
+    }
+  ],
+  "utm_diario": [
+    {
+      "dia": "2026-11-03",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 139,
+      "valor": 3657.5
+    },
+    {
+      "dia": "2026-11-04",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 224,
+      "valor": 4534.5
+    },
+    {
+      "dia": "2026-11-05",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 242,
+      "valor": 5198.0
+    },
+    {
+      "dia": "2026-11-06",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 235,
+      "valor": 5977.0
+    },
+    {
+      "dia": "2026-11-07",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 162,
+      "valor": 2632.5
+    },
+    {
+      "dia": "2026-11-08",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 41,
+      "valor": 677.5
+    },
+    {
+      "dia": "2026-11-09",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 219,
+      "valor": 4135.0
+    },
+    {
+      "dia": "2026-11-10",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 226,
+      "valor": 4773.0
+    },
+    {
+      "dia": "2026-11-11",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 264,
+      "valor": 10155.0
+    },
+    {
+      "dia": "2026-11-12",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 264,
+      "valor": 7668.5
+    }
+  ],
+  "utm_criativo_diario": []
+}

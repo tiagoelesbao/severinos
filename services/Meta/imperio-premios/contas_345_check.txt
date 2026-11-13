@@ -1,0 +1,66 @@
+========== CA IP Realiza - 03 (act_1072883085538453) ==========
+adspixels -> 200
+{
+  "data": [
+    {
+      "id": "2276849516022676",
+      "name": "IMP 2",
+      "creation_time": "2024-12-26T22:15:34+0000"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MjI3Njg0OTUxNjAyMjY3NgZDZD",
+      "after": "MjI3Njg0OTUxNjAyMjY3NgZDZD"
+    }
+  }
+}
+
+campaigns -> 200
+{
+  "data": [
+    {
+      "id": "52635744965086",
+      "name": "[CA2]Campanha 1 — Advantage + Vendas (Prospecção)",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-22T07:54:44-0300"
+    },
+    {
+      "id": "52635644665686",
+      "name": "Nova campanha de Engajamento",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-10-21T21:37:31-0300"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVG9feEM0b3MtWVF5aEV3dl8tcTJ0RDhKOTJieUpSM1JZAenBFTkdvZAl9EcTdxcEFlQVVxdzhMLW9iYzNQM3VzQUxBTmRZAUE5pbjBRLV9sVVJpQlBJS3l3",
+      "after": "QVFIVDJSd0JCaXJsLTlGUUtBa1FId0c1MV9rYXQyanR0bG4xdEN5YzlSMmdDZADVVRHViblpqR0JFc1BGWjV6cWVxVjBaQWZAGSExiRmRjSnZAxUFVXMjJqa0JB"
+    }
+  }
+}
+
+========== CA IP Realiza - 04 (act_3273037322894228) ==========
+adspixels -> 200
+{
+  "data": []
+}
+
+campaigns -> 200
+{
+  "data": []
+}
+
+========== CA IP Realiza - 05 (act_4883842965176343) ==========
+adspixels -> 200
+{
+  "data": []
+}
+
+campaigns -> 200
+{
+  "data": []
+}
+

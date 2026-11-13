@@ -1,6 +1,9 @@
 import React from "react";
-import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, Video } from "remotion";
-import type { Timeline, TransitionType, ElementAnim, KeyframeTracks } from "../lib/timeline";
+import { AbsoluteFill, Audio, Freeze, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, Video } from "remotion";
+import type { Timeline, TransitionType, ElementAnim, KeyframeTracks, ExtraClip } from "../lib/timeline";
+import { Transicao, duracaoTransicao } from "./fx/Transicoes";
+import { cameraDoKenBurns } from "../lib/fxCatalog";
+import { deltaAnimacao } from "../lib/animacoes";
 import { duckingGain, segmentEnvelope, speechIntervals, tailGain } from "../lib/audioEnvelopes";
 import { resolveAudible } from "../lib/trackMix";
 import { sampleTrack, fadeGain } from "../lib/keyframes";
@@ -8,6 +11,7 @@ import type { FxPlan } from "../lib/fxPlan";
 import { roleToFrameMode, SmartFrame } from "./fx/SmartFrame";
 import { HookFx } from "./fx/HookFx";
 import { CaptionsOverlay } from "./fx/Captions";
+import { ensureFonts, fontFamilyById, FONT_SANS, FONT_SERIF } from "./fonts";
 import { ProgressBar } from "./fx/Motion";
 
 /**
@@ -59,20 +63,28 @@ const GapCard: React.FC<{ file: string }> = ({ file }) => (
 // de tempo (sync com narração/legendas preservado).
 const TRANSITION = 6;
 
-/** Transição de entrada por tipo (dissolve/slide/zoom), por cima do anterior. */
-const Transition: React.FC<{ type: TransitionType; frames: number; children: React.ReactNode }> = ({
-  type,
-  frames,
-  children,
-}) => {
-  const f = useCurrentFrame();
-  if (frames <= 0 || type === "none") return <AbsoluteFill>{children}</AbsoluteFill>;
-  const p = interpolate(f, [0, frames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const style: React.CSSProperties = { opacity: p };
-  if (type === "slide") style.transform = `translateX(${(1 - p) * 140}px)`;
-  if (type === "zoom") style.transform = `scale(${interpolate(p, [0, 1], [1.12, 1])})`;
-  return <AbsoluteFill style={style}>{children}</AbsoluteFill>;
-};
+/**
+ * Quadros de PRÉ-MONTAGEM de cada clipe (1s a 30fps) — SÓ NO PLAYER.
+ *
+ * Sem isto o `<video>` do próximo take só nasce no frame em que ele começa: o elemento
+ * ainda está carregando e o preview pisca PRETO na virada. Medido na gravação do
+ * navegador, no criativo de 14 clipes: piscadas de 80 a 120ms em TODAS as viradas, nos
+ * tempos exatos das trocas de take.
+ *
+ * No render headless não entra: lá o quadro é extraído fora da linha do tempo
+ * (`OffthreadVideo`), montar duas mídias por quadro só custaria tempo — e o estilo de
+ * pré-montagem abaixo, por menor que seja, sujaria o arquivo final.
+ */
+const PREMOUNT = 30;
+
+/**
+ * A Remotion pré-monta com `opacity: 0`, e o Chrome não pinta o que é totalmente
+ * transparente: o elemento existe, tem dados, mas o primeiro quadro só é composto
+ * quando fica visível — e aí sobra um quadro preto na troca. Medido: mesmo com a
+ * mídia em `readyState=4` antes de entrar, três das cinco viradas ainda piscavam.
+ * Um milésimo de opacidade é invisível a olho nu e obriga o compositor a desenhar.
+ */
+const ESTILO_PRE_MONTAGEM: React.CSSProperties = { opacity: 0.001 };
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
@@ -114,8 +126,11 @@ const ElementWrap: React.FC<{
   const f = useCurrentFrame();
   const inA = animateIn;
   const outA = animateOut;
-  const pIn = inA && inA.type !== "none" && inA.durationInFrames > 0 ? clamp01(f / inA.durationInFrames) : 1;
-  const pOut = outA && outA.type !== "none" && outA.durationInFrames > 0
+  // `p` = 1 significa ASSENTADO. Sem animacao, ja nasce assentado. A checagem
+  // de "sem animacao" mora no catalogo (`nenhuma` e o legado `none`), e nao
+  // aqui — senao um id novo passaria batido e a animacao nunca rodaria.
+  const pIn = inA && inA.durationInFrames > 0 ? clamp01(f / inA.durationInFrames) : 1;
+  const pOut = outA && outA.durationInFrames > 0
     ? clamp01((durationInFrames - f) / outA.durationInFrames)
     : 1;
   // VEX-09: valor animado = keyframes (se houver) senão o estático.
@@ -126,18 +141,107 @@ const ElementWrap: React.FC<{
   // Fades por clipe (opacidade nas pontas) — compõem com o resto.
   if (fadeIn && fadeIn > 0) op *= clamp01(f / fadeIn);
   if (fadeOut && fadeOut > 0) op *= clamp01((durationInFrames - f) / fadeOut);
-  if (inA?.type === "fade") op *= pIn;
-  if (outA?.type === "fade") op *= pOut;
-  if (inA?.type === "slide") tx += (1 - pIn) * -14;
-  if (outA?.type === "slide") tx += (1 - pOut) * 14;
-  if (inA?.type === "zoom") sc *= 0.85 + 0.15 * pIn;
-  if (outA?.type === "zoom") sc *= 0.85 + 0.15 * pOut;
+  // Grupo ANIMACOES do catalogo. A tabela e a mesma para entrada e saida — o
+  // que muda e o SENTIDO, e por isso as duas ficam simetricas por construcao.
+  // Antes cada uma tinha seu `if` e "slide" entrava por um lado e saia pelo
+  // outro com a mesma amplitude, o que ninguem decidiu.
+  const dIn = deltaAnimacao(inA?.type, pIn, 1);
+  const dOut = deltaAnimacao(outA?.type, pOut, -1);
+  op *= dIn.opacidade * dOut.opacidade;
+  tx += dIn.dx + dOut.dx;
+  ty += dIn.dy + dOut.dy;
+  sc *= dIn.escala * dOut.escala;
+  const desfoque = Math.max(dIn.desfoque, dOut.desfoque);
   return (
     <AbsoluteFill>
-      <div style={{ position: "absolute", inset: 0, opacity: op, transform: `translate(${tx}%, ${ty}%) scale(${sc})`, transformOrigin: "center" }}>
+      <div style={{
+        position: "absolute", inset: 0, opacity: op,
+        transform: `translate(${tx}%, ${ty}%) scale(${sc})`, transformOrigin: "center",
+        ...(desfoque > 0 ? { filter: `blur(${desfoque.toFixed(2)}px)` } : {}),
+      }}>
         {children}
       </div>
     </AbsoluteFill>
+  );
+};
+
+/**
+ * Elemento de TEXTO — desenhado com a mesma convenção do libass (o motor de
+ * legenda do export), para que editor e arquivo final sejam o mesmo desenho:
+ *
+ *  · `white-space: pre-wrap` — as quebras (e as linhas em branco entre
+ *    parágrafos) do texto são respeitadas. Sem isto, o layout decidido no
+ *    export virava um parágrafo corrido re-quebrado pela largura do editor.
+ *  · CONTORNO de verdade, não sombra. No ASS o `Outline` cresce PARA FORA da
+ *    letra; `-webkit-text-stroke` cresce metade para dentro. Por isso o traço
+ *    vai numa cópia ATRÁS, com o dobro da espessura: a metade interna fica
+ *    coberta pelo preenchimento e sobra exatamente a espessura pedida.
+ *    (Desenhar em duas camadas também dispensa `paint-order`, que nem toda
+ *    versão do Chrome aplica a texto HTML.)
+ *  · `fontWeight` por clipe: o export usa o bold real da família (700); fixar
+ *    800 aqui engrossava o traço e mudava a largura das linhas.
+ *  · LINHA EM BRANCO entre parágrafos vale MEIA entrelinha, não uma. É o que o
+ *    libass faz, e foi medido no material: dentro do parágrafo as linhas andam
+ *    76px; na virada de parágrafo, 114px — exatamente 1,5 passo. Em CSS, uma
+ *    linha vazia ocuparia um passo inteiro e o bloco crescia ~76px, empurrando
+ *    o texto para fora de posição (o topo subia 42px num bloco de 3 parágrafos).
+ */
+const TextElement: React.FC<{ clip: ExtraClip; fontFamily: string }> = ({ clip, fontFamily }) => {
+  const texto = clip.text ?? "";
+  const stroke = Number(clip.strokeWidth) || 0;
+  const sombra = Number(clip.shadowOffset) || 0;
+  // Parágrafos viram blocos próprios: é o que permite dar meia entrelinha ao
+  // respiro entre eles (uma linha vazia no meio do texto valeria um passo cheio).
+  const paragrafos = texto.split(/\n[ \t]*\n+/);
+  const respiro = `${0.5 * (Number(clip.lineHeight) || 1.2)}em`;
+  const Bloco: React.FC<{ style: React.CSSProperties; oculto?: boolean }> = ({ style, oculto }) => (
+    <div aria-hidden={oculto} style={style}>
+      {paragrafos.map((p, i) => (
+        <div key={i} style={i ? { marginTop: respiro } : undefined}>{p}</div>
+      ))}
+    </div>
+  );
+  const base: React.CSSProperties = {
+    fontFamily: clip.fontFamily || fontFamily,
+    fontWeight: clip.fontWeight ?? 800,
+    fontSize: clip.fontSize ?? 64,
+    lineHeight: clip.lineHeight ?? 1.2,
+    whiteSpace: clip.noWrap ? "pre" : "pre-wrap",
+    maxWidth: clip.noWrap ? "none" : `${clip.maxWidthPct ?? 86}%`,
+    textAlign: "center",
+  };
+  const preenchimento: React.CSSProperties = {
+    ...base,
+    color: clip.color ?? "#fff",
+    // Sem contorno explícito preserva-se a sombra suave de antes (compatível
+    // com textos criados na mão no editor).
+    textShadow: stroke
+      ? (sombra ? `${sombra}px ${sombra}px 0 rgba(0,0,0,.85)` : undefined)
+      : "0 2px 12px rgba(0,0,0,.6)",
+  };
+  return (
+    <div style={{
+      position: "absolute", inset: 0, display: "flex",
+      alignItems: "center", justifyContent: "center",
+      padding: clip.maxWidthPct ? 0 : 64,
+    }}>
+      {stroke ? (
+        <div style={{ position: "relative", maxWidth: base.maxWidth }}>
+          <Bloco
+            oculto
+            style={{
+              ...base, maxWidth: "100%",
+              position: "absolute", left: 0, top: 0, width: "100%",
+              color: clip.strokeColor ?? "#000",
+              WebkitTextStroke: `${stroke * 2}px ${clip.strokeColor ?? "#000"}`,
+            }}
+          />
+          <Bloco style={{ ...preenchimento, maxWidth: "100%", position: "relative" }} />
+        </div>
+      ) : (
+        <Bloco style={preenchimento} />
+      )}
+    </div>
   );
 };
 
@@ -148,9 +252,23 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
   forceTagVideo,
 }) => {
   const { brand } = fxPlan;
+  // Registra só as famílias desta composição (ver fonts.ts: no render, carregar as
+  // seis a cada recarga de aba derrubava exports longos). No corpo, não em efeito —
+  // o delayRender de dentro precisa existir antes do 1º frame.
+  ensureFonts([
+    brand.fontFamily,
+    FONT_SANS,
+    fxPlan.captions?.length ? FONT_SERIF : null,
+    fxPlan.captionTheme?.fontFamily ? fontFamilyById(fxPlan.captionTheme.fontFamily) : null,
+    ...(timeline.extraLayers ?? []).flatMap((l) => (l.clips ?? []).map((c) => c.fontFamily)),
+  ]);
   const mediaSrc = useMediaSrc(mediaBaseUrl);
   // Player → <Video>; render → <OffthreadVideo> (ou <Video> com forceTagVideo).
   const preview = Boolean(mediaBaseUrl) || Boolean(forceTagVideo);
+  // Só o Player serve mídia por URL da API; o render usa staticFile. É por aqui que a
+  // pré-montagem fica restrita ao preview (ver PREMOUNT) — `preview` acima não serve,
+  // porque o export final também pode usar a tag <Video> (`forceTagVideo`).
+  const noPlayer = Boolean(mediaBaseUrl);
   const audioGap = timeline.audioTrack
     ? timeline.meta.gaps.includes(timeline.audioTrack.file)
     : true;
@@ -170,13 +288,31 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
           idx === 0
             ? null
             : clip.transitionIn ?? { type: "dissolve" as TransitionType, durationInFrames: TRANSITION };
-        const F = tr && tr.type !== "none" ? tr.durationInFrames : 0;
+        // A duracao passa pelo catalogo: `durationInFrames` explicito vence, e
+        // na ausencia dele o PESO decide (agressivo e mais curto, nao so mais
+        // forte). "corte" — e o legado "none" — zera, e sem o pre-roll a
+        // Sequence nao se sobrepoe: e assim que o corte seco fica seco.
+        const F = tr ? duracaoTransicao(tr, TRANSITION) : 0;
         const mode =
           clip.frameMode === "cover"
             ? "cover"
             : clip.frameMode === "panel"
               ? "contain-blur"
               : roleToFrameMode(clip.role);
+        // A MÍDIA PODE ACABAR ANTES DO CLIPE. A montagem estende o take clonando o
+        // último quadro (`tpad` do ffmpeg); no Player, o <video> passa do fim do
+        // arquivo e o Chrome pinta PRETO por um quadro na virada. Congelar no último
+        // quadro disponível reproduz o que o export faz. Só no Player: no render o
+        // OffthreadVideo já entrega o último quadro, e mexer ali mudaria o arquivo.
+        const nativo = Number(clip.nativeDurationInFrames) || 0;
+        // A JANELA REAL DO CLIPE INCLUI O PRE-ROLL DA TRANSICAO. A Sequence comeca
+        // F quadros ANTES (`from={clip.startFrame - F}`) e dura `durationInFrames + F`,
+        // entao a midia precisa cobrir isso — e nao so `durationInFrames`. Comparando
+        // sem o F, um clipe cuja midia acaba exatamente no fim da janela nominal
+        // passava do arquivo durante a dissolvencia e o Chrome repetia o ultimo
+        // quadro ou pintava preto: e o "travamento" na virada de take.
+        const janela = clip.durationInFrames + F;
+        const congelaEm = noPlayer && nativo > 0 && nativo < janela ? nativo - 1 : null;
         const inner = clip.gap ? (
           <GapCard file={clip.file} />
         ) : (
@@ -188,7 +324,10 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             aspect={clip.height ? clip.width / clip.height : 16 / 9}
             preview={preview}
             startFrom={clip.trimStartFrames ?? 0}
-            kenBurns={clip.kenBurns ?? 0}
+            // CAMERA vence o kenBurns legado. Timeline antiga sem `camera` e
+            // convertida preservando a amplitude exata, para o preview de uma
+            // peca ja aprovada nao mudar sozinho.
+            camera={clip.camera ?? cameraDoKenBurns(clip.kenBurns)}
             // VEX-05: ganho por clipe + fade-out global (f local inclui o pre-roll F).
             volume={clip.audioEnabled
               ? (f: number) =>
@@ -198,17 +337,24 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
               : undefined}
           />
         );
+        // O congelamento envolve a mídia já enquadrada: nada muda no desenho, só o
+        // tempo da mídia para no último quadro que existe.
+        const conteudo = congelaEm === null
+          ? inner
+          : <Freeze frame={congelaEm} active={(f) => f >= congelaEm}>{inner}</Freeze>;
         return (
           <Sequence
             key={`${clip.file}-${clip.startFrame}`}
             from={clip.startFrame - F}
             durationInFrames={clip.durationInFrames + F}
+            premountFor={noPlayer ? PREMOUNT : 0}
+            styleWhilePremounted={noPlayer ? ESTILO_PRE_MONTAGEM : undefined}
           >
             <FadeWrap fadeIn={clip.fadeIn} fadeOut={clip.fadeOut} durationInFrames={clip.durationInFrames + F}>
               {idx === 0 ? (
-                <HookFx renderer={fxPlan.hookRenderer}>{inner}</HookFx>
+                <HookFx renderer={fxPlan.hookRenderer}>{conteudo}</HookFx>
               ) : (
-                <Transition type={tr!.type} frames={F}>{inner}</Transition>
+                <Transicao type={tr!.type} frames={F} peso={tr!.peso}>{conteudo}</Transicao>
               )}
             </FadeWrap>
           </Sequence>
@@ -308,6 +454,9 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             const framed = (media: React.ReactNode): React.ReactNode => (
               <div style={{
                 position: "absolute", inset: 0, overflow: "hidden",
+                // A mesclagem vai no CONTAINER, e não na mídia: aplicada no <Video>
+                // ela não atravessa o `overflow:hidden` do quadro e o efeito some.
+                mixBlendMode: clip.blend && clip.blend !== "normal" ? clip.blend : undefined,
                 borderRadius: clip.radius ? clip.radius : undefined,
                 border: clip.borderW ? `${clip.borderW}px solid ${clip.borderColor ?? "#fff"}` : undefined,
                 boxShadow: clip.shadow ? "0 30px 90px rgba(0,0,0,.55)" : undefined,
@@ -318,13 +467,7 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             if (type === "image") {
               inner = framed(<Img src={src} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: fit }} />);
             } else if (type === "text") {
-              inner = (
-                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: 64 }}>
-                  <div style={{ fontFamily: brand.fontFamily, fontWeight: 800, fontSize: clip.fontSize ?? 64, color: clip.color ?? "#fff", textShadow: "0 2px 12px rgba(0,0,0,.6)", maxWidth: "86%", textAlign: "center" }}>
-                    {clip.text ?? ""}
-                  </div>
-                </div>
-              );
+              inner = <TextElement clip={clip} fontFamily={brand.fontFamily} />;
             } else {
               inner = framed(preview ? (
                 <Video src={src} startFrom={clip.srcFromFrame ?? 0} muted={!layerAudible} onError={() => {}} style={{ width: "100%", height: "100%", objectFit: fit }} />
@@ -350,7 +493,15 @@ export const TimelineFxComposition: React.FC<TimelineFxProps> = ({
             );
           }
           return (
-            <Sequence key={clip.id} from={clip.startFrame} durationInFrames={clip.durationInFrames}>
+            <Sequence
+              key={clip.id}
+              from={clip.startFrame}
+              durationInFrames={clip.durationInFrames}
+              // Overlay de mídia também entra montado: um vídeo/áudio de camada extra
+              // que nasce no próprio frame de entrada pisca igual ao take. Texto não
+              // precisa, mas pré-montar um <div> não custa nada. (Só no Player.)
+              premountFor={noPlayer ? PREMOUNT : 0}
+            >
               {node}
             </Sequence>
           );
@@ -384,7 +535,7 @@ export const calculateTimelineFxMetadata = ({ props }: { props: TimelineFxProps 
 
 export const EMPTY_FXPLAN: FxPlan = {
   brand: {
-    accent: "#FF3D68",
+    accent: "#FF5B3F",
     primary: "#0C0A1F",
     displayName: "Virals",
     fontFamily: "Outfit, system-ui, sans-serif",

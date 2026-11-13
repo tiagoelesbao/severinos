@@ -1,0 +1,222 @@
+<!-- Camada de texto sobre o take — Bora de Bola · 1920x1080
+     Recebe o conteudo por `?d=<base64 do JSON>`, no mesmo padrao do template de
+     thumb, para os dois poderem ir juntos para o /render do creative-design.
+
+     TRES MODOS, E O PORQUE DE EXISTIREM TRES
+       faixa   barra inferior sobre o take, o take continua visivel inteiro.
+               E o modo padrao: 80% do texto de um plantao e legenda de apoio,
+               nao anuncio.
+       painel  veu escuro sobre o take + bloco central. So para DADO FORTE
+               (placar, linha do tempo) — o veu custa o take, entao ele so se
+               paga quando o numero e a informacao principal do momento.
+       cheio   fundo opaco, sem take por tras. Sobrou de uma versao anterior e
+               fica so para abertura e encerramento.
+
+     A LICAO QUE PRODUZIU ISTO
+       A primeira montagem usou `cheio` o tempo todo. Onze minutos de fundo verde
+       chapado com texto por cima nao e um video, e uma apresentacao de slides —
+       e foi exatamente assim que ficou. Cartela e CAMADA; a base e imagem real. -->
+<meta charset="utf-8">
+<title>camada</title>
+<style>
+  :root {
+    --fundo:      #0C240C;
+    --profundo:   #0C0C0C;
+    --campo:      #246C0C;
+    --amarelo:    #FCCC0C;
+    --amarelo-cl: #FCE40C;
+    --limao:      #84B40C;
+    --tinta:      #FCFCFC;
+    --alerta:     #E02020;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+
+  #alvo {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    color: var(--tinta);
+    font-family: Anton, "Archivo Black", Impact, "Arial Black", sans-serif;
+  }
+  /* Só o modo `cheio` desenha o gramado; os outros dois deixam o take aparecer. */
+  #alvo.cheio { background: var(--fundo); }
+  .campo {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% 112%, var(--campo) 0%, transparent 60%),
+      radial-gradient(circle at 10% -10%, rgba(252,228,12,.22), transparent 44%),
+      linear-gradient(180deg, #071807 0%, var(--fundo) 58%, #071807 100%);
+  }
+
+  /* Véu do modo painel: escurece o take para o número poder ser lido, sem
+     apagá-lo — a imagem continua contando que existe alguma coisa atrás. */
+  .veu {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(12,12,12,.62) 0%, rgba(12,36,12,.78) 100%);
+  }
+
+  /* Rodapé do modo faixa: gradiente que nasce do nada e termina opaco embaixo.
+     Barra de cor sólida cortaria o take numa linha reta e denunciaria a camada. */
+  .base {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 46%;
+    background: linear-gradient(180deg,
+      transparent 0%, rgba(6,18,6,.55) 34%, rgba(6,18,6,.92) 100%);
+  }
+
+  .miolo {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 30px; padding: 100px 130px; text-align: center;
+  }
+  /* No modo faixa o conteúdo mora embaixo, não no meio da tela. */
+  #alvo.faixa .miolo {
+    justify-content: flex-end; align-items: flex-start;
+    padding: 0 108px 92px; text-align: left; gap: 18px;
+  }
+
+  .rotulo {
+    font-size: 38px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--profundo); background: var(--amarelo);
+    padding: 11px 26px 13px; border-radius: 5px;
+  }
+
+  .frase {
+    font-size: 118px; line-height: .95; text-transform: uppercase;
+    text-shadow: 0 6px 18px rgba(0,0,0,.85), 0 3px 0 rgba(0,0,0,.5);
+  }
+  .frase .rlc { color: var(--amarelo); }
+  .frase.menor { font-size: 84px; }
+  #alvo.faixa .frase { font-size: 82px; }
+  #alvo.faixa .frase.menor { font-size: 66px; }
+
+  .numero {
+    font-size: 360px; line-height: .8; color: var(--amarelo);
+    text-shadow: 0 10px 30px rgba(0,0,0,.8);
+  }
+  #alvo.faixa .numero { font-size: 180px; }
+  .abaixo { font-size: 56px; line-height: 1.06; text-transform: uppercase;
+            text-shadow: 0 4px 14px rgba(0,0,0,.85); }
+  #alvo.faixa .abaixo { font-size: 48px; }
+
+  .lista { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+  .item {
+    display: flex; align-items: center; gap: 26px;
+    background: rgba(6,18,6,.72); border-left: 11px solid var(--amarelo);
+    padding: 22px 34px; text-align: left;
+  }
+  .item .n { font-size: 74px; color: var(--amarelo); min-width: 78px; line-height: 1; }
+  .item .t { font-size: 54px; line-height: 1.06; text-transform: uppercase; }
+
+  .trilho { display: flex; align-items: stretch; width: 100%; }
+  .etapa {
+    flex: 1 1 0; min-width: 0; padding: 26px 14px;
+    background: rgba(6,18,6,.76); border-top: 9px solid var(--limao);
+  }
+  .etapa.fim { border-top-color: var(--alerta); }
+  .etapa .q { font-size: 30px; color: var(--amarelo); letter-spacing: .1em; }
+  .etapa .v { font-size: 48px; line-height: 1.02; text-transform: uppercase; margin-top: 8px; }
+  .seta { display: flex; align-items: center; font-size: 54px; color: var(--amarelo); padding: 0 10px; }
+
+  .placar { display: flex; gap: 30px; width: 100%; }
+  .lado {
+    flex: 1 1 0; background: rgba(6,18,6,.76); padding: 34px 26px 38px;
+    border-bottom: 13px solid rgba(255,255,255,.18);
+  }
+  .lado.lider { border-bottom-color: var(--amarelo); }
+  .lado .nome { font-size: 46px; text-transform: uppercase; }
+  .lado .pts { font-size: 164px; line-height: .9; margin-top: 6px; }
+  .lado.lider .pts { color: var(--amarelo); }
+  .lado .pos { font-size: 30px; color: rgba(255,255,255,.7); letter-spacing: .1em; }
+
+  .escudos { display: flex; align-items: center; justify-content: center; gap: 54px; }
+  .escudos img { height: 260px; filter: drop-shadow(0 10px 26px rgba(0,0,0,.85)); }
+  #alvo.faixa .escudos img { height: 150px; }
+  .versus { font-size: 80px; color: var(--amarelo); }
+
+  .selo {
+    position: absolute; right: 44px; bottom: 36px; z-index: 4;
+    font-size: 28px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--amarelo); opacity: .8;
+    text-shadow: 0 2px 8px rgba(0,0,0,.9);
+  }
+  #alvo.faixa .selo { bottom: 34px; }
+</style>
+
+<div id="alvo">
+  <div class="miolo" id="miolo"></div>
+</div>
+
+<script>
+  // O parametro vem em base64 URL-SAFE ("-" e "_"). O `atob` so entende o
+  // alfabeto padrao, entao converte-se de volta antes de decodificar. Aceitar
+  // os dois mantem compativel com cartela gerada antes de 06/09.
+  const _b64 = (new URLSearchParams(location.search).get("d") || "")
+    .replace(/-/g, "+").replace(/_/g, "/");
+  const d = JSON.parse(decodeURIComponent(escape(atob(_b64))));
+  const alvo = document.getElementById("alvo");
+  const modo = d.modo || "faixa";
+  alvo.className = modo;
+
+  const e = (t, c, h) => {
+    const x = document.createElement("div");
+    if (c) x.className = c;
+    if (h !== undefined) x.innerHTML = h;
+    return x;
+  };
+  // A ordem importa: fundo, depois véu, depois conteúdo, depois selo.
+  if (modo === "cheio") alvo.prepend(e("div", "campo"));
+  if (modo === "painel") alvo.prepend(e("div", "veu"));
+  if (modo === "faixa") alvo.prepend(e("div", "base"));
+
+  const m = document.getElementById("miolo");
+  if (d.rotulo) m.appendChild(e("div", "rotulo", d.rotulo));
+
+  if (d.tipo === "frase") {
+    m.appendChild(e("div", "frase" + (d.menor ? " menor" : ""), d.frase));
+  } else if (d.tipo === "numero") {
+    m.appendChild(e("div", "numero", d.numero));
+    if (d.abaixo) m.appendChild(e("div", "abaixo", d.abaixo));
+  } else if (d.tipo === "lista") {
+    const l = e("div", "lista");
+    d.itens.forEach((t, i) => {
+      const it = e("div", "item");
+      it.appendChild(e("div", "n", String(i + 1)));
+      it.appendChild(e("div", "t", t));
+      l.appendChild(it);
+    });
+    m.appendChild(l);
+  } else if (d.tipo === "linha_do_tempo") {
+    const tr = e("div", "trilho");
+    d.etapas.forEach((et, i) => {
+      const x = e("div", "etapa" + (i === d.etapas.length - 1 ? " fim" : ""));
+      x.appendChild(e("div", "q", et.q || ""));
+      x.appendChild(e("div", "v", et.v));
+      tr.appendChild(x);
+      if (i < d.etapas.length - 1) tr.appendChild(e("div", "seta", "&rarr;"));
+    });
+    m.appendChild(tr);
+  } else if (d.tipo === "placar") {
+    const p = e("div", "placar");
+    d.lados.forEach(l => {
+      const x = e("div", "lado" + (l.lider ? " lider" : ""));
+      x.appendChild(e("div", "nome", l.nome));
+      x.appendChild(e("div", "pts", l.pts));
+      x.appendChild(e("div", "pos", l.pos || ""));
+      p.appendChild(x);
+    });
+    m.appendChild(p);
+    if (d.abaixo) m.appendChild(e("div", "abaixo", d.abaixo));
+  } else if (d.tipo === "escudos") {
+    const x = e("div", "escudos");
+    d.escudos.forEach((u, i) => {
+      if (i) x.appendChild(e("div", "versus", d.entre || "&times;"));
+      const img = document.createElement("img");
+      img.src = u;
+      x.appendChild(img);
+    });
+    m.appendChild(x);
+    if (d.frase) m.appendChild(e("div", "frase menor", d.frase));
+  }
+
+  alvo.appendChild(e("div", "selo", "Bora de Bola"));
+</script>

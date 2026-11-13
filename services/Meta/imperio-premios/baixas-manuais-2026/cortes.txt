@@ -1,0 +1,141 @@
+=== RESUMO GERAL ===
+{
+  "janela_dias": 120,
+  "data_min_pedidos": "2026-06-22T10:37:43.932Z",
+  "data_max_pedidos": "2026-10-19T21:20:37.719Z",
+  "total_pedidos_periodo": 218641,
+  "total_acoes_periodo": 3660,
+  "total_pedidos_baixa_manual": 1801,
+  "total_acoes_com_baixa_manual": 1038,
+  "total_numeros_baixa_manual": 7194,
+  "total_valor_baixa_manual": 157801.5,
+  "acoes_contempladas": 118,
+  "valor_total_contemplacao": 89063.0
+}
+
+=== POR MES (acao, pedidos, numeros, valor pedidos, acoes contempladas, valor contemplacao) ===
+2026-06 | acoes=  60 | pedidos=  115 | numeros=  305 | valor_pedidos=R$   5,527.00 | contempladas=  5 | valor_contemplacao=R$   1,300.00
+2026-07 | acoes= 236 | pedidos=  374 | numeros= 1631 | valor_pedidos=R$  20,884.00 | contempladas= 23 | valor_contemplacao=R$   5,600.00
+2026-08 | acoes= 259 | pedidos=  410 | numeros= 1579 | valor_pedidos=R$  28,045.50 | contempladas= 26 | valor_contemplacao=R$  27,250.00
+2026-09 | acoes= 323 | pedidos=  591 | numeros= 2347 | valor_pedidos=R$  67,607.00 | contempladas= 38 | valor_contemplacao=R$  44,563.00
+2026-10 | acoes= 160 | pedidos=  311 | numeros= 1332 | valor_pedidos=R$  35,738.00 | contempladas= 26 | valor_contemplacao=R$  10,350.00
+
+=== TODAS as 118 acoes CONTEMPLADAS por baixa manual (maior valor primeiro) ===
+2026-09-20 | done       | 🏆 05° RAPIDINHA VALENDO R$20.000,00!  ESPECIAL FED3RAL 🏆     | pedidos=  3 nums= 10 | premio=R$  20,000.00 | product_id=6aaf139d45d35718871530ff
+2026-08-11 | done       | 🏆 28° RAPIDINHA VALENDO R$9.000,00! 🏆                        | pedidos=  1 nums=  4 | premio=R$   9,000.00 | product_id=6a7a49da56d1d21bb98bd8ac
+2026-09-13 | done       | 🏆 02° RAPIDINHA VALENDO R$4.000,00 2° EDIÇÃO!! 🏆             | pedidos=  2 nums= 10 | premio=R$   4,000.00 | product_id=6aa6913856d1d21bb9b01c8d
+2026-09-17 | done       | ✅ 2° RAPIDINHA VALENDO R$4.500,00!! COM 5 GANHADORES!        | pedidos=  4 nums= 18 | premio=R$   3,000.00 | product_id=6aabc55945d357188711e624
+2026-08-15 | done       | 🏆 12° RAPIDINHA VALENDO R$5.000,00 COM 2 GANHAD0RES 2° EDIÇÃ | pedidos=  4 nums= 14 | premio=R$   3,000.00 | product_id=6a804b4f56d1d21bb990ce92
+2026-08-13 | done       | 🏆 07° RAPIIIDIINHA VALENDO R$ 3.000,00! 1 GANHADOR 2º EDIÇÃO | pedidos=  1 nums=  4 | premio=R$   3,000.00 | product_id=6a7e090356d1d21bb98f0922
+2026-09-23 | done       | 🏆 12° RAPIDINHA VALENDO R$9.000,00! COM 3 GANHADORES! 🏆      | pedidos=  2 nums= 12 | premio=R$   2,500.00 | product_id=6ab31c7d45d3571887189651
+2026-10-02 | done       | ✅ 14° RAPIDINHA VALENDO R$4.000,00!! COM 5 GANHADORES!       | pedidos=  4 nums= 21 | premio=R$   2,000.00 | product_id=6abfba4645d357188723b96a
+2026-08-29 | done       | 31° RAPIDINHA VALENDO R$ 2.000,00 NA CABEÇA!                 | pedidos=  2 nums= 12 | premio=R$   2,000.00 | product_id=6a92f2a556d1d21bb99fef06
+2026-08-26 | done       | 🏆 2° RAPIDINHA VALENDO R4.500,00 COM 5 GANHADORES! 🏆         | pedidos=  2 nums=  8 | premio=R$   2,000.00 | product_id=6a8ec7e456d1d21bb99c5bcc
+2026-10-03 | done       | 81° RAPIDINHA VALENDO R$ 1.500,00 NA TAMPA!                  | pedidos=  2 nums=  9 | premio=R$   1,500.00 | product_id=6ac1606545d35718872568d1
+2026-09-09 | done       | ✅ 1° RAPIDINHA VALENDO R$5.000,00!! COM 4 GANHADORES!        | pedidos=  2 nums=  7 | premio=R$   1,500.00 | product_id=6aa1ab2f56d1d21bb9ac05ce
+2026-09-25 | done       | 10° RAPIIDINHA VALENDO R$ 2.400,00 EM 05 OPORTUNIDADES!      | pedidos=  2 nums= 10 | premio=R$   1,200.00 | product_id=6ab5989a45d35718871aeb0a
+2026-09-23 | done       | 30° RAPIDINHA VALENDO R$1.200,00 NA TAMPA 2º EDIÇÃO!         | pedidos=  3 nums= 16 | premio=R$   1,200.00 | product_id=6ab2fee645d357188718744f
+2026-08-11 | done       | 94° RAPIDINHA VALENDO R$ 2.500,00 COM 07 GANHADORES!!        | pedidos=  2 nums=  4 | premio=R$   1,100.00 | product_id=6a7b2d4056d1d21bb98c6ab5
+2026-10-05 | done       | ✅ 15° RAPIDINHA VALENDO R$4.000,00!! COM 5 GANHADORES!       | pedidos=  3 nums=  8 | premio=R$   1,000.00 | product_id=6ac1a16145d357188725bd8f
+2026-09-30 | done       | 14° RAPIDINHA VALENDO R$ 3.000,00 EM 5 CHANCES               | pedidos=  3 nums= 16 | premio=R$   1,000.00 | product_id=6abd5db045d357188721983b
+2026-09-10 | done       | ✅ 1° RAPIDINHA VALENDO R$3.200,00!! COM 7 GANHADORES!        | pedidos=  5 nums= 22 | premio=R$   1,000.00 | product_id=6aa29d2c56d1d21bb9accfac
+2026-08-26 | done       | 90° RAPIDINHA VALENDO R$2.100,00! COM 5 CHANCES!             | pedidos=  3 nums= 11 | premio=R$   1,000.00 | product_id=6a8ef72c56d1d21bb99c8727
+2026-08-26 | done       | 🏆 40° RAPIIIDIINHA VALENDO R$ 3.000,00 2º EDIÇÃO! 🏆          | pedidos=  2 nums= 11 | premio=R$   1,000.00 | product_id=6a8e42f656d1d21bb99c1f48
+2026-07-08 | done       | 66° RAPIDINHA VALENDO R$2.100,00! COM 5 CHANCES!             | pedidos=  1 nums=  4 | premio=R$   1,000.00 | product_id=6a4e5d6456d1d21bb967d318
+2026-09-14 | done       | 27° RAPIDINHA VALENDO R$1.100 3 GANHADORES!                  | pedidos=  2 nums= 10 | premio=R$     900.00 | product_id=6aa8506b56d1d21bb9b16590
+2026-08-28 | done       | 28°  RAPIDINHA VALENDO R$ 900,00 NA TAMPA!                   | pedidos=  3 nums= 13 | premio=R$     900.00 | product_id=6a91c86356d1d21bb99edd69
+2026-09-21 | done       | 60° RAPIDINHA VALENDO R$ 1.400,00! 3 GANHADORES!             | pedidos=  2 nums=  8 | premio=R$     700.00 | product_id=6ab009a845d357188715d6cb
+2026-09-16 | done       | 13° RAPIDIINHA VALENDO R$1.600 3° EDIÇÃO!                    | pedidos=  1 nums=  2 | premio=R$     700.00 | product_id=6aa9c05056d1d21bb9b2a66e
+2026-08-05 | done       | 95° RAPIDIINHA VALENDO R$1.600 2° EDIÇÃO!                    | pedidos=  1 nums= 11 | premio=R$     700.00 | product_id=6a72609b56d1d21bb9856991
+2026-09-22 | done       | ✅ 3° RAPIDINHA VALENDO R$4.200,00!! COM 6 GANHADORES!        | pedidos=  1 nums=  7 | premio=R$     600.00 | product_id=6ab27ff645d357188717d65b
+2026-09-17 | done       | ✅ 1° RAPIDINHA VALENDO R$4.200,00!! COM 6 GANHADORES!        | pedidos=  1 nums=  2 | premio=R$     600.00 | product_id=6aab210c56d1d21bb9b3d91c
+2026-09-16 | done       | ✅ 6° RAPIDINHA VALENDO R$3.300,00!! COM 7 GANHADORES!        | pedidos=  6 nums= 32 | premio=R$     600.00 | product_id=6aaadc2d56d1d21bb9b38051
+2026-10-15 | done       |  ✅ 3° RAPIDIINHA VALENDO R$500,00!!                          | pedidos=  4 nums= 21 | premio=R$     500.00 | product_id=6ad0d80045d357188733a26b
+2026-10-14 | done       | 36° RAPIDINHA VALENDO R$1.100 3 GANHADORES!                  | pedidos=  2 nums=  6 | premio=R$     500.00 | product_id=6acfc10c45d3571887328a81
+2026-07-21 | done       | 20° RAPIDINHA VALENDO R$1.500,00 COM 02 GANHADORES!          | pedidos=  2 nums=  4 | premio=R$     500.00 | product_id=6a5e9c0c56d1d21bb975472f
+2026-07-17 | done       | 32º RAAPIDIINHA VALENDO R$1.700 COM 8 GANHADORES!!           | pedidos=  4 nums=  6 | premio=R$     500.00 | product_id=6a5a67e656d1d21bb9720cc0
+2026-10-08 | done       | ✅ 11° RAPIDINHA VALENDO R$3.300,00!! COM 7 GANHADORES!       | pedidos=  2 nums= 10 | premio=R$     400.00 | product_id=6ac6debc45d35718872a5440
+2026-10-07 | done       | 97° RAPIDINHA VALENDO R$ 900,00! COM 3 GANHADORES!           | pedidos=  3 nums= 13 | premio=R$     400.00 | product_id=6ac6b5f645d35718872a119e
+2026-10-03 | done       | ✅ 10° RAPIDINHA VALENDO R$3.300,00!! COM 7 GANHADORES!       | pedidos=  2 nums=  9 | premio=R$     400.00 | product_id=6ac020ab45d357188724420d
+2026-09-21 | done       | 08° RAPIIDINHA VALENDO R$ 2.400,00 EM 05 OPORTUNIDADES!      | pedidos=  2 nums= 20 | premio=R$     400.00 | product_id=6ab13be445d357188716b8c9
+2026-09-12 | done       | 52° RAPIDINHA VALENDO R$1.700 COM 3 GANHADORES!              | pedidos=  2 nums=  7 | premio=R$     400.00 | product_id=6aa56bf056d1d21bb9af3b85
+2026-09-09 | done       | ✅ 1° RAPIDINHA VALENDO R$3.300,00!! COM 7 GANHADORES!        | pedidos=  7 nums= 23 | premio=R$     400.00 | product_id=6aa1435356d1d21bb9ab8912
+2026-08-06 | done       | 24° RAPIDINHA VALENDO R$1.500,00 COM 09 GANHADORES 3º EDIÇÃO | pedidos=  1 nums=  4 | premio=R$     400.00 | product_id=6a74c0a856d1d21bb9875476
+2026-06-27 | done       | 12° RAPIIDINHA VALENDO R$ 2.200,00 2º EDIÇÃO!                | pedidos=  2 nums=  3 | premio=R$     400.00 | product_id=6a3ef82356d1d21bb95aff0e
+2026-06-28 | done       | 76° RAPIDINHA VALENDO R$ 1.900,00 COM 8 GANHADORES!!         | pedidos=  2 nums=  6 | premio=R$     350.00 | product_id=6a40368b56d1d21bb95bfac0
+2026-10-19 | done       | 22° RAPIDINHA VALENDO R$2.300,00 COM 05 GANHADORES!!         | pedidos=  1 nums=  5 | premio=R$     300.00 | product_id=6ad6265645d357188738a9ac
+2026-10-17 | done       | 21° RAPIDINHA VALENDO R$2.300,00 COM 05 GANHADORES!!         | pedidos=  3 nums=  7 | premio=R$     300.00 | product_id=6ad37dfe45d3571887366d24
+2026-10-14 | done       | ✅2° RAPIDINHA VALENDO R$300,00 EM DUAS OPORTUNIDADES!        | pedidos=  5 nums= 33 | premio=R$     300.00 | product_id=6acfb72b45d3571887327e50
+2026-09-24 | done       | ✅ 03° RAPIDINHA VALENDO R$6.000,00!! COM 7 GANHADORES!       | pedidos=  9 nums= 38 | premio=R$     300.00 | product_id=6ab42a8445d3571887197ef9
+2026-09-15 | done       | 54° RAPIDIINHA VALENDO R$ 1.400,00 4° EDIÇÃO!                | pedidos=  3 nums= 10 | premio=R$     300.00 | product_id=6aa9992656d1d21bb9b27739
+2026-09-02 | done       | 14° RAPIDINHA VALENDO R$300,00 8º EDIIÇÃO                    | pedidos=  4 nums= 16 | premio=R$     300.00 | product_id=6a986b1c56d1d21bb9a470d5
+2026-08-28 | done       | 47° RAPIDINHA VALENDO R$ 800,00 COM 2 GANHADORES!            | pedidos=  5 nums= 35 | premio=R$     300.00 | product_id=6a91ee9456d1d21bb99f159f
+2026-08-14 | done       | 82° RAPIDINHA VALENDO R$2.100,00! COM 5 CHANCES!             | pedidos=  1 nums=  3 | premio=R$     300.00 | product_id=6a7e3ef256d1d21bb98f462f
+2026-08-11 | done       | 39° RAPIDINHA VALENDO R$1.700 COM 3 GANHADORES!              | pedidos=  2 nums=  7 | premio=R$     300.00 | product_id=6a7a4a0a56d1d21bb98bd945
+2026-07-15 | done       | 81° RAPIDINHA VALENDO R$ 2.500,00 COM 07 GANHADORES!!        | pedidos=  1 nums=  2 | premio=R$     300.00 | product_id=6a57dc0c56d1d21bb96fdd00
+2026-10-18 | done       | ✅ 3º RAPIDINHA VALENDO R$250,00 COM 2 GANHADORES!            | pedidos=  2 nums= 13 | premio=R$     250.00 | product_id=6ad502b645d357188737cedb
+2026-10-17 | done       | ✅ 5º RAPIDINHA VALENDO R$250,00 NA TAMPA!                    | pedidos=  6 nums= 33 | premio=R$     250.00 | product_id=6ad3ae9b45d357188736b163
+2026-09-10 | done       | 62º RAPIDINHA VALENDO R$250,00 NA TAMPA!                     | pedidos=  2 nums= 11 | premio=R$     250.00 | product_id=6aa2dbd756d1d21bb9ad0c2c
+2026-08-16 | done       | 51º RAPIDINHA VALENDO R$250,00 NA TAMPA!                     | pedidos=  3 nums= 16 | premio=R$     250.00 | product_id=6a81c02e56d1d21bb991fa19
+2026-07-15 | done       | 7° RAPIDINHA VALENDO R$1.500,00 COM 09 GANHADORES 3º EDIÇÃO! | pedidos=  2 nums= 11 | premio=R$     250.00 | product_id=6a57c05b56d1d21bb96fbbf7
+2026-07-12 | done       | 78° RAPIDINHA VALENDO R$ 1.900,00 COM 8 GANHADORES!!         | pedidos=  1 nums=  9 | premio=R$     250.00 | product_id=6a529dc556d1d21bb96bc1fa
+2026-07-07 | done       | 27º RAPIDINHA VALENDO R$250,00!                              | pedidos=  1 nums=  7 | premio=R$     250.00 | product_id=6a4d027856d1d21bb9667df1
+2026-10-17 | done       | 20° RAPIIDINHA VALENDO R$ 2.400,00 EM 05 OPORTUNIDADES!      | pedidos=  2 nums=  8 | premio=R$     200.00 | product_id=6ad29afc45d357188735acd6
+2026-10-15 | done       | 12º RAPIDINHA VALENDO R$2.800,00 COM 5 GANHADORES!           | pedidos=  2 nums=  3 | premio=R$     200.00 | product_id=6ad0de8745d357188733af89
+2026-10-15 | done       | ✅ 4º RAPIDINHA VALENDO R$200,00 NA TAMPA                     | pedidos=  5 nums= 31 | premio=R$     200.00 | product_id=6ad0a73545d3571887336cc2
+2026-10-07 | done       | 90° RAPIDIINHA VALENDO R$ 1.400,00 4° EDIÇÃO!                | pedidos=  2 nums= 16 | premio=R$     200.00 | product_id=6ac6937845d357188729d9c0
+2026-10-06 | done       | 85º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  5 nums= 28 | premio=R$     200.00 | product_id=6ac4dab045d357188727ffa8
+2026-10-06 | done       | 84º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  3 nums= 21 | premio=R$     200.00 | product_id=6ac4361145d35718872796cc
+2026-10-03 | done       | 72° RAPIDINHA VALENDO R$ 2.000,00 EM 5 CHANCES!              | pedidos=  1 nums=  4 | premio=R$     200.00 | product_id=6ac1818d45d357188725994f
+2026-09-28 | done       | 71º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  4 nums= 48 | premio=R$     200.00 | product_id=6aba70ef45d35718871ed7b4
+2026-09-27 | done       | 68° RAPIDINHA VALENDO R$ 2.000,00 EM 5 CHANCES!              | pedidos=  2 nums=  8 | premio=R$     200.00 | product_id=6ab9293c45d35718871df9fc
+2026-09-24 | done       | 100° RAPIDINHA VALENDO R$2.100,00! COM 5 CHANCES!            | pedidos=  4 nums= 19 | premio=R$     200.00 | product_id=6ab4426e45d3571887199d13
+2026-09-23 | done       | 67° RAPIDIINHA VALENDO R$ 1.400,00 4° EDIÇÃO!                | pedidos=  2 nums= 10 | premio=R$     200.00 | product_id=6ab3bfa845d357188718f7fb
+2026-09-17 | done       | 11° RAPIDINHA VALENDO R$2.700,00 COM 5 GANHADORES!           | pedidos=  3 nums=  8 | premio=R$     200.00 | product_id=6aabf29b45d3571887121621
+2026-09-13 | done       | 50º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  4 nums= 28 | premio=R$     200.00 | product_id=6aa6b19a56d1d21bb9b034fc
+2026-09-12 | done       | 80° RAPIDINHA VALENDO R$1.500,00 COM 05 GANHADORES!!         | pedidos=  3 nums= 13 | premio=R$     200.00 | product_id=6aa5407256d1d21bb9af0d55
+2026-09-12 | done       | 50° RAPIDIINHA VALENDO R$ 1.400,00 4° EDIÇÃO!                | pedidos=  2 nums= 12 | premio=R$     200.00 | product_id=6aa5893e56d1d21bb9af552f
+2026-09-12 | done       | ✅ 2° RAPIDINHA VALENDO R$3.200,00!! COM 7 GANHADORES!        | pedidos=  1 nums=  3 | premio=R$     200.00 | product_id=6aa5447956d1d21bb9af127c
+2026-09-10 | done       | 47º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  3 nums= 27 | premio=R$     200.00 | product_id=6aa2f96b56d1d21bb9ad341f
+2026-09-07 | done       | 44º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  3 nums= 21 | premio=R$     200.00 | product_id=6a9eeab256d1d21bb9a9b7e2
+2026-09-05 | done       | 63° RAPIDINHA VALENDO R$ 2.000,00 EM 5 CHANCES!              | pedidos=  1 nums=  2 | premio=R$     200.00 | product_id=6a9c2ba956d1d21bb9a7ac02
+2026-09-01 | done       | 36º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  1 nums= 13 | premio=R$     200.00 | product_id=6a96121756d1d21bb9a2636c
+2026-08-28 | done       | 20° RAPIDIINHA VALENDO R$1.600 COM 03 GANHADORES!            | pedidos=  2 nums=  5 | premio=R$     200.00 | product_id=6a91ddd356d1d21bb99f022a
+2026-08-26 | done       | 22° RAPIDINHA VALENDO R$2.200,00! COM 5 CHANCES!             | pedidos=  2 nums=  7 | premio=R$     200.00 | product_id=6a8f385256d1d21bb99cc53e
+2026-08-25 | done       | 89° RAPIDINHA VALENDO R$ 900,00! COM 3 GANHADORES!           | pedidos=  4 nums= 21 | premio=R$     200.00 | product_id=6a8dbab756d1d21bb99b88cb
+2026-08-19 | done       | 16º RAPIDINHA VALENDO R$200,00 NA TAMPA 2º EDIÇÃO!!          | pedidos=  3 nums= 29 | premio=R$     200.00 | product_id=6a84f21756d1d21bb99493b3
+2026-08-13 | done       | 45° RAPIDINHA VALENDO R$ 2.600,00 EM 5 CHANCES!!             | pedidos=  2 nums=  7 | premio=R$     200.00 | product_id=6a7dd11d56d1d21bb98ecee7
+2026-08-12 | done       | 16° RAPIDINHA VALENDO R$ 2.800,00!                           | pedidos=  3 nums=  5 | premio=R$     200.00 | product_id=6a7b8d5e56d1d21bb98cd3bf
+2026-08-06 | done       | 74° RAPIDIINHA VALENDO R$ 600,00! COM 2 GANHADORES!          | pedidos=  1 nums=  7 | premio=R$     200.00 | product_id=6a74ce8656d1d21bb987653b
+2026-07-30 | done       | 81º RAPIDINHA VALENDO R$200,00 NA TAMPA!!                    | pedidos=  1 nums=  5 | premio=R$     200.00 | product_id=6a6a927856d1d21bb97f3783
+2026-07-22 | done       | 74° RAPIDINHA VALENDO R$ 900,00! COM 3 GANHADORES!           | pedidos=  1 nums=  5 | premio=R$     200.00 | product_id=6a6103ed56d1d21bb97747fc
+2026-07-20 | done       | 68º RAPIDINHA VALENDO R$200,00 NA TAMPA!!                    | pedidos=  1 nums=  4 | premio=R$     200.00 | product_id=6a5e09e756d1d21bb974a41a
+2026-07-11 | done       | 58º MEGA RAPIDINHA VALENDO R$200,00!                         | pedidos=  1 nums=  8 | premio=R$     200.00 | product_id=6a52728756d1d21bb96b8dca
+2026-07-06 | done       | 24° RAPIDIINHA VALENDO R$500,00 EM 02 PRÊMIOS!               | pedidos=  1 nums=  6 | premio=R$     200.00 | product_id=6a4bd6b256d1d21bb9657fbb
+2026-06-26 | done       | 60° RAPIDINHA VALENDO R$1.500,00 COM 05 GANHADORES!!         | pedidos=  1 nums=  7 | premio=R$     200.00 | product_id=6a3da7bf56d1d21bb959f8f7
+2026-06-22 | done       | 9° RAPIDIINHA VALENDO R$1.200 COM 3 GANHADORES!              | pedidos= 27 nums= 38 | premio=R$     200.00 | product_id=6a395bfe56d1d21bb9562571
+2026-10-17 | done       | ✅ 1° RAPIDIINHA VALENDO R$500,00 EM 3 PRÊMIOS!               | pedidos=  1 nums=  2 | premio=R$     150.00 | product_id=6ad3843c45d3571887367f11
+2026-10-13 | done       | ✅1º RAPIDINHA VALENDO R$150,00 NA TAMPA!                     | pedidos=  6 nums= 28 | premio=R$     150.00 | product_id=6ace84c945d3571887313bf2
+2026-10-09 | done       | 10° MEGA RAPIDINHA VALENDO R$150,00 NA TAMPA 3º EDIÇÃO!      | pedidos=  3 nums= 28 | premio=R$     150.00 | product_id=6ac82e3645d35718872bb743
+2026-10-06 | done       | 09° RAPIDINHA VALENDO R$ 2.500,00 COM 07 GANHADORES 2° EDIÇÃ | pedidos=  1 nums=  3 | premio=R$     150.00 | product_id=6ac4109945d3571887276969
+2026-10-02 | done       | 08° RAPIDINHA VALENDO R$ 2.500,00 COM 07 GANHADORES 2° EDIÇÃ | pedidos=  2 nums=  4 | premio=R$     150.00 | product_id=6abec90e45d357188722f769
+2026-08-28 | done       | 34° RAPIIDINHA VALENDO R$ 2.200,00 2º EDIÇÃO!                | pedidos=  2 nums= 10 | premio=R$     150.00 | product_id=6a91982156d1d21bb99ea72b
+2026-08-08 | done       | 8º MEGA RAPIDINHA VALENDO R$150,00 NA TAMPA 2º EDIÇÃO!       | pedidos=  3 nums= 12 | premio=R$     150.00 | product_id=6a77144b56d1d21bb9895545
+2026-08-05 | done       | 2º MEGA RAPIDINHA VALENDO R$150,00 NA TAMPA 2º EDIÇÃO!       | pedidos=  3 nums= 12 | premio=R$     150.00 | product_id=6a736af956d1d21bb9862b41
+2026-08-05 | done       | 1º MEGA RAPIDINHA VALENDO R$150,00 NA TAMPA 2º EDIÇÃO!       | pedidos=  3 nums= 10 | premio=R$     150.00 | product_id=6a733f8056d1d21bb98603b7
+2026-07-27 | done       | 25° RAPIIDINHA VALENDO R$ 2.200,00 2º EDIÇÃO!                | pedidos=  1 nums=  4 | premio=R$     150.00 | product_id=6a67669b56d1d21bb97c6bb7
+2026-07-22 | done       | 76º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  1 nums= 12 | premio=R$     150.00 | product_id=6a60f5e756d1d21bb9773458
+2026-07-20 | done       | 72º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  3 nums= 24 | premio=R$     150.00 | product_id=6a5e526c56d1d21bb974f32d
+2026-07-18 | done       | 68º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  5 nums= 42 | premio=R$     150.00 | product_id=6a5bf7e456d1d21bb9735757
+2026-07-15 | done       | 47° RAPIDINHA VALENDO R$2.300,00 COM 10 GANHADORES!!!        | pedidos=  1 nums=  4 | premio=R$     150.00 | product_id=6a5793d056d1d21bb96f8951
+2026-07-14 | done       | 58º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  5 nums= 35 | premio=R$     150.00 | product_id=6a566a4556d1d21bb96e89f1
+2026-07-13 | done       | 55º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  6 nums= 40 | premio=R$     150.00 | product_id=6a54d29756d1d21bb96d3267
+2026-07-08 | done       | 47º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  3 nums= 22 | premio=R$     150.00 | product_id=6a4e81d356d1d21bb9680070
+2026-07-03 | done       | 35º MEGA RAPIDINHA VALENDO R$150,00!                         | pedidos=  3 nums= 23 | premio=R$     150.00 | product_id=6a47e9a356d1d21bb9622df5
+2026-06-30 | done       | 14° RAPIIDINHA VALENDO R$ 2.200,00 2º EDIÇÃO!                | pedidos=  2 nums= 10 | premio=R$     150.00 | product_id=6a4305a456d1d21bb95e33d5
+2026-10-12 | done       | 39° RAPIDINHA VALENDO R$1.500,00 COM 09 GANHADORES 3º EDIÇÃO | pedidos=  1 nums=  6 | premio=R$     100.00 | product_id=6acd316045d35718872ffb3c
+2026-09-28 | done       | 76° RAPIDIINHA VALENDO R$ 1.400,00 4° EDIÇÃO!                | pedidos=  2 nums= 10 | premio=R$     100.00 | product_id=6aba9ed345d35718871f17c0
+2026-07-24 | done       | 14° RAPIDINHA VALENDO R$1.500,00 COM 09 GANHADORES 3º EDIÇÃO | pedidos=  1 nums=  4 | premio=R$     100.00 | product_id=6a639cb756d1d21bb97999ce
+2026-07-07 | done       | 99° RAPIDINHA VALENDO R$1.500,00 COM 09 GANHADORES 2º EDIÇÃO | pedidos=  2 nums=  9 | premio=R$     100.00 | product_id=6a4d302256d1d21bb966c1dc
+2026-09-25 | done       | 🏆55° RAPIDINHA VALENDO R$11.000,00 COM 1 GANHADOR!           | pedidos=  8 nums= 12 | premio=R$      11.00 | product_id=6ab6893545d35718871baaca
+2026-09-24 | done       | 🏆 27° RAPIDINHA VALENDO R$5.000,00 COM 2 GANHAD0RES 2° EDIÇÃ | pedidos=  2 nums= 10 | premio=R$       2.00 | product_id=6ab50bfd45d35718871a393a

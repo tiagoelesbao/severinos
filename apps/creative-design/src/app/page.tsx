@@ -12,10 +12,10 @@ interface ClientTile {
 // Mapeia o slug do cliente para sua paleta visual (alinhada com brand-config.yaml).
 const CLIENT_THEME: Record<string, { accent: string; bg1: string; bg2: string; tagline: string }> = {
   virals: {
-    accent: '#FF3D68',
-    bg1: 'rgba(255,61,104,0.10)',
+    accent: '#FF5B3F',
+    bg1: 'rgba(255,91,63,0.10)',
     bg2: 'rgba(123,91,255,0.06)',
-    tagline: 'Marca institucional · navy + coral',
+    tagline: 'Marca institucional · navy + vermelho sinal',
   },
   'tiago-elesbao': {
     accent: '#FFB800',
@@ -23,11 +23,19 @@ const CLIENT_THEME: Record<string, { accent: string; bg1: string; bg2: string; t
     bg2: 'rgba(255,77,46,0.06)',
     tagline: 'Perfil pessoal · preto + âmbar',
   },
+  // Cores do brand-config.yaml do canal (extraídas do logo e do banner, não
+  // estimadas): verde-mãe #0C240C + amarelo #FCCC0C.
+  'bora-de-bola': {
+    accent: '#FCCC0C',
+    bg1: 'rgba(252,204,12,0.10)',
+    bg2: 'rgba(36,108,12,0.10)',
+    tagline: 'Canal dark de futebol · thumbs 1280×720',
+  },
 };
 
 function getTheme(slug: string) {
   return CLIENT_THEME[slug] || {
-    accent: '#FF3D68',
+    accent: '#FF5B3F',
     bg1: 'rgba(255,255,255,0.04)',
     bg2: 'rgba(255,255,255,0.02)',
     tagline: 'Cliente · paleta padrão',
@@ -68,7 +76,7 @@ export default function ClientPickerPage() {
             Selecione o cliente para visualizar e editar seus criativos.
           </p>
           <div className="flex items-center gap-2 mt-4 text-xs text-white/40">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#FF3D68]" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#FF5B3F]" />
             <span>{total} criativo{total === 1 ? '' : 's'} no total · {clients.length} cliente{clients.length === 1 ? '' : 's'} ativo{clients.length === 1 ? '' : 's'}</span>
           </div>
         </header>
@@ -78,7 +86,7 @@ export default function ClientPickerPage() {
           <div className="text-white/40 text-sm">Carregando clientes…</div>
         )}
         {error && (
-          <div className="text-[#FF3D68] text-sm border border-[#FF3D68]/30 bg-[#FF3D68]/5 rounded-lg p-4">
+          <div className="text-[#FF5B3F] text-sm border border-[#FF5B3F]/30 bg-[#FF5B3F]/5 rounded-lg p-4">
             {error}
           </div>
         )}

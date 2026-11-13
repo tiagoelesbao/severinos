@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 /**
  * VEX-08: filmstrip de um clipe de vídeo na timeline. Amostra N frames do
@@ -16,7 +16,7 @@ const THUMB_GRID = 0.25; // granularidade mínima da grade de tempo (s).
 // Escada de intervalos "nice" (s/thumb) — mantém `step` estável durante o arraste.
 const GRID_STEPS = [0.25, 0.5, 1, 2, 3, 5, 10, 15, 30];
 
-export function Filmstrip({
+function FilmstripBase({
   client,
   creative,
   file,
@@ -91,3 +91,10 @@ export function Filmstrip({
     </div>
   );
 }
+
+/**
+ * `memo` porque a tira NAO depende do playhead — ela depende do arquivo, do
+ * trecho e do zoom. Sem isto ela era remontada a cada quadro reproduzido junto
+ * com a Timeline, e cada remontagem refaz o `<img>` de ate 40 miniaturas.
+ */
+export const Filmstrip = React.memo(FilmstripBase);

@@ -1,0 +1,8 @@
+[CA IP Realiza - 02] Campanha 1 — Advantage + Vendas (Prospecção) — v3: dias=14 gasto=R$ 15113.89 purchase=796 purchase_R$=51130.50 IC=712 ROAS=3.38
+[CA IP Realiza - 02] Campanha 2 — CBO Teste de Criativos: dias=11 gasto=R$ 4284.51 purchase=1211 purchase_R$=70661.50 IC=975 ROAS=16.49
+[CA IP Realiza - 02] Campanha 3 — Retargeting (Site): dias=10 gasto=R$ 3672.56 purchase=289 purchase_R$=7715.50 IC=298 ROAS=2.10
+[CA IP Realiza - 02] Campanha 2.1 — CBO Teste de Criativos: dias=8 gasto=R$ 2819.19 purchase=574 purchase_R$=50758.00 IC=813 ROAS=18.00
+[CA IP Realiza - 02] Campanha 1 — Advantage + Vendas (Prospecção): dias=10 gasto=R$ 2074.61 purchase=3427 purchase_R$=189440.30 IC=2883 ROAS=91.31
+[CA IP Realiza - 02] Campanha 1 — Advantage + Vendas (Prospecção) — v2: dias=2 gasto=R$ 621.94 purchase=257 purchase_R$=12249.15 IC=126 ROAS=19.70
+[CA IP Realiza - 01] [CA2]Campanha 1 — Advantage + Vendas (Prospecção): dias=2 gasto=R$ 400.75 purchase=18 purchase_R$=339.00 IC=30 ROAS=0.85
+[CA IP Realiza - 01] Novo objetivo Engajamento Campanha com configurações recomendadas: dias=18 gasto=R$ 169.04 purchase=0 purchase_R$=0.00 IC=26 ROAS=0.00

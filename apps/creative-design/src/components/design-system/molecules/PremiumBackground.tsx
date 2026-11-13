@@ -69,8 +69,16 @@ export const PremiumBackground: React.FC<PremiumBackgroundProps> = ({
   // Modo brand-agnostic: paleta do cliente vinda do brief.
   const primary = primaryColor || '#0C0A1F';
   const secondary = secondaryColor || '#181436';
+  const coreGlow = accentColor || '#7B5BFF';
   const altGlow = accentAlt || '#7B5BFF';
   const auroraGlow = accentAurora || '#2DE2C8';
+
+  // Grade de pontos técnica (mesma linguagem do site: dot-grid tingido com o
+  // accent do cliente, bem sutil — reforça a leitura "tech/engineered" sem
+  // competir com o texto).
+  const dotGridDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><circle cx='1' cy='1' r='1' fill='${altGlow}'/></svg>`
+  )}`;
 
   return (
     <div
@@ -87,14 +95,38 @@ export const PremiumBackground: React.FC<PremiumBackgroundProps> = ({
       />
       {isDark && (
         <>
+          {/* Dot-grid técnico — mesma textura do site, tingida com o accent alt */}
+          <div
+            className="absolute inset-0 opacity-[0.16]"
+            style={{ backgroundImage: `url("${dotGridDataUri}")`, backgroundSize: '28px 28px' }}
+          />
+          {/* Glow central atrás do conteúdo — dá profundidade de "atmosfera" sem virar mancha */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[55%] rounded-full blur-[180px]"
+            style={{ backgroundColor: coreGlow, opacity: 0.14 }}
+          />
+          {/* Mesh de 3 blobs em profundidades/blur distintos — substitui o glow duplo achatado por uma atmosfera em camadas */}
           <div
             className="absolute -top-[18%] -right-[12%] w-[62%] h-[62%] rounded-full blur-[150px]"
             style={{ backgroundColor: altGlow, opacity: 0.4 }}
           />
           <div
             className="absolute -bottom-[20%] -left-[14%] w-[56%] h-[56%] rounded-full blur-[150px]"
-            style={{ backgroundColor: auroraGlow, opacity: 0.3 }}
+            style={{ backgroundColor: auroraGlow, opacity: 0.28 }}
           />
+          <div
+            className="absolute top-[8%] left-[6%] w-[30%] h-[30%] rounded-full blur-[110px]"
+            style={{ backgroundColor: coreGlow, opacity: 0.18 }}
+          />
+          {/* "Boolean rings" — dois anéis finos sobrepostos, motivo geométrico tech/IA sutil no canto, sem competir com o texto */}
+          <svg
+            className="absolute -bottom-[6%] -right-[6%] w-[46%] h-[46%] opacity-[0.22] mix-blend-screen"
+            viewBox="0 0 400 400"
+            fill="none"
+          >
+            <circle cx="240" cy="220" r="150" stroke={altGlow} strokeWidth="1.5" />
+            <circle cx="180" cy="160" r="110" stroke={auroraGlow} strokeWidth="1.5" />
+          </svg>
         </>
       )}
       {image && (
@@ -102,7 +134,7 @@ export const PremiumBackground: React.FC<PremiumBackgroundProps> = ({
           <img src={image} alt="Background" className="w-full h-full object-cover mix-blend-luminosity opacity-40" />
           <div
             className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full blur-[120px] animate-pulse"
-            style={{ backgroundColor: accentColor || '#FF3D68', opacity: 0.2 }}
+            style={{ backgroundColor: accentColor || '#FF5B3F', opacity: 0.2 }}
           />
           <div
             className="absolute -bottom-[10%] -right-[10%] w-[50%] h-[50%] rounded-full blur-[100px]"

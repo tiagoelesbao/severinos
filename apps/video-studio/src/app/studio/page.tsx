@@ -2,6 +2,8 @@
 
 import { Player, type PlayerRef } from "@remotion/player";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { setPlayheadFrame } from "@/lib/playhead";
+import { ComFrame, ContadorTempo } from "@/components/Playhead";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TimelineFxComposition } from "@/remotion/TimelineFxComposition";
 import { Timeline as TimelineView } from "@/components/Timeline";
@@ -34,13 +36,26 @@ import {
   setClipFrameMode,
   setClipKenBurns,
   setClipVolume,
+  setClipAudioEnabled,
   setClipFade,
   setElementKfValue,
   toggleElementKeyframe,
   moveKeyframesAt,
   removeKeyframesAt,
   switchHookVariant,
+  setClipTransitionTipo,
+  setClipTransitionPeso,
+  setClipCameraTipo,
+  setClipCameraPeso,
+  setClipCameraCurva,
+  setCameraEmTodos,
+  addEfeito,
 } from "@/lib/editorState";
+import {
+  TRANSICOES, CAMERAS, PESOS, ANIMACOES, EFEITOS,
+  normalizaTransicao, normalizaAnimacao, defTransicao, defAnimacao, defCameraUI, cameraDoKenBurns,
+  type TransicaoId, type CameraId, type Peso, type CameraCurva, type AnimacaoId, type EfeitoId,
+} from "@/lib/fxCatalog";
 import { sampleTrack, hasKeyframes } from "@/lib/keyframes";
 import type { KfProp } from "@/lib/editorState";
 import { PLATFORMS, platformById, coveredZoneAt } from "@/lib/safeZones";
@@ -48,6 +63,7 @@ import { estimateLevel } from "@/lib/levels";
 import type { TransitionType, AnimType } from "@/lib/timeline";
 import { buildCues, editCueText, shiftCaptions, type CueOptions } from "@/lib/cues";
 import type { HookRenderer, CaptionRenderer } from "@/lib/fxRegistry";
+import { FONT_CHOICES, fontFamilyById } from "@/remotion/fontChoices";
 import type { AuditReport } from "@/lib/audit";
 import { toast } from "sonner";
 import {
@@ -77,6 +93,15 @@ interface Snapshot {
   timeline: Timeline;
   fxPlan: FxPlan;
 }
+
+// Props do <Player> que não podem mudar de identidade a cada render: objeto e função
+// recriados na marcação invalidam os efeitos internos dele 30×/s durante a reprodução.
+const PLAYER_STYLE: React.CSSProperties = { width: "100%", height: "100%" };
+const PlayerErrorFallback = () => (
+  <div style={{ display: "grid", placeItems: "center", height: "100%", color: "#FF8C42", fontSize: 12, textAlign: "center", padding: 16 }}>
+    Mídia incompatível neste clipe (formato/codec).<br />Veja a auditoria de edição.
+  </div>
+);
 
 interface AutocutInfo {
   role: string;
@@ -109,12 +134,22 @@ const CAPS: { id: CaptionRenderer; label: string }[] = [
 ];
 
 // Modelos de legenda (chunking): 1/2 linhas, densidade de palavras.
+// Os quatro primeiros sao de 9:16: 16 a 18 caracteres por linha e o que cabe em
+// caixa-alta grande num quadro de 1080 de largura. Num 16:9 a mesma regra deixa a
+// legenda ocupando um terco da largura e quebrando a frase cedo demais — medido
+// nos frames das referencias, elas usam ~38 caracteres por linha.
 const CAPTION_STYLES: { id: string; label: string; opts: CueOptions }[] = [
   { id: "frase2", label: "Frase · até 2 linhas", opts: { maxWords: 6, maxLines: 2, maxCharsPerLine: 18 } },
   { id: "linha1", label: "1 linha · curta", opts: { maxWords: 4, maxLines: 1, maxCharsPerLine: 17 } },
   { id: "punchy", label: "Punchy · 2 palavras", opts: { maxWords: 2, maxLines: 1, maxCharsPerLine: 16 } },
   { id: "karaoke", label: "Karaokê · palavra", opts: { maxWords: 1, maxLines: 1, maxCharsPerLine: 16 } },
+  // ── horizontais (16:9) ──
+  { id: "h2", label: "Horizontal · 2 linhas", opts: { maxWords: 10, maxLines: 2, maxCharsPerLine: 38, maxCueMs: 5000 } },
+  { id: "h1", label: "Horizontal · 1 linha", opts: { maxWords: 8, maxLines: 1, maxCharsPerLine: 44, maxCueMs: 5000 } },
 ];
+
+/** Estilo padrao pelo FORMATO — vertical mantem o de sempre; 16:9 vai para o h2. */
+const estiloPadrao = (w: number, h: number) => (w >= h ? "h2" : "frase2");
 
 // Zoom da timeline (pixels por segundo). Define a densidade horizontal.
 const PPS_MIN = 20;
@@ -154,13 +189,24 @@ function StudioInner() {
   // VEX-08: pinça (alça de aparar) selecionada p/ ajuste frame-a-frame pelas setas.
   const [trimSel, setTrimSel] = useState<{ index: number; edge: "L" | "R" } | null>(null);
   const [status, setStatus] = useState("Carregando…");
-  const [currentFrame, setCurrentFrame] = useState(0);
+  // O FRAME CORRENTE NAO E ESTADO DESTA PAGINA — ver `lib/playhead.ts`.
+  //
+  // Enquanto era, cada quadro reproduzido re-renderizava as ~2.000 linhas de
+  // JSX daqui e a `Timeline` inteira junto (filmstrip, waveform e uma celula
+  // por cue de legenda). O navegador reportava `[Violation] 'message' handler
+  // demorou Nms` e `mousedown` de 294 ms — o clique disputava a mesma arvore
+  // sendo remontada 30x por segundo.
+  //
+  // Quem precisa do frame para DESENHAR assina o store num no folha
+  // (`ContadorTempo`, `LinhaPlayhead`). Quem precisa dele para AGIR le
+  // `currentFrameRef.current`, que continua sendo atualizado na hora.
   const [playing, setPlaying] = useState(false);
   const [pps, setPps] = useState(PPS_DEFAULT);
   const [captionSource, setCaptionSource] = useState<string>("script");
   const [autocutInfo, setAutocutInfo] = useState<AutocutInfo[]>([]);
   const [autocutOn, setAutocutOn] = useState(false);
   const [maxGap, setMaxGap] = useState(0.4); // limiar de pausa (s) — agressividade
+  // Ajustado ao formato assim que a timeline chega (ver o efeito de carga).
   const [styleId, setStyleId] = useState("frase2");
   const [selectedCue, setSelectedCue] = useState(-1);
   const [selectedAudio, setSelectedAudio] = useState("");
@@ -182,6 +228,12 @@ function StudioInner() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
   const [selectedLayerClip, setSelectedLayerClip] = useState(""); // "layerId/clipId"
+  /**
+   * Frente B (inspector contextual): tipo da faixa em foco = o último tipo
+   * clicado na timeline. Roteia o inspector para o painel dedicado (vídeo /
+   * áudio / texto / overlay / projeto), sem misturar controles entre tipos.
+   */
+  const [focusKind, setFocusKind] = useState<"video" | "audio" | "text" | "overlay" | "none">("video");
   const [assets, setAssets] = useState<{ library: Asset[]; materials: Asset[]; uploads: Asset[] }>({ library: [], materials: [], uploads: [] });
   const [pickerFor, setPickerFor] = useState(""); // layerId aberto no picker
   // VEX-01: export final em andamento (poll de exports/render-status.json).
@@ -199,7 +251,7 @@ function StudioInner() {
   const pendingAutocut = useRef<(() => void) | null>(null);
   const [confirmAutocut, setConfirmAutocut] = useState(false);
   // VEX-07 inc.2: aba ativa do bin da esquerda.
-  const [binTab, setBinTab] = useState<"criativos" | "midia" | "audio">("criativos");
+  const [binTab, setBinTab] = useState<"criativos" | "midia" | "audio" | "efeitos">("criativos");
   // VEX-07 inc.2: layout dos splitters (3 eixos) persistido entre sessões.
   const [rowsLayout] = useState<Layout | undefined>(() => loadLayout("rows"));
   const [colsLayout] = useState<Layout | undefined>(() => loadLayout("cols"));
@@ -238,6 +290,7 @@ function StudioInner() {
         setDirty(false);
         // VEX-03: restaura preferências salvas (styleId/autocut) do studio-edit.
         if (d.persisted && typeof d.styleId === "string") setStyleId(d.styleId);
+        else if (d.timeline) setStyleId(estiloPadrao(d.timeline.width, d.timeline.height));
         if (d.persisted && d.autocutSaved) {
           // O timeline persistido JÁ reflete o auto-cut salvo; sincronizar o
           // estado apenas alinha a UI (setState igual não re-dispara o efeito).
@@ -245,7 +298,7 @@ function StudioInner() {
           if (typeof d.autocutSaved.maxGap === "number") setMaxGap(d.autocutSaved.maxGap);
         }
         setSel(0);
-        setCurrentFrame(0);
+        setPlayheadFrame(0);
         // Fit-to-window: ajusta o zoom para a timeline caber na largura útil.
         const totalSec = d.timeline.durationInFrames / d.timeline.fps;
         const usable = (typeof window !== "undefined" ? window.innerWidth : 1280) - 380;
@@ -341,13 +394,32 @@ function StudioInner() {
   }, [client, creative]);
 
   // Sincroniza o playhead da timeline com o frame do Player (e play/pause).
+  //
+  // O `frameupdate` é disparado de DENTRO do commit do Player. Chamar `setState` ali
+  // encadeia um update ANINHADO a cada quadro; o React conta esses aninhamentos e, ao
+  // passar de 50 (menos de dois segundos de reprodução), derruba a página inteira com
+  // "Maximum update depth exceeded" — o erro aparecia no `usePlayback` porque é de lá
+  // que sai o update, não porque o problema estivesse lá.
+  //
+  // O ref é atualizado na hora (é o que os atalhos e o arraste leem). A cópia para o
+  // estado — que só existe para redesenhar o playhead — sai num `requestAnimationFrame`,
+  // fora da cadeia de commit e no máximo uma vez por quadro de tela.
   useEffect(() => {
     const p = playerRef.current;
     if (!p) return;
+    let agendado = false;
     const onFrame = (e: { detail: { frame: number } }) => {
-      const f = e.detail.frame;
-      currentFrameRef.current = f;
-      setCurrentFrame((prev) => (prev === f ? prev : f));
+      currentFrameRef.current = e.detail.frame;
+      if (agendado) return;
+      agendado = true;
+      // O `requestAnimationFrame` continua sendo necessario mesmo com o store:
+      // `frameupdate` sai de DENTRO do commit do Player, e notificar assinantes
+      // dali encadeia um update aninhado a cada quadro — foi o que produzia o
+      // "Maximum update depth exceeded" vindo do `usePlayback`.
+      requestAnimationFrame(() => {
+        agendado = false;
+        setPlayheadFrame(currentFrameRef.current);
+      });
     };
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
@@ -456,7 +528,7 @@ function StudioInner() {
   const seek = useCallback((frame: number) => {
     playerRef.current?.seekTo(frame);
     currentFrameRef.current = frame;
-    setCurrentFrame(frame);
+    setPlayheadFrame(frame);
   }, []);
 
   const togglePlay = useCallback(() => {
@@ -678,6 +750,52 @@ function StudioInner() {
         : null,
     [snap, captionStyle, mediaBaseUrl],
   );
+  // O PLAYER FICA FORA DO CICLO DE RE-RENDER DA PÁGINA.
+  //
+  // O evento `frameupdate` atualiza o playhead a cada quadro, o que re-renderiza esta
+  // página ~30×/s. O `<Player>` da Remotion não é memoizado: a cada re-render do pai,
+  // ele e a composição inteira re-renderizavam junto — e props recriadas na marcação
+  // (`style={{...}}`, `errorFallback={() => ...}`) invalidavam os efeitos internos dele
+  // toda vez. Daí o "Maximum update depth exceeded" vindo do `usePlayback`: o laço de
+  // reprodução chamava setState, o pai re-renderizava, os efeitos do Player rearmavam,
+  // e a pilha estourava.
+  //
+  // Guardado num useMemo, o ELEMENTO é o mesmo objeto entre renders enquanto a edição
+  // não muda — e o React pula a subárvore inteira. Só `snap` (a edição) e `inputProps`
+  // reconstroem o player, que é exatamente quando ele precisa mesmo re-renderizar.
+  // Formato do palco, derivado da timeline. Retrato cresce pela ALTURA (é o eixo
+  // curto do painel); paisagem cresce pela LARGURA. Sem isso a peça 16:9 ficava
+  // espremida numa caixa 9:16.
+  const palcoAspecto = snap
+    ? `${snap.timeline.width} / ${snap.timeline.height}`
+    : "9 / 16";
+  const palcoTamanho: React.CSSProperties =
+    snap && snap.timeline.width >= snap.timeline.height
+      ? { width: "100%", height: "auto", maxHeight: "calc(100% - 56px)" }
+      : { height: "calc(100% - 56px)", width: "auto", maxWidth: "100%" };
+
+  const playerNode = useMemo(() => {
+    if (!snap || !inputProps) return null;
+    const t = snap.timeline;
+    return (
+      <Player
+        ref={playerRef}
+        component={TimelineFxComposition as never}
+        inputProps={inputProps as never}
+        durationInFrames={t.durationInFrames}
+        fps={t.fps}
+        compositionWidth={t.width}
+        compositionHeight={t.height}
+        style={PLAYER_STYLE}
+        errorFallback={PlayerErrorFallback}
+        // Ao terminar, o Player volta sozinho ao frame 0 — e a volta pisca preto
+        // (medido: 120ms no fim de um criativo). Num editor, parar onde acabou é o
+        // comportamento útil de qualquer jeito: o playhead fica onde você estava.
+        moveToBeginningWhenEnded={false}
+      />
+    );
+  }, [snap, inputProps]);
+
   // Cues para a track de legendas (mesmo chunking do preview).
   const cues = useMemo(
     () => (snap ? buildCues(snap.fxPlan.captions, captionStyle) : []),
@@ -798,7 +916,7 @@ function StudioInner() {
 
   const { timeline, fxPlan } = snap;
   const clip = timeline.videoTrack[sel];
-  const curSec = (currentFrame / timeline.fps).toFixed(2);
+
   const totSec = (timeline.durationInFrames / timeline.fps).toFixed(2);
 
   // VEX-10: registro central de comandos (paleta Ctrl+K). Cada ação é acionável.
@@ -890,7 +1008,7 @@ function StudioInner() {
 
           {/* Abas do bin (VEX-07 inc.2) */}
           <div className="flex gap-1 border-b border-line pb-2">
-            {([["criativos", "Criativos"], ["midia", "Mídia"], ["audio", "Áudio"]] as const).map(([id, label]) => (
+            {([["criativos", "Criativos"], ["midia", "Mídia"], ["audio", "Áudio"], ["efeitos", "Efeitos"]] as const).map(([id, label]) => (
               <button
                 key={id}
                 onClick={() => setBinTab(id)}
@@ -902,6 +1020,40 @@ function StudioInner() {
               </button>
             ))}
           </div>
+
+          {/* GRUPO 3 - EFEITOS: camadas sobrepostas.
+              Um clique monta a camada inteira: o modo de mesclagem certo, a
+              opacidade calibrada e a REPETICAO para cobrir a peca — o arquivo
+              tem 10 s e a peca tem 20 minutos. Feito na mao, o passo esquecido
+              e sempre o blend, e sem ele o preto do overlay so escurece a
+              imagem em vez de sumir: e a queixa de "o efeito nao aparece". */}
+          {binTab === "efeitos" && (
+          <div className="flex flex-col gap-3">
+            <div className="text-[11px] text-fg-faint">
+              Um clique insere o efeito como camada nova, cobrindo a peça inteira.
+              Depois dá para aparar, mover ou ajustar a opacidade na timeline.
+            </div>
+            {(["atmosfera", "pelicula", "analogico"] as const).map((fam) => (
+              <div key={fam}>
+                <div className="text-[11px] uppercase tracking-wide text-fg-muted font-extrabold mb-1">{fam}</div>
+                <div className="flex flex-col gap-1">
+                  {EFEITOS.filter((e) => e.familia === fam).map((e) => (
+                    <button
+                      key={e.id}
+                      title={`${e.descricao}  ·  mescla em ${e.blend}, opacidade ${Math.round(e.opacidade * 100)}%`}
+                      onClick={() => snap && apply({ timeline: addEfeito(snap.timeline, e.id as EfeitoId), fxPlan: snap.fxPlan })}
+                      disabled={!snap}
+                      style={{ ...btn, width: "100%", textAlign: "left", fontSize: 11, display: "flex", justifyContent: "space-between", gap: 6 }}
+                    >
+                      <span>{e.nome}</span>
+                      <span style={{ color: "#666", fontSize: 9 }}>{e.blend}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          )}
 
           {binTab === "criativos" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -1037,22 +1189,13 @@ function StudioInner() {
         {/* Preview (palco) */}
         <Panel id="preview" defaultSize="59%" minSize="34%">
         <main style={{ position: "relative", height: "100%", background: "var(--color-surface-0)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 16, minHeight: 0 }}>
-          <div ref={stageRef} onMouseDown={() => setSelectedLayerClip("")} style={{ position: "relative", height: "calc(100% - 56px)", aspectRatio: "9 / 16", background: "#000", borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,.6)" }}>
-            <Player
-              ref={playerRef}
-              component={TimelineFxComposition as never}
-              inputProps={inputProps as never}
-              durationInFrames={timeline.durationInFrames}
-              fps={timeline.fps}
-              compositionWidth={timeline.width}
-              compositionHeight={timeline.height}
-              style={{ width: "100%", height: "100%" }}
-              errorFallback={() => (
-                <div style={{ display: "grid", placeItems: "center", height: "100%", color: "#FF8C42", fontSize: 12, textAlign: "center", padding: 16 }}>
-                  Mídia incompatível neste clipe (formato/codec).<br />Veja a auditoria de edição.
-                </div>
-              )}
-            />
+          {/* O palco segue o FORMATO DA TIMELINE, não um 9:16 fixo.
+              O dark-room entrega 1920×1080 para YouTube; com a proporção travada
+              em retrato, a peça horizontal aparecia espremida numa caixa vertical.
+              As alças de manipulação medem a partir desta caixa, então ela precisa
+              coincidir com o vídeo — não basta deixar o Player fazer letterbox. */}
+          <div ref={stageRef} onMouseDown={() => setSelectedLayerClip("")} style={{ position: "relative", aspectRatio: palcoAspecto, ...palcoTamanho, background: "#000", borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,.6)" }}>
+            {playerNode}
             {/* Alças no palco: mover (caixa tracejada) + redimensionar (canto). */}
             {selVisual && (() => {
               const { lid, cid, cl } = selVisual;
@@ -1120,12 +1263,12 @@ function StudioInner() {
               <IconButton aria-label={playing ? "Pausar" : "Reproduzir"} onClick={togglePlay}>{playing ? <Pause className="size-4" /> : <Play className="size-4" />}</IconButton>
             </Tip>
             <Tip label="Fim (End)"><IconButton aria-label="Ir para o fim" onClick={() => seek(timeline.durationInFrames - 1)}><SkipForward className="size-4" /></IconButton></Tip>
-            <span className="text-[12px] text-fg-muted tabular-nums ml-2">
-              {curSec}s / {totSec}s
-            </span>
-            {/* VEX-10: VU meter estimado do mix no frame atual (clipping em vermelho) */}
-            {(() => {
-              const lvl = estimateLevel(timeline, currentFrame);
+            <ContadorTempo fps={timeline.fps} totalSec={totSec} className="text-[12px] text-fg-muted tabular-nums ml-2" />
+            {/* VEX-10: VU meter estimado do mix no frame atual (clipping em vermelho).
+                Envolvido em `ComFrame`: ele precisa do frame a cada quadro, e
+                assim é o único trecho do transporte que re-renderiza junto. */}
+            <ComFrame>{(frameDoVu) => (() => {
+              const lvl = estimateLevel(timeline, frameDoVu);
               const pct = Math.min(1, lvl.level / 1.2);
               const grad = "linear-gradient(90deg, #2DE2C8 0%, #2DE2C8 58%, #FFB800 58%, #FFB800 83%, #FF4D2E 83%, #FF4D2E 100%)";
               return (
@@ -1138,7 +1281,7 @@ function StudioInner() {
                   </div>
                 </Tip>
               );
-            })()}
+            })()}</ComFrame>
             <span className="w-px h-[18px] bg-line-strong mx-1.5" />
             <Tip label="Desfazer (Ctrl+Z)"><IconButton aria-label="Desfazer" onClick={undo}><Undo2 className="size-4" /></IconButton></Tip>
             <Tip label="Refazer (Ctrl+Shift+Z)"><IconButton aria-label="Refazer" onClick={redo}><Redo2 className="size-4" /></IconButton></Tip>
@@ -1252,12 +1395,34 @@ function StudioInner() {
         {/* Inspector */}
         <Panel id="inspector" defaultSize="24%" minSize="16%" maxSize="42%">
         <aside style={{ height: "100%", background: "var(--color-surface-1)", padding: 16, overflowY: "auto" }}>
-          <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: 1, margin: "0 0 4px" }}>Inspector</h2>
-          <p style={{ fontSize: 11, color: "#666", margin: 0 }}>
+          <h2 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: 1, margin: "0 0 6px" }}>Inspector</h2>
+          {/* Frente B: barra de contexto — mostra o TIPO em foco (dedicado por
+              faixa) e permite ir ao painel de Projeto (config globais). */}
+          {(() => {
+            const ctx: Record<typeof focusKind, { icon: string; label: string }> = {
+              video: { icon: "🎬", label: "Vídeo" },
+              audio: { icon: "🎧", label: "Áudio" },
+              text: { icon: "🅣", label: "Texto / Legenda" },
+              overlay: { icon: "▦", label: "Overlay / Motion" },
+              none: { icon: "⚙", label: "Projeto" },
+            };
+            const c = ctx[focusKind];
+            return (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--color-accent)" }}>{c.icon} {c.label}</span>
+                <button
+                  onClick={() => setFocusKind("none")}
+                  title="Configurações do projeto (globais)"
+                  style={{ ...btn, fontSize: 11, padding: "2px 8px", background: focusKind === "none" ? "var(--color-accent)" : "var(--color-surface-4)", color: focusKind === "none" ? "#06121a" : "var(--color-fg)" }}
+                >⚙ Projeto</button>
+              </div>
+            );
+          })()}
+          <p style={{ fontSize: 11, color: "#666", margin: "0 0 4px" }}>
             {timeline.videoTrack.length} clips · {(timeline.durationInFrames / timeline.fps).toFixed(1)}s · narração-driven
           </p>
 
-          {clip && (
+          {focusKind === "video" && clip && (
             <section style={{ ...box, marginTop: 12 }}>
               <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>
                 Clip {sel + 1}: <strong style={{ color: "#fff" }}>{clip.role}</strong>{" "}
@@ -1300,42 +1465,84 @@ function StudioInner() {
                 <button style={btn} aria-label="Remover clipe" title="Remover clipe" onClick={() => { apply({ timeline: removeClip(timeline, sel), fxPlan }); setSel(0); }}><Trash2 className="size-3.5" /></button>
               </div>
 
-              {/* Transição de entrada (clipes a partir do 2º) */}
+              {/* GRUPO 1 - TRANSICAO: pega DOIS takes.
+                  So existe a partir do 2o clipe, porque e literalmente a emenda
+                  entre o take anterior e este. Um clipe sozinho nao tem
+                  transicao - tem animacao, que e outro grupo. */}
               {sel > 0 && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                  <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>Transição de entrada</div>
-                  <div style={{ display: "flex", gap: 6 }}>
-                    <select
-                      value={clip.transitionIn?.type ?? "dissolve"}
-                      onChange={(e) => apply({ timeline: setClipTransition(timeline, sel, e.target.value as TransitionType, clip.transitionIn?.durationInFrames ?? 6), fxPlan })}
-                      style={{ ...btn, flex: 1 }}
-                    >
-                      {(["none", "dissolve", "slide", "zoom"] as const).map((t) => <option key={t} value={t}>{t}</option>)}
-                    </select>
-                    <input
-                      type="number" min={1} max={20}
-                      value={clip.transitionIn?.durationInFrames ?? 6}
-                      onChange={(e) => apply({ timeline: setClipTransition(timeline, sel, clip.transitionIn?.type ?? "dissolve", Number(e.target.value)), fxPlan })}
-                      title="frames"
-                      style={{ ...btn, width: 56 }}
-                    />
+                  <div style={{ fontSize: 11, color: "#888", marginBottom: 1 }}>
+                    Transição <span style={{ color: "#555" }}>· deste take com o anterior</span>
                   </div>
+                  <div style={{ fontSize: 9, color: "#666", marginBottom: 5 }}>
+                    {defTransicao(normalizaTransicao(clip.transitionIn?.type)).descricao}
+                  </div>
+                  <select
+                    value={normalizaTransicao(clip.transitionIn?.type)}
+                    onChange={(e) => apply({ timeline: setClipTransitionTipo(timeline, sel, e.target.value as TransicaoId), fxPlan })}
+                    style={{ ...btn, width: "100%" }}
+                  >
+                    {(["corte", "dissolvencia", "movimento", "otica"] as const).map((fam) => (
+                      <optgroup key={fam} label={fam}>
+                        {TRANSICOES.filter((t) => t.familia === fam).map((t) => (
+                          <option key={t.id} value={t.id}>{t.nome}</option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
+                  {normalizaTransicao(clip.transitionIn?.type) !== "corte" && (
+                    <div style={{ display: "flex", gap: 6, marginTop: 6, alignItems: "center" }}>
+                      <div style={{ display: "flex", gap: 3, flex: 1 }}>
+                        {PESOS.map((w) => {
+                          const on = (clip.transitionIn?.peso ?? "medio") === w;
+                          return (
+                            <button key={w}
+                              onClick={() => apply({ timeline: setClipTransitionPeso(timeline, sel, w), fxPlan })}
+                              title={w === "agressivo" ? "mais forte E mais curto" : w === "calmo" ? "mais suave e mais longo" : "padrão"}
+                              style={{ ...btn, flex: 1, fontSize: 10, padding: "2px 4px", background: on ? "var(--color-accent)" : "var(--color-surface-4)", color: on ? "#06121a" : "var(--color-fg)" }}>
+                              {w}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <input
+                        type="number" min={1} max={60}
+                        value={clip.transitionIn?.durationInFrames ?? 12}
+                        onChange={(e) => apply({ timeline: setClipTransition(timeline, sel, normalizaTransicao(clip.transitionIn?.type), Number(e.target.value), clip.transitionIn?.peso), fxPlan })}
+                        title="duração em frames — digitar aqui trava a duração; o peso passa a mexer só na intensidade"
+                        style={{ ...btn, width: 52 }}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Volume do áudio próprio (talking-heads: hook/CTA) — VEX-05 */}
-              {clip.audioEnabled && !clip.gap && (
+              {/* Áudio próprio do clipe — PADRONIZADO: qualquer faixa de vídeo
+                  pode ligar seu áudio (não só talking-heads). Frente B. */}
+              {!clip.gap && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                  <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>
-                    Volume da fala {Math.round((clip.volume ?? 1) * 100)}%
-                  </div>
-                  <input
-                    type="range" min={0} max={1} step={0.05}
-                    value={clip.volume ?? 1}
-                    onPointerDown={beginEdit}
-                    onChange={(e) => liveUpdate({ timeline: setClipVolume(timeline, sel, Number(e.target.value)), fxPlan })}
-                    style={{ width: "100%" }}
-                  />
+                  <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "#888", cursor: "pointer" }}>
+                    <input
+                      type="checkbox"
+                      checked={clip.audioEnabled}
+                      onChange={(e) => apply({ timeline: setClipAudioEnabled(timeline, sel, e.target.checked), fxPlan })}
+                    />
+                    Áudio próprio do clipe {clip.audioEnabled ? "🔊" : "🔇"}
+                  </label>
+                  {clip.audioEnabled && (
+                    <div style={{ marginTop: 6 }}>
+                      <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>
+                        Volume {Math.round((clip.volume ?? 1) * 100)}%
+                      </div>
+                      <input
+                        type="range" min={0} max={1} step={0.05}
+                        value={clip.volume ?? 1}
+                        onPointerDown={beginEdit}
+                        onChange={(e) => liveUpdate({ timeline: setClipVolume(timeline, sel, Number(e.target.value)), fxPlan })}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -1360,8 +1567,9 @@ function StudioInner() {
                 </div>
               )}
 
-              {/* Parâmetros de screen-capture (inserts: skill/reference/generation/result) */}
-              {!clip.audioEnabled && !clip.gap && (
+              {/* Enquadramento + Ken Burns — PADRONIZADO em TODA faixa de vídeo
+                  (antes só aparecia em screen-captures). Frente B. */}
+              {!clip.gap && (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
                   <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>
                     Enquadramento · velocidade {clip.playbackRate.toFixed(2)}×
@@ -1375,23 +1583,79 @@ function StudioInner() {
                     <option value="panel">painel (aspect real, sem corte)</option>
                     <option value="cover">cover (preenche, corta laterais)</option>
                   </select>
-                  <div style={{ fontSize: 11, color: "#888", margin: "8px 0 2px" }}>
-                    Zoom (Ken Burns) {Math.round((clip.kenBurns ?? 0) * 100)}%
+                </div>
+              )}
+
+              {/* GRUPO 4 - CAMERA: movimento nativo do quadro.
+                  Nao e overlay nem transicao - e o proprio take se movendo.
+                  Substitui o antigo "Ken Burns", que era um numero sem direcao e
+                  cujo slider comecava em 0: o zoom-out era inalcancavel pela
+                  interface mesmo com o renderer ja suportando o sinal negativo. */}
+              {!clip.gap && (
+                <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                  <div style={{ fontSize: 11, color: "#888", marginBottom: 1 }}>
+                    Câmera <span style={{ color: "#555" }}>· movimento deste take</span>
                   </div>
-                  <input
-                    type="range" min={0} max={0.15} step={0.01}
-                    value={clip.kenBurns ?? 0}
-                    onPointerDown={beginEdit}
-                    onChange={(e) => liveUpdate({ timeline: setClipKenBurns(timeline, sel, Number(e.target.value)), fxPlan })}
-                    style={{ width: "100%" }}
-                  />
+                  {(() => {
+                    const cam = clip.camera ?? cameraDoKenBurns(clip.kenBurns);
+                    const tipo: CameraId = cam?.tipo ?? "parada";
+                    const peso: Peso = cam?.peso ?? "medio";
+                    const curva: CameraCurva = cam?.curva ?? defCameraUI(tipo).curvaPadrao;
+                    return (
+                      <>
+                        <div style={{ fontSize: 9, color: "#666", marginBottom: 5 }}>
+                          {defCameraUI(tipo).descricao}
+                        </div>
+                        <select
+                          value={tipo}
+                          onChange={(e) => apply({ timeline: setClipCameraTipo(timeline, sel, e.target.value as CameraId), fxPlan })}
+                          style={{ ...btn, width: "100%" }}
+                        >
+                          {CAMERAS.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
+                        </select>
+                        {tipo !== "parada" && (
+                          <>
+                            <div style={{ display: "flex", gap: 3, marginTop: 6 }}>
+                              {PESOS.map((w) => (
+                                <button key={w}
+                                  onClick={() => apply({ timeline: setClipCameraPeso(timeline, sel, w), fxPlan })}
+                                  title={w === "calmo" ? "abaixo do que o olho identifica como zoom" : w === "agressivo" ? "movimento declarado" : "padrão do gênero"}
+                                  style={{ ...btn, flex: 1, fontSize: 10, padding: "2px 4px", background: peso === w ? "var(--color-accent)" : "var(--color-surface-4)", color: peso === w ? "#06121a" : "var(--color-fg)" }}>
+                                  {w}
+                                </button>
+                              ))}
+                            </div>
+                            <select
+                              value={curva}
+                              onChange={(e) => apply({ timeline: setClipCameraCurva(timeline, sel, e.target.value as CameraCurva), fxPlan })}
+                              title="como o movimento se distribui no tempo"
+                              style={{ ...btn, width: "100%", marginTop: 6, fontSize: 11 }}
+                            >
+                              <option value="linear">curva: linear (velocidade constante)</option>
+                              <option value="suave">curva: suave (entra e sai devagar)</option>
+                              <option value="acelera">curva: acelera (ganha velocidade)</option>
+                              <option value="desacelera">curva: desacelera (chega assentando)</option>
+                            </select>
+                          </>
+                        )}
+                        <button
+                          onClick={() => apply({ timeline: setCameraEmTodos(timeline, { tipo, peso, curva }, true), fxPlan })}
+                          title="Aplica em toda a peça alternando o sentido a cada take. É o que impede a peça inteira de respirar junto, e o que faz a repetição de uma mesma imagem não se denunciar."
+                          style={{ ...btn, width: "100%", marginTop: 6, fontSize: 10 }}
+                        >
+                          aplicar em todos os takes (sentido alternado)
+                        </button>
+                      </>
+                    );
+                  })()}
                 </div>
               )}
             </section>
           )}
 
+          {((focusKind === "audio" && !selectedLayerClip) || focusKind === "none") && (
           <section style={{ ...box, marginTop: 12 }}>
-            <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>Áudio & dinâmica</div>
+            <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>Áudio & dinâmica{focusKind === "audio" ? " — narração" : ""}</div>
             <div style={{ fontSize: 11, color: captionSource === "transcript" ? "#2DE2C8" : "#FF8C42", marginBottom: 8 }}>
               {captionSource === "transcript"
                 ? "✓ Legendas da transcrição real (suas gravações)"
@@ -1453,8 +1717,10 @@ function StudioInner() {
               </div>
             )}
           </section>
+          )}
 
-          {/* Camadas extras — SFX, trilha, overlays inseríveis */}
+          {/* Camadas extras (gestão) — só no painel de Projeto (globais) */}
+          {focusKind === "none" && (
           <section style={{ ...box, marginTop: 12 }}>
             <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>🎚️ Camadas extras</div>
             <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
@@ -1462,7 +1728,7 @@ function StudioInner() {
               <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addLayer(timeline, "video", "Overlay"), fxPlan })}><Plus className="size-3.5" /> Overlay</button>
             </div>
             <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-              <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrame, timeline.fps)), fxPlan })}><Plus className="size-3.5" /> Texto</button>
+              <button style={{ ...btn, flex: 1, fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }} onClick={() => apply({ timeline: addElementLayer(timeline, "video", "Texto", makeTextElement(currentFrameRef.current, timeline.fps)), fxPlan })}><Plus className="size-3.5" /> Texto</button>
             </div>
             {(timeline.extraLayers ?? []).length === 0 && (
               <div style={{ fontSize: 11, color: "#666" }}>Nenhuma camada. Adicione uma trilha/SFX ou overlay.</div>
@@ -1488,9 +1754,9 @@ function StudioInner() {
                           key={a.url}
                           style={{ ...btn, textAlign: "left", fontSize: 11, padding: "4px 6px" }}
                           onClick={() => {
-                            const dur = Math.max(30, Math.min(timeline.fps * 5, timeline.durationInFrames - currentFrame));
+                            const dur = Math.max(30, Math.min(timeline.fps * 5, timeline.durationInFrames - currentFrameRef.current));
                             const isAudio = a.kind === "audio";
-                            apply({ timeline: addLayerClip(timeline, L.id, { type: assetElementType(a.kind), src: a.url, label: baseName(a.name), startFrame: currentFrame, durationInFrames: dur, ...(isAudio ? { volume: 1 } : { opacity: 1 }) }), fxPlan });
+                            apply({ timeline: addLayerClip(timeline, L.id, { type: assetElementType(a.kind), src: a.url, label: baseName(a.name), startFrame: currentFrameRef.current, durationInFrames: dur, ...(isAudio ? { volume: 1 } : { opacity: 1 }) }), fxPlan });
                             setPickerFor("");
                           }}
                         >
@@ -1502,7 +1768,17 @@ function StudioInner() {
                 </div>
               );
             })}
-            {selectedLayerClip && (() => {
+          </section>
+          )}
+
+          {/* Inspector de ELEMENTO — dedicado por tipo (áudio/texto/overlay) */}
+          {selectedLayerClip && (focusKind === "audio" || focusKind === "text" || focusKind === "overlay") && (
+          <section style={{ ...box, marginTop: 12 }}>
+            {/* `ComFrame` porque os controles de keyframe leem o valor NO FRAME
+                CORRENTE — e esse e o unico motivo pelo qual este bloco precisa
+                acompanhar a reproducao. Envolver so ele mantem o resto do
+                inspector fora do ciclo. */}
+            <ComFrame>{(frameDoVu) => (() => {
               const [lid, cid] = selectedLayerClip.split("/");
               const layer = (timeline.extraLayers ?? []).find((L) => L.id === lid);
               const cl = layer?.clips.find((c) => c.id === cid);
@@ -1511,7 +1787,7 @@ function StudioInner() {
               const patch = (p: Partial<typeof cl>) => apply({ timeline: setElementParams(timeline, lid, cid, p), fxPlan });
               const live = (p: Partial<typeof cl>) => liveUpdate({ timeline: setElementParams(timeline, lid, cid, p), fxPlan });
               // VEX-09: frame LOCAL do elemento (o playhead relativo ao clipe).
-              const lf = Math.max(0, Math.min(cl.durationInFrames, currentFrame - cl.startFrame));
+              const lf = Math.max(0, Math.min(cl.durationInFrames, frameDoVu - cl.startFrame));
               const kfVal = (prop: KfProp, base: number) => sampleTrack(cl.tracks?.[prop], lf, cl[prop] ?? base);
               const kfLive = (prop: KfProp, value: number) => liveUpdate({ timeline: setElementKfValue(timeline, lid, cid, prop, lf, value), fxPlan });
               const kfToggle = (prop: KfProp, base: number) => apply({ timeline: toggleElementKeyframe(timeline, lid, cid, prop, lf, kfVal(prop, base)), fxPlan });
@@ -1640,19 +1916,33 @@ function StudioInner() {
                     </div>
                   )}
 
-                  {/* Animações de entrada e saída — todos os tipos de elemento */}
+                  {/* GRUPO 2 - ANIMACOES: entrada e saida de UM elemento.
+                      Nao confundir com transicao: animacao nao conhece o clipe
+                      vizinho. Trocar o tipo faz a duracao acompanhar o preset. */}
                   {(() => {
-                    const anim = (w: "animateIn" | "animateOut") => cl[w] ?? { type: "none" as AnimType, durationInFrames: 8 };
+                    const anim = (w: "animateIn" | "animateOut") => cl[w] ?? { type: "nenhuma" as AnimType, durationInFrames: 10 };
                     const setAnim = (w: "animateIn" | "animateOut", p: Partial<{ type: AnimType; durationInFrames: number }>) =>
                       patch({ [w]: { ...anim(w), ...p } } as Partial<typeof cl>);
                     return (
                       <div style={{ marginTop: 8, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
-                        <div style={{ fontSize: 11, color: "#888", marginBottom: 4 }}>Animação</div>
+                        <div style={{ fontSize: 11, color: "#888", marginBottom: 1 }}>
+                          Animação <span style={{ color: "#555" }}>· deste elemento, sozinho</span>
+                        </div>
+                        <div style={{ fontSize: 9, color: "#666", marginBottom: 5 }}>
+                          {defAnimacao(normalizaAnimacao(anim("animateIn").type)).descricao}
+                        </div>
                         {(["animateIn", "animateOut"] as const).map((w) => (
                           <div key={w} style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 6 }}>
                             <span style={{ fontSize: 11, color: "#888", width: 46 }}>{w === "animateIn" ? "Entrada" : "Saída"}</span>
-                            <select value={anim(w).type} onChange={(e) => setAnim(w, { type: e.target.value as AnimType })} style={{ ...btn, flex: 1, fontSize: 11 }}>
-                              {(["none", "fade", "slide", "zoom"] as const).map((o) => <option key={o} value={o}>{o}</option>)}
+                            <select
+                              value={normalizaAnimacao(anim(w).type)}
+                              onChange={(e) => {
+                                const id = e.target.value as AnimacaoId;
+                                setAnim(w, { type: id, durationInFrames: defAnimacao(id).framesPadrao || 1 });
+                              }}
+                              style={{ ...btn, flex: 1, fontSize: 11 }}
+                            >
+                              {ANIMACOES.map((a) => <option key={a.id} value={a.id} title={a.descricao}>{a.nome}</option>)}
                             </select>
                             <input type="number" min={1} max={60} value={anim(w).durationInFrames}
                               onChange={(e) => setAnim(w, { durationInFrames: Math.max(1, Number(e.target.value)) })}
@@ -1666,10 +1956,11 @@ function StudioInner() {
                   <button style={{ ...btn, width: "100%", fontSize: 11, marginTop: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6 }} onClick={() => { apply({ timeline: removeLayerClip(timeline, lid, cid), fxPlan }); setSelectedLayerClip(""); }}><Trash2 className="size-3.5" /> Remover elemento</button>
                 </div>
               );
-            })()}
+            })()}</ComFrame>
           </section>
+          )}
 
-          {soundFindings.length > 0 && (
+          {(focusKind === "audio" || focusKind === "none") && soundFindings.length > 0 && (
             <section style={{ ...box, marginTop: 12 }}>
               <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>🔊 Sound design — revisão</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
@@ -1688,6 +1979,7 @@ function StudioInner() {
             </section>
           )}
 
+          {(focusKind === "text" || focusKind === "none") && (<>
           <section style={{ ...box, marginTop: 12 }}>
             <div style={{ fontSize: 12, color: "#888", marginBottom: 8 }}>Hook FX</div>
             <select
@@ -1715,14 +2007,26 @@ function StudioInner() {
                 apply({ timeline, fxPlan: { ...fxPlan, captionTheme: next } });
               };
               const isGrad = fxPlan.captionRenderer === "gradient";
+              const emphasisDefault = !(fxPlan.captionRenderer === "clean" || fxPlan.captionRenderer === "mono-bold");
               return (
                 <div style={{ marginTop: 10, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 8 }}>
+                  {/* Fonte — livre em QUALQUER estilo */}
+                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>Fonte</div>
+                  <select
+                    value={th.fontFamily ?? ""}
+                    onChange={(e) => setTheme({ fontFamily: e.target.value || undefined })}
+                    style={{ ...btn, width: "100%", marginBottom: 8, fontFamily: th.fontFamily ? fontFamilyById(th.fontFamily) : undefined }}
+                  >
+                    <option value="">Padrão do estilo</option>
+                    {FONT_CHOICES.map((f) => (
+                      <option key={f.id} value={f.id} style={{ fontFamily: f.family }}>{f.label}</option>
+                    ))}
+                  </select>
                   {isGrad ? (
                     <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
                       <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4 }}>
-                        Gradiente
-                        <input type="color" value={th.gradientFrom ?? "#2E7FE8"} onChange={(e) => setTheme({ gradientFrom: e.target.value })} title="cor inicial" style={{ ...btn, width: 40, padding: 2 }} />
-                        <input type="color" value={th.gradientTo ?? "#FFFFFF"} onChange={(e) => setTheme({ gradientTo: e.target.value })} title="cor final" style={{ ...btn, width: 40, padding: 2 }} />
+                        Destaque togi (azul)
+                        <input type="color" value={th.gradientFrom ?? "#2E86F0"} onChange={(e) => setTheme({ gradientFrom: e.target.value })} title="cor da palavra em destaque" style={{ ...btn, width: 40, padding: 2 }} />
                       </label>
                     </div>
                   ) : (
@@ -1745,6 +2049,9 @@ function StudioInner() {
                     </label>
                     <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
                       <input type="checkbox" checked={th.boxed ?? !(isGrad || fxPlan.captionRenderer === "clean")} onChange={(e) => setTheme({ boxed: e.target.checked })} /> Caixa de fundo
+                    </label>
+                    <label style={{ fontSize: 10, color: "#888", display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }} title="Realça só a palavra falada e vai avançando (karaokê)">
+                      <input type="checkbox" checked={th.highlight ?? emphasisDefault} onChange={(e) => setTheme({ highlight: e.target.checked })} /> Realçar fala
                     </label>
                   </div>
                   {/* Bônus: legenda performática SÓ no hook (serifada dourada dinâmica) */}
@@ -1794,6 +2101,7 @@ function StudioInner() {
               />
             )}
           </section>
+          </>)}
         </aside>
         </Panel>
       </Group>
@@ -1839,7 +2147,6 @@ function StudioInner() {
       <TimelineView
         timeline={timeline}
         fxPlan={fxPlan}
-        currentFrame={currentFrame}
         pps={pps}
         selectedIndex={sel}
         mediaBaseUrl={mediaBaseUrl}
@@ -1862,6 +2169,7 @@ function StudioInner() {
         }}
         onSelectClip={(i, additive) => {
           setSelectedLayerClip("");
+          setFocusKind("video");
           setTrimSel(null); // clicar no corpo do clipe solta a pinça
           setSel(i);
           setSelVideo((cur) => additive
@@ -1877,7 +2185,7 @@ function StudioInner() {
         onSplit={(index, atFrame) => { apply({ timeline: splitClip(timeline, index, atFrame), fxPlan }); setRazorMode(false); }}
         cues={cues}
         selectedCue={selectedCue}
-        onSelectCue={(i) => { setSelectedCue(i); setSelectedLayerClip(""); }}
+        onSelectCue={(i) => { setSelectedCue(i); setSelectedLayerClip(""); setFocusKind("text"); }}
         onCueShift={(i, deltaFrames) => {
           const cue = cues[i];
           if (!cue) return;
@@ -1885,12 +2193,18 @@ function StudioInner() {
           liveUpdate({ timeline, fxPlan: { ...fxPlan, captions: shiftCaptions(fxPlan.captions, cue.startMs, cue.endMs, deltaMs) } });
         }}
         selectedAudio={selectedAudio}
-        onSelectAudio={(id) => { setSelectedAudio(id); setSelectedLayerClip(""); }}
+        onSelectAudio={(id) => { setSelectedAudio(id); setSelectedLayerClip(""); setFocusKind("audio"); }}
         onNarrShift={(delta) => liveUpdate({ timeline: shiftNarration(timeline, delta), fxPlan })}
         onSegMove={(segIndex, delta) => liveUpdate({ timeline: moveAudioSegment(timeline, segIndex, delta), fxPlan })}
         onAssetDrop={handleAssetDrop}
         selectedLayerClip={selectedLayerClip}
-        onSelectLayerClip={(layerId, clipId) => { setSelectedLayerClip(`${layerId}/${clipId}`); setSelectedCue(-1); setSelectedAudio(""); }}
+        onSelectLayerClip={(layerId, clipId) => {
+          setSelectedLayerClip(`${layerId}/${clipId}`); setSelectedCue(-1); setSelectedAudio("");
+          const L = (timeline.extraLayers ?? []).find((x) => x.id === layerId);
+          const c = L?.clips.find((x) => x.id === clipId);
+          const et = L && c ? elementType(L.kind, c) : null;
+          setFocusKind(et === "media-audio" ? "audio" : et === "text" ? "text" : "overlay");
+        }}
         onLayerClipMove={(layerId, clipId, delta) => liveUpdate({ timeline: moveLayerClip(timeline, layerId, clipId, delta), fxPlan })}
         onLayerClipTrim={(layerId, clipId, delta) => liveUpdate({ timeline: trimLayerClip(timeline, layerId, clipId, delta), fxPlan })}
         onAudioTrim={(blockId, delta) => {

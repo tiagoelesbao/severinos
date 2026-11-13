@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Uma entrada só, e é proposital.
+
+  O app usa roteamento por hash: #/recursos e #/recursos/{slug} são fragmentos
+  da MESMA URL (/). Buscadores descartam o fragmento ao normalizar a URL, então
+  listar "https://oraclumtech-cofre.vercel.app/#/recursos/xyz" no sitemap seria declarar
+  26 páginas que o servidor não distingue — todas colapsariam na raiz e o
+  Search Console apontaria "URL duplicada / canonical alternativa".
+
+  Para que os 26 guias virem páginas indexáveis é preciso migrar o roteamento
+  para History API (/recursos/{slug}) com fallback do servidor para index.html,
+  e só então expandir este sitemap. Ver relatório de SEO.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://oraclumtech-cofre.vercel.app/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

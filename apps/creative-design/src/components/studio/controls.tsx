@@ -1,10 +1,13 @@
 import React from 'react';
 
-const ACCENT = '#FFB800';
+// Acento das controles do Studio: lê `--ui-accent` (setado por página, por
+// cliente) com fallback para o âmbar histórico — nunca hardcode uma cor de
+// marca aqui, os componentes deste arquivo são compartilhados entre clientes.
+const ACCENT = 'var(--ui-accent, #FFB800)';
 
 export const panelField =
-  'w-full bg-white/5 border border-white/10 rounded-md px-2.5 py-1.5 text-sm '
-  + 'text-white focus:border-[#FFB800] outline-none';
+  'w-full bg-[#14141e] border border-white/10 rounded-md px-2.5 py-1.5 text-sm '
+  + 'text-white focus:border-[var(--ui-accent,#FFB800)] outline-none';
 
 export function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -51,7 +54,7 @@ export function Slider({
       <input
         type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#FFB800]"
+        className="w-full accent-[var(--ui-accent,#FFB800)]"
       />
     </div>
   );
@@ -97,7 +100,7 @@ export function Segmented<T extends string>({
           onClick={() => onChange(o.value)}
           className={`flex-1 text-xs py-1.5 rounded transition ${
             value === o.value
-              ? 'bg-[#FFB800] text-black font-bold'
+              ? 'bg-[var(--ui-accent,#FFB800)] text-black font-bold'
               : 'text-white/60 hover:text-white hover:bg-white/5'
           }`}
         >
@@ -119,7 +122,7 @@ export function ToggleChip({
       onClick={onClick}
       className={`px-2.5 py-1.5 rounded text-xs font-bold transition border ${
         active
-          ? 'bg-[#FFB800] text-black border-[#FFB800]'
+          ? 'bg-[var(--ui-accent,#FFB800)] text-black border-[var(--ui-accent,#FFB800)]'
           : 'text-white/60 border-white/10 hover:border-white/30'
       }`}
     >

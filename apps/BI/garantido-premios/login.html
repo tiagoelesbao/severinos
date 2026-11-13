@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Garantido — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#060f09; --bg-card:#0f1c13; --border:#1f3326; --green:#0b9a2a; --green-light:#37e332; --text:#f5f5f7; --muted:#a0b0a6; --red:#e3543e; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--text); font-family:'Montserrat',sans-serif;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 32px 28px; width: 100%; max-width: 340px; }
+  h1 { font-size: 15px; font-weight: 800; color: var(--green-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; text-align: center; }
+  input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 12px 14px; font-size: 14px; font-family: inherit; margin-bottom: 14px;
+  }
+  input:focus { outline: none; border-color: var(--green); }
+  button {
+    width: 100%; background: linear-gradient(135deg, var(--green), var(--green-light));
+    color: #04140a; border: none; border-radius: 8px; padding: 13px; font-weight: 800;
+    font-size: 14px; font-family: inherit; cursor: pointer;
+  }
+  .erro { color: var(--red); font-size: 12.5px; margin-bottom: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>BI Garantido</h1>
+  <form method="POST" action="/api/login">
+    <div class="erro" id="erro" style="display:none;">Senha incorreta.</div>
+    <input type="password" name="senha" placeholder="Senha" autofocus required />
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('erro')) {
+    document.getElementById('erro').style.display = 'block';
+  }
+</script>
+</body>
+</html>

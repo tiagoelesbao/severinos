@@ -28,7 +28,7 @@ const briefPath = path.join(
   "squads/virals-marketing-squad/data",
   `video-brief-${creative}.yaml`,
 );
-const brief = (parse(fs.readFileSync(briefPath, "utf-8")) as Record<string, any>) || {};
+const brief = fs.existsSync(briefPath) ? (parse(fs.readFileSync(briefPath, "utf-8")) as Record<string, any>) || {} : {};
 const cp = brief.content_plan || {};
 const script: string = cp.script || "";
 const templateRefs = (cp.edit_spec || {}).template_refs || null;

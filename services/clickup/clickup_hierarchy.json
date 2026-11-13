@@ -2,6 +2,15 @@
   "Gestão": {
     "id": "901312418172",
     "folders": {
+      "Objetivos & Metas (OKR)": {
+        "id": "901316483302",
+        "lists": {
+          "Q1 - FUNDAÇÃO": "901324539965",
+          "Q2 - TRAÇÃO": "901324542703",
+          "Q3 - AUTORIDADE": "901324542712",
+          "Q4 - CONSOLIDAÇÃO": "901324542728"
+        }
+      },
       "Financeiro": {
         "id": "901316371991",
         "lists": {
@@ -15,7 +24,8 @@
       "Administrativo": {
         "id": "901316550324",
         "lists": {
-          "Responsabilidades": "901324633919"
+          "Responsabilidades": "901324633919",
+          "ADR": "901326514614"
         }
       },
       "Jurídico": {
@@ -23,6 +33,33 @@
         "lists": {
           "Gestão de Processos Jurídicos": "901324623155",
           "Gestão Contratual": "901324623188"
+        }
+      }
+    },
+    "folderless_lists": {}
+  },
+  "OPS": {
+    "id": "901313436808",
+    "folders": {
+      "Rocks Trimestrais": {
+        "id": "901317466926",
+        "lists": {
+          "Q1 Rocks Planning ": "901326514558"
+        }
+      },
+      "Processos & POPs": {
+        "id": "901316565019",
+        "lists": {
+          "Mapeamento de Processos": "901324654421",
+          "Construção de POPs": "901324654420"
+        }
+      },
+      "Saúde Operacional": {
+        "id": "901317466942",
+        "lists": {
+          "Issues List": "901326514497",
+          "Scorecard": "901326514554",
+          "Health Check": "901326514556"
         }
       },
       "Rotinas Organizacionais": {
@@ -121,13 +158,12 @@
           "Projetos Externos": "901324799752"
         }
       },
-      "Virals Validation": {
+      "Virals Starter & Growth": {
         "id": "901316668857",
         "lists": {
-          "Implementação [Kickoff]": "901324798950",
-          "Ativação & Testes": "901324798948",
-          "Validação & Escala": "901324798949",
-          "Encerramento & Upgrade": "901324798947"
+          "Planejamento & Preparação": "901324798948",
+          "Execução & Monitoramento": "901324798949",
+          "Finalização & Encerramento": "901324798947"
         }
       },
       "Gestão de Projetos Externos": {
@@ -244,52 +280,6 @@
         "id": "901315872084",
         "lists": {
           "Processo de Farm de Whats (API não Oficial)": "901323650370"
-        }
-      }
-    },
-    "folderless_lists": {}
-  },
-  "OPS": {
-    "id": "901313436808",
-    "folders": {
-      "Rocks Trimestrais": {
-        "id": "901317466926",
-        "lists": {
-          "List": "901325936960"
-        }
-      },
-      "Objetivos & Metas (OKR)": {
-        "id": "901316483302",
-        "lists": {
-          "Q1 - FUNDAÇÃO": "901324539965",
-          "Q2 - TRAÇÃO": "901324542703",
-          "Q3 - AUTORIDADE": "901324542712",
-          "Q4 - CONSOLIDAÇÃO": "901324542728"
-        }
-      },
-      "Processos & POPs": {
-        "id": "901316565019",
-        "lists": {
-          "Mapeamento de Processos": "901324654421",
-          "Construção de POPs": "901324654420"
-        }
-      },
-      "Lançamentos": {
-        "id": "901317466930",
-        "lists": {
-          "List": "901325936969"
-        }
-      },
-      "BI & Métricas": {
-        "id": "901317466936",
-        "lists": {
-          "List": "901325936978"
-        }
-      },
-      "Saúde Operacional": {
-        "id": "901317466942",
-        "lists": {
-          "List": "901325936985"
         }
       }
     },

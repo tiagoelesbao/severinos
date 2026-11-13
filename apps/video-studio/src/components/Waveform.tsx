@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /**
  * Waveform via Web Audio API (decodifica o áudio e desenha os picos). Roda no
  * browser; degrada em silêncio se o decode falhar. Peaks são cacheados por src.
  */
-export function Waveform({
+function WaveformBase({
   src,
   width,
   height,
@@ -97,3 +97,9 @@ export function Waveform({
     </svg>
   );
 }
+
+/**
+ * `memo` pelo mesmo motivo do `Filmstrip`: a forma de onda depende do arquivo e
+ * da largura, nunca do frame corrente.
+ */
+export const Waveform = React.memo(WaveformBase);

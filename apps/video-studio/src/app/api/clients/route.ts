@@ -13,6 +13,8 @@ const SLUG = /^[a-z0-9][a-z0-9-]*$/i;
 const DISPLAY: Record<string, string> = {
   virals: "Virals",
   "tiago-elesbao": "Tiago Elesbão",
+  // O title-case do slug daria "Bora De Bola" — o "de" do nome é minúsculo.
+  "bora-de-bola": "Bora de Bola",
 };
 const displayName = (slug: string): string =>
   DISPLAY[slug] ?? slug.split("-").map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join(" ");

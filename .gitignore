@@ -153,4 +153,12 @@ apps/live-futebol/__pycache__/
 # IDs de pagamento — identificação completa de clientes reais (~275 MB).
 # Os scripts que geram e consomem esses arquivos continuam versionados.
 services/Meta/**/*.csv
-**/dados_brutos_completos*.csv
+services/Meta/**/*.csv.*
+services/Meta/**/*.bak*
+services/Meta/**/*.pre-dedup
+services/Meta/**/*.log
+services/Meta/**/__pycache__/
+**/dados_brutos_completos*
+**/detalhes_sorteios*
+**/lista_unificada*
+**/relatorio_financeiro*

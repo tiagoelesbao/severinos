@@ -45,7 +45,7 @@ export const QuoteSlide: React.FC<QuoteSlideProps> = ({
   subHeadline,
   bodyText,
   mainObjectImage,
-  accentColor = '#FF3D68',
+  accentColor = '#FF5B3F',
   headlineFontSize,
   bodyFontSize,
   imageZoom,

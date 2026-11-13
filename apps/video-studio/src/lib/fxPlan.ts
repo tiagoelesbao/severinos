@@ -29,6 +29,17 @@ export interface FxBrand {
  * defaults on-brand. Extraído de benchmarks (Talis clean, togi gradiente).
  */
 export interface CaptionTheme {
+  /**
+   * Fonte escolhida (id do FONT_CHOICES). Vale para QUALQUER estilo — sobrepõe a
+   * fonte padrão do renderer. Ausente = default do estilo.
+   */
+  fontFamily?: string;
+  /**
+   * Realce da palavra falada (karaokê tradicional: só a palavra ativa muda de
+   * cor/ganha pop e vai avançando). Ausente = default do estilo (true na maioria).
+   * false = todas as palavras iguais (sem destaque de fala).
+   */
+  highlight?: boolean;
   /** Cor das palavras normais (default #fff). */
   baseColor?: string;
   /** Cor da palavra ativa/keyword (default = accent da marca). */
@@ -39,6 +50,16 @@ export interface CaptionTheme {
   uppercase?: boolean;
   /** Scrim de fundo atrás do texto (default true). */
   boxed?: boolean;
+  /**
+   * Altura da legenda como FRAÇÃO DA ALTURA, medida do rodapé para cima.
+   * Ausente = `SAFE_CAPTION_BOTTOM` (430/1920 ≈ 0,224), que é a zona segura do
+   * social VERTICAL — onde a UI da plataforma cobre o rodapé.
+   *
+   * Em peça HORIZONTAL essa zona não existe, e a referência do dark põe a legenda
+   * perto do MEIO do quadro (~0,42), não no terço inferior. Deixar o default
+   * vertical numa peça 16:9 empurra a legenda para baixo demais.
+   */
+  bottomPct?: number;
   /** togi/gradient: cores do gradiente horizontal da palavra (from → to). */
   gradientFrom?: string;
   gradientTo?: string;

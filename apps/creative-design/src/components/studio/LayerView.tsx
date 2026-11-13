@@ -34,11 +34,26 @@ export function LayerView({
   return <ShapeLayerView layer={layer} style={base} />;
 }
 
+type Segment = { text: string; struck: boolean; emphasis: boolean };
+
+/** Divide `content` em trechos normais, riscados (`~~x~~`) e enfatizados (`**x**`). */
+function splitInlineSegments(content: string): Segment[] {
+  const parts = content.split(/(~~[^~]+~~|\*\*[^*]+\*\*)/g).filter(Boolean);
+  return parts.map((p) => {
+    const strike = /^~~([^~]+)~~$/.exec(p);
+    if (strike) return { text: strike[1], struck: true, emphasis: false };
+    const emph = /^\*\*([^*]+)\*\*$/.exec(p);
+    if (emph) return { text: emph[1], struck: false, emphasis: true };
+    return { text: p, struck: false, emphasis: false };
+  });
+}
+
 function TextLayerView({ layer, style }: { layer: TextLayer; style: React.CSSProperties }) {
   // Numeral-fantasma (role 'ghost') é decorativo e gigante: NÃO pode quebrar
   // linha, senão um número de 2 dígitos ("01") empilha na vertical quando a
   // largura da caixa < largura do glifo. Espelha o <span> do template automático.
   const isGhost = layer.role === 'ghost';
+  const hasInline = layer.content.includes('~~') || layer.content.includes('**');
   return (
     <div
       style={{
@@ -55,9 +70,20 @@ function TextLayerView({ layer, style }: { layer: TextLayer; style: React.CSSPro
         lineHeight: layer.lineHeight,
         letterSpacing: `${layer.letterSpacing}px`,
         textTransform: layer.uppercase ? 'uppercase' : 'none',
+        // Contorno da thumb: `paint-order: stroke fill` é obrigatório junto do
+        // `-webkit-text-stroke`. Sem ele o contorno é pintado POR CIMA do
+        // preenchimento e consome metade do peso do glifo — a letra afina em
+        // vez de engrossar, que é o oposto do que o contorno existe para fazer.
+        WebkitTextStroke: layer.outlineWidth
+          ? `${layer.outlineWidth}px ${layer.outlineColor || '#0C0C0C'}`
+          : undefined,
+        paintOrder: layer.outlineWidth ? 'stroke fill' : undefined,
         textShadow: [
           layer.shadow ? '0 4px 24px rgba(0,0,0,0.45)' : '',
           layer.glow ? `0 0 22px ${layer.color}` : '',
+          layer.hardShadow
+            ? `${layer.hardShadowX ?? 5}px ${layer.hardShadowY ?? 6}px 0 rgba(0,0,0,0.9)`
+            : '',
         ].filter(Boolean).join(', ') || 'none',
         whiteSpace: isGhost ? 'nowrap' : 'pre-wrap',
         overflowWrap: isGhost ? 'normal' : 'break-word',
@@ -65,7 +91,45 @@ function TextLayerView({ layer, style }: { layer: TextLayer; style: React.CSSPro
         overflow: isGhost ? 'visible' : undefined,
       }}
     >
-      {layer.content}
+      {/*
+        Os trechos inline vivem dentro de UM bloco. A caixa de texto é um
+        container flex em coluna (para centrar verticalmente), e num flex column
+        cada filho vira um item empilhado — os `<span>` de realce/riscado
+        quebravam linha sozinhos, partindo "ABSOLVIÇÃO VIROU {CONDENAÇÃO}" em
+        duas linhas e estourando a faixa. Envolver num único bloco devolve o
+        fluxo inline; a quebra explícita continua funcionando via `white-space`.
+      */}
+      {hasInline
+        ? (
+          <span style={{ display: 'block' }}>
+            {splitInlineSegments(layer.content).map((seg, i) => {
+            if (seg.struck) {
+              return (
+                <span
+                  key={i}
+                  style={{
+                    color: layer.strikeColor || rgba(layer.color, 0.55),
+                    textDecoration: 'line-through',
+                    textDecorationColor: layer.strikeAccent || layer.color,
+                    textDecorationThickness: '0.06em',
+                  }}
+                >
+                  {seg.text}
+                </span>
+              );
+            }
+            if (seg.emphasis) {
+              return (
+                <span key={i} style={{ color: layer.emphasisColor || layer.color }}>
+                  {seg.text}
+                </span>
+              );
+            }
+            return <React.Fragment key={i}>{seg.text}</React.Fragment>;
+            })}
+          </span>
+        )
+        : layer.content}
     </div>
   );
 }
@@ -99,6 +163,7 @@ function ImageLayerView({ layer, style }: { layer: ImageLayer; style: React.CSSP
               width: '100%',
               height: '100%',
               objectFit: layer.objectFit,
+              objectPosition: `${layer.posX ?? 50}% ${layer.posY ?? 50}%`,
               transform: `scale(${scaleX}, ${scaleY})`,
               filter: `brightness(${layer.brightness}%) contrast(${layer.contrast}%) `
                 + `saturate(${layer.saturate}%) blur(${layer.blur}px)`,
@@ -156,7 +221,11 @@ function ShapeLayerView({ layer, style }: { layer: ShapeLayer; style: React.CSSP
     <div
       style={{
         ...style,
-        backgroundColor: layer.fill,
+        // `background` (shorthand) quando há gradiente — é o que permite véu,
+        // gramado e faixa em degradê existirem como CAMADA editável em vez de
+        // ficarem assados dentro do componente de template.
+        background: layer.fillGradient || undefined,
+        backgroundColor: layer.fillGradient ? undefined : layer.fill,
         border: layer.strokeWidth > 0 ? `${layer.strokeWidth}px solid ${layer.stroke}` : undefined,
         borderRadius: layer.kind === 'ellipse' ? '50%' : layer.radius,
         boxShadow: layer.glow ? `0 0 26px ${layer.fill}, 0 0 8px ${layer.fill}` : undefined,

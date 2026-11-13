@@ -1,0 +1,19 @@
+chaves de uma linha: ['dia', 'evento', 'origem', 'count']
+
+PageView: total=317524.0  por_origem={'site': 305109.0, 'pressel': 12415.0}
+ViewContent: total=292080.0  por_origem={'site': 292080.0}
+Purchase: total=66674.0  por_origem={'site': 66674.0}
+InitiateCheckout: total=64910.0  por_origem={'site': 64910.0}
+ViewContentPlataforma: total=49795.0  por_origem={'site': 49795.0}
+PageViewPlataforma: total=36053.0  por_origem={'site': 36053.0}
+PurchasePlataforma: total=11330.0  por_origem={'site': 11330.0}
+AddToCartPlataforma: total=8067.0  por_origem={'site': 8067.0}
+PurchaseGroup: total=7869.0  por_origem={'site': 7869.0}
+InitiateCheckoutPlataforma: total=7425.0  por_origem={'site': 7425.0}
+PresselPageView: total=7307.0  por_origem={'pressel': 7307.0}
+ClickSorteios: total=601.0  por_origem={'pressel': 601.0}
+CatalogoPageView: total=350.0  por_origem={'pressel': 350.0}
+ClickGroup: total=342.0  por_origem={'pressel': 342.0}
+ClickSorteiosCatalogo: total=168.0  por_origem={'pressel': 168.0}
+Lead: total=29.0  por_origem={'site': 7.0, 'pressel': 22.0}
+PurchaseCatalogo: total=25.0  por_origem={'site': 25.0}

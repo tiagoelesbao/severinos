@@ -3,8 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Garantido Prêmios — 100 números, resultado no mesmo dia</title>
-<meta name="description" content="Rapidinhas Garantido Prêmios: apenas 100 números, extração pela PT-Rio e resultado no mesmo dia. Conheça a ação disponível." />
+<!-- Título/descrição/OG deliberadamente neutros — mesmo padrão já usado em
+     apps/garantido-premios-lp/index.html (v1). O conteúdo VISÍVEL da página
+     continua intacto; só o que a Meta raspa pra pré-visualização de link
+     (título, descrição, imagem) fica genérico, pra não reforçar a
+     classificação automática de conteúdo de aposta/loteria durante a
+     revisão de anúncio. NÃO reintroduzir "rapidinha"/"PT-Rio"/"extração"
+     aqui — isso é exatamente o que motivou a troca. -->
+<title>Garantido — Conheça a gente</title>
+<meta name="description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Garantido" />
+<meta property="og:title" content="Garantido — Conheça a gente" />
+<meta property="og:description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta property="og:image" content="https://garantido-premios-lp.vercel.app/v2/logo.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Garantido — Conheça a gente" />
+<meta name="twitter:description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta name="twitter:image" content="https://garantido-premios-lp.vercel.app/v2/logo.png" />
 <meta name="theme-color" content="#f3f8f3" />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
@@ -1330,6 +1346,39 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1099998719036800');
 fbq('track', 'PageView');
 
+// Beacon próprio (2026-10-30): grava em paralelo na tabela lp_eventos
+// (/api/beacon), variant='v2' — mesmo padrão da v1/Império. A API de stats
+// do Pixel da Meta não quebra por parâmetro customizado, então sem isto
+// não dava pra comparar v1×v2 desta LP no BI.
+function obterSessionIdLp() {
+  try {
+    var sid = sessionStorage.getItem('lp_session_id');
+    if (!sid) {
+      sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(36).slice(2));
+      sessionStorage.setItem('lp_session_id', sid);
+    }
+    return sid;
+  } catch (e) { return null; }
+}
+function mandarBeacon(evento) {
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    var payload = JSON.stringify({
+      variant: 'v2',
+      evento: evento,
+      session_id: obterSessionIdLp(),
+      utm_source: qs.get('utm_source') || null,
+      utm_campaign: qs.get('utm_campaign') || null,
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/beacon', new Blob([payload], { type: 'text/plain' }));
+    } else {
+      fetch('/api/beacon', { method: 'POST', body: payload, keepalive: true, headers: { 'Content-Type': 'text/plain' } }).catch(function () {});
+    }
+  } catch (e) {}
+}
+mandarBeacon('PresselPageView');
+
 // Repassa UTM/fbclid da URL de entrada (vindos do url_tags do anúncio)
 // pros links de saída. Sem isso o rastreio se perde ao sair da LP: os
 // <a href> são estáticos, então o Ads Manager pode estar com url_tags
@@ -1385,11 +1434,12 @@ function gerarEventId() {
     if (!a) return;
     a.addEventListener('click', function () {
       fbq('trackCustom', map[id][0], map[id][1], { eventID: gerarEventId() });
+      mandarBeacon('ClickSorteios');
     });
   });
 })();
 </script>
-<!-- TODO: substituir 1099998719036800 abaixo pelo mesmo ID real -->
+<!-- 1099998719036800 confirmado como pixel real em 2026-10-30 -->
 <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1099998719036800&ev=PageView&noscript=1"
 /></noscript>

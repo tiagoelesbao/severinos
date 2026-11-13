@@ -5,7 +5,7 @@ import { buildCues, activeCueIndex, type CueOptions } from "../../lib/cues";
 import type { CaptionRenderer } from "../../lib/fxRegistry";
 import type { CaptionTheme } from "../../lib/fxPlan";
 import { SAFE_CAPTION_BOTTOM } from "../../lib/safeZones";
-import { FONT_SANS, FONT_SERIF } from "../fonts";
+import { FONT_SANS, FONT_SERIF, fontFamilyById } from "../fonts";
 
 /**
  * Legendas por CUE (bloco estável de 1–2 linhas), padrão Netflix adaptado ao
@@ -57,7 +57,7 @@ export const CaptionsOverlay: React.FC<{
   const { fps, height } = useVideoConfig();
   const ms = (frame / fps) * 1000;
   // VEX-10: padding derivado das safe-zones (era o número mágico 430 @1920px).
-  const captionPadBottom = Math.round(height * SAFE_CAPTION_BOTTOM);
+  const captionPadBottom = Math.round(height * (theme?.bottomPct ?? SAFE_CAPTION_BOTTOM));
 
   const kwSet = React.useMemo(
     () => new Set((keywords ?? []).map(norm).filter(Boolean)),
@@ -90,14 +90,22 @@ export const CaptionsOverlay: React.FC<{
   const fontSize = theme?.fontSize ?? 64;
   const upper = theme?.uppercase ?? true;
   const boxed = theme?.boxed ?? !(renderer === "clean" || isTogi);
-  const togiBlue = theme?.gradientFrom ?? "#2E86F0"; // azul do preenchimento karaokê
+  const togiBlue = theme?.gradientFrom ?? "#2E86F0"; // cor quente da cena azul (togi)
   const HOOK_GOLD = "#F4D06A";
-  // Família por estilo: hook → Playfair; clean/togi/word-pop → Montserrat; senão brand.
-  const blockFont = isHook
+  // ── Personalização universal (vale em QUALQUER estilo) ─────────────────────
+  // Realce da palavra falada (karaokê): default liga em word-pop/underline e
+  // desliga em clean/mono-bold; o toggle do usuário sobrepõe.
+  const emphasisDefault = !(renderer === "clean" || renderer === "mono-bold");
+  const emphasis = theme?.highlight ?? emphasisDefault;
+  // Fonte escolhida sobrepõe o default do estilo.
+  const fontOverride = theme?.fontFamily ? fontFamilyById(theme.fontFamily) : undefined;
+  // Família padrão por estilo: hook → Playfair; clean/togi/word-pop → Montserrat; senão brand.
+  const styleDefaultFont = isHook
     ? FONT_SERIF
     : renderer === "clean" || isTogi || renderer === "word-pop"
       ? FONT_SANS
       : fontFamily;
+  const blockFont = fontOverride ?? styleDefaultFont;
 
   let wordCounter = 0;
 
@@ -122,7 +130,8 @@ export const CaptionsOverlay: React.FC<{
               const k = wordCounter++;
               const isActive = k === activeWord;
               const isKeyword = kwSet.has(norm(w.text));
-              const highlight = isActive || isKeyword;
+              // Realce só quando a ênfase está ligada (universal, por estilo).
+              const highlight = emphasis && (isActive || isKeyword);
               const isNumber = /[0-9%]/.test(w.text);
 
               // Entrada dinâmica por palavra (motion design): spring do início da
@@ -134,33 +143,54 @@ export const CaptionsOverlay: React.FC<{
               });
 
               let fill: React.CSSProperties;
-              let wShadow = STROKE;
+              let wShadow: string = STROKE;
               let wScale = 1;
               let wSize = fontSize;
               let wFamily: string | undefined;
-              // togi: quantas LETRAS já "acenderam" azul (karaokê por letra).
-              let togiLit = 0;
+              let wStroke: string | undefined; // -webkit-text-stroke (detalhe branco togi)
+              let wFilter: string | undefined; // blur do hook / drop-shadow do togi
+              // Motion extra do hook: cai de cima e "foca" (blur→0).
+              let wTranslate = 0;
 
               if (isHook) {
-                // Talis v1: Playfair dourado, número/keyword ENORME, entrada dramática.
-                fill = { color: HOOK_GOLD };
-                wFamily = FONT_SERIF;
+                // Talis v1: Playfair dourado, número/keyword ENORME, entrada
+                // dramática (motion design: overshoot de escala + drop + focus).
+                fill = { color: theme?.activeColor ?? HOOK_GOLD };
+                wFamily = fontOverride ?? FONT_SERIF;
                 wSize = Math.round(fontSize * (isNumber ? 1.9 : highlight ? 1.35 : 1.15));
                 wShadow = STROKE_THIN;
-                wScale = 0.55 + enter * 0.45;
+                // overshoot: passa de 1 e assenta (spring já dá o embalo).
+                wScale = 0.5 + enter * 0.5;
+                wTranslate = (1 - enter) * 36; // px, cai de cima
+                const hb = (1 - enter) * 7; // px, entra desfocado e foca
+                if (hb > 0.15) wFilter = `blur(${hb}px)`;
               } else if (isTogi) {
-                // togi: Montserrat, karaokê por LETRA — as letras já ditas ficam
-                // AZUL, as demais brancas (como "NOW"). Cores SÓLIDAS por letra
-                // (background-clip:text é instável no Player) + stroke forte.
-                const prog = k < activeWord ? 1 : isActive ? Math.max(0, Math.min(1, (ms - w.startMs) / Math.max(1, w.endMs - w.startMs))) : 0;
-                togiLit = Math.round(prog * w.text.length);
-                fill = {}; // cor vai por letra
-                wShadow = STROKE;
-                wScale = isActive ? 0.96 + enter * 0.12 : 1;
+                // togi "MÁSCARA": as letras são uma JANELA pra uma cena AZUL em
+                // MOVIMENTO — um gradiente azul desliza e é revelado só dentro do
+                // texto (background-clip:text). O "detalhe branco"/alto contraste
+                // vem de um traço branco em volta das letras. Caixa-alta, bleed.
+                const shift = (frame * 1.7) % 200; // desliza a cena azul (loop)
+                const tf = togiBlue; // ponto quente do gradiente (cor do destaque)
+                fill = {
+                  backgroundImage:
+                    `linear-gradient(100deg, #04205f 0%, #1656c4 20%, ${tf} 38%, #cfe6ff 50%, ${tf} 62%, #1656c4 80%, #04205f 100%)`,
+                  backgroundSize: "230% 100%",
+                  backgroundPosition: `${shift}% 50%`,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  WebkitTextFillColor: "transparent",
+                } as React.CSSProperties;
+                wShadow = "none"; // sombra escura sujaria o gradiente
+                wStroke = `1.5px rgba(255,255,255,.92)`; // detalhe branco / contraste
+                wFilter = "drop-shadow(0 4px 12px rgba(0,10,40,.65))"; // profundidade
+                wSize = Math.round(fontSize * 1.12); // "bleed" maior
+                wScale = emphasis && isActive ? 0.97 + enter * 0.08 : 1;
               } else {
-                const solid = renderer === "clean" || renderer === "mono-bold" ? base : highlight ? active : base;
-                fill = { color: solid };
-                wScale = isActive && renderer === "word-pop" ? 0.9 + pop * 0.24 : 1;
+                // Cor universal: com ênfase, a palavra falada/keyword ganha a cor
+                // de destaque e vai avançando; sem ênfase, tudo na cor base.
+                fill = { color: highlight ? active : base };
+                wScale = emphasis && isActive && renderer === "word-pop" ? 0.9 + pop * 0.24 : 1;
               }
 
               return (
@@ -173,22 +203,22 @@ export const CaptionsOverlay: React.FC<{
                     letterSpacing: isHook ? 0.5 : isTogi ? 0 : -1,
                     textTransform: upper ? "uppercase" : "none",
                     textShadow: wShadow,
-                    transform: `scale(${wScale})`,
+                    WebkitTextStroke: wStroke,
+                    // Traço ATRÁS do preenchimento (não "come" o miolo das letras).
+                    paintOrder: wStroke ? "stroke" : undefined,
+                    transform: `translateY(${wTranslate}px) scale(${wScale})`,
                     transformOrigin: "center bottom",
+                    filter: wFilter,
                     opacity: isHook ? enter : 1,
                     borderBottom:
-                      !isHook && !isTogi && isActive && renderer === "underline" ? `8px solid ${active}` : "none",
+                      !isHook && !isTogi && emphasis && isActive && renderer === "underline" ? `8px solid ${active}` : "none",
                     lineHeight: isHook ? 0.96 : 1.04,
                     display: "inline-block",
                     whiteSpace: "nowrap",
                     ...fill,
                   }}
                 >
-                  {isTogi
-                    ? [...w.text].map((ch, ci) => (
-                        <span key={ci} style={{ color: ci < togiLit ? togiBlue : "#ffffff" }}>{ch}</span>
-                      ))
-                    : w.text}
+                  {w.text}
                 </span>
               );
             })}

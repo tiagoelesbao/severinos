@@ -1,0 +1,147 @@
+# =====================================================================
+#  MOVIE BUILDER · MODELO DE PROJETO
+# =====================================================================
+#
+#  Copie este arquivo, renomeie para o nome do cliente, preencha, e rode:
+#
+#      python monta_peca.py --projeto nome-do-cliente
+#
+#  Tudo que muda de um cliente para outro esta AQUI. Os scripts nao tem
+#  nada do Imperio nem do Bruno dentro deles -- e a regra que mantem o
+#  template reutilizavel: se voce precisar editar um .py para trocar de
+#  cliente, alguma coisa vazou para o lugar errado.
+#
+#  ---------------------------------------------------------------------
+#  A ORDEM EM QUE ISTO E PREENCHIDO IMPORTA
+#
+#  1. personagem   -- as referencias precisam existir antes de tudo
+#  2. ambiente     -- os setores definem ONDE cada take acontece
+#  3. takes        -- cada take aponta para um setor ja definido
+#
+#  Preencher os takes antes dos setores leva a prometer no roteiro um
+#  lugar que o panorama nunca vai conter.
+# =====================================================================
+
+projeto:
+  nome: nome-do-cliente          # vira o prefixo dos arquivos de saida
+  cliente: Nome Da Empresa
+  peca: descricao-curta-da-peca  # ex: dia-das-criancas-2026
+
+# ---------------------------------------------------------------------
+# PERSONAGEM
+#
+# rosto e corpo saem do pipeline CCC (consistencia de personagem) e
+# precisam estar em ComfyUI/input/. O `corpo` manda mais na ROUPA do que
+# qualquer texto -- se a referencia tiver casaco, os takes terao casaco,
+# e sera preciso contradizer explicitamente em `roupa`.
+# ---------------------------------------------------------------------
+personagem:
+  rosto: personagem-rosto.png
+  corpo: personagem-corpo.png
+  voz: voz-referencia.wav        # amostra de 4 s, em ComfyUI/input/
+  voz_corte: 4                   # segundos a usar da amostra
+  roupa: >-
+    ONLY the white t-shirt from the reference, with the brand logo printed
+    on the chest - no jacket, no coat, short sleeves
+
+# ---------------------------------------------------------------------
+# ESTILO
+#
+# Uma linha so, repetida em TODOS os prompts de imagem. E ela a ancora
+# visual que faz seis planos diferentes parecerem o mesmo filme.
+# ---------------------------------------------------------------------
+estilo: >-
+  Style: warm brazilian documentary realism, golden hour, muted warm
+  palette, subtle film grain
+
+# ---------------------------------------------------------------------
+# AMBIENTE 360
+#
+# `contexto` descreve o TIPO de lugar. Seja concreto: substantivos mudam
+# o lugar, adjetivos nao. "favela" sozinho devolve comunidade rural; o
+# que traz Sao Paulo e "tijolo aparente empilhado", "caixa d'agua azul",
+# "viela de cimento", "skyline ao longe".
+#
+# `setores` sao as direcoes da camera dentro do panorama. Os angulos
+# cobrem a volta e NUNCA devem comecar em 0: zero grau e a emenda do
+# equirretangular, e um recorte ali pega o pedaco que o modelo inventou
+# duas vezes. Comece em 30.
+#
+# Cada setor tem dois textos do MESMO lugar:
+#   erp    -- como ele aparece no panorama (visto de dentro, a distancia)
+#   fundo  -- como ele aparece ATRAS de uma pessoa num plano fechado
+# Os dois existem para que o prompt do take CONCORDE com o recorte que
+# entra como referencia. Texto generico briga com a imagem e costuma
+# ganhar, e ai a referencia vira enfeite.
+# ---------------------------------------------------------------------
+ambiente:
+  contexto: >-
+    A 360 degree view from the middle of [O LUGAR] at golden hour.
+    [SUBSTANTIVOS CONCRETOS QUE DEFINEM ESTE LUGAR E NAO OUTRO]
+  panorama_pronto:              # opcional: PNG 4096x1024 ja aprovado,
+                                # em input/. Preenchido, pula a geracao.
+  setores:
+    - chave: SETOR_A
+      angulo: 30
+      rotulo: nome curto em portugues
+      erp: descricao do lugar visto no panorama
+      fundo: o mesmo lugar visto atras de uma pessoa
+    - chave: SETOR_B
+      angulo: 90
+      rotulo: ...
+      erp: ...
+      fundo: ...
+    # ... ate cobrir a volta. Seis setores a cada 60 graus e o padrao.
+
+# ---------------------------------------------------------------------
+# PARAMETROS TECNICOS
+#
+# upscale e voz_referencia ligam o pipeline de DOIS ESTAGIOS do LTX, que
+# exige o modelo fp8 de 23,47 GB. Em placa de 8 GB isso nao cabe, e a
+# GGUF Q4 que cabe nao sustenta o denoise parcial do segundo estagio --
+# o resultado sai com padrao de mosaico. Deixe os dois em false para
+# geracao local; ligue so em GPU alugada com o fp8.
+#
+# frames precisa ser da forma 8n+1. 121 = 5,04 s a 24 fps.
+# ---------------------------------------------------------------------
+video:
+  frames: 121
+  passos_imagem: 8
+  upscale: false
+  voz_referencia: false
+
+# ---------------------------------------------------------------------
+# OS TAKES
+#
+# `som` e o campo mais importante e o menos obvio. Ele nao e ambiencia:
+# e onde se dirige TOM, RITMO e TEMPO da fala.
+#
+#   - abra com `TIMING:` dizendo em que SEGUNDO a fala entra e sai. Sem
+#     isso o modelo escolhe a ordem sozinho -- pedimos "fala e depois
+#     silencio" e recebemos silencio e depois fala.
+#   - diga a velocidade em palavras por minuto. "warmly" nao informa
+#     velocidade nenhuma.
+#   - marque a pausa nos DOIS lugares: reticencias em `fala`, e a
+#     duracao em `som`. So as reticencias o modelo le como virgula.
+#
+# `camera` abre o [VISUAL] de proposito: modelo de video le a primeira
+# clausula como a intencao dominante do plano. Se ela for sobre a
+# pessoa, a camera fica parada olhando.
+#
+# `acao` inclui a POSTURA. Confianca e corpo, nao voz: queixo erguido,
+# olhar travado, e a negacao do que nao se quer ("does not fidget").
+# ---------------------------------------------------------------------
+takes:
+  - n: 1
+    setor: SETOR_A
+    enquadramento: >-
+      como o FRAME INICIAL e enquadrado. Descreva o que OCUPA o quadro
+      ("his face fills the frame") em vez de nomear o tipo de plano --
+      as referencias de rosto puxam para plano medio e vencem o rotulo
+    camera: o movimento, em uma frase
+    acao: o que acontece no plano, incluindo outras pessoas em cena
+    fala: A fala em portugues...
+    som: >-
+      TIMING: em que segundo ele fala e em que segundo cala. Velocidade
+      em wpm. Tom. Ambiencia da cena por ultimo
+  # ... um bloco por take. Seis takes de 5 s dao 30 segundos de peca.

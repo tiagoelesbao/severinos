@@ -1,0 +1,10 @@
+=== Campanhas, ultimos dias presentes nos dados (17-20/10) ===
+Campanha 1 — Advantage + Vendas (Prospecção) — v3: dias=['2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20'] gasto=R$ 3832.10 purchase=181 purchase_R$=9396.00 IC=172 ROAS=2.45
+Campanha 3 — Retargeting (Site): dias=['2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20'] gasto=R$ 1424.08 purchase=85 purchase_R$=2033.50 IC=70 ROAS=1.43
+Campanha 2.1 — CBO Teste de Criativos: dias=['2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20'] gasto=R$ 1250.94 purchase=305 purchase_R$=23911.00 IC=464 ROAS=19.11
+Campanha 2 — CBO Teste de Criativos: dias=['2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20'] gasto=R$ 1174.83 purchase=145 purchase_R$=7142.00 IC=113 ROAS=6.08
+
+=== action_types contendo plataforma, ultimos 20 ===
+
+total action_types plataforma encontrados: 0
+tipos unicos: set()

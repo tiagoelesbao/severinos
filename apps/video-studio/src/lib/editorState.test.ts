@@ -116,8 +116,11 @@ test("setClip* — transição, enquadramento e Ken Burns por clipe", () => {
   assert.equal(t2.videoTrack[1].frameMode, "panel");
   const t3 = setClipKenBurns(t2, 1, 0.08);
   assert.equal(t3.videoTrack[1].kenBurns, 0.08);
-  // clamp
+  // clamp nos DOIS lados. O limite inferior era 0, e por isso o zoom-out nunca
+  // chegava ao renderer, que ja sabia interpretar o sinal negativo.
   assert.equal(setClipKenBurns(t2, 1, 99).videoTrack[1].kenBurns, 0.2);
+  assert.equal(setClipKenBurns(t2, 1, -99).videoTrack[1].kenBurns, -0.2);
+  assert.equal(setClipKenBurns(t2, 1, -0.06).videoTrack[1].kenBurns, -0.06);
 });
 
 test("camadas extras — add layer/clip, move, trim, volume, remove", () => {

@@ -2,13 +2,19 @@ import React from 'react';
 import { Backdrop, AtmosphereOverlay, FilmGrain, resolvePalette } from '../fx';
 import { LayerView } from '../../studio/LayerView';
 import {
-  CANVAS_W, CANVAS_H, sortedVisibleLayers,
-  type Layer, type SlideBackground,
+  canvasOf, sortedVisibleLayers,
+  type CanvasFormat, type Layer, type SlideBackground,
 } from '@/lib/layers';
 
 interface LayeredSlideProps {
   layers?: Layer[];
   background?: SlideBackground;
+  /**
+   * Formato do canvas deste documento. Ausente = 'instagram-portrait'
+   * (1080×1350) — mantém idênticos todos os criativos já existentes, que nunca
+   * gravaram esse campo.
+   */
+  format?: CanvasFormat;
   /** Brand-agnostic palette (MKT-MC4-05) — alimenta o PremiumBackground. */
   primaryColor?: string;
   secondaryColor?: string;
@@ -26,12 +32,14 @@ interface LayeredSlideProps {
 export const LayeredSlide: React.FC<LayeredSlideProps> = ({
   layers = [],
   background = { type: 'brand' },
+  format,
   primaryColor,
   secondaryColor,
   accentColor = '#FFB800',
   accentAlt,
   accentAurora,
 }) => {
+  const { w: canvasW, h: canvasH } = canvasOf(format);
   const ordered = sortedVisibleLayers(layers);
   const palette = resolvePalette({
     primaryColor, secondaryColor, accentColor, accentAlt, accentAurora,
@@ -45,7 +53,7 @@ export const LayeredSlide: React.FC<LayeredSlideProps> = ({
   return (
     <div
       className="relative overflow-hidden font-sans bg-black"
-      style={{ width: CANVAS_W, height: CANVAS_H }}
+      style={{ width: canvasW, height: canvasH }}
     >
       {/* Fundo */}
       {background.type === 'image' && background.image ? (

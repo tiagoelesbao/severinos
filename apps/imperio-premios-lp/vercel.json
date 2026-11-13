@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/catalogo", "destination": "/catalogo.html" },
+    { "source": "/l/:code", "destination": "https://link-imperio.vercel.app/l/:code" },
+    { "source": "/estatisticas", "destination": "https://bicho-stats-imperio.vercel.app/estatisticas" },
+    { "source": "/estatisticas/", "destination": "https://bicho-stats-imperio.vercel.app/estatisticas/" },
+    { "source": "/estatisticas/:path*", "destination": "https://bicho-stats-imperio.vercel.app/estatisticas/:path*" }
+  ]
+}

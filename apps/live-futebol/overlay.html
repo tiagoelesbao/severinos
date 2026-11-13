@@ -1,0 +1,764 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Overlay — live de futebol</title>
+<!--
+  OVERLAY PARA OBS · Browser Source 1920x1080
+
+  GRADE FIXA, e nao posicionamento solto. Cada painel ocupa uma faixa declarada
+  em `--y*`; assim nada se sobrepoe quando o conteudo cresce — na versao
+  anterior o painel de lances cobria a escalacao e o 11o titular ficava cortado
+  pela borda.
+
+  Parametros de URL:
+    ?fundo=1     fundo escuro chapado (conferir no navegador)
+    ?campo=1     gramado desenhado atras de tudo
+    ?fundos=1    rodízio das imagens de assets/fundos/ com movimento lento
+    ?fundos=03   fixa um fundo (prefixo do arquivo)
+    ?video=URL   video de fundo em loop (mp4/webm local ou http)
+    ?cta=Texto   troca o texto da faixa inferior
+    ?torcida=1   cama de torcida em loop (0.22 de volume) + rugido no gol
+    ?torcida=.35 mesma cama, com o volume que voce escolher
+    ?testevoz=1  pede uma fala de prova, para conferir audio sem esperar lance
+
+  A pagina nao conhece a ESPN: tudo vem de /dados.
+-->
+<style>
+  :root {
+    --tinta: #fff;
+    --fraca: rgba(255,255,255,.58);
+    --caixa: rgba(10,12,17,.86);
+    --borda: rgba(255,255,255,.11);
+    --realce: #2de2c8;
+    --gol: #ffc531;
+    --sombra: 0 14px 48px rgba(0,0,0,.66);
+    --cor-casa: #444; --cor-fora: #444;
+
+    /* A GRADE. Alterar aqui reposiciona tudo de forma coerente.
+
+       DUAS COLUNAS LATERAIS + UMA CENTRAL, e as três com a MESMA altura.
+       A versão anterior punha estatísticas e lances numa faixa inferior de
+       largura dupla, e o minicampo escorria por baixo delas: o SVG tinha
+       `height:auto`, então a 1092px de largura ele pedia 699px de altura
+       dentro de uma faixa de 480. Nada segurava esse excesso — daí o
+       amontoado. Agora o campo tem altura DECLARADA e as caixas de baixo
+       vivem dentro das colunas, empilhadas sob a escalação. */
+    --margem: 46px;
+    --y-placar: 34px;
+    --y-corpo: 168px;     /* topo das três colunas */
+    --h-corpo: 762px;     /* 168 → 930, deixando o rodapé livre */
+    --h-escala: 372px;    /* escalação, na parte de cima da coluna lateral */
+    --gap-linha: 22px;
+    --col-lateral: 316px; /* largura das colunas laterais */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
+  /* O PALCO tem 1920x1080 EXATOS e é escalado para caber na janela. No OBS a
+     escala dá 1 e nada muda; no navegador a peça encolhe mantendo as mesmas
+     proporções — sem isso, uma janela de 1027px de altura cortava o rodapé e
+     a faixa de CTA subia por cima dos painéis. */
+  #palco {
+    position: absolute; top: 0; left: 0;
+    width: 1920px; height: 1080px;
+    transform-origin: top left;
+    color: var(--tinta);
+    font: 400 16px/1.4 "Segoe UI", Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body.com-fundo { background: #0b0d12; }
+  /* `fixed` e nao `absolute`: a camada se prende a janela, nao ao palco, e por
+     isso nao herda a escala nem a centralizacao dele. No OBS, onde a fonte tem
+     1920x1080 exatos, as duas coisas coincidem e nada muda. */
+  #camada-fundo { position: fixed; inset: 0; overflow: hidden; z-index: 0; }
+  #palco { z-index: 1; }
+
+  /* Fundo: vídeo se houver, senão gramado desenhado. O véu escuro por cima é
+     o que mantém o texto legível sobre qualquer imagem. */
+  #video-fundo { position: absolute; inset: 0; width: 100%; height: 100%;
+                 object-fit: cover; display: none; }
+  body.com-video #video-fundo { display: block; }
+  /* Fundos gerados, em rodízio lento com movimento de câmera. São IMAGENS: o
+     desfoque e o véu por cima fazem o movimento parecer vídeo, e custam 20 s
+     de geração em vez de 20 min de I2V. Duas camadas se alternam para a troca
+     ser um cruzamento, e não um corte. */
+  .fundo-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0; transition: opacity 2.5s ease-in-out;
+    transform-origin: center;
+  }
+  .fundo-img.on { opacity: 1; }
+  .fundo-img.anima { animation: deriva 34s ease-in-out infinite alternate; }
+  @keyframes deriva {
+    from { transform: scale(1.06) translate(-1%, -0.6%); }
+    to   { transform: scale(1.13) translate(1.2%, 0.8%); }
+  }
+  #gramado { position: absolute; inset: 0; display: none;
+    background: radial-gradient(ellipse 120% 80% at 50% 42%, #1f6b34 0%, #14401f 62%, #08190c 100%); }
+  body.com-campo #gramado { display: block; }
+  #gramado::after { content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 96px, transparent 96px 192px); }
+  #veu { position: absolute; inset: 0; display: none;
+         background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 40%, rgba(0,0,0,.7) 100%); }
+  body.com-video #veu, body.com-campo #veu { display: block; }
+
+  .caixa {
+    position: absolute; background: var(--caixa); border: 1px solid var(--borda);
+    border-radius: 16px; box-shadow: var(--sombra); backdrop-filter: blur(16px);
+  }
+
+  /* ── PLACAR ──────────────────────────────────────────────────────────── */
+  .placar { top: var(--y-placar); left: 50%; transform: translateX(-50%);
+            display: flex; align-items: stretch; overflow: hidden; }
+  .lado { display: flex; align-items: center; gap: 18px; padding: 18px 30px; }
+  .lado.dir { flex-direction: row-reverse; }
+  .lado img { width: 62px; height: 62px; object-fit: contain; }
+  .sigla { font-size: 36px; font-weight: 800; letter-spacing: .04em; }
+  .faixa { width: 6px; align-self: stretch; }
+  .meio { display: flex; flex-direction: column; align-items: center; justify-content: center;
+          padding: 12px 34px; border-left: 1px solid var(--borda); border-right: 1px solid var(--borda); }
+  .gols { font-size: 54px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .relogio { font-size: 15px; color: var(--fraca); margin-top: 7px; font-variant-numeric: tabular-nums; }
+  .aovivo { display: inline-flex; align-items: center; gap: 7px; margin-top: 5px;
+            font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #ff4d4d; }
+  .bolinha { width: 7px; height: 7px; border-radius: 50%; background: #ff4d4d;
+             animation: pulsa 1.6s ease-in-out infinite; }
+  @keyframes pulsa { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+  /* ── MINICAMPO ───────────────────────────────────────────────────────── */
+  /* Largura casada com as colunas laterais: 1920 − 2×46 − 2×316 − 2×34 = 1128 */
+  .minicampo { top: var(--y-corpo); left: 50%; transform: translateX(-50%);
+               width: 1128px; height: var(--h-corpo); padding: 16px 18px 14px;
+               display: flex; flex-direction: column; }
+  .estado { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .estado .rotulo { font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+                    padding: 6px 16px; border-radius: 20px; font-size: 13px;
+                    transition: background .45s, color .45s; }
+  .estado .quando { color: var(--fraca); font-size: 13px; font-variant-numeric: tabular-nums; }
+  /* Legenda: sem ela os circulos do campo sao decoracao. Com ela, viram dado. */
+  .legenda { display: flex; align-items: center; gap: 20px; margin-top: 10px;
+             font-size: 11px; color: var(--fraca); letter-spacing: .04em; }
+  .legenda span { display: inline-flex; align-items: center; gap: 7px; }
+  .legenda i { display: inline-block; width: 11px; height: 11px; border-radius: 50%;
+               border: 1.6px solid currentColor; }
+  .legenda i.cheio { background: currentColor; }
+  .legenda i.gol { background: currentColor; box-shadow: 0 0 0 2px #fff; width: 13px; height: 13px; }
+  .legenda i.bola { background: #fff; border-color: #0b0d12; }
+  /* `flex:1` + `min-height:0` prendem o campo ao que sobra da caixa, e o
+     `meet` do viewBox encolhe o desenho para caber sem distorcer. É esta linha
+     que impede o campo de crescer por cima das caixas vizinhas. */
+  svg.campo { display: block; flex: 1 1 auto; min-height: 0; width: 100%; height: 100%; }
+  #bola, #halo { transition: cx .9s cubic-bezier(.34,.8,.3,1), cy .9s cubic-bezier(.34,.8,.3,1); }
+  @keyframes bate { 0%,100%{r:11;opacity:.42} 50%{r:19;opacity:0} }
+  #halo { animation: bate 2.2s ease-out infinite; }
+
+  /* ── LATERAIS: escalação ─────────────────────────────────────────────── */
+  #esc-casa, #esc-fora { top: var(--y-corpo); width: var(--col-lateral);
+                         height: var(--h-escala); padding: 16px 18px;
+                         display: flex; flex-direction: column; overflow: hidden; }
+  #esc-casa { left: var(--margem); }
+  #esc-fora { right: var(--margem); }
+  /* A LISTA DISTRIBUI, e nao empilha com espaco fixo. Com `padding` fixo por
+     linha, onze titulares somavam 352px numa area de 314 e o decimo primeiro
+     saia por baixo da caixa. Aqui as linhas se repartem no que existe: onze,
+     dez ou doze cabem sempre, e o respiro entre elas se ajusta sozinho. */
+  #esc-casa-l, #esc-fora-l { flex: 1 1 auto; min-height: 0; display: flex;
+                             flex-direction: column; justify-content: space-between; }
+  .jog { display: flex; align-items: baseline; gap: 10px; font-size: 14px; }
+  .jog .n { color: var(--fraca); min-width: 26px; text-align: right;
+            font-variant-numeric: tabular-nums; font-size: 13px; }
+  .jog .p { color: rgba(255,255,255,.32); font-size: 10px; margin-left: auto; letter-spacing: .06em; }
+
+  /* ── BAIXO: estatísticas e lances ────────────────────────────────────── */
+  /* Mesma coluna da escalação, logo abaixo dela: as três colunas começam e
+     terminam na mesma linha, que é o que dá o enquadramento. */
+  #stats-box, #eventos-box {
+    top: calc(var(--y-corpo) + var(--h-escala) + var(--gap-linha));
+    width: var(--col-lateral);
+    height: calc(var(--h-corpo) - var(--h-escala) - var(--gap-linha));
+    padding: 16px 18px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  #stats-box   { left: var(--margem); }
+  #eventos-box { right: var(--margem); }
+  /* A lista ocupa o que sobra da caixa e o excedente e cortado — assim o bloco
+     da direita espelha exatamente o da esquerda, por mais lances que cheguem.
+     O esmaecimento no fim avisa que ha mais, em vez de cortar uma linha ao meio. */
+  #eventos { flex: 1; overflow: hidden; position: relative;
+             -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+             mask-image: linear-gradient(180deg, #000 78%, transparent 100%); }
+
+  .titulo { font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+            color: var(--realce); margin-bottom: 11px;
+            display: flex; justify-content: space-between; align-items: baseline; }
+  .titulo .form { color: var(--fraca); letter-spacing: .1em; }
+
+  /* UMA coluna. Em duas, o rótulo encostava no número e as barras ficavam
+     curtas demais para comparar. */
+  /* `gap:8` e nao 10: com nove metricas, dez de folga estouravam a caixa em
+     6px e a ultima barra saia cortada pelo `overflow:hidden`. */
+  #stats { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; }
+  .linha { min-width: 0; }
+  .valores { display: flex; justify-content: space-between; align-items: baseline;
+             font-size: 12px; margin-bottom: 3px; }
+  .valores b { font-size: 15px; font-variant-numeric: tabular-nums; }
+  .valores span { color: var(--fraca); font-size: 9px; letter-spacing: .09em; text-transform: uppercase; }
+  .barra { height: 4px; border-radius: 3px; overflow: hidden; display: flex; background: rgba(255,255,255,.09); }
+  .barra i { display: block; height: 100%; transition: width .8s cubic-bezier(.4,0,.2,1); }
+
+  /* DUAS LINHAS por lance, e não uma. Numa coluna de 316px, "assist. Jorginho"
+     na mesma linha do nome empurrava os dois para reticências e nenhum dos dois
+     se lia. Em grade, o apoio cai para a linha de baixo alinhado ao nome. */
+  .ev { display: grid; grid-template-columns: 40px 20px minmax(0, 1fr);
+        column-gap: 9px; row-gap: 1px; padding: 7px 0;
+        border-bottom: 1px solid rgba(255,255,255,.05); font-size: 13px; }
+  .ev:last-child { border-bottom: 0; }
+  .ev .min { font-size: 12px; color: var(--fraca); text-align: right;
+             font-variant-numeric: tabular-nums; font-weight: 700; }
+  .ev .ico { font-size: 14px; text-align: center; }
+  .ev .quem { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev .apoio { grid-column: 3; color: var(--fraca); font-size: 11px;
+               white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev.gol .quem { color: var(--gol); }
+  .ev.novo { animation: entra .55s cubic-bezier(.2,.8,.2,1); }
+  @keyframes entra { from{opacity:0;transform:translateX(24px)} to{opacity:1;transform:none} }
+
+  /* ── FAIXA DE CTA ────────────────────────────────────────────────────── */
+  .cta {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 66px;
+    display: flex; align-items: center; justify-content: center; gap: 40px;
+    background: linear-gradient(90deg, rgba(10,12,17,.94), rgba(20,24,34,.94), rgba(10,12,17,.94));
+    border-top: 2px solid var(--realce);
+    font-size: 22px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+    overflow: hidden;
+  }
+  .cta b { color: var(--realce); }
+  /* Brilho que atravessa devagar: um rodapé estático some da percepção em
+     poucos minutos de live. */
+  .cta::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 240px;
+    background: linear-gradient(90deg, transparent, rgba(45,226,200,.16), transparent);
+    animation: varre 7s linear infinite;
+  }
+  @keyframes varre { from { left: -240px } to { left: 1920px } }
+
+  /* ── CARTAZ DE GOL ───────────────────────────────────────────────────── */
+  /* Ocupa a tela por alguns segundos quando um gol novo chega. É o único
+     elemento que interrompe o layout — e é o único momento que merece. */
+  .gol-cartaz {
+    position: absolute; inset: 0; display: none;
+    align-items: center; justify-content: center; gap: 46px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,.72), rgba(0,0,0,.93));
+    z-index: 40;
+  }
+  .gol-cartaz.on { display: flex; animation: apareceGol .5s ease-out; }
+  @keyframes apareceGol { from { opacity: 0 } to { opacity: 1 } }
+  .gol-cartaz img { width: 260px; height: 260px; object-fit: contain;
+                    filter: drop-shadow(0 18px 40px rgba(0,0,0,.7));
+                    animation: sobeFoto .7s cubic-bezier(.2,.9,.25,1); }
+  @keyframes sobeFoto { from { opacity:0; transform: translateY(40px) scale(.9) } to { opacity:1; transform:none } }
+  .gol-texto { animation: sobeFoto .7s .1s backwards cubic-bezier(.2,.9,.25,1); }
+  .gol-texto .g { font-size: 92px; font-weight: 800; letter-spacing: .12em;
+                  line-height: 1; color: var(--gol); text-shadow: 0 8px 34px rgba(255,197,49,.34); }
+  .gol-texto .nome { font-size: 46px; font-weight: 800; margin-top: 10px; }
+  .gol-texto .sub { font-size: 19px; color: var(--fraca); margin-top: 8px; letter-spacing: .05em; }
+
+  /* Faixa do que está sendo narrado. Aparece só enquanto há fala — legenda de
+     locução ajuda quem assiste sem som, que é boa parte do público. */
+  .falando {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    /* 940px do topo: abaixo das colunas (que terminam em 930) e acima do
+       rodapé. Antes ficava sobre a base do minicampo. */
+    bottom: 94px; max-width: 1100px; padding: 11px 24px;
+    background: rgba(10,12,17,.9); border: 1px solid var(--borda);
+    border-left: 3px solid var(--realce); border-radius: 10px;
+    font-size: 17px; display: none; align-items: center; gap: 12px;
+  }
+  /* Animacao PROPRIA, e nao a `entra` dos lances. `entra` termina em
+     `transform: none`, o que apaga o `translateX(-50%)` que centraliza a faixa
+     — ela nascia 190px a direita e pulava para o centro no fim dos 0,4 s. Todo
+     elemento centralizado por transform precisa carregar o -50% em TODOS os
+     quadros da sua animacao. */
+  .falando.on { display: flex; animation: entraCentro .4s ease-out; }
+  @keyframes entraCentro {
+    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    to   { opacity: 1; transform: translateX(-50%); }
+  }
+  .falando .onda { width: 9px; height: 9px; border-radius: 50%;
+                   background: var(--realce); animation: pulsa 1.1s ease-in-out infinite; }
+  /* Fala vinda do chat ganha borda e marca proprias: quem assiste percebe na
+     hora que aquilo e resposta a alguem, e nao comentario do locutor. */
+  .falando.de-chat { border-left-color: var(--gol); }
+  .falando .marca { display: none; font-size: 15px; }
+  .falando.de-chat .marca { display: inline; }
+  .falando.de-chat .onda { background: var(--gol); }
+
+  /* So aparece quando o navegador recusa tocar audio. No OBS nunca aparece —
+     a fonte de navegador nao aplica a politica de autoplay. */
+  .aviso-audio {
+    position: fixed; left: 50%; transform: translateX(-50%); top: 14px;
+    z-index: 60; display: none; align-items: center; gap: 10px;
+    padding: 10px 20px; border-radius: 22px; cursor: pointer;
+    background: rgba(255,197,49,.95); color: #14161c;
+    font-size: 15px; font-weight: 800; letter-spacing: .02em;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5);
+  }
+  .aviso-audio.on { display: flex; animation: entraCentro .4s ease-out; }
+
+  .rodape { position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%);
+            font-size: 11px; color: rgba(255,255,255,.26); letter-spacing: .1em; }
+  .oculto { display: none !important; }
+</style>
+
+<!-- O FUNDO FICA FORA DO PALCO, e cobre a JANELA inteira.
+     Dentro do palco ele so cobria 1920x1080 escalados — numa janela de 1875px
+     o palco encolhe para 1826 e centraliza, e sobravam 24px de cada lado com o
+     fundo da pagina aparecendo. Pareciam barras do zoom da imagem; eram a
+     moldura do palco. As imagens (1920x1088) sempre bastaram: `object-fit:
+     cover` preenche qualquer area, e a animacao nunca desce abaixo de 1,06. -->
+<div id="camada-fundo">
+  <video id="video-fundo" autoplay muted loop playsinline></video>
+  <img class="fundo-img anima" id="fundo-a" alt="">
+  <img class="fundo-img anima" id="fundo-b" alt="">
+  <div id="gramado"></div>
+  <div id="veu"></div>
+</div>
+
+<div id="palco">
+
+<div class="caixa placar">
+  <div class="faixa" style="background:var(--cor-casa)"></div>
+  <div class="lado"><img id="logo-casa" alt=""><span class="sigla" id="sigla-casa">—</span></div>
+  <div class="meio">
+    <div class="gols"><span id="gols-casa">0</span> <span style="opacity:.3">:</span> <span id="gols-fora">0</span></div>
+    <div class="relogio" id="relogio">—</div>
+    <div class="aovivo oculto" id="aovivo"><span class="bolinha"></span>ao vivo</div>
+  </div>
+  <div class="lado dir"><img id="logo-fora" alt=""><span class="sigla" id="sigla-fora">—</span></div>
+  <div class="faixa" style="background:var(--cor-fora)"></div>
+</div>
+
+<div class="caixa" id="esc-casa">
+  <div class="titulo"><span id="esc-casa-t">Escalação</span><span class="form" id="esc-casa-f"></span></div>
+  <div id="esc-casa-l"></div>
+</div>
+
+<div class="caixa minicampo" id="minicampo">
+  <div class="estado">
+    <span class="rotulo" id="situacao">—</span>
+    <span class="quando" id="quando"></span>
+  </div>
+  <svg class="campo" viewBox="0 0 100 64" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="grama" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1d6b33"/><stop offset="100%" stop-color="#113d1d"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="100" height="64" rx="2" fill="url(#grama)"/>
+    <g fill="#fff" opacity=".03">
+      <rect x="10" y="0" width="10" height="64"/><rect x="30" y="0" width="10" height="64"/>
+      <rect x="50" y="0" width="10" height="64"/><rect x="70" y="0" width="10" height="64"/>
+      <rect x="90" y="0" width="10" height="64"/>
+    </g>
+    <g fill="none" stroke="#fff" stroke-opacity=".5" stroke-width=".4">
+      <rect x="2" y="2" width="96" height="60"/>
+      <line x1="50" y1="2" x2="50" y2="62"/>
+      <circle cx="50" cy="32" r="9.2"/>
+      <rect x="2" y="12.5" width="15" height="39"/><rect x="83" y="12.5" width="15" height="39"/>
+      <rect x="2" y="23" width="5.5" height="18"/><rect x="92.5" y="23" width="5.5" height="18"/>
+      <path d="M17 24.5 A 9.2 9.2 0 0 1 17 39.5"/><path d="M83 24.5 A 9.2 9.2 0 0 0 83 39.5"/>
+    </g>
+    <circle cx="50" cy="32" r=".7" fill="#fff" fill-opacity=".5"/>
+    <g id="chutes"></g>
+    <circle id="halo" cx="50" cy="32" r="11" fill="#fff" opacity=".42"/>
+    <circle id="bola" cx="50" cy="32" r="1.7" fill="#fff" stroke="#0b0d12" stroke-width=".45"/>
+  </svg>
+  <div class="legenda">
+    <span><i class="bola"></i>bola no último lance</span>
+    <span style="color:var(--cor-casa)"><i class="cheio"></i>finalização no alvo</span>
+    <span style="color:var(--cor-casa)"><i></i>para fora</span>
+    <span style="color:var(--cor-casa)"><i class="gol"></i>gol</span>
+    <span style="margin-left:auto">cores = time que finalizou</span>
+  </div>
+</div>
+
+<div class="caixa" id="esc-fora">
+  <div class="titulo"><span id="esc-fora-t">Escalação</span><span class="form" id="esc-fora-f"></span></div>
+  <div id="esc-fora-l"></div>
+</div>
+
+<div class="caixa" id="stats-box">
+  <div class="titulo"><span>Estatísticas</span></div>
+  <div id="stats"></div>
+</div>
+
+<div class="caixa" id="eventos-box">
+  <div class="titulo"><span>Lances</span></div>
+  <div id="eventos"></div>
+</div>
+
+<div class="gol-cartaz" id="gol-cartaz">
+  <img id="gol-foto" alt="">
+  <div class="gol-texto">
+    <div class="g">GOOOL!</div>
+    <div class="nome" id="gol-nome"></div>
+    <div class="sub" id="gol-sub"></div>
+  </div>
+</div>
+
+<!-- Cama de torcida e rugido de gol. O Browser Source do OBS captura o audio
+     da pagina, entao nao ha nada a rotear: o que toca aqui vai para a live. -->
+<audio id="torcida" loop preload="auto"></audio>
+<audio id="torcida-gol" preload="auto"></audio>
+
+<div class="aviso-audio" id="aviso-audio">🔇 clique aqui para liberar o áudio da página</div>
+
+<div class="falando" id="falando"><span class="onda"></span><span class="marca">💬</span><span id="falando-txt"></span></div>
+<div class="cta" id="cta"></div>
+<div class="rodape" id="rodape"></div>
+</div>
+
+<script>
+  // Escala o palco para caber na janela. `Math.min(1, …)` garante que ele
+  // nunca é ampliado — no OBS, em 1920x1080, fica exatamente 1:1.
+  function ajustaEscala() {
+    const k = Math.min(1, window.innerWidth / 1920, window.innerHeight / 1080);
+    const p = document.getElementById("palco");
+    p.style.transform = "scale(" + k + ")";
+    // centraliza a sobra, para a conferência não ficar colada no canto
+    p.style.left = Math.max(0, (window.innerWidth - 1920 * k) / 2) + "px";
+    p.style.top = Math.max(0, (window.innerHeight - 1080 * k) / 2) + "px";
+  }
+  addEventListener("resize", ajustaEscala);
+  ajustaEscala();
+
+  // ── rodízio de fundo ───────────────────────────────────────────────────
+  // `?fundos=1` liga; `?fundos=03` fixa um só (pelo prefixo do arquivo).
+  async function iniciaFundos() {
+    const alvo = q.get("fundos");
+    if (!alvo) return;
+    let lista = [];
+    try { lista = await (await fetch("/fundos-lista")).json(); } catch (e) { return; }
+    if (!lista.length) return;
+    if (alvo !== "1") {
+      const fix = lista.filter((f) => f.startsWith(alvo));
+      if (fix.length) lista = fix;
+    }
+    document.body.classList.add("com-video");   // reaproveita o véu escuro
+    const a = document.getElementById("fundo-a"), b = document.getElementById("fundo-b");
+    let i = 0, atual = a, proximo = b;
+    a.src = "/fundos/" + lista[0];
+    a.classList.add("on");
+    if (lista.length === 1) return;
+    setInterval(() => {
+      i = (i + 1) % lista.length;
+      proximo.src = "/fundos/" + lista[i];
+      // troca só depois que a imagem carregou — senão o cruzamento revela um
+      // quadro vazio no meio.
+      proximo.onload = () => {
+        proximo.classList.add("on");
+        atual.classList.remove("on");
+        const t = atual; atual = proximo; proximo = t;
+      };
+    }, 26000);
+  }
+
+  const q = new URLSearchParams(location.search);
+  if (q.has("fundo")) document.body.classList.add("com-fundo");
+  if (q.has("campo")) document.body.classList.add("com-campo");
+  if (q.get("video")) {
+    document.body.classList.add("com-video");
+    document.getElementById("video-fundo").src = q.get("video");
+  }
+  // ?testegol=1 dispara o cartaz uma vez, para conferir o desenho sem esperar
+  // um gol acontecer. Nao vai para o ar — e ferramenta de validacao.
+  if (q.has("testegol")) {
+    setTimeout(() => {
+      document.getElementById("gol-nome").textContent = "Samuel Lino";
+      document.getElementById("gol-sub").textContent = "13'  ·  assistência de Jorginho";
+      // A primeira URL da 404 de proposito: e o retrato que a ESPN nao tem
+      // para este jogador. O teste so passa se a camisa aparecer no lugar.
+      fotoEmCascata(document.getElementById("gol-foto"), [
+        "https://a.espncdn.com/i/headshots/soccer/players/full/253937.png",
+        "https://stitcher.espn.com/sports/soccer/leagues/bra.1/events/401841213"
+          + "/athletes/253937/jersey.png?darkMode=true",
+        "https://a.espncdn.com/i/teamlogos/soccer/500/819.png",
+      ]);
+      const c = document.getElementById("gol-cartaz");
+      c.classList.add("on");
+      setTimeout(() => c.classList.remove("on"), 8000);
+    }, 1500);
+  }
+  iniciaFundos();
+  document.getElementById("cta").innerHTML =
+    q.get("cta") || "Inscreva-se &nbsp;<b>·</b>&nbsp; Deixa o like &nbsp;<b>·</b>&nbsp; Ative o sininho";
+
+  const $ = (id) => document.getElementById(id);
+
+  // ── destravamento de audio ─────────────────────────────────────────────
+  //   O navegador recusa tocar som antes de um clique na pagina. A recusa e
+  //   SILENCIOSA: `play()` devolve uma promessa rejeitada e mais nada. Era por
+  //   isso que a narracao aparecia no log do servidor, a legenda entrava na
+  //   tela e nao saia som nenhum — e sem aviso ninguem tem como adivinhar.
+  //
+  //   No OBS a politica nao se aplica, entao este aviso nunca aparece no ar.
+  const pendentes = [];
+  let audioLiberado = false;
+
+  function liberaAudio() {
+    audioLiberado = true;
+    $("aviso-audio").classList.remove("on");
+    while (pendentes.length) pendentes.shift()();
+  }
+  $("aviso-audio").addEventListener("click", liberaAudio);
+  addEventListener("click", liberaAudio, { once: true });
+
+  // Toda tentativa de tocar passa por aqui. Se for recusada, o aviso sobe e a
+  // acao fica guardada para o momento do clique, em vez de se perder.
+  function toca(el, aoFalhar) {
+    const p = el.play();
+    if (!p || !p.catch) return;
+    p.catch(() => {
+      if (audioLiberado) { if (aoFalhar) aoFalhar(); return; }
+      $("aviso-audio").classList.add("on");
+      pendentes.push(() => el.play().catch(() => { if (aoFalhar) aoFalhar(); }));
+    });
+  }
+
+  // ── cama de torcida ────────────────────────────────────────────────────
+  //   A cama e uma peca de 45 s com as pontas cruzadas (faz_loop_torcida.py):
+  //   o degrau na volta caiu de 1,13 dB para 0,03 dB, entao `loop` do <audio>
+  //   nao produz o clique que produzia.
+  //
+  //   ABAIXAR A CAMA ENQUANTO A VOZ FALA nao e refinamento, e o que torna a
+  //   narracao inteligivel. Sem isso a torcida disputa a mesma faixa de
+  //   frequencia da fala e come as consoantes — o mesmo problema que a cadeia
+  //   de radio resolve do outro lado.
+  const TORCIDA_PADRAO = 0.22, DUCK = 0.38;
+  let volTorcida = 0;
+
+  function iniciaTorcida() {
+    const v = q.get("torcida");
+    if (!v) return;
+    volTorcida = v === "1" ? TORCIDA_PADRAO : (parseFloat(v) || TORCIDA_PADRAO);
+    const a = $("torcida"), g = $("torcida-gol");
+    a.src = "/torcida/torcida-ambiente-LOOP.mp3";
+    g.src = "/torcida/torcida-gol.mp3";
+    a.volume = volTorcida;
+    g.volume = Math.min(1, volTorcida * 2.6);   // o gol tem que crescer
+    // No OBS o autoplay passa; numa aba de conferencia o navegador so libera
+    // depois de um clique. O catch evita que a falha derrube o resto da pagina.
+    toca(a);
+  }
+
+  // Rampa em vez de salto: mudar volume de uma vez soa como corte de fita.
+  function rampa(el, alvo, ms) {
+    const ini = el.volume, t0 = performance.now();
+    const passo = () => {
+      const k = Math.min(1, (performance.now() - t0) / ms);
+      el.volume = Math.max(0, Math.min(1, ini + (alvo - ini) * k));
+      if (k < 1) requestAnimationFrame(passo);
+    };
+    passo();
+  }
+
+  function abaixaTorcida(sim) {
+    if (!volTorcida) return;
+    rampa($("torcida"), sim ? volTorcida * DUCK : volTorcida, 380);
+  }
+
+  function rugidoDeGol() {
+    if (!volTorcida) return;
+    const g = $("torcida-gol");
+    try { g.currentTime = 0; } catch (e) {}
+    toca(g);
+  }
+  iniciaTorcida();
+
+  // ?testevoz=1 — pede ao servidor uma fala de prova assim que a pagina abre.
+  // E o jeito de conferir audio sem depender de um lance acontecer.
+  if (q.has("testevoz")) setTimeout(() => fetch("/testevoz").catch(() => {}), 2500);
+  let vistos = new Set();
+  let primeira = true;
+
+  function escalacao(t, f, l, e, cor) {
+    const painel = l.closest(".caixa");
+    if (!e || !e.titulares.length) { painel.classList.add("oculto"); return; }
+    painel.classList.remove("oculto");
+    t.textContent = e.sigla || "Escalação";
+    t.style.color = cor;
+    f.textContent = e.formacao || "";
+    l.innerHTML = e.titulares.map((j) =>
+      '<div class="jog"><span class="n">' + (j.num || "") + "</span><span>" + j.nome +
+      '</span><span class="p">' + (j.pos || "") + "</span></div>").join("");
+  }
+
+  // O cartaz só aparece para gol que chegou AGORA. Sem esta guarda, ele
+  // dispararia na primeira carga com o último gol do jogo — e de novo a cada
+  // vez que o OBS recarregasse a fonte.
+  let golMostrado = null;
+
+  // A ESPN so publica retrato de uma fracao dos atletas — nos 46 do elenco
+  // medido nesta partida, 3 tinham foto. Por isso a imagem do cartaz e uma
+  // LISTA que desce sozinha ate achar uma que exista: retrato, camisa numerada
+  // (gerada sob demanda, sempre existe) e escudo. Se nenhuma carregar, some,
+  // e o cartaz fica so com o texto centrado — nunca com o icone de quebrado.
+  function fotoEmCascata(el, lista) {
+    let i = 0;
+    const tenta = () => {
+      if (i >= lista.length) { el.onerror = null; el.style.display = "none"; return; }
+      el.style.display = "";
+      el.src = lista[i++];
+    };
+    el.onerror = tenta;
+    tenta();
+  }
+
+  function talvezGol(evs) {
+    const g = evs.find((e) => e.tipo === "Goal" || e.tipo === "Penalty - Scored");
+    if (!g) return;
+    const chave = g.min + "|" + g.quem;
+    if (primeira) { golMostrado = chave; return; }
+    if (chave === golMostrado) return;
+    golMostrado = chave;
+    $("gol-nome").textContent = g.quem || "";
+    $("gol-sub").textContent = (g.min ? g.min + "  ·  " : "") + (g.apoio ? "assistência de " + g.apoio : "");
+    fotoEmCascata($("gol-foto"), g.fotos && g.fotos.length ? g.fotos
+                                 : (g.foto ? [g.foto] : []));
+    rugidoDeGol();
+    const c = $("gol-cartaz");
+    c.classList.add("on");
+    setTimeout(() => c.classList.remove("on"), 8000);
+  }
+
+  function pinta(d) {
+    if (!d || d.erro) {
+      $("rodape").textContent = d && d.erro ? "aguardando dados — " + d.erro : "conectando…";
+      return;
+    }
+    document.documentElement.style.setProperty("--cor-casa", d.casa.cor);
+    document.documentElement.style.setProperty("--cor-fora", d.fora.cor);
+    $("sigla-casa").textContent = d.casa.sigla;
+    $("sigla-fora").textContent = d.fora.sigla;
+    $("gols-casa").textContent = d.casa.placar;
+    $("gols-fora").textContent = d.fora.placar;
+    if (d.casa.logo) $("logo-casa").src = d.casa.logo;
+    if (d.fora.logo) $("logo-fora").src = d.fora.logo;
+    // A ESPN devolve relogio ("88'") e detalhe ("88'") repetidos em boa parte
+    // dos jogos. Concatenar os dois imprimia "88' · 88'" no lugar mais visivel
+    // da tela — o placar. So mostra o detalhe quando ele acrescenta algo.
+    const det = (d.estado || "").trim();
+    $("relogio").textContent =
+      d.relogio && det && det !== d.relogio.trim() ? d.relogio + "  ·  " + det
+      : (d.relogio || det);
+    $("aovivo").classList.toggle("oculto", !d.ao_vivo);
+
+    const c = d.campo;
+    $("minicampo").classList.toggle("oculto", !c);
+    if (c) {
+      const cx = 2 + (c.x / 100) * 96, cy = 2 + (c.y / 100) * 60;
+      for (const id of ["bola", "halo"]) { $(id).setAttribute("cx", cx); $(id).setAttribute("cy", cy); }
+      $("halo").setAttribute("fill", c.cor);
+      const r = $("situacao");
+      r.textContent = c.situacao + (c.time ? " · " + c.time : "");
+      r.style.background = c.cor; r.style.color = "#0b0d12";
+      $("quando").textContent = (c.min ? c.min + "  ·  " : "") + c.tipo;
+      $("chutes").innerHTML = (d.chutes || []).map((s) => {
+        const x = 2 + (s.x / 100) * 96, y = 2 + (s.y / 100) * 60;
+        const cor = s.lado === "casa" ? d.casa.cor : d.fora.cor;
+        return s.gol
+          ? '<circle cx="' + x + '" cy="' + y + '" r="1.6" fill="' + cor + '" stroke="#fff" stroke-width=".4"/>'
+          : '<circle cx="' + x + '" cy="' + y + '" r="1" fill="' + (s.no_alvo ? cor : "none") +
+            '" stroke="' + cor + '" stroke-width=".35" opacity=".8"/>';
+      }).join("");
+    }
+
+    escalacao($("esc-casa-t"), $("esc-casa-f"), $("esc-casa-l"), d.escalacao && d.escalacao.casa, d.casa.cor);
+    escalacao($("esc-fora-t"), $("esc-fora-f"), $("esc-fora-l"), d.escalacao && d.escalacao.fora, d.fora.cor);
+
+    const alvo = $("stats");
+    alvo.innerHTML = "";
+    $("stats-box").classList.toggle("oculto", !d.stats.length);
+    for (const s of d.stats) {
+      const el = document.createElement("div");
+      el.className = "linha";
+      el.innerHTML =
+        '<div class="valores"><b>' + s.casa + "</b><span>" + s.rotulo + "</span><b>" + s.fora + "</b></div>" +
+        '<div class="barra"><i style="width:' + s.pct + '%;background:var(--cor-casa)"></i>' +
+        '<i style="width:' + (100 - s.pct) + '%;background:var(--cor-fora)"></i></div>';
+      alvo.appendChild(el);
+    }
+
+    const cx2 = $("eventos");
+    cx2.innerHTML = "";
+    $("eventos-box").classList.toggle("oculto", !d.eventos.length);
+    const agora = new Set();
+    // A coluna passou a ter 368px de altura e cada lance ocupa duas linhas
+    // (~49px). Sete entram; o esmaecimento do fim avisa que ha mais.
+    for (const e of d.eventos.slice(0, 7)) {
+      const chave = e.min + "|" + e.tipo + "|" + e.quem;
+      agora.add(chave);
+      const gol = e.tipo.indexOf("Goal") >= 0 || e.tipo === "Penalty - Scored";
+      const el = document.createElement("div");
+      el.className = "ev" + (gol ? " gol" : "") + (!primeira && !vistos.has(chave) ? " novo" : "");
+      // Na substituição, `quem` é quem ENTRA (a API traz "X replaces Y"), então
+      // `apoio` é quem sai — daí a seta para baixo. Estava para cima, dizendo o
+      // contrário do que acontecia.
+      const apoio = e.apoio
+        ? '<span class="apoio">' + (e.tipo === "Substitution" ? "↓ " : "assist. ") + e.apoio + "</span>" : "";
+      el.innerHTML = '<span class="min">' + (e.min || "") + '</span><span class="ico">' + e.icone +
+                     '</span><span class="quem">' + (e.quem || e.tipo) + "</span>" + apoio;
+      cx2.appendChild(el);
+    }
+    talvezGol(d.eventos);
+    vistos = agora;
+    primeira = false;
+    $("rodape").textContent = d.liga + "  ·  atualizado " + d.atualizado;
+  }
+
+  // ── fila de narração ───────────────────────────────────────────────────
+  // Toca uma fala por vez. Dois lances podem chegar no mesmo ciclo de dados;
+  // sobrepor os áudios vira ruído, então eles esperam a vez.
+  const filaFala = [];
+  let tocando = false;
+
+  function proximaFala() {
+    if (tocando || !filaFala.length) return;
+    const f = filaFala.shift();
+    tocando = true;
+    $("falando-txt").textContent = f.texto;
+    $("falando").classList.toggle("de-chat", f.origem === "chat");
+    $("falando").classList.add("on");
+    abaixaTorcida(true);
+    const a = new Audio(f.url);
+    const fim = () => {
+      tocando = false;
+      $("falando").classList.remove("on");
+      // So devolve o volume se nao houver outra fala logo atras — subir e
+      // descer entre duas frases seguidas soa como falha de equipamento.
+      if (!filaFala.length) abaixaTorcida(false);
+      setTimeout(proximaFala, 350);
+    };
+    a.onended = fim;
+    a.onerror = fim;
+    // Se o navegador recusar, a fala espera o clique em vez de segurar a fila
+    // por 20 s em silencio — que era o que acontecia.
+    toca(a, fim);
+    // Rede a solta não pode segurar a fila para sempre.
+    setTimeout(() => { if (tocando) fim(); }, 20000);
+  }
+
+  async function puxa() {
+    try {
+      const r = await fetch("/dados", { cache: "no-store" });
+      const d = await r.json();
+      pinta(d);
+      if (d.falas && d.falas.length) {
+        for (const f of d.falas) filaFala.push(f);
+        proximaFala();
+      }
+    } catch (e) {
+      $("rodape").textContent = "sem conexão com o servidor local";
+    }
+  }
+  puxa();
+  setInterval(puxa, 5000);
+</script>

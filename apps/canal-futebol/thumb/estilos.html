@@ -1,0 +1,289 @@
+<!-- Estilos de thumbnail — Bora de Bola · 1280x720
+     `?d=<base64 do JSON>` com `estilo` escolhendo a variante.
+
+     O QUE MUDOU EM RELACAO A PRIMEIRA VERSAO
+       A primeira dividia o quadro: foto a esquerda, fundo de marca a direita.
+       Estudando os canais que performam (Noticias Maromba, BTB Sports), o padrao
+       dominante e outro: A FOTO OCUPA O QUADRO INTEIRO e o texto entra em FAIXAS
+       horizontais por cima. O fundo de marca nao compete com a foto — ele vira
+       moldura, vinheta e faixa.
+
+     A GRAMATICA COMUM A TODOS OS ESTILOS
+       veu       escurecimento por cima da foto, so onde o texto vai
+       faixa     barra de largura total, no topo ou no rodape
+       etiqueta  selo pequeno de canto ("POLEMICA PESADA!")
+       marcador  X, circulo ou seta sobre um ponto da foto
+       selo      a marca do canal, sempre no mesmo canto
+-->
+<meta charset="utf-8">
+<title>thumb</title>
+<style>
+  :root {
+    --fundo:#0C240C; --profundo:#0C0C0C; --campo:#246C0C;
+    --amarelo:#FCCC0C; --amarelo-cl:#FCE40C; --limao:#84B40C;
+    --tinta:#FCFCFC; --alerta:#E02020;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:720px;overflow:hidden;background:var(--profundo)}
+  #alvo{position:relative;width:1280px;height:720px;overflow:hidden;
+        background:var(--fundo);
+        font-family:Anton,"Archivo Black",Impact,"Arial Black",sans-serif}
+
+  /* ── camada 0: a foto, quadro inteiro ─────────────────────────────────── */
+  .foto{position:absolute;inset:0}
+  .foto img{width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+
+  /* Vinheta da marca: escurece as bordas e puxa um verde muito leve, para a
+     foto de qualquer portal parecer do canal. Sem isso, cada thumb tem a
+     temperatura de cor do fotógrafo que a tirou. */
+  .veu{position:absolute;inset:0;
+       background:
+         radial-gradient(ellipse 120% 88% at 50% 45%, transparent 32%, rgba(6,20,6,.72) 100%),
+         linear-gradient(180deg, rgba(6,20,6,.42) 0%, transparent 26%, transparent 62%, rgba(6,20,6,.92) 100%);}
+
+  /* ── faixas ───────────────────────────────────────────────────────────── */
+  .faixa{position:absolute;left:0;right:0;display:flex;align-items:center;
+         justify-content:center;flex-direction:column;gap:2px;padding:14px 34px}
+  .faixa.topo{top:0}
+  .faixa.rodape{bottom:0}
+  /* FAIXA SOLIDA — o elemento que tem de ser lido a 168px.
+     Corpo grande, sem contorno e sem sombra: sobre amarelo chapado, contorno e
+     sombra so sujam a letra. E o realce vira VERMELHO, porque amarelo sobre
+     amarelo e invisivel — foi o defeito da primeira rodada. */
+  .faixa.solida{background:var(--amarelo);padding:18px 30px 20px}
+  .faixa.solida .t1{color:var(--profundo);-webkit-text-stroke:0;
+                    text-shadow:none;font-size:118px;line-height:.88}
+  .faixa.solida .t1.g2{font-size:96px}
+  .faixa.solida .t1.g3{font-size:78px}
+  .faixa.solida .t1 .rlc{color:var(--alerta)}
+  .faixa.solida .t2{color:#3a2f00;-webkit-text-stroke:0;font-size:46px}
+  .faixa.escura{background:linear-gradient(180deg,rgba(6,20,6,0),rgba(6,20,6,.94) 34%)}
+  .faixa.diagonal{transform:rotate(-2.2deg) scale(1.06)}
+
+  .t1{font-size:112px;line-height:.9;color:var(--tinta);text-transform:uppercase;
+      font-style:italic;letter-spacing:-.012em;text-align:center;
+      -webkit-text-stroke:10px var(--profundo);paint-order:stroke fill;
+      text-shadow:5px 6px 0 rgba(0,0,0,.9)}
+  .t1 .rlc{color:var(--amarelo)}
+  .t2{font-size:48px;line-height:1;color:var(--amarelo);text-transform:uppercase;
+      font-style:italic;text-align:center;
+      -webkit-text-stroke:8px var(--profundo);paint-order:stroke fill}
+  .t1.g2{font-size:90px} .t1.g3{font-size:72px}
+
+  /* ── etiqueta de canto ────────────────────────────────────────────────── */
+  .etiqueta{position:absolute;top:22px;left:24px;max-width:46%;
+            font-size:40px;line-height:1;color:var(--tinta);text-transform:uppercase;
+            font-style:italic;-webkit-text-stroke:8px var(--profundo);
+            paint-order:stroke fill;text-align:left}
+  .etiqueta.amarela{color:var(--amarelo)}
+  .etiqueta.dir{left:auto;right:24px;text-align:right}
+  .etiqueta.caixa{background:var(--alerta);color:#fff;-webkit-text-stroke:0;
+                  padding:8px 16px;font-size:34px;border-radius:4px}
+
+  /* ── citação ──────────────────────────────────────────────────────────── */
+  .aspas{position:absolute;top:34px;left:50%;transform:translateX(-50%);
+         width:88%;font-size:54px;line-height:1.02;color:var(--tinta);
+         text-transform:uppercase;font-style:italic;text-align:center;
+         -webkit-text-stroke:9px var(--profundo);paint-order:stroke fill}
+
+  /* ── marcadores ───────────────────────────────────────────────────────── */
+  .marca{position:absolute;display:none}
+  .marca.on{display:block}
+  .xis{width:230px;height:230px}
+  .xis::before,.xis::after{content:"";position:absolute;left:50%;top:0;
+    width:26px;height:100%;background:var(--alerta);border-radius:5px;
+    box-shadow:0 0 26px rgba(224,32,32,.75)}
+  .xis::before{transform:translateX(-50%) rotate(45deg)}
+  .xis::after{transform:translateX(-50%) rotate(-45deg)}
+  .circulo{width:250px;height:250px;border:12px solid var(--alerta);
+           border-radius:50%;box-shadow:0 0 26px rgba(224,32,32,.6),
+           inset 0 0 26px rgba(224,32,32,.35)}
+  .seta{width:200px;height:200px}
+  .seta svg{width:100%;height:100%;filter:drop-shadow(0 0 18px rgba(224,32,32,.7))}
+
+  /* ── painéis (dois lados) ─────────────────────────────────────────────── */
+  #alvo.paineis .foto{width:50%}
+  #alvo.paineis .foto.b{left:50%}
+  .divisoria{position:absolute;left:50%;top:0;bottom:0;width:8px;
+             transform:translateX(-50%);background:var(--tinta);display:none}
+  #alvo.paineis .divisoria{display:block}
+
+  /* ── legenda POR PAINEL ───────────────────────────────────────────────────
+     Uma frase presa ao rodape de CADA painel, para dizer o que cada um dos dois
+     fez. E o desenho que o founder pediu em 07/09, e ele resolve uma coisa que
+     a faixa unica nao resolve: com dois personagens no quadro, faixa no rodape
+     inteiro nao diz de QUEM e a frase.
+
+     `bottom` fica acima da faixa do rodape quando ela existe -- o JS empurra. */
+  .legenda{position:absolute;bottom:26px;width:50%;padding:0 18px;z-index:7;
+           box-sizing:border-box;text-align:center;display:none}
+  .legenda.a{left:0}
+  .legenda.b{left:50%}
+  #alvo.com-legendas .legenda{display:block}
+  .legenda .txt{display:inline-block;font-family:Impact,'Anton',sans-serif;
+                font-weight:400;letter-spacing:.5px;line-height:1.02;
+                font-size:52px;color:var(--tinta);
+                -webkit-text-stroke:9px #0C0C0C;paint-order:stroke fill;
+                text-shadow:0 5px 0 rgba(0,0,0,.85)}
+  .legenda.destaque .txt{color:var(--amarelo)}
+
+  /* ── moldura da marca ─────────────────────────────────────────────────── */
+  .moldura{position:absolute;inset:0;border:14px solid var(--amarelo);display:none}
+  #alvo.com-moldura .moldura{display:block}
+
+  /* ── selo ─────────────────────────────────────────────────────────────── */
+  .selo{position:absolute;right:26px;top:24px;width:96px;height:96px;z-index:9;
+        filter:drop-shadow(0 4px 14px rgba(0,0,0,.9))}
+  .selo.baixo{top:auto;bottom:24px}
+  .selo img{width:100%;height:100%;object-fit:contain}
+
+  .emoji{position:absolute;font-size:96px;line-height:1;z-index:8;
+         filter:drop-shadow(0 5px 12px rgba(0,0,0,.8));display:none}
+  .emoji.on{display:block}
+</style>
+
+<div id="alvo">
+  <div class="foto a" id="f-a"></div>
+  <div class="foto b" id="f-b"></div>
+  <div class="divisoria"></div>
+  <div class="veu" id="veu"></div>
+  <div class="moldura"></div>
+
+  <div class="marca" id="marcador"></div>
+  <div class="etiqueta" id="etiqueta"></div>
+  <div class="aspas" id="aspas"></div>
+
+  <div class="faixa" id="faixa-topo"><div class="t1" id="tt1"></div><div class="t2" id="tt2"></div></div>
+  <div class="faixa" id="faixa-rodape"><div class="t1" id="rt1"></div><div class="t2" id="rt2"></div></div>
+
+  <div class="legenda a" id="leg-a"><span class="txt" id="leg-a-t"></span></div>
+  <div class="legenda b" id="leg-b"><span class="txt" id="leg-b-t"></span></div>
+
+  <div class="emoji" id="emoji"></div>
+  <div class="selo" id="selo"></div>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const pinta = (t) => (t || "").replace(/\{([^}]+)\}/g, '<span class="rlc">$1</span>');
+
+  // Corpo do texto pela CONTAGEM DE CARACTERES, não por palpite. Uma linha de
+  // 30 caracteres a 96px vaza de 1280; encolher depois de vazar é tarde.
+  function corpo(el, txt) {
+    const n = (txt || "").replace(/[{}]/g, "").length;
+    el.classList.remove("g2", "g3");
+    if (n > 34) el.classList.add("g3");
+    else if (n > 22) el.classList.add("g2");
+  }
+
+  function poeImg(el, url, pos) {
+    if (!url) { el.style.display = "none"; return; }
+    const im = new Image();
+    im.src = url;
+    if (pos) im.style.objectPosition = pos;
+    el.appendChild(im);
+  }
+
+  function monta(d) {
+    const alvo = $("alvo");
+    const e = d.estilo || "faixa-rodape";
+    alvo.dataset.estilo = e;
+
+    poeImg($("f-a"), d.foto, d.foto_pos);
+    if (d.foto_b) { alvo.classList.add("paineis"); poeImg($("f-b"), d.foto_b, d.foto_b_pos); }
+    else $("f-b").style.display = "none";
+
+    if (d.moldura) alvo.classList.add("com-moldura");
+    if (d.veu === false) $("veu").style.display = "none";
+
+    // ── faixas ────────────────────────────────────────────────────────────
+    const topo = $("faixa-topo"), rodape = $("faixa-rodape");
+    topo.style.display = rodape.style.display = "none";
+
+    const põeFaixa = (box, t1, t2, classe) => {
+      if (!t1 && !t2) return;
+      box.style.display = "flex";
+      box.className = "faixa " + (box.id.includes("topo") ? "topo " : "rodape ") + (classe || "escura");
+      const a = box.querySelector(".t1"), b = box.querySelector(".t2");
+      a.innerHTML = pinta(t1 || ""); corpo(a, t1);
+      b.textContent = t2 || "";
+      a.style.display = t1 ? "" : "none";
+      b.style.display = t2 ? "" : "none";
+    };
+    põeFaixa(topo, d.topo1, d.topo2, d.topo_estilo);
+    põeFaixa(rodape, d.rodape1, d.rodape2, d.rodape_estilo);
+    if (d.diagonal) rodape.classList.add("diagonal");
+
+    // ── etiqueta, citação ─────────────────────────────────────────────────
+    const et = $("etiqueta");
+    // LEGENDA POR PAINEL. So faz sentido com dois paineis: presa a metade, ela
+    // diz de quem e a frase. Com uma foto so, a faixa do rodape ja resolve.
+    if (d.legenda_a || d.legenda_b) {
+      alvo.classList.add("com-legendas");
+      $("leg-a-t").innerHTML = pinta(d.legenda_a || "");
+      $("leg-b-t").innerHTML = pinta(d.legenda_b || "");
+      if (d.legenda_destaque === "a") $("leg-a").classList.add("destaque");
+      if (d.legenda_destaque === "b") $("leg-b").classList.add("destaque");
+      // Se ha faixa no rodape, a legenda sobe para nao ficar por baixo dela.
+      if (d.rodape1) {
+        const alt = $("faixa-rodape").offsetHeight + 22;
+        $("leg-a").style.bottom = alt + "px";
+        $("leg-b").style.bottom = alt + "px";
+      }
+      if (d.legenda_corpo) {
+        $("leg-a-t").style.fontSize = d.legenda_corpo;
+        $("leg-b-t").style.fontSize = d.legenda_corpo;
+      }
+    }
+
+    if (d.etiqueta) {
+      et.innerHTML = pinta(d.etiqueta);
+      et.className = "etiqueta " + (d.etiqueta_estilo || "");
+    } else et.style.display = "none";
+
+    const asp = $("aspas");
+    if (d.aspas) asp.innerHTML = "“" + d.aspas + "”"; else asp.style.display = "none";
+
+    // ── marcador ──────────────────────────────────────────────────────────
+    const m = $("marcador");
+    if (d.marcador) {
+      m.className = "marca on " + d.marcador;
+      m.style.left = (d.marcador_x || "24%");
+      m.style.top = (d.marcador_y || "26%");
+      if (d.marcador === "seta") {
+        m.innerHTML = '<svg viewBox="0 0 100 100"><path d="M10 78 C 30 40, 55 22, 82 20" ' +
+          'stroke="#E02020" stroke-width="11" fill="none" stroke-linecap="round"/>' +
+          '<path d="M82 20 L 62 16 M82 20 L 78 40" stroke="#E02020" stroke-width="11" ' +
+          'fill="none" stroke-linecap="round"/></svg>';
+      }
+    }
+
+    if (d.emoji) {
+      const em = $("emoji");
+      em.textContent = d.emoji;
+      em.className = "emoji on";
+      em.style.left = d.emoji_x || "72%";
+      em.style.top = d.emoji_y || "26%";
+    }
+
+    if (d.selo) {
+      poeImg($("selo"), d.selo);
+      if (d.selo_baixo) $("selo").classList.add("baixo");
+    } else $("selo").style.display = "none";
+  }
+
+  const p = new URLSearchParams(location.search).get("d");
+  // BASE64 URL-SAFE. O `atob` so entende o alfabeto padrao, com "+" e "/"; quem
+  // gera com `urlsafe_b64encode` manda "-" e "_", e o decode falha.
+  //
+  // O defeito e intermitente do jeito mais cruel: depende de o payload conter
+  // esses caracteres. As nove primeiras variacoes de 07/09 renderizaram bem, e
+  // ao mudar UMA string do dicionario todas passaram a cair no catch -- que
+  // troca o body pela mensagem de erro, e o Playwright entao nao acha `#alvo`
+  // e falha com "timeout esperando o locator", que nao diz nada sobre base64.
+  //
+  // O `cartela.html` ja tinha este tratamento; este arquivo nao. Agora tem.
+  const desfaz = (b) => atob(b.replace(/-/g, "+").replace(/_/g, "/"));
+  if (p) { try { monta(JSON.parse(decodeURIComponent(escape(desfaz(p))))); }
+           catch (e) { document.body.innerHTML = "<pre style='color:#fff'>" + e + "</pre>"; } }
+</script>

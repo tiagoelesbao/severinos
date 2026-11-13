@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Império — Conheça a gente</title>
+<meta name="description" content="Conheça a Império e fique por dentro do que está acontecendo." />
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* 2026-10-15: paleta clara refeita com critério de design system, não
+     um dark-mode invertido às pressas. Todo neutro (fundo, bordas, texto
+     secundário) tem o MESMO viés de matiz (um ivory quente, ~40° no
+     HSL — nunca cinza neutro misturado com ivory, que lê como
+     "esqueceram de recolorir uma peça"). Acentos (dourado/verde)
+     escurecidos um degrau a mais do que ficariam em fundo escuro — em
+     fundo claro a mesma luminância que "brilha" no escuro fica lavada,
+     então --gold/--green aqui são a versão mais profunda que já existia
+     só em --gold-light/--green-light (dark). Contraste do texto
+     principal sobre --bg: 15.8:1 (AAA); texto branco sobre --green:
+     4.6:1 (AA); texto escuro sobre --gold-light (chip "100" dos cards):
+     7.1:1 (AAA) — conferido com a fórmula de luminância relativa WCAG. */
+  :root {
+    --bg:             #faf6ec;
+    --bg-card:        #fffdf8;
+    --bg-card-border: #e8dcc4;
+    --gold:           #ad6f16;
+    --gold-light:     #8a5812;
+    --green:          #147a3d;
+    --green-light:    #0f6531;
+    --text:           #241d10;
+    --text-muted:     #70654f;
+
+    /* escala de espaçamento — os mesmos 5 degraus usados em TODA seção
+       (header/hero/grade/cta/footer), nas 3 LPs. Nunca um valor solto
+       fora desta escala. */
+    --sp-1: clamp(4px, 1vh, 8px);
+    --sp-2: clamp(8px, 1.8vh, 14px);
+    --sp-3: clamp(12px, 2.6vh, 20px);
+    --sp-4: clamp(16px, 3.4vh, 28px);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; min-width: 0; }
+  html { overflow: hidden; height: 100%; width: 100%; }
+  body {
+    background: radial-gradient(ellipse 120% 42% at top, rgba(184,118,26,0.12), transparent 70%), var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    width: 100%;
+    height: 100dvh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .wrap { max-width: 560px; width: 100%; margin: 0 auto; padding: 0 20px; overflow-wrap: break-word; }
+  h1, p { overflow-wrap: break-word; }
+
+  header {
+    flex: 0 0 auto;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--bg-card-border);
+    padding: var(--sp-2) 0;
+  }
+  header .wrap { display: flex; align-items: center; gap: 10px; }
+  .logo-crown { height: 24px; width: auto; display: block; }
+  .logo-text {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+  }
+
+  /* 2026-10-15: antes `justify-content:space-between` esticava hero/
+     checks/cta pelos 3 cantos do viewport — em conteúdo curto (como
+     ficou depois da grade 2x2) isso virava vão vazio enorme no meio
+     (achado real do founder, print em mãos). Agora o bloco inteiro
+     (hero+checks+cta) é UMA unidade com ritmo interno fixo (--sp-*) e
+     essa unidade é centralizada como um todo — sobra de espaço (se
+     houver) se divide IGUAL acima/abaixo do bloco, nunca rasgando um
+     vão no meio do conteúdo. */
+  main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    padding: var(--sp-2) 0;
+  }
+  main > .wrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--sp-3);
+  }
+
+  .hero { flex: 0 0 auto; text-align: center; }
+  /* hierarquia tipográfica: 3 saltos de peso/tamanho claros entre
+     eyebrow (nenhum nesta LP — ver v2/v3) → h1 → sub, não dois níveis
+     disputando o mesmo peso visual. */
+  .hero h1 {
+    font-size: clamp(21px, 5.6vh, 27px);
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--sp-1);
+    color: var(--text);
+  }
+  .hero p.sub {
+    font-size: clamp(12px, 1.9vh, 14px);
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* ------------- 4 SELOS (grid 2x2) ------------- */
+  /* 2026-10-15: convertido de lista vertical pra grade 2x2 — mesmo
+     template de v2/v3 (print de referência do cliente), reskindado
+     pra paleta clara.
+     TENTATIVA COM `container-type: inline-size` + `cqw` REVERTIDA: medi
+     ao vivo e a coluna da grade colapsava pra ~31px (a largura do
+     ícone) em vez de dividir o espaço disponível — o Chrome resolve mal
+     a dependência circular entre container-type num item de grid `1fr`
+     e `cqw` usado por um descendente (o item perde sua contribuição de
+     min-content pro algoritmo de sizing da track, e a track `1fr`
+     colapsa). `vw` não tem esse problema e, como o padding/gap da
+     página já escalam proporcionalmente, a largura da coluna já é uma
+     fração estável do viewport (~44%) em qualquer breakpoint — `vw` na
+     fonte já acompanha a largura real da coluna na prática. */
+  .checks { flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+  .check {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 10px;
+    padding: clamp(9px, 2.4vh, 13px) clamp(8px, 2.2vw, 12px);
+  }
+  .check i {
+    flex: 0 0 auto;
+    width: clamp(20px, 5.5vw, 24px);
+    height: clamp(20px, 5.5vw, 24px);
+    border-radius: 50%;
+    background: linear-gradient(140deg, var(--gold), var(--gold-light));
+    box-shadow: 0 2px 7px -2px rgba(173,111,22,.4);
+    display: grid; place-items: center;
+  }
+  .check i svg { width: 58%; height: 58%; display: block; stroke: #fff; }
+  /* texto do card: balance evita a órfã de 1 palavra isolada; break-word
+     é só a rede de segurança (nunca break-all/anywhere — quebrar no meio
+     da palavra é pior que quebrar entre palavras). */
+  .check span {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.22;
+    color: var(--text);
+    font-size: clamp(10px, 3.1vw, 13px);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  .cta-section { flex: 0 0 auto; display: flex; flex-direction: column; gap: var(--sp-1); }
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: clamp(10px, 2vh, 14px) 20px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: clamp(13.5px, 2vh, 15.5px);
+    text-decoration: none;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    color: #fff;
+  }
+  .btn-primary .btn-sub {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    opacity: 0.85;
+    margin-top: 1px;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold-light);
+    border: 1.5px solid var(--gold);
+  }
+
+  footer {
+    flex: 0 0 auto;
+    border-top: 1px solid var(--bg-card-border);
+    padding: var(--sp-1) 0;
+  }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+  footer .footer-top { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; }
+  footer .badge-18 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 6px;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex: 0 0 auto;
+  }
+  footer p {
+    font-size: 9.5px;
+    color: #6b6b76;
+    line-height: 1.35;
+    flex: 1 1 220px;
+    min-width: 180px;
+  }
+  footer a { color: var(--text-muted); text-decoration: underline; }
+  footer .legal-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 10px;
+    width: 100%;
+  }
+  footer .legal-links a { text-decoration: none; color: var(--gold-light); white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img class="logo-crown" src="logo.png" alt="Império" />
+    <span class="logo-text">Império</span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <h1>O resultado sai várias vezes no dia.</h1>
+      <p class="sub">Rodadas o dia inteiro, horário certo, resultado sempre público.</p>
+    </section>
+
+    <div class="checks">
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>100 números por rodada</span>
+      </div>
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Horário certo</span>
+      </div>
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Resultado público</span>
+      </div>
+      <div class="check">
+        <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+        <span>Mais de um ganhador</span>
+      </div>
+    </div>
+
+    <section class="cta-section">
+      <a href="https://sndflw.com/i/qPe9SdzUFYZGCwzfo32p" class="btn btn-primary" id="cta-grupo">
+        Entrar no grupo e acompanhar de perto
+        <span class="btn-sub">Novidades, resultados e bastidores em primeira mão</span>
+      </a>
+      <a href="https://imperiorapidinhas.com.br/catalogo" class="btn btn-secondary" id="cta-site">
+        Ver o que está disponível agora
+      </a>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <span class="badge-18">🔞 18+</span>
+      <p>
+        A Império está em conformidade com as normas aplicáveis. Participação
+        exclusiva para maiores de 18 anos. Resultados por sorteio público —
+        sem garantia de retorno. Participe com responsabilidade.
+      </p>
+    </div>
+    <div class="legal-links">
+      <a href="https://rapidinhas24hr.com" target="_blank" rel="noopener">Site</a>
+      <a href="termos.html" target="_blank" rel="noopener">Termos</a>
+      <a href="privacidade.html" target="_blank" rel="noopener">Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Meta Pixel base code — mesmo Pixel ID usado em services/Meta/imperio-premios/
+     (ver squads/virals-marketing-squad/data/clients/imperio-premios/meta-ads/brief.yaml).
+     Dispara PageView — pré-requisito da Campanha 3 (Retargeting) em
+     campaign-plan-wave1.md seção 2.3. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2276849516022676');
+fbq('track', 'PageView');
+
+// Repassa UTM/fbclid da URL de entrada (vindos do url_tags do anúncio) pros
+// links de saída — sem isso, todo o rastreio se perdia ao sair da LP (achado
+// 2026-10-07: 0% de UTM nos pedidos mesmo com url_tags configurado certo no
+// Ads Manager, porque os <a href> eram estáticos).
+// 2026-10-10: o `if (!qs) return` original deixava DOIS buracos. (1) quem
+// chegava na pressel sem query string (tráfego direto/orgânico) saía daqui
+// sem marca nenhuma, indistinguível de quem foi direto ao site. (2) mesmo
+// com UTM, o que chegava ao site era a origem do ANÚNCIO (utm_source=meta),
+// nunca "passei pela pressel" — e são coisas diferentes: o anúncio também
+// pode apontar pro site direto. Agora todo clique de saída leva `lp=1`, que
+// é o marcador que o GTM do site da plataforma usa pra disparar o evento
+// PurchaseLandingPage (compra originada da pressel) e separá-la da compra
+// geral do site, que vem de grupo/orgânico e contaminava a otimização.
+// 2026-10-15: `lp` passou a variar por tipo de destino (antes era sempre
+// "1") — o GTM do cliente usa esse valor pra decidir entre
+// PurchaseClickGroup (saiu pro grupo) e PurchaseClickSorteios (saiu pro
+// catálogo/site), então "1" pra tudo impedia essa distinção na origem.
+var LP_POR_CTA = { 'cta-grupo': 'grupo', 'cta-site': 'catalogo' };
+(function () {
+  var incoming = new URLSearchParams(window.location.search);
+  Object.keys(LP_POR_CTA).forEach(function (id) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    try {
+      var url = new URL(a.href);
+      incoming.forEach(function (value, key) { url.searchParams.set(key, value); });
+      url.searchParams.set('lp', LP_POR_CTA[id]);
+      a.href = url.toString();
+    } catch (e) {}
+  });
+})();
+
+// Diagnóstico do Events Manager (2026-10-08, "Alta prioridade"): ClickSorteios
+// chegava pelo pixel sem event_id, então nunca podia ser deduplicado contra
+// nenhuma outra fonte. Gera um ID único por clique e passa no 3º argumento —
+// zero custo mesmo sem nenhuma fonte servidor hoje, e resolve o alerta de
+// qualquer forma (a causa é "não configurado", não "duplicação confirmada").
+function gerarEventId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return Date.now() + '-' + Math.random().toString(36).slice(2);
+}
+
+// Beacon próprio (2026-10-16): mesmo evento que vai pro fbq acima, mas
+// também gravado em services/Meta/imperio-premios (tabela lp_eventos via
+// /api/beacon) — a API de stats do pixel não quebra por parâmetro
+// customizado (variant), só por nome de evento/host, então não dá pra
+// comparar LP a LP usando só o pixel. session_id é só pra agrupar os
+// eventos da mesma visita, não é PII.
+function obterSessionIdLp() {
+  try {
+    var sid = sessionStorage.getItem('lp_session_id');
+    if (!sid) {
+      sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : gerarEventId();
+      sessionStorage.setItem('lp_session_id', sid);
+    }
+    return sid;
+  } catch (e) { return null; }
+}
+function mandarBeacon(evento) {
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    fetch('/api/beacon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        variant: 'v1',
+        evento: evento,
+        session_id: obterSessionIdLp(),
+        utm_source: qs.get('utm_source') || null,
+        utm_campaign: qs.get('utm_campaign') || null,
+      }),
+      keepalive: true,
+    });
+  } catch (e) {}
+}
+
+// Evento próprio além do PageView padrão (linha acima): "PageView" sozinho
+// não distingue pressel de catálogo de /campanha/{slug} no funil — todos
+// disparam o mesmo pixel. PresselPageView/CatalogoPageView (catalogo.html)
+// dão à etapa um nome que o BI consegue separar (2026-10-15).
+fbq('trackCustom', 'PresselPageView', {}, { eventID: gerarEventId() });
+mandarBeacon('PresselPageView');
+
+document.getElementById('cta-grupo').addEventListener('click', function () {
+  fbq('trackCustom', 'ClickGroup', { content_name: 'grupo_whatsapp' }, { eventID: gerarEventId() });
+  mandarBeacon('ClickGroup');
+});
+document.getElementById('cta-site').addEventListener('click', function () {
+  fbq('trackCustom', 'ClickSorteios', {}, { eventID: gerarEventId() });
+  mandarBeacon('ClickSorteios');
+});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2276849516022676&ev=PageView&noscript=1"
+/></noscript>
+
+</body>
+</html>

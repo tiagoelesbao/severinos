@@ -3,6 +3,8 @@
  * Fase A (o plano + material bruto) e a composição Remotion da Fase B.
  */
 
+import type { TransicaoId, AnimacaoId, CameraMove, Peso } from "./fxCatalog";
+
 /**
  * Papel do clipe no arco. Os literais conhecidos ganham cor/ordem canônica;
  * VEX-06: papéis NOVOS vindos do plano (assembly.clips) são aceitos — a UI
@@ -53,12 +55,28 @@ export interface TimelineClip {
   gap?: boolean;
   /** Volume 0..1 do áudio PRÓPRIO do clipe (talking-heads). Default 1. */
   volume?: number;
-  /** Transição de ENTRADA (do clipe anterior para este). idx 0 não usa. */
-  transitionIn?: { type: TransitionType; durationInFrames: number };
+  /**
+   * Transição de ENTRADA (do clipe anterior para este). idx 0 não usa.
+   * `peso` calibra intensidade E duração de uma vez — agressivo é mais curto,
+   * não só mais forte. `durationInFrames` continua vencendo quando presente,
+   * para não quebrar timeline já ajustada à mão.
+   */
+  transitionIn?: { type: TransitionType; durationInFrames: number; peso?: Peso };
   /** Enquadramento (override): auto = por papel; cover; panel (tela cheia no aspect). */
   frameMode?: "auto" | "cover" | "panel";
-  /** Zoom lento (Ken Burns): 0 = nenhum; ~0.06 = sutil. */
+  /**
+   * LEGADO. Zoom lento como número único: 0 = nenhum, positivo aproxima,
+   * negativo afasta. Continua funcionando; `camera` tem precedência quando
+   * presente. Timelines antigas são convertidas na leitura por
+   * `cameraDoKenBurns`, preservando a amplitude exata.
+   */
   kenBurns?: number;
+  /**
+   * Movimento de câmera do clipe — grupo CÂMERA do catálogo. Substitui o
+   * `kenBurns`: tem direção nomeada (zoom/pan/tilt/deriva/handheld), peso
+   * (calmo/médio/agressivo) e curva, em vez de um número solto.
+   */
+  camera?: CameraMove;
   // ── VEX-09: keyframes (scale/opacity/volume) + fades por clipe ──
   tracks?: KeyframeTracks;
   /** Fade visual (para preto/transparente) e de áudio, em frames. */
@@ -66,7 +84,12 @@ export interface TimelineClip {
   fadeOut?: number;
 }
 
-export type TransitionType = "none" | "dissolve" | "slide" | "zoom";
+/**
+ * Tipo de transição. Os quatro nomes antigos ("none" | "slide" | "zoom" |
+ * "dissolve") continuam aceitos em timelines já salvas — `normalizaTransicao`
+ * do catálogo traduz na leitura, e nenhum renderer os conhece.
+ */
+export type TransitionType = TransicaoId | "none" | "slide" | "zoom";
 
 /**
  * Trecho de fala mantido da narração (auto-cut de respiros). Tocado
@@ -123,8 +146,12 @@ export interface TimelineAudio {
  */
 export type ElementType = "media-audio" | "media-video" | "image" | "text";
 
-/** Animação de entrada/saída de um elemento. */
-export type AnimType = "none" | "fade" | "slide" | "zoom";
+/**
+ * Animação de entrada/saída de um elemento — grupo ANIMAÇÕES do catálogo.
+ * Diferente de TRANSIÇÃO: uma animação conhece um clipe só, nunca o vizinho.
+ * Os nomes antigos ("none"|"fade"|"slide"|"zoom") seguem aceitos.
+ */
+export type AnimType = AnimacaoId | "none" | "slide" | "zoom";
 export interface ElementAnim {
   type: AnimType;
   durationInFrames: number;
@@ -178,10 +205,44 @@ export interface ExtraClip {
   ducking?: boolean;
   /** Opacidade 0..1 (elementos visuais). */
   opacity?: number;
+  /**
+   * Modo de mesclagem do elemento visual sobre o que está abaixo.
+   *
+   * Sem isto, um overlay de atmosfera — partícula, grão, vazamento de luz — é
+   * composto NORMALMENTE, e o preto do fundo dele apenas escurece a imagem em vez
+   * de sumir. É a diferença entre "não aparece nada" e a atmosfera funcionar.
+   *
+   * `screen`/`plus-lighter` para overlay sobre preto (o padrão do gênero);
+   * `overlay`/`soft-light` para textura de papel em cinza médio;
+   * `multiply` para vinheta.
+   */
+  blend?: "normal" | "screen" | "plus-lighter" | "overlay" | "soft-light" | "multiply";
   // ── Parâmetros de texto ──
+  /** Aceita `\n` — o render preserva quebras e linhas em branco (pre-wrap). */
   text?: string;
   fontSize?: number;
   color?: string;
+  /** Família por clipe; ausente = `fxPlan.brand.fontFamily`. */
+  fontFamily?: string;
+  /** Peso da fonte (700 = bold; default 800). */
+  fontWeight?: number;
+  /**
+   * Contorno em px na resolução do vídeo, medido PARA FORA da letra — a mesma
+   * convenção do campo `Outline` do ASS, para que export e editor coincidam.
+   */
+  strokeWidth?: number;
+  strokeColor?: string;
+  /** Sombra projetada em px (deslocamento x/y iguais), convenção `Shadow` do ASS. */
+  shadowOffset?: number;
+  /** Entrelinha como múltiplo do corpo (default 1.2). */
+  lineHeight?: number;
+  /** Largura máxima do bloco em % do frame; definida, zera o padding do container. */
+  maxWidthPct?: number;
+  /**
+   * Desliga a quebra automática: só as quebras escritas no texto valem. É o
+   * comportamento do libass com `\pos` — quem decidiu o layout foi quem escreveu.
+   */
+  noWrap?: boolean;
   // ── Transform visual (x/y em %, 50/50 = centro; scale: 1 = nativo) ──
   x?: number;
   y?: number;

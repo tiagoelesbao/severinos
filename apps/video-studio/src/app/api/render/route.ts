@@ -102,6 +102,11 @@ export async function POST(req: NextRequest) {
     timeline,
     fxPlan,
     captionStyle: body.captionStyle,
+    // Preview rápido: `scale` < 1 rasteriza menos pixels. Medido 2026-10-10 —
+    // 0.5 corta o tempo pela metade. Só aceita 0 < scale <= 1.
+    ...(typeof body.scale === "number" && body.scale > 0 && body.scale <= 1
+      ? { scale: body.scale }
+      : {}),
     ...(Array.isArray(body.frameRange) ? { frameRange: body.frameRange } : {}),
     ...(variants ? { variants } : {}), // VEX-11: export batch
   };

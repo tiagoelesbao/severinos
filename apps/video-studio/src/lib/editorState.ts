@@ -2,6 +2,11 @@ import type { Timeline, TimelineClip, ExtraLayer, ExtraClip, ElementType, Transi
 import type { FxPlan } from "./fxPlan";
 import type { CaptionRenderer, HookRenderer } from "./fxRegistry";
 import { deleteKeyframe, hasKeyframes, upsertKeyframe } from "./keyframes.ts";
+import {
+  framesDaTransicao, normalizaTransicao, cameraDoKenBurns,
+  EFEITOS, srcDoEfeito, DURACAO_OVERLAY_S,
+  type Peso, type TransicaoId, type CameraId, type CameraMove, type CameraCurva, type EfeitoId,
+} from "./fxCatalog.ts";
 
 /**
  * Operações de edição da timeline (MVC-10), puras e testáveis. Toda mutação
@@ -260,14 +265,94 @@ const setClip = (tl: Timeline, index: number, patch: Partial<TimelineClip>): Tim
     ? tl
     : { ...tl, videoTrack: tl.videoTrack.map((c, i) => (i === index ? { ...c, ...patch } : c)) };
 
-/** Define a transição de entrada do clipe (type "none" = corte seco). */
+/** Define a transição de entrada do clipe ("corte" = corte seco). */
 export function setClipTransition(
   tl: Timeline,
   index: number,
   type: TransitionType,
   durationInFrames = 6,
+  peso?: Peso,
 ): Timeline {
-  return setClip(tl, index, { transitionIn: { type, durationInFrames } });
+  // `peso` ausente NAO vira `peso: undefined`. A timeline e serializada em JSON
+  // e comparada por igualdade profunda em varios lugares; uma chave presente
+  // com valor indefinido aparece como diferenca onde nao ha nenhuma.
+  return setClip(tl, index, {
+    transitionIn: peso ? { type, durationInFrames, peso } : { type, durationInFrames },
+  });
+}
+
+/**
+ * Troca o TIPO da transição mantendo o peso, e faz a duração acompanhar o novo
+ * preset. Trocar de dissolve (12f) para whip (8f) preservando a duração antiga
+ * daria um whip lento — o pior dos dois mundos. Quem quiser a duração fixa
+ * digita depois, e aí ela é explícita.
+ */
+export function setClipTransitionTipo(tl: Timeline, index: number, type: TransicaoId): Timeline {
+  const atual = tl.videoTrack[index]?.transitionIn;
+  const peso = atual?.peso ?? "medio";
+  return setClip(tl, index, {
+    transitionIn: { type, durationInFrames: framesDaTransicao(type, peso), peso },
+  });
+}
+
+/** Troca o PESO da transição; a duração acompanha (agressivo é mais curto). */
+export function setClipTransitionPeso(tl: Timeline, index: number, peso: Peso): Timeline {
+  const atual = tl.videoTrack[index]?.transitionIn;
+  const type = normalizaTransicao(atual?.type);
+  return setClip(tl, index, {
+    transitionIn: { type, durationInFrames: framesDaTransicao(type, peso), peso },
+  });
+}
+
+// ── Grupo CÂMERA ────────────────────────────────────────────────────────────
+
+/**
+ * Define o movimento de câmera do clipe. Ao gravar `camera`, o `kenBurns`
+ * legado é APAGADO de propósito: manter os dois deixaria a timeline com duas
+ * fontes de verdade para a mesma coisa, e quem lesse o JSON não saberia qual
+ * vale. Na leitura, quem só tem `kenBurns` continua sendo convertido.
+ */
+export function setClipCamera(tl: Timeline, index: number, camera: CameraMove): Timeline {
+  return setClip(tl, index, { camera, kenBurns: undefined });
+}
+
+export function setClipCameraTipo(tl: Timeline, index: number, tipo: CameraId): Timeline {
+  const atual = tl.videoTrack[index]?.camera ?? cameraDoKenBurns(tl.videoTrack[index]?.kenBurns);
+  return setClipCamera(tl, index, { ...atual, tipo });
+}
+
+export function setClipCameraPeso(tl: Timeline, index: number, peso: Peso): Timeline {
+  const atual = tl.videoTrack[index]?.camera ?? cameraDoKenBurns(tl.videoTrack[index]?.kenBurns);
+  // O peso passa a mandar sozinho: um `intensidade` herdado da conversão do
+  // kenBurns anularia justamente o ajuste que se acabou de fazer.
+  return setClipCamera(tl, index, { tipo: atual?.tipo ?? "zoom-in", curva: atual?.curva, peso });
+}
+
+export function setClipCameraCurva(tl: Timeline, index: number, curva: CameraCurva): Timeline {
+  const atual = tl.videoTrack[index]?.camera ?? cameraDoKenBurns(tl.videoTrack[index]?.kenBurns);
+  return setClipCamera(tl, index, { tipo: atual?.tipo ?? "zoom-in", peso: atual?.peso, curva });
+}
+
+/** Aplica o mesmo movimento a TODOS os clipes de vídeo — calibração da peça. */
+export function setCameraEmTodos(tl: Timeline, camera: CameraMove, alternarSentido = false): Timeline {
+  const oposto: Record<string, CameraId> = {
+    "zoom-in": "zoom-out", "zoom-out": "zoom-in",
+    "pan-esq": "pan-dir", "pan-dir": "pan-esq",
+    "tilt-cima": "tilt-baixo", "tilt-baixo": "tilt-cima",
+  };
+  return {
+    ...tl,
+    videoTrack: tl.videoTrack.map((c, i) => ({
+      ...c,
+      kenBurns: undefined,
+      // Alternar o sentido a cada clipe é o que impede a peça inteira de
+      // "respirar junto" — e é como a repetição de uma mesma imagem no rodízio
+      // deixa de se denunciar.
+      camera: alternarSentido && i % 2 === 1
+        ? { ...camera, tipo: oposto[camera.tipo] ?? camera.tipo }
+        : camera,
+    })),
+  };
 }
 
 /** Define o enquadramento do clipe (auto/cover/panel). */
@@ -275,14 +360,30 @@ export function setClipFrameMode(tl: Timeline, index: number, frameMode: "auto" 
   return setClip(tl, index, { frameMode });
 }
 
-/** Define a intensidade do Ken Burns (zoom lento) do clipe. */
+/**
+ * LEGADO. Intensidade do Ken Burns como número único.
+ *
+ * O clamp era `Math.max(0, ...)`, o que tornava o zoom-out IMPOSSÍVEL pela
+ * interface — o renderer já respeitava o sinal, mas o valor negativo nunca
+ * chegava até ele. A faixa agora é simétrica. Para movimento novo use
+ * `setClipCamera`, que tem direção nomeada.
+ */
 export function setClipKenBurns(tl: Timeline, index: number, kenBurns: number): Timeline {
-  return setClip(tl, index, { kenBurns: Math.max(0, Math.min(0.2, kenBurns)) });
+  return setClip(tl, index, { kenBurns: Math.max(-0.2, Math.min(0.2, kenBurns)) });
 }
 
 /** Volume do áudio PRÓPRIO do clipe (talking-heads). VEX-05. */
 export function setClipVolume(tl: Timeline, index: number, volume: number): Timeline {
   return setClip(tl, index, { volume: Math.max(0, Math.min(1, volume)) });
+}
+
+/**
+ * Frente B: liga/desliga o áudio PRÓPRIO de QUALQUER clipe de vídeo. Padroniza o
+ * inspector — toda faixa de vídeo pode ter seu áudio, não só talking-heads.
+ * Recalcula a mixagem (muted/solo derivam de audioEnabled em alguns caminhos).
+ */
+export function setClipAudioEnabled(tl: Timeline, index: number, audioEnabled: boolean): Timeline {
+  return setClip(tl, index, { audioEnabled });
 }
 
 /** VEX-09: fade de entrada/saída do clipe de vídeo (frames; ≥0, ≤ duração). */
@@ -331,6 +432,56 @@ export function removeLayer(tl: Timeline, layerId: string): Timeline {
 }
 
 /** Insere um clipe numa camada (no frame dado). */
+/**
+ * Insere um EFEITO do catálogo como camada de overlay — grupo 3.
+ *
+ * Faz num clique as quatro coisas que antes eram manuais e que, esquecidas,
+ * fazem o efeito "não aparecer":
+ *   1. o modo de mesclagem certo (sem ele, o preto do overlay apenas escurece
+ *      a imagem em vez de sumir — a queixa mais comum);
+ *   2. a opacidade calibrada por efeito (acima de ~0,5 o overlay deixa de ser
+ *      atmosfera e vira assunto);
+ *   3. a REPETIÇÃO para cobrir a janela pedida, porque o arquivo tem 10 s e a
+ *      peça tem 20 minutos. Os overlays são gerados em loop perfeito, então
+ *      repetir não deixa emenda visível;
+ *   4. uma camada por efeito, para poder desligar um sem mexer nos outros.
+ *
+ * `ate` ausente = cobre a peça inteira.
+ */
+export function addEfeito(
+  tl: Timeline,
+  efeito: EfeitoId,
+  de = 0,
+  ate?: number,
+): Timeline {
+  const def = EFEITOS.find((e) => e.id === efeito);
+  if (!def) return tl;
+  const fim = Math.max(de + 1, ate ?? tl.durationInFrames);
+  const passo = Math.max(1, Math.round(DURACAO_OVERLAY_S * (tl.fps || 30)));
+
+  const clips: Omit<ExtraClip, "id">[] = [];
+  for (let f = de; f < fim; f += passo) {
+    clips.push({
+      type: "media-video",
+      src: srcDoEfeito(efeito),
+      label: def.nome,
+      startFrame: f,
+      durationInFrames: Math.min(passo, fim - f),
+      opacity: def.opacidade,
+      blend: def.blend,
+      volume: 0,
+    });
+  }
+
+  const layer: ExtraLayer = {
+    id: uid("L"),
+    kind: "video",
+    name: def.nome,
+    clips: clips.map((c) => ({ ...c, id: uid("c") })),
+  };
+  return withLayers(tl, [...(tl.extraLayers ?? []), layer]);
+}
+
 export function addLayerClip(
   tl: Timeline,
   layerId: string,

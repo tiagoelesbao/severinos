@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Império — 100 números, resultado em horário certo</title>
+<meta name="description" content="Na Império são 100 números por rodada e o resultado sai em horários certos, várias vezes ao dia." />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" type="image/png" href="../favicon.png" />
+<link rel="apple-touch-icon" href="../favicon.png" />
+<link rel="preload" as="image" href="../logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ===========================================================
+     IMPÉRIO — variação 2 ("mesa de números")
+
+     Mesma ENGENHARIA da v2 da Garantido (mockup 3D por extrusão,
+     aurora de blobs só em transform/opacity, malha de pontos
+     estática, grão SVG inline, scroll-driven animations nativas
+     com fallback em JS) — mas identidade OPOSTA de propósito:
+
+       Garantido = claro, menta/verde, Anton
+       Império   = noturno, âmbar/ouro, Montserrat 900
+
+     Os tokens de cor saem do CSS real da v1 (apps/imperio-premios
+     -lp/index.html), não foram inventados: --gold #e3a73e,
+     --gold-light #f4c869, --bg #0a0a0f, Montserrat. O verde
+     #3ddc6f aparece SÓ no botão de grupo, porque ali ele é
+     semântica de WhatsApp, não cor de marca — mesma regra da v1.
+
+     A DIFERENÇA de conteúdo em relação à Garantido: a tela do
+     celular não é um print do site. É uma grade de dezenas
+     reconstruída em CSS e animada — campos sendo escolhidos em
+     sequência, contador acompanhando. É demonstração de produto
+     ("veja como funciona"), por isso vive dentro do aparelho e
+     nunca é o apelo principal da página.
+     =========================================================== */
+  :root {
+    /* superfícies — a marca é noturna */
+    --bg:        #0a0a0f;
+    --bg-2:      #101017;
+    --card:      #15151d;
+    --card-2:    #1b1b25;
+    --line:      #26262f;
+    --line-soft: rgba(255,255,255,.07);
+
+    /* âmbar da marca */
+    --gold:       #e3a73e;
+    --gold-light: #f4c869;
+    --gold-deep:  #9a6a16;
+    --gold-glow:  rgba(227,167,62,.42);
+
+    /* verde: EXCLUSIVO do CTA de grupo (semântica WhatsApp) */
+    --wa:      #3ddc6f;
+    --wa-deep: #2bb85a;
+
+    --text:   #f5f5f7;
+    --text-2: #c9c9d2;
+    --text-3: #a4a4b0;
+    --text-4: #6b6b76;
+
+    --radius:    15px;
+    --radius-sm: 11px;
+    --shadow-cta: 0 10px 28px -10px rgba(227,167,62,.55);
+
+    /* escala de espaçamento — mesmos 4 degraus de index.html/v3, nas 3
+       LPs. Nunca um valor solto fora desta escala. */
+    --sp-1: clamp(4px, 1vh, 8px);
+    --sp-2: clamp(8px, 1.8vh, 14px);
+    --sp-3: clamp(12px, 2.6vh, 20px);
+    --sp-4: clamp(16px, 3.4vh, 28px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; min-width: 0; }
+
+  /* 2026-10-15: página virou 1 dobra só (igual v1) — sem scroll. html/body
+     travados em 100dvh, mesmo padrão de index.html. */
+  html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; overflow: hidden; height: 100%; width: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* trava os dois eixos: sem fold-2, a página inteira precisa caber
+       num viewport só — mesmo racional do comentário original sobre o
+       eixo X (aparelho rotacionado + selos flutuantes), agora também no Y. */
+    overflow: hidden;
+    width: 100%;
+    height: 100dvh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .wrap { width: 100%; max-width: 620px; margin: 0 auto; padding: 0 clamp(16px, 4.6vw, 26px); overflow-wrap: break-word; }
+  h1, h2, h3, p { overflow-wrap: break-word; }
+  img { max-width: 100%; }
+
+  /* ---------- AURORA: blobs âmbar desfocados ----------
+     Keyframes só com transform/opacity = trabalho de compositor.
+     Nunca background-position, que repinta o gradiente inteiro a
+     cada frame e derruba o FPS em celular — e é em celular, dentro
+     do feed, que 100% deste tráfego chega. */
+  .aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; contain: strict; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(56px); will-change: transform; }
+  .blob-1 {
+    width: 62vmax; height: 62vmax; top: -32vmax; left: -18vmax;
+    background: radial-gradient(circle, rgba(227,167,62,.34), rgba(227,167,62,0) 68%);
+    animation: drift-1 26s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 46vmax; height: 46vmax; top: -12vmax; right: -20vmax;
+    background: radial-gradient(circle, rgba(244,200,105,.22), rgba(244,200,105,0) 70%);
+    animation: drift-2 32s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 56vmax; height: 56vmax; bottom: -32vmax; right: -14vmax;
+    background: radial-gradient(circle, rgba(154,106,22,.26), rgba(154,106,22,0) 70%);
+    animation: drift-3 29s ease-in-out infinite;
+  }
+  @keyframes drift-1 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(8%,6%,0) scale(1.12); } }
+  @keyframes drift-2 { 0%,100% { transform: translate3d(0,0,0) scale(1.06); } 50% { transform: translate3d(-10%,8%,0) scale(.92); } }
+  @keyframes drift-3 { 0%,100% { transform: translate3d(0,0,0) scale(.94); } 50% { transform: translate3d(-9%,-7%,0) scale(1.12); } }
+
+  /* malha de pontos: pintada uma vez, nunca animada — custo zero
+     por frame. É o que dá caráter de "painel" e tira o resultado do
+     look genérico de gradiente. */
+  .mesh {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(227,167,62,.26) .9px, transparent .9px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 60% at 50% 32%, #000 16%, transparent 76%);
+    mask-image: radial-gradient(ellipse 85% 60% at 50% 32%, #000 16%, transparent 76%);
+    opacity: .55;
+  }
+
+  /* grão: tira o aspecto "gradiente de CSS". Um elemento, SVG
+     inline, zero request. Em fundo escuro usa screen (soma luz) —
+     multiply sumiria. */
+  .grain {
+    position: fixed; inset: 0; z-index: 90; pointer-events: none;
+    opacity: .05; mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* =================== HEADER (glass escuro) =================== */
+  header {
+    flex: 0 0 auto; z-index: 60;
+    background: rgba(10,10,15,.72);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    backdrop-filter: blur(14px) saturate(150%);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 9px; padding-bottom: 9px; }
+  .brand { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .brand img { height: clamp(21px, 6vw, 27px); width: auto; display: block; }
+  .brand b {
+    font-weight: 900; font-size: clamp(12px, 3.3vw, 15px);
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--gold-light); white-space: nowrap;
+  }
+  .nav-cta {
+    flex: 0 0 auto; text-decoration: none; white-space: nowrap;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 52%, var(--gold-deep) 100%);
+    color: #1a1205; border-radius: 999px;
+    padding: 8px clamp(11px, 3.2vw, 16px);
+    font-weight: 800; font-size: clamp(10.5px, 2.9vw, 12.5px);
+    box-shadow: 0 6px 18px -8px var(--gold-glow);
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(227,167,62,.62); }
+  .nav-cta:active { transform: scale(.97); }
+  .nav-cta:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 2px; }
+
+  /* ================== DOBRA 1 — hero noturno ================== */
+  /* 2026-10-15 (revisado): `margin:auto 0` no .checks rasgava um vão
+     vazio enorme entre hero/checks/cta quando o conteúdo (mais curto
+     sem o mockup) sobrava espaço no viewport — achado real do founder,
+     print em mãos. Agora .hero-col é UMA unidade com ritmo interno fixo
+     (--sp-3 entre os 3 blocos) e essa unidade inteira é centralizada —
+     sobra de espaço (se houver) se divide igual acima/abaixo do bloco
+     todo, nunca rasgando vão no meio do conteúdo. */
+  .fold-1 { position: relative; overflow: hidden; flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+  .fold-1 > .wrap {
+    position: relative; z-index: 1;
+    flex: 1; min-height: 0; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: var(--sp-2); padding-bottom: 0;
+  }
+  .hero-col { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: clamp(8.5px, 2.4vw, 10.5px);
+    font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold-light); flex: 0 0 auto;
+    animation: pulse 2.1s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%  { box-shadow: 0 0 0 0 rgba(244,200,105,.55); }
+    70% { box-shadow: 0 0 0 7px rgba(244,200,105,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(244,200,105,0); }
+  }
+
+  .hero { text-align: center; }
+  .hero h1 {
+    font-weight: 900; text-transform: uppercase;
+    /* 2026-10-15: reduzido (era clamp(26px,7.8vw,50px)) — 1 dobra só, sem
+       espaço pra headline gigante dividir com aparelho+CTA+footer. */
+    font-size: clamp(20px, 6vw, 34px);
+    /* 1.08 e não 1.02 (que é o da peça da Garantido): lá a face é
+       Anton, condensada e de caixa-alta baixa. Montserrat 900 tem
+       caps bem mais altas, e a 1.02 a pincelada da linha de baixo
+       encosta na linha de cima. */
+    line-height: 1.08; letter-spacing: -.02em;
+    color: var(--text);
+    margin-top: clamp(5px, 1.4vw, 9px);
+  }
+  .hero h1 .l2 { display: block; color: var(--gold-light); }
+  /* pincelada âmbar atrás da frase-chave. inline-block + nowrap
+     prendem a mancha a uma linha só, então ela nunca vaza.
+     GEOMETRIA AJUSTADA À FACE: a versão da Garantido usa
+     `height: .52em`, calibrada pra altura de caixa-alta do Anton.
+     Em Montserrat 900 isso cobria só a metade de baixo das letras —
+     o topo dos glifos ficava escuro-sobre-escuro e a frase sumia
+     (defeito visto no 1º render). Aqui a mancha é ancorada por
+     top/bottom, então acompanha a caixa-alta inteira. */
+  .mark {
+    position: relative; display: inline-block; white-space: nowrap;
+    padding: 0 .18em; color: #1a1205; z-index: 0;
+  }
+  .mark::before {
+    content: ''; position: absolute; z-index: -1;
+    left: 0; right: 0; top: .085em; bottom: .145em;
+    background: linear-gradient(100deg, var(--gold-light), var(--gold));
+    border-radius: 3px 9px 4px 8px;
+    transform: rotate(-.8deg);
+    box-shadow: 0 5px 16px -7px var(--gold-glow);
+  }
+  .hero .sub {
+    font-size: clamp(11px, 3vw, 14px);
+    font-weight: 600; line-height: 1.4; color: var(--text-3);
+    max-width: 44ch; margin: clamp(5px, 1.4vw, 8px) auto 0;
+  }
+
+  /* ------------- 4 SELOS (grid 2x2) ------------- */
+  .checks { flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+  .check {
+    display: flex; align-items: center; gap: 9px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: clamp(10px, 2.6vw, 15px) clamp(10px, 2.6vw, 14px);
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .check:hover { transform: translateY(-2px); border-color: rgba(227,167,62,.38); background: var(--card-2); }
+  /* círculo SÓLIDO dourado/laranja + check BRANCO (pedido 2026-10-15,
+     print de referência do cliente) — antes era um anel translúcido
+     com traço dourado, mais discreto; agora o selo é o protagonista
+     visual já que não tem mais mockup disputando atenção. */
+  .check i {
+    flex: 0 0 auto;
+    width: clamp(22px, 5.8vw, 27px); height: clamp(22px, 5.8vw, 27px);
+    border-radius: 50%;
+    background: linear-gradient(140deg, var(--gold-light), var(--gold-deep));
+    box-shadow: 0 3px 9px -3px var(--gold-glow);
+    display: grid; place-items: center;
+  }
+  .check i svg { width: 58%; height: 58%; display: block; stroke: #fff; }
+  /* fonte em `vw` (achado 2026-10-15: `container-type`+`cqw` num item de
+     grid `1fr` colapsava a coluna pra ~31px — o Chrome resolve mal essa
+     dependência circular, revertido nas 3 LPs). `vw` não tem esse
+     problema e, como padding/gap já escalam proporcionalmente, a
+     largura da coluna já é fração estável do viewport (~44%) em
+     qualquer breakpoint. `balance` evita órfã de 1 palavra; `break-word`
+     é só rede de segurança (nunca break-all/anywhere). */
+  .check span {
+    font-weight: 800; letter-spacing: -.01em; line-height: 1.22; color: var(--text);
+    font-size: clamp(10.5px, 3.1vw, 13.5px);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  /* -------------------------- CTAs -------------------------- */
+  .btn {
+    display: block; width: 100%; text-align: center;
+    border: none; cursor: pointer; text-decoration: none;
+    border-radius: var(--radius);
+    padding: clamp(10px, 2.6vw, 14px) 18px;
+    font-weight: 800; font-size: clamp(12.5px, 3.4vw, 15.5px);
+    letter-spacing: -.008em;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease, color .16s ease, border-color .16s ease;
+    position: relative; overflow: hidden;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 2px; }
+  /* primário = grupo (verde WhatsApp, igual v1) */
+  .btn-primary { background: linear-gradient(135deg, var(--wa), var(--wa-deep)); color: #06230f; box-shadow: 0 10px 28px -10px rgba(61,220,111,.5); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 34px -10px rgba(61,220,111,.6); }
+  /* varredura de brilho: transform puro, barato no compositor */
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 42%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.3), transparent);
+    transform: skewX(-18deg);
+    animation: sweep 4.6s ease-in-out infinite;
+  }
+  @keyframes sweep { 0%,62% { transform: translateX(0) skewX(-18deg); } 88%,100% { transform: translateX(420%) skewX(-18deg); } }
+  /* secundário = site, em âmbar contornado */
+  .btn-gold {
+    background: transparent; color: var(--gold-light);
+    border: 1.5px solid var(--gold); margin-top: clamp(7px, 1.9vw, 10px);
+  }
+  .btn-gold:hover { background: rgba(227,167,62,.12); border-color: var(--gold-light); transform: translateY(-1px); }
+  /* âmbar preenchido: usado na dobra 2, onde o CTA do site vira o
+     botão principal (o do grupo já apareceu no hero). */
+  .btn-gold-solid { background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 52%, var(--gold-deep) 100%); color: #1a1205; box-shadow: var(--shadow-cta); }
+  .btn .btn-sub { display: block; font-size: clamp(9px, 2.3vw, 10.5px); font-weight: 600; letter-spacing: .01em; opacity: .85; margin-top: 2px; }
+  .cta-block { flex: 0 0 auto; }
+  .disclaim { text-align: center; margin-top: clamp(5px, 1.3vw, 7px); font-size: clamp(8px, 2.2vw, 10px); font-weight: 600; line-height: 1.3; color: var(--text-4); }
+
+  /* -------------------------- FOOTER -------------------------- */
+  /* RESTAURADO 2026-10-15: esta regra foi apagada por engano na limpeza
+     do CSS morto do mockup (a deleção pegou um bloco contíguo grande
+     demais e engoliu o footer, que estava no meio do caminho) — ficou
+     em produção sem nenhum estilo (texto cru, badge sem formatação,
+     links azuis padrão do navegador) até o founder reportar com print.
+     footer:flex:0 0 auto (fica dentro da dobra 1, ver .fold-1>.wrap). */
+  footer { flex: 0 0 auto; position: relative; z-index: 1; background: #08080c; border-top: 1px solid var(--line); padding: clamp(6px, 1.4vw, 10px) 0 max(clamp(6px, 1.4vw, 10px), env(safe-area-inset-bottom)); }
+  footer .wrap { display: flex; flex-direction: column; gap: clamp(4px, 1vw, 7px); }
+  .foot-top { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 6px 10px; }
+  .badge-18 { flex: 0 0 auto; background: var(--gold); color: #1a1205; border-radius: 6px; padding: 2px 7px; font-size: 10px; font-weight: 800; letter-spacing: .04em; }
+  footer p { flex: 1 1 220px; min-width: 180px; font-size: clamp(8.5px, 2.4vw, 10.5px); font-weight: 600; line-height: 1.42; color: var(--text-4); }
+  .legal { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: clamp(9px, 2.5vw, 11px); }
+  .legal a { color: var(--gold-light); text-decoration: none; font-weight: 700; white-space: nowrap; border-bottom: 1px solid rgba(227,167,62,.3); }
+  .legal span { color: #3a3a44; }
+
+  /* desktop: sem mockup — mesma coluna central, só mais larga. Sem
+     aparelho nenhum pra dividir layout com o texto, então não precisa
+     de grid de 2 colunas aqui. */
+  @media (min-width: 940px) {
+    .wrap { max-width: 640px; }
+    .fold-1 > .wrap { padding-top: 56px; min-height: calc(100vh - 118px); }
+    .checks { max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-block { max-width: 430px; margin-left: auto; margin-right: auto; }
+  }
+
+  @media (max-width: 360px) {
+    .checks { gap: 6px; }
+  }
+
+  /* ACESSIBILIDADE: quem pediu menos movimento recebe a peça PARADA. */
+  @media (prefers-reduced-motion: reduce) {
+    .blob, .btn-primary::after, .eyebrow::before { animation: none !important; }
+    .btn, .check { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- grão global: decorativo, fora do fluxo, sem pointer-events —
+     nunca intercepta o toque nos CTAs. -->
+<div class="grain" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap">
+    <span class="brand">
+      <img src="../logo.png" alt="" width="200" height="200" />
+      <b>Império</b>
+    </span>
+  </div>
+</header>
+
+<!-- ======================= DOBRA 1 ======================= -->
+<section class="fold-1">
+
+  <div class="aurora" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+  <div class="mesh" aria-hidden="true"></div>
+
+  <div class="wrap">
+
+    <div class="hero-col">
+
+      <div class="hero">
+        <span class="eyebrow">Rodadas rápidas da Império</span>
+        <!-- Headline = Ângulo 1 (Prêmio) do copy-angles-2026-10-09.md,
+             partida em duas linhas. Zero promessa de retorno: fala de
+             mecânica (quantidade e horário), que é o que a política de
+             gambling do Meta aceita. -->
+        <!-- A mancha cobre só "horário certo." e não "em horário
+             certo.": `.mark` é nowrap, e a frase de 17 caracteres em
+             Montserrat 900 estourava a direita em 320px (defeito visto
+             no QA de largura estreita). Com 14 caracteres sobra folga
+             real em qualquer celular. -->
+        <h1>
+          Só 100 números por rodada.
+          <span class="l2">Resultado em <span class="mark">horário certo.</span></span>
+        </h1>
+        <p class="sub">
+          100 números por rodada, resultado em horário certo, várias vezes ao dia.
+        </p>
+      </div>
+
+      <div class="checks">
+        <div class="check">
+          <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+          <span>100 números por rodada</span>
+        </div>
+        <div class="check">
+          <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+          <span>Horário certo</span>
+        </div>
+        <div class="check">
+          <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+          <span>Resultado público</span>
+        </div>
+        <div class="check">
+          <i aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5l4 4 9-9"/></svg></i>
+          <span>Mais de um ganhador</span>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <a href="https://sndflw.com/i/qPe9SdzUFYZGCwzfo32p" class="btn btn-primary" data-cta id="cta-grupo">
+          Entrar no grupo e acompanhar de perto
+          <span class="btn-sub">Novidades, resultados e bastidores em primeira mão</span>
+        </a>
+        <p class="disclaim">Confira as informações e o regulamento antes de escolher.</p>
+      </div>
+
+    </div><!-- /.hero-col -->
+
+  </div>
+
+  <!-- Dobra 2 removida (2026-10-15, pedido do founder): LP de 1 dobra só,
+       igual v1. Footer legal migrou pra dentro da dobra 1. -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-top">
+        <span class="badge-18">18+</span>
+        <p>
+          A Império está em conformidade com as normas aplicáveis.
+          Participação exclusiva para maiores de 18 anos. Resultados por
+          sorteio público — sem garantia de retorno. Participe com
+          responsabilidade.
+        </p>
+      </div>
+      <div class="legal">
+        <a href="https://rapidinhas24hr.com" target="_blank" rel="noopener">Site</a>
+        <span>·</span>
+        <a href="../termos.html" target="_blank" rel="noopener">Termos</a>
+        <span>·</span>
+        <a href="../privacidade.html" target="_blank" rel="noopener">Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+</section>
+
+<!-- Meta Pixel — mesmo Pixel ID real da v1 e do pipeline de CAPI
+     (services/Meta/imperio-premios/). As variações compartilham o
+     pixel de propósito: é o que torna o teste A/B comparável; quem
+     separa é o parâmetro `variant` nos eventos de clique. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2276849516022676');
+fbq('track', 'PageView');
+
+// Propagação de UTM/fbclid + marcador `lp` — 2026-10-15: `lp` passou a
+// variar por tipo de destino (grupo vs catálogo), não mais "1" fixo, pro
+// GTM do cliente distinguir PurchaseClickGroup de PurchaseClickSorteios
+// pela origem. v2 é foco único em grupo — só cta-grupo sobrou no DOM.
+var LP_POR_CTA = { 'cta-grupo': 'grupo' };
+(function () {
+  var incoming = new URLSearchParams(window.location.search);
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-cta]'), function (a) {
+    var raw = a.getAttribute('href') || '';
+    if (raw.charAt(0) === '#') return;
+    try {
+      var url = new URL(a.href);
+      incoming.forEach(function (value, key) { url.searchParams.set(key, value); });
+      url.searchParams.set('lp', LP_POR_CTA[a.id] || 'grupo');
+      a.href = url.toString();
+    } catch (e) {}
+  });
+})();
+
+// event_id explícito em todo evento customizado — resolve o alerta
+// "Alta prioridade" de desduplicação do Events Manager (2026-10-08)
+// mesmo sem nenhuma fonte servidor para estes eventos hoje.
+function gerarEventId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return Date.now() + '-' + Math.random().toString(36).slice(2);
+}
+
+// Beacon próprio (2026-10-16): mesmo padrão de index.html/v3 — grava em
+// paralelo na tabela lp_eventos (/api/beacon), pra comparar funil por LP
+// sem depender da API do pixel (que não quebra por parâmetro customizado).
+function obterSessionIdLp() {
+  try {
+    var sid = sessionStorage.getItem('lp_session_id');
+    if (!sid) {
+      sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : gerarEventId();
+      sessionStorage.setItem('lp_session_id', sid);
+    }
+    return sid;
+  } catch (e) { return null; }
+}
+function mandarBeacon(evento) {
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    fetch('/api/beacon', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        variant: 'v2',
+        evento: evento,
+        session_id: obterSessionIdLp(),
+        utm_source: qs.get('utm_source') || null,
+        utm_campaign: qs.get('utm_campaign') || null,
+      }),
+      keepalive: true,
+    });
+  } catch (e) {}
+}
+
+// Mesmo racional da v1 (index.html, 2026-10-15): nome próprio pro
+// PageView desta variante, pra separar do catálogo/campanha no funil.
+fbq('trackCustom', 'PresselPageView', {}, { eventID: gerarEventId() });
+mandarBeacon('PresselPageView');
+
+(function () {
+  var map = {
+    'cta-grupo': ['ClickGroup', { content_name: 'grupo_whatsapp', variant: 'v2' }]
+  };
+  Object.keys(map).forEach(function (id) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    a.addEventListener('click', function () {
+      fbq('trackCustom', map[id][0], map[id][1], { eventID: gerarEventId() });
+      mandarBeacon(map[id][0]);
+    });
+  });
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2276849516022676&ev=PageView&noscript=1"
+/></noscript>
+
+</body>
+</html>

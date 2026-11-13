@@ -21,12 +21,12 @@ export interface Palette {
   accentAurora: string;
 }
 
-// Default = paleta Virals (navy/coral). Clientes não-Virals (ex.: Tiago âmbar)
+// Default = paleta Virals (navy/vermelho sinal). Clientes não-Virals (ex.: Tiago âmbar)
 // passam sua paleta explicitamente via props → resolvePalette.
 export const DEFAULT_PALETTE: Palette = {
   primary: '#0C0A1F',
   secondary: '#181436',
-  accent: '#FF3D68',
+  accent: '#FF5B3F',
   accentAlt: '#7B5BFF',
   accentAurora: '#2DE2C8',
 };
@@ -231,6 +231,34 @@ export function GhostNumeral({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Anéis geométricos — motivo "boolean" (círculos sobrepostos, como interseção
+// booleana) — acento tech/IA discreto num canto, blend screen para não brigar
+// com o texto. Reforça a leitura "moderno/tecnológico" sem introduzir cor nova.
+// ─────────────────────────────────────────────────────────────────────────────
+export function GeometricRings({
+  colors, x = '92%', y = '88%', size = 480, opacity = 0.22, strokeWidth = 1.5,
+}: {
+  colors: [string, string, string?]; x?: string; y?: string; size?: number;
+  opacity?: number; strokeWidth?: number;
+}) {
+  return (
+    <svg
+      className="absolute pointer-events-none"
+      style={{
+        left: x, top: y, width: size, height: size,
+        transform: 'translate(-50%, -50%)', mixBlendMode: 'screen', opacity,
+      }}
+      viewBox="0 0 400 400"
+      fill="none"
+    >
+      <circle cx="240" cy="220" r="150" stroke={colors[0]} strokeWidth={strokeWidth} />
+      <circle cx="175" cy="150" r="105" stroke={colors[1]} strokeWidth={strokeWidth} />
+      {colors[2] && <circle cx="225" cy="275" r="58" stroke={colors[2]} strokeWidth={strokeWidth} />}
+    </svg>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // AtmosphereOverlay — atmosfera da marca SOBRE uma imagem de fundo.
 // Mesma linguagem de luz/cor/grão do Backdrop, porém TRANSLÚCIDA (sem o
 // gradiente-base opaco) — a foto continua visível, mas ganha a "cara" da marca
@@ -337,6 +365,16 @@ export function Backdrop({
     <div className="absolute inset-0 z-0 overflow-hidden" style={{ backgroundColor: p.primary }}>
       <div className="absolute inset-0" style={{ background: base[mood] }} />
 
+      {/* Infusão de mesh-gradient no canto — profundidade extra por baixo dos orbs,
+          mesma linguagem de "atmosfera em camadas" em todos os moods. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(140% 100% at 85% 0%, ${rgba(p.accent, 0.22)} 0%, transparent 60%)`,
+          mixBlendMode: 'screen',
+        }}
+      />
+
       {/* Imagem de fundo opcional, dessaturada e fundida (luminosity). */}
       {image && (
         <div className="absolute inset-0">
@@ -350,19 +388,34 @@ export function Backdrop({
         </div>
       )}
 
-      {/* Luzes por mood */}
+      {/*
+        Luzes por mood — blend="screen" em TODOS os orbs (MED-DS-05, 2026-08-17):
+        sem blend explícito, o React usa composição alfa "normal", que sobre o
+        navy escuro DESSATURA o acento e empurra a leitura pra rosa/magenta —
+        é a causa raiz do "acento ainda parece rosa" mesmo com o hex certo
+        (Vermelho Sinal). "screen" clareia em vez de misturar/sujar e é o que
+        o AtmosphereOverlay (usado quando há imagem de fundo) já fazia — aqui
+        só faltava paridade.
+      */}
       {mood === 'editorial' && (
         <>
-          <GlowOrb color={p.accent} x="88%" y="6%" size={620} opacity={0.28} blur={170} />
-          <GlowOrb color={p.accentAlt} x="6%" y="100%" size={520} opacity={0.18} blur={170} />
+          {/* Acento domina a composição (2026-08-17): accentAlt reduzido pra
+              nota de profundidade, não co-protagonista — evitava a leitura
+              "rosa" onde o glow vermelho encontrava o roxo. */}
+          <GlowOrb color={p.accent} x="88%" y="6%" size={620} opacity={0.34} blur={170} blend="screen" />
+          <GlowOrb color={p.accentAlt} x="6%" y="100%" size={480} opacity={0.1} blur={170} blend="screen" />
           {/* Luz de leitura atrás do bloco de texto (espelha o ModeledCarouselSlide). */}
-          <GlowOrb color={p.accent} x="22%" y="64%" size={520} opacity={0.12} blur={180} />
-          <DottedGrid color={rgba('#ffffff', 0.05)} gap={46} opacity={0.5} />
+          <GlowOrb color={p.accent} x="22%" y="64%" size={520} opacity={0.12} blur={180} blend="screen" />
+          {/* Terceiro tom no mesh — profundidade tricolor sutil no canto oposto. */}
+          <GlowOrb color={p.accentAurora} x="4%" y="96%" size={360} opacity={0.16} blur={150} blend="screen" />
+          <DottedGrid color={rgba('#ffffff', 0.07)} gap={44} opacity={0.6} />
+          {/* Anéis "boolean" — agora camadas editáveis (ver editorial() em
+              templatePresets.ts, role 'decor'), não mais fixos aqui. */}
         </>
       )}
       {mood === 'cinematic' && (
         <>
-          <GlowOrb color={p.accent} x="50%" y="34%" size={760} opacity={0.22} blur={200} />
+          <GlowOrb color={p.accent} x="50%" y="34%" size={760} opacity={0.22} blur={200} blend="screen" />
           <LightLeak color={p.accentAurora} opacity={0.4} angle={115} />
           <LightLeak color={p.accentAlt} opacity={0.22} angle={300} />
         </>
@@ -370,20 +423,20 @@ export function Backdrop({
       {mood === 'technical' && (
         <>
           <DottedGrid color={rgba(p.accent, 0.12)} gap={54} kind="line" opacity={0.5} />
-          <GlowOrb color={p.accent} x="100%" y="0%" size={520} opacity={0.16} blur={180} />
+          <GlowOrb color={p.accent} x="100%" y="0%" size={520} opacity={0.16} blur={180} blend="screen" />
           {/* Luz de leitura atrás do conteúdo (paridade de brilho — MED-06/G2). */}
-          <GlowOrb color={p.accent} x="28%" y="60%" size={480} opacity={0.1} blur={180} />
+          <GlowOrb color={p.accent} x="28%" y="60%" size={480} opacity={0.1} blur={180} blend="screen" />
         </>
       )}
       {mood === 'data' && (
         <>
-          <GlowOrb color={p.accent} x="50%" y="42%" size={680} opacity={0.32} blur={180} />
-          <GlowOrb color={p.accentAlt} x="14%" y="92%" size={420} opacity={0.16} blur={160} />
+          <GlowOrb color={p.accent} x="50%" y="42%" size={680} opacity={0.36} blur={180} blend="screen" />
+          <GlowOrb color={p.accentAlt} x="14%" y="92%" size={400} opacity={0.1} blur={160} blend="screen" />
         </>
       )}
       {mood === 'diary' && (
         <>
-          <GlowOrb color={p.accentAurora} x="30%" y="18%" size={560} opacity={0.2} blur={190} />
+          <GlowOrb color={p.accentAurora} x="30%" y="18%" size={560} opacity={0.2} blur={190} blend="screen" />
           <LightLeak color={p.accent} opacity={0.25} angle={130} />
         </>
       )}

@@ -1,0 +1,268 @@
+<!-- Estilos de thumbnail — canal estoico (Modern Estoicism) · 1280x720
+     `?d=<base64 do JSON>`. Screenshot de `#alvo`.
+
+     ESTE TEMPLATE E O OPOSTO DO DE FUTEBOL, DE PROPOSITO
+       O de futebol grita: faixa amarela chapada, X vermelho, etiqueta, emoji.
+       Os cinco prints do nicho estoico nao tem NENHUMA dessas coisas. O que eles
+       tem e o contrario — silencio grafico e monumentalidade:
+
+         · a figura de marmore de um lado, o texto do outro
+         · duas a quatro linhas empilhadas, caixa alta
+         · UMA linha em dourado, o resto em branco
+         · fundo escuro com uma luz ambar de recorte
+         · assinatura do canal pequena, letra espacada, contraste baixo
+         · zero marcador, zero seta, zero emoji, zero etiqueta
+
+       Por isso a gramatica aqui e outra. Nao ha `.faixa.solida`, nao ha
+       `marcador`, nao ha `etiqueta`. Incluir esses elementos "porque o outro
+       canal tem" seria trocar o genero do canal por engano.
+
+     A GRAMATICA
+       foto        a imagem de marmore, quadro inteiro, com zoom e deslocamento
+       lado        de que lado fica a FIGURA — o texto vai no lado oposto
+       veu         escurecimento direcional, so do lado do texto
+       linhas      2 a 4, caixa alta; `{assim}` marca a linha/palavra dourada
+       familia     'sans' (Anton) ou 'serifada' (Playfair) — os DOIS registros
+                   que aparecem nos prints, e a escolha entre eles e de genero
+       filete      risco dourado sob a linha dourada
+       assinatura  o nome do canal, discreto, como PSYCHORESTO / THE STOIC MODE
+-->
+<meta charset="utf-8">
+<title>thumb estoica</title>
+<link rel="stylesheet" href="fontes.css">
+<style>
+  :root {
+    /* Paleta tirada da identidade `estoico-marmore-templo` (âmbar quente de
+       recorte, sombra fria, dessaturado) cruzada com o dourado medido nos
+       prints — que é âmbar, não amarelo-limão. */
+    --profundo:#0A0908;      /* preto quente, base de tudo */
+    --sombra:#12181A;        /* a sombra azul-esverdeada da identidade */
+    --ouro:#E3B04B;          /* o dourado do nicho */
+    --ouro-cl:#F4CF7A;       /* topo do gradiente do dourado */
+    --tinta:#F4EFE6;         /* branco de mármore, nunca #FFF puro */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:720px;overflow:hidden;background:var(--profundo)}
+  #alvo{position:relative;width:1280px;height:720px;overflow:hidden;
+        background:var(--profundo)}
+
+  /* ── camada 0: a figura de mármore ────────────────────────────────────── */
+  /* A imagem é POSICIONADA, não recortada.
+     Primeira tentativa: `object-fit:cover` + `object-position` + `scale()`. Não
+     funcionou, e a razão é aritmética: o pack é 1344×768 (1,75) e o alvo é
+     1,778 — quase a mesma proporção, então o `cover` não sobra quase nada para
+     deslocar, e o `scale()` amplia em torno do centro sem mover a figura. O
+     busto continuava no meio e o texto caía em cima do rosto.
+     Aqui a imagem é maior que o quadro por construção (`height` > 100%) e o
+     `left`/`top` decidem que pedaço aparece. É o que permite "busto no terço
+     esquerdo", que é o padrão do nicho. */
+  .foto{position:absolute;inset:0;overflow:hidden}
+  .foto img{position:absolute;height:132%;width:auto;left:-32%;top:-12%;
+            max-width:none;transform-origin:center center}
+  /* `espelha` inverte a imagem para a figura olhar PARA o texto. Busto olhando
+     para fora do quadro joga o olho do espectador para fora junto. */
+  #alvo.espelha .foto img{transform:scaleX(-1)}
+
+  /* ── camada 1: o véu ──────────────────────────────────────────────────── */
+  /* Direcional: escurece o lado do TEXTO e deixa a figura respirar. Um véu
+     uniforme apaga o mármore, que é o único elemento de identidade que a peça
+     tem. As duas camadas fazem coisas diferentes:
+       .veu.lado   o gradiente lateral, que cria a mesa onde o texto pousa
+       .veu.geral  a vinheta de borda, que é da identidade do canal */
+  .veu{position:absolute;inset:0;pointer-events:none}
+  .veu.geral{background:
+      radial-gradient(ellipse 118% 92% at 50% 44%, transparent 30%, rgba(6,8,8,.80) 100%);}
+  /* Os cortes são fechados (opaco já em 62%) porque o texto pousa a partir dos
+     ~40% e mármore claro atrás de letra branca é o defeito que aparece só aos
+     168px, quando já não dá para consertar. */
+  #alvo[data-lado="esq"] .veu.lado{background:
+      linear-gradient(90deg, rgba(8,10,10,0) 18%, rgba(8,10,10,.55) 34%,
+                             rgba(8,10,10,.93) 52%, rgba(8,10,10,.97) 100%);}
+  #alvo[data-lado="dir"] .veu.lado{background:
+      linear-gradient(270deg, rgba(8,10,10,0) 18%, rgba(8,10,10,.55) 34%,
+                              rgba(8,10,10,.93) 52%, rgba(8,10,10,.97) 100%);}
+  #alvo[data-lado="fundo"] .veu.lado{background:rgba(8,10,10,.70)}
+
+  /* ── camada 2: o texto ────────────────────────────────────────────────── */
+  .bloco{position:absolute;top:0;bottom:0;display:flex;flex-direction:column;
+         justify-content:center;gap:4px;padding:56px 58px}
+  /* A margem segura é 48px; 58 dá folga porque o YouTube desenha a pílula de
+     duração sobre o canto inferior direito e o texto não pode encostar nela. */
+  #alvo[data-lado="esq"] .bloco{right:0;width:60%;align-items:flex-start;text-align:left}
+  #alvo[data-lado="dir"] .bloco{left:0;width:60%;align-items:flex-end;text-align:right}
+  #alvo[data-lado="fundo"] .bloco{left:0;right:0;width:100%;align-items:center;text-align:center}
+
+  .l{text-transform:uppercase;color:var(--tinta);line-height:.98;
+     letter-spacing:-.005em;
+     /* A sombra é o que descola a letra do mármore claro. Difusa e não dura:
+        contorno duro é a gramática do canal de futebol, e aqui soa barato. */
+     text-shadow:0 6px 26px rgba(0,0,0,.92), 0 2px 5px rgba(0,0,0,.85)}
+  /* O dourado é um gradiente CURTO e CLARO. A primeira versão ia de #F4CF7A a
+     #C1893A e, somada a um drop-shadow pesado, saiu marrom — nos prints o
+     dourado é a coisa mais brilhante do quadro, não a mais escura.
+     Regra: o ponto mais escuro do gradiente ainda tem de ser mais claro que o
+     branco... não, mais claro que o fundo. #D9A busca isso. */
+  .l.ouro{background:linear-gradient(180deg,#FBE9B8 0%,#F0C765 38%,#E0A94A 78%,#D49A3E 100%);
+          -webkit-background-clip:text;background-clip:text;color:transparent;
+          /* `text-shadow:none` NAO e detalhe: com `background-clip:text` a ordem
+             de pintura e fundo → sombra do texto → texto. Como o texto e
+             transparente, a sombra escura fica POR CIMA do dourado recortado e
+             o pinta de marrom. Foi o defeito da primeira rodada: o dourado saía
+             quase preto. O descolamento vem do `drop-shadow` do filtro, que
+             pinta atras do elemento inteiro. */
+          text-shadow:none;
+          /* Com o texto transparente a text-shadow some junto. O drop-shadow do
+             filtro segue a forma da letra e devolve o descolamento — mas leve,
+             senão ele escurece o próprio dourado. */
+          filter:drop-shadow(0 4px 12px rgba(0,0,0,.75))}
+
+  /* Famílias — os dois registros do nicho.
+     sans      Anton: o registro do print 91/92, peso e velocidade
+     serifada  Playfair 900: o registro do print 93/94, monumento e idade */
+  #alvo[data-familia="sans"] .l{font-family:Anton,"Arial Black",sans-serif;font-weight:400}
+  #alvo[data-familia="serifada"] .l{font-family:"Playfair Display",Georgia,serif;
+       font-weight:900;letter-spacing:.004em}
+
+  /* Corpos por CLASSE DE TAMANHO, não por px solto no JSON. O script calcula a
+     classe pelo comprimento da linha; assim uma linha longa nunca vaza. */
+  .l.g0{font-size:112px} .l.g1{font-size:92px} .l.g2{font-size:74px}
+  .l.g3{font-size:60px}  .l.g4{font-size:48px}
+  /* Playfair tem olho menor que Anton no mesmo corpo — sem essa compensação as
+     duas famílias não são comparáveis lado a lado, e a folha compararia
+     tamanho em vez de estilo. */
+  #alvo[data-familia="serifada"] .l.g0{font-size:100px}
+  #alvo[data-familia="serifada"] .l.g1{font-size:84px}
+  #alvo[data-familia="serifada"] .l.g2{font-size:68px}
+  #alvo[data-familia="serifada"] .l.g3{font-size:56px}
+  #alvo[data-familia="serifada"] .l.g4{font-size:45px}
+
+  /* `menor` é a linha de apoio: o "NENHUMA DELAS É" antes do "ACORDAR CEDO".
+     Nos prints ela é sempre bem menor que a linha-chave, e é isso que faz a
+     chave parecer grande.
+     Tamanho em PX e não em em: `font-size` em `em` resolve contra o PAI (o
+     bloco, 16px), não contra a classe de corpo do próprio elemento — a linha
+     de apoio saía com 8px. E o seletor repete `[data-familia]` porque as
+     regras de família têm especificidade maior e venceriam. */
+  #alvo[data-familia] .l.menor{font-size:42px;letter-spacing:.07em;opacity:.94;
+                               margin-bottom:2px}
+  #alvo[data-familia="serifada"] .l.menor{font-size:38px;letter-spacing:.10em}
+
+  /* ── filete dourado ───────────────────────────────────────────────────── */
+  /* Print 92 põe um risco dourado sob a linha-chave. Serve de sublinhado e de
+     base: dá chão para o texto que flutua sobre a foto. */
+  .filete{height:7px;border-radius:4px;margin:10px 0 2px;
+          background:linear-gradient(90deg,var(--ouro),rgba(227,176,75,.15));
+          box-shadow:0 3px 14px rgba(0,0,0,.8);display:none}
+  #alvo[data-lado="dir"] .filete{background:
+      linear-gradient(270deg,var(--ouro),rgba(227,176,75,.15))}
+  #alvo.com-filete .filete{display:block}
+
+  /* ── assinatura do canal ──────────────────────────────────────────────── */
+  /* Contraste BAIXO de propósito. Nos prints ela mal se lê aos 168px — e é o
+     ponto: ela existe para quem já assiste reconhecer, não para vender. */
+  .assinatura{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    font:500 19px/1 Montserrat,"Segoe UI",sans-serif;letter-spacing:.42em;
+    text-transform:uppercase;color:rgba(244,239,230,.42);white-space:nowrap}
+  .assinatura.canto{left:auto;right:34px;transform:none}
+
+  /* ── grão de película ─────────────────────────────────────────────────── */
+  /* A identidade `estoico-marmore-templo` pede grão e vinheta. Sem o grão a
+     capa não parece do mesmo canal que o vídeo, que tem grão em todo frame. */
+  .grao{position:absolute;inset:0;opacity:.055;pointer-events:none;
+        background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'>\
+<filter id='r'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter>\
+<rect width='160' height='160' filter='url(%23r)'/></svg>");}
+</style>
+
+<div id="alvo">
+  <div class="foto"></div>
+  <div class="veu lado"></div>
+  <div class="veu geral"></div>
+  <div class="bloco" id="bloco"></div>
+  <div class="grao"></div>
+  <div class="assinatura" id="assinatura"></div>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  // Classe de corpo pela CONTAGEM DE CARACTERES, não por palpite: uma linha de
+  // 20 caracteres a 112px vaza de 1280 e o defeito só aparece no PNG.
+  // Os cortes foram medidos com Anton em 1280 de largura útil (~740px de bloco).
+  function classe(txt, menor) {
+    // Sufixo `#g0`..`#g4` força a classe. Existe porque o cálculo automático
+    // dimensiona pelo COMPRIMENTO, e há um desenho do nicho (print 93) em que a
+    // palavra dourada é grande JUSTAMENTE por ser curta — o automático faria o
+    // contrário do pretendido.
+    const forcado = /#(g[0-4])$/.exec(txt || "");
+    if (forcado) return forcado[1];
+    const n = (txt || "").replace(/[{}]/g, "").length;
+    if (menor) return "g3";
+    if (n <= 9)  return "g0";
+    if (n <= 13) return "g1";
+    if (n <= 18) return "g2";
+    if (n <= 24) return "g3";
+    return "g4";
+  }
+
+  function monta(d) {
+    const alvo = $("alvo");
+    alvo.dataset.lado = d.lado || "esq";
+    alvo.dataset.familia = d.familia || "sans";
+    if (d.espelha) alvo.classList.add("espelha");
+    if (d.filete) alvo.classList.add("com-filete");
+
+    // foto — `foto_escala` é a ALTURA em % do quadro (>100 sobra para deslocar);
+    // `foto_x`/`foto_y` decidem que pedaço aparece.
+    //
+    // ATENÇÃO ao espelhar: `scaleX(-1)` inverte em torno do centro da IMAGEM,
+    // não do quadro. Um busto que estava no terço esquerdo da imagem não vai
+    // para o terço direito do quadro sozinho — `foto_x` tem de ser recalculado
+    // para o lado. Por isso cada estilo declara o seu, e não há um "auto".
+    const foto = alvo.querySelector(".foto");
+    if (d.foto) {
+      const im = new Image();
+      im.src = d.foto;
+      if (d.foto_escala) im.style.height = d.foto_escala + "%";
+      if (d.foto_x) im.style.left = d.foto_x;
+      if (d.foto_y) im.style.top = d.foto_y;
+      foto.appendChild(im);
+    }
+
+    // linhas — `{...}` marca o trecho dourado; `_` no começo marca linha de apoio
+    const bloco = $("bloco");
+    (d.linhas || []).forEach(function (txt) {
+      const menor = txt.startsWith("_");
+      if (menor) txt = txt.slice(1);
+      const cls = classe(txt, menor);
+      txt = txt.replace(/#g[0-4]$/, "");
+      const ouro = /^\{.*\}$/.test(txt.trim());
+      const limpo = txt.replace(/[{}]/g, "");
+      const el = document.createElement("div");
+      el.className = "l " + cls + (ouro ? " ouro" : "") + (menor ? " menor" : "");
+      el.textContent = limpo;
+      bloco.appendChild(el);
+      if (ouro && d.filete) {
+        const f = document.createElement("div");
+        f.className = "filete";
+        f.style.width = Math.min(100, 24 + limpo.length * 3.4) + "%";
+        bloco.appendChild(f);
+      }
+    });
+
+    const as = $("assinatura");
+    if (d.assinatura) {
+      as.textContent = d.assinatura;
+      if (d.assinatura_canto) as.classList.add("canto");
+    } else as.style.display = "none";
+
+    if (d.grao === false) alvo.querySelector(".grao").style.display = "none";
+  }
+
+  const p = new URLSearchParams(location.search).get("d");
+  if (p) {
+    try { monta(JSON.parse(decodeURIComponent(escape(atob(p))))); }
+    catch (e) { document.body.innerHTML = "<pre style='color:#fff'>" + e + "</pre>"; }
+  }
+</script>

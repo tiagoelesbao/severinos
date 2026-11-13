@@ -1,0 +1,609 @@
+<title>Cabine de Transmissão</title>
+<style>
+  /* ───────────────────────────────────────────────────────────────────────
+     Paleta herdada do proprio overlay: o guia e a coisa documentada usam as
+     mesmas cores, entao ler o manual e olhar a tela sao a mesma experiencia.
+       #0b0d12  o fundo do palco       #2de2c8  o realce dos titulos
+       #ffc531  a cor do gol           #ff4d4d  a bolinha de AO VIVO
+     Desenho ESCURO por padrao, porque a coisa documentada vive no escuro.
+     ─────────────────────────────────────────────────────────────────────── */
+  :root {
+    --ground:   #0b0d12;
+    --surface:  #141821;
+    --surface2: #1b202b;
+    --line:     #262d3a;
+    --ink:      #e6eaf1;
+    --ink-mid:  #9aa5b7;
+    --ink-low:  #6b7686;
+    --accent:   #2de2c8;
+    --gold:     #ffc531;
+    --live:     #ff4d4d;
+    --code-bg:  #0e131b;
+    --shadow:   0 10px 34px rgba(0,0,0,.5);
+
+    --f-ui: ui-sans-serif, "Segoe UI Variable Text", "Segoe UI", Roboto,
+            system-ui, -apple-system, sans-serif;
+    --f-mono: ui-monospace, "Cascadia Code", "Cascadia Mono", Consolas,
+              "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --ground:   #f2f4f7;
+      --surface:  #ffffff;
+      --surface2: #eef1f6;
+      --line:     #d8dee8;
+      --ink:      #131820;
+      --ink-mid:  #4e5a6b;
+      --ink-low:  #7b8697;
+      --accent:   #0a8474;
+      --gold:     #8a5d00;
+      --live:     #c0271f;
+      --code-bg:  #10151d;
+      --shadow:   0 8px 26px rgba(20,30,50,.10);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground:   #f2f4f7;
+    --surface:  #ffffff;
+    --surface2: #eef1f6;
+    --line:     #d8dee8;
+    --ink:      #131820;
+    --ink-mid:  #4e5a6b;
+    --ink-low:  #7b8697;
+    --accent:   #0a8474;
+    --gold:     #8a5d00;
+    --live:     #c0271f;
+    --code-bg:  #10151d;
+    --shadow:   0 8px 26px rgba(20,30,50,.10);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 400 16px/1.65 var(--f-ui);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 26px 120px; }
+
+  /* ── cabecalho ───────────────────────────────────────────────────────── */
+  header { padding: 74px 0 40px; border-bottom: 1px solid var(--line); }
+  .aovivo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 700 11px/1 var(--f-mono); letter-spacing: .2em; text-transform: uppercase;
+    color: var(--live); margin-bottom: 22px;
+  }
+  .ponto { width: 7px; height: 7px; border-radius: 50%; background: var(--live); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ponto { animation: pulsa 1.8s ease-in-out infinite; }
+    @keyframes pulsa { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
+  }
+  h1 {
+    font-size: clamp(38px, 6.5vw, 62px); line-height: 1.02; margin: 0 0 20px;
+    font-weight: 800; letter-spacing: -.026em; text-wrap: balance;
+  }
+  .lead { font-size: 19px; color: var(--ink-mid); max-width: 62ch; margin: 0; }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  /* ── secoes numeradas: a numeracao e a ORDEM REAL de execucao ────────── */
+  section { padding: 54px 0 8px; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: 0; }
+  .fase {
+    display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px;
+  }
+  .fase .n {
+    font: 700 12px/1 var(--f-mono); letter-spacing: .12em;
+    color: var(--accent); padding-top: 2px;
+  }
+  h2 {
+    font-size: clamp(25px, 3.6vw, 33px); line-height: 1.14; margin: 0;
+    font-weight: 750; letter-spacing: -.018em; text-wrap: balance;
+  }
+  .quando {
+    font: 500 13px/1.5 var(--f-mono); color: var(--ink-low);
+    margin: 0 0 26px 40px; letter-spacing: .01em;
+  }
+  h3 {
+    font-size: 17px; font-weight: 700; margin: 34px 0 12px;
+    letter-spacing: -.006em;
+  }
+  p { margin: 0 0 16px; max-width: 68ch; }
+  .mid { color: var(--ink-mid); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px;
+  }
+
+  /* ── passos: acao em cima, motivo embaixo ────────────────────────────── */
+  ol.passos { list-style: none; margin: 0 0 8px; padding: 0;
+              display: flex; flex-direction: column; gap: 20px; counter-reset: p; }
+  ol.passos > li { counter-increment: p; padding-left: 40px; position: relative; }
+  ol.passos > li::before {
+    content: counter(p); position: absolute; left: 0; top: 1px;
+    width: 25px; height: 25px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--surface2); border: 1px solid var(--line);
+    font: 700 12px/1 var(--f-mono); color: var(--ink-mid);
+  }
+  ol.passos .acao { font-weight: 600; margin: 0 0 5px; }
+  ol.passos .motivo { color: var(--ink-mid); font-size: 15px; margin: 0; }
+
+  /* ── comandos ────────────────────────────────────────────────────────── */
+  pre {
+    background: var(--code-bg); color: #dfe6f0; border: 1px solid var(--line);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 15px 18px; margin: 0 0 18px; overflow-x: auto;
+    font: 400 13.5px/1.7 var(--f-mono);
+  }
+  pre .c { color: #6b7686; }
+  pre .k { color: var(--accent); }
+  pre .v { color: var(--gold); }
+  code {
+    font: 500 .89em/1.4 var(--f-mono); background: var(--surface2);
+    border: 1px solid var(--line); border-radius: 5px; padding: 1.5px 6px;
+    color: var(--ink); white-space: nowrap;
+  }
+
+  /* ── tabelas ─────────────────────────────────────────────────────────── */
+  .rolagem { overflow-x: auto; margin: 0 0 20px;
+             border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px;
+          background: var(--surface); }
+  th, td { text-align: left; padding: 11px 15px;
+           border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font: 700 10.5px/1.4 var(--f-mono); letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-low);
+    background: var(--surface2); white-space: nowrap;
+  }
+  td code { white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ── caixas de aviso: a cor codifica a gravidade ─────────────────────── */
+  .nota {
+    border: 1px solid var(--line); border-left: 3px solid var(--ink-low);
+    background: var(--surface); border-radius: 8px;
+    padding: 15px 18px; margin: 0 0 20px;
+  }
+  .nota p:last-child { margin-bottom: 0; }
+  .nota .rot {
+    display: block; font: 700 10.5px/1 var(--f-mono); letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-low); margin-bottom: 9px;
+  }
+  .nota.cuidado { border-left-color: var(--gold); }
+  .nota.cuidado .rot { color: var(--gold); }
+  .nota.parada { border-left-color: var(--live); }
+  .nota.parada .rot { color: var(--live); }
+  .nota.chave { border-left-color: var(--accent); }
+  .nota.chave .rot { color: var(--accent); }
+
+  /* ── painel de saude ─────────────────────────────────────────────────── */
+  .saude {
+    background: var(--code-bg); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 20px; margin: 0 0 20px;
+    font: 400 13px/1.9 var(--f-mono); color: #dfe6f0; overflow-x: auto;
+  }
+  .saude .ch { color: var(--accent); }
+  .saude .vl { color: var(--gold); }
+  .saude .ok { color: #57d9a3; }
+
+  /* ── mapa de arquivos ────────────────────────────────────────────────── */
+  dl.mapa { margin: 0 0 18px; display: grid; gap: 0; }
+  dl.mapa > div {
+    display: grid; grid-template-columns: 200px 1fr; gap: 18px;
+    padding: 11px 0; border-bottom: 1px solid var(--line);
+  }
+  dl.mapa > div:last-child { border-bottom: 0; }
+  dl.mapa dt { font: 500 13px/1.6 var(--f-mono); color: var(--accent); }
+  dl.mapa dd { margin: 0; color: var(--ink-mid); font-size: 14.5px; }
+  @media (max-width: 620px) {
+    dl.mapa > div { grid-template-columns: 1fr; gap: 3px; }
+  }
+
+  ul.simples { margin: 0 0 18px; padding-left: 20px; color: var(--ink-mid); }
+  ul.simples li { margin-bottom: 7px; }
+  ul.simples strong { color: var(--ink); font-weight: 600; }
+
+  footer {
+    padding: 46px 0 0; margin-top: 30px; border-top: 1px solid var(--line);
+    color: var(--ink-low); font-size: 14px;
+  }
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="aovivo"><span class="ponto"></span>manual de operação</span>
+  <h1>Cabine de Transmissão</h1>
+  <p class="lead">Tudo que existe no sistema de lives de futebol, e a ordem exata
+  para colocá-lo no ar com o OBS. Escrito para ser seguido <strong>quinze minutos
+  antes do apito</strong>, sem precisar entender nada do que está por baixo.</p>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">O QUE É</span><h2>Um servidor, uma página, uma fonte no OBS</h2></div>
+  <p class="quando">a arquitetura inteira em três peças</p>
+
+  <p>Um programa em Python busca os dados da partida na ESPN e guarda em memória.
+  Uma página web desenha o overlay lendo desse programa. O OBS abre essa página
+  como uma fonte de navegador. Só isso.</p>
+
+  <p class="mid">O servidor existe no meio por três motivos: a política de origem
+  do navegador impede a página de chamar a ESPN diretamente; o cache faz a API ser
+  consultada uma vez a cada 30 segundos em vez de milhares de vezes por jogo; e
+  várias cenas do OBS podem abrir a mesma página sem multiplicar as chamadas.</p>
+
+  <h3>Os arquivos</h3>
+  <dl class="mapa">
+    <div><dt>servidor.py</dt><dd>Busca os dados, guarda em cache, serve a página e comanda a narração e o chat. É o único que você executa.</dd></div>
+    <div><dt>overlay.html</dt><dd>O overlay em si — placar, minicampo, escalações, estatísticas, lances, cartaz de gol, faixa de CTA.</dd></div>
+    <div><dt>voz.py</dt><dd>A locução. Piper com a voz <code>cadu</code>, modelo carregado em memória, passando pela cadeia de rádio.</dd></div>
+    <div><dt>radio.py</dt><dd>A compressão que separa locução esportiva de leitura de texto. É ela que dá energia à voz, não o motor.</dd></div>
+    <div><dt>narrador.py</dt><dd>Decide o que falar e quando. Templates com sorteio, alimentados por dado real — nunca por modelo de linguagem.</dd></div>
+    <div><dt>chat.py</dt><dd>Lê o chat da sua live no YouTube, sem chave e sem cota.</dd></div>
+    <div><dt>chat_triagem.py</dt><dd>Decide o que do chat merece voz. Nada é lido literalmente.</dd></div>
+    <div><dt>banco_falas.py<br>gera_pack_voz.py</dt><dd>O pack de falas prontas — as chamadas de engajamento, geradas e ouvidas antes do ar.</dd></div>
+    <div><dt>faz_loop_torcida.py</dt><dd>Fecha a trilha de torcida num loop sem emenda audível.</dd></div>
+    <div><dt>prova_mixagem.py</dt><dd>Monta um MP3 com voz + torcida no mesmo balanço do ar, para você ouvir antes.</dd></div>
+  </dl>
+
+  <div class="nota chave">
+    <span class="rot">A decisão que organiza tudo</span>
+    <p>Nenhum modelo de linguagem narra o fato. Um LLM narrando futebol ao vivo
+    inventa jogador, minuto e placar — e faz isso com a mesma fluência de quando
+    acerta. Numa live, um erro assim é dito em voz alta para milhares de pessoas e
+    não se recolhe. Um gol tem umas quinze formas de ser narrado; o que muda entre
+    elas é a redação, não o fato. Sorteio de template com dado real dá variedade
+    sem risco, roda em microssegundos e custa zero.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">FASE 1</span><h2>Preparar a máquina</h2></div>
+  <p class="quando">uma vez só · ~5 minutos · nunca mais</p>
+
+  <p>Três comandos que geram material reaproveitável. Depois disso eles não
+  precisam rodar de novo, a menos que você troque a voz ou as trilhas.</p>
+
+<pre><span class="c"># fecha o loop da torcida — sem isso, um clique a cada 45 s no ar</span>
+python faz_loop_torcida.py
+
+<span class="c"># gera as 146 falas de engajamento com a voz aprovada (~30 s)</span>
+python gera_pack_voz.py <span class="k">--fixo</span>
+
+<span class="c"># ouve voz + torcida no mesmo balanço do ar, antes de abrir o OBS</span>
+python prova_mixagem.py <span class="k">--ouvir</span></pre>
+
+  <p class="mid">O terceiro é o único que pede julgamento seu. As três peças já
+  foram aprovadas separadas, mas separadas elas não dizem nada sobre a única coisa
+  que importa no ar: se a fala continua inteligível com a torcida por baixo.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">FASE 2</span><h2>Achar o jogo e subir o servidor</h2></div>
+  <p class="quando">15 minutos antes do apito</p>
+
+<pre><span class="c"># varre 19 ligas em paralelo e devolve o comando pronto de cada jogo ao vivo</span>
+python servidor.py <span class="k">--procurar</span></pre>
+
+  <p>A saída já traz a linha de comando de cada partida. Copie a do jogo que você
+  vai transmitir e acrescente <code>--narrar</code>:</p>
+
+<pre>python servidor.py <span class="v">401879288</span> <span class="k">--liga</span> <span class="v">eng.1</span> <span class="k">--narrar</span>
+
+<span class="c"># com o chat da sua live (quando o canal existir)</span>
+python servidor.py <span class="v">401879288</span> <span class="k">--liga</span> <span class="v">eng.1</span> <span class="k">--narrar</span> <span class="k">--chat</span> <span class="v">https://youtube.com/watch?v=SEU_ID</span>
+
+<span class="c"># ensaio sem live real: injeta mensagens simuladas a cada 18 s</span>
+python servidor.py <span class="v">401879288</span> <span class="k">--liga</span> <span class="v">eng.1</span> <span class="k">--narrar</span> <span class="k">--chat-teste</span></pre>
+
+  <p>O servidor confirma três coisas ao subir. Se alguma faltar, pare e resolva
+  antes de abrir o OBS:</p>
+
+<pre>narracao LIGADA · motor: piper · modelo pronto em 1.2s
+  pack: 146 falas prontas em disco
+chat LIGADO · lendo a cada 5.0s</pre>
+
+  <div class="nota">
+    <span class="rot">Por que o modelo carrega no boot</span>
+    <p>O Piper leva 1,2 s para carregar. Carregado antes do apito, cada frase passa
+    a custar 0,2 a 0,5 s. Sem isso, a primeira fala da live — justamente a de
+    abertura — pagaria a carga sozinha.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">FASE 3</span><h2>Montar no OBS</h2></div>
+  <p class="quando">10 minutos antes · só na primeira vez; depois a cena fica salva</p>
+
+  <ol class="passos">
+    <li>
+      <p class="acao">Fontes → <strong>+</strong> → <strong>Navegador</strong></p>
+      <p class="motivo">Não use Captura de Janela nem Captura de Tela. O Browser
+      Source roda num Chromium próprio, dentro do OBS — é isso que mantém o overlay
+      independente do que você faz no computador.</p>
+    </li>
+    <li>
+      <p class="acao">URL: <code>http://127.0.0.1:8790/?fundos=1&amp;torcida=1</code></p>
+      <p class="motivo">Largura <span class="num">1920</span>, Altura
+      <span class="num">1080</span>. Em qualquer outro tamanho o overlay encolhe
+      proporcionalmente e sobra moldura nas laterais.</p>
+    </li>
+    <li>
+      <p class="acao">Marque <strong>“Controlar áudio pelo OBS”</strong></p>
+      <p class="motivo">É o passo que decide tudo sobre som. Com ele, o áudio da
+      página entra no mixer como fonte própria, com fader e filtros — e deixa de
+      passar pelo dispositivo padrão do Windows.</p>
+    </li>
+    <li>
+      <p class="acao">Desmarque <strong>“Desligar a fonte quando não visível”</strong></p>
+      <p class="motivo">Marcado, o OBS derruba a página ao trocar de cena. A
+      narração para e o servidor continua achando que está tudo bem.</p>
+    </li>
+    <li>
+      <p class="acao">No mixer, deixe <strong>Áudio da Área de Trabalho</strong> mudo ou remova</p>
+      <p class="motivo">É o único caminho pelo qual notificação do Discord, som de
+      outra aba ou música sua chegam à transmissão. Capture pela fonte, nunca pela
+      área de trabalho.</p>
+    </li>
+    <li>
+      <p class="acao">Botão direito na fonte → <strong>Propriedades Avançadas de Áudio</strong> →
+      Monitoramento: <strong>desligado</strong></p>
+      <p class="motivo">É o que faz o som ir para a live e <em>não</em> sair nas
+      suas caixas. Você trabalha normal com a live rodando.</p>
+    </li>
+  </ol>
+
+  <div class="rolagem">
+    <table>
+      <tr><th>Monitoramento de áudio</th><th>Vai para a live</th><th>Sai nas suas caixas</th></tr>
+      <tr><td><strong>Monitoramento desligado</strong></td><td>sim</td><td><strong>não</strong> — é esta</td></tr>
+      <tr><td>Somente monitorar (silenciar saída)</td><td>não</td><td>sim</td></tr>
+      <tr><td>Monitorar e emitir</td><td>sim</td><td>sim</td></tr>
+    </table>
+  </div>
+
+  <h3>Parâmetros da URL</h3>
+  <div class="rolagem">
+    <table>
+      <tr><th>Parâmetro</th><th>O que faz</th></tr>
+      <tr><td><code>?fundos=1</code></td><td>Rodízio das 6 imagens de fundo com movimento lento de câmera</td></tr>
+      <tr><td><code>?fundos=03</code></td><td>Fixa um fundo só, pelo prefixo do arquivo</td></tr>
+      <tr><td><code>?torcida=1</code></td><td>Cama de torcida em loop, abaixando sozinha enquanto a voz fala</td></tr>
+      <tr><td><code>?torcida=.35</code></td><td>Mesma cama, com o volume que você escolher</td></tr>
+      <tr><td><code>?campo=1</code></td><td>Gramado desenhado no fundo, em vez de imagem</td></tr>
+      <tr><td><code>?video=URL</code></td><td>Vídeo de fundo em loop</td></tr>
+      <tr><td><code>?cta=Texto</code></td><td>Troca o texto da faixa inferior</td></tr>
+      <tr><td><code>?testevoz=1</code></td><td>Pede uma fala de prova ao abrir, para conferir áudio</td></tr>
+      <tr><td><code>?testegol=1</code></td><td>Dispara o cartaz de gol uma vez, para conferir o desenho</td></tr>
+    </table>
+  </div>
+
+  <div class="nota cuidado">
+    <span class="rot">Torcida: na página, não no OBS</span>
+    <p>Dá para separar a torcida numa Media Source do OBS com abafamento nativo, e
+    isso daria dois faders independentes. Mas o valor disso é o controle ao vivo —
+    e não há controle ao vivo em transmissão que você deixa rodando. Uma fonte, um
+    fader, uma coisa que pode dar errado sem você por perto.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">FASE 4</span><h2>Conferir antes de apertar o botão</h2></div>
+  <p class="quando">5 minutos antes · quatro checagens</p>
+
+  <ol class="passos">
+    <li>
+      <p class="acao">Abra <code>http://127.0.0.1:8790/?fundos=1&amp;torcida=1&amp;testevoz=1</code> numa aba do navegador</p>
+      <p class="motivo">Vai aparecer um aviso amarelo no topo — o Chrome recusa
+      tocar áudio antes de um clique. Clique nele e a voz sai. Esse aviso
+      <strong>não</strong> aparece no OBS, porque a fonte de navegador não aplica
+      essa política.</p>
+    </li>
+    <li>
+      <p class="acao">Confirme que a legenda da narração aparece embaixo enquanto a voz fala</p>
+      <p class="motivo">Se a legenda aparece e não sai som, o problema é
+      roteamento, não narração. Se nem a legenda aparece, o problema é o servidor.</p>
+    </li>
+    <li>
+      <p class="acao">Acrescente <code>&amp;testegol=1</code> e veja o cartaz de gol</p>
+      <p class="motivo">Ele testa de propósito uma foto que não existe, para provar
+      que a queda para a camisa numerada funciona.</p>
+    </li>
+    <li>
+      <p class="acao">Abra <code>http://127.0.0.1:8790/saude</code></p>
+      <p class="motivo">Guarde esse endereço. Durante a live, é o único jeito de
+      saber se algo parou.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">FASE 5</span><h2>No ar, sem ficar olhando</h2></div>
+  <p class="quando">durante as duas horas</p>
+
+  <p>Com o monitoramento desligado, a live roda em segundo plano e você trabalha
+  normalmente. Para saber se continua de pé, abra o painel de saúde:</p>
+
+  <div class="saude">{<br>
+&nbsp;<span class="ch">"no_ar_ha"</span>: <span class="vl">"1h23m"</span>,<br>
+&nbsp;<span class="ch">"ultima_leitura"</span>: <span class="vl">"21:47:12"</span>,<br>
+&nbsp;<span class="ch">"erro_de_dados"</span>: <span class="ok">null</span>,<br>
+&nbsp;<span class="ch">"jogo"</span>: <span class="vl">"FLA 2 x 1 BOT"</span>,<br>
+&nbsp;<span class="ch">"estado"</span>: <span class="vl">"2º tempo"</span>,<br>
+&nbsp;<span class="ch">"narracao"</span>: <span class="ok">true</span>,<br>
+&nbsp;<span class="ch">"falas_esperando"</span>: <span class="vl">0</span>,<br>
+&nbsp;<span class="ch">"chat"</span>: <span class="ok">true</span>,<br>
+&nbsp;<span class="ch">"chat_lidas"</span>: <span class="vl">418</span>,<br>
+&nbsp;<span class="ch">"chat_faladas"</span>: <span class="vl">31</span>,<br>
+&nbsp;<span class="ch">"arquivos_de_fala"</span>: <span class="vl">40</span><br>
+}</div>
+
+  <p>Três campos respondem quase tudo. <code>ultima_leitura</code> parada há mais
+  de um minuto significa que a busca de dados travou. <code>erro_de_dados</code>
+  diferente de <code>null</code> nomeia a falha. <code>falas_esperando</code>
+  crescendo significa que a página não está consumindo o áudio — provavelmente o
+  navegador bloqueou o som.</p>
+
+  <div class="nota">
+    <span class="rot">O que já está limitado</span>
+    <p><code>arquivos_de_fala</code> fica travado em 40 por desenho, e a página não
+    acumula elementos: medido em 323 nós no começo e 323 depois. O laço de dados
+    nunca morre por exceção — em falha de rede ele mantém o último dado bom na tela,
+    que num overlay é muito melhor que o painel sumir.</p>
+  </div>
+
+  <h3>O que a narração faz sozinha</h3>
+  <ul class="simples">
+    <li><strong>Lance novo</strong> — gol, cartão, substituição. Sai em frase inteira, sintetizada na hora, com o contexto certo (gol de empate, de virada e de goleada são frases diferentes).</li>
+    <li><strong>Chat</strong> — a cada 90 s no máximo, e nunca por cima de um lance.</li>
+    <li><strong>Chamada de engajamento</strong> — a cada 4 minutos, tirada do pack pronto.</li>
+    <li><strong>Respiro</strong> — comentário de contexto quando o jogo está parado há mais de 45 s. Sempre a partir de um número que está na tela.</li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">FASE 6</span><h2>Quando algo der errado</h2></div>
+  <p class="quando">a live não tem tela de erro — ela para em silêncio</p>
+
+  <div class="rolagem">
+    <table>
+      <tr><th>Sintoma</th><th>Causa provável</th><th>O que fazer</th></tr>
+      <tr>
+        <td>Sem som na aba do navegador</td>
+        <td>Política de autoplay do Chrome</td>
+        <td>Clicar no aviso amarelo. No OBS não acontece.</td>
+      </tr>
+      <tr>
+        <td>Sem som na live</td>
+        <td>“Controlar áudio pelo OBS” desmarcado</td>
+        <td>Marcar nas propriedades do Browser Source.</td>
+      </tr>
+      <tr>
+        <td>Som saindo nas suas caixas</td>
+        <td>Monitoramento em “Monitorar e emitir”</td>
+        <td>Propriedades Avançadas de Áudio → desligado.</td>
+      </tr>
+      <tr>
+        <td>Entra áudio que não é da live</td>
+        <td>Áudio da Área de Trabalho capturado</td>
+        <td>Deixar mudo ou remover do mixer.</td>
+      </tr>
+      <tr>
+        <td>Painel congelado no mesmo minuto</td>
+        <td>Falha de rede na busca de dados</td>
+        <td><code>/saude</code> → ler <code>erro_de_dados</code>. Ele se recupera sozinho na volta seguinte.</td>
+      </tr>
+      <tr>
+        <td>Narração muda com <code>narracao: true</code></td>
+        <td>Página não está consumindo a fila</td>
+        <td>Ver <code>falas_esperando</code>. Se estiver subindo, recarregar a fonte no OBS.</td>
+      </tr>
+      <tr>
+        <td>Moldura nas laterais do fundo</td>
+        <td>Janela menor que 1920×1080</td>
+        <td>Só acontece no navegador. No OBS, com a fonte em 1920×1080, não existe.</td>
+      </tr>
+      <tr>
+        <td>Cartaz de gol sem foto do jogador</td>
+        <td>Normal — a ESPN tem retrato de poucos atletas</td>
+        <td>Nada. Cai para a camisa numerada, e depois para o escudo.</td>
+      </tr>
+      <tr>
+        <td><code>chat DESLIGADO</code> ao subir</td>
+        <td>Live sem chat ativo, encerrada ou restrita</td>
+        <td>Conferir se a live está no ar e o chat habilitado. O resto funciona sem ele.</td>
+      </tr>
+      <tr>
+        <td>Escalação vazia</td>
+        <td>A ESPN só publica perto do apito</td>
+        <td>Esperar. O painel se esconde sozinho e reaparece quando o dado chega.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="nota parada">
+    <span class="rot">Quando reiniciar</span>
+    <p>Reiniciar o servidor custa 1,2 s de carga do modelo e nada mais — o cache se
+    refaz na primeira volta. Se estiver em dúvida, reinicie. O que <em>não</em> se
+    resolve reiniciando é problema de roteamento de áudio no OBS: ali o servidor
+    está certo e a mesa está errada.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">LIMITES</span><h2>O que o sistema não faz</h2></div>
+  <p class="quando">para você não descobrir isso no ar</p>
+
+  <ul class="simples">
+    <li><strong>Não mostra a partida.</strong> Não há direitos de imagem envolvidos —
+    o overlay é dado, não vídeo do jogo. É por isso que os 30 s de atraso da API são
+    invisíveis para quem assiste.</li>
+    <li><strong>A fonte de dados não é documentada.</strong> São os endpoints
+    públicos que a própria ESPN usa no site. Podem mudar sem aviso. O código trata
+    ausência de campo como normal, então uma mudança degrada em vez de derrubar.</li>
+    <li><strong>Nada do chat vai ao ar literalmente.</strong> A mensagem só
+    classifica a intenção; a resposta sai do dado da tela. A única coisa do chat que
+    é dita é o nome de quem escreveu, e ele passa por peneira.</li>
+    <li><strong>Odds e troca automática de partida não existem.</strong> Ficaram
+    para depois, por decisão sua.</li>
+    <li><strong>Nunca rodou 90 minutos.</strong> Tudo foi validado em janelas
+    curtas e com partida real em andamento, mas o comportamento ao longo de uma
+    partida inteira é o que o ensaio precisa revelar.</li>
+  </ul>
+
+  <div class="nota chave">
+    <span class="rot">O que o ensaio precisa responder</span>
+    <p>Como a narração se comporta com o volume real de lances de um jogo de
+    verdade, e se a memória fica plana ao longo das duas horas. Ao fim, guarde o
+    <code>/saude</code> e o log do terminal — são os dois únicos artefatos que
+    dizem se ficou de pé.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="fase"><span class="n">REFERÊNCIA</span><h2>Comandos e endereços</h2></div>
+  <p class="quando">para consultar sem reler o guia</p>
+
+  <div class="rolagem">
+    <table>
+      <tr><th>Comando</th><th>Quando</th></tr>
+      <tr><td><code>python servidor.py --procurar</code></td><td>Achar o que está em campo agora</td></tr>
+      <tr><td><code>python servidor.py &lt;id&gt; --liga &lt;liga&gt; --narrar</code></td><td>Subir a transmissão</td></tr>
+      <tr><td><code>… --chat &lt;url da live&gt;</code></td><td>Com interação de chat</td></tr>
+      <tr><td><code>… --chat-teste</code></td><td>Ensaio, com chat simulado</td></tr>
+      <tr><td><code>python servidor.py --demo --narrar</code></td><td>Conferir o overlay sem esperar partida</td></tr>
+      <tr><td><code>python faz_loop_torcida.py</code></td><td>Uma vez só, ou ao trocar a trilha</td></tr>
+      <tr><td><code>python gera_pack_voz.py --fixo</code></td><td>Uma vez só, ou ao trocar a voz</td></tr>
+      <tr><td><code>python prova_mixagem.py --ouvir</code></td><td>Ouvir o balanço do ar antes do ar</td></tr>
+      <tr><td><code>python prova_vozes.py</code></td><td>Comparar vozes lado a lado</td></tr>
+    </table>
+  </div>
+
+  <div class="rolagem">
+    <table>
+      <tr><th>Endereço</th><th>O que devolve</th></tr>
+      <tr><td><code>/</code></td><td>O overlay</td></tr>
+      <tr><td><code>/saude</code></td><td>Estado da transmissão, em uma tela</td></tr>
+      <tr><td><code>/dados</code></td><td>O JSON que a página desenha</td></tr>
+      <tr><td><code>/testevoz</code></td><td>Enfileira uma fala de prova</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>Sistema de lives · projeto Virals · <code>apps/live-futebol</code><br>
+  Servidor em <code>127.0.0.1:8790</code>. Nada aqui depende de serviço pago,
+  chave de API ou cadastro.</p>
+</footer>
+
+</div>

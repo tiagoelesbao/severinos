@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baixas Manuais — Sorteios Império Prêmios</title>
+<style>
+  :root{
+    --bg:#0a0d12;
+    --panel:#11151b;
+    --panel-2:#161b23;
+    --border:#232a35;
+    --border-soft:#1b212b;
+    --text:#e8edf4;
+    --text-dim:#8b93a3;
+    --text-faint:#5b6472;
+    --accent:#f0a93a;
+    --accent-soft:rgba(240,169,58,0.14);
+    --info:#5ec1e8;
+    --info-soft:rgba(94,193,232,0.12);
+    --danger:#ff5c5c;
+    --danger-soft:rgba(255,92,92,0.14);
+    --ok:#5fd68a;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1360px;margin:0 auto;padding:28px 24px 80px;}
+
+  header.top{margin-bottom:22px;}
+  header.top .eyebrow{
+    text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:700;
+    color:var(--accent);margin-bottom:6px;
+  }
+  header.top h1{font-size:26px;margin:0 0 6px;font-weight:700;letter-spacing:-0.01em;}
+  header.top .meta{color:var(--text-dim);font-size:13px;}
+  header.top .meta b{color:var(--text);font-weight:600;}
+
+  .banner{
+    margin:20px 0 26px;padding:16px 18px;border-radius:var(--radius);
+    background:var(--danger-soft);border:1px solid rgba(255,92,92,0.35);
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .banner .ico{font-size:18px;line-height:1.3;}
+  .banner .body b{color:var(--danger);}
+  .banner .body{color:#f0c9c9;font-size:13.5px;}
+  .banner .body p{margin:0 0 6px;}
+  .banner .body p:last-child{margin-bottom:0;}
+
+  .cards{
+    display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:26px;
+  }
+  @media (max-width:1100px){.cards{grid-template-columns:repeat(4,1fr);}}
+  @media (max-width:640px){.cards{grid-template-columns:repeat(2,1fr);}}
+  .card{
+    background:var(--panel);border:1px solid var(--border-soft);border-radius:var(--radius);
+    padding:13px 14px;
+  }
+  .card .lbl{
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);
+    margin-bottom:8px;font-weight:600;
+  }
+  .card .val{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text);}
+  .card.danger .val{color:var(--danger);}
+  .card.info .val{color:var(--info);}
+  .card .sub{font-size:11px;color:var(--text-faint);margin-top:3px;}
+
+  section.panel{
+    background:var(--panel);border:1px solid var(--border-soft);border-radius:var(--radius);
+    padding:18px 20px;margin-bottom:22px;
+  }
+  section.panel h2{
+    font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-dim);
+    margin:0 0 4px;font-weight:700;
+  }
+  section.panel .hint{font-size:11.5px;color:var(--text-faint);margin-bottom:14px;}
+
+  .bars{display:flex;flex-direction:column;gap:10px;}
+  .bar-row{display:grid;grid-template-columns:70px 1fr 150px;align-items:center;gap:12px;}
+  .bar-row .month{font-size:12.5px;color:var(--text-dim);font-weight:600;}
+  .bar-track{position:relative;height:20px;background:var(--panel-2);border-radius:5px;overflow:hidden;}
+  .bar-fill{position:absolute;top:0;left:0;bottom:0;background:var(--accent);border-radius:5px;}
+  .bar-fill-danger{position:absolute;top:0;bottom:0;background:var(--danger);}
+  .bar-row .num{text-align:right;font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--text-dim);white-space:nowrap;}
+  .bar-row .num b{color:var(--text);font-weight:700;}
+  .legend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap;}
+  .legend span{font-size:11.5px;color:var(--text-dim);display:flex;align-items:center;gap:6px;}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block;}
+
+  .toolbar{
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px;
+  }
+  .toolbar input[type=search]{
+    flex:1;min-width:220px;background:var(--panel-2);border:1px solid var(--border);
+    color:var(--text);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;
+  }
+  .toolbar input[type=search]::placeholder{color:var(--text-faint);}
+  .toolbar input[type=search]:focus{border-color:var(--accent);}
+  .seg{display:flex;background:var(--panel-2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .seg button{
+    appearance:none;border:none;background:transparent;color:var(--text-dim);
+    padding:9px 13px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;
+  }
+  .seg button.active{background:var(--accent-soft);color:var(--accent);}
+  .seg button+button{border-left:1px solid var(--border);}
+  select#sortSel{
+    background:var(--panel-2);border:1px solid var(--border);color:var(--text);
+    border-radius:8px;padding:9px 10px;font-size:12.5px;outline:none;
+  }
+  .count-pill{
+    font-size:11.5px;color:var(--text-faint);margin-left:auto;white-space:nowrap;
+  }
+
+  table{width:100%;border-collapse:collapse;}
+  thead th{
+    text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--text-dim);font-weight:700;padding:9px 10px;border-bottom:1px solid var(--border);
+    position:sticky;top:0;background:var(--panel);z-index:1;white-space:nowrap;
+  }
+  thead th.num{text-align:right;}
+  tbody tr.row{
+    border-bottom:1px solid var(--border-soft);cursor:default;
+  }
+  tbody tr.row td{padding:8px 10px;vertical-align:middle;font-size:12.8px;}
+  tbody tr.row td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  tbody tr.row.has-detail{cursor:pointer;}
+  tbody tr.row.has-detail:hover{background:var(--panel-2);}
+  tbody tr.row.r-danger{box-shadow:inset 3px 0 0 var(--danger);}
+  tbody tr.row.r-info{box-shadow:inset 3px 0 0 var(--info);}
+  td.title-cell{max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .chip{
+    display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:2px 7px;border-radius:99px;
+  }
+  .chip-danger{background:var(--danger-soft);color:var(--danger);}
+  .chip-info{background:var(--info-soft);color:var(--info);}
+  .chip-muted{background:var(--panel-2);color:var(--text-faint);}
+  .chev{display:inline-block;color:var(--text-faint);width:14px;transition:transform .15s;}
+  tr.row.open .chev{transform:rotate(90deg);color:var(--accent);}
+
+  tr.detail-row td{padding:0;border-bottom:1px solid var(--border-soft);}
+  .detail-wrap{padding:12px 14px 16px 30px;background:var(--panel-2);}
+  .detail-wrap .dtitle{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim);margin-bottom:8px;font-weight:700;}
+  table.sub{width:100%;border-collapse:collapse;}
+  table.sub th{
+    text-align:left;font-size:10px;text-transform:uppercase;color:var(--text-faint);
+    padding:5px 8px;border-bottom:1px solid var(--border);font-weight:700;
+  }
+  table.sub th.num{text-align:right;}
+  table.sub td{padding:6px 8px;font-size:12.3px;border-bottom:1px solid var(--border-soft);}
+  table.sub td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .numbadge{
+    display:inline-block;font-size:11px;font-variant-numeric:tabular-nums;font-weight:600;
+    padding:1px 6px;border-radius:5px;background:var(--panel);color:var(--text-dim);margin:1px 2px 1px 0;
+  }
+  .numbadge.win{background:var(--danger-soft);color:var(--danger);font-weight:800;}
+
+  footer{margin-top:30px;color:var(--text-faint);font-size:11.5px;line-height:1.7;}
+  footer a{color:var(--text-dim);}
+  .empty{padding:30px;text-align:center;color:var(--text-faint);font-size:13px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">Império Prêmios · Relatório interno</div>
+    <h1>Baixas Manuais nos Sorteios</h1>
+    <div class="meta">Período: <b id="metaPeriodo">—</b> · Gerado em <b id="metaGerado">—</b></div>
+  </header>
+
+  <div class="banner">
+    <div class="ico">⚠️</div>
+    <div class="body">
+      <p><b>A plataforma não identifica qual administrador/usuário fez cada baixa manual.</b> O campo que a API expõe (<code>approvedBy</code>) só diz que o pedido foi aprovado manualmente no painel ("admin"), em vez de pago por um gateway real (pay2m/paysure) — não existe, nesse acesso, um login, e-mail ou nome de operador associado à ação.</p>
+      <p>Tudo abaixo é baseado em dados reais da plataforma, sem estimativa: quantas baixas manuais por sorteio, se o número baixado ganhou, e quanto foi pago em prêmio por causa disso. Para identificar a pessoa por trás de cada baixa, é preciso um log de auditoria administrativo separado — fora do que esse acesso de leitura consegue ver hoje.</p>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <section class="panel">
+    <h2>Corte mensal — valor em baixas manuais vs. valor pago em prêmio contemplado</h2>
+    <div class="hint">Barra laranja = valor dos pedidos com baixa manual no mês. Faixa vermelha = parte desse valor que efetivamente foi contemplada (número baixado ganhou o prêmio).</div>
+    <div class="bars" id="bars"></div>
+    <div class="legend">
+      <span><i style="background:var(--accent)"></i> Baixa manual (todas)</span>
+      <span><i style="background:var(--danger)"></i> Contemplada (prêmio pago)</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Todos os sorteios do período</h2>
+    <div class="hint">
+      <span class="chip chip-danger" style="margin-right:6px;">vermelho</span> = baixa manual que foi contemplada (número baixado ganhou — risco direto de prejuízo).
+      <span class="chip chip-info" style="margin:0 6px;">azul</span> = teve baixa manual, não contemplada.
+      Clique numa linha com marcação para abrir o detalhamento por pedido.
+    </div>
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Buscar por título ou product_id…">
+      <div class="seg" id="filterSeg">
+        <button data-f="all" class="active">Todos os sorteios</button>
+        <button data-f="manual">Só com baixa manual</button>
+        <button data-f="susp">Só contempladas (suspeitas)</button>
+      </div>
+      <select id="sortSel">
+        <option value="data_desc">Data ↓ mais recente</option>
+        <option value="data_asc">Data ↑ mais antiga</option>
+        <option value="contemplacao_desc">Valor contemplação ↓</option>
+        <option value="baixas_desc">Valor baixas ↓</option>
+        <option value="faturamento_desc">Faturamento ↓</option>
+      </select>
+      <div class="count-pill" id="countPill"></div>
+    </div>
+    <div style="max-height:720px;overflow:auto;border:1px solid var(--border-soft);border-radius:8px;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18px;"></th>
+            <th>Data</th>
+            <th>Sorteio</th>
+            <th>Status</th>
+            <th class="num">Faturamento</th>
+            <th class="num">Vendas</th>
+            <th class="num">Baixas (qtd)</th>
+            <th class="num">Baixas (R$)</th>
+            <th class="num">Números baixados</th>
+            <th>Contemplou</th>
+            <th class="num">Valor contemplação</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="emptyMsg" style="display:none;">Nenhum sorteio encontrado com esse filtro/busca.</div>
+    </div>
+  </section>
+
+  <footer>
+    Fonte: API oficial da plataforma de sorteios do Império (leitura), coleta completa de 120 dias.
+    "Baixa manual" = pedido aprovado com <code>approvedBy = "admin"</code> em vez de gateway de pagamento real.
+    "Contemplou" = o número do pedido baixado manualmente foi sorteado como ganhador daquele sorteio (cruzado ao vivo com <code>winners[]</code> da API).
+    Relatório gerado automaticamente a partir dos dados brutos — nenhum valor abaixo foi estimado ou arredondado além do que a própria plataforma informa.
+  </footer>
+
+</div>
+
+<script id="dados-raw" type="application/json">__DADOS_JSON__</script>
+<script>
+(function(){
+  "use strict";
+  var DADOS = JSON.parse(document.getElementById('dados-raw').textContent);
+  var resumo = DADOS.resumo;
+  var sorteios = DADOS.sorteios;
+
+  function fmtBRL(v){
+    return (v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function fmtDate(iso){
+    if(!iso) return '—';
+    try{
+      var d = new Date(iso);
+      if(isNaN(d.getTime())) return iso.slice(0,10);
+      return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'}) +
+             ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    }catch(e){ return iso.slice(0,10); }
+  }
+  function esc(s){
+    return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  // ---------- período / header ----------
+  document.getElementById('metaPeriodo').textContent =
+    fmtDate(resumo.data_min_pedidos).split(' ')[0] + ' a ' + fmtDate(resumo.data_max_pedidos).split(' ')[0] +
+    ' (' + resumo.janela_dias + ' dias)';
+  document.getElementById('metaGerado').textContent = fmtDate(DADOS.gerado_em);
+
+  // ---------- cards ----------
+  var cardsDef = [
+    {lbl:'Sorteios no período', val: resumo.total_acoes_periodo.toLocaleString('pt-BR')},
+    {lbl:'Pedidos no período', val: resumo.total_pedidos_periodo.toLocaleString('pt-BR')},
+    {lbl:'Sorteios c/ baixa manual', val: resumo.total_acoes_com_baixa_manual.toLocaleString('pt-BR'), cls:'info'},
+    {lbl:'Pedidos com baixa manual', val: resumo.total_pedidos_baixa_manual.toLocaleString('pt-BR'), cls:'info'},
+    {lbl:'Números baixados', val: resumo.total_numeros_baixa_manual.toLocaleString('pt-BR'), cls:'info'},
+    {lbl:'Ações contempladas', val: resumo.acoes_contempladas.toLocaleString('pt-BR'), cls:'danger', sub:'número baixado ganhou'},
+    {lbl:'Valor pago em prêmio', val: 'R$ '+fmtBRL(resumo.valor_total_contemplacao), cls:'danger'}
+  ];
+  var cardsEl = document.getElementById('cards');
+  cardsDef.forEach(function(c){
+    var d = document.createElement('div');
+    d.className = 'card' + (c.cls ? ' '+c.cls : '');
+    d.innerHTML = '<div class="lbl">'+esc(c.lbl)+'</div><div class="val">'+esc(c.val)+'</div>' + (c.sub ? '<div class="sub">'+esc(c.sub)+'</div>':'');
+    cardsEl.appendChild(d);
+  });
+
+  // ---------- corte mensal ----------
+  var meses = {};
+  sorteios.forEach(function(s){
+    if(!s.baixas_qtd_pedidos) return;
+    var datas = (s.pedidos_manual||[]).map(function(p){return p.data;}).filter(Boolean).sort();
+    var ultima = datas.length ? datas[datas.length-1] : s.data;
+    var mes = (ultima||'0000-00').slice(0,7);
+    if(!meses[mes]) meses[mes] = {valor:0, contemplacao:0};
+    meses[mes].valor += s.baixas_valor;
+    meses[mes].contemplacao += s.valor_contemplacao;
+  });
+  var mesesOrd = Object.keys(meses).sort();
+  var maxValor = Math.max.apply(null, mesesOrd.map(function(m){return meses[m].valor;}).concat([1]));
+  var barsEl = document.getElementById('bars');
+  mesesOrd.forEach(function(m){
+    var info = meses[m];
+    var pctTotal = Math.max(2, (info.valor / maxValor) * 100);
+    var pctDanger = info.valor > 0 ? (info.contemplacao / info.valor) * pctTotal : 0;
+    var row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML =
+      '<div class="month">'+esc(m)+'</div>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+pctTotal+'%"></div>'+
+      '<div class="bar-fill-danger" style="width:'+pctDanger+'%"></div></div>'+
+      '<div class="num">R$ '+fmtBRL(info.valor)+' <b>(R$ '+fmtBRL(info.contemplacao)+' pago)</b></div>';
+    barsEl.appendChild(row);
+  });
+
+  // ---------- tabela ----------
+  var tbody = document.getElementById('tbody');
+  var emptyMsg = document.getElementById('emptyMsg');
+  var countPill = document.getElementById('countPill');
+  var curFilter = 'all';
+  var curSort = 'data_desc';
+  var curSearch = '';
+  var openIdx = {};
+
+  function matchesFilter(s){
+    if(curFilter === 'manual' && !s.baixas_qtd_pedidos) return false;
+    if(curFilter === 'susp' && !s.contemplou) return false;
+    if(curSearch){
+      var hay = (s.title+' '+s.product_id).toLowerCase();
+      if(hay.indexOf(curSearch) === -1) return false;
+    }
+    return true;
+  }
+  function sortFn(a,b){
+    switch(curSort){
+      case 'data_asc': return (a.data||'').localeCompare(b.data||'');
+      case 'contemplacao_desc': return b.valor_contemplacao - a.valor_contemplacao;
+      case 'baixas_desc': return b.baixas_valor - a.baixas_valor;
+      case 'faturamento_desc': return b.faturamento - a.faturamento;
+      default: return (b.data||'').localeCompare(a.data||'');
+    }
+  }
+
+  function rowClass(s){
+    if(s.contemplou) return 'r-danger';
+    if(s.baixas_qtd_pedidos>0) return 'r-info';
+    return '';
+  }
+  function statusLabel(st){
+    if(st === 'done') return 'Finalizado';
+    if(st === 'active') return 'Em andamento';
+    return st || '—';
+  }
+
+  function buildDetailHtml(s){
+    if(!s.pedidos_manual || !s.pedidos_manual.length) return '';
+    var rows = s.pedidos_manual.map(function(p){
+      var nums = (p.numeros||[]).map(function(n){
+        var win = (p.numeros_premiados||[]).indexOf(n) !== -1;
+        return '<span class="numbadge'+(win?' win':'')+'">'+esc(n)+'</span>';
+      }).join('');
+      return '<tr>'+
+        '<td>'+esc(fmtDate(p.data))+'</td>'+
+        '<td>'+esc(p.nome || '—')+'</td>'+
+        '<td>'+nums+'</td>'+
+        '<td class="num">R$ '+fmtBRL(p.valor)+'</td>'+
+        '<td class="num">'+(p.premio>0 ? '<b style="color:var(--danger)">R$ '+fmtBRL(p.premio)+'</b>' : '—')+'</td>'+
+      '</tr>';
+    }).join('');
+    return '<div class="detail-wrap">'+
+      '<div class="dtitle">Pedidos com baixa manual nesta ação ('+s.pedidos_manual.length+')</div>'+
+      '<table class="sub"><thead><tr>'+
+      '<th>Data do pedido</th><th>Comprador</th><th>Números (vermelho = ganhador)</th>'+
+      '<th class="num">Valor pedido</th><th class="num">Prêmio pago</th>'+
+      '</tr></thead><tbody>'+rows+'</tbody></table>'+
+      '</div>';
+  }
+
+  function render(){
+    var filtered = sorteios.filter(matchesFilter).sort(sortFn);
+    countPill.textContent = filtered.length.toLocaleString('pt-BR') + ' de ' + sorteios.length.toLocaleString('pt-BR') + ' sorteios';
+    tbody.innerHTML = '';
+    emptyMsg.style.display = filtered.length ? 'none' : 'block';
+
+    var frag = document.createDocumentFragment();
+    filtered.forEach(function(s, i){
+      var hasDetail = s.baixas_qtd_pedidos > 0;
+      var tr = document.createElement('tr');
+      tr.className = 'row ' + rowClass(s) + (hasDetail ? ' has-detail' : '');
+      tr.dataset.pid = s.product_id;
+      var contemploChip = s.contemplou
+        ? '<span class="chip chip-danger">Sim — pago</span>'
+        : (hasDetail ? '<span class="chip chip-muted">Não</span>' : '—');
+      tr.innerHTML =
+        '<td>'+(hasDetail ? '<span class="chev">▶</span>' : '')+'</td>'+
+        '<td>'+esc(fmtDate(s.data).split(' ')[0])+'</td>'+
+        '<td class="title-cell" title="'+esc(s.title)+'">'+esc(s.title)+'</td>'+
+        '<td>'+esc(statusLabel(s.status))+'</td>'+
+        '<td class="num">R$ '+fmtBRL(s.faturamento)+'</td>'+
+        '<td class="num">'+ (s.vendas||0).toLocaleString('pt-BR') +'</td>'+
+        '<td class="num">'+ (hasDetail ? s.baixas_qtd_pedidos : '—') +'</td>'+
+        '<td class="num">'+ (hasDetail ? 'R$ '+fmtBRL(s.baixas_valor) : '—') +'</td>'+
+        '<td class="num">'+ (hasDetail ? s.baixas_qtd_numeros : '—') +'</td>'+
+        '<td>'+contemploChip+'</td>'+
+        '<td class="num">'+ (s.contemplou ? 'R$ '+fmtBRL(s.valor_contemplacao) : '—') +'</td>';
+      frag.appendChild(tr);
+
+      if(hasDetail){
+        var dtr = document.createElement('tr');
+        dtr.className = 'detail-row';
+        dtr.style.display = 'none';
+        var td = document.createElement('td');
+        td.colSpan = 11;
+        dtr.appendChild(td);
+        frag.appendChild(dtr);
+
+        tr.addEventListener('click', function(){
+          var open = dtr.style.display !== 'none';
+          if(open){
+            dtr.style.display = 'none';
+            tr.classList.remove('open');
+          } else {
+            if(!td.dataset.built){
+              td.innerHTML = buildDetailHtml(s);
+              td.dataset.built = '1';
+            }
+            dtr.style.display = '';
+            tr.classList.add('open');
+          }
+        });
+      }
+    });
+    tbody.appendChild(frag);
+  }
+
+  document.getElementById('filterSeg').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-f]');
+    if(!btn) return;
+    curFilter = btn.dataset.f;
+    Array.prototype.forEach.call(document.querySelectorAll('#filterSeg button'), function(b){
+      b.classList.toggle('active', b===btn);
+    });
+    render();
+  });
+  document.getElementById('sortSel').addEventListener('change', function(e){
+    curSort = e.target.value; render();
+  });
+  var searchTimer;
+  document.getElementById('search').addEventListener('input', function(e){
+    clearTimeout(searchTimer);
+    var v = e.target.value;
+    searchTimer = setTimeout(function(){
+      curSearch = v.trim().toLowerCase();
+      render();
+    }, 150);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

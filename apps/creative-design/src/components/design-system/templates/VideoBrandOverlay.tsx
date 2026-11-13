@@ -16,7 +16,7 @@ interface VideoBrandOverlayProps {
 export const VideoBrandOverlay: React.FC<VideoBrandOverlayProps> = ({
   name,
   role,
-  accentColor = '#E94560',
+  accentColor = '#FF5B3F',
   showWatermark = true,
   viewport = { width: 1080, height: 1920 }
 }) => {

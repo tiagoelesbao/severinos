@@ -76,8 +76,12 @@ export function LayersPanel({
               key={l.id}
               onClick={() => onSelect(l.id)}
               className={`rounded-lg border transition cursor-pointer ${
-                isSel ? 'border-[#FFB800]/70 bg-[#FFB800]/[0.08]' : 'border-white/5 hover:border-white/15 hover:bg-white/[0.03]'
+                isSel ? '' : 'border-white/5 hover:border-white/15 hover:bg-white/[0.03]'
               }`}
+              style={isSel ? {
+                borderColor: 'var(--ui-accent, #FFB800)',
+                backgroundColor: 'color-mix(in srgb, var(--ui-accent, #FFB800) 8%, transparent)',
+              } : undefined}
             >
               {/* Linha 1: tipo + nome (sempre legível) + olho/cadeado */}
               <div className="flex items-center gap-2 px-2 py-1.5">
@@ -92,7 +96,7 @@ export function LayersPanel({
                     onChange={(e) => onPatch(l.id, { name: e.target.value })}
                     onBlur={() => setEditingId(null)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === 'Escape') setEditingId(null); }}
-                    className="flex-1 min-w-0 bg-black/40 border border-[#FFB800]/40 rounded px-1.5 py-0.5 text-sm outline-none"
+                    className="flex-1 min-w-0 bg-black/40 border border-[var(--ui-accent,#FFB800)]/40 rounded px-1.5 py-0.5 text-sm outline-none"
                   />
                 ) : (
                   <span

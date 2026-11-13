@@ -1,0 +1,114 @@
+{
+  "ultima_execucao": "2026-10-20T12:30:35.032418",
+  "eventos_no_checkpoint": 26005,
+  "log_tail": [
+    "✅ C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\detalhes_sorteios_3dias.csv",
+    "python.exe : C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\send_backlog.py:85:",
+    "DtypeWarning: Columns (18) have mixed types. Specify dtype option on import or set low_memory=False.",
+    "No C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\capi_realtime.ps1:40 caractere:19",
+    "+     $sendOutput = & python send_backlog.py $dias 2>&1",
+    "+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "+ CategoryInfo          : NotSpecified: (C:\\Users\\Pichau...w_memory=False.:String) [], RemoteException",
+    "+ FullyQualifiedErrorId : NativeCommandError",
+    "",
+    "df = pd.read_csv(raw_csv, sep=\";\", encoding=\"utf-8-sig\", dtype={c: str for c in str_cols})",
+    "📊 26005 pedidos no CSV | 25978 já enviados (319 via webhook) | 27 pendentes",
+    "✅ 27 evento(s) enviados. events_received=27 fbtrace_id=Aq8AnqhrRDXLtIM0BjJV97B",
+    "",
+    "🎉 27 eventos enviados. Checkpoint: C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\capi_sent_ids_3dias.json",
+    "2026-10-20T12:30:35.0314119-03:00 ===== Ciclo concluido ====="
+  ]
+}
+
+---pendencias---
+[
+  {
+    "item": "fbc expirado (CAPI nativa)",
+    "status": "resolvido_por_nos",
+    "data": "2026-10-07",
+    "nota": "capi_client.py omite fbc >7 dias; 2.317 eventos reenviados corretos, automatizado a cada 15min. Não reconfirmado ao vivo nesta atualização."
+  },
+  {
+    "item": "Deduplicação de evento (Compra)",
+    "status": "ja_estava_ok",
+    "data": "2026-10-07",
+    "nota": "99,69% via event_id, confirmado via prints do Events Manager em 2026-10-07. Não reconfirmado ao vivo nesta atualização (precisa de acesso live ao Events Manager)."
+  },
+  {
+    "item": "Cobertura de eventos (CAPI, Compra)",
+    "status": "ja_estava_ok",
+    "data": "2026-10-07",
+    "nota": "100% confirmado em 2026-10-07. Não reconfirmado ao vivo nesta atualização."
+  },
+  {
+    "item": "Qualidade de correspondência (EMQ, Compra)",
+    "status": "em_validacao",
+    "data": "2026-10-07",
+    "nota": "Era 9,3/10 na manhã de 2026-10-07; caiu pra 7,0/10 à tarde por um bug nosso (collector.py desalinhava o CSV ao adicionar a coluna UserId, 8 ciclos sem enviar Nome/Sobrenome/País). Bug corrigido e backlog represado reenviado no mesmo dia — EMQ deve voltar a subir nos ciclos seguintes, mas isso não foi reconfirmado ao vivo no Events Manager nesta atualização. Não repetir '9,3/10' como valor atual sem checar."
+  },
+  {
+    "item": "InitiateCheckout — dedup via EventId do pedido",
+    "status": "em_validacao",
+    "data": "2026-10-08",
+    "nota": "Tarefa agendada foi pausada por engano mais cedo hoje (suspeita de causa raiz que se mostrou incorreta) e reativada no mesmo dia depois de confirmar que o mecanismo (event_id = EventId do pedido, mesmo id usado pelo navegador) estava certo desde o início — 105 eventos represados reenviados com sucesso, nenhum dado perdido. Cobertura de desduplicação no Events Manager ainda não confirmada com volume pós-fix suficiente (amostra de hoje ainda carrega período anterior ao script) — próxima checagem em alguns dias, não-bloqueante."
+  },
+  {
+    "item": "Compra (capi_client.py) — event_id passou a usar EventId",
+    "status": "em_validacao",
+    "data": "2026-10-08",
+    "nota": "Mudado de event_id=OrderId para event_id=EventId (mesma lógica já validada no InitiateCheckout), incluindo fix no send_backlog.py (NaN de EventId vazio quebrava o fallback para OrderId). Testado em código com 2 casos reais (pedido com EventId e pedido antigo sem EventId). Ainda não totalmente validado no Events Manager — precisa de dias de volume novo para a métrica de desduplicação refletir o fix."
+  },
+  {
+    "item": "UTM — captura via webhook (order.paid real)",
+    "status": "resolvido_por_nos",
+    "data": "2026-10-07",
+    "nota": "Causa raiz do UTM zerado era a landing page não repassar a query string pro destino — corrigido na LP. Complementar: o webhook apps/webhook-imperio-capi agora captura params.utmSource/etc no pedido real e grava na tabela pedido_utm (Supabase), com join em bi_aggregator.py::enriquecer_com_utm_webhook(). O card de '% com UTM' abaixo é de PEDIDOS, majoritariamente anteriores a essas correções — vai subir de forma gradual nos próximos dias/semanas conforme pedidos novos passam pelos dois mecanismos, não é um número que deveria ficar parado."
+  },
+  {
+    "item": "'Web Conversions API' (order_id padrão EII1|...) ainda aparece em Compras recentes",
+    "status": "pendente",
+    "data": null,
+    "nota": "ACHADO NOVO, NÃO RESOLVIDO: o recurso nativo do Meta ('Web Conversions API', toggle de auto-conexão) foi removido pelo founder em 2026-10-07 após gerar Compras fantasma (sem pedido real correspondente). Amostras reais de hoje ainda mostram order_id no formato 'EII1|AQAAUP4...' — o mesmo padrão — em várias Compras recentes. Ou o recurso não foi de fato desativado por completo, ou outra fonte está gerando o mesmo padrão. Precisa de investigação direta no Events Manager antes de considerar fechado."
+  },
+  {
+    "item": "Domínios não verificados (3)",
+    "status": "pendente",
+    "data": null,
+    "nota": "imperiopremioss.com.br, sndflw.com, brunaodaimperio.com — verificar em Configurações de Marca."
+  },
+  {
+    "item": "IPv4 -> IPv6 no Purchase",
+    "status": "pendente_baixa_prioridade",
+    "data": null,
+    "nota": null
+  },
+  {
+    "item": "Facebook Login ID / PII extra",
+    "status": "pendente_baixa_prioridade",
+    "data": null,
+    "nota": null
+  },
+  {
+    "item": "Direto/Orgânico/Desconhecido — é Meta Ads ou grupo disfarçado?",
+    "status": "investigado_nao_e_canal_oculto",
+    "data": "2026-10-15",
+    "nota": "Investigado a pedido do founder, agora que WhatsApp e catálogo estão bem trackeados (menos 'sobra' pra explicar). Por definição este canal já é 0% fbp/fbc/UTM/gclid/ttclid (é o fallback final de _classificar_canal, não achado novo). O que FOI checado: perfil de dispositivo — 98.5% iOS (iPhone/iPad) em 796 pedido(s) neste canal na janela atual, visivelmente diferente do mix majoritariamente Android dos canais confirmados (UTM: whatsapp, Meta Ads confirmado). Leitura mais defensável: ITP do Safari/iOS (ou webview in-app) apagando fbp/fbc antes do pixel registrar — limitação de navegador, não uma 3ª origem de tráfego escondida. NÃO reclassificar estes pedidos pra grupo ou Meta Ads sem evidência nova."
+  }
+]
+
+---bi_refresh_status---
+{
+  "ultima_execucao": "2026-10-20T12:30:01.524915",
+  "log_tail": [
+    "Build Completed in /vercel/output [970ms]",
+    "Deploying outputs...",
+    "\u001b[2K\u001b[1A\u001b[2K\u001b[G  Production      https://imperio-ge333fhgx-tiagos-projects-78eb25bf.vercel.app",
+    "Completing…",
+    "▲ Aliased         https://imperio-bi.vercel.app",
+    "",
+    "✓ Ready in 16s",
+    "https://imperio-ge333fhgx-tiagos-projects-78eb25bf.vercel.app",
+    "2026-10-20T12:06:22.1340027-03:00 ===== Refresh concluido =====",
+    "2026-10-20T12:30:01.5173106-03:00 ===== Iniciando refresh ====="
+  ]
+}

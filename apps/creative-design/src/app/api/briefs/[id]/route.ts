@@ -69,6 +69,11 @@ interface EditedSlide {
   /** Creative Studio (MED-05) — modelo de camadas standalone (legado) + fundo. */
   layers?: unknown[];
   background?: unknown;
+  /**
+   * Formato do canvas (2026-09-04): 'instagram-portrait' | 'youtube-thumb'.
+   * null/ausente = retrato 4:5 — é o que todos os criativos anteriores são.
+   */
+  format?: string | null;
   /** Creative Studio v2 — template por slide + conteúdo + sobreposições. */
   template_id?: string;
   accent_color?: string;
@@ -143,6 +148,7 @@ export async function POST(
       // Creative Studio (MED-05): persiste camadas + fundo quando presentes.
       if (e.layers !== undefined) cd.layers = e.layers;
       if (e.background !== undefined) cd.background = e.background;
+      if (e.format !== undefined) cd.format = e.format;
       // Creative Studio v2: template por slide + conteúdo + sobreposições.
       if (e.template_id !== undefined) cd.template_id = e.template_id;
       if (e.accent_color !== undefined) cd.accent_color = e.accent_color;

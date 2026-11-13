@@ -1,0 +1,82 @@
+<!--
+  Tag "Custom HTML" pro container Web GTM-58RGNFCK (site da plataforma —
+  era imperiopremioss.com, trocou pra rapidinhas24hr.com em 2026-10-22,
+  conferir se o container precisa de ajuste de trigger por host).
+
+  Trigger: "All Pages".
+
+  O que faz: em toda página, assim que o cookie _fbp aparecer, manda um
+  beacon (não bloqueia navegação, não atrasa nada visível pro usuário) pro
+  nosso endpoint de captura — com UTM da URL (se tiver) e o cookie _fbc
+  genuíno (se tiver). Silencioso e best-effort: nunca derruba nem atrasa a
+  página do cliente se o endpoint estiver fora do ar.
+
+  Por que tem retry (2026-10-08): o fbevents.js do Pixel carrega de forma
+  ASSÍNCRONA (injeção de <script>, não bloqueia o parser) — então mesmo
+  com essa tag disparando depois da tag do Pixel no GTM, não há garantia
+  de que o cookie já exista no instante exato em que o nosso script roda.
+  Em vez de depender de Tag Sequencing (configuração manual, não
+  disponível nessa versão da interface do GTM), a própria tag tenta de
+  novo por até ~3s antes de desistir — robusto independente de ordem de
+  disparo ou de qual Pixel (nativo da plataforma ou o nosso via GTM)
+  acaba setando o cookie primeiro.
+
+  Por que captura fbc aqui (2026-10-08, ver gates-status.yaml): a API da
+  plataforma reenvia o fbc do pedido com timestamp sempre "fresco" (bug do
+  lado deles, documentado em bug-report-fbc-plataforma.md), inviabilizando
+  o filtro de idade do clique no nosso capi_client.py — qualquer compra
+  parece "clique de hoje". O cookie _fbc lido direto do navegador aqui não
+  passa por essa corrupção: é a mesma fonte que o Pixel usa, sem reescrita.
+  Capturando e guardando com NOSSO próprio timestamp (captured_at), damos
+  ao capi_client.py uma fonte de idade de clique confiável, sem depender
+  da plataforma corrigir nada do lado dela.
+-->
+<script>
+(function () {
+  try {
+    var getCookie = function (nome) {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + nome + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    };
+
+    var enviar = function () {
+      var fbp = getCookie('_fbp');
+      if (!fbp) return false; // ainda não existe — chamador decide se tenta de novo
+
+      var qs = new URLSearchParams(window.location.search);
+      var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      var temUtm = utmKeys.some(function (k) { return qs.has(k) && qs.get(k); });
+      var fbc = getCookie('_fbc');
+
+      if (!temUtm && !fbc) return true; // fbp existe mas nada de novo pra registrar — não é erro, não tenta de novo
+
+      var payload = { fbp: fbp, fbc: fbc || '', landing_url: window.location.href };
+      utmKeys.forEach(function (k) { payload[k] = qs.get(k) || ''; });
+
+      var body = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(
+          'https://utm-capture-imperio.vercel.app/api/capture',
+          new Blob([body], { type: 'text/plain' })
+        );
+      } else {
+        fetch('https://utm-capture-imperio.vercel.app/api/capture', {
+          method: 'POST', body: body, keepalive: true,
+          headers: { 'Content-Type': 'text/plain' },
+        }).catch(function () {});
+      }
+      return true;
+    };
+
+    var tentativas = 0;
+    var MAX_TENTATIVAS = 15; // 15 x 200ms = ~3s de janela pro cookie aparecer
+    var loop = function () {
+      if (enviar() || ++tentativas >= MAX_TENTATIVAS) return;
+      setTimeout(loop, 200);
+    };
+    loop();
+  } catch (e) {
+    // nunca deixa um erro aqui quebrar a página do cliente
+  }
+})();
+</script>

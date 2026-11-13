@@ -12,9 +12,10 @@
 
 import {
   type Layer, type TextLayer, type ShapeLayer, type SlideBackground,
-  type LayerRole, type Mood,
+  type LayerRole, type Mood, type CanvasFormat,
   makeTextLayer, makeShapeLayer, makeImageLayer, CANVAS_W,
 } from './layers';
+import { THUMB_BUILDERS } from './thumbPresets';
 
 export interface PresetContent {
   headline?: string;
@@ -27,6 +28,17 @@ export interface PresetContent {
   image?: string | null;
   /** Termo de busca Pexels do slide (MED-06): habilita o card de imagem. */
   pexelsQuery?: string;
+
+  // ── Campos usados só pelos presets de THUMB (thumb-system.yaml) ──────────
+  /** Segunda foto — variante de dois painéis (E7). */
+  imageB?: string | null;
+  /** Enquadramento vertical do recorte de cada foto (0..100, default 42/50). */
+  imagePosY?: number;
+  imageBPosY?: number;
+  /** Etiqueta de canto ("POLÊMICA PESADA!", "URGENTE", "O QUE MUDOU"). */
+  label?: string;
+  /** Selo do canal (a bola do logo). URL servida pelo próprio app. */
+  sealImage?: string | null;
 }
 
 export interface PresetPalette {
@@ -43,6 +55,11 @@ export interface PresetMeta {
 export interface PresetResult {
   background: SlideBackground;
   layers: Layer[];
+  /**
+   * Formato do canvas que este preset produz. Ausente = retrato 4:5 — todos os
+   * presets anteriores continuam sem declarar nada e nada muda para eles.
+   */
+  format?: CanvasFormat;
 }
 
 export const STUDIO_TEMPLATES: { id: string; label: string; mood: Mood }[] = [
@@ -54,6 +71,22 @@ export const STUDIO_TEMPLATES: { id: string; label: string; mood: Mood }[] = [
   { id: 'tiago-diary', label: 'Bastidor / Diário', mood: 'diary' },
   { id: 'single-post', label: 'Post único / Insight', mood: 'editorial' },
   { id: 'benchmark-derived', label: 'Dialog-box (tweet)', mood: 'editorial' },
+  { id: 'clean-variable', label: 'Clean / Variável (Carrossel) — Escuro', mood: 'editorial' },
+  { id: 'clean-stat', label: 'Clean / Prova (Stat) — Escuro', mood: 'editorial' },
+  { id: 'clean-manifesto', label: 'Clean / Manifesto — Escuro', mood: 'editorial' },
+  { id: 'clean-hook', label: 'Clean / Hook (Carrossel) — Escuro', mood: 'editorial' },
+  { id: 'clean-closing', label: 'Clean / Fechamento (CTA) — Escuro', mood: 'editorial' },
+  { id: 'clean-variable-paper', label: 'Clean / Variável (Carrossel) — Paper', mood: 'editorial' },
+  // ── Thumbs de YouTube (1280×720) — os quatro estilos escolhidos pelo founder
+  //    em 2026-09-04 (thumb-system.yaml § templates.video_longo).
+  { id: 'thumb-e3', label: 'Thumb · E3 — Etiqueta de canto + faixa', mood: 'editorial' },
+  { id: 'thumb-e5', label: 'Thumb · E5 — X sobre a pessoa', mood: 'editorial' },
+  { id: 'thumb-e7', label: 'Thumb · E7 — Dois painéis', mood: 'editorial' },
+  { id: 'thumb-e10', label: 'Thumb · E10 — Texto gigante no topo', mood: 'editorial' },
+  { id: 'clean-stat-paper', label: 'Clean / Prova (Stat) — Paper', mood: 'editorial' },
+  { id: 'clean-manifesto-paper', label: 'Clean / Manifesto — Paper', mood: 'editorial' },
+  { id: 'clean-hook-paper', label: 'Clean / Hook (Carrossel) — Paper', mood: 'editorial' },
+  { id: 'clean-closing-paper', label: 'Clean / Fechamento (CTA) — Paper', mood: 'editorial' },
 ];
 
 const MARGIN = 90;
@@ -125,6 +158,19 @@ function editorial(c: PresetContent, pal: PresetPalette, m: PresetMeta): PresetR
   let z = 1;
   // Card de imagem aparece se há imagem OU um termo Pexels (será buscado no load).
   const hasImg = !!c.image || !!c.pexelsQuery;
+
+  // Anéis decorativos "boolean" (motivo geométrico tech) — canto inferior-
+  // esquerdo, atrás de tudo. Camadas de verdade (role 'decor', kind 'ellipse'
+  // com fill transparente = anel): o usuário pode mover, remover ou trocar de
+  // forma no Studio, diferente da versão anterior fixa no Backdrop.
+  layers.push(shp('decor', 'Anel decorativo 1', {
+    x: -150, y: 940, w: 420, h: 420, kind: 'ellipse',
+    fill: 'transparent', stroke: pal.accentAlt, strokeWidth: 1.5, opacity: 0.4, zIndex: z++,
+  }));
+  layers.push(shp('decor', 'Anel decorativo 2', {
+    x: 20, y: 1060, w: 280, h: 280, kind: 'ellipse',
+    fill: 'transparent', stroke: pal.accentAurora, strokeWidth: 1.5, opacity: 0.35, zIndex: z++,
+  }));
 
   // Numeral-fantasma (profundidade): atrás de tudo. COM imagem fica no rodapé
   // (peek através do painel glass do corpo); SEM imagem, no terço inferior.
@@ -391,6 +437,223 @@ function dialogBox(c: PresetContent, pal: PresetPalette, m: PresetMeta): PresetR
   return { background: { type: 'brand', mood: 'editorial' }, layers };
 }
 
+// ── Presets "Clean" (MED-DS-03) ─────────────────────────────────────────────
+// Linguagem minimalista importada do estudo de identidade 2026-08-16 (acento
+// único, muito espaço negativo, tipografia como hierarquia principal em vez
+// de glow/blobs). Duas variantes de tema — 'dark' reaproveita o `primary` do
+// CLIENTE ATIVO (não destoa dentro do mesmo carrossel/feed, e funciona pra
+// qualquer marca, não só Virals); 'paper' é a base clara do mockup original.
+// type:'solid' (não 'brand') de propósito: sem glow/blobs/dot-grid do
+// PremiumBackground — o minimalismo depende de fundo chapado.
+type CleanTheme = 'dark' | 'paper';
+
+// Virals é a única marca com DOIS tons de acento propositalmente diferentes
+// por tema (#FF5B3F escuro / #E3391F claro, ver brand-config.yaml) — as
+// demais (ex.: Oraclum, roxo único #A855F7) usam o MESMO accent nos dois
+// temas. Detecta pelo accent escuro conhecido em vez de fixar por client_slug
+// (a paleta já chega resolvida aqui, sem o slug).
+const VIRALS_DARK_ACCENT = '#FF5B3F';
+const VIRALS_LIGHT_ACCENT = '#E3391F';
+
+function cleanTokens(theme: CleanTheme, pal: PresetPalette) {
+  const accent = theme === 'paper' && pal.accent.toUpperCase() === VIRALS_DARK_ACCENT
+    ? VIRALS_LIGHT_ACCENT
+    : pal.accent;
+  if (theme === 'dark') {
+    return {
+      bg: pal.primary, ink: '#FFFFFF', inkSoft: 'rgba(255,255,255,0.7)', inkSoft2: 'rgba(255,255,255,0.55)',
+      stone: 'rgba(255,255,255,0.5)', line: 'rgba(255,255,255,0.14)', dotOff: 'rgba(255,255,255,0.2)', accent,
+    };
+  }
+  return {
+    // Paper é neutro/universal de propósito — o "papel" não muda por marca,
+    // só o acento sobre ele.
+    bg: '#FBF9F5', ink: '#16140F', inkSoft: 'rgba(22,20,15,0.72)', inkSoft2: 'rgba(22,20,15,0.55)',
+    stone: 'rgba(22,20,15,0.5)', line: 'rgba(22,20,15,0.14)', dotOff: 'rgba(22,20,15,0.2)', accent,
+  };
+}
+
+function cleanEyebrow(layers: Layer[], text: string, stone: string, z: number, align: 'left' | 'right' = 'left'): number {
+  layers.push(txt('kicker', 'Eyebrow', text, {
+    x: align === 'left' ? MARGIN : CANVAS_W - MARGIN - 400,
+    y: 80, w: 400, h: 34, fontSize: 15, fontWeight: 800, color: stone,
+    align, uppercase: true, letterSpacing: 4, zIndex: z,
+  }));
+  return z + 1;
+}
+
+function cleanStat(c: PresetContent, pal: PresetPalette, m: PresetMeta, theme: CleanTheme = 'dark'): PresetResult {
+  const t = cleanTokens(theme, pal);
+  const accent = c.accentColor || t.accent;
+  const layers: Layer[] = [];
+  let z = 1;
+  z = cleanEyebrow(layers, c.subHeadline || 'PROVA', t.stone, z);
+  if (m.totalSlides > 1) z = pushHeaderFooter(layers, m, accent, z, false);
+
+  const numText = c.number || '00';
+  layers.push(txt('number', 'Número', numText, {
+    x: MARGIN, y: 480, w: 760, h: 400, fontSize: autoNumber(numText), fontWeight: 900,
+    color: accent, lineHeight: 0.88, letterSpacing: -2, zIndex: z++,
+  }));
+  if (c.unitSuffix) {
+    layers.push(txt('unit', 'Unidade', c.unitSuffix, {
+      x: MARGIN + 10, y: 830, w: 200, h: 90, fontSize: 56, fontWeight: 800,
+      color: t.ink, zIndex: z++,
+    }));
+  }
+  layers.push(shp('divider', 'Régua', {
+    x: MARGIN, y: 946, w: 64, h: 3, kind: 'rect', fill: t.ink, radius: 2, zIndex: z++,
+  }));
+  layers.push(txt('body', 'Label', c.bodyText || 'resultado obtido pela marca.', {
+    x: MARGIN, y: 980, w: 620, h: 150, fontSize: autoBody(c.bodyText || ''), fontWeight: 500,
+    color: t.inkSoft, lineHeight: 1.35, zIndex: z++,
+  }));
+  if (m.signature) {
+    layers.push(txt('signature', 'Assinatura', m.signature, {
+      x: MARGIN, y: 1250, w: 500, h: 40, fontSize: 18, fontWeight: 800, color: t.stone,
+      uppercase: true, letterSpacing: 3, zIndex: z++,
+    }));
+  }
+  return { background: { type: 'solid', color: t.bg }, layers };
+}
+
+function cleanManifesto(c: PresetContent, pal: PresetPalette, m: PresetMeta, theme: CleanTheme = 'dark'): PresetResult {
+  const t = cleanTokens(theme, pal);
+  const accent = c.accentColor || t.accent;
+  const layers: Layer[] = [];
+  let z = 1;
+  z = cleanEyebrow(layers, c.subHeadline || 'POSICIONAMENTO', t.stone, z);
+  if (m.totalSlides > 1) z = pushHeaderFooter(layers, m, accent, z, false);
+
+  const headline = c.headline || 'Não somos agência.\nSomos seu **departamento de Growth**.';
+  layers.push(txt('headline', 'Headline', headline, {
+    x: MARGIN, y: 900, w: CW, h: 300, fontSize: autoHeadline(headline, true) - 8, fontWeight: 800,
+    color: t.ink, lineHeight: 1.1, letterSpacing: -1, emphasisColor: accent, zIndex: z++,
+  }));
+  if (c.bodyText) {
+    layers.push(txt('body', 'Body', c.bodyText, {
+      x: MARGIN, y: 1170, w: CW - 120, h: 110, fontSize: autoBody(c.bodyText), fontWeight: 500,
+      color: t.inkSoft2, lineHeight: 1.4, zIndex: z++,
+    }));
+  }
+  if (m.signature) {
+    layers.push(txt('signature', 'Assinatura', m.signature, {
+      x: MARGIN, y: 1250, w: 500, h: 40, fontSize: 18, fontWeight: 800, color: t.stone,
+      uppercase: true, letterSpacing: 3, zIndex: z++,
+    }));
+  }
+  return { background: { type: 'solid', color: t.bg }, layers };
+}
+
+function cleanHook(c: PresetContent, pal: PresetPalette, m: PresetMeta, theme: CleanTheme = 'dark'): PresetResult {
+  const t = cleanTokens(theme, pal);
+  const accent = c.accentColor || t.accent;
+  const layers: Layer[] = [];
+  let z = 1;
+  const total = Math.max(m.totalSlides, 1);
+  const idx = Math.min(Math.max(m.slideNumber, 1), total);
+  layers.push(txt('pagination', 'Paginação', `${pad(idx)}/${pad(total)}`, {
+    x: MARGIN, y: 80, w: 200, h: 34, fontSize: 15, fontWeight: 800, color: t.stone,
+    letterSpacing: 2, zIndex: z++,
+  }));
+  layers.push(txt('badge', 'Rótulo', 'CARROSSEL', {
+    x: CANVAS_W - MARGIN - 260, y: 80, w: 260, h: 34, fontSize: 15, fontWeight: 800, color: t.stone,
+    align: 'right', uppercase: true, letterSpacing: 3, zIndex: z++,
+  }));
+
+  const headline = c.headline || 'Seu criativo ~~morre em 3 dias.~~\nO nosso não para.';
+  layers.push(txt('headline', 'Hook', headline, {
+    x: MARGIN, y: 560, w: CW, h: 320, fontSize: autoHeadline(headline, true) - 4, fontWeight: 800,
+    color: t.ink, lineHeight: 1.16, letterSpacing: -0.5,
+    strikeColor: t.stone, strikeAccent: accent, zIndex: z++,
+  }));
+  if (c.bodyText) {
+    layers.push(txt('body', 'Sub', c.bodyText, {
+      x: MARGIN, y: 880, w: CW - 160, h: 70, fontSize: 24, fontWeight: 600,
+      color: t.inkSoft2, zIndex: z++,
+    }));
+  }
+  layers.push(shp('divider', 'Linha do rodapé', {
+    x: MARGIN, y: 1210, w: CW, h: 1, kind: 'rect', fill: t.line, radius: 0, zIndex: z++,
+  }));
+  const dotSize = 8;
+  const gap = 10;
+  for (let i = 0; i < total; i++) {
+    layers.push(shp('dot', `Ponto ${i + 1}`, {
+      x: MARGIN + i * (dotSize + gap), y: 1246, w: dotSize, h: dotSize, kind: 'ellipse',
+      fill: i === idx - 1 ? accent : t.dotOff, radius: 0, zIndex: z++,
+    }));
+  }
+  return { background: { type: 'solid', color: t.bg }, layers };
+}
+
+/**
+ * Fechamento padronizado (pedido 2026-08-17): forma centrada com pílula de
+ * CTA — sempre igual em formato (independente do conteúdo), pra fechar o
+ * carrossel com uma leitura de "fim" reconhecível, ao contrário das 3 formas
+ * de conteúdo (hook/manifesto/prova) que variam por slide.
+ */
+function cleanClosing(c: PresetContent, pal: PresetPalette, m: PresetMeta, theme: CleanTheme = 'dark'): PresetResult {
+  const t = cleanTokens(theme, pal);
+  const accent = c.accentColor || t.accent;
+  const layers: Layer[] = [];
+  let z = 1;
+  z = cleanEyebrow(layers, c.subHeadline || 'PRÓXIMO PASSO', t.stone, z);
+
+  const headline = c.headline || 'Curtiu?\nSalva esse post e me segue pra mais.';
+  layers.push(txt('headline', 'Fechamento', headline, {
+    x: MARGIN, y: 520, w: CW, h: 260, fontSize: autoHeadline(headline, true) - 6, fontWeight: 800,
+    color: t.ink, lineHeight: 1.12, letterSpacing: -1, align: 'center', zIndex: z++,
+  }));
+  if (c.bodyText) {
+    layers.push(txt('body', 'Body', c.bodyText, {
+      x: MARGIN + 60, y: 770, w: CW - 120, h: 90, fontSize: autoBody(c.bodyText), fontWeight: 500,
+      color: t.inkSoft, align: 'center', lineHeight: 1.4, zIndex: z++,
+    }));
+  }
+  // Pílula de CTA — texto sempre branco (a pílula preenchida no acento já dá contraste em qualquer tema).
+  const pillW = 460, pillH = 84;
+  layers.push(shp('decor', 'Pílula CTA', {
+    x: (CANVAS_W - pillW) / 2, y: 900, w: pillW, h: pillH, kind: 'rect', fill: accent, radius: pillH / 2, zIndex: z++,
+  }));
+  layers.push(txt('callToThink', 'CTA', c.callToThink || 'SALVAR E COMPARTILHAR', {
+    x: (CANVAS_W - pillW) / 2, y: 900 + pillH / 2 - 16, w: pillW, h: 32, fontSize: 19, fontWeight: 900,
+    color: '#FFFFFF', align: 'center', uppercase: true, letterSpacing: 2, zIndex: z++,
+  }));
+  const total = Math.max(m.totalSlides, 1);
+  const dotSize = 8, gap = 10, dotsW = total * dotSize + (total - 1) * gap;
+  for (let i = 0; i < total; i++) {
+    layers.push(shp('dot', `Ponto ${i + 1}`, {
+      x: (CANVAS_W - dotsW) / 2 + i * (dotSize + gap), y: 1250, w: dotSize, h: dotSize, kind: 'ellipse',
+      fill: i === total - 1 ? accent : t.dotOff, radius: 0, zIndex: z++,
+    }));
+  }
+  if (m.signature) {
+    layers.push(txt('signature', 'Assinatura', m.signature, {
+      x: MARGIN, y: 70, w: CW, h: 40, fontSize: 18, fontWeight: 800, color: t.stone,
+      align: 'center', uppercase: true, letterSpacing: 3, zIndex: z++,
+    }));
+  }
+  return { background: { type: 'solid', color: t.bg }, layers };
+}
+
+/**
+ * Clean / Variável (MKT-req 2026-08-16, refinado 2026-08-17): em vez de
+ * repetir a MESMA forma em todos os slides do carrossel, alterna entre as 3
+ * formas do estudo (hook → manifesto → prova → repete) conforme a posição do
+ * slide — replica a "vitrine de 3 formas" do artefato original dentro de um
+ * único carrossel. O ÚLTIMO slide (quando há mais de 1) sempre usa o
+ * fechamento padronizado em vez de continuar o rodízio, pra fechar com uma
+ * leitura de "fim" reconhecível.
+ */
+const CLEAN_ROTATION = [cleanHook, cleanManifesto, cleanStat];
+function cleanVariable(c: PresetContent, pal: PresetPalette, m: PresetMeta, theme: CleanTheme = 'dark'): PresetResult {
+  const isClosing = m.totalSlides > 1 && m.slideNumber === m.totalSlides;
+  if (isClosing) return cleanClosing(c, pal, m, theme);
+  const builder = CLEAN_ROTATION[(Math.max(m.slideNumber, 1) - 1) % CLEAN_ROTATION.length];
+  return builder(c, pal, m, theme);
+}
+
 const BUILDERS: Record<string, (c: PresetContent, p: PresetPalette, m: PresetMeta) => PresetResult> = {
   'carousel-slide': editorial,
   'single-post': editorial,
@@ -400,6 +663,18 @@ const BUILDERS: Record<string, (c: PresetContent, p: PresetPalette, m: PresetMet
   'tiago-provocation': cinematic,
   'tiago-diary': diary,
   'benchmark-derived': dialogBox,
+  'clean-stat': (c, p, m) => cleanStat(c, p, m, 'dark'),
+  'clean-manifesto': (c, p, m) => cleanManifesto(c, p, m, 'dark'),
+  'clean-hook': (c, p, m) => cleanHook(c, p, m, 'dark'),
+  'clean-closing': (c, p, m) => cleanClosing(c, p, m, 'dark'),
+  'clean-variable': (c, p, m) => cleanVariable(c, p, m, 'dark'),
+  'clean-stat-paper': (c, p, m) => cleanStat(c, p, m, 'paper'),
+  'clean-manifesto-paper': (c, p, m) => cleanManifesto(c, p, m, 'paper'),
+  'clean-hook-paper': (c, p, m) => cleanHook(c, p, m, 'paper'),
+  'clean-closing-paper': (c, p, m) => cleanClosing(c, p, m, 'paper'),
+  'clean-variable-paper': (c, p, m) => cleanVariable(c, p, m, 'paper'),
+  // Thumbs 1280x720 (thumbPresets.ts) — canvas e gramatica proprios.
+  ...THUMB_BUILDERS,
 };
 
 /** Constrói o preset de camadas para um template. Fallback: editorial. */
@@ -408,6 +683,18 @@ export function buildPreset(
 ): PresetResult {
   const builder = BUILDERS[templateId] || editorial;
   return builder(content, palette, meta);
+}
+
+/**
+ * Formato de canvas que um template produz, SEM precisar construir as camadas.
+ * Serve a quem decide tamanho antes de renderizar: o viewport do Playwright,
+ * a caixa de preview do editor classico e o wrapper de sobreposicoes do
+ * TemplateSwitch. Template desconhecido cai no retrato 4:5 (back-compat).
+ */
+export function formatOfTemplate(templateId?: string | null): CanvasFormat {
+  return templateId && templateId in THUMB_BUILDERS
+    ? 'youtube-thumb'
+    : 'instagram-portrait';
 }
 
 /** Extrai o conteúdo (por papel) das camadas atuais — para calibrar ao trocar de template. */

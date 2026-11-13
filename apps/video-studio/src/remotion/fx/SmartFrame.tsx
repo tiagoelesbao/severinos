@@ -1,6 +1,20 @@
 import React from "react";
-import { AbsoluteFill, interpolate, OffthreadVideo, useCurrentFrame, useVideoConfig, Video } from "remotion";
+import { AbsoluteFill, Img, OffthreadVideo, useCurrentFrame, useVideoConfig, Video } from "remotion";
 import type { ClipRole } from "../../lib/timeline";
+import { cameraTransform, cameraDoKenBurns, type CameraMove } from "../../lib/fxCatalog";
+
+/**
+ * A espinha nem sempre é vídeo. No dark-room ela é IMAGEM PARADA: a narração é o
+ * eixo temporal e cada still cobre uma janela de fala, ganhando vida pelo Ken
+ * Burns. Antes disto, um PNG na faixa de vídeo caía no `<Video>` e o Player
+ * devolvia "Mídia incompatível neste clipe (formato/codec)" — a peça inteira
+ * ficava preta.
+ */
+const EXT_IMAGEM = /\.(png|jpe?g|webp|gif|avif|bmp)(\?|#|$)/i;
+
+export function ehImagem(src: string): boolean {
+  return EXT_IMAGEM.test(src);
+}
 
 /**
  * Enquadramento inteligente. Screen captures landscape entram num "painel de
@@ -26,9 +40,20 @@ const Media: React.FC<{
   /** Volume do áudio próprio (número ou envelope por frame). VEX-05. */
   volume?: number | ((f: number) => number);
 }> = ({ src, muted, playbackRate, preview, startFrom, style, volume }) => {
+  // Imagem parada não tem playbackRate, startFrom, volume nem buffering — passar
+  // qualquer um deles ao <Img> é erro de tipo e ruído. O Ken Burns fica por conta
+  // do wrapper, que é o mesmo para os dois casos.
+  if (ehImagem(src)) {
+    return <Img src={src} style={style} onError={() => {}} />;
+  }
   const Comp = preview ? Video : OffthreadVideo;
   // onError evita o MediaPlaybackError não tratado (codec/formato), que dispara
   // re-render storm da Remotion → "Maximum update depth". Degrada em silêncio.
+  //
+  // `pauseWhenBuffering` (só no Player): se o elemento ainda não tem o primeiro quadro
+  // na virada de take, o Player ESPERA em vez de mostrar preto. Trocar uma piscada preta
+  // por uma pausa de milissegundos é o certo num preview de edição — o export não é
+  // afetado, lá o quadro é extraído fora da linha do tempo.
   return (
     <Comp
       src={src}
@@ -36,6 +61,7 @@ const Media: React.FC<{
       playbackRate={playbackRate}
       startFrom={startFrom}
       style={style}
+      {...(preview ? { pauseWhenBuffering: true } : {})}
       {...(volume !== undefined && !muted ? { volume } : {})}
       onError={() => {}}
     />
@@ -52,17 +78,24 @@ export const SmartFrame: React.FC<{
   preview?: boolean;
   /** In-point de origem (split/trim pela esquerda). */
   startFrom?: number;
-  /** Zoom lento (Ken Burns) 0..0.2. */
+  /** LEGADO: zoom lento como número único. `camera` tem precedência. */
   kenBurns?: number;
+  /** Movimento de câmera do grupo CÂMERA do catálogo (zoom/pan/tilt/deriva). */
+  camera?: CameraMove;
   /** Volume do áudio próprio (número ou envelope por frame). VEX-05. */
   volume?: number | ((f: number) => number);
-}> = ({ src, mode, muted = true, playbackRate = 1, aspect = 16 / 9, preview = false, startFrom = 0, kenBurns = 0, volume }) => {
+}> = ({ src, mode, muted = true, playbackRate = 1, aspect = 16 / 9, preview = false, startFrom = 0, kenBurns = 0, camera, volume }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
-  const kb =
-    kenBurns > 0
-      ? interpolate(frame, [0, Math.max(1, durationInFrames)], [1, 1 + kenBurns], { extrapolateRight: "clamp" })
-      : 1;
+  // TODO movimento de quadro passa por aqui — inclusive o kenBurns legado, que é
+  // convertido para o mesmo vocabulário. Um caminho só significa que zoom e pan
+  // não podem divergir de comportamento, que era o risco de manter os dois.
+  const mv = camera ?? cameraDoKenBurns(kenBurns);
+  const cam = cameraTransform(mv, frame, Math.max(1, durationInFrames));
+  // Ordem importa: escala primeiro, translação depois — invertida, o
+  // deslocamento seria multiplicado pela escala e o pan andaria mais do que o
+  // pedido justamente nos clipes com mais zoom.
+  const transform = `scale(${cam.scale}) translate(${cam.x}%, ${cam.y}%)`;
 
   if (mode === "contain-blur") {
     const W = 1010;
@@ -115,7 +148,7 @@ export const SmartFrame: React.FC<{
             preview={preview}
             startFrom={startFrom}
             volume={volume}
-            style={{ width: "100%", height: "100%", objectFit: "contain", transform: `scale(${kb})` }}
+            style={{ width: "100%", height: "100%", objectFit: "contain", transform }}
           />
         </div>
       </AbsoluteFill>
@@ -130,7 +163,7 @@ export const SmartFrame: React.FC<{
       preview={preview}
       startFrom={startFrom}
       volume={volume}
-      style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${kb})` }}
+      style={{ width: "100%", height: "100%", objectFit: "cover", transform }}
     />
   );
 };

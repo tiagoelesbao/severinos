@@ -1,0 +1,13 @@
+CA IP Realiza - 02 (act_2076716696539325) -> Campanha 2.1 — CBO Teste de Criativos [ACTIVE]
+CA IP Realiza - 02 (act_2076716696539325) -> Campanha 3 — Retargeting (Site) [ACTIVE]
+CA IP Realiza - 02 (act_2076716696539325) -> Campanha 2 — CBO Teste de Criativos [ACTIVE]
+CA IP Realiza - 02 (act_2076716696539325) -> Campanha 1 — Advantage + Vendas (Prospecção) — v3 [ACTIVE]
+CA IP Realiza - 02 (act_2076716696539325) -> Campanha 1 — Advantage + Vendas (Prospecção) — v2 [PAUSED]
+CA IP Realiza - 02 (act_2076716696539325) -> Campanha 1 — Advantage + Vendas (Prospecção) [PAUSED]
+CA IP Realiza - 02 (act_2076716696539325) -> Novo objetivo Engajamento Campanha com configurações recomendadas [PAUSED]
+CA IP Realiza - 01 (act_1809822716714730) -> [CA2]Campanha 1 — Advantage + Vendas (Prospecção) [ACTIVE]
+CA IP Realiza - 01 (act_1809822716714730) -> Campanha 1 — Advantage+ Vendas (Prospecção) — Cópia [PAUSED]
+CA IP Realiza - 01 (act_1809822716714730) -> Campanha 1 — Advantage+ Vendas (Prospecção) [PAUSED]
+CA IP Realiza - 01 (act_1809822716714730) -> Novo objetivo Engajamento Campanha com configurações recomendadas [ACTIVE]
+
+total: 11

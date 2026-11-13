@@ -8,7 +8,7 @@ import { useState } from "react";
  */
 
 const CLIENTS = [
-  { slug: "virals", label: "Virals", accent: "#FF3D68" },
+  { slug: "virals", label: "Virals", accent: "#FF5B3F" },
   { slug: "tiago-elesbao", label: "Tiago Elesbão", accent: "#FFB800" },
 ];
 

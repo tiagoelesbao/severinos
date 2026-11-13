@@ -1,0 +1,219 @@
+<!-- Template de thumbnail — Bora de Bola · 1280x720
+     Recebe o conteudo por `?d=<base64 do JSON>`, no mesmo padrao da pagina
+     /render do creative-design, para poder ser portado para la sem reescrever.
+     Tudo o que ele desenha sai de thumb-system.yaml. -->
+<meta charset="utf-8">
+<title>thumb</title>
+<style>
+  :root {
+    --fundo:      #0C240C;
+    --profundo:   #0C0C0C;
+    --campo:      #246C0C;
+    --amarelo:    #FCCC0C;
+    --amarelo-cl: #FCE40C;
+    --limao:      #84B40C;
+    --tinta:      #FCFCFC;
+    --alerta:     #E02020;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 720px; overflow: hidden; background: var(--profundo); }
+
+  #alvo {
+    position: relative; width: 1280px; height: 720px; overflow: hidden;
+    background: var(--fundo);
+    font-family: Anton, "Archivo Black", Impact, "Arial Black", sans-serif;
+  }
+
+  /* ── fundo: gramado em perspectiva + luz de estádio, como no banner ───── */
+  .campo {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% 108%, var(--campo) 0%, transparent 62%),
+      radial-gradient(circle at 12% -8%, rgba(252,228,12,.30), transparent 46%),
+      radial-gradient(circle at 88% -8%, rgba(252,228,12,.22), transparent 44%),
+      linear-gradient(180deg, #071807 0%, var(--fundo) 55%, #071807 100%);
+  }
+  /* listras do gramado — dão profundidade sem virar textura */
+  .campo::after {
+    content: ""; position: absolute; left: -10%; right: -10%; bottom: 0; height: 46%;
+    background: repeating-linear-gradient(96deg,
+      rgba(255,255,255,.045) 0 46px, transparent 46px 92px);
+    transform: perspective(520px) rotateX(58deg); transform-origin: bottom;
+  }
+  /* pinceladas diagonais do banner */
+  .risco {
+    position: absolute; width: 150%; height: 90px; left: -25%;
+    background: linear-gradient(90deg, transparent, var(--limao), transparent);
+    opacity: .18; transform: rotate(-18deg); filter: blur(2px);
+  }
+
+  /* ── foto / escudo, faixa esquerda 0–45% ─────────────────────────────── */
+  .visual {
+    position: absolute; left: 0; top: 0; width: 45%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .visual img { max-width: 88%; max-height: 84%; object-fit: contain;
+                filter: drop-shadow(0 26px 46px rgba(0,0,0,.72));
+                position: relative; z-index: 1; }
+  /* Disco escuro atras do escudo. Escudo de clube verde (Palmeiras, Chapecoense)
+     desaparecia no gramado — e a saida nao e clarear o fundo, porque isso traria
+     a cor do time para a peca. O disco separa sem colorir. */
+  .visual:not(.foto)::before {
+    content: ""; position: absolute; width: 74%; aspect-ratio: 1;
+    border-radius: 50%; background:
+      radial-gradient(circle, rgba(0,0,0,.78) 0%, rgba(0,0,0,.55) 58%, transparent 74%);
+  }
+  /* FOTO DE PESSOA — a coluna e mais larga que a do escudo, porque rosto pede
+     respiro. O recorte ja vem enquadrado por `recorta_rosto.py`. */
+  .visual.foto { width: 52%; }
+  .visual.foto img { max-width: 100%; max-height: 100%; width: 100%; height: 100%;
+                     object-fit: cover; object-position: 50% 50%; }
+  /* O degrade que funde a foto no fundo precisa ficar ACIMA da imagem. Ele e um
+     `::after` do container, e a `img` tem `z-index:1` (para vencer o disco do
+     escudo) — sem z-index maior aqui, a foto cobria a propria fusao e terminava
+     num corte reto no meio da peca. */
+  .visual.foto::after {
+    content: ""; position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(90deg,
+      transparent 42%, rgba(12,36,12,.55) 74%, var(--fundo) 100%);
+  }
+  .visual.foto::before { display: none; }   /* o disco e so para escudo */
+  #alvo:has(.visual.foto) .texto { left: 50%; }
+
+  /* modo confronto: dois visuais, um de cada lado */
+  #alvo.confronto .visual { width: 30%; }
+  #alvo.confronto .visual.dir { left: auto; right: 0; }
+  #alvo.confronto .texto { left: 30%; width: 40%; text-align: center; }
+  .raio {
+    position: absolute; left: 50%; top: 6%; bottom: 6%; width: 7px;
+    transform: translateX(-50%) skewX(-9deg);
+    background: linear-gradient(180deg, transparent, var(--amarelo), transparent);
+    display: none;
+  }
+  #alvo.confronto .raio { display: block; }
+
+  /* ── texto, faixa direita 45–100% ────────────────────────────────────── */
+  .texto {
+    position: absolute; left: 45%; right: 0; top: 0; bottom: 0; z-index: 4;
+    padding: 48px 48px 48px 8px;
+    display: flex; flex-direction: column; justify-content: center; gap: 14px;
+  }
+  .linha {
+    font-size: 104px; line-height: .92; letter-spacing: -.01em;
+    color: var(--tinta); text-transform: uppercase; font-style: italic;
+    -webkit-text-stroke: 9px var(--profundo); paint-order: stroke fill;
+    text-shadow: 5px 6px 0 rgba(0,0,0,.85);
+  }
+  /* O AMARELO CARREGA UMA COISA SÓ — aqui, a palavra marcada com {}. */
+  .linha .rlc { color: var(--amarelo); }
+  .linha.menor { font-size: 62px; }
+  .secundaria {
+    font-size: 44px; line-height: 1; color: var(--amarelo);
+    text-transform: uppercase; font-style: italic;
+    -webkit-text-stroke: 7px var(--profundo); paint-order: stroke fill;
+  }
+  .secundaria.branca { color: var(--tinta); }
+
+  /* ── selo do canal, canto inferior esquerdo ──────────────────────────── */
+  /* z-index alto: o selo mora no canto inferior esquerdo, que e exatamente
+     onde a foto passa a ocupar no layout com rosto. */
+  .selo { position: absolute; left: 30px; bottom: 26px; width: 92px; height: 92px;
+          opacity: .96; z-index: 5;
+          filter: drop-shadow(0 6px 16px rgba(0,0,0,.6))
+                  drop-shadow(0 0 10px rgba(0,0,0,.85)); }
+  .selo img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* ── elementos opcionais ─────────────────────────────────────────────── */
+  /* O X marca a NEGACAO e por isso fica NA FRENTE do que ele nega. Com z-index
+     abaixo do escudo, ele saia escondido — restava uma lasca vermelha na borda,
+     que le como defeito de render e nao como simbolo. */
+  .xis {
+    position: absolute; width: 190px; height: 190px; display: none;
+    left: 24%; top: 30%; z-index: 3;
+  }
+  #alvo.com-x .xis { display: block; }
+  .xis::before, .xis::after {
+    content: ""; position: absolute; left: 50%; top: 0; width: 22px; height: 100%;
+    background: var(--alerta); border-radius: 4px;
+    box-shadow: 0 0 22px rgba(224,32,32,.6);
+  }
+  .xis::before { transform: translateX(-50%) rotate(45deg); }
+  .xis::after  { transform: translateX(-50%) rotate(-45deg); }
+
+  .pilula {
+    position: absolute; right: 30px; top: 26px; display: none;
+    align-items: center; gap: 10px; padding: 9px 20px; border-radius: 26px;
+    background: var(--amarelo); color: var(--profundo);
+    font-size: 22px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  #alvo.ao-vivo .pilula { display: flex; }
+  .pilula i { width: 12px; height: 12px; border-radius: 50%; background: var(--profundo); }
+</style>
+
+<div id="alvo">
+  <div class="campo"></div>
+  <div class="risco" style="top:14%"></div>
+  <div class="risco" style="top:62%; opacity:.10"></div>
+
+  <div class="visual esq" id="v-esq"></div>
+  <div class="visual dir" id="v-dir"></div>
+  <div class="raio"></div>
+  <div class="xis"></div>
+
+  <div class="texto">
+    <div class="linha" id="linha1"></div>
+    <div class="secundaria" id="linha2"></div>
+  </div>
+
+  <div class="selo" id="selo"></div>
+  <div class="pilula"><i></i>ao vivo</div>
+</div>
+
+<script>
+  // `{palavra}` no texto marca o que recebe o amarelo. Uma marcação por thumb —
+  // o sistema é explícito: amarelo em tudo é o mesmo que amarelo em nada.
+  function pinta(txt) {
+    return (txt || "").replace(/\{([^}]+)\}/g, '<span class="rlc">$1</span>');
+  }
+
+  function monta(d) {
+    const alvo = document.getElementById("alvo");
+    if (d.confronto) alvo.classList.add("confronto");
+    if (d.x) alvo.classList.add("com-x");
+    if (d.ao_vivo) alvo.classList.add("ao-vivo");
+
+    const l1 = document.getElementById("linha1");
+    l1.innerHTML = pinta(d.linha1 || "");
+    // Texto longo encolhe em vez de vazar: a régua do sistema é 5 palavras, mas
+    // uma palavra comprida (SUSPENSÃO) estoura a caixa mesmo dentro da régua.
+    const n = (d.linha1 || "").replace(/[{}]/g, "").length;
+    if (n > 26) l1.classList.add("menor");
+
+    const l2 = document.getElementById("linha2");
+    l2.textContent = d.linha2 || "";
+    if (!d.linha2) l2.style.display = "none";
+    if (d.linha2_branca) l2.classList.add("branca");
+
+    const põe = (id, url, foto) => {
+      const el = document.getElementById(id);
+      if (!url) { el.style.display = "none"; return; }
+      if (foto) el.classList.add("foto");
+      const im = new Image();
+      im.src = url;
+      el.appendChild(im);
+    };
+    põe("v-esq", d.visual_esq, d.visual_esq_foto);
+    põe("v-dir", d.confronto ? d.visual_dir : null, d.visual_dir_foto);
+
+    if (d.selo) {
+      const s = new Image(); s.src = d.selo;
+      document.getElementById("selo").appendChild(s);
+    }
+  }
+
+  const p = new URLSearchParams(location.search).get("d");
+  if (p) {
+    try { monta(JSON.parse(decodeURIComponent(escape(atob(p))))); }
+    catch (e) { document.body.innerHTML = "<pre style='color:#fff'>" + e + "</pre>"; }
+  }
+</script>

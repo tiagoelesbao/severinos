@@ -52,7 +52,7 @@ export const SinglePostSlide: React.FC<SinglePostSlideProps> = ({
   subHeadline,
   bodyText,
   mainObjectImage,
-  accentColor = '#FF3D68',
+  accentColor = '#FF5B3F',
   headlineFontSize,
   bodyFontSize,
   imageZoom,

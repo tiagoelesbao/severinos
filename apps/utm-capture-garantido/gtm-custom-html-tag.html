@@ -1,0 +1,64 @@
+<!--
+  Tag "Custom HTML" (captura de fbp/fbc/UTM) do container GTM-WHJFR59M
+  (garantidopremios.com). NÃO foi possível criar esta tag via automação de
+  browser nesta sessão — o classificador de segurança bloqueou a digitação
+  deste script no editor do GTM, provavelmente por reconhecer o padrão
+  sendBeacon/fetch POST para um domínio externo como possível exfiltração de
+  dados, mesmo sendo o mesmo mecanismo já em produção no Império. Colar
+  manualmente no GTM (Tags > Nova > HTML personalizado, trigger All Pages).
+
+  Equivalente a apps/utm-capture-imperio/gtm-custom-html-tag.html, com o
+  endpoint trocado para o projeto Vercel desta pasta.
+
+  IMPORTANTE: o endpoint abaixo (utm-capture-garantido.vercel.app) só existe
+  depois que este projeto for deployado na Vercel com as env vars
+  GARANTIDO_SUPABASE_URL / GARANTIDO_SUPABASE_SERVICE_ROLE_KEY (ver README.md
+  desta pasta) e a tabela utm_touches criada (supabase-schema.sql).
+-->
+<script>
+(function () {
+  try {
+    var getCookie = function (nome) {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + nome + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    };
+
+    var enviar = function () {
+      var fbp = getCookie('_fbp');
+      if (!fbp) return false;
+
+      var qs = new URLSearchParams(window.location.search);
+      var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      var temUtm = utmKeys.some(function (k) { return qs.has(k) && qs.get(k); });
+      var fbc = getCookie('_fbc');
+
+      if (!temUtm && !fbc) return true;
+
+      var payload = { fbp: fbp, fbc: fbc || '', landing_url: window.location.href };
+      utmKeys.forEach(function (k) { payload[k] = qs.get(k) || ''; });
+
+      var body = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(
+          'https://utm-capture-garantido.vercel.app/api/capture',
+          new Blob([body], { type: 'text/plain' })
+        );
+      } else {
+        fetch('https://utm-capture-garantido.vercel.app/api/capture', {
+          method: 'POST', body: body, keepalive: true,
+          headers: { 'Content-Type': 'text/plain' },
+        }).catch(function () {});
+      }
+      return true;
+    };
+
+    var tentativas = 0;
+    var MAX_TENTATIVAS = 15;
+    var loop = function () {
+      if (enviar() || ++tentativas >= MAX_TENTATIVAS) return;
+      setTimeout(loop, 200);
+    };
+    loop();
+  } catch (e) {}
+})();
+</script>

@@ -11,10 +11,10 @@ interface ClientTile {
 
 // Paleta por cliente (alinhada ao brand-config.yaml).
 const THEME: Record<string, { accent: string; tagline: string }> = {
-  virals: { accent: "#FF3D68", tagline: "Marca institucional · navy + coral" },
+  virals: { accent: "#FF5B3F", tagline: "Marca institucional · navy + vermelho sinal" },
   "tiago-elesbao": { accent: "#FFB800", tagline: "Perfil pessoal · preto + âmbar" },
 };
-const themeOf = (slug: string) => THEME[slug] ?? { accent: "#FF3D68", tagline: "Cliente · paleta padrão" };
+const themeOf = (slug: string) => THEME[slug] ?? { accent: "#FF5B3F", tagline: "Cliente · paleta padrão" };
 
 export default function ClientPicker() {
   const router = useRouter();
@@ -53,7 +53,7 @@ export default function ClientPicker() {
 
         {loading && <div style={{ color: "rgba(255,255,255,.4)", fontSize: 14 }}>Carregando clientes…</div>}
         {error && (
-          <div style={{ color: "#FF3D68", fontSize: 14, border: "1px solid rgba(255,61,104,.3)", background: "rgba(255,61,104,.05)", borderRadius: 8, padding: 16 }}>
+          <div style={{ color: "#FF5B3F", fontSize: 14, border: "1px solid rgba(255,91,63,.3)", background: "rgba(255,91,63,.05)", borderRadius: 8, padding: 16 }}>
             {error}
           </div>
         )}

@@ -6,6 +6,7 @@ import {
 
 const FONTS = [
   { v: 'Outfit, system-ui, sans-serif', n: 'Outfit' },
+  { v: 'Anton, "Archivo Black", Impact, "Arial Black", sans-serif', n: 'Anton (thumb)' },
   { v: 'Georgia, serif', n: 'Georgia' },
   { v: '"Courier New", monospace', n: 'Mono' },
   { v: 'Impact, sans-serif', n: 'Impact' },
@@ -181,8 +182,24 @@ export function Inspector({
               <div className="flex gap-2">
                 <ToggleChip active={!!layer.uppercase} onClick={() => onPatch({ uppercase: !layer.uppercase })} title="Maiúsculas">AA</ToggleChip>
                 <ToggleChip active={!!layer.italic} onClick={() => onPatch({ italic: !layer.italic })} title="Itálico"><span className="italic">I</span></ToggleChip>
-                <ToggleChip active={!!layer.shadow} onClick={() => onPatch({ shadow: !layer.shadow })} title="Sombra">S</ToggleChip>
+                <ToggleChip active={!!layer.shadow} onClick={() => onPatch({ shadow: !layer.shadow })} title="Sombra suave">S</ToggleChip>
+                <ToggleChip
+                  active={!!layer.hardShadow}
+                  onClick={() => onPatch({ hardShadow: !layer.hardShadow })}
+                  title="Sombra dura e deslocada (thumb) — descola o texto da foto"
+                >S+</ToggleChip>
               </div>
+              {/* Contorno: existe para descolar texto claro de FOTO. Sobre faixa
+                  de cor chapada ele só suja a letra — por isso fica em 0 nos
+                  textos que moram dentro da faixa amarela. */}
+              <Slider label="Contorno" value={layer.outlineWidth ?? 0} min={0} max={16} step={1} suffix="px"
+                onChange={(v) => onPatch({ outlineWidth: v || undefined })} />
+              {!!layer.outlineWidth && (
+                <ColorField label="Cor do contorno" value={layer.outlineColor || '#0C0C0C'}
+                  onChange={(v) => onPatch({ outlineColor: v })} />
+              )}
+              <ColorField label="Cor do realce (**palavra**)" value={layer.emphasisColor || layer.color}
+                onChange={(v) => onPatch({ emphasisColor: v })} />
             </Section>
           )}
 
@@ -210,7 +227,7 @@ export function Inspector({
                       } catch { /* ignora */ }
                     }}
                     title="Buscar foto no Pexels"
-                    className="shrink-0 text-xs px-3 rounded-md bg-[#FFB800] text-black font-bold hover:bg-[#FFB800]/80">
+                    className="shrink-0 text-xs px-3 rounded-md bg-[var(--ui-accent,#FFB800)] text-black font-bold hover:opacity-80">
                     🔍
                   </button>
                 </div>
@@ -230,6 +247,17 @@ export function Inspector({
               {layer.frame === 'card' && (
                 <ColorField label="Cor da moldura" value={layer.frameAccent || '#FFB800'}
                   onChange={(v) => onPatch({ frameAccent: v })} />
+              )}
+              {layer.objectFit === 'cover' && (
+                <>
+                  {/* Numa thumb este é o controle mais usado: a foto cobre o
+                      quadro inteiro e o que decide a peça é ONDE o rosto cai em
+                      relação à faixa de texto. */}
+                  <Slider label="Enquadramento X" value={layer.posX ?? 50} min={0} max={100} step={1} suffix="%"
+                    onChange={(v) => onPatch({ posX: v })} />
+                  <Slider label="Enquadramento Y" value={layer.posY ?? 50} min={0} max={100} step={1} suffix="%"
+                    onChange={(v) => onPatch({ posY: v })} />
+                </>
               )}
               <Slider label="Cantos" value={layer.radius} min={0} max={400} step={2} suffix="px"
                 onChange={(v) => onPatch({ radius: v })} />
@@ -261,6 +289,17 @@ export function Inspector({
                 ]}
               />
               <ColorField label="Preenchimento" value={layer.fill} onChange={(v) => onPatch({ fill: v })} />
+              {/* Degradê CSS livre — é o que permite véu, vinheta e faixa em
+                  fade existirem como camada editável. Vazio = cor chapada. */}
+              <Field label="Degradê (sobrepõe a cor)">
+                <textarea
+                  className={`${panelField} resize-none font-mono text-[11px]`}
+                  rows={2}
+                  placeholder="linear-gradient(180deg, #000, transparent)"
+                  value={layer.fillGradient || ''}
+                  onChange={(e) => onPatch({ fillGradient: e.target.value || undefined })}
+                />
+              </Field>
               <ColorField label="Borda" value={layer.stroke} onChange={(v) => onPatch({ stroke: v })} />
               <Slider label="Espessura da borda" value={layer.strokeWidth} min={0} max={40} step={1} suffix="px"
                 onChange={(v) => onPatch({ strokeWidth: v })} />

@@ -50,7 +50,7 @@ const FALLBACK: Omit<BrandTokens, "slug"> = {
   displayName: "Virals",
   primary: "#0C0A1F",
   secondary: "#181436",
-  accent: "#FF3D68",
+  accent: "#FF5B3F",
   textPrimary: "#FFFFFF",
   fontFamily: "Outfit, system-ui, sans-serif",
 };

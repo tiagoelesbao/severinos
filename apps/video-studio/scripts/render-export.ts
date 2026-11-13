@@ -52,6 +52,16 @@ interface ExportJob {
   videoTag?: "tag" | "offthread";
   /** VEX-11: exporta N variantes de hook (mesmo corpo). Ausente = export único. */
   variants?: ExportVariant[];
+  /**
+   * Fator de resolução do render. 1 (default) = resolução nativa da composição.
+   * Valores < 1 rasterizam menos pixels — é o ÚNICO parâmetro que de fato
+   * acelera aqui. Medido em 2026-10-10 num 1080x1920 de 383 frames:
+   * 1.0 → 20,1s · 0.75 → 13,6s · 0.5 → 10,5s. Para comparação, `crf: 28`
+   * ficou em 19,6s (nada): o custo está na RASTERIZAÇÃO do quadro, não na
+   * compressão, então mexer em qualidade de codec não compra velocidade.
+   * Usar 0.5 para conferir ritmo/timing; exportar em 1 para subir o anúncio.
+   */
+  scale?: number;
 }
 
 interface RenderStatus {
@@ -133,7 +143,9 @@ const VIDEO_CONFORM_EXTS = new Set([".mp4", ".mov", ".mkv", ".webm"]);
 function ensureWebSafe(srcAbs: string, cacheDir: string): string {
   if (!VIDEO_CONFORM_EXTS.has(path.extname(srcAbs).toLowerCase())) return srcAbs;
   const st = fs.statSync(srcAbs);
-  const key = `${path.basename(srcAbs)}.${st.size}-${Math.round(st.mtimeMs)}.mp4`;
+  // `g30` na chave INVALIDA o cache antigo: as entradas anteriores foram geradas sem
+  // intervalo de keyframe e precisam ser refeitas (ver o porquê logo abaixo).
+  const key = `${path.basename(srcAbs)}.${st.size}-${Math.round(st.mtimeMs)}.g30.mp4`;
   const out = path.join(cacheDir, key);
   if (!fs.existsSync(out)) {
     fs.mkdirSync(cacheDir, { recursive: true });
@@ -141,7 +153,18 @@ function ensureWebSafe(srcAbs: string, cacheDir: string): string {
     try {
       execFileSync(
         "ffmpeg",
+        // `-g 30 -keyint_min 30 -sc_threshold 0` → um keyframe por segundo.
+        //
+        // Sem isso o x264 usa GOP default de 250 frames; como os clipes têm 121–154
+        // frames, cada arquivo conformado saía com UM ÚNICO keyframe, no tempo zero.
+        // O compositor do Remotion, ao pedir frames em posições espalhadas, precisava
+        // redecodificar desde o início a cada seek — e com várias abas de render
+        // disputando a mesma fonte isso vira thrash e a extração falha
+        // ("No frame found at position"). O render então trava até o timeout de 180s
+        // e culpa o `delayRender` mais antigo pendente, que costuma ser o de fonte.
+        // Diagnóstico confirmado por ffprobe: todo conformado tinha keyframe só em 0.
         ["-y", "-i", srcAbs, "-r", "30", "-c:v", "libx264", "-pix_fmt", "yuv420p",
+         "-g", "30", "-keyint_min", "30", "-sc_threshold", "0",
          "-crf", "18", "-c:a", "aac", "-movflags", "+faststart", out],
         // windowsHide: sem janelas de console piscando durante o export.
         { stdio: ["ignore", "ignore", "pipe"], windowsHide: true },
@@ -208,11 +231,63 @@ async function renderOne(
     await renderMedia({
       composition, serveUrl, codec: "h264", outputLocation: outputPath, inputProps,
       timeoutInMilliseconds: 180000,
+      // FAIXA DE COR. Sem isto o export sai `yuvj420p` / `color_range=pc` (faixa
+      // cheia), enquanto todo o resto do pipeline — os takes, o `criativo.mp4` da F6,
+      // o que as redes esperam — é `yuv420p` limitado. Medido: o mesmo quadro com
+      // luma média 141 no export da F6 e 147 no do editor. Em player que ignora a
+      // flag (é a maioria dos apps), isso vira contraste lavado no upload.
+      colorSpace: "bt709",
+      // ...com um conserto no filtro que a Remotion monta para isso. Ela emite
+      // `zscale=matrix=709:matrixin=709:range=limited`, que descreve mal a ENTRADA:
+      // os quadros chegam como JPEG (`element-%03d.jpeg`), e JPEG é BT.601 de faixa
+      // CHEIA. Declarar a entrada como 709 limitado faz o zscale esticar a faixa de
+      // novo e converter a matriz errada — o desvio some no cinza e aparece na cor
+      // saturada (medido: 131 no export da F6 contra 136 no do editor, num quadro de
+      // rosas). Com a entrada descrita como é, a conversão fecha.
+      ffmpegOverride: ({ type, args }) => {
+        let ajustado = 0;
+        const out = args.map((a) => {
+          if (typeof a === "string" && a.startsWith("zscale=matrix=709")) {
+            ajustado++;
+            return "zscale=matrixin=470bg:rangein=full:matrix=709:range=limited";
+          }
+          return a;
+        });
+        if (ajustado) console.log(`[export] faixa/matriz de cor corrigidas no ${type}`);
+        return out;
+      },
+      // `remotion.config.ts` declara `setConcurrency(2)`, mas esse arquivo só é lido
+      // pelo CLI — `renderMedia()` programático o ignora por completo. Na prática o
+      // render abria ~5 abas, cinco decoders disputando os mesmos arquivos. Aqui a
+      // intenção que já existia no config passa a valer de fato.
+      //
+      // Composição longa cai para UMA aba: um criativo de 61s (1840 frames) morria
+      // duas vezes seguidas por volta de 68% do render. O sintoma era sempre o mesmo
+      // — "delayRender load-font-Montserrat não foi liberado" —, mas a fonte é a
+      // vítima, não a causa: a aba estourava a memória, a Remotion abria outra e o
+      // handle de fonte da aba nova nunca fechava.
+      // Medido em 2026-10-10 (1080x1920, 383 frames, 16 CPUs): conc=4 → 20,1s,
+      // conc=8 → 19,5s. Subir não compra nada — o limite aqui é memória, não
+      // paralelismo (havia 2,2 GB livres). Mantido em 4 pelo motivo original.
+      concurrency: 4,
       offthreadVideoCacheSizeInBytes: offthreadCache,
+      ...(job.scale && job.scale > 0 && job.scale !== 1 ? { scale: job.scale } : {}),
       ...(job.frameRange ? { frameRange: job.frameRange } : {}),
       onProgress: ({ progress }) => {
         const pct = Math.floor(progress * 100);
-        if (pct !== lastWritten) { lastWritten = pct; onProgress(progress); }
+        if (pct !== lastWritten) { 
+          lastWritten = pct; 
+          onProgress(progress);
+          if (pct % 5 === 0) console.log(`[export] Renderizando... ${pct}%`);
+        }
+      },
+      // Console das abas no log do job. Sem isto, uma falha que só existe dentro do
+      // navegador (fonte que não carrega, mídia que erra) chega ao operador como um
+      // "delayRender não liberado" sem nenhuma pista de onde veio.
+      onBrowserLog: ({ type, text }) => {
+        if (type === "error" || type === "warning" || text.startsWith("[fonte]")) {
+          console.log(`[browser:${type}] ${text}`);
+        }
       },
     });
     const rel = path.relative(REPO, outputPath).replace(/\\/g, "/");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Timeline as TL, ExtraLayer } from "@/lib/timeline";
 import type { FxPlan } from "@/lib/fxPlan";
 import type { CaptionCue } from "@/lib/cues";
@@ -8,6 +8,8 @@ import { trackFlag, type TrackFlag, type TrackKey } from "@/lib/trackMix";
 import { Headphones, Lock, Volume2, VolumeX } from "lucide-react";
 import { Waveform } from "./Waveform";
 import { Filmstrip } from "./Filmstrip";
+import { LinhaPlayhead } from "./Playhead";
+import { getPlayheadFrame } from "../lib/playhead";
 
 const ROLE_COLOR: Record<string, string> = {
   hook: "#FFB800",
@@ -34,10 +36,9 @@ const RULER_H = 26;
 const GUTTER = 122; // calha à esquerda: track headers com nome + mute/solo/lock (VEX-08)
 const SCROLLBAR = 16;
 
-export function Timeline({
+function TimelineBase({
   timeline,
   fxPlan,
-  currentFrame,
   pps,
   selectedIndex,
   selectedIndices,
@@ -78,7 +79,6 @@ export function Timeline({
 }: {
   timeline: TL;
   fxPlan: FxPlan;
-  currentFrame: number;
   pps: number;
   selectedIndex: number;
   /** VEX-08: índices de vídeo em multi-seleção (shift+clique). */
@@ -135,7 +135,13 @@ export function Timeline({
 }) {
   const { fps } = timeline;
   const totalSec = timeline.durationInFrames / fps;
-  const width = Math.max(320, totalSec * pps);
+  // Cauda livre à direita (respiro de NLE): SEMPRE há espaço vazio depois do
+  // conteúdo para esticar/reordenar/soltar faixas — a timeline nunca "prende" no
+  // fim do vídeo. Escala com o zoom (~1/4 da viewport visível de conteúdo) com um
+  // piso generoso, então some tanto em zoom baixo quanto alto.
+  const TAIL_SEC = Math.max(6, Math.round((240 / pps) * 4) / 4);
+  const viewSec = totalSec + TAIL_SEC;
+  const width = Math.max(320, viewSec * pps);
   const fToX = (f: number) => (f / fps) * pps;
   const xToF = (x: number) => Math.round((x / pps) * fps);
 
@@ -173,8 +179,12 @@ export function Timeline({
   );
 
   // Pontos de snap: 0, fim, bordas de clipes e de segmentos de áudio, playhead.
+  // O playhead ENTRA como ponto de imã, mas nao pode entrar como DEPENDENCIA:
+  // com `currentFrame` aqui, esta lista era recalculada 30 vezes por segundo
+  // durante a reproducao — e ela so e consultada enquanto se arrasta algo.
+  // Lido do store no momento do uso, o valor e o mesmo e o custo desaparece.
   const snapPoints = useMemo(() => {
-    const pts: number[] = [0, timeline.durationInFrames, currentFrame];
+    const pts: number[] = [0, timeline.durationInFrames, getPlayheadFrame()];
     timeline.videoTrack.forEach((c) => {
       pts.push(c.startFrame, c.startFrame + c.durationInFrames);
     });
@@ -188,7 +198,7 @@ export function Timeline({
       });
     }
     return pts;
-  }, [timeline, currentFrame]);
+  }, [timeline]);
 
   // Gruda `f` no ponto de snap mais próximo dentro de ~8px (se o snap estiver
   // ligado). VEX-08: `snapGuide` guarda o frame grudado p/ desenhar a linha ímã.
@@ -316,7 +326,7 @@ export function Timeline({
     const minorStep = labelStep / 5;
     const decimals = labelStep < 1 ? 1 : 0;
     const out: React.ReactNode[] = [];
-    const n = Math.ceil(totalSec / minorStep);
+    const n = Math.ceil(viewSec / minorStep);
     for (let k = 0; k <= n; k++) {
       const t = k * minorStep;
       const isMajor = Math.abs(t / labelStep - Math.round(t / labelStep)) < 1e-6;
@@ -332,7 +342,7 @@ export function Timeline({
       );
     }
     return out;
-  }, [totalSec, pps]);
+  }, [viewSec, pps]);
 
   const audio = timeline.audioTrack;
   const mediaUrl = (f: string) => `${mediaBaseUrl}/${encodeURIComponent(f)}`;
@@ -816,27 +826,17 @@ export function Timeline({
           </Row>
         ))}
 
-        {/* Playhead — linha + alça arrastável (scrub frame a frame) */}
-        <div style={{ position: "absolute", left: GUTTER + fToX(currentFrame), top: 0, height: tracksH, pointerEvents: "none" }}>
-          <div style={{ position: "absolute", left: 0, top: 0, width: 2, height: "100%", background: "var(--color-fg)", boxShadow: "0 0 6px rgba(255,255,255,.6)" }} />
-          {/* alça (knob) no topo — grabbável */}
-          <div
-            onMouseDown={(e) => {
-              e.stopPropagation();
-              setDrag({ kind: "scrub" });
-            }}
-            title="Arraste para mover o playhead"
-            style={{ position: "absolute", left: -7, top: 0, width: 16, height: 16, background: "var(--color-fg)", clipPath: "polygon(0 0, 100% 0, 50% 100%)", cursor: "ew-resize", pointerEvents: "auto" }}
-          />
-          {/* faixa de captura larga ao longo da linha (mais fácil de pegar) */}
-          <div
-            onMouseDown={(e) => {
-              e.stopPropagation();
-              setDrag({ kind: "scrub" });
-            }}
-            style={{ position: "absolute", left: -5, top: RULER_H, width: 12, height: ROW_H * rowCount, cursor: "ew-resize", pointerEvents: "auto" }}
-          />
-        </div>
+        {/* Playhead. E o UNICO elemento desta arvore que muda a cada quadro, e
+            por isso ele e o unico que assina o store do frame. A Timeline em
+            volta nao re-renderiza durante a reproducao — antes disso, os 30
+            quadros por segundo remontavam filmstrip, waveform e uma celula por
+            cue de legenda (386 numa peca de 20 min). */}
+        <LinhaPlayhead
+          fToX={fToX}
+          gutter={GUTTER}
+          altura={tracksH}
+          onScrub={() => setDrag({ kind: "scrub" })}
+        />
 
         {/* VEX-08: marcadores (tecla M) — bandeira na régua + linha fina; clique
             busca, alt+clique remove. */}
@@ -932,3 +932,11 @@ function Row({ top, children, tint }: { top: number; children: React.ReactNode; 
     </div>
   );
 }
+
+/**
+ * `memo` fecha o circuito: sem `currentFrame` entre as props, a Timeline so
+ * re-renderiza quando a EDICAO muda — e nao mais a cada quadro reproduzido.
+ * Sem o memo, qualquer re-render do pai continuaria arrastando esta arvore
+ * inteira junto.
+ */
+export const Timeline = React.memo(TimelineBase);

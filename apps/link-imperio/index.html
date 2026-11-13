@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Encurtador — Império</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0a0a0f; --bg-card:#15151d; --border:#26262f; --gold:#e3a73e; --gold-light:#f4c869; --green:#3ddc6f; --text:#f5f5f7; --muted:#a4a4b0; --red:#e3543e; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--text); font-family:'Montserrat',sans-serif;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; width: 100%; max-width: 420px; }
+  h1 { font-size: 15px; font-weight: 800; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  p.sub { font-size: 12.5px; color: var(--muted); margin-bottom: 20px; }
+  input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 12px 14px; font-size: 14px; font-family: inherit; margin-bottom: 12px;
+  }
+  input:focus { outline: none; border-color: var(--gold); }
+  button {
+    width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #1a1200; border: none; border-radius: 8px; padding: 13px; font-weight: 800;
+    font-size: 14px; font-family: inherit; cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: default; }
+  .resultado {
+    margin-top: 18px; background: var(--bg); border: 1px solid var(--green); border-radius: 10px;
+    padding: 14px; display: none;
+  }
+  .resultado.erro { border-color: var(--red); }
+  .resultado .label { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .resultado .link { font-size: 15px; font-weight: 700; color: var(--green); word-break: break-all; }
+  .resultado.erro .link { color: var(--red); font-weight: 600; font-size: 13px; }
+  .copiar { margin-top: 10px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Encurtador de Links — Império</h1>
+  <p class="sub">Cole o link do sorteio (ou qualquer link do site). Geramos um link curto que, ao ser clicado, já adiciona o rastreamento do grupo automaticamente — sem poluir a mensagem.</p>
+  <input type="url" id="url-input" placeholder="https://rapidinhas24hr.com/..." required />
+  <button id="gerar-btn">Gerar link curto</button>
+  <div class="resultado" id="resultado">
+    <div class="label">Link pra colar no grupo</div>
+    <div class="link" id="link-saida"></div>
+    <button class="copiar" id="copiar-btn">Copiar</button>
+  </div>
+</div>
+<script>
+const btn = document.getElementById('gerar-btn');
+const input = document.getElementById('url-input');
+const resultado = document.getElementById('resultado');
+const linkSaida = document.getElementById('link-saida');
+const copiarBtn = document.getElementById('copiar-btn');
+
+btn.addEventListener('click', async () => {
+  const url = input.value.trim();
+  if (!url) return;
+  btn.disabled = true;
+  btn.textContent = 'Gerando...';
+  resultado.style.display = 'none';
+  resultado.classList.remove('erro');
+
+  try {
+    const res = await fetch('/api/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      linkSaida.textContent = data.link_curto;
+      copiarBtn.style.display = 'block';
+      resultado.style.display = 'block';
+    } else {
+      linkSaida.textContent = data.erro || 'Erro ao gerar link';
+      copiarBtn.style.display = 'none';
+      resultado.classList.add('erro');
+      resultado.style.display = 'block';
+    }
+  } catch (e) {
+    linkSaida.textContent = 'Erro de conexão: ' + e.message;
+    resultado.classList.add('erro');
+    resultado.style.display = 'block';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Gerar link curto';
+});
+
+copiarBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(linkSaida.textContent);
+  copiarBtn.textContent = 'Copiado!';
+  setTimeout(() => { copiarBtn.textContent = 'Copiar'; }, 1500);
+});
+</script>
+</body>
+</html>

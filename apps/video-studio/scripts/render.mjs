@@ -17,7 +17,7 @@ const slug = process.argv[2] || "virals";
 
 const DISPLAY = { virals: "Virals", "tiago-elesbao": "Tiago Elesbão" };
 const FALLBACK = {
-  primary: "#0C0A1F", secondary: "#181436", accent: "#FF3D68", textPrimary: "#FFFFFF",
+  primary: "#0C0A1F", secondary: "#181436", accent: "#FF5B3F", textPrimary: "#FFFFFF",
 };
 
 function loadBrand(s) {
