@@ -1,0 +1,153 @@
+# ═══════════════════════════════════════════════════════════════════════
+# LA1-p1-comece-antes-60s
+# FATIA VERTICAL — o primeiro curto do canal. Serve para validar a cadeia
+# inteira antes de gastar madrugada nos outros seis do lote LA1.
+# Método: squads/oraclumtech-ai-creative-studio/docs/DERIVACAO-CURTOS.md
+# ═══════════════════════════════════════════════════════════════════════
+
+curto:
+  slug: LA1-p1-comece-antes-60s
+  canal: canal-estoico
+  criado_em: '2026-09-05'
+  status: escolha-semente      # aguardando-geracao | escolha-semente | montagem | pronto | publicado
+
+derivado_de:
+  peca: LA1-disciplina
+  unidade: 'PRÁTICA 1 — Comece antes de estar pronto'
+  duracao_no_longo: '2m35'
+  longo_publicado: true
+
+faixa:
+  alvo: '60 s'
+  palavras: 162          # medido, não digitado
+  duracao_prevista: '56,6 s de fala · 60,5 s com as pausas de cue'
+  wpm: 171.6             # ritmo medido do motor male02
+
+# ── O QUE ESTE CURTO HERDA E O QUE ELE ESCREVE ──────────────────────────
+# Decisão do founder 2026-09-05: o curto tem roteiro PRÓPRIO. O longo é fonte
+# de matéria-prima e autoridade, não de áudio.
+herda_do_longo:
+  - 'A tese: a vontade vem depois da ação, não antes'
+  - 'A anedota de Marco Aurélio (Meditações V,1)'
+  - 'A voz e o léxico do canal'
+escreve_do_zero:
+  - 'O hook — o longo abre com o rótulo "Prática um", que não fisga no feed'
+  - 'A curva de retenção'
+  - 'O CTA, que aponta para o longo'
+
+# ── A CORRENTE ──────────────────────────────────────────────────────────
+etapas:
+  '01-roteiro':   { feito: true , responsavel: '@head-of-copy' }
+  '02-narracao':  { feito: true , responsavel: 'RODAR-NOTURNO-CURTOS.bat' }
+  # 3 narrações saem da fila: clone-v1 (escolhida), clone-v2 e male02
+  '03-imagens':   { feito: true , responsavel: 'RODAR-NOTURNO-CURTOS.bat' }
+  '03-takes':     { feito: false, responsavel: 'refazer a fila I2V — 3 timeouts em 05/09' }
+  '04-final':     { feito: false, responsavel: 'video-studio 9:16' }
+
+# ── A FILA DA MADRUGADA ─────────────────────────────────────────────────
+fila_noturna:
+  comando: 'RODAR-NOTURNO.bat curto-la1p1-'
+  jobs: 15               # 3 narrações + 4 planos × 3 sementes
+  ordem: 'narrações primeiro, depois as imagens — uma única troca de modelo'
+  saida_comfyui:
+    narracao: 'curtos/la1-p1/narracao-{clone-v1,clone-v2,male02}'
+    imagens: 'curtos/la1-p1/cru/{plano}-s{n}'
+  pre_requisito: 'o ComfyUI precisa estar ABERTO — o .bat não o inicia de propósito'
+
+# ── O QUE ESTE LOTE ESTÁ VALIDANDO ──────────────────────────────────────
+# Não é só produzir um curto: é descobrir onde a cadeia quebra, com o menor
+# custo possível.
+validando:
+  - o_que: 'FLUX klein a 768×1344'
+    por_que: 'a resolução 9:16 está registrada mas NUNCA foi rodada em produção'
+    como_saber: 'se degradar ou distorcer, aparece nas 12 cruas'
+  - o_que: 'composição vertical com zona segura de legenda'
+    por_que: 'os 430/1920 inferiores (~22%) são da legenda no 9:16'
+    como_saber: 'o sujeito tem que estar acima do terço inferior em todas'
+  - o_que: 'ambiente em vez de fundo preto'
+    por_que: 'a rev.3 da identidade corrigiu o pack antigo; nunca foi gerado assim'
+    como_saber: 'comparar com os takes da referência'
+  - o_que: 'direção de prosódia por [exag:N]'
+    por_que: '9 de 10 queixas do founder são de prosódia, não de timbre'
+    como_saber: 'ouvir se o hook tem mais energia que a citação'
+  - o_que: 'as duas vozes clonadas em 57 s'
+    por_que: >
+      decisão do founder 2026-09-05 — usar voz clonada nos curtos. As duas
+      referências saem juntas: clone-v1 (vídeo de práticas, que é o que LA1
+      modela) e clone-v2 (vídeo de reflexões).
+    como_saber: 'ouvir as três lado a lado; o WER da clonada é 8,9%, abaixo do teto de 12%'
+    nota_de_metodo: >
+      Para comparar DESEMPENHO entre vozes, intercalar curtos diferentes não
+      isola a variável — se um performa melhor, foi a voz ou o conteúdo? O teste
+      limpo é o mesmo curto nas duas vozes, em janelas comparáveis. Intercalar
+      serve, mas só com N grande.
+    restricao_conhecida: >
+      O banco marca a clonada como pode_publicar: nao. A liberação do founder e
+      o que pesou estão em data/voice-packs/_INDEX.yaml, ficha 07.
+
+# ── DEPOIS DA GERAÇÃO ───────────────────────────────────────────────────
+proximos_passos:
+  1: 'Inspeção ESTRUTURAL das 12 cruas antes de qualquer acabamento — contar membros, contar colunas, perguntar de cada objeto se tem função. Textura se conserta com upscale; anatomia não.'
+  2: 'Escolha de semente — 4 escolhas, uma por plano. É do founder, o squad não escolhe.'
+  3: 'Upscale só nas 4 escolhidas (roda LITE). Gastar acabamento antes da inspeção é jogar fora o tempo mais caro.'
+  4: 'Auditoria de WER da narração — teto de 12%.'
+  5: 'Montagem 9:16 no video-studio e export.'
+
+# ── A NOITE DE 05/09 → 06/09 ────────────────────────────────────────────
+execucao_2026_09_05:
+  janela: '23:25 até 03:36 (parou sozinha, 5h antes do previsto)'
+  resultado: '19 de 39 jobs — todas as imagens e narrações, ZERO vídeos'
+  entregue:
+    narracoes: '3 × 60,5 s (clone-v1, clone-v2, male02) — bate com o SRT'
+    imagens_cruas: '12 em 768×1344'
+    upscaladas: '4 em 1536×2688 (semente 1 de cada plano)'
+  falhou:
+    o_que: 'os 3 primeiros takes I2V, por TIMEOUT de 75 min cada'
+    causa_raiz: >
+      O timeout foi dimensionado por estimativa (30-45 min) em vez da evidência
+      em disco. Os takes que de fato saíram (27 e 30/08, preset validado de 20
+      passos) levaram 53, 55, 59 e 60 min. O preset `maximo` tem 30 passos —
+      ~50% mais sampling, ~85-90 min projetados. O teto de 75 min abortava os
+      takes antes de terminarem.
+    causa_agravante: >
+      O timeout do run_batch NÃO chamava /interrupt: desistir de esperar não
+      parava o job no servidor. O take 1 seguiu rodando enquanto o 2 foi
+      enfileirado por cima, e dois Wan (9 GB × 2 modelos cada) não cabem juntos
+      em 16 GB de RAM. O ComfyUI acabou derrubado.
+  corrigido_em_2026_09_06:
+    - 'TIMEOUT_POR_JOB_S: 75 → 120 min, dimensionado pela medição em disco'
+    - 'timeout agora chama /interrupt e libera memória antes do próximo job'
+    - 'post() tolera corpo vazio — /free respondia 200 sem corpo e json.loads("") explodia, então liberar_modelos() SEMPRE devolvia False e o sleep(3) nunca rodava'
+    - 'c04: figura subiu para o terço médio (estava dentro da zona de legenda)'
+    - 'c03: luz lateral por arquitetura (o shaft de cima virou spot moderno na s3)'
+    - 'vinheta suavizada (saiu circular, tipo lente, em todas)'
+
+# ── INSPEÇÃO ESTRUTURAL DAS 12 CRUAS ────────────────────────────────────
+inspecao_2026_09_06:
+  aprovado:
+    - '9:16 a 768×1344 funcionou — a resolução nunca rodada em produção está validada'
+    - 'ambiente com profundidade em todas; a correção da rev.3 (nada de fundo preto) pegou'
+    - 'zona de legenda respeitada em c01, c02 e c03 — o sujeito fica acima dos 22% inferiores'
+  reprovado:
+    - 'c03-s3: luminária moderna embutida no teto do templo. Anacronismo, não é defeito de textura'
+    - 'c04 (as três): a figura está DENTRO da zona de legenda. Erro do prompt, não do modelo'
+  ressalvas:
+    - 'c02-s1: a pose não é a pedida (cotovelo no joelho); os dois braços estão caídos e a mão direita tem dedos mal separados'
+    - 'vinheta circular exagerada em todas — parece lente, não cinema'
+    - 'paleta fria demais; o âmbar de recorte da identidade só aparece no c03'
+    - 'c01: só a s2 é perfil de verdade; s1 e s3 saíram mais frontais'
+
+pendencias:
+  - 'O canal-estoico NÃO tem channel-brief.yaml, e o wf-dark-room exige um. Os 6 longos foram produzidos sem ele. Para os curtos falta definir a assinatura vertical do canal (como ele se apresenta em 9:16).'
+  - 'MEDIDO em 05/09: imagem crua 768×1344 leva 10-80 s; upscale LITE 195-220 s; narração de 60 s leva 65-165 s.'
+  - 'AUDITORIA DE WER das 3 narrações ainda não rodou — é obrigatória antes de publicar (teto 12%). Exige o ComfyUI/Whisper, e não deve rodar junto com geração.'
+  - 'A escolha de semente continua sendo do founder: 4 escolhas, uma por plano. c04 precisa ser REGERADO antes (as três estão na zona de legenda).'
+
+publicacao:
+  plataformas: []        # a decidir — TikTok, Shorts, Reels
+  url: ''
+  publicado_em: ''
+  desempenho:
+    retencao_3s: null    # É O NÚMERO QUE DECIDE O RESTO DO PLANO
+    visualizacoes: null
+    colhido_em: null

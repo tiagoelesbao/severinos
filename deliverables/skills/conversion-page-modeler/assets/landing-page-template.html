@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[TÍTULO DA PÁGINA]</title>
+<!--
+  TEMPLATE de página de alta conversão — preenchido pela skill conversion-page-modeler.
+  Como usar: substitua as CSS vars pelo brand kit do usuário e cada bloco [ ... ]
+  pela copy gerada. Mantenha placeholders [A PREENCHER: prova real] onde faltar
+  evidência verdadeira. Seções podem ser removidas/reordenadas conforme o mapa.
+-->
+<style>
+  :root{
+    --brand-primary:#0B0B0F;     /* fundo/identidade dominante */
+    --brand-secondary:#1A1A24;   /* profundidade/gradiente */
+    --brand-accent:#FFB800;      /* AÇÃO: CTAs e destaques */
+    --brand-text:#FFFFFF;        /* texto principal */
+    --brand-muted:#B5B5C0;       /* apoio/subtítulos */
+    --font-display:'Outfit',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-body);background:var(--brand-primary);color:var(--brand-text);line-height:1.6}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{padding:72px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  h1,h2,h3{font-family:var(--font-display);font-weight:800;line-height:1.15}
+  h1{font-size:clamp(32px,5vw,56px)}
+  h2{font-size:clamp(26px,3.5vw,40px);margin-bottom:16px}
+  p{color:var(--brand-muted);font-size:18px;margin-bottom:16px}
+  .lead{color:var(--brand-text);font-size:20px}
+  .accent{color:var(--brand-accent)}
+  .cta{display:inline-block;background:var(--brand-accent);color:#000;font-family:var(--font-display);
+       font-weight:800;text-decoration:none;padding:16px 32px;border-radius:12px;font-size:18px;margin-top:8px}
+  .grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:24px}
+  .card{background:var(--brand-secondary);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px}
+  .hero{background:linear-gradient(180deg,var(--brand-secondary),var(--brand-primary));text-align:center}
+  .hero h1{margin-bottom:16px}
+  .proof{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;opacity:.85;font-size:15px}
+  .steps{counter-reset:s}
+  .steps .card::before{counter-increment:s;content:counter(s);color:var(--brand-accent);
+       font-family:var(--font-display);font-weight:800;font-size:28px;display:block;margin-bottom:8px}
+  .price{font-size:44px;font-family:var(--font-display);font-weight:800}
+  .anchor{color:var(--brand-muted);text-decoration:line-through;font-size:20px}
+  .todo{color:var(--brand-accent);font-style:italic}
+  .center{text-align:center}
+  footer{padding:40px 0;text-align:center;color:var(--brand-muted);font-size:14px}
+</style>
+</head>
+<body>
+
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>[HEADLINE: promessa + para quem + mecanismo]</h1>
+      <p class="lead">[SUB-HEADLINE: a transformação concreta, em 1 frase]</p>
+      <a class="cta" href="#oferta">[CTA PRIMÁRIO]</a>
+      <div class="proof" style="margin-top:28px">[PROVA RÁPIDA: logos / números reais / "visto em" — <span class="todo">[A PREENCHER: prova real]</span>]</div>
+    </div>
+  </section>
+
+  <!-- 3. PROBLEMA / INIMIGO -->
+  <section>
+    <div class="wrap">
+      <h2>[O problema real — e por que o jeito antigo falha]</h2>
+      <p>[Nomeie a dor + o inimigo. O lead deve sentir "não é culpa minha".]</p>
+    </div>
+  </section>
+
+  <!-- 4. VIRADA / MECANISMO -->
+  <section>
+    <div class="wrap">
+      <h2>A virada: <span class="accent">[nome do mecanismo único]</span></h2>
+      <p>[Apresente a solução nova que muda o jogo — o "como" diferente.]</p>
+    </div>
+  </section>
+
+  <!-- 5. BENEFÍCIOS -->
+  <section>
+    <div class="wrap">
+      <h2>O que você ganha</h2>
+      <div class="grid">
+        <div class="card"><h3>[Benefício 1]</h3><p>[Resultado na vida do lead + prova.]</p></div>
+        <div class="card"><h3>[Benefício 2]</h3><p>[…]</p></div>
+        <div class="card"><h3>[Benefício 3]</h3><p>[…]</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. COMO FUNCIONA -->
+  <section>
+    <div class="wrap">
+      <h2>Como funciona</h2>
+      <div class="grid steps">
+        <div class="card"><h3>[Passo 1]</h3><p>[…]</p></div>
+        <div class="card"><h3>[Passo 2]</h3><p>[…]</p></div>
+        <div class="card"><h3>[Passo 3]</h3><p>[…]</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. PROVA PROFUNDA -->
+  <section>
+    <div class="wrap">
+      <h2>Resultados reais</h2>
+      <div class="grid">
+        <div class="card"><p>"[Depoimento específico — <span class="todo">[A PREENCHER: depoimento real]</span>]"</p><p class="accent">— [Nome, contexto]</p></div>
+        <div class="card"><p>"[Antes/depois com número real]"</p><p class="accent">— [Nome]</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8-10. OFERTA + GARANTIA -->
+  <section id="oferta">
+    <div class="wrap center">
+      <h2>A oferta</h2>
+      <div class="card" style="max-width:560px;margin:24px auto;text-align:left">
+        <p class="lead">Você leva:</p>
+        <p>✓ [Item 1 — valor R$X]<br>✓ [Item 2 — valor R$X]<br>✓ [Bônus que derruba a objeção principal]</p>
+        <p class="anchor">De R$ [valor ancorado]</p>
+        <p class="price accent">R$ [preço]</p>
+        <p>🛡️ [Garantia / risco reverso — específico]</p>
+        <a class="cta" href="#oferta">[CTA PRIMÁRIO]</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. OBJEÇÕES / FAQ -->
+  <section>
+    <div class="wrap">
+      <h2>Perguntas frequentes</h2>
+      <div class="grid">
+        <div class="card"><h3>[Objeção 1 como pergunta]</h3><p>[Resposta que neutraliza.]</p></div>
+        <div class="card"><h3>[Objeção 2]</h3><p>[…]</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. CTA FINAL -->
+  <section class="hero">
+    <div class="wrap">
+      <h2>[Recapitule a promessa]</h2>
+      <p class="lead">[Escassez honesta, se houver — vagas/prazo reais.]</p>
+      <a class="cta" href="#oferta">[CTA PRIMÁRIO]</a>
+    </div>
+  </section>
+
+  <footer>© [Marca] — [ano] · Modelado com a skill conversion-page-modeler (Virals)</footer>
+</body>
+</html>

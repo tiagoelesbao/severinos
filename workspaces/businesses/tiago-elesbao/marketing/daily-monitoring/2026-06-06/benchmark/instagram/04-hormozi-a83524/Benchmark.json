@@ -1,0 +1,43 @@
+{
+  "rank": 4,
+  "creator": "@hormozi",
+  "url": "https://www.instagram.com/hormozi/reel/DZL3PYSuGT1/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by hormozi",
+  "description": "13 years of business advice in 60 seconds",
+  "author": "Alex Hormozi",
+  "view_count": null,
+  "like_count": 39139,
+  "comment_count": null,
+  "duration_seconds": 46.9,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.71878-15/718435115_1644262356873107_2210369437543002950_n.jpg?stp=dst-jpg_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42NDAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuY2FuYXJ5In0&_nc_ht=instagram.fcpq7-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2gETyTffBn_iUeyMPAx99fxz4-P9IONO-phGPP2S6FnbU_DHwFZoHHrwPZfTFbpHUNK-3DnWhtuQ87wEtjBh0ueB&_nc_ohc=K7NpLE5DTL8Q7kNvwHzGD-e&_nc_gid=xQ7yUT4s3FMqwElf7_Fgfw&edm=ANTKIIoBAAAA&ccb=7-5&oh=00_Af8dfWNgMI2uAqo4xphmTqAczT4Vg_bRSVJKdMYqlFj9jw&oe=6A2E7D91&_nc_sid=d885a2",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "I'm going to compress"
+    },
+    {
+      "time": 8,
+      "label": "No one knows you exist."
+    },
+    {
+      "time": 16,
+      "label": "Raising prices almost always m"
+    },
+    {
+      "time": 26,
+      "label": "Until you're at $100,000 a mon"
+    },
+    {
+      "time": 45,
+      "label": "We need to be reminded more th"
+    }
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-06-10T00:35:09.793Z"
+}

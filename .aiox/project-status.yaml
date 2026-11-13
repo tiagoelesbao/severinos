@@ -1,0 +1,19 @@
+status:
+  branch: feat/benchmark-derived-templates
+  modifiedFiles:
+    - .agent/workflows/aios-master.md
+    - .aiox-core/core-config.yaml
+    - .aiox-core/development/scripts/greeting-builder.js
+    - .antigravity/agents/aios-master.md
+    - .antigravity/agents/allen-proj.md
+  modifiedFilesTotalCount: 722
+  recentCommits:
+    - 'chore: absolute project unification into monorepo'
+    - 'chore: consolidate nested git repositories into unified monorepo'
+  currentEpic: null
+  currentStory: STORY-MCP-01
+  lastUpdate: '2026-06-15T22:46:01.799Z'
+  isGitRepo: true
+timestamp: 1781563561801
+ttl: 60
+gitFingerprint: 1781370117577.3464:1774203902627.675

@@ -1,0 +1,43 @@
+{
+  "rank": 9,
+  "creator": "@hormozi",
+  "url": "https://www.instagram.com/hormozi/reel/DYexyUhBYIk/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by hormozi",
+  "description": "More people are afraid of short term discomfort than long term regret.\n\nThis makes them easy to beat.",
+  "author": "Alex Hormozi",
+  "view_count": null,
+  "like_count": 2245,
+  "comment_count": null,
+  "duration_seconds": 25.191,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/702746222_18323238634250343_3367329721576046499_n.jpg?stp=dst-jpg_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi43MjAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuYzIifQ&_nc_ht=instagram.fcpq7-1.fna.fbcdn.net&_nc_cat=103&_nc_oc=Q6cZ2gHV307ni5UZ57siO3X75MenA_CaRQmJ-NCFFSKLuA7p07qQ5eb6wgqBbnLQ1m0RL-JIaF6jS0Ubx90gf7rRUkbV&_nc_ohc=x73YnJmolfcQ7kNvwE-SfZP&_nc_gid=twrcF8_t24JeWBQxMq-36Q&edm=ANTKIIoBAAAA&ccb=7-5&oh=00_Af6mdFuYgbBz5QHTIEuITQ_IlIw_3H2Ka3kiX6NTuVIsCQ&oe=6A12AF0D&_nc_sid=d885a2",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Why don't more people adopt AI"
+    },
+    {
+      "time": 4,
+      "label": "There's a short-term cost that"
+    },
+    {
+      "time": 10,
+      "label": "If you're thinking to yourself"
+    },
+    {
+      "time": 17,
+      "label": "Right?"
+    },
+    {
+      "time": 21,
+      "label": "then you end up losing to peop"
+    }
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-05-19T23:39:23.243Z"
+}

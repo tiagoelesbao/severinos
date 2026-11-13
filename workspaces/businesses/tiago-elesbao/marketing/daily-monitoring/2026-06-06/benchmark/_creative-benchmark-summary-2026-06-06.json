@@ -1,0 +1,31 @@
+{
+  "date": "2026-06-06",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-06-13T14:37:05.667Z",
+  "finished_at": "2026-06-13T14:38:34.203Z",
+  "duration_ms": 88536,
+  "total": 1,
+  "ok": 1,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "rank": 2,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/p/DZL8S6flGel/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-06\\benchmark\\instagram\\02-hormozi-7eb444",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 6
+    }
+  ]
+}

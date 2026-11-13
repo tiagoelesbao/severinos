@@ -1,0 +1,48 @@
+{
+  "rank": 27,
+  "creator": "@aitrendz.xyz",
+  "url": "https://www.instagram.com/aitrendz.xyz/reel/DcBZa4bBaW2/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by aitrendz.xyz",
+  "description": "Comment any emoji to get my favorite ChatGPT shortcuts 🙌",
+  "author": "René Remsik",
+  "view_count": null,
+  "like_count": 465,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/773918522_18008002070970605_3847826781859701684_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=100&ig_cache_key=Mzk2MzU2MDk0NTUxNDgxNjk1MDE4MDA4MDAyMDY3OTcwNjA1.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=ZXhioW8pE0IQ7kNvwFD2sos&_nc_oc=AdrXIHO8FndN125j1nBG77XQHyVd_4IVv7ktK7CbBqtKzmSchxcw2ffDPddafQyKSsH-1aFBwIxEGHDj1bxZIk5O&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=-2DPTOxSAjArXFYcSy8N2Q&_nc_ss=7b689&oh=00_AQFWLgtC6kxee__ql18eWCn_nPw0XDRTVHBiInruIVfu1A&oe=6A8823C9",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Use this"
+    },
+    {
+      "time": 1,
+      "label": "to create that."
+    },
+    {
+      "time": 3,
+      "label": "to create that."
+    },
+    {
+      "time": 4,
+      "label": "Use this to create that."
+    },
+    {
+      "time": 8,
+      "label": "Comment your favorite emoji be"
+    }
+  ],
+  "cut_timestamps": [
+    8.77
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-17T01:00:20.027Z",
+  "item_status": "ok",
+  "status_reason": null
+}

@@ -1,17 +1,17 @@
 {
-  "atualizado_em": "2026-11-12T21:38:20.343620",
+  "atualizado_em": "2026-11-13T13:38:19.383116",
   "janela_dias_pedidos": 14,
   "campanha_inicio": "2026-10-06",
   "aviso_metodologia": "Primeira_Compra_Na_Janela é calculado só dentro da janela puxada (14 dias) — clientes cuja 1a compra real foi antes disso podem aparecer como 'novo' aqui. 'Novo público/Clientes existentes' do Meta não está disponível via API (recurso só de UI do Advantage+); esta classificação própria por telefone/CPF é o substituto. ROAS e novo-vs-recorrente usam só pedidos a partir de 2026-10-06 (início real da campanha) — comparar gasto da campanha contra pedidos de antes dela existir infla o ROAS artificialmente (achado 2026-10-07). Canal/sorteios/diário abaixo mostram a janela completa pra contexto de negócio, não são 'resultado da campanha'. O dia de hoje no gráfico diário está SEMPRE em andamento (parcial) até virar a meia-noite — não comparar com dias fechados sem considerar isso.",
   "periodo": {
     "inicio": "2026-10-06",
-    "fim": "2026-11-12",
+    "fim": "2026-11-13",
     "nota": "Os cards do topo e o corte Novo×Recorrente usam este intervalo (início real da campanha até agora) por padrão — use o filtro de período da página pra recalcular com outra janela."
   },
   "utm": {
-    "total_pedidos": 23705,
-    "com_utm": 21134,
-    "pct": 89.15,
+    "total_pedidos": 23987,
+    "com_utm": 21318,
+    "pct": 88.87,
     "nota": "Pedidos somados aqui são majoritariamente anteriores à correção de UTM (LP + webhook, 2026-10-07/08) — ver pendência 'UTM — captura via webhook' na tabela abaixo. Este percentual deve subir de forma gradual, não é esperado ficar estático."
   },
   "fbc": {
@@ -19,11 +19,9 @@
     "expirado": 8
   },
   "capi_realtime_status": {
-    "ultima_execucao": "2026-11-12T21:31:07.177922",
-    "eventos_no_checkpoint": 64875,
+    "ultima_execucao": "2026-11-13T13:30:37.161388",
+    "eventos_no_checkpoint": 65870,
     "log_tail": [
-      "🎉 COLETA COMPLETA! 1128 sorteios processados.",
-      "✅ C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\dados_brutos_completos_3dias.csv",
       "✅ C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\detalhes_sorteios_3dias.csv",
       "python.exe : C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\send_backlog.py:88:",
       "DtypeWarning: Columns (18) have mixed types. Specify dtype option on import or set low_memory=False.",
@@ -34,24 +32,26 @@
       "+ FullyQualifiedErrorId : NativeCommandError",
       "",
       "df = pd.read_csv(raw_csv, sep=\";\", encoding=\"utf-8-sig\", dtype={c: str for c in str_cols})",
-      "📊 64929 pedidos no CSV | 64937 já enviados (500 via webhook) | 0 pendentes",
-      "✅ Nada pendente.",
-      "2026-11-12T21:31:07.1769250-03:00 ===== Ciclo concluido ====="
+      "📊 65855 pedidos no CSV | 65868 já enviados (500 via webhook) | 2 pendentes",
+      "✅ 2 evento(s) enviados. events_received=2 fbtrace_id=Ar5tmiPppkMrJuXw48CUITz",
+      "",
+      "🎉 2 eventos enviados. Checkpoint: C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\capi_sent_ids_3dias.json",
+      "2026-11-13T13:30:37.1603835-03:00 ===== Ciclo concluido ====="
     ]
   },
   "bi_refresh_status": {
-    "ultima_execucao": "2026-11-12T21:30:05.661970",
+    "ultima_execucao": "2026-11-13T13:30:02.042376",
     "log_tail": [
-      "✅ 23582 pedidos coletados",
-      "✅ UTM via webhook: 0 pedido(s) preenchido(s) a partir de 18279 registro(s) em pedido_utm.",
-      "✅ UTM via utm_touches (fbp): 2534 pedido(s) preenchido(s) a partir de 641 fbp(s) com touch registrado.",
+      "✅ 23868 pedidos coletados",
+      "✅ UTM via webhook: 0 pedido(s) preenchido(s) a partir de 18574 registro(s) em pedido_utm.",
+      "✅ UTM via utm_touches (fbp): 2420 pedido(s) preenchido(s) a partir de 615 fbp(s) com touch registrado.",
       "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-executiva.json (publicado no Supabase Storage)",
       "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-operacional.json (publicado no Supabase Storage)",
       "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-produto.json (publicado no Supabase Storage)",
       "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-qualidade.json (publicado no Supabase Storage)",
-      "2026-11-12T21:09:23.0681698-03:00 data-*.json atualizados (local + Supabase Storage)",
-      "2026-11-12T21:09:23.0681698-03:00 ===== Refresh concluido =====",
-      "2026-11-12T21:30:05.6488680-03:00 ===== Iniciando refresh ====="
+      "2026-11-13T13:08:42.9783120-03:00 data-*.json atualizados (local + Supabase Storage)",
+      "2026-11-13T13:08:42.9793124-03:00 ===== Refresh concluido =====",
+      "2026-11-13T13:30:02.0378710-03:00 ===== Iniciando refresh ====="
     ]
   },
   "pendencias_events_manager": [
@@ -131,98 +131,98 @@
       "item": "Direto/Orgânico/Desconhecido — é Meta Ads ou grupo disfarçado?",
       "status": "investigado_nao_e_canal_oculto",
       "data": "2026-10-15",
-      "nota": "Investigado a pedido do founder, agora que WhatsApp e catálogo estão bem trackeados (menos 'sobra' pra explicar). Por definição este canal já é 0% fbp/fbc/UTM/gclid/ttclid (é o fallback final de _classificar_canal, não achado novo). O que FOI checado: perfil de dispositivo — 90.4% iOS (iPhone/iPad) em 272 pedido(s) neste canal na janela atual, visivelmente diferente do mix majoritariamente Android dos canais confirmados (UTM: whatsapp, Meta Ads confirmado). Leitura mais defensável: ITP do Safari/iOS (ou webview in-app) apagando fbp/fbc antes do pixel registrar — limitação de navegador, não uma 3ª origem de tráfego escondida. NÃO reclassificar estes pedidos pra grupo ou Meta Ads sem evidência nova."
+      "nota": "Investigado a pedido do founder, agora que WhatsApp e catálogo estão bem trackeados (menos 'sobra' pra explicar). Por definição este canal já é 0% fbp/fbc/UTM/gclid/ttclid (é o fallback final de _classificar_canal, não achado novo). O que FOI checado: perfil de dispositivo — 90.2% iOS (iPhone/iPad) em 266 pedido(s) neste canal na janela atual, visivelmente diferente do mix majoritariamente Android dos canais confirmados (UTM: whatsapp, Meta Ads confirmado). Leitura mais defensável: ITP do Safari/iOS (ou webview in-app) apagando fbp/fbc antes do pixel registrar — limitação de navegador, não uma 3ª origem de tráfego escondida. NÃO reclassificar estes pedidos pra grupo ou Meta Ads sem evidência nova."
     }
   ],
   "direto_desconhecido_diario": [
     {
       "dia": "2026-10-30",
-      "pedidos_direto": 10,
-      "pedidos_total": 1549,
-      "pct": 0.65
+      "pedidos_direto": 4,
+      "pedidos_total": 898,
+      "pct": 0.45
     },
     {
       "dia": "2026-10-31",
       "pedidos_direto": 9,
-      "pedidos_total": 1652,
+      "pedidos_total": 1665,
       "pct": 0.54
     },
     {
       "dia": "2026-11-01",
       "pedidos_direto": 0,
-      "pedidos_total": 1133,
+      "pedidos_total": 1125,
       "pct": 0.0
     },
     {
       "dia": "2026-11-02",
       "pedidos_direto": 5,
-      "pedidos_total": 1525,
+      "pedidos_total": 1529,
       "pct": 0.33
     },
     {
       "dia": "2026-11-03",
       "pedidos_direto": 5,
-      "pedidos_total": 1643,
-      "pct": 0.3
+      "pedidos_total": 1635,
+      "pct": 0.31
     },
     {
       "dia": "2026-11-04",
       "pedidos_direto": 1,
-      "pedidos_total": 1750,
+      "pedidos_total": 1758,
       "pct": 0.06
     },
     {
       "dia": "2026-11-05",
       "pedidos_direto": 14,
-      "pedidos_total": 1755,
+      "pedidos_total": 1752,
       "pct": 0.8
     },
     {
       "dia": "2026-11-06",
       "pedidos_direto": 6,
-      "pedidos_total": 2152,
+      "pedidos_total": 2159,
       "pct": 0.28
     },
     {
       "dia": "2026-11-07",
-      "pedidos_direto": 55,
-      "pedidos_total": 1900,
-      "pct": 2.89
+      "pedidos_direto": 56,
+      "pedidos_total": 1898,
+      "pct": 2.95
     },
     {
       "dia": "2026-11-08",
-      "pedidos_direto": 53,
-      "pedidos_total": 1264,
-      "pct": 4.19
+      "pedidos_direto": 52,
+      "pedidos_total": 1257,
+      "pct": 4.14
     },
     {
       "dia": "2026-11-09",
-      "pedidos_direto": 88,
-      "pedidos_total": 1861,
-      "pct": 4.73
+      "pedidos_direto": 90,
+      "pedidos_total": 1863,
+      "pct": 4.83
     },
     {
       "dia": "2026-11-10",
-      "pedidos_direto": 6,
-      "pedidos_total": 1739,
-      "pct": 0.35
+      "pedidos_direto": 4,
+      "pedidos_total": 1734,
+      "pct": 0.23
     },
     {
       "dia": "2026-11-11",
-      "pedidos_direto": 17,
+      "pedidos_direto": 18,
       "pedidos_total": 1984,
-      "pct": 0.86
+      "pct": 0.91
     },
     {
       "dia": "2026-11-12",
-      "pedidos_direto": 3,
-      "pedidos_total": 1797,
-      "pct": 0.17
+      "pedidos_direto": 2,
+      "pedidos_total": 1799,
+      "pct": 0.11
     },
     {
       "dia": "2026-11-13",
       "pedidos_direto": 0,
-      "pedidos_total": 1,
+      "pedidos_total": 931,
       "pct": 0.0
     }
   ]

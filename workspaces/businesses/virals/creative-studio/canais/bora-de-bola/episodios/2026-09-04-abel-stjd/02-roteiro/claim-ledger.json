@@ -1,0 +1,285 @@
+{
+  "episodio": "2026-09-04-abel-stjd",
+  "gerado_em": "2026-09-04",
+  "regra": "Toda afirmação factual do roteiro tem entrada aqui com âncora. Frase sem entrada é ligação ou opinião DECLARADA como opinião — nunca fato apresentado como fato.",
+  "claims": [
+    {
+      "id": "C1",
+      "tipo": "C-NUM",
+      "ancora": "F1",
+      "afirmacao": "O STJD puniu Abel Ferreira com duas partidas de suspensão",
+      "fonte": "ge.globo — 'Abel Ferreira é punido com dois jogos de suspensão por chutar microfone e desfalca Palmeiras'",
+      "literal": "votou nesta sexta-feira pela punição ao técnico Abel Ferreira com duas partidas de suspensão",
+      "onde_no_roteiro": [
+        "0:00",
+        "0:27",
+        "7:02",
+        "10:16"
+      ]
+    },
+    {
+      "id": "C2",
+      "tipo": "C-LEG",
+      "ancora": "F1",
+      "afirmacao": "A punição veio da Terceira Comissão Disciplinar do tribunal",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "na 3ª Comissão Disciplinar do STJD",
+      "onde_no_roteiro": [
+        "0:27"
+      ]
+    },
+    {
+      "id": "C3",
+      "tipo": "C-NUM",
+      "ancora": "F1",
+      "afirmacao": "O motivo foi um chute num microfone durante Palmeiras x Mirassol, 25ª rodada do Brasileirão",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "por chutar um microfone na beira do campo durante o empate entre Palmeiras e Mirassol, pela 25ª rodada do Campeonato Brasileiro",
+      "onde_no_roteiro": [
+        "0:00",
+        "0:27",
+        "10:16"
+      ]
+    },
+    {
+      "id": "C4",
+      "tipo": "C-TMP",
+      "ancora": "F3",
+      "afirmacao": "Abel desfalca o Palmeiras contra o Botafogo, domingo às 18h30",
+      "fonte": "ge.globo — 'Palmeiras prepara mudanças na escalação para enfrentar Botafogo com desfalque e sem Abel'",
+      "literal": "para enfrentar o Botafogo, às 18h30 do domingo",
+      "onde_no_roteiro": [
+        "0:27",
+        "10:16"
+      ],
+      "nota_tts": "escrito como 'seis e meia da tarde' — o motor leria '18h30' como 'dezoito agá trinta'"
+    },
+    {
+      "id": "C5",
+      "tipo": "C-AUT",
+      "ancora": "F2",
+      "afirmacao": "O Palmeiras vai recorrer e pedir efeito suspensivo",
+      "fonte": "ge.globo — 'Palmeiras vai recorrer e pedir efeito suspensivo sobre punição a Abel'",
+      "literal": "O Palmeiras vai recorrer e pedir efeito suspensivo",
+      "onde_no_roteiro": [
+        "0:27",
+        "0:58",
+        "2:12",
+        "10:16"
+      ]
+    },
+    {
+      "id": "C6",
+      "tipo": "C-LEG",
+      "ancora": "F2",
+      "afirmacao": "Efeito suspensivo paralisa temporariamente os efeitos da decisão até o tribunal superior julgar",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "recurso que paralisa temporariamente os efeitos da decisão até que o tribunal superior julgue o recurso",
+      "onde_no_roteiro": [
+        "0:27",
+        "2:12"
+      ]
+    },
+    {
+      "id": "C7",
+      "tipo": "C-3P",
+      "ancora": "F6",
+      "afirmacao": "O tribunal está avaliando a comunicação do VAR sobre o lance",
+      "fonte": "ge.globo — linha de apoio das matérias sobre o caso",
+      "literal": "STJD avalia comunicação do VAR sobre o chute de Abel no microfone",
+      "onde_no_roteiro": [
+        "2:12"
+      ]
+    },
+    {
+      "id": "C8",
+      "tipo": "C-CMP",
+      "ancora": "F5",
+      "afirmacao": "O elenco se reapresentou na sexta com trabalhos regenerativos e iniciou a preparação para domingo",
+      "fonte": "ge.globo — 'Palmeiras prepara mudanças na escalação'",
+      "literal": "o Palmeiras se reapresentou nesta sexta-feira com trabalhos regenerativos e iniciando a preparação para enfrentar o Botafogo",
+      "onde_no_roteiro": [
+        "3:44"
+      ]
+    },
+    {
+      "id": "C9",
+      "tipo": "C-NUM",
+      "ancora": "F5",
+      "afirmacao": "O time tem no mínimo dois desfalques para domingo",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "com no mínimo dois desfalques",
+      "onde_no_roteiro": [
+        "3:44"
+      ]
+    },
+    {
+      "id": "C10",
+      "tipo": "C-CAP",
+      "ancora": "F5",
+      "afirmacao": "O lateral-esquerdo Arthur cumprirá suspensão",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "o lateral-esquerdo Arthur, que cumprirá suspensão",
+      "onde_no_roteiro": [
+        "3:44"
+      ]
+    },
+    {
+      "id": "C11",
+      "tipo": "C-LEG",
+      "ancora": "F7",
+      "afirmacao": "O STJD negou o recurso relacionado a Arthur",
+      "fonte": "ge.globo — 'STJD nega recurso, e Arthur desfalca o Palmeiras no Brasileirão'",
+      "literal": "STJD nega recurso, e Arthur desfalca o Palmeiras",
+      "onde_no_roteiro": [
+        "3:44"
+      ]
+    },
+    {
+      "id": "C12",
+      "tipo": "C-3P",
+      "ancora": "F4",
+      "afirmacao": "O julgamento começou com um auditor pedindo absolvição e o segundo pedindo uma partida",
+      "fonte": "UOL / Paulo Vinícius Coelho — 'Abel punido por dois jogos ficou de tamanho justo'",
+      "literal": "O julgamento de Abel Ferreira começou com um auditor pedindo absolvição e o segundo solicitando uma partida, apenas",
+      "onde_no_roteiro": [
+        "0:00",
+        "0:58",
+        "7:02",
+        "10:16"
+      ],
+      "nota": "é a fonte que sustenta a thumb; o jornalista é NOMEADO em voz alta no roteiro"
+    },
+    {
+      "id": "C13",
+      "tipo": "C-3P",
+      "ancora": "F4",
+      "afirmacao": "O julgamento parou e, depois da pausa para o almoço, os votos ficaram diferentes",
+      "fonte": "UOL / PVC — mesma coluna",
+      "literal": "Então, o julgamento parou. Depois da pausa para o almoço, os votos ficaram diferentes e Abel Ferreira foi condenado a duas partidas de suspensão",
+      "onde_no_roteiro": [
+        "7:02"
+      ]
+    },
+    {
+      "id": "C14",
+      "tipo": "C-3P",
+      "ancora": "F4",
+      "afirmacao": "O próprio colunista avaliou a punição como adequada",
+      "fonte": "UOL / PVC — mesma coluna",
+      "literal": "Pareceu adequado.",
+      "onde_no_roteiro": [
+        "7:02"
+      ],
+      "nota": "entra no roteiro justamente para não deixar a sequência sugerir irregularidade"
+    },
+    {
+      "id": "C15",
+      "tipo": "C-CMP",
+      "ancora": "F8",
+      "afirmacao": "O Palmeiras se classificou para a semifinal da Copa do Brasil segurando o empate com o Santos na Vila",
+      "fonte": "ge.globo — 'Ranking de premiações 2026'",
+      "literal": "Palmeiras segura o empate com o Santos e está nas semifinais da Copa do Brasil",
+      "onde_no_roteiro": [
+        "9:06"
+      ]
+    },
+    {
+      "id": "C16",
+      "tipo": "C-NUM",
+      "ancora": "F8",
+      "afirmacao": "A classificação garante mais R$ 9 milhões e leva o acumulado a R$ 48,33 milhões em 2026, na vice-liderança do ranking",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "garante ao clube mais R$ 9 milhões e faz com que acumule R$ 48,33 mi em 2026 (…) chegar à segunda colocação no ranking",
+      "onde_no_roteiro": [
+        "9:06"
+      ]
+    },
+    {
+      "id": "C17",
+      "tipo": "C-NUM",
+      "ancora": "F9",
+      "afirmacao": "O Palmeiras é líder do Brasileiro com 52 pontos, um a mais que o Flamengo",
+      "fonte": "ge.globo — 'Palmeiras é único no Brasil na briga por título em três competições'",
+      "literal": "líder do Brasileiro, com 52 pontos, sendo um de vantagem em relação ao vice Flamengo",
+      "onde_no_roteiro": [
+        "0:58",
+        "4:52",
+        "10:16"
+      ]
+    },
+    {
+      "id": "C18",
+      "tipo": "C-CMP",
+      "ancora": "F9",
+      "afirmacao": "É o único clube do Brasil disputando título em três competições simultâneas",
+      "fonte": "ge.globo — mesma matéria",
+      "literal": "o Palmeiras se tornou o único clube do Brasil disputando títulos em três competições simultâneas neste momento da temporada",
+      "onde_no_roteiro": [
+        "4:52",
+        "10:16"
+      ]
+    },
+    {
+      "id": "C19",
+      "tipo": "C-CAP",
+      "ancora": "F10",
+      "afirmacao": "Barboza volta ao Nilton Santos como adversário do Botafogo, três meses após se despedir chorando",
+      "fonte": "ge.globo — 'Três meses depois de choro no adeus, Barboza volta ao Nilton Santos'",
+      "literal": "Três meses depois de se despedir do Nilton Santos como jogador do Botafogo, Barboza está de volta ao Rio de Janeiro como adversário do clube carioca. Neste domingo, ele defende o Palmeiras às 18h30",
+      "onde_no_roteiro": [
+        "6:07"
+      ]
+    },
+    {
+      "id": "C20",
+      "tipo": "C-CMP",
+      "ancora": "F10",
+      "afirmacao": "O Botafogo tem desfalques e o treinador deve mudar de esquema",
+      "fonte": "ge.globo — 'Escalação do Botafogo: com desfalques, Bellão deve mudar esquema contra o Palmeiras'",
+      "literal": "Escalação do Botafogo: com desfalques, Bellão deve mudar esquema contra o Palmeiras",
+      "onde_no_roteiro": [
+        "6:07"
+      ]
+    }
+  ],
+  "opinioes_declaradas": [
+    {
+      "onde_no_roteiro": "2:12",
+      "texto": "o Palmeiras tem um argumento de forma para trabalhar por causa da análise do VAR",
+      "marcada_como": "'Na minha leitura, e aqui é leitura minha, não é fato'"
+    },
+    {
+      "onde_no_roteiro": "7:02",
+      "texto": "não é irregular que um voto se desloque durante uma sessão; o que chama atenção é a distância entre início e fim",
+      "marcada_como": "'O que eu posso dizer, como leitura'"
+    },
+    {
+      "onde_no_roteiro": "7:02",
+      "texto": "a distância entre o ponto de partida e o de chegada dá força ao recurso",
+      "marcada_como": "segue a marcação anterior no mesmo bloco"
+    },
+    {
+      "onde_no_roteiro": "9:06",
+      "texto": "o recurso será tratado com prioridade máxima pelo jurídico",
+      "marcada_como": "'eu acho — e de novo, aqui é opinião'"
+    },
+    {
+      "onde_no_roteiro": "3:44",
+      "texto": "técnico suspenso trabalha a semana e o que falta é a leitura de beira de campo",
+      "marcada_como": "descrição de senso comum do ofício, não afirmação sobre este caso"
+    },
+    {
+      "onde_no_roteiro": "6:07",
+      "texto": "o jogador que volta ao ex-clube costuma ser o mais cobrado em campo",
+      "marcada_como": "'Se você acompanha futebol há algum tempo, sabe o que costuma acontecer' — descrição de padrão do esporte, não afirmação sobre este jogo"
+    }
+  ],
+  "verificacao": {
+    "afirmacoes_sem_ancora": 0,
+    "falas_entre_aspas_atribuidas": 1,
+    "nota_sobre_aspas": "A única citação literal é 'Pareceu adequado', do colunista, e ela existe na fonte. Nenhuma fala é atribuída a Abel Ferreira, ao Palmeiras ou a qualquer auditor.",
+    "risco_b3": false
+  },
+  "tempos": "timestamps MEDIDOS na locução de 2026-09-05 (vo.mp3, 11:09), não estimados"
+}

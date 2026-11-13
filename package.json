@@ -1,18 +1,28 @@
 {
     "name": "severinos",
     "version": "0.2.0",
-    "description": "Project created with Synkra AIOS",
+    "description": "Project created with Synkra AIOX",
     "main": "index.js",
     "scripts": {
         "lint": "echo \"Linting...\" && exit 0",
         "test": "echo \"Running tests...\" && exit 0",
         "typecheck": "echo \"Typechecking...\" && exit 0",
-        "build": "echo \"Building...\" && exit 0"
+        "build": "echo \"Building...\" && exit 0",
+    "ig:session": "node services/ETL/Extract/auth/ig-session.js",
+    "ig:login": "node services/ETL/Extract/scrapers/ig-login.js",
+    "ig:import": "node services/ETL/Extract/auth/ig-import-cookies.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "supabase": "^2.76.11"
+    },
+    "dependencies": {
+        "@google/generative-ai": "^0.24.1",
+        "@supabase/supabase-js": "^2.100.0",
+        "dotenv": "^17.3.1",
+        "js-yaml": "^4.1.1",
+        "playwright": "^1.58.2"
     }
 }

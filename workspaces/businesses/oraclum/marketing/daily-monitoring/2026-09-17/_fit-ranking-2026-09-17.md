@@ -1,0 +1,148 @@
+# Ranking por Confluência · Oraclum · 2026-09-17
+
+**Total avaliado:** 119  ·  **Base:** brand-identity de `oraclum`
+
+> Ordena pela **aderência ao DNA do cliente** (léxico da marca, pilares, evidência numérica, priority) — NÃO pelo engajamento. Serve para escolher o que benchmarkar por fit.
+
+> ⚠️ Fit de baixa confiança = post sem caption capturada (pontuado só por sinais estruturais).
+
+---
+
+> ✅ Marque a coluna **Sondagem** dos criativos que devem entrar no lote do dia — o Lote em ClickUp só puxa os marcados.
+
+| Sondagem | # | Fit | Conf. | Pilar | Plataforma | Criador | Descrição | Por quê | Link |
+| :---: | :- | ---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [ ] | 1 | **68** | alta | bastidor-oraclum | instagram | @diegoalmeida.ia | 🚨 Comente “ESCALA” e eu te envio o link no direct! Sam Alt… | +12 léxico da marca (escala, dado); +6 pilar "bastidor-oraclum" (2 termos) | [Ver](https://www.instagram.com/diegoalmeida.ia/p/DdW4SpSESJn/) |
+| [ ] | 2 | **68** | alta | bastidor-oraclum | instagram | @thaleslaray | Quanto mais a I.A. avança, mais a internet faz você sentir … | +12 léxico da marca (automacao, pratico); +6 pilar "bastidor-oraclum" (2 termos) | [Ver](https://www.instagram.com/thaleslaray/p/DdWlT0AEVUF/) |
+| [ ] | 3 | **67** | alta | tutoriais-ia | instagram | @artificialintelligence.co | Anthropic just released a free 37-minute guide on building … | +6 léxico da marca (workflow); +3 pilar "tutoriais-ia" (1 termos) | [Ver](https://www.instagram.com/artificialintelligence.co/p/DdWuJc1CRQY/) |
+| [ ] | 4 | **64** | alta | bastidor-oraclum | instagram | @airesearches | Three years. That’s all it took for AI to become almost unr… | +6 pilar "bastidor-oraclum" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/airesearches/reel/DdWWauvKd-w/) |
+| [ ] | 5 | **64** | alta | bastidor-oraclum | instagram | @higgsfield.ai | Introducing Higgsfield API 🧩 50+ frontier models in one AP… | +6 pilar "bastidor-oraclum" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/higgsfield.ai/reel/DdXC91LKuIQ/) |
+| [ ] | 6 | **64** | alta | — | instagram | @guilhermemorais.ia | Comenta COMUNIDADE que eu te mando o acesso ao IA Club, a c… | +6 léxico da marca (agente); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/guilhermemorais.ia/p/DdXGE9fkVFX/) |
+| [ ] | 7 | **64** | alta | bastidor-oraclum | instagram | @notjournal.ai | Coluna / José Henrique Azeredo O mercado derrubou papéis de… | +6 pilar "bastidor-oraclum" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/notjournal.ai/p/DdXU_eLoLu1/) |
+| [ ] | 8 | **64** | alta | bastidor-oraclum | instagram | @hernanvazquezmarketing | Every funnel hits a ceiling. CPA goes up. Volume stops. Mor… | +6 pilar "bastidor-oraclum" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/hernanvazquezmarketing/reel/DdW5xonEVy6/) |
+| [ ] | 9 | **64** | alta | servico-em-acao | instagram | @acelerai | Uma pesquisa da Ipsos pra Paper and Packaging Board mostra … | +6 pilar "servico-em-acao" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/acelerai/p/DdXf3qql2mw/) |
+| [ ] | 10 | **64** | alta | bastidor-oraclum | instagram | @aipagedaily | Comment “Chat” and we’ll send it to you 👇 Why use 10 diffe… | +6 pilar "bastidor-oraclum" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/power.ai/p/DdXhrsIFSP4/) |
+| [ ] | 11 | **64** | alta | bastidor-oraclum | instagram | @aipagedaily | 🤯💻 A Google Cloud engineer demonstrated how Claude can go… | +6 pilar "bastidor-oraclum" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/aipagedaily/p/DdYve2Fkcgh/) |
+| [ ] | 12 | **63** | alta | analise-tendencias | instagram | @thediaryofaceopodcast | How worried should we be about AI? 🤷‍♂️ A former OpenAI an… | +5 pilar "analise-tendencias" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/thediaryofaceopodcast/reel/DdYtAYQMnql/) |
+| [ ] | 13 | **63** | alta | analise-tendencias | instagram | @thediaryofaceopodcast | Comment ‘debate’ and I’ll DM you the full episode. 214 mill… | +5 pilar "analise-tendencias" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/steven/reel/DdYSJDPu0AX/) |
+| [ ] | 14 | **63** | alta | tutoriais-ia | instagram | @publicitarioscriativos | A garrafa de vidro é parte central da identidade visual da … | +6 léxico da marca (pratico); +7 pilar "tutoriais-ia" (2 termos) | [Ver](https://www.instagram.com/publicitarioscriativos/p/DdWnJDBEXe0/) |
+| [ ] | 15 | **63** | alta | analise-tendencias | instagram | @diegoalmeida.ia | Comente “FREE” e eu te envio o link! 🚀 A Verdent liberou, … | +5 pilar "analise-tendencias" (2 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/diegoalmeida.ia/p/DdXT1eZERGf/) |
+| [ ] | 16 | **62** | alta | bastidor-oraclum | instagram | @odanilogato | Fase 1 das férias concluída com sucesso. Cruzeiro da Disney… | +6 léxico da marca (agente); +6 pilar "bastidor-oraclum" (2 termos) | [Ver](https://www.instagram.com/odanilogato/p/DdXhF5fDiVm/) |
+| [ ] | 17 | **61** | alta | bastidor-oraclum | instagram | @diegoalmeida.ia | 🏎️ F1 26 com DLSS 5 no máximo parece vida real 🔥 Esse víd… | +3 pilar "bastidor-oraclum" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/diegoalmeida.ia/reel/DdWRU4xRm0I/) |
+| [ ] | 18 | **61** | alta | bastidor-oraclum | instagram | @publicitarioscriativos | Acertar o nome de uma marca de luxo é um desafio até para q… | +3 pilar "bastidor-oraclum" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/publicitarioscriativos/p/DdWZYIskXdZ/) |
+| [ ] | 19 | **61** | alta | bastidor-oraclum | instagram | @notjournal.ai | O governo dos Estados Unidos afirmou que o Brasil falhou no… | +3 pilar "bastidor-oraclum" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/notjournal.ai/p/DdW7AAtnMzI/) |
+| [ ] | 20 | **61** | alta | bastidor-oraclum | instagram | @notjournal.ai | O iFood anunciou nesta quarta-feira (16), durante o iFood M… | +3 pilar "bastidor-oraclum" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/notjournal.ai/p/DdW-mQImL0F/) |
+| [ ] | 21 | **61** | alta | servico-em-acao | instagram | @odanilogato | Semana passada um pesquisador se demitiu da empresa do Clau… | +3 pilar "servico-em-acao" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/odanilogato/reel/DdXzydNEi6K/) |
+| [ ] | 22 | **61** | alta | servico-em-acao | instagram | @odavilouback | Quase 500 mil seguidores a mais sem transformar a produção … | +3 pilar "servico-em-acao" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/aceleradordeaudiencia/p/DdXguGIjrYg/) |
+| [ ] | 23 | **61** | alta | servico-em-acao | instagram | @aceleradordeaudiencia | Quase 500 mil seguidores a mais sem transformar a produção … | +3 pilar "servico-em-acao" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/aceleradordeaudiencia/p/DdXguGIjrYg/) |
+| [ ] | 24 | **60** | alta | mitos-quebra | instagram | @miranhastudios | KKKKKKKKKKKKKKKKKKKKKK QUEBRA TUDOOOOOO @euigorodrigues e @… | +2 pilar "mitos-quebra" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/cazetv/reel/DdYRruCmEUk/) |
+| [ ] | 25 | **60** | alta | analise-tendencias | instagram | @notjournal.ai | Em 2023, vídeos gerados por inteligência artificial ainda p… | +2 pilar "analise-tendencias" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/notjournal.ai/reel/DdW6uwGguir/) |
+| [ ] | 26 | **60** | alta | analise-tendencias | instagram | @guideggan | O Mercado Livre está investindo em live commerce. A empresa… | +2 pilar "analise-tendencias" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/guideggan/p/DdWc1jWDvSL/) |
+| [ ] | 27 | **60** | alta | analise-tendencias | instagram | @artificialintelligence.co | OpenAI hired hundreds of contractors to read real ChatGPT u… | +2 pilar "analise-tendencias" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/artificialintelligence.co/p/DdWjvlJpl_C/) |
+| [ ] | 28 | **60** | alta | mitos-quebra | instagram | @turbo.partners | 📩 Quer receber a Turbo News toda quarta às 09:09h? Comenta… | +2 pilar "mitos-quebra" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/turbo.partners/p/DdWPZDAG9cq/) |
+| [ ] | 29 | **60** | alta | analise-tendencias | instagram | @aipagedaily | 🧠🍌 Google mapped the complete brain and central nervous s… | +2 pilar "analise-tendencias" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/aipagedaily/p/DdWLpJWm9uO/) |
+| [ ] | 30 | **60** | alta | analise-tendencias | instagram | @artificialintelligence.co | Google DeepMind has launched the DeepMind Institute (DMI) o… | +2 pilar "analise-tendencias" (1 termos); +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/artificialintelligence.co/p/DdY3ii2Fark/) |
+| [ ] | 31 | **59** | alta | tutoriais-ia | instagram | @fabionkallaku | Comment “TRIPO” and I’ll send you the tool 👇 I gave Astra … | +6 léxico da marca (workflow); +3 pilar "tutoriais-ia" (1 termos) | [Ver](https://www.instagram.com/fabionkallaku/reel/DdV4BExKOsf/) |
+| [ ] | 32 | **59** | alta | servico-em-acao | instagram | @obrunookamoto | 🤖 Brincadeiras à parte, é exatamente isso que torna machin… | +6 léxico da marca (dado); +3 pilar "servico-em-acao" (1 termos) | [Ver](https://www.instagram.com/obrunookamoto/reel/DdXXM_UvbGn/) |
+| [ ] | 33 | **59** | alta | tutoriais-ia | instagram | @odavilouback | Conteúdo consistente não nasce de posts isolados. Ele preci… | +6 léxico da marca (dado); +3 pilar "tutoriais-ia" (1 termos) | [Ver](https://www.instagram.com/aceleradordeaudiencia/p/DdWtYztDruK/) |
+| [ ] | 34 | **59** | alta | tutoriais-ia | instagram | @aceleradordeaudiencia | Conteúdo consistente não nasce de posts isolados. Ele preci… | +6 léxico da marca (dado); +3 pilar "tutoriais-ia" (1 termos) | [Ver](https://www.instagram.com/aceleradordeaudiencia/p/DdWtYztDruK/) |
+| [ ] | 35 | **59** | alta | bastidor-oraclum | instagram | @obrunookamoto | Antes de criar um agente de IA, você precisa entender o que… | +6 léxico da marca (agente); +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/obrunookamoto/reel/DdW70o8xOAR/) |
+| [ ] | 36 | **59** | alta | bastidor-oraclum | instagram | @obrunookamoto | Empreender não deveria significar trocar um chefe por uma a… | +6 léxico da marca (agente); +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/obrunookamoto/reel/DdWExWeR_Am/) |
+| [ ] | 37 | **58** | média | — | instagram | @thediaryofaceopodcast | Could Trump still be in power in 2028? 👀 @steven and @pred… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/thediaryofaceopodcast/reel/DdWHyJhB7Vt/) |
+| [ ] | 38 | **58** | média | — | instagram | @thediaryofaceopodcast | Why is building muscle so important? 💪 @drgabriellelyon sa… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/thediaryofaceopodcast/reel/DdVsyaNsRnT/) |
+| [ ] | 39 | **58** | média | — | instagram | @kevkevkiwi | 🔥🎬 Here’s a tutorial on how to create this **viral duplic… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/kevkevkiwi/reel/DdVOcAtspmS/) |
+| [ ] | 40 | **58** | média | — | instagram | @publicitarioscriativos | Todo mês de setembro, fãs de quadrinhos comemoram o Batman … | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/publicitarioscriativos/p/DdW4ke2xpvI/) |
+| [ ] | 41 | **58** | média | — | instagram | @eduardocavalcanti | COMENTA PS01 👇 que te envio minha aula gratuita te ensinan… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/eduardocavalcanti/reel/DdWm9IVxCSI/) |
+| [ ] | 42 | **58** | média | — | instagram | @eluna.ai | Someone gave GTA San Andreas a serious visual upgrade using… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/eluna.ai/p/DdWWxb9jW1D/) |
+| [ ] | 43 | **58** | média | — | instagram | @aipagedaily | 📱🔋 If your iPhone has been running hotter or draining fas… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/aipagedaily/p/DdV1-_ylkh9/) |
+| [ ] | 44 | **58** | média | — | instagram | @eduardocavalcanti | 400x mais barato e 200x mais rápido! Comenta JEV 👇 que te … | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/eduardocavalcanti/reel/DdYqOipBBRo/) |
+| [ ] | 45 | **58** | média | — | instagram | @airesearches | 🕶️ A Polish developer built an app called Zuckoff that can… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/airesearches/p/DdWvc-RKm9k/) |
+| [ ] | 46 | **58** | média | — | instagram | @airesearches | GPT-6 Astra spent 141 hours autonomously playing Minecraft … | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/airesearches/p/DdY32SkGer1/) |
+| [ ] | 47 | **58** | média | — | instagram | @notjournal.ai | Jamie Dimon, CEO do JPMorgan Chase, rejeitou a ideia de que… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/notjournal.ai/p/DdWspGInDcb/) |
+| [ ] | 48 | **58** | média | — | instagram | @leosoares.ia | Os Estados Unidos acabaram de reservar uma parte estratégic… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/leosoares.ia/reel/DdVL7uyR-QC/) |
+| [ ] | 49 | **58** | média | — | instagram | @realskytan | Hey what’s up 🙋 I'm Sky and 3 years ago I got OBSESSED wit… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/realskytan/reel/DdVhpHODaTB/) |
+| [ ] | 50 | **58** | média | — | instagram | @eluna.ai | Someone really told the AI to lock in. The prompt treats th… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/eluna.ai/p/DdYjKhgqlMz/) |
+| [ ] | 51 | **58** | média | — | instagram | @tapnow.ai_official | 【WARNING】 02 If flowers begin to grow from your body, pleas… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/jimhuihui_ai_art/reel/DdYIUcmqvm2/) |
+| [ ] | 52 | **58** | média | — | instagram | @tapnow.ai_official | 【WARNING】 01 If flowers begin to grow from your body, pleas… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/jimhuihui_ai_art/reel/DdYH5Y6CB8P/) |
+| [ ] | 53 | **58** | média | — | instagram | @hernanvazquezmarketing | Profits" to get a copy of my Low Ticket Profits book 👇 1 m… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/hernanvazquezmarketing/reel/DdXUftIitMk/) |
+| [ ] | 54 | **58** | média | — | instagram | @acelerai | A Trader Joe’s provou que um produto simples pode carregar … | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/acelerai/p/DdWiFvVoLjW/) |
+| [ ] | 55 | **58** | média | — | instagram | @artificialintelligence.co | GPT-6 Astra reportedly set a Minecraft AI record during a 1… | +8 evidência numérica (MOSTRAR > DIZER) | [Ver](https://www.instagram.com/artificialintelligence.co/p/DdYp3IVCYlG/) |
+| [ ] | 56 | **57** | alta | tutoriais-ia | instagram | @brandsdecoded__ | Comentou ALFREDO? Então eu vou te mandar o prompt que trans… | +7 pilar "tutoriais-ia" (2 termos) | [Ver](https://www.instagram.com/brandsdecoded__/p/DdW9qysmERj/) |
+| [ ] | 57 | **57** | alta | tutoriais-ia | instagram | @rodrigotadewald | OpenRouter, Poe, Perplexity e outros hubs de IA podem parec… | +7 pilar "tutoriais-ia" (2 termos) | [Ver](https://www.instagram.com/rodrigotadewald/reel/DdXT4SkCCM5/) |
+| [ ] | 58 | **57** | alta | tutoriais-ia | instagram | @gabrielmoraisdark | Essa é uma mensagem para você que me acompanha! Para recebe… | +7 pilar "tutoriais-ia" (2 termos) | [Ver](https://www.instagram.com/gabrielmorais.ia/reel/DdXRPaVBmUs/) |
+| [ ] | 59 | **57** | alta | tutoriais-ia | instagram | @gabrielmoraisdark | Com esssa estratégia validada você consegue ter resultados … | +7 pilar "tutoriais-ia" (2 termos) | [Ver](https://www.instagram.com/gabrielmorais.ia/reel/DdXKsvgBx-8/) |
+| [ ] | 60 | **56** | alta | — | instagram | @rourke | How to get a consistent voices in AI videos 🔥 Comment “AI”… | +6 léxico da marca (workflow) | [Ver](https://www.instagram.com/rourke/reel/DdWuyp1KbOG/) |
+| [ ] | 61 | **56** | alta | — | instagram | @eluna.ai | Chipotle is using Palantir’s AI and data platform to catch … | +6 léxico da marca (escala) | [Ver](https://www.instagram.com/eluna.ai/p/DdXDkb4Eolg/) |
+| [ ] | 62 | **56** | alta | servico-em-acao | instagram | @notjournal.ai | Lula saiu em defesa de Alexandre de Moraes após a sessão do… | +6 pilar "servico-em-acao" (2 termos) | [Ver](https://www.instagram.com/notjournal.ai/p/DdW9RpjnFJn/) |
+| [ ] | 63 | **56** | alta | servico-em-acao | instagram | @brandsdecoded__ | setembro ainda nem acabou, mas já começou a dar bons sinais… | +6 pilar "servico-em-acao" (2 termos) | [Ver](https://www.instagram.com/brandsdecoded__/p/DdXb107FHkU/) |
+| [ ] | 64 | **55** | alta | analise-tendencias | instagram | @diegoalmeida.ia | E se a sua IA não apenas respondesse a perguntas, mas realm… | +5 pilar "analise-tendencias" (2 termos) | [Ver](https://www.instagram.com/diegoalmeida.ia/reel/DdXM88TB1Jz/) |
+| [ ] | 65 | **53** | alta | bastidor-oraclum | instagram | @diogokobata | Tem gente ganhando em dólar com avatar de inteligência arti… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/diogokobata/reel/DdXPt8HKu5x/) |
+| [ ] | 66 | **53** | alta | tutoriais-ia | instagram | @thediaryofaceopodcast | “People in the West live very sheltered lives.” Professor J… | +3 pilar "tutoriais-ia" (1 termos) | [Ver](https://www.instagram.com/thediaryofaceopodcast/reel/DdWc4TDM2xN/) |
+| [ ] | 67 | **53** | alta | bastidor-oraclum | instagram | @publicitarioscriativos | Alguns hábitos de consumo ganham vida própria e viram parte… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/publicitarioscriativos/p/DdW06y9keyd/) |
+| [ ] | 68 | **53** | alta | bastidor-oraclum | instagram | @publicitarioscriativos | O Spotify começou a espalhar outdoors com artes de GTA 6 em… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/publicitarioscriativos/p/DdY1D7EkeYK/) |
+| [ ] | 69 | **53** | alta | bastidor-oraclum | instagram | @brandsdecoded__ | MC Luanna está construindo mais do que uma carreira artísti… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/brandsdecoded__/p/DdXPA-im2XI/) |
+| [ ] | 70 | **53** | alta | bastidor-oraclum | instagram | @notjournal.ai | Coluna / Roberto Valverde Você provavelmente sabe o nome de… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/notjournal.ai/p/DdXQ-d2DHLc/) |
+| [ ] | 71 | **53** | alta | bastidor-oraclum | instagram | @brandsdecoded__ | O Claude pode deixar de ser apenas um chatbot e começar a f… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/brandsdecoded__/reel/DdXIZ4LiYbc/) |
+| [ ] | 72 | **53** | alta | bastidor-oraclum | instagram | @turbo.partners | Essas são as trends que estão bombando lá fora que qualquer… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/turbo.partners/p/DdXQt2PAHn-/) |
+| [ ] | 73 | **53** | alta | bastidor-oraclum | instagram | @antoniofogaca | Crescer por crescer não significa evoluir. Você pode vender… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/antoniofogaca/reel/DdW8qS2TKnm/) |
+| [ ] | 74 | **53** | alta | bastidor-oraclum | instagram | @odavilouback | Arquitetura de conteúdo é o que transforma um perfil em uma… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/aceleradordeaudiencia/p/DdWPmx8nNia/) |
+| [ ] | 75 | **53** | alta | bastidor-oraclum | instagram | @aceleradordeaudiencia | Arquitetura de conteúdo é o que transforma um perfil em uma… | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/aceleradordeaudiencia/p/DdWPmx8nNia/) |
+| [ ] | 76 | **53** | alta | bastidor-oraclum | instagram | @acelerai | Com frases como “Me pega na volta”, o McDonald’s ocupou os … | +3 pilar "bastidor-oraclum" (1 termos) | [Ver](https://www.instagram.com/acelerai/p/DdXVhW2jYdb/) |
+| [ ] | 77 | **52** | alta | analise-tendencias | instagram | @diogokobata | Resultado não precisa de anúncio. Enquanto alguns gastam en… | +2 pilar "analise-tendencias" (1 termos) | [Ver](https://www.instagram.com/diogokobata/p/DdYpkD9D02E/) |
+| [ ] | 78 | **52** | alta | analise-tendencias | instagram | @eluna.ai | Yoshua Bengio believes the AI safety debate may be getting … | +2 pilar "analise-tendencias" (1 termos) | [Ver](https://www.instagram.com/eluna.ai/p/DdY2gnwFLox/) |
+| [ ] | 79 | **50** | média | — | instagram | @ota.visual | Monkey became the plot. Made with AI. #monkeytok #pov #cine… | — | [Ver](https://www.instagram.com/ota.visual/reel/DdW0sUjzxkD/) |
+| [ ] | 80 | **50** | média | — | instagram | @kevkevkiwi | 🎬✨ Comment “EFFECT” and you’ll get the prompt and all the … | — | [Ver](https://www.instagram.com/kevkevkiwi/reel/DdXZrF_B_6L/) |
+| [ ] | 81 | **50** | média | — | instagram | @miranhastudios | 🪩 reconhece esse personagem ? 😂 . . . Vídeo criado com o … | — | [Ver](https://www.instagram.com/miranhastudios/reel/DdU2Im3sBfc/) |
+| [ ] | 82 | **50** | média | — | instagram | @publicitarioscriativos | Telas maiores e formatos flexíveis multiplicam informações … | — | [Ver](https://www.instagram.com/publicitarioscriativos/reel/DdWLuDREQwf/) |
+| [ ] | 83 | **50** | média | — | instagram | @airesearches | 🐟🇨🇳 They look and move like real fish, but there’s no li… | — | [Ver](https://www.instagram.com/airesearches/p/DdVlF4RGXBm/) |
+| [ ] | 84 | **50** | média | — | instagram | @nikolassfaria | Siga para mais 🚲 @nikolassfaria". | — | [Ver](https://www.instagram.com/nikolassfaria/reel/DdXCd-5h7HS/) |
+| [ ] | 85 | **50** | média | — | instagram | @eluna.ai | A major law firm is spending money on its own Nvidia hardwa… | — | [Ver](https://www.instagram.com/eluna.ai/p/DdVxPoxktEM/) |
+| [ ] | 86 | **50** | média | — | instagram | @devinjatho | Follow @devinjatho for more 🤑 Use YouTube Shorts related v… | — | [Ver](https://www.instagram.com/devinjatho/reel/DdWZp6OyyqV/) |
+| [ ] | 87 | **50** | média | — | instagram | @peter.visuals | How to Yap like a pro.". | — | [Ver](https://www.instagram.com/peter.visuals/p/DdWnvMED9wr/) |
+| [ ] | 88 | **50** | baixa | — | instagram | @alexkapustyanov | Иногда человек не кричит на тебя и даже не говорит ничего п… | ⚠️ sem caption — fit por sinais estruturais apenas (baixa confiança) | [Ver](https://www.instagram.com/alexkapustyanov/reel/DdWvPvtoGl3/) |
+| [ ] | 89 | **50** | média | — | instagram | @nomadatoast | Comment AI for the link to this AI-powered tool that takes … | — | [Ver](https://www.instagram.com/nomadatoast/reel/DdWjBH1JQ9p/) |
+| [ ] | 90 | **50** | média | — | instagram | @eluna.ai | Swipe ✅ to see 7 Claude prompts designed to help you stay f… | — | [Ver](https://www.instagram.com/eluna.ai/p/DdWIWcElLpR/) |
+| [ ] | 91 | **50** | média | — | instagram | @raph__ai | Introducing the first creative agent for fashion commerce. … | — | [Ver](https://www.instagram.com/raph__ai/p/DdWpeOzjC5M/) |
+| [ ] | 92 | **50** | média | — | instagram | @gabrielmoraisdark | Para receber a mentoria gratuita comenta MENTORIA e olha se… | — | [Ver](https://www.instagram.com/influencerslab.ia/reel/DdXaPkbTxb-/) |
+| [ ] | 93 | **50** | média | — | instagram | @chikchao | Comment “Drift” I’ll send you all prompts 😉✅ #aicreator". | — | [Ver](https://www.instagram.com/chikchao/reel/DdXallhMNln/) |
+| [ ] | 94 | **50** | baixa | — | instagram | @laschuk | — | ⚠️ sem caption — fit por sinais estruturais apenas (baixa confiança) | [Ver](https://www.instagram.com/laschuk/reel/DdXWVwvvNBY/) |
+| [ ] | 95 | **50** | média | — | instagram | @harryeykyn | life after a @tipzeykeg 😂 Soft launch. First batch is tiny… | — | [Ver](https://www.instagram.com/harryeykyn/reel/DdYIzvbT1XR/) |
+| [ ] | 96 | **50** | média | — | instagram | @clovr.guy | Astorie MiniMax H3 free week Create a Product video and win… | — | [Ver](https://www.instagram.com/clovr.guy/reel/DdWWeblBm61/) |
+| [ ] | 97 | **50** | média | — | instagram | @artificialintelligence.co | A developer’s two-line AI prompt—“Do not hallucinate. Lock … | — | [Ver](https://www.instagram.com/artificialintelligence.co/p/DdYAhtfpPEb/) |
+| [ ] | 98 | **50** | média | — | instagram | @guilhermemorais.ia | Siga e comente “LISTA” que eu te envio". | — | [Ver](https://www.instagram.com/guilhermemorais.ia/reel/DdXYZ1xxecB/) |
+| [ ] | 99 | **50** | média | — | instagram | @gabrielmoraisdark | Para receber a mentoria gratuita comenta MENTORIA e olha se… | — | [Ver](https://www.instagram.com/influencerslab.ia/reel/DdW6CeJMtec/) |
+| [ ] | 100 | **50** | média | — | instagram | @lucas.kochinski | Quer construir uma renda em dólar? Comenta DÓLAR aqui embai… | — | [Ver](https://www.instagram.com/lucas.kochinski/reel/DdXrwN4tOhJ/) |
+| [ ] | 101 | **50** | média | — | instagram | @bizziology | 🔖 Save this for later!". | — | [Ver](https://www.instagram.com/bizziology/p/DdWjsDyDlzp/) |
+| [ ] | 102 | **50** | média | — | instagram | @gabrielmoraisdark | Essa é para você quer quer começar mas fica dando desculpas… | — | [Ver](https://www.instagram.com/gabrielmorais.ia/reel/DdW86BBOGxr/) |
+| [ ] | 103 | **50** | média | — | instagram | @guilhermemorais.ia | Me siga e comente sua opinião 👇". | — | [Ver](https://www.instagram.com/guilhermemorais.ia/reel/DdW7vfiBxAV/) |
+| [ ] | 104 | **50** | média | — | instagram | @bizziology | Follow us for more 🤝". | — | [Ver](https://www.instagram.com/bizziology/p/DdWPJ4dji6G/) |
+| [ ] | 105 | **50** | média | — | instagram | @guilhermemorais.ia | Siga e comente “COMUNIDADE” que te envio". | — | [Ver](https://www.instagram.com/guilhermemorais.ia/reel/DdXeFEhhZSi/) |
+| [ ] | 106 | **50** | média | — | instagram | @fabionkallaku | Comment “CLOUD” and I’ll send you all the prompts👇 #AIVide… | — | [Ver](https://www.instagram.com/fabionkallaku/reel/DdXCsiDqcnU/) |
+| [ ] | 107 | **50** | média | — | instagram | @guilhermemorais.ia | Siga e comente GITHUB se quiser o link e se quiser a comuni… | — | [Ver](https://www.instagram.com/guilhermemorais.ia/reel/DdXBhcthIrH/) |
+| [ ] | 108 | **50** | média | — | instagram | @guilhermemorais.ia | Siga e comente “LISTA” que eu te envio". | — | [Ver](https://www.instagram.com/guilhermemorais.ia/reel/DdXjLXlhERt/) |
+| [ ] | 109 | **50** | média | — | instagram | @guideggan | Se você quer estar dentro dos marketplaces de forma estraté… | — | [Ver](https://www.instagram.com/guideggan/reel/DdXhqr3uVrl/) |
+| [ ] | 110 | **50** | média | — | instagram | @guilhermemorais.ia | É triste é, mas é verdade também.". | — | [Ver](https://www.instagram.com/guilhermemorais.ia/reel/DdXVtYeRjW-/) |
+| [ ] | 111 | **50** | média | — | instagram | @bizziology | 🔖 Save this for later!". | — | [Ver](https://www.instagram.com/bizziology/p/DdYz7CVjpSj/) |
+| [ ] | 112 | **50** | média | — | instagram | @videoalek | Produção institucional contando a trajetória da @biancacarv… | — | [Ver](https://www.instagram.com/videoalek/reel/DdXoB8vx21Q/) |
+| [ ] | 113 | **50** | média | — | instagram | @gabrielmoraisdark | Agir é a chave do sucesso!". | — | [Ver](https://www.instagram.com/gabrielmorais.ia/reel/DdW2jDfvLGA/) |
+| [ ] | 114 | **50** | média | — | instagram | @gabrielmoraisdark | Apenas com uma estratégia nossa aluna conseguiu ter esse re… | — | [Ver](https://www.instagram.com/gabrielmorais.ia/reel/DdXEdf6BvhK/) |
+| [ ] | 115 | **50** | média | — | instagram | @guideggan | Os 3 principais pilares pra você ter resultados no TikTok S… | — | [Ver](https://www.instagram.com/guideggan/reel/DdYz9SZgMMI/) |
+| [ ] | 116 | **50** | média | — | instagram | @thediaryofaceopodcast | You ask and we deliver ❤️😴 One of our favourite conversati… | — | [Ver](https://www.instagram.com/thediaryofaceopodcast/p/DdXGEkEF6z-/) |
+| [ ] | 117 | **50** | média | — | instagram | @aipagedaily | 🚨📞 A man received a call from someone who sounded almost … | — | [Ver](https://www.instagram.com/aipagedaily/p/DdYapz7lhRk/) |
+| [ ] | 118 | **50** | média | — | instagram | @obrunookamoto | Hoje você vai aprender o que é deep learning. Esse é o epis… | — | [Ver](https://www.instagram.com/obrunookamoto/reel/DdYpmltvQll/) |
+| [ ] | 119 | **50** | média | — | instagram | @aceleradordeaudiencia | Viralizar pode colocar seu conteúdo na frente de milhares d… | — | [Ver](https://www.instagram.com/aceleradordeaudiencia/reel/DdXQNZIILen/) |
+
+## 🎯 Recomendados para benchmark (fit ≥ 60)
+
+Curados por confluência com Oraclum, não por engajamento:
+
+- **68** · instagram/@diegoalmeida.ia — `DdW4SpSESJn`
+- **68** · instagram/@thaleslaray — `DdWlT0AEVUF`
+- **67** · instagram/@artificialintelligence.co — `DdWuJc1CRQY`
+- **64** · instagram/@airesearches — `DdWWauvKd-w`
+- **64** · instagram/@higgsfield.ai — `DdXC91LKuIQ`
+- **64** · instagram/@guilhermemorais.ia — `DdXGE9fkVFX`
+- **64** · instagram/@notjournal.ai — `DdXU_eLoLu1`
+- **64** · instagram/@hernanvazquezmarketing — `DdW5xonEVy6`
+
+> Rode `*creative-benchmark` com estes picks para benchmarkar o que combina com o cliente.

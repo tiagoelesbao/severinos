@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-12T21:52:58.067320-03:00",
+  "atualizado_em": "2026-11-13T13:53:06.627327-03:00",
   "periodo_dias": 30,
   "conta_anuncio_ativa": "act_28685818161087189",
   "pedidos_reais": {
@@ -126,6 +126,23 @@
       "dia": "2026-11-12"
     },
     {
+      "product_id": "6af71ca0ab72242f6e01e320",
+      "titulo": "13º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 43,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-13T14:26:23.713000+00:00",
+      "ultimo_pedido": "2026-11-13T16:48:36.122000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
       "product_id": "6aece3e7ab72242f6efafebc",
       "titulo": "03º - RAPIDINHA VALENDO R$ 2.000,00 EM 4 PRÊMIOS!!!",
       "porte": "Grande (acima de R$800)",
@@ -245,6 +262,23 @@
       "dia": "2026-11-11"
     },
     {
+      "product_id": "6af654caab72242f6e0176bd",
+      "titulo": "12º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 43,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-13T00:26:44.452000+00:00",
+      "ultimo_pedido": "2026-11-13T11:20:43.893000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
       "product_id": "6af45136ab72242f6effe298",
       "titulo": "01º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
       "porte": "Grande (acima de R$800)",
@@ -311,6 +345,23 @@
       "primeiro_pedido": "2026-11-12T17:18:24.132000+00:00",
       "ultimo_pedido": "2026-11-12T19:14:32.472000+00:00",
       "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af6fe00ab72242f6e01ceb7",
+      "titulo": "05º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 40,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-13T12:18:12.025000+00:00",
+      "ultimo_pedido": "2026-11-13T14:16:52.090000+00:00",
+      "dia": "2026-11-13"
     },
     {
       "product_id": "6aeddf5aab72242f6efba47a",
@@ -993,6 +1044,23 @@
       "dia": "2026-11-12"
     },
     {
+      "product_id": "6af6e740ab72242f6e01bff8",
+      "titulo": "57º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 21,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-13T10:35:05.226000+00:00",
+      "ultimo_pedido": "2026-11-13T12:12:43.235000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
       "product_id": "6aeb21f4ab72242f6ef995f5",
       "titulo": "32º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
       "porte": "Pequeno (até R$300)",
@@ -1231,21 +1299,21 @@
       "dia": "2026-11-07"
     },
     {
-      "product_id": "6af654caab72242f6e0176bd",
-      "titulo": "12º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "product_id": "6af739caab72242f6e01f619",
+      "titulo": "11º - RAPIDINHA VALENDO R$ 1.000,00 EM 5 PRÊMIOS!!!",
       "porte": "Grande (acima de R$800)",
-      "premios_qtd": 6,
-      "preco_numero": 16.0,
-      "premio": 1200.0,
-      "faturamento": 240.0,
-      "pedidos": 7,
-      "lucro_bruto": -960.0,
-      "taxa_plataforma": 12.0,
-      "margem_contribuicao": -972.0,
-      "margem_pct": -405.0,
-      "primeiro_pedido": "2026-11-13T00:26:44.452000+00:00",
-      "ultimo_pedido": "2026-11-13T00:51:23.095000+00:00",
-      "dia": "2026-11-12"
+      "premios_qtd": 5,
+      "preco_numero": 14.0,
+      "premio": 1000.0,
+      "faturamento": 98.0,
+      "pedidos": 2,
+      "lucro_bruto": -902.0,
+      "taxa_plataforma": 4.9,
+      "margem_contribuicao": -906.9,
+      "margem_pct": -925.4,
+      "primeiro_pedido": "2026-11-13T16:35:54.532000+00:00",
+      "ultimo_pedido": "2026-11-13T16:39:08.226000+00:00",
+      "dia": "2026-11-13"
     }
   ],
   "pedidos_hora": [
@@ -2498,9 +2566,93 @@
     {
       "dia": "2026-11-12",
       "hora": 21,
-      "pedidos": 13,
-      "faturamento": 296.0,
-      "lucro_estimado": 24.0
+      "pedidos": 18,
+      "faturamento": 408.0,
+      "lucro_estimado": 112.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 22,
+      "pedidos": 15,
+      "faturamento": 656.0,
+      "lucro_estimado": 164.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 23,
+      "pedidos": 3,
+      "faturamento": 80.0,
+      "lucro_estimado": 20.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 0,
+      "pedidos": 2,
+      "faturamento": 288.0,
+      "lucro_estimado": 72.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 32.0,
+      "lucro_estimado": 8.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 6,
+      "pedidos": 3,
+      "faturamento": 64.0,
+      "lucro_estimado": 16.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 7,
+      "pedidos": 10,
+      "faturamento": 140.0,
+      "lucro_estimado": 40.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 8,
+      "pedidos": 11,
+      "faturamento": 173.5,
+      "lucro_estimado": 71.5
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 9,
+      "pedidos": 26,
+      "faturamento": 589.5,
+      "lucro_estimado": 189.5
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 10,
+      "pedidos": 15,
+      "faturamento": 375.0,
+      "lucro_estimado": 105.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 11,
+      "pedidos": 22,
+      "faturamento": 1250.0,
+      "lucro_estimado": 326.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 12,
+      "pedidos": 15,
+      "faturamento": 400.0,
+      "lucro_estimado": 100.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 13,
+      "pedidos": 14,
+      "faturamento": 898.0,
+      "lucro_estimado": 200.0
     }
   ],
   "pedidos_perfil": {
@@ -3148,17 +3300,17 @@
       {
         "dia": "2026-11-12",
         "quantidade": 1,
-        "pedidos": 147
+        "pedidos": 158
       },
       {
         "dia": "2026-11-12",
         "quantidade": 2,
-        "pedidos": 60
+        "pedidos": 65
       },
       {
         "dia": "2026-11-12",
         "quantidade": 3,
-        "pedidos": 26
+        "pedidos": 32
       },
       {
         "dia": "2026-11-12",
@@ -3212,6 +3364,11 @@
       },
       {
         "dia": "2026-11-12",
+        "quantidade": 14,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
         "quantidade": 17,
         "pedidos": 1
       },
@@ -3228,6 +3385,56 @@
       {
         "dia": "2026-11-12",
         "quantidade": 24,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 1,
+        "pedidos": 51
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 2,
+        "pedidos": 31
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 3,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 4,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 5,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 6,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 7,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 10,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 15,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 17,
         "pedidos": 1
       }
     ],
@@ -3451,50 +3658,74 @@
       {
         "dia": "2026-11-12",
         "faixa": "R$10-20",
-        "pedidos": 108,
-        "valor": 1688.0
+        "pedidos": 119,
+        "valor": 1864.0
       },
       {
         "dia": "2026-11-12",
         "faixa": "R$20-40",
-        "pedidos": 75,
-        "valor": 2223.5
+        "pedidos": 80,
+        "valor": 2383.5
       },
       {
         "dia": "2026-11-12",
         "faixa": "acima de R$40",
-        "pedidos": 59,
-        "valor": 5521.0
+        "pedidos": 66,
+        "valor": 6033.0
       },
       {
         "dia": "2026-11-12",
         "faixa": "até R$10",
         "pedidos": 58,
         "valor": 387.5
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "R$10-20",
+        "pedidos": 52,
+        "valor": 834.5
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "R$20-40",
+        "pedidos": 33,
+        "valor": 1094.0
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "acima de R$40",
+        "pedidos": 24,
+        "valor": 2222.0
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "até R$10",
+        "pedidos": 10,
+        "valor": 59.5
       }
     ]
   },
   "concentracao_compradores": {
     "disponivel": true,
-    "pct_receita_top_n": 53.9,
+    "pct_receita_top_n": 53.6,
     "top_n": 15,
-    "receita_total": 67730.0,
-    "compradores_distintos": 225,
+    "receita_total": 72788.0,
+    "compradores_distintos": 231,
     "compradores": [
       {
         "telefone_mascarado": "(11) 9****-5635",
-        "pedidos": 54,
-        "valor": 6259.5
+        "pedidos": 55,
+        "valor": 6531.5
       },
       {
         "telefone_mascarado": "(11) 9****-7474",
-        "pedidos": 193,
-        "valor": 6171.5
+        "pedidos": 199,
+        "valor": 6494.5
       },
       {
         "telefone_mascarado": "(47) 9****-3707",
-        "pedidos": 64,
-        "valor": 4600.0
+        "pedidos": 66,
+        "valor": 4964.0
       },
       {
         "telefone_mascarado": "(11) 9****-2656",
@@ -3503,53 +3734,53 @@
       },
       {
         "telefone_mascarado": "(84) 3****-4822",
-        "pedidos": 14,
-        "valor": 2420.0
+        "pedidos": 18,
+        "valor": 2812.5
       },
       {
         "telefone_mascarado": "(11) 9****-6760",
-        "pedidos": 14,
-        "valor": 1918.0
-      },
-      {
-        "telefone_mascarado": "(37) 9****-4308",
-        "pedidos": 89,
-        "valor": 1770.0
+        "pedidos": 15,
+        "valor": 2018.0
       },
       {
         "telefone_mascarado": "(35) 9****-0710",
-        "pedidos": 29,
-        "valor": 1506.5
+        "pedidos": 36,
+        "valor": 1885.0
+      },
+      {
+        "telefone_mascarado": "(37) 9****-4308",
+        "pedidos": 90,
+        "valor": 1786.0
       },
       {
         "telefone_mascarado": "(42) 9****-9161",
-        "pedidos": 41,
-        "valor": 1458.5
+        "pedidos": 44,
+        "valor": 1544.0
       },
       {
         "telefone_mascarado": "(27) 9****-6447",
-        "pedidos": 39,
-        "valor": 1193.0
+        "pedidos": 42,
+        "valor": 1335.5
+      },
+      {
+        "telefone_mascarado": "(99) 9****-2846",
+        "pedidos": 72,
+        "valor": 1314.5
       },
       {
         "telefone_mascarado": "(65) 1****-6441",
-        "pedidos": 16,
-        "valor": 1169.0
+        "pedidos": 17,
+        "valor": 1294.0
       },
       {
         "telefone_mascarado": "(87) 5****-6441",
-        "pedidos": 21,
-        "valor": 1166.0
+        "pedidos": 22,
+        "valor": 1241.0
       },
       {
         "telefone_mascarado": "(12) 9****-6176",
         "pedidos": 14,
         "valor": 1106.0
-      },
-      {
-        "telefone_mascarado": "(99) 9****-2846",
-        "pedidos": 64,
-        "valor": 1089.5
       },
       {
         "telefone_mascarado": "(18) 9****-6706",

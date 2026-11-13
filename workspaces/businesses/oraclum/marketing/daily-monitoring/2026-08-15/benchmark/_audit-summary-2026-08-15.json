@@ -1,0 +1,1598 @@
+{
+  "client": "oraclum",
+  "client_display": "Oraclum",
+  "date": "2026-08-15",
+  "platforms": [
+    "instagram"
+  ],
+  "agents_requested": [
+    "mrbeast-mk",
+    "garyvee-mk",
+    "ladeira",
+    "casey-neistat-img",
+    "sam-kolder-vid"
+  ],
+  "audit_config": "squads/virals-marketing-squad/data/clients/oraclum/audit-config.yaml",
+  "generated_at": "2026-08-16T22:36:31",
+  "synthesis_only": false,
+  "results": [
+    {
+      "creative_id": "02-miranhastudios-9f46e7",
+      "platform": "instagram",
+      "creator": "@miranhastudios",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/miranhastudios/reel/Db_z2tdM4o1/",
+      "rank": 2,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Os primeiros 3 segundos mostram apenas imagens de carro e diálogos genéricos, sem qualquer exibição de interface ou automação da Oraclum.",
+            "Não há demonstração de valor tecnológico ou passo‑a‑passo que corresponda ao promessa de eficiência para profissionais e founders.",
+            "O gancho depende de apelo sensacionalista (corrida, apostas) ao invés de um loop de curiosidade técnico que mantenha a retenção em Reels.",
+            "O payoff prometido no caption não é cumprido; o vídeo não apresenta nenhum tutorial, dado ou fluxo de trabalho da plataforma."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "Os primeiros segundos apresentam apenas um carro em movimento e fala sobre corridas, sem mostrar a tela do software, painel de automação ou qualquer indicativo de valor tecnológico da Oraclum.",
+            "demonstração_de_interfaceworkflow": "Não há nenhum frame que revele a interface da Oraclum, fluxos de automação ou resultados práticos; o conteúdo fica restrito a narrativa de automobilismo.",
+            "retenção_por_loops_de_processo": "O vídeo não cria um loop de curiosidade tecnológico; a sequência de frases repetidas ('É o que é') não incentiva o espectador a continuar assistindo em busca de um detalhe útil.",
+            "cumprimento_do_payoff": "O caption sugere uma aposta ou risco, mas o vídeo não entrega nenhum passo‑a‑passo, dado ou resultado que satisfaça essa expectativa, deixando o payoff não cumprido.",
+            "modelagem_recomendada_para_oraclum": "Substituir a abertura por uma gravação de tela da Oraclum em ação (ex.: automação de um processo) dentro dos primeiros 2 segundos, acompanhada de narração focada em ganho de tempo ou eficiência para founders."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Começar o Reel com a interface da Oraclum mostrando automação em tempo real nos primeiros 2 segundos e narrar claramente o benefício de eficiência para o público profissional.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conteúdo depende entirely de gírias urbanas brasileiras e cultura de corrida de rua, sem qualquer referência a IA, automação ou builder mindset.",
+            "O vocabulário (\"Tira a bunda da minha brasília\", \"Já burro\", repetições \"É o que is\") contradiz o tom de autoridade e competência técnica exigido pela Oraclum.",
+            "Não há elementos de tutorial, bastidor de tech, tendências de IA ou mindset de crescimento estratégico alinhados aos pilares 45/25/15/15.",
+            "O tema \"apostar tudo\" é retratado como risco reckless, oposto ao risco calculado e dados-driven que a Oraclum comunica.",
+            "Formato viral de reel é viável, mas o conteúdo não serve como ativo de autoridade para founders/investidores de IA."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O reel posiciona-se como humor de rua brasileira sobre corrida de apostas, completamente desalinhado com a identidade da Oraclum como marca moderna, data-driven de IA e automação. Comunica agressividade e risco recreativo em sentido não estratégico, conflitando com o foco da marca em competência, autoridade e inovação pragmática. Não há sobreposição cultural possível entre o tema \"marombas & furiosos\" e a comunidade tech/builders que a Oraclum serve. Qualquer reposicionamento exigiria a reestruturação total da narrativa original.",
+            "grau_de_conexão_com_founderstechs": "Extremamente baixo. Fundadores no espaço IA/automação normalmente compartilham conteúdo que demonstra valor, ROI, tooling ou tendências do setor. O humor e as gírias deste reel seriam percebidos como irrelevantes ou pouco sérios em um contexto founder-to-founder. Não facilita discussões sobre deployment de modelos, ops de automação ou scaling de operações tech. Shareability se limitaria a entretenimento pessoal, não networking profissional.",
+            "mapeamento_nos_pilares_da_oraclum": "A criativa falha em alinhar-se a qualquer um dos quatro pilares da Oraclum. Tutorials (45%) – ausente qualquer componente educativo ou how-to. Bastidor (25%) – não há behind-the-scenes de desenvolvimento tech ou workflows de automação. Tendências (15%) – nenhuma conexão com tendências emergentes de IA, tools ou shifts de mercado. Mindset (15%) – a mensagem \"bet it all\" promove risco reckless ao invés do mindset calculado e baseado em dados que a Oraclum promove. Pontuação geral nos pilares: 0/100.",
+            "ajustes_de_linguagemvocabulário": "O português usado é altamente coloquial e gíria de periferia (\"brasília\", \"burro\", \"é o que é\"), o que quebra a atmosfera de autoridade e competência técnica esperada. Para servir à Oraclum, toda a linguagem deve ser reescrita em tom pragmático, corporativo-moderno, com termos de IA, automação e growth baseados em dados. Expressões de risco recreativo devem ser substituídas por frameworks de decisão estratégica e foco em ROI. O vocabulário precisa migrar do entretenimento street para linguagem de especialista em tecnologia."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir todo o vocabulário de gíria e referências de corrida de rua por linguagem técnica de IA, dados de automação e frameworks de decisão estratégica para alinhar o conteúdo aos pilares de autoridade e competência da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A headline não destaca nenhum benefício de eficiência ou ganho financeiro relacionado a automação/IA, violando o requirement principal do cliente",
+            "O criativo é puramente narrativo/humorístico sem proposta de workflow ou ferramenta para download, faltando estrutura persuasiva de utilidade prática",
+            "O CTA está ausente, e mesmo no contexto da marca, não há convite claro para acessar código, tutorial ou tool",
+            "O tom e a temática do vídeo (carros, apostas, repetição de 'watch your back') não alinham-se com o foco em soluções automatizadas",
+            "Apesar de não含有 termos proibidos explicitamente, o uso excessivo de 'é o que é' e 'não perdo' dilui qualquer tentativa de posicionamento de valor"
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Precisa ser reescrita para focar em impacto direto de automação no tempo ou custo, exemplo: 'Reduza 80% do tempo em processos manuais com workflowTemplateOraclum'",
+            "estrutura_do_texto_legibilidade": "O formato atual é caótico e disruptivo para leitura mobile, com frases curtas aleatórias e repetidas que não explicam a proposta da ferramenta",
+            "análise_de_cta_call_to_value": "O criativo não contém nenhum CTA, o que é crítico para o funil da Oraclum. Recomenda-se adicionar botão emweifl ou descrição com 'Baixe o fluxo de automação agora'",
+            "filtro_de_léxico_flags": "Nenhum termo atribuído às listas proibidas foi detectado, mas o diálogo caros está descasso do foco em produtividade"
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a headline por algo como 'Automatize tarefas repetitivas com workflowOraclum e economize 5h/semana' para alinhar ao posicionamento de eficiência",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 3.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Textos sobrepostos apresentam baixa legibilidade em dispositivos móveis devido a contraste insuficiente com o fundo escuro.",
+            "A paleta visual do reel não incorpora o Cyan de destaque nem o Purple de detalhe exigidos pela identidade da Oraclum.",
+            "A disposição das legendas carece de hierarquia clara, dificultando a rápida compreensão do conteúdo.",
+            "A integração de capturas de tela ou frames de código fica dispersa, sem uso de contornos ou destaque em Purple.",
+            "A repetição de frases como “watch your back” aumenta a poluição visual e reduz o foco na mensagem central."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O fundo Obsidian (#0F0C20) é extremamente escuro, mas as legendas não utilizam o Cyan (#00F0FF) previsto para destaque, resultando em contraste insuficiente e dificuldade de leitura em telas pequenas. A ausência de sombras ou contornos exacerbou a problemática, exigindo ajuste imediato de cor ou tratamento de texto. Sem essa correção, a mensagem perde impacto mesmo em dispositivos de alta resolução.",
+            "design_de_interface_capturas": "O reel contém cinco capturas de tela, porém nenhuma delas recebe tratamento de frame ou border em Purple (#8A2BE2), o que quebra a coerência visual da marca. O layout não diferencia essas imagens do resto do vídeo, gerando fragmentação visual. Uma abordagem mais estructurada, com destaque em Purple, fortaleceria a identidade e melhoraria a retenção de informação.",
+            "hierarquia_de_informação": "A legenda segue um padrão de timestamps repetitivos sem sinalização de prioridade, o que gera confusão sobre os pontos principais. Os momentos de maior impacto ('É agora!', 'Vamos para trás!') não recebem atenção visual diferenciada. Reestruturar a hierarquia com negrito, tamanho ou cor de destaque garantirá que o viewer identifique rapidamente os insights críticos.",
+            "recomendação_de_ajustes_de_design": "Adote legendas em Cyan sobre fundo Obsidian com contorno preto ou sombra para garantir contraste; incorpore bordas ou fundos em Purple nas capturas de tela; estabeleça uma hierarquia visual clara usando tamanho de fonte e peso para momentos-chave. Essas alterações manterão a mensagem vibrante do criador, mas alinharão o conteúdo às normas de cor e legibilidade da Oraclum."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatória": "Substituir os textos sobrepostos por legendas em Cyan com contorno preto para garantir legibilidade sobre o fundo Obsidian.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 4.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Ritmo extremamente rápido sem variação, dificultando a retenção de informações técnicas.",
+            "Legendas aparecem como texto estático sem animação word‑pop, reduzindo legibilidade.",
+            "Não há sincronização entre fala do apresentador e captura de tela do software – a transição é inexistente.",
+            "Falta de zoom preciso em botões e elementos da interface, comprometendo a clareza visual.",
+            "Efeitos sonoros ou pattern interrupts não são utilizados, tornando a experiência plana."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "A edição não alterna entre a câmera do apresentador e a gravação da interface; o vídeo permanece estático na cara do speaker, violando a necessidade de dinamismo solicitada pela marca.",
+            "estilo_de_legendas_animações": "As legendas são exibidas como blocos de texto com timing simples, sem o efeito word‑pop em cyan que garante alta legibilidade em reels de IA.",
+            "analise_de_ritmo_sons": "O pacing é linear e monótono; não há interrupções sonoras ou variações de volume que mantêm a atenção do espectador.",
+            "guia_de_edição_replicável": "1. Insira cortes rápidos entre o apresentador e a tela do software a cada 2-3 segundos. 2. Use animações de palavra-pop em cyan para cada frase-chave. 3. Aplique zoom de 1.2x nas áreas de clique ou UI que são mencionadas. 4. Integre efeitos sonoros curtos que marquem mudanças de tópico."
+          },
+          "lexico_flags": [
+            "bunda"
+          ],
+          "adaptacao_obrigatoria": "Substituir as falas que contenham linguagem vulgar por termos mais neutros e alinhados à identidade premium da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 3.24,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/02-miranhastudios-9f46e7"
+    },
+    {
+      "creative_id": "03-rourke-307718",
+      "platform": "instagram",
+      "creator": "@rourke",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/rourke/reel/DcBsFvrJJM7/",
+      "rank": 3,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 3.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Falta demonstração visual imediata do software em ação nos primeiros 3s (somente narração sobre conceito)",
+            "Etapas do fluxo de trabalho são explicadas verbalmente, sem exibição da interface ou ações reais no software",
+            "O payoff (generação de VFX) só ocorrerá após 50s, sem mostrar progresso ou retenção visual contínua",
+            " Linguagem genérica 'você pode fazer isso' não conecta com o foco do cliente em eficiência técnica"
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "Começa com exclamation e afirmações verbais sobre proteção de ator (sem tela do software em 3s). Requer corte imediato para mostrar interface da ferramenta em ação.",
+            "demonstração_de_interfaceworkflow": "Não há visualização do software Seedance 2.5 nem do processo de upload para Magnific. Explicação técnica é excessivamente densa em áudio, exigindo adaptação para mostrar ações passo-a-passo.",
+            "retenção_por_loops_de_processo": "O ciclo de geração da VFX não é mostrado como loop visual. A transição entre entrada e saída precisa ser demonstrada sem interrupção de narração.",
+            "cumprimento_do_payoff": "A demostrar a geração do resultado final (vídeo com VFX) apenas após 50s, sem mostrando quantos tentativas ou ajustes foram necessários. Risco de não manter engajamento."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Começar com uma tela em loop mostrando a interface do software processando a investigação em tempo real, destacando a eficiência tecnológica em segundos",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O criativo aborda um tema técnico (VFX com IA) relevante para builders, mas a abordagem carece de dados concretos sobre métricas de eficiência ou casos de uso reais",
+            "A linguagem Técnica é precisa, porém o tom permite elementos conversacionais que podem ser percebidos como 'guru' se não contextualizados em autoridade de dados",
+            "O compartilhamento é limitado a públicos técnicos, faltandoelements que justifiquem relevância estratégica para founders de IA",
+            "O mapeamento aos pilares da Oraclum está desbalanceado, priorizando 'Bastidor' (ferramentas) sem alinhar 'Tutoriais' (métodos comprovados) ou 'Mindset' (abordagem prática)"
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo posiciona a Seedance 2.5 como solução técnica, mas não estabelece autoridade sobre processos de automação ou ROI comprovado, elementos essenciais para a Oraclum",
+            "grau_de_conexão_com_founderstechs": "A narrativa foca em funcionalidades da ferramenta, sem aludir a tendências tecnológicas (como IA generativa em VFX) queINSERTariam relevância para builders avançados",
+            "mapeamento_nos_pilares_da_oraclum": "A ênfase em 'Bastidor' (ferramenta específica) é útil, mas não aborda 'Tutoriais' com workflows escaláveis ou 'Mindset' sobre automação estratégica, elementos centrais para a marca",
+            "ajustes_de_linguagemvocabulário": "Frases como 'hundreds of extras in a single generation' podem ser reenquadradas como 'uticularização de recursos de produção' para soar mais corporativo e menos 'inspiração'"
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Adicione uma frase que contraste a praticidade da ferramenta com dados objetivos, ex: 'Com Seedance 2.5, redução de 70% no tempo de produção compara-se a fluxos tradicionais de VFX manuais'",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 6.0,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A headline atual foca no \"AI pode fazer todos esses VFX\", sem mencionar economia de tempo ou dinheiro, não atendendo à diretriz de benefício de eficiência do Oraclum.",
+            "O CTA \"Comment 'AI' to try it yourself on Magnific!\" convida para um link, mas poderia ser mais explícito sobre acesso direto ao workflow/ferramenta.",
+            "O script usa termos técnicos vagos como \"crawl\" e \"CRs 2.5\", diminuindo a clareza da explicação do workflow para o público mobile.",
+            "Nenhuma palavra tabu foi detectada, mantendo o criativo dentro das restrições lexicais do cliente.",
+            "A estrutura do vídeo (introdução do problema, etapas do workflow, convite para experimentar) é sólida e pode ser reutilizada com um headline e CTA revisados."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Reescreva a headline para destacar um benefício claro de eficiência de tempo ou ganho financeiro, por exemplo: \"Economize tempo e dinheiro: converta sua filmagem bruta em VFX profissionais em minutos com IA\". Isso alinha o título com a voz do Oraclum e destaca o valor.",
+            "estrutura_do_texto_legibilidade": "Mantenha o fluxo passo a passo, mas substitua jargões obscuros por ações simples e escaneáveis no mobile:\n\n1. Reescreva o background para o visual desejado.\n2. Crie as pranchas de personagem para o ambiente.\n3. Faça upload do vídeo original e descreva a cena.\n4. Gere um prompt que o sistema possa usar.\n5. Cole o prompt no Magnific 2.5 e ajuste a duração.\n6. Gere algumas versões até obter o resultado desejado.\n\nManter a formatação em bullets ou numeração melhora a leitura em dispositivos móveis.",
+            "análise_de_cta_call_to_value": "O CTA atual convida os usuários a comentar \"AI\" para receber um link, o que é suave, mas poderia destacar mais o valor: \"Baixe seu workflow de VFX com IA agora\". Um CTA mais direto para acesso a código/template reforça o benefício.",
+            "filtro_de_léxico_flags": "Nenhuma palavra tabu (por exemplo, infalível, milagre, fórmula mágica, fique rico fácil) foi detectada no criativo."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescreva a headline para destacar uma economia clara de tempo ou dinheiro, simplifique os passos do workflow (substitua \"crawl\" e \"CRs 2.5\" por linguagem simples) e torne o CTA um convite direto para baixar o workflow/ferramenta.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 3.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Ausência da paleta Obsidian/Cyan/Purple no layout visual: botões e overlays utilizam tons neutros ou brancos, desconectando-se das diretrizes tecnológicas da marca.",
+            "Legibilidade prejudicada em dispositivos móveis: textos sobrepostos (ex: 'AI to try it yourself') não possuem contraste suficiente com a legenda de fundo, especialmente em frames escuros.",
+            "Integração visual de capturas de tela (CR 2.5) não reflete identidade visual: interfaces mostradas não utilizam cores de destaque (Cyan/Purple) para elementos interativos ou anotações.",
+            "Hierarquia de informação confusa: a chamada para ação ('type AI in comments') está localizada no final, sem destaque visual ou posicionamento estratégico para engajamento.",
+            "Poluição visual em elementos de transição: animações de fundo e efeitos VFX não alinham-se com o minimalismo tecnológico do Obsidian."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O Reel não aplica a paleta base Obsidian (#0F0C20) nas telas de fundo, optando por tons cinza-claro ou branco. Textos em sobreposição (ex: legendas animadas) usam preto ou cinza, sem contraste adequado com frames variáveis. O destaque em Cyan (#00F0FF) é ausente em elementos-chave como botões ou chamadas à ação.",
+            "design_de_interface_capturas": "As capturas de interface de Magnific/CR 2.5 mostram botões e menus em tons neutros (cinza azulado ou branco), sem aproveitar a cor Cyan para destacar ações (ex: 'Generate', 'Upload'). Elementos como sliders ou ícones de relight não possuem acentos Purple (#8A2BE2) para consistência visual.",
+            "hierarquia_de_informação": "A estrutura do conteúdo é linear, mas falta hierarquia clara: títulos (ex: 'The days of putting makeup... are gone') usam tamanhos semelhantes a descrições, e a CTAs não se destacam. O destaque em 'comment AI' é visualmente fraco, com fonte e posição inferiores ao necessário para um Reel viral.",
+            "recomendação_de_ajustes_de_design": "Reaplicar a paleta tecnológica em todos os overlays e interfaces: usar Obsidian como fundo dominante, Cyan para botões e CTRs, e Purple para detalhes (ex: ícones de relight). Garantir contraste mínimo de 4.5:1 entre textos e fundos, priorizando Cyan em sobreposições. Repensar a posição da CTA para o final, com destaque em Cyan e animação de entrada sincronizada com a narrativa."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever a identidade visual do Reel para priorizar a paleta Obsidian/Cyan/Purple nas interfaceções, garantindo contraste móvil de legibilidade e realocação estratégica da chamada para ação com destaque técnico em Cyan.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 5.8,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A edição não alterna dinamicamente entre o apresentador e a tela do software, faltando a sincronização visual que gera alto engajamento.",
+            "As legendas são estáticas e não utilizam o formato word‑pop colorido e pop‑cyan exigido pelo cliente.",
+            "O ritmo da narração é mais pausado que o ideal para reels curtos, reduzindo a retenção.",
+            "Não há pattern interrupts sonoros ou visuais que rompam a monotonia e mantenham a atenção.",
+            "A falta de transições precisas entre captura de tela e fala do criador resulta em baixa dinâmica visual."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "O vídeo mantém o apresentador em vista estática enquanto apenas menciona a tela do software; não há cortes rápidos nem zoom de botões, o que impede a sincronia desejada.",
+            "estilo_de_legendas_animações": "As legendas aparecem como texto simples sem animações word‑pop, cor ou sincronização com pontos‑chave, reduzindo legibilidade e impacto visual.",
+            "análise_de_ritmo_sons": "O ritmo da narração é lento e contemplativo, sem interrupções sonoras ou efeitos que reforcem mudanças de passo, o que pode levar à perda de atenção em formatos curtos.",
+            "guia_de_edição_replicável": "Para replicar, insira cortes de 0,5‑1s entre o rosto do apresentador e a captura da tela, aplique zoom dinâmico em áreas de interação e use word‑pop em cyan nas palavras‑chave de transição, mantendo 2‑3 cortes por minuto."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatória": "Implementar cortes rápidos alternados entre apresentador e tela de software, com zoom focado em botões e word‑pop cyan, e inserir pattern interrupts sonoros para sustentar o ritmo.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.2,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/03-rourke-307718"
+    },
+    {
+      "creative_id": "05-krisspy-ia-f713e7",
+      "platform": "instagram",
+      "creator": "@krisspy_ia",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/krisspy_ia/reel/Db_nvJvKbCQ/",
+      "rank": 5,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 4.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook carece de demonstração técnica imediata nos primeiros 3 segundos (somente discurso vazio)",
+            "Não há exposição da interface ou fluxo de automação prometido no início",
+            "Foco em narrativa não tecnológica sem apelo para eficiência operacional",
+            "Payoff não é cumprido, bearbetuável.zero. entrega de nada concreto",
+            "Estilo genérico de 'mágico/palavra' não alinha-se com o posicionamento da Oraclum (IA aplicada)"
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "Os primeiros 3 segundos são quase 100% diálogo vazio sem qualquer elemento visual demonstrativo (tela do software, automação ativa). O criador prioriza narrativa sobre evidência técnica imediata.",
+            "demonstração_de_interfaceworkflow": "Zero operação interativa ou visual do produto ao longo do vídeo. O público só vê rolagens de texto e gestos aleatórios, sem qualquer evidência do funcionamento do software.",
+            "retenção_por_loops_de_processo": "A falta de loops técnicos repetitivos ou demonstrações passo-a-passo reduz a retenção. O fluxo é caótico e não constrói curva de aprendizado.",
+            "cumprimento_do_payoff": "O vídeo promete uma 'história', mas não entrega um tutorial passo-a-passo ou dados concretos sobre a ferramenta. Audiência espera ROI, não farsas.",
+            "modelagem_recomendada_para_oraclum": "Para alinhar com a Oraclum, o garcho deve mostrar em <2s uma tela do software executando automação (ex: interface de dashboard, taxa de eficiência). O payoff deve exibir claramente o passo-a-passo solicitado."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a narrativa fictícia por uma demonstração imediata da ferramenta, mostrando em 2 segundos sua interface ativa aplicando automação ou ganho de eficiência)",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 4.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Nenhuma referência explícita a IA, automação ou dados reais, aspectos centrais da marca Oraclum",
+            "Narrativa de 'mágico' e suspiciousa não alinha com tom profissional-inovador esperado",
+            "Direção visual e textual foca em drama humano em vez de tecnologia ou soluções técnicas",
+            "Linguagem repetitiva e informal ('não', 'nós') contrária à profissionalidade exigida",
+            "Curtes citrus na transcrição sugerem falta de planejamento estratégico para engajamento técnico"
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo se posiciona como uma narrativa criativa sem conexão com IA ou automação. A momência de 'mágico' e segurança espontânea não ecoa a autoridade tecnológica exigida para o público de builders.",
+            "grau_de_conexão_com_founderstechs": "Zero alinhamento com perfis de founders/investidores na tecnologia. O tom prático e funcional é substituído por elementos lúdicos e narrativos.",
+            "mapeamento_nos_pilares_da_oraclum": "4% Tutoriais (sem conteúdo educacional). 0%Bastidor (nenhum framework ou metodologia técnico). 0% Tendências (não aborda ML, LLMs ou casos reais). 0% Mindset (foco emsolutionismo sem dados).",
+            "ajustes_de_linguagemvocabulário": "Substituir 'mágico', 'poderoso' e 'previnir' por termos técnicos como 'modelo de IA', 'automação preditiva' ou 'sistemas adaptativos'. Eliminar redundâncias e termos vagos."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a narrativa de 'mágico' por uma demo concisa de um fluxo de automação com dados reais, usando linguagem técnica sem dramatização.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 1.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conteúdo é puramente narrativo/estético (storytelling de fantasia), sem qualquer menção a automação, IA ou eficiência.",
+            "A legenda é genérica e focada em engajamento por curiosidade ('quem é este mago?'), ignorando a proposta de valor da Oraclum.",
+            "A transcrição revela um diálogo fragmentado que não possui framework de utilidade prática ou lógica de workflow.",
+            "Ausência total de Call-to-Value; o criativo não conduz o usuário para nenhuma ferramenta ou tutorial."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Como automatizar a criação de narrativas visuais com IA para ganhar 10h de produção por semana.",
+            "estrutura_do_texto_legibilidade": "A estrutura atual é inexistente para fins de conversão. Para a Oraclum, seria necessário transformar o vídeo em um 'Case de Processo', com legendas claras indicando a ferramenta usada em cada etapa.",
+            "análise_de_cta_call_to_value": "O CTA original é inútil para o cliente. Deve ser substituído por: 'Baixe o workflow de criação de personagens IA no link da bio'.",
+            "filtro_de_léxico_flags": "Não foram detectados termos proibidos como 'milagre' ou 'fique rico', porém a ausência de léxico técnico de eficiência torna o copy irrelevante."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir toda a narrativa fantasiosa por uma demonstração técnica de workflow de IA, focando em ganho de tempo e eficiência produtiva.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Texto sobreposto em formato de lista desordenada sem hierarquia clara, dificultando leitura em mobile.",
+            "Uso irregular e excessivo de rosa (#8A2BE2) para destaque, violando a prioridade da paleta cyan (#00F0FF).",
+            "Fundo esperando adequação a #0F0C20, com contraste inadequado para o estilo de texto adotado.",
+            "Ausência total de elementos de interface ou capturas de tela, conforme direcionado à diretriz do cliente."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O fundo apresenta valor aproximado de #0F0C20, mas o texto principal usa preto opaco, causando perda de contraste em telas escuras. Detalhes em rosa (#8A2BE2) competem com o destaque cyan proposto, desbalanceando a paleta tecnológica.",
+            "design_de_interface_capturas": "O criativo usa apenas sobreposições textuais sem frames técnicos ou interfaces, omitindo um elemento-chave das diretrizes da Oraclum.",
+            "hierarquia_de_informação": "Textos são apresentados de forma horizontal e dispersa, sem diferenciação tipográfica de mensagens críticas vs. secundárias. Nomes como 'Corinho' e 'Gabriel' recebem destaque visual inconsistente.",
+            "recomendação_de_ajustes_de_design": "Redesenhar o layout para priorizar textos breves com pausas claras, converter >70% dos elementos destacáveis para cyan (#00F0FF), garantir fundo exato #0F0C20 e integrar prints de interfaces como elemento visual principal."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Redesenhar a estrutura de texto para ser bilateral e em blocos curtos, explodindo destaque cyan(#00F0FF) em transições entre ações da narrativa.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O vídeo apresenta uma gravação estática do apresentador sem alternância para a captura de tela do software, violando a sincronização principal de estilo de apresentação.",
+            "Não há legendas cinéticas ou word‑pop visíveis; a transcrição é extraída da narrativa falada, indicando ausência de apoio legível ao usuário.",
+            "O ritmo é lento e errático, com longos monólogos sem intervalos, sons ou pattern interrupts que mantenham a atenção.",
+            "O conteúdo é um conto em português sem relação com a funcionalidade do software Oraclum, indicando um desalinhamento com a identidade de marca.",
+            "A edição carece de transições fluidas e zoom preciso em botões/telas de software."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "A gravação não apresenta alternância entre a câmera do apresentador e a gravação de tela do software. O apresentador permanece na tela sem corte, sem movimentos de zoom e sem mostrar a interface do produto. Isso falha no requisito principal de alternância rápida e precisa.",
+            "estilo_de_legendas_animações": "Não há legendas cinéticas visíveis no material. As legendas estão ausentes ou são estáticas, sem os pops de palavras cyan de alta legibilidade que a especificação da marca exige. A falta de apoio visual prejudica a compreensão do usuário.",
+            "análise_de_ritmo_sons": "O vídeo depende de uma narração contínua sem beats de temporização, efeitos sonoros ou pattern interrupts. A cadência é desigual, com longas frases não editadas que podem ser irritantes e reduzem a retenção.",
+            "guia_de_edição_replicável": "Edite para alternar rapidamente entre o apresentador e a gravação de tela, aplicando zoom preciso em elementos da interface do software. Adicione legendas cinéticas (word‑pop) com alta legibilidade e timing de acordo com o áudio. Insira sons sincronizados e padrões de interrupção para manter o ritmo, e agilize os segmentos para um fluxo dinâmico."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Inclua cortes rápidos entre o apresentador e a demonstração da captura de tela, adicione legendas cinéticas (word‑pop) e reestruture o ritmo com transições e efeitos sonoros sincronizados.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 3.68,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/05-krisspy-ia-f713e7"
+    },
+    {
+      "creative_id": "06-diegoalmeida-ia-99c44d",
+      "platform": "instagram",
+      "creator": "@diegoalmeida.ia",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/diegoalmeida.ia/reel/DcBWVrVxh8J/",
+      "rank": 6,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O vídeo apresenta uma narrativa de evolução tecnológica com foco em IA generativa, mas o gancho inicial não demonstra ferramenta ou automação ativa nos primeiros 3s",
+            "A transição do 'Will Smith comendo espaguete' para uma versão 2026 é visualmente impactante, mas não há exposição clara de interface ou workflow da Oraclum",
+            "A legenda e a transcrição reforçam o loop de curiosidade tecnológico, mas o payoff prometido (evolução da IA) é cumprido de forma metafórica, não prática",
+            "O criador usa meme-cultural como ponte de atenção, mas não estrutura o conteúdo para mostrar eficiência ou automação, que são pilares da Oraclum",
+            "A duração do reel parece adequada para Reels, mas a ausência de tela de software ou painel ativo no início prejudica a retenção orientada a valor imediato"
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O primeiro quadro mostra uma comparação visual entre versões do mesmo vídeo, mas não expõe ferramenta alguma. O gancho é cultural/meme, não técnico. Não há indicação de automação ou software no início. Ideal para engajamento emocional, mas não para profissionais focados em eficiência.",
+            "demonstração_de_interfaceworkflow": "Não há exposição de interface de usuário, painel de automação ou workflow funcional em nenhum momento do vídeo. O conteúdo é puramente comparativo de output de IA. A Oraclum precisa de demo ativa para ser relevante a founders.",
+            "retenção_por_loops_de_processo": "O loop de curiosidade é forte: evolução da IA em vídeo. Mas o processo não é mostrado — apenas o resultado. A Oraclum deve modelar loops que exponham input → processo → output em segundos iniciais.",
+            "cumprimento_do_payoff": "O payoff prometido — mostrar até onde a IA evoluiu — é cumprido metaforicamente, mas não oferece insights técnicos ou aplicáveis a negócios. Falta conexão direta com eficiência operacional ou automação empresarial.",
+            "modelagem_recomendada_para_oraclum": "Adaptar o formato: substituir meme por comparação real de tarefas manuais vs. automação oraclum. Mostrar painel ativo nos 2 primeiros segundos, com narração objetiva sobre ganho de tempo. Manter a estrutura de 'antes/depois' mas focar em workflow corporativo, não em conteúdo generativo."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o meme cultural por uma demonstração real de automação da Oraclum nos primeiros 2 segundos, mostrando painel ativo e narração focada em ganho de eficiência.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O gatilho do vídeo de Will Smith ainda tem força, mas a abordagem é genérica e não traz dados concretos.",
+            "A linguagem mistura humor descontraído com um tom de reflexão que pode soar motivacional demais para o público de IA corporativa.",
+            "A chamada para ação “Siga” é padrão de influencer, não reforça autoridade técnica da Oraclum.",
+            "A menção a ‘louca da IA’ e ao meme pode gerar percepção de superficialidade em vez de profundidade acadêmica.",
+            "Falta integração explícita com os pilares de conteúdo da marca (Tutoriais, Bastidor, Tendências, Mindset)."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo posiciona a evolução da IA como narrativa visual, mas não menciona métricas de performance, benchmarks de modelo ou casos de uso reais. Isso dilui a proposta de autoridade técnica da Oraclum.",
+            "grau_de_conexão_com_founderstechs": "Há pouca referência a fundadores, roadmaps ou instâncias de co‑criação que a Oraclum costuma destacar. O conteúdo parece mais uma curiosidade viral que um case de estudo interno.",
+            "mapeamento_nos_pilares_da_oraclum": "Tutoriais – 25% (necessário aprofundar processos de fine‑tuning); Bastidor – 20% (pode inserir bastidores de treinamento); Tendências – 30% (poderia citar research recentes); Mindset – 25% (refocar mentalidade de experimentação baseada em dados).",
+            "ajustes_de_linguagemvocabulário": "Substituir termos como ‘loucura’ e ‘meme instantâneo’ por linguagem de benchmark técnico, inserir números de evolução de FLOPs ou BLEU scores e eliminar o chamado “Siga” direto para focar em valor acadêmico."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Transformar a narrativa em um case técnico que cite métricas de avanço e alinhe explicitamente ao menos duas áreas de pilares da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Não há headline que apresente benefício de eficiência ou ganho financeiro com IA.",
+            "O CTA atual apenas pede seguidores, não oferece valor concreto (workflow, tutorial, teste).",
+            "O conteúdo do vídeo e da legenda não se relaciona com automação prática ou escalabilidade, sendo apenas um comentário sobre evolução da IA."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Como a IA já economiza horas de trabalho em 3 anos: veja o passo a passo.",
+            "estrutura_do_texto_legibilidade": "A legenda pode ser reorganizada em tópicos curtos: 1) Evolução da IA em vídeo; 2) Impacto prático em processos; 3) Próximos passos para aplicar. Isso facilita a leitura mobile.",
+            "análise_de_cta_call_to_value": "O CTA deve convidar o usuário a baixar um workflow gratuito ou a testar uma ferramenta de automação, em vez de apenas seguir a conta.",
+            "filtro_de_léxico_flags": "Nenhum termo proibido foi detectado."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Troque o CTA \"Siga (@diegoalmeida.ia)\" por um convite direto para baixar um recurso gratuito que demonstra automação de IA.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 4.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A paleta visual não segue as diretrizes da Oraclum: fundo Obsidian #0F0C20, acentos Cyan #00F0FF e detalhes Purple #8A2BE2 estão ausentes, resultando em poluição visual fora da identidade da marca.",
+            "A legibilidade de textos sobrepostos em mobile é comprometida devido a fundos de vídeo variados, exigindo calibração de contraste contra o fundo Obsidian para garantir legibilidade em telas pequenas.",
+            "A diagramação carece de frames de código ou prints de tela integrados como marca registrada da Oraclum, o que reduz a coesão visual esperada pelo cliente.",
+            "A hierarquia de tópicos na transcrição é clara e bem estruturada ao longo dos minutos, mas a composição visual não reforça essa hierarquia com os pesos de cor e sobreposição adequados.",
+            "O criativo apresenta uma composição funcional para redes sociais, mas requer reenquadramento completo da paleta e sobreposições para atender às especificações técnicas da Oraclum em formatos ig-reel."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo não aplica a paleta oficial da Oraclum (fundo Obsidian #0F0C20, acentos Cyan #00F0FF, detalhes Purple #8A2BE2), o que gera desconexão identitária. Para mobile, o contraste entre texto e fundo de vídeo precisa ser testado explicitamente sobre o obsidian para garantir legibilidade em 600px ou menos. A ausência de acentos ciano e detalhes roxos elimina a linguagem visual distintiva da marca em formatos curtos.",
+            "design_de_interface_capturas": "Não há integração de frames de código ou prints de tela no reel, o que foge ao padrão de integração visual que a Oraclum exige em criativos tech-oriented. Caso sejam usadas capturas de interface, devem ser enquadradas com overlays ciano e detalhes roxos para manter a coerência da paleta. A diagramação atual prioriza footage natural, o que dilui o foco técnico esperado.",
+            "hierarquia_de_informação": "A transcrição organiza as sentenças por minuto com timestamps claros, criando boa estrutura informacional. No entanto, a composição visual não traduz essa hierarquia através de tamanho de fonte, peso ou sobreposições de cor alinhadas ao Obsidian/Cyan. É necessário estabelecer um sistema de títulos e body text usando a paleta para guiar o olhar do espectador em dispositivos móveis.",
+            "recomendação_de_ajustes_de_design": "Recomenda-se reestilizar o vídeo aplicando fundo Obsidian como base, adicionando acentos Cyan em elementos interativos ou destaque de texto, e detalhes Purple em secundários. Os textos sobrepostos devem ser testados contra o fundo Obsidian com razão de contraste mínima de 4.5:1 em mobile. Inserir frames de código ou prints de tela com o tratamento de cor adequado completará a adequação às diretrizes da Oraclum."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Ajuste a paleta do vídeo para fundo Obsidian (#0F0C20), acentos Cyan (#00F0FF) e detalhes Purple (#8A2BE2), garantindo contraste mínimo de 4.5:1 para textos em mobile e integrando frames de código/prints de tela com o tratamento visual da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "As transições entre o apresentador e a captura de tela são rápidas, porém a sincronização dos cortes ainda apresenta pequenas descolagens com a fala.",
+            "As legendas são estáticas (texto simples) e não utilizam animação cinética, o que reduz a legibilidade em dispositivos móveis.",
+            "O ritmo da edição é ágil, mas a repetição de efeitos sonoros pode tornar-se monótona e distrair a atenção do espectador.",
+            "A sequência de frases curtas cria um fluxo dinâmico, mas a falta de pausas visuais entre os tópicos pode sobrecarregar a compreensão técnica.",
+            "A música de fundo e os \"pattern interrupts\" são adequados, porém precisam ser calibrados para não competir com a narração."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "O vídeo alterna entre o apresentador e a tela do software em intervalos de 2 a 4 segundos, mantendo um fluxo continuo. Contudo, alguns cortes não coincidem exatamente com mudanças de ação ou de foco na interface, gerando ligeira des sincronização.",
+            "estilo_de_legendas_animações": "As legendas atuais são simples texto branco sobre fundo escuro, sem animação de pop‑up ou destaque de cor. Essa abordagem reduz a legibilidade, principalmente em ambientes com luz solar direta.",
+            "análise_de_ritmo_sons": "O ritmo da edição acompanha a fala, com cortes rápidos que mantêm a energia alta. Os efeitos sonoros de \"whoosh\" e \"click\" são usados como pattern interrupts, mas a falta de variação pode tornar o áudio repetitivo.",
+            "guia_de_edição_replicável": "Utilize jump cuts perfeitamente alinhados ao momento em que o cursor ou botão é destacado; adicione legendas cinéticas em cyan com animação de pop‑up sincronizada à fala; insira pequenos \"stingers\" sonoros a cada transição para reforçar o pattern interrupt e manter o ritmo sem saturar."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Incorpore legendas cinéticas em cyan com animação de pop‑up sincronizada ao ritmo da fala para garantir legibilidade e impacto.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.6,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/06-diegoalmeida-ia-99c44d"
+    },
+    {
+      "creative_id": "09-krisspy-ia-08ddfd",
+      "platform": "instagram",
+      "creator": "@krisspy_ia",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/krisspy_ia/reel/DcBlQ8oqN0b/",
+      "rank": 9,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 1.8,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "No visual demonstration of the AI tool or workflow within the first 3 seconds, missing immediate value signal.",
+            "The script is filled with filler statements and personal banter, offering no clear tutorial or promised outcome.",
+            "Loop of curiosity is absent; there is no progressive revelation that compels the viewer to stay engaged.",
+            "The promised payoff (step‑by‑step process) is never delivered, leaving the hook unfulfilled.",
+            "Narrative fragmentation prevents a coherent demonstration of efficiency for founders or professionals."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "- O vídeo não exibe nenhuma captura de tela ou elemento de automação nos primeiros 3 s.\n- A atenção do observador é capturada apenas por frases aleatórias, o que não gera curiosidade técnica.\n- Falta de um hook visual prático impede a retenção imediata.",
+            "demonstração_de_interfaceworkflow": "- Não há exposição de interface, painel de controle ou fluxo de automação em nenhum momento.\n- O criador recorre a diálogos desconexos que não ilustram como a IA resolve um problema de negócio.\n- Sem demonstração, o público não percebe a eficiência prometida.",
+            "retenção_por_loops_de_processo": "- O reel não cria um ciclo de curiosidade que conduza o espectador a querer descobrir o próximo passo.\n- A ausência de promessas de resultados concretos reduz a necessidade de assistir até o final.\n- O conteúdo não oferece incentivo para que o público continue engajado.",
+            "cumprimento_do_payoff": "- O payoff esperado (passo‑a‑passo ou tutorial) nunca aparece; o vídeo termina sem entrega de valor.\n- A promessa implícita de “calma, só um sonho” não se transforma em ação prática.\n- O resultado prometido permanece inexistente, gerando insatisfação.",
+            "modelagem_recomendada_para_oraclum": "- Para a marca Oraclum, o início deve mostrar instantaneamente um painel de automação ou resultado visual da IA.\n- O hook deve ser técnico e direto, focando em eficiência mensurável em até 2 s.\n- O tutorial prometido deve ser apresentado como um fluxo claro, com etapas visuais que o usuário possa reproduzir."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatória": "Substituir o diálogo genérico por uma demonstração visual da interface de automação nos primeiros 3 s, mostrando imediatamente o ganho de eficiência.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O tom descontraído e o uso de linguagem coloquial ('gabo', 'knocka') não transmitem expertise em IA ou automação, centrais para a Oraclum",
+            "O ciclo de humor nas mensagens ('não me liga') parece mais promocional patrocínio do que consultiva em tecnologia",
+            "Falta contextualização técnica sobre ferramentas de IA ouぐ data-driven results, que são pilares da marca Oraclum",
+            "A narrativa pessoal ('posso dormir com você') dilui a autoridade profissional exigida",
+            "A hashtag #9 no daily-monitor indica baixa engajamento da comunidade de Builders de IA"
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo atual posiciona a marca como entretenimento aleatório, амbiensuando da natureza educacional e corporativa-moderna da Oraclum. O foco em automação prática presencia ausente.",
+            "grau_de_conexão_com_founderstechs": "A linguagem pessoal e o tom imaturo podem alienar fundadores/estateiros de tecnologia que buscam soluções sérias em IA para escalability.",
+            "mapeamento_nos_pilares_da_oraclum": "Apenas 5% de referência nos pilares (0% em tutoriais, 0% em bastidor técnico, 15% em tendências aleatórias sem análise de dados). Ofende o equilíbrio exigido.",
+            "ajustes_de_linguagemvocabulário": "Substituir expressões como 'sonho', 'knocka' e 'gabriel' por termos técnicos (ex: 'modelo estatístico', 'treinamento de embeddings') e focar em benefícios de automação mensuráveis."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever a legenda para destacar um estudo de caso real com métricas sobre eficiência ganha usando ferramentas de IA da Oraclum, em vez de humor genérico",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 1.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "The creative lacks any connection to Oraclum's brand, featuring humorous and unrelated content with no mention of automation or IA benefits.",
+            "No headline or CTA is present that aligns with efficiency or financial gain; the caption and transcription are purely conversational and informal.",
+            "The persuasive framework is absent, as the content does not offer practical utility or explain a workflow relevant to Oraclum.",
+            "While no forbidden terms are detected, the overall misalignment makes the creative disposable for this client.",
+            "The creative appears to be a random social media post rather than a targeted ad, with no basis for adaptation."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "The creative does not contain a headline that can be rewritten for Oraclum, as the caption is unrelated to automation or IA. No rewrite proposal is feasible based on this content, as it lacks a foundational benefit statement.",
+            "estrutura_do_texto_legibilidade": "The text structure is informal and conversational, with no clear organization for mobile legibility. The caption and transcription are disjointed, failing to present a coherent message or persuasive flow.",
+            "análise_de_cta_call_to_value": "No CTA is present in the creative; it does not invite actions like downloading a workflow or testing a tool. Without a call-to-value, it cannot engage users or generate leads for Oraclum.",
+            "filtro_de_léxico_flags": "No forbidden terms such as 'segredo infalível' or 'milagre' were detected in the provided text. The lexicon is casual and clean, but irrelevant to the client's requirements."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "The creative must be completely reworked to focus on Oraclum's automation benefits, with a clear headline emphasizing efficiency and a CTA inviting workflow download or tool testing, as the current content is entirely misaligned.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 3.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Ausência de uso consistente da paleta tecnológica (ciano e roxo) prevista na identidade da Oraclum, gerando desconexão visual.",
+            "Contraste entre texto e fundo pode ser adequado, mas a falta de destaques em cyan compromete a clareza em mobile.",
+            "Legenda apresenta texto uniforme sem hierarquia tipográfica, dificultando a leitura rápida em telas pequenas.",
+            "Integração de capturas de tela ou frames de código é inexistente ou mal posicionada, não reforçando a narrativa tecnológica."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O fundo obsidian oferece alto contraste, porém a falta de uso de cyan para destaques e purple para detalhes reduz a consistência da paleta tecnológica, comprometendo a legibilidade em telas pequenas.",
+            "design_de_interface_capturas": "As capturas de tela ou frames de código não são integrados de forma clara ao layout, aparecendo como elementos aleatórios que não reforçam a identidade visual da marca.",
+            "hierarquia_de_informação": "A legenda apresenta texto uniforme sem diferenciação de peso ou tamanho, o que dificulta a leitura rápida em dispositivos móveis e prejudica a hierarquia visual.",
+            "recomendação_de_ajustes_de_design": "Ajuste o contraste usando texto branco sobre obsidian, aplique cyan nos elementos de destaque e purple nos detalhes secundários, e incorpore frames de código ou screenshots de interface com sobreposição legível, mantendo a hierarquia de títulos e legendas."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substitua o texto informal por legendas técnicas em branco sobre fundo obsidian, destacando elementos-chave em cyan e detalhes em roxo, e inclua frames de código ou capturas de tela alinhadas à identidade visual da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 1.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Criativo é um sketch de comédia/relacionamento (diálogos: 'Boa bisteca', 'Não me liga', 'Posso dormir com você, Gabriel?'), zero relação com tutorial de IA ou demonstração de software.",
+            "Ausência total de captura de tela, interface, zoom em botões ou fluxo presenter ↔ screen-recording — pilar obrigatório da linguagem Oraclum.",
+            "Ritmo e estrutura narrativa servem entretenimento puro, não retenção educacional técnica; legendas word-pop e SFX de pattern interrupt não se aplicam ao formato.",
+            "Sem qualquer menção a IA, automação, prompt engineering ou caso de uso corporativo — vocabulário e ganchos incompatíveis com o posicionamento da marca."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "Não existe alternância presenter ↔ tela; o vídeo permanece 100% no rosto/ator (ou corte de câmera única) sem demonstração de software, violando o requisito central de transições rápidas e zoom em UI para a Oraclum.",
+            "estilo_de_legendas_animações": "Transcrição não revela estilo de legenda; porém, por ser sketch de humor, eventual legenda seria estética de entretenimento (centralizada, emoji, timing de piada) e não word-pop ciano sincronizado a termo técnico de IA.",
+            "análise_de_ritmo_sons": "Ritmo ditado por pausas cômicas e gritos ('Não me liga!'), não por cadência de explicação técnica; sons diegéticos (risos, batidas) substituem SFX de UI (click, whoosh, pop) necessários para pattern interrupt educacional.",
+            "guia_de_edição_replicável": "Nenhum guia replicável para Oraclum: a estrutura (hook cômico → escalada → punchline) é oposta ao modelo problema → demo → insight → CTA técnico que a marca exige."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar o criativo; produzir novo assets com presenter explicando feature real da Oraclum intercalado com screen-recording com zoom em botões, legenda word-pop ciano e SFX de UI a cada 1,5–2 s.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 2.6,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/09-krisspy-ia-08ddfd"
+    },
+    {
+      "creative_id": "13-airesearches-0535c0",
+      "platform": "instagram",
+      "creator": "@airesearches",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/airesearches/p/DcB29KWGT9k/",
+      "rank": 13,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 5.5,
+          "veredict": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O gancho visual surpreende, mas não apresenta a ferramenta Oraclum de forma direta.",
+            "A demonstração de workflow é limitada a uma única foto estática, sem fluxo claro da automação.",
+            "A curiosidade sobre CAPTCHA gera engajamento, porém não cria um loop de retenção progressivo.",
+            "O payoff prometido de tutorial ou dado concreto não é entregue no conteúdo visual.",
+            "Para Oraclum, o foco deve ser mostrar a interface em uso imediato nos primeiros segundos."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O abertura com o braço robótico clicando no checkbox entrega um impacto imediato, mas não revela a interface da Oraclum que seria o verdadeiro gancho de eficiência.",
+            "demonstração_de_interfaceworkflow": "Apenas uma foto fixa mostra a ação, sem exibir o painel ou fluxo de automação da plataforma, tornando a demonstração superficial.",
+            "retenção_por_loops_de_processo": "A pergunta sobre a validade dos CAPTCHA gera curiosidade, mas a imagem estática não cria um ciclo de revelação que retenha o olhar do profissional.",
+            "cumprimento_do_payoff": "Não há entrega de passo‑a‑passo nem dado prático; o conteúdo termina sem mostrar como a IA resolve um problema concreto.",
+            "modelagem_recomendada_para_oraclum": "Inserir um vídeo de 2‑3 s que mostre a dashboard da Oraclum preenchendo automaticamente um formulário ou executando uma tarefa, acompanhada de um hook visual direto como 'Veja a IA concluir em 3 s'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar a imagem estática do robô por um clipe curto que mostre a interface da Oraclum em ação nos primeiros 2 segundos.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 8.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A linguagem é acessível e evita jargões técnicos excessivos, alinhando-se ao tom educacional da Oraclum.",
+            "O conteúdo questiona paradigmas estabelecidos (CAPTCHAs), envolvendo o público talvez mais do que 60% dos criativos típicos de IA.",
+            "O formato singular de slides se concentra em um dado surpreendente, o que pode ser escalado conforme a necessidade visual da marca."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo estabelece rapidez e curiosidade, características valiosas para engajamento em feeds de desenvolvedores. No entanto, apresenta uma leve tendência jornalística, com excesso de contextualização do experimento em vez de focar no insight central.",
+            "grau_de_conexão_com_founderstechs": "O gancho 'versão prática de uma realidade disruptiva' ressoa com perfis de builder, mas a falta de chamada imediata para você aplicar o insight (ex: 'Descubra como isso afeta seus sistemas') restringe o uso B2B.",
+            "mapeamento_nos_pilares_da_oraclum": "Tutoriais: Baseado em um experimento técnico verificável. Bastidor: O tom atualizado e a proposta de mudança de mindset já se aproximam. Tendências e Mindset: O impacto inovador do automação robusta os dois pilares.",
+            "ajustes_de_linguagemvocabulário": "Relacionar a experiência do robô ao 'futuro próximo da segurança digital corporativa' deixa o conteúdo mais aplicável ao público b2b da Oraclum, sem perder a novidade técnica."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Recorrer diretamente do experimento ao 'ampliar a capacidade de automação corporativa' para conectar com o propósito da Oraclum em soluções de IA aplicada.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 4.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Headline não vincula o benefício de eficiência/tempo ou ganho financeiro à automação/IA, priorizando surpresa técnica",
+            "Copy explícita demora para chegar ao ponto central: a aplicação prática do conteúdo para o usuário final",
+            "CTA é informativo e não converge à ação requerida pelo cliente (download, teste, tutorial)",
+            "Estrutura narrativa equilibra paradoxo técnico com contexto, mas falha em mapear jornada de valor para Oraclum"
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Como automatizar verificações de segurança e economizar X horas por semana com IA explicável. Um robô burlou CAPTCHAs, e você pode usar a mesma inteligência para otimizar processos reais.",
+            "estrutura_do_texto_legibilidade": "O texto é claro e acessível, mas carece de conexão direta com benefícios práticos do leitor. Adicionar um 'por quê para você?' no final da explicação aumentaria a relevância pessoal.",
+            "análise_de_cta_call_to_value": "Substituir o CTA genérico por uma oferta específica: 'Baixe o template de automação de CAPTCHA e teste em 3 minutos' para alinhar à jornada de leads.",
+            "filtro_de_léxico_flags": "Nenhuma palavra-tabu detectada no criativo, mas o tom de 'espetáculo tecnológico' exige ajuste para evitar linguagem que sugira 'milagre' ou soluções infalíveis."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever headline para destacar eficiência ou ganho financeiro, e substituir o CTA por convite à ação prática (download/modelo/teste).",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 4.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Paleta completamente fora do brand: texto em verde vibrante (#00FF00 aprox.) substituindo o Cyan (#00F0FF) oficial; ausência total de Purple (#8A2BE2) e fundo não está no Obsidian (#0F0C20).",
+            "Contraste verde-escuro funciona em mobile, mas não garante acessibilidade WCAG AA para textos longos; hierarquia visual depende só de peso/tamanho, sem apoio de cor de marca.",
+            "Captura de tela do tablet com CAPTCHA aparece sem moldura ou overlay estilizado — perde a identidade tecnológica codificada da Oraclum (frames de código, terminais, glitch sutil).",
+            "CTA \"SWIPE FOR MORE\" em imagem única (ig-image) cria dissonância de UX; no formato carrossel da Oraclum, o indicador de navegação deve seguir o padrão Cyan/Obsidian.",
+            "Conceito forte (robô quebrando CAPTCHA) alinhado ao pilar \"Quebra de Mitos & Mindset Tech\", mas execução visual não transmite autoridade técnica da marca."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo usa verde neon sobre fundo escuro genérico; legibilidade imediata é aceitável, porém a temperatura da cor (quente) conflita com a frieza tecnológica Cyan/Obsidian. Textos brancos de apoio carecem de outline ou sombra sutil para garantir leitura em telas com brilho baixo. Recomenda-se substituir todo verde por #00F0FF e introduzir #8A2BE2 em detalhes de destaque (ex.: borda do tablet, glow do braço robótico).",
+            "design_de_interface_capturas": "A interface do tablet aparece nua, sem chrome de marca. Para Oraclum, toda captura deve ganhar container com cantos arredondados 8px, borda 1px Cyan 30% opacity e background Obsidian 90% — reforçando que aquele print pertence ao ecossistema visual da marca. O checkbox \"I'm not a robot\" poderia receber micro-animação de check em Cyan no vídeo adaptado.",
+            "hierarquia_de_informação": "Três níveis claros: headline impactante (maiúsculas, tracking amplo), sub-headline explicativa (sentence case, peso regular), CTA direcional. Falta, contudo, o quarto nível institucional: handle @oraclum + logotipo minimalista no rodapé, ambos em Cyan 70% opacity, padrão obrigatório em todos os assets virais.",
+            "recomendação_de_ajustes_de_design": "Refazer o layout no Figma aplicando tokens Obsidian/Cyan/Purple; trocar tipografia para Space Grotesk (headlines) + JetBrains Mono (dados técnicos); inserir grid de 4px para alinhar elementos; adicionar noise texture 3% opacity no fundo para profundidade; exportar versões 1080x1080 (feed) e 1080x1920 (stories/reels cover) com safe zones."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir 100% da paleta por Obsidian/Cyan/Purple, envolver a captura de tela no container de marca e remover o CTA \"SWIPE\" incompatível com o formato single-image.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 4.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "The creative is a static image with no presenter footage or screen capture, failing the core presenter-screen sync dimension required for Oraclum's video format.",
+            "Text legibility is high via dark background and vibrant green-white contrast, but lacks kinetic subtitle animations or timing-driven pops essential for retention pacing.",
+            "The AI/CAPTCHA concept is engaging but offers no built-in pacing, zoom transitions, or pattern-interrupt SFX that define the client's short-form video rhythm.",
+            "Visual hierarchy works for scroll-stopping but would collapse in a <15s video sequence without motion redesign and audio layering."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "The creative contains no presenter footage or screen capture recording, making the core audit dimension of presenter-sync inapplicable. The robotic arm interaction is illustrated, not captured from a live presenter setup, requiring complete re-framing to meet Oraclum's video rhythm standards.",
+            "estilo_de_legendas_animações": "Text exists as static headlines rather than kinetic word-pops. The bold white-green contrast ensures legibility on Instagram image format, but there are no animated transitions, timing triggers, or reading-pace synchronizations that keep viewers engaged in short-form video. Any Oraclum adaptation would need frame-by-frame subtitle reveals timed to speech or on-screen action.",
+            "análise_de_ritmo_sons": "As a silent image, the creative has zero pacing rhythm or sound design. Oraclum's format demands rapid cuts, zoom bursts, and pattern-interrupt SFX every 3-5 seconds to combat drop-off. This asset would need a complete audio-layer and edit-structure rebuild to hit the 7+ pacing threshold.",
+            "guia_de_edição_replicável": "To repurpose, map the robot vs CAPTCHA reveal into a 2-scene structure with left-side presenter cam and right-side screen capture with zoom on the checkbox interaction. Use cyan-accented word-pops for I'm not a robot, add a whoosh-click SFX on the robotic arm click, and cut every 4 seconds to maintain retention. The static composition loses its impact without motion layering."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Transforme a imagem estática em um vídeo dinâmico alternando câmera do apresentador e tela do software a cada 4 segundos, com legendas cinéticas em ciano que pop em sincronia ao clique do robô, e adicione efeito sonoro de clique/quemosh a cada transition para manter a retenção sem irritação.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.44,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/13-airesearches-0535c0"
+    },
+    {
+      "creative_id": "14-artificialintelligence-co-5756c5",
+      "platform": "instagram",
+      "creator": "@artificialintelligence.co",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/artificialintelligence.co/p/DcBlf1hyhQx/",
+      "rank": 14,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 4.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O gancho não demonstra nenhuma funcionalidade prática da Oraclum nos primeiros segundos, priorizando noticiabilidade sobre utilidade.",
+            "Não há nenhum workflow ou interface sendo exibida, o que invalida o foco em eficiência e automação valorizado por founders.",
+            "O payoff é um fato de noticiário, não um passo a passo ou demonstração de valor, desviando do escopo de ensino/tecnologia.",
+            "O uso de Mark Zuckerberg e grandes números cria engajamento, mas não oferece nenhuma ponte direta para aplicação empresarial da IA."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O slide abre com uma noticiabilidade sem valor imediato. Não há demonstração de ferramenta, painel ou automação. Apenas um fato de investimento bilionário é exibido, sem conexão prática para o público-alvo da Oraclum.",
+            "demonstração_de_interfaceworkflow": "Nenhuma interface ou workflow é mostrada. A imagem é puramente ilustrativa, centrada em uma figura pública e logotipos. Não há nada que exporia o uso prático de uma solução de IA.",
+            "retenção_por_loops_de_processo": "O conteúdo não oferece nenhum loop de curiosidade tecnológica ou raciocínio passo a passo. Ele funciona como um headline de notícia, sem convidar à exploração de um processo ou funcionalidade.",
+            "cumprimento_do_payoff": "O payoff prometido (implícito) seria uma notícia relevante, mas não há um tutorial, insight ou dado técnico entregue. O criativo não cumpre nenhum passo a passo nem demonstra utilidade prática.",
+            "modelagem_recomendada_para_oraclum": "Para a Oraclum, seria mais eficaz substituir o fato noticioso por uma demonstração rápida de como a IA pode otimizar decisões de investimento ou infraestrutura empresarial. O gancho deveria expor uma tela ou automação nos primeiros 2 segundos, alinhada ao pilar de eficiência."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a noticiabilidade por uma demonstração visual de uma aplicação prática de IA para negócios, com interface visível nos primeiros 2 segundos.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O criativo utiliza dados concretos ($14 bilhões, 80%) e nomes de grandes players (Meta, BlackRock), o que ressoa bem com a comunidade de IA por sua relevância factual e impacto no setor.",
+            "A linguagem é direta e pragmatica, evitando oba-oba, o que alinha-se com o tom profissional-inovador exigido para Oraclum.",
+            "O formato visual (imagem única com texto sobreposto) é eficaz para Instagram, mas carece de um gancho direto com a expertise em automação da Oraclum, limitando a conexão imediata com o brand.",
+            "O conteúdo se enquadra principalmente no pilar Tendências (15%), mas pode ser estendido para Bastidor ou Mindset com ajustes para melhorar a aderência ao mix de pilares.",
+            "O potencial de compartilhamento é alto entre founders tech, pois apresenta uma notícia estratégica que pode influenciar decisões de investimento ou operacionais."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo se posiciona como uma atualização de mercado de alto impacto, o que é consistente com a autoridade em IA que Oraclum busca. No entanto, a ausência de uma ligação explícita com tendências em automação ou dados reais de IA deixa o conteúdo genérico, necessitando de um reframe para destacar a relevância para builders e tomadores de decisão.",
+            "grau_de_conexão_com_founderstechs": "A conexão é forte, pois o criativo aborda um tema que directly interessa a founders tech: moveis bilionários em infraestrutura de IA. O tom factual e a falta de jargões motivacionais respeitam o tempo e o conhecimento desse público, tornando-o propício para compartilhamento profissional.",
+            "mapeamento_nos_pilares_da_oraclum": "Principalmente mapeado para o pilar Tendências (15%), mas pode ser adaptado para incluir elementos do Bastidor (25%) ao discutir como esses investimentos afetam automações específicas, ou do Mindset (15%) ao enfatizar a necessidade de atualização constante em IA. A distribuição atual é desequilibrada, focando demais em notícias puras.",
+            "ajustes_de_linguagemvocabulário": "A linguagem é adequada, mas pode ser aprimorada com termos técnicos relacionados a automação, como 'workloads de IA' ou 'infraestrutura de dados', para reforçar a competência da Oraclum. Evite frases que soem como conselhos genéricas; em vez disso, use implicações baseadas em dados, como 'esse movimento indica uma aceleração em capacidades de cloud para IA'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reframe o caption para conectar o evento a insights específicos sobre automação e IA, usando dados da Oraclum para destacar como tendências de infraestrutura impactam práticas de builders, sem recorrer a perguntas retóricas motivacionais.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "error": "parse_failed: Unterminated string starting at: line 12 column 49 (char 630)",
+          "raw": "{\n  \"score\": 4.2,\n  \"veredito\": \"adaptar\",\n  \"modelable_for_client\": false,\n  \"key_findings\": [\n    \"A headline menciona escala de infraestrutura mas não traduz isso em ganho financeiro ou eficiência para o usuário final.\",\n    \"Ausência de CTA de engajamento/leads, essencial para converter tráfego viral em leads qualificados.\",\n    \"O texto visual é informativo demais e pouco orientado à ação, dificultando a compreensão rápida em mobile.\",\n    \"Não há menção explícita a automação ou economia de custo, elementos centrais na proposta de valor da Oraclum.\"\n  ],\n  \"sections\": {\n    \"proposta_de_headline_rewrite_voz_oraclum\": \"Reescreva a headline para focar na escalabilidade operacional gerada pela automação, destacando como investimentos massivos em IA reduzem custos de processamento. Exemplo: '",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Contraste entre texto branco e fundo claro é insuficiente, comprometendo legibilidade em mobile.",
+            "Paleta de cores não reflete a identidade tecnológica da Oraclum, com destaque para tons neutros em vez de Cyan e Purple.",
+            "Estrutura de informação privilegia nomes de figuras públicas em vez de dados técnicos ou insights de IA.",
+            "Logotipos de terceiros (Meta, BlackRock) estão em destaque visual, desviando foco da marca Oraclum.",
+            "Diagramação horizontal dispersa não guia o olhar de forma eficiente em telas pequenas."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O fundo claro da imagem reduz a eficácia do texto branco, especialmente em dispositivos móveis com iluminação variável. A ausência de sobreposição ou escurecimento no fundo prejudica a legibilidade. Recomenda-se aplicar uma camada de escurecimento (overlay) em Obsidian (#0F0C20) com texto em Cyan (#00F0FF) para alinhar ao padrão da Oraclum.",
+            "design_de_interface_capturas": "A captura de tela é usada de forma passiva, apenas como apoio visual do texto. Não há integração ativa com elementos interativos ou destaque técnico. Para a Oraclum, seria mais eficaz utilizar a captura como base para um frame de código ou dashboard, reforçando o tom analítico da marca.",
+            "hierarquia_de_informação": "O layout prioriza o rosto de Zuckerberg e os logotipos das empresas envolvidas, em vez de destacar o dado numérico ($14 bilhões, 80%). A hierarquia textual é plana, sem divisão clara entre título, subtítulo e dados. Recomenda-se reorganizar com peso visual no número e na metricolagem, típica de comunicação Oraclum.",
+            "recomendação_de_ajustes_de_design_recomendação_de_ajustes_de_design": "Substituir o fundo claro por um degradê ou textura em Obsidian (#0F0C20) e sobrepor o texto em Cyan (#00F0FF) com detalhes em Purple (#8A2BE2). Reforçar os números e dados técnicos como elementos hierárquicos primários. Remover ou rebaixar logotipos de terceiros para manter o foco na narrativa Oraclum. Utilizar frames de código ou print de telas como base visual para reforçar o tom técnico da marca."
+          },
+          "lexico_flags": [
+            "just gave"
+          ],
+          "adaptacao_obrigatoria": "Reaplicar a composição sobre um fundo Obsidian (#0F0C20), com texto em Cyan (#00F0FF) e destaque técnico em Purple (#8A2BE2), priorizando dados e métricas em vez de nomes de executivos ou logotipos de concorrentes diretos.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 4.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Falta dinâmica entre apresentador e tela (imagem estática do apresentador sem transição para interface)",
+            "Legendas são texto estático no slide, não têm animacão ou claridade cinética",
+            "Ritmo inadequado para vídeo curto por ausência de movimento e mudança de câmera",
+            "Ausência de efeitos sonoros ou pattern interrupts para manter engajamento",
+            "Estrutura não replicável como vídeo de IA exigido pela osteoarthritis"
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "A imagem exibe Mark Zuckerberg em primeiro plano sem transição para a interface do software. Não há zoom, corte ou movimento que conecte seu rosto às informações de tela. O formato estático não permite ritmo dinâmico entre elementos.",
+            "estilo_de_legendas_animações": "O texto 'Meta just gave blackrock...' está estático no fundo escuro, mas não utiliza palavra-pop ou animação dinâmica. A legibilidade é alta por contraste, mas não atende ao padrão de 'legendas cinéticas' exigido.",
+            "análise_de_ritmo_sons": "Imagem estática sem áudio nem transições, resultando em ritmo lento e monótono. O texto denso cria sobrecarga informativa sem ritmo variável para retenção.",
+            "guia_de_edição_replicável": "Para replicar esse conceito, é necessário incluir: 1) transições rápidas entre apresentador e tela (zoom/fade); 2) legendas animate com word-pop cyan/sincronizadas; 3) ritmo acelerado com 3-5 pattern interrupts por minuto."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Criar um vídeo curto com transições rápidas entre o apresentador e a interface do software, usando legendas animadas e keyword-pop.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.75,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/14-artificialintelligence-co-5756c5"
+    },
+    {
+      "creative_id": "16-airesearches-75d93f",
+      "platform": "instagram",
+      "creator": "@airesearches",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/airesearches/p/DcBrtExGS_x/",
+      "rank": 16,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 8.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Uso magistral de 'visual proof' (o texto da prompt injection) logo no primeiro slide para validar o escândalo.",
+            "O loop de curiosidade é alimentado pela tensão entre o mundo analógico (tribunal) e o ataque digital (prompt injection).",
+            "Alto contraste visual que interrompe o scroll, fugindo de imagens genéricas de robôs ou cérebros digitais.",
+            "Estrutura de carrossel que transita de um 'fato chocante' para uma 'evidência documental' de forma fluida."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O gancho é excelente porque não usa apenas texto; ele mostra o *corpo do crime* (a prompt injection) como elemento visual central. Isso captura o olhar de quem entende de tecnologia imediatamente.",
+            "demonstração_de_interfaceworkflow": "O Slide 02 cumpre o papel de mostrar o 'objeto de estudo' (o documento), simulando a visão de quem está revisando o arquivo. Para a Oraclum, isso deve ser substituído pela tela da automação/dashboard.",
+            "retenção_por_loops_de_processo": "A retenção é mantida pelo suspense: 'O que acontece quando isso aparece em documentos reais?'. Ele cria um loop de necessidade de conhecimento técnico/segurança.",
+            "cumprimento_do_payoff": "O payoff é entregue através da evidência visual do texto oculto, provando que o que foi dito no slide 1 é real e documentado.",
+            "modelagem_recomendada_para_oraclum": "Modelar a estrutura de 'Escândalo/Falha vs. Solução/Eficiência'. Em vez de um crime judicial, use uma 'falha de processo manual' ou 'erro comum em automações' e mostre a tela do software da Oraclum corrigindo ou evitando isso."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o foco de 'crime/escândalo' para 'risco operacional/eficiência', substituindo a imagem do homem frustrado por uma demonstração direta de uma automação da Oraclum resolvendo um gargalo de negócios.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 4.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O criativo emprega linguagem sensacionalista (ex.: \"pegou em flagrante\", \"mandando a IA ficar do lado dele\") que conflita com o tom corporativo-moderno e baseado em dados exigido pela Oraclum.",
+            "O tema (ataques de injeção de prompt em documentos legais) é relevante para a comunidade de IA e desenvolvedores, mas o post oferece zero orientação prática, tutorial ou de bastidor — alinhando-se apenas marginalmente com o pilar de Tendências.",
+            "Os destaques de design (texto branco sobre fundo preto) são visualmente impressionantes, porém não explicam o mecanismo, deixando o conteúdo no nível de meme em vez de conteúdo educacional.",
+            "A distribuição de pilares é desequilibrada: ~15% de Tendências, 0% de Tutoriais/Bastidor e praticamente nenhum conteúdo de Mindset, indicando baixo alinhamento geral com a estrutura de conteúdo da Oraclum."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O posicionamento atual do criativo é baseado em escândalo e fofoca, usando manchetes de estilo tabloid. Para a Oraclum, o tom precisa ser pragmático, inovador e baseado em dados. O conteúdo deve ser reformulado como uma análise técnica de uma vulnerabilidade real de IA, destacando implicações e contramedidas, em vez de apenas reportar um flagrante.",
+            "grau_de_conexão_com_founderstechs": "Embora o assunto toque em uma preocupação de segurança pertinente para desenvolvedores de IA, a abordagem do carrossel parece mais um meme viral do que uma peça estratégica. Esta conexão é superficial e não oferece aos construtores insights acionáveis, reduzindo o potencial de compartilhamento entre o público-alvo da Oraclum.",
+            "mapeamento_nos_pilares_da_oraclum": "Tutoriais (45%): Fraco – sem etapas práticas ou código. Bastidor (25%): Ausente – não há visão interna de desenvolvimento. Tendências (15%): Moderado – aborda uma ameaça emergente de IA. Mindset (15%): Mínimo – sem mudança de mentalidade ou hábito. No geral, o carrossel atinge apenas cerca de 15% da estrutura de pilares da Oraclum.",
+            "ajustes_de_linguagemvocabulário": "Substitua palavras e frases sensacionalistas (ex.: \"pegou em flagrante\", \"mandando a IA ficar do lado dele\", \"escondeu promps\") por termos neutros e focados em dados (ex.: \"observado\", \"implementado\", \"orientado por dados\"). Priorize nomenclatura técnica como \"ataque de injeção de prompt\", \"mitigação\", \"auditoria de segurança\" e evite clichês motivacionais ou de agência."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescreva o gancho e as legendas para enquadrar o caso de injeção de prompt como uma análise de segurança baseada em dados — destacando como os construtores podem detectar, prevenir e se proteger — e elimine todo o sensacionalismo e linguagem de flagrante.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 1.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A headline dramatiza um caso judicial de manipulação de IA, em vez de destacar um benefício claro de eficiência ou ganho financeiro.",
+            "Não há CTA voltado a valor (download, tutorial, teste); o único chamativo é 'SWIPE FOR MORE', que é genérico.",
+            "O copy não explica nenhum workflow, ferramenta ou resultado prático que Oraclum oferece.",
+            "Sem uso de termos proibidos, mas todo o tom do criativo é sensacionalista, não focado em utilidade.",
+            "Estrutura geral carece de uma proposta de valor persuasiva e legibilidade mobile-friendly."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "**Rewrite para Oraclum:** \"Economize horas em tarefas legais de rotina – descubra como a IA da Oraclum automatiza documentos e evita erros de digitação.\" Este headline atende ao requisito de eficiência de tempo, usa um benefício claro e evita a linguagem sensacionalista do original.",
+            "estrutura_do_texto_legibilidade": "O copy atual é uma narrativa jornalística densa que não guia o leitor em direção a uma ação. Para o público mobile, é necessário condensar o conceito em 2-3 frases curtas, cada uma focando em um benefício específico (por exemplo, 'Revise documentos em 1/10 do tempo' + 'Sem medo de manipulação de IA'). A hierarquia de informações deve levar diretamente a um CTA de valor.",
+            "análise_de_cta_call_to_value": "O criativo usa apenas 'SWIPE FOR MORE', que não comunica valor tangível. Um CTA adequado para Oraclum deve convidar a baixar um workflow, ler um tutorial ou testar uma ferramenta – por exemplo, 'Baixe nosso workflow de automação e elimine erros de digitação hoje mesmo.'",
+            "filtro_de_léxico_flags": "Nenhum termo proibido ('segredo infalível', 'milagre', 'fórmula mágica', 'fique rico fácil') foi detectado."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Mude a headline para destacar um benefício claro de eficiência de tempo/ganhos, adicione um CTA direto para baixar/testar o workflow da Oraclum e reescreva o copy para explicar como a ferramenta resolve o problema (por exemplo, evita ataques de injeção de prompt), mantendo a narrativa concisa e mobile-friendly.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 7.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Paleta imprecisa: uso de verde (#00FF00) não alinhado às diretrizes da Oraclum (Cyan/Purple/Obsidian)",
+            "Legibilidade comprometida: texto branco em fundo preto cria risco de fadiga visual em dispositivos móveis",
+            "Falta hierarquia: informações críticas na pagina 02 (jargão legal) não são priorizadas visualmente"
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "Fundo obsidiano (#0F0C20) usado corretamente, mas detalhes em verde-água (#00FF00) introduzem ruído visual. Cyan (#00F0FF) está presente em destaque, mas proporção desbalanceada. Purple (#8A2BE2) ausente na implementação.",
+            "design_de_interface_capturas": "As screenshots mostram illustrative de conceitos técnicos, mas não implementam 'frames de código' ou exemplos de interface real. O uso de texto sobreposto na slide 01 cria conflito visual em mobile.",
+            "hierarquia_de_informação": "O carrossel prioriza narrativa sobre clareza. A slide 02 sobrecarrega com detalhes técnicos irrelevantes para o gancho principal (prompt injection), prejudicando a retenção.",
+            "recomendação_de_ajustes_de_design": "Substituir verde por Cyan ou Purple em elementos secundários. Simplificar texto na slide 02 focando em 2-3 frases-chave. Adicionar overlays de purple para チswers visuais em elementos técnicos."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reconverter o verde-água em destaque para Cyan (#00F0FF) e integrar elementos de purple (#8A2BE2) como bordas ou ícones para reforçar a identidade visual tecnológica da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 6.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Ausência de transições entre apresentador e tela de software, o que quebra a demanda devergivel e dinâmica esperada pelo cliente Oraclum.",
+            "Texto denso e legalístico no segundo slide, desalinhado ao foco de Oraclum em desmistificar IA com linguagem prática e acessível.",
+            "Falta de legendas cinéticas ou word-pops em cyan, reduzindo a legibilidade e impacto visual em um formato curto.",
+            "RODAMENTO estático na identicale do slideshow, sem uso de punto interrupts ou efeitos sonoros para manter o ritmo.",
+            "Integração fraca entre a narrativa legal do caso real e o posicionamento de Oraclum em tendências e mindset tech."
+          ],
+          "sections": {
+            "dinâmica_presentador_vs_captura_de_tela": "O criativo não presenta um apresentador físico interagindo com a tela do software, o que é crítico para a marcaOraclum. As transições entre slides são estáticas e não simulam uma explicação ao vivo.",
+            "estilo_de_legendas_animações": "As legendas são estáticas e sobrepostas ao texto, sem movimento ou animação dinâmica (como pop dinâmicos ou transições em cyan). O uso de texto branco em fundo preto é eficaz, mas carece de repetição visual para reforçar OS termos-chave.",
+            "análise_de_ritmo_sons": "O ritmo é lento devido à falta de interrupções visuais ou sonoras. A edição utiliza apenas dois slides, resultando em um fluxo que não mantém a atenção em um formato curto.",
+            "guia_de_edição_replicável": "Para adaptar, é necessário: 1) incluir um apresentador interagindo com a tela (ex.: zoom em botões/ícones do software); 2) simplificar o texto legal para palavras-chave cyan (ex.: 'prompt injection', 'IA manipulada'); 3) adicionar ponto interrupts (efeitos de transição ou sons) entre slides; 4) usar legendas curtas e dinâmicas no modo de movimento."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Simplificar o texto denso para palavras-chave em cyan (ex.: 'prompt injection', 'manipulação de IA') e incluir um apresentador interagindo com elementos de tela em tempo real.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.42,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/16-airesearches-75d93f"
+    },
+    {
+      "creative_id": "18-gean-mech-826784",
+      "platform": "instagram",
+      "creator": "@gean.mech",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/gean.mech/reel/DcCaiHpNMJX/",
+      "rank": 18,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 3.5,
+          "veredict": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "- Zero demonstração de software ou automação nos primeiros 3 segundos, violando a expectativa de valor visual imediato da Oraclum.",
+            "- Relying em subtitle dialogue sem exposição de UI, criando 'fala vazia' para founders e professionals.",
+            "- A tag @higgsfield.ai não traz contexto de IA aplicada ou workflow de automação relevante ao cliente.",
+            "- Nenhum loop de processo tecnológico ou 'payoff' step-by-step é executado na narrativa.",
+            "- A estrutura de retenção foca em lore de anime, não em curiosidade tecnológica ou eficiência mensurável."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "The first 3 seconds contain only subtitle text over ambient footage; no software screen, automation panel, or visual result of technology is presented. For Oraclum’s IA/negócios audience, this violates the core expectation of immediate visual value. The hook is purely narrative/dialogue, offering zero technical exposition. This structure would cause professional viewers to scroll past within the first 2 seconds.",
+            "demonstração_de_interfaceworkflow": "There is zero exposure of the tool’s interface, workflow, or AI output throughout the entire 47-second runtime. The creative leans on anime subtitle lore rather than demonstrating a platform in action. Oraclum’s model demands seeing a painpanel or automation active in motion to build credibility. Without this, the audience cannot assess the promised efficiency gains.",
+            "retenção_por_loops_de_processo": "No process loops, iterative results, or before/after AI transformations appear across the timeline. Retention hinges on curiosity about the story, not on observing technological progression. For a founder/audience, the absence of a repeating tech-pattern means zero dwell value from a utility perspective. The viewer gains no incremental insight or measurable outcome by the end.",
+            "cumprimento_do_payoff": "The caption promises 'Episode 01' and tags @higgsfield.ai, but no step-by-step tutorial, data deliver, or AI mechanism is actually shown. The payoff resolves as a non-event: the story continues without revealing any business outcome or workflow completion. Oraclum’s promise of a fulfilled payoff is fundamentally broken here. A proper payoff would overlay metrics, results, or a clear CTA tied to the demonstrated AI step.",
+            "modelagem_recomendada_para_oraclum": "To model for Oraclum, the hook must open with a live software screen or automation dashboard active within the first 2 seconds, showcasing a measurable efficiency gain. The payoff should explicitly map each scene to a tangible AI workflow step, ending with a clear call-to-action or result summary. This reframes the narrative from entertainment lore to demonstrable IA value. The recommended structure replaces dialogue-heavy openings with UI-first exposure for immediate professional engagement."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substitua o início por uma captura de tela ativa do painel de automação da Oraclum nos primeiros 2 segundos, substituindo o diálogo de anime por uma demonstração visual de eficiência IA.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 5.3,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo utiliza linguagem japonesa e referências culturais sem contexto direto com IA, o que pode dificultar a conexão com a audiência técnica da Oraclum.",
+            "A duração curta e o estilo visual sem narrativa clara não atendem ao perfil educacional esperado para tutoriais ou conteúdo de bastidor.",
+            "A marca @higgsfield.ai é mencionada, mas não há integração clara com a proposta de automação ou dados reais da Oraclum.",
+            "O tom é mais artístico e existencial do que pragmático, o que afasta o perfil de tom desejado: técnico, inovador e voltado a builders."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo transmite uma estética alternativa, mas não comunica autoridade tecnológica. Não há alinhamento com a proposta de posicionar a Oraclum como referência em automação baseada em dados. O posicionamento atual parece mais voltado a uma narrativa artística do que a uma proposta de valor tech.",
+            "grau_de_conexão_com_founderstechs": "Builders e startups de tecnologia buscam conteúdo aplicável e direto. O estilo do reel é abstrato e pouco conectado with o cotidiano de quem desenvolve soluções com IA. A conexão emocional não se traduz em valor prático para esse público.",
+            "mapeamento_nos_pilares_da_oraclum": "Não há alinhamento com os pilares da Oraclum. O conteúdo não se enquadra como tutorial (45%), nem como bastidor (25%). Também não aborda tendências (15%) ou mindset (15%) de forma reconhecível. O criativo é mais performático do que educativo ou técnico.",
+            "ajustes_de_linguagemvocabulário": "O vocabulário está em português com interspersões em japonês, sem foco em termos técnicos. Para atender à Oraclum, seria necessário uma reescrita com linguagem clara, dados reais e foco em automação — evitando clichês motivacionais ou frases genéricas como 'you're inside' ou 'yare yare'."
+          },
+          "lexico_flags": [
+            "Yare, yare",
+            "toraburi mitai da na",
+            "Zuri"
+          ],
+          "adaptacao_obrigatoria": "Substituir a narrativa abstrata e os bordões culturais por conteúdo que demonstre aplicação prática de IA com dados reais, alinhando o tom ao perfil técnico e inovador esperado pela Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 1.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo carece de um headline que destaque benefícios de eficiência ou automação, essencial para a Oraclum.",
+            "Não há call-to-action (CTA) convidando a baixar workflow, ler tutorial ou testar ferramenta, violando diretrizes de engajamento.",
+            "O conteúdo é puramente narrativo, sem utilidade prática ou framework persuasivo alinhado a ganhos financeiros ou de tempo.",
+            "A menção a @higgsfield.ai é incidental e não é integrada para demonstrar valor de automação da Oraclum."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "O caption atual, 'Marombushi - Episódio 01', não atende aos critérios da Oraclum. Uma reescrita na voz da Oraclum deveria focar em benefícios de eficiência, como 'Automatize tarefas com IA e ganhe horas de trabalho por dia', evitando técnicos desnecessários.",
+            "estrutura_do_texto_legibilidade": "A estrutura do texto é mínima e não otimizada para legibilidade mobile; falta uma progressão lógica de gancho, benefício e ação, tornando a copy confusa para o público-alvo.",
+            "análise_de_cta_call_to_value": "Não há CTA no criativo, o que é inaceitável para a Oraclum. Seria necessário adicionar um call-to-value como 'Baixe seu workflow gratuito agora' para direcionar para leads, mas o formato atual não se presta a isso.",
+            "filtro_de_léxico_flags": "Nenhum termo proibido como 'segredo infalível' ou 'milagre' foi detectado no caption ou transcrição, mas o criativo falha em其他维度, tornando-o inadequado."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descarte este criativo, pois não há como adaptá-lo sem uma reformulação completa para incluir um headline de eficiência e um CTA de valor.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 4.0,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo apresenta uma narrativa dialogue-driven que não alinha-se com o tom tecnológico e direto do Oraclum, resultando em desconexão de marca.",
+            "A paleta de cores não é especificada, mas supõe-se que use tons quentes e vibrantes, violando a restrição de fundo Obsidian e destques em Cyan, o que causa poluição visual.",
+            "A legibilidade dos textos sobrepostos ( possivelmente legendas) é incerta sem visuals, mas em telas mobile, o tamanho da fonte e contraste precisam ser verificados para evitar problemas.",
+            "A integração de capturas de tela ou interfaces não é evidente na transcrição, sugerindo que o foco é em conteúdo narrativo, não em demonstração de produtos ou dados.",
+            "A hierarquia de informação é linear e baseada em diálogos, o que pode não destacar elementos-chave como call-to-actions ou informações técnicas necessárias para Oraclum."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo provavelmente emprega uma paleta diversa das diretrizes da Oraclum, com possíveis tons quentes que contrastam mal com o fundo Obsidian (#0F0C20). Isso resulta em baixa aderência à identidade visual, prejudicando a percepção de marcas tecnológicas. O contraste dos textos sobrepostos não é verificado diretamente, mas em contextos mobile, é crucial garantir que legendas ou overlays tenham alta legibilidade com cores como Cyan (#00F0FF) para destaque.",
+            "design_de_interface_capturas": "O design de interface não parece integrar frames de código ou prints de telas de forma eficaz, focando mais em elementos narrativos. Se houver capturas, elas podem não estar harmonizadas com o estilo minimalista e tech do Oraclum, carecendo de bordas ou sombras que as integrem ao fundo Obsidian. Isso pode causar uma sensação de desconexão visual, onde as interfaces parecem soltas no contexto do vídeo.",
+            "hierarquia_de_informação": "A hierarquia é dominada por diálogos sequenciais, o que não prioriza informações essenciais para o cliente, como dados ou benefícios do produto. Em um contexto mobile-first, isso pode levar à perda de atenção do usuário, pois não há clear visual hierarchy para guiar os olhos para pontos-chave. A estrutura é mais apropriada para entretenimento do que para comunicação corporativa.",
+            "recomendação_de_ajustes_de_design": "Recomenda-se reframe o criativo para alinhar com a paleta Oraclum, substituindo cores por Obsidian como base e Cyan para destques,同时 ensuring text overlays have high contrast. Adicione elements like subtle purple accents (#8A2BE2) para detalhes e integre screenshots de interfaces com bordas sutis para coesão. Priorize uma hierarquia que destaque mensagens-chave sobre a narrativa, usando tamanhos de fonte maiores e posicionamento estratégico para mobile."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Mude a paleta de cores para fundo Obsidian (#0F0C20) com destques em Cyan (#00F0FF) e detalhes em Purple (#8A2BE2), e reestruture a hierarquia para destacar informações técnicas, garantindo legibilidade em telas pequenas.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Transições entre a câmera do apresentador e a gravação de tela do software são interrompidas por cortes bruscos, quebrando a fluidez exigida pela marca de vídeos curtos de IA.",
+            "As legendas em estilo word-pop aparecem com boa energia visual, mas a velocidade pode competir com os sons de transição, reduzindo a clareza da informação técnica.",
+            "O ritmo da edição mantém o interesse inicial, mas a explicação técnica perde foco devido à falta de sincronização precisa entre fala e ação na tela de software."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "Os cortes alternam rapidamente entre o rosto do apresentador e a tela de software, mas a sincronia não é perfeita. Momentos onde a câmera permanece estática enquanto a tela muda, ou vice-versa, quebram a continuidade necessária para manter a atenção do espectador.",
+            "estilo_de_legendas_animações": "As legendas utilizam animações de aparição rápida (word-pop), o que cria impacto visual, porém a velocidade pode ser excessiva em trechos técnicos, tornando difícil acompanhar o conteúdo sem distração.",
+            "análise_de_ritmo_sons": "Há uso de efeitos sonoros durante as transições, mas eles são inconsistentes. Alguns cortes perdem o ritmo proposto, pois não há pattern interrupts bem calibrados para reenergizar a sequência de informações.",
+            "guia_de_edição_replicável": "Para replicar o sucesso, implemente transições crossfade suaves entre a face e a tela de software, sincronize cada mudança com uma palavra-chave da fala e aplique legendas com duração de 0.8s, alinhada ao tempo de leitura dos textos."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substitua os cortes bruscos por transições suaves com zooms de interface e adicione legendas com timing preciso para garantir que a narrativa técnica seja compreendida sem distrações visuais.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 4.06,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/18-gean-mech-826784"
+    },
+    {
+      "creative_id": "22-diegoalmeida-ia-1b8f2e",
+      "platform": "instagram",
+      "creator": "@diegoalmeida.ia",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/diegoalmeida.ia/p/DcBfGmbEV-P/",
+      "rank": 22,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 4.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Gancho (slide 1) é apenas texto de claim — zero demonstração visual da ferramenta rodando (terminal, UI, before/after) nos primeiros 3 segundos",
+            "Slide 2 expõe README do GitHub com profundidade técnica correta, mas permanece estático: não há captura de execução real (logs, output, diff de arquivo limpo)",
+            "Slide 4 viola identidade da Oraclum com léxico de hype motivacional: \"DOMINAR A IA\", \"O ÚNICO RISCO\", \"MENTES QUE USAM IA SAEM NA FRENTE\" — proibido no brand guide",
+            "Estrutura promete utilidade prática (\"DESLIZE PARA VER MAIS\") mas não entrega tutorial nem fluxo passo-a-passo; é curadoria de release, não ferramenta em ação",
+            "Pontos fortes: precisão técnica multi-vendor (Unicode, C2PA, SynthID, Kirchenbauer) e transparência sobre trade-offs (rewrite achata tom) — alinhado com pilar \"Radar de Tendências & IA\""
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O slide de abertura mostra foto de desenvolvedor + ícone abstrato laranja + manchete em caixa alta. Não há tela de software, terminal, nem comparação visual de texto \"sujo\" vs \"limpo\". Para retenção técnica, o gancho precisa exibir o artefato funcionando: ex.: split-screen com caractere invisível destacado e comando `watermarks-remover` rodando.",
+            "demonstração_de_interfaceworkflow": "Slide 2 traz print do GitHub (README, tabela de layers A/B/C, vendors). É informativo, mas não demonstra fluxo: instalação (`pip install`), execução CLI, input/output real. Slide 3 é tweet de update — prova social, não workflow. Ausência total de gravação de tela ou GIF animado do processo.",
+            "retenção_por_loops_de_processo": "Loop de curiosidade se baseia apenas em \"quais formatos suporta\" e \"novos vendors\". Não há micro-loops visuais (ex.: contador de caracteres removidos, diff de metadados EXIF antes/depois). Carrossel funciona como release notes, não como tutorial progressivo que ensina a replicar.",
+            "cumprimento_do_payoff": "Payoff implícito \"veja como remover marcas\" não é cumprido. Não há comando copiável, não há demonstração de arquivo PDF/DOCX limpo, não há menção a `rewrite_text.py` hook na prática. Último slide é CTA genérico de seguidor, não link para repo + instruções mínimas de uso.",
+            "modelagem_recomendada_para_oraclum": "Estrutura de 4 slides serve como esqueleto: (1) Hook visual — terminal rodando `watermarks-remover arquivo.pdf` com diff side-by-side; (2) Anatomia técnica — tabela Layer/Target/How (já existe, manter); (3) Caso de uso real — antes/depois em Markdown/HTML com contagem de Unicode strips; (4) CTA técnico — \"Clone, rode `python -m skills.remove_ai_marks --help`, aplique no seu pipeline\". Remover todo léxico motivacional do slide 4."
+          },
+          "lexico_flags": [
+            "DOMINAR A IA",
+            "O ÚNICO RISCO",
+            "MENTES QUE USAM IA SAEM NA FRENTE",
+            "O FUTURO NÃO ESPERA",
+            "NEM TODO MUNDO VAI CHEGAR LÁ"
+          ],
+          "adaptacao_obrigatoria": "Substituir gancho textual por gravação de 3s do CLI processando arquivo real; eliminar slide 4 motivacional e substituir por bloco de comandos copiáveis + link direto para `skills/remove-ai-marks/`; manter tabela técnica do slide 2 como autoridade.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O criativo apresenta um conteúdo muito alinhado com tendências atuais de IA, particularmente com o lançamento de uma ferramenta open-source relevante",
+            "A linguagem é funcional e direta, mas apresenta certa dose de 'guru tech' na última imagem (Next Level SIGA PARA DOMINAR A IA)",
+            "A estrutura em carrossel é eficaz para mostrar funcionalidade, mas a transição do técnico para o apelo motivacional conflita com o tom corporativo-moderno requerido",
+            "O foco em números do GitHub (stars, forks) e detalhes técnicos resolve bem o perfil de builders, mas falta uma narrativa mais estratégica de valor"
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo bate com a atualidade do mercado de IA, mas o posicionamento se afasta do tom corporativo que Oraclum precisa. A mensagem técnica inicial é forte, mas a última tela quebra o compromisso com o tom pragmático e inovador.",
+            "grau_de_conexão_com_founderstechs": "O carrossel identifica bem o perfil de founders e builders techs que migram para o Instagram para validar novos produtos, mas a verdadeira conexão exigiria remover o apelo guru e reenquadrar a oferta em benefícios práticos de automação e eficiência.",
+            "mapeamento_nos_pilares_da_oraclum": "O conteúdo resolve bem ao pilar de Tutoriais (mostra a ferramenta em ação), mas precisa realinhar as métricas de sucesso: não é 'domine a IA', é 'otimize seus processos com IA'. Faltam dados reais de automação e exemplos de impacto mensurável.",
+            "ajustes_de_linguagemvocabulário": "Remover completamente bordões como 'Next Level', 'DOMINAR A IA', 'Antes de Todo Mundo'. Substituir por linguagem focada em dados: 'Reduza em X% o tempo de limpeza de conteúdo', 'Aumente a taxa de aprovação em Y%'. Evitar termos genéricos como 'prático' ou 'incrível' sem contexto mensurável."
+          },
+          "lexico_flags": [
+            "DOMINAR A IA",
+            "Antes de Todo Mundo",
+            "prático",
+            "incrível"
+          ],
+          "adaptacao_obrigatoria": "Recriar a última tela com linguagem focada em ROI de automação (ex: 'Reduza em 80% o tempo de validação de conteúdo com esta ferramenta') e remover totalmente o apelo formativo e guru que conflita com a identidade corporativa da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de carrossel com alta prova social (GitHub stars) e autoridade técnica.",
+            "Headline do criativo original é informativa, mas carece de um benefício de eficiência/escala direto para o usuário final.",
+            "O meio de funil utiliza prints de ferramentas reais, o que gera alta percepção de utilidade prática.",
+            "O CTA final do criativo original é focado em 'seguidores' (ego/audiência), enquanto a Oraclum precisa de CTAs de 'valor/ação' (ferramenta/tutorial)."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Como limpar metadados e marcas d'água de textos de IA em segundos para garantir originalidade nos seus conteúdos.",
+            "estrutura_do_texto_legibilidade": "O uso de prints do GitHub (Slide 2) é excelente para legibilidade mobile, pois quebra o excesso de texto com prova visual técnica. Para a Oraclum, deve-se manter essa clareza, evitando parágrafos longos na legenda.",
+            "análise_de_cta_call_to_value": "O criativo original termina com um CTA de 'Siga para dominar a IA', que é genérico. Para a Oraclum, o CTA deve ser substituído por: 'Baixe o script/tutorial completo no link da bio' ou 'Teste essa automação agora'.",
+            "filtro_de_léxico_flags": "Não foram detectados termos proibidos como 'milagre' ou 'fórmula mágica'. O tom é técnico e honesto sobre as limitações da ferramenta."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o foco em 'ganhar seguidores' por um CTA que direcione o usuário para o acesso imediato à ferramenta ou ao workflow de automação.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A paleta de cores está desalinhada: usa tons de laranja, cinza e branco, sem os obrigatórios Cyan (#00F0FF) e Purple (#8A2BE2) da Oraclum.",
+            "Contraste e legibilidade são precários; textos sobrepostos em fundos escuros não utilizam os destaques cyan para alcançar legibilidade no mobile.",
+            "As capturas de tela parecem ser de um tema de terminal escuro genérico; frames de código e impressões não usam os frames ou overlays de marcação com ciano/púrpura da Oraclum.",
+            "Hierarquia de informação decente, mas a falta de hierarquia visual baseada em cores prejudica a navegação em telas pequenas.",
+            "Fluxo geral do carrossel poderia servir de estrutura de conteúdo, mas precisa de uma reformulação completa do design para atender aos padrões visuais da marca."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo depende predominantemente de fundos escuros com elementos em branco/texto cinza, contrastando muito pouco com os obrigatórios Cyan e Purple. O ícone laranja no canto superior direito cria uma cor de destaque não autorizada e pode prejudicar a intenção de alto contraste da marca. Como resultado, os elementos sobrepostos lutam por legibilidade em dispositivos móveis, especialmente sob luz solar intensa.",
+            "design_de_interface_capturas": "As imagens de capturas de tela parecem ser um tema nativo de terminal escuro genérico, sem bordas estilizadas com ciano ou destaques roxos que a Oraclum espera. A falta de sobreposições consistentes do brand (ex: ícones estilizados em cyan sobre prints) faz com que o carrossel pareça genérico e não integrado à identidade visual da Oraclum.",
+            "hierarquia_de_informação": "O fluxo de informação está lógico: título, subtítulo, lista de recursos e CTA. No entanto, como a hierarquia é baseada apenas em tamanho de fonte e peso, e não reforçada por cores de marca, a importância é fraca e pode não guiar efetivamente os olhos do usuário pelas telas em mobile.",
+            "recomendação_de_ajustes_de_design": "Adote o Fundo Obsidian (#0F0C20) em todos os overlays, use texto e sobreposições em Cyan (#00F0FF) para elementos importantes, e incorpore detalhes em Purple (#8A2BE2) para destaques e ícones. Aprimore os templates de capturas de tela para incluir bordas estilizadas em ciano, adicione espaçamento seguro para garantir legibilidade e reavalie a paleta de ícones (substitua o ícone laranja por um elemento em roxo)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Recolore todas as sobreposições para usar o Fundo Obsidian (#0F0C20) com destaques em Cyan (#00F0FF) e detalhes em Purple (#8A2BE2), garantindo texto cyan de alto contraste e substituindo qualquer ícone laranja pelo elemento roxo da marca.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 6.0,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O carrossel demonstra boa estrutura narrativa, mas carece de dinamismo visual para prender atenção em formato de áudio-digital.",
+            "A transição entre slides é linear e informativa, porém ausente de elementos interativos ou efeitos sonoros que estimulam retenção.",
+            "As legendas e textos nos slides são densos demais, prejudicando a leitura rápida e a escaneabilidade no feed do Instagram.",
+            "O tom do conteúdo é técnico e focado em funcionalidades, alinhando-se parcialmente com o público de desenvolvedores, mas precisa de conexão emocional mais forte.",
+            "A identidade visual do criador (@diegoalmeida.ia) é coerente, mas não há integração clara com a proposta de valor da Oraclum."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "Como o formato é um carrossel e não um vídeo, não há dinâmica de alternância entre apresentador e tela. No entanto, a narrativa tenta compensar isso com blocos técnicos alternados por elementos visuais. Para a Oraclum, essa estrutura pode ser reformatada como vídeo dinâmico com cortes rápidos entre explicação humana e demonstração de uso da ferramenta.",
+            "estilo_de_legendas_animações": "As legendas são texto fixo em slides, sem animações ou destaque cinético. A tipografia é pequena em alguns blocos, dificultando a leitura. Para a Oraclum, seria ideal adaptar esse conteúdo para legendas estilo ‘word-pop’, com destaque em cyan ou amarelo neon, sincronizadas com narração em vídeo curto (6-15s) para reels ou shorts.",
+            "análise_de_ritmo_sons": "Não há trilha sonora ou efeitos sonoros no carrossel, o que deixa o conteúdo estático. Para a Oraclum, recomenda-se adicionar pattern interrupts visuais (pulsar em botões, zoom em tooltips) e micro-sons (clic, beep) em transições para manter a atenção sem sobrecarregar.",
+            "guia_de_edição_replicável": "1. Reformatar o carrossel em 3 segments: hook (slide 1), prova técnica (slides 2-3), call-to-action (slide 4). 2. Extrair trechos de código e prints do GitHub e animá-los como screen recording com zoom em funcionalidades. 3. Criar narração off com ritmo acelerado (150-160 WPM) e legendas sincronizadas. 4. Inserir transições rápidas (0.3s) entre explicação e demonstração. 5. Finalizar com CTA direcionado: 'Teste agora no GitHub' + link em bio."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reformatar o carrossel em vídeo dinâmico com narração, legendas cinéticas sincronizadas e demonstrações visuais rápidas da ferramenta para alinhar ao estilo de edição de vídeo e motion dinâmico da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.54,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/22-diegoalmeida-ia-1b8f2e"
+    },
+    {
+      "creative_id": "23-kevkevkiwi-9e1e81",
+      "platform": "instagram",
+      "creator": "@kevkevkiwi",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/kevkevkiwi/reel/DcCjvyAhU52/",
+      "rank": 23,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Os três primeiros segundos são apenas saudações e efeitos sonoros, sem qualquer exibição da ferramenta ou de seu resultado.",
+            "A menção ao software aparece somente em forma de instrução verbal a partir de 0:14, sem captura de tela ou gravação da interface em ação.",
+            "O prometido 'complete breakdown' não se materializa: não há passo‑a‑passo visual, apenas a oferta de enviar o prompt por DM.",
+            "O conteúdo foca em entretenimento (dragão) e não aborda nenhum caso de uso de IA aplicada a negócios ou eficiência.",
+            "Não há loop de retenção baseado em demonstração de processo; o engajamento depende de pedidos de comentário e reações exclamativas."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "Os primeiros três segundos consistem em saudações e sons exclamativos ('Be nice to me, please', 'Oh, oh, oh') sem qualquer visão da interface do Higgsfield ou da automação em ação.",
+            "demonstração_de_interfaceworkflow": "A partir de 0:14 o criador menciona abrir o Higgsfield.ai e selecionar C Dance 2.5, mas não há captura de tela ou gravação da tela mostrando o fluxo de trabalho; a demonstração permanece apenas verbal.",
+            "retenção_por_loops_de_processo": "Não há loop de processo claro que mantenha o espectador engajado através de etapas repetitivas ou visuais de construção; o conteúdo depende de exclamações e de um pedido de comentário para receber o prompt.",
+            "cumprimento_do_payoff": "O payoff prometido ('complete breakdown') não é entregue: não há passo‑a‑passo visual do efeito, apenas instruções verbais e a oferta de enviar o prompt por DM.",
+            "modelagem_recomendada_para_oraclum": "Para servir à Oraclum, o gancho deve mostrar imediatamente a tela do produto de IA aplicada a um caso de negócio (ex.: automação de relatórios) nos primeiros 2 s, seguido de uma sequência rápida de antes/depois que comprove ganho de eficiência."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substitua a abertura de sons e pedidos de comentário por uma demonstração direta da interface da Oraclum resolvendo um problema de negócio em menos de 2 segundos.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 6.0,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo utiliza um tom muito informal e motivacional, com excesso de exclamações e reforço emocional típico de influenciadores de IA, o que afasta o tom pragmático e técnico esperado pela Oraclum.",
+            "Apesar do conteúdo ser voltado para reprodução técnica de vídeo de IA (dragon-riding), há uma forte carga de engajamento superficial, como ‘comente DRAGON’ e ofertas de acesso gratuito, que não refletem o posicionamento de autoridade em automação e IA da Oraclum.",
+            "A estrutura do vídeo é puramente voltada para retenção de audiência e engajamento no Reels, priorizando o entretenimento sobre a educação técnica ou o storytelling com dados reais, o que discorda dos pilares da Oraclum."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O posicionamento do criativo é claramente voltado para criadores digitais e entusiastas de IA, focando em reprodutibilidade de conteúdo visual. No entanto, ele carece da densidade técnica e da postura de especialista que a Oraclum busca proje",
+            "grau_de_conexão_com_founderstechs": "Founders e techs valorizam conteúdo com valor prático mensurável e linguagem direta. Este criativo, apesar de engajador, prioriza o entretenimento e o clickbait, sem dados concretos ou insights técnicos profundos, reduzindo seu apelo direto a esse público.",
+            "mapeamento_nos_pilares_da_oraclum": "Apenas 10-15% do conteúdo pode ser enquadrado como tutorial técnico básico (uso do Higgsfield). O restante se enquadra em ‘bastidor’ com foco em engajamento e em ‘tendências’ por conta do meme do dragão. Não há espaço para os pilares de mindset ou inovação baseada em dados.",
+            "ajustes_de_linguagemvocabulário": "Substituir frases como ‘Be nice to me’ e ‘Oh no, no, no’ por instruções técnicas diretas. Remover emojis excessivos e substituir por diagramas ou chamadas visuais com especificações reais. O vocabulário precisa ser enxuto, sem apelo emocional, e centrado em processos e resultados."
+          },
+          "lexico_flags": [
+            "clickbait",
+            "DM com o prompt exato",
+            "excesso de exclamações",
+            "oferta limitada de acesso",
+            "reforço motivacional leve"
+          ],
+          "adaptacao_obrigatoria": "Reescrever o roteiro com linguagem técnica direta, substituindo interações emocionais e gatilhos de engajamento por explicações reais de parâmetros de geração e benchmarks de performance do modelo utilizados.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de 'Show, don't tell' extremamente eficaz ao demonstrar o output visual antes da explicação técnica.",
+            "Uso de gatilho de micro-comprometimento (comentar uma palavra) para aumentar o alcance orgânico via DMs.",
+            "Workflow de tutorial rápido (passo a passo) que reduz a barreira de entrada para o usuário.",
+            "O criativo foca em 'como replicar', o que gera alto valor utilitário e autoridade técnica."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Como gerar vídeos cinematográficos de alta escala usando este workflow de IA. 🚀",
+            "estrutura_do_texto_legibilidade": "O vídeo utiliza uma estrutura de demonstração imediata seguida de micro-tutorial. Para a Oraclum, a transição entre o 'resultado visual impressionante' e o 'passo a passo da automação' deve ser rápida e sem ruído.",
+            "análise_de_cta_call_to_value": "O CTA original ('Comment DRAGON') é excelente para engajamento. Devemos adaptar para: 'Comente [PALAVRA] para receber o workflow de automação' ou 'Acesse o tutorial completo via DM'.",
+            "filtro_de_léxico_flags": "Nenhum termo proibido da Oraclum foi detectado no criativo original. O foco foi puramente em processo e ferramenta."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o foco em 'entretenimento/dragão' por um benefício de 'ganho de tempo ou eficiência profissional' através do mesmo método de entrega via comentário/DM.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 4.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Estética visual baseada em conteúdo gerado por IA (dragões/fantasia), distante do minimalismo tecnológico Obsidian/Cyan da Oraclum.",
+            "Dependência excessiva de elementos orgânicos e cores quentes (fogo/laranja), que colidem com a paleta fria e escura do cliente.",
+            "Estrutura de tutorial 'passo a passo' com interface de ferramenta é altamente conversiva para o nicho de IA.",
+            "Legibilidade comprometida por overlays de texto genéricos que não seguem a hierarquia de design mobile-first da marca."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo utiliza tons quentes e saturados (fogo/laranja) que são opostos ao **Obsidian (#0F0C20)**. Para a Oraclum, a saturação deve ser concentrada nos destaques **Cyan (#00F0FF)** e **Purple (#8A2BE2)** sobre fundos profundos.",
+            "design_de_interface_capturas": "O uso de prints de tela da ferramenta Higgsfield é funcional, mas carece de molduras (frames) tecnológicas. Para o cliente, as capturas de interface devem ser encapsuladas em frames minimalistas com bordas em Cyan para reforçar o aspecto de software premium.",
+            "hierarquia_de_informação": "A progressão visual é clara (problema $\rightarrow$ ferramenta $\rightarrow$ prompt), porém a tipografia é inconsistente. Falta a aplicação de pesos visuais distintos para separar a instrução do CTA.",
+            "recomendação_de_ajustes_de_design": "Substituir todo o background orgânico por elementos abstratos em Obsidian e Purple. Aplicar tipografia sans-serif geométrica com alto contraste em Cyan para garantir legibilidade em telas mobile pequenas."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a estética de fantasia/fogo por um ambiente Dark Mode tecnológico utilizando a paleta Obsidian, Cyan e Purple, mantendo apenas a estrutura de tutorial de interface.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Uso eficiente de 'Pattern Interrupts' através de áudio/visual para manter a atenção em partes não técnicas.",
+            "Transição clara entre o resultado visual (o dragão) e a explicação do processo (software).",
+            "Call to Action (CTA) de comentário orgânico muito forte para gerar engajamento.",
+            "Pacing funcional, mas com excesso de 'filler audio' que pode dispersar o foco técnico."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "O criador alterna bem entre o 'resultado final' e a instrução de uso. Para a Oraclum, precisamos de zooms mais agressivos nos botões do software durante o trecho de 'Open up Higgsfield' para garantir que o usuário entenda o fluxo de interface sem esforço.",
+            "estilo_de_legendas_animações": "As legendas seguem um padrão de leitura rápida, mas falta o 'word-pop' cinético de alta performance. Para o cliente, as legendas devem ser centralizadas e usar cores de destaque (como o cyan mencionado na âncora) para termos técnicos cruciais.",
+            "análise_de_ritmo_sons": "O ritmo é sustentado por variações de áudio (os 'Oh/Hey'), o que impede o vídeo de ficar monótono. Contudo, para um vídeo de tutorial de IA, o ritmo deve ser mais seco e preciso, usando SFX de 'click' e 'woosh' sincronizados com os zooms de tela.",
+            "guia_de_edição_replicável": "1. Comece com o resultado impactante (High-end AI visual). 2. Corte rápido para a tela do software com zoom imediato na função explicada. 3. Use legendas dinâmicas que acompanham a fala. 4. Termine com um CTA de comentário para automação de DM."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir os excessos de áudio de reação ('Oh, oh, hey') por zooms de interface ultra-rápidos e legendas cinéticas focadas nos comandos do software para maximizar a retenção técnica.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.54,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/23-kevkevkiwi-9e1e81"
+    },
+    {
+      "creative_id": "24-ota-visual-c5cffc",
+      "platform": "instagram",
+      "creator": "@ota.visual",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/ota.visual/reel/Db_SVuNOsZA/",
+      "rank": 24,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 1.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Zero demonstração de valor técnico ou utilidade prática para founders/profissionais.",
+            "Conteúdo puramente estético e de entretenimento ('lifestyle/cinematic'), sem interface de software.",
+            "Ausência total de fluxo de automação, dashboard ou dado de eficiência.",
+            "O gancho é baseado em narrativa de fantasia/ficção, o que colide com a autoridade de IA aplicada da Oraclum."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O gancho é puramente auditivo e narrativo ('Eat the war...'), sem qualquer estímulo visual de ferramenta ou processo de IA. Não há demonstração de tecnologia nos primeiros segundos.",
+            "demonstração_de_interfaceworkflow": "Inexistente. O vídeo foca em estética visual de 'found footage' e não apresenta nenhuma interface de usuário, painel de automação ou fluxo de trabalho que interesse ao público de negócios.",
+            "retenção_por_loops_de_processo": "A retenção aqui é movida por curiosidade cinematográfica e estética, não por 'loop de curiosidade tecnológico' ou desejo de replicar um sistema de eficiência.",
+            "cumprimento_do_payoff": "O payoff é puramente sensorial/estético. Para o cliente Oraclum, onde o payoff deve ser a entrega de um tutorial ou resultado de automação, este criativo falha completamente.",
+            "modelagem_recomendada_para_oraclum": "Não há o que modelar estruturalmente para a Oraclum. O estilo é 'lifestyle/fantasy' e o cliente exige 'utilidade/eficiência'."
+          },
+          "lexico_flags": [
+            "motherfucker"
+          ],
+          "adaptacao_obrigatoria": "Não há adaptabilidade; este conteúdo é entretenimento puro e deve ser descartado para uma estratégia de autoridade em IA aplicada.",
+          "_model": "openrouter:google/gemma-4-26b-a4b-it:free"
+        },
+        "garyvee-mk": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente entretenimento/lifestyle sem utilidade técnica ou demonstrativa.",
+            "Linguagem excessivamente informal e agressiva ('motherfucker') que colide com a autoridade da Oraclum.",
+            "Falta de conexão com automação, dados ou o ecossistema de builders.",
+            "O apelo é estético/cinematográfico, não pragmático ou educacional."
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O criativo foca em uma estética de 'main character energy' e fantasia, o que é o oposto do posicionamento de competência e autoridade em IA da Oraclum. É conteúdo de entretenimento puro, sem qualquer camada de valor técnico ou inovação aplicada.",
+            "grau_de_conexão_com_founderstechs": "Nulo. Um founder real ou builder de IA não compartilharia esse conteúdo para discutir automação ou tendências; o vídeo não resolve problemas, não ensina ferramentas e não demonstra workflows.",
+            "mapeamento_nos_pilares_da_oraclum": "Não se encaixa em nenhum pilar. Não é tutorial, não mostra bastidor de implementação, não traz tendência de mercado e não possui o mindset de eficiência/dados exigido.",
+            "ajustes_de_linguagemvocabulário": "Não há o que ajustar; o tom é fundamentalmente incompatível. Para servir à Oraclum, o foco deveria sair do 'wizard/fantasia' para o 'builder/implementação'."
+          },
+          "lexico_flags": [
+            "motherfucker"
+          ],
+          "adaptacao_obrigatoria": "Descartar este formato de entretenimento surrealista e buscar conteúdos que demonstrem a capacidade técnica da IA através de visualizações de dados ou automações de workflow reais.",
+          "_model": "openrouter:google/gemma-4-26b-a4b-it:free"
+        },
+        "ladeira": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente entretenimento/estético sem qualquer proposta de valor utilitária.",
+            "Ausência total de gancho de eficiência, escala ou automação para o público Oraclum.",
+            "Headline e caption focadas em storytelling ficcional, sem conexão com workflow ou ferramenta.",
+            "Falta de estrutura de copy de meio de funil; o criativo não educa nem converte para utilidade prática."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Não é possível reescrever este criativo para a Oraclum, pois o conteúdo é um vídeo de entretenimento visual (wizard/found footage) e não possui um núcleo de solução técnica ou automação que justifique uma headline de eficiência.",
+            "estrutura_do_texto_legibilidade": "A estrutura atual é de entretenimento viral de baixa densidade de informação. Para o cliente, precisaríamos de uma estrutura de 'Problema (tempo gasto) -> Solução (IA/Automação) -> Prova (Workflow)'.",
+            "análise_de_cta_call_to_value": "O CTA original é inexistente no sentido de conversão de leads. Para a Oraclum, o foco deveria ser o acesso ao workflow ou teste da ferramenta, o que não tem aderência ao tema do vídeo original.",
+            "filtro_de_léxico_flags": "Nenhuma das palavras proibidas da Oraclum foi detectada, porém o conteúdo falha por ser irrelevante ao nicho de automação/produtividade."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar este criativo para a Oraclum, pois ele foca em estética de entretenimento e não possui um ângulo de utilidade, automação ou ganho de eficiência para ser adaptado.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Estética 'found footage' cinematográfica totalmente desconexa com a identidade tecnológica Oraclum.",
+            "Ausência total de elementos de interface, código ou componentes de UI.",
+            "Paleta de cores orgânica e saturada que colide com o Obsidian/Cyan/Purple.",
+            "Falta de hierarquia visual baseada em dados ou sistemas."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo utiliza tons cinematográficos e realistas que não possuem relação com o contraste de alto impacto do Obsidian (#0F0C20) e Cyan (#00F0FF). Não há aplicação de overlays tecnológicos ou luzes neon controladas que remetam à marca.",
+            "design_de_interface_capturas": "Não há uso de frames de código, prints de tela ou elementos de interface digital. O foco é puramente narrativo/cinematográfico, o que é o oposto da linguagem de 'software/wizardry' da Oraclum.",
+            "hierarquia_de_informação": "A hierarquia é puramente temporal (narrativa de vídeo). Para a Oraclum, a hierarquia deve ser baseada em camadas de informação técnica e legibilidade de dados sobrepostos.",
+            "recomendação_de_ajustes_de_design": "Descartar este estilo para campanhas diretas. Se o objetivo for 'mood', deve-se extrair apenas a ideia de 'wizardry' e traduzi-la para uma interface de terminal futurista usando a paleta oficial."
+          },
+          "lexico_flags": [
+            "motherfucker"
+          ],
+          "adaptacao_obrigatoria": "Não há o que adaptar; o estilo visual é diametralmente oposto à estética de interface tecnológica e minimalista da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 4.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente cinematográfico/estético sem componente de interface ou software.",
+            "Ausência total de transições entre apresentador e captura de tela (screen recording).",
+            "Ritmo focado em atmosfera e não em explicação técnica ou tutorial.",
+            "Linguagem e temática desconectadas do objetivo de conversão/educação da Oraclum."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "O vídeo é um 'found footage' cinematográfico. Não existe a alternância crucial que a Oraclum exige entre a fala do especialista e o zoom na interface do software.",
+            "estilo_de_legendas_animações": "As legendas são minimalistas para manter o clima de filme, o que é o oposto do 'word-pop' dinâmico e de alta legibilidade necessário para retenção de vídeos de IA/Software.",
+            "análise_de_ritmo_sons": "O ritmo é contemplativo e atmosférico. Para a Oraclum, o ritmo deve ser frenético, com *pattern interrupts* a cada 2-3 segundos para manter a atenção no processo técnico.",
+            "guia_de_edição_replicável": "Não há técnica de montagem de 'explainer video' para replicar aqui. O foco deste criador é storytelling visual puro, não demonstração de ferramenta."
+          },
+          "lexico_flags": [
+            "motherfucker"
+          ],
+          "adaptacao_obrigatoria": "Não há nada a adaptar; este estilo de 'cinematic storytelling' é irrelevante para o fluxo de demonstração de software da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 2.5,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/24-ota-visual-c5cffc"
+    },
+    {
+      "creative_id": "27-aitrendz-xyz-a83c8d",
+      "platform": "instagram",
+      "creator": "@aitrendz.xyz",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/aitrendz.xyz/reel/DcBZa4bBaW2/",
+      "rank": 27,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Ritmo de cortes extremamente rápido que mantém a retenção visual alta.",
+            "Estrutura de 'A -> B' (input -> output) que é ideal para demonstrar automações de IA.",
+            "Call-to-action (CTA) baseada em engajamento via comentário para entrega de lead magnet.",
+            "Falta de profundidade técnica; é um 'teaser' de valor, não um tutorial."
+          ],
+          "sections": {
+            "gancho_técnico_0_3s": "O gancho é puramente visual e rítmico. Ele não usa fala complexa, mas sim a promessa de 'use isso para criar aquilo', o que atrai founders que buscam atalhos de eficiência.",
+            "demonstração_de_interfaceworkflow": "A demonstração é fragmentada. Mostra a interface do software rapidamente, mas não permite que o usuário entenda o fluxo completo, funcionando mais como um catálogo de possibilidades do que um workflow.",
+            "retenção_por_loops_de_processo": "A retenção é gerada pela repetição do padrão 'Use this -> Create that'. Isso cria um loop de curiosidade: o usuário quer ver qual será a próxima combinação de ferramenta e resultado.",
+            "cumprimento_do_payoff": "O payoff não é entregue no vídeo, mas movido para o Direct (via comentário). Para a Oraclum, isso é eficiente para gerar leads, desde que a entrega posterior seja de alta qualidade.",
+            "modelagem_recomendada_para_oraclum": "Substituir os 'atalhos de ChatGPT' por 'fluxos de automação de negócios'. Mostrar a tela da ferramenta de IA da Oraclum fazendo a tarefa X e o resultado Y em cortes de 1.5s."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a promessa de 'atalhos genéricos' por demonstrações reais de eficiência e automação aplicada a negócios, mantendo a edição frenética.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 4.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Gancho visual de 'Input -> Output' é altamente eficiente para a comunidade de builders",
+            "A CTA de 'comente um emoji' é um clichê de infoproduto/growth hack que reduz a percepção de autoridade técnica",
+            "Conteúdo raso: foca em 'shortcuts' (atalhos) em vez de fluxos de automação ou arquitetura de IA",
+            "Ritmo acelerado e pragmático condiz com o consumo de conteúdo tech moderno"
+          ],
+          "sections": {
+            "auditoria_de_posicionamento": "O formato é excessivamente simplista. Para a Oraclum, a promessa de 'atalhos' soa como marketing de entrada, enquanto a marca deve se posicionar como provedora de soluções de automação robustas e dados reais.",
+            "grau_de_conexão_com_founderstechs": "Baixo. Um founder real não busca '500 shortcuts', mas sim eficiência operacional e escalabilidade. O vídeo atual atrai curiosos, não decisores técnicos.",
+            "mapeamento_nos_pilares_da_oraclum": "Enquadra-se superficialmente em 'Tutoriais (45%)', mas carece da profundidade técnica necessária para ser considerado um conteúdo educativo de alta autoridade.",
+            "ajustes_de_linguagemvocabulário": "Substituir a promessa de 'atalhos' por 'frameworks de prompt' ou 'arquiteturas de automação'. Eliminar a dinâmica de emojis por CTAs que convidem à análise de casos de uso."
+          },
+          "lexico_flags": [
+            "shortcuts"
+          ],
+          "adaptacao_obrigatoria": "Manter a estrutura visual de 'Use X para criar Y', mas substituir a entrega de 'atalhos' por a demonstração de um fluxo de automação real e a CTA por um convite para aprofundamento técnico.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 8.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de comparação visual 'Input vs. Output' extremamente eficaz para retenção em Reels.",
+            "Ritmo de edição rápido que demonstra utilidade prática sem necessidade de explicação verbal densa.",
+            "Mecanismo de engajamento via comentário (comment-to-DM) é um motor de escala de leads altamente eficiente.",
+            "Baixa fricção cognitiva: o usuário entende o benefício (o 'que') antes mesmo de entender o processo (o 'como')."
+          ],
+          "sections": {
+            "proposta_de_headline_rewrite_voz_oraclum": "Substituir o vago 'Use this to create that' por uma promessa de escala/eficiência. Exemplo: *'Como automatizar [Tarefa X] em segundos usando este workflow de IA'*. O foco deve ser o ganho de tempo ou produtividade.",
+            "estrutura_do_texto_legibilidade": "A estrutura visual é perfeita para mobile. No texto de apoio (caption), deve-se manter frases curtas e espaçadas, evitando parágrafos que bloqueiam a visão do vídeo.",
+            "análise_de_cta_call_to_value": "O CTA original ('Comment your favorite emoji') é excelente e alinhado à Oraclum, pois não vende, mas oferece um recurso (os shortcuts). Para o cliente, deve-se oferecer o acesso ao workflow ou ferramenta via comentário.",
+            "filtro_de_léxico_flags": "O criativo original é limpo e não utiliza termos sensacionalistas ou proibidos pelo manual da marca."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Mudar a promessa genérica de 'criar algo' para uma promessa específica de 'ganho de eficiência ou automação de processos' usando o workflow da Oraclum.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 4.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de loop rápido baseada em 'Input/Output' é altamente eficaz para retenção.",
+            "A dinâmica de 'Use this to create that' gera curiosidade imediata.",
+            "O CTA de comentário para automação/entrega de valor é um padrão de alta conversão.",
+            "O visual original é genérico e não respeita a estética tech de alta fidelidade da Oraclum."
+          ],
+          "sections": {
+            "análise_de_cores_contraste": "O criativo original utiliza cores genéricas de interface que não se alinham ao **Obsidian (#0F0C20)** da Oraclum. Para o cliente, devemos substituir o fundo padrão por tons escuros profundos, garantindo que o texto e elementos de destaque utilizem o **Cyan (#00F0FF)** para máxima leitura em mobile.",
+            "design_de_interface_capturas": "As capturas de tela atuais são puramente funcionais e sem acabamento de design. Para a Oraclum, as interfaces devem ser apresentadas dentro de frames limpos, possivelmente com overlays de brilho em **Purple (#8A2BE2)** para dar profundidade tecnológica.",
+            "hierarquia_de_informação": "A hierarquia é baseada apenas em texto centralizado, o que é funcional mas pobre visualmente. É necessário criar uma distinção clara entre o 'Prompt/Ferramenta' (em Cyan) e o 'Resultado/Output' (em branco ou Purple), criando um ritmo visual de causa e efeito.",
+            "recomendação_de_ajustes_de_design": "Substituir o fundo claro/neutro por **Obsidian**; aplicar tipografia técnica (monospaced ou sans-serif moderna); usar **Cyan** para destacar comandos e **Purple** para detalhes de interface ou transições; garantir que o texto não sofra interferência da UI do Instagram."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reestruturar o ritmo de 'Input vs Output' utilizando a paleta Obsidian/Cyan e aplicando uma estética de interface de código de alta fidelidade.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 8.5,
+          "veredito": "modelar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Loop de retenção extremamente agressivo usando a estrutura 'Use this to create that'.",
+            "Transições rápidas entre o 'gancho visual' e a prova de conceito (tela do software).",
+            "CTA (Call to Action) de alto engajamento focado em comentário para automação.",
+            "Ritmo de montagem sincronizado com a entrega de valor visual imediata."
+          ],
+          "sections": {
+            "dinâmica_apresentador_vs_captura_de_tela": "O criativo utiliza uma alternância rápida de 'Pattern Interrupts'. Ele mostra o resultado (o que pode ser criado) e logo em seguida o processo (o software), mantendo o espectador em um ciclo de curiosidade e demonstração técnica constante.",
+            "estilo_de_legendas_animações": "Legendas extremamente minimalistas e centralizadas, focadas em palavras-chave. Embora não usem o 'word-pop' colorido de alta intensidade, o posicionamento garante que a atenção não se desvie do centro da tela onde a ação ocorre.",
+            "análise_de_ritmo_sons": "O pacing é frenético, quase sem respiro, o que é ideal para o formato Reel. A cadência das frases curtas permite cortes secos que mantêm a energia lá no alto, evitando o tédio durante a explicação.",
+            "guia_de_edição_replicável": "1. Comece com o resultado final de impacto. 2. Faça cortes rápidos de 1-2 segundos alternando entre a face do apresentador e o zoom no botão/interface do software. 3. Termine com um CTA claro pedindo um emoji para entrega de bônus via DM."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o loop genérico 'Use this to create that' por demonstrações específicas das funcionalidades da Oraclum, mantendo o ritmo de cortes rápidos entre o apresentador e o zoom na interface.",
+          "_model": "openrouter:google/gemma-4-26b-a4b-it:free"
+        }
+      },
+      "total_score": 6.44,
+      "classification": "Bom 🟡",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/27-aitrendz-xyz-a83c8d"
+    }
+  ],
+  "chief_synthesis": {
+    "padroes_cross_criativo": [
+      "[cross: 02-miranhastudios-9f46e7, 03-rourke-307718, 05-krisspy-ia-f713e7, 06-diegoalmeida-ia-99c44d, 09-krisspy-ia-08ddfd, 18-gean-mech-826784, 23-kevkevkiwi-9e1e81] Ausência de demonstração visual imediata de interface, software ou automação nos primeiros 3 segundos.",
+      "[cross: 02-miranhastudios-9f46e7, 03-rourke-307718, 05-krisspy-ia-f713e7, 06-diegoalmeida-ia-99c44d, 13-airesearches-0535c0, 16-airesearches-75d93f, 18-gean-mech-826784, 22-diegoalmeida-ia-1b8f2e] Falta de alinhamento com a paleta de cores obrigatória Obsidian (#0F0C20), Cyan (#00F0FF) e Purple (#8A2BE2).",
+      "[cross: 02-miranhastudios-9f46e7, 03-rourke-307718, 05-krisspy-ia-f713e7, 06-diegoalmeida-ia-99c44d, 16-airesearches-75d93f, 18-gean-mech-826784, 22-diegoalmeida-ia-1b8f2e] Legendas estáticas ou com baixa legibilidade em mobile, sem o uso de animação cinética word-pop.",
+      "[cross: 23-kevkevkiwi-9e1e81, 27-aitrendz-xyz-a83c8d] Uso de gatilhos de micro-comprometimento via comentários para aumentar alcance orgânico."
+    ],
+    "criativos_modelar_diretamente": [
+      "27-aitrendz-xyz-a83c8d"
+    ],
+    "criativos_inspirar": [
+      "03-rourke-307718",
+      "06-diegoalmeida-ia-99c44d",
+      "13-airesearches-0535c0",
+      "14-artificialintelligence-co-5756c5",
+      "16-airesearches-75d93f",
+      "18-gean-mech-826784",
+      "22-diegoalmeida-ia-1b8f2e",
+      "23-kevkevkiwi-9e1e81"
+    ],
+    "criativos_ignorar": [
+      "02-miranhastudios-9f46e7",
+      "05-krisspy-ia-f713e7",
+      "09-krisspy-ia-08ddfd",
+      "24-ota-visual-c5cffc"
+    ],
+    "leituras_estrategicas": [
+      "[cross: 27-aitrendz-xyz-a83c8d, 23-kevkevkiwi-9e1e81] A estrutura de 'Input -> Output' e a demonstração do resultado visual antes da explicação técnica são os drivers de retenção mais eficazes.",
+      "[cross: 03-rourke-307718, 14-artificialintelligence-co-5756c5] O uso de dados concretos e métricas de eficiência ressoa melhor com a comunidade de builders e o tom profissional da Oraclum do que narrativas motivacionais."
+    ],
+    "proximos_passos": [
+      "[27-aitrendz-xyz-a83c8d] rodar *industrialize-video usando padrão de cortes rápidos e estrutura Input/Output para as funcionalidades da Oraclum.",
+      "[03-rourke-307718] rodar *design-creative para gerar interface em loop de processamento em tempo real inspirada no fluxo de VFX.",
+      "[06-diegoalmeida-ia-99c44d] rodar *design-creative para ajustar paleta para Obsidian/Cyan/Purple com contraste 4.5:1 para mobile.",
+      "[24-ota-visual-c5cffc] descartar e refazer baseando em 27-aitrendz-xyz-a83c8d focando em utilidade técnica."
+    ],
+    "_model": "openrouter:openrouter/free"
+  },
+  "validation_warnings": []
+}

@@ -1,0 +1,1074 @@
+{
+  "client": "tiago-elesbao",
+  "client_display": "Tiago Elesbão",
+  "date": "2026-05-23",
+  "platforms": [
+    "instagram"
+  ],
+  "agents_requested": [
+    "mrbeast-mk",
+    "garyvee-mk",
+    "ladeira",
+    "casey-neistat-img",
+    "sam-kolder-vid"
+  ],
+  "audit_config": "squads/virals-marketing-squad/data/clients/tiago-elesbao/audit-config.yaml",
+  "generated_at": "2026-05-23T14:32:13",
+  "synthesis_only": true,
+  "results": [
+    {
+      "creative_id": "01-hormozi-b9937e",
+      "platform": "instagram",
+      "creator": "@hormozi",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/people/p/DYpbhkCDsDv/",
+      "rank": 1,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro frame não entrega nenhum valor de bastidor, número ou processo relevante para founders D2C.",
+            "O loop aberto foca em uma notícia pessoal (gravidez) que não cria curiosidade sobre aquisição, IA ou growth.",
+            "Não há micro‑rewards de dados, gráficos ou evidências que sustentem a autoridade de Tiago.",
+            "A curva de energia é estática; a emoção é sentimental, não relacionada ao desafio de scaling ou CAC.",
+            "O payoff prometido (exclusividade da revista) não tem relevância para o avatar que busca resultados de negócio."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O slide 1 abre com uma foto casual e um selo \"EXCLUSIVE People PHOTOS\"; não interrompe a atenção do founder que procura insight de growth.",
+            "open_loops_detectados": "O único open loop é a curiosidade sobre a gravidez, que não leva a nenhuma lição de negócio ou número concreto.",
+            "micro_rewards_re_hooks": "Não há micro‑rewards como gráficos, números ou demonstrações de experimentos; tudo permanece no plano emocional.",
+            "curva_de_energia": "A energia permanece constante – celebração pessoal – sem picos de tensão ou reviravolta que mantenham a fome do founder até o fim.",
+            "payoff_satisfaction": "O payoff entrega apenas a confirmação da notícia; não cumpre a expectativa de aprendizado ou evidência de processo.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter o formato de carrossel raw pode ser útil, mas deve-se substituir o tema por bastidor de negócio, inserir números, processos e IA; remover foco pessoal que não agrega valor ao avatar."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o tema da gravidez por um caso real de decisão de growth (ex.: teste A/B de criador) que contenha número, evidência e contexto de IA.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo foca em storytelling pessoal de founders externos (Hormozi) e não traz nenhum bastidor, número ou processo do Tiago Elesbão.",
+            "A linguagem é emotiva e de mídia tradicional (ex.: “EXCLUSIVE People PHOTOS”), discrepante do tom direto, cru e técnico exigido para @tiagoelesbao.",
+            "Nenhum dos pilares de conteúdo (backstage, lessons, mindset, análise de mercado) é atendido; o post se enquadra apenas em “humanização de marca” genérica.",
+            "O formato de carrossel com imagens de anúncio de bebê não gera shareability relevante para founders D2C que buscam insights de aquisição, IA ou growth.",
+            "Embora não contenha palavras tabu, carece totalmente de evidência numérica, processo ou IA aplicada, requisitos essenciais do perfil."
+          ],
+          "sections": {
+            "vibe_classification": "A vibe é de celebridade/marketing de lifestyle, distante da autenticidade crua e técnica que Tiago deve transmitir. Falta o aspecto de ‘bastidor’ e a urgência de dados.",
+            "dor_do_avatar_atingida": "Nenhuma dor do avatar é abordada – não há menção a CAC, escala, automação ou falta de tempo; a única mensagem é emocional e de anúncio pessoal.",
+            "shareability_trigger": "O gatilho de shareability está na fama dos Hormozi e no selo “People”, que não ressoa com founders D2C que buscam conhecimento prático.",
+            "aderência_aos_pilares_de_tiago": "0% de aderência. O conteúdo não serve ao pilar de backstage (não mostra processo), nem lessons, mindset ou análise de mercado.",
+            "adaptação_obrigatória_de_léxicobordão": "Não há bordões proibidos, mas a linguagem precisa ser reformulada radicalmente para alinhar ao DNA ‘mostra > diz’ de Tiago."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar este criativo; nenhuma parte dele pode ser reutilizada sem reescrita completa que introduza número, processo, IA e foco no bastidor do próprio Tiago.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A headline/legend não fala ao founder D2C nem apresenta número, evidência ou bastidor.",
+            "O framework usado é meramente narrativo de anúncio pessoal, sem PAS, AIDA ou story‑based persuasivo.",
+            "Gatilhos mentais presentes são prova social (People) e curiosidade, mas falta autoridade real, novidade com dados e urgência concreta.",
+            "CTA de “Read more in our bio link” viola a regra de call‑to‑think e inclui chamada de ação de venda indireta.",
+            "Texto sobreposto nos slides não foi avaliado para legibilidade mobile, mas o design é de estilo corporativo de outra marca, não da paleta e fonte de Tiago."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Founder revela: nosso próximo passo incorpora IA no pipeline de aquisição — dados reais em 3 slides.",
+            "framework_detectado": "Nenhum framework persuasivo identificado; o carrossel funciona como comunicado de mídia, fora dos padrões PAS/AIDA/Story‑Based que Tiago usa.",
+            "gatilhos_mentais": "Presença de prova social (People) e curiosidade, porém faltam autoridade (número), novidade com evidência e urgência; não há gatilhos de medo de perda ou escassez alinhados ao avatar.",
+            "cta_analysis_adaptação_para_call_to_think": "Substituir “Read more in our bio link” por uma provocação tipo: “Você ainda acha que crescimento vem só de anúncios? Repense o processo abaixo ↓”.",
+            "léxico_flags": "Nenhum termo tabu detectado, mas o texto contém linguagem genérica de anúncio que não se encaixa na voz crua de Tiago."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Remover o CTA de bio e reformular todo o copy para mostrar número/evidência real, usando a estrutura PAS ou AIDA e terminando com uma pergunta provocadora.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A composição de duas imagens simples com selo EXCLUSIVE cria hierarquia clara, mas o uso de cores neutras (branco, cinza, azul) diverge da paleta quente preta‑âmbar da marca Tiago.",
+            "Tipografia não visível nos slides, porém o layout depende de texto discreto; será necessário aplicar a fonte Outfit (Bold/Regular) para manter a consistência tipográfica.",
+            "O espaçamento nas bordas parece respeitar margem, mas não há garantia de safe‑zone de 60 px; a re‑posicionamento dos elementos deve garantir essa zona para mobile‑first.",
+            "O conceito visual (casal real, bastidor íntimo) alinha ao arquétipo Herói e ao princípio “MOSTRAR > DIZER”, porém o selo de mídia (People) pode gerar confusão de autoridade fora do contexto de Tiago."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide 1 mostra o casal em um sofá claro com selo “EXCLUSIVE People PHOTOS”, reforçando exclusividade. Slide 2 repete a mesma cena com foco no logo da marca, mas ambos carecem de elementos de destaque em âmbar dourado ou laranja‑vermelho. A hierarquia visual é guiada pelo selo, não por tipografia ou cor de destaque.",
+            "aderência_à_paleta_tiago": "A paleta usada é neutra (branco, cinza, azul) e não incorpora o preto profundo #0B0B0F, o âmbar #FFB800 nem o laranja‑vermelho #FF4D2E. Portanto, a aderência à identidade visual de Tiago é baixa.",
+            "recomendação_de_adaptação_visual": "Substituir o fundo claro por um tom preto profundo ou aplicar um overlay escuro (opacidade 0.5) e inserir detalhes em âmbar nas chamadas de texto. Utilizar a cor de urgência #FF4D2E para indicadores de “novo” ou “bastidor”.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Mantém‑se a estrutura de duas imagens sequenciais, mas cada slide deve ter: 1️⃣ overlay preto denso; 2️⃣ headline em Outfit Bold em #FFB800; 3️⃣ corpo em Outfit Regular em branco; 4️⃣ safe‑zone 60 px; 5️⃣ ícone de “bastidor” em #FF4D2E para urgência."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Aplicar overlay preto + texto em Outfit (âmbar/dourado) respeitando safe‑zone 60 px para alinhar ao brand‑system de Tiago.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 3.06,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/01-hormozi-b9937e"
+    },
+    {
+      "creative_id": "02-publicitarioscriativos-0d16db",
+      "platform": "instagram",
+      "creator": "@publicitarioscriativos",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYp3lQsEQD0/",
+      "rank": 2,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 4.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro slide usa um visual altamente produzido e colorido que não corresponde ao estilo raw de celular que Tiago utiliza.",
+            "O texto foca em storytelling de marca e nostalgia, mas não traz números, bastidor ou prova concreta – requisitos críticos para o perfil de Tiago.",
+            "A estrutura de open loop (promessa de ‘mais detalhes nos próximos slides’) existe, porém o loop está ligado a um produto externo e não a um processo interno ou métrica do founder.",
+            "Micro‑rewards são imagens de produtos, não revelações de dados, gráficos ou insights operacionais que geram autoridade.",
+            "A curva de energia decai após o slide inicial porque a narrativa não apresenta conflito ou erro do founder a ser superado."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O slide 1 tenta interromper com uma porta roxa de *Friends*, mas o visual polido não se destaca num Reel de celular; o primeiro frame perde a urgência de vender a expertise do founder.",
+            "open_loops_detectados": "Existe um loop que convida a deslizar para descobrir a linha completa, porém o gancho não entrega promessa de bastidor, número ou processo – falha em nutrir a curiosidade do avatar que busca evidência prática.",
+            "micro_rewards_re_hooks": "Os únicos micro‑rewards são imagens de produtos e detalhes de design; faltam gráficos, métricas ou trechos de conversa real que funcionariam como recompensas rápidas para fundadores famintos por dados.",
+            "curva_de_energia": "A energia começa alta pela estética nostálgica, mas cai rapidamente porque não há conflito, erro ou pivô a ser seguido – o ritmo não mantém a fome do founder até o fim.",
+            "payoff_satisfaction": "O payoff entrega uma collab de beleza, não a promessa de aprendizado ou insight sobre aquisição, IA ou growth; o espectador sente que o objetivo original (mostrar processo) não foi cumprido.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: uso de open loop e sequência visual clara. Adaptar: trocar o visual polido por filmagem crua, inserir números reais, bastidor de decisão (ex.: como escolhemos a licença da Warner), mostrar falha/ajuste no processo e terminar com pergunta provocadora sobre IA ou CAC."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o storytelling de produto por um bastidor real: mostre o número da negociação, o erro ao escolher a referência e a solução, filmado no celular, e encerre com uma pergunta que provoque founders a refletirem sobre seus próprios processos.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo foca em campanha de beleza de terceiros, sem conexão ao universo D2C, IA ou growth que Tiago comunica.",
+            "Ausência total de número, evidência ou bastidor que são pilares da voz de Tiago (MOSTRAR > DIZER).",
+            "Linguagem e tom são genéricos de marketing de consumo; não há voz de founder, nem provocação ou crítica ao status quo.",
+            "Não atende à distribuição de pilares de conteúdo de Tiago (backstage, lessons, mindset, mercado).",
+            "Nenhum gatilho de autoridade ou insight de IA/automação que possa interessar o avatar de founders D2C."
+          ],
+          "sections": {
+            "vibe_classification": "A vibe é de marketing de produto beleza, doce e institucional, distante do tom cru, direto e técnico do founder Tiago.",
+            "dor_do_avatar_atingida": "Nenhuma dor do avatar foi abordada; o conteúdo fala de nostalgia e moda, não de CAC, escala, tempo ou automação.",
+            "shareability_trigger": "O gatilho de nostalgia pode gerar engajamento, mas não é algo que um founder D2C compartilha como aprendizado ou bastidor.",
+            "aderência_aos_pilares_de_tiago": "Zero aderência: não há backstage, nenhum case com número, nenhuma quebra de mito, nem análise de mercado relevante ao público‑alvo de Tiago.",
+            "adaptação_obrigatória_de_léxicobordão": "Não contém bordões proibidos, mas requer reformulação completa para alinhar ao léxico obrigatório (usar founder, bastidor, número, processo, etc.)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescreva o conteúdo incorporando número, bastidor e processo de construção da collab, usando voz de founder e focando nas dores de escala e IA para torná‑lo relevante ao avatar de Tiago.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A copy foca em nostalgia de série TV, tema irrelevante para founders D2C que buscam IA, aquisição e bastidor de growth.",
+            "Não há número, evidência ou bastidor real; falta o elemento de autoridade e prova social exigido pelo perfil de Tiago.",
+            "A estrutura usa linguagem de marketing de consumo (\"colecionáveis\", \"easter eggs\") que diverge do tom direto, crú e técnico da marca.",
+            "CTA implícito de compra, mas não há call‑to‑think; quebra a regra de evitar chamadas de venda direta.",
+            "Nenhuma palavra tabu foi identificada, mas o conteúdo viola o foco de posicionamento (não é “backstage”, “processo”, nem “sistema”)."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "A headline precisa refletir o bastidor de um founder construindo aquisição com IA, ex.: \"Como transformamos a colaboração de uma marca de beleza usando IA para reduzir CAC 45% em 30 dias\".",
+            "framework_detectado": "O carrossel segue um formato de storytelling visual típico de consumer brands (introdução‑detalhe‑informação), sem aplicar frameworks como PAS ou AIDA voltados ao founder.",
+            "gatilhos_mentais": "Presentes apenas gatilhos de nostalgia e exclusividade; não há autoridade real, novidade técnica, prova social de resultados ou urgência aplicável ao público B2B.",
+            "cta_analysis_adaptação_para_call_to_think": "Substituir a chamada implícita de compra por uma provocação: \"Você ainda acha que colaboração é só estética? Veja como o processo de IA mudou o cálculo de CAC nesta campanha\".",
+            "léxico_flags": "Nenhum termo da lista tabu foi usado, mas o vocabulário está fora do léxico autorizado (ex.: \"colecionáveis\", \"easter eggs\")."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever totalmente o copy para focar no bastidor de growth, inserir números/evidências e terminar com uma pergunta provocadora, descartando o enfoque nostálgico.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 3.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A hierarquia visual está clara, mas o uso de fontes não segue a família Outfit especificada.",
+            "A paleta dominante (roxo e amarelo) foge totalmente da identidade canônica de Tiago (preto, âmbar e laranja‑vermelho).",
+            "O safe‑zone de 60 px não é respeitado nas extremidades das imagens, comprometendo a legibilidade em mobile.",
+            "O overlay escuro está ausente; a imagem tem fundo claro que reduz o contraste necessário para texto branco.",
+            "Os elementos vetoriais são ricos, porém o estilo “cute” não reforça o arquétipo Herói/autoridade do cliente."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide 1 apresenta um fundo roxo com personagens estilizados e texto em branco, mas a tipografia não corresponde à Outfit Bold. Slide 2 continua a mesma paleta e não inclui overlay escuro, prejudicando a leitura em dispositivos móveis. O layout é mobile‑first, porém o espaçamento nas bordas é insuficiente para o safe‑zone de 60 px.",
+            "aderência_à_paleta_tiago": "Nenhum dos slides utiliza a cor primária #0B0B0F, nem os acentos âmbar #FFB800 ou laranja‑vermelho #FF4D2E. A predominância de roxo e amarelo cria confusão visual com a identidade da @virals, violando a diferenciação exigida.",
+            "recomendação_de_adaptação_visual": "Substituir o fundo roxo por preto profundo, aplicar overlays escuros (opacity 0.50) e usar o âmbar como destaque para elementos de chamada. Trocar a tipografia para Outfit Bold (título) e Outfit Regular (texto) mantendo a hierarquia. Respeitar o safe‑zone de 60 px em todos os slides.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "O layout de 3 slides pode ser mantido, mas deve-se adotar o grid da identidade Tiago: fundo #0B0B0F, blocos de texto em Outfit, destaque em #FFB800 e urgência em #FF4D2E. Inserir overlay escuro denso (0.50) e garantir margem interna de 60 px. Use ícones vetoriais minimalistas em branco para reforçar autoridade."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Mudar a paleta para preto profundo + âmbar (e laranja‑vermelho) e inserir overlay escuro 0.50, garantindo tipografia Outfit e safe‑zone de 60 px.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 3.09,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/02-publicitarioscriativos-0d16db"
+    },
+    {
+      "creative_id": "03-hormozi-6a6e2d",
+      "platform": "instagram",
+      "creator": "@hormozi",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/hormozi/p/DYob4z_Fb69/",
+      "rank": 3,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O visual minimalista cria alto contraste, mas falta o tom crú de bastidor que o avatar de Tiago busca.",
+            "Não há nenhum número, evidência ou processo real – quebra o princípio \"MOSTRAR > DIZER\" do brand.",
+            "A mensagem funciona como um slogan de guru; o perfil de Tiago evita pose de autoridade vazia e prefere mostrar erros e métricas.",
+            "Ausência de open loop concreto; a única provocação \"Agree?\" não cria expectativa de revelar bastidor ou dado.",
+            "Nenhum micro‑reward ou payoff é entregue ao espectador, gerando risco de frustração."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O primeiro frame exibe apenas texto em fundo branco com a foto de perfil; a interrupção é baixa porque não há elemento surpresa ou choque visual.",
+            "open_loops_detectados": "A única pergunta \"Agree?\" funciona como um loop fraco, mas não promete revelar número, erro ou processo que prenda a atenção até o fim.",
+            "micro_rewards_re_hooks": "Não há micro‑rewards – nenhum gráfico, número ou prova que apareça ao longo da imagem para recompensar o espectador.",
+            "curva_de_energia": "A energia permanece plana; a mensagem é estática e não escalona para manter a fome de conhecimento do founder.",
+            "payoff_satisfaction": "O payoff prometido (mudança de vida) nunca é entregue; não há demonstração de resultado ou evidência.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter o estilo direto e a tipografia limpa, mas remover a aura de guru; substituir o texto por um dado real de bastidor (ex.: \"Cortei 30% do CAC ao trocar X por Y\") e inserir foto de bastidor real em celular."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o slogan genérico por um número ou evidência de processo real e usar foto de bastidor ao estilo crú de celular.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo não apresenta nenhum número, evidência ou bastidor, violando o princípio \"MOSTRAR > DIZER\" da identidade de Tiago.",
+            "A mensagem foca em conselho genérico sem conexão direta com as dores do avatar (CAC, escala, IA, sono), falhando em empatia de audiência.",
+            "Formato de imagem única com texto minimalista não aproveita recursos nativos do Instagram (carrossel, reels, stories) para maximizar shareability.",
+            "Nenhum dos pilares de conteúdo de Tiago (backstage, lessons, mindset, análise de mercado) é atendido; o post seria classificado como “motivacional vazio”.",
+            "Embora o tom seja direto, falta o vocabulário obrigatório (founder, bastidor, número, processo, sistema) e contém linguagem genérica incompatível."
+          ],
+          "sections": {
+            "vibe_classification": "O post transmite uma vibe de conselho motivacional genérico, distante da voz crua, técnica e de bastidor que Tiago deve manter.",
+            "dor_do_avatar_atingida": "Nenhuma dor específica do avatar (CAC alto, necessidade de IA aplicada, falta de tempo) é abordada; o conteúdo não ressoa com as frustrações descritas.",
+            "shareability_trigger": "O único gatilho de shareability é a autoridade de Alex Hormozi, mas para a audiência de Tiago isso não gera identificação nem incentivo à partilha.",
+            "aderência_aos_pilares_de_tiago": "0% de aderência; o post não se enquadra em backstage, lessons, mindset ou análise de mercado e falha em trazer números ou processos.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão reservado foi usado, mas o vocabulário essencial da marca (founder, bastidor, número) está ausente."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descarte este criativo; ele não atende aos requisitos de evidência numérica, bastidor ou linguagem específica da marca Tiago.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A frase de impacto “Change who you're friends with.” gera curiosidade e urgência, mas não traz número ou evidência, quebrando a regra de “mostrar > dizer”.",
+            "O design minimalista (preto sobre branco) garante legibilidade mobile, mas o texto não está ancorado em nenhum dado de performance ou processo de IA, ausente de autoridade técnica de Tiago.",
+            "O formato segue um micro‑story (pergunta → resposta curta) parecido com AIDA, porém falta o elemento de prova social específica ao universo D2C/B2B.",
+            "Não há CTA; o caption “Agree?” tenta engajar, mas não se alinha ao call‑to‑think de Tiago que precisa provocar reflexão baseada em números.",
+            "Nenhum léxico‑tabu foi detectado; o conteúdo está livre de termos proibidos."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "A mudança mais rápida que você pode fazer no seu negócio: troque quem está no seu time de growth.",
+            "framework_detectado": "Estrutura de micro‑AIDA (Hook curto → Prompt de engajamento), mas falha ao não incluir a etapa de prova (Evidence) necessária para a voz de Tiago.",
+            "gatilhos_mentais": "Autoridade (nome reconhecido), curiosidade, urgência (promessa de mudança rápida). Falta de novidade real, prova social numérica e urgência baseada em dados de IA ou CAC.",
+            "cta_analysis_adaptação_para_call_to_think": "Substituir o “Agree?” por algo como: “Se o seu CAC ainda depende de anúncios, qual foi a última pessoa que você trocou no time para reduzir esse custo?” – mantém a provocação intelectual e exige reflexão.",
+            "léxico_flags": "O texto está alinhado ao vocabulário permitido; não há palavras tabu."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Inserir número/evidência (ex.: “reduzimos CAC em 42% ao trocar X por Y”) e reformular o CTA para uma pergunta que force o founder a analisar seu próprio time.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 4.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A hierarquia visual está bem definida, mas usa fundo branco e tipografia genérica, divergindo da identidade preto + âmbar de Tiago.",
+            "A paleta de cores não contém o accent #FFB800 nem o tom de urgência #FF4D2E, comprometendo a diferenciação frente à @virals.",
+            "Falta o overlay escuro denso (0.50) e a safe‑zone de 60 px exigida para legibilidade mobile‑first.",
+            "A tipografia não segue a família Outfit (Bold/Regular) recomendada, o que afeta consistência de marca."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "O slide apresenta foto circular, nome em negrito e texto preto sobre fundo branco. A composição é limpa, mas a falta de margem de segurança reduz a leitura em telas pequenas. Não há uso de elementos vetoriais ou overlays que reforcem a identidade de Tiago.",
+            "aderência_à_paleta_tiago": "Nenhum dos valores de cor corresponde à paleta canônica (#0B0B0F, #FFB800, #FF4D2E). O fundo branco gera contraste incompatível com a estética quente e densa do cliente.",
+            "recomendação_de_adaptação_visual": "Converter o fundo para preto profundo, inserir um overlay escuro (opacidade 0.5) e aplicar o accent âmbar nos títulos. Substituir a fonte atual por Outfit Bold para headlines e Regular para corpo, respeitando a safe‑zone de 60 px.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Mantém a estrutura de foto + citações curtas, porém reskin com a paleta de Tiago, overlay denso e tipografia Outfit. Ideal para carrossel \"quote slide\" que transmite autoridade direta."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Mudar o fundo branco para preto #0B0B0F, aplicar overlay 0.5 e usar tipografia Outfit nas cores âmbar #FFB800 para destaque.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 3.74,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/03-hormozi-6a6e2d"
+    },
+    {
+      "creative_id": "04-garyvee-3a1ec6",
+      "platform": "instagram",
+      "creator": "@garyvee",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/garyvee/p/DYqZdjSDITT/",
+      "rank": 4,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 3.0,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro frame (texto \"I want all of you to win…\") não tem pattern interrupt visual forte para a audiência de founders D2C; ele se apoia apenas em um pôr‑do‑sol genérico.",
+            "Não há open loop que prometa bastidor, número ou processo concreto, o que quebra a expectativa do avatar que busca prova‑técnica.",
+            "Micro‑rewards são inexistentes: não há gráfico, dado ou demonstração de resultado que justifique a retenção até o fim.",
+            "A curva de energia permanece plana; o visual é bonito, mas a mensagem não cria tensão nem pico de curiosidade.",
+            "O payoff é vazio – a frase final não entrega nenhum insight acionável, gerando frustração no espectador que espera conteúdo de fundo real."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O slide inicia com texto motivacional sobreposto a um pôr‑do‑sol, visualmente atraente, mas sem choque de contraste ou afirmação inesperada que quebre a rolagem do founder.",
+            "open_loops_detectados": "Nenhum open loop detectado; não há promessa de revelar número, erro ou decisão de bastidor que incentive o swipe ou a visualização completa.",
+            "micro_rewards_re_hooks": "Ausência de micro‑rewards: não há gráficos, números, screenshots de dashboard ou demonstração de IA que sirvam como pequenas recompensas ao longo do conteúdo.",
+            "curva_de_energia": "A energia fica estática – começa alta pelo visual, mas a mensagem plana não sustenta interesse, resultando em queda de atenção antes do final.",
+            "payoff_satisfaction": "O payoff entrega apenas um sentimento genérico de vitória; não cumpre nenhuma expectativa criada, deixando o espectador sem valor tangível.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter a estética crua de câmera de celular e o tom direto, mas substituir o texto motivacional por um micro‑case real com número, evidência e bastidor; inserir um open loop que prometa mostrar um erro ou decisão de IA no próximo frame."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar a mensagem genérica por um relato de bastidor com número concreto (ex.: “Acabei de cortar o CAC em 42% usando automação simples – veja como fiz no próximo slide”).",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 3.2,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A mensagem é genérica de motivação e não traz números, bastidor ou evidência concreta, fundamentais para a voz de Tiago.",
+            "O estilo visual (pôr‑do‑sol, texto manuscrito) é atraente, mas não se conecta ao universo D2C/B2B nem ao conceito de “bastidor”.",
+            "O copy utiliza vocabulário de auto‑ajuda (“motivation”, “inspiration”) que violaria a restrição de evitar linguagem de guru.",
+            "Não há referência a IA, sistemas de aquisição ou processos, pilares essenciais do posicionamento de Tiago.",
+            "A linguagem é de terceiros (GaryVee) e não usa a primeira pessoa do founder, elemento obrigatório para o perfil pessoal."
+          ],
+          "sections": {
+            "vibe_classification": "O conteúdo tem vibe motivacional de alto nível, porém superfícial e genérico; falta a crueza e o foco em resultados que definem a personalidade de Tiago.",
+            "dor_do_avatar_atingida": "Nenhuma dor central do avatar (CAC, escala, tempo, IA) é abordada; a única promessa é “todos vencerão”, o que não ressoa com fundadores que buscam dados e método.",
+            "shareability_trigger": "O visual emocional (pôr‑do‑sol) pode gerar compartilhamento por estética, mas a ausência de insight prático reduz a vontade de founders reais de dividir.",
+            "aderência_aos_pilares_de_tiago": "O post falha nos quatro pilares: não traz backstage, nem lessons com números, nem quebra‑mitos, nem análise de mercado; fica totalmente fora da distribuição de frequência desejada.",
+            "adaptação_obrigatória_de_léxicobordão": "Embora não haja palavras‑tabu, o tom precisa ser reformulado: substituir linguagem genérica por “número”, “processo”, “sistema” e usar a voz em primeira pessoa do founder."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescreva o copy focando em um caso real do próprio Tiago, trazendo número de CAC reduzido com IA e descrevendo o bastidor da decisão, usando linguagem direta e sem termos motivacionais vazios.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A mensagem usa linguagem genérica de motivação que não gera autoridade ou evidência numérica para founders D2C.",
+            "Não há gatilho de novidade, prova social concreta ou urgência; a única autoridade vem de um influenciador externo (Gary Vee), incompatível com a voz de Tiago.",
+            "A chamada para ação é inexistente; o post não contém nenhum CTA e nem provocação intelectual que se alinhe ao estilo \"call‑to‑think\".",
+            "O texto sobreposto tem boa legibilidade, mas o tom e o conteúdo não correspondem ao posicionamento crú, técnico e baseado em bastidor de Tiago."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Bastidor: como reduzimos o CAC em 60% usando IA + creators (dados reais).",
+            "framework_detectado": "Nenhum framework persuasivo claro (AIDA, PAS ou story‑based) foi identificado; a peça é apenas um slogan motivacional.",
+            "gatilhos_mentais": "Ausência de autoridade concreta, novidade ou prova social; apenas apelo emocional superficial.",
+            "cta_analysis_adaptação_para_call_to_think": "Inserir provocação do tipo: \"Se ainda acha que crescimento vem só de investimento em mídia, veja o que realmente mudou o jogo para nós ↓\".",
+            "léxico_flags": "O texto não contém palavras tabu, mas também não contém o léxico obrigatório (founder, bastidor, número, processo, sistema, evidência)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever completamente o criativo usando dados reais, linguagem de founder e um call‑to‑think que provoque reflexão sobre IA e CAC.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Hierarquia clara com texto central dominante, mas a tipografia manuscrita não segue a família Outfit exigida.",
+            "Uso intenso de laranja/vermelho do pôr‑do‑sol, conflita com a paleta oficial preto + âmbar dourado + vermelho‐urgência.",
+            "Safe‑zone aparente, porém o texto encosta nas bordas da imagem, violando a margem mínima de 60 px.",
+            "Overlay escuro inexistente; a imagem carece do overlay denso (opacity 0.5) que garante legibilidade e identidade.",
+            "Formato single‑post pode ser convertido para carousel‑quote, mas requer re‑grid e reposicionamento de elementos."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "O slide apresenta um fundo de pôr‑do‑sol vibrante, texto central em fonte manuscrita preta e assinatura de @GARYVEE na base. A composição usa contraste natural entre céu claro e texto escuro, mas não há overlay nem margens de segurança adequadas.",
+            "aderência_à_paleta_tiago": "A paleta visual está totalmente fora da identidade de Tiago: predomina laranja‑vermelho e amarelo, sem o preto profundo #0B0B0F nem o âmbar #FFB800. Também falta o tom de urgência #FF4D2E como destaque controlado.",
+            "recomendação_de_adaptação_visual": "Converter o fundo para um cenário escuro (preto ou cinza profundo) e aplicar um overlay denso (0.5) nas áreas de texto; substituir a tipografia manuscrita por Outfit Bold (headline) e Regular (body); inserir margens de 60 px ao redor de todo o conteúdo.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Estrutura de frase de impacto central pode ser reutilizada: colocar a citação “I want all of you to win…” como headline em Outfit Bold, usar a cor âmbar #FFB800 para palavras‑chave, acrescentar um slide de “bastidor” com número ou evidência, e terminar com uma pergunta provocadora."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Aplicar overlay escuro 50 % e substituir a tipografia por Outfit, respeitando a margem mínima de 60 px e a paleta preto + âmbar.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 3.4,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/04-garyvee-3a1ec6"
+    },
+    {
+      "creative_id": "05-garyvee-2d03e5",
+      "platform": "instagram",
+      "creator": "@garyvee",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/garyvee/reel/DYpBP1au7qD/",
+      "rank": 5,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O hook inicial (\"I'm 17\") não interrompe de forma única o padrão de atenção do avatar de founders D2C; ele apela a público genérico de jovens.",
+            "Ausência completa de open loops relevantes ao universo D2C/IA – o discurso vagueia entre vida pessoal e motivação sem prometer número, processo ou bastidor.",
+            "Micro‑rewards inexistem: não há gráficos, métricas ou provas tangíveis que alimentem a curiosidade do founder faminto por dados.",
+            "Curva de energia varia entre tom de conversa de coach e monólogo motivacional, não mantém a tensão de um caso real de growth.",
+            "Payoff final deixa o espectador sem ação concreta ou insight aplicável ao seu negócio, gerando frustração ou abandono."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O primeiro frame mostra o criador dizendo \"I'm 17\", que não tem conexão direta com a dor do avatar (CAC, IA, escala). Falha em causar interrupção relevante para founders.",
+            "open_loops_detectados": "Nenhum loop aberto que direcione para número, processo ou bastidor. O único \"loop\" é genérico – \"o que eu faria aos 17\" – que não entrega valor específico ao público alvo.",
+            "micro_rewards_re_hooks": "Não há micro‑rewards: faltam evidências, screenshots, gráficos ou demonstrações de resultados que criem pequenos olhares de recompensa ao longo do vídeo.",
+            "curva_de_energia": "A energia inicia alta, despenca ao entrar em linguagem motivacional genérica e nunca recupera ritmo de tensão ou urgência típica de um case de growth.",
+            "payoff_satisfaction": "O payoff promete inspiração, mas não entrega uma conclusão prática nem um número ou insight acionável; o espectador não ganha nada aplicável ao seu negócio.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: tom direto e crú, estilo de primeira pessoa. Adaptar: inserir bastidor real, números, processos de IA, open loops que prometam revelar um dado concreto. Remover: linguagem genérica de motivação sem prova, foco em público adolescente."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a mensagem motivacional genérica por um caso real de bastidor D2C com número de CAC/ROI e open loop que prometa mostrar o processo de aquisição via IA.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conteúdo é genérico de motivação sem números, evidência ou bastidor, quebrando o princípio \"MOSTRAR > DIZER\" da marca Tiago.",
+            "Falta de alinhamento com os pilares de Tiago – não há backstage, lesson case, mindset crítico ou análise de mercado relevantes ao D2C.",
+            "A linguagem é fluida, mas não incorpora o léxico obrigatório (founder, bastidor, número, processo, sistema) e não apresenta IA aplicada ou dados concretos.",
+            "O formato de reels pode servir, porém o tema e a execução não falam com a dor do avatar (CAC, escala, automação, falta de tempo)."
+          ],
+          "sections": {
+            "vibe_classification": "Motivacional amplo, estilo guru‑coach; não possui a crudeza, foco em número e bastidor que caracteriza a vibe de Tiago.",
+            "dor_do_avatar_atingida": "Nenhuma dor crítica do avatar (CAC, dependência de Meta Ads, necessidade de método) é abordada; o vídeo fala de escolha de carreira genérica.",
+            "shareability_trigger": "O gatilho de compartilhamento está na identificação pessoal com o discurso motivacional, mas não gera autoridade ou valor técnico para founders D2C.",
+            "aderência_aos_pilares_de_tiago": "0% de aderência – não se encaixa nos pilares de backstage, lessons‑cases, mindset‑mitos ou análise de mercado.",
+            "adaptação_obrigatória_de_léxicobordão": "O criativo não contém bordões proibidos, mas falta o léxico obrigatório (founder, bastidor, número, processo, sistema)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descarte este criativo; não atende às regras de voz, léxico e pilares de conteúdo de Tiago Elesbão.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A mensagem foca em motivação genérica para jovens, sem números, evidência ou bastidor que o avatar D2C valoriza.",
+            "Não há estrutura clara de framework persuasivo (AIDA/PAS) adaptada à jornada do founder; o discurso é amplo e inspiracional.",
+            "Ausência total de gatilhos de autoridade real, novidade ou urgência aplicáveis ao contexto B2B de growth e IA.",
+            "CTA inexistente ou incompatível; o texto não gera uma call‑to‑think que provoque reflexão do founder.",
+            "O tom está muito próximo de discurso de guru motivacional, contradizendo o princípio \"sem rodeio, sem promessa vazia\" da marca."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Nenhuma headline presente; criar uma frase curta que exponha número ou processo – ex.: \"17 anos, 0% de CAC: o que eu aprendi trabalhando no bar do meu pai\".",
+            "framework_detectado": "Nenhum framework persuasivo estruturado; o conteúdo flui como monólogo motivacional livre, sem sequência clara de Problema‑Agitação‑Solução ou Atenção‑Interesse‑Desejo‑Ação.",
+            "gatilhos_mentais": "Ausência de autoridade comprovada, prova social ou novidade; só há apelo emocional genérico que não ressoa com founders que exigem dados e bastidor.",
+            "cta_analysis_adaptação_para_call_to_think": "O vídeo não contém CTA; seria necessário inserir uma pergunta provocadora como \"Você ainda está seguindo o que 'deveria' fazer ou já está medindo seu CAC real?\".",
+            "léxico_flags": "Nenhuma palavra tabu detectada, mas o vocabulário está fora do léxico do cliente (ex.: \"influencer\", \"dream\", \"gonna\", \"fucking\" em excesso)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Desenvolver um novo criativo que mostre um bastidor real com números e processo, usando linguagem direta e provocando reflexão do founder.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "sam-kolder-vid": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook visual depende de close‑up do speaker em ambiente de escritório, enquanto Tiago precisa de corte imediato ao cenário de bastidor (celular, mesa de trabalho).",
+            "Ritmo de corte é longo, com longas falas sem jump‑cuts; o padrão de Tiago requer cortes secos a cada 1‑2s para manter atenção.",
+            "Color grading está neutro/bright, longe da LUT preto + âmbar que define a estética do founder.",
+            "Captions ausentes ou automáticas genéricas; Tiago usa legendas em fonte Outfit com accent âmbar #FFB800 e linguagem direta sem palavras‑tabu.",
+            "B‑roll apresenta cenas de entrevista estilo talk‑show; Tiago precisa de B‑roll crú de processos reais (ex.: dashboard, código, caixa de correio de IA)."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "A abertura mostra Gary Vee falando direto para a câmera com iluminação de estúdio; não há o ‘frame de primeira pessoa’ que Tiago usa para colocar o celular na mão e mostrar o ambiente de trabalho real.",
+            "ritmo_cortes": "Os cortes são longos e fluidos, mantendo a fala contínua; o padrão de Tiago exige cortes secos a cada 1‑2 segundos, eliminando silêncios e aumentando a sensação de urgência.",
+            "color_grading_adaptação_para_lut_tiago": "O vídeo apresenta cores neutras e saturação alta, incompatível com a LUT cinematic.cube (preto + âmbar). Seria necessário escurecer os tons, aplicar o matiz âmbar e reforçar contraste para gerar a atmosfera quente característica.",
+            "captions_flags_de_léxico": "Não há legendas no material; se adicionadas, precisariam usar a tipografia padrão, cor #FFB800 e evitar expressões como “fucking” que, embora não seja tabu no brand, foge do tom direto‑cru do founder.",
+            "b_roll_modelável_para_bastidor_tiago": "O B‑roll mostra Gary em plano estático; para Tiago seria preciso inserir cenas de bastidor: tela de analytics, automação IA, planilhas de CAC, montagem de campanha em celular."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reproduzir o formato de Tiago: corte seco a cada 1‑2 s, aplicar LUT preto+âmbar, inserir legendas âmbar em Outfit e substituir o B‑roll por material de bastidor real de aquisição e IA.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 2.23,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/05-garyvee-2d03e5"
+    },
+    {
+      "creative_id": "06-publicitarioscriativos-2a6dbb",
+      "platform": "instagram",
+      "creator": "@publicitarioscriativos",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYo8br7EWF9/",
+      "rank": 6,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 4.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro slide funciona como um pattern interrupt visual, mas não entrega a promessa de bastidor ou número que a audiência de Tiago espera.",
+            "Os open loops são genéricos (\"Qual desses cases mais chamou sua atenção?\") e não conduzem a um payoff relacionado ao founder ou a processos de aquisição.",
+            "Não há micro‑rewards de evidência concreta (dados, métricas, screenshots de resultados) – falta a camada de prova que sustenta a autoridade de Tiago.",
+            "A curva de energia decai após o slide inicial; o restante do carousel é informativo, mas não mantém a tensão de um caso real de founder.",
+            "O payoff se resume a uma pergunta aberta que gera engajamento, mas não entrega valor imediato nem demonstra número ou processo, frustrando a expectativa do avatar."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O slide 1 usa cores vibrantes e personagens reconhecíveis, gerando curiosidade imediata; porém, não contém a “venda” de valor (ex.: número, bastidor) que seria o primeiro frame para Tiago.",
+            "open_loops_detectados": "O único loop aberto é a enquete \"Qual desses cases mais chamou sua atenção?\", que não cria conexão com a jornada de um founder nem promete revelar números ou erros internos.",
+            "micro_rewards_re_hooks": "Não há micro‑rewards como gráficos de performance, screenshots de métricas ou trechos de bastidor; o conteúdo entrega apenas imagens de campanhas alheias.",
+            "curva_de_energia": "A energia alta no primeiro slide cai rapidamente; slides subsequentes permanecem estáticos e informativos, sem picos de tensão ou revelações que mantenham a atenção até o final.",
+            "payoff_satisfaction": "O payoff esperado (resposta à pergunta) depende do comentário do usuário, mas não cumpre uma promessa de insight prático ou número, deixando o espectador sem recompensa concreta.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: uso de visual forte e rápida captura de atenção nos primeiros segundos. Adaptar: substituir imagens de terceiros por bastidor próprio, inserir números reais de campanhas, abrir loops que prometam mostrar erro/processo e fechar com payoff que entrega dado ou aprendizado concreto."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar as imagens de terceiros por footage do próprio Tiago mostrando seu processo, inserindo métricas reais e fechando com um loop que entrega um número ou aprendizado concreto.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 3.2,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conteúdo é curatorial e informativo, mas falta a presença do founder (Tiago) e a narrativa de bastidor exigida.",
+            "Não há números, evidências ou processos concretos que sustentem as afirmações – quebra o princípio \"MOSTRAR > DIZER\".",
+            "O tom é genérico e amistoso, distante da voz crua, direta e técnica do arquétipo Herói do Tiago.",
+            "O formato de carrossel funciona no Instagram, porém a chamada final \"Qual desses cases mais chamou sua atenção?\" gera engajamento superficial, não provocação intelectual.",
+            "Nenhum elemento de IA aplicada ou dado de performance foi apresentado, reduzindo a relevância para o avatar que busca insights operacionais."
+          ],
+          "sections": {
+            "vibe_classification": "O criativo tem vibe de agência de criatividade: curadoria de cases, linguagem neutra e foco em entretenimento visual, distante da postura \"sem rodeio, sem promessa vazia\" do Tiago.",
+            "dor_do_avatar_atingida": "A dor do fundador D2C – necessidade de números, processos e evidências – não é atendida; o avatar busca aprendizado concreto, não apenas um resumo de campanhas.",
+            "shareability_trigger": "O gatilho de shareability está na curiosidade visual e nos personagens famosos, mas falta um elemento de provocação ou desafio que faria founders realmente compartilhar como aprendizado prático.",
+            "aderência_aos_pilares_de_tiago": "Cumpre parcialmente o pilar de \"analise-mercado\" ao mostrar campanhas, mas não entrega bastidor, lessons‑cases com dados ou mindset‑mitos; a aderência total fica abaixo de 20%.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão proibido foi detectado, porém o lexico deve incluir termos obrigatórios (founder, bastidor, número, processo, sistema, evidência) e excluir tabu."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever o carrossel colocando o Tiago como narrador, inserir números de performance das campanhas, mostrar o processo/IA usada e usar o vocabulário obrigatório (founder, bastidor, número, processo, sistema, evidência).",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 4.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A copy usa tom genérico de agência, distante da voz crua e data‑driven de Tiago Elesbão.",
+            "Falta de números, bastidor ou evidência concreta em todas as afirmações; quebra o princípio “MOSTRAR > DIZER”.",
+            "O CTA é uma pergunta aberta (“Qual desses cases mais chamou sua atenção?”) que não provoca reflexão estratégica nem gera a “call‑to‑think” esperada.",
+            "Não há qualquer menção a IA, processo ou sistema, elementos centrais do posicionamento do founder.",
+            "O layout visual contém texto sobreposto sem contraste garantido para mobile, comprometendo legibilidade."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Campanhas que realmente moveram a atenção da gente esta semana – sem hype, só número e decisão.",
+            "framework_detectado": "Segue estrutura de lista (enumerar cases) sem uso de frameworks persuasivos claros; poderia ser reformulado em PAS (Problema → Agitação → Solução) para gerar maior impacto.",
+            "gatilhos_mentais": "Tenta gerar curiosidade e prova social ao citar marcas conhecidas, mas não entrega autoridade real nem urgência porque carece de métricas ou bastidor.",
+            "cta_analysis_adaptação_para_call_to_think": "Transformar a pergunta final em uma provocação que force o founder a revisitar seu próprio processo, ex.: “Se você ainda não mede o ROI dessas campanhas, está no caminho errado. Como você vai mudar?”",
+            "léxico_flags": "O texto não contém palavras‑tabu, mas usa expressões como “vitrine” e “casas Bahia retorna” que soam de agência e precisam ser substituídas por linguagem de founder."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Remover o tom de curadoria de agência e inserir números, evidências e linguagem de founder, convertendo a pergunta em uma call‑to‑think que desafie a mentalidade do leitor.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 6.8,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A composição mistura 4 quadrantes em um único slide, gerando baixa hierarquia visual para o título principal;",
+            "A paleta utilizada (vermelho, verde, amarelo e azul) diverge da identidade canônica de Tiago (preto + âmbar + laranja‑vermelho), diluindo a diferenciação;",
+            "Tipografia sem referência à família Outfit e variação excessiva de pesos comprometem legibilidade mobile‑first;",
+            "Safe‑zone de 60 px não é respeitado nas bordas dos textos, especialmente nos cantos inferiores dos slides;",
+            "Ausência de overlay escuro denso (0.50) que é padrão da marca Tiago, reduzindo a consistência visual."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide 01 agrupa quatro peças publicitárias em um grid, o que impede o foco imediato no título “Campanhas e notícias mais criativas da semana”. Slides 02‑06 apresentam textos em fundos claros sem overlay, dificultando a leitura em dispositivos pequenos. O uso de setas e pontos de navegação está presente, mas a hierarquia entre título, subtítulo e rodapé está confusa em todos os slides.",
+            "aderência_à_paleta_tiago": "A paleta dominante do criativo é multicolorida (vermelho, verde, azul, amarelo), longe da combinação preto profundo #0B0B0F + âmbar #FFB800 + laranja‑vermelho #FF4D2E exigida. Apenas alguns elementos de texto em branco criam contraste, mas não há presença consistente dos acentos de cor da marca Tiago.",
+            "recomendação_de_adaptação_visual": "Re‑colorir o fundo de cada slide para preto profundo com overlay 0.5, aplicar o accent #FFB800 nos destaques de texto e usar #FF4D2E para chamadas de urgência. Substituir a tipografia por Outfit Bold para títulos e Outfit Regular para corpo, garantindo espaçamento de 60 px nas margens. Simplificar a composição a um cartão por slide, mantendo a hierarquia de título > número > descrição.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Utilizar o layout de single‑card carousel: (1) fundo preto com overlay denso, (2) barra superior com número do slide em #FF4D2E, (3) título em Outfit Bold 24 pt, (4) corpo em Outfit Regular 16 pt, (5) accent #FFB800 para ícones ou palavras‑chave, (6) rodapé com chamada de pensamento em caixa alta, sem CTA de venda."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Mudar a paleta para preto + âmbar + laranja‑vermelho e aplicar overlay escuro denso em todos os slides, reescrevendo a tipografia para Outfit conforme guidelines.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 4.58,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "inspirar",
+      "folder_rel": "instagram/06-publicitarioscriativos-2a6dbb"
+    },
+    {
+      "creative_id": "07-hormozi-a2c5a8",
+      "platform": "instagram",
+      "creator": "@hormozi",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/hormozi/reel/DYpE8ZnyTWc/",
+      "rank": 7,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro frame não interrompe a atenção nem vende a proposta de valor de Tiago; começa com narrativa genérica de outro founder.",
+            "Não há open loops claros que prometam bastidor, número ou processo específico do negócio de Tiago.",
+            "Falta de micro‑rewards: nenhum gráfico, número ou evidência visual que sustente a fala.",
+            "A curva de energia decai rapidamente, sem picos de tensão ou revelações que mantenham o founder‑fome até o final.",
+            "O payoff não entrega valor ao avatar (fundadores D2C) porque não conecta ao problema de CAC, IA ou aquisição."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O vídeo abre com uma descrição vaga de um negócio de ranch, sem choque visual nem promessa de valor imediato para o público de Tiago.",
+            "open_loops_detectados": "Nenhum loop aberto relevante ao perfil; as falas seguem uma sequência linear sem promessa de revelar número ou bastidor.",
+            "micro_rewards_re_hooks": "Ausência de recompensas rápidas como números, screenshots de métricas ou cortes de tela que mostrem resultados concretos.",
+            "curva_de_energia": "A energia permanece estável e baixa; não há variações que criem tensão ou expectativa crescente até o fim.",
+            "payoff_satisfaction": "O espectador não recebe nenhuma ação prática ou insight mensurável que justifique ter assistido até o final.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter a postura direta e crua, mas substituir o tema por um bastidor real de Tiago, inserir números e evidências, criar open loops que prometam mostrar o processo de hiring ou treinamento em sua própria empresa."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o conteúdo por um vídeo de Tiago mostrando, em celular, o processo real de avaliação e treinamento de funcionários da sua operação, com números de impacto e um open loop que revele o resultado ao final.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conteúdo foca em gestão de equipes e cultura organizacional, que não está entre as dores centrais do avatar (CAC, escala, IA, tempo de founder).",
+            "A linguagem é genérica e não traz números, evidências ou bastidor que sustentem as afirmações, violando o princípio \"MOSTRAR > DIZER\".",
+            "Não há conexão direta com os pilares de Tiago (backstage, lessons, mindset, análise de mercado) – o material seria classificado como \"mindset\" genérico, mas falta o tom de crítica ao status quo e o uso de dados concretos.",
+            "O formato é do perfil de outro founder (Hormozi) e não traz a voz única de Tiago (lexico restrito, ausência de palavras‑chave como \"founder\", \"bastidor\", \"número\").",
+            "Nenhum termo tabu foi detectado, porém o criativo utiliza jargões corporativos que podem soar distante do estilo crú e direto exigido."
+          ],
+          "sections": {
+            "vibe_classification": "O reel tem vibe de conselho empresarial genérico, mais próximo de conteúdo de consultoria do que do estilo cru, direto e baseado em números que Tiago busca.",
+            "dor_do_avatar_atingida": "Não aborda as dores principais do avatar (pressão de CAC, necessidade de IA aplicada, falta de tempo para construir audiência).",
+            "shareability_trigger": "Pouco provável que founders D2C compartilhem sem ver número ou bastidor concreto; o conteúdo carece de hook de autoridade pessoal.",
+            "aderência_aos_pilares_de_tiago": "Aderência baixa: não se encaixa em nenhum dos pilares (backstage, lessons, mindset, mercado) com a profundidade exigida.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão proibido foi encontrado, mas o léxico precisa ser substituído por termos do dicionário de Tiago (ex.: \"founder\", \"bastidor\", \"processo\")."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descarte este criativo; ele não cumpre os requisitos de números, bastidor e foco nas dores do avatar, portanto não pode ser adaptado para o perfil @tiagoelesbao.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A mensagem foca em gestão de time, tema fora do core de Tiago (growth via IA, creators e aquisição).",
+            "Copy não traz números, evidência ou bastidor, quebrando o princípio \"MOSTRAR > DIZER\" da marca.",
+            "Não usa nenhum gatilho de autoridade ou novidade ligados ao universo D2C/IA, nem urgência relevante para o avatar.",
+            "A estrutura não contém CTA de call‑to‑think; termina com agradecimento genérico.",
+            "Ausência de elementos de identidade visual e léxico próprio de Tiago (ex.: founder, bastidor, número)."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Como perder R$ 150k mensais ao deixar gestores medianos no comando – o que o seu pipeline de IA revela.",
+            "framework_detectado": "Nenhum framework persuasivo padrão reconhecível (AIDA, PAS ou story‑based) foi aplicado de forma clara.",
+            "gatilhos_mentais": "Ausência de autoridade (não há número ou evidência), falta de novidade para o público D2C, nenhuma prova social concreta, e urgência não está articulada.",
+            "cta_analysis_adaptação_para_call_to_think": "O vídeo termina sem CTA; para alinhar ao estilo Tiago seria necessário inserir uma pergunta provocadora, ex.: \"Você ainda aceita mediocridade na sua operação?\".",
+            "léxico_flags": "O texto não contém palavras proibidas, mas também não utiliza o léxico obrigatório (founder, bastidor, número, processo, sistema)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever o conteúdo focando em números reais de perda/ganho, usar o vocabulário da marca e terminar com uma provocação que induza reflexão.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "sam-kolder-vid": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook visual não entrega impacto imediato nos primeiros 3 s; começa com fala genérica e sem corte agressivo.",
+            "Ritmo de corte é fluido, mas utiliza cortes longos e fala contínua que diverge do estilo seco e jump‑cut do Tiago.",
+            "Color grading padrão do Instagram, sem aplicação do LUT preto+âmbar; o visual parece mais neutro/claridade alta.",
+            "Captions não seguem a paleta âmbar nem a tipografia de Tiago; ainda que não haja palavras‑tabu, o tom é institucional, não crua.",
+            "B‑roll consiste em imagens de estúdio e gráficos, não traz bastidor real de founder; não há evidência de celular ou ambiente de trabalho."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "O frame inicial mostra o criador em ambiente bem iluminado, sem contraste forte; não há corte seco ou elemento visual que force a atenção imediatamente.",
+            "ritmo_cortes": "Cortes são acompanhados de fala contínua, com poucos jump‑cuts; o ritmo é mais parecido com entrevista do que com o corte rápido que Tiago usa.",
+            "color_grading_adaptação_para_lut_tiago": "O vídeo está colorido de forma neutra; para alinhar ao padrão de Tiago seria necessário aplicar o LUT `cinematic.cube` (preto + âmbar) e reforçar contraste para destacar a tonalidade quente.",
+            "captions_flags_de_léxico": "As legendas estão corretas quanto à linguagem, mas não utilizam a cor de accent `#FFB800` nem a tipografia oficial; faltam números ou evidências que sustentem as afirmações.",
+            "b_roll_modelável_para_bastidor_tiago": "Não há B‑roll de bastidor real (celular, escritório, reunião); todo o material visual parece produzido em estúdio, incompatível com a estética “founder real”."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Recrie o vídeo com gravação de celular, aplique o LUT preto+âmbar, insira captions âmbar com números/evidências e use cortes secos nos primeiros 3 s para gerar hook imediato.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 2.3,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/07-hormozi-a2c5a8"
+    },
+    {
+      "creative_id": "08-publicitarioscriativos-3feea7",
+      "platform": "instagram",
+      "creator": "@publicitarioscriativos",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYrqVNtANAU/",
+      "rank": 8,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro frame mostra um personagem humorístico que gera curiosidade, mas não tem ligação com a narrativa de bastidor ou números do fundador.",
+            "Não há open loops que prometam revelar processo, erro ou dado concreto; a promessa é sobre sorteio da Copa.",
+            "O criativo foca em branding de produto (Clear) e humor de campanha, enquanto o perfil de Tiago exige evidência numérica e demonstração de sistema/IA.",
+            "Ausência total de micro‑rewards relevantes ao avatar (fundadores D2C) – não há gráficos, métricas ou bastidor de operação.",
+            "A curva de energia termina no convite ao sorteio, sem payoff que entregue valor ao founder‑avatar."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "A imagem usa o visual chamativo do ‘Fred Mercury Prateado’ dourado, um interrupt de atenção visual, porém não conecta ao core do público‑target de Tiago (fundadores D2C).",
+            "open_loops_detectados": "Nenhum open loop pertinente ao processo de construção de negócios, número ou lição foi identificado; o loop gira em torno do sorteio da Copa, fora do escopo da autoridade de Tiago.",
+            "micro_rewards_re_hooks": "O criativo não entrega micro‑rewards como números, gráficos ou bastidor de teste; o único “ganho” é a chance de ingresso, que não agrega valor ao avatar de founder.",
+            "curva_de_energia": "A energia sobe no primeiro segundo por causa da cor dourada, mas decai rapidamente ao não oferecer conteúdo educativo ou de prova, culminando em um CTA de sorteio que não sustenta a atenção até o fim.",
+            "payoff_satisfaction": "O payoff promete ingresso para a Copa, mas não cumpre a expectativa de aprendizado ou insight de growth; o espectador pode sentir frustração se busca conteúdo de negócio.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: uso de visual forte e inesperado para capturar o olho nos primeiros 3 s. Adaptar: substituir a narrativa de sorteio por um “bastidor” real – por exemplo, mostrar o teste A/B de criativo que gerou X% de CAC ↓, ou como a IA otimizou a segmentação. Eliminar todas as referências a promoção de produto externo."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Remover o foco no sorteio e inserir número/evidência de um processo real de growth que Tiago esteja conduzindo, mantendo o visual impactante.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo foca em branded content de um cliente (Clear) e não traz nenhum elemento de bastidor, número ou processo do founder Tiago.",
+            "A linguagem é descritiva e humorística, mas carece de autoridade, evidência ou conexão direta com a dor do avatar (CAC, escala, IA).",
+            "Não há alinhamento com nenhum dos pilares de conteúdo de Tiago (backstage, lessons, mindset ou análise de mercado).",
+            "O formato de imagem única pode ser repensado, mas o tema da campanha não serve como estudo de caso ou aprendizagem prática para founders."
+          ],
+          "sections": {
+            "vibe_classification": "A vibe do post é publicitária, focada em entretenimento e associação ao evento da Copa, sem o tom cru, direto e técnico que Tiago deve usar.",
+            "dor_do_avatar_atingida": "Nenhuma dor do avatar foi abordada; o conteúdo não fala de CAC, escalabilidade, IA ou falta de tempo para criar audiência.",
+            "shareability_trigger": "O gatilho de shareability vem da presença de um personagem humorístico e do sorteio da Copa, que não converte em autoridade para founders D2C.",
+            "aderência_aos_pilares_de_tiago": "0% de aderência – o post não encaixa nos pilares de backstage (40%), lessons (25%), mindset (20%) ou análise de mercado (15%).",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum termo tabu foi encontrado, mas o conteúdo ainda viola as diretrizes de foco e voz do perfil pessoal de Tiago."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descarte o criativo; ele não serve ao posicionamento de Tiago e precisa ser substituído por um conteúdo que mostre número, bastidor ou processo real de construção de negócio.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Copy não apresenta nenhum número, evidência ou bastidor que legitime a afirmação – quebra o princípio “MOSTRAR > DIZER”.",
+            "A voz é institucional de agências, distante da linguagem crua e direta de Tiago; falta de primeira pessoa e de provocação intelectual.",
+            "Não há CTA no estilo call‑to‑think; o texto apenas descreve a campanha sem provocar reflexão ou pergunta ao founder.",
+            "Embora use humor, o conteúdo não conecta com a dor dos founders D2C (CAC, escala, IA), nem traz relevância para aquisição B2B.",
+            "Nenhum gatilho de autoridade real (número, ROI, caso de uso IA) foi incluído; tudo é genérico e potencialmente “guru‑like”."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Clear tentou virar ouro com um humor barato, mas o número que importa é o CAC que caiu 27 % na campanha – veja o que realmente mudou no processo.",
+            "framework_detectado": "O texto segue um padrão de descrição de campanha (storytelling leve) sem estrutura persuasiva clara – não há PAS, AIDA ou story‑based de verdade.",
+            "gatilhos_mentais": "Aponta reconhecimento de personagem (autoridade de celebridade) e desejo de ingresso (urgência), mas falta prova social concreta, números ou evidência de resultado.",
+            "cta_analysis_adaptação_para_call_to_think": "Transforme o convite implícito em pergunta provocadora: “Você ainda acredita que apenas um meme gera venda? Reflita no seu funil abaixo ↓”.",
+            "léxico_flags": "Nenhuma palavra‑tabu detectada, porém o texto usa termos genéricos de agência que devem ser evitados."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescreva totalmente usando primeira pessoa, inserir números reais de performance e concluir com uma pergunta que force o founder a pensar no próprio processo.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A composição centraliza um personagem dourado que gera alta atenção, mas domina o frame, reduzindo espaço para texto legível em mobile.",
+            "A paleta predominante (dourado, marrom, verde) diverge da identidade oficial de Tiago (preto profundo + âmbar dourado + laranja‑vermelho) e introduz cor verde não permitida.",
+            "Tipografia não especificada, mas o texto parece estar em fonte genérica sem contraste adequado ao fundo bege, comprometendo legibilidade móvel.",
+            "Safe‑zone de 60 px não é visível na captura; a margem parece estreita, risco de corte nos reels/carrosséis.",
+            "O aspecto heroico está presente, porém o uso de humor visual não comunica diretamente a autoridade técnica ou o processo de IA que Tiago enfatiza."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "O slide único mostra um personagem totalmente dourado, fundo bege claro e o frasco da Clear. O foco visual está no rosto e no produto, deixando pouco espaço para textos de apoio. Não há indicação de overlay escuro denso (0.5) que é padrão da identidade de Tiago. Os elementos de UI (setas, pontos) sugerem um carrossel, mas o design carece de hierarquia clara entre headline e body.",
+            "aderência_à_paleta_tiago": "A cor dourada se aproxima do âmbar (#FFB800) mas o tom é mais quente e metálico, fora da variação aprovada. O verde do rótulo e o marrom do fundo são cores externas ao sistema de cores de Tiago, quebrando a diferenciação frente à @virals.",
+            "recomendação_de_adaptação_visual": "Reskin da arte usando fundo preto profundo (#0B0B0F) com overlay escuro 50 % para garantir contraste. Aplicar texto em Outfit Bold (headline) e Outfit Regular (body) em âmbar (#FFB800) como destaque, reservando o laranja‑vermelho (#FF4D2E) para chamadas de urgência. Manter safe‑zone de 60 px e inserir barra inferior de progressão para carrossel.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "✅ Estrutura de foco único no personagem pode ser reutilizada. ❌ Cores e tipografia precisam rework. ✅ O layout com espaço para headline, número/evidência e CTA de pensamento pode ser mantido, porém trocando as cores para a paleta de Tiago e adicionando overlay escuro."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o fundo para preto profundo, aplicar overlay escuro 0.5 e substituir todas as cores não‑autorizadas (verde, marrom) pelos tons âmbar e laranja‑vermelho da marca.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 3.45,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/08-publicitarioscriativos-3feea7"
+    },
+    {
+      "creative_id": "09-falajoaobranco-ffa061",
+      "platform": "instagram",
+      "creator": "@falajoaobranco",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/falajoaobranco/reel/DYqHhtYx33q/",
+      "rank": 9,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O hook inicial não interrompe o padrão da audiência de Tiago; começa falando de escolha de escola, tema irrelevante para founders D2C.",
+            "Ausência de open loops que conectem ao universo de aquisição, IA ou growth; os loops permanecem dentro do contexto educacional.",
+            "Nenhum micro‑reward com números, evidência ou bastidor de negócio que sustente a autoridade do founder.",
+            "Curva de energia plana após os primeiros 5‑10 segundos, sem picos de urgência ou surpresa para manter a atenção.",
+            "Payoff não entrega valor para o público‑alvo de Tiago – não há lição aplicável ao crescimento de negócios D2C."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O primeiro frame mostra uma história pessoal de troca de escola, que não gera curiosidade nem ruptura para a audiência de founders. Não há promessa de número, processo ou bastidor que indique relevância imediata.",
+            "open_loops_detectados": "Os loops são internos à narrativa sobre escolas (ex.: \"como vai ser esse negócio?\"), sem referenciar o universo de growth ou IA que prende o interesse do avatar.",
+            "micro_rewards_re_hooks": "Não há micro‑recompensas como gráficos, métricas ou demonstrações de resultados. O conteúdo entrega apenas anedotas sem evidência quantitativa.",
+            "curva_de_energia": "A energia inicia alta (contando história) e decai rapidamente, faltando elevações que reengajem o espectador. Não há retomada de ritmo ou surpresa até o final.",
+            "payoff_satisfaction": "O payoff final fala sobre tratar o cliente como público‑alvo, conceito genérico que não corresponde às dores específicas de founders (CAC, IA, escalabilidade). O espectador não sai com uma ação concreta.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: o estilo de narrativa crua e câmera de celular (pode ser reaproveitado). Adaptar: trocar o tema para bastidor de growth, inserir números/evidências, usar open loops que prometam mostrar processo de aquisição ou aplicação de IA. Eliminar anedotas fora do contexto D2C."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substitua o tema da escola por um caso real de decisão de aquisição ou teste de IA, incluindo número de leads, CAC ou ROI e mantendo a câmera de celular.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 2.3,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conteúdo foca em escolha de escolas e educação infantil, tema desconexo das dores de founders D2C (CAC, escala, IA, sistema de aquisição).",
+            "A linguagem é narrativa e genérica, sem números, evidências ou bastidor que sustentem a autoridade do founder Tiago.",
+            "Não há alinhamento com nenhum dos pilares de conteúdo de Tiago (backstage, lessons, mindset, análise de mercado).",
+            "O formato (reel de storytelling) pode ser compartilhável, porém falta a provocação ou call‑to‑think que gera engajamento do avatar."
+          ],
+          "sections": {
+            "vibe_classification": "A vibe é leve, mais voltada ao storytelling familiar, não possui o tom cru, direto e técnico que caracteriza o founder Tiago.",
+            "dor_do_avatar_atingida": "Nenhuma dor central do avatar (CAC alto, dependência de Meta Ads, necessidade de IA aplicada, falta de método) é abordada.",
+            "shareability_trigger": "Embora conte uma história curiosa, o gatilho de compartilhamento depende de identificação parental, não de founders D2C, reduzindo a probabilidade de ser replicado pela audiência alvo.",
+            "aderência_aos_pilares_de_tiago": "O criativo não entrega backstage, lessons com dados, quebra de mitos ou análise de mercado; portanto, está fora da distribuição de frequência dos pilares (40/25/20/15%).",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão reservado ou palavra tabu foi detectado, mas a falta de léxico obrigatório (founder, bastidor, número, sistema) impede a adequação."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar este criativo; ele não serve ao objetivo de Tiago e precisa ser substituído por conteúdo que mostre bastidor, números reais e aplicação de IA no growth D2C.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Copy não contém nenhum número, evidência ou bastidor – quebra o princípio “MOSTRAR > DIZER”.",
+            "Ausência total de linguagem de autoridade de founder; não há referência a IA, sistema ou processo de growth.",
+            "Formato de storytelling genérico (escolas) não se alinha ao avatar D2C / fundadores, nem gera urgência ou prova social relevante.",
+            "CTA inexistente; o vídeo termina sem provocação intelectual, violando o estilo CALL-TO-THINK do Tiago.",
+            "Texto sobreposto (se houver) não foi avaliado, mas a estrutura da mensagem não atende à legibilidade mobile típica de reels."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Como eu testei 3 modelos de educação para meus filhos e descobri o que funciona (e o que destrói) um negócio D2C.",
+            "framework_detectado": "Narrativa solta baseada em anedotas (sem estrutura clara). Poderia ser adaptado ao framework PAS: Problema (escolha de escola), Agitação (cenários extremos), Solução (aplicar o mesmo critério ao público‑alvo do founder).",
+            "gatilhos_mentais": "Nenhum gatilho forte presente; falta de autoridade real, novidade, prova social ou urgência. O texto só gera curiosidade vaga, sem números que sustentem a mensagem.",
+            "cta_analysis_adaptação_para_call_to_think": "O criativo não tem CTA. Para alinhar ao estilo do Tiago, inserir uma pergunta provocadora ao final, ex.: “Você já avaliou se o seu modelo de aquisição está mais parecido com uma escola de ranking ou com um laboratório de startups? Reflete aí ↓”.",
+            "léxico_flags": "O texto está livre de palavras tabu, mas também não usa o léxico obrigatório (founder, bastidor, número, processo, sistema, evidência)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a temática de escolas por um bastidor real de decisões de growth, inserir números/evidências e encerrar com uma pergunta CALL‑TO‑THINK que conecte ao desafio de CAC/IA dos founders.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "sam-kolder-vid": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook visual não apresenta Tiago, nem o estilo de câmera de celular; o frame inicial mostra terceiros sem autoridade.",
+            "Ritmo de corte é narrativo e fluido, porém distante da estética de cortes secos e jump‑cuts típicos de Tiago.",
+            "Color grading está fora do LUT preto+âmbar da marca, transparecendo cores naturais e clima luminoso.",
+            "Captions são genéricos, não seguem a paleta âmbar nem a tipografia da identidade visual.",
+            "B‑roll mostra cenas de escolas, nada relacionado ao bastidor de um negócio D2C ou ao processo de acquisition."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "Os primeiros 3 segundos exibem uma tomada estática de ambiente escolar, sem presença do founder ou elemento visual que indique autoridade de aquisição.",
+            "ritmo_cortes": "Cortes longos e continuação de fala, sem os cortes secos característicos de Tiago; falta de dinamismo imediato.",
+            "color_grading_adaptação_para_lut_tiago": "A imagem está superexposta e com balança de cores neutras; seria necessário aplicar o LUT cinematic.cube (preto + âmbar) e reduzir a temperatura para alinhar ao branding.",
+            "captions_flags_de_léxico": "As legendas reproduzem o discurso informal, mas não utilizam a cor de accent #FFB800 nem evitam palavras fora do léxico proibido; não há tabus detectados.",
+            "b_roll_modelável_para_bastidor_tiago": "O B‑roll retrata escolas e crianças, nada que corresponda ao bastidor de construção de negócios, automação ou IA; não é reutilizável."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir todo o conteúdo por filmagens do próprio Tiago mostrando seu processo de growth, aplicar o LUT preto+âmbar e usar captions âmbar com a tipografia oficial.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 2.07,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/09-falajoaobranco-ffa061"
+    },
+    {
+      "creative_id": "10-falajoaobranco-dbaea6",
+      "platform": "instagram",
+      "creator": "@falajoaobranco",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/falajoaobranco/p/DYpC6ogllnO/",
+      "rank": 10,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.7,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O primeiro slide cria um forte pattern interrupt com número grande e referência cultural, mas não coloca o founder Tiago como narrador.",
+            "Open loops são claros (promessa de “o que encontrei não tem nada a ver com o filme”), porém o conteúdo que segue foca em observações genéricas e não entrega bastidor ou evidência de processo.",
+            "Micro‑rewards aparecem apenas como números e imagens de filme, sem gráficos, métricas de campanha ou processos de IA que o avatar espera.",
+            "A curva de energia decai após o segundo slide porque falta progresso narrativo de erro → aprendizado → resultado.",
+            "O payoff deixa o espectador sem a resposta prometida (nenhum detalhe de estratégia, teste ou número de ROI), gerando frustração."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O slide 1 usa o número \"$254 milhões\" e a imagem icônica do filme para capturar atenção instantaneamente. O texto casual gera curiosidade, mas não menciona Tiago ou sua autoridade, o que reduz o efeito de venda do primeiro frame para o perfil pessoal.",
+            "open_loops_detectados": "Há um loop aberto na frase \"O que eu encontrei não tinha nada a ver com o filme\" que convida o usuário a deslizar. Outro loop surge ao citar \"todo chefe difícil virou Miranda Priestly\", prometendo um insight sobre marketing, mas nunca entrega um aprendizado concreto.",
+            "micro_rewards_re_hooks": "O único micro‑reward é a revelação do valor de $254 mi. Falta recompensas adicionais como gráficos, screenshots de dashboards ou trechos de código de IA que poderiam manter a fome do founder até o fim.",
+            "curva_de_energia": "A energia começa alta, cai no slide 2 quando o texto vira apenas storytelling cultural, e só tenta subir novamente em slides posteriores que ainda carecem de métricas ou processos. Não há picos de tensão‑resolução.",
+            "payoff_satisfaction": "O payoff esperado (descoberta inesperada, aprendizado aplicável) não é cumprido; o carrossel termina sem mostrar número, teste ou ação concreta, gerando sensação de vazio.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: uso de número impactante, referência cultural forte e open loop inicial. Adaptar: inserir Tiago como narrador (\"eu vi…\"), trazer bastidor real (screenshots de campanha, código IA), substituir storytelling genérico por dado de performance e fechar com pergunta provocadora que reflita a dor do avatar."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar a voz genérica por primeira pessoa de Tiago, incluir evidência de processo (ex.: captura de dashboard de campanha, código de automação) e fechar com uma pergunta que provoque reflexão sobre CAC ou IA.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "garyvee-mk": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O formato de carrossel usa curiosidade (gap de informação), mas a narrativa gira em torno de um filme e não de bastidor de construção de negócios D2C.",
+            "A linguagem é genérica e não traz número, evidência ou processo que ressoe com as dores do avatar (CAC, escala, IA, autonomia).",
+            "O conteúdo não se alinha aos pilares de Tiago (backstage, lessons, mindset, análise de mercado) e falha em posicionar o founder como herói técnico.",
+            "Não há violação de léxico tabu, mas também não há uso de termos obrigatórios (founder, bastidor, número, processo, etc.).",
+            "O CTA final pede simples comentário, o que não atende ao padrão de call‑to‑think do cliente."
+          ],
+          "sections": {
+            "vibe_classification": "O tom é leve e cultural, focado em nostalgia de cinema, distante da voz crua, direta e baseada em evidência que Tiago precisa.",
+            "dor_do_avatar_atingida": "Nenhuma dor principal do avatar (CAC alto, falta de método, necessidade de IA aplicada) é abordada; o conteúdo fala de entretenimento, não de negócios.",
+            "shareability_trigger": "Curiosidade sobre os \"$254 milhões\" pode gerar cliques, mas não cria shareability relevante para founders D2C que buscam conhecimento prático.",
+            "aderência_aos_pilares_de_tiago": "O post não entrega backstage, lessons‑learned, quebra‑de‑mitos ou análise de mercado; portanto, não cumpre a distribuição de 40/25/20/15% exigida.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão reservado foi usado, porém seria necessário substituir toda a narrativa por foco em bastidor, número e processo para ser aceitável."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descarte o criativo; ele não atende aos requisitos de vibe, conteúdo e pilares de Tiago e deve ser substituído por material que mostre números e bastidor de growth.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "ladeira": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook de curiosidade muito forte (gap de informação com os $254 mi), gera desejo de deslizar.",
+            "Uso de número concreto dá autoridade, mas falta de bastidor real que valide a afirmação.",
+            "CTA atual (“Comenta aqui se você gostou”) viola a regra de call‑to‑think e vira call‑to‑action de engajamento.",
+            "Tom do criador é mais informal e genérico; falta a voz crua, direta e baseada em evidência que Tiago usa.",
+            "Estrutura segue storytelling clássico (confissão → mistério → promessa de revelação), mas não traz framework persuasivo explícito (ex.: PAS)."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Os $254 mi do fim de semana do *Diabo Veste Prada* não vieram da cartela – veja o que realmente moveu o lucro.",
+            "framework_detectado": "Curiosidade‑Gap + Storytelling (confissão → problema → promessa). Poderia ser reforçado para PAS (Problema → Agitação → Solução) inserindo a dor de CAC alto e mostrando a solução baseada em IA.",
+            "gatilhos_mentais": "Autoridade (nome reconhecido, número exato), curiosidade (gap de informação), prova social implícita (referência cultural), novidade (bastidor de faturamento inesperado) e, potencialmente, urgência ao transformar o slide em sequência rápida.",
+            "cta_analysis_adaptação_para_call_to_think": "Substituir o convite de comentário por uma provocação que faça o founder refletir, por exemplo: *“Se ainda acha que cinema e marketing são mundos separados, está perdendo a chance de otimizar seu CAC. O que você faria diferente?”*.",
+            "léxico_flags": "Nenhuma palavra tabu foi detectada no criativo."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o CTA de comentário por uma pergunta provocadora que force o founder a pensar sobre a discrepância entre faturamento do filme e estratégia de growth.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        },
+        "casey-neistat-img": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A composição geral (texto grande acima, imagem de apoio abaixo) funciona bem para gerar curiosidade, mas a hierarquia textual usa cores fora da paleta canônica (preto e vermelho em vez de âmbar e laranja‑vermelho).",
+            "Tipografia está legível, porém não segue a família Outfit especificada; fontes parecidas foram usadas, o que quebra a consistência de design system.",
+            "O safe‑zone não foi respeitado: textos chegam a tocar as bordas da imagem, reduzindo a margem mínima de 60 px exigida para o feed do Tiago.",
+            "Overlay escuro denso (opacity 0.5) está ausente; o fundo claro diminui a sensação de autoridade visual típica da identidade de Tiago.",
+            "Os slides utilizam layout de rede social simulada, que conflita com a identidade “hero‑authoridade” (precisa de elementos visuais mais robustos, como barras de destaque âmbar)."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Os 11 slides seguem um storytelling em forma de carrossel, começando com um hook de curiosidade e avançando com textos em bloco e imagens de filme. O estilo de captura de tela de redes sociais cria familiaridade, mas gera ruído visual ao misturar elementos de UI que não pertencem ao brand‑system de Tiago. A tipografia, apesar de liminar, não é Outfit, e o contraste entre texto preto e fundo branco reduz a impressão de “bastidor escuro”.",
+            "aderência_à_paleta_tiago": "A paleta do criativo está centrada em preto, branco e vermelho puro, que diverge da paleta canônica do cliente (preto #0B0B0F, âmbar #FFB800, laranja‑vermelho #FF4D2E). Não há nenhum uso do accent amber nem do tom de urgência laranja‑vermelho, comprometendo a diferenciação visual frente à @virals.",
+            "recomendação_de_adaptação_visual": "Aplicar um overlay escuro (opacity 0.5) sobre todas as imagens, substituir os destaques vermelhos por #FF4D2E e usar blocos de texto em #FFB800 para números/chamadas. Re‑criar tipografia com a família Outfit (Bold nos headlines, Regular nos bodies) e garantir margem de safe‑zone de 60 px ao redor de todo o conteúdo.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "O layout de “hook + prova + takeaway” pode ser mantido, porém será necessário re‑skin completo: fundo preto #0B0B0F, blocos de destaque âmbar para números, tipografia Outfit, e inclusão de elementos vetoriais (setas, linhas) na cor laranja‑vermelho para reforçar urgência."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o esquema de cores para preto + âmbar + laranja‑vermelho e inserir overlay escuro 0.5, além de substituir a fonte atual por Outfit conforme brand‑guide.",
+          "_model": "openrouter:openai/gpt-oss-120b:free"
+        }
+      },
+      "total_score": 5.17,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "inspirar",
+      "folder_rel": "instagram/10-falajoaobranco-dbaea6"
+    }
+  ],
+  "chief_synthesis": {
+    "padroes_cross_criativo": [
+      "[cross: 01-hormozi-b9937e, 02-publicitarioscriativos-0d16db, 03-hormozi-6a6e2d] Repetida ausência de número, evidência ou bastidor nos key_findings e nas recomendações, indicando necessidade de inserir dados concretos em todos os criativos.",
+      "[cross: 01-hormozi-b9937e, 02-publicitarioscriativos-0d16db, 04-garyvee-3a1ec6, 06-publicitarioscriativos-2a6dbb, 08-publicitarioscriativos-3feea7, 10-falajoaobranco-dbaea6] Inconsistência de paleta de cores (uso de roxo, verde, amarelo, azul) que diverge da identidade oficial preto‑âmbar‑laranja‑vermelho da marca Tiago."
+    ],
+    "criativos_modelar_diretamente": [],
+    "criativos_inspirar": [
+      "04-garyvee-3a1ec6",
+      "06-publicitarioscriativos-2a6dbb",
+      "10-falajoaobranco-dbaea6"
+    ],
+    "criativos_ignorar": [
+      "01-hormozi-b9937e",
+      "02-publicitarioscriativos-0d16db",
+      "03-hormozi-6a6e2d",
+      "04-garyvee-3a1ec6",
+      "05-garyvee-2d03e5",
+      "07-hormozi-a2c5a8",
+      "08-publicitarioscriativos-3feea7",
+      "09-falajoaobranco-ffa061"
+    ],
+    "leituras_estrategicas": [
+      "[cross: 01-hormozi-b9937e, 05-garyvee-2d03e5] A maior parte dos criativos ignorados falha no princípio “MOSTRAR > DIZER”, carecendo de provas numéricas e bastidores, o que limita a credibilidade perante founders D2C.",
+      "[cross: 06-publicitarioscriativos-2a6dbb, 10-falajoaobranco-dbaea6] Criativos com potencial de adaptação já apontam a necessidade de overlays escuros e tipografia Outfit, reforçando que a identidade visual deve ser central para qualquer nova produção."
+    ],
+    "proximos_passos": [
+      "[01-hormozi-b9937e] descartar e refazer baseando em requisitos de número e bastidor, inserindo overlay preto+âmbar conforme adaptacao_obrigatoria de @casey-neistat-img.",
+      "[02-publicitarioscriativos-0d16db] rodar *design-creative para gerar carousel com paleta preto‑âmbar‑laranja‑vermelho e overlay 0.5, seguindo orientação de @casey-neistat-img.",
+      "[03-hormozi-6a6e2d] rodar *industrialize-video usando padrão de overlay preto #0B0B0F e tipografia Outfit conforme @casey-neistat-img.",
+      "[05-garyvee-2d03e5] descartar e refazer criativo incorporando número de CAC/ROI e open loop de IA, alinhado ao modelo de @mrbeast-mk para reels.",
+      "[07-hormozi-a2c5a8] descartar e criar novo vídeo de bastidor com gravação celular, LUT preto+âmbar e captions em Outfit, seguindo adaptacao_obrigatoria de @sam-kolder-vid.",
+      "[08-publicitarioscriativos-3feea7] rodar *design-creative para gerar imagem única com fundo preto profundo, overlay 0.5 e tipografia Outfit, conforme @casey-neistat-img.",
+      "[09-falajoaobranco-ffa061] descartar e desenvolver reel focado em decisão de IA com métricas de leads e CAC, aplicando cortes secos a cada 1‑2 s como orientado por @sam-kolder-vid."
+    ],
+    "_model": "openrouter:openai/gpt-oss-120b:free"
+  },
+  "validation_warnings": []
+}

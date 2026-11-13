@@ -1,0 +1,152 @@
+{
+  "slug": "CUR-l06-predadores-rio-40s",
+  "takes": [
+    {
+      "arquivo": "t01-quatro-apiraiba.png",
+      "etiqueta": "quatro-apiraiba",
+      "consulta": "large catfish underwater river",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t02-quatro-apiraiba.png",
+      "etiqueta": "quatro-apiraiba",
+      "consulta": "large catfish underwater river",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t03-quatro-apiraiba.png",
+      "etiqueta": "quatro-apiraiba",
+      "consulta": "large catfish underwater river",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t04-tres-opeixetigr.png",
+      "etiqueta": "tres-opeixetigr",
+      "consulta": "tiger fish river africa",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t05-tres-opeixetigr.png",
+      "etiqueta": "tres-opeixetigr",
+      "consulta": "tiger fish river africa",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t06-tres-opeixetigr.png",
+      "etiqueta": "tres-opeixetigr",
+      "consulta": "tiger fish river africa",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t07-dois-ojacareacu.mp4",
+      "etiqueta": "dois-ojacareacu",
+      "consulta": "caiman alligator in river",
+      "duracao": 7,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 30852996,
+      "autor": "György Lakatos",
+      "url": "https://www.pexels.com/video/crocodile-swimming-in-mangrove-waters-30852996/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t08-dois-ojacareacu.mp4",
+      "etiqueta": "dois-ojacareacu",
+      "consulta": "caiman alligator in river",
+      "duracao": 11,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 30805893,
+      "autor": "Marilda Alves Rosa",
+      "url": "https://www.pexels.com/video/alligator-resting-by-a-green-pond-30805893/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t09-dois-ojacareacu.mp4",
+      "etiqueta": "dois-ojacareacu",
+      "consulta": "caiman alligator in river",
+      "duracao": 8,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 8838078,
+      "autor": "Los Muertos Crew",
+      "url": "https://www.pexels.com/video/an-american-crocodile-8838078/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t10-um-asucuri.png",
+      "etiqueta": "um-asucuri",
+      "consulta": "anaconda large snake water",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t11-um-asucuri.png",
+      "etiqueta": "um-asucuri",
+      "consulta": "anaconda large snake water",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t12-um-asucuri.png",
+      "etiqueta": "um-asucuri",
+      "consulta": "anaconda large snake water",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t13-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "amazon river aerial jungle",
+      "duracao": 23,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 35527402,
+      "autor": "MELQUIZEDEQUE ALMEIDA",
+      "url": "https://www.pexels.com/video/scenic-aerial-view-of-lush-river-landscape-35527402/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t14-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "amazon river aerial jungle",
+      "duracao": 11,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 39387422,
+      "autor": "Juan Camilo Trujillo  Botero 🇨🇴📸",
+      "url": "https://www.pexels.com/video/lush-green-tropical-forest-aerial-view-39387422/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

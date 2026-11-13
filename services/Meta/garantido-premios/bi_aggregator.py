@@ -630,6 +630,83 @@ def agrupar_canal(canal_atribuicao):
     return "Direto/Orgânico/Desconhecido"
 
 
+def enriquecer_com_utm_touches(df_pedidos):
+    """Mesmo princípio de bi_aggregator.py::enriquecer_com_utm_touches do
+    Império, adaptado pros nomes de coluna lowercase da tabela `pedidos`
+    da Garantido. Achado 2026-11-13 (founder, auditoria ao vivo): a
+    plataforma (mesmo white-label do Império) também não grava UTM de
+    anúncio no payload real do webhook — confirmado em 132/132 pedidos do
+    dia, nenhum com utm_source de Meta, mesmo com a campanha ativa e
+    gastando. `apps/utm-capture-garantido` já captura {fbp, utm_*} direto
+    no navegador via GTM desde 2026-11-12 — esta função é o lado que
+    faltava: ler `utm_touches` (Supabase) e cruzar por `fbp` com o touch
+    mais recente, só preenchendo onde `utm_source` ainda está vazio
+    (nunca sobrescreve UTM real vinda do webhook, se um dia a plataforma
+    passar a mandar). Sem isso, a classificação de canal nunca via
+    'UTM: meta' — só 'Meta (pixel, sem clique confirmado)' na melhor das
+    hipóteses, mesmo pra clique pago de verdade."""
+    df = df_pedidos.copy()
+    if not GARANTIDO_SUPABASE_URL or not GARANTIDO_SUPABASE_SERVICE_ROLE_KEY:
+        return df
+    if "fbp" not in df.columns or df.empty:
+        return df
+
+    fbps = sorted({str(v) for v in df["fbp"].tolist() if v})
+    if not fbps:
+        return df
+
+    touch_por_fbp = {}
+    headers = {
+        "apikey": GARANTIDO_SUPABASE_SERVICE_ROLE_KEY,
+        "Authorization": f"Bearer {GARANTIDO_SUPABASE_SERVICE_ROLE_KEY}",
+    }
+    LOTE = 100  # fbp é string longa (~40 chars) — lote menor pra não estourar URL
+    try:
+        for i in range(0, len(fbps), LOTE):
+            lote = fbps[i : i + LOTE]
+            ids_filtro = ",".join(lote)
+            url = (
+                f"{GARANTIDO_SUPABASE_URL}/rest/v1/utm_touches"
+                f"?fbp=in.({ids_filtro})"
+                f"&select=fbp,utm_source,utm_medium,utm_campaign,utm_content,utm_term,captured_at"
+                f"&order=captured_at.desc"
+            )
+            resp = requests.get(url, headers=headers, timeout=30)
+            if not resp.ok:
+                print(f"⚠️ enriquecer_com_utm_touches: falha ao consultar Supabase ({resp.status_code}) — seguindo sem enriquecer este lote.")
+                continue
+            for row in resp.json():
+                # primeira ocorrência de cada fbp = mais recente, por causa do order=captured_at.desc
+                touch_por_fbp.setdefault(row["fbp"], row)
+    except Exception as e:
+        print(f"⚠️ enriquecer_com_utm_touches: erro de rede ({e}) — seguindo sem enriquecer.")
+        return df
+
+    if not touch_por_fbp:
+        return df
+
+    campos = [("utm_source", "utm_source"), ("utm_campaign", "utm_campaign"), ("utm_content", "utm_content")]
+    preenchidos = 0
+    for idx, row in df.iterrows():
+        ja_tinha = str(row.get("utm_source") or "").strip() != ""
+        if ja_tinha:
+            continue
+        fbp = str(row.get("fbp") or "")
+        achado = touch_por_fbp.get(fbp)
+        if not achado:
+            continue
+        for col_df, col_supabase in campos:
+            if col_df not in df.columns:
+                df[col_df] = None
+            valor = achado.get(col_supabase)
+            if valor:
+                df.at[idx, col_df] = valor
+        preenchidos += 1
+
+    print(f"✅ UTM via utm_touches (fbp): {preenchidos} pedido(s) preenchido(s) a partir de {len(touch_por_fbp)} fbp(s) com touch registrado.")
+    return df
+
+
 def preparar_df_pedidos(df_raw):
     """Prepara colunas derivadas (_data_ord, _chave_cliente,
     Primeira_Compra_Na_Janela, Canal_Atribuicao, _lucro_estimado) — mesmo
@@ -638,6 +715,7 @@ def preparar_df_pedidos(df_raw):
     df = df_raw.copy()
     df["_data_ord"] = pd.to_datetime(df["paid_at"], errors="coerce", utc=True)
     df = df.dropna(subset=["_data_ord"]).sort_values("_data_ord").reset_index(drop=True)
+    df = enriquecer_com_utm_touches(df)
 
     def chave(row):
         if row.get("user_phone"):

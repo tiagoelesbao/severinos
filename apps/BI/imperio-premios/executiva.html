@@ -93,8 +93,8 @@
     </div>
   </div>
 
-  <h2>Faturamento do site por dia — janela 21h30 (contexto do negócio, não só esta campanha)</h2>
-  <p class="periodo-label">Dia de negócio real do cliente: fecha às 21h30 (fim do último sorteio do dia), não à meia-noite — ver prova em <code>prova-atribuicao-faturamento-diario-2026-10-16.md</code>.</p>
+  <h2>Faturamento do site por dia — janela 21h45 (contexto do negócio, não só esta campanha)</h2>
+  <p class="periodo-label">Dia de negócio real do cliente: fecha às 21h45 (horário real da rodada COR, o último sorteio do dia — corrigido 2026-11-13, era 21h30), não à meia-noite — ver prova em <code>prova-atribuicao-faturamento-diario-2026-10-16.md</code>.</p>
   <div class="tabs-dia" id="tabs-dia">
     <button data-modo="faturamento" class="ativo">Faturamento</button>
     <button data-modo="lucro_estimado">Lucro (após prêmio)</button>
@@ -102,10 +102,10 @@
   <div class="table-wrap" style="padding:16px;">
     <div class="bars" id="diario-bars"></div>
   </div>
-  <p class="periodo-label">Clique num dia pra ver a composição por sorteio. "Lucro" desconta o custo de prêmio dos sorteios (rateado por pedido) — sorteio sem prêmio identificável no título entra sem desconto. <span style="color:var(--blue-light)">Fatia azul-clara</span> na barra = baixa manual (número marcado "pago" por um admin, não venda real — já incluído no valor total, decomposto aqui só pra visibilidade).</p>
+  <p class="periodo-label">Clique num dia pra ver a composição por sorteio. "Lucro" desconta o custo de prêmio dos sorteios (rateado por pedido) — sorteio sem prêmio identificável no título entra sem desconto. <span style="color:var(--blue-light)">Fatia azul-clara</span> na barra = baixa manual (número marcado "pago" por um admin, não venda real — já incluído no valor total, decomposto aqui só pra visibilidade). <strong>A barra mostra caixa do dia (venda real, não importa quando o sorteio fecha); a tabela que abre ao clicar mostra os sorteios que FECHARAM naquele dia (que pode ter vendido em dias diferentes) — os dois totais podem não bater, de propósito.</strong></p>
 
   <h2>Faturamento do site por dia — janela 24h (meia-noite, padrão convencional)</h2>
-  <p class="periodo-label">Mesmo dado, agregado pela hora/data real da compra (meia-noite a meia-noite) — a janela "de antes", pra comparar lado a lado com a de 21h30 acima. Pedido do próprio cliente (2026-10-17): ver as duas juntas.</p>
+  <p class="periodo-label">Mesmo dado, agregado pela hora/data real da compra (meia-noite a meia-noite) — a janela "de antes", pra comparar lado a lado com a de 21h45 acima. Pedido do próprio cliente (2026-10-17): ver as duas juntas.</p>
   <div class="tabs-dia" id="tabs-dia-24h">
     <button data-modo="faturamento" class="ativo">Faturamento</button>
     <button data-modo="lucro_estimado">Lucro (após prêmio)</button>
@@ -303,28 +303,30 @@ function render(periodoInicio, periodoFim) {
 }
 
 // Fábrica genérica: a mesma lógica de barras/expansão serve pra janela de
-// 21h30 (diario/sorteios_por_dia) e pra janela de 24h (diario_24h/
+// 21h45 (diario/sorteios_por_dia) e pra janela de 24h (diario_24h/
 // sorteios_por_dia_24h, pedido 2026-10-17) — só muda a chave dos dados, o
 // id do container e o estado de modo/expansão (cada gráfico guarda o seu).
-// Mesmo corte de 21h30 que `_dia_negocio()` usa no backend (bi_aggregator.py)
-// — replica aqui pra classificar, no frontend, se um sorteio que aparece
-// na lista de um dia (porque teve VENDA naquele dia) foi de fato ABERTO
-// naquele dia ou se é um sorteio mais antigo ainda vendendo (achado
-// 2026-11-12: cliente Império contou manualmente sorteios abertos no dia e
-// bateu diferente do "Total (N sorteios)" daqui, porque essas são contagens
-// diferentes — ver auditoria no card abaixo).
+// Mesmo corte de 21h45 que `_dia_negocio()` usa no backend (bi_aggregator.py)
+// — corrigido 2026-11-13 (era 21h30; o sorteio COR, o último do dia, fecha
+// às 21h45, 15min depois do corte antigo) — replica aqui pra classificar,
+// no frontend, se um sorteio que aparece na lista de um dia (porque teve
+// VENDA naquele dia) foi de fato ABERTO naquele dia ou se é um sorteio mais
+// antigo ainda vendendo (achado 2026-11-12: cliente Império contou
+// manualmente sorteios abertos no dia e bateu diferente do "Total (N
+// sorteios)" daqui, porque essas são contagens diferentes — ver auditoria
+// no card abaixo).
 function diaNegocioDoISO(iso) {
   if (!iso) return null;
   const utcMs = new Date(iso).getTime();
   if (Number.isNaN(utcMs)) return null;
   const brtMs = utcMs - 3 * 3600 * 1000; // America/Sao_Paulo é sempre UTC-3 (sem horário de verão)
-  const deslocadoMs = brtMs + 2.5 * 3600 * 1000; // mesmo truque do backend: desloca (24h - 21h30)
+  const deslocadoMs = brtMs + 2.25 * 3600 * 1000; // mesmo truque do backend: desloca (24h - 21h45)
   return new Date(deslocadoMs).toISOString().slice(0, 10);
 }
 // Equivalente a `_dia_24h()` do backend (meia-noite a meia-noite) — usado só
 // na aba "janela de 24h" pra não misturar os dois critérios de corte
 // (comparar um `criado_em` com o dia-negócio quando o container é o de 24h
-// gera falso "abriu em outro dia" perto da virada 21h30-meia-noite).
+// gera falso "abriu em outro dia" perto da virada 21h45-meia-noite).
 function dia24hDoISO(iso) {
   if (!iso) return null;
   const utcMs = new Date(iso).getTime();
@@ -371,10 +373,28 @@ function criarTabelaSorteiosDia(sorteiosDia, diaAtual, diaFn = diaNegocioDoISO) 
       <td class="num forte">${formatBRL(s.margem_contribuicao_total)}</td>
     </tr>`;
   }).join('');
-  const abriramNesteDia = diaAtual ? sorteiosDia.filter(s => diaFn(s.criado_em) === diaAtual).length : null;
-  const labelTotal = `Total (${sorteiosDia.length} sorteio${sorteiosDia.length === 1 ? '' : 's'} com venda`
-    + (abriramNesteDia !== null ? ` · ${abriramNesteDia} aberto${abriramNesteDia === 1 ? '' : 's'} neste dia` : '')
-    + `)`;
+  // Quebra explícita por dia de ABERTURA (pedido 2026-11-13: o rótulo
+  // anterior "N abertos neste dia" gerou confusão — "neste dia" lia-se
+  // como "ontem" em vez de "no dia que está sendo fechado aqui". Agora o
+  // rodapé soletra cada dia de abertura por extenso, com o MESMO número
+  // que já aparece em cada linha da coluna "Aberto em" — sem resumo que
+  // precise de interpretação.
+  let labelTotal;
+  if (diaAtual) {
+    const porDiaAbertura = {};
+    sorteiosDia.forEach(s => {
+      const d = diaFn(s.criado_em) || '(sem data)';
+      porDiaAbertura[d] = (porDiaAbertura[d] || 0) + 1;
+    });
+    const partes = Object.entries(porDiaAbertura)
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([d, n]) => d === diaAtual
+        ? `${n} abriu${n === 1 ? '' : 'ram'} no próprio dia ${d}`
+        : `${n} abriu${n === 1 ? '' : 'ram'} em ${d}`);
+    labelTotal = `Total (${sorteiosDia.length} sorteio${sorteiosDia.length === 1 ? '' : 's'} fechados em ${diaAtual} — ${partes.join(', ')})`;
+  } else {
+    labelTotal = `Total (${sorteiosDia.length} sorteio${sorteiosDia.length === 1 ? '' : 's'} com venda)`;
+  }
   return `<div class="tabela-sorteios-wrap"><table class="tabela-sorteios">
     <thead><tr>
       <th>Sorteio</th><th>Aberto em</th><th class="num">Faturamento total</th><th class="num">Vendas totais</th>
@@ -445,8 +465,14 @@ function criarRenderDiario({ diarioKey, sorteiosKey, containerId, getModo, diaFn
 }
 
 const renderDiario = criarRenderDiario({
+  // diaFn aqui é só pra classificar "aberto em outro dia" na coluna/rodapé
+  // do drill-down — usa dia24hDoISO (calendário puro) mesmo nesta janela,
+  // porque o FECHAMENTO do sorteio (backend) também é sempre por
+  // calendário agora (corrigido 2026-11-13 — ver bi_aggregator.py). A
+  // barra em si (x.dia) continua usando o corte de negócio de 21h45,
+  // é só a data de VENDA que usa esse corte.
   diarioKey: 'diario', sorteiosKey: 'sorteios_por_dia', containerId: 'diario-bars',
-  getModo: () => MODO_DIA, diaFn: diaNegocioDoISO,
+  getModo: () => MODO_DIA, diaFn: dia24hDoISO,
 });
 const renderDiario24h = criarRenderDiario({
   diarioKey: 'diario_24h', sorteiosKey: 'sorteios_por_dia_24h', containerId: 'diario-bars-24h',

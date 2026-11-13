@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l07-mudam-cor-40s · Animais que mudam de cor
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l07-mudam-cor-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "chameleon on branch close up", etiqueta: "quatro-ocamaleao", n: 3, exige: [chameleon], ancora: "Numero Quatro o camaleao"}
+    - {q: "flatfish camouflage sand seabed", etiqueta: "tres-olinguado", n: 3, exige: [flounder, flatfish], ancora: "Numero Tres o linguado",
+       imagem: "photorealistic underwater photograph of a flounder lying camouflaged on a sandy seabed, both eyes on the upper side, body edges buried in sand, clear water, wildlife documentary still, vertical composition"}
+    - {q: "arctic hare snow", etiqueta: "dois-alebredoar", n: 3, exige: [hare, rabbit], ancora: "Numero Dois a lebre-do-artico",
+       imagem: "photorealistic wildlife photograph of an arctic hare with pure white winter coat sitting on snow, black ear tips, soft overcast polar light, wildlife documentary still, vertical composition"}
+    - {q: "octopus camouflage reef", etiqueta: "um-opolvo", n: 3, exige: [octopus], ancora: "Numero Um o polvo",
+       imagem: "photorealistic underwater photograph of an octopus on a coral reef changing skin colour and texture, mottled red and white pattern, arms spread over rock, clear water, wildlife documentary still, vertical composition"}
+    - {q: "coral reef underwater colorful", etiqueta: "fecho", n: 2, exige: [reef, coral, underwater], ancora: "Comenta ai qual troca de cor te impressiona mais."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Animais que mudam de cor."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois a lebre-do-artico"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai qual troca de cor te impressiona mais."}

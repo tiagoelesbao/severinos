@@ -1,0 +1,24 @@
+# Python Dependencies for Virals Monorepo
+
+# Core
+pyyaml>=6.0.1
+python-dotenv>=1.0.1
+
+# Image Processing (Casey Stack)
+Pillow>=10.2.0
+opencv-python>=4.9.0
+pycairo>=1.26.0
+
+# Video Processing (Sam Stack)
+ffmpeg-python>=0.2.0
+moviepy>=2.0.0.dev2
+auto-editor>=24.1.1
+movis>=0.1.0
+
+# AI & NLP
+openai-whisper>=20231117
+torch>=2.2.0
+
+# Utilities
+tqdm>=4.66.1
+requests>=2.31.0

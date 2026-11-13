@@ -1,0 +1,157 @@
+{
+  "date": "2026-05-23",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-05-23T15:10:25.950Z",
+  "finished_at": "2026-05-23T15:17:25.036Z",
+  "duration_ms": 419086,
+  "total": 10,
+  "ok": 10,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "rank": 1,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/people/p/DYpbhkCDsDv/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\01-hormozi-b9937e",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 2
+    },
+    {
+      "rank": 2,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYp3lQsEQD0/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\02-publicitarioscriativos-0d16db",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 3
+    },
+    {
+      "rank": 3,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/p/DYob4z_Fb69/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\03-hormozi-6a6e2d",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 4,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/p/DYqZdjSDITT/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\04-garyvee-3a1ec6",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 5,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/reel/DYpBP1au7qD/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\05-garyvee-2d03e5",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 6,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYo8br7EWF9/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\06-publicitarioscriativos-2a6dbb",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 6
+    },
+    {
+      "rank": 7,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/reel/DYpE8ZnyTWc/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\07-hormozi-a2c5a8",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 8,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYrqVNtANAU/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\08-publicitarioscriativos-3feea7",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 9,
+      "creator": "@falajoaobranco",
+      "url": "https://www.instagram.com/falajoaobranco/reel/DYqHhtYx33q/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\09-falajoaobranco-ffa061",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 7
+    },
+    {
+      "rank": 10,
+      "creator": "@falajoaobranco",
+      "url": "https://www.instagram.com/falajoaobranco/p/DYpC6ogllnO/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-23\\benchmark\\instagram\\10-falajoaobranco-dbaea6",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 11
+    }
+  ]
+}

@@ -162,3 +162,7 @@ services/Meta/**/__pycache__/
 **/detalhes_sorteios*
 **/lista_unificada*
 **/relatorio_financeiro*
+
+# Logs operacionais e seus backups
+**/*.log.bak*
+apps/BI/**/*.log

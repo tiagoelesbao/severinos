@@ -1,0 +1,65 @@
+{
+  "slug": "LA1-p6-revista-30s",
+  "takes": [
+    {
+      "arquivo": "t01-agua.mp4",
+      "etiqueta": "agua",
+      "consulta": "water surface ripples dark",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 13692140,
+      "autor": "Abdulvahap Demir",
+      "url": "https://www.pexels.com/video/close-up-of-water-13692140/",
+      "luma": 49.0,
+      "saturacao": 0.025,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-vela.mp4",
+      "etiqueta": "vela",
+      "consulta": "candle flame dark background",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 19997487,
+      "autor": "Rachit  Gupta",
+      "url": "https://www.pexels.com/video/a-candle-lit-in-the-dark-with-the-words-the-light-of-the-candle-19997487/",
+      "luma": 22.6,
+      "saturacao": 0.035,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-ceu.mp4",
+      "etiqueta": "ceu",
+      "consulta": "storm clouds dark sky",
+      "duracao": 8,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 39024911,
+      "autor": "Anna Lupa",
+      "url": "https://www.pexels.com/video/dramatic-cloudscape-with-bright-glow-39024911/",
+      "luma": 76.5,
+      "saturacao": 0.029,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-estrelas.mp4",
+      "etiqueta": "estrelas",
+      "consulta": "night sky stars time lapse",
+      "duracao": 11,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 30039749,
+      "autor": "Alejandro De Roa",
+      "url": "https://www.pexels.com/video/stunning-star-trails-over-night-sky-30039749/",
+      "luma": 34.4,
+      "saturacao": 0.09,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

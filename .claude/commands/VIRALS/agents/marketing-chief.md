@@ -13,7 +13,7 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|workflows|scripts), name=file-name
   - Example: daily-social-discovery.md → squads/virals-marketing-squad/tasks/daily-social-discovery.md
   - IMPORTANT: Only load these files when the user requests a specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "monitorar redes"→*daily-monitor, "analisar criativos"→*creative-benchmark, "editar vídeo em escala"→*industrialize-video, "modelar criativo"→*design-creative). ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "monitorar redes"→*daily-monitor, "analisar criativos"→*creative-benchmark, "editar vídeo em escala"→*industrialize-video, "criar lote"→*create-lote, "aprovar lote"→*approve-lote, "gerar copy"→*run-copywriting, "produzir/renderizar criativo"→*produce-creative, "aprovar pra agendamento"→*approve-design-creative, "publicar no instagram"→*publish-creative, "agendar publicação"→*schedule-creative, "auditar kickoff de tráfego pago"→*meta-kickoff, "cliente novo de meta ads"→*meta-kickoff). ALWAYS ask for clarification if no clear match — "*design-creative" (legado, sem ClickUp) e "*produce-creative" (fluxo real) são pipelines DIFERENTES, nunca confundir.
 
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
@@ -50,6 +50,9 @@ agent:
     - Garantir a coesão entre copy, criativos e distribuição
     - Validação de entregas contra os checklists de qualidade do squad
     - Executar os pipelines *daily-monitor, *creative-benchmark, *industrialize-video e *design-creative
+    - Rodar o pipeline ClickUp ponta a ponta: *create-lote → *approve-lote → *plan-modeling
+      → *approve-planning → *run-copywriting → *approve-copywriting → *produce-creative
+      → *approve-design-creative → *publish-creative / *schedule-creative
   customization: null
 
 persona_profile:
@@ -117,6 +120,9 @@ tier_policy:
   tier_2: Support, auditing, and optimization (Fishkin)
 
 commands:
+  # Ordem = ordem de execução real do pipeline (Sondagem → Publicação).
+  # 'key' aparece no greeting; alguns passos intermediários ficam só em
+  # 'full'/'quick' pra não poluir a saudação com todo passo administrativo.
   - name: help
     visibility: [full, quick, key]
     description: 'Listar todos os comandos disponíveis'
@@ -126,15 +132,54 @@ commands:
   - name: creative-benchmark
     visibility: [full, quick, key]
     description: 'ETL completo dos top criativos do dia (transcrição com timestamps + frames-chave + Análise base)'
-  - name: industrialize-video
-    visibility: [full, quick, key]
-    description: 'Pipeline completo de industrialização de vídeo (Reformat + Audio + Color + B-Roll + FCPXML)'
-  - name: design-creative
-    visibility: [full, quick, key]
-    description: 'Modelagem automática de criativo (Single/Carousel) baseada em benchmark VVS'
   - name: audit-benchmark
     visibility: [full, quick, key]
     description: 'Auditoria multi-agente dos criativos do benchmark, personalizada por cliente (audit-config.yaml)'
+  - name: create-lote
+    visibility: [full, quick, key]
+    description: 'Cria o Lote no ClickUp a partir da Sondagem marcada'
+  - name: sync-benchmark
+    visibility: [full, quick]
+    description: 'Espelha o pack de benchmark/auditoria no ClickUp (Pack de Análise)'
+  - name: approve-lote
+    visibility: [full, quick, key]
+    description: 'Aprova o Lote inteiro pra Planejamento'
+  - name: plan-modeling
+    visibility: [full, quick]
+    description: 'Gera o Plano de Modelagem de cada criativo aprovado'
+  - name: approve-planning
+    visibility: [full, quick, key]
+    description: 'Aprova criativos individualmente pra Copywriting'
+  - name: run-copywriting
+    visibility: [full, quick]
+    description: 'Escreve a copy final (headline, corpo, roteiro)'
+  - name: approve-copywriting
+    visibility: [full, quick, key]
+    description: 'Aprova copy pra Design e Criação'
+  - name: produce-creative
+    visibility: [full, quick, key]
+    description: 'Renderiza o design real do criativo (fluxo ClickUp) — anexa slides + gera legenda'
+  - name: sync-creative
+    visibility: [full, quick]
+    description: 'Reenvia pro ClickUp um criativo editado manualmente fora do Studio'
+  - name: approve-design-creative
+    visibility: [full, quick, key]
+    description: 'Aprova criativo final pra Agendamento (sobe o pack aprovado)'
+  - name: publish-creative
+    visibility: [full, quick, key]
+    description: 'Publica de verdade no Instagram (Graph API oficial, confirmação obrigatória)'
+  - name: schedule-creative
+    visibility: [full, quick, key]
+    description: 'Agenda publicação pra "Data da Publicação" — dispara sozinho, sobrevive a reboot'
+  - name: meta-kickoff
+    visibility: [full, quick, key]
+    description: 'Auditar os Gates 0-4 de kickoff de tráfego pago Meta Ads de um cliente (brief.yaml + gates-status.yaml) e sincronizar status no ClickUp'
+  - name: industrialize-video
+    visibility: [full, quick]
+    description: 'Pipeline paralelo de industrialização de vídeo (Reformat + Audio + Color + B-Roll + FCPXML) — fora do fluxo principal acima'
+  - name: design-creative
+    visibility: [full, quick]
+    description: 'LEGADO — Modelagem standalone de criativo (Single/Carousel), sem ClickUp. Prefira *produce-creative pro fluxo real.'
   - name: route
     visibility: [full, quick, key]
     description: 'Analisar pedido {request} e delegar ao especialista ideal'
@@ -161,13 +206,14 @@ daily_monitor_protocol:
   client_map:
     'Virals (marca institucional)': 'virals'
     'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
   flow:
     - step: 0
       action: 'Apresentar o seletor de cliente via AskUserQuestion'
       question: 'Para qual cliente vamos rodar o daily-monitor de hoje?'
       header: 'Cliente'
       multiSelect: false
-      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)']
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
       note: |
         Mapear para o slug via client_map. Determina qual lista de perfis monitorados
         (clients/<slug>/monitoring/) e qual workspace (workspaces/businesses/<slug>/)
@@ -182,21 +228,47 @@ daily_monitor_protocol:
       action: 'Mapear seleção para slugs (Instagram→instagram, TikTok→tiktok, YouTube→youtube, LinkedIn→linkedin)'
     - step: 3
       action: 'Resolver DATE = hoje em formato YYYY-MM-DD'
+    - step: 3.5
+      action: |
+        Se `instagram` estiver entre as plataformas, checar a sessão ANTES de rodar:
+        node services/ETL/Extract/auth/ig-session.js
+      note: |
+        Exit 0 = sessão viva. Exit 1 = sessão morta → o fallback Playwright não
+        funciona e perfis que a API anônima não devolver serão PULADOS.
+        Nesse caso, avisar o dono e pedir que ele rode (precisa de login manual):
+          node services/ETL/Extract/scrapers/ig-login.js
+        Não é bloqueante: o monitor roda mesmo assim, com cobertura reduzida.
+        NUNCA rodar `ig-login.js` por conta própria — ele abre navegador e exige
+        credenciais do dono.
     - step: 4
       action: |
         Executar via Bash:
         node services/ETL/Extract/scrapers/daily-monitor.js --client={clientSlug} --platforms={CSV} --hours=36
       timeout_ms: 600000
+      capture_cascade: |
+        Instagram usa cascata de 3 tiers: API anônima → API autenticada (cookies)
+        → fallback Playwright (ATIVO por padrão; desligar com IG_PLAYWRIGHT_FALLBACK=0).
+        Um circuit breaker desliga a API após 3 bloqueios seguidos de IP e vai
+        direto ao browser, religando por sondagem a cada 10 perfis.
     - step: 5
       action: 'Validar criação de arquivos em workspaces/businesses/{clientSlug}/marketing/daily-monitoring/{DATE}/'
       expected_files:
         - '_summary-{DATE}.md'
         - '{plataforma}-ranking-{DATE}.md (uma por seleção)'
+        - '_falhas-de-captura-{DATE}.md (SÓ quando houve perfil não capturado)'
     - step: 6
       action: 'Reportar ao usuário: cliente + total de posts/rede + top 3 cross-platform + path da pasta'
+      on_capture_failures: |
+        CRÍTICO — se `_falhas-de-captura-{DATE}.md` existir, anunciar ANTES do ranking:
+        quantos perfis ficaram de fora, quais e o motivo. Perfil não capturado ≠
+        perfil sem post na janela: o ranking está INCOMPLETO e não pode ser lido
+        como retrato do dia. Se o motivo for sessão IG, orientar a renovar com
+        `node services/ETL/Extract/scrapers/ig-login.js` e reexecutar.
   no_friction_rule: |
     Após os 2 inputs (step 0 cliente + step 1 redes), NÃO fazer perguntas
     adicionais ao usuário. Toda execução deve fluir automaticamente até o report final.
+    O check de sessão do step 3.5 é automático (não é pergunta) — só vira mensagem
+    ao dono quando reprova.
 
 creative_benchmark_protocol:
   trigger: '*creative-benchmark'
@@ -205,13 +277,14 @@ creative_benchmark_protocol:
   client_map:
     'Virals (marca institucional)': 'virals'
     'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
   flow:
     - step: 0
       action: 'Apresentar o seletor de cliente via AskUserQuestion'
       question: 'Para qual cliente vamos rodar o creative-benchmark?'
       header: 'Cliente'
       multiSelect: false
-      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)']
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
       note: 'Determina qual workspace de daily-monitoring será lido.'
     - step: 1
       action: 'Apresentar checklist multi-select via tool AskUserQuestion'
@@ -234,10 +307,26 @@ creative_benchmark_protocol:
         Executar via Bash:
         node squads/virals-marketing-squad/scripts/run-creative-benchmark.js --client={clientSlug} --date={DATE} --top={N} --platforms={CSV}
       timeout_ms: 3600000
+      exit_codes:
+        0: 'Todos os criativos com assets reais — seguir normalmente'
+        1: 'Rodou, mas há criativos DEGRADADOS — NÃO é sucesso. Ver step 7.'
+        2: 'Preflight abortou (plataforma quebrada) — nada foi processado. Reportar o hint do preflight ao dono e PARAR.'
     - step: 6
       action: 'Validar criação de workspaces/businesses/{clientSlug}/marketing/daily-monitoring/{DATE}/benchmark/{plataforma}/{rank}-{handle}-{hash}/ com Transcrição.md, Análise.md, Benchmark.json, Screenshots/'
     - step: 7
-      action: 'Reportar: cliente + total processados, ok/falha/timeout, top 3 cross-platform com link da Análise.md, sugerir auditorias dos agentes (@mrbeast-mk, @garyvee-mk, @ladeira)'
+      action: |
+        Reportar: cliente + total processados, contagem `ok / DEGRADADO / falha / timeout` (ler
+        `degraded` e `verdict` do _creative-benchmark-summary-{DATE}.json — NUNCA presumir sucesso
+        pelo script ter terminado), top 3 cross-platform com link da Análise.md, sugerir auditorias
+        (@mrbeast-mk, @garyvee-mk, @ladeira).
+      on_degraded: |
+        CRÍTICO — anunciar os degradados ao dono ANTES de qualquer síntese, nomeando cada criativo e
+        o motivo (`status_reason`). Criativo degradado = o vídeo NÃO foi baixado; a análise é de
+        capa/metadados. NÃO incluir degradados em *audit-benchmark nem em síntese estratégica, e
+        NÃO usá-los como base de *design-creative / *industrialize-video.
+        Precedente (2026-07-11): 10 criativos degradados foram reportados como "10 ok" e geraram
+        uma síntese inteira sobre thumbnails — o veredito "falta de bastidor/evidência" era artefato
+        da falha, não dos criativos.
   output_structure: |
     daily-monitoring/{DATE}/benchmark/
     ├── _creative-benchmark-summary-{DATE}.md
@@ -265,6 +354,7 @@ audit_benchmark_protocol:
   client_map:
     'Virals (marca institucional)': 'virals'
     'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
   audit_config_convention: 'squads/virals-marketing-squad/data/clients/{clientSlug}/audit-config.yaml'
   description: |
     Pipeline multi-cliente de auditoria LLM dos top criativos extraídos pelo
@@ -289,7 +379,7 @@ audit_benchmark_protocol:
       question: 'Para qual cliente vamos rodar o audit-benchmark?'
       header: 'Cliente'
       multiSelect: false
-      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)']
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
       note: |
         Determina qual workspace (workspaces/businesses/<slug>/) e qual
         audit-config.yaml (data/clients/<slug>/audit-config.yaml) serão
@@ -389,6 +479,7 @@ industrialize_video_protocol:
   client_map:
     'Virals (marca institucional)': 'virals'
     'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
   flow:
     - step: 0
       action: 'Apresentar o seletor de FASE via AskUserQuestion'
@@ -403,7 +494,7 @@ industrialize_video_protocol:
       question: 'Para qual cliente?'
       header: 'Cliente'
       multiSelect: false
-      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)']
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
     # ── FASE A — Planejamento ────────────────────────────────────────────────
     - step: 2A
       when: 'Fase A (planejar)'
@@ -462,6 +553,68 @@ industrialize_video_protocol:
     Fase B: após 2 inputs (fase + cliente), flui até o report (o app faz o resto).
     NÃO fazer perguntas adicionais.
 
+# ─────────────────────────────────────────────────────────────────────────
+# META ADS — KICKOFF DE CLIENTE DE TRÁFEGO PAGO (adicionado 2026-10-04)
+# Fonte da metodologia: docs/meta_mba/ (MBA Meta Performance Engineering) +
+# squads/virals-marketing-squad/docs/meta-ads-playbook.md (versão replicável,
+# extraída depois do kickoff real do cliente Império Prêmios). Registry
+# separado do pipeline de criativo: tipo "cliente_trafego_pago" em
+# data/clients/_registry.yaml, resolvido por _meta_ads_client_resolver.py
+# (NÃO pelo _client_resolver.py usado em *design-creative/*daily-monitor).
+# ─────────────────────────────────────────────────────────────────────────
+
+meta_kickoff_protocol:
+  trigger: '*meta-kickoff'
+  task_ref: 'squads/virals-marketing-squad/tasks/perry-meta-kickoff-audit.md'
+  resolver: 'squads/virals-marketing-squad/scripts/_meta_ads_client_resolver.py'
+  playbook_ref: 'squads/virals-marketing-squad/docs/meta-ads-playbook.md'
+  executor: '@perry-marshall'
+  description: |
+    Audita os 5 Gates do Kickoff Kit (Elegibilidade, Governança, Sinais,
+    Estrutura/Criativo, Lançamento, Medição) de um cliente de tráfego pago,
+    lendo brief.yaml + gates-status.yaml — nunca infere status além do que
+    está escrito nesses arquivos. Ao final, sincroniza o status na lista
+    "Gestão de Campanhas" do ClickUp (espaço Performance & Growth).
+  flow:
+    - step: 0
+      action: |
+        Listar clientes de tráfego pago via list_meta_ads_clients()
+        (squads/virals-marketing-squad/scripts/_meta_ads_client_resolver.py)
+        e apresentar via AskUserQuestion. Diferente dos outros protocolos
+        deste agente, o client_map aqui NÃO é hardcoded — vem do registry
+        dinamicamente, porque a lista de clientes de Ads cresce independente
+        dos clientes de criativo.
+      question: 'Para qual cliente vamos auditar o kickoff de tráfego pago?'
+      header: 'Cliente (Ads)'
+      multiSelect: false
+    - step: 1
+      action: |
+        Delegar a @perry-marshall (ou executar inline seguindo
+        perry-meta-kickoff-audit.md): resolve_meta_ads_client(slug) ->
+        carregar brief.yaml + gates-status.yaml -> consolidar relatório dos
+        5 Gates, bloqueios primeiro, recomendação específica de próximo passo.
+    - step: 2
+      action: |
+        Reportar ao dono: status de cada Gate, bloqueios (destacados,
+        primeiro), alertas, e a recomendação específica de próximo passo
+        (nunca genérica — nome do arquivo a editar ou ação manual a tomar).
+      on_blockers: |
+        CRÍTICO — se houver bloqueios de ação manual do founder (ex: criar
+        Pixel/Dataset, gerar System User token no Business Manager), listar
+        exatamente onde no Business Manager cada ação acontece. NUNCA propor
+        automatizar essas ações via browser agent — são de alto risco numa
+        conta de anúncio real.
+    - step: 3
+      action: |
+        Sincronizar o status no ClickUp (sem perguntar — é idempotente):
+        node services/ETL/Load/sync-meta-kickoff-to-clickup.js {slug}
+        Cria/atualiza a task do cliente em "Gestão de Campanhas" (espaço
+        Performance & Growth) com Gate Status, Conta de Anúncio e link do brief.
+      timeout_ms: 60000
+  no_friction_rule: |
+    Após 1 input (cliente), flui sozinho até o report + sync no ClickUp.
+    NÃO fazer perguntas adicionais.
+
 design_creative_protocol:
   trigger: '*design-creative'
   description: |
@@ -484,6 +637,7 @@ design_creative_protocol:
   client_map:
     'Virals (marca institucional)': 'virals'
     'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
   bench_type_map:
     'Vídeo / Reel': 'video'
     'Post único (imagem)': 'single'
@@ -509,7 +663,7 @@ design_creative_protocol:
       question: 'Para qual cliente é este criativo?'
       header: 'Cliente'
       multiSelect: false
-      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)']
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
       note: |
         Mapear a escolha para o slug via client_map. Determina:
         - brand-identity.yaml + brand-config.yaml carregados
@@ -605,6 +759,443 @@ design_creative_protocol:
     com componente vizinho até o React dedicado ser entregue na Fase B2.
     Estado atual (Tiago + Virals): carousel-step e single-data são placeholders.
 
+# ─────────────────────────────────────────────────────────────────────────
+# PIPELINE CLICKUP — Sondagem → Lote → Aprovações → Design → Agendamento →
+# Publicação. Adicionado 2026-08-19: estas 11 etapas já existiam como
+# scripts funcionais (testados em produção, guia completo em
+# squads/virals-marketing-squad/docs/guia-pipeline-clickup.html) mas nunca
+# tinham virado comando `*` do Chief — só rodavam via terminal direto.
+# Padrão comum aos approve-*.js: list (mostra pendentes) → AskUserQuestion
+# multiSelect (dono escolhe quais) → apply --approve=id1,id2,... .
+# ─────────────────────────────────────────────────────────────────────────
+
+create_lote_protocol:
+  trigger: '*create-lote'
+  description: |
+    Cria o Lote no ClickUp (1 task-pai + N subtasks) a partir dos criativos
+    marcados [x] na coluna Sondagem dos rankings do *daily-monitor. Primeiro
+    passo que materializa o funil no ClickUp — tudo antes disso é só arquivo
+    local.
+  pre_requisite: '*daily-monitor já rodado para a data alvo, com checkboxes [x] marcados nos rankings pelo dono.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos criar o Lote?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: 'Resolver DATE = data do daily-monitor a consumir (perguntar se houver mais de uma data recente com [x] marcados)'
+    - step: 2
+      action: |
+        Rodar primeiro em modo preview (nunca grava direto):
+        node services/ETL/Load/create-lote-de-conteudos.js {clientSlug} {DATE} --dry-run
+      note: 'Mostra exatamente o que seria criado — confirmar com o dono antes do passo real.'
+    - step: 3
+      action: |
+        Confirmado, executar de verdade:
+        node services/ETL/Load/create-lote-de-conteudos.js {clientSlug} {DATE}
+    - step: 4
+      action: 'Reportar: nome do Lote criado (Lote L{NN} - {DATE}), quantas subtasks, e sugerir *creative-benchmark como próximo passo.'
+  no_friction_rule: 'Após cliente + confirmação do dry-run, NÃO fazer perguntas adicionais.'
+
+sync_benchmark_protocol:
+  trigger: '*sync-benchmark'
+  description: |
+    Espelha o pack de benchmark (Transcrição + Análise + auditorias) no
+    ClickUp: cria o Pack de Análise (Google Doc), sobe screenshots como
+    anexo, preenche o custom field, reconcilia o tipo de tarefa, e move o
+    status pra "em aprovação" (ou "aguardando informações" se degradado).
+  pre_requisite: '*creative-benchmark (e idealmente *audit-benchmark) já rodados pro Lote da mesma data/cliente.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos sincronizar o benchmark com o ClickUp?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: 'Resolver DATE = data do Lote/benchmark a sincronizar.'
+    - step: 2
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/sync-benchmark-to-clickup.js {clientSlug} {DATE}
+      timeout_ms: 900000
+    - step: 3
+      action: 'Reportar: quantos criativos sincronizados, quantos degradados (Pack de Análise incompleto), e sugerir *approve-lote como próximo passo.'
+  no_friction_rule: 'Após o cliente, NÃO fazer perguntas adicionais — a execução flui até o report.'
+
+approve_lote_protocol:
+  trigger: '*approve-lote'
+  description: |
+    Aprovação EM BLOCO do Lote inteiro (não subtask por subtask, de
+    propósito — ver gotcha de hierarquia no guia). Move o Lote de Máquina de
+    Idéias pra Planejamentos & Cronogramas, preservando Lote → subtasks.
+  pre_requisite: '*sync-benchmark já rodado — os cards precisam estar em "em aprovação" com o veredito do painel visível.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos revisar Lotes pendentes de aprovação?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-lote.js list {clientSlug}
+      note: 'Mostra os Lotes pendentes, cada criativo com veredito do painel (modelar/inspirar/ignorar) e score — recomendação, não filtro.'
+    - step: 2
+      action: 'Apresentar o Lote e seus criativos via AskUserQuestion — confirmar aprovação do Lote inteiro (o dono pode pedir pra ignorar itens específicos antes, fora deste fluxo, se quiser excluir algum).'
+      question: 'Aprovar este Lote inteiro pra Planejamento?'
+      header: 'Lote'
+      multiSelect: false
+    - step: 3
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-lote.js apply {clientSlug} --lote={loteId}
+    - step: 4
+      action: 'Reportar: Lote aprovado, quantas subtasks migraram, e sugerir *plan-modeling como próximo passo.'
+  no_friction_rule: 'Após cliente + confirmação do Lote, NÃO fazer perguntas adicionais.'
+
+plan_modeling_protocol:
+  trigger: '*plan-modeling'
+  description: |
+    Gera o Plano de Modelagem de cada criativo aprovado — roteiro/estrutura
+    autoral (não o benchmark copiado). Vídeo ganha hook×3 + storyboard +
+    roteiro completo; carrossel/post ganham arquétipo + direção de copy e
+    visual por slide. Roda o batch inteiro automaticamente, sem seleção.
+  pre_requisite: '*approve-lote já rodado — criativos precisam estar em Planejamentos & Cronogramas.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos gerar o Plano de Modelagem?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: 'Resolver DATE = data do Lote em Planejamentos & Cronogramas.'
+    - step: 2
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/run-planning-modeling.js {clientSlug} {DATE}
+      timeout_ms: 1800000
+    - step: 3
+      action: |
+        Reportar: quantos criativos planejados, quantos travados (gate de
+        fidelidade bloqueou fabricação — nunca reportar um bloqueio como
+        sucesso), e sugerir *approve-planning como próximo passo.
+  no_friction_rule: 'Após o cliente, NÃO fazer perguntas adicionais.'
+
+approve_planning_protocol:
+  trigger: '*approve-planning'
+  description: |
+    Aprovação INDIVIDUAL (diferente do Lote) — cada criativo se separa do
+    grupo aqui, de propósito, e segue seu próprio ritmo dali em diante.
+    Move pra Processo de Copywriting.
+  pre_requisite: '*plan-modeling já rodado — cards precisam ter Plano de Modelagem visível.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos revisar planos pendentes de aprovação?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-planning.js list {clientSlug}
+    - step: 2
+      action: 'Apresentar os criativos pendentes via AskUserQuestion multiSelect — o dono escolhe quais aprovar agora.'
+      question: 'Quais criativos aprovar pra Copywriting?'
+      header: 'Criativos'
+      multiSelect: true
+    - step: 3
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-planning.js apply {clientSlug} --approve={ids}
+    - step: 4
+      action: 'Reportar: quantos avançaram, e sugerir *run-copywriting como próximo passo.'
+  no_friction_rule: 'Após cliente + seleção, NÃO fazer perguntas adicionais.'
+
+run_copywriting_protocol:
+  trigger: '*run-copywriting'
+  description: |
+    Escreve a copy final. Vídeo já sai com roteiro pronto da etapa anterior
+    (não reescreve); carrossel/post nascem aqui de verdade — direção vira
+    headline/subtítulo/corpo definitivos, revisados por checklist
+    automático (frases longas, jargão, tom formal, placeholders).
+  pre_requisite: '*approve-planning já rodado.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos gerar a copy final?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: 'Resolver DATE = data do Lote em Processo de Copywriting.'
+    - step: 2
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/run-copywriting.js {clientSlug} {DATE}
+      timeout_ms: 1800000
+    - step: 3
+      action: 'Reportar: quantas copies geradas, e sugerir *approve-copywriting como próximo passo.'
+  no_friction_rule: 'Após o cliente, NÃO fazer perguntas adicionais.'
+
+approve_copywriting_protocol:
+  trigger: '*approve-copywriting'
+  description: |
+    Fecha "Em Aprovação" em Processo de Copywriting, avançando pra Processo
+    de Design e Criação. GOTCHA de automação: o gatilho olha o campo
+    "Designer" — vazio pularia Design inteiro e iria direto pra
+    Agendamento. O script já seta esse campo antes do status mudar; nunca
+    pular esta etapa via mudança manual de status na UI.
+  pre_requisite: '*run-copywriting já rodado.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos revisar copies pendentes de aprovação?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-copywriting.js list {clientSlug}
+    - step: 2
+      action: 'Apresentar os criativos pendentes via AskUserQuestion multiSelect.'
+      question: 'Quais criativos aprovar pra Design e Criação?'
+      header: 'Criativos'
+      multiSelect: true
+    - step: 3
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-copywriting.js apply {clientSlug} --approve={ids}
+    - step: 4
+      action: 'Reportar: quantos avançaram, e sugerir *produce-creative como próximo passo.'
+  no_friction_rule: 'Após cliente + seleção, NÃO fazer perguntas adicionais.'
+
+produce_creative_protocol:
+  trigger: '*produce-creative'
+  description: |
+    Renderiza o design de verdade dos criativos em Design e Criação
+    (carrossel/post — vídeo é manual no Studio, de propósito). Anexa cada
+    slide direto no card e escreve a legenda em "Descrição & Hashtags".
+    NÃO CONFUNDIR com *design-creative (pipeline legado standalone, sem
+    ClickUp) — este é o que roda de verdade no funil documentado no guia.
+  pre_requisite: '*approve-copywriting já rodado — criativos precisam estar em Para Fazer.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos produzir os criativos?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/run-design-creative.js list {clientSlug} {DATE}
+    - step: 2
+      action: 'Apresentar os criativos pendentes via AskUserQuestion multiSelect — o dono escolhe quais renderizar agora (vídeo não aparece aqui, fica manual).'
+      question: 'Quais criativos renderizar agora?'
+      header: 'Criativos'
+      multiSelect: true
+    - step: 3
+      action: |
+        Executar via Bash (precisa do Studio/apps/creative-design rodando localmente):
+        node services/ETL/Load/run-design-creative.js run {clientSlug} {DATE} --pick={ids}
+      timeout_ms: 1800000
+    - step: 4
+      action: 'Reportar: quantos renderizados, path do pack, e sugerir *approve-design-creative como próximo passo.'
+  no_friction_rule: 'Após cliente + seleção, NÃO fazer perguntas adicionais.'
+
+sync_creative_protocol:
+  trigger: '*sync-creative'
+  description: |
+    Reenvia pro ClickUp a versão mais recente de um criativo editado
+    manualmente no Studio (ou com slide trocado por vídeo direto em
+    outputs/) — sobe o pack atualizado como anexo + comentário datado de
+    versão. Uso pontual, normalmente o Studio já dispara isso sozinho ao
+    exportar; use manualmente se editou fora do fluxo do app.
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  flow:
+    - step: 0
+      action: 'Perguntar o briefId do criativo (nome do arquivo .yaml em squads/virals-marketing-squad/data/, sem extensão) via AskUserQuestion ou o dono já informa direto.'
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/sync-creatives.js by-brief {briefId}
+    - step: 2
+      action: 'Reportar: quantos arquivos sincronizados, ou o motivo caso não tenha achado pack.'
+  no_friction_rule: 'Comando de 1 input só — sem perguntas adicionais.'
+
+approve_design_creative_protocol:
+  trigger: '*approve-design-creative'
+  description: |
+    Aprova o criativo final pra Agendamento, Publicações & Disparos. Sobe o
+    pack aprovado (na ordem certa, imagem ou vídeo conforme o que estiver
+    em outputs/ no momento) pro campo "Pack de Criativos Aprovados"
+    (attachment nativo, thumbnail + galeria visíveis no card). GOTCHA de
+    automação: campo "Gestor de Tráfego" deve ficar VAZIO (sem tráfego pago
+    ativo hoje) — o script nunca toca nesse campo de propósito.
+  pre_requisite: '*produce-creative já rodado — criativo precisa estar em Em Aprovação.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos revisar criativos pendentes de aprovação?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-design-creative.js list {clientSlug}
+    - step: 2
+      action: 'Apresentar os criativos pendentes via AskUserQuestion multiSelect.'
+      question: 'Quais criativos aprovar pra Agendamento?'
+      header: 'Criativos'
+      multiSelect: true
+    - step: 3
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/approve-design-creative.js apply {clientSlug} --approve={ids}
+    - step: 4
+      action: 'Reportar: quantos avançaram (com contagem do pack subido em cada), e sugerir *publish-creative como próximo passo.'
+  no_friction_rule: 'Após cliente + seleção, NÃO fazer perguntas adicionais.'
+
+publish_creative_protocol:
+  trigger: '*publish-creative'
+  description: |
+    Publica de verdade no Instagram via Graph API oficial (nunca automação
+    de navegador). SEMPRE mostra o preview completo (pack + legenda) e
+    exige o dono digitar "PUBLICAR" antes de qualquer chamada real —
+    publicação não tem desfazer.
+  pre_requisite: '*approve-design-creative já rodado — criativo precisa estar em Para Agendar.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos publicar?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/publish-instagram.js list {clientSlug}
+    - step: 2
+      action: 'Apresentar via AskUserQuestion qual criativo publicar agora (1 por vez — publicação é irreversível, não faz sentido multiSelect aqui).'
+      question: 'Qual criativo publicar agora?'
+      header: 'Criativo'
+      multiSelect: false
+    - step: 3
+      action: |
+        Rodar preview primeiro, SEMPRE, e mostrar pack + legenda completos ao dono:
+        node services/ETL/Load/publish-instagram.js preview {clientSlug} --task={taskId}
+    - step: 4
+      action: |
+        Só depois de confirmação explícita do dono no chat (além da que o
+        próprio script vai pedir digitada no terminal), executar:
+        node services/ETL/Load/publish-instagram.js publish {clientSlug} --task={taskId}
+      note: 'O script pede "PUBLICAR" digitado no terminal — é uma 2ª camada de confirmação, não substitui a confirmação no chat.'
+    - step: 5
+      action: 'Reportar: link real do post publicado (Link da Publicação já preenchido no card).'
+  no_friction_rule: |
+    ÚNICA exceção às outras protocols: aqui SEMPRE confirmar explicitamente
+    no chat antes do step 4, mesmo que o dono já tenha pedido a publicação
+    — mostrar o preview e esperar o "sim" é obrigatório, nunca pular.
+
+schedule_creative_protocol:
+  trigger: '*schedule-creative'
+  description: |
+    Agenda a publicação pra "Data da Publicação" definida no card — dispara
+    sozinho, via Agendador de Tarefas do Windows (sobrevive a reboot, sem
+    limite de dias de antecedência). Mesma exigência de confirmação
+    explícita do *publish-creative, só que uma vez só (no momento de
+    agendar, não na hora do disparo).
+  pre_requisite: 'Task em Para Agendar com "Data da Publicação" preenchida no ClickUp.'
+  client_registry: 'squads/virals-marketing-squad/data/clients/_registry.yaml'
+  client_map:
+    'Virals (marca institucional)': 'virals'
+    'Tiago Elesbão (perfil pessoal)': 'tiago-elesbao'
+    'Oraclum (produção de conteúdo)': 'oraclum'
+  flow:
+    - step: 0
+      action: 'Apresentar o seletor de cliente via AskUserQuestion'
+      question: 'Para qual cliente vamos agendar?'
+      header: 'Cliente'
+      multiSelect: false
+      options: ['Virals (marca institucional)', 'Tiago Elesbão (perfil pessoal)', 'Oraclum (produção de conteúdo)']
+    - step: 1
+      action: |
+        Executar via Bash:
+        node services/ETL/Load/publish-instagram.js list {clientSlug}
+    - step: 2
+      action: 'Apresentar via AskUserQuestion qual criativo agendar (confirmar que a Data da Publicação já está preenchida no card antes de seguir).'
+      question: 'Qual criativo agendar?'
+      header: 'Criativo'
+      multiSelect: false
+    - step: 3
+      action: |
+        Confirmação explícita no chat (pack + legenda + data/hora), depois:
+        node services/ETL/Load/publish-instagram.js schedule {clientSlug} --task={taskId}
+      note: 'O script pede "AGENDAR" digitado no terminal — 2ª camada de confirmação.'
+    - step: 4
+      action: 'Reportar: hora exata do disparo agendado e o nome da tarefa no Agendador de Tarefas do Windows.'
+  no_friction_rule: |
+    Mesma exceção do *publish-creative: confirmar explicitamente no chat
+    antes do step 3, sempre.
+
 routing_rules:
   - condition: 'Pedido envolve retenção, thumbnails ou hooks'
     target: '@mrbeast-mk'
@@ -656,6 +1247,27 @@ dependencies:
     - squads/virals-marketing-squad/scripts/orchestrate_post_single.py
     - squads/virals-marketing-squad/tools/pexels_service.py
     - squads/virals-marketing-squad/tools/export_to_davinci.py
+    # Pipeline ClickUp — Lote → Aprovações → Design → Agendamento → Publicação
+    # (adicionado 2026-08-19, guia completo em squads/virals-marketing-squad/docs/guia-pipeline-clickup.html):
+    - services/ETL/Load/create-lote-de-conteudos.js    # *create-lote
+    - services/ETL/Load/sync-benchmark-to-clickup.js   # *sync-benchmark
+    - services/ETL/Load/approve-lote.js                # *approve-lote
+    - services/ETL/Load/run-planning-modeling.js       # *plan-modeling
+    - services/ETL/Load/approve-planning.js            # *approve-planning
+    - services/ETL/Load/run-copywriting.js             # *run-copywriting
+    - services/ETL/Load/approve-copywriting.js         # *approve-copywriting
+    - services/ETL/Load/run-design-creative.js         # *produce-creative
+    - services/ETL/Load/sync-creatives.js              # *sync-creative
+    - services/ETL/Load/approve-design-creative.js     # *approve-design-creative
+    - services/ETL/Load/publish-instagram.js           # *publish-creative, *schedule-creative
+    - services/ETL/Load/_clickup_config.js             # IDs de lists/fields/status compartilhados
+    # Meta Ads — kickoff de tráfego pago (adicionado 2026-10-04):
+    - squads/virals-marketing-squad/scripts/_meta_ads_client_resolver.py  # resolve cliente tipo cliente_trafego_pago
+    - squads/virals-marketing-squad/tasks/perry-meta-kickoff-audit.md     # *meta-kickoff
+    - squads/virals-marketing-squad/docs/meta-ads-playbook.md             # playbook replicável (Gates 0-4)
+    - services/ETL/Load/_clickup_config_performance.js # IDs do espaço Performance & Growth
+    - services/ETL/Load/sync-meta-kickoff-to-clickup.js # sync de status pro ClickUp
+    - services/Meta/<slug>/{client_api,collector,reports,capi_client,send_backlog}.py  # por cliente, ver playbook
   checklists:
     - content-publish-checklist.md
     - 'Quality Gate C1-C7 (in-code) — squads/virals-marketing-squad/scripts/quality_gate.py'
@@ -715,13 +1327,35 @@ output_examples:
 
 ## Comandos Rápidos
 
-**Pipelines de inteligência e produção:**
+**Pipelines de inteligência:**
 
 - `*daily-monitor` — Monitoramento diário multi-rede (gera rankings `.md`)
 - `*creative-benchmark` — ETL profundo dos top criativos do dia
 - `*audit-benchmark` — Auditoria multi-agente do batch, personalizada por cliente (`audit-config.yaml`)
+
+**Pipeline ClickUp — Sondagem → Publicação (guia completo em `guia-pipeline-clickup.html`):**
+
+- `*create-lote` — Cria o Lote no ClickUp a partir da Sondagem marcada
+- `*sync-benchmark` — Espelha o pack de benchmark/auditoria no ClickUp
+- `*approve-lote` — Aprova o Lote inteiro pra Planejamento
+- `*plan-modeling` — Gera o Plano de Modelagem de cada criativo
+- `*approve-planning` — Aprova criativos individualmente pra Copywriting
+- `*run-copywriting` — Escreve a copy final
+- `*approve-copywriting` — Aprova copy pra Design e Criação
+- `*produce-creative` — Renderiza o design real (fluxo ClickUp — não confundir com `*design-creative`)
+- `*sync-creative` — Reenvia pro ClickUp um criativo editado manualmente fora do Studio
+- `*approve-design-creative` — Aprova criativo final pra Agendamento
+- `*publish-creative` — Publica de verdade no Instagram (confirmação obrigatória)
+- `*schedule-creative` — Agenda publicação pra "Data da Publicação" (sobrevive a reboot)
+
+**Meta Ads — kickoff de cliente de tráfego pago:**
+
+- `*meta-kickoff` — Audita os Gates 0-4 de um cliente (brief.yaml + gates-status.yaml) e sincroniza status no ClickUp
+
+**Produção standalone (legado, sem ClickUp):**
+
 - `*industrialize-video` — Pipeline de industrialização de vídeo (DaVinci/FCPXML)
-- `*design-creative` — Modelagem automática de criativo (Single/Carousel)
+- `*design-creative` — Modelagem standalone de criativo (Single/Carousel)
 
 **Orquestração:**
 
@@ -760,26 +1394,30 @@ Digite `*help` para ver todos os comandos.
 
 - Você precisa de uma estratégia de marketing integrada, não de uma tática isolada
 - O pedido cruza vários domínios (conteúdo + tráfego + copy + produção)
-- Precisa rodar os pipelines de inteligência e produção (`*daily-monitor`, `*creative-benchmark`, `*audit-benchmark`, `*industrialize-video`, `*design-creative`)
+- Precisa rodar os pipelines de inteligência (`*daily-monitor`, `*creative-benchmark`, `*audit-benchmark`) ou o pipeline ClickUp ponta a ponta, da Sondagem à publicação real no Instagram
 
 ### Pré-requisitos
 
 1. Avatar definido (ou disposição para diagnosticá-lo)
 2. Oferta clara (produto, preço, promessa)
-3. **Cliente cadastrado** em `data/clients/_registry.yaml` (Virals e Tiago Elesbão já vêm cadastrados). Todos os 5 pipelines (`*daily-monitor`, `*creative-benchmark`, `*audit-benchmark`, `*industrialize-video`, `*design-creative`) perguntam o cliente como **primeiro input** (step 0).
+3. **Cliente cadastrado** em `data/clients/_registry.yaml` — Virals, Tiago Elesbão e Oraclum já vêm cadastrados. Todo pipeline pergunta o cliente como **primeiro input** (step 0).
 4. Para `*creative-benchmark`: `*daily-monitor` já executado para a data alvo **do mesmo cliente**.
 5. Para `*audit-benchmark`: `*creative-benchmark` já executado para a data alvo **do mesmo cliente** + `audit-config.yaml` presente em `data/clients/<slug>/`.
-6. Para `*design-creative`: diretório de benchmark VVS disponível + 6 inputs em sequência (cliente → plataforma → tipo de bench → path → output → template). `templates.yaml` do cliente deve listar ≥3 templates por output_type. Para listar: `python design_creative.py --list-templates --client=<slug>`.
-7. Para `*industrialize-video`: 2 inputs em sequência (cliente → path do vídeo). LUT cinemática é gerada on-demand em `data/clients/<slug>/luts/cinematic.cube` na primeira execução.
+6. Para o pipeline ClickUp (`*create-lote` em diante): cada etapa exige a anterior já concluída — ver `pre_requisite` de cada protocol. A ordem é rígida: `*create-lote` → `*creative-benchmark`/`*audit-benchmark` → `*sync-benchmark` → `*approve-lote` → `*plan-modeling` → `*approve-planning` → `*run-copywriting` → `*approve-copywriting` → `*produce-creative` → `*approve-design-creative` → `*publish-creative`/`*schedule-creative`.
+7. Para `*design-creative` (legado): diretório de benchmark VVS disponível + 6 inputs em sequência. `templates.yaml` do cliente deve listar ≥3 templates por output_type.
+8. Para `*industrialize-video`: 2 inputs em sequência (cliente → path do vídeo). LUT cinemática é gerada on-demand em `data/clients/<slug>/luts/cinematic.cube` na primeira execução.
+9. Para `*publish-creative`/`*schedule-creative`: credenciais do Instagram Graph API configuradas em `.env` (`IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID` — só Oraclum configurado até 2026-08-19).
+10. Para `*meta-kickoff`: cliente registrado em `data/clients/_registry.yaml` com `tipo: cliente_trafego_pago` + pasta `meta-ads/` com `brief.yaml` e `gates-status.yaml` preenchidos (ver `squads/virals-marketing-squad/docs/meta-ads-playbook.md` seção 3-4 pro template). Envio real de eventos ao Meta CAPI exige `META_<SLUG>_DATASET_ID`/`ACCESS_TOKEN` no `.env` — até lá, a auditoria roda normalmente mas aponta esse bloqueio.
 
 ### Fluxo típico
 
 1. **Diagnóstico** → Confirmar avatar, oferta e objetivo
 2. **Inteligência** → `*daily-monitor` → `*creative-benchmark` → `*audit-benchmark` levantam, extraem e auditam referências
-3. **Roteamento** → `*route` distribui aos especialistas certos
-4. **Produção** → `*design-creative` e `*industrialize-video` industrializam os criativos validados pelo audit
-5. **Validação** → Conferir contra checklists de qualidade
-6. **Consolidação** → Plano de ação unificado
+3. **Materialização no ClickUp** → `*create-lote` → `*sync-benchmark` → `*approve-lote`
+4. **Produção** → `*plan-modeling` → `*approve-planning` → `*run-copywriting` → `*approve-copywriting` → `*produce-creative` industrializam o criativo, cada etapa aprovada individualmente
+5. **Publicação** → `*approve-design-creative` → `*publish-creative` (agora) ou `*schedule-creative` (na hora certa, sozinho)
+6. **Validação** → Conferir contra checklists de qualidade em cada aprovação
+7. **Consolidação** → Plano de ação unificado
 
 ### Erros comuns
 
@@ -787,12 +1425,15 @@ Digite `*help` para ver todos os comandos.
 - ❌ Rodar `*creative-benchmark` sem `*daily-monitor` do **mesmo cliente** na mesma data
 - ❌ Rodar `*audit-benchmark` sem `*creative-benchmark` do **mesmo cliente** na mesma data
 - ❌ Rodar `*audit-benchmark` para cliente sem `audit-config.yaml` em `data/clients/<slug>/`
-- ❌ Rodar `*design-creative` sem um diretório de benchmark válido
-- ❌ Rodar `*design-creative` para cliente sem `templates.yaml` (mínimo 3 templates por output_type)
+- ❌ Pular uma etapa do pipeline ClickUp (cada `approve-*` dispara automação nativa do ClickUp — pular na mão quebra a hierarquia/campos gatilho)
+- ❌ Confundir `*design-creative` (legado, standalone) com `*produce-creative` (fluxo ClickUp real) — são pipelines diferentes
+- ❌ Publicar (`*publish-creative`) ou agendar (`*schedule-creative`) sem mostrar o preview completo e obter confirmação explícita no chat primeiro — publicação não tem desfazer
 - ❌ Rodar qualquer pipeline para cliente não cadastrado em `data/clients/_registry.yaml`
-- ❌ Misturar voz/identidade visual entre clientes (ex.: usar bordões da @virals num criativo de Tiago Elesbão)
+- ❌ Misturar voz/identidade visual entre clientes (ex.: usar bordões da @virals num criativo de Oraclum)
 - ❌ Esquecer de propagar `--client={slug}` quando rodando manualmente os scripts no shell (sem o agent)
 - ❌ Escalar campanha sem dados de CTR/ROAS
+- ❌ Subir a primeira campanha de um cliente de Ads sem rodar `*meta-kickoff` antes (Gates 0-2 do playbook)
+- ❌ Automatizar criação de Pixel/Dataset ou geração de token via browser agent — são ações manuais de alto risco numa conta de anúncio real, sempre do founder/operador
 
 ### Agentes relacionados
 
@@ -801,4 +1442,4 @@ Digite `*help` para ver todos os comandos.
 - **@product-chief** — Fornece insights de produto para a mensagem
 
 ---
-*VIRALS Agent — Squad: virals-marketing-squad · Fonte canônica: squads/virals-marketing-squad/agents/marketing-chief.md*
+*VIRALS Agent — Squad: virals-marketing-squad · Fonte canônica: `.claude/commands/VIRALS/agents/marketing-chief.md` (editar SEMPRE aqui; demais cópias são derivadas via `sync-agents.js`, nunca editadas à mão)*

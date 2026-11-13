@@ -1,0 +1,273 @@
+[
+  {
+    "arquivo": "t01-torcida.mp4",
+    "etiqueta": "torcida",
+    "blocos": [
+      "GANCHO",
+      "NÚMEROS",
+      "FECHO"
+    ],
+    "duracao": 15,
+    "consulta": "packed stadium crowd cheering",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 39239777,
+    "autor": "Hassan Ehsan",
+    "url": "https://www.pexels.com/video/crowd-cheering-at-sports-stadium-event-39239777/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t02-torcida.mp4",
+    "etiqueta": "torcida",
+    "blocos": [
+      "GANCHO",
+      "BLOCO 2C",
+      "FECHO"
+    ],
+    "duracao": 11,
+    "consulta": "football supporters in stands",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 34671875,
+    "autor": "Necip Duman",
+    "url": "https://www.pexels.com/video/exciting-football-match-in-packed-stadium-34671875/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t03-torcida.mp4",
+    "etiqueta": "torcida",
+    "blocos": [
+      "BLOCO 2B",
+      "FECHO"
+    ],
+    "duracao": 11,
+    "consulta": "crowd raising hands stadium",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 37639454,
+    "autor": "Mariano Quintero",
+    "url": "https://www.pexels.com/video/vibrant-live-christian-concert-experience-37639454/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t04-estadio.mp4",
+    "etiqueta": "estadio",
+    "blocos": [
+      "ÍNDICE",
+      "BLOCO 2B"
+    ],
+    "duracao": 12,
+    "consulta": "stadium floodlights night",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 35002181,
+    "autor": "Necip Duman",
+    "url": "https://www.pexels.com/video/exciting-night-football-match-in-stadium-35002181/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t05-estadio.mp4",
+    "etiqueta": "estadio",
+    "blocos": [
+      "BLOCO 2",
+      "BLOCO 2C"
+    ],
+    "duracao": 16,
+    "consulta": "aerial view stadium night",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 31472378,
+    "autor": "K",
+    "url": "https://www.pexels.com/video/aerial-view-of-stadium-during-event-in-city-31472378/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t06-estadio.mp4",
+    "etiqueta": "estadio",
+    "blocos": [
+      "BLOCO 2C"
+    ],
+    "duracao": 10,
+    "consulta": "empty stadium seats rows",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 19217903,
+    "autor": "Nino Souza",
+    "url": "https://www.pexels.com/video/empty-seats-in-an-arena-with-red-seats-19217903/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t07-treino.mp4",
+    "etiqueta": "treino",
+    "blocos": [
+      "BLOCO 2",
+      "BLOCO 2B"
+    ],
+    "duracao": 21,
+    "consulta": "soccer players training drills",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 6078259,
+    "autor": "Tima Miroshnichenko",
+    "url": "https://www.pexels.com/video/football-team-training-indoors-6078259/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t08-treino.mp4",
+    "etiqueta": "treino",
+    "blocos": [
+      "BLOCO 2"
+    ],
+    "duracao": 15,
+    "consulta": "football team training pitch",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 31370183,
+    "autor": "Usman AbdulrasheedGambo",
+    "url": "https://www.pexels.com/video/aerial-view-of-youth-soccer-match-in-action-31370183/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t09-jogo.mp4",
+    "etiqueta": "jogo",
+    "blocos": [
+      "ÍNDICE",
+      "BLOCO 2B"
+    ],
+    "duracao": 34,
+    "consulta": "soccer player kicking ball match",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 15448985,
+    "autor": "Luis Quintero",
+    "url": "https://www.pexels.com/video/football-players-trying-to-score-a-goal-during-a-match-15448985/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t10-jogo.mp4",
+    "etiqueta": "jogo",
+    "blocos": [
+      "BLOCO 2",
+      "BLOCO 2C"
+    ],
+    "duracao": 23,
+    "consulta": "football players competing pitch",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 12718608,
+    "autor": "Denis Zhyravlev",
+    "url": "https://www.pexels.com/video/people-playing-football-12718608/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t11-campo.mp4",
+    "etiqueta": "campo",
+    "blocos": [
+      "ABERTURA",
+      "BLOCO 4"
+    ],
+    "duracao": 15,
+    "consulta": "football goal post net field",
+    "largura": 1906,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 15436955,
+    "autor": "Ahmadreza fs",
+    "url": "https://www.pexels.com/video/a-football-player-practising-penalty-kicks-15436955/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t12-campo.mp4",
+    "etiqueta": "campo",
+    "blocos": [
+      "CTA",
+      "ABERTURA"
+    ],
+    "duracao": 10,
+    "consulta": "football boots close up grass",
+    "largura": 1366,
+    "altura": 720,
+    "origem": "pexels",
+    "pexels_id": 9502515,
+    "autor": "Anastasia  Shuraeva",
+    "url": "https://www.pexels.com/video/footwork-of-an-athlete-9502515/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t13-processo.mp4",
+    "etiqueta": "processo",
+    "blocos": [
+      "BLOCO 1",
+      "BLOCO 3"
+    ],
+    "duracao": 9,
+    "consulta": "man signing documents desk",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 8061370,
+    "autor": "Pavel Danilyuk",
+    "url": "https://www.pexels.com/video/man-signing-the-paper-8061370/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t14-tribunal.mp4",
+    "etiqueta": "tribunal",
+    "blocos": [
+      "NÚMEROS",
+      "BLOCO 1"
+    ],
+    "duracao": 11,
+    "consulta": "courtroom judge bench wooden",
+    "largura": 1366,
+    "altura": 720,
+    "origem": "pexels",
+    "pexels_id": 6101367,
+    "autor": "KATRIN  BOLOVTSOVA",
+    "url": "https://www.pexels.com/video/judge-hammering-a-gavel-6101367/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t15-tribunal.mp4",
+    "etiqueta": "tribunal",
+    "blocos": [
+      "BLOCO 3"
+    ],
+    "duracao": 10,
+    "consulta": "gavel law books desk",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 5636977,
+    "autor": "Sora Shimazaki",
+    "url": "https://www.pexels.com/video/balance-scales-and-gavel-placed-on-a-wooden-desk-5636977/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  },
+  {
+    "arquivo": "t16-processo.mp4",
+    "etiqueta": "processo",
+    "blocos": [
+      "BLOCO 1",
+      "BLOCO 3"
+    ],
+    "duracao": 10,
+    "consulta": "lawyer reading papers office",
+    "largura": 1920,
+    "altura": 1080,
+    "origem": "pexels",
+    "pexels_id": 4475743,
+    "autor": "August de Richelieu",
+    "url": "https://www.pexels.com/video/boss-checking-on-the-documents-4475743/",
+    "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+  }
+]

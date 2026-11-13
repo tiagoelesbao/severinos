@@ -1,0 +1,157 @@
+{
+  "date": "2026-05-16",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-05-16T17:18:53.071Z",
+  "finished_at": "2026-05-16T17:26:13.137Z",
+  "duration_ms": 440066,
+  "total": 10,
+  "ok": 10,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "rank": 1,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/reel/DYXAZzXOeLk/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\01-garyvee-6236bf",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 2,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYW6QkFEQGH/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\02-publicitarioscriativos-148f72",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 8
+    },
+    {
+      "rank": 3,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/p/DYX_hC4DtkT/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\03-garyvee-8acbc7",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 2
+    },
+    {
+      "rank": 4,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/reel/DYYVzOvBCju/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\04-hormozi-1eb9d4",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 4
+    },
+    {
+      "rank": 5,
+      "creator": "@uana_amorim",
+      "url": "https://www.instagram.com/uana_amorim/p/DYXVqxqgC59/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\05-uana-amorim-72a2d0",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 6
+    },
+    {
+      "rank": 6,
+      "creator": "@uana_amorim",
+      "url": "https://www.instagram.com/uana_amorim/reel/DYXL8qQBkoc/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\06-uana-amorim-1febf7",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 4
+    },
+    {
+      "rank": 7,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/reel/DYaRW0rBZQd/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\07-hormozi-089076",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 8,
+      "creator": "@falajoaobranco",
+      "url": "https://www.instagram.com/falajoaobranco/reel/DYW-LVtxmoY/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\08-falajoaobranco-b742d5",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 9,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/reel/DYXsqQwB0Nh/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\09-hormozi-027837",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 10,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DYZpXUDAHdp/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-16\\benchmark\\instagram\\10-publicitarioscriativos-6eb2b7",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    }
+  ]
+}

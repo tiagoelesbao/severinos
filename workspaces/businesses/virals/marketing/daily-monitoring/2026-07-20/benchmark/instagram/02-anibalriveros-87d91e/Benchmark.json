@@ -1,0 +1,46 @@
+{
+  "rank": 2,
+  "creator": "@anibalriveros",
+  "url": "https://www.instagram.com/anibalriveros/reel/Da_DD_pgT6D/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by anibalriveros",
+  "description": "Estamos torcendo para a Argentina 🇦🇷",
+  "author": "Aníbal Riveros",
+  "view_count": null,
+  "like_count": 69,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/750944150_18605359183047242_990675136005272124_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=110&ig_cache_key=Mzk0NDg4NTI2NzIzOTg3ODI3NTE4NjA1MzU5MTc3MDQ3MjQy.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjExNzAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=l0YglHTtJRcQ7kNvwHNGU4y&_nc_oc=AdqUFnAVvoQJdLXsFsE1Erz1utwsKDMzwowR02CnNH72dGy6hewDdZEc3LPCQ18kHeK8Kdb290lX9-JgTynOdQIk&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=AVjDrvW-6m1J51pZasCZQg&_nc_ss=7b689&oh=00_AQAPfxJc2CvTH7BVzk7UZaO4AWrh139Y1OTPKIb8ifc7WQ&oe=6A63FF34",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Enquanto o Brasil inteiro tá t"
+    },
+    {
+      "time": 10,
+      "label": "Cara, o meu sócio pegou um avi"
+    },
+    {
+      "time": 20,
+      "label": "Em dia de jogo da seleção, a g"
+    },
+    {
+      "time": 45,
+      "label": "Para que exista esse sentiment"
+    },
+    {
+      "time": 71,
+      "label": "Que placar você acha que vai t"
+    }
+  ],
+  "cut_timestamps": null,
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-07-20T12:59:53.524Z",
+  "item_status": "ok",
+  "status_reason": null
+}

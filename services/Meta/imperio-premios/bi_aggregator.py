@@ -64,24 +64,28 @@ AD_ACCOUNTS = ["act_2076716696539325", "act_1809822716714730", "act_107288308553
 TZ_BRASIL = "America/Sao_Paulo"
 
 # Achado 2026-10-16 (founder confirmou com o cliente): o "dia" do NEGÓCIO não
-# é meia-noite a meia-noite — a janela de atribuição dele vai até 21:30 (fim
-# do último sorteio do dia); faturamento que entra depois das 21:30 já é do
-# dia seguinte. Pedido pago às 21:35 de 10/10, por exemplo, é dia 11/10 pro
-# cliente, mesmo sendo 10/10 no relógio. Só vale pra pedido/faturamento — o
-# funil do pixel (PresselPageView etc.) continua em calendário normal, não
-# está preso ao ciclo de sorteio. Ver `_dia_negocio()`.
-DIA_NEGOCIO_CORTE_HORAS = 21.5  # 21h30
+# é meia-noite a meia-noite — a janela de atribuição dele vai até o fim do
+# último sorteio do dia; faturamento que entra depois já é do dia seguinte.
+# Só vale pra pedido/faturamento — o funil do pixel (PresselPageView etc.)
+# continua em calendário normal, não está preso ao ciclo de sorteio.
+#
+# CORRIGIDO 2026-11-13 (cliente, via founder, auditoria de sorteio por
+# sorteio): o último horário de sorteio do dia é "COR" às 21h45, não 21h30
+# — a plataforma roda 6 rodadas fixas por dia (PPT 09h35, PTM 11h35, PT
+# 14h35, PTV 16h35, PTN 18h35, COR 21h45, confirmado no campo `description`
+# dos sorteios reais da API). O corte antigo de 21h30 cortava 15 minutos
+# ANTES do último sorteio realmente fechar, jogando sorteios da rodada COR
+# (e ações abertas nesses 15 minutos) pro dia errado. Ver `_dia_negocio()`.
+DIA_NEGOCIO_CORTE_HORAS = 21.75  # 21h45 (rodada COR, a última do dia)
 
 
 def _dia_negocio(timestamps_brt):
     """Converte uma Series de timestamps JÁ EM HORÁRIO DE BRASÍLIA (tz-aware)
     pro "dia de negócio" do cliente: deslocamos pra frente por
-    (24h - 21h30) = 2h30 antes de extrair a data, o truque padrão pra mover
-    o corte de meia-noite pra qualquer outro horário. Confere:
-      pedido 21:29 + 2h30 = 23:59 do mesmo dia -> ainda é "hoje" (correto,
-        antes do corte)
-      pedido 21:31 + 2h30 = 00:01 do dia seguinte -> vira "amanhã" (correto,
-        depois do corte)."""
+    (24h - DIA_NEGOCIO_CORTE_HORAS) antes de extrair a data, o truque padrão
+    pra mover o corte de meia-noite pra qualquer outro horário. Com o corte
+    em 21h45: pedido/sorteio às 21:44 ainda é "hoje" (antes do corte);
+    às 21:46 já vira "amanhã" (depois do corte, vai pro próximo sorteio)."""
     offset = pd.Timedelta(hours=(24 - DIA_NEGOCIO_CORTE_HORAS))
     return (timestamps_brt + offset).dt.date.astype(str)
 
@@ -90,7 +94,7 @@ def _dia_24h(timestamps_brt):
     """Janela convencional (meia-noite a meia-noite, horário de Brasília) —
     a lógica que o BI usava antes de 2026-10-16. Pedido do cliente
     (2026-10-17, via founder): ver as duas agregações lado a lado na aba
-    Executiva, não só a de 21h30 — "primeiro ver o faturamento das duas
+    Executiva, não só a de 21h45 — "primeiro ver o faturamento das duas
     agregações diferentes". Não substitui `_dia_negocio`, é paralela."""
     return timestamps_brt.dt.date.astype(str)
 
@@ -1342,15 +1346,59 @@ def _anexar_baixa_manual(df_pedidos, sorteios_meta):
     return df
 
 
+def _dia_efetivo_por_sorteio(datas_pedido_utc, product_ids, sorteios_meta, dia_fn):
+    """Decide o dia de negócio/24h de cada PEDIDO usando a data do SORTEIO
+    (drawDate) quando o sorteio já tem essa data definida, caindo pra data
+    real da venda enquanto o sorteio ainda está em aberto (sem drawDate).
+
+    Pedido do cliente (Lucas B, via founder, 2026-11-12): o fechamento
+    financeiro do dia deve bater com as ações que FECHARAM (foram
+    sorteadas) naquele dia — não com a soma bruta de vendas avulsas de
+    sorteios abertos no dia anterior que ainda estavam vendendo (achado do
+    mesmo dia: rifinhas são tipicamente criadas de 4 a 6 horas antes de
+    fechar, então um sorteio sorteado hoje quase sempre foi aberto ontem —
+    isso é o ciclo normal, não um erro).
+
+    Escopo DELIBERADAMENTE limitado aos KPIs financeiros que usam esta
+    função (`montar_diario`, `montar_sorteios_por_dia`) — as análises de
+    canal/UTM/hora/concentração continuam ancoradas na data real da venda,
+    porque essas respondem "quando o cliente comprou" (atribuição de
+    marketing), não "quando o sorteio fechou" (fechamento financeiro):
+    misturar os dois conceitos ali confundiria mais do que ajudaria.
+    """
+    draw_por_pid = {}
+    for s in sorteios_meta or []:
+        pid = s.get("_id") or s.get("id")
+        dd = s.get("drawDate")
+        if dd:
+            parsed = pd.to_datetime(dd, errors="coerce", utc=True)
+            if pd.notna(parsed):
+                draw_por_pid[pid] = parsed
+    draw_series = pd.to_datetime(product_ids.map(draw_por_pid), utc=True, errors="coerce")
+    data_efetiva_utc = draw_series.where(draw_series.notna(), datas_pedido_utc)
+    return dia_fn(data_efetiva_utc.dt.tz_convert(TZ_BRASIL))
+
+
 def montar_diario(df_pedidos, daily_insights, dia_fn=_dia_negocio, sorteios_meta=None):
     """Pedidos por dia — granular o bastante pra filtro de período no
     dashboard recalcular ROAS/CAC/margem/lucro no FRONTEND sem round-trip
     (pedido 2026-10-07: filtro de data na Visão Executiva). Cada linha traz
     os componentes brutos (não as fórmulas já prontas) pra isso.
 
-    `dia_fn` escolhe a regra de corte do dia: `_dia_negocio` (21h30, padrão)
+    `dia_fn` escolhe a regra de corte do dia: `_dia_negocio` (21h45, padrão)
     ou `_dia_24h` (meia-noite, janela convencional) — pedido 2026-10-17 de
-    ver as duas lado a lado na Executiva."""
+    ver as duas lado a lado na Executiva.
+
+    REVERTIDO 2026-11-13: cheguei a agrupar isto pela data do SORTEIO
+    (como `montar_sorteios_por_dia` abaixo), mas o founder/cliente notou
+    que isso faz o card "Hoje" misturar venda de ontem (de sorteios que só
+    fecham hoje) e esconder venda de hoje (de sorteios que só fecham
+    amanhã) — não bate com "quanto entrou de caixa hoje", que é o que os
+    cards do topo e este gráfico respondem. Fica na data REAL da venda
+    (`_data_ord`), sempre — só `montar_sorteios_por_dia` (o drill-down por
+    sorteio) usa a data do sorteio. Os dois podem não bater em soma — isso
+    é esperado (um mede caixa do dia, o outro mede sorteios fechados no
+    dia) e está anotado no rótulo do drill-down."""
     df = df_pedidos.copy()
     if sorteios_meta is not None:
         df = _anexar_baixa_manual(df, sorteios_meta)
@@ -1456,28 +1504,49 @@ def _totais_por_sorteio(df_pedidos, sorteios_meta, premio_por_sorteio):
     return out
 
 
-def montar_sorteios_por_dia(df_pedidos, sorteios_meta, premio_por_sorteio, dia_fn=_dia_negocio):
-    """dia -> lista de sorteios que tiveram pedido naquele dia (faturamento e
-    lucro só da fatia daquele dia) — alimenta o clique de expansão do dia no
-    gráfico 'Faturamento do site por dia' E a auditoria do card 'Lucro do
-    site' (pedido 2026-10-07: founder quer ver faturamento + custo de
-    prêmio identificado, por sorteio, pra conferir a conta do lucro).
-    `valor_premio` aqui é o prêmio TOTAL do sorteio (não dividido por dia —
-    é um custo único, pago quando o sorteio é sorteado), repetido em cada
-    dia que o sorteio teve pedido; `faturamento`/`lucro_estimado` são só a
-    fatia daquele dia. Pra period auditar certo: lucro_estimado somado ao
-    longo dos dias de um sorteio sempre bate com
-    faturamento_do_sorteio - valor_premio (conferível pelo frontend).
+def montar_sorteios_por_dia(df_pedidos, sorteios_meta, premio_por_sorteio):
+    """dia -> lista de sorteios AGRUPADOS pelo dia em que fecharam (foram
+    sorteados) — alimenta o clique de expansão do dia no gráfico
+    'Faturamento do site por dia' E a auditoria do card 'Lucro do site'
+    (pedido 2026-10-07: founder quer ver faturamento + custo de prêmio
+    identificado, por sorteio, pra conferir a conta do lucro).
 
-    `dia_fn` mesma escolha de corte de `montar_diario` (21h30 ou 24h).
-    Carrega também baixa_manual por sorteio/dia (2026-10-17) — mesma
-    definição de `montar_diario` (ApprovedBy="admin"), além dos TOTAIS do
-    sorteio inteiro (`_totais_por_sorteio`) pra tabela de auditoria."""
+    ATUALIZADO 2026-11-12 (pedido do cliente via founder): cada sorteio
+    agora cai INTEIRO no dia do seu `drawDate` (via `_dia_efetivo_por_sorteio`),
+    não mais fatiado pelos dias em que teve venda — antes, um sorteio aberto
+    num dia e vendendo por vários dias aparecia em cada um deles com só a
+    fatia daquele dia; isso inflava a contagem de "sorteios do dia" com
+    sorteios antigos ainda vendendo, o que gerou a discrepância que o
+    cliente reportou (contagem manual de rifinhas abertas no dia batendo
+    diferente do "Total de sorteios" daqui). Enquanto o sorteio não tem
+    `drawDate` ainda (está em aberto), cai no dia real da venda — por isso
+    ainda pode haver mais de 1 linha por `product_id` num mesmo dia nesse
+    caso transitório; uma vez sorteado, tudo migra pro dia do resultado.
+    `valor_premio` aqui é o prêmio TOTAL do sorteio (custo único, pago
+    quando o sorteio é sorteado) e `faturamento`/`lucro_estimado` agora
+    tendem a bater com os totais do sorteio inteiro (`faturamento_total_sorteio`
+    etc.), já que não há mais fatiamento real por dia na maioria dos casos.
+
+    Enquanto o sorteio ainda não tem `drawDate`, fica no dia real da venda
+    em calendário puro também (sem parâmetro pra escolher — ver abaixo por
+    quê). O FECHAMENTO em si (quando o sorteio já tem `drawDate`) usa
+    SEMPRE calendário puro (meia-noite, `_dia_24h`), nunca o corte de
+    negócio — CORRIGIDO 2026-11-13 (cliente, via founder): o corte
+    de negócio existe pra decidir a que dia de CAIXA uma VENDA pertence
+    (pedido pago às 21:50 é "dia seguinte" pro caixa), mas não faz sentido
+    pro FECHAMENTO do sorteio em si — um sorteio sorteado às 22h ainda é,
+    no calendário, o mesmo dia em que fechou; aplicar o corte de negócio
+    nessa data fazia sorteios fechados à noite "pularem" pro dia seguinte
+    na tabela, o que não bate com a realidade (confirmado comparando com a
+    janela 24h, que não tem esse problema). Carrega também baixa_manual por
+    sorteio/dia (2026-10-17) — mesma definição de `montar_diario`
+    (ApprovedBy="admin"), além dos TOTAIS do sorteio inteiro
+    (`_totais_por_sorteio`) pra tabela de auditoria."""
     titulos = {(s.get("_id") or s.get("id")): s.get("title", "") for s in sorteios_meta}
     totais = _totais_por_sorteio(df_pedidos, sorteios_meta, premio_por_sorteio)
     df = df_pedidos.copy()
     df = _anexar_baixa_manual(df, sorteios_meta)
-    df["_dia"] = dia_fn(df["_data_ord"].dt.tz_convert(TZ_BRASIL))
+    df["_dia"] = _dia_efetivo_por_sorteio(df["_data_ord"], df["ProductId"], sorteios_meta, _dia_24h)
     df["_valor_baixa_manual"] = df["Valor"].where(df["_eh_baixa_manual"], 0.0)
     g = df.groupby(["_dia", "ProductId"]).agg(
         pedidos=("Valor", "count"),
@@ -1982,11 +2051,17 @@ def montar_snapshot(dias, daily_insights, by_ad, pixel_funnel, df_pedidos, sorte
         "validacao_sinal_fraco_utm": validar_sinal_fraco_com_utm(df_pedidos),
         "sorteios": montar_sorteios(df_pedidos, sorteios_meta, premio_por_sorteio),
         "diario": montar_diario(df_pedidos, daily_insights, sorteios_meta=sorteios_meta),
+        # Fechamento do sorteio é sempre por calendário (ver docstring de
+        # `montar_sorteios_por_dia`) — por isso "sorteios_por_dia" e
+        # "sorteios_por_dia_24h" abaixo saem IDÊNTICOS agora (nenhum dos
+        # dois ainda aplica corte de negócio ao `drawDate`); mantidos como
+        # duas chamadas/chaves separadas só pra não quebrar o contrato que
+        # o frontend já espera (uma por janela de cima).
         "sorteios_por_dia": montar_sorteios_por_dia(df_pedidos, sorteios_meta, premio_por_sorteio),
-        # Janela convencional (meia-noite), lado a lado com a de 21h30 acima
+        # Janela convencional (meia-noite), lado a lado com a de 21h45 acima
         # — pedido do cliente 2026-10-17, ver as duas agregações juntas.
         "diario_24h": montar_diario(df_pedidos, daily_insights, dia_fn=_dia_24h, sorteios_meta=sorteios_meta),
-        "sorteios_por_dia_24h": montar_sorteios_por_dia(df_pedidos, sorteios_meta, premio_por_sorteio, dia_fn=_dia_24h),
+        "sorteios_por_dia_24h": montar_sorteios_por_dia(df_pedidos, sorteios_meta, premio_por_sorteio),
         "kpis_financeiros": kpis,
         "qualidade": montar_qualidade(df_pedidos),
         # --- página Produto (analítica — a rodada de sorteio como produto) ---

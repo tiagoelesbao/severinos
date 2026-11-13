@@ -1,0 +1,162 @@
+[
+  {
+    "n": 1,
+    "bloco": "GANCHO",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "O árbitro peitou um jogador",
+    "arquivo": "c01-gancho.png"
+  },
+  {
+    "n": 2,
+    "bloco": "NÚMEROS",
+    "tipo": "escudos",
+    "modo": "painel",
+    "ancora": "os numeros da noite porque eles explicam",
+    "arquivo": "c02-numeros.png"
+  },
+  {
+    "n": 3,
+    "bloco": "NÚMEROS",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "agora os numeros que quase ninguem viu",
+    "arquivo": "c03-numeros.png"
+  },
+  {
+    "n": 4,
+    "bloco": "NÚMEROS",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "guarde esse nome porque ele e o personagem",
+    "arquivo": "c04-numeros.png"
+  },
+  {
+    "n": 5,
+    "bloco": "ÍNDICE",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "neste video voce vai entender quatro coisas",
+    "arquivo": "c05-indice.png"
+  },
+  {
+    "n": 6,
+    "bloco": "CTA",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "se inscreve no canal",
+    "arquivo": "c06-cta.png"
+  },
+  {
+    "n": 7,
+    "bloco": "BLOCO 1",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "A frase dele foi esta",
+    "arquivo": "c07-bloco1.png"
+  },
+  {
+    "n": 8,
+    "bloco": "BLOCO 1",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "É o time que ganhou",
+    "arquivo": "c08-bloco1.png"
+  },
+  {
+    "n": 9,
+    "bloco": "BLOCO 2",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "a analise dele foi esta",
+    "arquivo": "c09-bloco2.png"
+  },
+  {
+    "n": 10,
+    "bloco": "BLOCO 2",
+    "tipo": "lista",
+    "modo": "faixa",
+    "ancora": "o que deveria ter saido dali eram duas coisas",
+    "arquivo": "c10-bloco2.png"
+  },
+  {
+    "n": 11,
+    "bloco": "BLOCO 3",
+    "tipo": "numero",
+    "modo": "painel",
+    "ancora": "volta comigo aos numeros",
+    "arquivo": "c11-bloco3.png"
+  },
+  {
+    "n": 12,
+    "bloco": "BLOCO 3",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "aconteceu algo que raramente aparece na sumula",
+    "arquivo": "c12-bloco3.png"
+  },
+  {
+    "n": 13,
+    "bloco": "BLOCO 3",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "e teve mais uma reclamacao essa sobre o campo",
+    "arquivo": "c13-bloco3.png"
+  },
+  {
+    "n": 14,
+    "bloco": "BLOCO 3B",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "a expressão que apareceu na cobertura",
+    "arquivo": "c14-bloco3b.png"
+  },
+  {
+    "n": 15,
+    "bloco": "BLOCO 4",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "olha de novo os numeros do jogo",
+    "arquivo": "c15-bloco4.png"
+  },
+  {
+    "n": 16,
+    "bloco": "BLOCO 4",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "a diferenca nao foi volume",
+    "arquivo": "c16-bloco4.png"
+  },
+  {
+    "n": 17,
+    "bloco": "BLOCO 5",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "os representantes dele chegaram a oferecer",
+    "arquivo": "c17-bloco5.png"
+  },
+  {
+    "n": 18,
+    "bloco": "BLOCO 6",
+    "tipo": "numero",
+    "modo": "painel",
+    "ancora": "com a vitoria o fluminense chega",
+    "arquivo": "c18-bloco6.png"
+  },
+  {
+    "n": 19,
+    "bloco": "BLOCO 6",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "fica o registro porque aqui a gente nao inventa",
+    "arquivo": "c19-bloco6.png"
+  },
+  {
+    "n": 20,
+    "bloco": "FECHO",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "agora eu quero saber a sua opiniao",
+    "arquivo": "c20-fecho.png"
+  }
+]

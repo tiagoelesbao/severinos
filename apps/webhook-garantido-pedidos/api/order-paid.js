@@ -67,6 +67,22 @@ async function enviarPurchaseCapi(pedido, user, params, orderId, valor, timestam
 
   const eventTimeUnix = Math.floor(new Date(timestampWebhook || pedido.createdAt || Date.now()).getTime() / 1000);
 
+  // Achado 2026-11-13 (founder, via auditoria ao vivo no Ads Manager): a
+  // Garantido tem uma fatia MUITO maior de recompra via grupo/WhatsApp do
+  // que o Império — mandar Purchase pra TODO pedido pago (igual o Império
+  // faz) inflou o sinal de conversão que a campanha usa pra otimizar
+  // (ROAS 12x reportado com só 7 cliques pagos no dia, claramente maioria
+  // vindo de fbp de cliente orgânico que calhou de ter visto/clicado o
+  // anúncio em algum momento dentro da janela de atribuição). Diferente
+  // do Império: aqui só manda Purchase pro CAPI quando `fbc` está fresco
+  // (clique real em anúncio nos últimos `FBC_MAX_AGE_DIAS` dias) — pedido
+  // puramente orgânico/grupo não dispara CAPI nenhum, só fica gravado em
+  // `pedidos` (Supabase) pro BI, que é o que já acontecia antes.
+  if (!fbcFresco(params.fbc, eventTimeUnix)) {
+    console.log('order-paid: sem fbc fresco — Purchase CAPI não enviado (pedido orgânico/grupo)', orderId);
+    return;
+  }
+
   const userData = {};
   const em = await sha256(user.email);
   if (em) userData.em = [em];
@@ -78,7 +94,7 @@ async function enviarPurchaseCapi(pedido, user, params, orderId, valor, timestam
   if (extId) userData.external_id = [extId];
 
   if (params.fbp) userData.fbp = params.fbp;
-  if (fbcFresco(params.fbc, eventTimeUnix)) userData.fbc = params.fbc;
+  userData.fbc = params.fbc; // já confirmado fresco no gate acima
   if (params.ip) userData.client_ip_address = params.ip;
   if (params.userAgent) userData.client_user_agent = params.userAgent;
 

@@ -1,0 +1,60 @@
+{
+  "rank": 18,
+  "creator": "@gean.mech",
+  "url": "https://www.instagram.com/gean.mech/reel/DcCaiHpNMJX/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by gean.mech",
+  "description": "Marombushi - Episódio 01.\n\nCariri - san, Xuliu - san e Bisteka - San são encurralados.\n\n@higgsfield.ai",
+  "author": "Gean",
+  "view_count": null,
+  "like_count": 3,
+  "comment_count": null,
+  "duration_seconds": 47.29600143432617,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/776496797_17878412574622805_7842652013303731181_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=105&ig_cache_key=Mzk2Mzg0NzMxNTkxODQ3MTc2NzE3ODc4NDEyNTcxNjIyODA1.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjEyODAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=hziHgmngHZUQ7kNvwHVs3-Q&_nc_oc=AdpYGmhqxOG76O0S-wQZ6USfOaR8JbPGmGS4PzdteHIdirgdOviXZxDUJ9Q81V5YZqnjmqPqqO-D1cm8IKpa_Evv&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=T5hBouTKr8n0RFlb3Z42zw&_nc_ss=7a22e&oh=00_AQFO6awawtz1YbnxzUo5OL2rjNF86AflgO123cwNZTSgFw&oe=6A881B94",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 8,
+      "label": "Carita, you're Louis inside."
+    },
+    {
+      "time": 11,
+      "label": "What do you care about?"
+    },
+    {
+      "time": 17,
+      "label": "Yare, yare, toraburi mitai da "
+    },
+    {
+      "time": 20,
+      "label": "A sua boca."
+    },
+    {
+      "time": 39,
+      "label": "Yes, I will."
+    }
+  ],
+  "cut_timestamps": [
+    2.67,
+    5.04,
+    11.5,
+    14.29,
+    16.88,
+    19.42,
+    24.67,
+    27.29,
+    29.38,
+    33.08,
+    35.71,
+    37.38,
+    42.21
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-17T00:59:14.238Z",
+  "item_status": "ok",
+  "status_reason": null
+}

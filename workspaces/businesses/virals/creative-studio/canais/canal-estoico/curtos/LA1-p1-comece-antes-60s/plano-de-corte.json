@@ -1,0 +1,25 @@
+{
+  "planos": [
+    {
+      "take": "c01-busto-perfil",
+      "ini": 0.0,
+      "dur": 4.7
+    },
+    {
+      "take": "c02-sentado-cotovelo",
+      "ini": 4.7,
+      "dur": 18.48
+    },
+    {
+      "take": "c03-de-pe-templo",
+      "ini": 23.18,
+      "dur": 22.0
+    },
+    {
+      "take": "c04-ruina-ceu",
+      "ini": 45.18,
+      "dur": 14.54
+    }
+  ],
+  "audio": 59.72
+}

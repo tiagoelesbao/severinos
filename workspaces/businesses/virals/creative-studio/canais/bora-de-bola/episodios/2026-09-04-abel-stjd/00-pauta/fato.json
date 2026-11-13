@@ -1,0 +1,32 @@
+{
+  "nicho": "futebol",
+  "sujeito": "o STJD",
+  "acao": "puniu Abel Ferreira com dois jogos por chutar um microfone",
+  "acao_curta": "pune Abel por 2 jogos",
+  "alvo": "o Palmeiras",
+  "alvo_reage": true,
+  "consequencia": "o Palmeiras vai recorrer e pedir efeito suspensivo",
+  "verificado": [
+    "duas partidas de suspensão por chutar um microfone na beira do campo",
+    "durante o empate entre Palmeiras e Mirassol, pela 25ª rodada do Campeonato Brasileiro",
+    "Ele desfalca a equipe nos confrontos com Botafogo",
+    "O Palmeiras vai recorrer e pedir efeito suspensivo",
+    "O julgamento de Abel Ferreira começou com um auditor pedindo absolvição e o segundo solicitando uma partida",
+    "Depois da pausa para o almoço, os votos ficaram diferentes e Abel Ferreira foi condenado a duas partidas"
+  ],
+  "_origem": {
+    "fontes": [
+      "ge.globo — Abel Ferreira é punido com dois jogos de suspensão por chutar microfone e desfalca Palmeiras",
+      "ge.globo — Palmeiras vai recorrer e pedir efeito suspensivo sobre punição a Abel",
+      "ge.globo — Palmeiras prepara mudanças na escalação para enfrentar Botafogo com desfalque e sem Abel",
+      "UOL / PVC — Abel punido por dois jogos ficou de tamanho justo"
+    ],
+    "links": [
+      "https://ge.globo.com/futebol/times/palmeiras/noticia/2026/09/04/abel-ferreira-e-punido-com-dois-jogos-de-suspensao-por-chutar-microfone-e-desfalca-palmeiras.ghtml",
+      "https://ge.globo.com/futebol/times/palmeiras/noticia/2026/09/04/palmeiras-vai-recorrer-e-pedir-efeito-suspensivo-sobre-punicao-a-abel.ghtml",
+      "https://www.uol.com.br/esporte/colunas/pvc/2026/09/04/abel-punido-por-dois-jogos-ficou-de-tamanho-justo.htm"
+    ],
+    "eco": 4,
+    "angulo_extra": "O julgamento virou depois da pausa para o almoço: começou com pedido de absolvição e terminou em duas partidas (fonte: PVC/UOL). É o ângulo de bastidor com fonte, sem inventar fala."
+  }
+}

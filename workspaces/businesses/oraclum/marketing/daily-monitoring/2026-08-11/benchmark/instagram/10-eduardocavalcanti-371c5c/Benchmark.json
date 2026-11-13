@@ -1,0 +1,53 @@
+{
+  "rank": 10,
+  "creator": "@eduardocavalcanti",
+  "url": "https://www.instagram.com/eduardocavalcanti/reel/Db22vlVRPNN/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by eduardocavalcanti",
+  "description": "Uma agência completa OPEN SOURCE 🙀🤯\n\nComenta 520 👇 que te envio o link no seu direct!",
+  "author": "Eduardo Cavalcanti",
+  "view_count": null,
+  "like_count": 344,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/769584726_18615347716056601_3397986355228541108_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=111&ig_cache_key=Mzk2MDU5MzY4NjczMTIyMzg4NTE4NjE1MzQ3NzEzMDU2NjAx.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=qvOWAph6D3wQ7kNvwEYj6hy&_nc_oc=Ado8tQxPDZRC3D1qhWA-Hdy1qKaLCj67f3nrLdVaWlInnRGdhIbFErPHQhamymnLSyX-KYgeb4qF34h2G12GHhYQ&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=71rF0tNF3iSjurzhyWOQxg&_nc_ss=7b689&oh=00_AQGkoY6mDSMa4mfC0TFtDxZU_Qn2DdL98gUnKMIqWeGURQ&oe=6A80FDC3",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Tem alguém acabou de criar"
+    },
+    {
+      "time": 6,
+      "label": "e o projeto já tem mais de 124"
+    },
+    {
+      "time": 17,
+      "label": "Cada um tem a sua própria pers"
+    },
+    {
+      "time": 25,
+      "label": "Ainda existe um aplicativo par"
+    },
+    {
+      "time": 37,
+      "label": "e nos segue, a gente envia o l"
+    }
+  ],
+  "cut_timestamps": [
+    9.7,
+    12.67,
+    21.07,
+    34.97,
+    35.43,
+    37.73
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-11T13:53:00.715Z",
+  "item_status": "ok",
+  "status_reason": null
+}

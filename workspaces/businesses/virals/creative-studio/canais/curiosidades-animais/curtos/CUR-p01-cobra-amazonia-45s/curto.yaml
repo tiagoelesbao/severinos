@@ -1,0 +1,74 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-P01 · piloto do canal de curiosidades
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-p01-cobra-amazonia-45s
+  canal: curiosidades-animais
+  criado_em: '2026-09-07'
+  status: montado
+
+visual:
+  # UM TAKE POR BICHO CITADO, na ordem da contagem regressiva.
+  #
+  # A primeira versao usou o banco generico do canal e a tela mostrava onca e
+  # piranha enquanto a locucao falava de arraia e formiga. Take generico serve
+  # quando o roteiro fala de "a Amazonia"; nao serve quando ele diz o NOME do
+  # bicho -- ai a imagem errada e erro, nao ilustracao.
+  #
+  # A ordem aqui e a ordem em que sao citados: hook, 5, 4, 3, 2, 1, fecho.
+  # `n` = quantos clipes DISTINTOS a mesma consulta baixa, e `etiqueta` pode
+  # repetir em duas linhas: as duas alimentam o mesmo trecho da fala. E o que
+  # tira as 39 repeticoes consecutivas -- o trecho da arraia dura sete
+  # segundos, entao precisa de tres arraias, nao de uma parada.
+  #
+  # `exige` = o que a DESCRICAO do Pexels tem de citar. Sem ela o banco
+  # devolveu modelo de estudio como cobra-coral, hipopotamo como sucuri e
+  # cascalho como formiga -- cinco erros em vinte e nove, todos silenciosos.
+  # A boca do hook e de BICHO, nao de gente: a consulta antiga trouxe labios
+  # humanos duas vezes.
+  consultas:
+    - {q: "snake open mouth fangs close up",  etiqueta: "hook-boca", n: 2, exige: [snake, serpent, reptile], ancora: "Cinco bichos da Amazonia que voce nao quer encontrar"}
+    - {q: "stingray swimming sandy bottom",   etiqueta: "5-arraia", n: 3, exige: [stingray, ray], ancora: "Numero cinco a arraia de agua doce"}
+    - {q: "stingray ocean floor close",       etiqueta: "5-arraia", n: 2, exige: [stingray, ray]}
+    # `imagem` = o que gerar quando o banco nao tiver. A cobra-coral nao existe
+    # no Pexels: as 42 respostas eram por-do-sol, naja, cobra-d'agua e
+    # salamandra. Gerar a especie certa e melhor que exibir outra cobra.
+    - {q: "coral snake red black bands",      etiqueta: "4-coral", n: 3, exige: [coral, milk-snake, banded], ancora: "Numero quatro a cobra coral verdadeira",
+       imagem: "photorealistic macro wildlife photograph of a brazilian coral snake, vivid red black and white bands, crawling over wet leaf litter on the amazon forest floor, shallow depth of field, natural daylight, documentary photography, vertical composition"}
+    - {q: "venomous coral snake close up",    etiqueta: "4-coral", n: 2, exige: [coral, venomous, viper],
+       imagem: "photorealistic close-up of a coral snake head with red and black rings, coiled on dark damp soil, rainforest undergrowth blurred behind, natural light, wildlife documentary still, vertical composition"}
+    - {q: "small catfish underwater river",   etiqueta: "3-candiru", n: 3, exige: [fish, catfish], ancora: "Numero tres o candiru"}
+    - {q: "tiny fish swimming murky water",   etiqueta: "3-candiru", n: 2, exige: [fish]}
+    - {q: "anaconda large snake water",       etiqueta: "2-sucuri", n: 3, exige: [anaconda, snake, python, boa], ancora: "Numero dois a sucuri"}
+    - {q: "green anaconda swamp river",       etiqueta: "2-sucuri", n: 2, exige: [anaconda, snake, python, boa],
+       imagem: "photorealistic wildlife photograph of a huge green anaconda partially submerged in a muddy amazon river, thick coils above the water surface, dense green vegetation on the bank, overcast daylight, telephoto documentary still, vertical composition"}
+    - {q: "bullet ant on tree bark macro",    etiqueta: "1-formiga", n: 3, exige: [ant, ants], ancora: "E numero um a formiga"}
+    - {q: "ants crawling macro close up",     etiqueta: "1-formiga", n: 2, exige: [ant, ants]}
+    - {q: "amazon rainforest river aerial",   etiqueta: "fecho-mata", n: 2, exige: [forest, rainforest, jungle, river], ancora: "Comenta ai qual desses tu ja viu de perto"}
+
+
+  # ── AS CAMADAS DO FORMATO ────────────────────────────────────────────────
+  #
+  # Aqui elas sao mais escassas que no canal de placas, de proposito: este
+  # piloto testa se a CONTAGEM REGRESSIVA segura sozinha. O que entra e o
+  # minimo do benchmark -- reacao no hook, CTA no meio (nao no fim, onde ja
+  # perdeu quem ia sair) e o pedido de salvar no fecho.
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Cinco bichos da Amazonia que voce nao quer encontrar"}
+    # gestos do TikTok: seguir no meio (onde ainda ha audiencia) e salvar no
+    # fecho, que e o gesto que o proprio roteiro pede
+    # ORDEM DOS CTA: o primeiro e sempre SEGUIR -- e o unico gesto que vale
+    # alguma coisa para um perfil que ainda esta juntando seguidor. O segundo
+    # pede COMENTARIO (ou o trio), que e o que o algoritmo le como conversa.
+    # SALVAR saiu: nao move seguidor nem alcance neste momento.
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero quatro a cobra coral verdadeira"}
+    - {tipo: emoji, glifo: "⁉️", px: 190, pos: topo, dur: 1.8,
+       ancora: "E numero um a formiga"}
+    # o trio ocupa tres alturas de pilula: em 1120 ele engolia a legenda
+    # (centrada em 1114) e a tarja da chamada final. Sobe para 700, que e o
+    # unico vazio grande do quadro depois do rotulo.
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4,
+       ancora: "Comenta ai qual desses tu ja viu de perto"}

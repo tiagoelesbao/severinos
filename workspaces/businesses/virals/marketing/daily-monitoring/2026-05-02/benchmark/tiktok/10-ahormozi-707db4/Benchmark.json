@@ -1,0 +1,43 @@
+{
+  "rank": 10,
+  "creator": "@ahormozi",
+  "url": "https://www.tiktok.com/@ahormozi/video/7634907678292184333",
+  "platform": "tiktok",
+  "type": "video-short",
+  "subtype": "tiktok-video",
+  "engine": "VideoAnalyzer",
+  "title": "When we start a business, I’m convinced debt is mandatory: Either we ...",
+  "description": "When we start a business, I’m convinced debt is mandatory: Either we incur financial debt to afford the resources we need. Or We incur operational debt foregoing those resources to save money. So the question is: is it easier to repay financial debt or bad infrastructure?",
+  "author": "ahormozi",
+  "view_count": 18600,
+  "like_count": 699,
+  "comment_count": null,
+  "duration_seconds": 46,
+  "thumbnail": "https://p16-sign.tiktokcdn-us.com/tos-useast5-p-85c255-tx/o07IpIpXwCk7BH9pAivOS0BAWifD2iYdEljPB0~tplv-tiktokx-origin.image?dr=14575&x-expires=1778000400&x-signature=skLlIO3YTh1uzPHl7Y9Elgji9qU%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "We do right under about 2 mill"
+    },
+    {
+      "time": 9.08,
+      "label": "So basically every business al"
+    },
+    {
+      "time": 19.76,
+      "label": "don't incur the operational de"
+    },
+    {
+      "time": 28.08,
+      "label": "If you're bootstrapped, the al"
+    },
+    {
+      "time": 42.04,
+      "label": "guy's thing than 100% of my ow"
+    }
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-05-03T17:02:55.765Z"
+}

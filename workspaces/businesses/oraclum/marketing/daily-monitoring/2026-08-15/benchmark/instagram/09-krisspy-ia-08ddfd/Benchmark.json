@@ -1,0 +1,51 @@
+{
+  "rank": 9,
+  "creator": "@krisspy_ia",
+  "url": "https://www.instagram.com/krisspy_ia/reel/DcBlQ8oqN0b/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by krisspy_ia",
+  "description": "Calma, e so um sonho \n\nate o toguro tava no shape kkkkkk",
+  "author": "krisspy_ia",
+  "view_count": null,
+  "like_count": 12031,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/772760550_18164884879446755_2205330926139832602_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=1&ig_cache_key=Mzk2MzYxMzAzOTQwMTk1MDQ5MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjE5MjAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=tQopq7_X8_QQ7kNvwFhJnWK&_nc_oc=Adqfxu6CmQzUkIlDdNNBLHe7NCqToDzY_a3VqJrz05e2p3cV43lhqQ8e73Ai-Oro0qzyQOSLsgOPOztMBt5xfSXh&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=6-FzmENZDIXCokEUDpz39A&_nc_ss=7b689&oh=00_AQECJ2VwVt0apYQUmj8CpAHJdsJZJMqXSfiqYJcXs-_GAw&oe=6A883019",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 10,
+      "label": "Boa bisteca, agora é só descer"
+    },
+    {
+      "time": 22,
+      "label": "Não me manda mensagem."
+    },
+    {
+      "time": 23,
+      "label": "Não me liga."
+    },
+    {
+      "time": 25,
+      "label": "Não me liga! Não me manda mens"
+    },
+    {
+      "time": 33,
+      "label": "Posso dormir com você, Gabriel"
+    }
+  ],
+  "cut_timestamps": [
+    12.3,
+    16.13,
+    18.07,
+    28.7
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-17T00:57:55.679Z",
+  "item_status": "ok",
+  "status_reason": null
+}

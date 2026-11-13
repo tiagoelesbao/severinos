@@ -1,0 +1,173 @@
+{
+  "slug": "CUR-l09-sem-agua-40s",
+  "takes": [
+    {
+      "arquivo": "t01-quatro-ocoala.mp4",
+      "etiqueta": "quatro-ocoala",
+      "consulta": "koala eucalyptus tree",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 37501817,
+      "autor": "Joolsmagools  ®️",
+      "url": "https://www.pexels.com/video/relaxed-koala-in-native-habitat-37501817/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-quatro-ocoala.mp4",
+      "etiqueta": "quatro-ocoala",
+      "consulta": "koala eucalyptus tree",
+      "duracao": 34,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 33980561,
+      "autor": "Joolsmagools  ®️",
+      "url": "https://www.pexels.com/video/adorable-koala-feeding-on-eucalyptus-leaves-33980561/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-quatro-ocoala.mp4",
+      "etiqueta": "quatro-ocoala",
+      "consulta": "koala eucalyptus tree",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 37701111,
+      "autor": "Joolsmagools  ®️",
+      "url": "https://www.pexels.com/video/koala-climbing-tree-in-natural-habitat-37701111/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-tres-ocamelo.mp4",
+      "etiqueta": "tres-ocamelo",
+      "consulta": "camel desert walking",
+      "duracao": 10,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 36619755,
+      "autor": "Nicoló Monterotondo",
+      "url": "https://www.pexels.com/video/camels-walking-in-desert-at-sunset-36619755/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t05-tres-ocamelo.mp4",
+      "etiqueta": "tres-ocamelo",
+      "consulta": "camel desert walking",
+      "duracao": 6,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 30783918,
+      "autor": "Kristen Haennel",
+      "url": "https://www.pexels.com/video/camel-ride-through-majestic-sahara-desert-dunes-30783918/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t06-tres-ocamelo.mp4",
+      "etiqueta": "tres-ocamelo",
+      "consulta": "camel desert walking",
+      "duracao": 13,
+      "largura": 720,
+      "altura": 1366,
+      "origem": "pexels",
+      "pexels_id": 5795194,
+      "autor": "https://kaboompics.com/",
+      "url": "https://www.pexels.com/video/vertical-video-of-camel-roaming-in-the-field-during-daytime-5795194/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t07-dois-obesourodo.png",
+      "etiqueta": "dois-obesourodo",
+      "consulta": "beetle desert sand dune",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t08-dois-obesourodo.png",
+      "etiqueta": "dois-obesourodo",
+      "consulta": "beetle desert sand dune",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t09-dois-obesourodo.png",
+      "etiqueta": "dois-obesourodo",
+      "consulta": "beetle desert sand dune",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t10-um-oratocangu.png",
+      "etiqueta": "um-oratocangu",
+      "consulta": "kangaroo rat desert night",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t11-um-oratocangu.png",
+      "etiqueta": "um-oratocangu",
+      "consulta": "kangaroo rat desert night",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t12-um-oratocangu.png",
+      "etiqueta": "um-oratocangu",
+      "consulta": "kangaroo rat desert night",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t13-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "desert dunes sunset",
+      "duracao": 6,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 39145684,
+      "autor": "Mohd Atir",
+      "url": "https://www.pexels.com/video/serene-desert-sunset-with-flowing-sand-39145684/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t14-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "desert dunes sunset",
+      "duracao": 10,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 19797595,
+      "autor": "Andrey Denin",
+      "url": "https://www.pexels.com/video/the-sand-dunes-are-very-large-and-have-many-lines-19797595/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

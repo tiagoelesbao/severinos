@@ -1,0 +1,61 @@
+{
+  "rank": 34,
+  "creator": "@rodrigotadewald",
+  "url": "https://www.instagram.com/rodrigotadewald/reel/DcMh8AyCSUe/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by rodrigotadewald",
+  "description": "Strix é uma ferramenta open source que usa agentes de IA para testar a segurança da sua aplicação.\n\nIsso é especialmente útil agora que muita gente está A ideia é simples: antes de alguém tentar explorar teu app de verdade, você coloca agentes para investigar possíveis falhas, testar caminhos, validar vulnerabilidades e tentar gerar uma prova de conceito.\ncriando aplicações muito rápido com Cursor, Claude Code, Codex, Lovable, Bolt e outras ferramentas de IA.\n\nPorque o problema de criar rápido é que também dá para publicar rápido demais.\n\nE aí um app que “funciona” pode estar cheio de buraco que ninguém percebeu.\n\nA Strix tenta agir mais como um pentester do que como um scanner tradicional.\n\nEla não fica só jogando um alerta genérico no teu colo. A proposta é investigar se a falha realmente existe, como ela pode ser explorada e até sugerir caminhos para corrigir o problema no código.\n\nOutro ponto interessante é que dá para integrar com GitHub Actions, rodando esse tipo de verificação antes de uma mudança ir para produção.\n\nClaro: isso não substitui auditoria de segurança séria, principalmente em projeto sensível.\n\nMas para quem está criando apps com IA e quer um filtro extra antes de colocar o projeto no ar, é uma ferramenta muito interessante para testar.",
+  "author": "Rodrigo Tadewald",
+  "view_count": null,
+  "like_count": 1214,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/777382061_17898902850569412_3597712113687705969_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=106&ig_cache_key=Mzk2NjY5NDYzMTM0OTQ5NTA3MDE3ODk4OTAyODQ0NTY5NDEy.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjEwODAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=jyBq36lh5fQQ7kNvwE12oOo&_nc_oc=AdpbxafKE-Q_1Pyp0933ua_tf6I9eGg_A8OoW6W4VkScWW16YD0C-6dfjeXn8kvmT_wYhuqrBG2XPx0pmWqNNGLF&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=u4xY2hynrteyWuu3bAnvxQ&_nc_ss=7b689&oh=00_AQHOw075D6y7Z1SpQiDDB0Y52vJwpaX62Z7fI1TgGwhHbQ&oe=6A8BC8AA",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Como saber se o aplicativo que"
+    },
+    {
+      "time": 8,
+      "label": "O nome dela é Strix, é open so"
+    },
+    {
+      "time": 25,
+      "label": "Mas sim, ela tenta agir como u"
+    },
+    {
+      "time": 37,
+      "label": "Número um, encontrar falhas de"
+    },
+    {
+      "time": 51,
+      "label": "E aí tu pode sempre utilizar e"
+    }
+  ],
+  "cut_timestamps": [
+    3.09,
+    5.88,
+    8.01,
+    9.26,
+    11.55,
+    22.52,
+    25.19,
+    27.49,
+    32.95,
+    35.12,
+    36.83,
+    39.12,
+    44.09,
+    51.38
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-19T19:38:44.810Z",
+  "item_status": "ok",
+  "status_reason": null
+}

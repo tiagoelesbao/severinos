@@ -1,0 +1,29 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l08-barulhentos-40s · Os bichos mais barulhentos do planeta
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l08-barulhentos-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "howler monkey rainforest", etiqueta: "quatro-obugio", n: 3, exige: [howler, monkey], ancora: "Numero Quatro o bugio"}
+    - {q: "cicada insect macro tree", etiqueta: "tres-acigarra", n: 3, exige: [cicada, insect], ancora: "Numero Tres a cigarra",
+       imagem: "photorealistic extreme macro photograph of a cicada clinging to tree bark, transparent veined wings, large red eyes, dappled forest light, shallow depth of field, wildlife documentary still, vertical composition"}
+    - {q: "pistol shrimp reef underwater", etiqueta: "dois-ocamaraopi", n: 3, exige: [shrimp], ancora: "Numero Dois o camarao-pistola",
+       imagem: "photorealistic macro photograph of a pistol shrimp at its burrow on a coral reef, one oversized claw raised, sandy seabed, clear water, wildlife documentary still, vertical composition"}
+    - {q: "sperm whale deep ocean", etiqueta: "um-ocachalote", n: 3, exige: [whale], ancora: "Numero Um o cachalote"}
+    - {q: "rainforest canopy trees", etiqueta: "fecho", n: 2, exige: [rainforest, forest, jungle], ancora: "Comenta ai qual desses tu ja ouviu ao vivo."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Os bichos mais barulhentos do planeta."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois o camarao-pistola"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai qual desses tu ja ouviu ao vivo."}

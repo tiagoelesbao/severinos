@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l05-defesa-40s · Bichos que se defendem de um jeito absurdo
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l05-defesa-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "beetle macro close up", etiqueta: "quatro-obesourobo", n: 3, exige: [beetle, insect], ancora: "Numero Quatro o besouro-bombardeiro"}
+    - {q: "horned lizard desert", etiqueta: "tres-olagartoco", n: 3, exige: [lizard], ancora: "Numero Tres o lagarto-cornudo",
+       imagem: "photorealistic macro photograph of a horned lizard on hot desert sand, spiky scaled body, flat wide posture, harsh midday light, wildlife documentary still, vertical composition"}
+    - {q: "sea cucumber underwater", etiqueta: "dois-opepinodom", n: 3, exige: [cucumber], ancora: "Numero Dois o pepino-do-mar",
+       imagem: "photorealistic underwater photograph of a sea cucumber on the sandy seabed, dark warty body, tube feet visible, clear shallow water, wildlife documentary still, vertical composition"}
+    - {q: "gecko lizard on wall", etiqueta: "um-alagartixa", n: 3, exige: [gecko, lizard], ancora: "Numero Um a lagartixa de cauda destacavel",
+       imagem: "photorealistic macro photograph of a gecko on a rough stone wall, detached tail lying nearby on the ground, warm evening light, wildlife documentary still, vertical composition"}
+    - {q: "desert rocks dry landscape", etiqueta: "fecho", n: 2, exige: [desert, rock, sand], ancora: "Comenta ai qual defesa tu acha mais bizarra."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Bichos que se defendem de um jeito absurdo."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois o pepino-do-mar"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai qual defesa tu acha mais bizarra."}

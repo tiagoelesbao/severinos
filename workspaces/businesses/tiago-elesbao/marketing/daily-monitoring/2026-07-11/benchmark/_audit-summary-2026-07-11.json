@@ -1,0 +1,1071 @@
+{
+  "client": "tiago-elesbao",
+  "client_display": "Tiago Elesbão",
+  "date": "2026-07-11",
+  "platforms": [
+    "instagram",
+    "youtube"
+  ],
+  "agents_requested": [
+    "mrbeast-mk",
+    "garyvee-mk",
+    "ladeira",
+    "casey-neistat-img",
+    "sam-kolder-vid"
+  ],
+  "audit_config": "squads/virals-marketing-squad/data/clients/tiago-elesbao/audit-config.yaml",
+  "generated_at": "2026-07-17T15:45:48",
+  "synthesis_only": false,
+  "results": [
+    {
+      "creative_id": "07-garyvee-ea9a04",
+      "platform": "instagram",
+      "creator": "@garyvee",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/garyvee/p/DanKfWZDrmE/",
+      "rank": 7,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Contraste visual forte: headline em ouro sobre fundo escuro gera interrupção imediata de pattern.",
+            "Narrativa de paradoxo: 'Quanto maior a ambição, mais devagar você deve ir' cria um open loop cognitivo instantâneo.",
+            "Estética Raw/Real: A imagem de alguém no chão do trem remove a 'pose de guru', conectando-se com o arquétipo de Herói/trabalho duro.",
+            "Tensão entre urgência diária vs. visão de longo prazo, ideal para founders D2C que sofrem com a ansiedade da escala."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O contraste cromático (Âmbar/Ouro vs. Cinza/Preto) e a imagem contra-intuitiva (alguém 'derrotado' ou reflexivo no chão) forçam a parada do scroll.",
+            "open_loops_detectados": "A headline propõe um paradoxo. Quem tem ambição quer pressa; ao dizer que deve ir 'mais devagar', o cérebro do founder abre um loop para entender a lógica técnica por trás disso.",
+            "micro_rewards_re_hooks": "A diferenciação entre 'paciência' e 'complacência' serve como micro-reward, entregando uma nuance intelectual que valida a inteligência do espectador.",
+            "curva_de_energia": "Começa com um soco (Headline), desce para a reflexão (Body text) e termina com uma lição de mindset. Curva linear, mas estável.",
+            "payoff_satisfaction": "O payoff é entregue ao separar a execução diária (fast) da visão estratégica (slow), resolvendo a tensão criada no início."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a abordagem reflexiva/filosófica por evidências de bastidor, trocando a 'sabedoria' por 'números e processos' reais de quem está construindo o D2C.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 4.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Criativo genérico de mindset motivacional sem número, bastidor ou evidência concreta — esbarra na regra de ZERO PROMESSA VAZIA e MOSTRAR > DIZER.",
+            "Frases como 'power of patience' e apelo 'Share this with someone' soam como auto-ajuda genérica, proibida no brand-identity de Tiago.",
+            "Visual sombrio de trem e reflexão isolada não entrega o calo da mão do founder Herói — falta documentação crua de processo/D2C.",
+            "Princípio de 'ambição exige tempo' é útil como contra-narrativa, mas precisa de ancoragem em caso real de founder brasileiro.",
+            "Sem CTA proibido de venda, mas enclausura em guru tone que contradiz 'founder não posa de guru'."
+          ],
+          "sections": {
+            "vibe_classification": "Vibe de coach motivacional contemplativo (GaryVee genérico), distante do arquétipo Herói raw de Tiago. Falta primeira pessoa real e bastidor de negócio. Classifica como conteúdo de autoridade passiva, não documentação ativa.",
+            "dor_do_avatar_atingida": "Toca ansiedade de resultado rápido, mas não cita CAC, escala ou Meta Ads — dores literais do avatar. Founder D2C quer ver número, não sermão de paciência sem prova.",
+            "shareability_trigger": "Gatilho de empatia visual (homem no trem) tem tração ampla, mas founder real compartilha o que mostra calo, não reflexão abstrata. Baixa shareability no nicho B2B sem evidência.",
+            "aderência_aos_pilares_de_tiago": "Aproxima de mindset/quebra de mitos (20%) só no tema, mas viola princípios de tom e restrições. Backstage (40%) e lessons-cases (25%) zerados neste formato.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão reservado da @virals aparece, mas léxico de auto-ajuda ('power', 'needs it') deve virar linguagem de founder: processo, sistema, número. Sem frase-chave de Tiago usada."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Pegar o princípio 'ambição grande exige processo lento' e recontar com bastidor real de founder D2C brasileiro mostrando número de CAC ou erro de escala, sem frases de motivação genérica.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A estrutura de contraste (Ambição vs. Velocidade) é extremamente poderosa para o avatar de Founder D2C que sofre com a ansiedade de escala.",
+            "O uso de imagem introspectiva com tipografia de alto contraste (Gold/White) comunica autoridade sem a necessidade de 'pose de guru'.",
+            "O framework de quebra de mito (Patience ≠ Complacency) se alinha perfeitamente ao pilar 'Mindset/Mitos' do Tiago.",
+            "O criativo original é muito 'vago/filosófico'; para o Tiago, precisa de ancoragem em processos ou números para não parecer autoajuda."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Quanto maior o seu sistema de aquisição, mais lento você precisa ir para não quebrar a operação. | **Ambição alta exige processos robustos, não pressa desordenada.**",
+            "framework_detectado": "Contraste de Conceitos / Quebra de Expectativa. Ele pega um conceito comum (paciência) e o redefine para evitar um erro (negligência/sloppiness).",
+            "gatilhos_mentais": "Autoridade (pela sobriedade do tom) e Novidade (ao diferenciar paciência de complacência).",
+            "cta_analysis_adaptação_para_call_to_think": "O original é um 'Share this' (venda de engajamento). Para o Tiago, deve ser uma provocação: 'Você está tentando acelerar o crescimento ou apenas atropelando o seu processo? Repara no seu CAC antes de decidir.'",
+            "léxico_flags": "O criativo original não usa as palavras tabu, mas o tom é excessivamente 'inspiracional/soft'. Para o Tiago, o léxico precisa migrar de 'morais/ambição' para 'sistema/processo/escala'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Transformar a filosofia de 'paciência' em uma lição técnica sobre 'construção de sistemas de aquisição' para evitar o tom de autoajuda genérica.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Composição com sujeito off-center e overlay escuro funciona para mobile-first, mas o fundo original é frio/muted e precisa de tratamento para preto profundo #0B0B0F.",
+            "Headline em gold/white tem contraste forte e legibilidade OK, porém a cor gold atual não é o âmbar canônico #FFB800 do cliente.",
+            "Tipografia bold sans-serif é compatível com Outfit Bold, mas o body precisa de ajuste de peso e safe-zone de 60px para não cortar em telas pequenas.",
+            "Arquétipo Herói aparece de forma passiva (contemplação), distante da autoridade direta e bastidor de founder que Tiago Elesbão prega.",
+            "Cta de compartilhamento ('Share this') fere o princípio de call-to-think e nunca usar CTA de venda/apelo direto sem provocação."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide único com homem em trem, postura introspectiva e texto sobreposto em gold/white. A hierarquia é clara: headline bold no topo, body menor abaixo. O mood sombrio e journey visual é engajador, mas muito distante do bastidor de construção real do cliente.",
+            "aderência_à_paleta_tiago": "Paleta original é earthy/gray com gold não-canônico. Não bate com preto profundo #0B0B0F + âmbar #FFB800. Requer reskin completo de cor e overlay denso 0.50 para aproximar da identidade.",
+            "recomendação_de_adaptação_visual": "Trocar fundo por tratamento preto profundo com overlay 0.50 e texto em #FFB800 (headline) e branco (body). Aplicar Outfit Bold e Regular, respeitar safe-zone 60px e centralizar no arquétipo de founder mostrando processo, não pose contemplativa.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Estrutura de quote-slide único com imagem real + overlay + headline de contraste serve como base. Adaptar para carrossel-aspiracional com primeira pessoa ('eu errei em querer rápido demais') e fechar com pergunta provocadora no padrão Tiago."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Refazer o visual com paleta preto+âmbar, overlay 0.50 e substituir o apelo de compartilhamento por uma provocação founder-type ancorada em bastidor real.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 6.5,
+      "classification": "Bom 🟡",
+      "veredito_dominante": "adaptar",
+      "folder_rel": "instagram/07-garyvee-ea9a04"
+    },
+    {
+      "creative_id": "13-roihuntersoficial-891cfd",
+      "platform": "instagram",
+      "creator": "@roihuntersoficial",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/roihuntersoficial/reel/DaoIjEvgGS1/",
+      "rank": 13,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 4.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O hook é puramente motivacional/vago, o que viola o princípio de 'Zero Promessa Vazia' do Tiago.",
+            "Ausência total de evidência, número ou bastidor; o conteúdo é 'pão-de-queijo' motivacional.",
+            "O tom é de 'coach' e não de 'founder documentando o processo'.",
+            "Não há um open loop técnico ou de negócio, apenas um sermão de vida."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O uso de uma expressão forte ('choque palhada') serve como interruptor de padrão auditivo, mas falha no visual por não ancorar em um contexto de negócio real.",
+            "open_loops_detectados": "O loop aberto é genérico: 'você tem que mudar'. Não há curiosidade sobre um sistema, um erro de escala ou um número de CAC/LTV.",
+            "micro_rewards_re_hooks": "Inexistentes. O espectador não recebe nenhuma informação acionável, dado ou insight de mercado durante o trecho.",
+            "curva_de_energia": "A energia é alta e agressiva (estilo GaryVee), mas sem o 'substância' necessária para manter a autoridade do arquétipo Herói/Sábio.",
+            "payoff_satisfaction": "Nulo. O vídeo termina sem entregar um aprendizado concreto, apenas um comando de ação comportamental.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter a energia alta e o tom direto (Hormozi style), mas ADAPTAR radicalmente o conteúdo: em vez de falar de 'mudança de vida', falar de 'mudança de processo ou sistema de aquisição'."
+          },
+          "lexico_flags": [
+            "alavancar"
+          ],
+          "adaptacao_obrigatoria": "Trocar o discurso motivacional de 'mudar de vida' por um discurso de 'mudar o sistema de negócio através de números e processos'.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Criativo é puro formato de guru/intermediário de podcast com CTA de comando ('Comente 253') — oposto do arquétipo Herói sem rodeio de Tiago.",
+            "Usa 'alavancar' e 'insights valiosos', ambos léxico-tabu e corporativês proibido no perfil pessoal.",
+            "Nenhuma evidência, número ou bastidor real: viola princípio MOSTRAR > DIZER e restrição de promessa vazia.",
+            "Pose de guru com convite a episódio motivacional genérico — esbarra em 'never do' de pose de guru e auto-ajuda vazia.",
+            "CTA de vendas direta ('comente para receber link') proibido para Tiago que só usa call-to-think."
+          ],
+          "sections": {
+            "vibe_classification": "Vibe de infoprodutor tradicional: convite a podcast, promessa de 'dominar marketing', linguagem de alavancagem. Contrária ao DNA cru e founder-real de @tiagoelesbao.",
+            "dor_do_avatar_atingida": "Nenhuma dor literal é tocada. Não cita CAC, escala, autonomia ou sono. Só vende sonho genérico de 'empresa em 2026'.",
+            "shareability_trigger": "Founder D2C real não compartilha isso como autoridade; é o tipo de conteúdo que o avatar está cansado de ver no feed alheio.",
+            "aderência_aos_pilares_de_tiago": "0% de backstage, 0% de lessons com dado, 0% de quebra de mito com evidência. Fora de todos os pilares canônicos.",
+            "adaptação_obrigatória_de_léxicobordão": "Se algum princípio fosse resgatado, exigiria banir 'alavancar', 'insights valiosos', remover CTA de comando e trocar por bastidor real com número — mas estrutura atual é irrecuperável."
+          },
+          "lexico_flags": [
+            "alavancar",
+            "insights"
+          ],
+          "adaptacao_obrigatoria": "Ignorar o criativo como modelo; se quiser o princípio de 'choque de mudança', Tiago deve gravar celular na mão mostrando boleto assumido e número do mês, sem CTA de comando.",
+          "_model": "openrouter:tencent/hy3:free"
+        },
+        "ladeira": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente motivacional/genérico ('choque de paleta'), o que viola a regra de 'zero auto-ajuda' do cliente.",
+            "Ausência total de números, evidências ou bastidores reais; é apenas opinião sem lastro técnico.",
+            "CTA de automação ('Comente 253') é estritamente proibido no perfil do Tiago.",
+            "Linguagem coloquial excessiva ('meu irmão') foge do tom 'direto, cru e técnico' do founder D2C.",
+            "Falta de contexto de negócio real; fala de 'assumir boleto' como estratégia, o que soa como amadorismo para o ICP de R$ 30k-2M/mês."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "O erro de quem acha que 'estresse' é estratégia de crescimento. **O número real é este ↓**",
+            "framework_detectado": "Tentativa de 'Quebra de Padrão' via choque emocional, mas sem a entrega de um framework técnico posterior.",
+            "gatilhos_mentais": "Tenta usar 'Urgência' e 'Desconforto', mas falha por não ter Autoridade real baseada em prova social ou dados.",
+            "cta_analysis_adaptação_para_call_to_think": "O original usa CTA de venda/lead ('Comente 253'). Para o Tiago, seria: 'Se você acha que crescer negócio é assumir boleto sem sistema, você não está construindo uma empresa, está comprando um problema.'",
+            "léxico_flags": "Presença de 'alavancar' na caption, termo banido no léxico do cliente."
+          },
+          "lexico_flags": [
+            "alavancar"
+          ],
+          "adaptacao_obrigatoria": "Substituir toda a narrativa motivacional por um caso real de erro/acerto com números e trocar o CTA de automação por uma provocação intelectual.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Estética de podcast tradicional (estúdio polido) conflita frontalmente com a diretriz de 'câmera de celular > estúdio' do Tiago.",
+            "Narrativa baseada em motivação genérica ('choque de realidade'), violando a restrição de 'zero auto-ajuda genérica' e 'promessa vazia'.",
+            "Ausência total de evidência, número ou bastidor real, transformando o conteúdo em 'cosplay de founder'.",
+            "CTA de 'comente X para receber link' é explicitamente proibido no manual do cliente."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "Hook baseado em fala motivacional sem apoio visual de impacto. Para o Tiago, o hook precisaria ser um frame de bastidor real ou um dado chocante nos primeiros 3s.",
+            "ritmo_cortes": "Corte seco básico de podcast. Falta a dinâmica de 'ritmo de founder' que mistura fala direta com B-rolls de processo/execução.",
+            "color_grading_adaptação_para_lut_tiago": "O vídeo original possui cores de estúdio saturadas. Requeria a aplicação total da LUT cinematic.cube (preto+âmbar) para remover a aparência de 'estúdio de podcast' e trazer para a estética crua.",
+            "captions_flags_de_léxico": "Legendas simples, mas o conteúdo da fala é 'motivacional vazio'. O léxico do Tiago exige termos como 'sistema', 'aquisição' e 'evidência', que estão ausentes.",
+            "b_roll_modelável_para_bastidor_tiago": "Inexistente. O vídeo é apenas 'talking head'. Para o cliente, seria obrigatório intercalar com prints de dashboards, reuniões reais ou gravação de tela de IA."
+          },
+          "lexico_flags": [
+            "alavancar"
+          ],
+          "adaptacao_obrigatoria": "Substituir a narrativa motivacional por um case real com números, trocar o cenário de estúdio por bastidores de operação e deletar o CTA de automação de comentários por uma provocação intelectual.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 3.38,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/13-roihuntersoficial-891cfd"
+    },
+    {
+      "creative_id": "17-publicitarioscriativos-789f08",
+      "platform": "instagram",
+      "creator": "@publicitarioscriativos",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DanWD47kS4l/",
+      "rank": 17,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.8,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo usa escassez real (800 pares) para gerar desejo, o que conversa com a mentalidade de 'números' do Tiago.",
+            "A estrutura de 'decodificar um padrão de mercado' (estratégia de sneakers) é poderosa para o posicionamento de autoridade B2B.",
+            "O visual é polido demais; para o Tiago, a estética 'estúdio' mata a percepção de bastidor real.",
+            "A narrativa de 'collab' e 'posicionamento de produto' é um gancho técnico excelente para founders D2C."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O contraste de cores vibrantes e o reconhecimento imediato da marca UNO funcionam como um interruptor visual forte. Para o Tiago, o interruptor seria substituir o produto polido por um print de dashboard ou um frame de bastidor cru.",
+            "open_loops_detectados": "O loop é aberto na premissa de 'como criar desejo e fila'. Ele promete a explicação de um código de mercado que mantém o usuário deslizando para entender a lógica por trás do produto.",
+            "micro_rewards_re_hooks": "As recompensas são a revelação dos detalhes do produto (embalagem que replica a caixa) e a confirmação do número exato de pares. São pílulas de evidência que sustentam a tese inicial.",
+            "curva_de_energia": "A energia é constante e ascendente, partindo de um conceito de mercado para a execução tangível. Não há quedas, pois cada slide entrega um novo detalhe visual do 'estudo de caso'.",
+            "payoff_satisfaction": "O payoff é entregue ao conectar a nostalgia (UNO) com a moda (Sneakers), fechando a lógica de 'novos territórios'. É satisfatório, mas focado em design, não em growth/negócio.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: A lógica de analisar um 'código de mercado' e usar números reais (tiragem limitada). Adaptar: Trocar o formato carrossel de design por um Reel raw de câmera de celular, onde o Tiago analisa a estratégia enquanto mostra o bastidor ou o produto na mão."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a estética de agência de publicidade por documentação crua de founder, trocando a análise de design por análise de sistema de aquisição e conversão.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O conceito de 'escassez real' (800 unidades) é ouro puro para o posicionamento de Tiago, pois foge do marketing de hype vazio e foca em evidência de mercado.",
+            "A estrutura de análise de 'código de desejo' serve perfeitamente para o pilar de Análise de Mercado e Lessons-learned.",
+            "O criativo original é muito 'publicitário/estético'; para o Tiago, o foco não deve ser o produto bonito, mas o sistema de construção de desejo por trás dele.",
+            "O ângulo de 'sair de prateleiras de brinquedo para vitrines de moda' é uma quebra de status quo clássica que o Tiago pode usar para falar de novos canais de aquisição."
+          ],
+          "sections": {
+            "vibe_classification": "O criativo original é puramente estético e publicitário (vibe de agência de branding). Para o Tiago, a vibe deve ser de **análise técnica de bastidor**. Ele não deve postar para elogiar o design, mas para dissecar o modelo de negócio e o gatilho de escassez aplicado.",
+            "dor_do_avatar_atingida": "Ataca a dor de founders que sofrem com CAC alto e dependência de tráfego pago. Ao mostrar como uma marca usa 'escassez e nostalgia' para gerar demanda orgânica/desejo, Tiago oferece uma alternativa ao modelo de 'queimar dinheiro no Meta'.",
+            "shareability_trigger": "O gatilho de 'descobrir o código oculto' de uma marca grande (UNO). Founders compartilham insights que os fazem parecer inteligentes ou que revelam uma estratégia que eles poderiam implementar.",
+            "aderência_aos_pilares_de_tiago": "Altíssima aderência ao pilar **Analise de Mercado** e **Lessons-learned**. O conteúdo permite usar números (800 pares, tiragem mínima) e processos (collab, nostalgia como ponte) para construir autoridade.",
+            "adaptação_obrigatória_de_léxico_bordão": "Eliminar qualquer tom de 'admiração publicitária'. Trocar o foco de 'veja esse tênis incrível' para 'veja como o UNO construiu um sistema de escassez'. Evitar termos como 'marketing de desejo' e usar 'sistema de aquisição' ou 'estratégia de atenção'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Transformar o carrossel de uma 'apresentação de produto' para uma 'dissecação de estratégia de demanda via escassez e collab', usando a estética de análise técnica (dark mode/âmbar) em vez da estética colorida do UNO.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A estrutura de 'produto + escassez real (número)' é o coração do que o Tiago comunica.",
+            "O criativo usa o 'backstage' do design para gerar valor, o que casa com o pilar de conteúdo do cliente.",
+            "A narrativa de 'mudar de território' (de brinquedo para moda) é uma excelente quebra de status quo.",
+            "O excesso de adjetivos 'marketing/publicitários' torna o conteúdo muito 'guru/agência', o que precisa ser limpo para a voz do Tiago."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "800 pares. O número exato que transforma um jogo de cartas em um ativo de moda. O processo de como a UNO saiu da prateleira de brinquedo para o lifestyle.",
+            "framework_detectado": "O criativo utiliza um framework de **Story-based Scarcity**. Ele apresenta um elemento de nostalgia (UNO), aplica um elemento de exclusividade (800 pares) e justifica a mudança de categoria (brinquedo -> moda).",
+            "gatilhos_mentais": "Apresenta **Escassez Real** (800 pares), **Prova de Conceito** (uso de design autoral) e **Reconhecimento de Marca** (UNO). É um gatilho de autoridade por evidência de mercado, não por promessa.",
+            "cta_analysis_adaptação_para_call_to_think": "O original é informativo. Para o Tiago, o CTA deve ser: 'Se você é founder de D2C e ainda acha que produto é só funcionalidade, você está perdendo o jogo da atenção. Repara no movimento da marca. ↓'",
+            "léxico_flags": "O texto original é 'clean', mas o tom é de curadoria de agência. Para o Tiago, precisamos remover o tom de 'análise de marketing' e substituir por 'documentação de processo'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Transformar a análise de 'marketing/design' em uma análise de 'sistema de construção de demanda e valor de marca via escassez'.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 7.0,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de storytelling de produto/caso extremamente forte, ideal para o pilar 'Lessons-learned + Cases'.",
+            "Hierarquia visual de headline e subheadline funciona bem para leitura rápida em mobile.",
+            "O uso de elementos de contexto (cartas/caixa) cria a 'evidência' que o Tiago exige, saindo do campo da promessa.",
+            "A composição é dinâmica, mas o excesso de cores vibrantes colide com o minimalismo sério do cliente."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "O slide 01 estabelece uma conexão imediata entre o objeto e o conceito. A transição de slides mantém o interesse através de detalhes macro. Porém, a estética atual é 'pop/divertida', enquanto o cliente exige 'cru/técnico'.",
+            "aderência_à_paleta_tiago": "Incompatível no estado atual. O criativo original usa azul vibrante e cores primárias saturadas. Para o Tiago, o fundo deve ser o preto profundo (#0B0B0F) e os destaques devem migrar para o âmbar (#FFB800) ou o laranja-vermelho (#FF4D2E) para sinalizar urgência.",
+            "recomendação_de_adaptação_visual": "Substituir o fundo azul por preto denso com overlay de 0.50. Trocar as cores de destaque do texto para a família Outfit (Bold para títulos). Manter a foto do 'bastidor' ou do 'produto/dado', mas aplicar um tratamento de cor que remeta à autoridade e não ao entretenimento infantil.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Estrutura de Carrossel de Case: Slide 1 (Headline de impacto + imagem de evidência/número); Slide 2-4 (Decomposição do processo/sistema/erro); Slide 5 (Provocação intelectual/call-to-think)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar a estética 'divertida/colorida' por uma estética 'dark/premium' usando a paleta Preto + Âmbar e tipografia Outfit para converter o case de sucesso em uma aula de sistema de aquisição.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 6.71,
+      "classification": "Bom 🟡",
+      "veredito_dominante": "adaptar",
+      "folder_rel": "instagram/17-publicitarioscriativos-789f08"
+    },
+    {
+      "creative_id": "29-hormozi-1db0da",
+      "platform": "instagram",
+      "creator": "@hormozi",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/hormozi/reel/DaokUOsuGq5/",
+      "rank": 29,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O conceito de 'aprender = mudar comportamento' é forte mas genérico demais para o avatar D2C que quer número e bastidor, não filosofia sem prova.",
+            "O ritmo de fala direta e sem rodeio do Hormozi casa com o tom Herói/GaryVee de Tiago, mas falta evidência concreta de negócio no trecho.",
+            "Não há open loop explicitado que prometa bastidor/número/lição — o hook é abstrato ('be patient to a toddler').",
+            "Estrutura de quebra de mito ('no one learns business') é aproveitável como padrão de contraste para o perfil pessoal."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O primeiro frame abre com 'You say be patient / to a toddler / it means nothing' — pattern interrupt por contraste absurdo. Funciona como gancho visual-rítmico, mas não ancora em dor de founder D2C nem em bastidor real.",
+            "open_loops_detectados": "Nenhum open loop estruturado prometendo número ou bastidor no trecho. O loop implícito é 'o que são essas mil skills?' mas não é fechado ou prometido como revelação de processo.",
+            "micro_rewards_re_hooks": "Micro-reward presente: 'no one learns business it's not a topic' — frase quotável que quebra status quo. Falta gráfico, número ou evidência de construção real para recompensar founder-fome.",
+            "curva_de_energia": "Curva de energia sobe com profanidade e ritmo cortante ('What the fuck does that mean'). Mantém atenção por estilo, mas cai em abstração sem payoff de dados para o avatar.",
+            "payoff_satisfaction": "Payoff incompleto no corte: 'break it into pieces and start at the top' é genérico. Founder D2C exige ver o calo da mão, não só o princípio.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter: ritmo direto, quebra de mito, primeira pessoa. Adaptar: substituir abstração por bastidor de skill real aprendida na Virals ou D2C, com número de CAC/processo ao fundo."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reframe do hook abstrato para bastidor cru de uma skill específica que Tiago teve que aprender na construção do negócio, mostrando o número ou erro real em vez de definição genérica.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 9.2,
+          "veredito": "modelar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A estrutura de 'quebra de complexidade' é o DNA do arquétipo Herói do Tiago.",
+            "O tom é cru, direto e sem 'frescura', eliminando a barreira do guru/coach.",
+            "Ataca a frustração do founder que se sente perdido no volume de tarefas.",
+            "Usa a lógica de 'skills' (habilidades) em vez de 'segredos' ou 'mentoria', o que gera autoridade técnica imediata.",
+            "O formato de fala contínua sem produção de estúdio (raw) é o padrão ouro para o pilar Backstage."
+          ],
+          "sections": {
+            "vibe_classification": "Raw, direta e técnica. É o conteúdo de 'quem está no campo de batalha', exatamente o que o manifesto do Tiago exige.",
+            "dor_do_avatar_atingida": "A paralisia de decisão e o sentimento de sobrecarga. O founder sente que 'negócio' é um monstro abstrato; o vídeo traduz isso como uma lista de processos e habilidades.",
+            "shareability_trigger": "Identificação imediata. O founder que está tentando escalar um D2C vai sentir que o Hormozi (e consequentemente o Tiago) entende o caos da operação.",
+            "aderência_aos_pilares_de_tiago": "Alta aderência ao pilar de 'Mindset / Filosofia / Quebra de Mitos'. Ele quebra o mito de que 'aprender business' é um evento único e transforma em um processo de construção de sistemas de habilidades.",
+            "adaptação_obrigatória_de_léxico_bordão": "Não há bordões da @virals no original, mas a adaptação deve garantir que o Tiago use termos como 'processo', 'sistema' e 'construir' para descrever essa jornada de skills."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Manter a estrutura de desmistificar a complexidade do negócio, mas trocar o foco genérico de 'business' por 'construção de sistemas de aquisição' ou 'processos de crescimento no D2C'.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 8.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O hook utiliza uma analogia de contraste (toddler vs. entrepreneur) que quebra o padrão imediato e prende a atenção.",
+            "A desconstrução de um conceito abstrato ('business') em unidades granulares ('skills') é o núcleo da autoridade técnica necessária para o Tiago.",
+            "A estrutura foge do 'como fazer' e foca no 'como entender o processo', alinhando-se perfeitamente ao pilar de Mindset/Mitos.",
+            "O ritmo de fala e a quebra de expectativa (o uso do palavrão/expressão de choque) comunica o tom 'sem rodeio' e 'cru' do cliente."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Você não 'aprende negócios'. Você acumula competências. Repara na diferença ↓",
+            "framework_detectado": "Framework de Desconstrução de Complexidade. Ele pega um problema gigante e inalcançável e o transforma em uma lista de tarefas (skills) gerenciáveis.",
+            "gatilhos_mentais": "Autoridade (pela clareza da definição), Novidade (ao desafiar a ideia comum de 'estudar business') e Quebra de Padrão (analogia com criança).",
+            "cta_analysis_adaptação_para_call_to_think": "Em vez de 'aprenda comigo', usar algo como: 'Se você está tentando aprender 'business' de uma vez, você vai falhar. Qual é a próxima skill técnica que você precisa dominar?'.",
+            "léxico_flags": "Nenhum léxico-tabu detectado na transcrição original (o criativo é de Hormozi, o que já é o benchmark de voz do Tiago)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o tom de 'conselho de vida' por uma abordagem de 'documentação de processo', trocando a abstração de 'business' por termos do ecossistema D2C (ex: CAC, retenção, escala de atenção).",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 8.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Ritmo de entrega 'sem rodeio' perfeitamente alinhado ao DNA do Tiago",
+            "Estrutura de quebra de mito ('não se aprende business, se aprende skills') casa com o pilar de Mindset/Mitos",
+            "Formato de fala direta para câmera, simulando a naturalidade de celular > estúdio",
+            "Ausência de transições 'cheesy' ou música genérica, mantendo a autoridade técnica"
+          ],
+          "sections": {
+            "hook_visual_0_3s": "O hook é puramente narrativo e direto. Para o Tiago, deve-se garantir que o primeiro frame seja um corte seco no rosto ou em um gesto real, sem vinhetas.",
+            "ritmo_cortes": "Uso eficiente de jump cuts para remover silêncios. É o ritmo ideal para a persona Founder: rápido, denso e sem gordura.",
+            "color_grading_adaptação_para_lut_tiago": "O original é neutro/comercial. Deve ser substituído integralmente pelo LUT `cinematic.cube` (Preto + Âmbar) para criar a atmosfera de bastidor premium.",
+            "captions_flags_de_léxico": "Captions dinâmicas seguem a voz. Necessário trocar cores originais pelo Accent Âmbar #FFB800 e garantir que a fonte seja da família Outfit.",
+            "b_roll_modelável_para_bastidor_tiago": "O vídeo é predominantemente talking head. A adaptação deve inserir B-roll de bastidor real (reuniões, tela de IA, números) para sustentar a afirmação 'mostrar > dizer'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a abordagem teórica por evidências reais de sistemas de aquisição e aplicar a paleta Preto + Âmbar em todos os elementos visuais.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 7.99,
+      "classification": "Bom 🟡",
+      "veredito_dominante": "adaptar",
+      "folder_rel": "instagram/29-hormozi-1db0da"
+    },
+    {
+      "creative_id": "36-pedrosobral-60feec",
+      "platform": "instagram",
+      "creator": "@pedrosobral",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/pedrosobral/reel/DaoM-PqBeec/",
+      "rank": 36,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente motivacional/filosófico, o que viola frontalmente o manifesto 'Founder não posa de guru'.",
+            "Zero evidências, zero números, zero bastidores; é um vídeo de 'opinião vazia' sem lastro técnico.",
+            "Ausência total de pattern interrupt visual ou narrativo; é um talking head linear e lento.",
+            "A curva de energia é plana, sem micro-rewards ou open loops que prendam o avatar de alta performance (Founder D2C)."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "Inexistente. O vídeo começa com uma afirmação genérica sobre felicidade. Para o Tiago, o primeiro frame precisa ser a 'venda' de um processo ou número.",
+            "open_loops_detectados": "Não há. O vídeo entrega a conclusão logo na primeira frase, não criando curiosidade ou tensão para assistir até o fim.",
+            "micro_rewards_re_hooks": "Nenhum. Não há quebra de padrão visual, troca de ângulo ou revelação de dados que recompense a atenção do espectador.",
+            "curva_de_energia": "Linear e baixa. O tom é contemplativo, enquanto o arquétipo do Tiago exige a energia direta e crua de quem está no campo de batalha.",
+            "payoff_satisfaction": "Baixo para o ICP. O avatar do Tiago odeia 'frases de pão-de-queijo' e busca lições acionáveis, não reflexões sobre paz interior.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Nada a manter no conteúdo. A única coisa aproveitável seria o formato 'raw' de câmera de celular, mas a narrativa precisaria ser 100% substituída por bastidor real."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a reflexão motivacional por uma análise técnica de erro ou vitória em escala D2C, trocando 'felicidade' por 'números e processos'.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente motivacional/reflexivo, o que colide frontalmente com a diretriz 'zero auto-ajuda genérica'.",
+            "Ausência total de evidências, números ou bastidores, violando o princípio fundamental 'Mostrar > Dizer'.",
+            "A vibe 'paz interior' é oposta ao arquétipo Herói do Tiago, que foca em luta, construção e superação real.",
+            "Zero relevância cultural para o founder D2C que busca sistemas de aquisição e IA, tratando a atenção como commodity emocional e não como arbitragem de negócio."
+          ],
+          "sections": {
+            "vibe_classification": "Conteúdo de 'estilo de vida/mindset genérico'. É o tipo de vídeo que o Tiago define como 'frases de pão-de-queijo motivacional'.",
+            "dor_do_avatar_atingida": "Nenhuma. Não toca em CAC, escala, dependência de Meta Ads ou falta de tempo do founder.",
+            "shareability_trigger": "Empatia emocional básica. Para o avatar do Tiago, isso é visto como 'cosplay de founder' ou conteúdo vazio.",
+            "aderência_aos_pilares_de_tiago": "Baixíssima. Tenta entrar em 'Mindset/Mitos', mas falha por não ser uma contra-narrativa de negócio, sendo apenas um clichê comportamental.",
+            "adaptação_obrigatória_de_léxicobordão": "Não há léxico a adaptar, pois a premissa do vídeo é incompatível com o DNA 'Direto e Cru' do cliente."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar completamente; o conteúdo é motivacional vazio e fere a promessa de 'sem rodeio, sem promessa vazia' do posicionamento do Tiago.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Conteúdo puramente motivacional e genérico ('pão-de-queijo'), violando a restrição principal de evitar auto-ajuda.",
+            "Ausência total de números, evidências, bastidores ou dados técnicos, contrariando o princípio 'Mostrar > Dizer'.",
+            "Tom de voz passivo e reflexivo, oposto ao DNA 'direto e cru' e ao arquétipo de Herói/Founder do Tiago.",
+            "Falta de conexão com as dores reais do avatar (CAC, IA, escala, sistemas de aquisição)."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "O custo invisível de quem gasta tempo criticando o jogo em vez de construir o sistema. Enquanto uns opinam, outros documentam o lucro.",
+            "framework_detectado": "Narrativa de reflexão comportamental simples. Não possui framework de direct response ou persuasão B2B.",
+            "gatilhos_mentais": "Tenta usar um gatilho de superioridade moral/emocional, mas carece de autoridade real ou prova social técnica.",
+            "cta_analysis_adaptação_para_call_to_think": "A caption original é apenas uma afirmação. Para o Tiago, seria: 'Founder que foca no erro do outro não tem tempo para olhar o próprio dashboard. Qual métrica você ignorou hoje para alimentar seu ego?'",
+            "léxico_flags": "Nenhuma palavra-tabu explícita detectada, porém o tom geral é 'guru motivacional', que é proibido."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a reflexão abstrata sobre 'felicidade' por uma crítica crua ao status quo do mercado, ancorada em números e processos de construção de negócio.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 2.5,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook visual e narrativa são de auto-ajuda genérica ('pessoas felizes não te atacam'), violando a restrição de conteúdo motivacional vazio do cliente.",
+            "Nenhum B-roll de bastidor real ou evidência de founder documentando processo — puro cosplay de filosofia pessoal sem número ou prova.",
+            "Transcrição não cita nenhum léxico nativo do avatar D2C (CAC, sistema, construir) e ignora princípio MOSTRAR > DIZER.",
+            "Formato e tom estão fora do arquétipo Herói/founder real; aproxima-se de guru de paz interior, oposto ao DNA direto e cru de Tiago Elesbão."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "O criativo abre com frase motivacional abstrata, sem frame de founder ou bastidor. Zero aderência ao princípio SEM RODEIO do cliente.",
+            "ritmo_cortes": "Sem dados de corte disponíveis, mas o formato de fala contínua sugere ausência de jump cuts secos. Incompatível com ritmo de corte seco exigido.",
+            "color_grading_adaptação_para_lut_tiago": "Não há evidência de LUT preto+âmbar (#FFB800). Estética genérica de Reels provavelmente fora da paleta quente canônica.",
+            "captions_flags_de_léxico": "Legendas trazem tom de auto-ajuda ('em paz com si mesmo'), sem voz Tiago. Nenhum uso de lexico sempre_usar e risco de violar nunca_fazer.",
+            "b_roll_modelável_para_bastidor_tiago": "Nenhum B-roll de reunião, erro ou número real. Impossível adaptar para backstage de quem constrói negócio com IA."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar o criativo por violar restrições de não-guru e mostrar-evidência; refazer com bastidor real de founder e número explícito em 0-3s.",
+          "_model": "openrouter:tencent/hy3:free"
+        }
+      },
+      "total_score": 2.22,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/36-pedrosobral-60feec"
+    },
+    {
+      "creative_id": "40-segredosdaaudiencia-369326",
+      "platform": "instagram",
+      "creator": "@segredosdaaudiencia",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/segredosdaaudiencia/p/DaoG1JXGtC4/",
+      "rank": 40,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 5.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O contraste numérico visual é um pattern interrupt extremamente forte para o scroll.",
+            "O uso de uma celebridade (Haaland) ancora a atenção, mas para o Tiago o anclagem deve ser em 'número de negócio' ou 'erro de founder'.",
+            "A estrutura de 'desmistificação' (perfil real vs. percepção) é o coração do conteúdo de autoridade.",
+            "O criativo original flerta com o 'curiosidade por curiosidade', enquanto o Tiago precisa de 'curiosidade por processo'."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O uso de duas caixas de perfil com números conflitantes cria um conflito visual imediato. O cérebro tenta resolver a discrepância matemática entre 60M e 40M instantaneamente.",
+            "open_loops_detectados": "O loop principal é: 'Por que esses números são diferentes se é o mesmo cara?'. A legenda tenta abrir um loop sobre 'preparação para escala', mas ele é muito genérico para o avatar de alto nível.",
+            "micro_rewards_re_hooks": "O micro-reward é a descoberta visual da 'farsa' ou da diferença métrica. No entanto, o payoff de conteúdo (a explicação) é diluído em uma legenda que usa termos muito vagos como 'performance e narrativa'.",
+            "curva_de_energia": "A energia começa alta com o choque visual e cai drasticamente na legenda, que assume um tom mais 'coach' e menos 'founder documentando'.",
+            "payoff_satisfaction": "O payoff é parcial. Ele entrega a curiosidade visual, mas não entrega um framework ou um dado técnico que sustente a afirmação, o que frustraria o avatar D2C do Tiago.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Manter o **contraste de dados** (ex: CAC atual vs. CAC após implementação de IA). Adaptar o tema: sair de 'famosos/celebridades' para 'números de bastidor/erros de escala'. Substituir a estética de 'curiosidade de entretenimento' pela estética de 'evidência de negócio'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o tema de 'fama de celebridade' por 'discrepância de métricas de negócio' e substituir a legenda reflexiva por uma análise técnica de processo/número.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 5.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo usa caso de celebridade (Haaland) com número real de follower growth — prova de atenção como moeda, mas fora do bastidor founder D2C.",
+            "Não cita dor literal do avatar (CAC, escala, autonomia, sistema de aquisição) — foca em visibilidade genérica de marca.",
+            "Closing question é call-to-think aceitável, mas direcionada a 'marca' e não a founder construindo sistema.",
+            "Visual e fonte não seguem paleta quente canonical (preto + âmbar) de @tiagoelesbao — USA vermelho/azul/verde de terceiro.",
+            "Estrutura de antes/depois com evidência numérica serve de inspiração, mas exige reframe de linguagem e contexto."
+          ],
+          "sections": {
+            "vibe_classification": "Vibe de desmistificação de métricas de atenção com celebridade esportiva. Distante do raw founder Herói de Tiago: é conteúdo de 'analista de audiência', não backstage de quem constrói negócio D2C.",
+            "dor_do_avatar_atingida": "Raso: toca em atenção como moeda, mas não conecta com CAC subindo, dependência de Meta Ads ou construção de canal próprio. O avatar quer ver founder real, não Haaland.",
+            "shareability_trigger": "Founder D2C pode compartilhar o insight de 'exposição não = crescimento', mas o âncora esportivo diminui relevância nativa para o feed de quem quer ver número de negócio.",
+            "aderência_aos_pilares_de_tiago": "Perto de 'analise-mercado' (15%) se reframado com sinal real de D2C. Hoje esbarra em 0% de backstage e 0% de lessons com dados de cliente. Precisa de overhaul de contexto.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhum bordão reservado da @virals detectado. Lexico-tabu também ausente, mas 'marca' deve virar 'founder' e o exemplo virar caso de creator D2C ou bastidor próprio."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reframe obrigatório: trocar Haaland por caso de founder D2C ou bastidor próprio do Tiago mostrando salto de atenção com número e sistema, usando paleta preto+âmbar e fechando com pergunta provocadora sobre preparo de aquisição.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 3.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Criativo usa o princípio de contraste numérico real (40.7M vs 60.7M seguidores) que alinha com a regra MOSTRAR > DIZER do cliente.",
+            "Autoria é de terceiro (@segredosdaaudiencia) e não documenta bastidor de founder D2C — viola identidade visual e voz pessoal de Tiago.",
+            "Caption fecha com pergunta provocadora sobre preparo da marca, mas é genérica e longe da dor literal de CAC/escala do avatar.",
+            "Nenhuma palavra-tabu detectada no léxico, porém tom e formato são de página de audience, não de founder construindo sistema.",
+            "Prova social vem de celebridade esportiva, não de evidência de negócio real — distancia do manifesto 'founder mostra o calo'."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Original: '@erling Haaland ganhou mais de 20 milhões de seguidores em três semanas'. Na voz Tiago: 'Haaland foi de 40.7M pra 60.7M seguidores em 21 dias. A vitrine foi a Copa — mas a diferença é sistema, não sorte. Você ainda não viu o que separa os dois perfis.'.",
+            "framework_detectado": "Estrutura before/after com contraste de métrica (PAS leve: tensão na disparidade numérica). Falta o 'solution' ancorado em processo de founder D2C.",
+            "gatilhos_mentais": "Autoridade emprestada via verificação azul de terceiro e celebridade. Novidade no contraste 40.7M vs 60.7M. Prova social é de fora do mercado-alvo — sem urgência real para o ICP Virals.",
+            "cta_analysis_adaptação_para_call_to_think": "Original termina com 'Se amanhã sua marca recebesse atenção, estaria preparada?'. Call-to-think fraco e fora de contexto. Adaptar para: 'Se o seu canal próprio dobrasse de atenção amanhã, seu sistema de aquisição aguentaria ou o CAC ia explodir?'.",
+            "léxico_flags": "Nenhuma palavra do lexico-tabu (empreendedorismo, mentoria, dica, segredo, sinergia, alavancar, holisticamente, venha) aparece no criativo auditado."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reframe obrigatório: trocar case de atleta por bastidor real de founder D2C mostrando salto de atenção com número e sistema próprio de aquisição, fechando com call-to-think sobre preparo de CAC.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 7.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Uso agressivo de contraste numérico para gerar choque cognitivo imediato.",
+            "Hierarquia visual eficiente focada em métricas (números grandes > texto secundário).",
+            "Uso de elementos de UI (cards de perfil) para conferir prova social e familiaridade.",
+            "Narrativa de 'desmistificação' que conversa diretamente com o arquétipo do Sábio/Herói."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "O Slide 01 utiliza um gatilho de comparação de alto impacto. A sobreposição de cards de interface de rede social sobre uma imagem de autoridade (atleta) cria uma leitura rápida e instintiva. A hierarquia é clara: o olho vai para o número, depois para a diferença causada pela seta.",
+            "aderência_à_paleta_tiago": "O criativo original é multicolorido (vermelho, azul, verde, branco), o que fere a identidade canônica de Tiago. Para ser compatível, deve-se eliminar o verde e o azul, substituindo o contraste por #0B0B0F e os destaques por #FFB800 (âmbar) ou #FF4D2E (urgência).",
+            "recomendação_de_adaptação_visual": "Substituir o fundo e os cards coloridos por um overlay escuro denso (0.50) sobre a imagem de bastidor ou evidência. Trocar a seta verde por uma seta âmbar (#FFB800) e usar a tipografia Outfit Bold para os números de impacto, garantindo o aspecto 'sem rodeio'.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Estrutura de 'Comparação de Evidências': 1. Fundo com foto de bastidor/processo em baixa exposição; 2. Dois cards minimalistas em #0B0B0F com bordas finas em #FFB800; 3. Números em Outfit Bold; 4. Seta de conexão em #FF4D2E para indicar erro ou mudança de jogo."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a paleta colorida e o tom de 'curiosidade de entretenimento' por um visual técnico em preto e âmbar, focando em 'evidência e processo' em vez de apenas 'segredo'.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.5,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "inspirar",
+      "folder_rel": "instagram/40-segredosdaaudiencia-369326"
+    },
+    {
+      "creative_id": "48-pedrosobral-ace663",
+      "platform": "instagram",
+      "creator": "@pedrosobral",
+      "type": "image-single/ig-image",
+      "url": "https://www.instagram.com/pedrosobral/p/DanrTbkDq0i/",
+      "rank": 48,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "O uso de 'estética crua/lo-fi' casa perfeitamente com o posicionamento de documentação de bastidor do Tiago.",
+            "Gatilho de identificação por dor compartilhada é potente para o ICP de Founders D2C.",
+            "Estrutura de 'contraste' (Expectativa vs. Realidade) gera retenção imediata por ser processada rapidamente pelo cérebro.",
+            "O formato de imagem única é arriscado para retenção longa, mas excelente para distribuição e top-of-funnel."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O interrupt acontece via **contraste visual**. A expressão facial de choque + a frase de dor comum interrompem o scroll por gerar empatia instantânea ('eu já passei por isso').",
+            "open_loops_detectados": "Não há open loops complexos por ser imagem única, mas cria-se um loop de **validação social**: o usuário quer ver nos comentários se outros founders sofrem com o mesmo problema.",
+            "micro_rewards_re_hooks": "A recompensa é a **catarse**. O riso sarcástico ao ver a 'desgraça' comum do negócio serve como a micro-recompensa para quem consome o conteúdo.",
+            "curva_de_energia": "Energia linear e curta. É um pico rápido de dopamina (identificação) que termina abruptamente. Para o Tiago, isso precisaria de um 'gancho' para levar ao bastidor.",
+            "payoff_satisfaction": "Satisfação alta no nível de entretenimento/identificação, mas baixa no nível de valor técnico. O payoff é puramente emocional."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a dor de 'pagamento em %' por uma dor específica de Founder D2C (ex: CAC subindo ou dependência de Meta Ads) e trocar o CTA de 'link na bio' por uma provocação intelectual (call-to-think).",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Arbitragem de atenção via identificação imediata (meme low-fi).",
+            "Forte gatilho de 'comunidade de quem faz' contra 'quem só quer tirar vantagem'.",
+            "Estrutura minimalista que remove a barreira de 'anúncio' e entra como conteúdo nativo.",
+            "O contraste entre a expectativa de fechamento e a frustração da proposta gera alta shareability entre founders."
+          ],
+          "sections": {
+            "vibe_classification": "Sarcasmo empático. É a vibe do 'rir para não chorar' que humaniza o founder e o tira do pedestal de guru.",
+            "dor_do_avatar_atingida": "A frustração de lidar com parceiros ou clientes que não entendem o valor do sistema e tentam impor modelos de pagamento arriscados/ineficientes.",
+            "shareability_trigger": "Sentimento de pertencimento. O founder D2C compartilha para sinalizar aos seus pares: 'eu também passo por isso'.",
+            "aderência_aos_pilares_de_tiago": "Encaixa no pilar de **Mindset/Mitos (20%)** ao contrastar a realidade do campo de batalha com as fantasias de quem está começando.",
+            "adaptação_obrigatória_de_léxicobordão": "Remover qualquer CTA de 'Link na Bio' ou 'Me chama'. Substituir por uma provocação intelectual (Call-to-think) sobre a maturidade do mercado D2C."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar a dor de 'gestor de tráfego' por uma dor real de Founder D2C (ex: fornecedor que atrasa entrega no pico de escala ou agência que promete viral sem dado) e trocar o CTA de bio por uma pergunta provocadora.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "A estrutura de 'meme de dor' é altamente eficaz para gerar identificação imediata com founders D2C que sofrem com a operação.",
+            "O contraste entre a expectativa de fechamento e a realidade frustrante do cliente é um gatilho de empatia poderoso.",
+            "O formato visual lo-fi (cru) está alinhado com a identidade de 'mostrar o trabalho' do Tiago, fugindo do aspecto de anúncio.",
+            "A legenda original é puramente emocional e utiliza CTA de venda direta ('link na bio'), o que é terminantemente proibido para a voz do cliente."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "**'Quando o founder acha que escala o D2C só investindo mais em tráfego, mas o CAC subiu 40% e a margem sumiu.'**",
+            "framework_detectado": "Framework de **Identificação por Contraste**. Expõe a frustração compartilhada (dor do avatar) para validar a autoridade de quem entende o problema real.",
+            "gatilhos_mentais": "**Identificação e Pertencimento**. Ao ridicularizar a 'proposta absurda' do cliente, cria-se um círculo de confiança entre quem realmente opera o negócio.",
+            "cta_analysis_adaptação_para_call_to_think": "Substituir 'link na bio' por uma provocação intelectual. Ex: **'Se você ainda aceita operar sem um sistema de aquisição próprio, você não tem um negócio, tem uma aposta. Onde está o seu número de retenção?'**",
+            "léxico_flags": "O criativo original não usa léxico-tabu, mas a legenda original é genérica e emocional, fugindo do tom técnico e cru do Tiago."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar a dor de 'pagamento em %' (foco em freelancer) pela dor de 'dependência de tráfego/CAC alto' (foco em founder D2C) e eliminar qualquer CTA de venda direta.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Composição meme lo-fi com fundo branco/cinza e balão de story não respeita safe-zone 60px nem overlay escuro denso 0.50 exigido pela identidade Tiago Elesbão.",
+            "Paleta neutra (branco/cinza/preto) é incompatível com a paleta canônica preto profundo #0B0B0F + âmbar #FFB800 + urgente #FF4D2E; zero uso de accent quente.",
+            "Tipografia aparenta ser system-ui de meme, sem Outfit Bold para headline nem hierarquia mobile-first do cliente.",
+            "Arquétipo Herói founder (autoridade, bastidor, número) está ausente: é humor de dor de freelance, sem evidência, sem construir, sem processo.",
+            "Caption original usa CTA de venda direta ('link na bio') proibido no perfil @tiagoelesbao que exige call-to-think."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide único no formato meme: legenda superior em balão branco + frame de vídeo de homem estupefato sobre pattern de palavras cinza. Visual minimalista orgânico, contraste básico preto/branco, sem moldura de autoridade founder. Não há hierarquia com headline Outfit Bold nem zona segura de 60px respeitada.",
+            "aderência_à_paleta_tiago": "Nula. Predomínio branco/cinza com texto preto afasta-se do preto profundo #0B0B0F obrigatório e omite âmbar #FFB800 e laranja-vermelho #FF4D2E. Diferenciação quente de Tiago vs Virals (navy+coral) é ignorada pelo criativo.",
+            "recomendação_de_adaptação_visual": "Se extraído o princípio de 'dor comum de founder', recriar em fundo #0B0B0F com overlay 0.50, frase em Outfit Bold âmbar, e frame de bastidor real do Tiago. Substituir CTA de bio por fechamento provocador estilo 'Você ainda não viu o bastidor desse tipo de cliente.'",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Não aplicável. O formato meme de terceiro não serve como template para o pipeline design-creative do cliente sob restrições atuais de identidade visual e tom."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar o criativo e, se reutilizar o insight, reconstruir em preto profundo com overlay denso, Outfit Bold âmbar e sem CTA de link na bio.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.37,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "inspirar",
+      "folder_rel": "instagram/48-pedrosobral-ace663"
+    },
+    {
+      "creative_id": "53-hormozi-d366cc",
+      "platform": "instagram",
+      "creator": "@hormozi",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/hormozi/p/DanXGZyFBKh/",
+      "rank": 53,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 6.8,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Contraste binário extremo (Scale vs Fail) cria tensão imediata no primeiro frame.",
+            "Uso de arquétipo 'working man' no slide 3 humaniza a autoridade, removendo a aura de guru.",
+            "Estrutura de 'reality show' (está scaling ou failing?) gera curiosidade nata por resultado real.",
+            " Design 3D robusto passa solidez, mas conflita com a estética 'raw' de câmera de celular do Tiago."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O contraste visual entre a seta verde (subida) e vermelha (descida) é um interruptor cerebral instantâneo. No entanto, para o Tiago, a arte polida demais do Hormozi pode parecer 'estúdio', o que quebra a promessa de bastidor real.",
+            "open_loops_detectados": "O loop principal é o dilema: 'Vai escalar ou falhar?'. Isso obriga o espectador a deslizar para ver a prova (o número/o resultado), que é exatamente o que o avatar do Tiago busca.",
+            "micro_rewards_re_hooks": "A transição do design gráfico (Slide 1) para a imagem crua e introspectiva do convidado (Slide 3) funciona como uma micro-recompensa de 'verdade'. Sai o marketing, entra o humano.",
+            "curva_de_energia": "A energia começa no pico (tensão do título), cai para um momento de reflexão/estudo (foto do convidado) e deveria culminar no payoff do vídeo. É uma curva de 'estresse e alívio'.",
+            "payoff_satisfaction": "O payoff é transferido para o YouTube. Para um carrossel de retenção pura, isso é arriscado, mas como objetivo é geração de demanda, o loop fecha na promessa de ver o processo real."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a arte 3D polida por um print real de dashboard ou foto de bastidor com texto direto em âmbar/preto, transformando o 'Scale or Fail' em 'Número X ou Erro Y'.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 8.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "A estrutura de dualidade 'Escala vs. Falha' é um gatilho de atenção perfeito para o arquétipo de Herói de Tiago.",
+            "O uso de contraste visual extremo (preto/âmbar) e tipografia pesada comunica a autoridade e o 'sem rodeio' do cliente.",
+            "A estética de 'trabalhador/real' do slide 03 (camisa xadrez, postura de cansaço) valida o pilar de 'Bastidor é conteúdo nobre'.",
+            "A hierarquia visual foca no dilema (problema) antes da solução, o que é ideal para atrair fundadores D2C em vez de curiosos."
+          ],
+          "sections": {
+            "vibe_classification": "High-stakes Founder Drama. A vibe é de quem está no campo de batalha, não em um palco de palestra. Combina o peso da responsabilidade com a crueza da execução.",
+            "dor_do_avatar_atingida": "Ataca diretamente a sobrevivência do negócio. Para o founder D2C, a dúvida entre 'escalar ou morrer' (CAC alto vs. eficiência) é a dor latente diária.",
+            "shareability_trigger": "O gatilho é o reconhecimento de um dilema comum. Fundadores compartilham conteúdos que validam a seriedade e o peso de suas decisões.",
+            "aderência_aos_pilares_de_tiago": "Perfeito para 'Mindset/Mitos' e 'Backstage'. O design permite transitar entre a teoria do crescimento e a realidade crua do cansaço do founder.",
+            "adaptação_obrigatória_de_léxico_bordão": "O criativo original usa 'Scale or Fail'. Para Tiago, deve-se traduzir para termos de sistema e processo, como 'Escalar com Sistema ou Morrer no Tráfego'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a estética de 'Show/Podcast' pela estética de 'Documentação de Processo', trocando o foco de 'assista ao episódio' para 'veja o número/resultado'.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Caption original usa CTA de venda direta ('Comment SOF to watch') — proibido no estilo Tiago que exige call-to-think.",
+            "Nenhum número, evidência ou bastidor real de founder D2C apresentado no criativo auditado.",
+            "Estrutura é de autoridade de terceiro (Hormozi/YouTube) sem documentação de processo próprio — contraria o manifesto 'mostra o trabalho'.",
+            "Visual depende de marca alheia e plataforma externa, sem conexão com paleta quente preto+âmbar do perfil pessoal."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "SCALE OR FAIL com Alex Hormozi vira: 'Bastidor de founder: ou constrói sistema ou fecha. Eu vi 3 D2C quebrando em 90 dias — olha o número'. Sem rodeio, primeira pessoa real.",
+            "framework_detectado": "Estrutura atual é teaser de autoridade alheia + curiosidade (Will Mim scale or fail?). Não há PAS/AIDA documentado nem story-based de bastidor próprio. Para Tiago, seria reframe em backstage real com antes/depois de CAC.",
+            "gatilhos_mentais": "Usa autoridade de Hormozi e urgência ('EP2 OUT NOW'), mas zero prova social de cliente Virals e zero novidade com IA aplicada. Gatilho de exclusividade no YouTube é contrário ao princípio de mostrar bastidor no próprio canal.",
+            "cta_analysis_adaptação_para_call_to_think": "Original 'Comment SOF' é CTA de venda direta — proibido. Adaptação: 'Se você é founder e ainda não perguntou se seu sistema aguenta escala, está atrasado. Repara no que eu documentei ↓'.",
+            "léxico_flags": "Nenhuma palavra-tabu do lexico Tiago detectada no criativo original (empreendedorismo, mentoria, dica, segredo, sinergia, alavancar, holisticamente, venha)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar o formato Hormozi/YouTube e reconstruir como carrossel de bastidor próprio com número de CAC real e encerramento em pergunta provocadora.",
+          "_model": "openrouter:tencent/hy3:free"
+        },
+        "casey-neistat-img": {
+          "score": 8.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Uso magistral de contraste profundo (Preto + Accent), alinhado ao arquétipo Herói do cliente.",
+            "Hierarquia visual agressiva com tipografia 3D que transmite solidez e autoridade.",
+            "Uso de elementos simbólicos (setas de alta e baixa) para comunicar dilemas de negócio instantaneamente.",
+            "Composição mobile-first com foco centralizado e alto impacto visual no primeiro frame."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "O Slide 01 é um masterclass de impacto: tipografia robusta e cores de contraste para criar urgência. O Slide 03 utiliza o isolamento do sujeito em fundo preto (negative space), o que reforça a narrativa de 'bastidor real' e introspecção do founder.",
+            "aderência_à_paleta_tiago": "Altamente compatível. O fundo preto profundo (#0B0B0F) é idêntico ao do Hormozi. As setas verde/vermelho devem ser substituídas pelo Âmbar Dourado (#FFB800) para sucesso e Laranja-Vermelho (#FF4D2E) para falha/urgência.",
+            "recomendação_de_adaptação_visual": "Substituir a fonte cursiva por **Outfit Regular** para manter a sobriedade do design system. Trocar a textura de pedra por um acabamento metálico ou fosco escuro para diferenciar da estética americana e trazer para o D2C brasileiro.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Estrutura ideal para **Carrossel-Conteúdo** ou **Single Post**. O Slide 01 serve como capa de alta conversão para 'quebra de mitos' ou 'estudos de caso', enquanto o Slide 03 é o template perfeito para posts de 'vulnerabilidade controlada' ou reflexões de founder."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a paleta verde/vermelho por Âmbar (#FFB800) e Laranja-Vermelho (#FF4D2E) e trocar toda a tipografia para a família Outfit.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 6.68,
+      "classification": "Bom 🟡",
+      "veredito_dominante": "adaptar",
+      "folder_rel": "instagram/53-hormozi-d366cc"
+    },
+    {
+      "creative_id": "58-realchasechappell-84b2c8",
+      "platform": "instagram",
+      "creator": "@realchasechappell",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/realchasechappell/reel/Danu4Hbxouj/",
+      "rank": 58,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 8.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Hook baseado em 'benchmark de elite' ($100M brands) que gera autoridade imediata sem promessa vazia.",
+            "Estrutura de 'Contra-intuição' (Não é o que a maioria pensa) que quebra o padrão e força a retenção.",
+            "Entrega de framework técnico (33%/33%/33%) que serve como micro-reward e prova de sistema.",
+            "Transição de 'estratégia de anúncio' para 'sistema de aquisição', alinhado perfeitamente ao posicionamento do Tiago."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O hook é agressivo e direto. Ao citar marcas de $100M, ele não vende um curso, ele vende um padrão de mercado. No estilo raw do Tiago, isso funciona se ele estiver em um ambiente de bastidor real.",
+            "open_loops_detectados": "A frase 'não é o que a maioria pensa' abre um loop de curiosidade. O loop se fecha apenas quando ele revela a divisão de 33% de cada asset, mantendo o usuário preso para entender a lógica.",
+            "micro_rewards_re_hooks": "A revelação da 'máquina criativa' e a quebra da pipeline em três partes funcionam como recompensas intelectuais. O espectador sente que está recebendo um processo real, não uma dica genérica.",
+            "curva_de_energia": "Linear e ascendente. Começa com a promessa de um padrão de elite, desconstrói o erro comum e termina com a visão de futuro (2027), mantendo a 'fome' do founder até o final.",
+            "payoff_satisfaction": "Alto. O vídeo entrega a lógica do sistema (pipeline > winning ad) e termina com a promessa de um framework, cumprindo a promessa inicial de mostrar a estratégia de marcas grandes."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir o CTA de 'Comenta Test' por um 'Call-to-think' provocador e trocar a menção a 'estratégia' por 'sistema' ou 'processo' para evitar a aura de guru.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 8.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de 'Contra-Intuição' extremamente forte: destrói o senso comum de 'testar 3 ads por semana' para vender uma visão maior.",
+            "Arbitragem de atenção eficiente: o hook foca no resultado ($100M) e na falha do processo atual, capturando o founder que está estagnado.",
+            "O conceito de 'Creative Machine' (sistema) casa perfeitamente com a Big Idea do Tiago de construir sistemas de aquisição.",
+            "Uso de dados e frameworks (a divisão 33/33/33) transforma uma opinião em autoridade técnica."
+          ],
+          "sections": {
+            "vibe_classification": "High-authority / Founder-led. A energia é de quem domina o processo e está expondo a realidade do mercado, fugindo do 'coach de marketing'.",
+            "dor_do_avatar_atingida": "Ataca diretamente a dependência de sorte na escala e a falta de método. Toca na dor de quem 'sente que está atrás na curva' e precisa de previsibilidade, não de hacks.",
+            "shareability_trigger": "O insight de que 'creative testing não é achar um vencedor, é construir um pipeline' é um frame mental que founders gostam de salvar e compartilhar para parecerem inteligentes.",
+            "aderência_aos_pilares_de_tiago": "Encaixa perfeitamente no pilar **Lessons-learned + Cases** e **Análise de Mercado**. É conteúdo de 'antena de mercado' com aplicação prática de IA e processos.",
+            "adaptação_obrigatória_de_léxico_bordão": "O criativo original usa um CTA de comentário ('Comment Test') que é proibido para o Tiago. Ele deve trocar por um **call-to-think** ou uma provocação que gere autoridade, não uma automação de engajamento barata."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Remover o CTA de 'comente para receber' e substituir por uma provocação de bastidor ou uma pergunta que desafie o sistema atual do founder, mantendo a entrega do framework como um insight de autoridade no vídeo.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 5.0,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook inicial forte e ancorado em número real ($100M) — alinhado ao princípio MOSTRAR > DIZER, mas falta bastidor de founder D2C BR.",
+            "Estrutura de dividir pipeline em 33% UGC / 33% AI / 33% in-house é framework aproveitável para o pilar lessons-cases.",
+            "CTAs originais ('Comment Test', 'Comment test and I'll send') são call-to-action de captura — proibidos na voz Tiago (JAMAIS venda direta/chama no DM).",
+            "Nenhum léxico-tabu do cliente foi detectado no criativo (inglês, sem corporativês PT-BR).",
+            "Falta call-to-think provocador e conexão com dor literal do avatar (CAC subindo, dependência Meta Ads)."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "O jogo mudou: marcas de $100M não caçam ad vencedor, constroem máquina de criativo. A gente documenta o processo real aqui. Você ainda não viu o bastidor de quem testa 3 formatos por dia.",
+            "framework_detectado": "Story-based com numero-ancora + quebra de mito ('não é o que pensam') + framework de divisão (33/33/33). Segue lógica de problema-inverso > sistema > evidência, próximo de PAS sem agonia.",
+            "gatilhos_mentais": "Autoridade por evidência quantitativa ($100M, 33% splits). Novidade em IA aplicada a pipeline. Prova social implícita em 'best brands'. Urgência fraca — '2027' longe da dor atual de CAC.",
+            "cta_analysis_adaptação_para_call_to_think": "Original é captura direta (viola CTA-style). Reescrever para: 'Se você é founder e ainda acha que testar 1 ad por semana resolve, está atrasado. Quantos criativos sua operação produziu essa semana?'. Provocação intelectual, zero venda.",
+            "léxico_flags": "Nenhuma palavra-tabu PT-BR detectada. Inglês 'test/comment' não mapeia lexico proibido, mas CTA é o problema estrutural."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Remover CTAs de captura e reescrever todo o fechamento como call-to-think em PT-BR com bastidor real de founder D2C e número do próprio operação.",
+          "_model": "openrouter:tencent/hy3:free"
+        },
+        "sam-kolder-vid": {
+          "score": 3.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook verbal forte ('strategy behind $100M brands') mas visual de estúdio polido incompatível com câmera de celular founder real do Tiago.",
+            "Ritmo de fala contínuo sem jump cuts visuais evidentes no bundle — distante do corte seco e bastidor cru exigido.",
+            "Estrutura de 'sistema de creative pipeline 33/33/33' é aproveitável como princípio de conteúdo lessons-cases com número real.",
+            "CTA 'Comment test' é proibido no estilo Tiago (call-to-think, nunca venda direta nem engajamento vazio).",
+            "Nenhum B-roll de bastidor real documentado — cosplay de autoridade de estúdio, oposto ao manifesto do cliente."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "O criativo abre com talking-head em estúdio iluminado, sem evidência visual de bastidor. Para Tiago, o frame 0-3s precisa ser câmera de celular mostrando número ou processo real. Hook visual atual é incompatível com a lente founder-real.",
+            "ritmo_cortes": "Sem indicação de silence cuts ou jump cuts secos no bundle de 5 screenshots. Estética de take longo de podcast, contra o princípio de corte seco sem transição cheesy do cliente.",
+            "color_grading_adaptação_para_lut_tiago": "Estúdio claro/neutro não tem base para LUT cinemática preto+âmbar. Seria necessário regravar em ambiente escuro ou aplicar grade pesada para aproximar do #0B0B0F + #FFB800, mas a fonte luminosa atual impede match nativo.",
+            "captions_flags_de_léxico": "Legendas em inglês e tom de guru ('I'll send you the exact framework'). Traduzindo, violaria 'nunca usar: mentoria/dica' e 'pose de guru'. Nenhuma palavra-tabu PT detectada pois o material é EN, mas o conceito 'framework enviado' é reserva de @virals e proibido no perfil pessoal.",
+            "b_roll_modelável_para_bastidor_tiago": "Zero B-roll de bastidor — só head falando. Não é modelável; o princípio de 'machine de criativos' teria que virar documentação de tela/planilha real da Virals ou celular na mão do Tiago."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reframe obrigatório: trocar estúdio e CTA 'comment test' por celular mostrando pipeline real da Virals com número e encerrar com pergunta provocadora tipo 'você ainda não viu sistema de criativo assim'.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 6.59,
+      "classification": "Bom 🟡",
+      "veredito_dominante": "adaptar",
+      "folder_rel": "instagram/58-realchasechappell-84b2c8"
+    },
+    {
+      "creative_id": "05-jonascastromp4-8bbf6e",
+      "platform": "youtube",
+      "creator": "@jonascastromp4",
+      "type": "video-long/youtube-long",
+      "url": "https://www.youtube.com/watch?v=4J2EirdIhcs",
+      "rank": 5,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Primeiro frame abre com pose de guru ('se você tem agência e não cresce, está cometendo erros') — padrão contrário ao manifesto do Tiago de não posar de guru.",
+            "Estrutura de vídeo longo 18min com CTA de vendas direta e vagas limitadas viola o princípio de CTA call-to-think e zero promessa vazia do perfil pessoal.",
+            "Uso de 'programa de acompanhamento' e link de aplicação no caption é CTA de venda direta proibido para @tiagoelesbao.",
+            "Conteúdo foca em agência de serviços genérico, não em founder D2C construindo bastidor real com número e processo próprio.",
+            "Nenhum open loop ancorado em bastidor/número de founder D2C — promete 'erros que impedem' no modelo de consultoria alheia."
+          ],
+          "sections": {
+            "pattern_interrupt_0_3s_ou_slide_1": "O primeiro frame é fala direta de especialista apontando erro alheio ('4 erros que impedem sua agência'). Não há pattern interrupt visual de celular nem bastidor cru. É aquecimento de guru, não o frame de venda sem rodeio do Tiago.",
+            "open_loops_detectados": "Open loop fraco: 'como faturamos 180k/mês previsível' mas ancorado em agência de terceiro, não no founder D2C. Não há loop de bastidor do que ninguém mostra. Promete profundidade mas entrega formato de curso.",
+            "micro_rewards_re_hooks": "Único micro-reward é dado de 267 leads e 180k MRR, mas envelopado em pesquisa de 400 agências (prova fraca). Nada de evidência de processo real de founder construindo — o micro-reward não paga a fome do avatar de Tiago.",
+            "curva_de_energia": "Curva é lenta: 14min de listagem de erros antes do pitch. Energia de webinar, não de Reel raw. Founder D2C sai antes do payoff por falta de tensão de bastidor.",
+            "payoff_satisfaction": "Payoff é venda de programa e escola — frustra o avatar que quer ver número e processo, não comprar formação. Viola restrição de nunca CTA direto no perfil pessoal.",
+            "modelagem_para_tiago_o_que_manter_o_que_adaptar": "Nada a manter no formato; se fosse inspirar, o princípio de 'mostrar número de receita recorrente' poderia virar Reel de celular mostrando planilha real da Virals. Adaptar exigiria matar todo o guru-frame e trocar por 'olha o bastidor do nosso número de hoje'."
+          },
+          "lexico_flags": [
+            "programa",
+            "acompanhamento",
+            "escola",
+            "newsletter",
+            "agência"
+          ],
+          "adaptacao_obrigatoria": "Descartar o formato de vídeo-long de guru com CTA de vagas e reformatar como Reel de celular mostrando bastidor real de número/D2C com pergunta provocadora no encerro.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 4.2,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Criativo foca em agências de serviços com faturamento e processo real (R$180k/mês, 267 leads) — há evidência e número, mas público-alvo diverge do founder D2C de Tiago.",
+            "Estrutura de 'erros que impedem crescimento + como resolvemos com bastidor' é inspiradora para o pilar backstage/lessons de Tiago, mas o tom é de guru de curso alheio.",
+            "Caption original viola CTAs proibidos de Tiago (link na bio, chama, vagas) e usa linguagem de venda direta incompatível com call-to-think.",
+            "Nenhum léxico-tabu rígido de Tiago foi detectado na transcrição (sem empreendedorismo, mentoria, dica, segredo, etc.), mas o criador usa 'programa de acompanhamento' e 'escola' fora de escopo.",
+            "Plataforma youtube-long 18min não é native do Instagram de Tiago; só serve como inspiração de quebra de mito (dependência de indicação) para reformatar em reel/carrossel."
+          ],
+          "sections": {
+            "vibe_classification": "Vibe de consultor de agências vendendo programa e escola — distante do Herói founder D2C raw de Tiago. Tem número e processo, mas encerra com CTA de venda direta (tally, vagas), oposto ao manifesto 'founder não posa de guru'.",
+            "dor_do_avatar_atingida": "Toca parcialmente a dor de dependência de canal (equivalente à dependência de Meta Ads/CAC do avatar), mostrando distribuição de conteúdo como comercial previsível. Não fala de D2C, IA aplicada ou autonomia familiar — desconexão com sonho do avatar.",
+            "shareability_trigger": "Founder D2C real compartilharia o insight de 'não dependa de indicação, construa funil de conteúdo' se reframado com bastidor de Tiago. O vídeo original de Jonas tem baixa shareability para a audiência de Tiago por cheirar a curso de agência.",
+            "aderência_aos_pilares_de_tiago": "Perto de backstage (40%) e lessons-cases (25%) no princípio de mostrar erro/resolução com dado. Porém 0% mindset próprio e 0% mercado D2C/IA. Exige overhaul de público e de CTA para entrar no mix de Tiago.",
+            "adaptação_obrigatória_de_léxicobordão": "Nenhuma bordão reservado @virals apareceu; léxico-tabu também não. Única adaptação de voz: trocar 'programa/escola' por documentação de bastidor e usar frases-assinatura tipo 'O jogo mudou' ou 'Sem desculpa, sem rodeio'."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reframe obrigatório: descartar caption de vagas/escola e recontar o princípio 'dependência de indicação é erro' como bastidor real de Tiago construindo sistema de aquisição D2C com IA, encerrando em call-to-think provocador.",
+          "_model": "openrouter:tencent/hy3:free"
+        },
+        "ladeira": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Criativo é de terceiro (@jonascastromp4) com CTA de venda direta e links externos — 100% contrário ao estilo call-to-think de Tiago Elesbão.",
+            "Caption original usa 'Restam apenas 4 vagas!' e 'Entre para a Escola' — urgência de lança e CTA direto proibido no perfil pessoal.",
+            "Transcrição mostra founder posando de guru com 'eu vou te contar como nós resolvemos' sem bastidor cru de processo/erro de Tiago.",
+            "Nenhum número de cliente Virals ou bastidor real de Tiago — só dados de pesquisa alheia e agência do Jonas.",
+            "Léxico-tabu não detectado no texto, mas voz e estrutura estão no arquétipo de consultoria/guru que o manifesto quebra."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_tiago": "Original: 'Minha agência fatura R$180k/mês fazendo essas 4 coisas' — voz de guru alheio. Reescrita na voz Tiago: 'A gente errou em depender de indicação. O número que mudou: 267 leads por relatório de bastidor. Você ainda não viu o sistema.'",
+            "framework_detectado": "Lista de erros + solução (tipo listicle educativo). Não é PAS nem story-based de bastidor. Tiago usa documentação crua de founder, não '4 erros que impedem sua agência'.",
+            "gatilhos_mentais": "Autoridade falsa (fatura 180k de outro founder), novidade fraca, prova social via pesquisa de terceiro. Zero evidência do ecossistema Tiago/Virals. Urgência de vagas é gatilho de venda, não call-to-think.",
+            "cta_analysis_adaptação_para_call_to_think": "Original manda 'aplique', 'link na bio', 'comenta EU QUERO' — proibido. Adaptação: encerrar com 'Se você é founder e ainda acha que indicação é bastidor de crescimento, está atrasado. Qual seu número de CAC hoje?'",
+            "léxico_flags": "Nenhuma palavra-tabu do lexico Tiago apareceu no texto auditado. Violações são de voz, não de léxico."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Descartar o criativo como modelo e usar apenas o princípio de 'não dependa de indicação' num reel de bastidor real com número de cliente autorizado e CTA provocador.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 3.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Formato é youtube-long 18min, incompatível com 9:16 nativo e com o padrão de reels/stories de Tiago Elesbão.",
+            "Criativo é de terceiro (@jonascastromp4) com CTA direto de venda e links — viola restrição de nunca CTA de vendas direto e pose de guru alheio.",
+            "B-roll descrito é tela de slides/estudo, não bastidor real de founder com câmera de celular.",
+            "Color grading e captions não referenciam LUT preto+âmbar nem voz Tiago; é estética de estúdio/youtuber educador."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "O hook é fala frente a tela/estudo, sem frame de bastidor ou câmera de celular. Nada nos 0-3s remete ao padrão founder real de Tiago. Inutilizável como modelo de abertura.",
+            "ritmo_cortes": "Vídeo longo com ritmo de apresentação, sem silence cuts ou jump cuts secos típicos da estética Tiago. Edição é expositiva, não documental.",
+            "color_grading_adaptação_para_lut_tiago": "Sem evidência de LUT cinemática preto+âmbar (#FFB800). Estética genérica de YouTube não adapta sem overhaul total de cor e luz.",
+            "captions_flags_de_léxico": "Captions originais são descrição com links e 'vagas'; não usam voz Tiago nem accent âmbar. Léxico distante do DNA do cliente.",
+            "b_roll_modelável_para_bastidor_tiago": "B-roll é projeção de tela e gráficos de pesquisa, não bastidor de construção real. Cosplay de estúdio, não documentação crua."
+          },
+          "lexico_flags": [
+            "empreendedorismo (ausente mas contexto de 'negócio de serviços' diverge)",
+            "mentoria (implícita em 'programa de acompanhamento')",
+            "dica (tom educador)"
+          ],
+          "adaptacao_obrigatoria": "Descartar o criativo por formato e autor estranhos; se reaproveitar princípio, refazer em 9:16 com câmera de celular, LUT preto+âmbar e bastidor real de Tiago sem CTA de venda.",
+          "_model": "openrouter:tencent/hy3:free"
+        }
+      },
+      "total_score": 3.3,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "youtube/05-jonascastromp4-8bbf6e"
+    }
+  ],
+  "chief_synthesis": {
+    "padroes_cross_criativo": [
+      "[cross: 29-hormozi-1db0da, 58-realchasechappell-84b2c8] Estrutura de 'Contra-intuição' ou 'Quebra de complexidade' (desmistificar o senso comum para vender uma visão maior) gera autoridade técnica.",
+      "[cross: 07-garyvee-ea9a04, 40-segredosdaaudiencia-369326, 48-pedrosobral-ace663] Uso de contraste numérico ou tensão visual (Ambição vs. Velocidade / 40M vs 60M / Expectativa vs Realidade) serve como pattern interrupt para o scroll.",
+      "[cross: 13-roihuntersoficial-891cfd, 36-pedrosobral-60feec, 05-jonascastromp4-8bbf6e] Narrativas puramente motivacionais, de 'auto-ajuda' ou com 'pose de guru' violam frontalmente o arquétipo e o manifesto de marca do cliente."
+    ],
+    "criativos_modelar_diretamente": [
+      "29-hormozi-1db0da"
+    ],
+    "criativos_inspirar": [
+      "07-garyvee-ea9a04",
+      "17-publicitarioscriativos-789f08",
+      "40-segredosdaaudiencia-369326",
+      "48-pedrosobral-ace663",
+      "53-hormozi-d366cc",
+      "58-realchasechappell-84b2c8"
+    ],
+    "criativos_ignorar": [
+      "13-roihuntersoficial-891cfd",
+      "36-pedrosobral-60feec",
+      "05-jonascastromp4-8bbf6e"
+    ],
+    "leituras_estrategicas": [
+      "[cross: 29-hormozi-1db0da, 58-realchasechappell-84b2c8] A autoridade para o avatar D2C não vem de conselhos de vida, mas da desconstrução de conceitos abstratos em unidades granulares de 'skills' ou 'sistemas'.",
+      "[cross: 07-garyvee-ea9a04, 17-publicitarioscriativos-789f08, 53-hormozi-d366cc] A estética 'Dark/Premium' (Preto + Âmbar/Gold) com tipografia forte (Outfit) é o padrão visual que comunica o 'sem rodeio' exigido pelo posicionamento.",
+      "[cross: 13-roihuntersoficial-891cfd, 36-pedrosobral-60feec] O uso de CTAs de comando ('Comente X') ou promessas vagas de 'mudar de vida' é o principal ponto de fricção que deve ser eliminado para evitar o rótulo de 'guru'."
+    ],
+    "proximos_passos": [
+      "[29-hormozi-1db0da] rodar *industrialize-video usando padrão de quebra de complexidade para documentar um processo de escala D2C.",
+      "[58-realchasechappell-84b2c8] rodar *design-creative para gerar carrossel de framework de pipeline, substituindo o visual de estúdio por bastidor cru de celular.",
+      "[17-publicitarioscriativos-789f08] rodar *design-creative para converter cases de sucesso em análises técnicas de sistema de aquisição usando paleta Preto + Âmbar.",
+      "[48-pedrosobral-ace663] descartar e refazer baseando em [48-pedrosobral-ace663] trocando a dor de freelancer por uma dor de founder (ex: CAC alto) e eliminando CTA de bio.",
+      "[07-garyvee-ea9a04] rodar *design-creative para adaptar o contraste de 'Ambição vs Velocidade' trocando filosofia por evidência de bastidor real."
+    ],
+    "_model": "openrouter:openrouter/free"
+  },
+  "validation_warnings": []
+}

@@ -1,0 +1,70 @@
+{
+  "rank": 5,
+  "creator": "@krisspy_ia",
+  "url": "https://www.instagram.com/krisspy_ia/reel/Db_nvJvKbCQ/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by krisspy_ia",
+  "description": "Pessoal quem vocês acham que é este poderoso mago ?\n\na historia esta se desenrolando",
+  "author": "krisspy_ia",
+  "view_count": null,
+  "like_count": 17085,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/768829972_18164671849446755_9012086443356477421_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=104&ig_cache_key=Mzk2MzA2MDk2MTE5MzYwMzIxNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjE5MjAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=XrvMsLwhivIQ7kNvwFrxJsw&_nc_oc=Ado_CCZSB-yLjAF3MRaAw8OJKwer01JkLuo4qQbxTjuU94bcMQlekl63T8IkOseAfOSg--7ne_phVU1IUMNT1fxF&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=YvD3RIXwLBwf7BfZSCPKTQ&_nc_ss=7b689&oh=00_AQHPmXJTaUDKZgyr6phtIr2GtNgANEwy5Cx6qWIf0mBBug&oe=6A884357",
+  "screenshots_count": 7,
+  "key_moments": [
+    {
+      "time": 10,
+      "label": "Como"
+    },
+    {
+      "time": 25,
+      "label": "missão"
+    },
+    {
+      "time": 34,
+      "label": "não"
+    },
+    {
+      "time": 47,
+      "label": "né"
+    },
+    {
+      "time": 57,
+      "label": "vocês"
+    },
+    {
+      "time": 67,
+      "label": "eu"
+    },
+    {
+      "time": 95,
+      "label": "tigrão"
+    }
+  ],
+  "cut_timestamps": [
+    1.17,
+    5.4,
+    9.9,
+    11.87,
+    14.07,
+    15.37,
+    16.2,
+    17,
+    17.3,
+    18.1,
+    23.57,
+    30.23,
+    43.8,
+    110.7,
+    113.23
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-17T00:57:34.491Z",
+  "item_status": "ok",
+  "status_reason": null
+}

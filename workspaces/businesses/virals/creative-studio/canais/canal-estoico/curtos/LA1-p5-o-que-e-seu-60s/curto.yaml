@@ -1,0 +1,51 @@
+# ═══════════════════════════════════════════════════════════════════════
+# LA1-p5-o-que-e-seu-60s
+# Metodo: squads/oraclumtech-ai-creative-studio/docs/DERIVACAO-CURTOS.md
+# ═══════════════════════════════════════════════════════════════════════
+
+curto:
+  slug: LA1-p5-o-que-e-seu-60s
+  canal: canal-estoico
+  criado_em: '2026-09-06'
+  status: montado           # montado | aprovado | publicado
+
+derivado_de:
+  peca: LA1-disciplina
+  unidade: 'PRATICA 5'
+  longo_publicado: true
+
+faixa:
+  alvo: '60 s'
+  palavras: 180
+  por_que_esta_faixa: >
+    a ressalva e obrigatoria e nao cabe em 30 s
+
+# ── A CORRENTE ──────────────────────────────────────────────────────────
+etapas:
+  '01-roteiro':  { feito: true, responsavel: '@head-of-copy · gera_srt_curto.py' }
+  '02-narracao': { feito: true, responsavel: 'run_batch.py --only narracao-clone-v1' }
+  '03-takes':    { feito: true, responsavel: 'acervo_curto.py (Pexels vertical)' }
+  '04-final':    { feito: true, responsavel: 'monta_curto.py' }
+
+# ── O REGISTRO VISUAL DESTE CURTO ───────────────────────────────────────
+# Diferente do LA1-P1, que tem take I2V proprio (estatua, colunata), este sai
+# de ACERVO. O acervo nao entrega figura antiga em registro estoico -- entrega
+# textura abstrata. A assinatura do canal aqui esta na tipografia em ambar, na
+# regua, no rotulo e na gradacao, nao na imagem.
+#
+# Se este curto performar e valer o investimento, a rota de upgrade e gerar 4
+# takes I2V proprios e remontar: `monta_curto.py` prefere `03-takes/*.mp4`
+# sobre `03-takes/acervo/` sozinho, sem mudar uma linha.
+visual:
+  fonte: acervo
+  gradacao: 'GRADE_ACERVO — saturacao 0,45 · contraste 1,14 · sombras frias'
+  conferido_em: 'workspaces/.../03-takes/acervo/_CONFERIR.jpg'
+
+publicacao:
+  plataformas: []
+  url: ''
+  publicado_em: ''
+  desempenho:
+    retencao_3s: null
+    visualizacoes: null
+    colhido_em: null

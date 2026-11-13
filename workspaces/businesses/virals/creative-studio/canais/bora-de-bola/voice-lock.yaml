@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# BORA DE BOLA — voz travada
+#
+# POR QUE TRAVAR
+#   A voz é o que o ouvido reconhece antes do logo aparecer. Trocá-la entre
+#   episódios reseta o reconhecimento, que é o único ativo que o canal acumula.
+#   Mudar a voz é decisão de temporada, não de episódio.
+# ═══════════════════════════════════════════════════════════════════════════
+
+motor:
+  nome: piper
+  modelo: pt_BR-cadu-medium
+  arquivo: 'apps/live-futebol/_vozes/pt_BR-cadu-medium.onnx'
+  camada: 'apps/live-futebol/voz.py'
+  aprovado_em: '2026-09-04'
+  como_foi_escolhido: >
+    Sete vozes ouvidas lado a lado na mesma frase de gol (4 do Piper, 3 do Edge).
+    O timbre é do motor; a energia de locução vem do processamento em `radio.py`.
+    Nenhuma troca de voz resolveria — o problema nunca foi timbre.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DOIS PERFIS, MESMA VOZ
+#   A live pede pressa e parede de som; o vídeo longo pede clareza e respiro.
+#   Mesmo timbre para o ouvido reconhecer, tratamento diferente para cada formato.
+# ─────────────────────────────────────────────────────────────────────────────
+perfis:
+  live:
+    onde: 'apps/live-futebol — narração ao vivo'
+    length_scale: 0.92        # < 1 acelera; tira o arrastado sem virar atropelo
+    noise_w_scale: 0.6        # leitura firme; valor alto soa hesitante
+    cadeia_radio: padrao
+    ritmo_resultante: '~171 palavras/min'
+
+  vod:
+    onde: 'vídeos longos da esteira'
+    length_scale: 1.35        # MEDIDO: 135,4 p/min — ver tabela abaixo
+    noise_w_scale: 0.65
+    cadeia_radio: leve        # menos compressão: o VOD não disputa com torcida
+    ritmo_alvo: '134 palavras/min'
+    medicao:
+      quando: '2026-09-04'
+      como: 'frase de 51 palavras sintetizada em quatro escalas, palavras ÷ duração'
+      resultado: |
+        escala   p/min
+        1.00     166,6   ← o motor solto
+        1.15     157,1
+        1.28     140,0   borda do alvo
+        1.35     135,4   ← escolhido
+      nota: >
+        1.28 era o palpite; a medição mostrou 140, na borda. 1.35 cai em 135,4,
+        que é onde a referência fala. A diferença parece pequena e não é: em doze
+        minutos, ela separa um vídeo de 11m30 de um de 12m20.
+    por_que_desacelerar: >
+      O motor fala a 166 p/min solto. Um roteiro de 1.600 palavras escrito para 12
+      minutos sairia com 9m40 nessa velocidade — a mesma pedra em que o canal
+      estoico bateu. O `length_scale` corrige na geração, não na edição.
+    validar: >
+      Depois de gerar, medir palavras ÷ duração. Fora de 128–140 p/min, ajustar
+      `length_scale` e refazer — nunca acelerar na montagem.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CADEIA DE ÁUDIO
+# ─────────────────────────────────────────────────────────────────────────────
+tratamento:
+  arquivo: 'apps/live-futebol/radio.py'
+  perfil_live: padrao
+  perfil_vod: leve
+  o_que_faz: >
+    Corte grave em 90 Hz, compressão, presença em 2,8 kHz, corpo em 180 Hz,
+    limitador e normalização. É o que separa locução esportiva de leitura de
+    texto — e o que faz a voz ter energia sem o locutor gritar.
+  pendente:
+    - >
+      O perfil `leve` ainda não existe em radio.py — hoje só há `padrao` e
+      `forte`. Criar antes do primeiro VOD: menos compressão, mesma presença.
+
+trilha:
+  vod:
+    cama: 'suspense grave, baixa, sem melodia que dispute com a fala'
+    volume: '0.12 a 0.18'
+    ducking: 'obrigatório enquanto a voz fala'
+    proibido: 'trilha com vocal, e trilha que muda de andamento no meio da frase'
+  live:
+    cama: 'apps/live-futebol/assets/torcida/torcida-ambiente-LOOP.mp3'
+    volume: 0.22
+    ducking: 'automático na página (cai para 0.084)'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# O QUE A VOZ NÃO FAZ
+# ─────────────────────────────────────────────────────────────────────────────
+limites:
+  - >
+    Não clona voz de terceiro. Narrador de outro canal é voz de pessoa real, e
+    cloná-la para canal monetizado é problema de direito de voz.
+  - >
+    Não lê mensagem de chat literalmente. Ver `apps/live-futebol/chat_triagem.py`
+    — o texto do chat classifica intenção; a resposta sai do dado da tela.
+  - >
+    Não narra fato que não esteja no claim-ledger. Se não tem fonte, não vira
+    frase — e não vira frase suavizada.

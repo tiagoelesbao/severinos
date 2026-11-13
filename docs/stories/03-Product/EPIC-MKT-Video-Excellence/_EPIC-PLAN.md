@@ -27,7 +27,7 @@ Este épico transforma a máquina em **produto**: destrava o export, automatiza 
 
 | Frente | Objetivo | Stories | Prioridade |
 |--------|----------|---------|------------|
-| **F1 — Destravar o produto** | Export fiel + ponte A→B automática + confiabilidade do editor | VEX-01, VEX-02, VEX-03 | **P0** |
+| **F1 — Destravar o produto** | Export fiel + ponte A→B automática + confiabilidade do editor + ETL do benchmark auto-sustentável | VEX-01, VEX-02, VEX-03, VEX-14 | **P0** |
 | **F2 — Qualidade do output** | Fase A com visão + áudio profissional + plano consumido de ponta a ponta | VEX-04, VEX-05, VEX-06 | **P1** |
 | **F3 — Paridade NLE + estética** | Design system, timeline pro, keyframes/multi-track, preview pro | VEX-07, VEX-08, VEX-09, VEX-10 | **P2** |
 | **F4 — Diferencial IA-first + escala** | Multi-hook batch, IA no editor, render em nuvem | VEX-11, VEX-12, VEX-13 | **P2/P3** |
@@ -38,6 +38,7 @@ Este épico transforma a máquina em **produto**: destrava o export, automatiza 
 - [ ] **VEX-01** — Export final do Studio: render fiel ao `studio-edit.json` + resolução de assets + botão com progresso — Draft
 - [ ] **VEX-02** — Ponte automática Fase A→B: transcrição Whisper + `assembly.json` auto-gerado + scaffold do criativo + protocolo do agente atualizado — Draft
 - [ ] **VEX-03** — Confiabilidade do editor: atalhos core (Ctrl+Z/Y, Del, frame-step), guard de edições não salvas, persistir estilo de legenda — Draft
+- [ ] **VEX-14** — Benchmark que não mente: auto-update do yt-dlp, preflight por plataforma, fail-loud (status/summary/exit code + protocolo do chief), cookies por plataforma + ponte de sessão — **Ready** (@po GO 9/10) · P0, criada 2026-07-16 após benchmark 100% degradado reportado como "10 ok / 0 failed"
 
 ### F2 — Qualidade do output (P1)
 - [ ] **VEX-04** — Fase A com olhos: visão computacional nos frames do benchmark + detecção de cortes reais (cadência verdadeira) — Draft
