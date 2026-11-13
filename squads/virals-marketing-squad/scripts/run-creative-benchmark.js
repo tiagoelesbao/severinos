@@ -15,6 +15,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const yaml = require('js-yaml');
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..');
 const ETL = path.join(REPO_ROOT, 'services', 'ETL');
@@ -26,6 +27,8 @@ const ContentClassifier = require(path.join(ETL, 'Transform', 'analyzers', 'Cont
 const VideoAnalyzer = require(path.join(ETL, 'Transform', 'analyzers', 'VideoAnalyzer'));
 const ImageAnalyzer = require(path.join(ETL, 'Transform', 'analyzers', 'ImageAnalyzer'));
 const { parseAllRankings } = require(path.join(ETL, 'Transform', 'analyzers', 'rankings-parser'));
+const { preflight } = require(path.join(ETL, 'Extract', 'preflight'));
+const { deriveItemStatus, summarize, renderDegradedSection } = require(path.join(ETL, 'Load', 'benchmark-status'));
 const { resolveClient } = require('./_client_resolver.js');
 
 function parseArgs(argv) {
@@ -91,7 +94,7 @@ function timeoutPromise(promise, ms, label) {
     ]);
 }
 
-async function processOne({ url, rank, creator, platform, contentDir, downloader, processor, transcriber }) {
+async function processOne({ url, rank, creator, platform, contentDir, downloader, processor, transcriber, clientContext = null }) {
     if (!fs.existsSync(contentDir)) fs.mkdirSync(contentDir, { recursive: true });
 
     // 1. Probe + Download
@@ -126,10 +129,11 @@ async function processOne({ url, rank, creator, platform, contentDir, downloader
         return { status: 'skipped_unknown', classification };
     }
 
-    // 4. Run analyzer
+    // 4. Run analyzer (clientContext torna a análise client-aware — o benchmark
+    // já sai com o ângulo de modelagem para o cliente)
     const result = await analyzer.run({
         contentDir, url, classification, metadata,
-        videoPath, audioPath: null, images
+        videoPath, audioPath: null, images, clientContext
     });
 
     // 5. Persist
@@ -167,22 +171,51 @@ async function processOne({ url, rank, creator, platform, contentDir, downloader
         analyzer_status: result.status,
         processed_at: new Date().toISOString()
     };
+
+    // VEX-14: o status é DERIVADO das evidências, nunca afirmado. Antes era
+    // `status: 'ok'` fixo — foi assim que 2026-07-11 reportou "10 ok / 0 failed"
+    // com zero vídeos baixados.
+    const { status: itemStatus, reason: statusReason } = deriveItemStatus({
+        downloadStatus: status,
+        classification,
+        expectedType: probe.type,
+        analyzerStatus: result.status,
+        screenshots: result.screenshots.length,
+        // Auditados por CONTEÚDO: 15 prints idênticos de um login wall contam
+        // como 15 screenshots, mas não são o criativo.
+        // Os analyzers devolvem {time, label, path} — auditar os paths finais,
+        // já movidos para Screenshots/.
+        screenshotPaths: result.screenshots.map(s => (s && s.path) || s),
+        // A análise saiu, ou o arquivo entrega o erro da visão como se fosse
+        // conteúdo? (providers de visão caem; o pipeline não pode fingir que não)
+        transcriptPath: path.join(contentDir, 'Transcrição.md')
+    });
+
+    benchmark.item_status = itemStatus;
+    benchmark.status_reason = statusReason;
     fs.writeFileSync(path.join(contentDir, 'Benchmark.json'), JSON.stringify(benchmark, null, 2), 'utf8');
+
+    if (itemStatus !== 'ok') {
+        console.log(`  ⚠️  DEGRADADO: ${statusReason}`);
+    }
 
     // Cleanup video
     try { if (videoPath && fs.existsSync(videoPath)) fs.unlinkSync(videoPath); } catch (_) {}
 
-    return { status: 'ok', classification, screenshots: result.screenshots.length };
+    return { status: itemStatus, status_reason: statusReason, classification, screenshots: result.screenshots.length };
 }
 
 async function buildSummary(date, outputBaseDir, results) {
-    const total = results.length;
-    const ok = results.filter(r => r.status === 'ok').length;
-    const failed = results.filter(r => r.status === 'failed').length;
-    const skipped = results.filter(r => r.status === 'skipped_unknown' || r.status === 'timeout').length;
+    // VEX-14: contagem derivada, com degradados em coluna própria.
+    const summary = summarize(results);
+    const c = summary.counts;
 
     let md = `# Creative Benchmark Summary · ${date}\n\n`;
-    md += `**Total processados:** ${total}  ·  **Sucesso:** ${ok}  ·  **Falha:** ${failed}  ·  **Pulados/Timeout:** ${skipped}\n\n---\n\n`;
+    md += `**Total processados:** ${summary.total}  ·  **Com assets reais:** ${c.ok}  ·  ` +
+          `**Degradados:** ${c.degraded}  ·  **Falha:** ${c.failed}  ·  **Timeout:** ${c.timeout}  ·  **Pulados:** ${c.skipped}\n\n`;
+    md += `${summary.unhealthy > 0 ? '> ' : ''}${summary.verdict}\n\n`;
+    md += renderDegradedSection(results);
+    md += `\n---\n\n`;
 
     const byPlatform = {};
     for (const r of results) {
@@ -197,7 +230,8 @@ async function buildSummary(date, outputBaseDir, results) {
         items.forEach(r => {
             const folderRel = r.folder ? path.relative(outputBaseDir, r.folder).replace(/\\/g, '/') : '—';
             const tipo = r.classification ? `${r.classification.type}/${r.classification.subtype}` : '—';
-            md += `| ${r.rank} | ${r.creator} | ${tipo} | ${r.status} | ${r.screenshots ?? 0} | \`${folderRel}\` |\n`;
+            const marca = r.status === 'ok' ? '' : ' ⚠️';
+            md += `| ${r.rank} | ${r.creator} | ${tipo} | ${r.status}${marca} | ${r.screenshots ?? 0} | \`${folderRel}\` |\n`;
         });
         md += `\n`;
     }
@@ -238,11 +272,31 @@ async function buildSummary(date, outputBaseDir, results) {
     console.log(`Source:     ${dailyDir}`);
     console.log(`Output:     ${benchmarkBaseDir}\n`);
 
-    const allRankings = parseAllRankings(dailyDir, topN);
+    // `--picks` permite CURAR a fila em vez de aceitar o top-N por Viral Score.
+    // O score mede engajamento do criador, não fit com o cliente: o top-5 de
+    // 2026-07-11 era guru motivacional e IA-anime, e a auditoria puniu os
+    // criativos por não terem o DNA de quem nunca foi selecionado por DNA.
+    // Aceita URL completa ou só o shortcode do post (DaoHRljTgIo).
+    const picks = (args.picks || '').split(',').map(s => s.trim()).filter(Boolean);
+    const pickMatches = (url) => picks.some(p => url.includes(p));
+
+    // Curadoria precisa varrer o ranking inteiro, não só o topo.
+    const parseDepth = picks.length > 0 ? 10000 : topN;
+    const allRankings = parseAllRankings(dailyDir, parseDepth);
+
     const filtered = {};
     for (const plat of requestedPlatforms) {
-        if (allRankings[plat] && allRankings[plat].length > 0) filtered[plat] = allRankings[plat];
-        else console.log(`⚠️ Sem ranking para ${plat} em ${date} — pulando.`);
+        let rows = allRankings[plat] || [];
+        if (picks.length > 0) rows = rows.filter(r => pickMatches(r.url));
+        if (rows.length > 0) filtered[plat] = rows;
+        else console.log(`⚠️ Sem ${picks.length > 0 ? 'picks' : 'ranking'} para ${plat} em ${date} — pulando.`);
+    }
+
+    if (picks.length > 0) {
+        const encontrados = Object.values(filtered).reduce((a, r) => a + r.length, 0);
+        console.log(`🎯 Curadoria: ${encontrados}/${picks.length} picks localizados no ranking`);
+        const perdidos = picks.filter(p => !Object.values(filtered).flat().some(r => r.url.includes(p)));
+        if (perdidos.length > 0) console.log(`   ⚠️ Não encontrados no ranking: ${perdidos.join(', ')}`);
     }
 
     const totalLinks = Object.values(filtered).reduce((acc, arr) => acc + arr.length, 0);
@@ -255,6 +309,37 @@ async function buildSummary(date, outputBaseDir, results) {
     const downloader = new Downloader();
     const processor = new VideoProcessor();
     const transcriber = new LocalTranscriber();
+
+    // VEX-14 — manutenção automática do yt-dlp. Um binário defasado quebra o
+    // extractor do Instagram e degrada o benchmark inteiro em silêncio.
+    // Não-fatal: sem rede, seguimos com o que temos.
+    downloader.ensureToolchain();
+
+    // VEX-14 — preflight: descobrir a quebra em segundos, não em 11 minutos.
+    if (args.skipPreflight !== 'true') {
+        const pf = preflight(filtered, downloader.binPath);
+        if (!pf.ok) {
+            console.error(`\n❌ Preflight falhou para: ${pf.failed.map(f => f.platform).join(', ')}`);
+            console.error(`   Processar a fila agora produziria análises de capa/metadados — exatamente o`);
+            console.error(`   modo de falha silenciosa de 2026-07-11. Abortando.`);
+            console.error(`   Para rodar assim mesmo (não recomendado): --skipPreflight=true\n`);
+            process.exit(2);
+        }
+        console.log('');
+    }
+
+    // DNA do cliente para tornar a análise do benchmark client-aware — o
+    // documento já sai com o ângulo de modelagem para o cliente. Não-fatal.
+    let clientContext = null;
+    try {
+        const bi = yaml.load(fs.readFileSync(path.resolve(REPO_ROOT, client.brandIdentity), 'utf8')) || {};
+        clientContext = {
+            nome: client.nomeExibicao || client.slug,
+            pilares: (bi.pilares_de_conteudo || []).map(p => p.nome || p.id).filter(Boolean),
+        };
+    } catch (e) {
+        console.warn(`⚠️ brand-identity não carregado para leitura client-aware: ${e.message}`);
+    }
 
     const results = [];
     let cursor = 0;
@@ -276,14 +361,15 @@ async function buildSummary(date, outputBaseDir, results) {
             console.log(`Folder: ${folderName}`);
             console.log(`Timeout: ${timeout / 1000}s`);
 
-            const ctx = { url: row.url, rank: row.rank, creator: row.creator, platform, contentDir, downloader, processor, transcriber };
+            const ctx = { url: row.url, rank: row.rank, creator: row.creator, platform, contentDir, downloader, processor, transcriber, clientContext };
 
             let outcome = { status: 'failed', error: null };
             const t0 = Date.now();
             try {
                 const r = await timeoutPromise(processOne(ctx), timeout, `${platform} #${row.rank}`);
                 outcome = { ...r };
-                console.log(`  ✅ Done in ${((Date.now() - t0) / 1000).toFixed(1)}s — ${r.classification.type}/${r.classification.subtype}`);
+                const icone = r.status === 'ok' ? '✅' : '⚠️';
+                console.log(`  ${icone} Done in ${((Date.now() - t0) / 1000).toFixed(1)}s — ${r.classification.type}/${r.classification.subtype} [${r.status}]`);
             } catch (e) {
                 const isTimeout = /Timeout/.test(e.message);
                 outcome = { status: isTimeout ? 'timeout' : 'failed', error: e.message };
@@ -314,28 +400,44 @@ async function buildSummary(date, outputBaseDir, results) {
     const summaryPath = path.join(benchmarkBaseDir, `_creative-benchmark-summary-${date}.md`);
     fs.writeFileSync(summaryPath, summaryMd, 'utf8');
 
+    // VEX-14: contagens derivadas. `ok` agora significa "criativo REAL baixado
+    // e analisado" — não "o script não explodiu".
+    const finalSummary = summarize(results);
     const summaryJson = {
         date, topN, platforms: requestedPlatforms,
         started_at: new Date(startedAt).toISOString(),
         finished_at: new Date().toISOString(),
         duration_ms: Date.now() - startedAt,
-        total: results.length,
-        ok: results.filter(r => r.status === 'ok').length,
-        failed: results.filter(r => r.status === 'failed').length,
-        timeout: results.filter(r => r.status === 'timeout').length,
-        skipped: results.filter(r => r.status === 'skipped_unknown').length,
+        total: finalSummary.total,
+        ok: finalSummary.counts.ok,
+        degraded: finalSummary.counts.degraded,
+        failed: finalSummary.counts.failed,
+        timeout: finalSummary.counts.timeout,
+        skipped: finalSummary.counts.skipped,
+        verdict: finalSummary.verdict,
         results
     };
     fs.writeFileSync(path.join(benchmarkBaseDir, `_creative-benchmark-summary-${date}.json`), JSON.stringify(summaryJson, null, 2), 'utf8');
 
     console.log(`\n${'═'.repeat(60)}`);
-    console.log(`🏁 BENCHMARK COMPLETO`);
-    console.log(`✅ Sucesso: ${summaryJson.ok}/${summaryJson.total}`);
-    console.log(`❌ Falha:   ${summaryJson.failed}`);
-    console.log(`⏱️ Timeout: ${summaryJson.timeout}`);
+    console.log(`🏁 BENCHMARK ${finalSummary.unhealthy > 0 ? 'COMPLETO COM DEGRADAÇÃO' : 'COMPLETO'}`);
+    console.log(`✅ Com assets reais: ${summaryJson.ok}/${summaryJson.total}`);
+    if (summaryJson.degraded > 0) console.log(`⚠️  Degradados:       ${summaryJson.degraded}  ← NÃO usar para decisão`);
+    if (summaryJson.failed > 0) console.log(`❌ Falha:            ${summaryJson.failed}`);
+    if (summaryJson.timeout > 0) console.log(`⏱️  Timeout:          ${summaryJson.timeout}`);
     console.log(`📂 Output:  ${benchmarkBaseDir}`);
     console.log(`📄 Summary: ${summaryPath}`);
+    if (finalSummary.unhealthy > 0) {
+        console.log(`\n${finalSummary.verdict}`);
+        for (const r of results.filter(r => r.status !== 'ok')) {
+            console.log(`   · #${r.rank} ${r.platform}/${r.creator}: ${r.status_reason || r.error || r.status}`);
+        }
+    }
     console.log(`${'═'.repeat(60)}\n`);
+
+    // VEX-14 AC3: sair != 0 quando há degradado. Um pipeline que sai 0 com dado
+    // ruim treina o operador a ignorar o output.
+    process.exit(finalSummary.exitCode);
 })().catch(e => {
     console.error(`❌ Fatal: ${e.message}`);
     console.error(e.stack);

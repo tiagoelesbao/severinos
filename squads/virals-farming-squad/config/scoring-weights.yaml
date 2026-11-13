@@ -1,0 +1,81 @@
+# Scoring & Nota de Corte — Virals Farming Squad
+#
+# O Viral Score herda a fórmula já usada pelo ETL compartilhado
+# (services/ETL/Extract/scrapers/engines/BaseEngine.js#calculateScore),
+# para que rankings de farming e de marketing sejam comparáveis entre si.
+
+version: 1.0.0
+
+viral_score:
+  formula: '(views * views_weight) + (likes * likes_weight) + (comments * comments_weight)'
+  weights:
+    views: 0.1
+    likes: 1
+    comments: 5
+  source: services/ETL/Extract/scrapers/engines/BaseEngine.js
+
+# Sinais complementares que o farming valoriza e o marketing não.
+# Quanto MENOR a complexidade de produção, MAIOR o valor para farming:
+# o objetivo é volume replicável, não criativo premium.
+#
+# ⚠️ Os sinais estão separados por ESTÁGIO porque nem todos são observáveis no mesmo
+# momento. A F1 só tem metadados (não baixou o vídeo ainda); a F2 tem o arquivo em disco.
+# O ranking da F1 carrega `modelability_stage: preliminary` e a F2 o completa.
+modelability_signals:
+
+  # Estágio F1 — computável só com metadados do yt-dlp.
+  metadata_stage:
+    short_duration_bonus: 12    # <= 15s: menos takes, menos custo de geração
+    medium_duration_bonus: 4    # 16–30s
+    long_duration_penalty: -15  # > 45s: fora do perfil de aquecimento
+    music_audio_bonus: 6        # trilha identificada é mais fácil de tratar que fala
+    text_hint_bonus: 5          # legenda do autor sugere texto na tela
+
+    # Formato do canal (2026-07-27). O sinal que realmente decide se dá para modelar
+    # com IA — faceless x criador na câmera — só é medido na F2, com o vídeo em disco.
+    # Estes pesos são o proxy barato disponível na F1: o NOME do canal. Canal faceless
+    # se chama pelo tema (@versiculodehoje23, @oracao_diaria77); criador se chama pelo
+    # nome ou cargo (@prfernandobranco, @pe.manzotti). Pesa alto porque o custo do erro
+    # é alto: um take de padre pregando não se remodela, se descarta.
+    thematic_handle_bonus: 20     # nome de canal temático → provável faceless
+    clergy_handle_penalty: -30    # padre/pastor/frei/bispo → fala à câmera
+    cuts_handle_penalty: -25      # cortes/live/podcast/pregação → fala longa
+    singer_handle_penalty: -20    # louvor/adorador/cantor → performance musical
+    presenter_speech_penalty: -15 # "deixa eu orar por você", "ore comigo"
+
+  # Estágio F2 — exige o vídeo baixado (scene-detect, análise de frames).
+  benchmark_stage:
+    static_scene_bonus: 15      # cena praticamente parada (poucos cortes detectados)
+    single_take_bonus: 10       # vídeo de take único
+    no_face_bonus: 12           # sem rosto humano identificável (não exige ator/avatar)
+    original_audio_penalty: -8  # áudio original falado é mais difícil de modelar que música
+    heavy_editing_penalty: -20  # muitos cortes/efeitos = fora do escopo de farming
+    text_overlay_bonus: 8       # texto na tela é trivialmente replicável no video-studio
+
+# Nota de corte GLOBAL. Cada nicho pode sobrescrever em data/niches/{nicho}.yaml.
+cutoff:
+  min_viral_score: 5000
+  min_views: 50000
+  min_engagement_rate: 0.03     # (likes + comments) / views
+  max_age_hours: 72             # criativo precisa ser recente para o trend ainda estar vivo
+  # Modelabilidade no estágio F1 é PRELIMINAR: só duração, trilha e legenda. Um vídeo
+  # normal de 50s já cai a -15 pelo long_duration_penalty, então gatear em 0 reprovava
+  # criativos que passavam folgado em engajamento — medido: 60 capturados, 0 aprovados,
+  # todos carregando "modelabilidade -4 < 0" junto de scores de 150k a 500k.
+  # O gate real de modelabilidade é a F2, que enxerga cortes, take único e rosto.
+  min_modelability: -20
+
+# Ordenação do ranking final.
+ranking:
+  primary_sort: viral_score
+  secondary_sort: modelability
+  max_items_per_niche: 30
+  # Diversidade: evita que um único perfil domine o ranking e o benchmark
+  # vire cópia de uma conta só.
+  max_items_per_handle: 3
+
+# Limites operacionais por sessão (proteção contra rodada gigante acidental).
+session_limits:
+  max_creatives_per_benchmark: 20
+  max_takes_per_creative: 6
+  warn_above_creatives: 10

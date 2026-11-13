@@ -1,0 +1,10 @@
+# Receita — prova de conceito da arquitetura de templates (2026-10-10)
+template: GarantidoTake2Ad
+take_file: take2_video1-fonte_sem-texto_20261008_clean.mp4
+headline:
+  line1: "A ESPERA ACABA RÁPIDO."
+  line2_words: ["O PAGAMENTO", "TAMBÉM."]
+  highlight_word: "TAMBÉM."
+hook: garantido-hook-zoom-out
+angulo: emocional
+nota: "Mesma copy A da take2-copyA-zoomin.yaml — só o hook muda (zoom-out), pra isolar o efeito do eixo de câmera."

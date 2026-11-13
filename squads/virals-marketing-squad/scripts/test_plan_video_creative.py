@@ -77,6 +77,37 @@ def test_fidelity_warn_when_fabricated():
     assert any("47" in f for f in fid["fabricated_numbers"])
 
 
+def test_normalize_sound_design_defaults_when_missing():
+    plan = _plan()  # sem sound_design
+    sd = pvc.normalize_sound_design(plan)
+    assert sd["sfx"] == []
+    assert sd["music"]["recommended"] is False
+    assert sd["music"]["energy"] == "medium"  # default seguro
+    assert plan["sound_design"] is sd  # gravado no plano
+
+
+def test_normalize_sound_design_from_llm_output():
+    plan = _plan()
+    plan["sound_design"] = {
+        "sfx": [
+            {"moment": "hook", "category": "WHOOSH", "intent": "abrir", "intensity": "strong"},
+            {"category": "", "intensity": "xpto"},  # ruidoso → defaults
+            "lixo",  # ignorado
+        ],
+        "music": {"recommended": True, "mood": "tense", "energy": "high", "genre": "lo-fi"},
+        "rationale": "ritmo",
+    }
+    sd = pvc.normalize_sound_design(plan)
+    assert len(sd["sfx"]) == 2  # string descartada
+    assert sd["sfx"][0]["category"] == "whoosh"  # normalizado p/ minúsculo
+    assert sd["sfx"][0]["intensity"] == "strong"
+    assert sd["sfx"][1]["category"] == "impact"  # vazio → default
+    assert sd["sfx"][1]["intensity"] == "medium"  # inválido → default
+    assert sd["music"]["recommended"] is True
+    assert sd["music"]["ducking"] is True  # default
+    assert sd["rationale"] == "ritmo"
+
+
 def test_plan_requires_transcript():
     with tempfile.NamedTemporaryFile("w", suffix=".yaml", delete=False, encoding="utf-8") as f:
         yaml.dump({"transcript": [], "benchmark_analysis": {"x": 1}}, f, allow_unicode=True)
@@ -123,6 +154,9 @@ def test_plan_video_creative_writes_plan_with_llm_mock():
     assert "fidelity_check" in out["content_plan"]
     assert "planned_at" in out["content_plan"]
     assert plan["hook"]["variants"]
+    # F4.1: sound_design sempre presente e normalizado, mesmo sem o LLM emitir.
+    assert out["content_plan"]["sound_design"]["sfx"] == []
+    assert out["content_plan"]["sound_design"]["music"]["recommended"] is False
 
 
 def _run_all():

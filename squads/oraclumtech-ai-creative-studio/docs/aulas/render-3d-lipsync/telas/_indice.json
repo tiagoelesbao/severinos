@@ -1,0 +1,206 @@
+{
+  "video": "We Built a FREE AI Render Engine for CG & Facial Animation (ComfyUI + Blender).mp4",
+  "duracao": 1379.404626,
+  "telas": [
+    {
+      "arquivo": "001_0002.0s.png",
+      "segundo": 2.0,
+      "fala": "You can now render entire CG movies locally on your own computer. We've built a pipeline that lets you export sequences from pretty much any 3D tool, guide the style using reference images and render out the whole thing,"
+    },
+    {
+      "arquivo": "002_0028.0s.png",
+      "segundo": 28.0,
+      "fala": "and it will bring your performances to life. Hey, just wanted to let you know that this workflow is so much fun. Oh, and this works with any style. Anime, realistic, claymation, you name it."
+    },
+    {
+      "arquivo": "003_0040.0s.png",
+      "segundo": 40.0,
+      "fala": "To really show you what you can do with it, we created a full short film using this technique, which you can watch at the end of this video. So let me show you how we built this workflow, how you can run it locally on yo"
+    },
+    {
+      "arquivo": "004_0068.0s.png",
+      "segundo": 68.0,
+      "fala": "and thanks again to NVIDIA for making this video possible and also sending me this brand new GeForce RTX 5090 to test it on. This made things so much faster. You might remember my last video on AI rendering. Here I used "
+    },
+    {
+      "arquivo": "005_0086.0s.png",
+      "segundo": 86.0,
+      "fala": "The problem with one is that while it looks really cool, it's pretty heavy on your computer and not exactly fast. You could actually say it's pretty slow. But then NVIDIA reached out and showed me their free video genera"
+    },
+    {
+      "arquivo": "006_0100.2s.png",
+      "segundo": 100.2,
+      "fala": "It's a fully local pipeline built in three parts that you can mix and match. One blender add-on that generates a bunch of three assets straight from a simple text prompt. A second that lets you use AI to render a start a"
+    },
+    {
+      "arquivo": "007_0130.7s.png",
+      "segundo": 130.7,
+      "fala": "and it turns the layout into a depth map that guides the flux image model. So your composition and camera are locked while the prompt drives to the look. And this is exactly the type of control that I'm always excited ab"
+    },
+    {
+      "arquivo": "008_0154.7s.png",
+      "segundo": 154.7,
+      "fala": "Now, RTX is not just a video model that's pretty fast. It's also an audio model generating audio and video simultaneously. And that way you can make your characters talk with just a simple prompt."
+    },
+    {
+      "arquivo": "009_0174.6s.png",
+      "segundo": 174.6,
+      "fala": "No! Inspired by that, I recently built a workflow including a custom node that adds lip sync to existing clips. And that gave me an idea. What if I use the same trick while rendering a 3D sequence?"
+    },
+    {
+      "arquivo": "010_0208.0s.png",
+      "segundo": 208.0,
+      "fala": "just a black and white video where white pixels are close to the camera and black pixels are further away. The second one is an outline pass. This one tells the AI where the edges of your geometry are in your scene and l"
+    },
+    {
+      "arquivo": "011_0244.0s.png",
+      "segundo": 244.0,
+      "fala": "hey, there is nothing moving there, right? But the fix is pretty easy. You can just create a black and white mask. White tells the model to follow the control guides precisely and in the black areas, it's free to generat"
+    },
+    {
+      "arquivo": "012_0270.0s.png",
+      "segundo": 270.0,
+      "fala": "Yay! With the proof of concept working, I started working on the actual film and I wanted to mimic a real production as closely as I could. So I began with hand-drawn concept art,"
+    },
+    {
+      "arquivo": "013_0296.0s.png",
+      "segundo": 296.0,
+      "fala": "as a hand-drawn storyboard. So now it was time to build the environments and for that I used another free tool from the Nvidia guide, their 3D object generation blueprint, a blender add-on that generates"
+    },
+    {
+      "arquivo": "014_0317.9s.png",
+      "segundo": 317.9,
+      "fala": "a whole list of objects that might belong in it. Nvidia Zana model then generates a quick preview of each object and you just regenerate, keep or throw out whatever you want. Once you're happy with a selection of assets,"
+    },
+    {
+      "arquivo": "015_0330.0s.png",
+      "segundo": 330.0,
+      "fala": "Microsoft Trailers turns the previews you picked into actual 3D models with geometry, textures and materials. But you don't really need to worry about all these technicalities. You just install it, type in your prompt an"
+    },
+    {
+      "arquivo": "016_0354.0s.png",
+      "segundo": 354.0,
+      "fala": "A cozy bar, a motel tucked into a national park, a natural hot spring just to name a few. It felt a bit like walking into a prop house, grabbing the objects that we liked and dressing the scenes with them."
+    },
+    {
+      "arquivo": "017_0406.8s.png",
+      "segundo": 406.8,
+      "fala": "it's not clean at all. But it still works because the rig doesn't need to be perfect as it's just a guide for the later steps. To rig it, I used blenders built in Rigify add-on, which lets you just place a few bones and "
+    },
+    {
+      "arquivo": "018_0461.0s.png",
+      "segundo": 461.0,
+      "fala": "and accepting whatever comes back. And that's why I love these open source local models so much. You can build your own pipelines where you can choose exactly how much control you hand over to the model and how much you "
+    },
+    {
+      "arquivo": "019_0536.6s.png",
+      "segundo": 536.6,
+      "fala": "And you can see the render layers now have this depth output right here. Let's connect that to the viewer node. It's completely white, but all the values are inside there. We just need to make them visible. The first thi"
+    },
+    {
+      "arquivo": "020_0570.1s.png",
+      "segundo": 570.1,
+      "fala": "So we can focus on the foreground. The background is not that important. So now you could either create a file output node, save out all these images, or if you're really lazy, you could just connect this to the group ou"
+    },
+    {
+      "arquivo": "021_0600.0s.png",
+      "segundo": 600.0,
+      "fala": "So now we need to log in the style using some reference images. You can use any reference-based AI image generator, but I'm also giving you my free Flux9B image generation workflow,"
+    },
+    {
+      "arquivo": "022_0612.9s.png",
+      "segundo": 612.9,
+      "fala": "The workflow runs inside of ConfUI, a free node-based interface for AI models. And conveniently, NVIDIA works directly with a team of ConfUI to optimize it for RTX card. And that collaboration alone has boosted performan"
+    },
+    {
+      "arquivo": "023_0636.3s.png",
+      "segundo": 636.3,
+      "fala": "into the ConfUI interface. Now you need to install a few missing custom nodes. So for this, go to the manager, click install missing custom nodes, select all of them, wait for it to install"
+    },
+    {
+      "arquivo": "024_0650.1s.png",
+      "segundo": 650.1,
+      "fala": "and restart ConfUI. Now you actually need to download the models used in this workflow. And we always put a little note to the left of the workflow with all the links to the models that you need."
+    },
+    {
+      "arquivo": "025_0686.9s.png",
+      "segundo": 686.9,
+      "fala": "Now back in my Flux2 client, 9B image generation workflow, you import your rendering here and your depth map here. Oh, and by the way, the rendering doesn't need to be clay shaded."
+    },
+    {
+      "arquivo": "026_0714.0s.png",
+      "segundo": 714.0,
+      "fala": "Characters with objects or environments. Pro tip, if that's not enough for you, you can also put even more references onto one single image like this. Now you can use a prompt to reference all these objects in this image"
+    },
+    {
+      "arquivo": "027_0738.8s.png",
+      "segundo": 738.8,
+      "fala": "I usually need it around three tries. Start simple and build up your prompt from there. Also make sure to try out a bunch of different seeds. Sometimes you're just unlucky with a seed and a different one will just give y"
+    },
+    {
+      "arquivo": "028_0756.9s.png",
+      "segundo": 756.9,
+      "fala": "Drag and drop the workflow file into the ConfUI interface and install the missing custom nodes. We're going to work from left to right. So let's quickly zoom in on this node right here."
+    },
+    {
+      "arquivo": "029_0784.0s.png",
+      "segundo": 784.0,
+      "fala": "And speaking of fast, if you have a 50 series card, you can also use the NVFP4 version of the model. NVFP4 is Nvidia's four bit format that runs on 50 series fifth gen tensor cores."
+    },
+    {
+      "arquivo": "030_0796.0s.png",
+      "segundo": 796.0,
+      "fala": "So the model takes up far less VRAM and runs even faster. Around three times quicker than full precision with very little quality loss. If you have an older card or you don't have a lot of VRAM,"
+    },
+    {
+      "arquivo": "031_0814.6s.png",
+      "segundo": 814.6,
+      "fala": "in the node in the workflow or in our free Patreon post. Once all the models are loaded, you can set the resolution here. And this one works well, but if you have more time, you could bump it up to full HD or even 2K."
+    },
+    {
+      "arquivo": "032_0852.0s.png",
+      "segundo": 852.0,
+      "fala": "Next, I loaded my control passes. Depth first, then the outline pass and finally the mouth mask. You don't have to use a mouth mask, especially if you don't want to add lip sync,"
+    },
+    {
+      "arquivo": "033_0880.0s.png",
+      "segundo": 880.0,
+      "fala": "but like creating something rough like this usually works really well. So imported here and now it's time to add the voiceover. Make sure it's just dialogue with no music and it's at least the same length as your video"
+    },
+    {
+      "arquivo": "034_0904.2s.png",
+      "segundo": 904.2,
+      "fala": "so I activate it. Now you can click the play button here on this preview node and see the final control pass. It merges your depth pass with the Kenny outlines extracted from your layout video into a single control video"
+    },
+    {
+      "arquivo": "035_0938.0s.png",
+      "segundo": 938.0,
+      "fala": "If you have a shot you like, but it's not quite perfect, you can change the seat, run the workflow again and you'll get a slightly different version and sometimes that fixes mistakes. Next you can activate or deactivate "
+    },
+    {
+      "arquivo": "036_0961.5s.png",
+      "segundo": 961.5,
+      "fala": "The lower you go, the freer LTX is to generate and the more important your prompt becomes. For simple animation like this, this can really add some interesting detail but for more complex stuff, it usually breaks the ani"
+    },
+    {
+      "arquivo": "037_1026.2s.png",
+      "segundo": 1026.2,
+      "fala": "and then focus on details like for example the expressions. So that's everything you need to set up. Now I can click Q prompt and on a 5090, this whole process of rendering it just takes under two minutes for this shot."
+    },
+    {
+      "arquivo": "038_1072.0s.png",
+      "segundo": 1072.0,
+      "fala": "brings it to ConfUI through a dedicated note. It scales your output up to 4K in just a couple of seconds, sharpening edges and cleaning up compression as it goes. Seriously, look at this. I just load in the clip, click Q"
+    },
+    {
+      "arquivo": "039_1120.6s.png",
+      "segundo": 1120.6,
+      "fala": "so you can pull everything apart and test it on your own machine. So after testing this workflow for a while, I grew pretty confident that I could push the animation even further than I originally planned. Look at this s"
+    },
+    {
+      "arquivo": "040_1185.0s.png",
+      "segundo": 1185.0,
+      "fala": "I had a lot of variations where she wasn't using the right hand and this was just a prompting issue. I just needed to say in the prompt, she is reaching for the table for the desk with her left hand and then it worked. A"
+    }
+  ]
+}

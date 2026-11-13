@@ -1,0 +1,39 @@
+# Template GERADO automaticamente por generate_template_from_benchmark.py
+# (Frente A — 'criar modelo a partir do benchmark').
+# Mesclado em memória pelo design_creative.py; consumido pelo componente
+# React BenchmarkDerivedSlide (template_id_render: benchmark-derived).
+# Edição manual é permitida (este NÃO é o templates.yaml curado).
+
+id: benchmark-dialogbox-hormozi-7eb444
+label: ✨ Dialog-Box (Tweet Card) (gerado)
+description: Layout com um card branco arredondado simulando um tweet, contendo avatar,
+  nome, handle e texto principal alinhado à esquerda.
+react_component: BenchmarkDerivedSlide
+template_id_render: benchmark-derived
+best_for_bench_types:
+- carousel
+- single
+- video
+preview_status: ready
+generated: true
+source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-06/benchmark/instagram/02-hormozi-7eb444
+output_type: carousel
+generated_at: '2026-06-13T14:13:15'
+spec:
+  id: benchmark-dialogbox-hormozi-7eb444
+  archetype: dialog-box
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-06/benchmark/instagram/02-hormozi-7eb444
+  layout:
+    cardStyle: tweet
+    cardBg: '#F2F2F2'
+    cardText: '#0B0B0F'
+    cardRadius: 36
+    align: left
+    showAvatar: true
+    showHandleRow: true
+    verified: true
+  typography:
+    bodyScale: lg
+  decor:
+    glow: false
+    grain: false

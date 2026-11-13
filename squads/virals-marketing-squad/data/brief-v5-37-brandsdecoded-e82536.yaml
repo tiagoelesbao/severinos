@@ -1,0 +1,536 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T20:04:50'
+archetype: news
+carousel_brief:
+  slug: v5-precision-37-brandsdecoded-e82536
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\37-brandsdecoded-e82536
+  source_url: https://www.instagram.com/brandsdecoded__/p/Db3Rlbnj2Nl/
+  tema: 'Modelagem de precisão: 37-brandsdecoded-e82536'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 10
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.5/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar a estética de lifestyle aspiracional por demonstrações reais de interfaces
+    de IA e fluxos de trabalho ativos para capturar founders focados em eficiência.
+    - Substituir a narrativa de ''viagens como fonte de criatividade'' por ''domínio
+    de novas fe'
+  audits_present: true
+benchmark_caption: 'Criatividade não nasce apenas de técnica. Ela depende da quantidade
+  e da diversidade de referências que você consegue conectar.
+
+
+  Viajar ajuda porque quebra o automático. Novas cidades, comidas, comportamentos,
+  conversas, imagens e formas de viver aumentam a biblioteca mental que depois aparece,
+  muitas vezes sem perceber, no que você cria.
+
+
+  Para quem trabalha com conteúdo, isso importa ainda mais. Se todas as suas referências
+  vêm do mesmo feed e do mesmo nicho, suas ideias começam a se parecer com as de todo
+  mundo.
+
+
+  Quanto mais repertório você constrói fora da tela, menos precisa depender do que
+  já viralizou dentro dela.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026 // Sua biblioteca mental define o que você consegue criar:
+    POR QUE VIAJAR TE TORNA UMA PESSOA MAIS CRIATIVA?'
+  headline: PARE DE COPIAR O QUE JÁ ESTÁ NO SEU FEED
+  sub_headline: O PONTO
+  body_text: Se você só consome o que está no seu nicho, seu conteúdo vira apenas
+    um eco. Aprenda como viagens e novas experiências criam ideias que ninguém mais
+    tem.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 153
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man looking at airplane window
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline direta focada no benefício: Como expandir sua biblioteca
+      mental para criar conteúdos originais e parar de copiar o feed. Pergunta provocativa:
+      Por que viajar torna você mais criativo?'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: De acordo com um estudo publicado pela Tourism Management, viajar
+    realmente pode afetar positivamente sua criatividade.
+  reference_body: How tourism memory boosts creativity? The role of openness to experience
+    Não por que você simplesmente mudou de cidade ou entrou de férias, mas porque
+    a quantidade de coisas desconhecidas que o cérebro precisa observar, interpretar
+    e conectar durante o caminho causa um impacto em você.
+  headline: VIAJAR TREINA SEU CÉREBRO
+  sub_headline: O DADO
+  body_text: Novas experiências aumentam a criatividade. O impacto real acontece quando
+    o cérebro precisa observar, interpretar e conectar o desconhecido durante o trajeto.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 25
+    body_chars: 159
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person exploring old city street
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Apresentar a prova científica: Citar o estudo da Tourism Management
+      sobre como a memória do turismo impulsiona a criatividade através da abertura
+      a novas experiências.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: 2026// É aí que a viagem começa a interferir na criatividade, porque
+    criar raramente significa inventar uma ideia completamente do zero. Na maioria
+    das vezes, significa combinar coisas que você já viu de uma maneira que ainda
+    não havia combinado antes.
+  headline: CRIAR É CONECTAR PONTOS
+  sub_headline: O MECANISMO
+  body_text: Ninguém inventa nada do zero. A criatividade é combinar referências.
+    Quanto maior sua biblioteca mental, mais únicas serão suas ideias.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 23
+    body_chars: 135
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person reading book cafe
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Desmitificar a criatividade: Explicar que criar não é inventar do
+      zero, mas combinar referências existentes. Quanto mais diversa a biblioteca
+      mental, mais raras as combinações.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: 2026 // Quanto mais limitada é essa biblioteca mental, mais previsíveis
+    tendem a ser as combinações. E ambientes novos também obrigam o cérebro a abandonar
+    respostas automáticas e enxergar situações por ângulos diferentes.
+  headline: 'O RISCO: A PREVISIBILIDADE DO CONTEÚDO LIMITADO'
+  sub_headline: O RISCO
+  body_text: Quanto mais limitada é sua biblioteca mental, mais previsíveis são suas
+    ideias. Novos ambientes forçam o cérebro a abandonar respostas automáticas e saídas
+    óbvias.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 47
+    body_chars: 163
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person walking in crowded street
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Alertar sobre a previsibilidade: Quem tem referências limitadas cria
+      conteúdos óbvios. Ambientes novos forçam o cérebro a abandonar respostas automáticas.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: 2026 // Para quem cria conteúdo, esse ponto é especialmente importante.
+    Se todas as suas referências vêm do Instagram do seu próprio nicho, você começa
+    a consumir as mesmas ideias que seus concorrentes estão consumindo.
+  headline: 'O DESAFIO: A ARMADILHA DA BOLHA DO NICHO'
+  sub_headline: O DESAFIO
+  body_text: Se todas as suas referências vêm apenas do Instagram do seu próprio nicho,
+    você começa a consumir e entregar exatamente o mesmo que seus concorrentes.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 150
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person scrolling smartphone close up
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: 'A dor da bolha do nicho: Se você consome apenas referências do seu
+      próprio nicho no Instagram, você entrega as mesmas ideias que seus concorrentes.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_08.jpg
+  reference_headline: Os criadores mais interessantes costumam buscar matéria-prima
+    fora da própria bolha. / Powered by Content Machine
+  reference_body: Viagens, hobbies, livros, música, cinema e conversas entram no conteúdo
+    justamente porque oferecem conexões que não estavam disponíveis dentro do feed.
+    2026 // O objetivo não é viajar só para ter ideias. É construir uma vida com referências
+    suficientes para não depender sempre do que já viralizou. Quanto maior o mundo
+    que você consome fora da tela, maior a chance de criar algo que não pareça apenas
+    mais uma versão do que já estava nela.
+  headline: BUSQUE MATÉRIA-PRIMA FORA DA TELA
+  sub_headline: A SOLUÇÃO
+  body_text: Para criar o que ninguém mais cria, busque referências em viagens, livros
+    e conversas. Construa uma vida que te dê repertório para não depender de viral.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 33
+    body_chars: 153
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person listening to vinyl record
+  accent_color: '#A855F7'
+  source_slides:
+  - 8
+  - 9
+  personalization:
+    status: DONE
+    directive: 'Como escalar o repertório: Buscar matéria-prima fora da tela (livros,
+      música, cinema, hobbies e viagens) para criar conexões impossíveis de achar
+      no feed.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+- slide_n: 7
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_10.jpg
+  reference_headline: Esse conteúdo foi produzido com ajuda de Inteligência Artificial
+    com a nossa ferramenta ‘Máquina de Viralização Inteligente’.
+  reference_body: Gravamos um mini-treinamento gratuito para mostrar como transformar
+    repertório em carrosséis pensados para alcance, autoridade e conversão. O NOVO
+    ALGORITMO DO INSTAGRAM EM 2026 E O FIM DO CRIADOR DE CONTEÚDO PORQUE TER 100 MIL
+    SEGUIDORES PODE SER UM PÉSSIMO NEGÓCIO Comente “conteúdo” para ter acesso imediato
+    a essa aula
+  headline: ONDE VOCÊ BUSCA SUAS IDEIAS?
+  sub_headline: REFLEXÃO
+  body_text: Quando foi a última vez que você saiu da sua bolha para garantir que
+    seu conteúdo não seja apenas mais do mesmo?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 112
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person working on laptop office
+  accent_color: '#A855F7'
+  source_slides:
+  - 10
+  personalization:
+    status: DONE
+    directive: 'Conectar repertório com eficiência: Para transformar esse repertório
+      em escala de produção, usamos nossa ''Máquina de Viralização Inteligente''.
+      Pergunta final: Onde você está buscando as referências que vão diferenciar seu
+      conteúdo amanhã?'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:06:00'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 10: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo
+    real'
+  headlines_extracted: 0/10
+  bodies_extracted: 10/10
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A relação entre a expansão do repertório cultural através de viagens
+    e a capacidade de gerar criatividade original para conteúdo.
+  formato: Ensaio argumentativo em carrossel (Educação/Mindset).
+  arco_narrativo: Parte de uma provocação sobre criatividade, valida a tese com base
+    científica, explica o mecanismo cognitivo de conexão de referências, alerta sobre
+    o perigo da bolha de nicho e encerra com uma oferta de ferramenta de IA para escalar
+    essa produção.
+  estrutura:
+  - slide_n: 1
+    papel: 'Hook/Gancho: Conecta biblioteca mental com a pergunta instigante sobre
+      viagens.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Prova Social/Autoridade: Valida a tese com estudo acadêmico para remover
+      a percepção de ''opinião rasa''.'
+    essencial: true
+  - slide_n: 3
+    papel: 'Exemplificação: Detalha os estímulos sensoriais que alimentam a biblioteca
+      mental.'
+    essencial: false
+  - slide_n: 4
+    papel: 'Conceito Chave: Define criatividade como combinação de referências, não
+      invenção do zero.'
+    essencial: true
+  - slide_n: 5
+    papel: 'Contraste: Mostra o risco da biblioteca limitada e a quebra do automatismo.'
+    essencial: true
+  - slide_n: 6
+    papel: 'Nuance/Personalização: Explica que o olhar do indivíduo filtra a referência.'
+    essencial: false
+  - slide_n: 7
+    papel: 'Aplicação Prática: Traz a tese para a dor do criador de conteúdo (bolha
+      do nicho).'
+    essencial: true
+  - slide_n: 8
+    papel: 'Expansão de Solução: Amplia as fontes de repertório além das viagens.'
+    essencial: true
+  - slide_n: 9
+    papel: 'Síntese/Moral: Reforça a independência criativa em relação aos virais.'
+    essencial: true
+  - slide_n: 10
+    papel: 'CTA/Conversão: Conecta o conceito de repertório à ferramenta de IA e convite
+      para treinamento.'
+    essencial: true
+  redundancias:
+  - Slide 3 e Slide 6 podem ser fundidos ou eliminados, pois apenas exemplificam o
+    que já foi dito no Slide 2 e 4.
+  - Slide 5 e 7 tratam de conceitos similares de 'previsibilidade' e 'bolha', podendo
+    ser sintetizados.
+  fatores_de_performance:
+  - Ancoragem em estudo científico no início para gerar credibilidade imediata.
+  - Quebra de expectativa ao definir criatividade como 'combinação' e não 'dom', tornando
+    o sucesso alcançável via repertório.
+  - 'Ataque a uma dor latente do mercado: a homogeneização de conteúdo causada pelo
+    consumo excessivo de feeds do mesmo nicho.'
+  - Transição fluida de um conceito abstrato (viagem) para uma solução comercial (máquina
+    de viralização).
+  recomendacao:
+    slides_ideais: 7
+    justificativa: O benchmark é prolixo. Para a Virals, devemos manter o gancho,
+      a prova científica, a definição de combinação, a dor da bolha, a síntese e o
+      CTA. A remoção de slides puramente descritivos (3 e 6) acelera o consumo e aumenta
+      a taxa de retenção até o CTA.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T20:05:16'
+content_plan:
+  archetype: news
+  slide_count: 7
+  tema: A relação entre expansão de repertório cultural (viagens) e criatividade original
+    para conteúdo
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O PONTO
+    copy_direction: 'Headline direta focada no benefício: Como expandir sua biblioteca
+      mental para criar conteúdos originais e parar de copiar o feed. Pergunta provocativa:
+      Por que viajar torna você mais criativo?'
+    image_direction: Visual minimalista contrastando um feed de rede social repetitivo
+      com a imagem de um mapa ou destino exótico
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O DADO
+    copy_direction: 'Apresentar a prova científica: Citar o estudo da Tourism Management
+      sobre como a memória do turismo impulsiona a criatividade através da abertura
+      a novas experiências.'
+    image_direction: Print estilizado de um artigo acadêmico ou ícone de validação
+      científica com destaque para o nome da publicação
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: O MECANISMO
+    copy_direction: 'Desmitificar a criatividade: Explicar que criar não é inventar
+      do zero, mas combinar referências existentes. Quanto mais diversa a biblioteca
+      mental, mais raras as combinações.'
+    image_direction: 'Diagrama simples de ''Combinação'': Elemento A + Elemento B
+      = Ideia Original'
+    source_slides:
+    - 4
+  - slide_n: 4
+    role: INSIGHT
+    kicker: O RISCO
+    copy_direction: 'Alertar sobre a previsibilidade: Quem tem referências limitadas
+      cria conteúdos óbvios. Ambientes novos forçam o cérebro a abandonar respostas
+      automáticas.'
+    image_direction: Visual de um labirinto repetitivo versus um caminho aberto e
+      disruptivo
+    source_slides:
+    - 5
+  - slide_n: 5
+    role: INSIGHT
+    kicker: O DESAFIO
+    copy_direction: 'A dor da bolha do nicho: Se você consome apenas referências do
+      seu próprio nicho no Instagram, você entrega as mesmas ideias que seus concorrentes.'
+    image_direction: Representação visual de uma 'bolha' de notificações de redes
+      sociais sufocando a visão
+    source_slides:
+    - 7
+  - slide_n: 6
+    role: INSIGHT
+    kicker: A SOLUÇÃO
+    copy_direction: 'Como escalar o repertório: Buscar matéria-prima fora da tela
+      (livros, música, cinema, hobbies e viagens) para criar conexões impossíveis
+      de achar no feed.'
+    image_direction: 'Colagem de ícones diversos: um livro, um fone de ouvido, um
+      passaporte e uma câmera'
+    source_slides:
+    - 8
+    - 9
+  - slide_n: 7
+    role: PAYOFF
+    kicker: REFLEXÃO
+    copy_direction: 'Conectar repertório com eficiência: Para transformar esse repertório
+      em escala de produção, usamos nossa ''Máquina de Viralização Inteligente''.
+      Pergunta final: Onde você está buscando as referências que vão diferenciar seu
+      conteúdo amanhã?'
+    image_direction: Interface limpa da ferramenta de IA da Virals processando inputs
+      de referências em formatos de carrossel
+    source_slides:
+    - 10
+  rationale: 'Apliquei a recomendação da análise para reduzir o carrossel de 10 para
+    7 slides, eliminando redundâncias descritivas (slides 3 e 6 do benchmark). O arco
+    segue rigorosamente a lógica de: Gancho (Dor da repetição) -> Prova (Estudo científico)
+    -> Conceito (Combinação de referências) -> Alerta (Bolha do nicho) -> Solução
+    (Repertório externo) -> Payoff (Ferramenta de escala + Call-to-think). A voz da
+    Virals foi integrada focando em pragmatismo e eficiência, removendo qualquer termo
+    proibido e evitando a criação de dados fictícios.'
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T20:05:48'
+central_theme: A relação entre expansão de repertório cultural (viagens) e criatividade
+  original para conteúdo
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T20:06:00'
+  slides: 7
+  central_theme: A relação entre expansão de repertório cultural (viagens) e criatividade
+    original para conteúdo
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T20:06:44'

@@ -1,0 +1,379 @@
+schema_version: '1.0'
+generated_at: '2026-08-19T23:26:32'
+media_kind: video
+video_brief:
+  slug: video-34-rodrigotadewald-8ea6b0
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\34-rodrigotadewald-8ea6b0
+source:
+  creator: '@rodrigotadewald'
+  platform: instagram
+  url: https://www.instagram.com/rodrigotadewald/reel/DcMh8AyCSUe/
+  type: video-short
+  caption: 'Strix é uma ferramenta open source que usa agentes de IA para testar a
+    segurança da sua aplicação.
+
+
+    Isso é especialmente útil agora que muita gente está A ideia é simples: antes
+    de alguém tentar explorar teu app de verdade, você coloca agentes para investigar
+    possíveis falhas, testar caminhos, validar vulnerabilidades e tentar gerar uma
+    prova de conceito.
+
+    criando aplicações muito rápido com Cursor, Claude Code, Codex, Lovable, Bolt
+    e outras ferramentas de IA.
+
+
+    Porque o problema de criar rápido é que também dá para publicar rápido demais.
+
+
+    E aí um app que “funciona” pode estar cheio de buraco que ninguém percebeu.
+
+
+    A Strix tenta agir mais como um pentester do que como um scanner tradicional.
+
+
+    Ela não fica só jogando um alerta genérico no teu colo. A proposta é investigar
+    se a falha realmente existe, como ela pode ser explorada e até sugerir caminhos
+    para corrigir o problema no código.
+
+
+    Outro ponto interessante é que dá para integrar com GitHub Actions, rodando esse
+    tipo de verificação antes de uma mudança ir para produção.
+
+
+    Claro: isso não substitui auditoria de segurança séria, principalmente em projeto
+    sensível.
+
+
+    Mas para quem está criando apps com IA e quer um filtro extra antes de colocar
+    o projeto no ar, é uma ferramenta muito interessante para testar.'
+metadata:
+  view_count: null
+  like_count: 1214
+  comment_count: null
+  duration_seconds: 55
+  cut_timestamps:
+  - 3.09
+  - 5.88
+  - 8.01
+  - 9.26
+  - 11.55
+  - 22.52
+  - 25.19
+  - 27.49
+  - 32.95
+  - 35.12
+  - 36.83
+  - 39.12
+  - 44.09
+  - 51.38
+hook_raw: Como saber se o aplicativo que eu criei usando IA é seguro?
+transcript:
+- start: 0
+  end: 3
+  text: Como saber se o aplicativo que eu criei usando IA é seguro?
+- start: 3
+  end: 7
+  text: Bom, não sei se tu sabe, mas tem uma ferramenta no GitHub que tá inclusive
+    viralizando
+- start: 7
+  end: 8
+  text: Te ajuda nisso
+- start: 8
+  end: 11
+  text: O nome dela é Strix, é open source e tem uma ideia bem interessante
+- start: 11
+  end: 19
+  text: Ao rodar ela, ela cria diversos agentes de inteligência artificial que vão
+    tentar encontrar vulnerabilidades na tua aplicação, como que você tentasse hackear
+    ela
+- start: 19
+  end: 25
+  text: E a vantagem é que ela não funciona aqui como um scanner tradicional, que
+    te falaria basicamente, talvez tenha um problema aqui
+- start: 25
+  end: 27
+  text: Mas sim, ela tenta agir como um pen tester mesmo
+- start: 27
+  end: 35
+  text: Então ela vai analisar a tua aplicação, fazer o reconhecimento, testar caminhos
+    possíveis, procurar vulnerabilidades e de fato tentar quebrar a tua aplicação
+- start: 35
+  end: 37
+  text: Então ela pode te ajudar em quatro coisas
+- start: 37
+  end: 39
+  text: Número um, encontrar falhas de segurança no app
+- start: 39
+  end: 44
+  text: Número dois, validar se aquela falha é um falso positivo ou vulnerabilidade
+    mesmo
+- start: 44
+  end: 48
+  text: Número três, ela vai gerar uma prova de conceito de como reproduzir aquele
+    problema
+- start: 48
+  end: 51
+  text: E aí, por fim, ela te mostra como corrigir aquilo no código
+- start: 51
+  end: 55
+  text: E aí tu pode sempre utilizar esse projeto aqui de forma automatizada para
+    ela sempre ficar buscando por possíveis vulnerabilidades uma vez que tu mexeu
+    algo relevante no teu projeto
+frames:
+- file: Screenshots/frame_01_at_00-00_Como_saber_se_o_aplicativo_que.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-08_O_nome_dela___Strix____open_so.jpg
+  timestamp: 00:08
+  t_seconds: 8
+- file: Screenshots/frame_03_at_00-25_Mas_sim__ela_tenta_agir_como_u.jpg
+  timestamp: 00:25
+  t_seconds: 25
+- file: Screenshots/frame_04_at_00-37_N_mero_um__encontrar_falhas_de.jpg
+  timestamp: 00:37
+  t_seconds: 37
+- file: Screenshots/frame_05_at_00-51_E_a__tu_pode_sempre_utilizar_e.jpg
+  timestamp: 00:51
+  t_seconds: 51
+beats:
+- n: 1
+  start: 0
+  end: 8
+  text: Como saber se o aplicativo que eu criei usando IA é seguro? Bom, não sei se
+    tu sabe, mas tem uma ferramenta no GitHub que tá inclusive viralizando Te ajuda
+    nisso
+  role: hook
+- n: 2
+  start: 8
+  end: 25
+  text: O nome dela é Strix, é open source e tem uma ideia bem interessante Ao rodar
+    ela, ela cria diversos agentes de inteligência artificial que vão tentar encontrar
+    vulnerabilidades na tua aplicação, como que você tentasse hackear ela E a vantagem
+    é que ela não funciona aqui como um scanner tradicional, que te falaria basicamente,
+    talvez tenha um problema aqui
+  role: build
+- n: 3
+  start: 25
+  end: 37
+  text: Mas sim, ela tenta agir como um pen tester mesmo Então ela vai analisar a
+    tua aplicação, fazer o reconhecimento, testar caminhos possíveis, procurar vulnerabilidades
+    e de fato tentar quebrar a tua aplicação Então ela pode te ajudar em quatro coisas
+  role: build
+- n: 4
+  start: 37
+  end: 51
+  text: Número um, encontrar falhas de segurança no app Número dois, validar se aquela
+    falha é um falso positivo ou vulnerabilidade mesmo Número três, ela vai gerar
+    uma prova de conceito de como reproduzir aquele problema E aí, por fim, ela te
+    mostra como corrigir aquilo no código
+  role: build
+- n: 5
+  start: 51
+  end: 55
+  text: E aí tu pode sempre utilizar esse projeto aqui de forma automatizada para
+    ela sempre ficar buscando por possíveis vulnerabilidades uma vez que tu mexeu
+    algo relevante no teu projeto
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 14
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis: null
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: keyword-rich question
+    text: Como saber se o aplicativo que eu criei usando IA é seguro?
+  - t: 8
+    device: entity reveal
+    text: O nome dela é Strix
+  - t: 37
+    device: structured listing
+    text: Número um... Número dois... Número três...
+  cut_cadence:
+    avaliacao: Ritmo agressivo e dinâmico. A média de 3.67s por segmento está ligeiramente
+      acima do ideal de 2s, mas a densidade de informação compensa a duração dos cortes.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 15
+    segments: 15
+    duration_s: 55.0
+    avg_segment_s: 3.67
+  broll_strategy: Uso de screen-recordings do GitHub e interface da ferramenta para
+    validar a prova social e tangibilizar a promessa técnica, evitando o 'talking
+    head' estático.
+  caption_style: Legendas dinâmicas, centralizadas, com destaque de palavras-chave
+    em cores contrastantes para reforçar a retenção multimodal.
+  pacing_curve:
+  - window: 00-08s
+    densidade: Alta (Hook + Promessa)
+  - window: 08-37s
+    densidade: Média (Explicação do funcionamento/estudo de caso)
+  - window: 37-51s
+    densidade: Alta (Entrega de valor em lista/bullet points)
+  - window: 51-55s
+    densidade: Baixa (Fechamento/CTA)
+  retention_devices:
+  - 'Escalada de valor: sai de uma dúvida genérica para uma ferramenta específica
+    e depois para a prova de conceito'
+  - 'Listagem numerada: cria micro-metas de atenção no cérebro do usuário'
+  - 'Keyword layering: repetição estratégica de ''vulnerabilidades'' e ''segurança''
+    para manter o nicho engajado'
+  - 'Payoff técnico: a entrega do nome da ferramenta (Strix) logo após o hook'
+  recommendation: 'Modelar mantendo a estrutura de ''Problema -> Solução Nomeada ->
+    Funcionamento -> Benefícios em Lista''. Para o cliente: manter a cadência de cortes
+    abaixo de 4s e substituir a voz técnica por uma locução com entonação de ''segredo
+    revelado'' para aumentar o FOMO.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:27:22'
+content_plan:
+  tema: Como validar a segurança de um app criado com IA
+  format_concept: skit
+  hook:
+    variants:
+    - pattern_interrupt: question_with_visual_hook
+      text_overlay: Segurança em apps de IA?
+      spoken_open: Tu sabe, mas o que teu app está escondendo?
+    - pattern_interrupt: unknown_entity_reveal
+      text_overlay: Strix está em ação
+      spoken_open: Existe uma ferramenta que testa seu código como um pen tester
+    - pattern_interrupt: numeral_hook
+      text_overlay: Agentes simulando ataques
+      spoken_open: Agentes de IA investigando vulnerabilidades
+  storyboard:
+  - beat_n: 1
+    scene: Close em tela do GitHub mostrando código
+    shot_type: close
+    duration_s: 3
+    on_screen_text: Strix em ação
+    broll: Screen recording do repositório GitHub
+    motion: zoom-in
+  - beat_n: 2
+    scene: Agente de IA analisando API
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: Reconhecimento de endpoints
+    broll: Clips de interface 3D da ferramenta
+    motion: whip
+  - beat_n: 3
+    scene: Popup com resultado de análise
+    shot_type: close
+    duration_s: 3
+    on_screen_text: Vuln detectada
+    broll: Logs com destaque em vermelho
+    motion: cut
+  script: Você está criando apps com IA e publicando rápido, mas isso pode esconder
+    vulnerabilidades de segurança. Strix, uma ferramenta open source no GitHub, usa
+    agentes de IA para testar seu app como um pen tester. Ela encontra falhas, valida
+    se são reais, gera provas de conceito e mostra como corrigir. Automatize a verificação
+    com GitHub Actions. É um filtro prático para evitar buracos antes de colocar o
+    projeto no ar.
+  edit_spec:
+    zooms:
+    - à frase 'testa seu código como pen tester'
+    transitions:
+    - zoom suave @ 6s
+    inserts:
+    - screen recording
+    captions: Legendas em tempo real com palavras-chave em destaque
+    motion_graphics:
+    - ícones de agente
+    template_refs:
+      hook: hook-direct-question
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Close no terminal da ferramenta Strix
+    framing: close
+    audio: Voz explicando funcionalidades
+    props: Notebook mostrado como referência
+    locacao: Sala de produção com iluminação neutra
+    falas_chave: Este agent automatiza a análise de segurança
+  - plano: Montagem de logos de clientes reais (sem rostos)
+    framing: amplo
+    audio: Música ambiente épica
+    props: Efeitos de luz para revelação
+    locacao: Estrêi com backdrops temáticos
+    falas_chave: Com uso em projetos reais de escala
+  sound_design:
+    sfx:
+    - moment: hook:1s
+      category: riser
+      intent: criar tensão técnica
+      intensity: medium
+    - moment: reveal @22s
+      category: notification
+      intent: destacar descoberta
+      intensity: strong
+    music:
+      recommended: true
+      mood: tense
+      energy: medium
+      genre: electronic pulse
+      ducking: true
+      rationale: Mantém ritmo técnico enquanto reforça segurança
+    rationale: ''
+  rationale: Modelo 'Problema -> Strix -> Funcionamento' com elementos visuais técnicos
+    que ilustram a ação da ferramenta. Legenda dinâmica em cores complementares e
+    SFX reforçam momentos de insight, baseados na fala da fonte.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-19T23:28:31'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 1
+  model: openrouter:openrouter/free
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 3.33
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 2
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-19T23:29:16'

@@ -1,0 +1,89 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# VIRALS — TEMPLATE REGISTRY (Pipeline *design-creative)
+# Lista de templates disponíveis para a marca institucional @virals.
+# Paleta navy + vermelho sinal (de brand-config.yaml) é aplicada via brand-config; este
+# YAML só define a estrutura/layout dos templates.
+#
+# Consumido por: squads/virals-marketing-squad/scripts/design_creative.py
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "virals"
+  last_updated: "2026-05-23"
+  status: "active"
+
+# ─────────────────────────────────────────────────────────────────────────────
+templates:
+
+  carousel:
+    - id: carousel-news
+      label: "Carrossel News / Digest"
+      description: "5-7 slides, cada um com notícia/insight do mercado D2C."
+      react_component: "ModeledCarouselSlide"
+      template_id_render: "carousel-slide"
+      best_for_bench_types: [carousel, video]
+      slide_count_range: [5, 8]
+      typical_use: "News digest do D2C/creators/growth, tendências semanais"
+      preview_status: "ready"
+
+    - id: carousel-quote-stack
+      label: "Carrossel Quote-Stack"
+      description: "Citações encadeadas com o tom GaryVee — 1 quote por slide."
+      react_component: "QuoteSlide"
+      template_id_render: "quote-slide"
+      best_for_bench_types: [single, video]
+      slide_count_range: [3, 5]
+      typical_use: "Princípios Virals, manifesto, frases-âncora da marca"
+      preview_status: "ready"
+
+    - id: carousel-step
+      label: "Carrossel Step-List (Framework)"
+      description: "AI UGC & Vídeos / Copy AI / Traffic AI — 1 passo por slide."
+      react_component: "ModeledCarouselSlide"          # Fase B2: substituir por StepListSlide dedicado
+      template_id_render: "carousel-slide"
+      best_for_bench_types: [video, carousel]
+      slide_count_range: [4, 7]
+      typical_use: "Demonstrar framework Virals em passos numerados"
+      preview_status: "fase_b2_pending"
+      preview_note: "Renderiza com ModeledCarouselSlide até Fase B2 entregar StepListSlide.tsx."
+
+  single:
+    - id: single-insight
+      label: "Single Insight Card"
+      description: "Headline + body + visual de apoio. Post único de insight de growth."
+      react_component: "SinglePostSlide"
+      template_id_render: "single-post"
+      best_for_bench_types: [single, carousel]
+      typical_use: "Post único de case/observação do mercado"
+      preview_status: "ready"
+
+    - id: single-quote
+      label: "Single Quote-Hero"
+      description: "Citação destacada em fonte gigante + atribuição @virals."
+      react_component: "QuoteSlide"
+      template_id_render: "quote-slide"
+      best_for_bench_types: [single, video]
+      typical_use: "Frase-âncora da marca, manifesto, princípio Mago"
+      preview_status: "ready"
+
+    - id: single-data
+      label: "Single Data Card (Número-Herói)"
+      description: "Número grande (CAC, ROAS, LTV) + contexto + CTA direto da oferta."
+      react_component: "SinglePostSlide"               # Fase B2: substituir por DataCardSlide dedicado
+      template_id_render: "single-post"
+      best_for_bench_types: [video, carousel, single]
+      typical_use: "CAC 60% menor, case de cliente, métrica de campanha"
+      preview_status: "fase_b2_pending"
+      preview_note: "Renderiza com SinglePostSlide até Fase B2 entregar DataCardSlide.tsx."
+
+# ─────────────────────────────────────────────────────────────────────────────
+scoring_match:
+  carousel:
+    from_carousel: [carousel-news, carousel-quote-stack, carousel-step]
+    from_video:    [carousel-step, carousel-news, carousel-quote-stack]
+    from_single:   [carousel-quote-stack, carousel-news, carousel-step]
+  single:
+    from_single:   [single-insight, single-quote, single-data]
+    from_video:    [single-data, single-quote, single-insight]
+    from_carousel: [single-insight, single-quote, single-data]

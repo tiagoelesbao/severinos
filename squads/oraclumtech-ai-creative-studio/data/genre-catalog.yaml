@@ -1,0 +1,638 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM TECH · AI CREATIVE STUDIO — CATÁLOGO DE GÊNEROS
+#
+# Princípio: o GÊNERO define o PIPELINE; o pipeline define o ELENCO.
+# Este arquivo é a porta de entrada da classificação. O brief-strategist lê aqui,
+# decide o `id`, e o exec-producer instancia `pipeline_ref` em pipeline-profiles.yaml.
+#
+# Gêneros `status: backlog` NÃO são projetos futuros: são DIFFS declarados contra um
+# pipeline MVP. Implementar um deles é editar `delta_from` + `o_que_muda` em um
+# pipeline profile existente, não desenhar um pipeline do zero. Foi a razão de
+# catalogá-los agora, com o contexto fresco, em vez de descobrir o delta depois.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.1.0'
+  criado_em: '2026-08-21'
+  atualizado_em: '2026-08-29'
+  mudanca_1_1_0: >
+    Entrada `novela-recap` criada no backlog, com `identificador_reservado: P7`. Fecha a
+    divergência registrada em `docs/APRENDIZADOS-CURSOS.md` ("P7 novela-recap é
+    referenciado pelo local-generation-stack.yaml mas não existe no genre-catalog.yaml").
+    Nenhum gênero existente foi alterado.
+  status: active
+  squad: oraclumtech-ai-creative-studio
+  fonte: '_BLUEPRINT.md §5'
+  regra_de_classificacao: >
+    Um pedido pertence a UM gênero. Se parece pertencer a dois, o desempate é pelo
+    kpi_primario — o gênero é escolhido pelo que o cliente vai cobrar no fim, não
+    pelo formato do arquivo. Peça que precisa de imagem estática dentro de um vídeo
+    NÃO vira dois jobs: `image-lab` é chamado como sub-rotina do gênero principal.
+  formatos_aceitos: ['9:16', '16:9', '1:1', '4:5']
+
+# ═════════════════════════════════════════════════════════════════════════════
+# MVP — 6 gêneros implementados
+# ═════════════════════════════════════════════════════════════════════════════
+generos:
+
+  # ── P1 ──────────────────────────────────────────────────────────────────────
+  - id: brand-film
+    status: active
+    nome: 'Brand Film — campanha e comercial de produto'
+    objetivo_de_negocio: >
+      Construir desejo e memória de marca. É a peça-vitrine: o que o cliente mostra
+      para o board e o que o estúdio mostra para vender o próximo contrato. Não é
+      peça de resposta direta — se o pedido cobra CPA, o gênero errado foi escolhido.
+    canal_alvo: [instagram-feed, instagram-reels, youtube, tiktok, tv-digital, site-cliente]
+    duracao_tipica: '30-60s (com corte de 15s para mídia paga)'
+    formato: ['16:9', '9:16']
+    formato_master: '16:9'
+    nota_formato: >
+      Master em 16:9 e derivação para 9:16 no assembly. O caminho inverso não existe:
+      reenquadrar vertical para horizontal destrói a composição que o dop desenhou.
+    kpi_primario: 'view-through rate + brand lift declarado (recall assistido)'
+    kpi_secundario: ['tempo médio de visualização', 'compartilhamento']
+    elenco_convocado:
+      - studio-chief
+      - exec-producer
+      - brief-strategist
+      - research-scout
+      - creative-director
+      - head-of-copy
+      - film-director
+      - dop
+      - art-director
+      - image-lead
+      - motion-lead
+      - editor
+      - sound-designer
+      - fact-checker
+      - qa-critic
+    pipeline_ref: P1
+    craft_ref: brand-film
+    custo_relativo: alto
+    ciclo_tipico: '5-10 dias úteis'
+    aceita_cliente: [externo, interno-oraclum]
+
+  # ── P2 ──────────────────────────────────────────────────────────────────────
+  - id: ugc-ads
+    status: active
+    nome: 'UGC / Creator AI para conversão'
+    objetivo_de_negocio: >
+      Conversão paga. Volume alto, ciclo curto, peça descartável por desenho: o ativo
+      não é o vídeo, é a matriz de variação (1 corpo × N hooks) que alimenta o teste
+      de criativo. Alimenta diretamente o Oraclum X (tráfego & anúncios).
+    canal_alvo: [meta-ads, tiktok-ads, youtube-shorts-ads]
+    duracao_tipica: '15-30s'
+    formato: ['9:16']
+    kpi_primario: 'CPA / ROAS na conta de anúncios'
+    kpi_secundario: ['hook rate (3s)', 'hold rate (15s)', 'CTR']
+    elenco_convocado:
+      - studio-chief
+      - exec-producer
+      - brief-strategist
+      - research-scout
+      - head-of-copy
+      - character-lead
+      - image-lead
+      - motion-lead
+      - editor
+      - sound-designer
+      - fact-checker
+      - qa-critic
+    pipeline_ref: P2
+    craft_ref: ugc-ads
+    custo_relativo: baixo-por-peça / alto-por-lote
+    ciclo_tipico: '1-2 dias úteis por lote'
+    aceita_cliente: [externo, interno-oraclum, farming]
+    nota_de_desenho: >
+      Não tem creative-director nem dop de propósito. Big idea e fotografia autoral
+      são o oposto do código de UGC: a peça precisa parecer não-dirigida. Quem garante
+      qualidade aqui é o head-of-copy (hook) e o character-lead (o creator sintético
+      ser a MESMA pessoa em todas as variações).
+
+  # ── P3 ──────────────────────────────────────────────────────────────────────
+  - id: nicho-series
+    status: active
+    nome: 'Nicho Series — short film, minissérie, sketch e sátira de bolha'
+    objetivo_de_negocio: >
+      Retenção e crescimento de página própria, com funil para os serviços da Oraclum.
+      O ativo é o PERSONAGEM recorrente, não o episódio: o episódio é descartável, a
+      bíblia de personagem é o patrimônio.
+    canal_alvo: [instagram-reels, tiktok, youtube-shorts]
+    duracao_tipica: '30-90s por episódio, em temporada de 6-12 episódios'
+    formato: ['9:16']
+    kpi_primario: 'retenção média por episódio + seguidores novos por episódio'
+    kpi_secundario: ['comentários por view (sinal de bolha)', 'salvamentos', 'retorno de audiência entre eps']
+    elenco_convocado:
+      - studio-chief
+      - exec-producer
+      - brief-strategist
+      - research-scout
+      - showrunner
+      - head-of-copy
+      - film-director
+      - art-director
+      - character-lead
+      - image-lead
+      - motion-lead
+      - editor
+      - sound-designer
+      - fact-checker
+      - qa-critic
+    pipeline_ref: P3
+    craft_ref: nicho-series
+    custo_relativo: alto no episódio 1, decrescente na temporada
+    ciclo_tipico: '3-5 dias o piloto; 1 dia por episódio depois da bíblia fechada'
+    aceita_cliente: [interno-oraclum, farming, externo]
+    nota_de_desenho: >
+      Único gênero com o estágio `story`. Único onde o custo cai ao longo do tempo:
+      bíblia, character sheets e cenário são reaproveitados. O episódio 1 paga a
+      temporada inteira — por isso o gate do piloto é mais duro que o dos seguintes.
+
+  # ── P4 ──────────────────────────────────────────────────────────────────────
+  - id: oraclum-institucional
+    status: active
+    nome: 'Institucional cinemático dor → solução (Oraclum)'
+    objetivo_de_negocio: >
+      Autoridade e venda dos serviços da própria Oraclum. É a peça que o founder manda
+      no DM depois de uma conversa comercial. Prova por sistema rodando — tela, log,
+      agente trabalhando — nunca por depoimento, porque a Oraclum ainda não tem case.
+    canal_alvo: [instagram-feed, linkedin, site-oraclum, envio-direto-comercial]
+    duracao_tipica: '45-90s'
+    formato: ['16:9', '9:16']
+    formato_master: '16:9'
+    kpi_primario: 'reuniões agendadas atribuídas à peça'
+    kpi_secundario: ['tempo de visualização completo', 'salvamentos no LinkedIn']
+    elenco_convocado:
+      - studio-chief
+      - brief-strategist
+      - creative-director
+      - head-of-copy
+      - film-director
+      - dop
+      - image-lead
+      - motion-lead
+      - editor
+      - sound-designer
+      - fact-checker
+      - qa-critic
+    pipeline_ref: P4
+    craft_ref: oraclum-institucional
+    custo_relativo: médio
+    ciclo_tipico: '3-5 dias úteis'
+    aceita_cliente: [interno-oraclum]
+    brand_lock: squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml
+    nota_de_desenho: >
+      Não convoca research-scout: a pesquisa de referência da Oraclum já é permanente
+      e vive no monitoramento diário do virals-marketing-squad. Rodar benchmark novo a
+      cada institucional seria pagar duas vezes pelo mesmo dado. Também não convoca
+      exec-producer — job interno de peça única não tem cronograma para produzir; o
+      studio-chief absorve intake e delivery (ver ARCHITECTURE.md ADR-006).
+
+  # ── P5 ──────────────────────────────────────────────────────────────────────
+  - id: dark-room
+    status: active
+    nome: 'Dark Room — canal sem rosto (VO + b-roll IA + motion)'
+    objetivo_de_negocio: >
+      Escala e monetização de canal sem exposição pessoal. O ativo é o CANAL: nicho,
+      voz, paleta e motif sonoro definidos uma vez, episódios produzidos em série.
+      Serve tanto para canal próprio quanto como serviço vendido a cliente.
+    canal_alvo: [youtube-long, youtube-shorts, tiktok, instagram-reels]
+    duracao_tipica: '60s (short) ou 5-10min (long)'
+    formato: ['9:16', '16:9']
+    kpi_primario: 'retenção percentual (short) / watch time absoluto (long)'
+    kpi_secundario: ['CTR de thumbnail', 'inscritos por vídeo', 'RPM']
+    elenco_convocado:
+      - studio-chief
+      - exec-producer
+      - research-scout
+      - head-of-copy
+      - image-lead
+      - motion-lead
+      - editor
+      - sound-designer
+      - fact-checker
+      - qa-critic
+    pipeline_ref: P5
+    craft_ref: dark-room
+    custo_relativo: baixo por episódio
+    ciclo_tipico: '4-8 horas por episódio depois do channel-brief fechado'
+    aceita_cliente: [interno-oraclum, farming, externo]
+    requer_artefato_persistente: channel-brief.yaml
+    nota_de_desenho: >
+      Não tem estágio `brief` porque o brief do dark-room não é por peça, é por CANAL:
+      um `channel-brief.yaml` escrito uma vez (nicho, voz, paleta, tipografia, motif
+      sonoro, tabus) e referenciado por todo episódio. Sem esse artefato o job não
+      inicia — é o único gênero com pré-requisito persistente. Ver ARCHITECTURE.md ADR-007.
+    variantes_em_producao:
+      - canal: canal-estoico
+        pauta: atemporal
+        imagem: 'gerada por IA (pack visual por marcador [img NN])'
+        corte: 'contínuo, sem corte seco; este gênero não usa SFX'
+        gate_dominante: gate-stills
+      - canal: bora-de-bola
+        pauta: 'NOTÍCIA DO DIA — o assunto morre em ~48h'
+        imagem: 'acervo Pexels + foto de portal + cartela em camada. ZERO imagem de IA'
+        corte: 'corte seco a ~5s'
+        gate_dominante: 'gate-factcheck — cada afirmação com âncora em claim-ledger.json'
+        inversao: >
+          A embalagem (título e thumb) vem ANTES do roteiro, porque o roteiro cumpre a
+          promessa do título. Inverter produz vídeo que entrega coisa diferente da que
+          foi clicada.
+        runbook: 'apps/canal-futebol/ESTEIRA.md'
+        estado: 'ATIVO — primeiro episódio publicado em 2026-09-05. Ver MEMORY.md §6.4'
+
+  # ── P6 ──────────────────────────────────────────────────────────────────────
+  - id: image-lab
+    status: active
+    nome: 'Image Lab — imagem pura (thumb, publicitária de produto, key art, capa, carrossel)'
+    objetivo_de_negocio: >
+      Serviço comercializável isolado E suporte transversal a P1–P5. Vende sozinho
+      (thumbnail, key art, foto publicitária de produto) e atende os outros pipelines
+      como sub-rotina quando eles precisam de um asset estático de alto acabamento.
+    canal_alvo: [instagram-feed, instagram-carrossel, youtube-thumbnail, marketplace, site-cliente, midia-paga]
+    duracao_tipica: 'n/a (asset estático); lote típico de 1-10 peças'
+    formato: ['1:1', '4:5', '9:16', '16:9']
+    kpi_primario: 'CTR do asset no canal em que ele vive'
+    kpi_secundario: ['taxa de aprovação em primeira rodada', 'nº de revisões até aceite']
+    elenco_convocado:
+      - studio-chief
+      - brief-strategist
+      - research-scout
+      - art-director
+      - image-lead
+      - character-lead
+      - fact-checker
+      - qa-critic
+    pipeline_ref: P6
+    craft_ref: image-lab
+    custo_relativo: baixo
+    ciclo_tipico: '2-8 horas'
+    aceita_cliente: [externo, interno-oraclum, farming]
+    transversal: true
+    invocavel_como_subrotina_de: [brand-film, ugc-ads, nicho-series, oraclum-institucional, dark-room]
+    contrato_de_subrotina: >
+      Quando chamado de dentro de outro pipeline, o P6 roda em `modo embutido`: herda
+      brief e design do job pai (não refaz intake/brief/research), grava em
+      `11-stills/subrotina-{asset}/` do job pai e devolve o caminho do arquivo. Não
+      abre job novo — job novo faria o cliente ser cobrado duas vezes pela mesma peça.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# BACKLOG — 13 gêneros catalogados, não implementados
+# Cada um é um DIFF contra um pipeline MVP. `delta_from` diz de onde partir;
+# `o_que_muda` é a lista fechada do que precisa ser alterado para implementar.
+# ═════════════════════════════════════════════════════════════════════════════
+backlog:
+
+  - id: vsl-longa
+    status: backlog
+    nome: 'VSL longa (video sales letter)'
+    objetivo_de_negocio: 'Venda direta de oferta de ticket médio/alto por vídeo longo.'
+    canal_alvo: [pagina-de-vendas, youtube-nao-listado, whatsapp]
+    duracao_tipica: '8-25min'
+    formato: ['16:9']
+    kpi_primario: 'taxa de conversão da página + retenção no minuto da oferta'
+    elenco_convocado: [studio-chief, exec-producer, brief-strategist, head-of-copy, image-lead, motion-lead, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P5 + delta'
+    delta_from: P5
+    o_que_muda:
+      - 'Estágio `script` passa a ser o gargalo: roteiro de 8-25min exige estrutura de VSL (lead, mecanismo, prova, oferta, escassez, fechamento) e handoff cross-squad obrigatório para @georgi e @ladeira.'
+      - 'Retenção deixa de ser medida em segundos e passa a ser medida por bloco: o gate precisa de checkpoint por minuto, não por hook de 3s.'
+      - 'Volume de b-roll cresce uma ordem de grandeza — o `takes` precisa de política de reuso de plano (mesma cena serve a 3 blocos) senão a cota de geração não fecha.'
+      - 'Novo checklist de compliance de oferta (garantia, preço, condição) no `factcheck`.'
+
+  - id: lancamento-produto
+    status: backlog
+    nome: 'Lançamento de produto (campanha multi-peça)'
+    objetivo_de_negocio: 'Sustentar um lançamento com um pacote coerente de peças em fases (aquecimento, evento, oferta, fechamento).'
+    canal_alvo: [instagram, youtube, email, whatsapp, meta-ads]
+    duracao_tipica: 'pacote de 15-40 peças ao longo de 2-4 semanas'
+    formato: ['9:16', '16:9', '1:1']
+    kpi_primario: 'faturamento do lançamento'
+    elenco_convocado: [studio-chief, exec-producer, brief-strategist, research-scout, creative-director, head-of-copy, film-director, art-director, image-lead, motion-lead, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P1 + delta'
+    delta_from: P1
+    o_que_muda:
+      - 'Deixa de ser job de UMA peça e vira job de CAMPANHA: o exec-producer precisa de um manifesto de pacote (peças, fase, dependência entre peças) acima do job.json.'
+      - 'O estágio `concept` produz um território que precisa sobreviver a 40 peças, não a uma — o gate do concept passa a exigir prova de extensibilidade (3 desdobramentos).'
+      - 'P1, P2 e P6 passam a ser sub-rotinas do mesmo job pai (filme de campanha + ads + key art).'
+      - 'Calendário vira artefato de primeira classe com dependência de data.'
+
+  - id: tiktok-shop
+    status: backlog
+    nome: 'TikTok Shop / vídeo de produto para social commerce'
+    objetivo_de_negocio: 'Vender SKU dentro do app, com o produto demonstrado em uso.'
+    canal_alvo: [tiktok-shop, tiktok-organico]
+    duracao_tipica: '20-45s'
+    formato: ['9:16']
+    kpi_primario: 'GMV por vídeo / taxa de clique no card de produto'
+    elenco_convocado: [studio-chief, exec-producer, brief-strategist, head-of-copy, character-lead, image-lead, motion-lead, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P2 + delta'
+    delta_from: P2
+    o_que_muda:
+      - 'O produto REAL precisa aparecer com rótulo legível — nenhum gerador acerta rótulo. O Pacote de Direção do `stills` passa a exigir foto real do produto como base, com a IA entrando só em fundo, luz e composição. Ver model-routing.yaml § imagem_publicitaria_produto.'
+      - 'Novo gate de compliance de e-commerce no `factcheck` (claim de resultado, alergênico, prazo de entrega).'
+      - 'Ganha estágio `design` (art-director) para a cartela de preço/oferta, que o P2 não tem.'
+      - 'Handoff com o virals-farming-squad: as contas aquecidas por lá são o canal de publicação daqui.'
+
+  - id: delivery-food
+    status: backlog
+    nome: 'Delivery e food service (vídeo e foto de cardápio)'
+    objetivo_de_negocio: 'Aumentar conversão em app de delivery e Instagram de restaurante.'
+    canal_alvo: [ifood, instagram-feed, instagram-stories, google-business]
+    duracao_tipica: '10-20s (vídeo) ou lote de fotos de cardápio'
+    formato: ['9:16', '1:1']
+    kpi_primario: 'conversão do item no app de delivery'
+    elenco_convocado: [studio-chief, brief-strategist, art-director, image-lead, motion-lead, editor, fact-checker, qa-critic]
+    pipeline_ref: 'P6 + delta'
+    delta_from: P6
+    o_que_muda:
+      - 'Comida gerada por IA é reprovável por natureza: o cliente vende AQUELE prato. `stills` vira majoritariamente tratamento de foto real, não geração. A IA entra em fundo, luz e composição, não no alimento.'
+      - 'Ganha estágio `takes` curto (macro em movimento: queijo puxando, vapor, corte) — hoje ausente no P6.'
+      - 'Gate novo: fidelidade ao prato entregue (o que aparece precisa ser o que chega), regra de compliance real de plataforma de delivery.'
+      - 'Lote é a unidade natural (cardápio inteiro), não a peça.'
+
+  - id: expert-lancador
+    status: backlog
+    nome: 'Expert / lançador (autoridade pessoal)'
+    objetivo_de_negocio: 'Construir autoridade de uma pessoa física e alimentar seu funil de infoproduto.'
+    canal_alvo: [instagram-reels, youtube, linkedin]
+    duracao_tipica: '30-90s'
+    formato: ['9:16']
+    kpi_primario: 'crescimento de lista + engajamento qualificado'
+    elenco_convocado: [studio-chief, brief-strategist, research-scout, head-of-copy, film-director, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P5 + delta'
+    delta_from: P5
+    o_que_muda:
+      - 'Inverte a premissa do dark-room: aqui o rosto É o ativo. `stills` e `takes` deixam de gerar o sujeito e passam a tratar material gravado pelo expert.'
+      - 'O `script` precisa da voz REAL da pessoa — exige artefato de voice DNA extraído de material existente, não do brand-identity.'
+      - 'Entra shotlist de gravação (o expert grava) — o estúdio vira pré e pós, não produção integral.'
+      - 'Ganha `decupagem` (film-director) para dirigir a gravação remota.'
+
+  - id: branding-institucional-cliente
+    status: backlog
+    nome: 'Institucional de cliente externo'
+    objetivo_de_negocio: 'Peça institucional para marca de terceiro (o P4 é só para a Oraclum).'
+    canal_alvo: [site-cliente, linkedin, evento, youtube]
+    duracao_tipica: '60-120s'
+    formato: ['16:9']
+    kpi_primario: 'aprovação do cliente + uso em canal proprietário'
+    elenco_convocado: [studio-chief, exec-producer, brief-strategist, research-scout, creative-director, head-of-copy, film-director, dop, art-director, image-lead, motion-lead, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P4 + delta'
+    delta_from: P4
+    o_que_muda:
+      - 'Reativa exec-producer, research-scout e art-director — que o P4 dispensa por ser job interno.'
+      - 'O brand_lock deixa de ser fixo na Oraclum e passa a ser o brand-identity do cliente, carregado no `brief`.'
+      - 'Ganha ciclo de aprovação do cliente entre `concept` e `script`, e de novo antes do `delivery` — dois pontos de parada humanos a mais.'
+      - 'Direitos de imagem/voz/marca do cliente entram como bloqueio explícito no `factcheck`.'
+
+  - id: podcast-to-reel
+    status: backlog
+    nome: 'Podcast → reel (corte de conteúdo longo)'
+    objetivo_de_negocio: 'Multiplicar alcance de conteúdo longo já gravado, sem produção nova.'
+    canal_alvo: [instagram-reels, tiktok, youtube-shorts, linkedin]
+    duracao_tipica: '30-60s por corte, lote de 5-15 cortes'
+    formato: ['9:16']
+    kpi_primario: 'views por corte / custo por view'
+    elenco_convocado: [studio-chief, exec-producer, head-of-copy, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P5 + delta'
+    delta_from: P5
+    o_que_muda:
+      - 'Não gera imagem nem take: o material bruto já existe. `stills` e `takes` saem do pipeline; entra um estágio de seleção de trecho antes do `script`.'
+      - 'Já existe motor no repositório: squads/virals-marketing-squad/scripts/run_podcast_to_reel_pipeline.py — este gênero é sobretudo embrulhar o que já roda em contrato de pipeline.'
+      - 'O `script` vira reescrita de hook e cartela sobre fala existente, com fidelidade literal ao que foi dito (o factcheck fica mais fácil, não mais difícil).'
+      - 'Unidade de cobrança é o lote, não a peça.'
+
+  - id: motion-explainer
+    status: backlog
+    nome: 'Motion explainer / vídeo de produto animado'
+    objetivo_de_negocio: 'Explicar um produto ou fluxo complexo (SaaS, app, processo) em animação.'
+    canal_alvo: [site-cliente, youtube, onboarding, apresentacao-comercial]
+    duracao_tipica: '60-120s'
+    formato: ['16:9']
+    kpi_primario: 'compreensão declarada / redução de dúvida no suporte'
+    elenco_convocado: [studio-chief, brief-strategist, head-of-copy, art-director, image-lead, motion-lead, editor, sound-designer, qa-critic]
+    pipeline_ref: 'P4 + delta'
+    delta_from: P4
+    o_que_muda:
+      - 'Sai fotografia, entra design de sistema: `look` (dop) é substituído por `design` (art-director) como estágio dominante — grid, ícone, cor funcional, tipografia.'
+      - 'O `takes` deixa de ser I2V e vira motion graphics construído em After Effects — o Pacote de Direção muda de prompt de modelo para spec de composição (camadas, easing, duração, expressão).'
+      - 'Screen recording real do produto vira insumo obrigatório do cliente (executor human).'
+      - 'Gate novo: precisão funcional — a animação não pode mostrar uma tela que o produto não tem.'
+
+  - id: documentario-marca
+    status: backlog
+    nome: 'Documentário de marca (branded doc)'
+    objetivo_de_negocio: 'Construir profundidade e afeto de marca por narrativa real de pessoas.'
+    canal_alvo: [youtube, site-cliente, festival, linkedin]
+    duracao_tipica: '3-10min'
+    formato: ['16:9']
+    kpi_primario: 'watch time + menção espontânea'
+    elenco_convocado: [studio-chief, exec-producer, brief-strategist, research-scout, creative-director, showrunner, head-of-copy, film-director, dop, art-director, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P1 + delta'
+    delta_from: P1
+    o_que_muda:
+      - 'Material é captado, não gerado: `stills` e `takes` viram apoio (recriação de época, mapa, gráfico), e entra captação humana como estágio pesado.'
+      - 'Ganha `story` (showrunner) — arco de 3-10min não se sustenta em storyboard de comercial.'
+      - 'O `factcheck` deixa de checar claim publicitário e passa a checar FATO jornalístico com fonte nomeada; vira o estágio mais caro do pipeline.'
+      - 'Entrevista exige liberação de imagem assinada — artefato jurídico novo no delivery.'
+
+  - id: trailer-produto
+    status: backlog
+    nome: 'Trailer de produto / teaser de lançamento'
+    objetivo_de_negocio: 'Criar expectativa antes da abertura de um produto ou temporada.'
+    canal_alvo: [instagram-reels, youtube, tiktok, email]
+    duracao_tipica: '15-30s'
+    formato: ['9:16', '16:9']
+    kpi_primario: 'cadastros na lista de espera'
+    elenco_convocado: [studio-chief, brief-strategist, creative-director, head-of-copy, film-director, dop, image-lead, motion-lead, editor, sound-designer, qa-critic]
+    pipeline_ref: 'P1 + delta'
+    delta_from: P1
+    o_que_muda:
+      - 'Pipeline encurta: `research` some (o trailer se apoia no território já aprovado da campanha mãe) e o `script` vira estrutura de crescendo, não de argumento.'
+      - 'O sound design deixa de ser apoio e passa a comandar o corte — o gate precisa avaliar o áudio como elemento principal, não como acabamento.'
+      - 'Depende de um job P1 ou P3 anterior: é o único gênero com pré-requisito de OUTRO job.'
+      - 'Regra dura: o trailer não pode entregar a informação, só a tensão — critério de reprovação no gate.'
+
+  - id: case-study-video
+    status: backlog
+    nome: 'Case study em vídeo'
+    objetivo_de_negocio: 'Provar resultado entregue a um cliente real, com número verificável.'
+    canal_alvo: [site-oraclum, linkedin, apresentacao-comercial]
+    duracao_tipica: '60-120s'
+    formato: ['16:9', '9:16']
+    kpi_primario: 'taxa de fechamento em negociação onde a peça foi usada'
+    elenco_convocado: [studio-chief, brief-strategist, head-of-copy, film-director, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P4 + delta'
+    delta_from: P4
+    o_que_muda:
+      - 'BLOQUEADO POR CONTRATO DE MARCA. O brand-identity da Oraclum (v2.1) proíbe "case de cliente" no léxico até existir um real. Este gênero só sai do backlog quando houver um case com número auditável e autorização escrita do cliente.'
+      - 'O `factcheck` vira o estágio de maior autoridade do pipeline: cada número precisa de fonte primária (print de painel, contrato, relatório), não de fala.'
+      - 'Ganha artefato de autorização do cliente como pré-requisito do `intake` — sem ele o job não abre.'
+      - 'Depoimento em vídeo exige captação real; geração de pessoa falando um resultado é fraude, não produção.'
+    bloqueio: 'brand-identity.yaml → restricoes.nunca_fazer + lexico.nunca_usar'
+
+  # ── Transmissão contínua ────────────────────────────────────────────────────
+  # Os três gêneros abaixo vieram da mineração de `lives-niches-playbook.yaml`.
+  # Eles rompem uma premissa comum a P1–P6: a peça deixa de ser um arquivo entregue
+  # e passa a ser um CANAL no ar. Por isso são diff contra P5 (o único com artefato
+  # persistente de canal), não contra os pipelines de peça única.
+  #
+  # `novela-recap` é o único dos três que começa episódico e SÓ DEPOIS vira live —
+  # por isso ele abre a seção.
+
+  - id: novela-recap
+    status: backlog
+    nome: 'Recap de novela (canal dark diário — vídeo longo na fase 1, live contínua na fase 2)'
+    identificador_reservado: P7
+    nota_de_identificador: >
+      DIVERGÊNCIA FECHADA AQUI. "P7 novela-recap" já aparecia em
+      `data/local-generation-stack.yaml` (lacunas 1 e 2b) e em `docs/NARRACAO-LOCAL.md`
+      (§2.5) como se fosse um pipeline implementado — e não existia neste catálogo.
+      Não é pipeline implementado: `P7` é o número RESERVADO deste gênero. Enquanto não
+      houver perfil próprio em `pipeline-profiles.yaml`, ele roda como `P5 + delta`, e é
+      o `pipeline_ref` abaixo que vale na execução. Quem for implementar escreve o
+      profile P7 partindo do P5 e move `status` para `active`.
+    objetivo_de_negocio: >
+      Capturar, todo dia, a audiência que busca "o que aconteceu no capítulo de ontem"
+      e convertê-la em watch time monetizável num canal sem rosto. O ativo é a CADÊNCIA:
+      quem chega para o recap de segunda volta na terça. O produto é o resumo narrado
+      com voz e elenco próprios — nunca o sinal da emissora, nunca o capítulo.
+    canal_alvo: [youtube-long, youtube-live, youtube-shorts, tiktok, instagram-reels]
+    duracao_tipica: 'episódio de 5–10 min, cadência diária (6–7 por semana); loop de live na fase 2'
+    formato: ['16:9', '9:16']
+    formato_master: '16:9'
+    kpi_primario: 'watch time absoluto acumulado no mês (fase 1) → horas assistidas por transmissão (fase 2)'
+    kpi_secundario: ['CTR de thumbnail', 'espectadores simultâneos médios', 'RPM', 'retorno diário (views por espectador único na semana)']
+    elenco_convocado:
+      - studio-chief
+      - exec-producer
+      - research-scout
+      - head-of-copy
+      - character-lead
+      - image-lead
+      - motion-lead
+      - editor
+      - sound-designer
+      - fact-checker
+      - qa-critic
+    pipeline_ref: 'P5 + delta'
+    delta_from: P5
+    requer_artefato_persistente: channel-brief.yaml
+    custo_relativo: 'baixo por episódio, ALTO na primeira semana (o elenco tem que ser construído antes do primeiro recap)'
+    ciclo_tipico: 'lote semanal — uma sessão de produção cobre 6–7 episódios'
+    aceita_cliente: [farming, interno-oraclum]
+    duas_fases:
+      fase_1_aquecimento:
+        o_que_e: >
+          Publicar episódios comuns (vídeo longo diário) antes de qualquer transmissão.
+          Serve a dois propósitos ao mesmo tempo: tirar o canal do período inicial em que
+          a plataforma ainda não distribui, e construir o acervo de loops que a fase 2 vai
+          transmitir. Sinal de saída: o painel começar a mostrar impressão e recomendação
+          em vez de view zerada.
+        confianca_da_fonte: baixa
+        nota: >
+          O termo que o curso usa para esse período inicial chega corrompido na
+          transcrição — a intenção é legível, o nome dele não. Ver
+          `lives-niches-playbook.yaml → transversal.aquecimento_antes_da_primeira_live`.
+      fase_2_live:
+        o_que_e: >
+          Os episódios já produzidos passam a rodar em LOOP dentro do OBS, transmitidos
+          como live contínua na faixa de horário da novela na TV — abre um pouco antes,
+          fecha no fim da programação. A unidade de trabalho deixa de ser o vídeo e passa
+          a ser o canal no ar.
+        pre_requisito: 'Fase 1 concluída e acervo de loops montado. Não se começa por aqui.'
+        infra: 'VPS, não a máquina do operador — a mesma restrição do `live-stats-panel`.'
+    o_que_muda:
+      - 'Cadência vira restrição de primeira classe. O `exec-producer` deixa de orçar episódio a episódio e passa a orçar LOTE SEMANAL: uma sessão de produção (sábado ou domingo) alimenta 6–7 peças. É política de produção, não preferência de agenda.'
+      - 'O `head-of-copy` escreve o roteiro CORRIDO, sem separar por dia. Quebrar em capítulos devolve ao espectador pontos naturais de saída; o corrido mantém o loop de curiosidade aberto. É o mesmo princípio do `codigo_de_retencao` do dark-room, com caso concreto.'
+      - 'Entra `character-lead` — que o P5 não convoca. Elenco de novela é FIXO e reaparece todo dia por meses: sem identidade travada, a mesma personagem sai com rosto diferente a cada episódio. É a lacuna 2b do `local-generation-stack.yaml` (LoRA por personagem é a rota recomendada justamente por causa deste gênero).'
+      - 'O `stills` muda de critério: imagem escolhida por AÇÃO (chorando, discutindo, descobrindo), nunca por retrato neutro. Vale como regra de prompt na geração local, não só como curadoria.'
+      - 'O `assembly` ganha um parâmetro default duro: troca de imagem a cada ~3s com micro-movimento. Aperta o `codigo_de_b_roll` do dark-room ("nenhum plano acima de 4s"). Peça de locução sobre still parada é tela travada.'
+      - 'A narração é o produto, e vem da voz canônica do canal (ChatterBox 23L, voz embutida — ver `docs/NARRACAO-LOCAL.md` §2.5). Trocar de voz entre episódios reseta o reconhecimento acumulado; num gênero diário, isso custa mais do que em qualquer outro.'
+      - 'O `research` inverte a origem do briefing: a pauta vem do calendário da NOVELA (resumo dos capítulos da semana em portal público), não do calendário do estúdio. Sem novela no ar, não há episódio.'
+      - 'A fase 2 muda a natureza da entrega: de arquivo para SESSÃO no ar, com janela de início e encerramento — mesmo delta operacional do `live-stats-panel`.'
+    perfil_de_direitos:
+      classificacao: 'MISTO — o núcleo é defensável, a rota de imagem do método de origem NÃO é'
+      o_que_e_limpo:
+        - 'O resumo narrado é obra derivada de sinopse e fato público, com texto e voz próprios'
+        - 'A camada visual GERADA localmente (FLUX.2 klein + Wan 2.2) não tem titular de terceiro — é a diferença que torna este gênero viável aqui e inviável no método de origem'
+      o_que_e_arriscado:
+        - 'Frame de obra audiovisual protegida ou foto de terceiro colhida em busca de imagens — é a fonte de imagem do curso, e ela não entra'
+        - 'Nome e imagem de ator ou marca de emissora em título e thumbnail'
+      recusado_por_decisao_do_founder:
+        - 'Título-isca com marca de emissora ("Globo ao vivo HD") — sugere retransmissão de sinal'
+        - 'Trocar título/thumbnail e cortar a gravação no YouTube Studio antes da revisão de monetização'
+        - '"Aplicar edição" (espelhar, filtrar, cortar) sobre imagem de terceiro para não acusar duplicado — contorna o detector, não o titular'
+    bloqueio_antes_de_sair_do_backlog: >
+      A camada visual precisa ser 100% gerada ou licenciada, sem exceção — o que muda a
+      economia do nicho em relação ao método de origem e é exatamente o que precisa ser
+      medido antes de virar oferta. Depende também da lacuna 2b (consistência de
+      personagem) sair de `a_validar_no_estudio`: sem elenco estável, o formato diário
+      não se sustenta. O `fact-checker` opera a lista `recusado` acima como bloqueio.
+    fonte: 'squads/oraclumtech-ai-creative-studio/data/lives-niches-playbook.yaml → nichos[novelas]'
+
+  - id: live-stats-panel
+    status: backlog
+    # PERMANECE em backlog de propósito: promover gênero é decisão do founder, não da
+    # classificação (tasks/classify-genre.md). O que mudou é que o bloqueio caiu.
+    bloqueio_original_resolvido:
+      em: '2026-09-05'
+      qual: >
+        "Capturar a tela de um provedor de placar é violação de ToS; a rota correta é
+        painel próprio." Resolvido exatamente por essa rota: painel desenhado por nós,
+        alimentado pelos endpoints públicos que a própria ESPN usa no site. Zero
+        captura de tela.
+      implementacao: 'apps/live-futebol/'
+    pronto_para_promocao_quando:
+      - 'Os testes de OBS pendentes forem concluídos'
+      - 'Um jogo completo for validado do início ao fim (não um trecho)'
+    retomada_combinada: '≈2026-09-12 — uma semana após a publicação do piloto do VOD'
+    estado_real: 'montado e ensaiado; AINDA NÃO foi ao ar. Ver MEMORY.md §6.5'
+    nome: 'Painel de dados ao vivo (transmissão contínua orientada a evento)'
+    objetivo_de_negocio: >
+      Capturar audiência que já está buscando um evento em andamento (jogo, eleição,
+      lançamento, leilão) e retê-la em um painel de dados próprio atualizando em
+      tempo real. O conteúdo é o DADO, não a narrativa — e dado é fato, o que dá a
+      este gênero o melhor perfil de direitos de todo o catálogo.
+    canal_alvo: [youtube-live, twitch, painel-embarcado-em-site-cliente]
+    duracao_tipica: '4-6h por evento, ou contínua enquanto o evento durar'
+    formato: ['16:9']
+    kpi_primario: 'horas assistidas acumuladas por transmissão'
+    kpi_secundario: ['espectadores simultâneos médios', 'RPM por mercado geográfico', 'inscritos por transmissão']
+    elenco_convocado: [studio-chief, exec-producer, research-scout, art-director, editor, sound-designer, fact-checker, qa-critic]
+    pipeline_ref: 'P5 + delta'
+    delta_from: P5
+    o_que_muda:
+      - 'A entrega deixa de ser um arquivo e passa a ser uma SESSÃO no ar. O `delivery` vira operação de transmissão (janela de início, duração, encerramento) e exige infraestrutura persistente — VPS, não a máquina do operador.'
+      - 'Somem `stills` e `takes` como estágios dominantes: o que ocupa a tela é interface de dados, não imagem gerada. Entra `design` (art-director) como estágio pesado — grid, hierarquia tipográfica, legibilidade de número em movimento.'
+      - 'Fonte de dados vira insumo de primeira classe com licença nomeada. Capturar a tela de um provedor de placar é violação de termos de serviço; a rota correta é API licenciada renderizada em painel próprio. RESOLVIDO em 2026-09-05 por painel próprio + endpoints públicos da ESPN. A conta que elimina as alternativas pagas: ~110 min de jogo consultando a cada 30 s = 220 requisições por partida, contra os 100/DIA do free tier de API-Football e KickoffAPI — não cobrem um único jogo.'
+      - 'O `research` inverte a ordem do briefing: a decisão de produzir vem do calendário do EVENTO, não do calendário do estúdio.'
+      - 'Áudio é leito ambiente, nunca trilha — em peça de 5h, trilha licenciada é risco e custo sem contrapartida.'
+      - 'Ganha um dispositivo de retenção sem rosto (elemento vivo em loop no canto da composição) como item obrigatório de `assinatura_substituta` no channel-brief.'
+    fonte: 'squads/oraclumtech-ai-creative-studio/data/lives-niches-playbook.yaml → nichos[esportes]'
+
+  - id: live-music-loop
+    status: backlog
+    nome: 'Loop musical contínuo (canal de música gerada)'
+    objetivo_de_negocio: >
+      Monetizar audiência de escuta longa (estudo, sono, foco, infantil) com faixas
+      GERADAS pelo estúdio, rodando em loop por meses sem intervenção. Custo marginal
+      próximo de zero depois do loop montado; o ativo é o canal, não a faixa.
+    canal_alvo: [youtube-live, youtube-long]
+    duracao_tipica: 'loop de ~30 min (≈10 faixas), transmitido continuamente'
+    formato: ['16:9']
+    kpi_primario: 'horas assistidas acumuladas por mês'
+    kpi_secundario: ['espectadores simultâneos médios', 'RPM por mercado', 'reescuta (views por ouvinte único)']
+    elenco_convocado: [studio-chief, exec-producer, research-scout, head-of-copy, sound-designer, image-lead, editor, fact-checker, qa-critic]
+    pipeline_ref: 'P5 + delta'
+    delta_from: P5
+    o_que_muda:
+      - 'O `sound-designer` deixa de ser acabamento e vira o estágio dominante: a peça É o áudio. O vídeo é um plano vivo em movimento lento, não uma decupagem.'
+      - 'Some o estágio de locução; some o roteiro. Entra composição: letra por LLM + prompt de estilo de até ~200 caracteres, gerada com titularidade comercial verificada (ver playbook § perfil_de_direitos).'
+      - 'Ambiência e SFX NÃO vêm do gerador de música — vêm de acervo licenciado ou de banco próprio. Achado de campo registrado no playbook: gerador de música falha em chuva/rio e acerta em faixa com estrutura.'
+      - 'Gate novo e duro no `factcheck`: título não pode prometer efeito fisiológico (Hz, hormônio, cura de estresse) nem citar artista real. É o ponto onde o método de origem foi recusado e onde ele volta com mais facilidade.'
+      - 'Declaração de conteúdo gerado por IA é obrigatória na publicação — não é decisão de alcance.'
+      - 'Sub-nicho infantil exige regime próprio (feito-para-crianças) que altera monetização e comentários; tratar como gênero à parte se for perseguido.'
+    fonte: 'squads/oraclumtech-ai-creative-studio/data/lives-niches-playbook.yaml → nichos[musicas]'

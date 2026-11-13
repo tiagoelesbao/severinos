@@ -1,0 +1,151 @@
+niche:
+  id: religioso
+  label: Religioso / Devocional
+  icon: '🙏'
+  language: pt-BR
+  description: >
+    Conteúdo devocional cristão de alto engajamento: versículos, orações curtas,
+    mensagens de fé, "bom dia abençoado". Formato dominante: imagem estática ou
+    levemente animada + narração ou música instrumental + texto na tela.
+  why_farming: >
+    Nicho de altíssimo volume e baixíssima complexidade de produção. Uma imagem
+    animada com áudio já performa — é o caso ideal para aquecimento de conta.
+
+discovery:
+  platform: tiktok
+  # Hashtags seed de busca. Ampliar com o que o ranking revelar (o scout propõe
+  # novas hashtags a cada rodada em `suggested_hashtags` do relatório).
+  hashtags:
+    - deus
+    - deusnocontrole
+    - fe
+    - oracao
+    - jesus
+    - versiculododia
+    - palavradedeus
+    - gratidao
+    - salmos
+    - deusefiel
+    - mensagemdedeus
+    - boanoite
+    - bomdia
+  # Termos de BUSCA em linguagem natural. São eles que o buscador entende — a
+  # hashtag crua ("versiculododia") não é indexada como texto, mas o termo
+  # ("versículo do dia") é. Usados pela rota de descoberta do F1.
+  # ⚠️ TERMO CURTO NÃO SERVE (medido 2026-07-27). Buscar "jesus" devolveu literalmente
+  # as 8 contas gringas que o filtro de idioma tinha acabado de podar — @theviewabc,
+  # @maklelan, @r3alism_0fficial. O buscador ranqueia por autoridade global, e as contas
+  # mais linkadas do mundo para uma palavra solta nunca são canais BR pequenos.
+  #
+  # Frase longa e específica inverte isso: "reflexão bíblica narrada" devolveu
+  # @canalbiblianarrada, @biblia_sagrada9, @evangeliodabiblia7ofc, @palavrarenova1 —
+  # todos canais FACELESS, que é o formato modelável. A frase carrega o formato junto
+  # com o tema; a palavra solta carrega só o tema.
+  search_terms:
+    - reflexão bíblica narrada
+    - versículo do dia com reflexão
+    - salmo narrado
+    - palavra de deus narrada
+    - oração poderosa para hoje
+    - oração da noite para dormir
+    - mensagem de deus para você hoje
+    - deus está falando com você agora
+    - promessa de deus para você
+    - reflexão para o seu dia
+
+  # Âncoras auditadas em 2026-07-27 com `--check-anchors` (idade do último post).
+  # Rode essa auditoria antes de confiar no ranking: âncora parada devolve ranking
+  # vazio, e o vazio se confunde com "nicho sem conteúdo".
+  anchor_profiles:
+    - contosdeoracao      # ✅ ATIVA — último post há 27h · 16,6% engaj. · ~11k views
+    - umapausaparavoce    # ✅ ATIVA — último post há 34h · 11,6% engaj. · ~6,6k views
+    # Promovidos em 2026-07-27 após se provarem na varredura faceless: ocuparam as 6
+    # primeiras posições do ranking com modelabilidade +16 e formato idêntico
+    # (referência bíblica + texto na tela + narração sobre imagem estática).
+    # Como âncoras, entram em toda varredura sem depender da descoberta nem gastar
+    # crédito de busca.
+    - biblia_sagrada9     # ✅ 3 itens no top-4 · versículos narrados
+    - abibliasalva        # ✅ 2 itens · Salmos e Provérbios narrados · 62-65s
+    - canalbiblianarrada  # ✅ descoberto por "reflexão bíblica narrada"
+    - evangeliodabiblia7ofc
+    # - oracaoquecura2    # ⛔ INATIVA — último post há 441h (2026-07-08). 12,9% engaj.
+    #                     #    e posts de até 518k de score, mas parou de publicar.
+    #                     #    Reative se voltar a postar.
+  lookback_hours: 48
+  items_per_hashtag: 20
+
+# Sobrescreve config/scoring-weights.yaml para este nicho.
+# ⚠️ CALIBRAÇÃO x REALIDADE (medido 2026-07-27)
+# min_views: 80000 foi um chute inicial calibrado para contas grandes. As âncoras
+# ATIVAS deste nicho fazem 6k–11k views por post — ou seja, o corte antigo reprovava
+# 100% do conteúdo que temos como fonte, mesmo com engajamento de 11–16% (excelente).
+# Baixado para 5000 views. O engajamento continua sendo o filtro de qualidade real:
+# um post de 8k views com 15% de engajamento é MELHOR candidato a modelagem que um de
+# 500k com 0,4%, porque o formato é que está performando, não o alcance da conta.
+cutoff:
+  # Baixado de 1500/5000 para 800/2000 em 2026-07-27, na virada para conteúdo FACELESS.
+  # Motivo: canal faceless é pequeno por natureza. A varredura capturou nove deles —
+  # @versiculodehoje23, @luzdivina795, @voz_de_amor, @promessadedeus91, @oracao_diaria77,
+  # @mensagens.e.salmo, @palavradecrito, @radiodoceu, @comcolodedeus — e NENHUM passou:
+  # o corte de views eliminava justamente o formato que queremos modelar, deixando
+  # passar só criador grande falando à câmera. O engajamento (5%) segue como filtro de
+  # qualidade real — é ele que separa formato que funciona de alcance comprado.
+  min_viral_score: 800
+  min_views: 2000
+  min_engagement_rate: 0.05
+  max_age_hours: 72
+  # Teto de duração (2026-07-27). Sem ele, a varredura aprovou 30 itens com 29 acima
+  # de 45s e ZERO abaixo de 30s: meditações e pregações de 4 a 17 minutos, que o squad
+  # não modela. A penalidade de modelabilidade (-15) não reprovava porque o gate é 0.
+  # 120s calibrado sobre a captura real: mantém 15 candidatos; 90s deixaria só 10.
+  max_duration_seconds: 120
+  # Gate de FORMATO. Com os pesos de canal (thematic +20 / clergy -30 / cuts -25),
+  # um padre pregando fica em -45 e um canal faceless de 60s em torno de +11. O gate
+  # em -10 reprova quem fala à câmera sem derrubar canal faceless de vídeo longo
+  # (@umapausaparavoce, âncora legítima, fica em -4).
+  min_modelability: -10
+
+modeling:
+  # ACABAMENTO — aplicado sobre a cena que a visão traduziu. Só paleta, luz e
+  # textura: nada que introduza sujeito, objeto ou cenário novo. É o que modula a
+  # imagem sem brigar com ela.
+  #
+  # A separação existe porque `visual_style` abaixo descreve o criativo TÍPICO do
+  # nicho (com montanha, mãos postas, cruz) e, colado no fim de uma cena real,
+  # produzia prompts contraditórios — uma rua noturna chuvosa recebendo ordem de
+  # "luz dourada, paleta quente, cruz ao fundo". Ver composeImagePrompt().
+  visual_grading: >
+    Luz suave e volumétrica, alto contraste, leve brilho nas altas luzes,
+    estética de wallpaper — contemplativa e sem poluição visual.
+  # Usado APENAS quando a visão não traduziu a cena: aí é a única descrição
+  # disponível e vale inteiro. É também o briefing de referência do nicho.
+  visual_style: >
+    Luz volumétrica dourada, céu dramático, natureza (montanha, mar, campo, nuvens),
+    silhueta em oração, mãos postas, cruz ao fundo distante. Paleta quente,
+    alto contraste, estética "wallpaper devocional".
+  avoid_in_prompt:
+    - rosto reconhecível de figura religiosa específica
+    - representação literal de divindade
+    - texto renderizado dentro da imagem (o texto entra no video-studio, não na IA)
+  audio_treatment: >
+    Preserva o áudio original do benchmark quando for narração devocional.
+    Se for música com voz, extrai apenas o instrumental quando disponível.
+  caption_style: montserrat-bold-outline
+  typical_takes: 3
+
+# ⚠️ Guardrails de política de plataforma e de responsabilidade editorial.
+guardrails:
+  policy_risk: medium
+  rules:
+    - 'NUNCA prometer cura, milagre condicionado, ou resultado material por fé.'
+    - 'NUNCA solicitar doação, PIX ou pagamento no criativo ou na descrição.'
+    - 'NÃO atacar, comparar ou depreciar outras religiões ou denominações.'
+    - 'NÃO usar imagem gerada de pessoa real identificável em contexto religioso.'
+    - 'Conteúdo é inspiracional, não aconselhamento espiritual ou terapêutico.'
+  blocked_terms:
+    - cura garantida
+    - milagre garantido
+    - pix da bênção
+    - semente de prosperidade
+    - envie e receba
+  gate: 'Violação de qualquer regra reprova o criativo em creative-export-checklist.md.'

@@ -1,0 +1,563 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:57:28'
+archetype: news
+carousel_brief:
+  slug: v5-precision-84-hernanvazquezmarketing-c306ae
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\84-hernanvazquezmarketing-c306ae
+  source_url: https://www.instagram.com/hernanvazquezmarketing/p/Db4C3aQj8r3/
+  tema: 'Modelagem de precisão: 84-hernanvazquezmarketing-c306ae'
+  slide_count: 9
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 10
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.6/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a estética de ''print de tweet'' por uma estética de ''workflow de
+    automação'' ou ''dashboard de IA'' para evitar o erro de parecer conteúdo de marketing
+    genérico e focar em eficiência tecnológica. - Substituir a analogia de ''combustível
+    e orçame'
+  audits_present: true
+benchmark_caption: 'Say Ticket below and I''ll send you the link to the free class
+  on Low Ticket Offers... 👇
+
+
+  Have you ever tried to upgrade your gas tank in your car just because you''re tired
+  of refueling every so often?
+
+
+  Like, telling the mechanic,'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: YOUR AD BUDGET
+  reference_body: ISN'T THE PROBLEM. HERNAN VAZQUEZ Swipe →
+  headline: SEU ORÇAMENTO DE ANÚNCIOS NÃO É O PROBLEMA
+  sub_headline: O PROBLEMA
+  body_text: Pare de tentar resolver a escala injetando mais capital. O caminho para
+    a eficiência não está no gasto, mas na estrutura de aquisição.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 42
+    body_chars: 134
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person looking at laptop screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline direta e disruptiva: Seu orçamento de anúncios não é o problema.
+      Foque na eficiência, não no gasto.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: Have you ever tried to upgrade your gas tank just because you're
+    tired of refueling? No, right? Because that's not a thing.
+  headline: A ARMADILHA DO TANQUE DE COMBUSTÍVEL
+  sub_headline: A ANALOGIA
+  body_text: Você não tenta trocar o tanque do seu carro só porque o combustível acaba
+    rápido. Fazer isso seria um erro de lógica básica.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 36
+    body_chars: 124
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: gas station nozzle car
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Use a analogia do combustível: Você não tenta trocar o tanque de combustível
+      do carro só porque ele está acabando rápido. Isso não faz sentido.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: Instead of upgrading the tank, you plan your road trip so you have
+    refueling stations along the way. That's the move.
+  headline: LOGÍSTICA VENCE O TAMANHO
+  sub_headline: A ESTRATÉGIA
+  body_text: O segredo não é ter um tanque maior, mas planejar a rota com postos de
+    reabastecimento estratégicos ao longo do caminho.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 25
+    body_chars: 120
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: map on dashboard car
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: Em vez de um tanque maior, o segredo é planejar a rota com postos de
+      abastecimento ao longo do caminho. É sobre logística, não tamanho.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: High-ticket coaches try to upgrade the gas tank. Their cost to acquire
+    customers keeps going up, so they think they need more budget.
+  headline: O ERRO COMUM DO HIGH TICKET
+  sub_headline: O ERRO
+  body_text: Muitos coaches tentam 'aumentar o tanque', injetando mais verba para
+    compensar um CAC que não para de subir.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 27
+    body_chars: 108
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: stressed man office laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Coaches de High Ticket tentam 'aumentar o tanque'. Eles injetam mais
+      orçamento para compensar o custo de aquisição (CAC) que só sobe.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: What if you could change your structure altogether? Same car, same
+    offer, same everything. Just a route with refueling points every day.
+  headline: A MUDANÇA NA ESTRUTURA DO NEGÓCIO
+  sub_headline: A MUDANÇA
+  body_text: A solução não está no volume de dinheiro, mas na organização das ofertas.
+    É possível manter o produto principal e adicionar pontos de receita imediatos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 33
+    body_chars: 152
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: modern office architectural detail
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: A solução não é o volume de dinheiro, mas a mudança na estrutura. O
+      mesmo carro e a mesma oferta, mas com pontos de reabastecimento diários.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: That's what Low Ticket Offers are for. They work with your existing
+    gas tank. Your existing offer, funnels, and team stay the same.
+  headline: O PAPEL DA OFERTA LOW TICKET
+  sub_headline: O MECANISMO
+  body_text: As ofertas de baixo valor geram caixa imediato utilizando sua estrutura
+    atual de funis e equipe.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 96
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using smartphone app
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: É aqui que entram as Ofertas Low Ticket. Elas utilizam sua estrutura
+      atual (funis e equipe) para criar esse fluxo de reabastecimento.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 7
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_08.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: Because your buyers mostly pay for themselves every day, your tank
+    is automatically refueled at the start of the day.
+  headline: AUTOFINANCIAMENTO DE AQUISIÇÃO
+  sub_headline: O FLUXO
+  body_text: As vendas de baixo ticket cobrem os custos de anúncios diariamente. Seu
+    orçamento é recuperado automaticamente antes do dia acabar.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 30
+    body_chars: 131
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: credit card payment laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 8
+  personalization:
+    status: DONE
+    directive: As vendas de baixo ticket pagam os custos de anúncios diariamente.
+      Seu tanque é reabastecido automaticamente antes mesmo do dia acabar.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 8
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_09.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: So at the end of the week, you've spent $5,000 on ads and every
+    one of those buyers paid that money back. Now you have those buyers for free (or
+    close to free).
+  headline: A LÓGICA DA ESCALA
+  sub_headline: A MATEMÁTICA
+  body_text: Se o investimento em anúncios é integralmente recuperado pelas vendas
+    de baixo ticket, o custo de aquisição para o seu produto principal torna-se zero.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 18
+    body_chars: 151
+    headline_tier: xl
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: calculator on desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 9
+  personalization:
+    status: DONE
+    directive: Se você investe $5.000 em anúncios e as vendas de Low Ticket cobrem
+      esse valor, você adquiriu todos os seus clientes de High Ticket de forma prática
+      e escalável.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+- slide_n: 9
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_10.jpg
+  reference_headline: Hernan Vazquez
+  reference_body: Most high-ticket coaches don't have an ads problem. They don't have
+    a budget problem. They have a structural problem.
+  headline: ESCALA É UMA QUESTÃO ESTRUTURAL
+  sub_headline: A LIÇÃO
+  body_text: Quanto do seu crescimento atual depende de injeção de capital externo
+    versus a capacidade da própria operação de financiar a aquisição de novos clientes?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 31
+    body_chars: 153
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: highway road perspective
+  accent_color: '#A855F7'
+  source_slides:
+  - 10
+  personalization:
+    status: DONE
+    directive: O problema de escala raramente é falta de verba. Geralmente, é uma
+      falha estrutural. Você está tentando acelerar sem ter combustível no trajeto.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:58:40'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 10: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo
+    real'
+  headlines_extracted: 0/10
+  bodies_extracted: 10/10
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A implementação de ofertas Low Ticket como estratégia de autofinanciamento
+    de aquisição de clientes para coaches de High Ticket.
+  formato: Narrativa analógica (Storytelling por analogia)
+  arco_narrativo: Quebra de objeção inicial (orçamento) -> Introdução de analogia
+    (tanque de combustível) -> Contraste de abordagens (High Ticket vs Orgânico) ->
+    Apresentação da solução (Low Ticket) -> Prova lógica do ROI -> Conclusão estrutural.
+  estrutura:
+  - slide_n: 1
+    papel: Hook disruptivo que ataca a dor comum (orçamento de ads)
+    essencial: true
+  - slide_n: 2
+    papel: Introdução da analogia para simplificar o conceito técnico
+    essencial: true
+  - slide_n: 3
+    papel: Resolução da analogia estabelecendo a lógica da 'estratégia de rota'
+    essencial: true
+  - slide_n: 4
+    papel: Conexão da analogia com o erro do avatar (tentar aumentar o tanque/budget)
+    essencial: true
+  - slide_n: 5
+    papel: Contraste com a alternativa ineficiente (orgânico/bicicleta)
+    essencial: false
+  - slide_n: 6
+    papel: Transição para a solução (mudança de estrutura)
+    essencial: true
+  - slide_n: 7
+    papel: Apresentação do produto/estratégia (Low Ticket)
+    essencial: true
+  - slide_n: 8
+    papel: Explicação do mecanismo de autofinanciamento
+    essencial: true
+  - slide_n: 9
+    papel: Tangibilização financeira do benefício (Matemática do ROI)
+    essencial: true
+  - slide_n: 10
+    papel: 'Fechamento com a tese central: problema estrutural, não financeiro'
+    essencial: true
+  redundancias:
+  - O Slide 5 (analogia da bicicleta) é um desvio narrativo que não soma ao argumento
+    principal do Low Ticket e pode ser removido sem perda de conversão.
+  fatores_de_performance:
+  - Uso de analogia concreta (carro/combustível) para explicar conceito financeiro
+    complexo
+  - 'Inversão de expectativa: tira a culpa do ''orçamento'' e coloca na ''estrutura'''
+  - Lógica matemática simples no final que torna a oferta irresistível (clientes gratuitos)
+  - Sequenciamento lógico que conduz o usuário do problema à solução sem saltos cognitivos
+  recomendacao:
+    slides_ideais: 9
+    justificativa: A remoção do slide 5 torna a narrativa mais linear e rápida, focando
+      exclusivamente no contraste entre 'Aumentar Budget' vs 'Mudar Estrutura', mantendo
+      toda a força da analogia e da prova lógica.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:57:50'
+content_plan:
+  archetype: news
+  slide_count: 9
+  tema: A implementação de ofertas Low Ticket como estratégia de autofinanciamento
+    de aquisição de clientes para coaches de High Ticket.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O PROBLEMA
+    copy_direction: 'Headline direta e disruptiva: Seu orçamento de anúncios não é
+      o problema. Foque na eficiência, não no gasto.'
+    image_direction: Texto centralizado, tipografia forte e limpa. Fundo escuro com
+      contraste alto para passar autoridade.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A ANALOGIA
+    copy_direction: 'Use a analogia do combustível: Você não tenta trocar o tanque
+      de combustível do carro só porque ele está acabando rápido. Isso não faz sentido.'
+    image_direction: Ilustração minimalista ou ícone de um medidor de combustível
+      chegando no reserva.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A ESTRATÉGIA
+    copy_direction: Em vez de um tanque maior, o segredo é planejar a rota com postos
+      de abastecimento ao longo do caminho. É sobre logística, não tamanho.
+    image_direction: Um mapa de rota com pontos de parada marcados, simbolizando o
+      fluxo de caixa.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: O ERRO
+    copy_direction: Coaches de High Ticket tentam 'aumentar o tanque'. Eles injetam
+      mais orçamento para compensar o custo de aquisição (CAC) que só sobe.
+    image_direction: Gráfico de linha ascendente mostrando o aumento do custo de aquisição
+      vs. esforço de orçamento.
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: A MUDANÇA
+    copy_direction: A solução não é o volume de dinheiro, mas a mudança na estrutura.
+      O mesmo carro e a mesma oferta, mas com pontos de reabastecimento diários.
+    image_direction: 'Visual comparativo: Lado A (Tanque gigante/caro) vs Lado B (Rota
+      inteligente/eficiente).'
+    source_slides:
+    - 6
+  - slide_n: 6
+    role: INSIGHT
+    kicker: O MECANISMO
+    copy_direction: É aqui que entram as Ofertas Low Ticket. Elas utilizam sua estrutura
+      atual (funis e equipe) para criar esse fluxo de reabastecimento.
+    image_direction: Diagrama simples mostrando o Low Ticket alimentando o ecossistema
+      principal.
+    source_slides:
+    - 7
+  - slide_n: 7
+    role: INSIGHT
+    kicker: O FLUXO
+    copy_direction: As vendas de baixo ticket pagam os custos de anúncios diariamente.
+      Seu tanque é reabastecido automaticamente antes mesmo do dia acabar.
+    image_direction: Ícone de ciclo de feedback ou engrenagens girando de forma fluida.
+    source_slides:
+    - 8
+  - slide_n: 8
+    role: INSIGHT
+    kicker: A MATEMÁTICA
+    copy_direction: Se você investe $5.000 em anúncios e as vendas de Low Ticket cobrem
+      esse valor, você adquiriu todos os seus clientes de High Ticket de forma prática
+      e escalável.
+    image_direction: 'Exemplo numérico limpo: Investimento em Ads = Receita Low Ticket.
+      Resultado = Clientes de High Ticket ''gratuitos''.'
+    source_slides:
+    - 9
+  - slide_n: 9
+    role: PAYOFF
+    kicker: A LIÇÃO
+    copy_direction: O problema de escala raramente é falta de verba. Geralmente, é
+      uma falha estrutural. Você está tentando acelerar sem ter combustível no trajeto.
+    image_direction: Texto de impacto final. Fundo limpo com uma pergunta provocativa
+      que convida à reflexão sobre a estrutura do negócio do leitor.
+    source_slides:
+    - 10
+  rationale: 'A estrutura foi otimizada de 10 para 9 slides, removendo a analogia
+    da ''bicicleta'' (orgânico) que gerava distração do tema central: a estrutura
+    de anúncios. Mantive o arco de storytelling (problema -> analogia -> erro -> solução
+    -> prova lógica) para garantir o efeito ''slippery slide''. A voz do cliente (Sábio/Pragmático)
+    foi aplicada ao transformar a explicação em uma análise de eficiência estrutural,
+    focando no benefício de escala e previsibilidade financeira sem usar termos motivacionais
+    vazios.'
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T19:58:18'
+central_theme: A implementação de ofertas Low Ticket como estratégia de autofinanciamento
+  de aquisição de clientes para coaches de High Ticket.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:58:40'
+  slides: 9
+  central_theme: A implementação de ofertas Low Ticket como estratégia de autofinanciamento
+    de aquisição de clientes para coaches de High Ticket.
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:59:59'

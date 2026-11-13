@@ -1,0 +1,16 @@
+post_brief:
+  slug: lancamento-de-ferramenta-ai
+  tema: Automated from Ladeira
+  objetivo: conversão
+  headline: A Inteligência Artificial que desenha por você.
+  body_text: Chega de perder horas no Photoshop. Nossa nova pipeline faz o trabalho
+    sujo.
+  cta_text: Experimente Agora
+  layout: texto-over-imagem
+  ai_prompt: A professional designer working with a holographic interface, futuristic
+    office, soft blue ambient lighting, 8k.
+  formatos:
+  - '1:1'
+  - '4:5'
+  brand_config: squads/virals-marketing-squad/data/clients/virals/brand-config.yaml
+  aplicar_logo: true

@@ -1,0 +1,458 @@
+schema_version: '5.0'
+generated_at: '2026-07-22T11:43:08'
+archetype: quote
+carousel_brief:
+  slug: v5-precision-277-macmasi-ebf9fc
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-07-22/benchmark/instagram/277-macmasi-ebf9fc
+  source_url: https://www.instagram.com/macmasi/p/DbEog7an4ct/
+  tema: 'Modelagem de precisão: 277-macmasi-ebf9fc'
+  slide_count: 5
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0B0B0F'
+    secondary: '#1A1A24'
+    accent: '#FFB800'
+    accent_alt: '#FF4D2E'
+    accent_aurora: '#FFD86B'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B5B5C0'
+    overlay_dark: '#00000080'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F2F2F2'
+      text: '#0B0B0F'
+      accent: '#FFB800'
+  accent: '#FFB800'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#0B0B0F'
+      background: '#FFB800'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.5
+      dark_strong:
+        color: '#000000'
+        opacity: 0.7
+      brand_subtle:
+        color: '#0B0B0F'
+        opacity: 0.3
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 7
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 5.8/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `inspirar` **Adaptações obrigatórias consolidadas (do painel):**
+    - Troque a abordagem de storytelling histórico por um bastidor de sistema com
+    números e prova concreta, mantendo o foco no benefício imediato para o founder.
+    - Trocar a narrativa de ''estudo de caso teórico'' por ''estudo aplicado ao meu
+    sistema'', sub'
+  audits_present: true
+benchmark_caption: 'Nos anos 70 a Toyota derrubou o modelo da Ford e virou a nova
+  referência de eficiência industrial.
+
+
+  Agora ela quer dar o próximo passo: conectar carro, fábrica e cidade com IA.
+
+
+  O que importa não é lançar produto melhor. É entender o contexto inteiro, o segmento,
+  o nicho, a jornada de quem compra, e construir um ecossistema em volta disso, do
+  jeito que iFood e Apple fizeram.
+
+
+  Comenta WKS que eu te mostro como o Workshop da Masi Negócios ajuda sua empresa
+  a ampliar essa visão.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: '#Toyota'
+  reference_body: Breno Masi A Toyota já derrubou o sistema que dominava o mundo uma
+    vez. E agora quer fazer de novo. macmasi
+  headline: COMO A TOYOTA DESMANTELOU O MODELO DE ESTOQUE DOMINANTE
+  sub_headline: O CASO
+  body_text: A Toyota derrubou o sistema que dominava o mundo e agora está reconstruindo
+    o jogo. A vantagem não está apenas no produto, mas no ecossistema que ela está
+    conectando.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 55
+    body_chars: 166
+    headline_tier: sm
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: Toyota factory team meeting
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline: A Toyota já derrubou o sistema que dominava o mundo. Agora
+      faz de novo com IA. Body: Nos anos 70, a Ford ditava as regras. A Toyota quebrou
+      a lógica e virou referência. Hoje, o jogo mudou de produto para ecossistema.
+      Descubra a lição que vale para qualquer negócio.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-22T11:46:13'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: '#Toyota / #Toyota'
+  reference_body: 'Breno Masi Nos anos 70, o mundo inteiro copiava o modelo da Ford:
+    linha de montagem em massa e estoque gigante. A Toyota quebrou essa lógica. Criou
+    um sistema próprio e virou a nova referência mundial em eficiência industrial.
+    macmasi Breno Masi Eliminação de desperdício, produção sob demanda, estoque zero.
+    Isso foi revolucionário uma vez. Hoje é pré-requisito. Ninguém mais chama isso
+    de vantagem competitiva. Quer dizer que a Toyota perdeu o protagonismo? MACMASI'
+  headline: 'FORD VS TOYOTA: ESTOQUE GIGANTE vs ZERO ESTOQUE'
+  sub_headline: O CONTEXTO
+  body_text: A Toyota produzia só o que vendia, transformando vantagem de produto
+    em sistema que elimina desperdício. Sistemas vencem produtos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 34
+    body_chars: 111
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: car production line no inventory
+  accent_color: '#FFB800'
+  source_slides:
+  - 2
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Headline: Nos anos 70, o mundo copiava a Ford: produção em massa e
+      estoque gigante. Body: A Toyota eliminou desperdício, produziu sob demanda,
+      estoque zero. Isso foi revolucionário. Hoje é pré-requisito. Vantagem competitiva
+      virou commodity.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-22T11:46:13'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: '#Toyota'
+  reference_body: 'Breno Masi Claro que não. Agora a Toyota está pronta pro próximo
+    passo. Em parceria com a NVIDIA, ela vai conectar três coisas ao mesmo tempo:
+    o carro, a fábrica que produz o carro, e a cidade onde o carro circula. É o mesmo
+    movimento que ela fez nos anos 70, só que agora com inteligência artificial: construir
+    um novo SISTEMA, não só lançar um produto. TOYOTA NVIDIA macmasi'
+  headline: 'TOYOTA E NVIDIA: CARRO, FÁBRICA E CIDADE CONECTADOS.'
+  sub_headline: A VIRADA
+  body_text: O carro manda dado, a fábrica ajusta na hora, a cidade mede o trânsito.
+    Não é mais sobre o veículo. É sobre o sistema onde ele vive.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 52
+    body_chars: 132
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: car interacting with city traffic
+  accent_color: '#FFB800'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Headline: O que era vantagem virou baseline. A Toyota não parou. Body:
+      Parceria com NVIDIA conecta três pontas ao mesmo tempo: o carro, a fábrica que
+      o produz e a cidade onde roda. Não é mais sobre o carro. É sobre o sistema onde
+      ele vive.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-22T11:46:13'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: '#Toyota / #Toyota'
+  reference_body: Breno Masi O que importa de verdade é entender o contexto inteiro
+    onde esse produto vive. Qual segmento, qual nicho, qual jornada a pessoa percorre
+    até chegar nele, e o que mais ela precisa nesse caminho? É assim que nasce um
+    ecossistema. O iFood por exemplo, não vende só comida. Breno Masi Posso garantir
+    que o iFood é um grande exemplo de ecossistema. Você precisa dele pra mercado,
+    farmácia, pet, viagem... Mesmo que você não perceba, o iFood está presente. macmasi
+  headline: 'IFOOD ENTREGA COMIDA, REMÉDIO, PET E MAIS NUM APP SÓ'
+  sub_headline: A TESE
+  body_text: De restaurante a farmácia e mercado num app só, o ecossistema do iFood
+    resolve mais necessidades que um simples delivery.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 50
+    body_chars: 122
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: food delivery app user smartphone
+  accent_color: '#FFB800'
+  source_slides:
+  - 5
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Headline: A lição: vantagem real vem de entender o contexto inteiro
+      — segmento, nicho, jornada, necessidades adjacentes. Body: Exemplo iFood: você
+      usa para mercado, farmácia, pet, viagem. Ele está presente em toda a jornada,
+      mesmo que você não perceba. Ecossistema vence produto isolado.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-22T11:46:13'
+- slide_n: 5
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: '#Toyota / #Toyota'
+  reference_body: 'Breno Masi O que importa de verdade é entender o contexto inteiro
+    onde esse produto vive. Qual segmento, qual nicho, qual jornada a pessoa percorre
+    até chegar nele, e o que mais ela precisa nesse caminho? É assim que nasce um
+    ecossistema. O iFood por exemplo, não vende só comida. Breno Masi A Toyota só
+    virou referência mundial em eficiência industrial porque parou de olhar só pro
+    carro e passou a olhar o contexto inteiro: fábrica, cidade, o jeito como as pessoas
+    se locomovem. Ampliar a visão pra entender o contexto e o ecossistema ao redor
+    do seu produto é o primeiro passo de qualquer Planejamento Estratégico sólido.
+    Comenta WKS pra garantir sua vaga no meu Workshop de Planejamento Estratégico
+    que acontece em São Paulo. macmasi'
+  headline: "TOYOTA JÁ TESTA ISSO EM SP E CURITIBA"
+  sub_headline: O PAYOFF
+  body_text: É a rede de dados que faz o produto funcionar, não o produto em si, que vence na corrida de ecossistemas de hoje.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 103
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: business meeting around table strategy
+  accent_color: '#FFB800'
+  source_slides:
+  - 5
+  - 7
+  personalization:
+    status: DONE
+    directive: 'Headline: A Toyota virou referência global porque parou de olhar só
+      para o carro e passou a olhar o contexto todo. Body: Sua empresa ainda compete
+      por produto ou já construiu o ecossistema? O log de produção mostra: quem entende
+      o sistema, dita o ritmo. Quer ver o benchmark do seu nicho rodando? Comento
+      como embaixo.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-22T11:46:13'
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/7
+  bodies_extracted: 7/7
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  fact_fidelity_repaired:
+    1:
+    - '70'
+  cliches_detected:
+    5:
+    - \bcomente?\s+['\"]?\w+['\"]?\b
+benchmark_analysis:
+  tema_central: A transição da vantagem competitiva de produto para a vantagem de
+    ecossistema e visão sistêmica.
+  formato: Case de Analogia Estratégica
+  arco_narrativo: Parte de um fato histórico disruptivo (Toyota vs Ford) para validar
+    autoridade, transita para a atualização tecnológica atual (IA/Nvidia) e finaliza
+    com a tese de negócio (Ecossistema) aplicada a qualquer empresa.
+  estrutura:
+  - slide_n: 1
+    papel: Hook de curiosidade e promessa de disrupção
+    essencial: true
+  - slide_n: 2
+    papel: Contextualização histórica e prova de conceito
+    essencial: true
+  - slide_n: 3
+    papel: 'Quebra de expectativa: o que era vantagem virou commodity'
+    essencial: true
+  - slide_n: 4
+    papel: Apresentação do novo cenário (Atualização/IA)
+    essencial: true
+  - slide_n: 5
+    papel: 'Extração da tese central: Visão de Contexto vs Produto'
+    essencial: true
+  - slide_n: 6
+    papel: Ancoragem em exemplo cotidiano (iFood) para tangibilizar
+    essencial: false
+  - slide_n: 7
+    papel: Síntese final e fechamento do raciocínio
+    essencial: false
+  redundancias:
+  - Slide 6 e 7 repetem a tese do Slide 5 com exemplos diferentes; o Slide 7 é essencialmente
+    um resumo do que já foi dito nos slides 2, 4 e 5.
+  fatores_de_performance:
+  - Uso de marcas de altíssimo awareness (Toyota, Ford, Nvidia, iFood) para gerar
+    autoridade imediata
+  - Contraste temporal (Anos 70 vs Hoje) que mantém a retenção
+  - Transformação de um caso industrial complexo em uma lição de gestão simples e
+    aplicável
+  - Narrativa de 'estágios de evolução' que guia o usuário logicamente até a oferta
+  recomendacao:
+    slides_ideais: 5
+    justificativa: O post atinge seu pico de valor no slide 5. Os slides 6 e 7 alongam
+      a entrega sem adicionar novos argumentos fortes. Para a versão Virals, fundiremos
+      a analogia do iFood na tese do slide 5 e eliminaremos o slide de síntese, indo
+      direto para o CTA da legenda.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-07-22T11:43:30'
+content_plan:
+  archetype: quote
+  slide_count: 5
+  tema: A transição da vantagem competitiva de produto para a vantagem de ecossistema
+    e visão sistêmica
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CASO
+    copy_direction: 'Headline: A Toyota já derrubou o sistema que dominava o mundo.
+      Agora faz de novo com IA. Body: Nos anos 70, a Ford ditava as regras. A Toyota
+      quebrou a lógica e virou referência. Hoje, o jogo mudou de produto para ecossistema.
+      Descubra a lição que vale para qualquer negócio.'
+    image_direction: 'Split screen: lado esquerdo fábrica Ford anos 70 (linha de montagem),
+      lado direito carro Toyota conectado a fábrica e cidade via digital twin (estilo
+      NVIDIA). Texto grande: ''O jogo mudou''.'
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O CONTEXTO
+    copy_direction: 'Headline: Nos anos 70, o mundo copiava a Ford: produção em massa
+      e estoque gigante. Body: A Toyota eliminou desperdício, produziu sob demanda,
+      estoque zero. Isso foi revolucionário. Hoje é pré-requisito. Vantagem competitiva
+      virou commodity.'
+    image_direction: 'Timeline simples: 1970 Ford (ícone de esteira cheia) -> 1980
+      Toyota (ícone de kanban/estoque zero) -> Hoje (ícone de nuvem/conexão). Seta
+      mostrando ''virou baseline''.'
+    source_slides:
+    - 2
+    - 3
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A VIRADA
+    copy_direction: 'Headline: O que era vantagem virou baseline. A Toyota não parou.
+      Body: Parceria com NVIDIA conecta três pontas ao mesmo tempo: o carro, a fábrica
+      que o produz e a cidade onde roda. Não é mais sobre o carro. É sobre o sistema
+      onde ele vive.'
+    image_direction: 'Diagrama de três nós conectados: Carro <-> Fábrica <-> Cidade.
+      Logo NVIDIA ao centro. Legenda: ''Visão de contexto, não de produto''.'
+    source_slides:
+    - 4
+  - slide_n: 4
+    role: INSIGHT
+    kicker: A TESE
+    copy_direction: 'Headline: A lição: vantagem real vem de entender o contexto inteiro
+      — segmento, nicho, jornada, necessidades adjacentes. Body: Exemplo iFood: você
+      usa para mercado, farmácia, pet, viagem. Ele está presente em toda a jornada,
+      mesmo que você não perceba. Ecossistema vence produto isolado.'
+    image_direction: 'Colagem de ícones iFood: delivery, mercado, farmácia, pet, viagem.
+      Setas convergindo para um centro ''Ecossistema iFood''. Texto: ''O produto é
+      a porta de entrada''.'
+    source_slides:
+    - 5
+    - 6
+  - slide_n: 5
+    role: PAYOFF
+    kicker: O PAYOFF
+    copy_direction: 'Headline: A Toyota virou referência global porque parou de olhar
+      só para o carro e passou a olhar o contexto todo. Body: Sua empresa ainda compete
+      por produto ou já construiu o ecossistema? O log de produção mostra: quem entende
+      o sistema, dita o ritmo. Quer ver o benchmark do seu nicho rodando? Comento
+      como embaixo.'
+    image_direction: 'Foto de founder (silhueta) olhando dashboard com múltiplos gráficos
+      conectados. Overlay: ''Sistema rodando''. Botão imaginário ''Ver benchmark''.'
+    source_slides:
+    - 5
+    - 7
+  rationale: 'Segui a recomendação da análise: 5 slides ideais. Fundi o exemplo iFood
+    (slide 6 do benchmark) na tese central (slide 5) e eliminei o slide de síntese
+    (slide 7) que apenas repetia o argumento. O arco vai do caso histórico (Hook)
+    para a commoditização da vantagem (Insight 1), a atualização tecnológica com NVIDIA
+    (Insight 2), a extração da tese com exemplo tangível (Insight 3) e o payoff com
+    call-to-think no estilo Virals (convite a ver o benchmark rodando). Kickers contextuais
+    em PT-BR, sem jargões proibidos, hook liderado por benefício concreto (aprender
+    a lição da transição produto->ecossistema), fidelidade aos fatos (Toyota, Ford,
+    NVIDIA, iFood) sem inventar números.'
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-07-22T11:45:00'
+central_theme: A transição da vantagem competitiva de produto para a vantagem de ecossistema
+  e visão sistêmica
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-07-22T11:46:13'
+  slides: 5
+  central_theme: A transição da vantagem competitiva de produto para a vantagem de
+    ecossistema e visão sistêmica
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-07-22T11:50:25'

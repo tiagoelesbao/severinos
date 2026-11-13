@@ -1,0 +1,413 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T20:02:00'
+archetype: news
+carousel_brief:
+  slug: v5-precision-42-turbo-partners-0c624c
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\42-turbo-partners-0c624c
+  source_url: https://www.instagram.com/turbo.partners/p/Db3WYsdHZBK/
+  tema: 'Modelagem de precisão: 42-turbo-partners-0c624c'
+  slide_count: 5
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 6
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.6/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar o foco de ''estratégia de marca física'' para ''estratégia de automação/IA'',
+    garantindo que o Slide 1 ou 2 apresente um dashboard, prompt ou fluxo de trabalho
+    tecnológico para capturar o interesse de profissionais de tecnologia. - Substituir
+    a aná'
+  audits_present: true
+benchmark_caption: 'A maioria das marcas envia um press kit esperando um único vídeo.⁠
+
+  ⁠
+
+  A Miu Miu pensou diferente.. Em vez de criar apenas uma experiência de unboxing,
+  ela criou uma experiência que continua gerando conteúdo depois que a caixa é aberta.⁠
+
+  ⁠
+
+  No fim das contas, marketing é desenhar cenários onde o comportamento que você deseja
+  acontece de forma natural.⁠
+
+  ⁠
+
+  E esse case mostra isso muito bem! 👏 #turbopartners'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Turbo
+  reference_body: A MIU MIU TRANSFORMOU UM PRESS KIT em uma verdadeira jogada de marketing
+  headline: COMO TER POSTS GRÁTIS E CONSTANTES
+  sub_headline: O CASE
+  body_text: A maioria das marcas recebe um vídeo de unboxing e some. A Miu Miu criou
+    um jeito de aparecer todo dia no feed dos influencers.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 34
+    body_chars: 127
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: luxury perfume bottle gift box
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline focada no benefício: Como a Miu Miu transformou um simples
+      press kit em uma máquina de conteúdo orgânico. O objetivo é atrair quem busca
+      eficiência em marketing de influência.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:02:47'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: QUANDO UMA MARCA
+  reference_body: ENVIA UM PRODUTO OU PRESSKIT para um creator, ela tem a expectativa
+    de que quem receba o kit crie conteúdo e divulgue a marca. É exatamente por isso
+    que esse Box da Miu Miu foi tão certeiro...
+  headline: O ERRO DE ENVIAR PRODUTOS SEM UM OBJETIVO DE PRODUÇÃO
+  sub_headline: O PROBLEMA
+  body_text: Muitas marcas enviam kits esperando que o creator decida criar conteúdo
+    sozinho. O erro é gerar fricção criativa em vez de remover o esforço de produção.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 53
+    body_chars: 153
+    headline_tier: md
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person opening delivery box
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: Explicar que o erro comum é enviar produtos esperando que o creator
+      decida criar conteúdo sozinho. A Miu Miu resolveu isso ao remover a fricção
+      da criação.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:02:47'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: A MIU MIU
+  reference_body: 'ENVIOU SEU NOVO PERFUME ACOMPANHADO DE DOIS ITENS: ➜ Um microfone
+    personalizado com a marca; ➜ Um baralho de cartas com perguntas. Miu time miu
+    miu'
+  headline: 'A SOLUÇÃO: TRANSFORMAR O PRESENTE EM UM WORKFLOW DE CRIAÇÃO'
+  sub_headline: A SOLUÇÃO
+  body_text: 'A Miu Miu enviou seu novo perfume acompanhado de dois itens estratégicos:
+    um microfone personalizado com a marca e um baralho de perguntas para roteirização.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 59
+    body_chars: 157
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: professional microphone on desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Apresentar os dois itens estratégicos: o microfone personalizado e
+      o baralho de perguntas. Mostrar que não foi apenas um presente, mas um workflow
+      de produção.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:02:47'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Creators trocam de roupa, de cenário e até de assunto. / As
+    cartas com perguntas já entregavam ideias de conteúdo.
+  reference_body: 'Mas nem todos tem um bom microfone... E ele sempre vai continuar
+    aparecendo no enquadramento da tela. OU SEJA: SEMPRE QUE ESSES CRIADORES GRAVAREM
+    UM VÍDEO, O LOGO DA MIU MIU APARECE NATURALMENTE. ENTÃO, AO ABRIR O KIT, O CREATOR
+    RECEBIA INSPIRAÇÃO IMEDIATA PARA GRAVAR... GENIAL, NÉ? what rule do you love to
+    bend? best occasion to wear MiuMiu is...'
+  headline: A LÓGICA POR TRÁS DA PRESENÇA PASSIVA E INSPIRAÇÃO IMEDIATA
+  sub_headline: A LÓGICA
+  body_text: O microfone garante que a marca apareça em todos os vídeos do creator,
+    independente do assunto. As cartas eliminam o bloqueio criativo ao entregar o
+    roteiro pronto.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 59
+    body_chars: 164
+    headline_tier: sm
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: influencer recording video phone
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Analisar o valor prático: O microfone garante exposição constante
+      da marca em qualquer vídeo do creator (presença passiva). As cartas entregam
+      o roteiro (inspiração imediata), eliminando o bloqueio criativo.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:02:47'
+- slide_n: 5
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: UM BOM PRESS KIT CRIA MOTIVOS PARA SUA MARCA CONTINUAR APARECENDO.
+  reference_body: Quer criar campanhas que geram conteúdo de verdade para a sua marca?
+    Comente “QUERO” e agende um diagnóstico gratuito com um dos nossos especialistas.
+  headline: UM BOM PRESS KIT ENTREGA O MOTIVO PARA O CONTEÚDO EXISTIR
+  sub_headline: O PONTO
+  body_text: Eficiência em marketing de influência é sobre dar ferramentas para a
+    marca aparecer de forma natural. Até que ponto o kit atual facilita ou dificulta
+    a produção do creator?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 57
+    body_chars: 172
+    headline_tier: sm
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: business person thinking laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Conclusão: Um bom kit não é sobre luxo, é sobre dar ferramentas para
+      a marca aparecer de forma natural. Pergunta para reflexão: Sua estratégia atual
+      entrega o produto ou entrega o motivo para o conteúdo existir?'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:02:47'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/6
+  bodies_extracted: 6/6
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A estratégia da Miu Miu de criar press kits que incentivam a geração
+    orgânica e contínua de conteúdo através de utilidade e inspiração.
+  formato: Case de estudo único (Storytelling de Marketing)
+  arco_narrativo: O post parte de uma quebra de expectativa sobre press kits comuns,
+    apresenta a solução inovadora da marca, detalha os itens estratégicos e finaliza
+    com a lição aprendida e uma chamada para ação.
+  estrutura:
+  - slide_n: 1
+    papel: 'Gancho/Hook: Apresenta o resultado impactante para prender a atenção.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Contextualização: Explica a dor/expectativa comum do mercado para criar
+      contraste.'
+    essencial: true
+  - slide_n: 3
+    papel: 'Revelação: Apresenta a solução tangível (os itens do kit).'
+    essencial: true
+  - slide_n: 4
+    papel: 'Análise de valor 1: Explica a psicologia por trás do microfone (exposição
+      perene).'
+    essencial: true
+  - slide_n: 5
+    papel: 'Análise de valor 2: Explica a psicologia por trás das cartas (facilitação
+      de conteúdo).'
+    essencial: true
+  - slide_n: 6
+    papel: 'Conclusão e CTA: Transforma o case em lição de negócio e converte em lead.'
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Contraste entre o 'comum' e o 'genial', gerando curiosidade.
+  - Foco em 'psicologia do comportamento' em vez de apenas design de produto.
+  - Divisão clara entre a entrega do item e o benefício estratégico gerado por ele.
+  - CTA direta e vinculada a um diagnóstico, transformando inspiração em oportunidade
+    de venda.
+  recomendacao:
+    slides_ideais: 5
+    justificativa: O slide 2 (contexto) pode ser fundido ao slide 1 ou 3 para acelerar
+      a chegada ao 'estalo' da solução, tornando o consumo mais dinâmico sem perder
+      a essência do storytelling.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T20:02:18'
+content_plan:
+  archetype: news
+  slide_count: 5
+  tema: A estratégia de marketing da Miu Miu para gerar conteúdo orgânico contínuo
+    através de utilidade no press kit.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CASE
+    copy_direction: 'Headline focada no benefício: Como a Miu Miu transformou um simples
+      press kit em uma máquina de conteúdo orgânico. O objetivo é atrair quem busca
+      eficiência em marketing de influência.'
+    image_direction: Foto de alta qualidade do press kit da Miu Miu (perfume + itens)
+      em um cenário estético.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O PROBLEMA
+    copy_direction: Explicar que o erro comum é enviar produtos esperando que o creator
+      decida criar conteúdo sozinho. A Miu Miu resolveu isso ao remover a fricção
+      da criação.
+    image_direction: Imagem minimalista que contraste o 'esperar que aconteça' vs
+      'planejar para acontecer'.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A SOLUÇÃO
+    copy_direction: 'Apresentar os dois itens estratégicos: o microfone personalizado
+      e o baralho de perguntas. Mostrar que não foi apenas um presente, mas um workflow
+      de produção.'
+    image_direction: Close detalhado no microfone com o logo da marca e nas cartas
+      de perguntas.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: A LÓGICA
+    copy_direction: 'Analisar o valor prático: O microfone garante exposição constante
+      da marca em qualquer vídeo do creator (presença passiva). As cartas entregam
+      o roteiro (inspiração imediata), eliminando o bloqueio criativo.'
+    image_direction: 'Split screen: de um lado o microfone no enquadramento de um
+      vídeo, do outro o creator lendo as cartas.'
+    source_slides:
+    - 4
+    - 5
+  - slide_n: 5
+    role: PAYOFF
+    kicker: O PONTO
+    copy_direction: 'Conclusão: Um bom kit não é sobre luxo, é sobre dar ferramentas
+      para a marca aparecer de forma natural. Pergunta para reflexão: Sua estratégia
+      atual entrega o produto ou entrega o motivo para o conteúdo existir?'
+    image_direction: Fundo limpo com tipografia forte e elegante, mantendo o tom de
+      autoridade do Sábio.
+    source_slides:
+    - 6
+  rationale: Reduzi de 6 para 5 slides seguindo a recomendação de fusão para acelerar
+    o storytelling. Apliquei o arco narrativo de 'problema-solução-lógica' para transformar
+    o case de moda em uma lição de estratégia de marca. O hook foca no benefício da
+    'máquina de conteúdo' e o CTA é um call-to-think que instiga a audiência a avaliar
+    sua própria estratégia, respeitando o estilo da marca.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T20:02:37'
+central_theme: A estratégia de marketing da Miu Miu para gerar conteúdo orgânico contínuo
+  através de utilidade no press kit.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T20:02:47'
+  slides: 5
+  central_theme: A estratégia de marketing da Miu Miu para gerar conteúdo orgânico
+    contínuo através de utilidade no press kit.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:google/gemma-4-26b-a4b-it:free
+  checked_at: '2026-08-12T20:03:33'

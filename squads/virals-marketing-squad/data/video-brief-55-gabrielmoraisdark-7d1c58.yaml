@@ -1,0 +1,438 @@
+schema_version: '1.0'
+generated_at: '2026-08-20T10:04:08'
+media_kind: video
+video_brief:
+  slug: video-55-gabrielmoraisdark-7d1c58
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\55-gabrielmoraisdark-7d1c58
+source:
+  creator: '@gabrielmoraisdark'
+  platform: instagram
+  url: https://www.instagram.com/gabrielmoraisdark/reel/DcLzVoExa-N/
+  type: video-short
+  caption: Para receber o guia completo comenta EU QUERO e olha seu direct!
+metadata:
+  view_count: null
+  like_count: 72
+  comment_count: null
+  duration_seconds: 58
+  cut_timestamps:
+  - 0.4
+  - 2.13
+  - 3.67
+  - 5.07
+  - 6.93
+  - 8.9
+  - 14.83
+  - 18.17
+  - 24.87
+  - 30.53
+  - 32.17
+  - 32.7
+  - 35.1
+  - 37.27
+  - 39.23
+  - 41.87
+hook_raw: E se eu te dissesse que dá pra criar um comercial inteiro pro McDonald's
+  usando inteligência artificial?
+transcript:
+- start: 0
+  end: 6
+  text: E se eu te dissesse que dá pra criar um comercial inteiro pro McDonald's usando
+    inteligência artificial?
+- start: 6
+  end: 7
+  text: Olha isso
+- start: 7
+  end: 15
+  text: Primeiro, eu entro no chat GPT e peço pra criar uma influencer em frente a
+    um McDonald's com aparência de uma campanha publicitária real
+- start: 15
+  end: 23
+  text: 'Agora eu peço a sequência de cenas: ela entrando no restaurante, fazendo
+    o pedido, recebendo o lanche e mostrando ele pra câmera'
+- start: 23
+  end: 30
+  text: Agora pega essa sequência, entra no Flow, seleciona o Omniflash, adiciona
+    as imagens e coloca esse comando com os movimentos e a fala
+- start: 30
+  end: 32
+  text: Manda gerar e olha isso
+- start: 32
+  end: 38
+  text: Gente, vem comigo comer um lanche no McDonald's. Hoje bateu aquela vontade
+    que não dá pra ignorar
+- start: 38
+  end: 40
+  text: Já fiz o meu pedido e olha só isso
+- start: 40
+  end: 42
+  text: Sério, como resistir?
+- start: 42
+  end: 48
+  text: Pronto. Você acabou de criar um comercial inteiro usando IA, sem modelo, sem
+    câmera e sem equipe de gravação
+- start: 48
+  end: 54
+  text: E se dá pra criar isso pra uma marca desse tamanho, imagino o que você consegue
+    fazer com os produtos que divulga no TikTok Shop
+- start: 54
+  end: 58
+  text: Se você quer receber o passo a passo completo, comenta eu quero e olha seu
+    direct
+frames:
+- file: Screenshots/frame_01_at_00-00_E_se_eu_te_dissesse_que_d__pra.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-07_Primeiro__eu_entro_no_chat_GPT.jpg
+  timestamp: 00:07
+  t_seconds: 7
+- file: Screenshots/frame_03_at_00-30_Manda_gerar_e_olha_isso_.jpg
+  timestamp: 00:30
+  t_seconds: 30
+- file: Screenshots/frame_04_at_00-40_S_rio__como_resistir_.jpg
+  timestamp: 00:40
+  t_seconds: 40
+- file: Screenshots/frame_05_at_00-54_Se_voc__quer_receber_o_passo_a.jpg
+  timestamp: 00:54
+  t_seconds: 54
+beats:
+- n: 1
+  start: 0
+  end: 7
+  text: E se eu te dissesse que dá pra criar um comercial inteiro pro McDonald's usando
+    inteligência artificial? Olha isso
+  role: hook
+- n: 2
+  start: 7
+  end: 30
+  text: 'Primeiro, eu entro no chat GPT e peço pra criar uma influencer em frente
+    a um McDonald''s com aparência de uma campanha publicitária real Agora eu peço
+    a sequência de cenas: ela entrando no restaurante, fazendo o pedido, recebendo
+    o lanche e mostrando ele pra câmera Agora pega essa sequência, entra no Flow,
+    seleciona o Omniflash, adiciona as imagens e coloca esse comando com os movimentos
+    e a fala'
+  role: build
+- n: 3
+  start: 30
+  end: 40
+  text: Manda gerar e olha isso Gente, vem comigo comer um lanche no McDonald's. Hoje
+    bateu aquela vontade que não dá pra ignorar Já fiz o meu pedido e olha só isso
+  role: build
+- n: 4
+  start: 40
+  end: 54
+  text: Sério, como resistir? Pronto. Você acabou de criar um comercial inteiro usando
+    IA, sem modelo, sem câmera e sem equipe de gravação E se dá pra criar isso pra
+    uma marca desse tamanho, imagino o que você consegue fazer com os produtos que
+    divulga no TikTok Shop
+  role: build
+- n: 5
+  start: 54
+  end: 58
+  text: Se você quer receber o passo a passo completo, comenta eu quero e olha seu
+    direct
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 12
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-00_E_se_eu_te_dissesse_que_d__pra.jpg
+    shot_type: talking_head
+    on_screen_text: INFLUENCERS LAB.ia
+    has_captions: false
+  - file: frame_02_at_00-07_Primeiro__eu_entro_no_chat_GPT.jpg
+    shot_type: talking_head
+    on_screen_text: INFLUENCERS LAB.ia
+    has_captions: false
+  - file: frame_03_at_00-30_Manda_gerar_e_olha_isso_.jpg
+    shot_type: screen_capture
+    on_screen_text: INFLUENCERS LAB.ia, ChatGPT prompt and generated text, keyboard
+      layout, browser elements
+    has_captions: false
+  - file: frame_04_at_00-40_S_rio__como_resistir_.jpg
+    shot_type: broll
+    on_screen_text: mcintos
+    has_captions: false
+  - file: frame_05_at_00-54_Se_voc__quer_receber_o_passo_a.jpg
+    shot_type: talking_head
+    on_screen_text: INFLUENCERS LAB.ia
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.6
+    screen_capture: 0.2
+    broll: 0.2
+    graphic: 0.0
+  caption_style_seen: ''
+  text_overlay_style: none (text visible is part of screen capture, branding on wardrobe/set,
+    or product packaging)
+  visual_hook_device: Split-screen opening with a talking head overlaying a visually
+    intriguing broll shot (woman with crown at McDonald's), immediately posing a question
+    to the viewer.
+  broll_density: medium
+  edit_style_notes: '1. Dynamic Shot Variety: Rapid cuts between talking head, screen
+    capture, and broll to maintain viewer engagement and visually illustrate points.
+    2. Strategic PIP: Use of picture-in-picture in the opening to combine a direct
+    address with a compelling visual example. 3. Consistent Framing for Talking Head:
+    Medium close-up for the speaker, maintaining eye contact and a personal connection.'
+  palette:
+  - '#000000'
+  - '#F787B3'
+  - '#7B00FF'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-20T10:05:08'
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: Split-screen PIP
+    text: Talking head + visual high-end IA
+  - t: 7
+    device: Screen capture transition
+    text: Shift from person to process
+  - t: 30
+    device: Audio shift / POV
+    text: Transition from tutorial to the final result (The Commercial)
+  - t: 54
+    device: Direct address call-to-action
+    text: Shift from delivery to instruction
+  cut_cadence:
+    avaliacao: O ritmo de 3.41s por segmento está ligeiramente acima do checkpoint
+      ideal de 2s, porém a retenção é compensada pela mudança de natureza do conteúdo
+      (tutorial vs resultado final) e a alta carga visual do B-Roll de IA.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 17
+    segments: 17
+    duration_s: 58.0
+    avg_segment_s: 3.41
+  broll_strategy: O visual funciona como prova social imediata. O B-roll de IA não
+    é apenas decorativo, ele é o 'objeto de desejo' que valida a promessa do hook,
+    transformando o processo técnico (ChatGPT) em recompensa visual tangível.
+  caption_style: Dynamic kinetic captions, 1-3 words per frame, highlighted keywords
+    in yellow/green, positioned center-screen to keep eyes focused on the action.
+  pacing_curve:
+  - window: 00-07s
+    densidade: High - Hook multimodal e promessa forte.
+  - window: 07-30s
+    densidade: Medium - Fase de build/educação, ritmo constante de screen-capture.
+  - window: 30-54s
+    densidade: High - Payoff visual com o comercial final, pico de dopamina.
+  - window: 54-58s
+    densidade: Medium - CTA direto e rápido.
+  retention_devices:
+  - 'Payoff delayed: A promessa do início só é totalmente entregue aos 30s'
+  - 'Pattern Shift: Alternância entre ''como fazer'' (lógico) e ''resultado'' (emocional)'
+  - 'High-Authority Brand: Uso do McDonald''s como âncora de desejo e reconhecimento
+    global'
+  - 'Conversion loop: CTA condicionado a comentário para entrega via Direct'
+  recommendation: 'Modelar mantendo a estrutura ''Promessa > Processo Rápido > Resultado
+    Espetacular > CTA''. Trocar a voz e a marca (ex: Coca-Cola ou Nike), mas manter
+    obrigatoriamente o split-screen inicial e a transição para o ''resultado final''
+    na metade do vídeo para renovar a atenção.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-20T10:05:24'
+content_plan:
+  tema: Criação de campanhas publicitárias de alta escala usando IA aplicada
+  format_concept: tutorial
+  hook:
+    variants:
+    - pattern_interrupt: 'Split-screen: Talking head em primeiro plano + B-roll de
+        comercial de alta qualidade ao fundo'
+      text_overlay: Comercial do McDonald's com IA
+      spoken_open: E se eu te dissesse que dá pra criar um comercial inteiro pro McDonald's
+        usando inteligência artificial?
+    - pattern_interrupt: Close-up rápido com zoom digital + Imagem de alta fidelidade
+        gerada por IA
+      text_overlay: Produção sem equipe de gravação
+      spoken_open: Você acabou de criar um comercial inteiro usando IA, sem modelo,
+        sem câmera e sem equipe de gravação.
+    - pattern_interrupt: Screen capture acelerada de um prompt sendo escrito + Resultado
+        visual imediato
+      text_overlay: Workflow de IA aplicada
+      spoken_open: Vou te mostrar como criar um comercial inteiro usando IA aplicada.
+  storyboard:
+  - beat_n: 1
+    scene: 'Hook: Promessa de comercial com IA'
+    shot_type: médio
+    duration_s: 5
+    on_screen_text: IA aplicada na publicidade
+    broll: 'Split-screen com visual de campanha cinematográfica (ex: produto premium
+      em movimento)'
+    motion: zoom-in
+  - beat_n: 2
+    scene: 'Build: Processo de prompting e sequência'
+    shot_type: insert
+    duration_s: 12
+    on_screen_text: Configurando o prompt no chat GPT
+    broll: Screen capture do ChatGPT/LLM recebendo instruções de estilo de campanha
+    motion: cut
+  - beat_n: 3
+    scene: 'Build: Integração no Flow/Omniflash'
+    shot_type: insert
+    duration_s: 13
+    on_screen_text: Workflow no Flow com Omniflash
+    broll: Screen capture da ferramenta de imagem/vídeo processando os prompts
+    motion: whip
+  - beat_n: 4
+    scene: 'Payoff: O resultado do comercial'
+    shot_type: amplo
+    duration_s: 20
+    on_screen_text: 'Resultado: Comercial completo'
+    broll: Montagem cinematográfica do comercial gerado (personagem, ambiente, produto)
+    motion: none
+  - beat_n: 5
+    scene: 'CTA: Comando para o passo a passo'
+    shot_type: médio
+    duration_s: 8
+    on_screen_text: Comenta EU QUERO para o passo a passo
+    broll: Talking head direto para a câmera
+    motion: cut
+  script: 'E se eu te dissesse que dá pra criar um comercial inteiro pro McDonald''s
+    usando inteligência artificial? Olha isso. Primeiro, eu entro no chat GPT e peço
+    pra criar uma influencer em frente a um McDonald''s com aparência de uma campanha
+    publicitária real. Agora eu peço a sequência de cenas: ela entrando no restaurante,
+    fazendo o pedido, recebendo o lanche e mostrando ele pra câmera. Agora pega essa
+    sequência, entra no Flow, seleciona o Omniflash, adiciona as imagens e coloca
+    esse comando com os movimentos e a fala. Manda gerar e olha isso: ''Gente, vem
+    comigo comer um lanche no McDonald''s. Hoje bateu aquela vontade que não dá pra
+    ignorar. Já fiz o meu pedido e olha só isso. Sério, como resistir?''. Pronto.
+    Você acabou de criar um comercial inteiro usando IA, sem modelo, sem câmera e
+    sem equipe de gravação. E se dá pra criar isso pra uma marca desse tamanho, imagino
+    o que você consegue fazer com os produtos que divulga no TikTok Shop. Se você
+    quer receber o passo a passo completo, comenta eu quero e olha seu direct.'
+  edit_spec:
+    zooms:
+    - na fala 'Olha isso'
+    - na fala 'Olha só isso'
+    - no CTA final
+    transitions:
+    - whip @ 17s (transição para screen capture)
+    - cut @ 30s (transição para o payoff visual)
+    inserts:
+    - screen capture @ chat GPT
+    - comercial gerado
+    captions: Dynamic kinetic captions, 1-3 words per frame, keywords em verde/amarelo,
+      centralizadas.
+    motion_graphics:
+    - barra de progresso discreta @ 0s
+    - overlay de comando @ workflow
+    template_refs:
+      hook: hook-direct-question
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Talking head apresentando o tema
+    framing: médio
+    audio: fala
+    props: Setup de microfone visível para autoridade
+    locacao: Escritório/Studio tech
+    falas_chave: E se eu te dissesse que dá pra criar um comercial inteiro pro McDonald's
+      usando inteligência artificial?
+  - plano: Gravação da tela do computador
+    framing: insert
+    audio: ambiente/trilha
+    props: Interface de LLM e ferramenta de imagem
+    locacao: Desktop
+    falas_chave: Primeiro, eu entro no chat GPT e peço pra criar uma influencer...
+  - plano: Talking head finalizando com CTA
+    framing: médio
+    audio: fala
+    props: Nenhum
+    locacao: Escritório/Studio tech
+    falas_chave: Comenta eu quero e olha seu direct!
+  sound_design:
+    sfx:
+    - moment: hook @ 0s
+      category: impact
+      intent: Parar o scroll com impacto inicial
+      intensity: medium
+    - moment: beat_n:2 @ 7s
+      category: swoosh
+      intent: Transição para tela do computador
+      intensity: subtle
+    - moment: reveal @ 30s
+      category: boom
+      intent: Enfatizar o início do payoff visual
+      intensity: strong
+    - moment: cta @ 50s
+      category: pop
+      intent: Atenção para o comando de comentário
+      intensity: medium
+    music:
+      recommended: true
+      mood: uplifting
+      energy: medium
+      genre: electronic synth corporate
+      ducking: true
+      rationale: Uma trilha tecnológica que cresce em energia conforme o comercial
+        (payoff) é exibido, mas permite clareza total na voz do especialista.
+    rationale: 'O som acompanha a curva de dopamina: impacto no hook, transições rápidas
+      no processo técnico e um ''boom'' de satisfação no resultado visual.'
+  rationale: O plano foca na evidência prática do workflow de IA aplicada, removendo
+    qualquer tempo estimado ou atribuição externa não dita na fonte. O tom segue o
+    arquétipo do Sábio/Criador, focando na automação de processos e escala de produção.
+    O CTA foi ajustado para o comando direto da fonte, mantendo a estratégia de conversão
+    via direct.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-20T10:06:05'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 1
+  model: openrouter:openrouter/free
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 11.6
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-20T10:06:23'

@@ -1,0 +1,106 @@
+workflow:
+  id: daily-farm-discovery
+  name: Garimpo Diário + Benchmark (F1 + F2)
+  version: 1.0.0
+  squad: virals-farming-squad
+  entry_agent: farming-chief
+  description: >
+    Rodada recorrente e barata: varre os nichos ativos, aplica a nota de corte e roda o
+    benchmark ETL dos melhores. Para quando os packs estão prontos — a modelagem e a
+    geração ficam para quando você quiser puxar o lote.
+
+inputs:
+  niches:
+    type: list
+    default: [religioso, pet, noticias, cartomante]
+  top_per_niche:
+    type: number
+    default: 5
+  source:
+    type: enum
+    values: [hashtags, profiles, both]
+    default: profiles
+    description: >
+      Default profiles: é a rota confiável hoje. Use both quando quiser tentar
+      descobrir handles novos por hashtag.
+
+config:
+  checkpoint_policy: on_failure_only
+  fail_fast: false
+  parallel_niches: false
+
+phases:
+
+  - id: f1-discovery
+    name: 'Garimpo por nicho'
+    agent: farming-scout
+    task: tasks/farm-monitor-discovery.md
+    executor: worker
+    for_each: niche
+    command: 'node squads/virals-farming-squad/scripts/farm-monitor.js --niche={niche} --source={source}'
+    checklist: checklists/discovery-cutoff-checklist.md
+    checkpoint:
+      type: verify
+      rule: >
+        Se um nicho reprovar 100% dos capturados, distinga falha de captura de corte
+        rigoroso ANTES de seguir. Um nicho com zero aprovados por falha de coleta não
+        deve ser lido como nicho sem conteúdo.
+      blocking: false
+    on_failure: continue_and_report
+
+  - id: f2-benchmark
+    name: 'Benchmark dos aprovados'
+    agent: farming-analyst
+    task: tasks/farm-benchmark-etl.md
+    executor: worker
+    for_each: niche
+    depends_on: [f1-discovery]
+    skip_if: 'zero aprovados no ranking do nicho'
+    command: 'node squads/virals-farming-squad/scripts/farm-benchmark.js --niche={niche} --top={top_per_niche}'
+    checklist: checklists/benchmark-completeness-checklist.md
+    checkpoint:
+      type: verify
+      rule: 'A contagem de packs completos DEVE bater com as pastas que têm os assets em disco.'
+      blocking: true
+    on_failure: continue_and_report
+
+  - id: feedback
+    name: 'Retroalimentação dos nichos'
+    agent: farming-scout
+    executor: agent
+    depends_on: [f2-benchmark]
+    actions:
+      - 'Consolidar suggested_hashtags de todos os nichos da rodada'
+      - 'Consolidar discovered_handles e apontar os que renderam aprovados'
+      - 'Propor promoção desses handles para anchor_profiles em data/niches/{nicho}.yaml'
+      - 'Sinalizar nichos cujo corte reprovou tudo — pode estar rigoroso demais'
+    output: '_feedback-{date}.md'
+    checkpoint:
+      type: elicit
+      prompt: >
+        Handles descobertos que renderam aprovados. Promover para anchor_profiles em
+        data/niches/{nicho}.yaml?
+      blocking: false
+      rationale: >
+        O YAML do nicho é curadoria do dono. O pipeline propõe; quem decide o que vira
+        âncora permanente é você.
+    note: >
+      Esta fase é o que torna os nichos sustentáveis. A rota de perfil é a confiável;
+      alimentar anchor_profiles com handles que provaram render é o loop que faz o
+      garimpo melhorar a cada rodada.
+
+reporting:
+  summary:
+    - por_nicho: [capturados, aprovados, packs_completos, degradados]
+    - falhas_de_captura
+    - hashtags_sugeridas
+    - handles_a_promover
+  next_action: >
+    Para levar um lote até o export, rode o workflow full-farming-pipeline a partir da
+    F3, apontando para a sessão desta rodada.
+
+schedule_hint:
+  suggested: 'diário, de manhã'
+  rationale: >
+    A janela de trend dos nichos varia de 24h (notícias) a 72h (religioso, cartomante).
+    Rodar diariamente mantém o ranking dentro da janela em todos eles.

@@ -239,7 +239,12 @@ def orchestrate_carousel(brief_path, force=False, image_mode="pexels",
         return 2
     print(f"  Render service: ON ({RENDER_BASE_URL})")
 
-    brief = data.get("carousel_brief", {})
+    # Suporta tanto carousel_brief quanto post_brief (briefs de "single" que
+    # passam por aqui via /api/export do Studio, que sempre chama este
+    # orquestrador independente do formato — sem isso, brief.get("slug")
+    # sempre falhava pro fallback "carousel-teste", quebrando a resolução de
+    # pasta de output pra criativos tipo "post" reexportados do Studio).
+    brief = data.get("carousel_brief") or data.get("post_brief") or {}
     content_data = data.get("content_data", [])
     slug = brief.get("slug", "carousel-teste")
     slide_count = brief.get("slide_count", len(content_data))
@@ -400,6 +405,42 @@ def orchestrate_carousel(brief_path, force=False, image_mode="pexels",
     return 0 if failed == 0 else 3
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# FORMATO DA PEÇA (2026-09-04)
+# Espelha `CANVAS_FORMATS` de apps/creative-design/src/lib/layers.ts. O canvas
+# deixou de ser 1080x1350 fixo porque o mesmo editor passou a produzir thumbs
+# de YouTube; o viewport do Playwright tem de acompanhar, senão a thumb sai
+# recortada em retrato.
+# ─────────────────────────────────────────────────────────────────────────────
+CANVAS_FORMATS = {
+    "instagram-portrait": (1080, 1350),
+    "youtube-thumb": (1280, 720),
+}
+DEFAULT_FORMAT = "instagram-portrait"
+
+# Templates que produzem thumb. Mantém paridade com THUMB_BUILDERS
+# (apps/creative-design/src/lib/thumbPresets.ts).
+THUMB_TEMPLATES = {"thumb-e3", "thumb-e5", "thumb-e7", "thumb-e10"}
+
+
+def _slide_format(slide, template_id):
+    """Formato do slide: o campo gravado manda; senão deduz do template.
+
+    Slide antigo não tem `format` — e não pode ganhar um por acidente, porque
+    todos os 46 criativos existentes dependem de continuar em retrato.
+    """
+    fmt = slide.get("format")
+    if fmt in CANVAS_FORMATS:
+        return fmt
+    if (slide.get("template_id") or template_id) in THUMB_TEMPLATES:
+        return "youtube-thumb"
+    return DEFAULT_FORMAT
+
+
+def _viewport(fmt):
+    return CANVAS_FORMATS.get(fmt, CANVAS_FORMATS[DEFAULT_FORMAT])
+
+
 def _process_slide(slide, slide_n, slide_count, slug, render_service,
                    output_dir, manifest, first, image_mode="brand",
                    template_id="carousel-slide",
@@ -409,11 +450,13 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
     # e carrega seus próprios assets — pula a geração/busca automática de imagem.
     layers = slide.get("layers")
     if layers:
+        slide_format = _slide_format(slide, template_id)
         layered_props = {
             "templateId": "layered",
             "layers": layers,
             "background": slide.get("background", {"type": "brand"}),
             "accentColor": slide.get("accent_color", "#FFB800"),
+            "format": slide_format,
         }
         if palette_props:
             for k, v in palette_props.items():
@@ -421,7 +464,8 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
                     layered_props[k] = v
         filename = f"slide_{slide_n:02d}.png"
         filepath = os.path.abspath(os.path.join(output_dir, filename))
-        render_service.render_component("layered", layered_props, filepath)
+        render_service.render_component(
+            "layered", layered_props, filepath, viewport=_viewport(slide_format))
         from PIL import Image
         webp_filename = filename.replace(".png", ".webp")
         Image.open(filepath).save(
@@ -435,7 +479,8 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
 
     # MED-07: presets que usam imagem (os demais são número/citação/passos).
     slide_template = slide.get("template_id") or template_id
-    image_templates = {"carousel-slide", "single-post", "tiago-diary"}
+    # Thumb SEMPRE quer imagem: a foto é o quadro inteiro da peça.
+    image_templates = {"carousel-slide", "single-post", "tiago-diary"} | THUMB_TEMPLATES
     wants_image = slide_template in image_templates
 
     # Override do Editor (MED-04) tem prioridade sobre a geração automática.
@@ -464,7 +509,12 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
     elif image_mode == "pexels":
         query = slide.get("pexels_query") or _fallback_query(slide)
         # Orientação casada com o placeholder: HOOK = painel vertical.
-        orientation = "portrait" if slide.get("variant") == "HOOK" else "landscape"
+        # Thumb é 16:9: foto retrato só serviria recortada. Nos 4:5 mantém a
+        # regra antiga (HOOK usa painel vertical).
+        if _slide_format(slide, template_id) == "youtube-thumb":
+            orientation = "landscape"
+        else:
+            orientation = "portrait" if slide.get("variant") == "HOOK" else "landscape"
         try:
             stem = f"px_{slug}_{slide_n}_{int(time.time())}"
             path = search_and_download(query, public_render_dir, stem, orientation)
@@ -492,7 +542,7 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
         "overlayLayers": slide.get("overlay_layers") or [],
         "backgroundImage": slide.get("bg_preset_url"),
         "mainObjectImage": context_image_url or slide.get("object_url"),
-        "accentColor": slide.get("accent_color", "#E94560"),
+        "accentColor": slide.get("accent_color", "#FF5B3F"),
         "textMetrics": slide.get("text_metrics", {}),
         # Overrides do Editor (MED-04) — None quando não editado (template usa auto).
         "headlineFontSize": slide.get("headline_font_size"),
@@ -538,6 +588,13 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
                 "callToThink": slide.get("call_to_think", ""),
                 "image": context_image_url or slide.get("object_url"),
                 "accentColor": accent,
+                # Campos exclusivos dos presets de thumb (thumb-system.yaml).
+                # Inócuos para os presets 4:5, que simplesmente os ignoram.
+                "imageB": slide.get("image_b_url"),
+                "imagePosY": slide.get("image_pos_y"),
+                "imageBPosY": slide.get("image_b_pos_y"),
+                "label": slide.get("label", ""),
+                "sealImage": slide.get("seal_image"),
             },
             "palette": preset_palette or {
                 "primary": "#0B0B0F", "secondary": "#1A1A24", "accent": accent,
@@ -549,7 +606,10 @@ def _process_slide(slide, slide_n, slide_count, slug, render_service,
                 "signature": signature_handle or "",
             },
         }
-        render_service.render_component("preset", preset_props, filepath)
+        preset_format = _slide_format(slide, template_id)
+        preset_props["format"] = preset_format
+        render_service.render_component(
+            "preset", preset_props, filepath, viewport=_viewport(preset_format))
 
     from PIL import Image
     webp_filename = filename.replace(".png", ".webp")

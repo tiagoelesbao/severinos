@@ -1,0 +1,39 @@
+# Template GERADO automaticamente por generate_template_from_benchmark.py
+# (Frente A — 'criar modelo a partir do benchmark').
+# Mesclado em memória pelo design_creative.py; consumido pelo componente
+# React BenchmarkDerivedSlide (template_id_render: benchmark-derived).
+# Edição manual é permitida (este NÃO é o templates.yaml curado).
+
+id: benchmark-dialogbox-falajoaobranco-efac2a
+label: ✨ Dialog-Box (Tweet Card) (gerado)
+description: Layout simula um tweet com avatar, nome de usuário e handle, com o corpo
+  do texto alinhado à esquerda e imagens ou outros elementos incorporados abaixo.
+react_component: BenchmarkDerivedSlide
+template_id_render: benchmark-derived
+best_for_bench_types:
+- carousel
+- single
+- video
+preview_status: ready
+generated: true
+source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/15-falajoaobranco-efac2a
+output_type: carousel
+generated_at: '2026-06-16T22:52:28'
+spec:
+  id: benchmark-dialogbox-falajoaobranco-efac2a
+  archetype: dialog-box
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/15-falajoaobranco-efac2a
+  layout:
+    cardStyle: tweet
+    cardBg: '#F2F2F2'
+    cardText: '#0B0B0F'
+    cardRadius: 36
+    align: left
+    showAvatar: true
+    showHandleRow: true
+    verified: false
+  typography:
+    bodyScale: lg
+  decor:
+    glow: false
+    grain: false

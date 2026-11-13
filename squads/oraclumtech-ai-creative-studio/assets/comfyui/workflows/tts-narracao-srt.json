@@ -1,0 +1,752 @@
+{
+  "id": "3a7c1e08-2b64-47d9-9f11-tts-narracao-srt",
+  "revision": 0,
+  "last_node_id": 100,
+  "last_link_id": 10,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -620,
+        40
+      ],
+      "size": [
+        520,
+        320
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "{{ROTEIRO_SRT}}"
+      ],
+      "title": "Roteiro em SRT - {{ROTEIRO_SRT}}",
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 2,
+      "type": "ChatterBoxOfficial23LangEngineNode",
+      "pos": [
+        -620,
+        420
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "TTS_engine",
+          "type": "TTS_ENGINE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ChatterBoxOfficial23LangEngineNode"
+      },
+      "widgets_values": [
+        "v3",
+        "Portuguese",
+        "auto",
+        0.5,
+        0.8,
+        0.5,
+        1.2,
+        0.05,
+        1.0
+      ],
+      "title": "ENGINE A - ChatterBox 23L (Portuguese) - PADRAO",
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 3,
+      "type": "F5TTSEngineNode",
+      "pos": [
+        -620,
+        690
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "TTS_engine",
+          "type": "TTS_ENGINE",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "F5TTSEngineNode"
+      },
+      "widgets_values": [
+        "F5-PT-BR",
+        "auto",
+        0.8,
+        1.0,
+        0.1,
+        0.15,
+        32,
+        2.0
+      ],
+      "title": "ENGINE B - F5-TTS PT-BR - alternativa (BYPASS)",
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 4,
+      "type": "LoadAudio",
+      "pos": [
+        -620,
+        940
+      ],
+      "size": [
+        400,
+        130
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "{{VOZ_REFERENCIA}}",
+        null,
+        null
+      ],
+      "title": "Voz de referencia - {{VOZ_REFERENCIA}}",
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 5,
+      "type": "CharacterVoicesNode",
+      "pos": [
+        -160,
+        940
+      ],
+      "size": [
+        400,
+        240
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "opt_audio_input",
+          "type": "AUDIO",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opt_narrator",
+          "type": "NARRATOR_VOICE",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "character_name",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        },
+        {
+          "name": "reference_audio_only",
+          "type": "AUDIO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterVoicesNode"
+      },
+      "widgets_values": [
+        "none",
+        "{{TEXTO_DA_REFERENCIA}}",
+        0.0,
+        0.0,
+        true
+      ],
+      "title": "Narrador - {{TEXTO_DA_REFERENCIA}}",
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 6,
+      "type": "UnifiedTTSSRTNode",
+      "pos": [
+        300,
+        40
+      ],
+      "size": [
+        520,
+        420
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "TTS_engine",
+          "type": "TTS_ENGINE",
+          "link": 1
+        },
+        {
+          "name": "opt_narrator",
+          "type": "*",
+          "link": 2
+        },
+        {
+          "name": "srt_content",
+          "type": "STRING",
+          "link": 3,
+          "widget": {
+            "name": "srt_content"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            5,
+            7
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "generation_info",
+          "type": "STRING",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "timing_report",
+          "type": "STRING",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "Adjusted_SRT",
+          "type": "STRING",
+          "links": [
+            6,
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UnifiedTTSSRTNode"
+      },
+      "widgets_values": [
+        "",
+        "none",
+        42,
+        "fixed",
+        "smart_natural",
+        true,
+        0.01,
+        1.0,
+        0.5,
+        2.0,
+        0,
+        false
+      ],
+      "title": "TTS SRT - narracao + Adjusted_SRT",
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 7,
+      "type": "SaveAudio",
+      "pos": [
+        900,
+        40
+      ],
+      "size": [
+        400,
+        110
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "{{JOB}}/narracao"
+      ],
+      "title": "Narracao FLAC (master) - {{JOB}}/narracao",
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 8,
+      "type": "SaveText",
+      "pos": [
+        900,
+        200
+      ],
+      "size": [
+        400,
+        120
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveText"
+      },
+      "widgets_values": [
+        "{{JOB}}/narracao-adjusted",
+        "txt"
+      ],
+      "title": "Adjusted_SRT (timing REAL) - {{JOB}}/narracao-adjusted",
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 9,
+      "type": "PreviewAudio",
+      "pos": [
+        900,
+        370
+      ],
+      "size": [
+        400,
+        110
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 7
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": [],
+      "title": "Escuta"
+    },
+    {
+      "id": 10,
+      "type": "PreviewAny",
+      "pos": [
+        900,
+        520
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "title": "timing_report"
+    },
+    {
+      "id": 11,
+      "type": "PreviewAny",
+      "pos": [
+        900,
+        760
+      ],
+      "size": [
+        400,
+        160
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "title": "generation_info"
+    },
+    {
+      "id": 12,
+      "type": "PreviewAny",
+      "pos": [
+        900,
+        960
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "title": "Adjusted_SRT (leitura via /history)"
+    },
+    {
+      "id": 90,
+      "type": "MarkdownNote",
+      "pos": [
+        -1180,
+        40
+      ],
+      "size": [
+        520,
+        560
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# Narracao local — squad Oraclum\n\n## Como trocar de engine\nO `TTS_engine` do no **TTS SRT** e o unico ponto de troca.\n1. Ligue a saida da **ENGINE A** ou da **ENGINE B** nele.\n2. Coloque a engine nao usada em **Bypass** (Ctrl+B).\n\n| Engine | Licenca | PT-BR | Quando |\n|---|---|---|---|\n| A - ChatterBox 23L | MIT | nativo (`Portuguese`) | **PADRAO.** Canal monetizado. |\n| B - F5-TTS PT-BR | permissiva | modelo dedicado | Velocidade, ou quando precisar do `speed` nativo. |\n\n## ARMADILHA DE GPU (medida em 2026-08-28)\nDepois que a ENGINE A roda, a **ENGINE B falha em GPU** com\n`Expected all tensors to be on the same device`.\nA run e marcada `success` mesmo assim e grava ~1s de audio morto.\n**Reinicie o ComfyUI antes de trocar A -> B**, ou rode a B em `device=cpu`\n(funciona, mas ~60x mais lento: 346s contra 5s).\n\n## Placeholders\n- `{{ROTEIRO_SRT}}` — SRT de entrada\n- `{{VOZ_REFERENCIA}}` — .wav em `ComfyUI/input/`\n- `{{TEXTO_DA_REFERENCIA}}` — transcricao exata (OBRIGATORIA para a F5)\n- `{{JOB}}` — pasta do job dentro de `ComfyUI/output/`\n"
+      ],
+      "title": "Leia primeiro"
+    },
+    {
+      "id": 91,
+      "type": "MarkdownNote",
+      "pos": [
+        300,
+        500
+      ],
+      "size": [
+        520,
+        520
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# timing_mode\n\n| Modo | O que faz | Uso |\n|---|---|---|\n| `smart_natural` | Respeita o audio natural; ajusta dentro de `timing_tolerance`, empurra os cues seguintes e so estica dentro dos limites. | **PADRAO da narracao longa.** |\n| `pad_with_silence` | Audio intacto no start do cue, resto vira silencio. Se o audio passar do cue, **sobrepoe**. | SRT com folga garantida. |\n| `stretch_to_fit` | Forca o audio a caber exatamente no cue. | **NAO usar em narracao.** Medido: 1,29x a 1,61x de esticamento; WER da mesma frase subiu de 0% para 15,8%. |\n| `concatenate` | Ignora o timing de entrada, emenda tudo natural e gera SRT novo. | Gravar voz de referencia; ou quando o SRT de entrada e so ordem. |\n\n`max_stretch_ratio = 1.0` mantem a fala sem lentidao artificial no `smart_natural`.\n\n## Adjusted_SRT\nE a razao de este workflow existir: devolve o timing REAL do audio gerado,\npara a pre-composicao ja sair com legenda sincronizada e slots esperando os takes.\nSai por dois caminhos: arquivo (`SaveText`) e `/history/{prompt_id}` (`PreviewAny`).\n\nATENCAO: em `stretch_to_fit` o `Adjusted_SRT` reporta a duracao PRE-esticamento —\nos fins de cue nao batem com o audio. Mais um motivo para nao usar esse modo.\n"
+      ],
+      "title": "Modos de timing"
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      6,
+      0,
+      "TTS_ENGINE"
+    ],
+    [
+      2,
+      5,
+      0,
+      6,
+      1,
+      "NARRATOR_VOICE"
+    ],
+    [
+      3,
+      1,
+      0,
+      6,
+      2,
+      "STRING"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ],
+    [
+      5,
+      6,
+      0,
+      7,
+      0,
+      "AUDIO"
+    ],
+    [
+      6,
+      6,
+      3,
+      8,
+      0,
+      "STRING"
+    ],
+    [
+      7,
+      6,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ],
+    [
+      8,
+      6,
+      2,
+      10,
+      0,
+      "*"
+    ],
+    [
+      9,
+      6,
+      1,
+      11,
+      0,
+      "*"
+    ],
+    [
+      10,
+      6,
+      3,
+      12,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "1 - ENTRADA",
+      "bounding": [
+        -640,
+        -20,
+        560,
+        400
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "2 - ENGINE (trocavel)",
+      "bounding": [
+        -640,
+        360,
+        440,
+        550
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "3 - VOZ",
+      "bounding": [
+        -640,
+        880,
+        900,
+        320
+      ],
+      "color": "#a1309b",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "4 - TTS SRT",
+      "bounding": [
+        280,
+        -20,
+        560,
+        480
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "5 - ENTREGA",
+      "bounding": [
+        880,
+        -20,
+        440,
+        360
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        1250,
+        60
+      ]
+    },
+    "frontendVersion": "1.48.7",
+    "oraclum": {
+      "workflow_id": "tts-narracao-srt",
+      "origem": "derivado de 'Unified TTS SRT.json' (TTS-Audio-Suite v5.8.7), reduzido ao caso do squad",
+      "quando_usar": "PADRAO de narracao. P5 dark-room e P7 novela-recap: roteiro de ~7 min -> audio + Adjusted_SRT.",
+      "engine_padrao": "ChatterBox Official 23-Lang v3, language=Portuguese (licenca MIT)",
+      "engine_alternativa": "F5-TTS F5-PT-BR (mais rapida; exige texto de referencia exato e em portugues)",
+      "config": "timing_mode=smart_natural, max_stretch_ratio=1.0, seed=42, enable_audio_cache=true",
+      "saida_decisiva": "Adjusted_SRT - timing REAL do audio gerado. Sai por SaveText e por /history/{prompt_id}.",
+      "regra_de_timing": "NUNCA usar stretch_to_fit em narracao longa: medido 1,29x-1,61x de esticamento e WER 0% -> 15,8%.",
+      "armadilha_gpu": "Trocar ENGINE A -> ENGINE B na mesma sessao quebra a F5 em GPU (device mismatch); a run e reportada como 'success' com ~1s de audio morto. Reiniciar o ComfyUI, ou rodar a B em device=cpu.",
+      "validado_em": "2026-08-28 - RTX 4060 Ti 8GB, ComfyUI 0.33.1, TTS-Audio-Suite 5.8.7",
+      "amostras": "assets/comfyui/samples/",
+      "doc": "docs/NARRACAO-LOCAL.md",
+      "placeholders": [
+        "{{ROTEIRO_SRT}}",
+        "{{VOZ_REFERENCIA}}",
+        "{{TEXTO_DA_REFERENCIA}}",
+        "{{JOB}}"
+      ]
+    }
+  },
+  "version": 0.4
+}

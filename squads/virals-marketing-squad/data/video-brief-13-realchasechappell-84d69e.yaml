@@ -1,0 +1,353 @@
+schema_version: '1.0'
+generated_at: '2026-06-20T11:32:07'
+media_kind: video
+video_brief:
+  slug: video-13-realchasechappell-84d69e
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/13-realchasechappell-84d69e
+source:
+  creator: '@realchasechappell'
+  platform: instagram
+  url: https://www.instagram.com/realchasechappell/reel/DZm-QqTR5UE/
+  type: video-short
+  caption: Comment “Claude” & I’ll Send It ✅
+metadata:
+  view_count: null
+  like_count: 1045
+  comment_count: null
+  duration_seconds: 36.453
+hook_raw: Claude is absolutely insane You can now create full Shopify sites in minutes
+transcript:
+- start: 0
+  end: 1
+  text: Claude is absolutely insane
+- start: 1
+  end: 4
+  text: You can now create full Shopify sites in minutes
+- start: 4
+  end: 6
+  text: First, you have it create a brand kit
+- start: 6
+  end: 12
+  text: Second, you have it scan your product, the language, the offer, the audience,
+    and the customer objections all from your current site
+- start: 12
+  end: 15
+  text: Third, you run it through this conversion rate playbook right here
+- start: 15
+  end: 18
+  text: Then it designs and executes the website for you
+- start: 18
+  end: 20
+  text: Just look at the site we built using it
+- start: 20
+  end: 28
+  text: It covers buyer psychology, problem framing, credibility, offers, conversion
+    rate frameworks, upsells, cross-sells, full product walkthroughs and so much more
+- start: 28
+  end: 34
+  text: And it will literally take you from a basic Shopify store to a perfect high
+    converting website in under 10 minutes
+- start: 34
+  end: 36
+  text: Comment Claude and I'll send you the full strategy
+frames:
+- file: Screenshots/frame_01_at_00-00_Claude_is_absolutely_insane_.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-04_First__you_have_it_create_a_br.jpg
+  timestamp: 00:04
+  t_seconds: 4
+- file: Screenshots/frame_03_at_00-12_Third__you_run_it_through_this.jpg
+  timestamp: 00:12
+  t_seconds: 12
+- file: Screenshots/frame_04_at_00-18_Just_look_at_the_site_we_built.jpg
+  timestamp: 00:18
+  t_seconds: 18
+- file: Screenshots/frame_05_at_00-34_Comment_Claude_and_I_ll_send_y.jpg
+  timestamp: 00:34
+  t_seconds: 34
+beats:
+- n: 1
+  start: 0
+  end: 4
+  text: Claude is absolutely insane You can now create full Shopify sites in minutes
+  role: hook
+- n: 2
+  start: 4
+  end: 12
+  text: First, you have it create a brand kit Second, you have it scan your product,
+    the language, the offer, the audience, and the customer objections all from your
+    current site
+  role: build
+- n: 3
+  start: 12
+  end: 18
+  text: Third, you run it through this conversion rate playbook right here Then it
+    designs and executes the website for you
+  role: build
+- n: 4
+  start: 18
+  end: 34
+  text: Just look at the site we built using it It covers buyer psychology, problem
+    framing, credibility, offers, conversion rate frameworks, upsells, cross-sells,
+    full product walkthroughs and so much more And it will literally take you from
+    a basic Shopify store to a perfect high converting website in under 10 minutes
+  role: build
+- n: 5
+  start: 34
+  end: 36
+  text: Comment Claude and I'll send you the full strategy
+  role: cta
+analysis_raw_present: true
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues: []
+  segments: 10
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+benchmark_analysis:
+  hook_type: bold claim
+  pattern_interrupts:
+  - t: 0
+    device: visual
+    text: Texto em tela com tipografia impactante e zoom rápido
+  - t: 2
+    device: audio
+    text: Voz enérgica que grita "Claude is absolutely insane"
+  - t: 4
+    device: visual
+    text: Transição brusca para tela split mostrando brand kit
+  cut_cadence:
+    avaliacao: excelente
+    meets_retention_checkpoint: false
+    segments: 10
+    duration_s: 36.45
+    avg_segment_s: 3.65
+  broll_strategy: Uso constante de screenshots dinâmicos do processo de criação, animações
+    de fluxos de trabalho e trechos do site final, sincronizados com a narração para
+    reforçar cada passo e evitar dead space.
+  caption_style: Legendas curtas, em caixa alta, com cores contrastantes; palavras‑chave
+    destacadas em negrito e emojis de setas para guiar o olhar.
+  pacing_curve:
+  - window: 00-05s
+    densidade: alta
+  - window: 05-15s
+    densidade: moderada
+  - window: 15-30s
+    densidade: alta
+  - window: 30-36s
+    densidade: pico
+  retention_devices:
+  - hook visual‑verbal simultâneo
+  - escalada de valor (brand kit → oferta completa)
+  - callback ao início ao mencionar 'Claude' novamente na CTA
+  - payoff visual do site concluído
+  - call‑to‑action que pede comentário para desbloquear estratégia
+  recommendation: 'Manter a estrutura de arco (hook → build → payoff → CTA) e o ritmo
+    de 3‑4 s por segmento; adaptar a voz para um tom mais próximo ao público‑alvo
+    (ex.: tom de empreendedor) e inserir micro‑loops de 1‑2 s mostrando resultados
+    reais para reforçar credibilidade.'
+  analyzed_by: openrouter:openai/gpt-oss-120b:free
+  analyzed_at: '2026-06-20T11:32:28'
+content_plan:
+  tema: Construindo sites Shopify em minutos usando IA (Tiago Elesbão)
+  format_concept: talking-head
+  hook:
+    variants:
+    - pattern_interrupt: Corte rápido para a tela do computador, zoom em 0,2s na barra
+        de endereço
+      text_overlay: SITE COMPLETO EM MINUTOS
+      spoken_open: 'Olha isso: eu criei um site Shopify inteiro em tempo recorde.'
+    - pattern_interrupt: Flash de cores neon, som de “whoosh” e logo da IA piscando
+      text_overlay: IA QUE CONSTRÓI SEU SITE
+      spoken_open: A inteligência artificial que está revolucionando a forma de lançar
+        lojas online.
+    - pattern_interrupt: 'Split screen: à esquerda o dashboard antigo, à direita o
+        site pronto'
+      text_overlay: DA PLANILHA AO SITE
+      spoken_open: Do zero ao checkout ativo em tempo recorde, sem código.
+  storyboard:
+  - beat_n: 1
+    scene: Hook – Tiago fala direto à câmera, fundo de escritório com tela mostrando
+      código aberto.
+    shot_type: close
+    duration_s: 3
+    on_screen_text: SITE COMPLETO EM MINUTOS
+    broll: Screen capture da IA iniciando o processo
+    motion: zoom-in
+  - beat_n: 2
+    scene: Build – demonstra o brand kit gerado.
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: Brand kit em segundos
+    broll: Animação do kit de cores, tipografia e logos surgindo
+    motion: cut
+  - beat_n: 3
+    scene: Build – varredura do produto, linguagem, oferta e objeções.
+    shot_type: insert
+    duration_s: 4
+    on_screen_text: Escaneia tudo do seu site atual
+    broll: Timeline da IA lendo textos e imagens do site de referência
+    motion: whip
+  - beat_n: 4
+    scene: Build – aplicação do playbook de conversão.
+    shot_type: close
+    duration_s: 4
+    on_screen_text: Playbook de taxa de conversão
+    broll: Fluxograma animado de etapas de copy, ofertas e upsells
+    motion: cut
+  - beat_n: 5
+    scene: Payoff – tela do site final pronto.
+    shot_type: amplo
+    duration_s: 8
+    on_screen_text: Resultado real – loja completa
+    broll: 'Tour rápido: homepage, produto, carrinho, checkout'
+    motion: slow‑zoom
+  - beat_n: 6
+    scene: CTA – Tiago volta à câmera, olhar direto.
+    shot_type: close
+    duration_s: 3
+    on_screen_text: Comenta "Claude" e eu mostro o método
+    broll: Nenhum – foco na fala
+    motion: none
+  script: 'Olha isso: eu criei um site Shopify inteiro em tempo recorde. Primeiro,
+    eu mando a IA montar o brand kit – cores, fontes, identidade visual – rapidinho.
+    Depois ela escaneia seu produto, a linguagem da sua página, a oferta e até as
+    objeções mais comuns, tudo a partir do site que você já tem. Com esses dados eu
+    aplico o playbook de taxa de conversão que usamos nos nossos maiores lançamentos,
+    e a IA desenha e executa a loja pra você. Dá uma olhada no que saiu: a página
+    cobre psicologia do comprador, enquadra o problema, mostra credibilidade, cria
+    ofertas, upsells, cross‑sells e um walkthrough completo do produto. Se você ainda
+    acha que isso é hype, comenta "Claude" aqui embaixo que eu te envio o passo a
+    passo completo.'
+  edit_spec:
+    zooms:
+    - close‑up de Tiago nos primeiros 3s
+    - slow‑zoom no site final entre 20‑28s
+    transitions:
+    - cut rápido a cada 1,5‑2 s para manter ritmo
+    - whip transition ao mostrar o playbook
+    inserts:
+    - b‑roll de brand kit @ 4‑8s
+    - b‑roll de escaneamento de site @ 9‑13s
+    - b‑roll de fluxograma de conversão @ 14‑18s
+    - tour do site final @ 20‑28s
+    captions: Legendas curtas, caixa alta, cor azul‑neon, palavras‑chave em negrito;
+      emojis de seta → para guiar o olhar.
+    motion_graphics:
+    - elemento de barra de progresso @ 0‑3s
+    - highlight nos tempos de execução @ 2‑3s
+    template_refs:
+      hook: hook-number-hardcut
+      caption: cap-amber-pop
+      transition: trans-cut-dry
+      motion: motion-founder-lowerthird
+  shotlist:
+  - plano: Tiago falando de frente, com laptop aberto mostrando a IA
+    framing: close
+    audio: fala clara, som ambiente baixo
+    props: laptop, bloco de notas, caneca
+    locacao: escritório estilo industrial
+    falas_chave: 'Olha isso: eu criei um site Shopify inteiro em tempo recorde.'
+  - plano: Tela do computador exibindo geração do brand kit
+    framing: insert
+    audio: efeitos de clique, música eletrônica sutil
+    props: nenhum
+    locacao: mesma mesa, câmera sobre o monitor
+    falas_chave: Primeiro, eu mando a IA montar o brand kit – cores, fontes, identidade
+      visual – rapidinho.
+  - plano: Animação de fluxo de escaneamento de conteúdo
+    framing: insert
+    audio: narração de Tiago em off
+    props: nenhum
+    locacao: digital
+    falas_chave: Depois ela escaneia seu produto, a linguagem da sua página, a oferta
+      e até as objeções mais comuns.
+  - plano: Diagrama do playbook de conversão
+    framing: insert
+    audio: narração de Tiago em off
+    props: nenhum
+    locacao: digital
+    falas_chave: Com esses dados eu aplico o playbook de taxa de conversão que usamos
+      nos nossos maiores lançamentos.
+  - plano: Tour do site final – homepage, produto, checkout
+    framing: amplo
+    audio: voz de Tiago, som de scroll
+    props: nenhum
+    locacao: digital
+    falas_chave: A página cobre psicologia do comprador, enquadra o problema, mostra
+      credibilidade, cria ofertas, upsells, cross‑sells e um walkthrough completo
+      do produto.
+  - plano: Tiago de volta à câmera, olhar direto
+    framing: close
+    audio: fala final, leve ruído de fundo de escritório
+    props: nenhum
+    locacao: escritório
+    falas_chave: Se você ainda acha que isso é hype, comenta "Claude" aqui embaixo
+      que eu te envio o passo a passo completo.
+  rationale: O plano replica a estrutura de arco do benchmark (hook → build → payoff
+    → CTA) mantendo o ritmo rápido por segmento e uso intenso de b‑roll que valida
+    cada afirmação com evidência visual. As três variantes de hook garantem interrupção
+    imediata e comunicação da proposta de valor nos primeiros segundos, seguindo a
+    exigência de “no drop‑off”. O script usa a voz do cliente – direto, técnico, sem
+    rodeios – e inclui exemplos concretos de IA, atendendo ao princípio de MOSTRAR
+    > DIZER. A CTA é um call‑to‑think, provocando o espectador a comentar “Claude”
+    para receber a estratégia, alinhado ao estilo preferido e evitando chamadas de
+    venda direta. Todas as legendas, cortes e motion graphics foram pensados para
+    maximizar retenção nos checkpoints identificados no benchmark.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openai/gpt-oss-120b:free
+  planned_at: '2026-06-20T11:33:35'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 1
+  model: openrouter:openai/gpt-oss-120b:free
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 4.33
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 6
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-06-20T11:34:13'

@@ -1,0 +1,490 @@
+schema_version: '5.0'
+generated_at: '2026-08-20T09:04:49'
+archetype: single
+carousel_brief:
+  slug: v5-precision-48-noevarner-ai-08f5de
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\48-noevarner-ai-08f5de
+  source_url: https://www.instagram.com/noevarner.ai/p/DcMbAkIFkwl/
+  tema: 'Modelagem de precisão: 48-noevarner-ai-08f5de'
+  slide_count: 6
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 6
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.5/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a narrativa de ''viralização de conteúdo'' por ''otimização de fluxo
+    de inteligência e monitoramento tech'' para manter a autoridade corporativa-moderna.
+    - Substituir o foco em ''fazer vídeos virais'' pelo foco em ''identificar tendências
+    tech e f'
+  audits_present: true
+benchmark_caption: Comment GUIDE and I’ll send it
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: How to turn Claude / Every morning I just open the board.
+  reference_body: into a viral Content Machine. [competitor research on autopilot]
+    The winners are already torn down. Hook, framework, format, why it worked. No
+    more doom scrolling for ideas.
+  headline: PARE DE CAÇAR TRENDS NA MÃO
+  sub_headline: O DESAFIO
+  body_text: O scroll infinito pra achar o que funciona é perda de tempo. Agora, seu
+    monitoramento roda no automático e você já acorda com os vídeos vencedores prontos
+    para serem copiados.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 27
+    body_chars: 175
+    headline_tier: lg
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person scrolling phone
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Headline: Pare de perder horas caçando trends dos concorrentes manualmente.
+      Body: A dor real: doom scrolling infinito no Instagram/TikTok/YouTube pra achar
+      o que funciona. O benefício concreto: seu monitoramento roda no automático enquanto
+      você dorme — e de manhã só abre o board com os vencedores já desmontados (hook,
+      framework, formato, por que funcionou). Abre o loop: como configurar isso em
+      uma linha de comando.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:13:06'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Claude watches every
+  reference_body: competitor. Sandcastles crawls my watchlist around the clock and
+    scores every video against that creator's own average. Nothing breaks out in my
+    niche without me knowing.
+  headline: ELE MONITORA E TE AVISA
+  sub_headline: A DESCOBERTA
+  body_text: Com o Sandcastles MCP, o Claude rastreia sua lista de criadores e avisa
+    quando um vídeo foge do padrão. Ele detecta o que realmente rompeu o nicho, não
+    só volume de views.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 23
+    body_chars: 171
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: laptop screen code
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Headline: O Claude não ''vê'' — ele monitora, pontua e alerta. Body:
+      O Sandcastles MCP rastreia sua watchlist 24/7. Cada vídeo é pontuado contra
+      a média histórica DO PRÓPRIO criador (não benchmark genérico). Nada explode
+      no seu nicho sem você saber. O insight: a inteligência está na comparação interna,
+      não no volume bruto.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:13:06'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: Every morning I just open the board. / Claude APP 8:02 AM
+  reference_body: 'The winners are already torn down. Hook, framework, format, why
+    it worked. No more doom scrolling for ideas. 🚨 New top performer detected How
+    I Built a $200M Business Instagram Reel • 1:02 View on Instagram Claude breakdown
+    🪝 Hook: "Stop doing this if you want to grow..." 📑 Framework: Story → Struggle
+    → Shift → Result 🎥 Format: Talking head 💡 Why it worked: High relatability, clear
+    takeaway, strong retention It even pings me in Slack. A video beats its channel
+    average by 3x and Claude drops the link plus the breakdown in my Slack. The winners
+    find me now.'
+  headline: O VENCEDOR JÁ VEM DESMONTADO
+  sub_headline: A ROTINA
+  body_text: 'Esqueça o garimpo manual. O agente entrega a anatomia completa: o hook
+    exato, o roteiro e o motivo da performance. Você só decide o que vai produzir.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 149
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person drinking coffee laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Headline: 8h02. Abro o board. Os vencedores já estão desmontados.
+      Body: Zero doom scrolling. O agente entrega: Hook exato (''Stop doing this if
+      you want to grow...''), Framework (Story → Struggle → Shift), Formato, Por que
+      funcionou. Seu trabalho vira decisão, não busca. A eficiência: de horas de garimpo
+      para minutos de escolha.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:13:06'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Claude APP 8:02 AM
+  reference_body: '🚨 New top performer detected How I Built a $200M Business Instagram
+    Reel • 1:02 View on Instagram Claude breakdown 🪝 Hook: "Stop doing this if you
+    want to grow..." 📑 Framework: Story → Struggle → Shift → Result 🎥 Format: Talking
+    head 💡 Why it worked: High relatability, clear takeaway, strong retention It even
+    pings me in Slack. A video beats its channel average by 3x and Claude drops the
+    link plus the breakdown in my Slack. The winners find me now.'
+  headline: ANATOMIA DE UM REEL VIRAL
+  sub_headline: O CASO
+  body_text: O sistema pegou um vídeo de 1 minuto e já extraiu o hook de retenção.
+    Ele filtra o que é relevante e não apenas o viral passageiro.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 25
+    body_chars: 131
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: smartphone instagram screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Headline: Reel ''How I Built a $200M Business'' — 1:02, Instagram.
+      Body: Exemplo real capturado pelo sistema. Hook: ''Stop doing this if you want
+      to grow...''. Framework: Story → Struggle → Shift. O agente identificou o pico
+      de performance e entregou a anatomia. Prova de que o monitoramento pega o que
+      importa, não só viral passageiro.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:13:06'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: One line connects it.
+  reference_body: The The Sandcastles MCP pipes Instagram, TikTok and YouTube data
+    straight into Claude. Paste one command in your terminal and the whole machine
+    is on.
+  headline: TUDO CONECTADO EM UM COMANDO
+  sub_headline: O MECANISMO
+  body_text: Sem planilhas ou integrações chatas. Uma linha de comando conecta Instagram,
+    TikTok e YouTube direto ao Claude para analisar tudo de uma vez.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 141
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: computer terminal screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Headline: Uma linha no terminal conecta Instagram, TikTok, YouTube
+      ao Claude. Body: O Sandcastles MCP é o cano: faz o pipe de dados multi-plataforma
+      direto pro LLM. Cole o comando, a máquina liga. Nada de APIs separadas, planilhas,
+      zaps. Integração nativa via MCP — o padrão que agentes usam pra falar com ferramentas
+      externas.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:13:06'
+- slide_n: 6
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Want the full setup?
+  reference_body: Comment "GUIDE" and I'll send them
+  headline: COMECE A USAR AMANHÃ
+  sub_headline: O PRÓXIMO PASSO
+  body_text: Isso não é promessa, é um comando que você roda hoje. Pare de caçar trends
+    e comece a escolher as melhores. Comente GUIA para receber o passo a passo.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 20
+    body_chars: 150
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person typing laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Headline: Seu monitoramento pode rodar amanhã de manhã. Body: Fechamento
+      do loop: a automação não é ''futuro'' — é um comando de terminal hoje. O takeaway
+      prático: pare de caçar, comece a escolher. Call-to-think: qual creator você
+      colocaria na watchlist primeiro pra testar o score contra a média dele?'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:13:06'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/6
+  bodies_extracted: 6/6
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  fact_fidelity_repaired:
+    2:
+    - '24'
+benchmark_analysis:
+  tema_central: Como o Claude + Sandcastles MCP automatizam o monitoramento de competitors
+    e fluxo de trends tech, deslocando o foco de viralização para otimização inteligente
+    de conteúdo.
+  formato: workflow_case_study
+  arco_narrativo: O post conduz o leitor da descoberta do fluxo automativo ao CTA
+    direto, passando por rotina diária, prova social e mecânica técnica, mantendo
+    autoridade corporativa-moderna.
+  estrutura:
+  - slide_n: 1
+    papel: promessa_e_posicionamento
+    essencial: true
+  - slide_n: 2
+    papel: demonstracao_capacidade_monitoramento
+    essencial: true
+  - slide_n: 3
+    papel: rotina_diaria_eficiencia
+    essencial: true
+  - slide_n: 4
+    papel: prova_social_case_study
+    essencial: true
+  - slide_n: 5
+    papel: mecanismo_integracao_tecnica
+    essencial: true
+  - slide_n: 6
+    papel: call_to_action_conversao
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Narrativa linear de autoridade a ação que guia do descobrimento à conversão
+  - Prova social quantificável (case $200M) que legitima o método
+  - Mecanismo técnico transparente (MCP, integração multi-plataforma) que atrai usuários
+    tech
+  - CTA de baixo atrito e direto ('Comment GUIDE') que gera lead qualificado
+  - Posicionamento tech-moderno alinhado ao enunciado de autoridade corporativa-moderna
+  recomendacao:
+    slides_ideais: 6
+    justificativa: Todos os 6 slides ocupam estágios distintos e não redundantes no
+      arco narrativo (promise → monitoramento → hábito → prova social → mecanismo
+      → conversão). A adaptação para 'otimização de fluxo intel.' realinha a linguagem
+      sem necessidade de cortes, mantendo a integridade do benchmark de alta performance.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-20T09:07:37'
+content_plan:
+  archetype: single
+  slide_count: 6
+  tema: Como o Claude + Sandcastles MCP automatizam monitoramento de competitors e
+    trends tech, transformando pesquisa viral em otimização inteligente de conteúdo
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DESAFIO
+    copy_direction: 'Headline: Pare de perder horas caçando trends dos concorrentes
+      manualmente. Body: A dor real: doom scrolling infinito no Instagram/TikTok/YouTube
+      pra achar o que funciona. O benefício concreto: seu monitoramento roda no automático
+      enquanto você dorme — e de manhã só abre o board com os vencedores já desmontados
+      (hook, framework, formato, por que funcionou). Abre o loop: como configurar
+      isso em uma linha de comando.'
+    image_direction: 'Split screen: lado esquerdo, pessoa cansada rolando feed à noite
+      (luz azul no rosto); lado direito, dashboard limpo aberto pela manhã com cards
+      de ''Top Performers'' organizados. Texto overlay: ''Antes vs. Depois da automação''.
+      Estilo: dark mode, tech, realista.'
+    source_slides:
+    - 1
+    - 3
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A DESCOBERTA
+    copy_direction: 'Headline: O Claude não ''vê'' — ele monitora, pontua e alerta.
+      Body: O Sandcastles MCP rastreia sua watchlist 24/7. Cada vídeo é pontuado contra
+      a média histórica DO PRÓPRIO criador (não benchmark genérico). Nada explode
+      no seu nicho sem você saber. O insight: a inteligência está na comparação interna,
+      não no volume bruto.'
+    image_direction: 'Captura de tela conceitual do Sandcastles: lista de creators
+      monitorados com score relativo (ex.: ''2.3x média do creator''). Setas indicando
+      ''crawler ativo'' e ''alert threshold''. Fundo terminal/IDE. Paleta: verde terminal
+      sobre preto.'
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A ROTINA
+    copy_direction: 'Headline: 8h02. Abro o board. Os vencedores já estão desmontados.
+      Body: Zero doom scrolling. O agente entrega: Hook exato (''Stop doing this if
+      you want to grow...''), Framework (Story → Struggle → Shift), Formato, Por que
+      funcionou. Seu trabalho vira decisão, não busca. A eficiência: de horas de garimpo
+      para minutos de escolha.'
+    image_direction: 'Mockup de app móvel/notificação: ''🚨 New top performer detected''
+      + card expansível com breakdown (Hook, Framework, Format, Why). Horário 8:02
+      AM visível. Estilo iOS/Android nativo, clean.'
+    source_slides:
+    - 3
+    - 4
+  - slide_n: 4
+    role: INSIGHT
+    kicker: O CASO
+    copy_direction: 'Headline: Reel ''How I Built a $200M Business'' — 1:02, Instagram.
+      Body: Exemplo real capturado pelo sistema. Hook: ''Stop doing this if you want
+      to grow...''. Framework: Story → Struggle → Shift. O agente identificou o pico
+      de performance e entregou a anatomia. Prova de que o monitoramento pega o que
+      importa, não só viral passageiro.'
+    image_direction: 'Card estilo ''breakdown'': thumbnail do Reel + 4 linhas: 🪝 Hook,
+      📑 Framework, 📐 Format, 💡 Why it worked. Badge ''Detectado às 8:02 AM''. Visual:
+      technical doc / spec sheet aesthetic.'
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: O MECANISMO
+    copy_direction: 'Headline: Uma linha no terminal conecta Instagram, TikTok, YouTube
+      ao Claude. Body: O Sandcastles MCP é o cano: faz o pipe de dados multi-plataforma
+      direto pro LLM. Cole o comando, a máquina liga. Nada de APIs separadas, planilhas,
+      zaps. Integração nativa via MCP — o padrão que agentes usam pra falar com ferramentas
+      externas.'
+    image_direction: 'Terminal escuro: cursor piscando, comando único colado (ex.:
+      ''npx sandcastles-mcp --watchlist=competitors''). Output log: ''Connected: Instagram
+      ✓ TikTok ✓ YouTube ✓ → Claude''. Diagrama lateral simples: 3 logos plataformas
+      → [MCP] → [Claude].'
+    source_slides:
+    - 5
+  - slide_n: 6
+    role: PAYOFF
+    kicker: O PRÓXIMO PASSO
+    copy_direction: 'Headline: Seu monitoramento pode rodar amanhã de manhã. Body:
+      Fechamento do loop: a automação não é ''futuro'' — é um comando de terminal
+      hoje. O takeaway prático: pare de caçar, comece a escolher. Call-to-think: qual
+      creator você colocaria na watchlist primeiro pra testar o score contra a média
+      dele?'
+    image_direction: 'Foto real de setup de trabalho (mesa, monitor com terminal aberto,
+      café). Overlay sutil: ''Próxima watchlist: [espaço em branco para mentalizar]''.
+      Texto discreto rodapé: ''Quer o setup completo? Responda nos comentários.''
+      Estilo: lifestyle tech autêntico, não stock.'
+    source_slides:
+    - 6
+  rationale: Mantém os 6 estágios do benchmark (promessa → monitoramento → rotina
+    → prova social → mecanismo → conversão) mapeados ao arco narrativo obrigatório
+    HOOK→INSIGHT×4→PAYOFF. Cada slide paga a curiosidade do anterior e abre a próxima
+    (slippery slide). Kickers contextuais em PT-BR. Copy ancorada apenas em fatos
+    do benchmark ($200M, 8:02 AM, MCP, Sandcastles, breakdown real). CTA final é call-to-think
+    (pergunta reflexiva), não 'Comente GUIDE'. Léxico da marca usado como tempero
+    (automação, agente, IA aplicada, workflow, integração, eficiência, prático, dado).
+    Zero palavras proibidas. Fonte do benchmark nunca nomeada como personagem.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-20T09:08:10'
+central_theme: Como o Claude + Sandcastles MCP automatizam monitoramento de competitors
+  e trends tech, transformando pesquisa viral em otimização inteligente de conteúdo
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-20T14:13:06'
+  slides: 6
+  central_theme: Como o Claude + Sandcastles MCP automatizam monitoramento de competitors
+    e trends tech, transformando pesquisa viral em otimização inteligente de conteúdo
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-20T14:14:16'

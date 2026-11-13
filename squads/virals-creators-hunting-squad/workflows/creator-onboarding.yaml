@@ -1,0 +1,40 @@
+workflow:
+  name: creator-onboarding
+  version: 1.0.0
+  description: "Onboarding de creator contratada (Fase 4 — pós-fechamento)"
+  squad: virals-creators-hunting-squad
+  trigger: "Quando creator aceita proposta e contract-brief preenchido"
+
+steps:
+  - id: step-1-crm
+    name: "Criar no CRM Hunter"
+    type: worker
+    description: "Criar task no ClickUp CRM Hunter (List 901325463813)"
+    script: scripts/clickup-pipeline-sync.js
+
+  - id: step-2-contract
+    name: "Formalizar contrato"
+    type: human
+    description: "Enviar contract-brief para @jurídico, assinar contrato"
+    template: templates/creator-contract-brief.md
+
+  - id: step-3-welcome
+    name: "Kit de boas-vindas"
+    type: human
+    description: "Enviar PDF Jornada Viral, briefing da marca, referências visuais"
+
+  - id: step-4-products
+    name: "Envio de produtos"
+    type: human
+    description: "Coordenar envio de produtos para endereço da creator"
+
+  - id: step-5-briefing
+    name: "Primeiro briefing"
+    type: human
+    description: "Agendar e executar primeiro briefing de conteúdo"
+
+  - id: step-6-activate
+    name: "Ativar creator"
+    type: worker
+    description: "Status → 'active' no ClickUp após checklist completo"
+    checklist: checklists/onboarding-checklist.md

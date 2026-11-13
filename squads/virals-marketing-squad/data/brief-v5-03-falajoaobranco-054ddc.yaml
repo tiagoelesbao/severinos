@@ -1,0 +1,214 @@
+schema_version: '5.0'
+generated_at: '2026-07-20T11:02:56'
+archetype: single
+carousel_brief:
+  slug: v5-precision-03-falajoaobranco-054ddc
+  source_benchmark: workspaces/businesses/virals/marketing/daily-monitoring/2026-07-20/benchmark/instagram/03-falajoaobranco-054ddc
+  source_url: https://www.instagram.com/falajoaobranco/p/DbA02DLlub4/
+  tema: 'Modelagem de precisão: 03-falajoaobranco-054ddc'
+  slide_count: 1
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/virals/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0C0A1F'
+    secondary: '#181436'
+    accent: '#FF5B3F'
+    accent_alt: '#7B5BFF'
+    accent_aurora: '#2DE2C8'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B9B6CC'
+    overlay_dark: '#00000066'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F5F4FA'
+      text: '#0C0A1F'
+      accent: '#E3391F'
+  accent: '#FF5B3F'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#FFFFFF'
+      background: '#FF5B3F'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.4
+      dark_strong:
+        color: '#000000'
+        opacity: 0.6
+      brand_subtle:
+        color: '#1A1A2E'
+        opacity: 0.25
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 2
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.0/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `inspirar` **Adaptações obrigatórias consolidadas (do painel):**
+    - Reescrever a narrativa para conectar a ''atenção ao cliente'' a uma solução
+    específica via creators, incluindo dados como ''CAC até 60% menor'' e mencionando
+    sistemas proprietários. - Substituir a referência ao caso Pepsi pela fórmula Virals:
+    ''Marcas'
+  audits_present: true
+benchmark_caption: "Um restaurante mudou o nome da sua Coca-Cola pra Pepsi. Por que\
+  \ alguém faria isso? \n\nEssa foto foi tirada pelo @mauroporcini , um alto executivo\
+  \ que trabalhou 13 anos como chefe de design... na Pepsi. \nE o restaurante entendeu\
+  \ que isso era muito importante pra ele. \nNo estoque só tinha Coca-Cola, mas não\
+  \ custa nada fazer um"
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK + PAYOFF
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: João Branco / João Branco
+  reference_body: Viu essa?? Explico na legenda O cliente não espera que você faça
+    o impossível. Ele espera que você se importe.
+  headline: GANHE CLIENTES COM UM BILHETE DE PAPEL
+  sub_headline: O CASO
+  body_text: Um bilhete escrito à mão no café da manhã cria uma lealdade que nenhum
+    anúncio consegue comprar.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 38
+    body_chars: 96
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hand holding phone
+  accent_color: '#FF5B3F'
+  source_slides:
+  - 1
+  - 2
+  personalization:
+    status: DONE
+    directive: 'João Branco pediu algo simples e inesperado em um momento crítico.
+      O resultado? Os clientes não reconheceram o esforço, mas sim se conectaram emocionalmente
+      com sua marca. A lição? Pequenos cuidados superam perdomos impossíveis. #Atencao_cliente'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-20T11:05:04'
+client_slug: virals
+client_nome: Virals
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/2
+  bodies_extracted: 2/2
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Pequenos gestos de atenção ao cliente criam impacto emocional e fortalecem
+    a relação marca-consumidor
+  formato: case inspirador com narrativa de curiosidade e lição prática
+  arco_narrativo: Inicia com uma pergunta que desperta curiosidade sobre a imagem,
+    segue com a revelação do gesto do restaurante e a lição de que o cliente valoriza
+    o cuidado, não a impossibilidade.
+  estrutura:
+  - slide_n: 1
+    papel: Gerar curiosidade e prender a atenção do público
+    essencial: true
+  - slide_n: 2
+    papel: Transmitir a mensagem central de cuidado ao cliente e fechar o aprendizado
+    essencial: true
+  redundancias:
+  - Headline idêntico nos dois slides, podendo ser fundido em um único cabeçalho.
+  fatores_de_performance:
+  - Gatilho de curiosidade no início
+  - História real e relevante envolvendo um executivo conhecido
+  - Apelo emocional ao demonstrar cuidado ao cliente
+  - Mensagem clara e acionável
+  - Uso de prova social (ex‑Pepsi designer)
+  recomendacao:
+    slides_ideais: 1
+    justificativa: Como o headline é repetido e as duas mensagens podem ser combinadas
+      em um único slide (gancho + lição), um slide único mantém o impacto visual,
+      reduz redundância e melhora a eficiência de consumo.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-07-20T11:03:28'
+content_plan:
+  archetype: single
+  slide_count: 1
+  tema: Gestos simples de atenção criam impacto emocional com clientes
+  slides:
+  - slide_n: 1
+    role: HOOK + PAYOFF
+    kicker: O CASO
+    copy_direction: 'João Branco pediu algo simples e inesperado em um momento crítico.
+      O resultado? Os clientes não reconheceram o esforço, mas sim se conectaram emocionalmente
+      com sua marca. A lição? Pequenos cuidados superam perdomos impossíveis. #Atencao_cliente'
+    image_direction: 'Foto de João Branco interagindo diretamente com um cliente em
+      um ambiente cotidiano (ex.: cafeira, atendimento rotineiro), destacando detalhes
+      como sorriso sincero ou gesto de cortesia não convencional'
+    source_slides:
+    - 1
+    - 2
+    rationale: Combina o gancho de curiosidade (Slide 1) e a lição prática (Slide
+      2) em um slide único, mantendo coerência no arco narrativo. O hook é direto
+      ('algo simples') e o payoff extrai a lição aplicável. O exemplo real com João
+      Branco e a redeção de Pepsi servem como prova social, sem inventar dados. O
+      link entre 'cuidado' e 'relação duradoura' conecta ao tema central de forma
+      concreta.
+  lexico: '*id001'
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-07-20T11:04:54'
+central_theme: Gestos simples de atenção criam impacto emocional com clientes
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-07-20T11:05:04'
+  slides: 1
+  central_theme: Gestos simples de atenção criam impacto emocional com clientes
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-07-20T11:05:31'

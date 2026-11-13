@@ -1,0 +1,264 @@
+{
+ "roteiro": "B1-manha",
+ "wpm": 171.6,
+ "blocos": [
+  {
+   "i": 0,
+   "palavras": 25,
+   "duracao_s": 8.7,
+   "texto": "A cada manhã, antes de qualquer decisão, existe um instante em que o dia ainda não começou. Ele está inteiro, e ainda não foi gasto."
+  },
+  {
+   "i": 1,
+   "palavras": 35,
+   "duracao_s": 12.2,
+   "texto": "O estoicismo trata esse instante como o mais importante do dia. Não porque seja bonito — mas porque é o único momento em que você escolhe o tom antes que o mundo escolha por você."
+  },
+  {
+   "i": 2,
+   "palavras": 13,
+   "duracao_s": 4.5,
+   "texto": "A forma como você atravessa os seus primeiros minutos costuma decidir o resto."
+  },
+  {
+   "i": 3,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "Mas como se preparar antes que a pressa chegue? Como impedir que a preocupação ocupe a sua cabeça antes mesmo de você levantar?"
+  },
+  {
+   "i": 4,
+   "palavras": 19,
+   "duracao_s": 6.6,
+   "texto": "Os estoicos deixaram respostas para isso. Não como teoria — como treino diário, escrito para ser lido de manhã."
+  },
+  {
+   "i": 5,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "Pensar bem no começo do dia é o mesmo que afiar uma lâmina antes de usá-la. Não muda o trabalho. Muda o esforço."
+  },
+  {
+   "i": 6,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Você pode começar reclamando ou agradecendo. Reagindo ou escolhendo. As duas portas estão abertas agora."
+  },
+  {
+   "i": 7,
+   "palavras": 9,
+   "duracao_s": 3.1,
+   "texto": "O que você vai fazer com essa liberdade hoje?"
+  },
+  {
+   "i": 8,
+   "palavras": 16,
+   "duracao_s": 5.6,
+   "texto": "Nos próximos minutos, três reflexões estoicas para escutar de manhã. Não precisa anotar nada. Só ouvir."
+  },
+  {
+   "i": 9,
+   "palavras": 37,
+   "duracao_s": 12.9,
+   "texto": "Deixe sua marca agora: escreva nos comentários a frase do dia — hoje eu escolho o tom. Deixe o like para apoiar, inscreva-se para não perder nenhuma reflexão, e compartilhe com alguém que precisa ouvir isso hoje."
+  },
+  {
+   "i": 10,
+   "palavras": 2,
+   "duracao_s": 0.7,
+   "texto": "Vamos juntos."
+  },
+  {
+   "i": 11,
+   "palavras": 7,
+   "duracao_s": 2.4,
+   "texto": "Reflexão um: a primeira batalha é interna."
+  },
+  {
+   "i": 12,
+   "palavras": 10,
+   "duracao_s": 3.5,
+   "texto": "\"Ninguém pode te ferir sem o teu consentimento.\" Marco Aurélio."
+  },
+  {
+   "i": 13,
+   "palavras": 5,
+   "duracao_s": 1.7,
+   "texto": "Respire fundo antes de continuar."
+  },
+  {
+   "i": 14,
+   "palavras": 37,
+   "duracao_s": 12.9,
+   "texto": "Imagine o seu dia daqui a algumas horas. Talvez uma mensagem chegue com um tom que você não esperava. Talvez alguém não responda. Talvez o plano que você fez ontem já não sirva às nove da manhã."
+  },
+  {
+   "i": 15,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Agora pense: no meio de tudo isso, o que de fato está em suas mãos?"
+  },
+  {
+   "i": 16,
+   "palavras": 14,
+   "duracao_s": 4.9,
+   "texto": "É você. Sua resposta, seu tom, o segundo que você leva antes de falar."
+  },
+  {
+   "i": 17,
+   "palavras": 36,
+   "duracao_s": 12.6,
+   "texto": "Não é a mensagem que te tira do eixo — é a leitura que você faz dela. Não é o silêncio do outro que te fere — é a história que você conta sobre esse silêncio."
+  },
+  {
+   "i": 18,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Pense numa casa com muitas portas. Você não escolhe quem bate. Escolhe qual porta abre."
+  },
+  {
+   "i": 19,
+   "palavras": 28,
+   "duracao_s": 9.8,
+   "texto": "Então visualize: em vez de responder no impulso, você espera três segundos. Em vez de supor a pior intenção, você pergunta. É pequeno, e muda o dia inteiro."
+  },
+  {
+   "i": 20,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "Isso não significa engolir desrespeito nem fingir que está tudo bem. Significa que a reação sai de você — e não do outro."
+  },
+  {
+   "i": 21,
+   "palavras": 9,
+   "duracao_s": 3.1,
+   "texto": "Reflexão dois: o peso que você carrega é escolhido."
+  },
+  {
+   "i": 22,
+   "palavras": 9,
+   "duracao_s": 3.1,
+   "texto": "\"Sofremos mais na imaginação do que na realidade.\" Sêneca."
+  },
+  {
+   "i": 23,
+   "palavras": 8,
+   "duracao_s": 2.8,
+   "texto": "Feche os olhos por um instante, se puder."
+  },
+  {
+   "i": 24,
+   "palavras": 37,
+   "duracao_s": 12.9,
+   "texto": "Pense em tudo o que você já carregou hoje, e o dia mal começou. A conversa que ainda vai acontecer. O prazo da semana que vem. Uma coisa antiga que você não resolveu e que voltou sozinha."
+  },
+  {
+   "i": 25,
+   "palavras": 8,
+   "duracao_s": 2.8,
+   "texto": "Quantas dessas coisas estão acontecendo agora, neste minuto?"
+  },
+  {
+   "i": 26,
+   "palavras": 2,
+   "duracao_s": 0.7,
+   "texto": "Quase nenhuma."
+  },
+  {
+   "i": 27,
+   "palavras": 32,
+   "duracao_s": 11.2,
+   "texto": "Não é o prazo que cansa — é ensaiá-lo dezenas de vezes antes da hora. Não é a conversa difícil que pesa — é a versão dela que você repete de madrugada."
+  },
+  {
+   "i": 28,
+   "palavras": 24,
+   "duracao_s": 8.4,
+   "texto": "É como carregar a mala da viagem inteira no primeiro passo. O caminho é o mesmo; o peso é que foi decidido por você."
+  },
+  {
+   "i": 29,
+   "palavras": 22,
+   "duracao_s": 7.7,
+   "texto": "Visualize então uma manhã em que você carrega só o dia de hoje. O resto continua existindo — mas espera a vez."
+  },
+  {
+   "i": 30,
+   "palavras": 19,
+   "duracao_s": 6.6,
+   "texto": "Isso não significa ignorar o futuro nem deixar de planejar. Significa parar de viver duas vezes a mesma dificuldade."
+  },
+  {
+   "i": 31,
+   "palavras": 10,
+   "duracao_s": 3.5,
+   "texto": "Reflexão três: o que você repete é quem você é."
+  },
+  {
+   "i": 32,
+   "palavras": 17,
+   "duracao_s": 5.9,
+   "texto": "\"Nós somos aquilo que fazemos repetidamente.\" A ideia é antiga, e os estoicos a levaram a sério."
+  },
+  {
+   "i": 33,
+   "palavras": 31,
+   "duracao_s": 10.8,
+   "texto": "Pense na pessoa que você gostaria de ser daqui a um ano. Não no que ela conquistou — no jeito dela. Como ela fala. Como ela reage quando algo dá errado."
+  },
+  {
+   "i": 34,
+   "palavras": 8,
+   "duracao_s": 2.8,
+   "texto": "Agora pergunte: o que ela faz de manhã?"
+  },
+  {
+   "i": 35,
+   "palavras": 21,
+   "duracao_s": 7.3,
+   "texto": "Porque é ali que ela é construída. Não numa decisão grande — numa repetição pequena, feita antes do dia ficar barulhento."
+  },
+  {
+   "i": 36,
+   "palavras": 30,
+   "duracao_s": 10.5,
+   "texto": "Não é o discurso que forma o caráter — é o hábito. Não é o que você promete à noite — é o que você faz às sete da manhã."
+  },
+  {
+   "i": 37,
+   "palavras": 18,
+   "duracao_s": 6.3,
+   "texto": "Uma pedra não se abre com uma pancada. Abre com a água passando todo dia, no mesmo lugar."
+  },
+  {
+   "i": 38,
+   "palavras": 17,
+   "duracao_s": 5.9,
+   "texto": "Visualize uma única coisa, pequena, que essa pessoa faria amanhã de manhã. E faça amanhã de manhã."
+  },
+  {
+   "i": 39,
+   "palavras": 18,
+   "duracao_s": 6.3,
+   "texto": "Isso não significa se cobrar por cada dia perdido. Significa entender que a próxima repetição está sempre disponível."
+  },
+  {
+   "i": 40,
+   "palavras": 11,
+   "duracao_s": 3.8,
+   "texto": "Três reflexões. Nenhuma delas te pede esforço agora — só atenção."
+  },
+  {
+   "i": 41,
+   "palavras": 8,
+   "duracao_s": 2.8,
+   "texto": "O dia ainda está inteiro. Comece pelo tom."
+  },
+  {
+   "i": 42,
+   "palavras": 20,
+   "duracao_s": 7.0,
+   "texto": "Se isso fez sentido, deixa o like e volta amanhã. E clica no vídeo que está aparecendo na tela agora."
+  }
+ ]
+}

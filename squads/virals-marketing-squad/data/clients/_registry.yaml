@@ -43,3 +43,47 @@ clients:
     output_dir: "outputs/tiago-elesbao/"
     status: "active"
     tags: [personal-brand, backstage, founder, b2b]
+
+  oraclum:
+    nome_exibicao: "Oraclum"
+    descricao: "Produção de conteúdo em massa voltado para empreendedorismo e IA"
+    tipo: "marca_institucional"
+    handle_instagram: "@oraclum"
+    brand_identity: "squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml"
+    brand_config: "squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml"
+    monitoring_dir: "squads/virals-marketing-squad/data/clients/oraclum/monitoring/"
+    lut_dir: "squads/virals-marketing-squad/data/clients/oraclum/luts/"
+    workspace_dir: "workspaces/businesses/oraclum/marketing/"
+    output_dir: "outputs/oraclum/"
+    status: "active"
+    tags: [empreendedorismo, ia, conteudo-em-massa, b2b]
+
+  bora-de-bola:
+    nome_exibicao: "Bora de Bola"
+    descricao: "Canal dark de futebol — plantão de mercado, pós-jogo e lives com overlay de dados"
+    tipo: "canal_youtube"
+    handle_instagram: "@boradebola"
+    brand_identity: "squads/virals-marketing-squad/data/clients/bora-de-bola/brand-identity.yaml"
+    brand_config: "squads/virals-marketing-squad/data/clients/bora-de-bola/brand-config.yaml"
+    monitoring_dir: "squads/virals-marketing-squad/data/clients/bora-de-bola/monitoring/"
+    lut_dir: "squads/virals-marketing-squad/data/clients/bora-de-bola/luts/"
+    workspace_dir: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/"
+    output_dir: "outputs/bora-de-bola/"
+    status: "active"
+    tags: [futebol, canal-dark, youtube, plantao, lives]
+
+  # ───────────────────────────────────────────────────────────────────────
+  # Clientes de TRÁFEGO PAGO (tipo: cliente_trafego_pago) — fora do escopo
+  # do pipeline *design-creative (sem brand_identity/brand_config de
+  # propósito: list_active_clients() em _client_resolver.py já ignora
+  # entradas sem esses paths, então não quebra o pipeline de criativo).
+  # Resolvidos por squads/virals-marketing-squad/scripts/_meta_ads_client_resolver.py,
+  # não pelo _client_resolver.py acima. Ver squad/.../docs/meta-ads-playbook.md.
+  # ───────────────────────────────────────────────────────────────────────
+  imperio-premios:
+    nome_exibicao: "Império Prêmios"
+    descricao: "Plataforma de sorteios/rifas online (api.imperiopremioss.com) — 1º cliente de tráfego pago Meta Ads da Virals/Oraclum"
+    tipo: "cliente_trafego_pago"
+    status: "active"
+    meta_ads_dir: "squads/virals-marketing-squad/data/clients/imperio-premios/meta-ads/"
+    tags: [sorteios, meta-ads, trafego-pago, b2c]

@@ -1,0 +1,101 @@
+{
+ "duracao_s": 2537.4,
+ "duracao": "42m17s",
+ "palavras": 6391,
+ "wpm_medio": 151.1,
+ "segmentos": 399,
+ "pausas_acima_de_250ms": 16,
+ "pausa_mediana_s": 0.72,
+ "pausas_mais_longas": [
+  {
+   "em": 1397.8,
+   "duracao": 0.92
+  },
+  {
+   "em": 232.9,
+   "duracao": 0.88
+  },
+  {
+   "em": 220.6,
+   "duracao": 0.8
+  },
+  {
+   "em": 2190.5,
+   "duracao": 0.76
+  },
+  {
+   "em": 51.8,
+   "duracao": 0.72
+  },
+  {
+   "em": 196.2,
+   "duracao": 0.72
+  },
+  {
+   "em": 209.7,
+   "duracao": 0.72
+  },
+  {
+   "em": 262.6,
+   "duracao": 0.72
+  },
+  {
+   "em": 293.4,
+   "duracao": 0.72
+  },
+  {
+   "em": 287.9,
+   "duracao": 0.64
+  }
+ ],
+ "wpm_por_bloco_de_5min": [
+  {
+   "de": 0,
+   "ate": 300,
+   "wpm": 154.6
+  },
+  {
+   "de": 300,
+   "ate": 600,
+   "wpm": 157.0
+  },
+  {
+   "de": 600,
+   "ate": 900,
+   "wpm": 157.8
+  },
+  {
+   "de": 900,
+   "ate": 1200,
+   "wpm": 159.2
+  },
+  {
+   "de": 1200,
+   "ate": 1500,
+   "wpm": 138.4
+  },
+  {
+   "de": 1500,
+   "ate": 1800,
+   "wpm": 141.6
+  },
+  {
+   "de": 1800,
+   "ate": 2100,
+   "wpm": 147.2
+  },
+  {
+   "de": 2100,
+   "ate": 2400,
+   "wpm": 151.8
+  },
+  {
+   "de": 2400,
+   "ate": 2537,
+   "wpm": 154.2
+  }
+ ],
+ "arquivo": "10 REFLEXÕES ESTOICAS QUE VOCÊ PRECISA ESCUTAR TODAS AS MANHÃS ｜ Estoicismo.mp4",
+ "nota": "NAO modelado ainda. Formato diferente: reflexao para ouvir de manha, nao pratica numerada com desafio.",
+ "modelo_whisper": "small"
+}

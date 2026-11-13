@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Pipeline · Marketing ↔ ClickUp</title>
+<!-- Atualizado 2026-08-18: pipeline completo, da sondagem à publicação automatizada no Instagram (EPIC-MKT-Instagram-Publishing). -->
+<style>
+:root{
+  --bg:#F5F6F8; --bg-elev:#FFFFFF; --bg-card:#FFFFFF; --bg-inset:#EEF0F3;
+  --border:#DBE0E6; --border-soft:#E7EAEE;
+  --text:#1A2029; --text-dim:#5B6472; --text-faint:#8A93A1;
+  --accent:#B8791F; --accent-strong:#8F5C13; --accent-soft:#B8791F1A; --accent-ring:#B8791F55;
+  --accent2:#1C7A8C; --accent2-soft:#1C7A8C1A;
+  --ok:#2F8F5B; --ok-soft:#2F8F5B1A;
+  --warn:#B8791F; --warn-soft:#B8791F1A;
+  --danger:#C0463D; --danger-soft:#C0463D1A;
+  --code-bg:#1A2029; --code-text:#E4E8ED; --code-accent:#E8B368;
+  --shadow: 0 1px 2px rgba(20,25,33,.06), 0 8px 24px -12px rgba(20,25,33,.12);
+  --font-display: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+}
+:root[data-theme="dark"]{
+  --bg:#0D1117; --bg-elev:#131922; --bg-card:#161D28; --bg-inset:#0A0E14;
+  --border:#2A3341; --border-soft:#212936;
+  --text:#E6EDF3; --text-dim:#9BA5B4; --text-faint:#6B7686;
+  --accent:#E8A94A; --accent-strong:#F3BE72; --accent-soft:#E8A94A20; --accent-ring:#E8A94A55;
+  --accent2:#4FC3D9; --accent2-soft:#4FC3D920;
+  --ok:#57C285; --ok-soft:#57C28520;
+  --warn:#E8A94A; --warn-soft:#E8A94A20;
+  --danger:#E5776C; --danger-soft:#E5776C20;
+  --code-bg:#080B10; --code-text:#DCE3EA; --code-accent:#E8A94A;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1117; --bg-elev:#131922; --bg-card:#161D28; --bg-inset:#0A0E14;
+    --border:#2A3341; --border-soft:#212936;
+    --text:#E6EDF3; --text-dim:#9BA5B4; --text-faint:#6B7686;
+    --accent:#E8A94A; --accent-strong:#F3BE72; --accent-soft:#E8A94A20; --accent-ring:#E8A94A55;
+    --accent2:#4FC3D9; --accent2-soft:#4FC3D920;
+    --ok:#57C285; --ok-soft:#57C28520;
+    --warn:#E8A94A; --warn-soft:#E8A94A20;
+    --danger:#E5776C; --danger-soft:#E5776C20;
+    --code-bg:#080B10; --code-text:#DCE3EA; --code-accent:#E8A94A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+  }
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--bg); color:var(--text); font-family:var(--font-body);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:700; line-height:1.25; text-wrap:balance; letter-spacing:-0.01em;}
+p{margin:0 0 1em; color:var(--text-dim); max-width:65ch;}
+a{color:var(--accent2); text-decoration:none;}
+a:hover{text-decoration:underline;}
+code{font-family:var(--font-display); font-size:.86em; background:var(--bg-inset); border:1px solid var(--border-soft); border-radius:4px; padding:.1em .4em; color:var(--code-accent); white-space:nowrap;}
+::selection{background:var(--accent-soft);}
+
+/* ---------- layout shell ---------- */
+.shell{display:grid; grid-template-columns:260px minmax(0,1fr); max-width:1320px; margin:0 auto;}
+@media (max-width:920px){ .shell{grid-template-columns:1fr;} }
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:40; display:flex; align-items:center; justify-content:space-between;
+  padding:14px 28px; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-soft);
+}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--text);}
+.brand .dot{width:9px; height:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft);}
+.theme-toggle{
+  display:flex; gap:2px; background:var(--bg-inset); border:1px solid var(--border); border-radius:8px; padding:2px;
+}
+.theme-toggle button{
+  border:none; background:transparent; color:var(--text-faint); font-family:var(--font-body); font-size:12px;
+  padding:6px 10px; border-radius:6px; cursor:pointer;
+}
+.theme-toggle button.active{background:var(--bg-card); color:var(--text); box-shadow:var(--shadow);}
+
+/* ---------- side nav ---------- */
+.sidenav{
+  position:sticky; top:57px; align-self:start; height:calc(100vh - 57px); overflow-y:auto;
+  padding:28px 16px 60px; border-right:1px solid var(--border-soft);
+}
+@media (max-width:920px){ .sidenav{position:static; height:auto; border-right:none; border-bottom:1px solid var(--border-soft); padding:16px 20px;} }
+.sidenav .group{margin-bottom:22px;}
+.sidenav .group-label{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); padding:0 12px 8px; font-weight:600;}
+.sidenav a{
+  display:flex; align-items:center; gap:9px; padding:7px 12px; border-radius:7px; font-size:13.5px;
+  color:var(--text-dim); font-weight:500;
+}
+.sidenav a:hover{background:var(--bg-inset); text-decoration:none; color:var(--text);}
+.sidenav a .n{
+  flex:0 0 auto; width:18px; height:18px; border-radius:5px; background:var(--bg-inset); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:10px; font-family:var(--font-display); color:var(--text-faint);
+}
+
+/* ---------- main content ---------- */
+main{padding:0 0 120px; min-width:0;}
+.section{padding:56px 40px 8px; max-width:880px;}
+@media (max-width:640px){ .section{padding:40px 20px 8px;} }
+.section h2{font-size:26px; margin:0 0 6px; display:flex; align-items:center; gap:12px;}
+.section .kicker{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--accent); font-weight:700; margin-bottom:10px; display:block;}
+.section > p:first-of-type{font-size:16.5px;}
+.section h3{font-size:18px; margin:32px 0 10px;}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 40px 40px; max-width:980px;}
+@media (max-width:640px){ .hero{padding:48px 20px 30px;} }
+.hero .kicker{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); font-weight:700;}
+.hero h1{font-size:clamp(30px,4.4vw,46px); margin:12px 0 18px;}
+.hero .lede{font-size:18px; max-width:62ch; color:var(--text-dim);}
+.hero .lede strong{color:var(--text); font-weight:600;}
+.hero-actions{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:9px; font-size:14px; font-weight:600;
+  font-family:var(--font-body); border:1px solid transparent; cursor:pointer;
+}
+.btn-primary{background:var(--accent); color:#1A1206; box-shadow:0 6px 20px -8px var(--accent-ring);}
+.btn-ghost{background:var(--bg-card); color:var(--text); border-color:var(--border);}
+
+/* ---------- pipeline stepper ---------- */
+.stepper{display:flex; flex-wrap:wrap; gap:10px; margin:44px 40px 0; max-width:1240px;}
+@media (max-width:640px){ .stepper{margin:32px 20px 0;} }
+.step-chip{
+  flex:1 1 130px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:14px 14px 12px;
+  position:relative; transition:transform .15s ease, border-color .15s ease; text-decoration:none; color:var(--text);
+  box-shadow:var(--shadow);
+}
+.step-chip:hover{transform:translateY(-2px); border-color:var(--accent); text-decoration:none;}
+.step-chip .idx{font-family:var(--font-display); font-size:11px; color:var(--accent); font-weight:700;}
+.step-chip .title{font-size:13.5px; font-weight:600; margin-top:6px; line-height:1.3;}
+.step-chip .who{font-size:11px; color:var(--text-faint); margin-top:6px;}
+.step-arrow{display:flex; align-items:center; color:var(--text-faint); font-size:16px; padding:0 2px;}
+@media (max-width:900px){ .step-arrow{display:none;} }
+
+/* ---------- callouts ---------- */
+.callout{
+  border-radius:12px; padding:16px 18px; margin:20px 0; border:1px solid var(--border);
+  background:var(--bg-card); display:flex; gap:12px; box-shadow:var(--shadow);
+}
+.callout .icon{flex:0 0 auto; font-size:17px; line-height:1.4;}
+.callout p{margin:0; font-size:14.5px;}
+.callout p + p{margin-top:8px;}
+.callout.tip{border-color:color-mix(in srgb, var(--accent2) 40%, var(--border)); background:var(--accent2-soft);}
+.callout.warn{border-color:color-mix(in srgb, var(--warn) 45%, var(--border)); background:var(--warn-soft);}
+.callout.danger{border-color:color-mix(in srgb, var(--danger) 45%, var(--border)); background:var(--danger-soft);}
+.callout.ok{border-color:color-mix(in srgb, var(--ok) 45%, var(--border)); background:var(--ok-soft);}
+.callout strong{color:var(--text);}
+
+/* ---------- code blocks ---------- */
+.code-block{
+  background:var(--code-bg); border-radius:10px; padding:16px 18px; margin:16px 0; overflow-x:auto;
+  border:1px solid var(--border-soft);
+}
+.code-block .label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin-bottom:8px; font-family:var(--font-body);}
+.code-block pre{margin:0; font-family:var(--font-display); font-size:13px; color:var(--code-text); white-space:pre;}
+.code-block .cmt{color:var(--text-faint);}
+.code-block .str{color:var(--code-accent);}
+
+/* ---------- stage card ---------- */
+.stage{
+  border:1px solid var(--border); border-radius:16px; background:var(--bg-card); margin:26px 0; overflow:hidden; box-shadow:var(--shadow);
+}
+.stage-head{padding:22px 24px; display:flex; align-items:flex-start; gap:16px; border-bottom:1px solid var(--border-soft);}
+.stage-num{
+  flex:0 0 auto; width:38px; height:38px; border-radius:10px; background:var(--accent-soft); color:var(--accent-strong);
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:15px;
+  border:1px solid var(--accent-ring);
+}
+.stage-head h4{margin:0; font-size:17px;}
+.stage-head .sub{font-size:13px; color:var(--text-faint); margin-top:3px;}
+.stage-body{padding:20px 24px 24px;}
+.stage-body p{font-size:14.5px;}
+.badge-row{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;}
+.badge{
+  font-size:11px; padding:3px 9px; border-radius:20px; border:1px solid var(--border); color:var(--text-dim);
+  font-family:var(--font-display); background:var(--bg-inset);
+}
+.badge.who{color:var(--accent2); border-color:color-mix(in srgb, var(--accent2) 40%, var(--border));}
+
+details.tech{margin-top:16px; border:1px dashed var(--border); border-radius:10px; background:var(--bg-inset);}
+details.tech summary{
+  cursor:pointer; padding:11px 16px; font-size:13px; font-weight:600; color:var(--accent2); list-style:none;
+  display:flex; align-items:center; gap:8px; user-select:none;
+}
+details.tech summary::-webkit-details-marker{display:none;}
+details.tech summary::before{content:"▸"; transition:transform .15s ease; font-size:11px;}
+details.tech[open] summary::before{transform:rotate(90deg);}
+details.tech .tech-body{padding:2px 18px 18px;}
+details.tech .tech-body p, details.tech .tech-body li{font-size:13.5px;}
+
+.field-table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.5px;}
+.field-table th{text-align:left; font-family:var(--font-display); font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); padding:8px 12px; border-bottom:1px solid var(--border);}
+.field-table td{padding:9px 12px; border-bottom:1px solid var(--border-soft); color:var(--text-dim); vertical-align:top;}
+.field-table td:first-child{color:var(--text); font-weight:600; white-space:nowrap;}
+
+.status-pill{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-family:var(--font-display); padding:3px 10px; border-radius:20px; border:1px solid var(--border); margin:2px 4px 2px 0;}
+.status-pill .dot{width:6px; height:6px; border-radius:50%;}
+.status-pill.open .dot{background:var(--text-faint);}
+.status-pill.progress .dot{background:var(--accent2);}
+.status-pill.review .dot{background:var(--warn);}
+.status-pill.done .dot{background:var(--ok);}
+
+/* ---------- glossary ---------- */
+.glossary{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0;}
+@media (max-width:640px){ .glossary{grid-template-columns:1fr;} }
+.gterm{border:1px solid var(--border); border-radius:12px; padding:16px; background:var(--bg-card);}
+.gterm dt{font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--accent);}
+.gterm dd{margin:6px 0 0; font-size:13.5px; color:var(--text-dim);}
+
+/* ---------- faq ---------- */
+.faq-item{border-bottom:1px solid var(--border-soft); padding:18px 0;}
+.faq-item summary{cursor:pointer; font-weight:600; font-size:15px; list-style:none; display:flex; justify-content:space-between; gap:12px;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+"; color:var(--accent); font-family:var(--font-display); font-size:18px; flex:0 0 auto;}
+.faq-item[open] summary::after{content:"–";}
+.faq-item p{margin-top:10px; font-size:14.5px;}
+
+hr.sep{border:none; border-top:1px solid var(--border-soft); margin:8px 0;}
+
+.footer{padding:60px 40px 80px; max-width:880px; color:var(--text-faint); font-size:13px;}
+.footer a{color:var(--text-dim);}
+
+table.matrix{width:100%; border-collapse:collapse; margin:16px 0; font-size:13px;}
+table.matrix th{background:var(--bg-inset); text-align:left; padding:9px 12px; font-family:var(--font-display); font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); border:1px solid var(--border-soft);}
+table.matrix td{padding:9px 12px; border:1px solid var(--border-soft); color:var(--text-dim);}
+table.matrix td:first-child{color:var(--text); font-weight:600;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span> PIPELINE MARKETING × CLICKUP</div>
+  <div class="theme-toggle" id="themeToggle">
+    <button data-theme="light">Claro</button>
+    <button data-theme="dark">Escuro</button>
+    <button data-theme="system" class="active">Sistema</button>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="sidenav">
+    <div class="group">
+      <div class="group-label">Começar</div>
+      <a href="#inicio-rapido"><span class="n">»</span> Início rápido</a>
+      <a href="#visao-geral"><span class="n">◆</span> Visão geral</a>
+      <a href="#conceitos"><span class="n">?</span> Conceitos-chave</a>
+    </div>
+    <div class="group">
+      <div class="group-label">As 10 etapas</div>
+      <a href="#etapa-1"><span class="n">1</span> Sondagem</a>
+      <a href="#etapa-2"><span class="n">2</span> Lote</a>
+      <a href="#etapa-3"><span class="n">3</span> Benchmark</a>
+      <a href="#etapa-4"><span class="n">4</span> Aprovação → Planejamento</a>
+      <a href="#etapa-5"><span class="n">5</span> Modelagem</a>
+      <a href="#etapa-6"><span class="n">6</span> Copywriting</a>
+      <a href="#etapa-7"><span class="n">7</span> Design & Criação</a>
+      <a href="#etapa-8"><span class="n">8</span> Aprovação → Agendamento</a>
+      <a href="#etapa-9"><span class="n">9</span> Publicação no Instagram</a>
+      <a href="#etapa-10"><span class="n">10</span> Agendamento autônomo</a>
+    </div>
+    <div class="group">
+      <div class="group-label">Referência</div>
+      <a href="#boas-praticas"><span class="n">✓</span> Boas práticas</a>
+      <a href="#sync"><span class="n">↻</span> Edição manual & sync</a>
+      <a href="#faq"><span class="n">i</span> Perguntas frequentes</a>
+      <a href="#roadmap"><span class="n">→</span> O que vem a seguir</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <span class="kicker">Guia definitivo</span>
+      <h1>Do post de outro criador ao post publicado — em um pipeline só</h1>
+      <p class="lede">
+        Este documento explica, do início ao fim, como o squad de Marketing transforma criativos de alto
+        engajamento que descobrimos nas redes em <strong>conteúdo autoral, publicado de verdade no
+        Instagram</strong>, com todo o processo acompanhável dentro do ClickUp — da sondagem até o post no
+        ar, sozinho, na hora certa. Se você nunca rodou isso antes, siga o
+        <a href="#inicio-rapido">Início rápido</a>. Se quer entender o "porquê" por trás de cada decisão,
+        abra as caixinhas <strong>"Como funciona por dentro"</strong> em cada etapa.
+      </p>
+      <div class="hero-actions">
+        <a href="#inicio-rapido" class="btn btn-primary">Começar agora →</a>
+        <a href="#conceitos" class="btn btn-ghost">Ver glossário</a>
+      </div>
+    </header>
+
+    <div class="stepper" id="visao-geral">
+      <a class="step-chip" href="#etapa-1"><div class="idx">01</div><div class="title">Sondagem</div><div class="who">você decide</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-2"><div class="idx">02</div><div class="title">Lote no ClickUp</div><div class="who">automático</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-3"><div class="idx">03</div><div class="title">Benchmark + Auditoria</div><div class="who">automático</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-4"><div class="idx">04</div><div class="title">Você aprova o Lote</div><div class="who">você decide</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-5"><div class="idx">05</div><div class="title">Plano de Modelagem</div><div class="who">automático</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-6"><div class="idx">06</div><div class="title">Copywriting</div><div class="who">automático</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-7"><div class="idx">07</div><div class="title">Design & Criação</div><div class="who">você escolhe quais</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-8"><div class="idx">08</div><div class="title">Você aprova pra Agendamento</div><div class="who">você decide</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-9"><div class="idx">09</div><div class="title">Publicação no Instagram</div><div class="who">você confirma</div></a>
+      <div class="step-arrow">→</div>
+      <a class="step-chip" href="#etapa-10"><div class="idx">10</div><div class="title">Agendamento autônomo</div><div class="who">automático</div></a>
+    </div>
+
+    <section class="section" id="inicio-rapido">
+      <span class="kicker">Cola rápida</span>
+      <h2>🚀 Início rápido</h2>
+      <p>Se você só quer saber a sequência de comandos, é essa. Cada um está detalhado mais abaixo — aqui é
+      só o mapa.</p>
+      <div class="code-block">
+<span class="label">terminal — na raiz do repositório</span>
+<pre><span class="cmt"># 1. Monitorar redes e gerar rankings do dia</span>
+*daily-monitor
+
+<span class="cmt"># 2. Você marca [x] na coluna "Sondagem" dos rankings gerados</span>
+<span class="cmt"># 3. Criar o Lote no ClickUp a partir do que você marcou</span>
+node services/ETL/Load/create-lote-de-conteudos.js oraclum 2026-08-15 --dry-run
+node services/ETL/Load/create-lote-de-conteudos.js oraclum 2026-08-15
+
+<span class="cmt"># 4. Baixar, transcrever e auditar os criativos aprovados</span>
+*creative-benchmark
+*audit-benchmark
+
+<span class="cmt"># 5. Espelhar a análise no ClickUp (Pack de Análise)</span>
+node services/ETL/Load/sync-benchmark-to-clickup.js oraclum 2026-08-15
+
+<span class="cmt"># 6. Você aprova o Lote inteiro → ClickUp move sozinho pra Planejamento</span>
+node services/ETL/Load/approve-lote.js list oraclum
+node services/ETL/Load/approve-lote.js apply oraclum --lote=&lt;loteId&gt;
+
+<span class="cmt"># 7. Gerar o Plano de Modelagem (roteiro/estrutura por formato)</span>
+node services/ETL/Load/run-planning-modeling.js oraclum 2026-08-15
+
+<span class="cmt"># 8. Você aprova pra Copywriting (separa do Lote, de propósito)</span>
+node services/ETL/Load/approve-planning.js list oraclum
+node services/ETL/Load/approve-planning.js apply oraclum --approve=&lt;id1,id2,...&gt;
+
+<span class="cmt"># 9. Gerar a copy final</span>
+node services/ETL/Load/run-copywriting.js oraclum 2026-08-15
+
+<span class="cmt"># 10. Você aprova pra Design & Criação</span>
+node services/ETL/Load/approve-copywriting.js list oraclum
+node services/ETL/Load/approve-copywriting.js apply oraclum --approve=&lt;id1,id2,...&gt;
+
+<span class="cmt"># 11. Você escolhe quais renderizar agora (carrossel/post — vídeo é manual)</span>
+node services/ETL/Load/run-design-creative.js list oraclum 2026-08-15
+node services/ETL/Load/run-design-creative.js run oraclum 2026-08-15 --pick=&lt;id1,id2&gt;
+
+<span class="cmt"># 12. Você aprova pra Agendamento (sobe o pack final aprovado pro card)</span>
+node services/ETL/Load/approve-design-creative.js list oraclum
+node services/ETL/Load/approve-design-creative.js apply oraclum --approve=&lt;id1,id2,...&gt;
+
+<span class="cmt"># 13. Ver o que está pronto pra publicar, e conferir antes de publicar</span>
+node services/ETL/Load/publish-instagram.js list oraclum
+node services/ETL/Load/publish-instagram.js preview oraclum --task=&lt;taskId&gt;
+
+<span class="cmt"># 14a. Publicar AGORA (pede confirmação digitada antes de ir ao ar)</span>
+node services/ETL/Load/publish-instagram.js publish oraclum --task=&lt;taskId&gt;
+
+<span class="cmt"># 14b. OU agendar pra "Data da Publicação" definida no card (dispara sozinho)</span>
+node services/ETL/Load/publish-instagram.js schedule oraclum --task=&lt;taskId&gt;</pre>
+      </div>
+      <div class="callout tip">
+        <div class="icon">💬</div>
+        <p>Na prática, você não precisa decorar nenhum desses comandos. Converse com o <code>@marketing-chief</code>
+        no Claude Code normalmente ("roda o daily-monitor de hoje pra Oraclum", "quero aprovar o lote") — ele
+        conhece esses comandos e te guia com perguntas simples (checkboxes) em cada decisão. Este guia existe
+        pra você entender o que está acontecendo por trás, não pra você digitar tudo na mão.</p>
+      </div>
+    </section>
+
+    <section class="section" id="conceitos">
+      <span class="kicker">Antes de começar</span>
+      <h2>Conceitos-chave</h2>
+      <p>Dez termos que aparecem o tempo todo neste pipeline. Vale ler antes de seguir pras etapas.</p>
+      <dl class="glossary">
+        <div class="gterm"><dt>Sondagem</dt><dd>A seleção manual que você faz marcando <code>[x]</code> nos rankings do dia — só o que você aprova aqui entra no pipeline. É o primeiro filtro humano.</dd></div>
+        <div class="gterm"><dt>Lote</dt><dd>Um pacote de criativos aprovados na mesma sondagem, virando 1 task-pai + N subtasks no ClickUp. Nomeado <code>Lote L{NN} - {data}</code>.</dd></div>
+        <div class="gterm"><dt>Benchmark</dt><dd>O criativo de referência de outro criador — a "bússola". Nunca é copiado; serve pra entender formato, hook e estrutura que funcionaram.</dd></div>
+        <div class="gterm"><dt>Pack de Análise</dt><dd>Documento (Google Docs) com a transcrição + auditoria de 5 especialistas do criativo de referência. Primeiro artefato gerado, some do funil só quando você aprova de vez.</dd></div>
+        <div class="gterm"><dt>Plano de Modelagem</dt><dd>O "roteiro" do SEU criativo — estrutura, hook, direção visual — inspirado no benchmark mas autoral, na voz do cliente.</dd></div>
+        <div class="gterm"><dt>Copy & Direcionamento</dt><dd>O texto final (headline, corpo, roteiro) já escrito e revisado, pronto pra virar o criativo de verdade.</dd></div>
+        <div class="gterm"><dt>Descrição & Hashtags</dt><dd>A legenda pronta pra colar no Instagram na hora de publicar, gerada a partir da copy final aprovada.</dd></div>
+        <div class="gterm"><dt>Pack de Criativos Aprovados</dt><dd>O pack final (imagem/vídeo, na ordem certa) anexado direto no card de Agendamento — a MESMA mídia que vira a publicação real no Instagram, sem intermediário.</dd></div>
+        <div class="gterm"><dt>Data da Publicação</dt><dd>Campo de data no card de Agendamento. Preenchido, é o que o agendamento autônomo usa pra saber quando disparar sozinho.</dd></div>
+        <div class="gterm"><dt>Link da Publicação</dt><dd>Preenchido automaticamente assim que o post sai no ar — o link real do Instagram, pra você conferir sem sair do ClickUp.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ETAPA 1 -->
+    <section class="section" id="etapa-1">
+      <span class="kicker">Etapa 1 de 10</span>
+      <h2>📡 Sondagem — descobrindo o que funciona</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">1</div>
+          <div>
+            <h4>Monitoramento diário + sua curadoria</h4>
+            <div class="sub">daily-monitor · squads/virals-marketing-squad</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p><strong>Pra que serve:</strong> todo dia, o sistema varre Instagram, TikTok, YouTube e LinkedIn
+          atrás de posts com engajamento alto — não do seu perfil, de QUALQUER criador relevante ao nicho.
+          Esses posts viram uma lista ordenada (ranking) que você revisa.</p>
+          <p><strong>O que você faz:</strong> abre os arquivos de ranking gerados (markdown, com uma tabela)
+          e marca <code>[x]</code> na coluna <strong>Sondagem</strong> dos criativos que valem virar
+          referência. É o único passo 100% manual e intencional do início do funil — o resto só avança com
+          a sua aprovação em pontos específicos.</p>
+          <div class="badge-row">
+            <span class="badge who">Você decide</span>
+            <span class="badge">Gera 2 rankings: geral e por confluência com a marca</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>O ranking <strong>geral</strong> ordena por Score Normalizado (0–100 dentro de cada
+              plataforma — assim o YouTube com views não domina só por ter uma métrica maior). O ranking de
+              <strong>confluência</strong> ordena diferente: pela aderência ao DNA da marca (léxico,
+              pilares de conteúdo, evidência numérica), não pelo engajamento puro — um post com menos likes
+              mas que "fala a língua" do cliente pode vir na frente de um viral genérico.</p>
+              <p>Os dois rankings têm a mesma coluna <strong>Descrição</strong> (a legenda real do post
+              original, truncada) — é o que alimenta o nome das subtasks e a geração de legenda lá na
+              frente.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 2 -->
+    <section class="section" id="etapa-2">
+      <span class="kicker">Etapa 2 de 10</span>
+      <h2>📦 Vira Lote no ClickUp</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">2</div>
+          <div>
+            <h4>create-lote-de-conteudos.js</h4>
+            <div class="sub">Máquina de Idéias · Marketing → Produção de Conteúdo</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p><strong>O que acontece:</strong> os criativos que você marcou viram 1 task-pai
+          (<code>Lote L{NN} - {data}</code>) com uma subtask por criativo, cada uma nomeada de um jeito que
+          já te diz do que se trata: <code>{id único} · @perfil · {descrição curta}</code>.</p>
+          <table class="field-table">
+            <tr><th>Comando</th><th>O que faz</th></tr>
+            <tr><td><code>--dry-run</code></td><td>Mostra o que SERIA criado, sem gravar nada — sempre rode primeiro.</td></tr>
+            <tr><td>sem flag</td><td>Cria de verdade: o Lote, as subtasks, e um mapa local ligando cada uma à sua origem.</td></tr>
+          </table>
+          <div class="badge-row"><span class="badge">Status inicial: <b>Para Fazer</b></span></div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>O tipo de tarefa de cada subtask (Vídeo Curto, Vídeo Longo, Carrocel, Post) é inferido pelo
+              padrão da URL — um reel vira "Vídeo Curto" com certeza, mas um post <code>/p/</code> do
+              Instagram pode ser imagem única OU carrossel, e a URL sozinha não distingue. Nesse caso o
+              sistema marca como incerto e confirma de verdade só depois que o benchmark baixa o conteúdo.</p>
+              <p>A numeração do Lote é sequencial e cruza TODAS as listas do funil — não reinicia por
+              cliente, então "Lote L05" nunca colide com outro cliente que também tenha um Lote 05.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 3 -->
+    <section class="section" id="etapa-3">
+      <span class="kicker">Etapa 3 de 10</span>
+      <h2>🔬 Benchmark + Auditoria especializada</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">3</div>
+          <div>
+            <h4>*creative-benchmark → *audit-benchmark → sync-benchmark-to-clickup.js</h4>
+            <div class="sub">ainda em Máquina de Idéias</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p><strong>O que acontece:</strong> cada criativo aprovado é baixado, transcrito (vídeo) ou
+          analisado (imagem), e então avaliado por um painel de 5 auditores especialistas — cada um olhando
+          um ângulo diferente: retenção, fit de marca, copy, design visual, edição/motion.</p>
+          <p>No fim, o ClickUp mostra o resultado direto no card: um link pro
+          <strong>Pack de Análise</strong> (Google Doc com a transcrição + as 5 auditorias + um veredito
+          consolidado) e o status muda pra <strong>Em Aprovação</strong> — é o sinal de "pronto pra você
+          decidir".</p>
+          <div class="badge-row">
+            <span class="badge who">Automático</span>
+            <span class="badge">Painel: retenção · fit de marca · copy · visual · motion</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>Um criativo pode sair <strong>degradado</strong> — significa que o download falhou e a
+              "análise" que sobrou é só de capa/metadados, sem conteúdo real. O sistema nunca finge que um
+              degradado é normal: ele aparece marcado, e não deveria virar base de decisão nem de
+              modelagem. Foi assim que aprendemos essa lição — uma execução antiga reportou "10 ok" com 0
+              vídeos baixados de verdade, e a auditoria em cima disso saiu sobre nada.</p>
+              <p>O Pack de Análise vira um Google Doc (não um Doc nativo do ClickUp) por decisão explícita:
+              abrir um Doc do ClickUp pula pra outra janela e quebra o fluxo de revisão; o Drive abre como
+              aba comum. Cada Doc fica na pasta <code>{Cliente}/Marketing/Produção de Conteúdo/{Lote}/</code>
+              dentro do Drive do cliente.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 4 -->
+    <section class="section" id="etapa-4">
+      <span class="kicker">Etapa 4 de 10</span>
+      <h2>✅ Você aprova o Lote</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">4</div>
+          <div>
+            <h4>approve-lote.js</h4>
+            <div class="sub">Máquina de Idéias → Planejamentos & Cronogramas</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p><strong>O que você vê:</strong> uma lista com TODOS os criativos pendentes do Lote, cada um com
+          o veredito do painel de auditoria (modelar / inspirar / ignorar) e o score — como recomendação,
+          não como filtro. Você decide quem segue, independente do que o painel sugeriu.</p>
+          <p><strong>O que acontece quando você aprova:</strong> o Lote inteiro (não cada subtask
+          individualmente) muda de status — e isso dispara uma automação nativa do ClickUp que move o card
+          pra Planejamentos & Cronogramas, já em <strong>Para Fazer</strong>, com a hierarquia Lote →
+          subtasks preservada.</p>
+          <div class="badge-row"><span class="badge who">Você decide</span></div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>Por que só o Lote muda de status, nunca as subtasks direto? Porque a automação de
+              migração do ClickUp dispara <em>por task</em> — se cada subtask mudasse de status
+              individualmente, cada uma migraria sozinha e a hierarquia com o Lote se perderia (isso
+              aconteceu numa das primeiras execuções: 13 subtasks viraram tasks soltas, sem vínculo com o
+              pai). Movendo só o Lote, as subtasks aprovadas — que não tiveram o status tocado — migram
+              junto, ainda amarradas ao Lote-pai.</p>
+              <p>Quando o Lote fica sem nenhuma subtask (todas migraram nas etapas seguintes), ele mesmo é
+              fechado como <strong>Lote Finalizado</strong> — o registro do que aconteceu naquele dia de
+              sondagem continua existindo, só não tem mais itens ativos dentro.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 5 -->
+    <section class="section" id="etapa-5">
+      <span class="kicker">Etapa 5 de 10</span>
+      <h2>🧭 Plano de Modelagem</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">5</div>
+          <div>
+            <h4>run-planning-modeling.js</h4>
+            <div class="sub">Planejamentos & Cronogramas</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p><strong>O que acontece:</strong> cada criativo aprovado ganha um roteiro/estrutura próprio —
+          não é o benchmark copiado, é uma peça nova, na voz do cliente, inspirada no que fez o original
+          funcionar (hook, ritmo, estrutura de argumento).</p>
+          <table class="field-table">
+            <tr><th>Formato</th><th>O que é gerado</th></tr>
+            <tr><td>Vídeo Curto/Longo</td><td>Hook (3 variantes), storyboard batida-a-batida, roteiro completo, guia de edição e lista de gravação.</td></tr>
+            <tr><td>Carrossel / Post</td><td>Arquétipo, tema central e a direção de copy + visual de cada slide (ainda não é o texto final).</td></tr>
+          </table>
+          <div class="badge-row">
+            <span class="badge who">Automático (roda o batch inteiro)</span>
+            <span class="badge">Resultado vira link em "Plano de Modelagem"</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>Vídeo tem um <strong>gate terminal de fidelidade</strong> — se o plano tentar inventar um
+              número, resultado ou atribuição que não existe na fonte, a saída é bloqueada e não some
+              silenciosamente como "ok". Esse é um princípio do pipeline inteiro: nunca inventamos
+              estatística, case ou resultado de cliente. Se não tem base real, o sistema avisa em vez de
+              preencher com fabricação.</p>
+              <p>Status durante o processamento: <span class="status-pill progress"><span class="dot"></span>fazendo</span>
+              → quando pronto: <span class="status-pill review"><span class="dot"></span>em aprovação</span>.
+              Um criativo travado num erro fica visível como travado — nunca é reportado como concluído por
+              engano.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 6 -->
+    <section class="section" id="etapa-6">
+      <span class="kicker">Etapa 6 de 10</span>
+      <h2>✍️ Copywriting</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">6</div>
+          <div>
+            <h4>approve-planning.js → run-copywriting.js</h4>
+            <div class="sub">Planejamentos & Cronogramas → Processo de Copywriting</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Aqui a aprovação funciona diferente da Etapa 4: cada criativo é aprovado
+          <strong>individualmente</strong> e se separa do Lote de propósito — a partir daqui, cada peça
+          segue seu próprio ritmo, sem depender do resto do grupo.</p>
+          <p>Depois de aprovado, a copy final é escrita. Vídeo já sai com o roteiro pronto da etapa
+          anterior — não precisa reescrever. Carrossel e post são onde a copy de verdade nasce: a direção
+          vira headline, subtítulo e corpo definitivos, revisados por um checklist automático de qualidade
+          (frases muito longas, jargão, tom formal demais, placeholders esquecidos).</p>
+          <div class="badge-row">
+            <span class="badge who">Você aprova, sistema escreve</span>
+            <span class="badge">Resultado vira link em "Copy & Direcionamento"</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>A lista de Copywriting tem uma automação com uma pegadinha: o gatilho de "copy pronta"
+              olha um campo (quem é o responsável pela copy) pra decidir pra onde mandar o card — se esse
+              campo estiver vazio, o ClickUp <strong>pula a etapa de Design inteira</strong> e manda direto
+              pra Agendamento. O sistema preenche esse campo automaticamente antes de mudar o status, então
+              você nunca precisa se preocupar com isso — só é bom saber que existe, caso um dia veja um
+              card "sumir" de uma etapa.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 7 -->
+    <section class="section" id="etapa-7">
+      <span class="kicker">Etapa 7 de 10</span>
+      <h2>🎨 Design & Criação</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">7</div>
+          <div>
+            <h4>approve-copywriting.js → run-design-creative.js</h4>
+            <div class="sub">Processo de Copywriting → Processo de Design e Criação</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Depois de aprovada a copy, o criativo chega em Design & Criação em <strong>Para Fazer</strong>
+          — mas, diferente de todas as etapas anteriores, nada roda sozinho aqui. É você quem escolhe, um
+          checkbox por vez, quais criativos produzir agora.</p>
+          <p>Pra carrossel e post, o motor renderiza o design de verdade (mesmo mecanismo do Studio),
+          anexa cada slide final direto no card do ClickUp, e escreve a legenda pronta pra postar —
+          com hashtags — no campo <strong>Descrição & Hashtags</strong>, usando a legenda do post
+          original só como referência de estilo, nunca copiada.</p>
+          <div class="callout warn">
+            <div class="icon">🎬</div>
+            <p><strong>Vídeo fica de fora aqui, de propósito.</strong> A automação de edição de vídeo ainda é
+            mais complexa de garantir com qualidade — por enquanto, os vídeos ficam parados em "Para Fazer"
+            exatamente prontos (com Plano de Modelagem e roteiro completo já no card) pra você editar
+            manualmente no Studio quando quiser. Depois de editado à mão e salvo em <code>outputs/</code>, o
+            <a href="#sync">loop de sincronização</a> abaixo já reconhece o vídeo sozinho — não precisa de
+            comando especial só porque é vídeo.</p>
+          </div>
+          <div class="badge-row"><span class="badge who">Você escolhe quais processar</span></div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>O motor de render é o mesmo app usado no Studio (<code>apps/creative-design</code>) —
+              precisa estar rodando localmente pra funcionar. Isso significa que o resultado que você vê
+              anexado na task é <em>exatamente</em> o que você veria abrindo o Studio na tela.</p>
+              <p>Status final: <span class="status-pill review"><span class="dot"></span>em revisão</span> —
+              o criativo final está pronto pra você olhar e decidir os próximos passos.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 8 -->
+    <section class="section" id="etapa-8">
+      <span class="kicker">Etapa 8 de 10</span>
+      <h2>📋 Você aprova pra Agendamento</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">8</div>
+          <div>
+            <h4>approve-design-creative.js</h4>
+            <div class="sub">Processo de Design e Criação → Agendamento, Publicações & Disparos</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Quando um criativo está em <strong>Em Aprovação</strong> depois de revisado, aprovar aqui faz
+          duas coisas: sobe o pack final — na ordem certa, imagem ou vídeo, o que tiver sido editado por
+          último — pro campo <strong>Pack de Criativos Aprovados</strong>, e move o card pra Agendamento,
+          Publicações & Disparos, já em <strong>Para Agendar</strong>.</p>
+          <p>O pack aparece com thumbnail visível direto no card — clicar abre uma galeria nativa do
+          ClickUp navegando entre os itens, vídeo incluso com player funcional. É o "vitrine" que mostra
+          exatamente o que vai ser publicado, sem precisar abrir o Studio ou o outputs/ local pra
+          conferir.</p>
+          <div class="badge-row">
+            <span class="badge who">Você aprova</span>
+            <span class="badge">Pack visível com 1 clique na lista</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>Mesma pegadinha de automação das etapas anteriores, versão nova: o gatilho de "criação
+              finalizada" olha o campo <strong>Gestor de Tráfego</strong> pra decidir o destino. Vazio (o
+              caso de hoje, sem tráfego pago ativo) → vai direto pra Agendamento. Preenchido → desviaria
+              pra uma lista privada de teste de tráfego pago, caminho que não é usado agora. O script nunca
+              toca nesse campo — deixar vazio de propósito É o comportamento certo aqui.</p>
+              <p>O pack sempre vem de <code>outputs/</code> — a pasta local é a fonte confiável, nunca o
+              ClickUp. Isso importa quando você edita um slide manualmente (ex.: troca uma imagem por um
+              vídeo real direto na pasta): o que sobe pro card é sempre o estado mais recente da pasta, não
+              importa como ele chegou lá.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 9 -->
+    <section class="section" id="etapa-9">
+      <span class="kicker">Etapa 9 de 10</span>
+      <h2>📮 Publicação no Instagram</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">9</div>
+          <div>
+            <h4>publish-instagram.js — list · preview · publish</h4>
+            <div class="sub">Agendamento, Publicações & Disparos</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Com o criativo em <strong>Para Agendar</strong>, três comandos: <code>list</code> mostra tudo
+          que está pronto pra sair; <code>preview</code> mostra o pack completo e a legenda de UM criativo
+          específico, sem publicar nada; <code>publish</code> faz a publicação de verdade — mas só depois
+          de mostrar o preview de novo e exigir que você digite <code>PUBLICAR</code> (maiúsculo) pra
+          confirmar. Sem essa palavra exata, nada é publicado.</p>
+          <p>A mídia publicada é a mesma URL que já estava no <strong>Pack de Criativos Aprovados</strong>
+          — a legenda vem de <strong>Descrição & Hashtags</strong>. Depois de publicar, o status vira
+          <strong>Publicado</strong> e o campo <strong>Link da Publicação</strong> já vem preenchido com o
+          link real do post, sem passo manual extra.</p>
+          <div class="callout danger">
+            <div class="icon">🚫</div>
+            <p><strong>Isso publica de verdade, pra sempre.</strong> Não existe "desfazer" um post no
+            Instagram pela API. O <code>preview</code> existe exatamente pra você conferir tudo — pack,
+            ordem dos slides, legenda completa — antes de chegar no passo que não tem volta.</p>
+          </div>
+          <div class="badge-row">
+            <span class="badge who">Você confirma cada publicação</span>
+            <span class="badge">Instagram Graph API oficial — nunca automação de navegador</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>A publicação usa a <strong>API oficial da Meta</strong>, não automação de browser — decisão
+              deliberada: a Meta detecta e pode aplicar checkpoint/bloqueio numa conta de produção que use
+              automação de navegador pra postar. A API exige um fluxo de 2 passos por item: cria um
+              "container" (a mídia + legenda, ainda não publicado) e só depois publica esse container. Post
+              único usa 1 container; carrossel usa 1 container por slide + 1 container "pai" reunindo
+              todos.</p>
+              <p>Todo container — imagem, vídeo, ou o pai de um carrossel — passa por um estado
+              <code>IN_PROGRESS</code> antes de <code>FINISHED</code>. Publicar cedo demais falha com um
+              erro genérico da Meta; o motor espera (poll) até <code>FINISHED</code> em todos os casos,
+              não só vídeo como a documentação oficial sugere.</p>
+              <p>Vídeo <em>dentro</em> de um carrossel precisa do parâmetro <code>media_type=VIDEO</code>
+              explícito — sem isso a Meta assume que é imagem por padrão e devolve um erro enganoso
+              pedindo a URL de imagem, mesmo com a URL de vídeo certa no pedido. Foi um bug real encontrado
+              testando o primeiro carrossel misto (imagem + vídeo + imagem) — antes disso, só se testava
+              vídeo isolado ou carrossel só de imagem, nunca os dois combinados.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 10 -->
+    <section class="section" id="etapa-10">
+      <span class="kicker">Etapa 10 de 10</span>
+      <h2>⏱️ Agendamento autônomo</h2>
+      <div class="stage">
+        <div class="stage-head">
+          <div class="stage-num">10</div>
+          <div>
+            <h4>publish-instagram.js schedule</h4>
+            <div class="sub">Agendamento, Publicações & Disparos</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <p>Pra não precisar lembrar de publicar na hora certa: preencha o campo <strong>Data da
+          Publicação</strong> no card e rode <code>schedule</code>. Ele mostra o mesmo preview de sempre,
+          pede a confirmação de <code>AGENDAR</code> uma única vez — e a partir daí publica sozinho, na
+          hora exata, sem você precisar estar no terminal nem no computador.</p>
+          <p>O card muda pra <strong>Agendado</strong> na hora da confirmação. Quando a hora chega, o
+          disparo publica, preenche o link, e move pra <strong>Publicado</strong> — os mesmos 2 passos da
+          Etapa 9, só que sem ninguém precisando apertar o botão.</p>
+          <div class="callout ok">
+            <div class="icon">🛡️</div>
+            <p><strong>Sobrevive a reiniciar o computador.</strong> O agendamento usa o Agendador de
+            Tarefas do próprio Windows, não um processo do terminal — se o PC estiver desligado ou
+            reiniciando na hora exata, ele publica assim que a máquina volta a ficar disponível, em vez de
+            simplesmente pular o compromisso. Funciona pra qualquer data futura, não só pro mesmo dia.</p>
+          </div>
+          <div class="badge-row">
+            <span class="badge who">Automático, na hora certa</span>
+            <span class="badge">Falha vira comentário na task — nunca some calada</span>
+          </div>
+          <details class="tech">
+            <summary>Como funciona por dentro</summary>
+            <div class="tech-body">
+              <p>A Graph API do Instagram não tem "agendar" nativo — publicar é sempre imediato. O
+              agendamento é responsabilidade nossa: o comando registra uma tarefa no Agendador de Tarefas
+              do Windows (<code>schtasks</code>) configurada com <code>StartWhenAvailable</code>, disparando
+              o publish sozinho, sem pedir confirmação de novo (a confirmação já aconteceu no momento do
+              <code>schedule</code>) — e usando um token de acesso que não expira, diferente do token do
+              publish manual.</p>
+              <p>Por que não um processo do Node simplesmente "dormindo" até a hora? Duas razões reais: um
+              timer desse tipo estoura depois de ~24,8 dias (limite de 32 bits do JavaScript) e dispararia
+              cedo demais num agendamento com muita antecedência; e o processo morre com o desligamento da
+              máquina — o Agendador de Tarefas é o próprio Windows guardando o compromisso, não uma
+              aplicação em memória.</p>
+              <p>Se a publicação automática falhar (token vencido, mídia indisponível), um comentário
+              <code>❌ Publicação automática FALHOU</code> aparece na task com o motivo — o status NÃO muda
+              pra "Publicado" nesse caso, então nunca existe um card mentindo que algo foi ao ar sem ter
+              ido.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sync">
+      <span class="kicker">Loop de edição</span>
+      <h2>↻ Editando manualmente e sincronizando de volta</h2>
+      <p>Um criativo renderizado não é definitivo — você pode reabrir ele no Studio, ajustar cor, texto,
+      imagem, o que quiser, e clicar em <strong>Exportar</strong> de novo. Isso já atualiza o ClickUp
+      sozinho: sobe a versão nova anexada na task e registra um <strong>comentário com timestamp</strong>
+      linkando os arquivos daquela versão — assim você sempre sabe qual foi a v1, a v2, a v3, sem se perder
+      no meio de várias versões acumuladas.</p>
+      <div class="callout tip">
+        <div class="icon">💡</div>
+        <p>O ClickUp não permite apagar um anexo antigo por automação — então versões anteriores continuam
+        na galeria da task. O comentário datado é o jeito de saber qual é a mais recente sem precisar
+        adivinhar pela ordem.</p>
+      </div>
+    </section>
+
+    <section class="section" id="boas-praticas">
+      <span class="kicker">Referência</span>
+      <h2>✓ Boas práticas</h2>
+      <table class="matrix">
+        <tr><th>Faça</th><th>Por quê</th></tr>
+        <tr><td>Rode <code>--dry-run</code> antes de qualquer comando que grava no ClickUp</td><td>Mostra exatamente o que vai acontecer sem custo nenhum de desfazer.</td></tr>
+        <tr><td>Confie no veredito do painel de auditoria como recomendação, não regra</td><td>Você conhece o cliente e o momento melhor do que o score sozinho.</td></tr>
+        <tr><td>Trate um criativo "degradado" como não-avaliado</td><td>É metadado de capa, não é o conteúdo real — nunca é base segura de decisão.</td></tr>
+        <tr><td>Deixe a descrição da task como está</td><td>Ela é o changelog automático — analisar/editar por cima quebra o histórico.</td></tr>
+        <tr><td>Use <code>--pick=</code> pra testar um criativo isolado antes do lote inteiro</td><td>Todos os comandos de execução aceitam isso — útil pra validar algo novo sem rodar tudo.</td></tr>
+        <tr><td>Rode <code>preview</code> antes de <code>publish</code>, sempre</td><td>É a sua última chance de pegar pack errado ou legenda desatualizada antes de algo irreversível.</td></tr>
+        <tr><td>Leia a legenda inteira no preview, não só o pack</td><td>O <code>PUBLICAR</code>/<code>AGENDAR</code> digitado confirma os dois juntos — é fácil só olhar as imagens.</td></tr>
+        <tr><td>Confira o Link da Publicação depois de um agendamento disparar</td><td>Confirma visualmente que saiu certo, sem precisar abrir o Instagram.</td></tr>
+      </table>
+    </section>
+
+    <section class="section" id="faq">
+      <span class="kicker">Dúvidas comuns</span>
+      <h2>Perguntas frequentes</h2>
+
+      <details class="faq-item">
+        <summary>Um criativo "sumiu" — foi pra outra lista sem eu ver?</summary>
+        <p>Provável. Algumas listas têm automações com condição escondida (um campo que precisa estar
+        preenchido pra ir pro destino certo). O pipeline já cuida disso sozinho em todas as transições
+        conhecidas — se você mesmo mudar um status manualmente na UI do ClickUp fora do fluxo normal, vale
+        checar em qual lista o card realmente caiu antes de assumir que sumiu de vez.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Posso rodar uma etapa de novo se algo deu errado?</summary>
+        <p>Sim — os comandos de execução (benchmark, modelagem, copywriting, design) são isolados por
+        criativo: se um falhar, ele fica visivelmente travado no status atual (nunca é marcado como
+        concluído por engano) e você pode rodar de novo só ele com <code>--pick=</code>, sem afetar o
+        resto do lote.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>O que significa "Pack de Análise" vazio ou sem link?</summary>
+        <p>Normalmente indica que a etapa de sincronização (<code>sync-benchmark-to-clickup.js</code>)
+        ainda não rodou pra esse criativo, ou que ele saiu degradado no benchmark (sem conteúdo real
+        baixado). Confira o status do criativo primeiro.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Por que às vezes o tipo de tarefa (Vídeo Curto, Post, etc.) muda sozinho?</summary>
+        <p>O pipeline reconcilia o tipo automaticamente com a classificação real do benchmark toda vez que
+        processa um criativo — é mais confiável que o palpite inicial (feito só pelo padrão da URL, antes
+        do conteúdo ser baixado de verdade). Um post que parecia imagem única pode virar "Carrocel" depois
+        que o benchmark confirma que era um carrossel de verdade.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Onde ficam os arquivos gerados fora do ClickUp?</summary>
+        <p>Localmente no repositório: rankings e mapas em
+        <code>workspaces/businesses/{cliente}/marketing/daily-monitoring/{data}/</code>, benchmarks em
+        <code>.../benchmark/</code>, briefs de modelagem/copy em
+        <code>squads/virals-marketing-squad/data/</code>, e renders finais em
+        <code>outputs/{cliente}/{posts|carousels}/</code>. O ClickUp é o espelho de tudo isso, não a fonte
+        de verdade dos arquivos.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Posso agendar uma publicação pra daqui a mais de 1 dia?</summary>
+        <p>Sim, sem limite prático — o agendamento roda no Agendador de Tarefas do Windows, não num
+        processo do terminal, então funciona igual pra "daqui a 20 minutos" ou "daqui a 3 semanas".</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>E se eu desligar/reiniciar o computador antes da hora agendada?</summary>
+        <p>O agendamento sobrevive — o Windows guarda o compromisso, não o terminal. Se o PC estiver
+        desligado ou reiniciando exatamente na hora marcada, a publicação dispara assim que a máquina volta
+        a ficar disponível, em vez de simplesmente não acontecer.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Como sei se uma publicação agendada falhou?</summary>
+        <p>Um comentário <code>❌ Publicação automática FALHOU</code> aparece na própria task, com o motivo
+        do erro. O status fica em "Agendado" (nunca vira "Publicado" por engano) — é seguro rodar
+        <code>publish</code> manualmente depois de corrigir o problema.</p>
+      </details>
+    </section>
+
+    <section class="section" id="roadmap">
+      <span class="kicker">Em construção</span>
+      <h2>→ O que vem a seguir</h2>
+      <p>O funil hoje vai da sondagem à publicação automatizada no Instagram, ponta a ponta. O que ainda
+      fica de fora, por decisão explícita (não por limitação técnica descoberta tarde demais):</p>
+      <table class="matrix">
+        <tr><th>Fora do escopo atual</th><th>Por quê</th></tr>
+        <tr><td>Outras redes sociais (TikTok, LinkedIn)</td><td>O pedido foi validar 1 rede primeiro — generalizar antes disso seria construir em cima de areia.</td></tr>
+        <tr><td>Reconciliar publicações feitas fora do terminal (ex.: direto pelo app do Instagram)</td><td>Sem um caso real pra testar contra, o mecanismo certo ainda não está claro — melhor esperar acontecer de verdade.</td></tr>
+        <tr><td>Analytics pós-publicação (curtidas, alcance, insights)</td><td>Outro problema — "publicar corretamente" e "medir performance" são objetivos diferentes.</td></tr>
+        <tr><td>Múltiplos clientes publicando ao mesmo tempo</td><td>A arquitetura já é por cliente (mesmo padrão do resto do pipeline) — falta só o 2º cliente de verdade pra generalizar.</td></tr>
+      </table>
+    </section>
+
+    <div class="footer">
+      Guia mantido pelo squad de Marketing · atualize este arquivo sempre que uma etapa do pipeline mudar ·
+      referência técnica completa em <code>squads/virals-marketing-squad/agents/marketing-chief.md</code>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var saved = localStorage.getItem('pipeline-guide-theme');
+  function apply(mode){
+    if(mode === 'system'){ root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme', mode); }
+    document.querySelectorAll('.theme-toggle button').forEach(function(b){
+      b.classList.toggle('active', b.dataset.theme === mode);
+    });
+  }
+  apply(saved || 'system');
+  document.querySelectorAll('.theme-toggle button').forEach(function(b){
+    b.addEventListener('click', function(){
+      localStorage.setItem('pipeline-guide-theme', b.dataset.theme);
+      apply(b.dataset.theme);
+    });
+  });
+})();
+</script>
+</body>
+</html>

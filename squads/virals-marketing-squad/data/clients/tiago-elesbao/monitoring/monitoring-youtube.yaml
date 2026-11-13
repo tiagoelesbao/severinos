@@ -1,0 +1,78 @@
+# Monitoring Profiles: YouTube
+# Squad: virals-marketing-squad
+# Frequency: Daily (Yesterday's posts)
+
+profiles:
+  youtube:
+    - channel_id: "@thomasgonnet"
+      url: "https://www.youtube.com/@thomasgonnet"
+      priority: medium
+    - channel_id: "@bruno_faggion"
+      url: "https://www.youtube.com/@bruno_faggion"
+      priority: medium
+    - channel_id: "@AlexHormozi"
+      url: "https://www.youtube.com/@AlexHormozi"
+      priority: medium
+    - channel_id: "@willdemori"
+      url: "https://www.youtube.com/@willdemori"
+      priority: medium
+    - channel_id: "@AthosVilarins"
+      url: "https://www.youtube.com/@AthosVilarins"
+      priority: medium
+    - channel_id: "@victor.peixoto"
+      url: "https://www.youtube.com/@victor.peixoto"
+      priority: medium
+    - channel_id: "@cientistadomarketing"
+      url: "https://www.youtube.com/@cientistadomarketing"
+      priority: medium
+    - channel_id: "@ImanGadzhi"
+      url: "https://www.youtube.com/@ImanGadzhi"
+      priority: medium
+    - channel_id: "@MatheusBorgesOficial"
+      url: "https://www.youtube.com/@MatheusBorgesOficial"
+      priority: medium
+    - channel_id: "@jonascastromp4"
+      url: "https://www.youtube.com/@jonascastromp4"
+      priority: medium
+    - channel_id: "@obrunookamoto"
+      url: "https://www.youtube.com/@obrunookamoto"
+      priority: medium
+    - channel_id: "@GreylockVC"
+      url: "https://www.youtube.com/@GreylockVC/videos"
+      priority: medium
+    - channel_id: "@a16z"
+      url: "https://www.youtube.com/@a16z"
+      priority: medium
+    - channel_id: "@sequoiacapital"
+      url: "https://www.youtube.com/@sequoiacapital"
+      priority: medium
+    - channel_id: "@ycombinator"
+      url: "https://www.youtube.com/@ycombinator"
+      priority: medium
+    - channel_id: "@northropgrummanmedia"
+      url: "https://www.youtube.com/@northropgrummanmedia"
+      priority: medium
+    - channel_id: "@mmatheusporto"
+      url: "https://www.youtube.com/@mmatheusporto"
+      priority: medium
+    - channel_id: "@TheoBragaSme"
+      url: "https://www.youtube.com/@TheoBragaSme"
+      priority: medium
+    - channel_id: "@antoniobussiki1"
+      url: "https://www.youtube.com/@antoniobussiki1"
+      priority: medium
+    - channel_id: "@MatheusMotaMarca"
+      url: "https://www.youtube.com/@MatheusMotaMarca"
+      priority: medium
+    - channel_id: "@russellbrunson"
+      url: "https://www.youtube.com/@russellbrunson"
+      priority: medium
+    - channel_id: "@icarode.carvalho"
+      url: "https://www.youtube.com/@icarode.carvalho"
+      priority: medium
+    - channel_id: "@GabrielFerreira"
+      url: "https://www.youtube.com/@GabrielFerreira"
+      priority: medium
+    - channel_id: "@CanaldoEslen"
+      url: "https://www.youtube.com/@CanaldoEslen/videos"
+      priority: medium

@@ -1,0 +1,10 @@
+# Receita — prova de conceito da arquitetura de templates (2026-10-10)
+template: GarantidoTake2Ad
+take_file: take2_video1-fonte_sem-texto_20261008_clean.mp4
+headline:
+  line1: "ISSO NÃO TEM ENSAIO."
+  line2_words: ["O RESULTADO", "TAMBÉM NÃO."]
+  highlight_word: "TAMBÉM NÃO."
+hook: garantido-hook-zoom-in
+angulo: emocional
+nota: "Copy B = headline já aprovada do Take1 (GARANTIDO_HEADLINES.take1), cross-aplicada aqui no template/take do Take2 — prova deliberada de que QUALQUER copy já escrita funciona em QUALQUER template via receita, sem tocar .tsx. Hook B = zoom-in."

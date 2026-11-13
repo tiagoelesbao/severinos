@@ -1,0 +1,189 @@
+schema_version: '5.0'
+generated_at: '2026-08-19T23:10:18'
+archetype: single
+post_brief:
+  slug: v5-single-15-airesearches-9a744f
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\15-airesearches-9a744f
+  source_url: https://www.instagram.com/airesearches/p/DcLHz5DFvWH/
+  layout: text-over-image
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 1
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 5.5/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Inserir os elementos da interface do painel Oraclum e o processo de geração de
+    vídeo nos primeiros 3 segundos para garantir demonstração de valor imediato e
+    alinhar o gancho à eficiência da plataforma. - Substitua o verde‑água por ciano
+    #00F0FF, i'
+  audits_present: true
+content_data:
+- slide_n: 1
+  variant: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  source:
+    headline_label: ocr
+    headline_source: ocr
+    body_label: ocr
+    extraction_ok: false
+  reference_headline: GRANDSON SNEAKS AI FOOTAGE OF HIS GRANDMA INTO HER FAVORITE
+    MOVIE
+  reference_body: SWIPE FOR MORE
+  headline: GRANDSON SNEAKS AI FOOTAGE OF HIS GRANDMA INTO HER FAVORITE MOVIE
+  sub_headline: ABERTURA
+  body_text: SWIPE FOR MORE
+  design_triggers: []
+  text_metrics:
+    headline_chars: 65
+    body_chars: 14
+    headline_tier: sm
+    body_tier: lg
+    density: light
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  ai_prompt: 'Editorial marketing key visual representing the concept ''GRANDSON SNEAKS
+    AI FOOTAGE OF HIS GRANDMA INTO HER FAVORITE MOVIE''. Mood: editorial. Modern flat
+    editorial design, premium social media aesthetic, brand palette deep navy #08080C
+    and signal red #A855F7, soft cinematic lighting, high-end, NO TEXT, NO WORDS,
+    1:1 composition.'
+  accent_color: '#A855F7'
+  personalization:
+    status: PENDING_RECAST
+    directive: 'Manter o tema/notícia do slide; otimizar o gancho e adaptar à voz
+      Virals. Preservar os gatilhos: os gatilhos do benchmark.'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: WARN
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/1
+  bodies_extracted: 1/1
+  headlines_via_heuristic: 0
+  personalization_pending: 1
+benchmark_analysis:
+  tema_central: Um neto usa IA para inserir secretamente imagens de sua avó em seu
+    filme favorito, criando uma surpresa familiar viral.
+  formato: Story hook / case único de conteúdo viral de um único slide.
+  arco_narrativo: 'Gancho emocional/novidade imediata via headline chamado para swipe
+    → potencial de continuidade. Em um slide, o arco é concentrado em segundos: capturar
+    atenção, demonstrar o ''impossível'' (IA + avó no filme) e direcionar para mais
+    conteúdo.'
+  estrutura:
+  - slide_n: 1
+    papel: Gancho + Chamada para Ação (Swipe for More)
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Gancho emocional forte (família + filme)
+  - Novidade tecnológica (IA generativa)
+  - Curiosidade visual (avô-neto 'furtando' footage)
+  - CTA claro e direto (Swipe for More)
+  - Alto potencial de compartilhamento por nostalgia e tecnologia
+  recomendacao:
+    slides_ideais: 1
+    justificativa: 'O slide único possui gancho narrativo forte e CTA direto. As adaptações
+      obrigatórias (interface Oraclum nos primeiros 3s, cor #00F0FF) podem ser integradas
+      nesse slide sem aumentar o número de slides, mantendo o foco e evitando diluição
+      de atenção. Com redundância zero, a estrutura está otimizada para performance
+      viral máxima em formato curto.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:11:23'
+content_plan:
+  archetype: quote|news|single
+  slide_count: 1
+  tema: Netinho usa IA para inserir fotos da avó em filmes favoritos — surpresa viral
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O FILME DA AVÓ
+    copy_direction: Um neto esconde memórias na tela do filme favorito usando IA —
+      veja como a surpresa virou trend e continue explorando
+    image_direction: Cena de um jovem digitando em tablet enquanto a tela mostra o
+      filme com a avó subtly inserida
+    source_slides:
+    - 1
+  rationale: Um único slide atende à recomendação de performance viral máxima. O kicker
+    'O FILME DA AVÓ' conecta imediatamente à dor da audiência (conectar gerações)
+    e ao benefício concreto (IA criando surpresa). A copy_direction descreve a ação
+    prática do neto com IA no filme, sem inventar números. A imagem reforça a narrativa
+    visual. Sem slides extras, elimina redundância e mantém foco no arco narrativo
+    de gancho → payoff.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-19T23:11:52'

@@ -1,0 +1,332 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T16:20:09'
+archetype: news
+carousel_brief:
+  slug: v5-precision-30-notjournal-ai-d9b880
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\30-notjournal-ai-d9b880
+  source_url: https://www.instagram.com/notjournal.ai/p/Db3QRz_HFTQ/
+  tema: 'Modelagem de precisão: 30-notjournal-ai-d9b880'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#A855F7'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 3
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.6/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir o foco em ''mercado de luxo/relógios'' por ''eficiência operacional/IA'',
+    trocando a estética de prestígio por uma estética de dashboard de alta performance
+    e dados em tempo real. - Substituir a estética de ''luxo/status'' por uma estética
+    ''tech-'
+  audits_present: true
+benchmark_caption: 'A relojoaria independente vem ganhando força nas vendas no primeiro
+  semestre de 2026, mostrando que não é preciso produzir em grandes volumes para conquistar
+  o mercado.
+
+
+  Marcas como F.P. Journe, De Bethune, Greubel Forsey e Daniel Roth avançam impulsionadas
+  pela escassez, produção limitada e alta complexidade técnica.
+
+
+  Enquanto as grandes marcas crescem pela escala, as independentes crescem pela raridade
+  e pelo desejo dos colecionadores.
+
+
+  Credits to @everywatch_official for this amazing study and research'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: ''
+  reference_body: ''
+  headline: ONDE O CAPITAL DO COLECIONADOR ESTÁ MIGRANDO
+  sub_headline: O DESAFIO
+  body_text: Enquanto marcas de escala perdem valor, a relojoaria independente ganha
+    tração. Entenda a dinâmica de escassez que move o mercado secundário.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 141
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: luxury watch close up
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Headline direta sobre a perda de valor de marcas de escala vs. a explosão
+      de valor das independentes. Focar no benefício de entender onde o capital do
+      colecionador está migrando agora para evitar a desvalorização.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T16:20:51'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: As marcas independentes registraram crescimento
+  reference_body: de 90,53% no valor do mercado secundário em relação ao ano anterior.
+    +197% F.P.JOURNE Invenit et Fecit +64% H. Moser & Cie. VERY RARE +60% PARMIGIANI
+    FLEURIER Superando até mesmo a forte alta da Patek Philippe. O avanço foi cerca
+    de duas vezes maior que o da Rolex e três vezes maior que o da Audemars Piguet.
+    +44% ROLEX +57% PATEK PHILIPPE +29% AUDEMARS PIGUET Le Brassus
+  headline: O LUCRO ESTÁ NA ESCASSEZ
+  sub_headline: O DADO
+  body_text: Marcas independentes como F.P. JOURNE, H. Moser & Cie. e Parmigiani Fleurier
+    registram valorização no mercado secundário, superando o desempenho de gigantes
+    como Patek Philippe, Rolex e Audemars Piguet.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 24
+    body_chars: 202
+    headline_tier: lg
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: expensive watch on wrist
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Apresentar a prova quantitativa: crescimento de 90,53% no mercado
+      secundário das independentes. Destacar a performance da F.P. Journe (+197%),
+      H. Moser & Cie (+64%) e Parmigiani Fleurier (+60%), provando que superam a alta
+      da Patek Philippe.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T16:20:51'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: YM WATCHES
+  reference_body: 'F.P. JOURNE: o grande nome +197% TOTAL DE VENDAS F.P. JOURNE Invenit
+    et Fecit RELÓGIOS VENDIDOS 4.5x O CRESCIMENTO DA PATEK PHILIPPE As tradicionais
+    marcas crescem pela amplitude. As independentes crescem por meio de escassez genuína
+    e demanda autêntica.'
+  headline: MENOS ESTOQUE, MAIS DESEJO
+  sub_headline: A LIÇÃO
+  body_text: Enquanto as grandes buscam escala, as pequenas buscam raridade. Uma delas
+    cresce 4,5x mais rápido que a maior referência do setor.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 26
+    body_chars: 130
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: watchmaker working macro
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Fechar o loop comparando os modelos de negócio: marcas tradicionais
+      crescem por amplitude (escala), enquanto independentes como F.P. Journe crescem
+      por raridade (exclusividade), com vendas 4.5x superiores ao crescimento da Patek.
+      O insight é a migração do valor da escala para a especialização.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T16:20:51'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: nenhum texto de headline encontrado'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/3
+  bodies_extracted: 2/3
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  fact_fidelity_repaired:
+    2:
+    - 90%
+benchmark_analysis:
+  tema_central: A ascensão do mercado de relojoaria independente baseada em escassez
+    e valor de mercado secundário contra as marcas de escala.
+  formato: Case de análise de mercado com dados comparativos.
+  arco_narrativo: O post apresenta o fenômeno da relojoaria independente, prova o
+    crescimento explosivo através de dados percentuais de mercado secundário e finaliza
+    comparando o modelo de escala das grandes marcas com o modelo de raridade das
+    independentes.
+  estrutura:
+  - slide_n: 1
+    papel: Gancho visual/Headline (implícito pelo contexto de benchmark de alto desempenho),
+      servindo para capturar a atenção do nicho.
+    essencial: true
+  - slide_n: 2
+    papel: Prova social e evidência quantitativa, apresentando o crescimento percentual
+      das marcas principais para validar a tese.
+    essencial: true
+  - slide_n: 3
+    papel: Conclusão e Insight estratégico, comparando o modelo de negócio (escala
+      vs. raridade) e reforçando o vencedor do gráfico.
+    essencial: true
+  redundancias:
+  - 'O Slide 3 repete informações de crescimento que já foram detalhadas no Slide
+    2 (ex: dados da F.P. Journe), servindo mais como um reforço visual/conclusivo
+    do que de informação nova.'
+  fatores_de_performance:
+  - Uso de dados de alto impacto (percentuais de crescimento de quase 200%) que geram
+    autoridade imediata.
+  - Contraste de narrativas (Escala vs. Escassez), o que cria um debate intelectual
+    para o colecionador.
+  - Prova social via comparação com líderes de mercado (Patek Philippe), usando o
+    'inimigo comum' ou o padrão ouro para elevar o novo objeto de desejo.
+  - Curadoria de marcas específicas que funcionam como gatilhos de nicho para o público
+    ultra-high-net-worth.
+  recomendacao:
+    slides_ideais: 2
+    justificativa: Para a adaptação Virals (focada em eficiência operacional/IA),
+      o conteúdo deve ser mais direto. O Slide 2 e o Slide 3 podem ser fundidos em
+      um único 'Slide de Impacto de Dados' que mostre o crescimento das tecnologias/ferramentas
+      de IA vs. Métodos Tradicionais, eliminando a repetição da F.P. Journe e indo
+      direto ao insight de 'Escala vs. Especialização'.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T16:20:23'
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: A ascensão da relojoaria independente baseada em escassez e valor de mercado
+    secundário
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DESAFIO
+    copy_direction: Headline direta sobre a perda de valor de marcas de escala vs.
+      a explosão de valor das independentes. Focar no benefício de entender onde o
+      capital do colecionador está migrando agora para evitar a desvalorização.
+    image_direction: Contraste visual forte entre um relógio de marca industrial/massiva
+      e um modelo independente raro, com tipografia impactante.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O DADO
+    copy_direction: 'Apresentar a prova quantitativa: crescimento de 90,53% no mercado
+      secundário das independentes. Destacar a performance da F.P. Journe (+197%),
+      H. Moser & Cie (+64%) e Parmigiani Fleurier (+60%), provando que superam a alta
+      da Patek Philippe.'
+    image_direction: Gráfico de barras limpo e tecnológico, estilo dashboard de dados,
+      comparando as porcentagens de crescimento citadas.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: PAYOFF
+    kicker: A LIÇÃO
+    copy_direction: 'Fechar o loop comparando os modelos de negócio: marcas tradicionais
+      crescem por amplitude (escala), enquanto independentes como F.P. Journe crescem
+      por raridade (exclusividade), com vendas 4.5x superiores ao crescimento da Patek.
+      O insight é a migração do valor da escala para a especialização.'
+    image_direction: Diagrama simples de 'Escala vs. Raridade', com o logo ou imagem
+      de um F.P. Journe como símbolo da vitória da especialização.
+    source_slides:
+    - 3
+  rationale: O plano segue rigorosamente o arco narrativo solicitado (Hook, Insight,
+    Payoff), transformando a análise de mercado do benchmark em uma história de migração
+    de valor. Eliminei a redundância do benchmark fundindo os dados de crescimento
+    e a conclusão estratégica em slides distintos, porém sequenciais. Mantive a fidelidade
+    total aos números (90,53%, 197%, 64%, 60% e 4.5x) e utilizei kickers contextuais
+    em português. O tom de voz da Virals foi aplicado na objetividade e no foco em
+    dados/eficiência, evitando qualquer termo proibido ou a menção ao autor original.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T16:20:43'
+central_theme: A ascensão da relojoaria independente baseada em escassez e valor de
+  mercado secundário
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T16:20:51'
+  slides: 3
+  central_theme: A ascensão da relojoaria independente baseada em escassez e valor
+    de mercado secundário
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T16:21:26'

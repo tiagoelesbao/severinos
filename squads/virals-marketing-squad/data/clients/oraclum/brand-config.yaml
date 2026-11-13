@@ -1,0 +1,159 @@
+# Oraclum — Brand Config (Visual)
+# Configuração central de identidade visual para geração de posts e carrosséis
+# da marca Oraclum.
+# Utilizado por: design_creative pipeline.
+#
+# 2026-08-14 — REALINHADO ao design system real do site (apps/captura_ia,
+# o cofre da Oraclum Tech). A paleta anterior ("Cosmic AI Neon": Obsidian +
+# Electric Cyan + Cosmic Purple) divergia do que o site de fato usa — o site
+# não tem cyan em NENHUM lugar (confirmado via grep em apps/captura_ia/src):
+# fundo quase preto puro (#08080C), roxo único como accent (Tailwind
+# purple-500/600, radial glow, glassmorphism), CTA branco sobre fundo escuro,
+# fonte do sistema. Esta paleta agora espelha isso, pra quem vê o criativo no
+# Instagram reconhecer o mesmo visual ao entrar no site/cofre.
+#
+# Paleta: Obsidian Near-Black (#08080C) + Purple accent único (#A855F7).
+
+brand:
+  name: "Oraclum"
+  slug: "oraclum"
+  version: "2.0.0"
+  last_updated: "2026-08-14"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PALETA DE CORES — Obsidian & Purple (extraída de apps/captura_ia/src/index.css
+# e componentes — glassmorphism, grid pattern, glow roxo, CTA branco)
+# ─────────────────────────────────────────────────────────────────────────────
+palette:
+  primary: "#08080C"        # Obsidian Near-Black — fundo do site, quase preto puro
+  secondary: "#12121C"       # Glass card background do site (rgba(18,18,26,.75) opaco)
+  accent: "#A855F7"          # Purple-500 — único accent do site (glow, hover, borda)
+  accent_alt: "#7E22CE"      # Purple-700 — stop escuro dos radial gradients do site
+  accent_aurora: "#D8B4FE"   # Purple-300 — glow/destaque sutil, texto em gradiente (hero h1)
+  text_primary: "#FFFFFF"    # Texto principal
+  text_secondary: "#A1A1AA"  # Texto de apoio — zinc-400, tom usado no site
+  overlay_dark: "#0000008C"  # Overlay escuro para legibilidade (55%)
+  overlay_light: "#FFFFFF1A"
+
+  light:
+    background: "#F4F3F7"
+    text: "#08080C"
+    accent: "#A855F7"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIPOGRAFIA — Outfit (compatilhável)
+# ─────────────────────────────────────────────────────────────────────────────
+typography:
+  headline:
+    font_file: "assets/fonts/Outfit-Bold.ttf"
+    fallback: "Arial Bold"
+    fallback_strategy: "system_default"
+    sizes:
+      xl: 80
+      lg: 64
+      md: 52
+      sm: 40
+    color: "#FFFFFF"
+    letter_spacing: -1.0
+
+  body:
+    font_file: "assets/fonts/Outfit-Regular.ttf"
+    fallback: "Arial"
+    fallback_strategy: "system_default"
+    sizes:
+      lg: 32
+      md: 28
+      sm: 24
+    color: "#D0CDE0"
+
+  cta:
+    font_file: "assets/fonts/Outfit-SemiBold.ttf"
+    fallback: "Arial"
+    size: 36
+    color: "#08080C"          # Texto escuro sobre CTA branco (igual ao site)
+    background: "#FFFFFF"     # CTA branco — pill button real do site (bg-white text-zinc-950)
+    padding: [12, 32]
+
+  slide_number:
+    font_file: "assets/fonts/Outfit-Regular.ttf"
+    fallback: "Arial"
+    size: 22
+    color: "#A1A1AA"
+    format: "{current}/{total}"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LOGO — Imagem ORACLUM - 2.png
+# ─────────────────────────────────────────────────────────────────────────────
+logo:
+  default: "squads/virals-marketing-squad/data/clients/oraclum/ORACLUM - 2.png"
+  dark_bg: "squads/virals-marketing-squad/data/clients/oraclum/ORACLUM - 2.png"
+  light_bg: "squads/virals-marketing-squad/data/clients/oraclum/ORACLUM - 2.png"
+  icon_only: "squads/virals-marketing-squad/data/clients/oraclum/ORACLUM - 2.png"
+  fallback_text: "Oraclum"
+
+  positions:
+    default:
+      anchor: "bottom-right"
+      margin: 40
+      max_width: 140
+      opacity: 0.9
+    stories:
+      anchor: "top-right"
+      margin: 60
+      max_width: 120
+      opacity: 0.9
+    carousel_slide:
+      anchor: "bottom-right"
+      margin: 36
+      max_width: 100
+      opacity: 0.85
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LAYOUT DEFAULTS
+# ─────────────────────────────────────────────────────────────────────────────
+layout:
+  safe_zone_px: 60
+  text_max_width_pct: 0.85
+
+  text_positions:
+    headline_center: 0.50
+    headline_top: 0.15
+    headline_bottom: 0.65
+    body_offset: 0.12
+
+  overlays:
+    dark_standard: {color: "#000000", opacity: 0.55}
+    dark_strong: {color: "#000000", opacity: 0.75}
+    brand_subtle: {color: "#08080C", opacity: 0.35}
+    none: {opacity: 0.0}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ELEMENTOS VETORIAIS
+# ─────────────────────────────────────────────────────────────────────────────
+vector_elements:
+  accent_line:
+    color: "#A855F7"          # Purple-500 — único accent do site
+    thickness: 4
+    margin_from_text: 16
+
+  separator:
+    color: "#FFFFFF33"
+    thickness: 1
+
+  corner_accent:
+    enabled: true
+    color: "#7E22CE"          # Purple-700 — tom escuro do glow radial do site
+    size: 40
+    thickness: 3
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OUTPUTS
+# ─────────────────────────────────────────────────────────────────────────────
+output:
+  base_dir: "outputs/oraclum/"
+  posts_dir: "outputs/oraclum/posts/"
+  carousels_dir: "outputs/oraclum/carousels/"
+  ai_generated_dir: "outputs/oraclum/ai-generated/"
+
+  quality:
+    png_optimize: true

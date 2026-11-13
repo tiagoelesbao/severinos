@@ -1,0 +1,440 @@
+schema_version: '5.0'
+generated_at: '2026-08-20T09:03:59'
+archetype: quote
+carousel_brief:
+  slug: v5-precision-46-eluna-ai-bada47
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\46-eluna-ai-bada47
+  source_url: https://www.instagram.com/eluna.ai/p/DcMFhE3kgar/
+  tema: 'Modelagem de precisão: 46-eluna-ai-bada47'
+  slide_count: 6
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 6
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.2/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a estética de ''texto em fundo preto'' por capturas de tela reais da
+    ferramenta Oraclum em funcionamento para provar a eficiência tecnológica logo
+    no Slide 1. - Trocar a promessa de ''mudar de vida'' por ''otimizar fluxos financeiros
+    usando IA'','
+  audits_present: true
+benchmark_caption: 'Swipe ⬅️ to see prompts that can help you get a clearer picture
+  of your money.
+
+
+  They’re built around the basics that matter most, income, spending, debt, savings,
+  and where your cash is actually going.
+
+
+  Used properly, ChatGPT can help organize the numbers, spot waste, compare payoff
+  options, and turn everything into a more practical plan.
+
+
+  Just avoid sharing sensitive details like account numbers, passwords, or private
+  banking information.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: CHATGPT CAN FIX YOUR ENTIRE FINANCIAL LIFE IN A SINGLE SESSION
+    IF YOU KNOW WHAT TO ASK
+  reference_body: TRENDING
+  headline: SUA PLANILHA É UM REGISTRO PASSIVO
+  sub_headline: MISSANDO OPORTUNIDADES COM SUA PLANILHA?
+  body_text: Ter dados não é o mesmo que ter estratégia. A IA transforma registros
+    de gastos em um fluxo de decisões financeiras precisas.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 34
+    body_chars: 125
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person looking at laptop screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Seu dinheiro não te serve porque você não sabe dizer o que fazer. A
+      IA transforma planos vagos em ações específicas.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:12:02'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: '“Act as my personal CFO. Analyze my complete financial situation
+    using my income, expenses, debts, savings, investments, and goals: [PASTE YOUR
+    DETAILS]. Identify every money leak, missed opportunity, and financial mistake
+    I am making. Then create the simplest plan to improve my finances as quickly and
+    realistically as possible.”'
+  reference_body: ''
+  headline: ATIVE SEU PRÓPRIO CFO VIA IA
+  sub_headline: VOCÊ NÃO PRECISA SER CFO
+  body_text: Não tente gerenciar tudo sozinho. Use o ChatGPT como um agente executivo
+    para analisar renda, gastos e dívidas, identificando cada vazamento de capital
+    imediatamente.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 166
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: businessman analyzing charts on tablet
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Posicione a IA como seu executivo financeiro pessoal. Pergunte: ''Analise
+      minha renda, gastos e dívidas. Onde estou perdendo dinheiro?'''
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:12:02'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: '“My current financial situation is: [PASTE YOUR DETAILS].'
+  reference_body: Create a complete roadmap for building wealth from where I am today.
+    Prioritize increasing my income, reducing unnecessary expenses, building savings,
+    managing debt, investing wisely, and creating long-term financial security.”
+  headline: CONSTRUA UM ROADMAP DE PATRIMÔNIO
+  sub_headline: PATRIMÔNIO NÃO É RIQUEZA
+  body_text: Pare de focar em teorias abstratas. Use prompts para transformar sua
+    situação atual em um plano de fluxo de caixa estruturado para os próximos 5 anos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 33
+    body_chars: 150
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hands writing on paper notebook
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Use prompts para criar roadmap: ''Monte um plano de 5 anos a partir
+      de hoje.'' Foque em fluxo de caixa, não em teoria abstrata.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:12:02'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: '“Here are my monthly income and expenses: [PASTE YOUR DETAILS].
+    Redesign my finances so every dollar has a purpose. Show me exactly what to cut,
+    what to keep, what to automate, and where my money should go each month to improve
+    my financial position.”'
+  reference_body: ''
+  headline: DÊ UM ENDEREÇO PARA CADA REAL
+  sub_headline: TODO DÓLAR PRECISA DE ENDEREÇO
+  body_text: Elimine o desperdício com automação de prioridades. Defina onde cada
+    centavo deve ir e crie um mapa financeiro em tempo real.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 29
+    body_chars: 125
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using calculator and smartphone
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Prompt imediato: ''Designe onde cada real deve ir. Automatize o que
+      puder.'' Mostre o mapa financiero em tempo real.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:12:02'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: '"Analyze my spending history: [PASTE YOUR DETAILS]. Find every
+    unnecessary expense, subscription, impulse purchase, lifestyle increase, and hidden
+    money leak. Rank them by annual cost and tell me which changes would save me the
+    most money with the least impact on my lifestyle.”'
+  reference_body: ''
+  headline: IDENTIFIQUE O CUSTO REAL DOS SEUS GASTOS
+  sub_headline: SEUS GASTOS NÃO SÃO SEUS INIMIGOS
+  body_text: Seus gastos não são o problema, mas a eficiência deles é. Use a IA para
+    ranquear despesas pelo impacto no seu tempo de recuperação de capital.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 142
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person reviewing bank statement
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Análise de cadastro: ''Identifique gastos ruins não por valor, mas
+      por tempo de recuperação. Corte o que paga menos.'''
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:12:02'
+- slide_n: 6
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: '"My debts are: [PASTE YOUR DETAILS]. Create the smartest repayment
+    strategy based on my income, cash flow, interest rates, and financial goals. Explain
+    the logic behind the strategy and show me how I can become debt-free as efficiently
+    as possible."'
+  reference_body: ''
+  headline: PLANO DE RESGATE DE DÍVIDAS AUTOMATIZADO
+  sub_headline: DÍVIDA? A IA MONTA SEU PLANO FÍSICO
+  body_text: A IA calcula a estratégia de pagamento mais eficiente baseada no seu
+    fluxo de caixa e taxas de juros. Como sua estrutura de pagamentos mudaria se a
+    lógica substituísse o improviso?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 180
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person thinking deeply at desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Prompt direto: ''Minhas dívidas são... Crie meu plano de resgate.
+      Explico o passo a passo com cálculo.'''
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:12:02'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/6
+  bodies_extracted: 2/6
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Otimização financeira pessoal usando ChatGPT para análise detalhada
+    de renda, gastos, dívidas e metas.
+  formato: guia prático
+  arco_narrativo: Apresenta prompts estratégicos para transformar dados financeiros
+    pessoais em planos de ação otimizados, seguindo etapas sequenciais de análise
+    para soluções estruturadas.
+  estrutura:
+  - slide_n: 1
+    papel: Apresentação do tema central com título provocativo e gatilho emocional
+      ('TRENDING')
+    essencial: true
+  - slide_n: 2
+    papel: Slide de prompt inicial que estabelece o modelo de interação como um CFO
+      virtual
+    essencial: true
+  - slide_n: 3
+    papel: Expansão do escopo para um plano de longo prazo de construção de patrimônio
+    essencial: true
+  - slide_n: 4
+    papel: Detalhamento tático imediato do fluxo mensal financeiro
+    essencial: true
+  - slide_n: 5
+    papel: Identificação de desperdícios com análise de impacto no tempo/compensação
+    essencial: true
+  - slide_n: 6
+    papel: Resolveção específica para dívidas com estratégia personalizada
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Títulos provocativos com urgência/novidade ('Fix your financial life in one session')
+  - Gatilhos emocionais claros ('money leaks', 'missed opportunities')
+  - Estrutura modular e escalável de prompts para diferentes perfis
+  - Abordagem prática com exemplos específicos (investimentos, dívidas, automação)
+  - Posicionamento educativo disfarçado de 'ferramenta mágica'
+  recomendacao:
+    slides_ideais: 6
+    justificativa: Todo conteúdo é único e complementar, sem redundâncias. A sequência
+      lógica mantém o engajamento ao misturar planejamento estratégico, soluções operacionais
+      e direção emocional. Réduzir slides comprometeria a abrangência do método.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-20T09:04:26'
+content_plan:
+  archetype: quote
+  tema: 'Otimização financeira pessoal com ChatGPT: transforme sua renda, gastos e
+    dívidas em estratégias reais'
+  slide_count: 6
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: Missando oportunidades com sua planilha?
+    copy_direction: Seu dinheiro não te serve porque você não sabe dizer o que fazer.
+      A IA transforma planos vagos em ações específicas.
+    image_direction: 'Chama: ChatGPT olhando para tabelas financeiras com relatórios
+      que emergem'
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: Você não precisa ser CFO
+    copy_direction: 'Posicione a IA como seu executivo financeiro pessoal. Pergunte:
+      ''Analise minha renda, gastos e dívidas. Onde estou perdendo dinheiro?'''
+    image_direction: 'Interface simulada de chat com IA respondendo: ''Seu maior vazio
+      é a assinatura X, que custa 15% da sua poupança mensal'''
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: Patrimônio não é riqueza
+    copy_direction: 'Use prompts para criar roadmap: ''Monte um plano de 5 anos a
+      partir de hoje.'' Foque em fluxo de caixa, não em teoria abstrata.'
+    image_direction: Gráfico de crescimento com marcações de marcos automáticos
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: Todo dólar precisa de endereço
+    copy_direction: 'Prompt imediato: ''Designe onde cada real deve ir. Automatize
+      o que puder.'' Mostre o mapa financiero em tempo real.'
+    image_direction: 'Planilha rotulada com gatilhos: ''Automoção salário fixo'' /
+      ''Subscrição duvidosa'''
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: Seus gastos não são seus inimigos
+    copy_direction: 'Análise de cadastro: ''Identifique gastos ruins não por valor,
+      mas por tempo de recuperação. Corte o que paga menos.'''
+    image_direction: Tabela colorida com impacto anual calculado
+    source_slides:
+    - 5
+  - slide_n: 6
+    role: PAYOFF
+    kicker: Dívida? A IA monta seu plano físico
+    copy_direction: 'Prompt direto: ''Minhas dívidas são... Crie meu plano de resgate.
+      Explico o passo a passo com cálculo.'''
+    image_direction: Fluxograma de quitação com sequencia de pagamentos otimizada
+    source_slides:
+    - 6
+  rationale: O plano mantém o arco educativo do benchmark, transformando cada insight
+    em ação prática sem redundâncias. Os kickers contextualizam dados do benchmark
+    em linguagem direta, evitando generalizações. Mantém o posicionamento original
+    de ferramenta prática (Agente Financeiro) sem aludir terceiros ou criar métricas
+    inexistentes.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-20T09:04:42'
+central_theme: 'Otimização financeira pessoal com ChatGPT: transforme sua renda, gastos
+  e dívidas em estratégias reais'
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-20T14:12:02'
+  slides: 6
+  central_theme: 'Otimização financeira pessoal com ChatGPT: transforme sua renda,
+    gastos e dívidas em estratégias reais'
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-20T14:12:40'

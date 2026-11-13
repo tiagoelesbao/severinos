@@ -1,0 +1,206 @@
+{
+  "video": "Generate ENTIRE AI MOVIES with this NEW METHOD! [FREE & LOCAL].mp4",
+  "duracao": 642.217506,
+  "telas": [
+    {
+      "arquivo": "001_0004.0s.png",
+      "segundo": 4.0,
+      "fala": "You can now build entire movies shot by shot locally on your own computer. You just give the workflow image references and voice samples and based on your prompt, it generates a start frame and a video with consistent li"
+    },
+    {
+      "arquivo": "002_0016.0s.png",
+      "segundo": 16.0,
+      "fala": "And then you can just move on to the next shot. And this is genuinely a new way of making movies because nothing is bagged in. Let's say we want to switch out the protagonist for a different character."
+    },
+    {
+      "arquivo": "003_0024.0s.png",
+      "segundo": 24.0,
+      "fala": "Let's say we want to switch out the protagonist for a different character. It's as easy as switching out the reference image and voice sample. These insectoids, they are already on their way. They're coming, but I have a"
+    },
+    {
+      "arquivo": "004_0046.0s.png",
+      "segundo": 46.0,
+      "fala": "They're coming, but I have a solution. So in this video, I'm going to walk you through the workflow, show you how you can set it up locally on your own computer, and then we're going to build some short films together. S"
+    },
+    {
+      "arquivo": "005_0052.7s.png",
+      "segundo": 52.7,
+      "fala": "and then we're going to build some short films together. So make sure to stick around till the end for the final results. If you're watching this channel for a while, you know that we're using the WAN video model a lot."
+    },
+    {
+      "arquivo": "006_0059.1s.png",
+      "segundo": 59.1,
+      "fala": "If you're watching this channel for a while, you know that we're using the WAN video model a lot. WAN gives you an enormous amount of control and has a lot of community support, but it can be a bit slow. So this time we "
+    },
+    {
+      "arquivo": "007_0076.7s.png",
+      "segundo": 76.7,
+      "fala": "But the open source community and the developers fixed that. The Loras released over the last few months have closed most of the quality gap with WAN in many regards, and the base architecture is just fundamentally faste"
+    },
+    {
+      "arquivo": "008_0084.4s.png",
+      "segundo": 84.4,
+      "fala": "and the base architecture is just fundamentally faster. And thanks to the model's ability to generate audio and the new LTX ID Lora, we can now also keep the character voices consistent for each shot."
+    },
+    {
+      "arquivo": "009_0092.0s.png",
+      "segundo": 92.0,
+      "fala": "we can now also keep the character voices consistent for each shot. We have two options for guiding the style of our rendering. These insectoids, they are already on their way. For image generation, we're going to use Fl"
+    },
+    {
+      "arquivo": "010_0108.0s.png",
+      "segundo": 108.0,
+      "fala": "The 4B is much lighter, runs faster on older GPUs, and has a more permissive license that allows for commercial use. The 9B version features better quality, but is for non-commercial purposes only, unless you acquire a l"
+    },
+    {
+      "arquivo": "011_0119.0s.png",
+      "segundo": 119.0,
+      "fala": "unless you acquire a license. This all works instead of ConfUi, a node-based interface for AI models, and we have a free step-by-step guide on our Patreon on how to set it up. Once you have it up and running, you just ne"
+    },
+    {
+      "arquivo": "012_0125.8s.png",
+      "segundo": 125.8,
+      "fala": "Once you have it up and running, you just need to drag and drop in the free workflow file into the interface and it will load up. But I don't know what's this! Missing custom nodes? Don't worry. Open the manager, click i"
+    },
+    {
+      "arquivo": "013_0141.4s.png",
+      "segundo": 141.4,
+      "fala": "But if it's still not working, there are two things you should watch out for. Sometimes the custom node pack rest for life doesn't auto-install cleanly through the manager. If you get an error when trying to generate, fo"
+    },
+    {
+      "arquivo": "014_0148.2s.png",
+      "segundo": 148.2,
+      "fala": "If you get an error when trying to generate, for example, just search it manually under custom nodes in the manager and install it from there. Also make sure to hit that update ConfUi button before you run this workflow,"
+    },
+    {
+      "arquivo": "015_0155.3s.png",
+      "segundo": 155.3,
+      "fala": "and install it from there. Also make sure to hit that update ConfUi button before you run this workflow, because there are some newer nodes in this workflow. Now it's time to download the actual models. So zoom in on the"
+    },
+    {
+      "arquivo": "016_0172.2s.png",
+      "segundo": 172.2,
+      "fala": "and where you need to put it in your ConfUi folder structure. Press R to refresh and make sure everything loads and you're done. And don't worry, you only need to do this once. If you don't have that much VRAM, you can a"
+    },
+    {
+      "arquivo": "017_0179.1s.png",
+      "segundo": 179.1,
+      "fala": "And don't worry, you only need to do this once. If you don't have that much VRAM, you can also load the GGUF versions of the models. You trade in a bit of quality, but the models are much smaller and you can find them ri"
+    },
+    {
+      "arquivo": "018_0188.4s.png",
+      "segundo": 188.4,
+      "fala": "and you can find them right here and connect them if needed. If you want to skip these installation steps or you have like a really old GPU, you can also run these workflows in the cloud. We created a ready-to-use run po"
+    },
+    {
+      "arquivo": "019_0204.1s.png",
+      "segundo": 204.1,
+      "fala": "you have to download it manually because you have to accept that license. Just download it, put it inside of your run port folder and then you can start using it. And if you sign up to run port using our link, you get a "
+    },
+    {
+      "arquivo": "020_0217.1s.png",
+      "segundo": 217.1,
+      "fala": "We're going to work from left to right and first let's adjust some settings. So here you can set your image resolution and this is pretty much a good starting value, but you can go higher if your GPU allows it."
+    },
+    {
+      "arquivo": "021_0270.0s.png",
+      "segundo": 270.0,
+      "fala": "and just improves consistency a lot. If your movie has dialogue, plug in a voice sample right here and now it's time for the fun part, creating that movie. Usually I would write a script, create a shot list"
+    },
+    {
+      "arquivo": "022_0280.8s.png",
+      "segundo": 280.8,
+      "fala": "create a shot list and then work through the movie shot by shot, but with this workflow you can also just improvise. Start with an idea and see where it takes you. Let's say we want to make a movie trailer about a scient"
+    },
+    {
+      "arquivo": "023_0292.0s.png",
+      "segundo": 292.0,
+      "fala": "that evil aliens are heading towards Earth. I load in my two reference images of my protagonist and move over to this first shot group right here. Now I need to connect the get face body note to the first image input bec"
+    },
+    {
+      "arquivo": "024_0308.3s.png",
+      "segundo": 308.3,
+      "fala": "You can also reference environments or other assets. And then you just need to create a detailed prompt and natural language describing your scene. It helps to be specific here, but as you can see I'm keeping their chara"
+    },
+    {
+      "arquivo": "025_0319.9s.png",
+      "segundo": 319.9,
+      "fala": "because I want to be able to easily switch out the protagonist later without having to rewrite every single prompt. But you should probably add a short description of what your character looks like to help the model keep"
+    },
+    {
+      "arquivo": "026_0328.1s.png",
+      "segundo": 328.1,
+      "fala": "of what your character looks like to help the model keep things consistent. Once you're done, click this save image node and press the play button. The workflow will then compute only the nodes needed for this image. If "
+    },
+    {
+      "arquivo": "027_0342.6s.png",
+      "segundo": 342.6,
+      "fala": "Next scroll down to the video section. Here you can set the length of your shot, the seeds, and whether you want to sample the video natively in your target resolution or upscale it for faster generation. You can also se"
+    },
+    {
+      "arquivo": "028_0354.8s.png",
+      "segundo": 354.8,
+      "fala": "So I use this prompt format, filling it out with just some basic descriptions like this. Now click the play button on the save video node and there it is."
+    },
+    {
+      "arquivo": "029_0366.2s.png",
+      "segundo": 366.2,
+      "fala": "Our first shot is done. Let's create another one. For this, go to this shot duplicator node. Select the shot you want to duplicate and click add shot. And wow, there it is. Crazy."
+    },
+    {
+      "arquivo": "030_0406.0s.png",
+      "segundo": 406.0,
+      "fala": "But what's this? Seems like no one is believing her that the aliens are coming but she wants to be prepared so she's going to craft her own weapon against these aliens. But what should it look like?"
+    },
+    {
+      "arquivo": "031_0425.7s.png",
+      "segundo": 425.7,
+      "fala": "Without connecting any reference images, I prompt for a handcrafted laser weapon. But I think she needs something stronger than this so I go to the drawing board and sketch out the design that I actually had in mind."
+    },
+    {
+      "arquivo": "032_0435.4s.png",
+      "segundo": 435.4,
+      "fala": "and sketch out the design that I actually had in mind. I import the sketch using a load image node connected to the input here and this is pretty much the entire process. Shot by shot, you generate your way through your "
+    },
+    {
+      "arquivo": "033_0467.5s.png",
+      "segundo": 467.5,
+      "fala": "but with me as the main actor. You can get this full movie workflow file for free on our Patreon and I recommend starting with it. This way you can see how the assets and prompts work together"
+    },
+    {
+      "arquivo": "034_0484.5s.png",
+      "segundo": 484.5,
+      "fala": "And if you want to dive in even deeper you can also support us on Patreon and get your hands on the advanced version of this workflow. You'll also get access to an additional example movie, a step-by-step guide and our a"
+    },
+    {
+      "arquivo": "035_0496.6s.png",
+      "segundo": 496.6,
+      "fala": "Our amazing Patreon supporters are the reason we can create these videos and release free workflows without having to rely on sponsored segments in every single video. So thank you very much for supporting. And now let's"
+    },
+    {
+      "arquivo": "036_0510.8s.png",
+      "segundo": 510.8,
+      "fala": "This one features an additional 360 degree environment generation group. Create a prompt for an environment or load in a reference image and the workflow will automatically create a seamless 360 degree image."
+    },
+    {
+      "arquivo": "037_0548.2s.png",
+      "segundo": 548.2,
+      "fala": "you'll find the final movie output group at the top of the workflow. It's one subgraph doing a few things. The shot assembler node collects all the outputs from every single shot group and puts them all together"
+    },
+    {
+      "arquivo": "038_0556.9s.png",
+      "segundo": 556.9,
+      "fala": "from every single shot group and puts them all together in the order that you set in this node right here. There's also a toggle that lets you save out each shot individually into a folder. Useful if you want to take the"
+    },
+    {
+      "arquivo": "039_0608.0s.png",
+      "segundo": 608.0,
+      "fala": "Whether you use this workflow to create entire movies,"
+    },
+    {
+      "arquivo": "040_0623.9s.png",
+      "segundo": 623.9,
+      "fala": "I hope you have a lot of fun trying it out. We want to add more features and develop this workflow further. So if you have any suggestions, feel free to post them in the comments or on our discord. Again, thanks to our l"
+    }
+  ]
+}

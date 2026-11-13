@@ -1,0 +1,297 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:49:00'
+archetype: news
+carousel_brief:
+  slug: v5-precision-29-eluna-ai-254c10
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\29-eluna-ai-254c10
+  source_url: https://www.instagram.com/eluna.ai/p/Db5LmOcEsc-/
+  tema: 'Modelagem de precisão: 29-eluna-ai-254c10'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 3
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.9/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a imagem genérica do estudante por evidência visual do software/automação
+    funcionando e incluir prints reais da interface da IA nos slides de processo.
+    - Trocar o nicho de ''estudantes/provas'' por ''executivos/análise de dados corporativos'', '
+  audits_present: true
+benchmark_caption: Students are now using Gemini to study past papers and spot the
+  topics that keep showing up.
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: STUDENTS ARE NOW
+  reference_body: USING GOOGLE GEMINI TO PREDICT THEIR UPCOMING EXAM QUESTIONS, AND
+    IT IS GETTING ABOUT 70% TO 80% OF THEM RIGHT TRENDING
+  headline: ACERTE AS QUESTÕES DA PROVA USANDO O GEMINI
+  sub_headline: O DADO
+  body_text: Alunos estão usando a IA para descobrir quais temas sempre caem nos exames.
+    Estude só o que importa e pare de perder tempo com conteúdo inútil.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 43
+    body_chars: 143
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: student laptop desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline direta: Alunos estão usando o Google Gemini para prever questões
+      de provas com 70% a 80% de acerto. O foco é a eficiência da IA aplicada ao estudo
+      para evitar o desperdício de tempo com conteúdos irrelevantes.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:49:39'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: HERE'S HOW IT WORKS
+  reference_body: ''
+  headline: COMO A IA MAPEIA A RECORRÊNCIA DE QUESTÕES
+  sub_headline: O MÉTODO
+  body_text: A análise processa volumes de provas anteriores para identificar tópicos
+    que se repetem com frequência. O objetivo é transformar o histórico de exames
+    em um roteiro de estudo direcionado.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 42
+    body_chars: 187
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: close up computer screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Explicar que a precisão não vem de ''adivinhação'', mas da capacidade
+      do LLM em analisar volumes de provas anteriores e identificar recorrências (padrões).
+      A lição é: a IA transforma dados brutos em workflow de estudo estratégico.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:49:39'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: ''
+  reference_body: ''
+  headline: COMO APLICAR ESSA IA NO SEU FLUXO DE ESTUDOS
+  sub_headline: A LIÇÃO
+  body_text: Alimente a ferramenta com o histórico da disciplina e solicite o mapeamento
+    da frequência de tópicos para priorizar seu esforço. Qual critério você usaria
+    para validar se a IA acertou o padrão?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 193
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person writing notebook
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Como aplicar: Alimente a IA com o histórico da disciplina e peça para
+      mapear a frequência de tópicos. O takeaway é usar a IA para priorizar o esforço
+      onde há maior probabilidade de retorno. CTA: Qual critério você usaria para
+      validar se a IA acertou o padrão?'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:49:39'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: nenhum texto de headline encontrado'
+  headlines_extracted: 0/3
+  bodies_extracted: 1/3
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: O uso estratégico da IA Gemini para prever padrões de exames acadêmicos
+    com alta precisão.
+  formato: Case de uso prático (How-to Tutorial)
+  arco_narrativo: O post utiliza um gancho de curiosidade e prova social (acerto de
+    70-80%) para capturar a atenção e promete uma revelação imediata do método de
+    execução.
+  estrutura:
+  - slide_n: 1
+    papel: 'Hook (Gancho de Atenção): Apresenta o problema/oportunidade e a métrica
+      de sucesso para gerar dopamina e retenção.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Transição/Promessa: Prepara o usuário para o consumo do tutorial, criando
+      expectativa para o passo a passo.'
+    essencial: true
+  - slide_n: 3
+    papel: 'Entrega (Payoff): Demonstração técnica do processo/método prometido.'
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Uso de métricas de alta especificidade (70% a 80%) para gerar credibilidade instantânea.
+  - Contraste entre esforço baixo (usar IA) e recompensa alta (prever questões).
+  - Headline agressiva e direta focada em um benefício imediato.
+  - Curiosidade cognitiva gerada pela promessa de um 'segredo' ou método pouco conhecido.
+  recomendacao:
+    slides_ideais: 3
+    justificativa: 'A estrutura de 3 slides é o ''sweet spot'' para micro-tutoriais
+      de alta retenção: Hook -> Transição -> Entrega. Como a adaptação para executivos
+      exige a inclusão de prints reais da interface para substituir a imagem genérica,
+      manter 3 slides garante que o conteúdo não fique superficial e entregue o valor
+      prometido sem perder o ritmo de consumo rápido.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:49:10'
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: Previsão de padrões de exames acadêmicos utilizando Google Gemini
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DADO
+    copy_direction: 'Headline direta: Alunos estão usando o Google Gemini para prever
+      questões de provas com 70% a 80% de acerto. O foco é a eficiência da IA aplicada
+      ao estudo para evitar o desperdício de tempo com conteúdos irrelevantes.'
+    image_direction: Print real da interface do Gemini com um prompt de análise de
+      padrões de provas e a resposta da IA destacando a probabilidade de temas.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O MÉTODO
+    copy_direction: 'Explicar que a precisão não vem de ''adivinhação'', mas da capacidade
+      do LLM em analisar volumes de provas anteriores e identificar recorrências (padrões).
+      A lição é: a IA transforma dados brutos em workflow de estudo estratégico.'
+    image_direction: 'Esquema visual simples: [Provas Anteriores] -> [Google Gemini]
+      -> [Lista de Temas Prováveis].'
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: PAYOFF
+    kicker: A LIÇÃO
+    copy_direction: 'Como aplicar: Alimente a IA com o histórico da disciplina e peça
+      para mapear a frequência de tópicos. O takeaway é usar a IA para priorizar o
+      esforço onde há maior probabilidade de retorno. CTA: Qual critério você usaria
+      para validar se a IA acertou o padrão?'
+    image_direction: Exemplo de prompt prático escrito em um card de texto limpo,
+      simulando a entrada de dados no chat da IA.
+    source_slides:
+    - 3
+  rationale: O plano segue a estrutura de 3 slides recomendada na análise (Hook ->
+    Transição -> Entrega). O arco narrativo move o usuário da curiosidade sobre a
+    métrica de acerto (70-80%) para a compreensão do mecanismo de análise de padrões,
+    finalizando com a aplicação prática. A voz do Sábio/Criador é mantida através
+    de termos como 'workflow' e 'IA aplicada', evitando promessas mágicas e focando
+    em produtividade. O CTA final é um call-to-think, incentivando a reflexão crítica
+    sobre a validação dos dados.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T19:49:29'
+central_theme: Previsão de padrões de exames acadêmicos utilizando Google Gemini
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:49:39'
+  slides: 3
+  central_theme: Previsão de padrões de exames acadêmicos utilizando Google Gemini
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:49:57'

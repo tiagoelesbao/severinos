@@ -1,0 +1,256 @@
+# AI Providers — Cascata Free-First (VF-GP-001)
+#
+# Estratégia: consumir primeiro a cota gratuita dos MELHORES modelos; quando ela
+# estourar, cair para modelos de cota generosa/ilimitada com qualidade inferior.
+# O último degrau NUNCA falha — para vídeo, é animação procedural local (ffmpeg),
+# que é suficiente para o formato "imagem animada + áudio" dos nichos de farming.
+#
+# ⚠️ LIMITES NÃO SÃO VERIFICADOS PELO SQUAD. Os valores de `daily_limit` abaixo são
+# defaults conservadores de configuração, não fatos sobre a política de cada provider.
+# Confirme na documentação oficial antes de confiar neles. O ledger de quota
+# (data/runs/.provider-quota-ledger.json) rastreia consumo REAL e é a fonte de verdade
+# do roteador — se um provider responde 429/quota_exceeded, ele é rebaixado na hora.
+
+version: 1.0.0
+
+strategy:
+  mode: free_first_cascade
+  # Ordem de tentativa: tier A → B → C. Dentro do tier, ordem de declaração.
+  on_quota_exceeded: demote_and_retry_next
+  on_error: retry_once_then_next
+  # Marca o provider como esgotado até o próximo reset (janela em horas).
+  cooldown_hours: 24
+  # Se todos os tiers falharem numa fase, a fase NÃO é silenciosamente pulada:
+  # o item entra em `degraded[]` no manifesto da sessão e o gate reporta.
+  fail_mode: report_degraded
+
+image:
+  aspect_ratio: '9:16'
+  resolution: { width: 1080, height: 1920 }
+
+  tiers:
+    - tier: A
+      label: 'Melhor qualidade, cota gratuita limitada'
+      providers:
+        # ⛔ DESATIVADO 2026-07-26: a API devolve limit: 0 para
+        # generate_content_free_tier_requests em TODOS os modelos de imagem nesta
+        # conta — não há free tier de geração de imagem aqui.
+        # Vale reativar se a conta ganhar cota: é o único provider que aceita o
+        # screenshot do benchmark como REFERÊNCIA VISUAL, o que aproxima muito
+        # mais o resultado do criativo modelado do que qualquer descrição textual.
+        - id: gemini-image
+          label: 'Gemini 2.5 Flash Image (Nano Banana)'
+          adapter: adapters/image/gemini.js
+          auth_env: GEMINI_API_KEY
+          daily_limit: 100
+          supports_reference_image: true
+          enabled: false
+          disabled_reason: 'Sem free tier de imagem nesta conta (limit: 0). Reative se ganhar cota.'
+        # ⛔ DESATIVADO: 404 "no longer available to new users" — exige Vertex AI
+        # com billing, não uma chave simples do AI Studio.
+        - id: gemini-imagen
+          label: 'Imagen via Google AI Studio'
+          adapter: adapters/image/gemini.js
+          auth_env: GEMINI_API_KEY
+          daily_limit: 50
+          supports_reference_image: false
+          enabled: false
+          disabled_reason: 'Exige Vertex AI com billing (404 para chaves do AI Studio).'
+
+    - tier: B
+      label: 'Boa qualidade, cota diária generosa — o cavalo de batalha real'
+      providers:
+        # ✅ VERIFICADO 2026-07-26: FLUX responde em ~1,7s, SDXL em ~10s.
+        # Free tier declarado pela Cloudflare na casa de 100k req/dia — de longe
+        # a maior cota gratuita de imagem disponível. É o provider padrão de fato.
+        - id: cloudflare-flux
+          label: 'FLUX.1-schnell (Cloudflare Workers AI)'
+          adapter: adapters/image/cloudflare.js
+          auth_env: CLOUDFLARE_API_TOKEN
+          extra_env: CLOUDFLARE_ACCOUNT_ID
+          model: '@cf/black-forest-labs/flux-1-schnell'
+          response: base64_json      # result.image em base64
+          daily_limit: 2000          # teto conservador nosso, não o da Cloudflare
+          supports_reference_image: false
+        - id: cloudflare-sdxl
+          label: 'Stable Diffusion XL (Cloudflare Workers AI)'
+          adapter: adapters/image/cloudflare.js
+          auth_env: CLOUDFLARE_API_TOKEN
+          extra_env: CLOUDFLARE_ACCOUNT_ID
+          model: '@cf/stabilityai/stable-diffusion-xl-base-1.0'
+          response: binary           # PNG direto no corpo
+          daily_limit: 500
+          supports_reference_image: false
+        # ✅ VERIFICADO: funciona via router.huggingface.co (o endpoint antigo
+        # api-inference.huggingface.co morreu — não reviva).
+        - id: hf-flux
+          label: 'FLUX.1-schnell (HuggingFace Inference Providers)'
+          adapter: adapters/image/huggingface.js
+          auth_env: HF_TOKEN
+          daily_limit: 100           # confirmar na doc oficial
+          supports_reference_image: false
+        # ⛔ DESATIVADO 2026-07-26: 402 "credit limit exceeded" — passou a exigir
+        # saldo. Reative se a conta for recarregada.
+        - id: together-flux
+          label: 'FLUX.1-schnell (Together AI)'
+          adapter: adapters/image/together.js
+          auth_env: TOGETHER_API_KEY
+          daily_limit: 200
+          supports_reference_image: false
+          enabled: false
+          disabled_reason: 'Exige saldo (402 credit limit exceeded).'
+
+    - tier: C
+      label: 'Sempre disponível, qualidade inferior — nunca falha'
+      providers:
+        - id: pollinations
+          label: 'Pollinations.ai (sem chave)'
+          adapter: adapters/image/pollinations.js
+          auth_env: null
+          daily_limit: null         # sem limite declarado
+          supports_reference_image: false
+          notes: 'Degrau final de GERAÇÃO. Sem autenticação, sem custo.'
+        # Fallback de ACERVO — busca, não geração. Vem DEPOIS de toda a geração de
+        # propósito: uma imagem gerada segue o prompt inteiro (sujeito, luz, ângulo),
+        # enquanto a foto de banco só se aproxima dele. Mas uma foto real e coerente
+        # com a cena é muito melhor para a F5 do que um take faltando — e, quando a
+        # cena descrita é uma situação comum (mãos postas, céu ao amanhecer, silhueta),
+        # o acervo às vezes chega MAIS perto do benchmark do que o gerador.
+        # A busca é alimentada pelo mesmo prompt do gerador — a descrição de cena da
+        # F3, já sem texto e sem interface. Ver adapters/image/pexels.js.
+        - id: pexels-stock
+          label: 'Pexels (banco de imagens, busca por contexto do prompt)'
+          adapter: adapters/image/pexels.js
+          auth_env: PEXELS_API_KEY
+          daily_limit: 200          # plano gratuito: 200/hora, 20k/mês
+          supports_reference_image: false
+          kind: stock               # o slot é marcado como acervo, não como geração
+          notes: 'Último recurso antes do procedural. Grava atribuição (autor/URL) no slot.'
+
+  # Modo híbrido: em vez de chamar API, o pipeline entrega os prompts formatados
+  # para colar nestas ferramentas web. Ambos os modos são de primeira classe.
+  hybrid_targets:
+    - { id: krea, label: 'Krea', url: 'https://krea.ai', paste_format: plain }
+    - { id: leonardo, label: 'Leonardo.ai', url: 'https://leonardo.ai', paste_format: plain }
+    - { id: gemini-web, label: 'Gemini (web)', url: 'https://gemini.google.com', paste_format: plain_with_reference }
+    - { id: chatgpt, label: 'ChatGPT / GPT Image', url: 'https://chatgpt.com', paste_format: plain_with_reference }
+
+video:
+  mode: image_to_video
+  aspect_ratio: '9:16'
+  take_duration_seconds: { min: 3, max: 6, default: 5 }
+
+  tiers:
+    - tier: A
+      label: 'Melhor qualidade, cota gratuita limitada'
+      providers:
+        # ⛔ DESATIVADO 2026-07-27 após teste REAL de geração. O check() acha o modelo
+        # (models/veo-3.1-generate-preview) e a chave é válida, mas predictLongRunning
+        # devolve 429 "exceeded your current quota" em qualquer duração da faixa 4–8s:
+        # esta conta não tem cota gratuita de vídeo, igual ao Gemini de imagem.
+        # ⚠️ Um HTTP 400 de durationSeconds estava MASCARANDO o 429 — o adapter agora
+        # fixa a duração na faixa aceita, então o erro real aparece.
+        - id: veo
+          label: 'Google Veo 3.1 (via Gemini API)'
+          adapter: adapters/video/veo.js
+          auth_env: GEMINI_API_KEY
+          daily_limit: 5
+          supports_image_input: true
+          enabled: false
+          disabled_reason: 'Sem cota gratuita de vídeo nesta conta (429 em toda a faixa 4-8s).'
+        # ⛔ DESATIVADO 2026-07-26 por decisão do dono: só entram providers que
+        # funcionam em free tier de verdade. Auth OK, mas 403 "Exhausted balance".
+        - id: fal-i2v
+          label: 'Image-to-video via fal.ai'
+          adapter: adapters/video/fal.js
+          auth_env: FAL_KEY
+          daily_limit: 30
+          supports_image_input: true
+          enabled: false
+          disabled_reason: 'Exige saldo em conta (403 Exhausted balance). Reative preenchendo saldo.'
+        # ⛔ DESATIVADO: auth OK, mas 1008 insufficient balance.
+        - id: minimax-hailuo
+          label: 'Hailuo / MiniMax image-to-video'
+          adapter: adapters/video/minimax.js
+          auth_env: MINIMAX_API_KEY
+          daily_limit: 10
+          supports_image_input: true
+          enabled: false
+          disabled_reason: 'Exige saldo em conta (1008 insufficient balance). Reative preenchendo saldo.'
+          docs: 'https://platform.minimax.io/docs/api-reference'
+
+    - tier: B
+      label: 'Cota gratuita mensal / pay-per-use'
+      providers:
+        # ✅ VERIFICADO 2026-07-26 — O ÚNICO i2v que funciona em free tier hoje.
+        # O HF roteia o Wan 2.2 para a fal-ai e cobra do POOL MENSAL GRATUITO da
+        # conta HuggingFace: não exige saldo na fal. Mesma chave que gera imagem.
+        # Medido: 200 em ~53s, mp4 720x1280 h264 (normalizado para 1080x1920 no adapter).
+        - id: hf-i2v
+          label: 'Wan 2.2 I2V (HuggingFace Inference Providers)'
+          adapter: adapters/video/hf-i2v.js
+          auth_env: HF_TOKEN
+          model: 'Wan-AI/Wan2.2-I2V-A14B'
+          daily_limit: 20           # teto conservador nosso — o crédito HF é mensal e finito
+          supports_image_input: true
+        # ⛔ DESATIVADO: a API oficial assina JWT com Access Key + Secret Key. Só
+        # existe uma chave, e o dono não localizou geração de access key no painel.
+        - id: kling-i2v
+          label: 'Kling AI image-to-video'
+          adapter: adapters/video/kling.js
+          auth_env: KLING_API_KEY
+          daily_limit: 6
+          supports_image_input: true
+          enabled: false
+          disabled_reason: 'Falta o Secret Key — a API exige Access+Secret para assinar JWT.'
+        # ⛔ DESATIVADO: /account devolve 401 e o formato do token destoa do padrão
+        # r8_... da Replicate. Além disso é pago por uso, não free tier.
+        - id: replicate-i2v
+          label: 'Image-to-video via Replicate'
+          adapter: adapters/video/replicate.js
+          auth_env: REPLICATE_API_TOKEN
+          daily_limit: 20
+          supports_image_input: true
+          enabled: false
+          disabled_reason: 'Token retorna 401 e o serviço é pago por uso, não free tier.'
+
+    - tier: C
+      label: 'Animação procedural local — ilimitada, custo zero'
+      providers:
+        - id: procedural-motion
+          label: 'Ken Burns / parallax 2.5D via ffmpeg'
+          adapter: adapters/video/procedural.js
+          auth_env: null
+          daily_limit: null
+          supports_image_input: true
+          motion_presets:
+            - { id: slow-push-in, description: 'Zoom in lento e contínuo' }
+            - { id: slow-pull-out, description: 'Zoom out lento revelando cena' }
+            - { id: pan-lr, description: 'Pan horizontal esquerda→direita' }
+            - { id: pan-ud, description: 'Pan vertical (revelação de céu/chão)' }
+            - { id: parallax-2p5d, description: 'Separação figura/fundo com deslocamento' }
+            - { id: breathing, description: 'Micro-zoom pulsante, sensação de respiração' }
+          notes: >
+            Degrau final de vídeo. É o formato nativo dos nichos de farming
+            (imagem estática animada + áudio). Determinístico e reproduzível —
+            não é um fallback "pior", é o baseline do nicho.
+
+  hybrid_targets:
+    - { id: hailuo-web, label: 'Hailuo (web)', url: 'https://hailuoai.video', paste_format: image_plus_prompt }
+    - { id: kling-web, label: 'Kling (web)', url: 'https://klingai.com', paste_format: image_plus_prompt }
+    - { id: veo-web, label: 'Veo via Gemini (web)', url: 'https://gemini.google.com', paste_format: image_plus_prompt }
+
+# Roteamento por nicho: nichos com estética previsível economizam cota de tier A.
+niche_overrides:
+  religioso:
+    video_preferred_tier: C
+    rationale: 'Cena devocional estática + narração — parallax lento entrega o formato nativo.'
+  cartomante:
+    video_preferred_tier: C
+    rationale: 'Plano fechado de cartas/mesa — micro-movimento basta.'
+  pet:
+    video_preferred_tier: A
+    rationale: 'Movimento do animal é o conteúdo; procedural não substitui.'
+  noticias:
+    video_preferred_tier: B
+    rationale: 'Mistura de cena e cartela — tier B cobre sem queimar tier A.'

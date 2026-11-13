@@ -1,0 +1,227 @@
+schema_version: '5.0'
+generated_at: '2026-08-14T20:30:46'
+archetype: single
+carousel_brief:
+  slug: v5-precision-03-publicitarioscriativos-2a87db
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/03-publicitarioscriativos-2a87db
+  source_url: https://www.instagram.com/publicitarioscriativos/p/Db26RbugHBv/
+  tema: 'Modelagem de precisão: 03-publicitarioscriativos-2a87db'
+  slide_count: 1
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 2
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 2.6/10 · **Classificação:** Fraco 🔴 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substitua o gancho da comunidade Disney por uma demonstração visual da automação
+    da Oraclum em ação, exibindo a interface do software nos primeiros 3 segundos
+    e apresentando um passo a passo que mostre claramente o payoff. - Reescrever o
+    conteúdo fo'
+  audits_present: true
+benchmark_caption: 'Antes dos vídeos curtos dominarem as redes sociais, um grupo de
+  blogueiras já construía comunidade no Brasil, compartilhando rotinas, desafios e
+  conquistas com uma geração inteira que cresceu acompanhando suas trajetórias. É
+  esse legado que a Disney resgata agora ao reunir cinco desses nomes para uma ação
+  especial.
+
+
+  Niina Secrets, Karol Pinheiro, Taciele Alcolea, Lu Ferreira e Rayza Nicácio são
+  as convocadas para a Disney Princesa, Crie Seu Mundo, associando cada trajetória
+  a uma personagem entre maternidade, empreendedorismo e pioneirismo digital. O material
+  será publicado nos próprios perfis e no da marca ao longo de agosto, mês em que
+  a franquia é celebrada mundialmente.
+
+
+  Produtos licenciados e conteúdos especiais no Disney+ completam a iniciativa, que
+  ainda antecipa o curta-metragem global da campanha.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: ' / '
+  reference_body: ' '
+  headline: MÃES CRIAM MAGIA DISNEY
+  sub_headline: O DESAFIO
+  body_text: Antes dos reels, essas blogueiras já mandavam na comunidade. Agora a
+    Disney junta elas pra mostrar maternidade, negócios e novidade digital.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 23
+    body_chars: 140
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: team planning campaign
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  - 2
+  personalization:
+    status: DONE
+    directive: Veja como a Oraclum transforma a criação de conteúdo para campanhas
+      de influência em automação prática, do brief ao agendamento, tudo em uma interface.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-14T20:31:44'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: nenhum texto de headline encontrado'
+  - 'slide 2: nenhum texto de headline encontrado'
+  headlines_extracted: 0/2
+  bodies_extracted: 0/2
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Campanha Disney Princesa, Crie Seu Mundo com influenciadoras brasileiras
+    celebrando maternidade, empreendedorismo e pioneirismo digital
+  formato: Anúncio de parceria de marca com influenciadores (case de collab) em formato
+    de legenda com imagens/vídeos planejados
+  arco_narrativo: Começa contextualizando o legado das blogueiras, apresenta a ação
+    da Disney com cinco influencers, descreve os entregáveis (posts, Disney+, licenciamento)
+    e antecipa o curta-metragem global
+  estrutura:
+  - slide_n: 1
+    papel: placeholder vazio, não contribui
+    essencial: false
+  - slide_n: 2
+    papel: placeholder vazio, não contribui
+    essencial: false
+  redundancias:
+  - slide 1
+  - slide 2
+  fatores_de_performance:
+  - Ausência de gancho visual nos primeiros 3 segundos
+  - Falta de demonstração clara do produto/serviço
+  - Ausência de triggers emocionais ou de urgência
+  - Não há call-to-action ou métricas de desempenho apresentadas
+  - Conteúdo genérico que não diferencia a marca
+  recomendacao:
+    slides_ideais: 1
+    justificativa: Um único slide contendo a interface do Oraclum em ação, com passo
+      a passo que mostre o payoff, substitui os slides vazios e atende às adaptações
+      obrigatórias, aumentando retenção e conversão
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-14T20:31:05'
+content_plan:
+  archetype: single
+  slide_count: 1
+  tema: Campanha Disney Princesa, Crie Seu Mundo com influenciadoras brasileiras celebrando
+    maternidade, empreendedorismo e pioneirismo digital
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DESAFIO
+    copy_direction: Veja como a Oraclum transforma a criação de conteúdo para campanhas
+      de influência em automação prática, do brief ao agendamento, tudo em uma interface.
+    image_direction: 'Mockup da tela da Oraclum mostrando um fluxo sequencial: início
+      com brief da campanha Disney Princesa, seguida de etapas de criação de conteúdo,
+      aprovação, agendamento e publicação nos posts das influencers e no Disney+.'
+    source_slides:
+    - 1
+    - 2
+  rationale: O benchmark apresentou dois slides vazios e redundantes, recomendando
+    um único slide que mostre a interface em ação com passo a passo do payoff. Seguindo
+    essa recomendação, criamos um carrossel de um slide que funciona como hook (captura
+    a dor/benefício) e, simultaneamente, entrega o payoff ao demonstrar concretamente
+    como a Oraclum resolve o desafio de orquestrar a campanha Disney Princesa. O copy
+    mantém o tema do benchmark, aplica a voz da Virals (direto, focado em prova prática
+    e benefício de automação) e evita qualquer número inventado ou lexicão proibido.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-14T20:31:33'
+central_theme: Campanha Disney Princesa, Crie Seu Mundo com influenciadoras brasileiras
+  celebrando maternidade, empreendedorismo e pioneirismo digital
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-14T20:31:44'
+  slides: 1
+  central_theme: Campanha Disney Princesa, Crie Seu Mundo com influenciadoras brasileiras
+    celebrando maternidade, empreendedorismo e pioneirismo digital
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-14T20:33:55'

@@ -1,0 +1,168 @@
+{
+ "roteiro": "A3-memento",
+ "wpm": 171.6,
+ "blocos": [
+  {
+   "i": 0,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Você queria parar de adiar? Escolher rápido, e sem se trair no meio do caminho?"
+  },
+  {
+   "i": 1,
+   "palavras": 21,
+   "duracao_s": 7.3,
+   "texto": "Então repare numa coisa desconfortável: quase tudo que você adiou este ano, você adiou porque acreditou, sem perceber, que teria tempo."
+  },
+  {
+   "i": 2,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Lembrar que se vai morrer não é mórbido. É o que devolve peso às escolhas."
+  },
+  {
+   "i": 3,
+   "palavras": 33,
+   "duracao_s": 11.5,
+   "texto": "Nós vivemos como se o prazo fosse infinito, e por isso tratamos as horas como se fossem baratas. Ninguém desperdiça o que sabe que é escasso. Nós desperdiçamos porque não acreditamos na conta."
+  },
+  {
+   "i": 4,
+   "palavras": 22,
+   "duracao_s": 7.7,
+   "texto": "Mas quem encara o prazo de frente descobre uma coisa estranha: não vem medo. Vem clareza. O que não importa cai sozinho."
+  },
+  {
+   "i": 5,
+   "palavras": 21,
+   "duracao_s": 7.3,
+   "texto": "Sêneca escreveu que não temos pouco tempo — nós perdemos muito. A vida é longa o bastante para quem sabe usá-la."
+  },
+  {
+   "i": 6,
+   "palavras": 14,
+   "duracao_s": 4.9,
+   "texto": "Três práticas estoicas sobre finitude. Nenhuma delas é sobre morrer. Todas são sobre escolher."
+  },
+  {
+   "i": 7,
+   "palavras": 16,
+   "duracao_s": 5.6,
+   "texto": "Comenta aqui embaixo: hoje eu escolho. Duas palavras, e elas mudam o tom do seu dia."
+  },
+  {
+   "i": 8,
+   "palavras": 19,
+   "duracao_s": 6.6,
+   "texto": "Este vídeo chegou até você porque alguém antes curtiu, comentou e compartilhou. Faz o mesmo, para a corrente seguir."
+  },
+  {
+   "i": 9,
+   "palavras": 2,
+   "duracao_s": 0.7,
+   "texto": "Prática um."
+  },
+  {
+   "i": 10,
+   "palavras": 7,
+   "duracao_s": 2.4,
+   "texto": "Prática um: a pergunta da última hora."
+  },
+  {
+   "i": 11,
+   "palavras": 19,
+   "duracao_s": 6.6,
+   "texto": "O princípio é usar o fim como filtro. Diante de qualquer escolha, pergunte: na última hora, isso teria importado?"
+  },
+  {
+   "i": 12,
+   "palavras": 56,
+   "duracao_s": 19.6,
+   "texto": "Nos triunfos romanos, quando o general desfilava pela cidade com a multidão gritando o nome dele, havia um escravo em pé atrás dele na carruagem. A função daquele homem era uma só: repetir no ouvido do general, durante todo o desfile, que ele era mortal.  No auge exato da glória, alguém pago para lembrar do fim."
+  },
+  {
+   "i": 13,
+   "palavras": 24,
+   "duracao_s": 8.4,
+   "texto": "Para você isso é uma pergunta de cinco segundos, feita antes de brigar, antes de aceitar mais uma tarefa, antes de adiar de novo."
+  },
+  {
+   "i": 14,
+   "palavras": 18,
+   "duracao_s": 6.3,
+   "texto": "O desafio: hoje, faça essa pergunta três vezes. Anote o que você deixou de fazer por causa dela."
+  },
+  {
+   "i": 15,
+   "palavras": 7,
+   "duracao_s": 2.4,
+   "texto": "Prática dois: trate cada despedida como possível."
+  },
+  {
+   "i": 16,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Não é para viver de luto antecipado. É para parar de terminar conversas no automático."
+  },
+  {
+   "i": 17,
+   "palavras": 45,
+   "duracao_s": 15.7,
+   "texto": "Sêneca escreveu a um amigo que a maior parte da vida escapa enquanto fazemos mal o que é preciso, boa parte enquanto não fazemos nada, e a vida inteira enquanto fazemos o que não interessa.  Ele não estava falando de anos. Estava falando de tardes."
+  },
+  {
+   "i": 18,
+   "palavras": 12,
+   "duracao_s": 4.2,
+   "texto": "Se este conteúdo está fazendo sentido para você, deixa o like aqui."
+  },
+  {
+   "i": 19,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "O desafio: na próxima despedida — porta, telefone, mensagem — pare dois segundos e diga a coisa certa em vez da coisa automática."
+  },
+  {
+   "i": 20,
+   "palavras": 9,
+   "duracao_s": 3.1,
+   "texto": "Prática três: escreva o que você quer que fique."
+  },
+  {
+   "i": 21,
+   "palavras": 22,
+   "duracao_s": 7.7,
+   "texto": "Não é testamento. É direção. Quem sabe o que quer deixar para trás para de se perder no que não constrói nada."
+  },
+  {
+   "i": 22,
+   "palavras": 49,
+   "duracao_s": 17.1,
+   "texto": "Marco Aurélio governou durante a peste antonina, que matou milhões no império. Ele enterrou filhos. Escreveu boa parte das anotações dele em acampamento militar, em noites que ele não sabia se atravessaria.  E o que ele escreveu não foi lamento. Foi instrução para si mesmo, para o dia seguinte."
+  },
+  {
+   "i": 23,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "O desafio: nos próximos sete dias, escreva uma frase por dia que você gostaria que alguém lembrasse de você. Sete frases. Sem plateia."
+  },
+  {
+   "i": 24,
+   "palavras": 9,
+   "duracao_s": 3.1,
+   "texto": "A morte não é o assunto. É a régua."
+  },
+  {
+   "i": 25,
+   "palavras": 17,
+   "duracao_s": 5.9,
+   "texto": "Encostada nela, quase tudo que te consome hoje encolhe — e o pouco que sobra, você faz."
+  },
+  {
+   "i": 26,
+   "palavras": 9,
+   "duracao_s": 3.1,
+   "texto": "Clica no vídeo que está aparecendo na tela agora."
+  }
+ ]
+}

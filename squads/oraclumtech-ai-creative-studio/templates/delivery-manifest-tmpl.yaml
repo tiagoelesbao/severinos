@@ -1,0 +1,218 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — MANIFESTO DE ENTREGA
+# Onde vive:  {job}/16-delivery/delivery-manifest.yaml
+# Quem preenche: @exec-producer
+# Validado por:  checklists/gate-delivery.md + gate-transversal-entrega.md (bloco MF)
+#
+# O QUE ESTE ARQUIVO É: o documento que torna a entrega auditável meses depois.
+# Ele responde, sem depender da memória de ninguém: o que foi entregue, em que formato,
+# para onde, com que direitos, sob qual identidade de marca, e com que dívidas em aberto.
+#
+# ADR-004 — REPRODUTIBILIDADE DA MARCA: `brand-lock.yaml` é SNAPSHOT, não ponteiro.
+# As fontes mudam durante a operação (o brand-identity da Oraclum foi de v2 para v2.1;
+# a paleta do brand-config foi realinhada em 2026-08-14). Um job que aponta para o
+# arquivo vivo troca de regra no meio da produção e fica irreproduzível. Por isso o
+# manifesto registra QUAL SNAPSHOT foi usado — ver o bloco `identidade_de_marca`.
+# Divergência entre o snapshot e o arquivo atual é informação, não erro.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  schema_version: "1.0"
+  job_id: "<job-id>"
+  pipeline_id: "<brand-film | ugc-ads | nicho-series | oraclum-institucional | dark-room | image-lab>"
+  cliente: "<slug>"
+  entregue_em: "<YYYY-MM-DD HH:MM>"
+  entregue_por: "@exec-producer"
+  solicitante: "<quem pediu>"
+
+# ── Autorização de entrega ───────────────────────────────────────────────────
+autorizacao:
+  gate_verdict: "{job}/15-gate/gate-verdict.md"
+  veredito: "<PASS | CONCERNS | WAIVED>"        # FAIL não entrega
+  factcheck_report: "{job}/15-gate/factcheck-report.md"
+  factcheck_veredito: "<CLEAR | CLEAR_CONDICIONADO>"
+  ciencia_do_solicitante:                        # obrigatório quando veredito = CONCERNS
+    quem: "<nome>"
+    quando: "<YYYY-MM-DD HH:MM>"
+    aceitou: ["<ressalva 1>", "<ressalva 2>"]
+
+# ── Identidade de marca usada (ADR-004 — snapshot, não ponteiro) ────────────
+identidade_de_marca:
+  brand_lock_snapshot: "{job}/01-brief/brand-lock.yaml"
+  hash_ou_data_do_snapshot: "<hash do arquivo ou data-hora da cópia>"
+  fonte_original: "squads/virals-marketing-squad/data/clients/<slug>/brand-identity.yaml"
+  versao_da_fonte_no_snapshot: "<meta.versao vigente na abertura do job>"
+  brand_config_fonte: "squads/virals-marketing-squad/data/clients/<slug>/brand-config.yaml"
+  versao_brand_config: "<versão/data>"
+  divergencia_com_a_fonte_atual: "<'nenhuma verificada' | descrição da diferença>"
+  # Se a fonte evoluiu depois da abertura, isto NÃO invalida a peça: ela foi produzida e
+  # checada contra o snapshot. Registrar a divergência permite decidir se vale reeditar.
+
+# ── Arquivos entregues ───────────────────────────────────────────────────────
+# gate-transversal MF-01: a lista precisa bater EXATAMENTE com o conteúdo de entrega/.
+entrega:
+  raiz: "{job}/16-delivery/entrega/"
+  master:
+    arquivo: "<cliente>_<job-id>_<peca>_master_v<n>.<ext>"
+    caminho: "master/<arquivo>"
+    origem_na_cadeia: "<Premiere | video-studio | creative-design>"
+    duracao_s: <n>
+    resolucao: "<1080x1920>"
+    aspect: "<9:16>"
+    codec: "<H.264>"
+    container: "<mp4>"
+    fps: <n>
+    audio: "<AAC 48kHz estéreo>"
+    loudness_lufs: <n>
+    pico_dbtp: <n>
+    tamanho_mb: <n>
+
+  derivados:
+    - arquivo: "<cliente>_<job-id>_<peca>_<canal>_<aspect>_v<n>.<ext>"
+      caminho: "canais/<arquivo>"
+      destino_canal: "<instagram-reels | tiktok | youtube-shorts | meta-ads>"
+      tipo_midia: "<organico | pago>"
+      aspect: "<9:16>"
+      resolucao: "<1080x1920>"
+      codec: "<H.264>"
+      fps: <n>
+      bitrate: "<8M>"
+      duracao_s: <n>
+      safe_area_aplicada: "<250px inferior / 120px superior / 120px faixa direita (TikTok)>"
+      tamanho_mb: <n>
+      legenda_embutida: <true|false>
+      legenda_arquivo: "canais/<arquivo>.srt"
+
+    - arquivo: "<...>"
+      caminho: "canais/<...>"
+      destino_canal: "<...>"
+      # (repita por destino declarado em job.json — MF-01 / DL-05)
+
+  fontes:
+    - tipo: "projeto-premiere"
+      caminho: "fontes/<arquivo>.prproj"
+    - tipo: "projeto-after-effects"
+      caminho: "fontes/<arquivo>.aep"
+    - tipo: "estado-video-studio"
+      caminho: "fontes/video-brief.yaml"
+    - tipo: "assets-brutos"
+      caminho: "fontes/assets/"
+    - tipo: "pacotes-de-direcao"
+      caminho: "fontes/_direction/"
+    - tipo: "cards-humanos"
+      caminho: "fontes/_cards/"
+    - tipo: "rastreabilidade"
+      caminho: "fontes/rastreabilidade.yaml"
+    - tipo: "fontes-tipograficas"
+      caminho: "fontes/fontes/"
+      licencas: "<lista ou caminho>"
+
+# ── Rastreabilidade resumida (detalhe em fontes/rastreabilidade.yaml) ───────
+producao:
+  assets_gerados_por_humano: <n>
+  operadores: ["<nome>", "<nome>"]              # pessoas, nunca agentes
+  ferramentas_usadas:
+    - ferramenta: "<nome + modelo/versão>"
+      tipo: "<imagem | vídeo | voz>"
+      assets: <n>
+  retakes_totais: <n>
+  creditos_consumidos: <n>
+  creditos_orcados: <n>
+
+# ── Direitos ─────────────────────────────────────────────────────────────────
+# gate-transversal MF-03 / TR-FC-02: todo asset de terceiro precisa de linha aqui.
+direitos:
+  assets_de_terceiro:
+    - asset: "<arquivo ou descrição>"
+      tipo_direito: "<D-IMG | D-VOZ | D-NOM | D-MAR | D-OBR>"
+      titular: "<quem detém>"
+      licenca: "<nome da licença / nº do comprovante>"
+      comprovante: "<caminho do documento — print de site NÃO é comprovante>"
+      escopo:
+        uso: "<comercial | editorial>"
+        canais: ["<canal>"]
+        territorio: "<Brasil | mundial>"
+        prazo: "<perpétuo | até YYYY-MM-DD>"
+        midia_paga_permitida: <true|false>
+  pessoas_retratadas:
+    - identificacao: "<sintético 100% | pessoa real>"
+      character_id: "<slug do registry, quando aplicável>"
+      declaracao_nao_semelhanca: "<caminho ou 'ver identity.yaml'>"
+      cessao: "<caminho do termo, quando pessoa real>"
+  vozes:
+    - origem: "<biblioteca licenciada | titular autorizado>"
+      preset: "<id>"
+      licenca_cobre_ia: <true|false>
+      comprovante: "<caminho>"
+
+# ── Disclosure de IA ─────────────────────────────────────────────────────────
+disclosure_ia:
+  aplicavel: <true|false>
+  caso: "<AID-1 | AID-2 | AID-3 | AID-4 | AID-5 | n/a>"
+  como_aplicado: "<rótulo na peça | flag nativa da plataforma | ambos>"
+  instrucao_para_quem_publica: "<o que marcar no momento de publicar>"
+
+# ── Kit de publicação ────────────────────────────────────────────────────────
+publicacao:
+  kit: "{job}/16-delivery/publishing-kit.md"
+  textos_checados_pelo_factcheck: <true|false>   # DL-10
+  por_canal:
+    - canal: "<...>"
+      arquivo: "<...>"
+      caption: "<texto aprovado>"
+      titulo: "<...>"
+      hashtags: ["<...>"]
+      flag_ia: <true|false>
+      janela_sugerida: "<...>"
+
+# ── Validade do conteúdo ─────────────────────────────────────────────────────
+# MF-04: claim temporal sem validade faz a peça apodrecer sem aviso.
+validade:
+  claims_temporais:
+    - claim: "<afirmação com prazo de validade>"
+      checado_em: "<YYYY-MM-DD>"
+      revisar_em: "<YYYY-MM-DD>"
+      risco_se_desatualizar: "<...>"
+  republicacao_permitida_ate: "<YYYY-MM-DD | sem restrição>"
+
+# ── Dívidas em aberto ────────────────────────────────────────────────────────
+# MF-05: ressalva e waiver viajam com a entrega. Quem recebe precisa saber o que
+# ficou pendente — dívida invisível vira surpresa no próximo ciclo.
+dividas:
+  ressalvas_concerns:
+    - item: "<ID do checklist>"
+      descricao: "<o que está abaixo do padrão>"
+      impacto: "<...>"
+      correcao_prevista: "<próxima peça | YYYY-MM-DD | não será corrigida>"
+  waivers:
+    - item: "<ID do checklist>"
+      severidade_original: "<BLOQUEANTE>"
+      autor: "@studio-chief"                     # única autoridade de waiver
+      justificativa: "<material: o que se ganha e o que se aceita perder>"
+      data: "<YYYY-MM-DD>"
+      prazo_de_correcao: "<YYYY-MM-DD>"          # waiver sem prazo é permanente disfarçado
+  pendencias_operacionais:
+    - descricao: "<ex.: derivado 1:1 não gerado — preset do canal indisponível>"
+      responsavel: "<...>"
+      prazo: "<...>"
+
+# ── Aprendizados (alimenta o próximo job do mesmo gênero) ──────────────────
+aprendizados:
+  o_que_funcionou_na_direcao:
+    - "<pacote/técnica que acertou de primeira e vale repetir>"
+  armadilhas_de_modelo_descobertas:
+    - modelo: "<nome + versão>"
+      armadilha: "<o que errou>"
+      contorno: "<o que resolveu>"
+  pacotes_promovidos_a_referencia:
+    - "<caminho do asset_direction que virou padrão>"
+  sugestoes_de_checklist:
+    - "<critério que faltou e deveria entrar no gate do gênero>"
+
+# ── Envio ────────────────────────────────────────────────────────────────────
+envio:
+  meio: "<Drive | ClickUp | e-mail | link>"
+  destinatario: "<...>"
+  enviado_em: "<YYYY-MM-DD HH:MM>"
+  confirmacao_de_recebimento: "<YYYY-MM-DD | pendente>"
+  job_status_final: "delivered"

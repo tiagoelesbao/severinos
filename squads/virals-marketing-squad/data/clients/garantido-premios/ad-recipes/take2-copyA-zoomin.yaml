@@ -1,0 +1,12 @@
+# Receita — prova de conceito da arquitetura de templates (2026-10-10)
+# Combina COPY × HOOK_TEMPLATE de forma independente — ver
+# squads/virals-marketing-squad/docs/pipeline-templates-video-escala-2026-10-10.md §2.3
+template: GarantidoTake2Ad
+take_file: take2_video1-fonte_sem-texto_20261008_clean.mp4
+headline:
+  line1: "A ESPERA ACABA RÁPIDO."
+  line2_words: ["O PAGAMENTO", "TAMBÉM."]
+  highlight_word: "TAMBÉM."
+hook: garantido-hook-zoom-in  # id em video-templates.yaml (hook_packs)
+angulo: emocional
+nota: "Copy A = a headline já aprovada e em produção pra este template (GARANTIDO_HEADLINES.take2). Hook A = zoom-in."

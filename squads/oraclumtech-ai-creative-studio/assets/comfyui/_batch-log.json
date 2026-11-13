@@ -1,0 +1,13 @@
+[
+  {
+    "id": "piloto-influencer-neon",
+    "workflow": "c:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\assets\\comfyui\\temp_workflow_neon.json",
+    "inicio": "22:12:53",
+    "prompt_id": "3f880201-770c-42df-a961-550cb70c8ac3",
+    "status": "ok",
+    "saidas": [
+      "take_00001_.png"
+    ],
+    "segundos": 522
+  }
+]

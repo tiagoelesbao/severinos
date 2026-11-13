@@ -1,0 +1,308 @@
+schema_version: '5.0'
+generated_at: '2026-08-19T23:24:26'
+archetype: single
+carousel_brief:
+  slug: v5-precision-30-airesearches-4cc7da
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\30-airesearches-4cc7da
+  source_url: https://www.instagram.com/airesearches/p/DcNx9MtGW9z/
+  tema: 'Modelagem de precisão: 30-airesearches-4cc7da'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 4
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 5.6/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir o foco puramente narrativo de tweets por uma demonstração visual imediata
+    de uma automação ou painel de IA logo após o gancho de autoridade. - Substituir
+    a narrativa de ''mudança de opinião'' por uma análise técnica de ''ganho de eficiênci'
+  audits_present: true
+benchmark_caption: 'Markus Persson, better known as Notch, the creator of Minecraft,
+  posted just two words on July 14: “Reject AI.” The post reached around 70,000 likes
+  and 5.2 million views. Coming from one of gaming’s most respected programmers, it
+  carried weight.
+
+
+  A week later, his tone started changing. He thanked people for tips on AI-assisted
+  coding, admitted he would probably stay grumpy about it for a while, and asked who
+  he was to resist the inevitable. Soon after, he was already imagining tools he could
+  build with AI, including a text editor that could add new features to itself.
+
+
+  By July 22, he said he needed to give AI a real chance before deciding that being
+  against it was worth more than being right. Two days later, he admitted he was running
+  out of excuses and had come close to becoming a Luddite.
+
+
+  Then came the full shift. He started testing Claude, thinking up real use cases
+  like converting an entire codebase from one language to another, and was soon praising
+  the interface and how well it worked inside his editor.
+
+
+  From “Reject AI” to actually using it took just 14 days, and he documented the whole
+  change of mind in public.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: THE CREATOR OF MINECRAFT WROTE "REJECT AI."
+  reference_body: 14 DAYS LATER, HE WAS USING CLAUDE SWIPE FOR MORE
+  headline: DA NEGAÇÃO À ADOÇÃO DE IA EM 14 DIAS
+  sub_headline: O REJEITA
+  body_text: O criador do Minecraft mudou seu workflow para o Claude após rejeitar
+    a tecnologia inicialmente.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 36
+    body_chars: 96
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man frustrated laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Criador do Minecraft: de rejeição a Claude em 14 dias'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:11:28'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: AI researches
+  reference_body: notch Reject AI. 5:06 PM • 14 Jul 26 • 5.3M Views
+  headline: O IMPACTO DO POST
+  sub_headline: O DADO
+  body_text: O post original 'REJECT AI' alcançou 5.3 milhões de visualizações. A
+    resistência inicial deu lugar ao interesse técnico imediato.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 17
+    body_chars: 129
+    headline_tier: xl
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: social media analytics screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: Notch escreveu 'REJECT AI' e ainda recebia sugestões de uso de IA
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:11:28'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: AI researches
+  reference_body: notch Oh god, is this how it starts? I'm already coming up with
+    use cases, such as converting all my typescript into javascript. Sure, claude,
+    let's see what you got! Can I still make fun of vibe coders if I become one? 7:10
+    AM • 28 Jul 26 • 2M Views
+  headline: EFICIÊNCIA PRÁTICA
+  sub_headline: O RESULTADO
+  body_text: O uso do Claude para converter TypeScript em JavaScript automatizou tarefas
+    e otimizou o desenvolvimento. Até onde a ideologia resiste à produtividade real?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 18
+    body_chars: 156
+    headline_tier: xl
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: software code screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Em 14 dias, ele usou Claude para converter TypeScript em JavaScript,
+      automatizando tarefas e ganhando eficiência prática. Teste Claude e veja a diferença
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-20T14:11:28'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/4
+  bodies_extracted: 4/4
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A rápida mudança de mentalidade do criador do Minecraft em relação
+    à IA, de negação total à adoção prática em 14 dias.
+  formato: Storytelling de transformação (Case único)
+  arco_narrativo: Inicia com um conflito forte (Rejeição), apresenta a transição gradual
+    através de evidências (Tweets intermediários) e finaliza com a resolução/aceitação
+    (Uso do Claude).
+  estrutura:
+  - slide_n: 1
+    papel: Gancho de alta tensão e contraste temporal
+    essencial: true
+  - slide_n: 2
+    papel: Prova social e evidência do ponto de partida
+    essencial: true
+  - slide_n: 3
+    papel: Transição psicológica e abertura ao novo
+    essencial: false
+  - slide_n: 4
+    papel: Conclusão com aplicação prática e validação da ferramenta
+    essencial: true
+  redundancias:
+  - 'Slide 3: A transição de ''estou ranzinza'' para ''vou testar'' pode ser fundida
+    ao Slide 4 para acelerar o ritmo da narrativa.'
+  fatores_de_performance:
+  - Autoridade extrema do personagem (Criador do Minecraft)
+  - Contraste binário forte (Reject AI vs. Using Claude)
+  - Curiosidade gerada pelo curto intervalo de tempo (14 dias)
+  - Documentação pública e autêntica via screenshots de tweets
+  recomendacao:
+    slides_ideais: 3
+    justificativa: Para a versão Virals, manteremos o Gancho (S1), a Prova da Rejeição
+      (S2) e fundiremos a transição com a aplicação técnica (S3), alinhando-se à auditoria
+      de substituir narrativa pura por ganho de eficiência técnica.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:24:44'
+content_plan:
+  archetype: single
+  slide_count: 3
+  tema: A rápida mudança de mentalidade do criador do Minecraft em relação à IA, de
+    negação total à adoção prática em 14 dias.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O REJEITA
+    copy_direction: 'Criador do Minecraft: de rejeição a Claude em 14 dias'
+    image_direction: Foto do tweet 'REJECT AI' com destaque e ícone de IA riscado
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O DADO
+    copy_direction: Notch escreveu 'REJECT AI' e ainda recebia sugestões de uso de
+      IA
+    image_direction: Captura de tela do tweet de Notch com 5,3 M de visualizações
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: PAYOFF
+    kicker: O RESULTADO
+    copy_direction: Em 14 dias, ele usou Claude para converter TypeScript em JavaScript,
+      automatizando tarefas e ganhando eficiência prática. Teste Claude e veja a diferença
+    image_direction: Tela do Claude mostrando conversão de código e log de produtividade
+    source_slides:
+    - 4
+  rationale: Reduzi o carrossel a 3 slides, fundindo a transição e a aplicação prática
+    em um único slide de payoff, conforme recomendação de manter 3 slides para versão
+    viral. O hook cria tensão ao contrastar rejeição e adoção em 14 dias, o insight
+    entrega a prova do ponto de partida (tweet de Notch), e o payoff mostra o benefício
+    concreto (uso de Claude) com CTA de think, obedecendo à regra de não vender diretamente.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-19T23:26:24'
+central_theme: A rápida mudança de mentalidade do criador do Minecraft em relação
+  à IA, de negação total à adoção prática em 14 dias.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-20T14:11:28'
+  slides: 3
+  central_theme: A rápida mudança de mentalidade do criador do Minecraft em relação
+    à IA, de negação total à adoção prática em 14 dias.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-20T14:11:46'

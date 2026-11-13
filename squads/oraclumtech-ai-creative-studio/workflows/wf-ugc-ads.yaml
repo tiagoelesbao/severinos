@@ -1,0 +1,738 @@
+# WF-OCS-P2 — UGC / Creator AI para Conversão
+# Ciclo curto, alto volume, lote de variações para teste em Meta e TikTok Ads.
+# Fonte: _BLUEPRINT.md §5 (P2) · Elenco §4 · Regra de ouro §3.1 · Pacote de Direção §3.2
+#        Finalização §3.3 · Convenções normativas: _CONVENTIONS.md
+# Perfil espelhado: data/pipeline-profiles.yaml → P2
+
+workflow:
+  id: wf-ugc-ads
+  pipeline_id: ugc-ads
+  name: 'UGC Ads — creator AI para conversão'
+  version: 2.0.0
+  squad: oraclumtech-ai-creative-studio
+  entry_agent: studio-chief
+  job_owner: exec-producer
+  genre_ref: 'data/genre-catalog.yaml#ugc-ads'
+  profile_ref: 'data/pipeline-profiles.yaml#P2'
+  handoff_contracts: 'data/handoff-matrix.yaml'
+  formato_master: '9:16'
+  unidade: 'lote (1 corpo × N hooks)'
+  description: >
+    O pipeline de volume. Não tem concept, decupagem, look nem design: big idea e
+    fotografia autoral trabalhariam CONTRA o código de UGC, que precisa parecer
+    não-dirigido. O que sustenta a qualidade é hook e consistência do creator.
+    A unidade de trabalho é o lote — um corpo de roteiro montado com N hooks.
+
+golden_rule:
+  ref: '_BLUEPRINT.md §3.1 · _CONVENTIONS.md §6'
+  statement: >
+    O squad NÃO gera imagem, vídeo nem voz. Os estágios stills e takes são
+    executor human, sempre. A geração de voz dentro de audio também.
+  consequence: >
+    O entregável do image-lead, do motion-lead e do sound-designer é o Pacote de
+    Direção (asset_direction, §3.2) — ferramenta, prompt, parâmetros, técnica,
+    armadilhas do modelo, critério de aceite e plano B.
+  three_phase_shape: >
+    direction (agent, escreve o pacote) → human (human, gera e deposita; o pipeline
+    PARA aqui) → review (agent, drift-check e retake dirigido, teto 3).
+
+inputs:
+  request:
+    type: text
+    required: true
+    description: 'Pedido do gestor de tráfego ou do cliente.'
+  client:
+    type: slug
+    required: true
+    default: oraclum
+  offer:
+    type: text
+    required: true
+    description: 'A oferta exata que o anúncio vende. Sem oferta é conteúdo, não anúncio.'
+  hooks:
+    type: number
+    default: 3
+    description: 'Quantos hooks entram no lote. O corpo do roteiro é único; o hook é a variável.'
+  platform:
+    type: enum
+    values: [meta-ads, tiktok-ads, both]
+    default: both
+  duration:
+    type: enum
+    values: ['15s', '30s', '45s']
+    default: '30s'
+  creator_persona:
+    type: slug
+    required: false
+    description: 'Persona de creator sintético já aprovada. Vazio = character cria uma nova.'
+  operator:
+    type: text
+    required: false
+    description: 'Quem executa os cards humanos de geração. Vazio = founder.'
+
+config:
+  job: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+  job_id_format: '{YYYY-MM-DD}-ugc-ads-{slug}-{hash4}'
+  job_state: '{job}/job.json'
+  card_dir: '{job}/_cards/'
+  degraded_registry: '{job}/job.json → degraded[]'
+  waiver_registry: '{job}/job.json → waivers[]'
+  fail_fast: false
+  allow_manual_override: true
+  retake_ceiling: 3
+  retake_ceiling_note: >
+    Três rodadas de retake dirigido por asset. Ao estourar, escala para studio-chief —
+    o problema provavelmente está no estágio anterior, não no prompt.
+  lote_rule: >
+    O corpo é único e compartilhado. Cada hook vira uma variação h1..hN em
+    {job}/14-assembly/master/. Variação reprovada sai do lote e vai para
+    job.json → degraded[]; as demais seguem. Lote não é bloqueado por uma peça.
+
+gate_rule:
+  statement: >
+    Nenhum estágio começa sem o gate do anterior ter passado. Em lote, o gate de
+    montagem em diante é por variação: h2 pode passar enquanto h3 fica retida.
+  enforcement: 'exec-producer valida job.json → stages[<anterior>].gate == PASS'
+  waiver:
+    allowed: true
+    except: [factcheck]
+    requires: [gate, motivo, autor, data]
+    recorded_in: '{job}/job.json → waivers[]'
+  blocking_stage: factcheck
+  blocking_note: >
+    factcheck é BLOQUEANTE e não admite waiver. Claim de anúncio reprovado é risco
+    de conta bloqueada, não questão de gosto.
+
+human_checkpoints:
+  - after: script
+    id: cp-hooks
+    who: founder
+    question: 'Os {hooks} hooks são realmente distintos? Quais entram no lote?'
+    rationale: >
+      É onde se corta o desperdício. N hooks que atacam a mesma objeção com a mesma
+      prova são o MESMO hook com outra roupa — queimam N vezes o trabalho humano de
+      geração e produzem um teste que não ensina nada.
+    blocking: true
+    presents: ['{job}/05-script/hooks.md']
+  - after: character
+    id: cp-creator
+    who: founder
+    question: 'O creator sintético está aprovado? É crível e não se parece com pessoa real identificável?'
+    rationale: >
+      O rosto errado contamina todo o lote e todos os lotes futuros que reusarem a
+      persona. O creator é o ativo reutilizável do P2.
+    blocking: true
+    presents: ['{job}/09-character/character-bible.yaml']
+  - after: 'stills.human'
+    id: cp-stills
+    who: operator
+    type: execucao_humana
+    question: 'Stills do creator gerados conforme o Pacote de Direção e depositados em 11-stills/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória. O pipeline não anda sem os arquivos em disco.'
+    blocking: true
+    card: '{job}/_cards/card-stills-{n}.md'
+  - after: 'takes.human'
+    id: cp-takes
+    who: operator
+    type: execucao_humana
+    question: 'Takes gerados e depositados em 12-takes/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória.'
+    blocking: true
+    card: '{job}/_cards/card-takes-{n}.md'
+  - after: 'audio.human'
+    id: cp-audio
+    who: operator
+    type: execucao_humana
+    question: 'VO do creator gerado e depositado em 13-audio/entregues/?'
+    rationale: 'Regra de ouro §3.1 — geração de voz também é humana.'
+    blocking: true
+    card: '{job}/_cards/card-audio-{n}.md'
+  - after: 'assembly.human'
+    id: cp-montagem
+    who: operator
+    type: execucao_humana
+    question: 'As {hooks} variações foram cortadas e exportadas no Premiere?'
+    rationale: >
+      Finalização §3.3. O app próprio faz autolegenda e tratamento; o corte e o export
+      das N variações são humanos. P2 normalmente não passa por After Effects — UGC com
+      motion graphics deixa de parecer UGC.
+    blocking: true
+    card: '{job}/_cards/card-montagem.md'
+  - after: gate
+    id: cp-subida
+    who: founder
+    question: 'Veredito lido. Quais variações sobem para o gerenciador de anúncios?'
+    blocking: true
+
+stages:
+
+  - id: intake
+    name: 'Intake e roteamento'
+    owner_agent: studio-chief
+    task: tasks/intake.md
+    executor: agent
+    handon:
+      from: request
+      artifacts: ['(pedido do gestor de tráfego ou do cliente)']
+      contract: 'Oferta, público e conta de anúncios de destino declarados'
+    handoff:
+      to: brief
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - '{job}/job.json'
+      gate: checklists/gate-intake.md
+    fallback: 'Sem oferta clara → devolve. UGC sem oferta é conteúdo, não anúncio.'
+    on_fail: halt
+
+  - id: brief
+    name: 'Brief de conversão e trava de marca'
+    owner_agent: brief-strategist
+    task: tasks/brief.md
+    executor: agent
+    depends_on: [intake]
+    handon:
+      from: intake
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - 'squads/virals-marketing-squad/data/clients/{client}/brand-identity.yaml'
+      contract: 'pedido.md com oferta, dor e objeção principal'
+    handoff:
+      to: research
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{job}/01-brief/brand-lock.yaml'
+      gate: checklists/gate-brief.md
+    fallback: >
+      Dor genérica demais → o brief-strategist deriva a dor de comentários e reviews
+      reais coletados no research e marca como hipótese a validar em mídia.
+    on_fail: halt
+
+  - id: research
+    name: 'Benchmark de anúncios em veiculação'
+    owner_agent: research-scout
+    task: tasks/research.md
+    executor: worker
+    executor_notes: 'Benchmark ETL sobre criativos concorrentes em veiculação; a síntese é do owner_agent.'
+    depends_on: [brief]
+    command: |
+      node squads/virals-marketing-squad/scripts/run-creative-benchmark.js --date={date} --top={top} --platforms=instagram,tiktok
+      python squads/virals-marketing-squad/scripts/vision_video_benchmark.py {benchmark_dir}/video-brief.yaml --max-frames=8
+    command_note: >
+      run-creative-benchmark.js faz o ETL (download, transcrição com timestamps,
+      frames-chave). vision_video_benchmark.py escreve visual_analysis dentro do próprio
+      video-brief.yaml. Aqui o alvo é criativo de ads rodando, não comercial de marca.
+    handon:
+      from: brief
+      artifacts: ['{job}/01-brief/brief.yaml']
+      contract: 'Categoria e concorrentes definidos'
+    handoff:
+      to: script
+      artifacts:
+        - '{job}/02-research/dossie-referencia.md'
+        - '{job}/02-research/hooks-em-veiculacao.md'
+        - '{job}/02-research/nao-copiar.md'
+      gate: checklists/gate-research.md
+    fallback: >
+      Sem acesso a biblioteca de anúncios → usa o código de ugc-ads em
+      data/craft-references.yaml e marca as referências como não-verificadas.
+    on_fail: continue_and_report
+
+  - id: script
+    name: 'Corpo único e N hooks'
+    owner_agent: head-of-copy
+    task: tasks/script.md
+    executor: agent
+    depends_on: [research]
+    handon:
+      from: research
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{job}/02-research/hooks-em-veiculacao.md'
+      contract: 'Dossiê com hooks concorrentes mapeados'
+    handoff:
+      to: character
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/05-script/hooks.md'
+        - '{job}/05-script/claim-ledger.json'
+      gate: checklists/gate-script.md
+    strategy_note: >
+      Estratégia 1 corpo × N hooks — o padrão já validado em plan_video_creative.py do
+      virals-marketing-squad. hooks.md prova a distinção: uma linha por hook com a
+      objeção atacada, a promessa e o pattern interrupt. Duas linhas iguais são um hook só.
+    checkpoint: cp-hooks
+    fallback: >
+      Claim de resultado sem prova → reescreve em linguagem de mecanismo (como funciona)
+      em vez de promessa de resultado. Se não houver objeções distintas suficientes, o
+      head-of-copy reduz o número de hooks e diz por quê. Nunca infla o lote.
+    on_fail: halt
+
+  - id: character
+    name: 'Creator sintético e consistência de identidade'
+    owner_agent: character-lead
+    task: tasks/character.md
+    executor: agent
+    depends_on: [script]
+    handon:
+      from: script
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/01-brief/brief.yaml'
+      contract: 'Roteiro com o perfil de quem fala (idade, contexto, jeito)'
+    handoff:
+      to: stills
+      artifacts:
+        - '{job}/09-character/character-bible.yaml'
+        - '{job}/09-character/asset-direction-sheet.yaml'
+      gate: checklists/gate-character.md
+    reuse:
+      persona_registry: 'data/craft-references.yaml#creator-personas'
+      note: >
+        creator_persona preenchido no input pula a criação e carrega o character-bible
+        já aprovado. Persona reusada é persona que já passou pelo factcheck de direito
+        de imagem. O creator sintético é o ativo reutilizável do P2: character sheet
+        gerado uma vez, reaproveitado em todo o lote e nos lotes seguintes do cliente.
+    checkpoint: cp-creator
+    fallback: >
+      Consistência de rosto impossível de sustentar na ferramenta escolhida → troca a
+      estratégia do lote: creator de costas, mãos ou POV, onde a identidade se sustenta
+      por wardrobe e ambiente em vez de rosto.
+    on_fail: halt
+
+  - id: stills
+    name: 'Stills do creator — direção, geração humana e avaliação'
+    owner_agent: image-lead
+    task: tasks/stills.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: >
+      Regra de ouro §3.1 / _CONVENTIONS.md §6. Não é falta de script: é decisão de
+      negócio. Geração de imagem exige leitura de resultado, descarte e refino humanos.
+    depends_on: [character]
+    subroutine: 'wf-image-lab.yaml em modo sub-rotina quando o lote precisar de thumb ou estático de apoio'
+    handon:
+      from: character
+      artifacts:
+        - '{job}/09-character/character-bible.yaml'
+        - '{job}/05-script/roteiro.md'
+      contract: 'Character sheet aprovado — sem ele o lote sai com N pessoas diferentes'
+    substages:
+      - id: stills.direction
+        executor: agent
+        owner_agent: image-lead
+        name: 'Pacote de Direção por still'
+        produces:
+          - '{job}/11-stills/_direction/{asset-id}.yaml'
+          - '{job}/11-stills/_direction/INDEX.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        must_include: [ferramenta_recomendada, prompt, prompt_negativo, parametros, tecnica, armadilhas_conhecidas, criterio_de_aceite, quantas_variacoes, pos_processamento, se_falhar]
+        routing_ref: 'data/model-routing.yaml#image'
+        identity_lock: 'Seed e referência do character-bible.yaml travadas em todo pacote do lote.'
+        technique_note: >
+          A técnica que mais muda resultado em UGC vai escrita no pacote: usar o
+          character sheet como referência antes de cada still, pedir enquadramento de
+          celular na mão e luz de ambiente, e nunca pedir texto dentro da imagem.
+      - id: stills.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-stills-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: exec-producer
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/11-stills/entregues/ — todo asset do INDEX com arquivo em disco'
+        checkpoint: cp-stills
+        resume_with: tasks/resume-job.md
+        note: >
+          Nunca simular. Se o operador não entregou, o job fica em waiting_human — não
+          em falha. Se devolveu menos variações que o pedido, o estágio entra em degraded[].
+      - id: stills.review
+        executor: agent
+        owner_agent: image-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/11-stills/entregues/'
+        produces:
+          - '{job}/11-stills/_review/review-r{n}.md'
+          - '{job}/11-stills/_direction/{asset-id}.r{n}.yaml'
+        checks: [aderencia_ao_criterio_de_aceite, identidade_do_creator_entre_stills, wardrobe_continuo, artefato_de_modelo, texto_indesejado_na_imagem, cara_de_render_publicitario]
+        loop:
+          back_to: stills.human
+          max: 3
+          on_ceiling: 'escala para studio-chief — o problema provavelmente está no character-bible, não no prompt'
+    handoff:
+      to: takes
+      artifacts:
+        - '{job}/11-stills/_direction/'
+        - '{job}/11-stills/entregues/'
+        - '{job}/11-stills/_review/'
+      gate: checklists/gate-stills.md
+    fallback: >
+      Deriva de identidade entre frames → o image-lead reduz o número de cenas e
+      reaproveita o mesmo still em mais de um bloco. Consistência vale mais que
+      variedade de cenário no UGC. Operador indisponível → job em waiting_human.
+    on_fail: continue_and_report
+
+  - id: takes
+    name: 'Takes falados — direção, geração humana e avaliação'
+    owner_agent: motion-lead
+    task: tasks/takes.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1. Geração de vídeo é a que mais exige tentativa e descarte humanos.'
+    depends_on: [stills]
+    handon:
+      from: stills
+      artifacts:
+        - '{job}/11-stills/entregues/'
+        - '{job}/05-script/roteiro.md'
+        - '{job}/05-script/hooks.md'
+      contract: 'Stills do creator aprovados no drift-check'
+    substages:
+      - id: takes.direction
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Pacote de Direção por take'
+        produces:
+          - '{job}/12-takes/_direction/{asset-id}.yaml'
+          - '{job}/12-takes/_direction/INDEX.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#video'
+        scope_note: >
+          Um take por bloco do corpo, mais um take por hook. O corpo é gerado uma vez
+          e reaproveitado nas N variações — é isso que torna o lote barato.
+        technique_note: >
+          Gerar a partir do still aprovado por image-to-video, nunca text-to-video
+          direto; um movimento por take em vez de coreografia; câmera na mão sutil,
+          porque estabilidade de tripé mata o código de UGC.
+        ae_note: 'P2 normalmente não usa After Effects. Se o brief pedir lower-third ou cartela, o pacote lista as composições.'
+      - id: takes.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-takes-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: exec-producer
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/12-takes/entregues/ — todo take do INDEX com .mp4 em disco'
+        checkpoint: cp-takes
+        resume_with: tasks/resume-job.md
+      - id: takes.review
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/12-takes/entregues/'
+        produces:
+          - '{job}/12-takes/_review/review-r{n}.md'
+          - '{job}/12-takes/_direction/{asset-id}.r{n}.yaml'
+        checks: [lip_sync_aceitavel, duracao_real_por_take, identidade_do_creator_entre_takes, artefato_de_morphing, movimento_conforme_direcao]
+        loop:
+          back_to: takes.human
+          max: 3
+          on_ceiling: 'escala para studio-chief'
+    handoff:
+      to: audio
+      artifacts:
+        - '{job}/12-takes/_direction/'
+        - '{job}/12-takes/entregues/'
+        - '{job}/12-takes/_review/'
+      gate: checklists/gate-takes.md
+    fallback: >
+      Lip-sync inaceitável → troca para take sem fala em quadro (voz sobre cena, mãos,
+      produto) e a fala vira VO. É o contorno mais barato e o mais usado em UGC real.
+      A troca de rota vai para job.json → degraded[].
+    on_fail: continue_and_report
+
+  - id: audio
+    name: 'Voz do creator, SFX e trilha'
+    owner_agent: sound-designer
+    task: tasks/audio.md
+    executor: human
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 — vale também para voz. O sound-designer dirige; o humano gera.'
+    depends_on: [takes]
+    handon:
+      from: takes
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/12-takes/entregues/'
+        - '{job}/09-character/character-bible.yaml'
+      contract: 'Takes entregues com duração real'
+    substages:
+      - id: audio.direction
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Pacote de Direção de VO e spec de som'
+        produces:
+          - '{job}/13-audio/_direction/asset-direction-vo.yaml'
+          - '{job}/13-audio/sound-spec.yaml'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction)'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#voice'
+        casting_note: >
+          A voz é do character-bible, não do estágio: a mesma persona fala igual em todo
+          lote e em todos os lotes futuros do cliente. Trocar a voz quebra o ativo.
+        mix_note: >
+          sound-spec.yaml carrega a spec de mixagem para o Premiere (§3.3): níveis,
+          ducking sob a voz e ponto de SFX por timecode. Em UGC, som limpo demais reduz
+          credibilidade — a spec pede ambiência, não estúdio.
+      - id: audio.human
+        executor: human
+        name: 'Geração de voz pelo operador'
+        stop: true
+        card: '{job}/_cards/card-audio-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/13-audio/entregues/ preenchido'
+        checkpoint: cp-audio
+        resume_with: tasks/resume-job.md
+      - id: audio.review
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Avaliação de leitura e sincronia'
+        worker_assist: 'python apps/video-studio/scripts/transcribe.py {job}/13-audio/entregues/*.wav'
+        worker_assist_note: >
+          transcribe.py (faster-whisper) devolve timestamps por palavra. É a fonte da
+          legenda REAL — o que foi dito, no tempo exato — em vez de estimativa pelo
+          roteiro. Sai daqui o captions.srt consumido pela autolegenda do app próprio.
+        produces:
+          - '{job}/13-audio/captions.srt'
+          - '{job}/13-audio/_review/review-r{n}.md'
+        checks: [leitura_fiel_ao_roteiro, entonacao_de_pessoa_real_nao_locutor, duracao_compativel_com_takes, ruido_e_respiracao_presentes]
+        loop:
+          back_to: audio.human
+          max: 3
+    handoff:
+      to: assembly
+      artifacts:
+        - '{job}/13-audio/sound-spec.yaml'
+        - '{job}/13-audio/entregues/'
+        - '{job}/13-audio/captions.srt'
+      gate: checklists/gate-audio.md
+    fallback: >
+      Sem VO → a legenda queimada carrega a mensagem e a peça vai a teste mesmo assim,
+      marcada em job.json → degraded[]. Ausência total de som, não.
+    on_fail: continue_and_report
+
+  - id: assembly
+    name: 'Montagem do lote — app próprio e Premiere'
+    owner_agent: editor
+    task: tasks/assembly.md
+    executor: worker
+    executor_notes: 'App próprio faz autolegenda e tratamento; o Premiere faz o corte e o export das N variações (humano).'
+    davinci: 'REMOVIDO do fluxo (§3.3 · _CONVENTIONS.md §5). export_to_davinci.py é legado e não é chamado por este squad.'
+    depends_on: [audio]
+    handon:
+      from: audio
+      artifacts:
+        - '{job}/12-takes/entregues/'
+        - '{job}/13-audio/entregues/'
+        - '{job}/13-audio/captions.srt'
+        - '{job}/05-script/hooks.md'
+      contract: 'Corpo único + N hooks prontos'
+    substages:
+      - id: assembly.auto
+        executor: worker
+        name: 'Timeline auto-montada, autolegenda e FX on-brand'
+        app: apps/video-studio
+        command: |
+          node apps/video-studio/scripts/ingest.ts {client} {creative_slug}
+          node apps/video-studio/scripts/check-assembly.ts --autocut --maxgap=0.4
+          cd apps/video-studio && npm run studio
+          cd apps/video-studio && npm run render {brand_slug}
+        command_note: >
+          ingest.ts monta timeline.json a partir do video-brief e dos materiais.
+          check-assembly.ts audita a montagem e fecha gaps. npm run studio abre o
+          Remotion Studio para preview; npm run render faz o render headless on-brand.
+        known_gap:
+          issue: >
+            ingest.ts e check-assembly.ts esperam a convenção
+            outputs/{client}/video-plans/{creative}/. Um job do creative-studio vive em
+            workspaces/businesses/oraclum/creative-studio/jobs/{job-id}/.
+          bridge_required: 'Espelhar o job na convenção que o studio lê antes de chamar o ingest.'
+          worker_candidate: 'Ponte job → outputs/{client}/video-plans/{creative}/ (mirror de takes, audio, captions). É a mesma ponte pendente do farming.'
+          status: nao_implementado
+        produces:
+          - '{job}/14-assembly/autolegenda/'
+          - '{job}/14-assembly/rough-cut/'
+        fallback: 'Ponte indisponível → o editor entrega a timeline no template e o operador importa direto no Premiere. Registrado em job.json → degraded[].'
+      - id: assembly.spec
+        executor: agent
+        owner_agent: editor
+        name: 'Especificação de corte executável no Premiere'
+        produces:
+          - '{job}/14-assembly/premiere-cut-spec.md'
+          - '{job}/14-assembly/export-presets.yaml'
+        must_include:
+          - 'Ordem de cortes com timecode e o porquê de cada corte'
+          - 'Ponto de entrada de cada hook sobre o corpo único'
+          - 'Spec de legenda queimada no padrão do cliente'
+          - 'Pastas, nomenclatura de importação e organização de bins'
+          - 'Preset de export por plataforma: formato, codec, bitrate, resolução, safe area'
+          - 'O que o app próprio JÁ resolveu e não deve ser refeito na mão'
+        template: templates/edit-spec-tmpl.md
+        ae_note: 'P2 normalmente não usa After Effects — UGC com motion graphics deixa de parecer UGC. Lower-third e cartela só se o brief pedir.'
+      - id: assembly.human
+        executor: human
+        name: 'Corte final e export das N variações no Premiere'
+        stop: true
+        card: '{job}/_cards/card-montagem.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/14-assembly/master/ — uma variação por hook'
+        checkpoint: cp-montagem
+        resume_with: tasks/resume-job.md
+        chain: ['apps/video-studio (já feito em assembly.auto)', 'Premiere Pro — corte, mix, master e export por plataforma']
+      - id: assembly.review
+        executor: agent
+        owner_agent: editor
+        name: 'Revisão do corte'
+        reads: '{job}/14-assembly/master/'
+        produces: ['{job}/14-assembly/_review/review-r{n}.md']
+        checks: [hook_nos_3_primeiros_segundos, sincronia_de_legenda, safe_area_por_plataforma, mix_conforme_sound_spec, presets_de_export_corretos, variacoes_realmente_distintas_no_hook]
+        loop:
+          back_to: assembly.human
+          max: 3
+    handoff:
+      to: factcheck
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/14-assembly/premiere-cut-spec.md'
+        - '{job}/14-assembly/_review/'
+      gate: checklists/gate-assembly.md
+    fallback: 'Uma variação falha no export → as demais seguem. Lote não é bloqueado por uma peça.'
+    on_fail: continue_and_report
+
+  - id: factcheck
+    name: 'Checagem, compliance de anúncio e direitos'
+    owner_agent: fact-checker
+    task: tasks/factcheck.md
+    executor: agent
+    blocking: true
+    waiver_allowed: false
+    depends_on: [assembly]
+    fan_out: '{hooks}'
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: >
+      Deste script o factcheck lê os checks BLOQUEANTES V3 (números fabricados),
+      V4 (atribuição ou evidência inventada), V5 (léxico proibido) e V7 (CTA proibido).
+      Exit 2 significa FAIL. V1, V2 e V6 não são deste estágio — são do stage gate.
+      Em ads o V7 é o que mais barra: promessa de resultado é o CTA proibido mais comum.
+    mandatory_agent_review:
+      owner: fact-checker
+      covers:
+        - 'Política de anúncio da plataforma (saúde, finanças, antes-e-depois, atributo pessoal)'
+        - 'Depoimento sintético apresentado como depoimento real — proibido'
+        - 'Regra sem case fabricado do _BLUEPRINT.md §1 — a Oraclum não tem case de cliente'
+        - 'Direito de imagem e de voz do creator sintético'
+        - 'Rosto do creator parecido demais com pessoa pública real'
+        - 'Marcação de conteúdo gerado por IA exigida pela plataforma'
+      note: >
+        UGC é o formato de maior risco de compliance do catálogo, justamente porque
+        parece depoimento. O script cobre o determinístico; direitos, semelhança e case
+        fabricado não são detectáveis por regex — o agente revisa sempre.
+    handon:
+      from: assembly
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/05-script/claim-ledger.json'
+        - '{job}/09-character/character-bible.yaml'
+      contract: 'Todas as variações montadas'
+    handoff:
+      to: gate
+      artifacts:
+        - '{job}/15-gate/factcheck-report.md'
+      gate: checklists/gate-factcheck.md
+    fallback: >
+      NÃO EXISTE fallback que pule o estágio. Sem video-brief.yaml compatível, o
+      worker_assist não roda e a revisão é integralmente manual por
+      checklists/gate-factcheck.md, variação por variação.
+    on_fail: halt
+
+  - id: gate
+    name: 'Quality gate do lote'
+    owner_agent: qa-critic
+    task: tasks/gate.md
+    executor: agent
+    depends_on: [factcheck]
+    fan_out: '{hooks}'
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: 'Deste script o gate lê V1 (hook com N variantes, 4 a 7 palavras, pattern interrupt), V2 (cadência) e V6 (shotlist). Em ads o V1 é o de maior peso.'
+    handon:
+      from: factcheck
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/15-gate/factcheck-report.md'
+        - '{job}/05-script/hooks.md'
+      contract: 'factcheck PASS'
+    handoff:
+      to: delivery
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+      gate: checklists/gate-ugc-ads.md
+    also_runs: checklists/gate-transversal-entrega.md
+    stage_gate: checklists/gate-qa.md
+    verdicts: [PASS, CONCERNS, FAIL, WAIVED]
+    verdict_routing:
+      PASS: delivery
+      CONCERNS: 'checkpoint cp-subida — o founder decide variação a variação'
+      FAIL: 'a variação sai do lote e volta ao estágio nomeado no gate-verdict.md; o lote segue'
+      WAIVED: 'segue com o waiver registrado em job.json → waivers[]'
+    batch_rule: >
+      O veredito é por variação. Um lote de 3 pode entregar 2 e reter 1 — e isso é
+      sucesso declarado, não falha parcial mascarada.
+    checkpoint: cp-subida
+    fallback: 'Variação reprovada sai do lote; o lote entrega o que passou.'
+    on_fail: halt
+
+  - id: delivery
+    name: 'Pacote de subida para o gerenciador'
+    owner_agent: exec-producer
+    task: tasks/delivery.md
+    executor: agent
+    depends_on: [gate]
+    worker_candidate: >
+      Empacotador de lote de ads: um diretório por variação com master, thumb, copy de
+      anúncio, headline, CTA e o hook atacado, mais o manifesto com hash por arquivo.
+      Referência de contrato: o publishing-kit.md da F6 do farming.
+    handon:
+      from: gate
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+        - '{job}/14-assembly/master/'
+        - '{job}/05-script/hooks.md'
+      contract: 'Ao menos uma variação aprovada'
+    handoff:
+      to: null
+      artifacts:
+        - '{job}/16-delivery/entrega/'
+        - '{job}/16-delivery/publishing-kit.md'
+        - '{job}/16-delivery/plano-de-teste.md'
+        - '{job}/job.json (status: delivered)'
+      gate: checklists/gate-delivery.md
+    plano_de_teste_note: >
+      plano-de-teste.md diz qual variação testa qual hipótese e o que cada resultado
+      significa. Lote entregue sem plano de leitura gera número sem aprendizado.
+    fallback: >
+      Nenhuma variação aprovada → o job volta para script. Não se entrega lote vazio
+      com relatório. Entrega parcial declara no manifesto o que ficou retido e por quê.
+    on_fail: halt
+
+reporting:
+  final_summary:
+    - variacoes_entregues
+    - variacoes_retidas_e_motivo
+    - hooks_distintos_no_teste
+    - waivers_registrados
+    - cards_humanos_emitidos_tempo_de_espera_e_rodadas_de_retake
+    - itens_degradados
+  degraded_registry: '{job}/job.json → degraded[]'
+  principle: >
+    O sumário é montado lendo o DISCO. Uma variação só conta como entregue se o .mp4 e
+    a copy de anúncio existirem em {job}/16-delivery/entrega/.
+
+handoff:
+  emit_to: '.aiox/handoffs/'
+  format: 'handoff-ocs-{job-id}-{stage}.yaml'
+  must_include: [job_id, pipeline_id, client, stage_completed, variants_ok, variants_held, gate_status, waiting_human, next_action]

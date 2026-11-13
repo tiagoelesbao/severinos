@@ -1,0 +1,242 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# IDENTIDADES VISUAIS — a "trava de look" de um canal
+#
+# Consumido por: image-lead (geração), art-director (aprovação), editor (legenda),
+#                exec-producer (instanciação de job)
+#
+# POR QUE ESTE ARQUIVO EXISTE
+#   Um canal que muda de paleta entre episódios não acumula reconhecimento — e
+#   reconhecimento é o único ativo que um canal dark constrói. Travar a identidade
+#   aqui faz o look ser herdado por TODO job daquele canal, em vez de renegociado
+#   a cada peça.
+#
+# COMO SE USA
+#   O job declara `identidade_visual: <id>`. O `prompt_look` entra no FIM de todo
+#   prompt de imagem daquele canal, e o `negativo` se soma ao negativo do job.
+#   A seção `legenda` vai para o `video-studio` como configuração de composição.
+#
+# COMO NASCE UMA IDENTIDADE
+#   Duas rotas, e as duas são legítimas:
+#     · DERIVADA — extraída de uma peça de referência real, por
+#       `assets/comfyui/extrai_takes_referencia.py` + leitura dos takes
+#     · AUTORAL — desenhada do zero pelo art-director
+#   O campo `procedencia` diz qual foi, sempre.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-30'
+  squad: oraclumtech-ai-creative-studio
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OS TRÊS NÍVEIS DE MODELAGEM
+#
+# Regra fixada pelo founder em 2026-08-30: toda modelagem de referência entrega
+# TRÊS variações por take, e a escolha é humana. Uma variação só não permite
+# escolher — permite aceitar.
+niveis_de_modelagem:
+
+- id: fiel
+  nome: 'Fiel'
+  objetivo: >
+    Chegar o mais perto possível da peça original: mesma paleta, mesmo
+    enquadramento, mesma direção de luz, mesmo tratamento de superfície.
+  quando_serve: >
+    Quando a referência já está validada por desempenho e o objetivo é herdar o
+    que funciona, mudando só o suficiente para não ser cópia.
+  o_que_NAO_significa: >
+    Não é reproduzir a mesma imagem. É reproduzir a mesma LINGUAGEM com outro
+    assunto ou outro ângulo. Copiar frame é problema de direito; falar a mesma
+    língua visual não é.
+
+- id: intermediaria
+  nome: 'Intermediária'
+  objetivo: >
+    Mesma composição e mesmo assunto da referência, com a paleta e o acabamento
+    ajustados para o padrão do nosso canal.
+  quando_serve: 'Quando o canal já tem identidade e a referência é insumo, não molde.'
+
+- id: autoral
+  nome: 'Autoral'
+  objetivo: >
+    Reinterpretação livre: mantém a IDEIA do take e recompõe luz, cor e
+    enquadramento.
+  quando_serve: >
+    Quando o canal quer se separar da referência, ou quando o take original tem
+    limitação técnica que não vale herdar.
+  risco: 'É a que mais se afasta do que já foi validado por desempenho.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+identidades:
+
+# ── DERIVADA da referência v1 (10 práticas estoicas) ────────────────────────
+- id: estoico-marmore-templo
+  nome: 'Estoico · mármore em templo'
+  procedencia: derivada
+  fonte: 'docs/referencias/estoico/v1-praticas/takes/ — 99 takes extraídos'
+  canal_alvo: 'canal dark de estoicismo (a definir)'
+
+  sujeito: >
+    Figura masculina barbada em mármore claro, anatomia heroica com musculatura
+    marcada e torso à mostra sob a toga. Poses de contemplação: sentado com
+    cotovelo no joelho, de pé em três quartos, ou busto em perfil.
+  escala_no_quadro: 'de um terço a metade da altura — o ambiente completa'
+
+  ambiente:
+    regra: >
+      NUNCA fundo preto vazio. Sempre ambiente com profundidade: colunata,
+      interior de templo, biblioteca, ruína sob céu estrelado.
+    por_que: >
+      Medido nos takes: fundo preto absoluto é MINORIA na referência. O pack que
+      geramos isolado em preto ficou tecnicamente correto e visualmente estranho
+      ao gênero.
+
+  paleta:
+    chave: 'âmbar quente de recorte'
+    sombra: 'azul-esverdeada fria'
+    saturacao: 'DESSATURADA — a referência é mais cinzenta do que a nossa primeira tentativa'
+    atencao: >
+      O desvio sistemático medido em 2026-08-29: nossas imagens saíram mais
+      quentes e mais saturadas que a referência. `desaturated, muted palette,
+      cool grey marble` corrige.
+
+  acabamento:
+    tem: ['grão de película', 'vinheta pesada', 'neblina volumétrica entre colunas']
+    nao_tem: ['brilho plástico', 'superfície perfeitamente limpa']
+
+
+  # ── O QUE SÓ APARECEU AO OLHAR OS FRAMES EM DETALHE (rev.3) ──────────────
+  # A primeira leitura foi feita sobre miniaturas de folha de contato e errou em
+  # cinco pontos. Nenhum deles é de "qualidade" — todos são de DIREÇÃO, e é por
+  # isso que a variação fiel não parecia o original mesmo estando bem gerada.
+  direcao_observada:
+
+    enquadramento: >
+      Quase nenhum take é figura inteira e centralizada. A figura fica no terço
+      esquerdo (T01) ou na metade direita (T04, T10), e o corte é na coxa, no
+      quadril, no joelho ou no peito. Pedir "corpo completo, centralizado" produz
+      uma imagem correta que não é a mesma linguagem.
+
+    profundidade_de_campo: >
+      O fundo do T07 está claramente DESFOCADO, com bokeh. É o que mais separava a
+      nossa versão da referência naquele take, e nenhum prompt meu pedia.
+
+    particulas_e_arranhoes: >
+      Faísca branca dispersa e risco de película em quase todo take. Eu havia
+      removido tudo por causa da queixa de "ruído ao redor do rosto" — mas aquela
+      queixa era sobre CLOSE EM FUNDO PRETO. Em plano aberto, a partícula é o
+      acabamento do gênero, não sujeira.
+
+    vinheta: 'pesada — canto esmagado no preto em praticamente todos'
+
+    angulo: 'leve contra-plongée em vários: a câmera fica um pouco abaixo da figura'
+
+    paleta_nao_e_uma_so:
+      atencao: >
+        NÃO existe uma paleta única. Dizer "desaturated, cool grey marble" no bloco
+        global estava ATIVAMENTE errado em metade dos takes.
+      T02: 'sépia e marrom — céu de eclipse, sem nada de azul'
+      T05: 'teal do crepúsculo contra laranja de fogo real — divisão complementar'
+      T06: 'brilho radial azul-acinzentado atrás da figura'
+      T09: 'âmbar quente dominante, com pedra cinza fria por cima'
+      T10: 'quase preto, com a pedra em tom de MEL, não branca'
+      T04_T08: 'verde-petróleo escuro / quase preto, quase monocromático'
+      regra: 'a paleta é do TAKE, não da identidade. A identidade fixa o método, não a cor.'
+
+  # rev.3 — o bloco de look deixou de carregar COR.
+  # A versão anterior tinha três variantes que só diferiam na intensidade do âmbar,
+  # e o resultado foi previsível: com semente fixa, fiel e intermediária saíram
+  # praticamente idênticas. Pior, ele impunha "cool grey marble" a takes que são
+  # sépia, âmbar ou cor de mel.
+  # Agora o bloco carrega só o ACABAMENTO — o que é comum a todos os takes — e a
+  # cor vive na descrição de cada take. Espelhado em
+  # `assets/comfyui/modelagem_takes_v1.py` -> ACABAMENTO.
+  acabamento_de_prompt: >
+    scattered fine white light particles drifting in the air, faint film scratches,
+    heavy vignette crushing the corners to black, subtle film grain, photoreal
+    digital painting, 16:9
+
+  o_que_diferencia_as_tres_variacoes:
+    fiel: 'descrição densa do frame real, com a paleta DAQUELE take'
+    intermediaria: 'mesmo sujeito e ambiente, variando UMA variável de cinema — ângulo, lente ou hora'
+    autoral: 'reinterpretação livre de luz, cor e enquadramento'
+    regra: >
+      A diferença entre as três tem que estar na DESCRIÇÃO, não no bloco de look.
+      Com semente fixa, dois blocos de look parecidos produzem duas imagens iguais.
+
+  negativo: >
+    flat lighting, evenly lit, washed out, low contrast, pure black empty
+    background, floating subject with no environment, modern clothing, modern
+    objects, oversaturated, neon colors, cartoon, anime, 3d render, plastic
+
+  legenda:
+    procedencia: 'observada na v1'
+    estilo: 'caixa alta, uma linha, destaque colorido sobre UMA palavra por cue'
+    cor_destaque: '#7B3FF2   # violeta, como na referência'
+    bilingue: false
+    nota: >
+      A referência é bilíngue (PT em cima, EN embaixo). Isso é escolha de alcance
+      DAQUELE canal, não do formato — não replicamos por padrão.
+    o_que_vale_replicar: >
+      O destaque colorido sobre uma palavra é o que dá ritmo de leitura. O
+      `Captions.tsx` do video-studio já faz; a cor vira variável de canal.
+
+  transicao:
+    padrao: dissolve
+    nunca: 'corte seco'
+    evidencia: >
+      A detecção de corte por diferença de cena devolveu ZERO cortes em 34 min.
+      A peça não corta — dissolve, com flare por cima.
+    movimento: 'zoom-in lento (Ken Burns ~0.05), um movimento por take'
+    overlay: 'textura de filme antigo sobre a tela inteira'
+
+# ── DERIVADA da referência v2 (10 reflexões matinais) ───────────────────────
+- id: estoico-bronze-carmesim
+  nome: 'Estoico · bronze e carmesim'
+  procedencia: derivada
+  fonte: 'docs/referencias/estoico/v2-reflexoes/takes/ — 88 takes extraídos'
+
+  sujeito: >
+    Mesma figura heroica barbada, mas em BRONZE ou pedra escura em vez de mármore
+    claro. Recorte de luz mais duro, contraste mais alto.
+  ambiente: 'ruína de templo, colunata, céu dramático — mesma regra de profundidade'
+
+  paleta:
+    chave: 'âmbar quente'
+    sombra: 'teal profundo'
+    acento: 'CARMESIM — é o que separa esta identidade da anterior'
+
+  prompt_look:
+    fiel: >
+      photoreal digital painting, heroic dark bronze sculpture, desaturated base
+      with a crimson accent light, restrained amber key, deep teal shadow,
+      volumetric haze, heavy vignette, film grain, high contrast, 16:9
+    intermediaria: >
+      photoreal digital painting, heroic dark bronze sculpture, amber key light,
+      deep teal shadow, subtle crimson rim accent, volumetric haze, cinematic
+      chiaroscuro, 16:9
+    autoral: >
+      photoreal digital painting, heroic bronze figure, dramatic crimson and amber
+      lighting against deep teal, volumetric god rays, high contrast, epic scale, 16:9
+
+  negativo: >
+    flat lighting, evenly lit, washed out, pure black empty background, floating
+    subject with no environment, modern clothing, cartoon, anime, 3d render, plastic
+
+  legenda:
+    estilo: 'caixa alta, uma linha, destaque colorido sobre UMA palavra'
+    cor_destaque: '#C1121F   # carmesim'
+    bilingue: false
+
+  transicao:
+    padrao: dissolve
+    movimento: 'zoom-in lento'
+
+# ─────────────────────────────────────────────────────────────────────────────
+manutencao:
+  regra: >
+    Identidade nova entra com `procedencia` preenchida. Identidade DERIVADA exige
+    que os takes tenham sido extraídos e estejam em disco — sem isso é palpite, não
+    derivação.
+  quem_aprova: art-director
+  onde_o_job_declara: 'campo `identidade_visual` no job / Pacote de Direção'

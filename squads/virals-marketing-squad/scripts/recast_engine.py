@@ -44,6 +44,7 @@ except ImportError as e:
 # Reusa o cálculo de métricas de texto do deep_modeler (mesma pasta).
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from deep_modeler import text_metrics  # noqa: E402
+from model_router import discover_free_text_models  # noqa: E402
 from _client_resolver import (  # noqa: E402
     extract_client_arg,
     resolve_from_argv_or_brief,
@@ -58,17 +59,70 @@ GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
     "{model}:generateContent?key={key}"
 )
-# Modelos gratuitos do OpenRouter (sufixo :free) — tentados em ordem;
-# se um estiver rate-limited, o próximo assume.
-OPENROUTER_MODELS = [
-    "openai/gpt-oss-120b:free",
-    "deepseek/deepseek-v4-flash:free",
-    "nvidia/nemotron-3-super-120b-a12b:free",
-    "z-ai/glm-4.5-air:free",
-]
+# VEX-14: modelos de texto do OpenRouter são DESCOBERTOS em runtime
+# (model_router). A lista fixa que ficava aqui apodreceu — 3 dos 4 modelos
+# sumiram do catálogo (404) e a síntese do Chief falhou por esgotar a cascata.
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENAI_MODEL = "gpt-4o-mini"
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
+
+# Kicker às vezes escorrega para espanhol ("O RETO"). Normalização determinística
+# (independente de LLM) dos vazamentos comuns em rótulos curtos → PT-BR.
+_KICKER_ES_PT = {
+    "RETO": "DESAFIO", "EL RETO": "O DESAFIO", "EL CASO": "O CASO",
+    "EL DATO": "O DADO", "EL PROBLEMA": "O PROBLEMA", "LA CLAVE": "A CHAVE",
+    "REFLEXIÓN": "REFLEXÃO", "REFLEXION": "REFLEXÃO", "EL SECRETO": "A LIÇÃO",
+    "LA PRUEBA": "A PROVA", "EL MÉTODO": "O MÉTODO", "EL METODO": "O MÉTODO",
+    "EL SISTEMA": "O SISTEMA", "LA SOLUCIÓN": "A SOLUÇÃO", "EL DESAFÍO": "O DESAFIO",
+    "EL PRÓXIMO PASO": "O PRÓXIMO PASSO", "EL RESUMEN": "O RESUMO",
+}
+
+
+# Metáforas abstratas que o Pexels não ilustra (devolve stock sem relação).
+_PEXELS_ABSTRATO = {
+    "kingdom", "dominance", "dominate", "empire", "ecosystem", "hub", "realm",
+    "mindset", "success", "growth", "future", "power", "mastery", "synergy",
+    "authority", "influence", "momentum", "strategy", "vision", "mission",
+    "transformation", "revolution", "excellence", "greatness", "unstoppable",
+}
+# Fallbacks CONCRETOS e fotografáveis, no domínio de marketing/conteúdo.
+_PEXELS_FALLBACK = [
+    "content creator filming phone",
+    "person working laptop office",
+    "team meeting whiteboard",
+    "hands typing keyboard closeup",
+    "creator editing video screen",
+]
+
+
+def sanitize_pexels_query(query, seed=0):
+    """Se a query for metáfora abstrata, troca por uma cena concreta fotografável.
+
+    Determinístico (independente de LLM): garante imagem com relação real ao
+    banco mesmo quando o gerador cospe 'multiplatform dominance'.
+    """
+    q = (query or "").strip().lower()
+    if not q:
+        return _PEXELS_FALLBACK[seed % len(_PEXELS_FALLBACK)]
+    palavras = re.findall(r"[a-z]+", q)
+    abstratas = [w for w in palavras if w in _PEXELS_ABSTRATO]
+    concretas = [w for w in palavras if w not in _PEXELS_ABSTRATO and len(w) > 2]
+    # Metáfora dominante (só/majoritariamente palavras abstratas) → fallback.
+    if abstratas and len(concretas) < 2:
+        return _PEXELS_FALLBACK[seed % len(_PEXELS_FALLBACK)]
+    return query.strip()
+
+
+def normalize_kicker(kicker):
+    """Traduz vazamentos de espanhol no kicker; caso a caso, robusto ao LLM."""
+    k = (kicker or "").strip().upper()
+    if not k:
+        return "INSIGHT"
+    if k in _KICKER_ES_PT:
+        return _KICKER_ES_PT[k]
+    # troca por palavra (ex.: "O RETO FINAL" → "O DESAFIO FINAL")
+    palavras = [_KICKER_ES_PT.get(p, p) for p in k.split()]
+    return " ".join(palavras)
 
 
 # ---------------------------------------------------------------------------
@@ -136,9 +190,17 @@ Primeiro, CLASSIFIQUE o arquétipo geral deste conteúdo em UM destes:
 - "single": post único de UMA notícia/insight (uma imagem, sem sequência).
 - "news": carrossel de notícias, digest ou conteúdo educativo de vários slides.
 
+REGRA DO HOOK (a mais importante): a manchete lidera pelo BENEFÍCIO concreto —
+o que a pessoa aprende, ganha ou evita lendo. Máx. ~50 caracteres no hook.
+Um estranho tem que entender em 2 segundos. PROIBIDO jargão abstrato como
+manchete ("sistema de pré-visualização", "framework de gatilhos",
+"previsibilidade sistematizada"). O léxico da marca é CONTEXTO no corpo, JAMAIS
+a manchete. Se a fonte tem uma frase forte e simples, PRESERVE a força dela —
+não a troque por abstração. Corpo: máx. ~200 caracteres, 1 a 3 frases curtas.
+
 Depois, para CADA slide, sobre a MESMA notícia/tema do slide original, escreva:
-- "headline": o mesmo fato, com hook otimizado e na voz Virals.
-- "body": o mesmo conteúdo, mais limpo e na voz Virals (1 a 3 frases).
+- "headline": o benefício concreto, hook forte e curto (não o mecanismo técnico).
+- "body": o mesmo conteúdo, mais limpo, simples e objetivo (1 a 3 frases curtas).
 - "pexels_query": termo de busca para BANCO DE IMAGENS (Pexels), em inglês,
   2-4 palavras. Descreva a CENA VISUAL concreta e fotografável que representa
   o tema — NÃO o título literal. Regras:
@@ -154,8 +216,10 @@ Depois, para CADA slide, sobre a MESMA notícia/tema do slide original, escreva:
     (ex.: "creative ideas brainstorm").
 - Mantenha o comprimento próximo ao texto original (precisa caber no layout).
 
-headline/body em PT-BR. Use o léxico Virals quando couber naturalmente.
-Proibido: promessa vazia, corporativês, linguagem genérica, ego-driven, mistério.
+headline/body em PT-BR. O léxico da marca é TEMPERO, não recheio — use só quando
+sair natural, NUNCA force uma palavra do léxico onde não cabe (isso deixa o texto
+abstrato). Proibido: promessa vazia, corporativês, jargão como manchete,
+linguagem genérica, ego-driven, mistério.
 
 Responda APENAS com JSON válido, sem markdown, no formato:
 {{"archetype":"quote|single|news","slides":[{{"slide_n":1,"headline":"...","body":"...","pexels_query":"..."}}]}}"""
@@ -216,7 +280,7 @@ def call_llm(prompt, max_retries=2):
     """
     providers = [
         (f"openrouter:{m}", (lambda p, mdl=m: _call_openrouter(p, mdl)))
-        for m in OPENROUTER_MODELS
+        for m in discover_free_text_models()
     ]
     providers.append((f"gemini:{GEMINI_MODEL}", _call_gemini))
     providers.append((f"openai:{OPENAI_MODEL}", _call_openai))
@@ -303,7 +367,7 @@ def apply_recast(brief, recast, model_label, archetype=""):
 
         slide["headline"] = new_headline.upper()
         slide["body_text"] = new_body
-        slide["pexels_query"] = str(r.get("pexels_query", "")).strip()
+        slide["pexels_query"] = sanitize_pexels_query(r.get("pexels_query", ""), seed=slide.get("slide_n", 0))
         slide["text_metrics"] = text_metrics(new_headline, new_body)
         slide["personalization"] = {
             "status": "DONE",
@@ -394,8 +458,17 @@ Para CADA slide do plano, escreva:
   entrevistado ou narrador. Se a fonte é o autor falando, escreva como
   observação do próprio criativo (sem sujeito-terceiro): ex. "A reação não
   deixa dúvidas" em vez de "Fulano, especialista, afirma que...".
+  Se a fonte cita uma marca/pessoa de terceiro que você não pode nomear, use
+  termo GENÉRICO NATURAL ("uma marca", "o negócio", "quem aparece na câmera") —
+  NUNCA um placeholder de letra tipo "marca Y" ou "empresa X" (soa artificial).
 - "body": 1 a 3 frases, PT-BR, voz Virals.
-- "pexels_query": 2-4 palavras em inglês — conceito visual concreto do slide.
+- "pexels_query": 2-4 palavras em inglês descrevendo uma CENA REAL e
+  FOTOGRAFÁVEL — pessoa/objeto/lugar concreto que um banco de imagens TEM.
+  PROIBIDO metáfora abstrata ("content kingdom", "multiplatform dominance",
+  "brand hub", "digital empire") — o banco devolve foto sem relação. Pergunte:
+  "que FOTO existe disso?". Bons: "person filming phone", "team meeting laptop",
+  "creator editing video", "hands writing notebook". Ruins: "success mindset",
+  "growth ecosystem", "future dominance".
 
 Proibido: promessa vazia, corporativês, linguagem genérica, ego-driven,
 mistério, texto em inglês no headline/body, @handle de terceiros, NÚMERO OU
@@ -411,7 +484,7 @@ def apply_plan_execution(brief, recast, model_label):
     plan = brief.get("content_plan", {}) or {}
     analysis = brief.get("benchmark_analysis", {}) or {}
     ref_by_n = {s["slide_n"]: s for s in brief.get("content_data", [])}
-    accent = (brief.get("brand_tokens", {}) or {}).get("accent", "#E94560")
+    accent = (brief.get("brand_tokens", {}) or {}).get("accent", "#FF5B3F")
     central_theme = plan.get("tema") or analysis.get("tema_central", "")
 
     new_content, missing = [], []
@@ -460,11 +533,11 @@ def apply_plan_execution(brief, recast, model_label):
             "reference_body": " ".join(
                 ref_by_n[s].get("reference_body", "") for s in srcs),
             "headline": (headline or "[RECAST PENDENTE]").upper(),
-            "sub_headline": (ps.get("kicker", "") or "INSIGHT").upper(),
+            "sub_headline": normalize_kicker(ps.get("kicker", "")),
             "body_text": body,
             "design_triggers": triggers[:8],
             "text_metrics": text_metrics(headline, body),
-            "pexels_query": str(r.get("pexels_query", "")).strip(),
+            "pexels_query": sanitize_pexels_query(r.get("pexels_query", ""), seed=s),
             "accent_color": accent,
             "source_slides": srcs,
             "personalization": {

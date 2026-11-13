@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # VIRALS — VIDEO TEMPLATE REGISTRY (Pipeline *industrialize-video · MVC-06)
 # Catálogo de packs visuais/cinéticos para vídeo curto da marca @virals.
-# Paleta navy + coral (de brand-config.yaml) é aplicada via brand-config; este
+# Paleta navy + vermelho sinal (de brand-config.yaml) é aplicada via brand-config; este
 # YAML define os PRESETS (hook FX, legendas, transições, motion graphics).
 #
 # Consumido por: plan_video_creative.py (recomenda IDs no edit_spec) e, na
@@ -13,14 +13,14 @@ meta:
   cliente: "virals"
   last_updated: "2026-06-20"
   status: "active"
-  palette_ref: "brand-config.yaml (navy #0C0A1F + coral #FF3D68)"
+  palette_ref: "brand-config.yaml (navy #0C0A1F + vermelho sinal #FF5B3F)"
 
 # ── Packs de HOOK (0–3s) — pattern interrupt da abertura ─────────────────────
 hook_packs:
   - id: hook-snap-zoom
     label: "Snap-Zoom Punch"
     device: snap-zoom
-    description: "Zoom abrupto no rosto/objeto no segundo 0 + texto coral gigante."
+    description: "Zoom abrupto no rosto/objeto no segundo 0 + texto vermelho-sinal gigante."
     best_for_hook_types: [bold claim, pattern interrupt]
   - id: hook-hardcut-bigtext
     label: "Hard-Cut Big Text"
@@ -40,11 +40,11 @@ hook_packs:
 
 # ── Estilos de LEGENDA (word-by-word) ───────────────────────────────────────
 caption_styles:
-  - id: cap-coral-pop
-    label: "Coral Word-Pop"
+  - id: cap-signal-pop
+    label: "Sinal Word-Pop"
     style: word-by-word
-    color: "#FF3D68"
-    description: "Palavra-a-palavra com keyword em coral, escala no impacto."
+    color: "#FF5B3F"
+    description: "Palavra-a-palavra com keyword em vermelho-sinal, escala no impacto."
   - id: cap-clean-bold
     label: "Clean Bold"
     style: line-by-line
@@ -69,14 +69,14 @@ transition_packs:
   - id: trans-glitch
     label: "Glitch Snap"
     type: glitch
-    description: "Glitch curto coral/aurora para ênfase de virada."
+    description: "Glitch curto sinal/aurora para ênfase de virada."
 
 # ── Presets de MOTION GRAPHICS ──────────────────────────────────────────────
 motion_presets:
   - id: motion-lower-third
     label: "Lower-Third Navy"
     kind: lower-third
-    description: "Faixa inferior navy + nome/handle em coral."
+    description: "Faixa inferior navy + nome/handle em vermelho-sinal."
   - id: motion-progress-bar
     label: "Progress Bar"
     kind: progress-bar
@@ -93,7 +93,7 @@ scoring_match:
     from_curiosity_gap: [hook-curiosity-whip, hook-snap-zoom]
     from_pattern_interrupt: [hook-snap-zoom, hook-curiosity-whip]
   caption:
-    default: [cap-coral-pop, cap-clean-bold, cap-kinetic-stack]
+    default: [cap-signal-pop, cap-clean-bold, cap-kinetic-stack]
   transition:
     default: [trans-whip, trans-zoom-punch, trans-glitch]
   motion:

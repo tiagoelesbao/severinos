@@ -1,0 +1,320 @@
+schema_version: "5.0"
+generated_at: 2026-08-17T11:55:46
+archetype: news
+post_brief:
+  slug: v5-single-14-artificialintelligence-co-5756c5
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\14-artificialintelligence-co-5756c5
+  source_url: https://www.instagram.com/artificialintelligence.co/p/DcBlf1hyhQx/
+  layout: text-over-image
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: "#08080C"
+    secondary: "#12121C"
+    accent: "#A855F7"
+    accent_alt: "#7E22CE"
+    accent_aurora: "#D8B4FE"
+    text_primary: "#FFFFFF"
+    text_secondary: "#A1A1AA"
+    overlay_dark: "#0000008C"
+    overlay_light: "#FFFFFF1A"
+    light:
+      background: "#F4F3F7"
+      text: "#08080C"
+      accent: "#A855F7"
+  accent: "#A855F7"
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: "#FFFFFF"
+      letter_spacing: -1
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: "#D0CDE0"
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: "#08080C"
+      background: "#FFFFFF"
+      padding:
+        - 12
+        - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: "#A1A1AA"
+      format: "{current}/{total}"
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: "#000000"
+        opacity: 0.55
+      dark_strong:
+        color: "#000000"
+        opacity: 0.75
+      brand_subtle:
+        color: "#08080C"
+        opacity: 0.35
+      none:
+        opacity: 0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 1
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: "**📈 Score ponderado:** 5.8/10 · **Classificação:** Mediano 🟠 ·
+    **Veredito dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do
+    painel):** - Substituir a noticiabilidade por uma demonstração visual de uma
+    aplicação prática de IA para negócios, com interface visível nos primeiros 2
+    segundos. - Reframe o caption para conectar o evento a insights específicos
+    sobre automação e IA, usando d"
+  audits_present: true
+content_data:
+  - slide_n: 1
+    variant: HOOK
+    role: HOOK
+    screenshot_ref: Screenshots/slide_01.png
+    reference_headline: Meta just gave blackrock
+    reference_body: 80% ownership of a $14 billion AI data center
+    headline: ""
+    sub_headline: ""
+    body_text: ""
+    design_triggers: []
+    text_metrics:
+      headline_chars: 38
+      body_chars: 131
+      headline_tier: md
+      body_tier: md
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: modern data center server rack
+    accent_color: "#A855F7"
+    source_slides:
+      - 1
+    personalization:
+      status: DONE
+      directive: "Headline de alto impacto focada na escala do dado: Meta entrega 80%
+        de controle de um centro de dados de IA de US$ 14 bilhões para a
+        BlackRock. O foco é o choque de magnitude financeira."
+      recast_model: openrouter:openrouter/free
+      recast_at: 2026-08-17T16:06:32
+    headline_font_size: null
+    body_font_size: null
+    image_url: null
+    image_zoom: 1
+    image_pos_x: 50
+    image_pos_y: 50
+    layers:
+      - id: s_msypw74o_510
+        type: shape
+        name: Anel decorativo 1
+        x: -150
+        y: 940
+        w: 420
+        h: 420
+        rotation: 0
+        opacity: 0.4
+        zIndex: 1
+        kind: ellipse
+        fill: transparent
+        stroke: "#7E22CE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: s_msypw74o_511
+        type: shape
+        name: Anel decorativo 2
+        x: 20
+        y: 1060
+        w: 280
+        h: 280
+        rotation: 0
+        opacity: 0.35
+        zIndex: 2
+        kind: ellipse
+        fill: transparent
+        stroke: "#D8B4FE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: t_msypw74o_518
+        type: text
+        name: Headline
+        x: 90
+        y: 660
+        w: 900
+        h: 340
+        rotation: 0
+        opacity: 1
+        zIndex: 9
+        content: O NOVO IMPÉRIO DA IA CUSTARÁ US$ 14 BI
+        fontSize: 80
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: left
+        lineHeight: 0.98
+        letterSpacing: -1
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: true
+        role: headline
+      - id: i_msyqbz7z_521
+        type: image
+        name: Imagem
+        x: -26
+        y: 305
+        w: 481
+        h: 457
+        rotation: 0
+        opacity: 1
+        zIndex: 10
+        src: /render-assets/upload_1787061602594.png
+        objectFit: contain
+        radius: 0
+        brightness: 101
+        contrast: 103
+        saturate: 118
+        blur: 2.5
+        flipX: false
+        flipY: false
+        frame: none
+    background:
+      type: image
+      mood: editorial
+      image: /render-assets/upload_1787060973629.webp
+      overlayMood: editorial
+    template_id: carousel-slide
+    source_slide_n: 1
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+    - "slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o
+      conteúdo real"
+  headlines_extracted: 0/1
+  bodies_extracted: 1/1
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  slides_removed_via_editor:
+    - 2
+    - 3
+  slide_count_after_edit: 1
+benchmark_analysis:
+  tema_central: A parceria estratégica e massiva de investimento entre Meta e
+    BlackRock para infraestrutura de IA.
+  formato: Breaking news / Insight de mercado de alto impacto.
+  arco_narrativo: O post utiliza uma técnica de choque (headline de impacto
+    financeiro) para estabelecer a magnitude de um movimento de mercado,
+    entregando o dado factual imediatamente.
+  estrutura:
+    - slide_n: 1
+      papel: Gancho de autoridade e choque de escala (Headline + Subheadline)
+      essencial: true
+  redundancias: []
+  fatores_de_performance:
+    - "High-Stakes News: Uso de nomes de peso (Meta e BlackRock) que geram
+      autoridade instantânea."
+    - "Números de Escala: O uso de '$14 billion' e '80% ownership' cria uma
+      percepção de magnitude que força o scroll-stop."
+    - "Curiosidade de Poder: A relação entre uma Big Tech e a maior gestora de
+      ativos do mundo sugere um movimento de mercado que o espectador precisa
+      entender para não ficar para trás."
+    - "Minimalismo Cognitivo: Informação densa entregue com o mínimo de esforço
+      de leitura."
+  recomendacao:
+    slides_ideais: 3
+    justificativa: "Para o padrão Virals, transformar este post de 'notícia pura' em
+      'conhecimento aplicável'. Slide 1: O choque (o que aconteceu). Slide 2: O
+      'Porquê' (a conexão estratégica/infraestrutura). Slide 3: O 'Insight de
+      Negócio' (o que isso significa para quem usa IA hoje), transformando o
+      benchmark de uma mera notícia em um conteúdo de autoridade e retenção."
+  analyzed_by: openrouter:google/gemma-4-26b-a4b-it:free
+  analyzed_at: 2026-08-17T11:55:59
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: A parceria estratégica Meta e BlackRock para infraestrutura de IA.
+  slides:
+    - slide_n: 1
+      role: HOOK
+      kicker: O MOVIMENTO
+      copy_direction: "Headline de alto impacto focada na escala do dado: Meta entrega
+        80% de controle de um centro de dados de IA de US$ 14 bilhões para a
+        BlackRock. O foco é o choque de magnitude financeira."
+      image_direction: Visual minimalista e tecnológico. Tipografia pesada e
+        centralizada. Fundo escuro com elementos que remetam a processamento de
+        dados ou infraestrutura de larga escala, sem clichês de robôs.
+      source_slides:
+        - 1
+    - slide_n: 2
+      role: INSIGHT
+      kicker: A ESTRATÉGIA
+      copy_direction: "Explicar o porquê desse movimento: não é apenas investimento, é
+        a consolidação da infraestrutura física necessária para rodar a próxima
+        era de agentes e LLMs. A união entre Big Tech e gigante de ativos
+        garante o poder de processamento que escala a IA."
+      image_direction: Diagrama limpo ou infográfico abstrato conectando 'Capacidade
+        de Processamento' (Meta) com 'Capital de Infraestrutura' (BlackRock).
+        Design direto e funcional.
+      source_slides:
+        - 1
+    - slide_n: 3
+      role: PAYOFF
+      kicker: O PONTO
+      copy_direction: "Conectar o macro ao micro: a corrida pela infraestrutura define
+        quem terá o poder de escala na IA aplicada. Enquanto o mercado briga por
+        hardware, a eficiência real virá de quem souber integrar esses modelos
+        em workflows de automação e aquisição de clientes."
+      image_direction: Fundo limpo com foco total no texto. Uma pergunta reflexiva no
+        centro para estimular o pensamento crítico do espectador sobre o futuro
+        da implementação de IA.
+      source_slides:
+        - 1
+  rationale: O plano transforma uma notícia de 'breaking news' em um insight de
+    autoridade. O slide 1 usa o gatilho de escala do benchmark para parar o
+    scroll; o slide 2 traduz o fato para o contexto de infraestrutura; o slide 3
+    entrega o valor para o profissional de negócios (aplicação e escala),
+    seguindo o arco de awareness 'problem_aware' e a voz pragmática da Oraclum.
+  planned_by: openrouter:openrouter/free
+  planned_at: 2026-08-17T11:56:13
+central_theme: A parceria estratégica Meta e BlackRock para infraestrutura de IA.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: 2026-08-17T16:06:32
+  slides: 3
+  central_theme: A parceria estratégica Meta e BlackRock para infraestrutura de IA.
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: 2026-08-17T16:07:05
+edited_at: 2026-08-18T14:01:08.474Z

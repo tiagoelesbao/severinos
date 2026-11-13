@@ -1,0 +1,554 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:53:01'
+archetype: news
+carousel_brief:
+  slug: v5-precision-59-obrunookamoto-6144ba
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\59-obrunookamoto-6144ba
+  source_url: https://www.instagram.com/obrunookamoto/p/Db5YLnGEbgD/
+  tema: 'Modelagem de precisão: 59-obrunookamoto-6144ba'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 10
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.8/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar o foco de ''notícia de investimento/fofoca de mercado'' por ''análise de
+    ferramenta/tendência tecnológica'', trazendo o mockup do software para o Slide
+    01 ou 02 para garantir a percepção de valor técnico imediato. - Substituir a análise
+    de ''gestão '
+  audits_present: true
+benchmark_caption: 'Uma rodada de US$ 85 milhões chamou atenção, mas a parte mais
+  importante da Decade não é o dinheiro nem a comparação com o Nubank.
+
+
+  É a tentativa de transformar a gestão de patrimônio (hoje cara e fragmentada) em
+  uma assinatura de R$ 200, com IA acompanhando os dados e um especialista humano
+  nas decisões críticas.
+
+
+  A empresa ainda precisa provar clientes, retenção e resultados!
+
+
+  Mesmo assim, o modelo abre uma pergunta maior: depois de assinar softwares, vamos
+  começar a assinar inteligências que prestam o próprio serviço?
+
+
+  🤔 Você deixaria uma IA analisar seu patrimônio e sugerir onde investir?'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Bruno Okamoto / Bruno Okamoto
+  reference_body: Esse é, literalmente, o caso da década!! Ex-CTO do Nubank levanta
+    US$ 85 milhões para criar a Decade, uma plataforma de gestão patrimonial com IA.
+    BLOOMBERG SEED ↑ DECADE, 4.8.26 | US$85M SEED Tiramos o peso de decidir sozinho
+    Decade Seu patrimônio inteiro em uma visita só Rendimento 20,4% Onde seu sonho
+    encontra método FTSE 100 Nikkei 225 IBrx 100 NASDAQ 10 Ibovespa Dow Jones Euro
+    Stoxx 5 O “próximo Nubank” quer colocar uma IA para acompanhar todo o seu patrimônio.
+    A Decade combina inteligência artificial, Open Finance e consultores humanos em
+    um plano de R$ 200 por mês.
+  headline: GESTÃO DE PATRIMÔNIO POR R$ 200?
+  sub_headline: O NOVO MODELO
+  body_text: A Decade captou US$ 85 milhões para mudar o jogo. O plano é usar IA e
+    Open Finance para democratizar o que hoje é caro e difícil.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 32
+    body_chars: 129
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: modern office skyscraper
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Headline direta focada no benefício: Como a IA e o Open Finance estão
+      desafiando a gestão de patrimônio tradicional. Mencionar o aporte de US$ 85
+      milhões da Decade.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Bruno Okamoto
+  reference_body: 'Para isso, ela começa reunindo uma vida financeira que hoje vive
+    espalhada. O cliente conecta bancos, corretoras e previdência, além de declarar
+    imóveis e ativos no exterior. O dinheiro não precisa ser transferido para a Decade.
+    Escolha uma instituição Busque Itaú Bradesco Banco do Brasil Nubank Santander
+    BTG Pactual Contas e Patrimônio Nubank Conectada via Open Finance Investimentos
+    Itaú Conectada via Open Finance Investimentos: R$ 3.520.717,44 Conta corrente:
+    R$ 68.420,55 Pergunte o que quiser...'
+  headline: 'O PROBLEMA: A FRAGMENTAÇÃO DO PATRIMÔNIO'
+  sub_headline: O PROBLEMA
+  body_text: Ter ativos espalhados entre bancos, corretoras e imóveis impede uma visão
+    clara da sua saúde financeira. Essa descentralização gera ineficiência na gestão
+    de dados.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 164
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using smartphone calculator
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Expor a dor da fragmentação: patrimônios espalhados em bancos, corretoras
+      e imóveis que dificultam uma visão clara e eficiente.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Bruno Okamoto
+  reference_body: 'Para isso, ela começa reunindo uma vida financeira que hoje vive
+    espalhada. O cliente conecta bancos, corretoras e previdência, além de declarar
+    imóveis e ativos no exterior. O dinheiro não precisa ser transferido para a Decade.
+    Escolha uma instituição Busque Itaú Bradesco Banco do Brasil Nubank Santander
+    BTG Pactual Contas e Patrimônio Nubank Conectada via Open Finance Investimentos
+    Itaú Conectada via Open Finance Investimentos: R$ 3.520.717,44 Conta corrente:
+    R$ 68.420,55 Pergunte o que quiser...'
+  headline: 'A INTEGRAÇÃO: TUDO EM UM ÚNICO FLUXO'
+  sub_headline: A INTEGRAÇÃO
+  body_text: Através do Open Finance, o modelo integra contas bancárias, corretoras
+    e previdência em um único lugar. O objetivo é unificar a vida financeira para
+    gerar dados consistentes.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 36
+    body_chars: 174
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: digital data connection concept
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Explicar o funcionamento técnico: a integração via Open Finance para
+      reunir toda a vida financeira em um único fluxo de dados.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Bruno Okamoto
+  reference_body: 'Com esse contexto reunido, a IA passa a acompanhar o patrimônio
+    continuamente. Ela procura taxas altas, concentração de risco, dinheiro parado
+    e vencimentos. Também simula como diferentes decisões podem afetar os planos do
+    cliente. Decade Patrimônio > R$ 3.579.137,99 Análise de portfólio > R$ 172.037
+    Custo de oportunidade 12,1% Em ativos a evitar Fluxo de caixa > 31,4% Taxa de
+    poupança Ruim Razoável Excelente Histórico Devo vender minhas ações da NVIDIA?
+    Trocando de carro Rebalanceando portfolio Internacional Dívida com parentes Consigo
+    me aposentar aos 50 com uma renda de R$ 30 mil por mês? Simula pra mim Analizou
+    por 9s Boa pergunta! Considerando seu patrimônio atual de R$ 3,6 mi, um aporte
+    prudente de R$ 20 mil/mês (bem abaixo do seu superávit médio recente de ~R$ 88
+    mil) e a meta de R$ 30 mil/mês de renda aos 50 anos, simulei três cenários de
+    rentabilidade real: Conservador Moderado Arrojado'
+  headline: 'A AUTOMAÇÃO: MONITORAMENTO CONTÍNUO POR IA'
+  sub_headline: A AUTOMAÇÃO
+  body_text: A IA aplicada monitora taxas, riscos, concentração e vencimentos de forma
+    constante. O agente identifica dinheiro parado e oportunidades de otimização em
+    tempo real.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 42
+    body_chars: 165
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: close up laptop screen charts
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Como a IA aplicada atua: monitoramento contínuo de taxas, riscos,
+      concentração e simulações de decisão para eficiência máxima.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Bruno Okamoto
+  reference_body: Só que a IA não trabalha sozinha. Quando a decisão exige mais julgamento
+    ou precisa ser executada, um consultor humano entra por WhatsApp ou vídeo. A máquina
+    monitora e analisa. O especialista assume os momentos mais sensíveis. 9:41 Alice
+    Falwichow Oi Alice, tudo bem? Preciso de uma ajudinha! Apareceu uma oportunidade
+    de comprar um imóvel. Queria entender o impacto no plano... Oi Aurora! Tudo bem
+    aqui, e você? Claro, vamos conversar sim! Você tem disponibilidade hoje? Tenho
+    sim! Pode ser às 15h? Fale com seu advisor sempre que precisar Seu advisor está
+    sempre disponível por WhatsApp ou vídeo para ajudar em decisões e te guiar na
+    execução do seu plano.
+  headline: 'O MODELO HÍBRIDO: IA + CONSULTORIA HUMANA'
+  sub_headline: O MODELO HÍBRIDO
+  body_text: A tecnologia cuida da análise e do monitoramento de dados. Quando a decisão
+    exige julgamento complexo, um consultor humano entra para a execução via canais
+    diretos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 41
+    body_chars: 164
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: business person video call
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: 'O papel do agente humano: a IA analisa e monitora, mas o consultor
+      humano entra para execução e julgamento complexo via canais diretos.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Bruno Okamoto / Bruno Okamoto
+  reference_body: 'O “próximo Nubank” quer colocar uma IA para acompanhar todo o seu
+    patrimônio. A Decade combina inteligência artificial, Open Finance e consultores
+    humanos em um plano de R$ 200 por mês. É aqui que a proposta fica mais provocadora:
+    tudo isso por R$ 200 por mês. O preço exige um plano anual, e a Decade diz não
+    receber comissão pela indicação de produtos. A entrada ainda acontece por lista
+    de espera. Transparência em tudo. Até no preço. Sem comissões, taxas escondidas
+    ou sugestões enviesadas. Decade Intelligence R$ 200 /mês - plano anual Advisor
+    dedicado à sua jornada IA que entende você e suas finanças Cobertura completa
+    do seu patrimônio Diagnóstico de riscos, taxas e impostos Portfólio inteligente
+    que entende seu contexto Vigilância 24/7 dos seus ativos Não precisa tirar o dinheiro
+    do seu banco Entrar na lista Decade Wealth Apenas por convite - Fale com seu advisor
+    Consultoria financeira completa, incluindo a execução dos seus investimentos,
+    aconselhamento tributário, estruturas offshore, aquisição de imóveis, entre outros
+    serviços para patrimônios complexos.'
+  headline: 'A ESCALA: GESTÃO PROFISSIONAL POR ASSINATURA'
+  sub_headline: A ESCALA
+  body_text: O modelo democratiza o acesso com uma assinatura de R$ 200 por mês. A
+    proposta elimina comissões por indicação de produtos para garantir foco na eficiência.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 156
+    headline_tier: md
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man paying with phone
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  - 8
+  personalization:
+    status: DONE
+    directive: 'A democratização do acesso: o modelo de assinatura de R$ 200 por mês
+      para gestão que antes era restrita a grandes fortunas.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+- slide_n: 7
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_09.jpg
+  reference_headline: Bruno Okamoto / Bruno Okamoto
+  reference_body: A rodada é fora da curva e o resultado ainda precisa ser provado.
+    A empresa vinha testando o produto com poucos clientes e afirma acompanhar alguns
+    bilhões de reais em patrimônio. Mas ainda não publicou número de clientes, retenção
+    ou resultados financeiros. US$ 85 milhões compram time e tempo, não product-market
+    fit. Você teria coragem de deixar uma IA analisar seu patrimônio e sugerir onde
+    investir? Comente aqui!
+  headline: 'O DESAFIO: VOCÊ DELEGARIA SEU PATRIMÔNIO PARA UMA IA?'
+  sub_headline: O DESAFIO
+  body_text: O mercado está testando um workflow onde agentes de IA sugerem movimentações
+    financeiras. Você teria confiança para deixar uma IA analisar e sugerir seus próximos
+    investimentos?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 53
+    body_chars: 177
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: thoughtful person looking window
+  accent_color: '#A855F7'
+  source_slides:
+  - 9
+  - 10
+  personalization:
+    status: DONE
+    directive: 'Concluir com a reflexão sobre a confiança: o mercado está pronto para
+      delegar decisões financeiras críticas para um workflow de IA?'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:54:28'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 10: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo
+    real'
+  headlines_extracted: 0/10
+  bodies_extracted: 10/10
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A análise da Decade como uma disruptora do mercado de gestão de patrimônio
+    através da combinação de IA, Open Finance e consultoria híbrida.
+  formato: Case de Tendência Tecnológica / Análise de Modelo de Negócio.
+  arco_narrativo: O post utiliza o 'gancho de autoridade' (ex-Nubank) para capturar
+    atenção, apresenta o problema da fragmentação financeira, introduz a solução tecnológica
+    (IA + Humano), detalha o modelo de negócio/preço, traz o contraponto de risco/incerteza
+    e finaliza com uma provocação de engajamento.
+  estrutura:
+  - slide_n: 1
+    papel: Gancho de Autoridade e Newsjacking (O 'Quem' e o 'Quanto')
+    essencial: true
+  - slide_n: 2
+    papel: Proposta de Valor e Diferencial (O 'O quê')
+    essencial: true
+  - slide_n: 3
+    papel: Background e Credibilidade dos Fundadores (O 'Porquê eles')
+    essencial: false
+  - slide_n: 4
+    papel: Contextualização de Mercado e Analogia (O 'Contexto')
+    essencial: false
+  - slide_n: 5
+    papel: Mecânica do Produto - Coleta de Dados (O 'Como funciona - parte 1')
+    essencial: true
+  - slide_n: 6
+    papel: Mecânica do Produto - Inteligência/Análise (O 'Como funciona - parte 2')
+    essencial: true
+  - slide_n: 7
+    papel: O Diferencial Híbrido - O fator humano (O 'Como funciona - parte 3')
+    essencial: true
+  - slide_n: 8
+    papel: Modelo de Monetização e Transparência (O 'Quanto custa')
+    essencial: true
+  - slide_n: 9
+    papel: Contraponto e Gestão de Expectativa (O 'Ressalva')
+    essencial: true
+  - slide_n: 10
+    papel: CTA Provocativo (Engajamento)
+    essencial: true
+  redundancias:
+  - Slide 3 e 4 podem ser fundidos ou eliminados para acelerar o ritmo, pois o foco
+    deve ser no modelo de IA e não apenas no currículo dos fundadores.
+  - Slide 1 e 2 repetem a informação do aporte e da conexão com o Nubank.
+  fatores_de_performance:
+  - Autoridade por associação (Nubank/Bloomberg)
+  - Contraste de valor (Gestão de patrimônio cara vs. Assinatura de R$ 200)
+  - Tangibilização da tecnologia (IA + Open Finance + Humano)
+  - Curiosidade sobre o futuro (Modelo de 'assinatura de inteligência')
+  - CTA de opinião polarizadora (Confiar ou não na IA)
+  recomendacao:
+    slides_ideais: 7
+    justificativa: Para o padrão Virals, o conteúdo precisa de mais velocidade. Podemos
+      fundir o Gancho (S1+S2), aglutinar o background dos fundadores em uma nota de
+      rodapé ou slide rápido (S3+S4), e manter o núcleo técnico (S5+S6+S7), o modelo
+      de negócio (S8), o risco (S9) e o CTA (S10). Isso evita o cansaço de leitura
+      e foca na análise da ferramenta/tendência, conforme exigido pela auditoria prévia.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:53:22'
+content_plan:
+  archetype: news
+  slide_count: 7
+  tema: A Decade e o novo modelo de gestão de patrimônio via IA e Open Finance.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O NOVO MODELO
+    copy_direction: 'Headline direta focada no benefício: Como a IA e o Open Finance
+      estão desafiando a gestão de patrimônio tradicional. Mencionar o aporte de US$
+      85 milhões da Decade.'
+    image_direction: Imagem de alta qualidade com estética tecnológica/clean. Elementos
+      que remetam a dados financeiros e inteligência artificial de forma sóbria.
+    source_slides:
+    - 1
+    - 2
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O PROBLEMA
+    copy_direction: 'Expor a dor da fragmentação: patrimônios espalhados em bancos,
+      corretoras e imóveis que dificultam uma visão clara e eficiente.'
+    image_direction: Gráfico ou representação visual de dados fragmentados, caóticos
+      e desconectados.
+    source_slides:
+    - 5
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A INTEGRAÇÃO
+    copy_direction: 'Explicar o funcionamento técnico: a integração via Open Finance
+      para reunir toda a vida financeira em um único fluxo de dados.'
+    image_direction: Diagrama de fluxo mostrando diferentes fontes de dados (bancos,
+      corretoras) convergindo para um ponto central.
+    source_slides:
+    - 5
+  - slide_n: 4
+    role: INSIGHT
+    kicker: A AUTOMAÇÃO
+    copy_direction: 'Como a IA aplicada atua: monitoramento contínuo de taxas, riscos,
+      concentração e simulações de decisão para eficiência máxima.'
+    image_direction: Interface de software ou dashboard mostrando alertas de IA sobre
+      taxas ou riscos de mercado.
+    source_slides:
+    - 6
+  - slide_n: 5
+    role: INSIGHT
+    kicker: O MODELO HÍBRIDO
+    copy_direction: 'O papel do agente humano: a IA analisa e monitora, mas o consultor
+      humano entra para execução e julgamento complexo via canais diretos.'
+    image_direction: 'Split screen: de um lado um processamento de dados (IA) e do
+      outro um ícone ou representação de atendimento humano especializado.'
+    source_slides:
+    - 7
+  - slide_n: 6
+    role: INSIGHT
+    kicker: A ESCALA
+    copy_direction: 'A democratização do acesso: o modelo de assinatura de R$ 200
+      por mês para gestão que antes era restrita a grandes fortunas.'
+    image_direction: Comparativo visual simples entre o custo de consultoria tradicional
+      vs. o modelo de assinatura da Decade.
+    source_slides:
+    - 2
+    - 8
+  - slide_n: 7
+    role: PAYOFF
+    kicker: O DESAFIO
+    copy_direction: 'Concluir com a reflexão sobre a confiança: o mercado está pronto
+      para delegar decisões financeiras críticas para um workflow de IA?'
+    image_direction: Fundo minimalista com tipografia forte para a pergunta provocativa.
+    source_slides:
+    - 9
+    - 10
+  rationale: O plano reduziu os 10 slides originais para 7, eliminando a redundância
+    de currículos dos fundadores (que era secundária ao modelo) e fundindo o gancho
+    de autoridade com o valor da notícia. O arco segue o modelo de 'problema -> solução
+    técnica (IA/Open Finance) -> modelo de negócio -> provocação', focando no benefício
+    da eficiência e escala, conforme a voz da Virals. Mantivemos a fidelidade aos
+    dados (US$ 85M e R$ 200) e evitamos termos genéricos, focando no workflow de integração
+    de dados.
+  planned_by: openrouter:google/gemma-4-26b-a4b-it:free
+  planned_at: '2026-08-12T19:53:47'
+central_theme: A Decade e o novo modelo de gestão de patrimônio via IA e Open Finance.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:google/gemma-4-26b-a4b-it:free
+  recast_at: '2026-08-12T19:54:28'
+  slides: 7
+  central_theme: A Decade e o novo modelo de gestão de patrimônio via IA e Open Finance.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 1
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:55:02'

@@ -1,0 +1,411 @@
+squad:
+  name: oraclumtech-ai-creative-studio
+  version: 1.1.0
+  short-title: Oraclum Tech · AI Creative Studio
+  description: >
+    Estúdio de criação audiovisual e de imagem com IA da Oraclum Tech. Opera sob um
+    princípio único — o gênero define o pipeline, o pipeline define o elenco. Um pedido
+    entra pelo studio-chief, é classificado em um dos gêneros do catálogo, e o
+    exec-producer instancia o pipeline profile correspondente: estágios ordenados,
+    elenco convocado, artefatos em disco, quality gates e a declaração explícita de
+    quem executa cada estágio (humano, worker determinístico ou agente). Atende três
+    tipos de cliente: interno Oraclum (institucional e build-in-public), perfis
+    próprios de farming, e marcas externas que compram campanha, UGC, ads e imagem.
+  author: Virals
+  icon: 🎬
+  entry_agent: studio-chief
+  slashPrefix: oraclumStudio
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ELENCO — 17 agentes em 5 tiers (ver ARCHITECTURE.md § Tiers)
+# A ordem é a do organograma, não alfabética: comando, planejamento, direção,
+# execução, qualidade. Quem lê a lista entende a hierarquia sem abrir outro arquivo.
+# ─────────────────────────────────────────────────────────────────────────────
+agents:
+  # TIER 0 — Comando
+  - id: studio-chief
+    file: agents/studio-chief.md
+  - id: exec-producer
+    file: agents/exec-producer.md
+  # TIER 1 — Planejamento
+  - id: brief-strategist
+    file: agents/brief-strategist.md
+  - id: research-scout
+    file: agents/research-scout.md
+  - id: creative-director
+    file: agents/creative-director.md
+  - id: head-of-copy
+    file: agents/head-of-copy.md
+  - id: packaging-lead
+    file: agents/packaging-lead.md
+  - id: showrunner
+    file: agents/showrunner.md
+  # TIER 2 — Direção
+  - id: film-director
+    file: agents/film-director.md
+  - id: dop
+    file: agents/dop.md
+  - id: art-director
+    file: agents/art-director.md
+  # TIER 3 — Execução
+  - id: image-lead
+    file: agents/image-lead.md
+  - id: motion-lead
+    file: agents/motion-lead.md
+  - id: character-lead
+    file: agents/character-lead.md
+  - id: editor
+    file: agents/editor.md
+  - id: sound-designer
+    file: agents/sound-designer.md
+  # TIER 4 — Qualidade
+  - id: fact-checker
+    file: agents/fact-checker.md
+  - id: qa-critic
+    file: agents/qa-critic.md
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INTEGRAÇÃO COM O WORKSPACE
+# Lê identidade de marca e motor técnico de outros squads; escreve APENAS dentro
+# do workspace de negócio da Oraclum. O estúdio nunca escreve em squad alheio —
+# se precisar de mudança no motor do marketing/farming, abre handoff, não edita.
+# ─────────────────────────────────────────────────────────────────────────────
+workspace_integration:
+  level: read_write
+  rationale: >
+    O estúdio consome identidade de marca (brand-identity, brand-config,
+    video-templates) e o motor técnico já validado dos squads de marketing e farming,
+    e grava todo artefato de job — brief, dossiê, storyboard, stills, takes, montagem,
+    entrega — no workspace de negócio da Oraclum. Reuso é leitura; produção é escrita
+    isolada por job.
+  read_paths:
+    # Identidade de marca (fonte canônica do cliente Oraclum)
+    - squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml
+    - squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+    - squads/virals-marketing-squad/data/clients/oraclum/video-templates.yaml
+    - squads/virals-marketing-squad/data/clients/
+    # Motor técnico de vídeo/copy (chamar, não reescrever)
+    - squads/virals-marketing-squad/scripts/
+    - squads/virals-marketing-squad/data/
+    # Motor de geração generativa e cascata de providers
+    - squads/virals-farming-squad/scripts/
+    - squads/virals-farming-squad/config/ai-providers.yaml
+    # Infra compartilhada
+    - services/ETL/
+    - apps/video-studio/
+    # Configuração e estado do próprio estúdio
+    - squads/oraclumtech-ai-creative-studio/data/
+    - squads/oraclumtech-ai-creative-studio/docs/
+    # Grafos do ComfyUI que o operador humano carrega (leitura — o squad não os executa)
+    - squads/oraclumtech-ai-creative-studio/assets/comfyui/
+    - .aiox/handoffs/
+  write_paths:
+    - workspaces/businesses/oraclum/creative-studio/
+    - workspaces/businesses/oraclum/creative-studio/jobs/
+    - .aiox/handoffs/
+  template_namespace: oraclumStudio
+
+# ─────────────────────────────────────────────────────────────────────────────
+pattern_library:
+  prefix: OCS
+  naming_convention:
+    format: '{PREFIX}-{CATEGORY}-{NUMBER}'
+    example: OCS-TP-001
+  categories:
+    - id: TP
+      name: Task Patterns
+      description: Estrutura de task por estágio de pipeline
+    - id: EP
+      name: Executor Patterns
+      description: Seleção de executor (humano/worker/agente) por estágio
+    - id: HP
+      name: Handoff Patterns
+      description: Contrato de artefato entre estágios
+    - id: GP
+      name: Gate Patterns
+      description: Quality gates por gênero e gates transversais
+    - id: RP
+      name: Routing Patterns
+      description: Cascata de modelo por tipo de asset
+  patterns: []
+
+# ─────────────────────────────────────────────────────────────────────────────
+task_standards:
+  enforce_anatomy: true
+  validator: OCS-TP-001
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+  optional_fields:
+    - estimated_time
+    - dependencies
+    - templates
+    - quality_gate
+    - handoff
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REGRA DE OURO (_BLUEPRINT.md §3.1 — decisão do founder, 2026-08-21)
+# O squad NÃO gera imagem nem vídeo. O squad DIRIGE a geração.
+# Os estágios `stills` e `takes` são executor: human em TODOS os 6 pipelines,
+# sem variante worker ou agent. A geração de voz dentro de `audio` idem.
+# O entregável dos agentes de execução é o PACOTE DE DIREÇÃO (asset_direction),
+# não o arquivo. Ver ARCHITECTURE.md ADR-001.
+# ─────────────────────────────────────────────────────────────────────────────
+golden_rule:
+  id: OCS-EP-000
+  enunciado: 'O squad dirige a geração; quem gera é o operador humano.'
+  estagios_travados_em_human: [stills, takes]
+  tambem_humano: 'geração de voz/VO dentro do estágio audio'
+  artefato_obrigatorio_antes: asset_direction
+  proibido: >
+    Declarar executor worker ou agent em stills/takes. Simular a devolução do humano.
+    Registrar como concluído um estágio de geração sem arquivo devolvido pelo operador.
+  papel_do_agente_na_geracao:
+    - Escolher a ferramenta certa para aquele asset e justificar contra a alternativa
+    - Escrever o prompt com a técnica correta para AQUELE modelo
+    - Antecipar a armadilha conhecida do modelo e dizer como contorná-la
+    - Dar parâmetro exato (seed, aspect, steps, cfg, motion, duração)
+    - Dar critério de aceite verificável e o número de variações a gerar
+    - Avaliar o que o humano devolveu e dirigir o retake (isso sim é executor agent)
+
+executor_types:
+  human:
+    id: OCS-EP-001
+    name: Human Executor
+    cost: '$$$'
+    speed: slow
+    use_for:
+      - 'GERAÇÃO DE TODO STILL (estágio stills) — regra de ouro, sem exceção'
+      - 'GERAÇÃO DE TODO TAKE (estágio takes) — regra de ouro, sem exceção'
+      - Geração/gravação de VO e escolha de trilha licenciada
+      - Aprovação de rota criativa no estágio concept (ponto de parada obrigatório)
+      - Montagem em After Effects e Premiere Pro no estágio assembly
+      - Assinatura final de entrega para cliente externo
+  agent:
+    id: OCS-EP-002
+    name: Agent Executor (LLM)
+    cost: '$$$$'
+    speed: fast
+    use_for:
+      - Brief, conceito, roteiro, decupagem, look, design, bíblia de personagem
+      - Escrita do Pacote de Direção (asset_direction) que precede stills/takes/audio
+      - Avaliação do asset devolvido pelo humano e direção de retake (drift-check)
+      - Síntese de dossiê de referência a partir do benchmark bruto
+      - Fact-check de claim contra o claim-ledger
+      - Veredito de quality gate
+  hybrid:
+    id: OCS-EP-003
+    name: Hybrid Executor
+    cost: '$$'
+    speed: moderate
+    use_for:
+      - Ciclo gerar → avaliar → redirigir → regerar (humano gera, agente critica)
+      - Aprovação assistida em ponto de parada com recomendação do agente
+    nota: >
+      hybrid NÃO é um valor válido no campo `executor` de um estágio (o blueprint
+      admite só human|worker|agent). É a classificação do CICLO de retake, que se
+      expressa como estágio human seguido de avaliação agent.
+  worker:
+    id: OCS-EP-004
+    name: Worker Executor (script determinístico)
+    cost: '$'
+    speed: very_fast
+    use_for:
+      - Benchmark ETL de referência (download, frames, áudio, transcrição)
+      - Legenda com timestamp por palavra (Whisper local, app próprio)
+      - Tratamentos automáticos do app próprio (video-studio)
+      - Empacotamento de entrega e checagem de especificação técnica do master
+
+executor_selection:
+  requires_creativity: [agent, human]
+  requires_judgment: [human]
+  requires_asset_generation: human      # travado pela regra de ouro
+  requires_speed: [agent, worker]
+  requires_consistency: worker
+  requires_brand_authority: human
+
+# ─────────────────────────────────────────────────────────────────────────────
+workflow_config:
+  checkpoint_policy: always_active
+  checkpoint_modes:
+    always_active: 'Todo checkpoint precisa passar'
+    skip_on_override: 'Pode pular com aprovação manual registrada'
+    advisory: 'Só alerta, não bloqueia'
+  fail_fast: false
+  allow_manual_override: true
+  override_contract: >
+    Waiver só existe por escrito. Registrar em job.json: gate, motivo, autor e data.
+    Waiver do estágio factcheck é PROIBIDO — ver constraints.non_negotiable.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESTADO DE JOB
+# ─────────────────────────────────────────────────────────────────────────────
+job:
+  id_format: '{YYYY-MM-DD}-{genero}-{cliente}-{hash6}'
+  root: workspaces/businesses/oraclum/creative-studio/jobs
+  manifest: job.json
+  degraded_report: _degraded.md
+  layout:
+    - '00-intake/'
+    - '01-brief/'
+    - '02-research/'
+    - '03-concept/'
+    - '04-story/'
+    - '05-script/'
+    - '06-decupagem/'
+    - '07-look/'
+    - '08-design/'
+    - '09-character/'
+    # 10 permanece reservado: a numeracao e estavel entre pipelines para o
+    # operador humano nao se perder ao trocar de genero (_CONVENTIONS.md §1)
+    - '11-stills/'
+    - '12-takes/'
+    - '13-audio/'
+    - '14-assembly/'
+    - '15-gate/'          # factcheck-report.md + gate-verdict.md (dupla de qualidade)
+    - '16-delivery/'
+  cards_dir: '_cards/'    # cards de tarefa humana, abertos e fechados
+  direction_dir: '_direction/'  # Pacote de Direcao, dentro de 11-stills/ e 12-takes/
+
+# Estágios canônicos. Um pipeline usa um SUBCONJUNTO ORDENADO destes ids —
+# nunca inventa id novo. Ver data/pipeline-profiles.yaml.
+canonical_stages:
+  - { id: intake,     owner: studio-chief }
+  - { id: brief,      owner: brief-strategist }
+  - { id: research,   owner: research-scout }
+  - { id: concept,    owner: creative-director }
+  - { id: story,      owner: showrunner }
+  - { id: script,     owner: head-of-copy }
+  - { id: decupagem,  owner: film-director }
+  - { id: look,       owner: dop }
+  - { id: design,     owner: art-director }
+  - { id: character,  owner: character-lead }
+  - { id: stills,     owner: image-lead }
+  - { id: takes,      owner: motion-lead }
+  - { id: audio,      owner: sound-designer }
+  - { id: assembly,   owner: editor }
+  - { id: factcheck,  owner: fact-checker, blocking: true }
+  - { id: gate,       owner: qa-critic }
+  - { id: delivery,   owner: exec-producer }
+
+registries:
+  genres: data/genre-catalog.yaml
+  pipelines: data/pipeline-profiles.yaml
+  handoffs: data/handoff-matrix.yaml
+  model_routing: data/model-routing.yaml
+  craft: data/craft-references.yaml
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REUSO — o estúdio CHAMA estes ativos, não os reimplementa (IDS: REUSE > ADAPT > CREATE)
+# ─────────────────────────────────────────────────────────────────────────────
+reuse_contract:
+  planning:
+    - squads/virals-marketing-squad/scripts/plan_video_creative.py
+    - squads/virals-marketing-squad/scripts/video_plan.py
+    - squads/virals-marketing-squad/scripts/video_templates.py
+  research:
+    - squads/virals-marketing-squad/scripts/run-creative-benchmark.js
+    - squads/virals-marketing-squad/scripts/vision_video_benchmark.py
+    - squads/virals-marketing-squad/scripts/analyze_video_benchmark.py
+    - squads/virals-farming-squad/scripts/_vision.js
+  fidelity:
+    - squads/virals-marketing-squad/scripts/quality_gate_video.py
+    - squads/virals-marketing-squad/scripts/copy_guardrails.py
+    - squads/virals-marketing-squad/scripts/test_fact_fidelity.py
+  # LEITURA, NÃO EXECUÇÃO. Estes scripts geram asset automaticamente — o que a regra
+  # de ouro proíbe neste squad. Eles entram como FONTE DE CONHECIMENTO para o Pacote
+  # de Direção: parâmetro real, armadilha medida, comportamento de cada modelo.
+  generation_reference_only:
+    - squads/virals-farming-squad/scripts/farm-images.js
+    - squads/virals-farming-squad/scripts/farm-takes.js
+    - squads/virals-farming-squad/scripts/farm-stock-takes.js
+    - squads/virals-farming-squad/scripts/adapters/
+    - squads/virals-farming-squad/config/ai-providers.yaml
+  image_composition:
+    - squads/virals-marketing-squad/scripts/design_creative.py
+  audio_text:
+    - squads/virals-farming-squad/scripts/_speech.js
+  assembly:
+    - apps/video-studio/scripts/prepare-creative.ts
+    - apps/video-studio/scripts/render-export.ts
+    - squads/virals-farming-squad/scripts/_studio-mirror.js
+  routing:
+    - squads/virals-marketing-squad/scripts/model_router.py
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CADEIA DE FINALIZAÇÃO (_BLUEPRINT.md §3.3 — decisão do founder, 2026-08-21)
+# DaVinci Resolve SAIU do fluxo. O estágio `assembly` entrega ESPECIFICAÇÃO
+# EXECUTÁVEL, não projeto renderizado. Ver ARCHITECTURE.md ADR-002.
+# ─────────────────────────────────────────────────────────────────────────────
+finishing_chain:
+  - step: 1
+    tool: 'App próprio (apps/video-studio)'
+    executor: worker
+    faz: 'Autolegenda com timestamp por palavra e tratamentos automáticos'
+    nao_refazer_na_mao: 'Legenda, sincronia de cue, tratamento já aplicado pelo app'
+  - step: 2
+    tool: 'Adobe After Effects'
+    executor: human
+    faz: 'Motion graphics, composição, VFX, lower-third, animação de texto'
+    recebe: 'ae-comp-spec.md — lista de composições com parâmetros de animação'
+  - step: 3
+    tool: 'Adobe Premiere Pro'
+    executor: human
+    faz: 'Corte final, montagem, mixagem, master e export por canal'
+    recebe: 'premiere-cut-spec.md — ordem de cortes com timecode, bins, presets de export'
+
+legacy:
+  - path: squads/virals-marketing-squad/scripts/export_to_davinci.py
+    status: legado
+    motivo: 'DaVinci Resolve saiu do fluxo de finalização em 2026-08-21 (_BLUEPRINT.md §3.3).'
+    regra: 'Nenhum agente, task ou workflow deste squad chama este script.'
+
+cross_squad_references:
+  copy:
+    - '@ladeira'
+    - '@georgi'
+  retention:
+    - '@mrbeast-mk'
+  distribution:
+    - '@garyvee-mk'
+  ads:
+    - '@perry-marshall'
+    - '@ezra-firestone'
+  squads:
+    - storytelling
+    - copy-squad
+    - brand-squad
+    - traffic-masters
+  contract: >
+    Referência cross-squad é handoff de artefato, nunca duplicação de agente. O estúdio
+    pede um parecer e recebe um arquivo; não copia a persona para dentro do squad.
+
+# ─────────────────────────────────────────────────────────────────────────────
+constraints:
+  non_negotiable:
+    - 'Sem case fabricado: nenhuma peça inventa depoimento, número ou resultado de cliente.'
+    - 'Léxico proibido do brand-identity vale para peça da Oraclum (lexico.nunca_usar).'
+    - 'Todo handoff é arquivo em disco. Contexto de conversa não é entrega.'
+    - 'Estágio factcheck é bloqueante e não aceita waiver.'
+    - 'executor human nunca é simulado — o pipeline PARA e emite card de tarefa humana.'
+    - 'REGRA DE OURO: stills e takes são human em todos os pipelines. O squad dirige a geração, não gera.'
+    - 'Nenhum estágio de geração inicia sem o Pacote de Direção (asset_direction) escrito e aprovado.'
+    - 'DaVinci Resolve está fora do fluxo. Finalização é app próprio → After Effects → Premiere Pro.'
+  brand_authority: >
+    Para peça da própria Oraclum, a marca-guia é
+    squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml.
+    Para cliente externo, a marca-guia é o brand-identity DO CLIENTE, carregado pelo
+    brief-strategist no estágio brief.
+
+tested: false
+aios:
+  type: squad
+  minVersion: 2.1.0
+name: oraclumtech-ai-creative-studio
+version: 1.0.1

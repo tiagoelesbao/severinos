@@ -1,0 +1,1025 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM TECH · AI CREATIVE STUDIO — ROTEAMENTO DE MODELO POR TIPO DE ASSET
+#
+# ⚠️ ISTO NÃO É UMA CASCATA AUTOMÁTICA. É uma MATRIZ DE RECOMENDAÇÃO para o
+# OPERADOR HUMANO.
+#
+# Sob a regra de ouro (_BLUEPRINT.md §3.1) o squad não gera imagem nem vídeo —
+# dirige a geração. Portanto este arquivo não é consumido por um roteador que
+# tenta provider após provider: é consumido pelo `image-lead`, `motion-lead` e
+# `sound-designer` na hora de escrever o Pacote de Direção, e chega ao operador
+# dentro do card de tarefa humana.
+#
+# Consequência prática: ferramenta WEB com interface é cidadã de primeira classe
+# aqui, não fallback. O humano tem feeling, itera, descarta e refina — coisas que
+# uma chamada de API não faz. A API entra quando o valor é volume e repetição.
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# BASE DE EVIDÊNCIA (nada aqui é suposição sobre ferramenta):
+#   · squads/virals-farming-squad/config/ai-providers.yaml — status REAL de cada
+#     provider, com data de verificação e motivo de desativação
+#   · squads/virals-farming-squad/scripts/farm-images.js — seed travada, uso de
+#     imagem de referência, modo híbrido
+#   · squads/virals-farming-squad/scripts/farm-takes.js + adapters/video/ — I2V e
+#     animação procedural
+#   · squads/virals-farming-squad/scripts/_vision.js — cascata de visão verificada
+#   · squads/virals-marketing-squad/scripts/model_router.py — descoberta de
+#     modelos de texto gratuitos em runtime
+#
+# Tudo que NÃO é demonstrável no repositório está marcado `status: a_validar`.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.2.0'
+  criado_em: '2026-08-21'
+  atualizado_em: '2026-08-30'
+  mudanca_1_1_0: >
+    ROTA LOCAL ACRESCENTADA. Quando este arquivo foi escrito, a única rota de geração era
+    serviço em nuvem. Desde então subiu um stack em ComfyUI na máquina do founder
+    (`data/local-generation-stack.yaml`). Cada rota abaixo ganhou um bloco `local:` e
+    nenhuma rota de nuvem foi removida — a nuvem continua válida e em vários casos
+    continua sendo a PRIMEIRA escolha. O critério de decisão entre as duas está em
+    `criterio_local_vs_nuvem`, logo abaixo dos princípios.
+  squad: oraclumtech-ai-creative-studio
+  natureza: 'recomendação para operador humano'
+  consumido_por: [image-lead, motion-lead, sound-designer, character-lead]
+  entra_no_artefato: 'asset_direction (Pacote de Direção) → card de tarefa humana'
+  arquivo_irmao: >
+    `data/local-generation-stack.yaml` é o INVENTÁRIO (o que roda na máquina, com qual
+    licença, em quanta VRAM, e onde o arquivo mora). Este arquivo é a RECOMENDAÇÃO (qual
+    rota escolher para este asset). Em divergência sobre o que está instalado, o
+    inventário vence; em divergência sobre qual rota usar, este arquivo vence.
+
+principios_de_rota:
+  - id: feeling_antes_de_volume
+    regra: 'Peça única e de alto acabamento → ferramenta web com iteração humana. Lote repetitivo → API.'
+    porque: 'O custo de uma peça-vitrine é o retrabalho, não o crédito. O custo de um lote é o crédito.'
+  - id: referencia_vence_descricao
+    regra: 'Quando existir imagem de referência, prefira a ferramenta que aceita upload dela.'
+    porque: >
+      Está registrado no ai-providers.yaml: o único provider de API que aceitava imagem
+      de referência (gemini-image) foi desativado por não ter free tier nesta conta, e o
+      comentário do próprio arquivo diz que ele "aproxima muito mais o resultado do
+      criativo modelado do que qualquer descrição textual". Hoje o caminho de referência
+      é web (Gemini web / ChatGPT), com upload manual — mais um motivo para a geração ser humana.
+  - id: i2v_antes_de_t2v
+    regra: 'Gere o still-chave, aprove, e só então anime. Nunca peça o take direto do texto.'
+    porque: >
+      Com I2V o quadro é aprovado ANTES do movimento; com T2V o erro só aparece depois
+      do vídeo pronto. Todo o pipeline de takes do repo é image_to_video por essa razão
+      (ai-providers.yaml → video.mode: image_to_video).
+  - id: texto_nao_e_geracao
+    regra: 'Rótulo, logo, headline e legenda não se geram — se compõem em pós.'
+    porque: 'Nenhum gerador acerta texto de forma confiável. Cena vem do modelo; texto vem da composição.'
+  - id: seed_travada
+    regra: 'Uma seed por job, a MESMA em todos os assets e em todas as ferramentas que a aceitem.'
+    porque: >
+      Copiado do farm-images.js, que escreve no próprio card do operador: "use a MESMA
+      em todas as ferramentas e takes; sem isso o criativo montado parece uma colagem
+      de mundos diferentes."
+  - id: registrar_o_que_foi_usado
+    regra: 'O operador registra em _retorno.json a ferramenta que de fato usou.'
+    porque: 'É o que mantém esta matriz viva. Dado externo copiado para dentro do arquivo apodrece.'
+  - id: local_nao_muda_quem_gera
+    regra: >
+      A rota local NÃO transforma nenhum estágio em `executor: worker`. `stills`, `takes`
+      e a geração de voz continuam `executor: human`, sempre.
+    porque: >
+      Regra de ouro do `_BLUEPRINT.md` §3.1. O ComfyUI é mais uma ferramenta que o humano
+      opera — com a diferença de que ela roda na mesa dele em vez de num servidor de
+      terceiro. Quem monta o grafo, escolhe a seed, olha o resultado e decide o retake
+      continua sendo pessoa. O que muda é o campo `ferramenta_recomendada` do Pacote de
+      Direção, e nada mais.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO DE DECISÃO — LOCAL (ComfyUI) × NUVEM (ferramenta web / API)
+#
+# Não existe rota "melhor". Existe rota certa para o momento do job. As duas
+# permanecem vivas, e a escolha é do operador, com o agente recomendando.
+# ═════════════════════════════════════════════════════════════════════════════
+criterio_local_vs_nuvem:
+
+  pergunte_nesta_ordem:
+    - pergunta: '1. O canal é monetizado ou a peça é de cliente?'
+      se_sim: >
+        LICENÇA VIRA CRITÉRIO TÉCNICO, e ela pesa mais que qualidade. Isso empurra para o
+        local — mas só para os modelos com licença limpa que já estão no inventário
+        (FLUX.2 klein 4B Apache 2.0, ChatterBox MIT, Wan 2.2, ACE-Step Apache 2.0). Não
+        empurra para "qualquer modelo local": o klein 9B e o flux1-dev são locais e são
+        não-comerciais. Ver `local-generation-stack.yaml → rejeitados_por_licenca`.
+      se_nao: 'Siga para a pergunta 2 — licença de ferramenta web ainda precisa ser conferida, mas não é o eixo dominante.'
+    - pergunta: '2. Isto é exploração criativa (descartar, refinar, decidir o look) ou execução de um look já aprovado?'
+      exploracao: >
+        NUVEM. Interface com histórico, variação lado a lado, edição conversacional e
+        in-painting economizam mais tempo do que qualquer ganho de licença ou de custo.
+        O ComfyUI é péssimo em "gerar 4 e escolher" — cada volta é uma fila.
+      execucao: 'LOCAL. Look travado, prompt fechado, N assets equivalentes: é onde o render noturno ganha de lavada.'
+    - pergunta: '3. Cabe na máquina?'
+      como_medir: >
+        Olhe o tamanho do TEXT ENCODER, não só o do UNet. O gargalo desta máquina é RAM
+        (16 GB), não VRAM: o encoder roda na CPU antes de subir para a placa, e o pico é
+        no encode. Quantizar o UNet resolve VRAM e não resolve isto.
+      se_nao_cabe: 'NUVEM, sem discussão. Não existe workaround de RAM.'
+    - pergunta: '4. Precisa hoje, com a máquina em uso?'
+      se_sim: >
+        NUVEM. O modo de operação padrão do local é render NOTURNO, com a máquina livre.
+        Rodar com sessão aberta atropela o trabalho em curso e ainda mede errado.
+      se_nao: 'LOCAL. A noite é o recurso, e a noite é longa.'
+    - pergunta: '5. Há disco livre para o que este job vai produzir E para o modelo que ele exige?'
+      se_nao: >
+        NUVEM, ou limpe disco antes. Disco é o recurso mais apertado do estúdio hoje —
+        mais que VRAM, mais que crédito de API. Contar o tamanho dos arquivos, nunca o
+        delta do espaço livre (ele oscila com pagefile e sessão concorrente).
+
+  o_que_o_local_ganha:
+    - 'Licença limpa e verificável, arquivo por arquivo — o que um plano free de ferramenta web nunca dá por escrito'
+    - 'Custo marginal zero por geração: não consome cota, não consome pool mensal de HuggingFace, não expira'
+    - 'Sem marca d''água, sem limite de resolução de plano gratuito, sem fila de terceiro'
+    - 'Reprodutibilidade real: mesmo grafo, mesma seed, mesmo resultado, daqui a seis meses'
+    - 'Nada do material do cliente sai da máquina — argumento comercial, não só técnico'
+
+  o_que_a_nuvem_ganha:
+    - 'Iteração: ver, descartar e refinar em minutos, que é onde a geração de imagem de fato acontece'
+    - 'Imagem de referência com upload direto (Gemini web, ChatGPT) — a rota nº 1 de consistência hoje'
+    - 'Qualidade já aprovada pelo founder no look do Krea. Trocar por modelo local MUDA a estética, e isso é decisão, não detalhe'
+    - 'Zero setup, zero disco, zero noite de máquina'
+    - 'Capacidades que o local ainda não tem instaladas (lip-sync, foley, upscale generativo com contexto)'
+
+  regra_de_transicao: >
+    MANTIDA do `local-generation-stack.yaml` e ainda vale: o founder já aprova o look do
+    Krea. Antes de migrar um tipo de asset de nuvem para local, rodar OS DOIS EM PARALELO
+    por um lote e registrar a comparação em `_retorno.json`. Migrar às cegas troca uma
+    estética aprovada por uma desconhecida, e o cliente percebe antes de nós.
+
+  estado_honesto_em_2026_08_29: >
+    Do stack local, só o Wan 2.2 I2V max está VALIDADO (lote "vovós", 6 takes). FLUX.2
+    klein e o TTS estão instalados e conferidos, mas nenhum pixel e nenhuma faixa saíram
+    em job real ainda. Foley, trilha e SFX têm workflow escrito e peso não confirmado.
+    Enquanto isso for verdade, toda rota local marcada `instalado` entra no Pacote de
+    Direção com rota de nuvem declarada ao lado, no campo `se_falhar`.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# ROTAS POR TIPO DE ASSET
+# ═════════════════════════════════════════════════════════════════════════════
+rotas:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: imagem_still
+    descricao: 'Still de cena para o storyboard — o quadro que vira take no I2V'
+    usado_em: [P1, P2, P3, P4, P5]
+    preferido:
+      ferramenta: 'Krea ou Leonardo.ai (web)'
+      status: declarado_no_repo
+      evidencia: 'ai-providers.yaml → image.hybrid_targets'
+      por_que: >
+        Still de cena é onde o operador mais descarta e refina. Interface com histórico,
+        variação e in-painting economiza mais tempo do que qualquer ganho de API.
+      tecnica:
+        - 'Escreva a cena em blocos: sujeito → ação → ambiente → luz → lente → tratamento'
+        - 'Gere 4 variações antes de julgar; a primeira quase nunca é a melhor'
+        - 'Trave a seed do job e varie só o prompt — assim a variação é intencional'
+        - 'Descreva a LUZ com a mesma precisão do sujeito: é o que separa still de cinema de still de banco'
+      armadilhas:
+        - 'Prompt longo demais dilui: acima de ~60 palavras o modelo começa a ignorar o fim'
+        - 'Mão em primeiro plano e dedo — evite enquadramento que exija mão aberta em close'
+        - 'Texto pedido dentro da imagem sai ilegível — peça a cena limpa e componha o texto depois'
+    alternativa:
+      ferramenta: 'FLUX.1-schnell via Cloudflare Workers AI (API)'
+      quando_preferir: 'Lote grande de stills equivalentes, onde o ganho é volume e não acabamento'
+      status: verificado
+      evidencia: 'ai-providers.yaml: "✅ VERIFICADO 2026-07-26: FLUX responde em ~1,7s". É o provider padrão de fato do farming.'
+      por_que: 'Latência de ~1,7s e a maior cota gratuita disponível entre os providers mapeados'
+      limite: 'Não aceita imagem de referência (supports_reference_image: false)'
+    ultimo_recurso:
+      - ferramenta: 'Pollinations.ai'
+        por_que: 'Sem chave, sem custo — degrau que não falha'
+        limite: 'Qualidade inferior; aceitável em b-roll, não em peça-vitrine'
+      - ferramenta: 'Pexels (acervo)'
+        por_que: 'Quando a cena é comum (mãos postas, céu ao amanhecer, silhueta), a foto real chega mais perto do que a geração'
+        obrigacao: 'Registrar atribuição (autor/URL) no retorno'
+    local:
+      ferramenta: 'FLUX.2 [klein] 4B (GGUF Q8_0) no ComfyUI da máquina do founder'
+      workflow: 'assets/comfyui/workflows/flux2-klein-t2i.json'
+      status: instalado
+      status_significa: 'grafo conferido contra o /object_info da instalação real; NENHUM pixel gerado ainda'
+      licenca: 'Apache 2.0 — uso comercial liberado, sem asterisco'
+      config: '4 steps, cfg 1.0, sampler euler, sigmas via Flux2Scheduler, 1024×1024'
+      quando_preferir: >
+        Lote de stills equivalentes com look já travado, peça de canal monetizado, e todo
+        caso em que a licença precisa ser demonstrável. Também quando o still é insumo
+        interno (o frame que vira `{{IMAGEM_DE_ENTRADA}}` do wan22-i2v-max), porque aí não
+        há iteração estética — há produção.
+      quando_NAO_preferir: >
+        Fase de exploração de look. Uma volta por vez em fila é o pior modo possível de
+        descobrir a estética da peça. Nessa fase, Krea/Leonardo/Gemini web continuam sendo
+        a rota preferida deste arquivo, e isso não é provisório.
+      armadilhas:
+        - 'width/height do Flux2Scheduler DEVEM bater com os do EmptyFlux2LatentImage — o scheduler calcula as sigmas em função da resolução'
+        - 'cfg fica em 1.0. Subir liga o prompt negativo, dobra o tempo por step e tende a queimar a imagem'
+        - 'NÃO use o nó FluxGuidance: o klein-4B tem `guidance_embeds: false`, o nó seria decoração'
+        - 'Gargalo é RAM, não VRAM — o encoder bf16 tem 7,49 GiB numa máquina de 16 GB e o pico é no encode. Com sessão aberta, não roda.'
+      armadilha_de_licenca: >
+        Existe FLUX.2 [klein] 9B, ele é melhor, e é a primeira coisa que aparece quando se
+        procura GGUF de klein. É NON-COMMERCIAL. Não serve aqui. Mesma cilada do flux1-dev
+        e do flux1-krea-dev.
+      ainda_nao_instalados:
+        - { id: z-image-turbo, licenca: 'Apache 2.0', quando: 'iterar rápido — quando o gargalo é número de tentativas, não qualidade absoluta' }
+        - { id: qwen-image, licenca: 'Apache 2.0', quando: 'TEXTO dentro da imagem — melhor renderização de texto entre os abertos' }
+      inventario: 'data/local-generation-stack.yaml → instalado.imagem_t2i'
+    desativados_nao_tentar:
+      - { ferramenta: 'Gemini 2.5 Flash Image (API)', motivo: 'sem free tier de imagem nesta conta (limit: 0)', data: '2026-07-26' }
+      - { ferramenta: 'Imagen via AI Studio', motivo: 'exige Vertex AI com billing (404 para chave do AI Studio)' }
+      - { ferramenta: 'Together AI FLUX', motivo: '402 credit limit exceeded — exige saldo' }
+    custo: 'Gratuito nas rotas acima. Krea/Leonardo têm plano free limitado — `a_validar` o teto atual de cada conta.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: imagem_publicitaria_produto
+    descricao: 'Packshot, foto de produto, peça de e-commerce — o produto REAL com rótulo legível'
+    usado_em: [P1, P6, 'backlog: tiktok-shop, delivery-food']
+    preferido:
+      ferramenta: 'Foto real do produto + composição (Photoshop / apps/creative-design)'
+      status: decisao_arquitetural
+      por_que: >
+        Nenhum gerador reproduz rótulo, marca ou embalagem de um produto real de forma
+        confiável — e o cliente vende AQUELE produto, não um parecido. A IA entra no
+        que ela faz bem: fundo, luz, superfície, atmosfera. O produto entra como foto.
+      tecnica:
+        - 'Fotografe o produto em fundo neutro com luz difusa e recorte'
+        - 'Gere o AMBIENTE por IA (superfície, fundo, atmosfera) e componha o produto por cima'
+        - 'Sombra de contato é o que cola o produto na cena — sem ela a composição denuncia'
+        - 'Reflexo especular controlado é o código de publicidade de produto (ver craft-references)'
+      armadilhas:
+        - 'Rótulo gerado sai com letra deformada — reprovação automática no gate'
+        - 'Escala errada entre produto e ambiente é o erro mais comum da composição'
+        - 'Sombra sem coerência com a luz do fundo gerado'
+    alternativa:
+      ferramenta: 'Gemini (web) ou ChatGPT com upload da foto do produto como referência'
+      quando_preferir: 'Quando o produto precisa aparecer em contexto difícil de compor manualmente'
+      status: declarado_no_repo
+      evidencia: 'ai-providers.yaml → hybrid_targets com paste_format: plain_with_reference'
+      limite: 'Ainda assim revise o rótulo pixel a pixel antes de aprovar'
+    local:
+      ferramenta: 'FLUX.2 [klein] para o AMBIENTE + composição do produto real por cima'
+      workflow: 'assets/comfyui/workflows/flux2-klein-t2i.json'
+      status: instalado
+      quando_preferir: >
+        Sempre que o ambiente for gerado. A decisão arquitetural desta rota não muda com o
+        stack local: o produto continua entrando como FOTO REAL e a IA continua fazendo só
+        fundo, luz, superfície e atmosfera. O que muda é onde o fundo nasce.
+      ganho_especifico_da_rota_local: >
+        Peça de e-commerce de cliente é o caso em que licença é perguntada por escrito.
+        Ambiente gerado sob Apache 2.0 responde essa pergunta sem depender dos termos de
+        um plano gratuito de ferramenta web.
+      limite_que_nao_muda: 'Rótulo, marca e embalagem continuam sem ser geráveis. Local não conserta isso — nenhum modelo conserta.'
+      inventario: 'data/local-generation-stack.yaml → instalado.imagem_t2i'
+    custo: 'Baixo. O custo real é o tempo de composição humana, não o crédito de IA.'
+    nota_de_gate: 'O `factcheck` reprova produto com rótulo ilegível ou alterado — é falsificação de embalagem, não estética.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: character_sheet
+    descricao: 'Folha de referência de personagem — frente, perfil, plano médio, wardrobe travado'
+    usado_em: [P2, P3, P6]
+    preferido:
+      ferramenta: 'Gemini (web) ou ChatGPT com imagem de referência'
+      status: declarado_no_repo
+      evidencia: 'ai-providers.yaml → image.hybrid_targets, paste_format: plain_with_reference'
+      por_que: >
+        Consistência de personagem depende de REFERÊNCIA VISUAL, e o único provider de
+        API que aceitava referência está desativado por falta de cota. A rota que
+        funciona hoje é upload manual em ferramenta web — exatamente o tipo de trabalho
+        que a regra de ouro coloca na mão do humano.
+      tecnica:
+        - 'Gere primeiro UM retrato definitivo; ele vira a referência de tudo que vier depois'
+        - 'Depois peça as demais poses SEMPRE com esse retrato anexado — nunca a partir do último frame usado'
+        - 'Trave wardrobe peça a peça no prompt: a deriva começa pela roupa, não pelo rosto'
+        - 'Registre a seed e reuse; combine seed travada + referência anexada'
+      armadilhas:
+        - 'Deriva acumulada: gerar a pose N a partir da pose N-1 acumula erro. Sempre volte à referência original.'
+        - 'Idade percebida flutua entre gerações — fixe no prompt com número, não com adjetivo'
+        - 'Etnia e biotipo derivam silenciosamente quando o prompt não os declara'
+    alternativa:
+      ferramenta: 'Seed travada em FLUX/Krea, sem referência'
+      quando_preferir: 'Quando o personagem aparece de costas, em POV ou plano fechado de mãos — identidade sustentada por wardrobe e ambiente'
+      status: verificado
+      evidencia: 'farm-images.js — seed do pack propagada a todos os takes'
+      limite: 'Seed sozinha NÃO garante o mesmo rosto entre prompts diferentes. É atenuação, não solução.'
+    fallback_de_estrategia:
+      regra: 'Se a consistência não se sustentar em 3 ciclos, mude a ESTRATÉGIA do lote, não a ferramenta.'
+      como: 'Creator de costas / POV / mãos / voz sobre cena — identidade por wardrobe e ambiente'
+      por_que: 'É o contorno real usado em UGC de produção, e sai mais barato que brigar com o modelo'
+    local:
+      situacao: 'LACUNA ABERTA — é a lacuna de prioridade 2b do `local-generation-stack.yaml`, e nenhuma das três rotas foi validada'
+      por_que_importa_mais_aqui_do_que_em_qualquer_outra_rota: >
+        Gerar UMA imagem boa é fácil. O difícil é a MESMA pessoa, com o mesmo rosto e a
+        mesma roupa, em 8 takes, todo dia, por meses — que é exatamente o que o gênero
+        `novela-recap` (P7) exige e o que já falhou uma vez no lote das "Donas", que
+        saíram jovens porque citar o nome no prompt não basta: cada geração é independente.
+      tres_rotas:
+        - rota: 'LoRA por personagem'
+          recomendacao: 'MELHOR PARA ELENCO FIXO — investigar primeiro'
+          por_que: 'A identidade fica no peso do modelo, não num prompt que pode ser ignorado. Custo de VRAM existe só no treino, e treino é uma vez.'
+          quando_nao_vale: 'Personagem que aparece uma vez só. Aí é overhead puro.'
+          status: a_validar_no_estudio
+        - rota: 'Qwen-Image-Edit (2509 / 2511)'
+          licenca: 'Apache 2.0'
+          recurso: 'Aceita até 3 imagens de referência, citáveis no prompt como "image 1", "image 2", "image 3"'
+          por_que: 'É o equivalente local do Nano Banana / Flux Kontext, com licença limpa'
+          problema: 'Em 8 GB fica apertado de verdade — só Q2_K ou Q3_K_S com Lightning LoRA, e o resultado sai visivelmente mais macio'
+          status: a_validar_no_estudio
+        - rota: 'PuLID / IPAdapter sobre o modelo base'
+          por_que: 'Leve, roda com folga em 8 GB, resolve consistência facial a partir de uma referência'
+          limite: 'Mais fraco que LoRA para identidade completa (rosto + roupa + porte)'
+          status: a_validar_no_estudio
+      rejeitado_por_licenca:
+        - { id: flux-kontext-dev, motivo: 'Tecnicamente excelente para consistência, licença não-comercial' }
+      enquanto_a_lacuna_nao_fecha: >
+        A rota de nuvem acima (Gemini web / ChatGPT com referência anexada) CONTINUA SENDO
+        A PREFERIDA para character sheet. Não é fallback: é a única rota demonstrada.
+      moodboard_nao_resolve: >
+        Moodboard trava ESTILO (luz, paleta, enquadramento); não trava IDENTIDADE. São dois
+        problemas distintos e o squad vive os dois.
+      inventario: 'data/local-generation-stack.yaml → lacunas[prioridade 2, consistência de personagem]'
+    custo: 'Gratuito (planos free web). Alto em TEMPO na primeira vez; quase zero nos episódios seguintes.'
+    status_geral: a_validar
+    a_validar_o_que: 'Ferramentas dedicadas de consistência de personagem não estão demonstradas no repositório. Testar antes de prometer ao cliente.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: thumbnail
+    descricao: 'Thumbnail de YouTube, capa de episódio, key art com texto'
+    usado_em: [P3, P5, P6]
+    preferido:
+      ferramenta: 'Geração da cena por IA + composição tipográfica em apps/creative-design'
+      status: verificado
+      evidencia: 'apps/creative-design existe no repo; design_creative.py do virals-marketing-squad faz composição on-brand'
+      por_que: >
+        Thumbnail é 70% tipografia e contraste, 30% imagem. Gerar o conjunto de uma vez
+        entrega texto deformado; separar entrega texto perfeito e cena livre.
+      tecnica:
+        - 'Gere a cena SEM texto, com espaço negativo deliberado onde a headline vai entrar'
+        - 'Rosto com emoção legível a 120px — teste reduzindo antes de aprovar'
+        - 'Contraste de luminância entre sujeito e fundo, não só de cor'
+        - 'Máximo 3–4 palavras; corte a mensagem, nunca o corpo da fonte'
+      armadilhas:
+        - 'Composição bonita a 100% que some no tamanho real do feed'
+        - 'Saturação alta demais no fundo compete com o rosto'
+        - 'Texto gerado pelo modelo — sempre ilegível, sempre reprovado'
+    alternativa:
+      ferramenta: 'Composição manual em Photoshop'
+      quando_preferir: 'Peça única de alto valor, ou quando o layout foge do template'
+    local:
+      ferramenta: 'FLUX.2 [klein] para a CENA + composição tipográfica em apps/creative-design'
+      workflow: 'assets/comfyui/workflows/flux2-klein-t2i.json'
+      status: instalado
+      quando_preferir: >
+        Canal em cadência (P5 dark-room, P7 novela-recap): uma thumb por episódio, todo dia,
+        com look já travado pelo channel-brief. É volume repetitivo de look fechado — o caso
+        de uso exato do render local.
+      a_regra_nao_muda: >
+        A cena é gerada SEM texto, com espaço negativo deliberado onde a headline entra. O
+        texto continua vindo da composição, nunca do modelo. Isso vale igual em local e em
+        nuvem.
+      candidato_ainda_nao_instalado:
+        - { id: qwen-image, licenca: 'Apache 2.0', por_que: 'melhor renderização de TEXTO entre os modelos abertos — se validar, pode encurtar a cartela; NÃO substitui a composição tipográfica on-brand' }
+      inventario: 'data/local-generation-stack.yaml → instalado.imagem_t2i'
+    custo: 'Gratuito.'
+    nota: 'No YouTube a thumb é metade do produto — o P5 segura a entrega do episódio sem ela.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: take_i2v
+    descricao: 'Take de vídeo a partir de um still aprovado — a rota padrão de movimento do squad'
+    usado_em: [P1, P2, P3, P4, P5]
+    preferido:
+      ferramenta: 'Hailuo (web) ou Kling (web) ou Veo via Gemini (web)'
+      status: declarado_no_repo
+      evidencia: 'ai-providers.yaml → video.hybrid_targets, paste_format: image_plus_prompt'
+      por_que: >
+        Take gerado é a etapa de maior descarte do pipeline: movimento errado, deriva de
+        rosto, física estranha. O operador precisa ver, rejeitar e repetir — e as APIs
+        equivalentes estão todas sem saldo ou sem cota nesta conta (ver desativados).
+      tecnica:
+        - 'Descreva o MOVIMENTO, não a cena: a cena já está no still aprovado'
+        - 'Um movimento por take. Dois movimentos simultâneos produzem deformação.'
+        - 'Duração curta (3–6s) rende muito mais aproveitamento que duração longa'
+        - 'Se o plano tem rosto, prefira movimento de câmera a movimento de sujeito'
+      armadilhas:
+        - 'Deriva de rosto e de wardrobe ao longo do take — corte antes do ponto em que aparece'
+        - 'Física de tecido e cabelo é onde o modelo entrega o resultado mais artificial'
+        - 'Marca d''água de ferramenta web: verifique antes de aprovar (o farming precisou recortar 7% da base por isso)'
+        - 'Saída em 720x1280 exigindo normalização para 1080x1920'
+    alternativa:
+      ferramenta: 'Wan 2.2 I2V via HuggingFace Inference Providers (API)'
+      quando_preferir: 'Lote de takes equivalentes, quando o ganho é volume'
+      status: verificado
+      evidencia: 'ai-providers.yaml: "✅ VERIFICADO 2026-07-26 — O ÚNICO i2v que funciona em free tier hoje". Medido: ~53s por take, mp4 720x1280 h264.'
+      limite: 'Consome o pool MENSAL gratuito da conta HuggingFace — recurso finito e compartilhado com a geração de imagem. É o crédito mais escasso do estúdio.'
+    ultimo_recurso:
+      ferramenta: 'Animação procedural via ffmpeg (Ken Burns / parallax 2.5D)'
+      status: verificado
+      evidencia: 'adapters/video/procedural.js — presets slow-push-in, slow-pull-out, pan-lr, pan-ud, parallax-2p5d, breathing; upscale 4x antes do zoompan'
+      por_que: >
+        Não é um fallback "pior": para plano contemplativo, cartela e b-roll de apoio,
+        movimento de câmera sobre still é o código correto do formato. Determinístico,
+        ilimitado, custo zero.
+      quando_e_a_escolha_certa: 'P5 dark-room, cartelas do P4, plano de apoio em qualquer pipeline'
+    local:
+      ferramenta: 'Wan 2.2 I2V A14B (GGUF Q4_K_M, dual-stage) no ComfyUI da máquina do founder'
+      status: VALIDADO
+      evidencia: 'lote "vovós" — 6 takes renderizados e aproveitados (frames/render_jobs.json)'
+      posicao_na_matriz: >
+        É a ÚNICA rota deste arquivo inteiro com status `validado` no stack local, e por
+        isso é o PADRÃO de entrega de take hoje. O bloco `preferido` acima (Hailuo/Kling/
+        Veo web) não foi removido e continua valendo para o que o Wan não cobre: peça única
+        de alto acabamento em que o operador quer iterar rápido, e movimento que exige
+        capacidade que o Wan não entrega.
+      dois_workflows:
+        - id: wan22-i2v-max
+          arquivo: 'assets/comfyui/workflows/wan22-i2v-max.json'
+          config: '20 steps, cfg 4, split 0-6/6-20 — SEM LoRA'
+          quando: 'PADRÃO. Toda peça que vale qualidade. É o que entrega.'
+        - id: wan22-i2v-fast
+          arquivo: 'assets/comfyui/workflows/wan22-i2v-fast.json'
+          config: '4 steps, cfg 1, split 0-2/2-4 — com LoRAs lightx2v de destilação'
+          quando: 'PREVIZ APENAS. Decidir se o take funciona (composição, enquadramento, se o movimento pega) antes de gastar 5x no render real.'
+          proibicao: 'NUNCA entregar a partir deste. A qualidade cai, e a queda é o motivo de ele existir separado.'
+      decisao_do_founder_registrada: >
+        As LoRAs de destilação lightx2v foram TESTADAS E REMOVIDAS do fluxo principal —
+        derrubavam a qualidade do output. Não é esquecimento nem pendência: o fluxo de
+        entrega roda sem LoRA, 20 steps a cfg 4, e é assim que deve continuar.
+      parametros_comuns:
+        resolucao: '960×720 (metade de 1920×1440 — sem distorção a partir do 4:3)'
+        fps_base: 16
+        fps_final: '32 (RIFE 2x)'
+        regra_de_length: 'length precisa ser 4n+1 — 25, 33, 37, 49, 65'
+        acabamento: '4x-UltraSharp após o decode'
+      armadilhas:
+        - 'Usa o VAE 2.1 (`wan_2.1_vae.safetensors`), NÃO o 2.2 — o wan2.2_vae é do TI2V 5B, não do A14B. Trocar quebra.'
+        - 'No wan22-i2v-fast, cfg DEVE cair para 1.0. LoRA de destilação com cfg alto queima a imagem.'
+        - 'É render noturno: o A14B em dois estágios + RIFE + upscale 4x cabe em 8 GB com offload, mas cobra a noite por isso.'
+      lacunas_locais_relacionadas:
+        - { id: wan-animate-2.2, o_que_faz: 'extrai o movimento de um vídeo de entrada e sintetiza personagem novo com o MESMO movimento, preservando a luz original', status: a_validar_no_estudio }
+        - { id: vace, o_que_faz: 'control video (depth + DWPose) + reference2video — resolve consistência POR CENA, não por prompt', status: a_validar_no_estudio }
+        - { id: infinitetalk, o_que_faz: 'lip-sync — avatar falando a partir de imagem estática OU de vídeo existente, dirigido por áudio', status: a_validar_no_estudio }
+      inventario: 'data/local-generation-stack.yaml → instalado.video_i2v e lacunas 2c/2d'
+    desativados_nao_tentar:
+      - { ferramenta: 'Google Veo 3.1 (API)', motivo: '429 exceeded quota em toda a faixa 4-8s — sem cota gratuita de vídeo nesta conta', data: '2026-07-27' }
+      - { ferramenta: 'fal.ai', motivo: '403 Exhausted balance' }
+      - { ferramenta: 'Hailuo/MiniMax (API)', motivo: '1008 insufficient balance' }
+      - { ferramenta: 'Kling (API)', motivo: 'exige Access Key + Secret Key para assinar JWT; só existe uma chave' }
+      - { ferramenta: 'Replicate', motivo: '401 e serviço pago por uso, não free tier' }
+    custo: >
+      Web: plano free de cada ferramenta, `a_validar` o teto atual. API (Wan 2.2): consome
+      pool mensal HF finito. Procedural: zero, ilimitado.
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: take_t2v
+    descricao: 'Take gerado direto do texto, sem still intermediário'
+    usado_em: 'nenhum pipeline por padrão'
+    status: a_validar
+    recomendacao: 'EVITAR como rota padrão'
+    por_que_evitar: >
+      Não existe adapter de text-to-video no repositório — todo o pipeline de vídeo é
+      image_to_video (ai-providers.yaml → video.mode: image_to_video). Além da ausência
+      de rota testada, T2V inverte a ordem de aprovação: o quadro só é julgado depois do
+      vídeo pronto, o que multiplica o descarte.
+    quando_consideraria:
+      - 'Plano de puro ambiente sem sujeito identificável (fumaça, água, textura abstrata)'
+      - 'Exploração de referência na fase de concept, nunca em asset final'
+    se_for_usar:
+      ferramenta: 'Veo via Gemini (web) ou Kling (web)'
+      status: a_validar
+      obrigacao: 'Registrar o resultado em _retorno.json para que esta rota deixe de ser hipótese'
+    local:
+      situacao: 'NÃO EXISTE ROTA LOCAL DE T2V — e isso é coerente, não é lacuna'
+      por_que: >
+        O inventário local só tem I2V (Wan 2.2 A14B). O stack foi montado assim de
+        propósito: o princípio `i2v_antes_de_t2v` diz que o quadro é aprovado ANTES do
+        movimento. A rota local de "texto → vídeo" existe, e é composta:
+        FLUX.2 klein gera o still → o humano aprova → wan22-i2v-max anima. Duas etapas,
+        duas aprovações, e a segunda só roda se a primeira passar.
+      consequencia: 'Não abrir lacuna de T2V no `local-generation-stack.yaml`. Pedir T2V local é pedir para inverter a ordem de aprovação do estúdio.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: voz_vo
+    descricao: 'Locução, narração, fala de personagem'
+    usado_em: [P1, P2, P3, P4, P5]
+    preferido:
+      ferramenta: 'Gravação humana real'
+      status: decisao_arquitetural
+      por_que: >
+        Não existe NENHUM gerador de voz no repositório — verificado por varredura em
+        todo o monorepo (edge-tts, elevenlabs, piper, gTTS, text-to-speech: zero
+        ocorrências). O que existe é o caminho inverso: Whisper local transcrevendo
+        áudio com timestamp por palavra (_speech.js). Ou seja, a infra sabe LER voz,
+        não produzir. Enquanto isso for verdade, VO é gravação.
+      tecnica:
+        - 'O sound-designer entrega direção de leitura: ritmo, ênfase, onde respirar, onde acelerar'
+        - 'Grave em ambiente tratado; ruído de fundo é o que denuncia produção amadora'
+        - 'Grave 2 takes da mesma leitura — o segundo quase sempre tem melhor ritmo'
+        - 'Em dark-room, a voz é a assinatura do canal: trocar de locutor entre episódios reseta o reconhecimento'
+      armadilhas:
+        - 'Leitura com ritmo constante soa robótica mesmo sendo humana — a direção precisa marcar variação'
+        - 'Primeira frase sem energia derruba a retenção inteira'
+    alternativa:
+      ferramenta: 'Ferramenta web de síntese de voz'
+      status: a_validar
+      quando_preferir: 'Volume alto de episódios de canal, se a qualidade for aprovada em teste'
+      obrigacao_antes_de_usar:
+        - 'Testar e registrar o resultado — nenhuma ferramenta de voz está validada neste repositório'
+        - 'Aprovação explícita do founder para peça da própria Oraclum: voz sintética não declarada contradiz o discurso de transparência da marca'
+    local:
+      situacao: 'MUDOU DESDE A ESCRITA DESTE ARQUIVO — a rota local existe, rodou e tem voz canônica decidida'
+      supera_o_que: >
+        A afirmação do bloco `preferido` acima ("não existe NENHUM gerador de voz no
+        repositório, portanto VO é gravação") era verdadeira em 2026-08-21 e não é mais.
+        Ela fica registrada porque explica por que o desenho é como é — mas a rota de
+        narração de canal hoje é local. Gravação humana continua sendo a rota certa para
+        peça de cliente com locutor próprio e para qualquer peça em que a voz É o rosto.
+      engine_padrao:
+        nome: 'ChatterBox Official 23-Lang v3 (TTS-Audio-Suite), `language=Portuguese`'
+        licenca: 'MIT — sem asterisco, contra canal monetizado'
+        status: validado
+        evidencia: 'docs/NARRACAO-LOCAL.md §3 — WER 0,0% medido por retranscrição com Whisper'
+        por_que_ganhou: >
+          PT-BR nativo (uma das 23 línguas, não adaptação) e cross-lingual: aceita voz de
+          referência em inglês e fala português correto com o timbre dela. Ritmo mais
+          narrativo (7,86 s contra 5,68 s da F5 na mesma frase).
+      voz_canonica_do_canal:
+        decisao: 'VOZ EMBUTIDA da ChatterBox 23L, SEM clonagem — decisão do founder, 2026-08-29'
+        amostra: 'assets/comfyui/samples/04-chatterbox23L-pt-voz-embutida.mp3'
+        como_ativar: '`narrator_voice = none` e NÃO conectar `opt_narrator`'
+        por_que: 'WER 0,0%; sem titular de voz a autorizar; reprodutível episódio após episódio sem depender de um .wav sobreviver a backup; licença MIT'
+        regra_operacional: >
+          Episódio de P5/P7 usa esta voz por padrão. Clonagem só entra quando o job PEDIR
+          uma voz específica (cliente com locutor próprio, personagem), e aí passa pelo
+          `fact-checker` em `*rights` ANTES de gerar.
+      engine_alternativo:
+        nome: 'F5-TTS PT-BR'
+        quando: 'Quando velocidade importa mais que qualidade — ~9x mais rápida depois de aquecida (5 s contra 45 s nos mesmos 3 cues). Tem `speed` nativo, que a ChatterBox não tem.'
+        obrigacao: 'SEMPRE com referência em português e o texto exato da referência. Com referência inglesa ela desmonta (WER 36,8%).'
+      workflow: 'assets/comfyui/workflows/tts-narracao-srt.json'
+      o_recurso_que_decide: >
+        `Adjusted_SRT` — o timing REAL do áudio gerado, não o estimado do roteiro. É o que
+        permite entregar a timeline pré-montada com legenda sincronizada e slots vazios
+        esperando os takes. Sem ele, alguém sincroniza legenda na mão, todo dia.
+      timing_mode: 'smart_natural é o padrão. `stretch_to_fit` é PROIBIDO em narração longa: elevou o WER de 0,0% para 15,8% e, pior, reporta no Adjusted_SRT a duração PRÉ-esticamento.'
+      o_srt_e_uma_partitura: >
+        Como a entrada é SRT e não texto corrido, o intervalo entre cues vira duração de
+        pausa, a razão duração/palavras vira velocidade do trecho, a fronteira do cue vira
+        ponto de respiração e a tag vira intensidade. Ver `data/oratoria-e-prosodia.yaml` —
+        é o que separa "voz que lê" de "voz que conduz".
+      armadilhas_medidas:
+        - 'Trocar ENGINE A → B na mesma sessão QUEBRA a F5 (tensor em device errado) e ela reporta `success` gravando ~1 s de áudio morto. B → A funciona. Não alterne engine dentro de um lote.'
+        - 'O cache de áudio pode devolver segmento válido com o modelo em estado inválido. Ao investigar falha de engine, desligue o cache ou mude o seed.'
+        - 'Evite cue de SRT com duas ou três palavras soltas — junte no cue vizinho.'
+        - 'Uma instância só de ComfyUI: a segunda morre na porta 8188 e você fica falando com a velha.'
+      ainda_nao_medido: 'Roteiro de 7 minutos inteiro. Os testes foram com 3 cues (11 s). Extrapolando, 30–40 min de GPU — é render noturno, mas precisa ser medido antes de virar promessa.'
+      inventario: 'docs/NARRACAO-LOCAL.md (documento completo) · data/local-generation-stack.yaml → lacunas[prioridade 1]'
+    proibido: 'Clonar voz de pessoa real sem autorização escrita — o `factcheck` bloqueia por direito de voz.'
+    custo: 'Gravação: zero em dinheiro, alto em agenda. Síntese local: zero em dinheiro, custa noite de máquina e 4,4 GB de disco permanente.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: musica_trilha
+    descricao: 'Trilha, tema, motif sonoro'
+    usado_em: [P1, P2, P3, P4, P5]
+    preferido:
+      ferramenta: 'Biblioteca licenciada'
+      status: decisao_arquitetural
+      por_que: >
+        Não existe gerador de música no repositório. O que existe é a ESPECIFICAÇÃO de
+        trilha: o plan_video_creative.py já produz sound_design.music com mood, energia,
+        gênero, ducking e a justificativa de por que (ou por que não) usar trilha — sem
+        citar título, justamente para não induzir uso indevido. A especificação é do
+        squad; a faixa vem de biblioteca com licença.
+      tecnica:
+        - 'Escolha pela ENERGIA e pelo mood especificados, não pelo gosto do operador'
+        - 'Trilha entra sob a locução com ducking; em sketch, não entra durante a fala'
+        - 'Motif curto e recorrente identifica canal melhor que uma faixa bonita'
+      armadilhas:
+        - 'Faixa com voz compete com o VO'
+        - 'Trilha épica em peça institucional soa a promessa vazia — contradiz o tom da Oraclum'
+    obrigacao: 'Licença registrada no publishing-kit. O `factcheck` bloqueia trilha sem direito comprovado.'
+    alternativa:
+      ferramenta: 'Geração de música por IA'
+      status: a_validar
+      obrigacao_antes_de_usar: 'Verificar a licença comercial da ferramenta antes de qualquer uso em peça de cliente'
+    local:
+      situacao: 'WORKFLOW ESCRITO, PESO NÃO CONFIRMADO — a rota existe no papel e ainda não produziu faixa'
+      dois_usos_diferentes:
+        - uso: 'PRODUTO — a faixa é o ativo vendido ou monetizado'
+          modelo: 'ACE-Step v1 3.5B'
+          licenca: 'Apache 2.0'
+          workflow: 'assets/comfyui/workflows/audio-musica-acestep.json'
+          metodo: 'Dois artefatos em campos distintos: letra escrita à parte + prompt de estilo curto (~200 caracteres). Não misturar.'
+          onde: 'Teste C do PLANO-DE-VALIDACAO — gênero de backlog `live-music-loop`'
+          status: a_validar_no_estudio
+        - uso: 'APOIO — trilha que guia sensação, preenche vazio e sustenta o ritmo do corte'
+          modelo: 'Stable Audio Open 1.0'
+          workflow: 'assets/comfyui/workflows/audio-trilha-sfx.json'
+          onde: 'Toda peça comercial. Testes A e B do PLANO-DE-VALIDACAO'
+          status: a_validar_no_estudio
+        - uso: 'SFX avulso — whoosh, ambiência, impacto'
+          modelo: 'Stable Audio Open 1.0'
+          metodo: >
+            Montar um BANCO PRÓPRIO de efeitos reutilizáveis em vez de gerar por take. Mais
+            barato e — o que importa mais — mais consistente entre episódios, que é o que
+            canal em cadência precisa.
+          status: a_validar_no_estudio
+      correcao_de_prioridade: >
+        O `local-generation-stack.yaml` classificava trilha como prioridade 4 (última).
+        Estava errado, e a correção veio do founder: o Teste A (Airbnb) acontece antes do
+        teste de música e PRECISA de trilha para existir. Peça publicitária sem trilha não
+        é peça — é sequência de takes. Ver `docs/PLANO-DE-VALIDACAO.md` § música como
+        capacidade transversal.
+      foley_sincronizado_ao_take:
+        modelo: 'HunyuanVideo-Foley (Tencent) — primeira escolha; MMAudio como alternativa'
+        o_que_faz: 'vídeo + prompt de texto → áudio sincronizado ao movimento (treinado multimodal, não é áudio colado depois)'
+        onde_encaixa: 'Entre o `CreateVideo` e o `SaveVideo` do grafo de take. O prompt de som vem do bloco `sound_design` que o `plan_video_creative.py` já produz.'
+        status: 'não instalado — lacuna de prioridade 3'
+      o_que_a_rota_local_resolve_de_direitos: >
+        A primeira das quatro ressalvas sobre gerar música em plataforma (a titularidade vem
+        dos TERMOS DE USO, não de lei) desaparece com geração local sob Apache 2.0: não há
+        plataforma entre o founder e o arquivo. As outras três continuam de pé e o local NÃO
+        as resolve — proteção contestada de obra puramente gerada, possibilidade de
+        reivindicação de Content ID por semelhança, e política própria de distribuidora
+        sobre IA.
+      obrigacao_que_nao_muda: 'Ambiência e SFX de trilha licenciada continuam exigindo licença registrada no publishing-kit. O `factcheck` bloqueia faixa sem direito comprovado, gerada ou não.'
+      inventario: 'data/local-generation-stack.yaml → lacunas[prioridade 3 e 4]'
+    custo: 'Biblioteca licenciada: `a_validar`. Rota local: zero em dinheiro; custa disco e noite de máquina.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: upscale_finishing
+    descricao: 'Ampliação e acabamento final de imagem para entrega em alta'
+    usado_em: [P1, P6]
+    status: a_validar
+    situacao_real: >
+      O repositório NÃO tem upscaler de acabamento. O único upscale existente é interno
+      ao adapters/video/procedural.js — um ffmpeg 4x aplicado ANTES do zoompan só para
+      dar resolução suficiente ao movimento (constante UPSCALE = 4). Isso resolve
+      pixelação de pan/zoom; não é acabamento de imagem de campanha.
+    preferido:
+      ferramenta: 'Nano Banana Pro (ou Nano Banana 2) — upscale por prompt'
+      status: a_validar_no_estudio
+      fonte: 'Filmboss · IA Skills Upscale, aulas 02 e 03 (ver docs/APRENDIZADOS-CURSOS.md)'
+      por_que: >
+        Três vantagens que nenhum upscaler dedicado tem: (1) é o MESMO modelo que já
+        gerou a imagem, então não há troca de plataforma nem re-upload no meio do fluxo;
+        (2) custa uma geração normal, enquanto upscaler dedicado cobra mensalidade E por
+        geração; (3) tem inteligência de contexto — reconhece foto de época, figura
+        pública e lugar conhecido, e busca referências reais em vez de inventar detalhe.
+      tecnica:
+        - 'Gera em 2K ou 4K direto, com o prompt pedindo a ampliação'
+        - 'Quando houver figura pública, lugar ou época reconhecíveis, INCLUA um parágrafo de contexto no prompt (quem é, que época, que data, que idade) — é o que ancora as referências certas'
+        - 'Peça 1080x1920 (ou o formato do brief) direto na geração sempre que a ferramenta permitir; upscale é correção, não etapa planejada'
+    alternativa:
+      ferramenta: 'Magnific AI ou Lupa AI (upscalers dedicados)'
+      status: a_validar_no_estudio
+      quando_trocar: 'Só depois de esgotar o Nano Banana Pro — é a ordem que o curso recomenda para 99% dos casos'
+      custo_relativo: 'Bem mais caro que geração comum, nos dois eixos: mensalidade e preço por geração'
+      atrito: 'Exige baixar a imagem, subir em outra plataforma, escolher o modelo interno adequado e às vezes 1 a 3 tentativas até o estilo certo'
+    para_video:
+      ferramenta: 'Topaz'
+      status: a_validar_no_estudio
+      nota: 'Upscale de vídeo é problema diferente do de imagem — tem módulo próprio no curso. Não assumir a mesma rota.'
+    armadilhas_conhecidas:
+      - regra: 'Entrada ruim vira detalhe inventado'
+        detalhe: >
+          Quanto pior a imagem de origem, MENOS consistente o resultado — o modelo
+          precisa inventar o detalhe que não existe. A saída fica mais nítida e mais
+          errada ao mesmo tempo. Crítico quando o sujeito é um personagem cuja
+          identidade precisa ser preservada: nesse caso, regerar em alta vence upscalar
+          o material fraco.
+      - regra: 'Upscale não conserta composição'
+        detalhe: 'Faça upscale apenas das imagens finais já selecionadas. Ampliar candidato é queimar crédito.'
+    local:
+      situacao: 'PARCIAL — existe upscale local, mas ele resolve ACABAMENTO DE TAKE, não upscale generativo de imagem de campanha'
+      instalado_e_validado:
+        - { id: ultrasharp, arquivo: '4x-UltraSharp.pth', uso: 'acabamento do take, aplicado dentro do grafo do Wan após o decode', status: validado }
+        - { id: rife, arquivo: 'rife49.pth', uso: 'interpolação 16→32 fps (não é upscale, é o par dele no acabamento)', status: validado }
+        - { id: realesrgan, arquivo: 'RealESRGAN_x2plus.pth', uso: 'ampliação genérica', status: instalado }
+      o_que_isso_NAO_e: >
+        Upscaler por difusão não é. UltraSharp e RealESRGAN ampliam e afiam o que já existe;
+        eles não têm inteligência de contexto e não recuperam detalhe ausente. Para imagem
+        de campanha em que o upscale precisa reconhecer época, figura pública ou lugar, a
+        rota continua sendo a de nuvem acima (Nano Banana Pro).
+      a_regra_que_o_local_reforca: >
+        "Entrada ruim vira detalhe inventado" vale igual aqui, e com uma saída melhor: como
+        gerar de novo custa apenas noite de máquina, REGERAR EM ALTA vence upscalar material
+        fraco quase sempre. Na nuvem essa escolha custa crédito; no local, não.
+      preferir_gerar_na_resolucao_certa: 'Peça a resolução final direto no `EmptyFlux2LatentImage` (e no Flux2Scheduler, com os mesmos valores). Upscale é correção, não etapa planejada.'
+      inventario: 'data/local-generation-stack.yaml → instalado.interpolacao_e_upscale'
+    custo: 'Nano Banana Pro: custo de uma geração comum. Magnific/Lupa: a_validar, sabidamente mais caro. Local: zero em dinheiro.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: modelo_treinado_lora
+    descricao: 'Clone de pessoa, produto ou estilo, treinado uma vez e reusado em N gerações'
+    usado_em: [P1, P2, P3, P6]
+    status: a_validar_no_estudio
+    fonte: 'AI Image Creator PRO · Módulo 15 aula 4 (Fal.ai) e Filmboss · IA Boss Módulo 05 aula 06 (Krea). Minerado 2026-08-30.'
+
+    quando_esta_rota_se_justifica: >
+      Só depois que a escada mais barata reprovar num job real. Ver
+      `prompt-architectures.yaml` → `consistencia_por_palavra_gatilho`: (1) palavra-gatilho
+      no ChatGPT, custo zero; (2) pesos de referência no Kling/Krea, sem treino; (3) LoRA.
+      O `character-lead` NÃO começa por LoRA.
+
+    preferido:
+      ferramenta: 'Krea — Image > Flux > Train'
+      status: declarado_no_curso
+      dataset: '20 a 50 fotos (o professor usou 27 e 36)'
+      configuracao: 'Nome do modelo, resto no default, PASSOS DE TREINO NO MÁXIMO'
+      tempo: '20 a 40 minutos'
+      uso: 'Selecionar o modelo em Style; intensidade de 0.7 para cima'
+
+    alternativa:
+      ferramenta: 'Fal.ai — Flux Pro Trainer + Flux 1.1 Ultra Finetuned'
+      status: declarado_no_curso
+      dataset: '10 a 30 imagens'
+      modo: 'personagem | produto | estilo — NUNCA `geral`'
+      forca_do_modelo: '1.0 é o ponto ideal. Acima fica estranho, abaixo perde característica.'
+      legendagem_automatica: 'Deixar habilitada — a plataforma lê cada imagem e cria a legenda, e isso melhora o treino.'
+      operacao: >
+        O treino devolve um ID de modelo. SALVAR ESSE ID fora da plataforma (bloco de
+        notas), porque a lista fica impossível de navegar depois de alguns treinos.
+
+    regras_de_dataset_que_valem_para_as_duas:
+      - 'Variar ÂNGULO — rosto de todos os lados; objeto com noção tridimensional'
+      - 'Variar ILUMINAÇÃO — janela, sol duro, luz bonita'
+      - 'Variar ou REMOVER o FUNDO — ver armadilha abaixo'
+      - 'Variar EXPRESSÃO — sorrindo e sério'
+    armadilha_medida_do_fundo: >
+      O professor do Filmboss fotografou todas as 36 imagens no mesmo set e admite o
+      resultado: "tem tripé, tem coisas aparecendo... quando você for gerar outras
+      imagens, ele vai meio que copiar essas coisas também, vai colocar um tripé lá no
+      fundo". O modelo aprende o CENÁRIO junto com o sujeito. Variar o fundo é tão
+      importante quanto variar o ângulo.
+
+    o_que_o_lora_aprende_e_o_que_nao_aprende:
+      aprende: >
+        ESTRUTURA. Todas as fotos de treino do controle de Xbox eram do modelo PRETO, e o
+        modelo gerou corretamente versões branca, azul e vermelha. Dataset de produto NÃO
+        precisa cobrir todas as variantes de cor.
+      nao_aprende: >
+        Detalhe pequeno demais para o quadro. A letra "B" do controle saiu errada mesmo
+        com o modelo treinado — é orçamento de pixel, e treino não resolve orçamento de
+        pixel. Ver `imagem-refino-playbook.yaml` §8.1.
+
+    bloqueio_local_conhecido: >
+      Não há rota local de treino no stack atual. O gargalo é o mesmo do Qwen-Image: RAM
+      de 16 GB. Esta rota é de NUVEM enquanto o hardware não mudar. Ver
+      `local-generation-stack.yaml`.
+    custo: 'Krea e Fal.ai: crédito por treino + crédito por geração. a_validar.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - asset: relight_e_troca_de_fundo
+    descricao: 'Trocar o cenário RECALCULANDO a luz, a sombra e a saturação do sujeito'
+    usado_em: [P1, P2, P6]
+    status: a_validar_no_estudio
+    fonte: 'AI Image Creator PRO · Módulo 12 aula 1 (IC-Light V2 no Fal.ai) e Módulo 05 (Recraft Frame). 2026-08-30.'
+
+    o_problema_que_resolve: >
+      Ao trocar o cenário por edição comum, a luz do sujeito continua sendo a do cenário
+      antigo — o caso do corpus é uma personagem que foi para uma estação de metrô com a
+      luz de sol da rua ainda batendo nela. É a anomalia que o `gate-image-lab` ainda não
+      cobre (o `IL-PD-07` cobre reflexo, não direção de luz).
+
+    preferido:
+      ferramenta: 'IC-Light V2 via Fal.ai'
+      configuracao: 'As opções vêm otimizadas — o curso recomenda não mexer. Saída em PNG.'
+      o_que_ele_faz: 'Ajusta luz, sombra e saturação do sujeito para o novo fundo, e a cor fica mais viva porque há mais incidência de luz.'
+
+    alternativa:
+      ferramenta: 'Recraft — Frame (com o PNG recortado)'
+      o_que_ele_faz: >
+        Gera o fundo e AMBIENTA o PNG nele: "trouxe um leve magenta, e onde estava mais
+        claro deu uma escurecida, porque não está tendo luz direta".
+      contrapartida_medida: 'Às vezes acrescenta formas que não pertencem ao objeto. Correção manual no Photoshop ou inpaint.'
+      requisito: 'O prompt precisa declarar O QUE É o PNG, além de descrever o fundo — senão o fundo não tem coerência com ele.'
+
+    a_regra_de_ORDEM_que_nao_pode_ser_invertida: >
+      RELIGHT VEM ANTES DO UPSCALE. O modelo de reiluminação derruba a resolução — "ele
+      faz um downscale, trabalha na imagem, tenta compensar, mas perde muito da nitidez".
+      Quem upscala primeiro paga o upscale duas vezes. Registrado em
+      `imagem-refino-playbook.yaml` §5 e reconfirmado aqui.
+
+    o_criterio_de_quando_NAO_editar: >
+      "Quando a mudança for muito drástica, talvez seja melhor alterar o prompt e fazer a
+      imagem de novo." Existe um ponto em que editar sai mais caro que regerar, e ele é
+      definido pela LUZ, não pelo tamanho da área editada.
+    custo: 'Fal.ai: crédito por geração. a_validar.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# APOIO — rotas que NÃO geram asset final, mas alimentam a direção.
+# Estas sim rodam como worker (executor determinístico), sem violar a regra de ouro.
+# ═════════════════════════════════════════════════════════════════════════════
+rotas_de_apoio:
+
+  - funcao: analise_visual_de_referencia
+    usado_em: 'estágio research (worker)'
+    ferramenta: 'Cascata de visão do _vision.js'
+    status: verificado
+    evidencia: '_vision.js — verificado 2026-07-26'
+    ordem:
+      - 'Gemini (via LocalTranscriber.analyzeImageWithGemini) — primário'
+      - 'openrouter/free (~2,5s)'
+      - 'google/gemma-4-31b-it:free (~4,6s)'
+      - 'nvidia/nemotron-nano-12b-v2-vl:free (~9,3s) — último de propósito'
+    armadilha_medida: >
+      O nemotron ALUCINOU sobreposições que não existiam no frame ("etiqueta do criador",
+      "botões") enquanto gemma e openrouter/free devolveram lista vazia corretamente. Um
+      modelo instruído a "listar a UI" inventa UI se não houver. O prompt precisa
+      autorizar explicitamente a lista vazia.
+    licao_para_o_squad: 'Vale para todo prompt de análise deste estúdio: autorize o "não há nada aqui".'
+
+  - funcao: texto_e_sintese
+    usado_em: 'todos os estágios de agente'
+    ferramenta: 'Descoberta em runtime via model_router.py (OpenRouter free)'
+    status: verificado
+    evidencia: 'model_router.py — roteador oficial openrouter/free primeiro, catálogo consultado com cache de 6h'
+    principio: >
+      A lista fixa de modelos apodrece: 3 dos 4 modelos fixos do recast_engine sumiram do
+      catálogo e devolveram 404. A correção é sempre a mesma — perguntar à fonte, com
+      cache e degradação honesta. Este squad não mantém lista fixa de modelo de texto.
+    custo: 'Gratuito.'
+
+  - funcao: transcricao_e_legenda
+    usado_em: 'estágio assembly (worker)'
+    ferramenta: 'Whisper local com --word_timestamps (via _speech.js e apps/video-studio)'
+    status: verificado
+    evidencia: '_speech.js — timestamp por palavra, cache ao lado do áudio, ~18s por transcrição'
+    licao_registrada: >
+      Distribuir o texto proporcionalmente à duração assume ritmo constante de fala, e o
+      erro acumula. Subdividir bloco do Whisper em partes iguais reintroduz o mesmo erro
+      dentro do bloco. Só o timestamp POR PALAVRA elimina a estimativa.
+    regra: 'Legenda nunca é digitada na mão nem estimada por proporção.'
+    custo: 'Zero, local.'
+
+  - funcao: composicao_on_brand
+    usado_em: 'estágio stills (finalização) e P6'
+    ferramenta: 'apps/creative-design · design_creative.py'
+    status: verificado
+    para_que: 'Aplicar tipografia, paleta, logo e safe area do brand-config sobre a cena gerada'
+    custo: 'Zero, local.'
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# MATRIZ DE MOTOR DE VÍDEO — escolher por RECURSO, não por qualidade
+#
+# Fonte: AI Image Creator PRO · Módulo 12 (8 aulas). O curso rodou O MESMO PROMPT
+# em três plataformas e comparou os resultados lado a lado — é a evidência
+# comparativa mais limpa de todo o corpus. Minerado em 2026-08-30.
+#
+# POR QUE ISTO EXISTE
+# O squad trata o Kling como padrão. A comparação mostra que ele NÃO é o melhor em
+# qualidade nem em aderência ao prompt: é o dono de um recurso que os outros não
+# têm. A pergunta certa não é "qual é melhor", é "este plano precisa de qual
+# RECURSO?". Se não precisa de nenhum, vá no que entrega melhor.
+# ═════════════════════════════════════════════════════════════════════════════
+matriz_de_motor_de_video:
+
+  status: a_validar_no_estudio
+  aviso_de_versao: >
+    Os testes do curso foram feitos em Kling 1.5/1.6 e Runway Gen-3/Gen-4. O Filmboss,
+    mais recente, já opera em Kling 2.1 com start+end frame nativo. A conclusão sobre
+    RECURSOS EXCLUSIVOS sobrevive à mudança de versão; os julgamentos de qualidade
+    relativa devem ser reconferidos antes de virar regra dura.
+
+  a_pergunta_de_roteamento:
+    - '1. Este plano precisa travar o movimento de uma REGIÃO específica? → Kling (Motion Brush)'
+    - '2. Precisa de frame inicial E final? → Kling 2.1 (ver camera-moves.yaml)'
+    - '3. Precisa transformar um vídeo que já existe? → Runway (vídeo-para-vídeo)'
+    - '4. Precisa mudar o FORMATO de um vídeo pronto? → Runway (expandir)'
+    - '5. Precisa animar a FALA de um personagem? → Runway (transfere de um vídeo-base)'
+    - '6. Precisa de morph suave entre duas imagens? → Luma Ray 2 (keyframes)'
+    - '7. Não precisa de nenhum recurso especial? → Minimax. É o que entrega melhor.'
+
+  motores:
+
+    - motor: 'Kling'
+      recurso_exclusivo: 'Motion Brush'
+      o_que_e_o_motion_brush: >
+        Pintar uma região e desenhar a TRAJETÓRIA que ela deve seguir. E — o detalhe que
+        vale mais — pintar de PRETO o que deve ficar PARADO. É "positivo vence negativo"
+        na forma de máscara: em vez de proibir movimento no prompt, trava-se a região.
+      outros_pontos_fortes: ['presets de controle de câmera', 'frame inicial + frame final']
+      fraquezas_medidas:
+        - 'Fila muito demorada, inclusive para assinante Pro'
+        - 'ROSTO e MÃO em image-to-video saem ruins de forma consistente — "não consegue fazer com muita perfeição rostos e mãos"'
+        - 'Flicker e artefato leve são comuns; o curso o classifica como qualidade INTERMEDIÁRIA'
+        - 'Motion Brush e presets de câmera ficam atrás do plano Pro'
+      onde_ele_de_fato_ganha: 'Texto-para-vídeo, onde respeitou prompts longos e específicos melhor do que o Runway.'
+      recurso_extra: >
+        Elements / Ingredients — até 4 imagens (pessoa + roupa + ambiente + objeto)
+        fundidas num take. Roda no 1.6. Rendimento medido: 4 opções, 2 aproveitáveis.
+
+    - motor: 'Runway'
+      recursos_exclusivos:
+        video_para_video: >
+          Mantém a ESTRUTURA do vídeo e troca o estilo pelo texto. Uma cachoeira virou
+          cachoeira de lava e cachoeira de areia, com a rocha reagindo coerentemente ao
+          novo material. Nenhum outro motor da comparação faz isso.
+        expandir_formato: >
+          Horizontal → vertical (e o inverso) por preenchimento das bordas. O resultado
+          medido foi bom: continuou a água batendo nas pedras e respeitou o movimento de
+          câmera. É a rota para reaproveitar peça 16:9 em 9:16 SEM regerar nada.
+        animar_a_fala: >
+          Um vídeo-base de alguém falando de frente transfere boca, olhos e cabeça para
+          uma imagem estática. O vídeo-base pode ser gravado na webcam.
+      fraquezas_medidas:
+        - 'Texto-para-vídeo não respeita o prompt — nas duas gerações do teste, ignorou a trajetória de câmera pedida'
+        - 'Apenas 2 vídeos por fila'
+        - 'ARMADILHA DE PLANO: frame-a-frame e expandir formato só existem no modo TURBO, que tem qualidade inferior. O modo Alpha, melhor, não os oferece — e só aceita landscape.'
+      frame_a_frame: 'Melhor que o do Kling na mesma comparação, mesmo preso ao Turbo.'
+
+    - motor: 'Minimax (Hailuo)'
+      recurso_exclusivo: 'Nenhum. E é exatamente esse o ponto.'
+      onde_ele_ganha:
+        - 'A melhor qualidade de entrega da comparação'
+        - 'A melhor aderência ao prompt — respeitou a subida de câmera do pé ao rosto do cavaleiro em 5 de 5 gerações'
+        - '5 vídeos por fila, contra 2 do Runway'
+        - 'Aceita imagem horizontal e vertical sem trocar de modelo'
+      minimax_reference:
+        o_que_e: 'Vídeo a partir de uma imagem de referência de personagem, via Freepik.'
+        evidencia_que_convence: >
+          Preservou um leve estrabismo no olho direito da modelo — um traço que nenhuma
+          descrição textual carregaria. É o teste de consistência mais duro do corpus.
+      a_regra_que_sai_daqui: >
+        Se o plano não precisa de recurso exclusivo — e a MAIORIA não precisa — o motor
+        certo é o que entrega melhor, não o que o estúdio já conhece.
+
+    - motor: 'Luma (Ray 2)'
+      recurso: 'Keyframes — primeiro e último frame, com foco em MORPH e transição suave'
+      requisito_duro_medido: >
+        As duas imagens precisam ter PROPORÇÃO similar, ÂNGULO parecido, POSIÇÃO
+        equivalente no quadro e FUNDO igual. Sem isso o morph degenera em fade-in/fade-out.
+        Foi assim que o curso preparou os três pares (jaquetas, celulares, relógios).
+      rendimento_medido: '6 gerações para 3 morphs aproveitáveis — ~2 gerações por morph.'
+      truque_de_correcao: >
+        Quando o defeito é local, NOMEAR NO PROMPT o objeto que o membro toca conserta.
+        Os pés saíam mal numa escada; incluir "escada" no prompt resolveu. É irmão da
+        regra do MEMORY: "objeto não nomeado é objeto inventado".
+
+  o_que_isto_muda_no_squad:
+    - >
+      O `motion-lead` passa a escolher motor por recurso. A pergunta de roteamento acima
+      entra no card, antes do prompt.
+    - >
+      Rosto e mão em I2V são fracos NO KLING especificamente. Se o plano tem rosto em
+      close e movimento, testar outro motor antes de gastar tentativas.
+    - >
+      "Expandir formato" abre uma rota que o squad não tinha: a peça 16:9 do dark estoico
+      pode virar 9:16 sem regerar imagem nenhuma. Fica como teste barato de alto retorno.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CUSTO — leitura relativa, não tabela de preço
+# ═════════════════════════════════════════════════════════════════════════════
+economia:
+  recurso_mais_escasso_na_rota_local:
+    o_que: 'DISCO e NOITE DE MÁQUINA — nesta ordem'
+    por_que: >
+      Desde que o stack local subiu, o recurso escasso do estúdio deixou de ser crédito de
+      API. Disco livre estava em ~31 GB em 2026-08-28, e um único modelo de imagem come
+      11,81 GiB. Noite de máquina é o outro: o modo de operação padrão é render noturno,
+      com a máquina livre, e cada job disputa as mesmas noites.
+    o_que_NAO_e_o_gargalo: >
+      VRAM. A leitura antiga ("8 GB é o teto que decide tudo") estava mal calibrada: com
+      offload e render noturno o setup engole modelo pesado — o Wan A14B em dois estágios é
+      a prova. A regra real é otimizar por QUALIDADE MÁXIMA aceitando lentidão.
+    o_limite_que_de_fato_morde: >
+      RAM de 16 GB. O text encoder roda na CPU antes de subir para a placa e o pico é no
+      encode — o encoder do FLUX.2 klein sozinho pede 7,49 GiB. Quantizar o UNet resolve
+      VRAM e não resolve isto. Ao avaliar modelo novo, olhar o tamanho do ENCODER.
+    consequencia_de_orcamento: 'O `*budget` do `exec-producer` conta GB e noites, não dólar nem crédito.'
+  recurso_mais_escasso_na_rota_de_nuvem:
+    o_que: 'Pool mensal gratuito da conta HuggingFace'
+    por_que: 'É compartilhado entre geração de imagem (FLUX) e o único I2V que funciona em free tier (Wan 2.2)'
+    consequencia: 'Gastar HF em still barato deixa o estúdio sem take. Still vai para Cloudflare/web; HF fica reservado ao I2V.'
+    nota_de_2026_08_29: >
+      Com o Wan rodando local e validado, a pressão sobre esse pool cai muito: o I2V de
+      entrega saiu da nuvem. O pool volta a ser o que era — reserva, não gargalo diário.
+  recurso_ilimitado:
+    o_que: 'Animação procedural via ffmpeg e composição local'
+    consequencia: 'Todo plano que aceita movimento de câmera sobre still deveria usar essa rota antes de queimar cota'
+  custo_real_do_estudio:
+    o_que: 'Tempo do operador humano'
+    por_que: >
+      Sob a regra de ouro, o gargalo do pipeline não é crédito de API — é agenda de
+      pessoa. Por isso o Pacote de Direção é o artefato mais importante do squad: cada
+      tentativa evitada vale mais que qualquer economia de crédito.
+  regra_de_orcamento: >
+    O exec-producer estima o job em NÚMERO DE CARDS HUMANOS e variações pedidas, não em
+    créditos. Créditos são o custo visível; retrabalho humano é o custo que estoura o prazo.
+
+# ═════════════════════════════════════════════════════════════════════════════
+manutencao:
+  responsavel: [image-lead, motion-lead]
+  gatilho_de_revisao:
+    - 'Provider desativado voltar a ter cota (reativar e registrar a data)'
+    - 'Operador reportar em _retorno.json que a ferramenta recomendada falhou 3x'
+    - 'Qualquer item `a_validar` ser testado — atualizar o status e a evidência'
+    - 'Item do `local-generation-stack.yaml` sair de `instalado` para `validado` — a rota local correspondente aqui muda de posição na recomendação'
+    - 'Modelo local novo entrar no inventário — só entra aqui depois de existir lá, nunca antes'
+    - 'Comparação local × nuvem em paralelo ser feita para um tipo de asset — registrar o vencedor e a evidência (regra_de_transicao)'
+  regra: >
+    Toda linha deste arquivo precisa de evidência ou de marca `a_validar`. Ferramenta
+    citada sem uma coisa nem outra é invenção de capacidade, e é motivo de reprovação
+    em revisão de arquitetura.

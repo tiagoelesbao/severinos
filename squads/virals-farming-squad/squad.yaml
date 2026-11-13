@@ -1,0 +1,240 @@
+squad:
+  name: virals-farming-squad
+  version: 1.0.0
+  short-title: Virals Farming Squad
+  description: >
+    Squad de aquecimento de contas TikTok. Pipeline de 6 fases que garimpa criativos
+    virais em nichos de alto engajamento pré-estabelecidos, faz benchmark ETL completo,
+    gera plano de modelagem autoral, produz imagens e takes de vídeo por IA (modo
+    automatizado ou híbrido) e monta o criativo final no video-studio para export em lote.
+    Objetivo de negócio: elevar contas TikTok aos requisitos mínimos de seguidores e
+    visualizações para habilitar TikTok Shop.
+  author: Virals
+  icon: 🌱
+  entry_agent: farming-chief
+  slashPrefix: viralsFarming
+
+agents:
+  - id: farming-chief
+    file: agents/farming-chief.md
+  - id: farming-scout
+    file: agents/farming-scout.md
+  - id: farming-analyst
+    file: agents/farming-analyst.md
+  - id: farming-modeler
+    file: agents/farming-modeler.md
+  - id: farming-imager
+    file: agents/farming-imager.md
+  - id: farming-animator
+    file: agents/farming-animator.md
+  - id: farming-producer
+    file: agents/farming-producer.md
+
+workspace_integration:
+  level: read_write
+  rationale: >
+    Lê a infraestrutura de ETL compartilhada e o app de edição; escreve todo o
+    artefato operacional de farming (rankings, benchmarks, planos, assets gerados,
+    exports) dentro do workspace de negócio da Virals.
+  read_paths:
+    - services/ETL/
+    - apps/video-studio/
+    - squads/virals-farming-squad/data/
+    - .aiox/handoffs/
+  write_paths:
+    - workspaces/businesses/virals/farming/
+    - squads/virals-farming-squad/data/runs/
+    - .aiox/handoffs/
+  template_namespace: farming
+
+pattern_library:
+  prefix: VF
+  naming_convention:
+    format: '{PREFIX}-{CATEGORY}-{NUMBER}'
+    example: VF-TP-001
+  categories:
+    - id: TP
+      name: Task Patterns
+      description: Patterns de estrutura de task do pipeline de farming
+    - id: EP
+      name: Executor Patterns
+      description: Patterns de seleção de executor por fase
+    - id: GP
+      name: Generation Patterns
+      description: Patterns de cascata de providers de IA generativa
+  patterns: []
+
+task_standards:
+  enforce_anatomy: true
+  validator: VF-TP-001
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+
+executor_types:
+  human:
+    id: VF-EP-001
+    use_for:
+      - Seleção de nichos e criativos por sessão
+      - Geração manual de imagens/vídeos no modo híbrido
+      - Publicação final nas contas TikTok
+  agent:
+    id: VF-EP-002
+    use_for:
+      - Plano de modelagem autoral
+      - Tradução visual de screenshots ("para até cego ver")
+      - Prompts de imagem e de animação
+      - Curadoria de corte por nicho
+  hybrid:
+    id: VF-EP-003
+    use_for:
+      - Decisão de gate por nota de corte
+      - Escolha de provider na cascata de quota
+      - Aprovação do plano antes da geração em massa
+  worker:
+    id: VF-EP-004
+    use_for:
+      - Garimpo TikTok (yt-dlp + Playwright)
+      - Benchmark ETL (download, frames, áudio, transcrição)
+      - Chamadas de API de geração de imagem e vídeo
+      - Montagem de timeline e export no video-studio
+
+workflow_config:
+  checkpoint_policy: always_active
+  fail_fast: false
+  allow_manual_override: true
+
+farming_pipeline:
+  session_id_format: '{YYYY-MM-DD}-{nicho}-{hash6}'
+  output_root: workspaces/businesses/virals/farming
+  phases:
+    - id: f1-discovery
+      name: 'Garimpo (hashtags + perfis por nicho)'
+      responsible: farming-scout
+      tasks:
+        - tasks/farm-monitor-discovery.md
+      scripts:
+        - scripts/farm-monitor.js
+      checklist: checklists/discovery-cutoff-checklist.md
+      output: 'ranking-{nicho}-{date}.md'
+    - id: f2-benchmark
+      name: 'Benchmark ETL por criativo'
+      responsible: farming-analyst
+      tasks:
+        - tasks/farm-benchmark-etl.md
+      scripts:
+        - scripts/farm-benchmark.js
+      checklist: checklists/benchmark-completeness-checklist.md
+      output: 'benchmark/{origem}/{rank}-{handle}-{id}/'
+    - id: f3-modeling
+      name: 'Plano de modelagem autoral'
+      responsible: farming-modeler
+      tasks:
+        - tasks/farm-modeling-plan.md
+      scripts:
+        - scripts/farm-model.js
+      checklist: checklists/modeling-authorship-checklist.md
+      output: 'plano-criativo.md + prompts-imagem.md + prompts-animacao.md + modeling.json'
+    - id: f4-images
+      name: 'Geração de imagens 9:16'
+      responsible: farming-imager
+      tasks:
+        - tasks/farm-image-generation.md
+      scripts:
+        - scripts/farm-images.js
+      output: 'images/take-{n}.png + images/_slots.json'
+    - id: f5-takes
+      name: 'Geração de takes de vídeo'
+      responsible: farming-animator
+      tasks:
+        - tasks/farm-video-takes.md
+      scripts:
+        - scripts/farm-takes.js
+      output: 'takes/take-{n}.mp4 + takes/_slots.json'
+    - id: f6-assembly
+      name: 'Montagem, edição e export'
+      responsible: farming-producer
+      tasks:
+        - tasks/farm-studio-assembly.md
+      scripts:
+        - scripts/farm-assemble.js
+      checklist: checklists/creative-export-checklist.md
+      output: 'export/criativo.mp4 + export/publishing-kit.md'
+  orchestrator:
+    script: scripts/farm-run.js
+    description: 'Encadeia F1→F6 numa sessão, propagando o session_id e parando nos checkpoints'
+  workflows:
+    - workflows/full-farming-pipeline.yaml
+    - workflows/daily-farm-discovery.yaml
+
+# Contrato entre fases. Cada artefato é o input da fase seguinte — alterar um
+# destes formatos quebra o pipeline inteiro, não só a fase que o produz.
+phase_contracts:
+  f1_to_f2: 'ranking-{nicho}-{date}.json → items[]'
+  f2_to_f3: 'benchmark/{origem}/{pack}/benchmark.json + screenshots/ + audio.mp3'
+  f3_to_f4: 'modeling.json → takes[].image_prompt, negative_prompt, source_frame, seed'
+  f3_to_f5: 'modeling.json → takes[].motion_prompt, procedural_preset, duration'
+  f4_to_f5: 'images/take-{n}.png + images/_slots.json'
+  f5_to_f6: 'takes/take-{n}.mp4 + takes/_slots.json'
+  f3_to_f6: 'modeling.json → caption_style, on_screen_text, transition_out, total_duration'
+  shared_modules:
+    - scripts/_niche-loader.js
+    - scripts/_pack.js
+    - scripts/_quota-ledger.js
+    - scripts/_tiktok-source.js
+    - scripts/_tiktok-fetch.js
+    - scripts/_vision.js
+    - scripts/_editspec.js
+
+niches:
+  registry_dir: data/niches
+  available:
+    - id: religioso
+      file: data/niches/religioso.yaml
+    - id: pet
+      file: data/niches/pet.yaml
+    - id: noticias
+      file: data/niches/noticias.yaml
+    - id: cartomante
+      file: data/niches/cartomante.yaml
+
+intelligence_layer:
+  tiktok:
+    mode: ytdlp_metadata_sniper
+    hashtag_url_pattern: 'https://www.tiktok.com/tag/{hashtag}'
+    profile_url_pattern: 'https://www.tiktok.com/@{handle}'
+    playwright_fallback: true
+    session_file: services/ETL/Extract/auth/tiktok_session.json
+  generative_ai:
+    config: config/ai-providers.yaml
+    strategy: free_first_cascade
+    quota_ledger: data/runs/.provider-quota-ledger.json
+
+reuse_contract:
+  etl:
+    - services/ETL/Extract/scrapers/engines/TikTokEngine.js
+    - services/ETL/Extract/downloader.js
+    - services/ETL/Transform/processors/video-processor.js
+    - services/ETL/Transform/video-intelligence/local-transcriber.js
+  editor:
+    - apps/video-studio/scripts/ingest.ts
+    - apps/video-studio/src/lib/editSpec.ts
+    - apps/video-studio/scripts/render-export.ts
+  independence:
+    cross_squad_handoff: false
+    rationale: >
+      Criativos de aquecimento são deliberadamente simples (imagem animada + áudio
+      + legenda). Não dependem da profundidade de copy/persuasão do virals-marketing-squad.
+
+tested: false
+aios:
+  type: squad
+  minVersion: 2.1.0
+name: virals-farming-squad
+version: 1.0.0

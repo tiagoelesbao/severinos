@@ -135,3 +135,22 @@ apps/live-futebol/_pack/
 apps/live-futebol/_falas/
 apps/live-futebol/_vozes/
 apps/live-futebol/__pycache__/
+
+# ──────────────────────────────────────────────────────────────────────────
+# DADO PESSOAL — nunca versionar
+# Audiências de Meta Ads contêm e-mail e telefone de pessoas reais em texto
+# puro (uma só tem 500 mil registros). Uma vez no histórico do git, é
+# praticamente permanente. Os README e a documentação continuam versionados.
+# ──────────────────────────────────────────────────────────────────────────
+**/meta-ads/audiences/*.csv
+**/meta-ads/audiences/*.txt
+**/audiencia*.csv
+**/audience*.csv
+**/leads*.csv
+**/contatos*.csv
+
+# Exportações brutas de pedidos da Meta: colunas Nome, Telefone, Email, Cpf e
+# IDs de pagamento — identificação completa de clientes reais (~275 MB).
+# Os scripts que geram e consomem esses arquivos continuam versionados.
+services/Meta/**/*.csv
+**/dados_brutos_completos*.csv

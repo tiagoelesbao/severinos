@@ -1,0 +1,107 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM — TEMPLATE REGISTRY (Pipeline *design-creative)
+# Lista de templates disponíveis para o cliente Oraclum, segregados por output_type.
+# Paleta e tipografia vêm do brand-config.yaml do cliente (Obsidian + Cyan para Oraclum).
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "oraclum"
+  last_updated: "2026-08-04"
+  status: "active"
+  notes: |
+    Mapeia os ids de templates para os componentes correspondentes.
+    As cores e assinaturas são carregadas dinamicamente das configurações da Oraclum.
+
+# ─────────────────────────────────────────────────────────────────────────────
+templates:
+
+  carousel:
+    - id: carousel-news
+      label: "Carrossel News / Digest"
+      description: "5-7 slides, cada um com uma notícia/insight de IA. Hook no slide 1, CTA no último."
+      react_component: "ModeledCarouselSlide"
+      template_id_render: "carousel-slide"
+      best_for_bench_types: [carousel, video]
+      slide_count_range: [5, 8]
+      typical_use: "Compilado de tendências de IA, notícias de tecnologia, atualizações do mercado"
+      preview_status: "ready"
+
+    - id: carousel-quote-stack
+      label: "Carrossel Quote-Stack"
+      description: "Citações encadeadas sobre tecnologia e eficiência, 1 frase por slide, fonte gigante."
+      react_component: "QuoteSlide"
+      template_id_render: "quote-slide"
+      best_for_bench_types: [single, video]
+      slide_count_range: [3, 5]
+      typical_use: "Princípios de inteligência artificial, manifesto tecnológico"
+      preview_status: "ready"
+
+    - id: carousel-step
+      label: "Carrossel Step-List (Framework Numerado)"
+      description: "Framework passo-a-passo de workflow. Cada slide um passo da automação."
+      react_component: "StepListSlide"
+      template_id_render: "tiago-step"
+      best_for_bench_types: [video, carousel]
+      slide_count_range: [4, 7]
+      typical_use: "Explicação de workflows, tutoriais de integração de APIs, lições técnicas"
+      preview_status: "ready"
+      variants: [HOOK, STEP, CTA_THINK]
+
+    - id: carousel-founder-diary
+      label: "Carrossel Builder-Diary"
+      description: "Documentação visual do build com logs de produção + frase curta + grain sutil."
+      react_component: "FounderDiarySlide"
+      template_id_render: "tiago-diary"
+      best_for_bench_types: [video, carousel, single]
+      slide_count_range: [4, 7]
+      typical_use: "Diário de bordo de desenvolvimento, novas automações criadas na semana"
+      preview_status: "ready"
+
+  single:
+    - id: single-insight
+      label: "Single Insight Card"
+      description: "Headline + body + visual de apoio. Post único de insight técnico."
+      react_component: "SinglePostSlide"
+      template_id_render: "single-post"
+      best_for_bench_types: [single, carousel]
+      typical_use: "Insight rápido sobre alguma ferramenta, novidade de IA"
+      preview_status: "ready"
+
+    - id: single-quote
+      label: "Single Quote-Tech"
+      description: "Citação destacada em fonte gigante + assinatura formal Oraclum."
+      react_component: "QuoteSlide"
+      template_id_render: "quote-slide"
+      best_for_bench_types: [single, video]
+      typical_use: "Frase de impacto sobre o avanço tecnológico ou automação"
+      preview_status: "ready"
+
+    - id: single-data
+      label: "Single Data Card (Número-Herói)"
+      description: "Número GIGANTE representando métrica de automação + halo cyan."
+      react_component: "DataCardSlide"
+      template_id_render: "tiago-data"
+      best_for_bench_types: [video, carousel, single]
+      typical_use: "Métricas de eficiência (ex: 80% do tempo economizado, CAC reduzido)"
+      preview_status: "ready"
+
+    - id: single-provocation
+      label: "Single Provocation-Hero"
+      description: "Frase provocativa em fonte gigante questionando o status quo operacional de negócios tradicionais."
+      react_component: "ProvocationHeroSlide"
+      template_id_render: "tiago-provocation"
+      best_for_bench_types: [single, video]
+      typical_use: "Quebra de crenças sobre IA e automação"
+      preview_status: "ready"
+
+# ─────────────────────────────────────────────────────────────────────────────
+scoring_match:
+  carousel:
+    from_carousel: [carousel-news, carousel-quote-stack, carousel-step, carousel-founder-diary]
+    from_video:    [carousel-step, carousel-founder-diary, carousel-news, carousel-quote-stack]
+    from_single:   [carousel-quote-stack, carousel-founder-diary, carousel-news, carousel-step]
+  single:
+    from_single:   [single-insight, single-quote, single-data, single-provocation]
+    from_video:    [single-data, single-provocation, single-quote, single-insight]
+    from_carousel: [single-insight, single-data, single-provocation, single-quote]

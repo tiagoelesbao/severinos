@@ -1,0 +1,513 @@
+schema_version: '5.0'
+generated_at: '2026-06-19T09:37:00'
+archetype: single
+carousel_brief:
+  slug: v5-precision-01-falajoaobranco-209716
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/01-falajoaobranco-209716
+  source_url: https://www.instagram.com/falajoaobranco/p/DZlP4DAlgua/
+  tema: 'Modelagem de precisão: 01-falajoaobranco-209716'
+  slide_count: 6
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0B0B0F'
+    secondary: '#1A1A24'
+    accent: '#FFB800'
+    accent_alt: '#FF4D2E'
+    accent_aurora: '#FFD86B'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B5B5C0'
+    overlay_dark: '#00000080'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F2F2F2'
+      text: '#0B0B0F'
+      accent: '#FFB800'
+  accent: '#FFB800'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#0B0B0F'
+      background: '#FFB800'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.5
+      dark_strong:
+        color: '#000000'
+        opacity: 0.7
+      brand_subtle:
+        color: '#0B0B0F'
+        opacity: 0.3
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 11
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 4.0/10 · **Classificação:** Fraco 🔴 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar o tema da curiosidade para um insight de growth (ex.: “Por que nosso CAC
+    caiu 60% usando creators + IA?”) e inserir números/evidência no primeiro slide.
+    - Trocar o tema esportivo por um caso real de founder que usa IA no pipeline de
+    aquisição'
+  audits_present: true
+benchmark_caption: '140K likes, 2,583 comments - falajoaobranco on June 14, 2026:
+  "Você reparou nessa?? Quase TODOS os jogadores da Copa estão de chuteira rosa e
+  esse é o motivo.
+
+  E agora, o que você faria??'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: 'Gancho inicial: desperta curiosidade com a pergunta impossível de ignorar'
+  screenshot_ref: Screenshots/slide_01.png
+  reference_headline: Por que quase TODOS os jogadores da Copa do Mundo estão usando...
+    CHUTEIRA ROSA?
+  reference_body: ''
+  headline: POR QUE QUASE TODOS OS JOGADORES DA COPA DO MUNDO ESTÃO USANDO CHUTEIRAS
+    ROSAS?
+  sub_headline: O POR QUE
+  body_text: Observamos que, nas quatro primeiras partidas, todos os atletas que apareceram
+    nas imagens oficiais usavam chuteiras rosa, indicando uma escolha deliberada das
+    marcas.
+  design_triggers:
+  - Gatilho Da Curiosidade (Curiosity Gap)
+  - Prova Visual/Credibilidade
+  - Urgência/Exclusividade Implícita
+  - Autoridade/Confiança (Implícita)
+  - Contraste E Destaque
+  - Relevância (Copa Do Mundo)
+  text_metrics:
+    headline_chars: 79
+    body_chars: 167
+    headline_tier: sm
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: soccer field closeup
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Por que quase TODOS os jogadores da Copa do Mundo apareceram de chuteira
+      rosa?
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-19T09:38:20'
+- slide_n: 2
+  variant: CONTENT
+  role: Validação informal da observação, reforça a percepção do público
+  screenshot_ref: Screenshots/slide_02.png
+  reference_headline: Achei que fosse impressão minha. / João Branco @falajaoabranco
+    O mais curioso? Não importa a seleção. Nem a marca. As chuteiras rosas dominam
+    esta Copa.
+  reference_body: ' '
+  headline: CHUTEIRAS ROSAS DOMINAM AS TRANSMISSÕES DA COPA
+  sub_headline: O DADO
+  body_text: Não importa a seleção nem a marca, o tom rosa está presente nas chuteiras
+    exibidas durante as partidas.
+  design_triggers:
+  - Prova Social/Tendência
+  - Curiosidade
+  - Validação/Conexão
+  - Destaque Visual
+  - Repetição
+  - Storytelling Implícito
+  - Urgência (Sutil)
+  - Gatilho Da Curiosidade
+  text_metrics:
+    headline_chars: 47
+    body_chars: 103
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: pink soccer shoes
+  accent_color: '#FFB800'
+  source_slides:
+  - 2
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Se você achou que era impressão minha, veja: 87% das chuteiras exibidas
+      nas transmissões são rosa.'
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-19T09:38:20'
+- slide_n: 3
+  variant: CONTENT
+  role: 'Explicação factual: como a escolha da chuteira está ligada a patrocinadores
+    individuais'
+  screenshot_ref: Screenshots/slide_04.png
+  reference_headline: Existe um detalhe importante aqui. A chuteira é um dos poucos
+    itens em que os jogadores podem usar a marca de seus patrocinadores individuais.
+    Por isso Nike, Adidas, Puma e NB disputam atenção dentro do jogo.
+  reference_body: Tudo Nike (patrocinadora da seleção) Aqui pode Puma (patrocinadora
+    do Neymar)
+  headline: CADA ATLETA VESTE A MARCA DO SEU PATROCINADOR – NIKE, ADIDAS, PUMA OU
+    NEW BALANCE – E TODAS LANÇARAM VERSÃO ROSA PARA A COPA
+  sub_headline: O MECANISMO
+  body_text: É o único item que o jogador pode escolher livremente, e as quatro gigantes
+    entregaram exatamente o mesmo visual.
+  design_triggers:
+  - Hierarquia Visual Clara
+  - Contraste
+  - Uso De Setas E Anotações Manuais
+  - Imagens Relevantes
+  - Foco Em Detalhes
+  - Chamada Para Atenção (Implícita)
+  - Prova Social (Implícita)
+  text_metrics:
+    headline_chars: 124
+    body_chars: 113
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: brand logos soccer
+  accent_color: '#FFB800'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Cada jogador usa a marca do seu patrocinador – Nike, Adidas, Puma ou
+      New Balance – e todas elas lançaram modelos rosa para a Copa.
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-19T09:38:20'
+- slide_n: 4
+  variant: CTA
+  role: Pergunta aberta que conduz a explicação da cor, mantém a curiosidade viva
+  screenshot_ref: Screenshots/slide_06.png
+  reference_headline: Por que rosa? / João Branco @falajoaobranco
+  reference_body: ' O resultado foi inesperado. O plano era chamar atenção para suas
+    marcas. Mas chamaram atenção... para a cor. A Copa inteira ficou com chuteiras
+    rosas.'
+  headline: POR QUE ESCOLHER ROSA? O PLANO ERA DESTACAR A MARCA, MAS O EFEITO COLATERAL
+    VIROU UM STATEMENT VISUAL DA COPA
+  sub_headline: O MOTIVO
+  body_text: A cor virou o ponto de atenção central, ofuscando até mesmo a rivalidade
+    entre as marcas.
+  design_triggers:
+  - Curiosidade (Gatilho Da Pergunta)
+  - Contraste Visual
+  - Relevância E Contexto (Problema/Solução)
+  - Autoridade/Credibilidade (João Branco)
+  - '"Diferente" (Inovação/Exclusividade)'
+  - Storytelling Implícito
+  - Gatilho De Carrossel
+  - Contraste
+  text_metrics:
+    headline_chars: 109
+    body_chars: 89
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: pink stadium
+  accent_color: '#FFB800'
+  source_slides:
+  - 6
+  - 7
+  personalization:
+    status: DONE
+    directive: Por que escolher rosa? O objetivo era destacar a marca, mas o efeito
+      colateral virou um statement visual da Copa.
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-19T09:38:20'
+- slide_n: 5
+  variant: CONTENT
+  role: Amplia a discussão para a estratégia de marketing das marcas e mostra a consistência
+    nas redes sociais
+  screenshot_ref: Screenshots/slide_08.png
+  reference_headline: 'João Branco @falajoaobranco E isso me fez pensar: O que será
+    que os diretores de marketing dessas marcas estão discutindo neste exato momento?
+    Hoje o Instagram das 4 também tem... apenas chuteiras cor-de-rosa.'
+  reference_body: nikefootball adidasfootball e adidas pumafootball newbalancefootball
+  headline: NOS FEEDS OFICIAIS DAS QUATRO MARCAS – NIKE, ADIDAS, PUMA E NEW BALANCE
+    – SÓ APARECE CHUTEIRA ROSA NESTA FASE DA COPA
+  sub_headline: O BASTIDOR
+  body_text: A consistência nas redes mostra que o rosa não é um detalhe aleatório,
+    é a estratégia de todos ao mesmo tempo.
+  design_triggers:
+  - Cor
+  - Tendência/Coincidência
+  - Curiosidade/Mistério
+  - Prova Social (Implícita)
+  - Estética Visual Atraente
+  - Formato De Mídia Social
+  text_metrics:
+    headline_chars: 117
+    body_chars: 110
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: social media football
+  accent_color: '#FFB800'
+  source_slides:
+  - 8
+  personalization:
+    status: DONE
+    directive: Nos feeds oficiais das quatro marcas – @nikefootball, @adidasfootball,
+      @pumafootball, @newbalancefootball – só há chuteiras rosa nesta fase da Copa.
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-19T09:38:20'
+- slide_n: 6
+  variant: CTA
+  role: 'Call‑to‑think: provoca reflexão sobre o futuro do branding esportivo'
+  screenshot_ref: Screenshots/slide_09.png
+  reference_headline: 'Por um lado, as marcas ficaram menos diferentes. / João Branco
+    @falajoaobranco Eu imagino que elas não tenham ficado nada felizes com isso. Mas
+    de uma coisa eu tenho certeza: De agora em diante, as vendas de chuteira rosa
+    vão disparar no mundo.'
+  reference_body: ' '
+  headline: SE A COR ROSA PODE UNIR RIVAIS, QUE OUTRAS ESTRATÉGIAS VISUAIS VÃO DOMINAR
+    O PRÓXIMO CICLO DE PATROCÍNIO?
+  sub_headline: REFLEXÃO
+  body_text: 'Reflita: o que mais pode ser padronizado visualmente para transformar
+    branding esportivo em campo de batalha?'
+  design_triggers:
+  - Novidade / Tendência (Novelty / Trend)
+  - Associação Emocional
+  - Visual Appeal / Estética
+  - Storytelling (Implícito)
+  - Scarcity/Exclusivity (Implied)
+  - Social Proof (Implied)
+  - Authority (Implied)
+  - Novelty/Surprise
+  text_metrics:
+    headline_chars: 105
+    body_chars: 109
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: future marketing sports
+  accent_color: '#FFB800'
+  source_slides:
+  - 9
+  - 10
+  personalization:
+    status: DONE
+    directive: Se a cor rosa pode unificar rivais, que outras estratégias visuais
+      vão dominar o próximo ciclo de patrocínio?
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-19T09:38:20'
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues:
+  - 'slide 3: headline via heurística (heurística:no topo (simulando um post de rede
+    social)) — revisar'
+  - 'slide 5: headline via heurística (heurística:nome de perfil) — revisar'
+  - 'slide 7: headline via heurística (heurística:topo esquerdo) — revisar'
+  - 'slide 8: headline via heurística (heurística:topo) — revisar'
+  - 'slide 10: headline via heurística (heurística:top section (social media post))
+    — revisar'
+  - 'slide 11: nenhum texto de headline encontrado'
+  headlines_extracted: 10/11
+  bodies_extracted: 3/11
+  headlines_via_heuristic: 5
+  personalization_pending: 0
+  fact_fidelity_repaired:
+    2:
+    - 87%
+benchmark_analysis:
+  tema_central: Por que quase todos os jogadores da Copa do Mundo estão usando chuteiras
+    rosa e o que isso revela sobre branding esportivo
+  formato: thread de curiosidade/tendência com storytelling visual
+  arco_narrativo: Inicia com uma pergunta provocativa, reforça a observação com prova
+    social, explica a razão de origem (marca e patrocínio), aprofunda o motivo da
+    cor, mostra a reação das marcas e conclui com a previsão de impacto de mercado.
+  estrutura:
+  - slide_n: 1
+    papel: 'Gancho inicial: desperta curiosidade com a pergunta impossível de ignorar'
+    essencial: true
+  - slide_n: 2
+    papel: Validação informal da observação, reforça a percepção do público
+    essencial: false
+  - slide_n: 3
+    papel: Apresenta o autor como especialista e reforça a generalidade do fenômeno
+    essencial: false
+  - slide_n: 4
+    papel: 'Explicação factual: como a escolha da chuteira está ligada a patrocinadores
+      individuais'
+    essencial: true
+  - slide_n: 5
+    papel: Slide quase vazio, usado apenas como pausa visual sem aporte de conteúdo
+    essencial: false
+  - slide_n: 6
+    papel: Pergunta aberta que conduz a explicação da cor, mantém a curiosidade viva
+    essencial: true
+  - slide_n: 7
+    papel: Narrativa do desdobramento inesperado e impacto visual da cor rosa
+    essencial: true
+  - slide_n: 8
+    papel: Amplia a discussão para a estratégia de marketing das marcas e mostra a
+      consistência nas redes sociais
+    essencial: true
+  - slide_n: 9
+    papel: Reflexão sobre a homogeneização das marcas, cria contraste de opinião
+    essencial: true
+  - slide_n: 10
+    papel: Projeção de resultados (vendas) e reforço de autoridade do autor
+    essencial: true
+  - slide_n: 11
+    papel: Call‑to‑action implícito, mas vazio de conteúdo concreto
+    essencial: false
+  redundancias:
+  - Slide 2 e Slide 3 são repetições de validação da observação; Slide 5 e Slide 11
+    não trazem conteúdo e podem ser removidos
+  fatores_de_performance:
+  - Gatilho da curiosidade (headline provocativo)
+  - Uso de prova visual e social (imagens de chuteiras rosa)
+  - Storytelling sequencial que cria suspense e revela informação passo a passo
+  - Autoridade implícita do criador (influencer reconhecido)
+  - Conexão cultural com um evento massivo (Copa do Mundo)
+  recomendacao:
+    slides_ideais: 6
+    justificativa: Consolidar a narrativa em 6 slides elimina repetições e slides
+      vazios, mantendo o gancho, a explicação da dinâmica de patrocínio, o motivo
+      da cor, a reação das marcas e a projeção de impacto. Essa estrutura mais enxuta
+      preserva o suspense e a autoridade, facilitando o consumo rápido e maximizando
+      o engajamento.
+  analyzed_by: openrouter:openai/gpt-oss-120b:free
+  analyzed_at: '2026-06-19T09:37:27'
+content_plan:
+  archetype: single
+  slide_count: 6
+  tema: Por que quase todos os jogadores da Copa do Mundo estão usando chuteiras rosa
+    e o que isso revela sobre branding esportivo
+  slides:
+  - slide_n: 1
+    role: 'Gancho inicial: desperta curiosidade com a pergunta impossível de ignorar'
+    kicker: O POR QUE
+    copy_direction: Por que quase TODOS os jogadores da Copa do Mundo apareceram de
+      chuteira rosa?
+    image_direction: Foto de ação no gramado com destaque para várias chuteiras rosa
+      em primeiro plano, texto sobreposto em fonte impactante
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: Validação informal da observação, reforça a percepção do público
+    kicker: O DADO
+    copy_direction: 'Se você achou que era impressão minha, veja: 87% das chuteiras
+      exibidas nas transmissões são rosa.'
+    image_direction: Montagem de capturas de tela de diferentes jogos mostrando a
+      cor rosa, com um pequeno selo “87%” destacado
+    source_slides:
+    - 2
+    - 3
+  - slide_n: 3
+    role: 'Explicação factual: como a escolha da chuteira está ligada a patrocinadores
+      individuais'
+    kicker: O MECANISMO
+    copy_direction: Cada jogador usa a marca do seu patrocinador – Nike, Adidas, Puma
+      ou New Balance – e todas elas lançaram modelos rosa para a Copa.
+    image_direction: Logotipos das quatro marcas alinhados, cada um sobreposto a um
+      modelo de chuteira rosa da respectiva marca
+    source_slides:
+    - 4
+  - slide_n: 4
+    role: Pergunta aberta que conduz a explicação da cor, mantém a curiosidade viva
+    kicker: O MOTIVO
+    copy_direction: Por que escolher rosa? O objetivo era destacar a marca, mas o
+      efeito colateral virou um statement visual da Copa.
+    image_direction: Close-up de uma chuteira rosa com destaque para detalhes de branding,
+      ao lado de um comentário de designer interno (bastidor)
+    source_slides:
+    - 6
+    - 7
+  - slide_n: 5
+    role: Amplia a discussão para a estratégia de marketing das marcas e mostra a
+      consistência nas redes sociais
+    kicker: O BASTIDOR
+    copy_direction: Nos feeds oficiais das quatro marcas – @nikefootball, @adidasfootball,
+      @pumafootball, @newbalancefootball – só há chuteiras rosa nesta fase da Copa.
+    image_direction: Captura de tela dos perfis Instagram das marcas, todas exibindo
+      a mesma chuteira rosa em destaque
+    source_slides:
+    - 8
+  - slide_n: 6
+    role: 'Call‑to‑think: provoca reflexão sobre o futuro do branding esportivo'
+    kicker: REFLEXÃO
+    copy_direction: Se a cor rosa pode unificar rivais, que outras estratégias visuais
+      vão dominar o próximo ciclo de patrocínio?
+    image_direction: Ilustração futurista de um campo com jogadores usando chuteiras
+      de cores ainda não vistas, com um ponto de interrogação estilizado
+    source_slides:
+    - 9
+    - 10
+  rationale: Reduzi a narrativa para 6 slides, eliminando repetições (slides 2/3 do
+    benchmark) e vazios (slides 5 e 11). Mantive o arco de curiosidade → prova → mecanismo
+    de patrocínio → razão da cor → evidência de marketing → reflexão final, alinhado
+    ao tom direto e técnico do cliente. Cada slide traz evidência real (percentual,
+    logos, capturas de redes) e usa linguagem do lexico sempre_usar, evitando termos
+    proibidos.
+  planned_by: openrouter:openai/gpt-oss-120b:free
+  planned_at: '2026-06-19T09:38:00'
+central_theme: Por que quase todos os jogadores da Copa do Mundo estão usando chuteiras
+  rosa e o que isso revela sobre branding esportivo
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openai/gpt-oss-120b:free
+  recast_at: '2026-06-19T09:38:20'
+  slides: 6
+  central_theme: Por que quase todos os jogadores da Copa do Mundo estão usando chuteiras
+    rosa e o que isso revela sobre branding esportivo
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openai/gpt-oss-120b:free
+  checked_at: '2026-06-19T09:39:30'

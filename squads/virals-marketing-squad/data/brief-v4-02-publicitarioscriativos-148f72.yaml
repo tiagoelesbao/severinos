@@ -1,0 +1,71 @@
+carousel_brief:
+  slug: v4-precision-02-publicitarioscriativos-148f72
+  tema: 'Precision Modeling: 02-publicitarioscriativos-148f72'
+  slide_count: 8
+  brand_config: squads/virals-marketing-squad/data/clients/virals/brand-config.yaml
+content_data:
+- slide_n: 1
+  variant: HOOK
+  sub_headline: TENDÊNCIA SEMANAL
+  headline: INTELIGÊNCIA VISUAL VIRALS
+  body_text: ''
+  ai_prompt: Professional 3D abstract render related to INTELIGÊNCIA VISUAL VIRALS,
+    tech aesthetic, cinematic lighting, high-end design asset
+  accent_color: '#FF5B3F'
+- slide_n: 2
+  variant: IMAGE_FOCUS
+  sub_headline: VISUAL INSIGHT
+  headline: BURGER KING OFICIALIZA COCACOLA COMO NOVA PARCEIRA NO BRASIL
+  body_text: ''
+  ai_prompt: Professional 3D abstract render related to Burger King oficializa CocaCol,
+    tech aesthetic, cinematic lighting, high-end design asset
+  accent_color: '#FF5B3F'
+- slide_n: 3
+  variant: IMAGE_FOCUS
+  sub_headline: VISUAL INSIGHT
+  headline: 'CASE #2'
+  body_text: ''
+  ai_prompt: 'Professional 3D abstract render related to CASE #2, tech aesthetic,
+    cinematic lighting, high-end design asset'
+  accent_color: '#FF5B3F'
+- slide_n: 4
+  variant: IMAGE_FOCUS
+  sub_headline: VISUAL INSIGHT
+  headline: MCDONALD'S TRANSFORMA PICLES EM BEBIDA PARA ALIVIAR CÃIBRAS DE ATLETAS
+  body_text: ''
+  ai_prompt: Professional 3D abstract render related to McDonald's transforma picles
+    e, tech aesthetic, cinematic lighting, high-end design asset
+  accent_color: '#FF5B3F'
+- slide_n: 5
+  variant: IMAGE_FOCUS
+  sub_headline: VISUAL INSIGHT
+  headline: 'CASE #4'
+  body_text: ''
+  ai_prompt: 'Professional 3D abstract render related to CASE #4, tech aesthetic,
+    cinematic lighting, high-end design asset'
+  accent_color: '#FF5B3F'
+- slide_n: 6
+  variant: IMAGE_FOCUS
+  sub_headline: VISUAL INSIGHT
+  headline: 'CASE #5'
+  body_text: ''
+  ai_prompt: 'Professional 3D abstract render related to CASE #5, tech aesthetic,
+    cinematic lighting, high-end design asset'
+  accent_color: '#FF5B3F'
+- slide_n: 7
+  variant: IMAGE_FOCUS
+  sub_headline: VISUAL INSIGHT
+  headline: 'CASE #6'
+  body_text: ''
+  ai_prompt: 'Professional 3D abstract render related to CASE #6, tech aesthetic,
+    cinematic lighting, high-end design asset'
+  accent_color: '#FF5B3F'
+- slide_n: 8
+  variant: CTA
+  sub_headline: PRÓXIMO PASSO
+  headline: ESTRATÉGIA É PODER
+  body_text: O design de elite é o que diferencia marcas comuns. Domine seu mercado
+    com a Virals.
+  ai_prompt: Professional 3D abstract render related to ESTRATÉGIA É PODER, tech aesthetic,
+    cinematic lighting, high-end design asset
+  accent_color: '#FF5B3F'

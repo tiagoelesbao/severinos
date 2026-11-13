@@ -1,0 +1,401 @@
+schema_version: "5.0"
+generated_at: "2026-07-22T11:24:03"
+archetype: news
+carousel_brief:
+  slug: v5-bastidor-277-macmasi-ebf9fc
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-07-22/benchmark/instagram/277-macmasi-ebf9fc
+  source_url: https://www.instagram.com/macmasi/p/DbEog7an4ct/
+  tema: "Bastidor com números e prova concreta: 277-macmasi-ebf9fc"
+  slide_count: 6
+  narrative_type: bastidor-com-prova
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: "#0B0B0F"
+    secondary: "#1A1A24"
+    accent: "#FFB800"
+    accent_alt: "#FF4D2E"
+    accent_aurora: "#FFD86B"
+    text_primary: "#FFFFFF"
+    text_secondary: "#B5B5C0"
+    overlay_dark: "#00000080"
+    overlay_light: "#FFFFFF1A"
+    light:
+      background: "#F2F2F2"
+      text: "#0B0B0F"
+      accent: "#FFB800"
+  accent: "#FFB800"
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: "#FFFFFF"
+      letter_spacing: -1
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: "#C8C8D0"
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: "#0B0B0F"
+      background: "#FFB800"
+      padding:
+        - 12
+        - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: "#C8C8D0"
+      format: "{current}/{total}"
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: "#000000"
+        opacity: 0.5
+      dark_strong:
+        color: "#000000"
+        opacity: 0.7
+      brand_subtle:
+        color: "#0B0B0F"
+        opacity: 0.3
+      none:
+        opacity: 0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 7
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: >-
+    **📈 Score ponderado:** 5.8/10 · **Classificação:** Mediano 🟠 · **Veredito dominante:** `inspirar` **Adaptações obrigatórias consolidadas (do painel):** - Troque a abordagem de storytelling
+    histórico por um bastidor de sistema com números e prova concreta, mantendo o foco no benefício imediato para o founder. - Trocar a narrativa de 'estudo de caso teórico' por 'estudo aplicado ao
+    meu sistema', sub
+  audits_present: true
+benchmark_caption: >-
+  Nos anos 70 a Toyota derrubou o modelo da Ford e virou a nova referência de eficiência industrial.
+
+
+  Agora ela quer dar o próximo passo: conectar carro, fábrica e cidade com IA.
+
+
+  O que importa não é lançar produto melhor. É entender o contexto inteiro, o segmento, o nicho, a jornada de quem compra, e construir um ecossistema em volta disso, do jeito que iFood e Apple
+  fizeram.
+
+
+  Comenta WKS que eu te mostro como o Workshop da Masi Negócios ajuda sua empresa a ampliar essa visão.
+content_data:
+  - slide_n: 1
+    variant: HOOK
+    role: HOOK
+    screenshot_ref: Screenshots/slide_01.jpg
+    reference_headline: "#Toyota"
+    reference_body: Breno Masi A Toyota já derrubou o sistema que dominava o mundo uma vez. E agora quer fazer de novo. macmasi
+    headline: FUNDADOR QUE SÓ OLHA PARA O CARRO PERDE MERCADO.
+    sub_headline: 1/6
+    body_text: A Toyota derrubou o sistema que dominava o mundo. Agora vai fazer de novo. Se você só olha pro produto, está perdendo o jogo do ecossistema.
+    design_triggers: []
+    text_metrics:
+      headline_chars: 48
+      body_chars: 133
+      headline_tier: md
+      body_tier: sm
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: Toyota factory team meeting
+    accent_color: "#FFB800"
+    source_slides:
+      - 1
+    personalization:
+      status: DONE
+      directive: "Headline: Fundador que só olha para o carro perde mercado."
+      recast_model: openrouter:openrouter/free
+      recast_at: "2026-07-22T11:24:13"
+  - slide_n: 2
+    variant: CONTENT
+    role: INSIGHT
+    screenshot_ref: Screenshots/slide_02.jpg
+    reference_headline: "#Toyota / #Toyota"
+    reference_body: "Breno Masi Nos anos 70, o mundo inteiro copiava o modelo da Ford: linha de montagem em massa e estoque gigante."
+    headline: "TOYOTA VS FORD: O PROCESSO QUE VIROU PRÉ-REQUISITO HOJE."
+    sub_headline: 2/6
+    body_text: A Toyota eliminou desperdício, produziu sob demanda, estoque zero. Isso foi revolucionário. Hoje é pré-requisito.
+    design_triggers: []
+    text_metrics:
+      headline_chars: 51
+      body_chars: 115
+      headline_tier: md
+      body_tier: sm
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: car production line no inventory
+    accent_color: "#FFB800"
+    source_slides:
+      - 2
+      - 3
+    personalization:
+      status: DONE
+      directive: "Headline: Toyota vs Ford: o processo que virou pré-requisito hoje."
+      recast_model: openrouter:openrouter/free
+      recast_at: "2026-07-22T11:24:13"
+  - slide_n: 3
+    variant: CONTENT
+    role: INSIGHT
+    screenshot_ref: Screenshots/slide_04.jpg
+    reference_headline: "#Toyota"
+    reference_body: Breno Masi Agora a Toyota está pronta pro próximo passo. Em parceria com a NVIDIA.
+    headline: TOYOTA + NVIDIA CONECTAM CARRO, FÁBRICA E CIDADE COM IA
+    sub_headline: 3/6
+    body_text: O carro manda dado, a fábrica ajusta na hora, a cidade mede o trânsito. Não é mais sobre veículo. É sobre o sistema.
+    design_triggers: []
+    text_metrics:
+      headline_chars: 54
+      body_chars: 126
+      headline_tier: md
+      body_tier: sm
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: car interacting with city traffic
+    accent_color: "#FFB800"
+    source_slides:
+      - 4
+    personalization:
+      status: DONE
+      directive: "Headline: Toyota + NVIDIA conectam carro, fábrica e cidade com IA."
+      recast_model: openrouter:openrouter/free
+      recast_at: "2026-07-22T11:24:13"
+  - slide_n: 4
+    variant: CONTENT
+    role: INSIGHT
+    screenshot_ref: Screenshots/slide_05.jpg
+    reference_headline: "#Toyota / #Toyota"
+    reference_body: Breno Masi O que importa de verdade é entender o contexto inteiro onde esse produto vive.
+    headline: ENTENDER O CONTEXTO INTEIRO ONDE O PRODUTO VIVE É REGRA.
+    sub_headline: 4/6
+    body_text: Segmento, nicho, jornada, necessidades adjacentes. Ecossistema vence produto isolado. O iFood é prova disso.
+    design_triggers: []
+    text_metrics:
+      headline_chars: 56
+      body_chars: 118
+      headline_tier: md
+      body_tier: sm
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: food delivery app user smartphone
+    accent_color: "#FFB800"
+    source_slides:
+      - 5
+      - 6
+    personalization:
+      status: DONE
+      directive: "Headline: Entender o contexto inteiro onde o produto vive é regra."
+      recast_model: openrouter:openrouter/free
+      recast_at: "2026-07-22T11:24:13"
+  - slide_n: 5
+    variant: CONTENT
+    role: INSIGHT
+    screenshot_ref: Screenshots/slide_06.jpg
+    reference_headline: "#iFood"
+    reference_body: O iFood é um grande exemplo de ecossistema.
+    headline: IFOOD MOSTRA UM ECOSSISTEMA COMPLETO EM AÇÃO.
+    sub_headline: 5/6
+    body_text: Mercado, farmácia, pet, viagem. O iFood está presente em toda a jornada, mesmo que você não perceba.
+    design_triggers: []
+    text_metrics:
+      headline_chars: 48
+      body_chars: 113
+      headline_tier: md
+      body_tier: sm
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: person using smartphone apps
+    accent_color: "#FFB800"
+    source_slides:
+      - 6
+    personalization:
+      status: DONE
+      directive: "Headline: iFood mostra um ecossistema completo em ação."
+      recast_model: openrouter:openrouter/free
+      recast_at: "2026-07-22T11:24:13"
+  - slide_n: 6
+    variant: CTA
+    role: PAYOFF
+    screenshot_ref: Screenshots/slide_07.jpg
+    reference_headline: "#Toyota / #Toyota"
+    reference_body: A Toyota virou referência global porque parou de olhar só pro carro.
+    headline: QUER SUCESSO? MAPEIE O ECOSSISTEMA DO SEU NEGÓCIO AGORA.
+    sub_headline: 6/6
+    body_text: Quem entende o sistema, dita o ritmo. Sua empresa ainda compete por produto ou já construiu o ecossistema?
+    design_triggers: []
+    text_metrics:
+      headline_chars: 53
+      body_chars: 118
+      headline_tier: md
+      body_tier: sm
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: business meeting around table strategy
+    accent_color: "#FFB800"
+    source_slides:
+      - 7
+    personalization:
+      status: DONE
+      directive: "Headline: Quer sucesso? Mapeie o ecossistema do seu negócio agora."
+      recast_model: openrouter:openrouter/free
+      recast_at: "2026-07-22T11:24:13"
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues:
+    - "slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+    - "slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+    - "slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+    - "slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+    - "slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+    - "slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+    - "slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real"
+  headlines_extracted: 0/7
+  bodies_extracted: 7/7
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  fact_fidelity_repaired:
+    "1":
+      - "70"
+  cliches_detected:
+    "5":
+      - \bcomente?\s+['\"]?\w+['\"]?\b
+benchmark_analysis:
+  tema_central: A transição da vantagem competitiva de produto para a vantagem de ecossistema e visão sistêmica.
+  formato: Case de Analogia Estratégica
+  arco_narrativo: >-
+    Parte de um fato histórico disruptivo (Toyota vs Ford) para validar autoridade, transita para a atualização tecnológica atual (IA/Nvidia) e finaliza com a tese de negócio (Ecossistema) aplicada a
+    qualquer empresa.
+  estrutura:
+    - slide_n: 1
+      papel: Hook de curiosidade e promessa de disrupção
+      essencial: true
+    - slide_n: 2
+      papel: Contextualização histórica e prova de conceito
+      essencial: true
+    - slide_n: 3
+      papel: "Quebra de expectativa: o que era vantagem virou commodity"
+      essencial: true
+    - slide_n: 4
+      papel: Apresentação do novo cenário (Atualização/IA)
+      essencial: true
+    - slide_n: 5
+      papel: "Extração da tese central: Visão de Contexto vs Produto"
+      essencial: true
+    - slide_n: 6
+      papel: Ancoragem em exemplo cotidiano (iFood) para tangibilizar
+      essencial: false
+    - slide_n: 7
+      papel: Síntese final e fechamento do raciocínio
+      essencial: false
+  redundancias:
+    - Slide 6 e 7 repetem a tese do Slide 5 com exemplos diferentes; o Slide 7 é essencialmente um resumo do que já foi dito nos slides 2, 4 e 5.
+  fatores_de_performance:
+    - Uso de marcas de altíssimo awareness (Toyota, Ford, Nvidia, iFood) para gerar autoridade imediata
+    - Contraste temporal (Anos 70 vs Hoje) que mantém a retenção
+    - Transformação de um caso industrial complexo em uma lição de gestão simples e aplicável
+    - Narrativa de 'estágios de evolução' que guia o usuário logicamente até a oferta
+  recomendacao:
+    slides_ideais: 5
+    justificativa: >-
+      O post atinge seu pico de valor no slide 5. Os slides 6 e 7 alongam a entrega sem adicionar novos argumentos fortes. Para a versão Virals, fundiremos a analogia do iFood na tese do slide 5 e
+      eliminaremos o slide de síntese, indo direto para o CTA da legenda.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: "2026-07-22T11:43:30"
+content_plan:
+  archetype: news
+  slide_count: 6
+  tema: Bastidor com números e prova concreta para o founder
+  slides:
+    - slide_n: 1
+      role: HOOK
+      kicker: 1/6
+      copy_direction: "Headline: Fundador que só olha para o carro perde mercado."
+      image_direction: Fábrica Toyota vs Ford anos 70
+      source_slides:
+        - 1
+    - slide_n: 2
+      role: INSIGHT
+      kicker: 2/6
+      copy_direction: "Headline: Toyota vs Ford: o processo que virou pré-requisito hoje."
+      image_direction: Timeline evolução industrial
+      source_slides:
+        - 2
+        - 3
+    - slide_n: 3
+      role: INSIGHT
+      kicker: 3/6
+      copy_direction: "Headline: Toyota + NVIDIA conectam carro, fábrica e cidade com IA."
+      image_direction: Diagrama três nós conectados
+      source_slides:
+        - 4
+    - slide_n: 4
+      role: INSIGHT
+      kicker: 4/6
+      copy_direction: "Headline: Entender o contexto inteiro onde o produto vive é regra."
+      image_direction: Colagem iFood ecossistema
+      source_slides:
+        - 5
+        - 6
+    - slide_n: 5
+      role: INSIGHT
+      kicker: 5/6
+      copy_direction: "Headline: iFood mostra um ecossistema completo em ação."
+      image_direction: App iFood múltiplos serviços
+      source_slides:
+        - 6
+    - slide_n: 6
+      role: PAYOFF
+      kicker: 6/6
+      copy_direction: "Headline: Quer sucesso? Mapeie o ecossistema do seu negócio agora."
+      image_direction: Founder olhando dashboard
+      source_slides:
+        - 7
+  rationale: 6 slides seguindo estrutura step-list com número gigante por slide. Cada passo um insight do benchmark com CALL-TO-THINK final.
+  planned_by: openrouter:openrouter/free
+  planned_at: "2026-07-22T11:26:00"
+central_theme: Bastidor com números e prova concreta para o founder
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: "2026-07-22T11:46:13"
+  slides: 5
+  central_theme: A transição da vantagem competitiva de produto para a vantagem de ecossistema e visão sistêmica
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: "2026-07-22T11:50:25"

@@ -1,0 +1,773 @@
+# WF-OCS-P5 — Dark Room / Canal sem rosto
+# VO + b-roll de IA + motion. Escala e monetização sem exposição pessoal.
+# Fonte: _BLUEPRINT.md §5 (P5) · Regra de ouro §3.1 · Pacote de Direção §3.2
+#        Finalização §3.3 · Convenções normativas: _CONVENTIONS.md
+# Perfil espelhado: data/pipeline-profiles.yaml → P5 · ADR-007
+
+workflow:
+  id: wf-dark-room
+  pipeline_id: dark-room
+  name: 'Dark Room — canal sem rosto'
+  version: 1.0.0
+  squad: oraclumtech-ai-creative-studio
+  entry_agent: studio-chief
+  job_owner: exec-producer
+  genre_ref: 'data/genre-catalog.yaml#dark-room'
+  profile_ref: 'data/pipeline-profiles.yaml#P5'
+  handoff_contracts: 'data/handoff-matrix.yaml'
+  formato_master: '9:16'
+  derivados: ['16:9']
+  unidade: 'episódio dentro de um canal'
+  description: >
+    O pipeline de escala. Não tem estágio `brief` porque o brief do dark-room é por
+    CANAL, não por peça: escrito uma vez, referenciado por todo episódio. Não tem
+    film-director: o mapa de b-roll faz o papel da decupagem, mais barato e suficiente
+    para um formato que é locução sobre imagem.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# O CANAL — pré-requisito persistente, acima do job
+# ═══════════════════════════════════════════════════════════════════════════════
+canal:
+  ref: 'ARCHITECTURE.md ADR-007'
+  problema: >
+    Um canal dark publica dezenas de episódios. Se cada job reescrevesse posicionamento,
+    voz, formato de thumb e regra de fonte, o canal não teria identidade — teria uma
+    coleção de vídeos parecidos. Pior: trocar a voz entre episódios reseta o
+    reconhecimento do público, que é o único ativo que o canal acumula.
+  solucao: >
+    O brief vive no CANAL e não no job. Escrito uma vez pelo brief-strategist, revisado
+    por temporada. Por isso não existe estágio `brief` neste pipeline: ele já aconteceu.
+  pre_requisito:
+    artefato: 'workspaces/businesses/oraclum/creative-studio/canais/{canal}/channel-brief.yaml'
+    criado_por: brief-strategist
+    frequencia: 'uma vez por canal, revisado por temporada'
+    sem_ele: 'o job NÃO inicia'
+  registro_do_canal:
+    raiz: 'workspaces/businesses/oraclum/creative-studio/canais/{canal}/'
+    arquivos:
+      channel-brief.yaml: 'Posicionamento, avatar, tese do canal, formato, duração-alvo, regra de fonte, tabus.'
+      voice-lock.yaml: 'A voz do canal — casting travado. Trocar a voz entre episódios reseta o reconhecimento.'
+      thumb-system.yaml: 'Sistema de thumbnail: grade, tipografia, cor, regra de rosto/objeto. Thumb inconsistente mata o CTR do canal.'
+      title-patterns.md: 'Padrões de título que funcionam neste canal, com os que já foram usados (para não repetir).'
+      episodes.json: 'Índice de episódios: job-id, pauta, título, thumb, data, desempenho.'
+      fontes-confiaveis.md: 'Fontes já validadas para o nicho do canal. Acumula; não se revalida do zero.'
+  job_de_fundacao:
+    quando: 'Canal sem channel-brief.yaml.'
+    o_que_faz: 'O job é CONVERTIDO em job de fundação de canal: o brief-strategist escreve o channel-brief antes de qualquer episódio.'
+    regra: 'Nenhum episódio abre antes do channel-brief existir e estar aprovado pelo founder.'
+  write_back:
+    quando: 'No estágio delivery, depois do gate PASS ou CONCERNS aceito.'
+    atualiza:
+      - 'canais/{canal}/episodes.json — episódio com job-id, título, thumb e data'
+      - 'canais/{canal}/title-patterns.md — o título usado, para não repetir'
+      - 'canais/{canal}/fontes-confiaveis.md — fontes novas validadas no research'
+    regra: 'Nada entra no registro sem gate PASS.'
+
+golden_rule:
+  ref: '_BLUEPRINT.md §3.1 · _CONVENTIONS.md §6'
+  statement: >
+    O squad NÃO gera imagem, vídeo nem voz. Os estágios stills e takes são
+    executor human, sempre. A geração de voz dentro de audio também.
+  three_phase_shape: >
+    direction (agent, escreve o Pacote de Direção) → human (human, gera e deposita;
+    o pipeline PARA aqui) → review (agent, drift-check e retake dirigido, teto 3).
+  volume_note: >
+    Este é o pipeline de maior volume de asset por peça (b-roll é muito plano curto).
+    O Pacote de Direção é o que torna isso viável: o operador gera em lote, com prompt
+    e parâmetro prontos, em vez de improvisar plano a plano.
+
+inputs:
+  request:
+    type: text
+    required: true
+    description: 'Pauta do episódio.'
+  canal:
+    type: slug
+    required: true
+    description: 'Canal de destino. Precisa ter channel-brief.yaml vigente.'
+  formato:
+    type: enum
+    values: [short, long]
+    default: short
+    description: 'short = 9:16 até 90s. long = 16:9 acima de 5min.'
+  duration:
+    type: text
+    required: false
+    description: 'Duração-alvo. Vazio = a do channel-brief.'
+  operator:
+    type: text
+    required: false
+    description: 'Quem executa os cards humanos de geração. Vazio = founder.'
+
+config:
+  client: oraclum
+  job: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+  canal_root: 'workspaces/businesses/oraclum/creative-studio/canais/{canal}'
+  job_id_format: '{YYYY-MM-DD}-dark-room-{canal}-{slug}-{hash4}'
+  job_state: '{job}/job.json'
+  card_dir: '{job}/_cards/'
+  degraded_registry: '{job}/job.json → degraded[]'
+  waiver_registry: '{job}/job.json → waivers[]'
+  fail_fast: false
+  retake_ceiling: 3
+
+gate_rule:
+  statement: 'Nenhum estágio começa sem o gate do anterior ter passado.'
+  enforcement: 'exec-producer valida job.json → stages[<anterior>].gate == PASS'
+  waiver:
+    allowed: true
+    except: [factcheck]
+    requires: [gate, motivo, autor, data]
+    recorded_in: '{job}/job.json → waivers[]'
+  blocking_stage: factcheck
+  blocking_note: >
+    factcheck é BLOQUEANTE e não admite waiver. Dark room vive de credibilidade
+    acumulada: um episódio errado derruba o canal inteiro.
+
+human_checkpoints:
+  - after: script
+    id: cp-roteiro
+    who: founder
+    question: 'Roteiro, título e thumb aprovados? Todo claim tem fonte em fontes.json?'
+    rationale: >
+      É o gate mais barato e o mais importante do gênero. Título e thumb decidem o CTR;
+      o claim sem fonte decide se o canal sobrevive. Depois daqui começa o volume de
+      geração humana.
+    blocking: true
+    presents:
+      - '{job}/05-script/roteiro.md'
+      - '{job}/05-script/titulo.md'
+      - '{job}/05-script/claim-ledger.json'
+  - after: 'stills.human'
+    id: cp-stills
+    who: operator
+    type: execucao_humana
+    question: 'B-roll e thumb gerados conforme o Pacote de Direção e depositados em 11-stills/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória. É o estágio de maior volume do pipeline.'
+    blocking: true
+    card: '{job}/_cards/card-stills-{n}.md'
+  - after: 'takes.human'
+    id: cp-takes
+    who: operator
+    type: execucao_humana
+    question: 'Takes de b-roll gerados e depositados em 12-takes/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória.'
+    blocking: true
+    card: '{job}/_cards/card-takes-{n}.md'
+  - after: 'audio.human'
+    id: cp-audio
+    who: operator
+    type: execucao_humana
+    question: 'Locução gerada com a voz travada do canal e depositada em 13-audio/entregues/?'
+    rationale: >
+      Regra de ouro §3.1. A voz é O ativo do canal — o card carrega o voice-lock.yaml
+      para o operador não improvisar casting.
+    blocking: true
+    card: '{job}/_cards/card-audio-{n}.md'
+  - after: 'assembly.human'
+    id: cp-montagem
+    who: operator
+    type: execucao_humana
+    question: 'Cartelas e destaque de palavra-chave montados no AE e corte fechado no Premiere?'
+    rationale: 'Finalização §3.3. Autolegenda por palavra vem do app próprio; o resto é humano.'
+    blocking: true
+    card: '{job}/_cards/card-montagem.md'
+  - after: gate
+    id: cp-publicacao
+    who: founder
+    question: 'Veredito lido. Libera a publicação e a atualização do registro do canal?'
+    blocking: true
+
+stages:
+
+  - id: intake
+    name: 'Intake da pauta e validação do canal'
+    owner_agent: studio-chief
+    task: tasks/intake.md
+    executor: agent
+    handon:
+      from: request
+      artifacts:
+        - '(pauta do episódio)'
+        - '{canal_root}/channel-brief.yaml'
+      contract: 'Canal existe e tem channel-brief.yaml vigente'
+    handoff:
+      to: research
+      artifacts:
+        - '{job}/00-intake/pauta.md'
+        - '{job}/job.json'
+      gate: checklists/gate-intake.md
+    fallback: >
+      Canal sem channel-brief → o job é CONVERTIDO em job de fundação de canal
+      (o brief-strategist escreve o channel-brief antes de qualquer episódio).
+    on_fail: halt
+
+  - id: research
+    name: 'Fontes primárias e benchmark de canais'
+    owner_agent: research-scout
+    task: tasks/research.md
+    executor: worker
+    executor_notes: 'ETL de fontes e de canais concorrentes; a checagem de fonte primária é do owner_agent.'
+    depends_on: [intake]
+    command: |
+      node squads/virals-marketing-squad/scripts/run-creative-benchmark.js --date={date} --top={top} --platforms=youtube,tiktok,instagram
+      python squads/virals-marketing-squad/scripts/vision_video_benchmark.py {benchmark_dir}/video-brief.yaml --max-frames=8
+    command_note: >
+      O ETL traz os canais concorrentes com transcrição e frames — serve para ler o
+      código do formato (ritmo de locução, densidade de b-roll, padrão de título). A
+      checagem de FONTE, que é o que sustenta o claim, é trabalho do research-scout e
+      não sai do ETL.
+    handon:
+      from: intake
+      artifacts:
+        - '{job}/00-intake/pauta.md'
+        - '{canal_root}/channel-brief.yaml'
+        - '{canal_root}/fontes-confiaveis.md'
+      contract: 'Pauta com tese e ângulo declarados'
+    handoff:
+      to: packaging
+      artifacts:
+        - '{job}/02-research/dossie-referencia.md'
+        - '{job}/02-research/fontes.json'
+        - '{job}/02-research/nao-copiar.md'
+      gate: checklists/gate-research.md
+    fontes_note: >
+      fontes.json é o insumo DIRETO do claim-ledger. Em dark room a pesquisa É a
+      matéria-prima do roteiro, não um apoio: cada frase do roteiro vai apontar para
+      uma entrada aqui.
+    fallback: >
+      Fonte primária indisponível → o ângulo é trocado por outro coberto por fonte
+      disponível. Dark room vive de credibilidade acumulada; um episódio errado derruba
+      o canal inteiro.
+    on_fail: halt
+
+  - id: packaging
+    name: 'Titulo, thumb e a promessa que o roteiro vai cumprir'
+    owner_agent: packaging-lead
+    task: tasks/packaging.md
+    executor: agent
+    depends_on: [research]
+    inversao_note: >
+      ESTE ESTAGIO RODA ANTES DO ROTEIRO, e essa e a mudanca de ordem que define o
+      pipeline de canal dark. Titulo escrito DEPOIS do roteiro descreve o video;
+      titulo escrito ANTES promete o que o espectador leva. Descricao nao compete
+      com promessa num feed onde tudo descreve. A conta que sustenta a inversao:
+      70 a 75% da primeira avaliacao do algoritmo e o clique.
+    handon:
+      from: research
+      artifacts:
+        - '{job}/02-research/fontes.json'
+        - '{job}/00-intake/pauta.md'
+        - '{canal_root}/thumb-system.yaml'
+        - '{canal_root}/title-patterns.md'
+      contract: 'Fontes verificadas — sao o TETO do que pode ser prometido'
+    handoff:
+      to: script
+      artifacts:
+        - '{job}/06-packaging/titulo.md'
+        - '{job}/06-packaging/candidatos.md'
+        - '{job}/06-packaging/thumb-spec.yaml'
+      gate: checklists/gate-packaging.md
+    pontuador_note: >
+      Nenhum candidato vira recomendacao sem passar por apps/regra-de-3/pilares.py.
+      O pontuador e deterministico: mede os tres pilares, mede se cada um cabe antes
+      do corte do feed (~55 caracteres), mede se a thumb repete o titulo e classifica
+      o risco. A geracao pode vir do gerador por molde, do proprio agente ou de um
+      agente de copy dos squads Virals — o juiz e sempre o mesmo arquivo.
+    risco_note: >
+      Titulo classificado B3 — fala entre aspas atribuida a pessoa nomeada sem
+      confirmacao em fontes.json — NAO sai deste estagio. O descarte e mecanico, no
+      motor, e nao editorial.
+    checkpoint: cp-embalagem
+    fallback: >
+      Promessa nao sustentada por fontes.json → o ANGULO volta ao research. Nao se
+      enfraquece o titulo ate caber na fonte, e nao se suaviza a fonte para caber no
+      titulo.
+    on_fail: halt
+
+  - id: script
+    name: 'Roteiro, título e mapa de b-roll'
+    owner_agent: head-of-copy
+    task: tasks/script.md
+    executor: agent
+    depends_on: [packaging]
+    handon:
+      from: packaging
+      artifacts:
+        - '{job}/06-packaging/titulo.md'
+        - '{job}/02-research/fontes.json'
+        - '{canal_root}/channel-brief.yaml'
+      contract: >
+        Promessa fechada. O roteiro NAO resume o assunto — ele entrega a promessa
+        declarada em titulo.md nos primeiros 45 segundos.
+    handoff:
+      to: stills
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/05-script/claim-ledger.json'
+        - '{job}/05-script/mapa-broll.md'
+      gate: checklists/gate-script.md
+    mapa_broll_note: >
+      O mapa-broll.md faz o papel que a decupagem faria: liga cada bloco de locução à
+      imagem que o acompanha, com a antecipação de 0,5 a 1s que o código do gênero
+      exige (a imagem entra ANTES da palavra que ela ilustra). Este pipeline não convoca
+      film-director — o mapa de b-roll é o substituto econômico.
+    promessa_note: >
+      O titulo nao nasce mais aqui. Ele chega pronto do `packaging`, e com ele a
+      frase de promessa que o roteiro tem de cumprir nos primeiros 45 segundos —
+      a mesma mecanica dos canais de plantao, que respondem o titulo aos 7 s.
+      O que o head-of-copy escreve e o CUMPRIMENTO da promessa, nao um resumo.
+    checkpoint: cp-roteiro
+    fallback: >
+      Claim sem fonte em fontes.json → a frase SAI do roteiro. Não existe reescrita
+      suavizada de claim sem fonte.
+    on_fail: halt
+
+  - id: stills
+    name: 'B-roll e thumb — direção, geração humana e avaliação'
+    owner_agent: image-lead
+    task: tasks/stills.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 / _CONVENTIONS.md §6. Decisão de negócio, não falta de script.'
+    depends_on: [script]
+    subroutine:
+      workflow: wf-image-lab.yaml
+      mode: embutido
+      quando: 'A thumbnail do episódio é SEMPRE uma chamada de sub-rotina do P6.'
+      herda: '{canal_root}/thumb-system.yaml — a grade, a tipografia e a cor são do canal, não do episódio'
+      grava_em: '{job}/11-stills/subrotina-thumb/'
+      ref: 'data/genre-catalog.yaml § image-lab.contrato_de_subrotina'
+    handon:
+      from: script
+      artifacts:
+        - '{job}/05-script/mapa-broll.md'
+        - '{canal_root}/channel-brief.yaml'
+        - '{canal_root}/thumb-system.yaml'
+      contract: 'Mapa de b-roll fechado com uma entrada por bloco de locução'
+    substages:
+      - id: stills.direction
+        executor: agent
+        owner_agent: image-lead
+        name: 'Pacote de Direção por plano de b-roll'
+        produces:
+          - '{job}/11-stills/_direction/{asset-id}.yaml'
+          - '{job}/11-stills/_direction/INDEX.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        must_include: [ferramenta_recomendada, prompt, prompt_negativo, parametros, tecnica, armadilhas_conhecidas, criterio_de_aceite, quantas_variacoes, pos_processamento, se_falhar]
+        routing_ref: 'data/model-routing.yaml#image'
+        lote_note: >
+          Aqui o INDEX.md é o artefato mais importante do estágio: dezenas de planos
+          curtos, agrupados por família visual para o operador gerar em lote com a mesma
+          seed e o mesmo sufixo de estilo. Sem agrupamento, o b-roll sai visualmente
+          incoerente e o episódio parece uma colagem.
+        no_face_rule: 'Canal sem rosto: o prompt_negativo barra rosto humano identificável em primeiro plano. É o código do gênero.'
+      - id: stills.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-stills-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: exec-producer
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/11-stills/entregues/ — todo asset do INDEX com arquivo em disco, mais a thumb'
+        checkpoint: cp-stills
+        resume_with: tasks/resume-job.md
+        note: 'Nunca simular. Se o operador devolveu menos planos que o pedido, o estágio entra em degraded[] com a lista do que falta.'
+      - id: stills.review
+        executor: agent
+        owner_agent: image-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/11-stills/entregues/'
+        produces:
+          - '{job}/11-stills/_review/review-r{n}.md'
+          - '{job}/11-stills/_direction/{asset-id}.r{n}.yaml'
+        checks: [cobertura_do_mapa_broll, coerencia_visual_entre_planos_da_mesma_familia, ausencia_de_rosto_identificavel, thumb_conforme_thumb_system, texto_indesejado_na_imagem]
+        loop:
+          back_to: stills.human
+          max: 3
+          on_ceiling: 'escala para studio-chief'
+    handoff:
+      to: takes
+      artifacts:
+        - '{job}/11-stills/_direction/'
+        - '{job}/11-stills/entregues/'
+        - '{job}/11-stills/subrotina-thumb/'
+        - '{job}/11-stills/_review/'
+      gate: checklists/gate-stills.md
+    fallback: >
+      Plano de b-roll que não sai em três rodadas → o image-lead troca por plano de
+      acervo ou por abstração geométrica on-brand e registra a troca em degraded[].
+      Em dark room, um plano genérico é preferível a um episódio travado.
+    on_fail: continue_and_report
+
+  - id: takes
+    name: 'Takes de b-roll — direção, geração humana e avaliação'
+    owner_agent: motion-lead
+    task: tasks/takes.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1. Geração de vídeo é a que mais exige tentativa e descarte humanos.'
+    depends_on: [stills]
+    handon:
+      from: stills
+      artifacts:
+        - '{job}/11-stills/entregues/'
+        - '{job}/05-script/mapa-broll.md'
+      contract: 'Stills aprovados no drift-check, cobrindo o mapa de b-roll'
+    substages:
+      - id: takes.direction
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Pacote de Direção por take'
+        produces:
+          - '{job}/12-takes/_direction/{asset-id}.yaml'
+          - '{job}/12-takes/_direction/INDEX.md'
+          - '{job}/12-takes/_direction/ae-compositions.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#video'
+        technique_note: >
+          Image-to-video a partir do still aprovado, nunca text-to-video direto. Em
+          dark room o movimento é discreto e contínuo — push-in lento, parallax, deriva
+          de nuvem. Movimento chamativo compete com a locução, que é onde está a
+          informação.
+        economia_note: >
+          Nem todo plano precisa de I2V. O pacote declara quais planos ganham movimento
+          gerado e quais ganham movimento em AE sobre o still — que é mais barato,
+          mais previsível e visualmente indistinguível neste formato.
+        ae_note: 'ae-compositions.md lista cartelas e destaque de palavra-chave a construir no After Effects.'
+      - id: takes.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-takes-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: exec-producer
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/12-takes/entregues/ — todo take do INDEX com .mp4 em disco'
+        checkpoint: cp-takes
+        resume_with: tasks/resume-job.md
+      - id: takes.review
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/12-takes/entregues/'
+        produces:
+          - '{job}/12-takes/_review/review-r{n}.md'
+          - '{job}/12-takes/_direction/{asset-id}.r{n}.yaml'
+        checks: [duracao_por_bloco_de_locucao, movimento_discreto_conforme_direcao, artefato_de_morphing, coerencia_visual_do_conjunto]
+        loop:
+          back_to: takes.human
+          max: 3
+    handoff:
+      to: audio
+      artifacts:
+        - '{job}/12-takes/_direction/'
+        - '{job}/12-takes/entregues/'
+        - '{job}/12-takes/_review/'
+      gate: checklists/gate-takes.md
+    fallback: >
+      I2V inconsistente → movimento sobre still resolvido no After Effects. Neste
+      formato a troca é praticamente invisível para o espectador.
+    on_fail: continue_and_report
+
+  - id: audio
+    name: 'Locução, trilha e sound design'
+    owner_agent: sound-designer
+    task: tasks/audio.md
+    executor: human
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 — vale também para voz. O sound-designer dirige; o humano gera.'
+    depends_on: [takes]
+    handon:
+      from: takes
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/12-takes/entregues/'
+        - '{canal_root}/voice-lock.yaml'
+      contract: 'Takes entregues com duração real'
+    substages:
+      - id: audio.direction
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Pacote de Direção de locução e spec de som'
+        produces:
+          - '{job}/13-audio/_direction/asset-direction-vo.yaml'
+          - '{job}/13-audio/sound-spec.yaml'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction)'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#voice'
+        casting_note: >
+          A voz é O ativo do canal. O pacote NÃO escolhe voz: ele carrega o casting
+          travado em {canal_root}/voice-lock.yaml. Trocar a voz entre episódios reseta
+          o reconhecimento do público, que é a única coisa que o canal acumula.
+        mix_note: 'sound-spec.yaml carrega a spec de mixagem para o Premiere (§3.3): níveis, ducking sob a locução, curva de trilha, ponto de SFX por timecode.'
+      - id: audio.human
+        executor: human
+        name: 'Geração da locução pelo operador'
+        stop: true
+        card: '{job}/_cards/card-audio-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/13-audio/entregues/ preenchido'
+        checkpoint: cp-audio
+        resume_with: tasks/resume-job.md
+      - id: audio.review
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Avaliação de leitura e legenda por palavra'
+        worker_assist: 'python apps/video-studio/scripts/transcribe.py {job}/13-audio/entregues/*.wav'
+        worker_assist_note: >
+          transcribe.py (faster-whisper) devolve timestamps por PALAVRA. Neste formato
+          isso não é conveniência: a autolegenda por palavra é parte do código do gênero,
+          e legenda estimada pelo roteiro adianta e atrasa ao longo do episódio.
+        produces:
+          - '{job}/13-audio/captions.srt'
+          - '{job}/13-audio/_review/review-r{n}.md'
+        checks: [leitura_fiel_ao_roteiro, voz_conforme_voice_lock, ritmo_de_locucao_do_canal, duracao_compativel_com_o_mapa_broll]
+        loop:
+          back_to: audio.human
+          max: 3
+    handoff:
+      to: assembly
+      artifacts:
+        - '{job}/13-audio/sound-spec.yaml'
+        - '{job}/13-audio/entregues/'
+        - '{job}/13-audio/captions.srt'
+      gate: checklists/gate-audio.md
+    fallback: >
+      Voz travada do canal indisponível no provedor → o episódio PARA. Publicar com
+      outra voz custa mais caro que atrasar: o reconhecimento não se recupera.
+    on_fail: halt
+
+  - id: assembly
+    name: 'Montagem — app próprio, After Effects e Premiere'
+    owner_agent: editor
+    task: tasks/assembly.md
+    executor: worker
+    executor_notes: 'App próprio: autolegenda por palavra (o formato exige). AE: cartelas e destaque de palavra-chave. Premiere: corte, mix e master.'
+    davinci: 'REMOVIDO do fluxo (§3.3 · _CONVENTIONS.md §5). export_to_davinci.py é legado e não é chamado por este squad.'
+    depends_on: [audio]
+    handon:
+      from: audio
+      artifacts:
+        - '{job}/12-takes/entregues/'
+        - '{job}/13-audio/entregues/'
+        - '{job}/13-audio/captions.srt'
+        - '{job}/05-script/mapa-broll.md'
+      contract: 'Takes e locução entregues'
+    substages:
+      - id: assembly.auto
+        executor: worker
+        name: 'Timeline auto-montada e autolegenda por palavra'
+        app: apps/video-studio
+        command: |
+          node apps/video-studio/scripts/ingest.ts oraclum {creative_slug}
+          node apps/video-studio/scripts/check-assembly.ts --autocut --maxgap=0.4
+          cd apps/video-studio && npm run studio
+          cd apps/video-studio && npm run render {brand_slug}
+        command_note: >
+          ingest.ts monta timeline.json a partir do video-brief e dos materiais.
+          check-assembly.ts audita a montagem e fecha gaps — importante aqui, porque o
+          mapa de b-roll gera muitos clipes curtos e o gap entre eles é visível.
+          npm run studio abre o preview; npm run render faz o render headless on-brand.
+        known_gap:
+          issue: >
+            ingest.ts e check-assembly.ts esperam a convenção
+            outputs/{client}/video-plans/{creative}/. Um job do creative-studio vive em
+            workspaces/businesses/oraclum/creative-studio/jobs/{job-id}/.
+          bridge_required: 'Espelhar o job na convenção que o studio lê antes de chamar o ingest.'
+          worker_candidate: 'Ponte job → outputs/{client}/video-plans/{creative}/. É a mesma ponte pendente do farming.'
+          status: nao_implementado
+        produces:
+          - '{job}/14-assembly/autolegenda/'
+          - '{job}/14-assembly/rough-cut/'
+        fallback: 'Ponte indisponível → o editor entrega a timeline no template e o operador importa direto no Premiere. Registrado em job.json → degraded[].'
+      - id: assembly.spec
+        executor: agent
+        owner_agent: editor
+        name: 'Especificação executável em AE e Premiere'
+        produces:
+          - '{job}/14-assembly/ae-comp-spec.md'
+          - '{job}/14-assembly/premiere-cut-spec.md'
+          - '{job}/14-assembly/export-presets.yaml'
+        must_include:
+          - 'Ordem de cortes com timecode, seguindo o mapa-broll com a antecipação de 0,5 a 1s'
+          - 'Composições de After Effects: cartelas, destaque de palavra-chave, com parâmetros de animação'
+          - 'Spec de autolegenda por palavra no padrão do canal'
+          - 'Pastas, nomenclatura de importação e organização de bins'
+          - 'Preset de export por canal (9:16 master + derivado 16:9): formato, codec, bitrate, resolução, safe area'
+          - 'O que o app próprio JÁ resolveu e não deve ser refeito na mão'
+        template: templates/edit-spec-tmpl.md
+      - id: assembly.human
+        executor: human
+        name: 'Cartelas no After Effects e corte final no Premiere'
+        stop: true
+        card: '{job}/_cards/card-montagem.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/14-assembly/master/'
+        checkpoint: cp-montagem
+        resume_with: tasks/resume-job.md
+        chain: ['apps/video-studio (já feito em assembly.auto)', 'After Effects — cartelas, destaque de palavra-chave', 'Premiere Pro — corte, mix, master, derivado']
+      - id: assembly.review
+        executor: agent
+        owner_agent: editor
+        name: 'Revisão do corte'
+        reads: '{job}/14-assembly/master/'
+        produces: ['{job}/14-assembly/_review/review-r{n}.md']
+        checks: [antecipacao_do_broll_sobre_a_locucao, sincronia_da_legenda_por_palavra, ausencia_de_plano_repetido_visivel, mix_conforme_sound_spec, safe_area_no_derivado, presets_de_export]
+        loop:
+          back_to: assembly.human
+          max: 3
+    handoff:
+      to: factcheck
+      artifacts:
+        - '{job}/14-assembly/autolegenda/'
+        - '{job}/14-assembly/ae-comp-spec.md'
+        - '{job}/14-assembly/premiere-cut-spec.md'
+        - '{job}/14-assembly/master/'
+      gate: checklists/gate-assembly.md
+    fallback: 'Corte não fecha na duração-alvo do canal → o editor devolve para script com o timecode do excesso, não corta claim no escuro.'
+    on_fail: continue_and_report
+
+  - id: factcheck
+    name: 'Checagem de fonte, direitos e compliance'
+    owner_agent: fact-checker
+    task: tasks/factcheck.md
+    executor: agent
+    blocking: true
+    waiver_allowed: false
+    depends_on: [assembly]
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: >
+      Deste script o factcheck lê os checks BLOQUEANTES V3 (números fabricados),
+      V4 (atribuição ou evidência inventada), V5 (léxico proibido) e V7 (CTA proibido).
+      Exit 2 = FAIL. Em dark room o V3 e o V4 são os mais acionados, porque o formato
+      é denso em número e em citação.
+    mandatory_agent_review:
+      owner: fact-checker
+      covers:
+        - 'Toda afirmação do roteiro rastreável a uma entrada de 02-research/fontes.json'
+        - 'Citação atribuída à pessoa certa, no contexto certo'
+        - 'Direitos de imagem, música e marca de terceiro no b-roll'
+        - 'Regra sem case fabricado do _BLUEPRINT.md §1'
+        - 'Marcação de conteúdo gerado por IA quando a plataforma exigir'
+        - 'Título e thumb não prometem o que o episódio não entrega'
+      note: >
+        O par título-thumb é objeto de checagem aqui, não só o roteiro: clickbait que o
+        conteúdo não sustenta derruba o canal por retenção, antes de derrubar por
+        denúncia.
+    handon:
+      from: assembly
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/05-script/claim-ledger.json'
+        - '{job}/02-research/fontes.json'
+        - '{job}/05-script/titulo.md'
+      contract: 'Episódio montado'
+    handoff:
+      to: gate
+      artifacts:
+        - '{job}/15-gate/factcheck-report.md'
+      gate: checklists/gate-factcheck.md
+    fallback: 'NÃO EXISTE fallback que pule o estágio. Sem worker_assist, a revisão é integralmente manual, claim por claim contra fontes.json.'
+    on_fail: halt
+
+  - id: gate
+    name: 'Quality gate do episódio'
+    owner_agent: qa-critic
+    task: tasks/gate.md
+    executor: agent
+    depends_on: [factcheck]
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: 'Deste script o gate lê V1 (hook), V2 (cadência) e V6 (cobertura do mapa de b-roll no lugar da shotlist).'
+    handon:
+      from: factcheck
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/15-gate/factcheck-report.md'
+        - '{job}/11-stills/subrotina-thumb/'
+      contract: 'factcheck PASS'
+    handoff:
+      to: delivery
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+      gate: checklists/gate-dark-room.md
+    also_runs: checklists/gate-transversal-entrega.md
+    stage_gate: checklists/gate-qa.md
+    verdicts: [PASS, CONCERNS, FAIL, WAIVED]
+    verdict_routing:
+      PASS: delivery
+      CONCERNS: 'checkpoint cp-publicacao — o founder decide entre corrigir e aceitar'
+      FAIL: 'volta ao estágio nomeado no gate-verdict.md'
+      WAIVED: 'segue com o waiver registrado em job.json → waivers[]'
+    checkpoint: cp-publicacao
+    on_fail: halt
+
+  - id: delivery
+    name: 'Entrega do episódio e atualização do canal'
+    owner_agent: exec-producer
+    task: tasks/delivery.md
+    executor: agent
+    depends_on: [gate]
+    worker_candidate: >
+      Empacotador de episódio: master, derivado, thumb, título, descrição e tags,
+      mais o manifesto com hash por arquivo. Referência de contrato: o publishing-kit.md
+      da F6 do farming.
+    handon:
+      from: gate
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+        - '{job}/14-assembly/master/'
+        - '{job}/11-stills/subrotina-thumb/'
+        - '{job}/05-script/titulo.md'
+      contract: 'Veredito PASS ou CONCERNS aceito'
+    write_back:
+      executor: agent
+      alvo: '{canal_root}/'
+      atualiza:
+        - '{canal_root}/episodes.json — job-id, pauta, título, thumb, data'
+        - '{canal_root}/title-patterns.md — o título usado, para não repetir'
+        - '{canal_root}/fontes-confiaveis.md — fontes novas validadas no research'
+      regra: 'Nada entra no registro do canal sem gate PASS.'
+    handoff:
+      to: null
+      artifacts:
+        - '{job}/16-delivery/entrega/'
+        - '{job}/16-delivery/publishing-kit.md'
+        - '{canal_root}/ (registro atualizado)'
+        - '{job}/job.json (status: delivered)'
+      gate: checklists/gate-delivery.md
+    publishing_kit_note: >
+      O publishing-kit carrega título, descrição, tags, thumb e o horário sugerido de
+      publicação segundo o channel-brief. Episódio entregue sem kit é trabalho pela
+      metade — o canal não publica sozinho.
+    fallback: >
+      Write-back falha → a entrega SEGUE e o job fecha como delivered_pending_registry,
+      com a pendência anotada em job.json. Nunca se perde o episódio por causa do
+      registro; nunca se atualiza o registro sem gate.
+    on_fail: halt
+
+reporting:
+  final_summary:
+    - episodio_entregue
+    - canal
+    - titulo_publicado_e_padrao_usado
+    - claims_verificados_contra_fontes
+    - waivers_registrados
+    - cards_humanos_emitidos_tempo_de_espera_e_rodadas_de_retake
+    - planos_de_broll_pedidos_versus_entregues
+    - itens_degradados
+  degraded_registry: '{job}/job.json → degraded[]'
+  principle: >
+    O sumário é montado lendo o DISCO. E reporta explicitamente planos pedidos versus
+    entregues: em dark room o modo de falha silencioso é o episódio montado com metade
+    do b-roll planejado e o mesmo plano repetido cinco vezes.
+
+handoff:
+  emit_to: '.aiox/handoffs/'
+  format: 'handoff-ocs-{job-id}-{stage}.yaml'
+  must_include: [job_id, pipeline_id, canal, stage_completed, gate_status, waiting_human, broll_pedido_vs_entregue, next_action]

@@ -1,0 +1,1070 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ARQUITETURAS DE PROMPT POR FERRAMENTA
+#
+# Consumido por: @image-lead (`stills`), @motion-lead (`takes`),
+#                @dop (`look`), @character-lead (`character`), @sound-designer (`audio`)
+# Entra no artefato: asset_direction (Pacote de Direção) → card de tarefa humana
+#
+# POR QUE ISTO EXISTE
+# Cada ferramenta tem uma ORDEM de leitura própria. O mesmo conteúdo escrito na
+# ordem errada produz resultado errado. Este arquivo fixa a estrutura de prompt de
+# cada ferramenta que o estúdio usa, para o agente montar o prompt certo em vez de
+# escrever prosa genérica e torcer.
+#
+# REGRA DE OURO (_BLUEPRINT.md §3.1): o agente escreve o prompt, o HUMANO gera.
+# Nada aqui é chamada automática.
+#
+# Fonte: Filmboss · IA Boss Módulo 06 (AGENTES: VEO 3, Kling 2.1, mid 3.0,
+#        nano-banana, Flux Kontext, SUNO PROMPT ARCHITECT, Criador de Personagem),
+#        Módulo 03 (Consistência), Módulo 02 (Banco de Prompt) e Módulo 05;
+#        AI Image Creator PRO módulos 04, 05, 13 e 15.
+#        Ver docs/APRENDIZADOS-CURSOS.md para procedência completa.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '2.0.0'
+  criado_em: '2026-08-27'
+  atualizado_em: '2026-08-30'
+  squad: oraclumtech-ai-creative-studio
+  status: a_validar_no_estudio
+  nota_de_status: >
+    As estruturas vêm de presets de curso, não de teste no nosso pipeline. São
+    hipótese informada — boa o bastante para orientar a primeira rodada, e devem
+    ser confirmadas ou corrigidas pelo campo `avaliacao.o_que_mudou_na_direcao`
+    do Pacote de Direção após os primeiros jobs reais.
+
+# ─────────────────────────────────────────────────────────────────────────────
+principios_transversais:
+  - id: ingles_sempre
+    regra: 'Prompt em inglês. Economiza processamento e é onde os modelos foram treinados. A tradução para PT-BR vai no card, para o operador conferir a intenção.'
+
+  - id: especifico_vence_adjetivo
+    regra: >
+      Informação visual específica tem prioridade sobre termo genérico. "amazing",
+      "beautiful", "cinematic" não carregam instrução. Lente, direção de luz,
+      material e distância carregam.
+
+  - id: nao_invencao
+    regra: >
+      Preservar o que o usuário especificou; melhorar a FORMA de descrever, nunca
+      adicionar personagem, objeto, cenário, figurino ou acontecimento que não foi
+      pedido. Espelha o Artigo IV da Constitution do AIOX e a regra de fidelidade
+      do `fact-checker`.
+
+  - id: contexto_e_a_imagem
+    regra: >
+      Em ferramenta de edição (Flux Kontext, nano-banana), NÃO existe janela de
+      conversa. O contexto é exclusivamente a imagem carregada. Para editar o
+      resultado, é preciso subir o resultado como nova referência.
+
+  - id: degradacao_por_iteracao
+    regra: >
+      Edições sucessivas sobre a última imagem gerada degradam a qualidade de forma
+      visível a partir da 3ª ou 4ª iteração. Ao precisar de nova variação, VOLTE à
+      imagem original de alta qualidade em vez de encadear.
+    consequencia_no_pacote: 'O campo `insumos[]` deve sempre apontar a imagem-âncora original, não a última derivada.'
+
+  - id: lote_antes_de_gerar
+    regra: >
+      Escreva a lista completa de variações desejadas ANTES de gerar, e gere em
+      bloco organizado. Geração exploratória sem plano é o maior ralo de crédito.
+    consequencia_no_pacote: 'É o que o campo `quantas_variacoes` + `criterio_de_escolha` existe para forçar.'
+
+  # ── acrescentados na 2ª rodada de mineração (2026-08-30) ───────────────────
+  - id: a_forma_e_da_ferramenta
+    regra: >
+      Não existe "prompt bom" em abstrato. Midjourney e as ferramentas de personagem
+      pedem UM PARÁGRAFO cinematográfico contínuo — o preset do curso proíbe
+      explicitamente escrever "Subject: / Lighting: / Camera:". O Veo 3 pede o
+      contrário: lista de campos rotulados. Higgsfield, que tem preset de estética,
+      pede frase CURTA, e prompt longo lá piora o resultado. Decidir a FORMA antes
+      do conteúdo.
+    evidencia: >
+      Filmboss · preset "IABoss — Criador de Personagem" (proíbe lista de campos)
+      contra o "VEO 3 Master Prompt Preset" (exige lista), e a aula 04 do Módulo 05,
+      em que o professor pede ao LLM "ajuste esse prompt para o padrão ideal do
+      Higgsfield" justamente porque o prompt longo não ia funcionar.
+    confianca: alta
+
+  - id: parametro_mora_na_interface
+    regra: >
+      Em ferramenta web moderna, parâmetro NÃO vai no texto do prompt. Formato,
+      versão, estilização e velocidade são controles de tela. Escrever
+      `--ar 9:16 --v 7` só é necessário no Midjourney via Discord.
+    evidencia_medida: >
+      Nos 51 prompts do `Banco de Prompt.md`, ZERO usam qualquer flag (`--ar`, `--s`,
+      `--v`). O preset de personagem manda o mesmo ("não acrescentar automaticamente
+      --ar, --v, --raw"), e a aula 02 do Módulo 05 mostra o professor apagando esses
+      códigos do prompt que o LLM devolveu, com a explicação: "na versão do Midjourney
+      em que a gente entra num site, tem essas opções aqui".
+    consequencia_no_pacote: >
+      O card humano traz DOIS blocos separados: o texto do prompt e a configuração de
+      interface. Misturar os dois é o que faz o operador colar parâmetro no campo
+      errado e não entender por que o formato saiu diferente.
+    confianca: alta
+
+  - id: a_referencia_tambem_e_prompt
+    regra: >
+      Quando a edição não obedece, o conflito pode não estar no texto — pode estar na
+      IMAGEM de referência. Ela carrega instrução tão forte quanto a frase, e vence a
+      frase com frequência.
+    caso_real: >
+      O professor pede um moletom que cubra o tronco; o modelo insiste em baixar a
+      malha para mostrar um top branco. Ele corrige o TEXTO duas vezes (tira a menção
+      ao top, depois escreve "o top branco não aparece pois a blusa cobre") e o defeito
+      continua. Só resolve quando REMOVE a Image Prompt — a foto de referência tinha
+      um top branco por baixo.
+    procedimento: >
+      Diante de uma instrução ignorada duas vezes seguidas: (1) reler o prompt
+      procurando o elemento contraditório; (2) se não houver, SUSPENDER a referência de
+      imagem e regerar; (3) se resolver, a referência era a culpada — trocar a
+      referência, não o texto.
+    fonte: 'Filmboss · IA Boss Módulo 05, aula 02'
+    confianca: alta
+
+  - id: negativa_funciona_em_audio_e_nao_em_imagem
+    regra: >
+      A regra do squad "instrução negativa quase nunca funciona; descreva
+      positivamente" é uma regra de IMAGEM. Em áudio ela se inverte: o Suno tem um
+      campo `Avoid:` de primeira classe, descrito no preset como "extremamente útil".
+    evidencia_medida: >
+      Nos 51 prompts do `Banco de Prompt.md`, apenas 1 contém qualquer palavra negativa
+      (`no`, `without`, `avoid`, `not`) — um banco inteiro de prompt profissional de
+      imagem é 98% descrição positiva. O preset de Suno, do mesmo curso, dedica uma
+      seção inteira ao campo de exclusão e traz listas de `Avoid` por gênero.
+    consequencia: 'Ao portar método de imagem para áudio, o negativo deixa de ser o inimigo e vira ferramenta.'
+    confianca: alta
+
+  - id: expressao_nao_se_resolve_na_imagem
+    regra: >
+      O still de personagem deve sair com expressão NEUTRA. Emoção é dirigida na
+      geração de VÍDEO, descrevendo a TRANSIÇÃO (neutro → sorriso, neutro → tristeza),
+      não o estado final.
+    por_que: >
+      "Eu sempre prefiro partir esse movimento de um rosto mais neutro, porque eu
+      consigo chegar aonde eu quiser. Inclusive em vídeos normais gravados... essa
+      transição de uma expressão normal para o sorriso é que vai provocar quem está
+      assistindo." O professor usa a mesma direção com atores reais.
+    o_que_isso_corrige_no_squad: >
+      A tentação do estágio `stills` é pedir o frame já com a emoção da cena. Isso
+      queima a única alavanca dramática que o I2V tem, e ainda torna a imagem-âncora
+      inútil para os outros planos — um rosto sorrindo é uma âncora pior que um rosto
+      neutro. Combina com a regra de ouro do `brand-film-playbook`: a âncora é
+      FRONTAL e NEUTRA.
+    fonte: 'Filmboss · IA Boss Módulo 05, aula 02'
+    confianca: alta
+
+# ─────────────────────────────────────────────────────────────────────────────
+arquiteturas:
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  - ferramenta: 'Veo 3'
+    tipo: [text_to_video, image_to_video]
+    usado_em: [P1, P4]
+    status: a_validar_no_estudio
+
+    ordem_de_leitura:
+      - 1. Camera
+      - 2. Scene
+      - 3. Action
+      - 4. Ambience e lighting
+      - 5. Audio
+      - 6. Dialogue
+      - 7. Constraints
+      - 8. Orientation lock (quando a referência for rotacionada)
+      - 9. Resolution
+    nota_de_ordem: 'Quando o comportamento de câmera for o ponto do plano, mova Camera para o topo absoluto.'
+
+    nao_especificar:
+      itens:
+        - 'duração do vídeo'
+        - 'aspect ratio'
+        - 'resolução alternativa a 1080p'
+      motivo: 'O operador escolhe formato e duração na interface. Especificar no prompt gera conflito.'
+
+    audio:
+      padrao: 'Audio: diegetic SFX only; no background music.'
+      com_fala: 'Audio: dialog and diegetic SFX only; no background music.'
+      regra: 'Toda peça tem seção Audio explícita. Música NUNCA entra por padrão — precisa ser pedida.'
+      negative_reforco: 'music, soundtrack'
+
+    dialogo:
+      idioma: 'Português do Brasil'
+      regra: 'Curto e natural, uma ou duas linhas. Identificar quem fala quando houver mais de uma pessoa.'
+      caracteristicas_uteis: [adulto/criança, masculino/feminino, calmo/animado, perto/longe, conversacional/formal]
+      proibido: 'Não pedir legenda para representar a fala.'
+
+    supressao_de_texto:
+      negative_obrigatorio: 'subtitles, captions, on-screen text, text overlays, watermarks'
+      por_que: >
+        Texto gerado dentro do pixel é irreversível e quase sempre sai errado.
+        Casa com o princípio `texto_nao_e_geracao` do model-routing: legenda e
+        lower-third entram no After Effects, nunca na geração.
+
+    orientation_lock:
+      quando: 'Referência rotacionada ou deitada'
+      frase: 'It is extremely important that the camera does not rotate to adjust the horizon — keep the horizon exactly as in the reference image.'
+
+    negative_prompt_base: 'zoom, dolly, pan, tilt, handheld, shake, reframing, jump cuts, subtitles, captions, on-screen text, text overlays, watermarks, music, soundtrack'
+    armadilha_do_negative: >
+      A base proíbe movimento de câmera. Se o plano PEDE dolly ou pan, remova o
+      termo correspondente do negativo — senão o modelo recebe ordem contraditória.
+      Ver `camera-moves.yaml` → princípio `nao_proibir_o_que_se_quer`.
+
+    padrao_final: |
+      Camera: [POV / ANGLE / LENS / MOVEMENT]
+      Scene: [LOCATION / SUBJECT / ERA / VISUAL DETAILS]
+      Action: [CHRONOLOGICAL BEATS: A → B → C]
+      Ambience: [LIGHT / WEATHER / COLOR / TEXTURE]. Rich surface textures and depth.
+      Audio: [DIEGETIC SFX + DIALOGUE]; no background music.
+      Dialogue (Brazilian Portuguese): "[SHORT LINE]"
+      Constraints: no subtitles, captions, on-screen text, text overlays, watermarks.
+      Resolution: 1080p
+      Negative prompt: [MOVIMENTOS INDESEJADOS + TEXTO + MÚSICA]
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  - ferramenta: 'Kling 2.1'
+    tipo: [image_to_video]
+    usado_em: [P1, P2, P3, P5]
+    status: a_validar_no_estudio
+    nota_repo: 'API bloqueada (exige Access Key + Secret Key para assinar JWT; só existe uma chave). Rota é WEB, operada por humano.'
+
+    principio_central: >
+      "Não descrever a imagem; descrever como aquela imagem deve ganhar movimento."
+      É a diferença entre um prompt que devolve a mesma foto parada e um que devolve
+      um take. O `motion-lead` deve tratar isso como teste de aceitação do próprio
+      prompt antes de emitir o card.
+
+    prioridade_de_interpretacao:
+      - 1. Ação principal do personagem
+      - 2. Emoção e expressão
+      - 3. Movimento corporal
+      - 4. Movimento de câmera
+      - 5. Interação entre personagem e câmera
+      - 6. Realismo e continuidade
+      - 7. Elementos ambientais — só quando necessários à ação
+
+    estrutura: |
+      [MAIN ACTION] + [CHARACTER MOVEMENT] + [EMOTION / EXPRESSION]
+      + [CAMERA MOVEMENT] + [CAMERA RELATIONSHIP TO SUBJECT]
+      + [VISIBLE DETAILS REVEALED BY CAMERA] + [NATURAL MOTION / REALISM]
+
+    forma: 'Frase narrativa contínua em inglês — NÃO lista de parâmetros.'
+
+    regras:
+      acao: 'Verbo de ação específico. Evitar "moves naturally" quando dá para especificar o movimento.'
+      emocao: 'Expressão compatível com a ação, sem exagerar quando não foi pedida. Ex.: `with a determined expression`, `showing subtle tension`, `moving with hesitation`.'
+      camera_revela: 'Conectar aproximação a revelação: "the camera slowly moves closer, gradually revealing fine textures, subtle lighting variations, and realistic facial details".'
+      lens_flare: 'Quando houver sol e ele servir à estética: "a brief natural lens flare crosses the lens as sunlight enters the frame". Avisar o operador que foi adicionado e que pode sair.'
+
+    saida_esperada: 'PROMPT EM INGLÊS → TRADUÇÃO EM PORTUGUÊS → PERGUNTA FINAL SOBRE ALTERAÇÃO'
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  - ferramenta: 'Midjourney'
+    tipo: [text_to_image]
+    usado_em: [P1, P3, P6]
+    status: a_validar_no_estudio
+
+    formula: |
+      [tipo + assunto] + [aparência/ação] + [ambiente] + [composição]
+      + [câmera/lente] + [iluminação] + [paleta] + [materiais/texturas]
+      + [profundidade/atmosfera] + [estética] + [pós-produção] + [limpeza]
+
+    lentes:
+      24mm: 'arquitetura e ambiente amplo'
+      35mm: 'rua e narrativa ambiental'
+      50mm: 'perspectiva natural'
+      85mm: 'retrato'
+      100mm_ou_mais: 'detalhe e macro — a lente do packshot'
+
+    blocos:
+      composicao: [close-up, medium shot, full shot, wide shot, frontal, 3/4, perfil, over-the-shoulder, regra dos terços, simétrico, assimétrico]
+      iluminacao: [direção, intensidade, qualidade soft/hard/diffused, key/fill/rim, golden hour, overcast, neon, studio, candlelight]
+      cor: [paleta dominante, secundária, temperatura, contraste, saturação, color grading, film look]
+      materiais: [pele, tecido, metal, vidro, madeira, pedra, superfície molhada, microdetalhe]
+      atmosfera: [clima, neblina, poeira, chuva, fumaça, partícula, densidade ambiental]
+      pos_producao: [cinematic color grade, analog grain, subtle halation, controlled bloom, micro-contrast, natural skin texture, highlight roll-off, restrained sharpening]
+      limpeza: [composição coerente, anatomia consistente, iluminação plausível, fundo organizado, 'no in-scene typography']
+
+    estetica_presets: [cinematic realism, editorial fashion, luxury commercial, documentary photography, analog film, vintage photography, cyberpunk, sci-fi, dark fantasy, epic fantasy, watercolor, oil painting, hand-drawn ink, charcoal sketch, anime-inspired, stop-motion clay, realistic 3D, stylized 3D, miniature diorama, graphic novel, surrealism, retro-futurism, brutalist, minimalist, dreamy ethereal]
+
+    nota_para_o_estudio: >
+      `luxury commercial` e `editorial fashion` são os presets que mais aproximam do
+      padrão de comercial de cosmético do P1 (ver craft-references.yaml). `minimalist`
+      + `cinematic realism` é a rota do institucional Oraclum (arquétipo Sábio).
+
+    # -- acrescentado na 2a rodada (2026-08-30) -------------------------------
+    slots_de_referencia:
+      por_que_isto_e_o_centro: >
+        A entrada anterior deste arquivo tratava o Midjourney como fórmula de texto.
+        Ele não é: é uma ferramenta de TRÊS referências de imagem com funções
+        distintas, e o professor do Filmboss é categórico — "a maioria das minhas
+        criações eu não uso só o prompt". Prompt sozinho não reproduz a imagem; o
+        próprio `Banco de Prompt.md` abre avisando exatamente isso.
+      slots:
+        - nome: 'Image Prompt (Image Reference)'
+          controla: 'Posição, enquadramento, composição e ação da cena'
+          usar_para: 'Ancorar O QUE está acontecendo visualmente'
+        - nome: 'Style Reference'
+          controla: 'Estilo visual — grão, nitidez, traço — e sobretudo PALETA e gradação de cor'
+          usar_para: 'Travar a identidade visual do projeto inteiro'
+        - nome: 'Omni Reference (Character Reference)'
+          controla: 'Traço facial do personagem, com intensidade regulável'
+          usar_para: 'Manter o mesmo rosto entre cenas'
+          nota_de_nome: >
+            O material escrito do Módulo 02 chama de "Character Reference"; a aula do
+            Módulo 05 chama de "Omni Reference". É o mesmo slot — o nome mudou na v7.
+        - nome: 'Starting frame'
+          controla: 'Primeiro quadro para o gerador de vídeo do próprio Midjourney'
+          usar_para: 'Fora do escopo do squad hoje. Registrado para não ser confundido com Image Prompt.'
+      a_escada_de_solidez:
+        - 'Prompt vago: a IA cria sozinha; resultado genérico e aleatório'
+        - 'Prompt específico: criação mais sólida e direcionada'
+        - 'Prompt específico + imagens de referência: controle máximo, personalidade própria'
+      truque_de_reforco: >
+        Para chegar muito perto da referência, colocar a MESMA imagem em Image Prompt e
+        em Style Reference ao mesmo tempo.
+
+    style_reference_como_color_grading:
+      o_que_e: >
+        O uso mais consequente do Style Reference não é "estilo", é COR. Um frame de um
+        filme cuja gradação se admira, usado como Style Reference, faz todas as gerações
+        do lote saírem já com aquela cor.
+      por_que_importa_aqui: >
+        "Você não vai precisar fazer uma edição e colorir na pós — a imagem já vem com a
+        cor do jeito que você quer. Cores de filme são super difíceis de imitar." Isso
+        move a decisão de cor da pós para a GERAÇÃO e resolve coerência de paleta num
+        lote inteiro com um único arquivo.
+      caso_de_uso_direto_do_squad: >
+        VÍDEO HÍBRIDO (parte gravada, parte gerada): exportar um frame do material real
+        JÁ COLORIZADO e usá-lo como Style Reference nas gerações. As imagens de IA saem
+        com a cor do footage real e a costura entre os dois deixa de aparecer.
+      onde_entra: 'Estágio `look` do @dop — é a rota mais barata de travar paleta neste arquivo.'
+      confianca: alta
+
+    configuracoes_de_interface:
+      nota: 'Não vão no texto do prompt — ver princípio `parametro_mora_na_interface`.'
+      stylize:
+        faixa_util: '300 a 500, com o miolo em 350-450'
+        divergencia_de_fonte: >
+          O material escrito do Módulo 02 diz 400-500; o PT1 do Módulo 05 diz 300-450; a
+          aula 02 do Módulo 05 diz "entre 300 e 400, talvez no máximo 500". Registrado
+          como faixa, não como número, porque as três fontes do mesmo curso divergem.
+        o_que_faz: 'Zero devolve imagem mais crua e mais feia; o máximo devolve surreal e fantasioso.'
+      modo: 'RAW — mais controle e naturalidade, e mais espaço para a pós.'
+      versao: 'Sempre a mais recente disponível (v7 na data do curso).'
+      variety: 'Diferença entre as 4 imagens de um lote. Perto de zero, similares. O professor opera em ~30.'
+      velocidade: 'Fast, não Turbo. Turbo queima crédito muito mais rápido e o ganho é só de fila.'
+      armadilha_de_interface: >
+        No seletor de proporção existem duas marcas sobrepostas; vale a linha CONTÍNUA,
+        não a tracejada. Erro comum e silencioso.
+
+    gramatica_medida_do_banco_de_prompt:
+      o_que_e: >
+        Análise quantitativa dos 51 prompts de `Banco de Prompt.md`, feita aqui e não
+        afirmada pelo curso. É a única medição que este squad tem de como um prompt
+        profissional de fato se parece.
+      tamanho: 'Mediana de 99 palavras; mínimo 53; máximo 151. O alvo prático é ~100 palavras.'
+      frequencia_dos_blocos:
+        luz: '50 de 51 (98%) — é o único bloco praticamente obrigatório'
+        textura: '35 de 51'
+        fundo_declarado: '31 de 51'
+        sombra: '26 de 51'
+        realismo_declarado: '22 de 51'
+        profundidade_de_campo: '21 de 51'
+        lente_explicita: '20 de 51'
+        atmosfera: '20 de 51'
+        mood: '16 de 51'
+        cinematic: '33 de 51'
+        editorial: '22 de 51'
+        color_grading_nomeado: '3 de 51'
+      lentes_que_aparecem: 'Apenas 50mm (5x), 85mm (4x) e 35mm (4x). Nenhuma outra distância focal.'
+      camera_ou_filme_nomeado: 'Raríssimo — 1 Kodak Portra, 1 Canon RF, 2 "DSLR". Nomear equipamento não é o método.'
+      flags_de_parametro: '0 de 51'
+      palavras_negativas: '1 de 51'
+      abertura_dominante: '[tipo de imagem] + [sujeito]: "a cinematic...", "close-up portrait of...", "macro shot of..."'
+      as_tres_licoes:
+        - >
+          O prompt profissional é MENOR do que a intuição sugere: ~100 palavras, não 300.
+          Isso corrige para cima a armadilha já registrada no `model-routing` ("acima de
+          ~60 palavras o modelo começa a ignorar o fim") — o teto útil está mais perto de
+          100, desde que não haja repetição.
+        - >
+          Luz é o bloco que não pode faltar. Prompt do squad que não descreve a luz está
+          incompleto, por mais detalhado que seja o sujeito.
+        - >
+          Nomear câmera e filme é decoração. Lente é decisão, e só três valores importam;
+          marca de corpo de câmera não aparece em 96% do banco.
+      aviso_de_uso: >
+        Os 51 prompts NÃO devem ser copiados. O próprio arquivo abre dizendo que, sem as
+        imagens de referência, o prompt não reproduz a imagem. Copiar o texto e esperar o
+        resultado é justamente o erro que o banco existe para prevenir. O ativo é a
+        gramática acima, não as frases.
+      confianca: alta
+
+    ferramentas_de_edicao_nativas:
+      nota: 'Detalhadas em `imagem-refino-playbook.yaml` secao refino. Aqui só o mapa.'
+      itens:
+        - 'Vary (Subtle/Strong) — variação próxima ou distante'
+        - 'Upscale (Subtle/Creative) — o Creative INVENTA detalhe ao ampliar'
+        - 'Pan (4 direções), Zoom Out e Custom Zoom — expandem o quadro; é reenquadramento sem regerar'
+        - 'Edit (inpaint por pincel) — altera região mantendo o resto'
+      onde_o_midjourney_para: >
+        O curso declara o limite: quando a edição por máscara não resolve ("a gente
+        chegou no limite da ferramenta do Midjourney"), a rota é levar a imagem ao Flux
+        Kontext e editar por prompt puro, sem pintar máscara. Essa é a ESCADA DE ESFORÇO
+        do refino: pintar máscara é mais caro que escrever uma frase.
+
+    nota_de_obsolescencia:
+      o_que: >
+        O autor do curso que mais ensina Midjourney declara, no material "Minhas
+        ferramentas de IA favoritas", que parou de usá-lo: "era o meu favorito, mas até
+        ele começar a gerar imagens com resolução menor, eu tenho deixado de usar".
+      consequencia_para_o_squad: >
+        Não invalida a gramática nem o sistema de referências — isso é método e sobrevive
+        à troca de ferramenta. Mas rebaixa a prioridade de qualquer teste que dependa de
+        acesso ao Midjourney e reforça o `confianca: media` dos parâmetros no
+        `imagem-refino-playbook.yaml`. Se o squad assinar, conferir a resolução de saída
+        ANTES de planejar entrega em alta por essa rota.
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  - ferramenta: 'Flux Kontext'
+    tipo: [image_editing]
+    usado_em: [P1, P2, P3, P6]
+    status: a_validar_no_estudio
+    plataformas: ['Studio LTX (3 variações por geração)', 'Krea (2 variações)', 'Freepik']
+
+    diferenca_fundamental:
+      chatgpt: 'RECRIA 100% da imagem tentando imitar a referência. Altera traço facial, muda posição de mão e dedo, modifica tom de pele e textura, perde detalhe sutil.'
+      flux_kontext: 'PRESERVA tudo e altera só o solicitado. Traço facial exato, gesto idêntico, tom e textura conservados. É um Photoshop operado por linguagem natural.'
+      decisao_de_rota: >
+        Quando a identidade do sujeito PRECISA sobreviver — personagem de série,
+        creator sintético de UGC, produto com logo — a rota é Flux Kontext, não
+        ChatGPT. Esta é a razão técnica pela qual o `character-lead` existe.
+
+    forma_do_prompt: 'Simples e direto. "Troque o personagem por um japonês", "Mude a cor das luvas para amarelo", "Mude o cenário para Nova York". A simplicidade é intencional.'
+
+    capacidades:
+      consistencia: [trocar roupa mantendo pose e luz, mudar cenário preservando personagem, gerar ângulo lateral/traseiro/close do mesmo sujeito, ajustar expressão mantendo identidade]
+      produto: [múltiplos ângulos do mesmo produto, mesmo produto em modelos diferentes, produto em ambiente caro ou impossível]
+      edicao_avancada: [dia para noite com luz recalculada, adicionar neve/chuva/neblina, restaurar e colorizar foto antiga, remover elemento, substituir texto preservando fonte e perspectiva, mudar expressão facial]
+      impossivel_no_photoshop: [rotação 3D do sujeito, mudança de pose sentado→em pé, troca completa de vestuário com sombra recalculada]
+
+    fidelidade_de_marca: >
+      Preserva marca, etiqueta e detalhe gráfico com precisão alta — é o que torna
+      a rota viável para cosmético, eletrônico e moda, onde branding é o ativo.
+      Ainda assim, texto legível continua sendo verificado no gate (`IL-PD-04`).
+
+    armadilhas:
+      - 'Contexto é a imagem, não a conversa. Para editar o resultado, suba o resultado como nova referência.'
+      - 'Não encadeie 3-4 edições sobre a última saída — a degradação fica visível. Volte à original.'
+      - 'Personagem protegido por direito autoral é bloqueado pela plataforma. A saída é criar original inspirado, com elemento proprietário próprio — e passar pelo `fact-checker` (`*rights`) antes.'
+      - 'Comando literal demais falha. Se "mude para ângulo lateral" não funcionar, reformule para "a câmera pega o personagem de costas". Clareza vence complexidade.'
+
+    # -- acrescentado na 2a rodada (2026-08-30) -------------------------------
+    hierarquia_de_descricao:
+      por_que: 'A ordem importa: o elemento mais importante vem primeiro e o resto se subordina a ele.'
+      ordem:
+        - 1. ELEMENTO PRINCIPAL
+        - 2. AÇÃO PRINCIPAL
+        - 3. CARACTERÍSTICAS DA ALTERAÇÃO
+        - 4. CONTEXTO / CENÁRIO
+        - 5. ILUMINAÇÃO
+        - 6. ÂNGULO / ENQUADRAMENTO
+        - 7. CLIMA / ATMOSFERA
+        - 8. RESTRIÇÕES DE PRESERVAÇÃO
+      principio_central: 'Dizer o que MUDAR, deixando explícito o que deve PERMANECER. Não redescrever a imagem inteira.'
+
+    verbos_imperativos:
+      nota: 'O prompt de edição é uma ORDEM, não uma descrição. Quatro verbos resolvem quase tudo.'
+      formas:
+        - 'Change X to Y'
+        - 'Replace X with Y'
+        - 'Add X'
+        - 'Remove X'
+      exemplos: ['Change the car color to red.', 'Remove the tree on the right.', 'Add birds in the sky.']
+
+    clausula_de_preservacao:
+      o_que_e: 'A metade do prompt que o operador esquece, e a que decide se a identidade sobrevive.'
+      formas: ['while keeping ...', 'while maintaining ...', 'keep everything else unchanged']
+      posicao: 'SEMPRE no fim do prompt, depois de todas as alterações.'
+      o_que_listar_nela: [identidade, rosto, cabelo, composição, posição dos objetos, estilo, cores, iluminação, 'todo elemento não envolvido na edição']
+      exemplo: 'Change the clothing to black while keeping the face, hairstyle, pose, and background unchanged.'
+      variante_anti_extrapolacao: >
+        Quando há risco de o modelo inventar além do pedido, acrescentar
+        "and don't change anything else in the image". É o freio explícito para
+        edição localizada.
+
+    edicao_complexa:
+      forma: |
+        [MUDANÇA PRINCIPAL],
+        [MUDANÇA SECUNDÁRIA],
+        [MUDANÇA ADICIONAL],
+        while maintaining [PRESERVAÇÃO IMPORTANTE].
+      regra: >
+        Cada alteração precisa ser identificável isoladamente. O erro é fundir tudo numa
+        frase longa e ambígua — o modelo resolve uma e ignora as outras.
+      exemplo: >
+        "Change the setting to daytime, add people walking on the sidewalk, adjust the
+        lighting to bright natural sunlight, while maintaining the original artistic
+        style and composition."
+
+    preset_de_identidade:
+      forma: '[IDENTIFICAR O SUJEITO] + [ALTERAÇÃO PEDIDA] + [PRESERVAÇÃO DE IDENTIDADE]'
+      exemplo: >
+        "Change the woman's outfit to a red jacket while keeping her facial features,
+        hairstyle, and identity unchanged."
+      proibido: >
+        Pronome ambíguo — "put her...", "change his...", "move them..." — quando há mais
+        de uma pessoa no quadro. O sujeito tem que ser nomeado.
+      para_serie_de_imagens: 'Repetir literalmente: same facial features, same hairstyle, same identity, same appearance.'
+
+    armadilhas_novas:
+      - id: duas_referencias_confundem
+        o_que: >
+          Com DUAS imagens de entrada (ex.: modelo + estampa), o Flux Kontext erra com
+          frequência. No teste da aula de mockup, das duas variantes devolvidas uma
+          aplicou a estampa corretamente e a outra não fez alteração nenhuma.
+        consequencia_de_orcamento: >
+          Toda tarefa de duas referências deve ser orçada com PELO MENOS 2 gerações. Não
+          é falha do operador, é a taxa de acerto da ferramenta.
+        fonte: 'Filmboss · IA Boss Módulo 05, aula 09 (Mockup em vídeo)'
+      - id: referencia_de_cenario_nao_pode_conter_pessoa
+        o_que: >
+          Quando a imagem de ambiente tem uma PESSOA nela, o modelo replica a pessoa da
+          referência em vez do personagem pedido. Medido: três tentativas seguidas
+          trouxeram a pessoa da referência; com foto só de ambiente, o modelo ambienta
+          corretamente o personagem escolhido.
+        regra: 'Referência de cenário é limpa de gente. Se a única foto disponível tem alguém, remover antes.'
+        fonte: 'AI Image Creator PRO · Módulo 13, aula 2 (Flora — workflow com modelos)'
+      - id: comando_generico_devolve_lixo
+        o_que: >
+          Já registrado no `imagem-refino-playbook` para inpaint e vale aqui: descrever a
+          INTERAÇÃO vence nomear o objeto. "dedos" devolveu lixo; "segurando o cartão"
+          devolveu mão utilizável.
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  - ferramenta: 'Nano Banana / Nano Banana Pro (Gemini Image)'
+    tipo: [image_editing, upscale]
+    usado_em: [P1, P2, P3, P5, P6]
+    status: a_validar_no_estudio
+
+    saida_obrigatoria: 'Um único prompt, em inglês, com tradução em PT-BR, pronto para colar.'
+
+    estrutura: |
+      [MAIN SUBJECT + REQUESTED ACTION]
+      [SCENE / ENVIRONMENT]
+      [COMPOSITION + CAMERA + FRAMING]
+      [POSE / POSITION / EXPRESSION]
+      [REQUESTED OBJECTS / CLOTHING / ELEMENTS]
+      [LIGHTING + MATERIALS + TEXTURES]
+      [STYLE, IF REQUESTED]
+      [EXACT MODIFICATIONS]
+      [PRESERVATION / CONSISTENCY REQUIREMENTS]
+
+    principios:
+      - 'Fidelidade absoluta ao pedido; não adicionar elemento não solicitado'
+      - 'Instrução específica em vez de termo vago'
+      - 'Preservar característica da imagem original quando não houver instrução para alterar'
+      - 'Só fazer a modificação pedida — evitar alteração colateral'
+
+    multiplas_referencias: 'Com mais de uma imagem, identificar explicitamente qual é a principal. Elementos das outras entram preservando perspectiva, escala, iluminação e aparência.'
+
+    inteligencia_de_contexto:
+      o_que_e: >
+        Reconhece foto de época, figura pública e lugar conhecido, e busca referências
+        reais da internet em vez de inventar. É a vantagem que os upscalers dedicados
+        não têm.
+      como_explorar: 'Incluir um parágrafo de contexto no prompt: quem é, que época, que data, que idade. Ancora as referências certas.'
+      onde_isso_vira_risco: >
+        A mesma capacidade que ajuda na restauração é a que permite recriar pessoa
+        real. Gera peça que o `fact-checker` precisa avaliar em `*rights` (D-IMG,
+        D-NOM) e, se a peça simular pessoa real, dispara o disclosure NON-WAIVABLE.
+
+    comportamento_com_informacao_insuficiente: 'Não inventar detalhe. Imagem sem instrução de edição → perguntar qual alteração fazer.'
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  - ferramenta: 'Suno'
+    tipo: [text_to_music]
+    usado_em: [P3, P4, P5, 'qualquer peça que precise de trilha própria']
+    status: a_validar_no_estudio
+    fonte: 'Filmboss · IA Boss Módulo 06, preset "SUNO PROMPT ARCHITECT" (1.953 palavras)'
+    por_que_esta_entrada_existe: >
+      Fecha a lacuna declarada no `docs/APRENDIZADOS-CURSOS.md`: as cinco ferramentas
+      mapeadas neste arquivo eram todas de imagem e vídeo. Nenhuma era de áudio, e o
+      `sound-designer` não tinha arquitetura de prompt nenhuma para trabalhar.
+
+    dois_artefatos_separados:
+      regra: >
+        O prompt do Suno não é um texto — são DOIS campos distintos, colados em lugares
+        diferentes da interface. Confundi-los é o erro que faz a letra virar descrição
+        de estilo e a peça sair instrumental.
+      campo_style: 'A descrição técnica e estética da música (gênero, mood, instrumentos, mix, master, avoid).'
+      campo_lyrics: 'A letra estruturada em seções, com micro-instruções de arranjo entre colchetes.'
+      divergencia_de_fonte:
+        o_que: >
+          O corpus do Dark Room (aula 3, músicas) afirma que o prompt de estilo tem
+          limite de ~200 caracteres. O preset do Filmboss produz um campo STYLE de
+          600 a 900 caracteres, sem mencionar limite algum.
+        leitura_do_squad: >
+          As duas fontes são de datas e planos diferentes, e o limite é de INTERFACE, não
+          de método. Antes da primeira trilha, o `sound-designer` confere o limite real do
+          campo na conta que o estúdio usar e, se houver corte, poda pela ordem inversa da
+          lista de campos abaixo — mix e master saem primeiro, gênero e mood ficam por
+          último.
+        status: a_conferir_na_interface
+
+    ordem_de_leitura:
+      - 1. Gênero
+      - 2. Subgênero
+      - 3. Mood
+      - 4. Energia
+      - 5. BPM / andamento
+      - 6. Era / vibe
+      - 7. Instrumentação (lead, harmonia, baixo)
+      - 8. Ritmo
+      - 9. Vocais (tipo, timbre, performance, camadas)
+      - 10. Idioma
+      - 11. Arranjo
+      - 12. Dinâmica
+      - 13. Produção
+      - 14. Mix
+      - 15. Master
+      - 16. Avoid
+
+    principio_central: >
+      "Curto + específico + musical + consistente." O preset é explícito contra o
+      empilhamento de adjetivos: 50 adjetivos subjetivos entregam menos que
+      gênero + emoção + ritmo + instrumentos + voz + arranjo + produção + restrições.
+
+    regra_do_genero: >
+      Quanto mais específico o gênero, MENOS adjetivo o prompt precisa. "Melodic trap"
+      já carrega BPM, instrumentação e mix implícitos que "música triste" não carrega.
+      É a mesma economia que `especifico_vence_adjetivo` faz em imagem.
+
+    mood:
+      regra: 'Não misturar emoções contraditórias sem razão musical.'
+      errado: 'dark, joyful, terrifying, relaxing, euphoric'
+      certo: 'dark, atmospheric and emotionally tense'
+      familias:
+        emocional: [melancholic, nostalgic, intimate, vulnerable, bittersweet, heartfelt, reflective]
+        intenso: [aggressive, powerful, explosive, energetic, tense, dramatic]
+        positivo: [uplifting, joyful, euphoric, hopeful, celebratory]
+        sombrio: [dark, haunting, mysterious, ominous, cold, atmospheric]
+        romantico: [tender, passionate, intimate, warm, dreamy]
+
+    bpm:
+      regra: >
+        Usar FAIXA, não número exato. Número artificialmente preciso não melhora o
+        resultado e tira liberdade do modelo.
+      faixas:
+        ballad: '65-85'
+        rnb_lento: '70-90'
+        hip_hop: '80-100'
+        reggaeton: '85-105'
+        pop: '95-125'
+        house: '118-128'
+        trap: '120-150'
+        funk_brasileiro: '120-140'
+        techno: '125-140'
+        rock: '100-150'
+        drum_and_bass: '160-180'
+      nao_e_so_o_numero: 'Especificar também o comportamento: half-time, double-time, swing, groove, laid-back, driving, straight, syncopated.'
+
+    instrumentacao:
+      dividir_mentalmente_em: [lead, harmonia, baixo, ritmo, texturas]
+      paletas_prontas:
+        'piano + violino': 'emotivo, cinematográfico, melódico'
+        'piano + Rhodes + 808': 'R&B / trap'
+        'violão + piano': 'acústico / pop / MPB'
+        'synth + bass + drum machine': 'eletrônico'
+        'guitarra + bass + bateria ao vivo': 'rock'
+        'strings + piano + percussão': 'cinematic'
+        '808 + bells + pads': 'dark trap'
+
+    vocais:
+      tipo: [male, female, mixed, duet, 'instrumental / none']
+      timbre: [warm, raspy, airy, breathy, deep, bright, intimate, powerful, soft]
+      performance: [emotional, restrained, expressive, conversational, soaring, rhythmic, melodic, whispered]
+      camadas: [doubles, harmonies, backing vocals, octave layers, call-and-response, stacked chorus vocals]
+      idioma_padrao_do_estudio: 'Portuguese-Brazil, salvo instrução em contrário'
+
+    letra:
+      papel_do_agente: >
+        NÃO é embelezar a letra do humano — é ESTRUTURÁ-LA. Esta é a fronteira que
+        protege a regra de ouro: o texto é do autor, a marcação é do agente.
+      marcacao: |
+        [Verse 1]
+        [Pre-Chorus]
+        [Chorus]
+        [Verse 2]
+        [Bridge]
+        [Chorus]
+        [Outro]
+      regra_de_repeticao: 'Refrão repetido continua sendo `[Chorus]`, nunca `[Chorus 2]`.'
+      micro_instrucoes: >
+        Entre parênteses ou colchetes, dentro da seção, para comunicar arranjo sem inflar
+        o prompt: `[Verse 1] (intimate)`, `[Chorus] (full vocal)`, `[Bridge] (stripped
+        back)`, `[Bridge] [drums drop out]`, `[Outro] [piano fades]`.
+
+    arranjo_e_dinamica:
+      cancao: 'Intro > Verse > Pre-Chorus > Chorus > Verse > Chorus > Bridge > Final Chorus > Outro'
+      instrumental: 'Intro > Theme A > Development > Drop > Breakdown > Solo > Final Theme > Outro'
+      curva_de_energia: 'minimal intro > intimate verse > rising pre-chorus > huge chorus > stripped bridge > final climax'
+      por_que_importa_aqui: >
+        A curva de energia é o campo que o `sound-designer` mais vai usar, porque é o
+        único que sincroniza a trilha com a ESTRUTURA da peça em vez de com a duração.
+
+    avoid:
+      o_que_e: 'Campo negativo de primeira classe. Ver princípio `negativa_funciona_em_audio_e_nao_em_imagem`.'
+      forma: 'Avoid: harsh autotune, distorted guitars, lo-fi hiss, excessive reverb.'
+      por_genero:
+        trap: 'rock guitars, excessive vocal effects, muddy bass, cheesy synths'
+        pop: 'overly aggressive drums, distorted vocals, excessive autotune'
+        cinematic: 'electronic drums, overly bright synths, compressed dynamics'
+        instrumental: 'vocals, vocal chops, spoken words'
+
+    presets_de_producao:
+      cinematic: 'wide, atmospheric, emotional, deep low-end, orchestral layers, dramatic transitions'
+      commercial: 'polished, clean, punchy, vocal-forward, wide stereo, controlled low-end'
+      dark: 'minor-key atmosphere, deep sub, restrained highs, tense textures, sparse arrangement'
+      intimate: 'close vocals, soft instrumentation, minimal drums, warm mids, subtle ambience'
+      aggressive: 'hard-hitting drums, distorted textures, heavy sub, sharp transients, dense arrangement'
+      organic: 'live instruments, natural dynamics, room ambience, warm acoustic character'
+      modern_electronic: 'precise transients, deep sub, synthetic textures, wide stereo, controlled dynamics'
+      qual_serve_ao_dark_estoico: >
+        `cinematic` e `intimate`. O `dark` do preset é dark de trap, não de canal dark —
+        nome igual, coisa diferente. Ver `dark-estoicismo-playbook.yaml` antes de usar.
+
+    padrao_final: |
+      STYLE:
+      {gênero + subgênero}, {mood}, {energia}, {faixa de BPM}, {era/vibe};
+      lead instruments: {...}; harmony: {...}; bass: {...}; rhythm: {...};
+      vocals: {tipo + timbre + performance}; language: Portuguese-Brazil;
+      arrangement: {progressão}; dynamics: {curva de energia};
+      production: {caráter}; mix: {estéreo + balanço tonal + posição da voz};
+      master: {caráter}. Avoid: {elementos indesejados}.
+
+      LYRICS:
+      [Arrangement: {seções}; Dynamics: {progressão}; Vocals: {performance};
+       Mix: {direção}; Notes: {restrições importantes}]
+
+    quatro_niveis_de_pedido:
+      nota: 'O `sound-designer` escolhe o nível pelo que o job justifica, não pelo que a ferramenta permite.'
+      nivel_1_rapido: '"Trap triste com piano."'
+      nivel_2_producao: '"Trap triste com piano, violino, 808 profundo e voz masculina."'
+      nivel_3_profissional: '"Intro minimalista, versos íntimos, pré-refrão crescendo, refrão cinematográfico, bridge sem bateria e último refrão gigante."'
+      nivel_4_engenharia: '"Otimize tudo para o Suno, incluindo BPM, timbres, arranjo, dinâmica, mix, master e Avoid."'
+
+    o_que_ja_sabiamos_e_continua_valendo:
+      duas_variantes_por_geracao: >
+        O Suno devolve DUAS variantes da mesma letra, com ritmo e arranjo diferentes.
+        É o `quantas_variacoes` + `criterio_de_escolha` do squad entregue de graça, com
+        a decisão ficando humana e por escuta. Registrado no
+        `lives-niches-playbook.yaml` a partir do corpus do Dark Room.
+      ambiencia_e_mais_dificil_que_cancao: >
+        Para SFX e leito ambiente, acervo primeiro; gerador de música só para faixa com
+        ESTRUTURA. Este preset reforça por outro caminho: todos os 19 campos pressupõem
+        arranjo, seções e dinâmica — coisas que ambiência não tem. A ferramenta é
+        desenhada para canção.
+      titularidade: >
+        A propriedade da faixa vem dos TERMOS DE USO de uma empresa privada, não de lei.
+        Ver `lives-niches-playbook.yaml` secao musicas antes de prometer exclusividade a
+        cliente.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WORKFLOW CANÔNICO DE CONSISTÊNCIA (Módulo 03 do IA Boss)
+# Valida e detalha a ordem que o squad já tinha: decupagem → look → stills → takes
+workflow_de_consistencia:
+  ordem:
+    - passo: 1
+      nome: 'Roteiro'
+      faz: 'Conceito narrativo completo, com início, meio e fim'
+      nosso_estagio: script
+    - passo: 2
+      nome: 'Planejamento de cenas'
+      faz: 'Divide o roteiro em cenas, definindo enquadramento e ângulo necessários'
+      nosso_estagio: decupagem
+      nota: 'Começar definindo QUANTAS cenas cada frase do roteiro exige'
+    - passo: 3
+      nome: 'Referências visuais'
+      faz: 'Busca de referência de estilo; baixar as imagens que ancoram a visão'
+      nosso_estagio: research
+    - passo: 4
+      nome: 'Frame perfeito'
+      faz: 'Cria o PRIMEIRO frame ideal — personagem, cenário e iluminação exatos'
+      nosso_estagio: stills
+      por_que_importa: >
+        A qualidade desta imagem define o teto de todo o projeto. É o que valida o
+        princípio `i2v_antes_de_t2v` do model-routing: o quadro é aprovado antes de
+        virar movimento, não depois.
+    - passo: 5
+      nome: 'Consistência'
+      faz: 'Gera variações de ângulo, cenário, pose e expressão a partir do frame aprovado'
+      nosso_estagio: character + stills
+      exemplo_de_sequencia: >
+        Close na roda girando → plano aberto revelando o personagem → close nos olhos
+        → ângulo lateral em movimento → plano distante no horizonte → visão traseira
+        → atravessando o portal → novo mundo. Mesmo personagem, mesma textura, mesmo
+        desgaste; a luz se ajusta a cada ambiente.
+
+  licao_central: >
+    "O processo é mais importante que o prompt individual." Um prompt excelente numa
+    ordem errada produz peça incoerente; um prompt mediano dentro do workflow certo
+    produz peça vendável. É a justificativa de existir do `film-director` e do
+    `exec-producer` — o valor está na sequência, não no truque.
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# O ESTADO DO PERSONAGEM — a estrutura que resolve a degradação por iteração
+#
+# Fonte: Filmboss · IA Boss Módulo 06, presets "IABoss - Criador de personagem"
+#        (duas versões, convergentes). Minerado em 2026-08-30.
+# ─────────────────────────────────────────────────────────────────────────────
+estado_do_personagem:
+
+  o_problema_que_resolve: >
+    Este arquivo já registrava `degradacao_por_iteracao` — encadear edições sobre a
+    última saída degrada visivelmente a partir da 3ª ou 4ª rodada — e mandava voltar à
+    imagem-âncora original. Mas voltar à âncora JOGA FORA tudo o que foi decidido no
+    caminho. Faltava a terceira rota, e é esta: manter o personagem como um ESTADO
+    TEXTUAL versionado, e regerar do estado em vez de editar a imagem.
+
+  a_arvore:
+    CHARACTER:
+      STYLE: [medium_2d_ou_3d, rendering, texture, materials, lighting, visual_quality]
+      PHYSICAL_IDENTITY: [proportions, face, skin, hair, eyes, expression, posture, distinctive_features]
+      CLOTHING: [garments, colors, fabrics, accessories, details]
+      WORLD: [location, era, architecture, climate, atmosphere, narrative_context]
+      CINEMATOGRAPHY: [composition, framing, perspective, camera_feel, depth, visual_focus]
+      OUTPUT: [english_prompt, portuguese_translation]
+
+  regra_de_continuidade: >
+    Depois que uma característica é definida, ela passa a fazer parte do estado atual.
+    "Só muda o cabelo para branco" altera UM nó e preserva os demais — não reconstrói o
+    conceito nem apaga a jaqueta vermelha decidida três rodadas atrás.
+
+  tres_niveis_de_alteracao:
+    - nivel: pontual
+      o_que_faz: 'Modifica um único atributo'
+      exemplo: '"Troque a roupa por uma armadura medieval" — preserva identidade, estilo e ambiente'
+    - nivel: parcial
+      o_que_faz: 'Modifica um conjunto específico de nós'
+      exemplo: '"Mais realista" — mexe em STYLE inteiro sem tocar em PHYSICAL_IDENTITY'
+    - nivel: completa
+      o_que_faz: 'Reconstrói o conceito preservando só o que o humano determinar'
+      exemplo: '"Quero refazer tudo, mas mantenha o rosto"'
+
+  o_que_isso_muda_no_squad:
+    - >
+      O `character-lead` passa a ter um artefato próprio: a árvore do personagem em
+      texto, versionada, ao lado da imagem-âncora. O `insumos[]` do Pacote de Direção
+      aponta a imagem; o estado aponta o TEXTO que a gerou.
+    - >
+      Reference sheet e estado são coisas diferentes e ambas necessárias. A folha prova
+      que o rosto sobrevive aos ângulos; o estado permite regerar sem redescobrir as
+      decisões.
+    - >
+      Uma alteração pedida pelo cliente vira diff de um nó, não uma nova rodada de
+      briefing. É onde o custo de revisão cai de verdade.
+
+  forma_do_prompt_de_saida:
+    regra: 'UM parágrafo cinematográfico contínuo em inglês. Não é lista de campos.'
+    proibido_literalmente: ['Subject:', 'Lighting:', 'Camera:', 'Environment:', 'Style:']
+    ordem_interna: >
+      identidade do personagem + aparência física + roupa e acessórios + estilo visual +
+      materiais e texturas + pose/expressão + ambiente + fotografia + composição +
+      iluminação + atmosfera + qualidades de render + restrições de limpeza
+    clausula_de_limpeza: 'Quando apropriado, incorporar "clean background, no visible text or logos".'
+    entrega: 'Prompt em inglês + tradução fiel em português para conferência do operador.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PESOS DE REFERÊNCIA — o controle que quase nenhum operador ajusta, e que decide tudo
+#
+# Toda ferramenta de consistência tem pelo menos um slider. Eles não são "força da
+# referência" genérica: cada um governa um eixo diferente, e eles COMPETEM entre si.
+# Fonte: Filmboss Módulo 05 aula 06 (Krea), AI Image Creator PRO Módulo 15 aulas 4 e 5,
+#        Módulo 05 (Recraft), Módulo 04 (Visual Electric). Minerado em 2026-08-30.
+# ─────────────────────────────────────────────────────────────────────────────
+pesos_de_referencia:
+
+  principio_geral: >
+    Quando a fidelidade sobe, a obediência ao prompt cai. Não é defeito: é o mesmo
+    orçamento sendo disputado. O método é subir até a fidelidade aparecer, notar que o
+    modelo parou de trocar o fundo ou de colocar o objeto pedido, e descer até o ponto
+    em que as duas coisas coexistem. Esse ponto é do JOB, não da ferramenta.
+
+  por_ferramenta:
+
+    - ferramenta: 'Kling — Image / Reference'
+      eixos:
+        rosto: 'default 45'
+        sujeito: 'default 65 — carrega rosto, cabelo E ROUPA'
+      procedimento_medido: >
+        Subir os dois até o corte de cabelo bater com a referência (o professor chega a
+        70/80). A partir daí o modelo começa a ignorar o prompt — não troca o fundo, não
+        coloca o objeto pedido. Descer até reencontrar o equilíbrio.
+      truque_de_troca_de_roupa: >
+        Para trocar a roupa mantendo a pessoa: DESCER o peso de `sujeito` e MANTER o de
+        `rosto`. A roupa mora no sujeito; o rosto não. Foi assim que o professor
+        converteu o mesmo modelo em jogador de futebol de uniforme amarelo.
+      confianca: alta
+
+    - ferramenta: 'Krea — modelo Flux treinado + referência de estilo'
+      eixos:
+        modelo_treinado: 'força do clone; o professor opera de 0.68 a 1.0'
+        imagem_de_referencia: 'força do estilo/composição; 0.6 a 0.85'
+      lei_medida: >
+        Se a referência sobe demais, características do OUTRO personagem MIGRAM para o
+        seu. O professor demonstra ao vivo: com a referência acima do clone, a pele e os
+        olhos da imagem de referência passam a dominar.
+      caso_limite_e_a_saida_certa: >
+        Referência de gênero ou etnia diferente do sujeito MISTURA os dois. A saída NÃO é
+        baixar o peso — isso apenas apaga a referência. É CONVERTER a referência antes:
+        pedir a um LLM "troque a personagem por um homem" e usar a imagem convertida.
+        Converter a montante é mais barato que negociar peso a jusante.
+      referencia_dispensa_prompt: >
+        "Só com as duas imagens eu poderia criar, e vai fazer relativamente bem."
+        A escada de custo é: referência+referência < prompt+referência < prompt+referência
+        com ajuste fino de peso.
+      a_luz_viaja_junto: >
+        "Ele vai ficar sempre muito próximo do estilo de iluminação que eu coloquei."
+        A referência carrega a luz mesmo quando não se pediu — é a mesma propriedade que
+        faz o Style Reference do Midjourney funcionar como color grading.
+      confianca: alta
+
+    - ferramenta: 'Recraft — Fine Tune'
+      eixos:
+        similaridade: 'slider da imagem-base; direita = mais próximo, esquerda = mais livre'
+        paleta_de_cor: 'lista fechada de cores, importável de qualquer imagem'
+        composicao: '[simple, clean, dynamic, rich, excentrico] — `excentrico` muda muito e pode destruir a composição'
+      o_achado_que_vale_o_registro:
+        nome: 'a paleta é uma alavanca mais forte que o slider de similaridade'
+        o_que_aconteceu: >
+          Um estilo treinado insistia em trazer laranja que não existia na imagem-base. A
+          correção não foi baixar a similaridade nem reescrever o prompt: foi FECHAR a
+          paleta nas cores da própria imagem-base. "Fechamos a paleta e não vai ter mais
+          esse problema."
+        o_inverso_tambem_e_verdade: >
+          Forçar a paleta APROXIMA da referência mesmo com o slider de similaridade baixo:
+          "só de forçar as cores, já fica mais próximo dele".
+        consequencia_direta_no_squad: >
+          Cor de marca entra como PARÂMETRO fechado, não como adjetivo no prompt. É a rota
+          para a pendência da paleta ciano da Oraclum registrada no MEMORY: em vez de
+          discutir o adjetivo, travar a lista de cores.
+      regra_de_higiene: >
+        Quando a cor vem da paleta, RETIRAR do prompt tudo que fala de cor. Senão os dois
+        brigam e o resultado é imprevisível. O professor faz isso a cada rodada.
+      estilo_treinado_vence_prompt: >
+        "Ele não colocou o mar nem o céu, justamente para conseguir trazer o modelo
+        treinado." Estilo treinado e prompt competem, e o estilo ganha. Dosar: se o estilo
+        contradiz o cenário pedido, um dos dois tem que sair.
+      confianca: alta
+
+    - ferramenta: 'Visual Electric'
+      eixos:
+        paleta: 'até 5 cores selecionadas na interface — a 6ª substitui a 1ª'
+        exclude: 'campo negativo próprio, e ele funciona (pediu sem óculos, veio sem óculos)'
+      armadilha_de_versao: >
+        A função "variations" roda no modelo ANTERIOR (v1.5) enquanto a geração roda no
+        atual (v2.0): "quanto mais eu subo, mais a 1.5 toma conta e mais plastificada
+        fica". Regra geral: conferir em qual modelo cada função auxiliar roda. Variação
+        não é de graça se acontece num modelo pior.
+      estilo_a_partir_de_imagens_nao_e_lora: >
+        Subir imagens e "criar um estilo" no Visual Electric extrai PALAVRAS-CHAVE, não
+        aparência: "ele não vai absorver o que estamos vendo na imagem, e sim o que ele
+        compreender delas". É um extrator de vocabulário disfarçado de transferência de
+        estilo. Não confundir com o treino Flux do Krea ou do Fal.ai.
+      confianca: alta
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CONSISTÊNCIA SEM TREINAR MODELO — a rota de custo zero de GPU
+#
+# Relevante em especial para este squad, cujo limite duro é a máquina do founder.
+# Fonte: AI Image Creator PRO · Módulo 13, aulas 1 e 4 (ChatGPT). 2026-08-30.
+# ─────────────────────────────────────────────────────────────────────────────
+consistencia_por_palavra_gatilho:
+
+  o_que_e: >
+    Subir ao ChatGPT o máximo de imagens de referência que ele aceita (10) e, no mesmo
+    prompt, ATRIBUIR uma palavra-gatilho ao conjunto. A partir daí a palavra invoca o
+    personagem ou o produto, sem treinar nada.
+
+  prompt_de_registro: >
+    "Analise as imagens que estou enviando e crie o personagem baseado nelas e nas suas
+    descrições. Atribua a trigger word {PALAVRA} a esse personagem, e toda vez que eu
+    citar essa trigger word para a geração de uma imagem, lembre-se das imagens que enviei
+    como referência agora e das informações que as descrevem."
+
+  limite_duro_declarado: >
+    Com UMA foto só, o ChatGPT NÃO reproduz a mesma pessoa. A consistência depende do
+    conjunto. Se o cliente só tem uma foto, esta rota não é uma opção — é Flux Kontext.
+
+  funciona_para_produto_tambem: >
+    O mesmo método com "garrafa tuio". A palavra-gatilho passa a carregar formato, rótulo
+    e proporção do produto real.
+
+  ganho_composto: >
+    Com dois sujeitos registrados, dá para pedir os DOIS na mesma imagem — foto de grupo,
+    dois modelos vestindo a mesma peça. Isso não sai de nenhuma referência única.
+
+  onde_isso_se_encaixa_na_escada_do_squad:
+    - '1. Palavra-gatilho no ChatGPT — custo zero de GPU, consistência média, some quando a conversa some'
+    - '2. Kling Reference / Krea com pesos — sem treino, consistência boa, controle de dois eixos'
+    - '3. LoRA treinado (Krea ou Fal.ai) — consistência máxima, custo de treino, ver `model-routing.yaml`'
+  regra: >
+    Subir a escada só quando o degrau anterior reprovar num job real. O `character-lead`
+    não começa por LoRA.
+
+  fidelidade_por_ferramenta_de_edicao:
+    gpt_image: 'NÃO é fiel a personagem. "Geralmente ele não traz fielmente as características dos personagens." E leva ~1 min por imagem.'
+    flux_kontext: 'É fiel, e leva ~8 s. Terceira confirmação independente da linha divisória recriar × preservar.'
+    seedream: >
+      Mais criativo e ousado na composição, bom para animação, mantém bem o rosto da
+      referência — MAS não é a melhor opção para alterar um detalhe pequeno preservando
+      todo o resto. Ocupa a mesma casa do ChatGPT nessa divisória, não a do Kontext.
+      (Fonte: material "Minhas ferramentas de IA favoritas".)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COERÊNCIA DE SÉRIE POR TEXTO — a rota que não depende de referência de imagem
+#
+# Fonte: AI Image Creator PRO · Módulo 04, aulas 5 e 6 (Visual Electric). 2026-08-30.
+# ─────────────────────────────────────────────────────────────────────────────
+coerencia_de_serie_por_texto:
+
+  por_que_existe: >
+    As rotas de consistência acima dependem de referência de imagem ou de peso. Esta
+    depende só de disciplina de escrita, e é a mais barata das três. Serve para banco de
+    imagem de marca, ensaio, série de nicho e para o pack visual de um episódio dark.
+
+  metodo_1_prompt_mestre:
+    o_que_e: >
+      Escrever UM prompt-mestre longo e completo, gerar, e então pedir ao LLM: "mude só
+      {o personagem / o cenário / a ação} deste prompt, mantendo as características
+      originais". Cada variação nasce de uma edição cirúrgica do mesmo texto.
+    resultado_medido: 'A paleta e a atmosfera se mantiveram iguais entre todas as imagens da campanha.'
+    cuidado: 'O LLM tende a devolver o prompt traduzido para português. Exigir explicitamente que mantenha em inglês a cada rodada.'
+
+  metodo_2_prompt_sanduiche:
+    o_que_e: 'Bloco fixo de ABERTURA + miolo VARIÁVEL + bloco fixo de FECHAMENTO.'
+    exemplo_de_estrutura:
+      abertura_fixa: '"A high fashion photograph..."'
+      miolo_variavel: 'sujeito, características físicas, roupa'
+      fechamento_fixo: >
+        fundo (branco puro, contraste forte com o sujeito), iluminação (suave e difusa,
+        sombras que destacam textura e contorno), clima (elegante e moderno), composição
+        (linhas limpas, minimalismo), intenção (sessão editorial de alta-costura)
+    por_que_funciona: >
+      "Essa parte final do prompt vai ajudar muito a unificar todas as imagens em um
+      ensaio só." O que unifica não é o sujeito — é o fundo, a luz e a intenção
+      declarada, repetidos literalmente.
+    verificacao_no_fim: >
+      Com as imagens lado a lado, comparar a LUZ antes de qualquer outra coisa. No caso da
+      aula, uma das três tinha luz mais preenchida que as outras duas; a correção foi
+      dirigida ("luz suave e sombras no rosto"), não uma regeração.
+
+  onde_entra_no_squad: >
+    Estágio `stills` de P1, P3 e P6, e o pack visual de P5. É complementar ao Style
+    Reference (que unifica por imagem): quando não há referência boa, o sanduíche unifica
+    por texto.
+  confianca: alta

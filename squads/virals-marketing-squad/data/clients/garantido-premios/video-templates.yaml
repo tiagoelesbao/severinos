@@ -1,0 +1,107 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# GARANTIDO PRÊMIOS — VIDEO TEMPLATE REGISTRY
+# Primeiro cliente do vertical "sorteios" a ganhar este arquivo (2026-10-10,
+# prova de conceito da arquitetura descrita em
+# squads/virals-marketing-squad/docs/pipeline-templates-video-escala-2026-10-10.md).
+# Mesmo schema de oraclum/tiago-elesbao/virals/video-templates.yaml — só o
+# VOCABULÁRIO dos presets muda (aqui é anúncio pago, não conteúdo orgânico).
+#
+# Diferença real a registrar: os ids de hook abaixo (zoom-in/zoom-out) NÃO
+# passam pelo `resolveHook()` de src/lib/fxRegistry.ts — aquele resolver usa
+# heurística de regex pensada pro vocabulário orgânico (snap/face/whip/
+# curiosity/question/direct) e não distingue direção de zoom. O script de
+# render desta peça (scripts/render-garantido-recipe.mjs) lê o campo
+# `camera` abaixo diretamente, reaproveitando `cameraTransform`/`CAMERAS` de
+# src/lib/fxCatalog.ts — o catálogo real de câmera, não o resolver de preset
+# orgânico. Registrado aqui mesmo assim porque o objetivo deste arquivo é
+# documentar o PRESET disponível pro cliente, não só o que o resolver
+# genérico já sabe mapear.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "garantido-premios"
+  vertical: "sorteios"
+  last_updated: "2026-10-10"
+  status: "active"
+  palette_ref: "apps/video-studio/src/remotion/clients/garantido/palette.ts (verde #097f23 + dourado #e3a73e do banner)"
+
+# ── Packs de HOOK (0–3s) — eixo de câmera no take real, independente de copy ─
+hook_packs:
+  - id: garantido-hook-zoom-in
+    label: "Zoom In no Take"
+    device: zoom-in
+    camera: zoom-in
+    description: "Câmera aproxima lentamente ao longo do take real (CAMERAS.zoom-in, src/lib/fxCatalog.ts) — aproxima o espectador da cena."
+    best_for_hook_types: [prova social, emoção genuína]
+  - id: garantido-hook-zoom-out
+    label: "Zoom Out no Take"
+    device: zoom-out
+    camera: zoom-out
+    description: "Câmera começa ampliada e assenta (CAMERAS.zoom-out) — revela mais contexto da cena ao longo do take."
+    best_for_hook_types: [prova social, emoção genuína]
+  - id: garantido-hook-parada
+    label: "Câmera Parada (controle)"
+    device: hard-cut
+    camera: parada
+    description: "Sem movimento de câmera — baseline de controle pra comparar contra os 2 hooks de zoom."
+    best_for_hook_types: [controle A/B]
+  - id: garantido-hook-deriva
+    label: "Deriva Suave"
+    device: deriva
+    camera: deriva
+    description: "Flutuação lenta e contínua (CAMERAS.deriva) — sem direção definida de zoom/pan, textura orgânica de câmera na mão parada. Mais sutil que zoom, menos estático que parada."
+    best_for_hook_types: [ambiente, clima]
+  - id: garantido-hook-handheld
+    label: "Mão (Handheld)"
+    device: handheld
+    camera: handheld
+    description: "Tremor de mão na câmera (CAMERAS.handheld) — textura crua, menos produzida, reforça autenticidade do take real."
+    best_for_hook_types: [prova social, autenticidade]
+
+# ── Estilos de LEGENDA / headline cinética ──────────────────────────────────
+caption_styles:
+  - id: garantido-cap-word-stagger
+    label: "Headline Word Stagger"
+    style: word-by-word
+    color: "#ffffff"
+    description: "Entrada palavra-a-palavra com última frase em destaque (fundo verde) — componente Headline de GarantidoAds.tsx, já maduro, candidato a extração pro catálogo compartilhado."
+
+# ── Packs de TRANSIÇÃO (take real → bloco do celular) ───────────────────────
+transition_packs:
+  - id: garantido-trans-abraco
+    label: "Abraço"
+    type: bloom-mint
+    description: "Bloom verde-menta contido no centro do quadro, pico na metade da transição (TransicaoAbraco, GarantidoTransicoes.tsx) — usado no take1 (abraço prolongado)."
+  - id: garantido-trans-chegada
+    label: "Chegada"
+    type: slide-up-sweep
+    description: "Conteúdo sobe de leve + varrido de luz diagonal único (TransicaoChegada) — usado no take2 (expectativa → chegada)."
+  - id: garantido-trans-combinado
+    label: "Combinado"
+    type: iris-reveal
+    description: "Íris radial de borda macia + anel único que expande e esmaece (TransicaoCombinado) — usado no take3 (gesto de combinado)."
+
+# ── Presets de MOTION GRAPHICS ──────────────────────────────────────────────
+motion_presets:
+  - id: garantido-motion-phone-mockup
+    label: "Phone Mockup 3D + Print Real"
+    kind: phone-mockup
+    description: "Mockup 3D (PhoneMockup.tsx) com a tela real da LP v2 (tela-app-garantido.png, object-fit:cover) dentro — não mais a recriação React da UI."
+  - id: garantido-motion-cta-pill
+    label: "CTA Pill com Pulso"
+    kind: lower-third
+    description: "Botão CTA com entrada em overshoot contido + pulso lento de affordance (CtaButton)."
+
+# ── Recomendação por tipo de hook (scoring_match) ───────────────────────────
+scoring_match:
+  hook:
+    from_prova_social: [garantido-hook-zoom-in, garantido-hook-zoom-out, garantido-hook-handheld]
+    from_controle: [garantido-hook-parada]
+    from_ambiente: [garantido-hook-deriva]
+  caption:
+    default: [garantido-cap-word-stagger]
+  transition:
+    default: [garantido-trans-abraco, garantido-trans-chegada, garantido-trans-combinado]
+  motion:
+    default: [garantido-motion-phone-mockup, garantido-motion-cta-pill]

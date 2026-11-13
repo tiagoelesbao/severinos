@@ -1,0 +1,73 @@
+niche:
+  id: cartomante
+  label: Cartomante / Místico
+  icon: '🔮'
+  language: pt-BR
+  description: >
+    Conteúdo místico: leitura de cartas, signos, mensagens do universo,
+    "escolha uma carta", energias da semana. Formato dominante: plano fechado
+    de mesa com cartas + narração calma + texto na tela + música ambiente.
+  why_farming: >
+    Engajamento por identificação e comentário ("caiu certinho"). Plano fechado
+    e estático — o custo de produção é praticamente zero e o parallax lento
+    entrega exatamente a estética do nicho.
+
+discovery:
+  platform: tiktok
+  hashtags:
+    - tarot
+    - cartomante
+    - signos
+    - astrologia
+    - escolhaumacarta
+    - mensagemdouniverso
+    - baralhocigano
+    - horoscopo
+    - energias
+    - espiritualidade
+    - oraculo
+  anchor_profiles: []
+  lookback_hours: 48
+  items_per_hashtag: 20
+
+cutoff:
+  min_viral_score: 6000
+  min_views: 60000
+  min_engagement_rate: 0.05
+  max_age_hours: 72
+
+modeling:
+  visual_style: >
+    Plano fechado cenital ou levemente inclinado de mesa com toalha escura,
+    cartas viradas, velas, cristais, fumaça sutil. Luz lateral quente e baixa,
+    vinheta forte, paleta roxo/dourado/âmbar. Estética íntima e ritual.
+  avoid_in_prompt:
+    - rosto humano identificável
+    - símbolo religioso específico misturado ao místico
+    - texto renderizado dentro da imagem
+  audio_treatment: >
+    Preserva a narração original quando existir (o ritmo de fala é o gatilho de
+    retenção do nicho). Música ambiente entra como leito no video-studio.
+  caption_style: elegant-serif-gold
+  typical_takes: 3
+  prefer_generated_motion: false
+
+# ⚠️ Nicho com risco de moderação e de dano ao espectador. Gate bloqueante.
+guardrails:
+  policy_risk: high
+  rules:
+    - 'PROIBIDO prever morte, doença, gravidez, diagnóstico ou desfecho de saúde.'
+    - 'PROIBIDO prometer resultado financeiro, retorno amoroso ou evento garantido.'
+    - 'PROIBIDO oferecer consulta paga, amarração, trabalho espiritual ou serviço.'
+    - 'PROIBIDO direcionar a mensagem a pessoa identificável.'
+    - 'OBRIGATÓRIO enquadrar como entretenimento — a mensagem é aberta, nunca determinista.'
+  required_framing: 'Conteúdo de entretenimento. Não substitui orientação profissional.'
+  blocked_terms:
+    - amarração
+    - trabalho espiritual
+    - garanto que
+    - vai voltar
+    - vai acontecer em
+    - consulta no direct
+    - chame no whats
+  gate: 'Violação de qualquer regra reprova o criativo em creative-export-checklist.md.'

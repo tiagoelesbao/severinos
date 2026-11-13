@@ -1,0 +1,149 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — STORYBOARD PLANO-A-PLANO
+# Onde vive:  {job}/06-decupagem/storyboard.yaml
+# Quem preenche: @film-director
+# Validado por:  checklists/gate-decupagem.md
+#
+# COMPATIBILIDADE (obrigatória): os campos de `planos[]` marcados com [compat] têm os
+# MESMOS nomes de `content_plan.storyboard[]` do `video-brief.yaml` já usado no
+# repositório (ver outputs/oraclum/video-plans/*/video-brief.yaml), para que o plano
+# gerado pelo pipeline de vídeo existente seja consumível aqui sem tradução, e para que
+# `apps/video-studio` monte a timeline a partir deste arquivo.
+# Os campos SEM [compat] são extensões deste squad (rastreio de asset e executor).
+#
+# REGRA DE OURO: cada plano que precisa de asset gerado aponta um `asset_id`, e esse
+# asset é gerado por HUMANO a partir de um Pacote de Direção. O storyboard não gera nada.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  schema_version: "1.0"
+  job_id: "<job-id>"
+  pipeline_id: "<brand-film | ugc-ads | nicho-series | oraclum-institucional | dark-room>"
+  criado_em: "<YYYY-MM-DD HH:MM>"
+  criado_por: "@film-director"
+  fontes:
+    script: "{job}/05-script/script.md"
+    look_book: "{job}/07-look/look-book.md"
+    art_spec: "{job}/08-design/art-spec.yaml"
+
+# ── Cabeçalho da peça ────────────────────────────────────────────────────────
+peca:
+  tema: "<tema central da peça>"                      # [compat] content_plan.tema
+  format_concept: "<tutorial | narrativo | demo | sketch | depoimento | vitrine>"  # [compat]
+  duracao_alvo_s: <n>
+  duracao_somada_s: <n>                                # soma de planos[].duration_s — gate-decupagem DC-03
+  aspect: "<9:16 | 1:1 | 16:9>"
+
+# ── Hook (3 variantes quando o gênero exige teste) ──────────────────────────
+hook:                                                  # [compat] content_plan.hook
+  variants:
+    - pattern_interrupt: "<dispositivo visual/sonoro que quebra o padrão>"
+      text_overlay: "<máx. 7 palavras>"                # V1 do quality_gate_video
+      spoken_open: "<primeira fala>"
+    - pattern_interrupt: "<...>"
+      text_overlay: "<...>"
+      spoken_open: "<...>"
+    - pattern_interrupt: "<...>"
+      text_overlay: "<...>"
+      spoken_open: "<...>"
+
+# ── Planos ───────────────────────────────────────────────────────────────────
+# Um item por plano. gate-decupagem DC-02: cada plano = exatamente um asset a gerar,
+# ou um asset reusado, ou uma captura real. Nunca ambíguo.
+planos:
+  - plano_id: "p01"                                    # extensão: chave estável do plano
+    beat_n: 1                                          # [compat]
+    scene: "<o que acontece — ação, não adjetivo>"     # [compat]
+    shot_type: "<talking_head | insert | broll | screen_capture | graphic | close | médio | geral>"  # [compat]
+    duration_s: 6                                      # [compat]
+    on_screen_text: "<texto em tela, ou null>"         # [compat]
+    broll: "<descrição do b-roll, ou null>"            # [compat]
+    motion: "<cut | zoom-in | whip | push-in | parallax | none>"  # [compat]
+
+    # ── Extensões do squad ──────────────────────────────────────────────────
+    origem: "<gerar | reuso | captura_real>"
+    asset_id: "<asset-id | null>"                      # null só quando origem=reuso/captura_real
+    asset_ref: "<caminho do asset reusado | null>"
+    executor: "<human | worker | agent>"               # geração de still/take é SEMPRE human
+    fala_ancora: "<trecho do roteiro que este plano cobre>"
+    personagem: "<character-id do registry | null>"
+    look_ref: "<bloco do look-book que rege este plano>"
+    justificativa_do_corte: "<por que corta aqui — alimenta a assembly-spec>"
+    prova: false                                       # true = captura real de sistema (P4)
+
+  - plano_id: "p02"
+    beat_n: 2
+    scene: "<...>"
+    shot_type: "<...>"
+    duration_s: 4
+    on_screen_text: null
+    broll: "<...>"
+    motion: "<...>"
+    origem: "gerar"
+    asset_id: "<asset-id>"
+    asset_ref: null
+    executor: "human"
+    fala_ancora: "<...>"
+    personagem: null
+    look_ref: "<...>"
+    justificativa_do_corte: "<...>"
+    prova: false
+
+# ── Especificação de edição ──────────────────────────────────────────────────
+# [compat] content_plan.edit_spec — consumido pelo apps/video-studio e pela assembly-spec.
+# gate-decupagem DC-06: toda instrução precisa de timecode ou âncora de fala.
+edit_spec:
+  zooms:
+    - "<ao dizer 'X' — push-in lento no produto>"
+  transitions:
+    - "<whip transition @ 00:20>"
+    - "<cut @ 00:31>"
+  inserts:
+    - "<screen capture do workflow @ 00:20>"
+  captions: "<estilo: fonte, cor, posição, tratamento>"
+  motion_graphics:
+    - "<lower-third entrando @ 00:06, saindo @ 00:09>"
+  template_refs:                                       # [compat] presets do registry do cliente
+    hook: "<preset-id>"
+    caption: "<preset-id>"
+    transition: "<preset-id>"
+    motion: "<preset-id>"
+
+# ── Curva de ritmo (alimenta D3 da rubrica e o V2 do gate automático) ───────
+pacing:
+  cadencia_alvo_s: <n>                                  # duração média de plano pretendida
+  cadencia_real_s: <n>                                  # calculada — gate-decupagem DC-08
+  curva:
+    - janela: "00-06s"
+      densidade: "<altíssima | alta | média | baixa>"
+      funcao: "<hook | build | prova | virada | cta>"
+
+# ── Sound design (direção; a geração de voz é humana) ───────────────────────
+sound_design:                                           # [compat] content_plan.sound_design
+  sfx:
+    - moment: "<hook | beat_n:3 | @ 00:42>"
+      category: "<impact | whoosh | click | notification>"
+      intent: "<o que esse som faz pela cena>"
+      intensity: "<subtle | medium | strong>"
+  music:
+    recommended: true
+    mood: "<...>"
+    energy: "<low | medium | high>"
+    ducking: true
+    rationale: "<por que esta trilha serve ao arquétipo da marca>"
+  respiros:
+    - "<ponto de silêncio deliberado e por quê>"
+
+# ── Fechamento ───────────────────────────────────────────────────────────────
+cta:
+  acao_unica: "<a ÚNICA ação pedida>"
+  onde_aparece: "<timecode>"
+  formato: "<falado + em tela>"
+  tempo_em_tela_s: <n>
+
+# ── Contagens de controle (conferidas pelo gate-decupagem) ──────────────────
+controle:
+  total_planos: <n>
+  assets_a_gerar: <n>
+  planos_captura_real: <n>
+  planos_reuso: <n>

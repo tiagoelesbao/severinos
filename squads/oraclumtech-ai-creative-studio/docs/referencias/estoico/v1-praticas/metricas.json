@@ -1,0 +1,59 @@
+{
+ "duracao_s": 2055.6,
+ "duracao": "34m15s",
+ "palavras": 4368,
+ "wpm_medio": 127.5,
+ "segmentos": 526,
+ "pausas_acima_de_250ms": 2,
+ "pausa_mediana_s": 1.0,
+ "pausas_mais_longas": [
+  {
+   "em": 1299.6,
+   "duracao": 1.0
+  },
+  {
+   "em": 1885.6,
+   "duracao": 1.0
+  }
+ ],
+ "wpm_por_bloco_de_5min": [
+  {
+   "de": 0,
+   "ate": 300,
+   "wpm": 127.2
+  },
+  {
+   "de": 300,
+   "ate": 600,
+   "wpm": 128.8
+  },
+  {
+   "de": 600,
+   "ate": 900,
+   "wpm": 126.4
+  },
+  {
+   "de": 900,
+   "ate": 1200,
+   "wpm": 123.0
+  },
+  {
+   "de": 1200,
+   "ate": 1500,
+   "wpm": 130.6
+  },
+  {
+   "de": 1500,
+   "ate": 1800,
+   "wpm": 125.2
+  },
+  {
+   "de": 1800,
+   "ate": 2055,
+   "wpm": 131.9
+  }
+ ],
+ "arquivo": "10 PRÁTICAS ESTOICAS PARA COLOCAR SUA VIDA NOS EIXOS ｜ LIÇÕES DE ESTOICISMO 🏛.mp4",
+ "nota": "Ja modelado em data/dark-estoicismo-playbook.yaml (34m16s). A transcricao completa faltava — o playbook foi feito por amostragem.",
+ "modelo_whisper": "small"
+}

@@ -1,0 +1,896 @@
+# WF-OCS-P3 — Nicho Series / Sketch, sátira e microdrama de bolha
+# Único pipeline com `story`. Único com continuidade ENTRE jobs.
+# Fonte: _BLUEPRINT.md §5 (P3) · Regra de ouro §3.1 · Pacote de Direção §3.2
+#        Finalização §3.3 · Convenções normativas: _CONVENTIONS.md
+# Perfil espelhado: data/pipeline-profiles.yaml → P3
+
+workflow:
+  id: wf-nicho-series
+  pipeline_id: nicho-series
+  name: 'Nicho Series — sketch, sátira e microdrama de bolha'
+  version: 1.0.0
+  squad: oraclumtech-ai-creative-studio
+  entry_agent: studio-chief
+  job_owner: exec-producer
+  genre_ref: 'data/genre-catalog.yaml#nicho-series'
+  profile_ref: 'data/pipeline-profiles.yaml#P3'
+  handoff_contracts: 'data/handoff-matrix.yaml'
+  formato_master: '9:16'
+  unidade: 'episódio dentro de uma temporada'
+  description: >
+    O pipeline de retenção. Sem dop: em sketch de bolha a fotografia autoral atrapalha —
+    o código é câmera invisível e a piada mora no corte. Tem `story` porque personagem
+    e arco precisam existir antes do roteiro, e tem continuidade entre jobs porque
+    episódio não é peça isolada: é capítulo.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# A SÉRIE — a entidade acima do job
+# ═══════════════════════════════════════════════════════════════════════════════
+serie:
+  problema: >
+    Todos os outros pipelines produzem peças independentes: o job nasce, entrega e
+    morre. Aqui não. O episódio 7 precisa do mesmo personagem, do mesmo cenário, da
+    mesma voz e do mesmo arco do episódio 1. Se a bíblia viver dentro do job, cada
+    episódio recomeça do zero e a série vira uma sequência de peças parecidas.
+  solucao: >
+    Existe um REGISTRO DE SÉRIE persistente, fora e acima do job. O job de episódio
+    lê o registro no início e escreve de volta no fim. A bíblia é da série; o arco do
+    episódio é do job.
+  registro:
+    raiz: 'workspaces/businesses/oraclum/creative-studio/series/{serie-id}/'
+    arquivos:
+      series.yaml: 'Identidade da série: título, bolha, formato, temporada vigente, status.'
+      biblia.yaml: 'Bíblia canônica — elenco fixo, tiques, regras do mundo, léxico, tabus.'
+      characters/: 'Character sheets CANÔNICOS por personagem, versionados. Fonte de verdade da aparência.'
+      episodes.json: 'Índice: por episódio, job-id, status, sinopse, gancho emitido, data.'
+      continuity-log.md: 'Diário de continuidade — o que foi estabelecido como canon em cada episódio.'
+      lexico-da-bolha.md: 'Jargão acumulado da bolha. Cresce a cada research; não se recoleta do zero.'
+  tipos_de_job:
+    piloto:
+      quando: 'A série não existe ainda, ou a temporada é nova.'
+      cria: 'O registro inteiro. É o job que ESCREVE series.yaml, biblia.yaml e os sheets canônicos.'
+      checkpoints_extras: [cp-territorio, cp-biblia, cp-elenco]
+      gate_extra: 'Piloto reprovado bloqueia a temporada inteira. Nenhum episódio abre antes do piloto passar.'
+    episodio:
+      quando: 'Existe registro de série com temporada vigente.'
+      herda: [biblia.yaml, characters/, lexico-da-bolha.md, continuity-log.md]
+      pula: 'O checkpoint de território (cp-territorio) — o território já foi aprovado no piloto.'
+      escreve_de_volta: 'Só o que o gate aprovou. Ver write_back abaixo.'
+      gate_extra: 'Episódio reprovado bloqueia só a si mesmo. A temporada segue.'
+  resolucao_do_tipo:
+    onde: 'tasks/intake.md, a partir de series.yaml existir e ter temporada vigente'
+    regra: >
+      Pedido de episódio para série sem registro é RECLASSIFICADO como piloto.
+      Episódio sem bíblia produz personagem diferente a cada semana — é o modo de
+      falha número um do gênero.
+  write_back:
+    quando: 'No estágio delivery, depois do gate PASS ou CONCERNS aceito.'
+    executor: agent
+    owner: exec-producer
+    atualiza:
+      - 'series/{serie-id}/biblia.yaml — canon novo estabelecido no episódio'
+      - 'series/{serie-id}/characters/ — sheet aprovado vira a nova versão canônica'
+      - 'series/{serie-id}/episodes.json — entrada do episódio com job-id e gancho'
+      - 'series/{serie-id}/continuity-log.md — o que virou canon e por quê'
+      - 'series/{serie-id}/lexico-da-bolha.md — jargão novo coletado no research'
+    regra_de_ouro_do_registro: >
+      NADA entra no registro sem gate PASS. Um sheet reprovado que vaza para
+      characters/ contamina todos os episódios seguintes — a deriva se acumula.
+  lock:
+    arquivo: 'series/{serie-id}/.lock'
+    regra: >
+      Um job por vez pode escrever no registro de uma série. Dois episódios em produção
+      paralela leem o mesmo canon, mas só um escreve de volta por vez; o segundo relê
+      antes de escrever. Sem isso, dois episódios divergem a bíblia em silêncio.
+  derivacao_de_sheet:
+    regra: >
+      Personagem que derivou desde o último episódio é REGERADO A PARTIR DO SHEET
+      ORIGINAL em characters/, nunca a partir do último frame usado. Regerar a partir
+      do último frame acumula a deriva geração após geração até o personagem virar
+      outra pessoa por volta do episódio 5.
+
+golden_rule:
+  ref: '_BLUEPRINT.md §3.1 · _CONVENTIONS.md §6'
+  statement: >
+    O squad NÃO gera imagem, vídeo nem voz. Os estágios stills e takes são
+    executor human, sempre. A geração de voz dentro de audio também.
+  three_phase_shape: >
+    direction (agent, escreve o Pacote de Direção) → human (human, gera e deposita;
+    o pipeline PARA aqui) → review (agent, drift-check e retake dirigido, teto 3).
+
+inputs:
+  request:
+    type: text
+    required: true
+    description: 'Pedido: nova temporada, novo episódio, ou piloto.'
+  serie_id:
+    type: slug
+    required: false
+    description: 'Série existente. Vazio = piloto, cria o registro.'
+  client:
+    type: slug
+    required: true
+    default: oraclum
+  episodio:
+    type: number
+    required: false
+    description: 'Número do episódio na temporada. Vazio em piloto.'
+  bolha:
+    type: text
+    required: false
+    description: 'Nicho/bolha. Obrigatório em piloto; herdado de series.yaml em episódio.'
+  duration:
+    type: enum
+    values: ['30s', '45s', '60s', '90s']
+    default: '60s'
+  operator:
+    type: text
+    required: false
+    description: 'Quem executa os cards humanos de geração. Vazio = founder.'
+
+config:
+  job: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+  serie: 'workspaces/businesses/oraclum/creative-studio/series/{serie-id}'
+  job_id_format: '{YYYY-MM-DD}-nicho-series-{serie-id}-ep{NN}-{hash4}'
+  job_state: '{job}/job.json'
+  card_dir: '{job}/_cards/'
+  degraded_registry: '{job}/job.json → degraded[]'
+  waiver_registry: '{job}/job.json → waivers[]'
+  fail_fast: false
+  retake_ceiling: 3
+  retake_ceiling_note: >
+    Ao estourar, escala para studio-chief — o problema provavelmente está no
+    character-bible ou no sheet canônico, não no prompt.
+
+gate_rule:
+  statement: 'Nenhum estágio começa sem o gate do anterior ter passado.'
+  enforcement: 'exec-producer valida job.json → stages[<anterior>].gate == PASS'
+  waiver:
+    allowed: true
+    except: [factcheck]
+    requires: [gate, motivo, autor, data]
+    recorded_in: '{job}/job.json → waivers[]'
+  blocking_stage: factcheck
+  blocking_note: >
+    factcheck é BLOQUEANTE e não admite waiver. Em sátira o risco não é número
+    inventado: é pessoa ou marca real identificável sem autorização, e isso é jurídico.
+
+human_checkpoints:
+  - after: concept
+    id: cp-territorio
+    who: founder
+    only_when: 'job_type == piloto'
+    question: 'Qual rota vira a série? O território está afiado o bastante?'
+    rationale: 'Piada fraca não se conserta na produção. Em episódio de temporada aprovada o território é herdado e este checkpoint cai.'
+    blocking: true
+    presents: ['{job}/03-concept/rotas.md', '{job}/03-concept/territorio-criativo.md']
+  - after: story
+    id: cp-biblia
+    who: founder
+    only_when: 'job_type == piloto'
+    question: 'Bíblia e arco da temporada aprovados? Isso é o canon que vai reger todos os episódios.'
+    rationale: 'Depois daqui a bíblia vira lei para a temporada inteira. Corrigir no ep 4 custa a coerência dos 3 anteriores.'
+    blocking: true
+    presents: ['{job}/04-story/biblia.yaml', '{job}/04-story/arco-temporada.md']
+  - after: character
+    id: cp-elenco
+    who: founder
+    only_when: 'job_type == piloto OR personagem novo no episódio'
+    question: 'Os sheets do elenco estão aprovados para virar canon em series/{serie-id}/characters/?'
+    rationale: 'Sheet aprovado é o que todos os episódios seguintes vão reproduzir. Erro aqui se acumula.'
+    blocking: true
+  - after: 'stills.human'
+    id: cp-stills
+    who: operator
+    type: execucao_humana
+    question: 'Stills gerados conforme o Pacote de Direção e depositados em 11-stills/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória.'
+    blocking: true
+    card: '{job}/_cards/card-stills-{n}.md'
+  - after: 'takes.human'
+    id: cp-takes
+    who: operator
+    type: execucao_humana
+    question: 'Takes gerados e depositados em 12-takes/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória.'
+    blocking: true
+    card: '{job}/_cards/card-takes-{n}.md'
+  - after: 'audio.human'
+    id: cp-audio
+    who: operator
+    type: execucao_humana
+    question: 'Vozes dos personagens geradas e depositadas em 13-audio/entregues/?'
+    rationale: 'Regra de ouro §3.1. A voz é parte da bíblia — trocar a voz quebra o personagem.'
+    blocking: true
+    card: '{job}/_cards/card-audio-{n}.md'
+  - after: 'assembly.human'
+    id: cp-montagem
+    who: operator
+    type: execucao_humana
+    question: 'Cartelas e tag final montadas no After Effects e corte fechado no Premiere?'
+    rationale: 'Finalização §3.3. Em sketch o timing da piada mora no corte — é trabalho humano.'
+    blocking: true
+    card: '{job}/_cards/card-montagem.md'
+  - after: gate
+    id: cp-entrega
+    who: founder
+    question: 'Veredito lido. Libera a entrega e a promoção do canon para o registro da série?'
+    blocking: true
+
+stages:
+
+  - id: intake
+    name: 'Intake, resolução de série e tipo de job'
+    owner_agent: studio-chief
+    task: tasks/intake.md
+    executor: agent
+    handon:
+      from: request
+      artifacts: ['(pedido: nova temporada, novo episódio, ou piloto)']
+      contract: 'Declarado se é piloto (bíblia nova) ou episódio (bíblia existente)'
+    resolves:
+      job_type: 'piloto | episodio — a partir de series/{serie-id}/series.yaml existir com temporada vigente'
+      serie_lock: 'adquire series/{serie-id}/.lock quando job_type == episodio'
+    handoff:
+      to: brief
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - '{job}/job.json'
+      gate: checklists/gate-intake.md
+    fallback: >
+      Pedido de episódio sem bíblia existente → o job é RECLASSIFICADO como piloto.
+      Episódio sem bíblia produz personagem diferente a cada semana.
+    on_fail: halt
+
+  - id: brief
+    name: 'Brief da bolha e trava de marca'
+    owner_agent: brief-strategist
+    task: tasks/brief.md
+    executor: agent
+    depends_on: [intake]
+    handon:
+      from: intake
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - '{serie}/series.yaml (quando episódio)'
+      contract: 'Nicho/bolha declarado e página de destino identificada'
+    handoff:
+      to: research
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{job}/01-brief/brand-lock.yaml'
+      gate: checklists/gate-brief.md
+    fallback: >
+      Bolha mal definida → o brief-strategist estreita o recorte até caber em uma frase
+      que só quem é da bolha entende. Bolha ampla demais mata a série.
+    on_fail: halt
+
+  - id: research
+    name: 'Léxico da bolha e referência'
+    owner_agent: research-scout
+    task: tasks/research.md
+    executor: worker
+    executor_notes: 'ETL sobre criativos da bolha; a curadoria do jargão e das dores é do owner_agent.'
+    depends_on: [brief]
+    command: |
+      node squads/virals-marketing-squad/scripts/run-creative-benchmark.js --date={date} --top={top} --platforms=instagram,tiktok
+      python squads/virals-marketing-squad/scripts/vision_video_benchmark.py {benchmark_dir}/video-brief.yaml --max-frames=8
+    command_note: >
+      O ETL entrega os criativos da bolha com transcrição e frames. O que importa aqui
+      não é o criativo: é o JARGÃO. A curadoria do léxico é do research-scout.
+    handon:
+      from: brief
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{serie}/lexico-da-bolha.md (quando episódio — o léxico acumula, não recomeça)'
+      contract: 'Nicho definido com hashtags/perfis de entrada'
+    handoff:
+      to: concept
+      artifacts:
+        - '{job}/02-research/dossie-referencia.md'
+        - '{job}/02-research/lexico-da-bolha.md'
+        - '{job}/02-research/nao-copiar.md'
+      gate: checklists/gate-research.md
+    fallback: >
+      Captura da rede bloqueada → o research-scout monta o léxico a partir de
+      comentários já coletados e marca a amostra como parcial.
+    on_fail: continue_and_report
+
+  - id: concept
+    name: 'Rotas e território criativo'
+    owner_agent: creative-director
+    task: tasks/concept.md
+    executor: agent
+    depends_on: [research]
+    skip_when: 'job_type == episodio AND território da temporada vigente'
+    skip_note: 'Em episódio de temporada aprovada o território é herdado de series.yaml. O estágio roda em modo leitura e confirma a herança em job.json.'
+    handon:
+      from: research
+      artifacts:
+        - '{job}/02-research/lexico-da-bolha.md'
+        - '{job}/01-brief/brief.yaml'
+      contract: 'Léxico e dores da bolha mapeados'
+    handoff:
+      to: story
+      artifacts:
+        - '{job}/03-concept/rotas.md'
+        - '{job}/03-concept/territorio-criativo.md'
+      gate: checklists/gate-concept.md
+    checkpoint: cp-territorio
+    fallback: 'Nenhuma rota é engraçada ou afiada o bastante → volta ao research. Piada fraca não se conserta na produção.'
+    on_fail: halt
+
+  - id: story
+    name: 'Bíblia, arco e gancho'
+    owner_agent: showrunner
+    task: tasks/story.md
+    executor: agent
+    depends_on: [concept]
+    mode_by_job_type:
+      piloto: 'ESCREVE a bíblia do zero: elenco, tiques, regras do mundo, tabus, arco da temporada.'
+      episodio: 'HERDA {serie}/biblia.yaml e escreve apenas o arco do episódio e o gancho do próximo. A bíblia só muda por canon novo, declarado.'
+    handon:
+      from: concept
+      artifacts:
+        - '{job}/03-concept/territorio-criativo.md'
+        - '{serie}/biblia.yaml (quando episódio)'
+        - '{serie}/continuity-log.md (quando episódio)'
+      contract: 'Território aprovado ou bíblia vigente'
+    handoff:
+      to: script
+      artifacts:
+        - '{job}/04-story/biblia.yaml'
+        - '{job}/04-story/arco-temporada.md'
+        - '{job}/04-story/arco-episodio.md'
+        - '{job}/04-story/gancho-proximo-ep.md'
+        - '{job}/04-story/canon-novo.md'
+      gate: checklists/gate-story.md
+    canon_note: >
+      canon-novo.md lista o que ESTE episódio estabelece como verdade permanente da
+      série. É o único insumo do write_back para biblia.yaml e continuity-log.md.
+      Sem esse arquivo, o registro não é atualizado — o silêncio não vira canon.
+    checkpoint: cp-biblia
+    fallback: >
+      Arco não fecha em 6 episódios → o showrunner reduz a temporada em vez de esticar
+      o conflito. Temporada esticada perde retenção no episódio 3.
+    on_fail: halt
+
+  - id: script
+    name: 'Roteiro do episódio'
+    owner_agent: head-of-copy
+    task: tasks/script.md
+    executor: agent
+    depends_on: [story]
+    handon:
+      from: story
+      artifacts:
+        - '{job}/04-story/biblia.yaml'
+        - '{job}/04-story/arco-episodio.md'
+        - '{job}/02-research/lexico-da-bolha.md'
+      contract: 'Bíblia com personagem, tique e conflito do episódio'
+    handoff:
+      to: decupagem
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/05-script/claim-ledger.json'
+      gate: checklists/gate-script.md
+    fallback: 'Fala fora do jargão da bolha → reescreve com o léxico. Sátira que explica a piada não é sátira.'
+    on_fail: halt
+
+  - id: decupagem
+    name: 'Storyboard e edit_spec'
+    owner_agent: film-director
+    task: tasks/decupagem.md
+    executor: agent
+    worker_assist: 'python squads/virals-marketing-squad/scripts/plan_video_creative.py {job}/05-script/video-brief.yaml --client={client}'
+    worker_assist_note: >
+      O motor devolve hook, storyboard por batida, shotlist e sound_design dentro do
+      próprio video-brief.yaml. Em sketch o film-director reescreve boa parte: o motor
+      não sabe onde está a piada. Ponto de partida, não veredito.
+    depends_on: [script]
+    handon:
+      from: script
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/04-story/biblia.yaml'
+      contract: 'Roteiro aprovado'
+    handoff:
+      to: design
+      artifacts:
+        - '{job}/06-decupagem/storyboard.yaml'
+        - '{job}/06-decupagem/edit-spec.json'
+      gate: checklists/gate-decupagem.md
+    fallback: >
+      Piada depende de um plano impossível de gerar → o film-director move a piada para
+      o corte ou para a fala. O timing é recuperável; o plano nem sempre.
+    on_fail: continue_and_report
+
+  - id: design
+    name: 'Cenário, props e continuidade visual'
+    owner_agent: art-director
+    task: tasks/design.md
+    executor: agent
+    depends_on: [decupagem]
+    handon:
+      from: decupagem
+      artifacts:
+        - '{job}/06-decupagem/storyboard.yaml'
+        - '{job}/04-story/biblia.yaml'
+        - '{serie}/continuity-log.md (quando episódio)'
+      contract: 'Storyboard + cenário e props definidos na bíblia'
+    handoff:
+      to: character
+      artifacts:
+        - '{job}/08-design/art-spec.yaml'
+        - '{job}/08-design/continuidade.md'
+      gate: checklists/gate-design.md
+    fallback: >
+      Cenário do episódio anterior irreprodutível → o art-director fixa 3 âncoras
+      visuais mínimas (cor de parede, um prop, o wardrobe) e aceita variação no resto.
+    on_fail: continue_and_report
+
+  - id: character
+    name: 'Elenco, sheets e consistência entre episódios'
+    owner_agent: character-lead
+    task: tasks/character.md
+    executor: agent
+    depends_on: [design]
+    handon:
+      from: design
+      artifacts:
+        - '{job}/04-story/biblia.yaml'
+        - '{job}/08-design/art-spec.yaml'
+        - '{serie}/characters/ (sheets canônicos de episódios anteriores)'
+      contract: 'Bíblia com elenco fixo; sheets canônicos quando houver'
+    handoff:
+      to: stills
+      artifacts:
+        - '{job}/09-character/character-bible.yaml'
+        - '{job}/09-character/_direction/'
+        - '{job}/09-character/sheets/'
+      gate: checklists/gate-character.md
+    checkpoint: cp-elenco
+    fallback: >
+      Personagem derivou desde o último episódio → REGERA o sheet a partir do sheet
+      ORIGINAL em {serie}/characters/, nunca a partir do último frame usado. A deriva
+      se acumula geração após geração.
+    on_fail: halt
+
+  - id: stills
+    name: 'Stills — direção, geração humana e avaliação'
+    owner_agent: image-lead
+    task: tasks/stills.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 / _CONVENTIONS.md §6. Decisão de negócio, não falta de script.'
+    depends_on: [character]
+    subroutine:
+      workflow: wf-image-lab.yaml
+      mode: embutido
+      quando: 'A capa do episódio é sempre uma chamada de sub-rotina do P6.'
+      grava_em: '{job}/11-stills/subrotina-capa-ep{NN}/'
+    handon:
+      from: character
+      artifacts:
+        - '{job}/09-character/sheets/'
+        - '{job}/06-decupagem/storyboard.yaml'
+        - '{job}/08-design/art-spec.yaml'
+      contract: 'Sheets aprovados + storyboard fechado'
+    substages:
+      - id: stills.direction
+        executor: agent
+        owner_agent: image-lead
+        name: 'Pacote de Direção por still'
+        produces:
+          - '{job}/11-stills/_direction/{asset-id}.yaml'
+          - '{job}/11-stills/_direction/INDEX.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        must_include: [ferramenta_recomendada, prompt, prompt_negativo, parametros, tecnica, armadilhas_conhecidas, criterio_de_aceite, quantas_variacoes, pos_processamento, se_falhar]
+        routing_ref: 'data/model-routing.yaml#image'
+        identity_lock: 'Seed e sheet canônico de {serie}/characters/ travados em todo pacote que mostre personagem.'
+        technique_note: >
+          Usar o character sheet como referência ANTES de cada still. Enquadramento de
+          sketch: plano fixo, altura de olho, cenário reconhecível em 3 âncoras. Nunca
+          pedir texto dentro da imagem — legenda entra na montagem.
+      - id: stills.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-stills-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: exec-producer
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/11-stills/entregues/ — todo asset do INDEX com arquivo em disco'
+        checkpoint: cp-stills
+        resume_with: tasks/resume-job.md
+        note: 'Nunca simular. Se o operador não entregou, o job fica em waiting_human — não em falha.'
+      - id: stills.review
+        executor: agent
+        owner_agent: image-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/11-stills/entregues/'
+        produces:
+          - '{job}/11-stills/_review/review-r{n}.md'
+          - '{job}/11-stills/_direction/{asset-id}.r{n}.yaml'
+        checks: [aderencia_ao_criterio_de_aceite, identidade_contra_sheet_canonico, wardrobe_continuo_com_ep_anterior, ancoras_de_cenario_presentes, texto_indesejado_na_imagem]
+        loop:
+          back_to: stills.human
+          max: 3
+          on_ceiling: 'escala para studio-chief — o problema provavelmente está no sheet canônico'
+    handoff:
+      to: takes
+      artifacts:
+        - '{job}/11-stills/_direction/'
+        - '{job}/11-stills/entregues/'
+        - '{job}/11-stills/_review/'
+      gate: checklists/gate-stills.md
+    fallback: >
+      Deriva de personagem entre cenas → reduz o número de cenas e reusa still. Público
+      de série perdoa cenário repetido; não perdoa personagem trocado.
+    on_fail: continue_and_report
+
+  - id: takes
+    name: 'Takes — direção, geração humana e avaliação'
+    owner_agent: motion-lead
+    task: tasks/takes.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1. Geração de vídeo é a que mais exige tentativa e descarte humanos.'
+    depends_on: [stills]
+    handon:
+      from: stills
+      artifacts:
+        - '{job}/11-stills/entregues/'
+        - '{job}/06-decupagem/edit-spec.json'
+      contract: 'Stills aprovados no drift-check'
+    substages:
+      - id: takes.direction
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Pacote de Direção por take'
+        produces:
+          - '{job}/12-takes/_direction/{asset-id}.yaml'
+          - '{job}/12-takes/_direction/INDEX.md'
+          - '{job}/12-takes/_direction/ae-compositions.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#video'
+        technique_note: >
+          Image-to-video a partir do still aprovado, nunca text-to-video direto. Um
+          movimento por take. Em sketch, plano fixo com micro-movimento é o código do
+          gênero — movimento demais quebra a continuidade do personagem.
+        ae_note: 'ae-compositions.md lista as cartelas e a tag final a construir no After Effects.'
+      - id: takes.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-takes-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: exec-producer
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/12-takes/entregues/ — todo take do INDEX com .mp4 em disco'
+        checkpoint: cp-takes
+        resume_with: tasks/resume-job.md
+      - id: takes.review
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/12-takes/entregues/'
+        produces:
+          - '{job}/12-takes/_review/review-r{n}.md'
+          - '{job}/12-takes/_direction/{asset-id}.r{n}.yaml'
+        checks: [duracao_conforme_edit_spec, identidade_do_personagem_entre_takes, artefato_de_morphing, continuidade_de_cenario, movimento_conforme_direcao]
+        loop:
+          back_to: takes.human
+          max: 3
+          on_ceiling: 'escala para studio-chief'
+    handoff:
+      to: audio
+      artifacts:
+        - '{job}/12-takes/_direction/'
+        - '{job}/12-takes/entregues/'
+        - '{job}/12-takes/_review/'
+      gate: checklists/gate-takes.md
+    fallback: >
+      Movimento quebra a continuidade do personagem → plano fixo com micro-movimento.
+      Em sketch, plano fixo é código, não pobreza.
+    on_fail: continue_and_report
+
+  - id: audio
+    name: 'Vozes dos personagens, SFX e trilha'
+    owner_agent: sound-designer
+    task: tasks/audio.md
+    executor: human
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 — vale também para voz. O sound-designer dirige; o humano gera.'
+    depends_on: [takes]
+    handon:
+      from: takes
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/12-takes/entregues/'
+        - '{job}/04-story/biblia.yaml'
+      contract: 'Takes com duração real'
+    substages:
+      - id: audio.direction
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Pacote de Direção de voz e spec de som'
+        produces:
+          - '{job}/13-audio/_direction/asset-direction-vo.yaml'
+          - '{job}/13-audio/sound-spec.yaml'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction)'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#voice'
+        casting_note: >
+          A voz de cada personagem está na bíblia. Trocar a voz entre episódios quebra
+          o personagem tanto quanto trocar o rosto. O pacote referencia o casting
+          travado em {serie}/biblia.yaml.
+        genre_rule: 'Regra do gênero: sem trilha durante a fala. Trilha entra na tag final e nas transições.'
+      - id: audio.human
+        executor: human
+        name: 'Geração de voz pelo operador'
+        stop: true
+        card: '{job}/_cards/card-audio-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/13-audio/entregues/ preenchido'
+        checkpoint: cp-audio
+        resume_with: tasks/resume-job.md
+      - id: audio.review
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Avaliação de leitura e sincronia'
+        worker_assist: 'python apps/video-studio/scripts/transcribe.py {job}/13-audio/entregues/*.wav'
+        worker_assist_note: >
+          transcribe.py (faster-whisper) devolve timestamps por palavra — a fonte da
+          legenda REAL, o que foi dito no tempo exato, em vez de estimativa pelo roteiro.
+        produces:
+          - '{job}/13-audio/captions.srt'
+          - '{job}/13-audio/_review/review-r{n}.md'
+        checks: [leitura_fiel_ao_roteiro, voz_consistente_com_eps_anteriores, timing_da_piada_preservado, duracao_compativel_com_takes]
+        loop:
+          back_to: audio.human
+          max: 3
+    handoff:
+      to: assembly
+      artifacts:
+        - '{job}/13-audio/sound-spec.yaml'
+        - '{job}/13-audio/entregues/'
+        - '{job}/13-audio/captions.srt'
+      gate: checklists/gate-audio.md
+    fallback: >
+      Voz do personagem inconsistente com episódios anteriores → mantém a voz anterior
+      e ajusta a fala. A voz é parte da bíblia.
+    on_fail: continue_and_report
+
+  - id: assembly
+    name: 'Montagem — app próprio, After Effects e Premiere'
+    owner_agent: editor
+    task: tasks/assembly.md
+    executor: worker
+    executor_notes: 'App próprio: autolegenda. AE: cartelas e tag final. Premiere: corte e master. Ambos humanos.'
+    davinci: 'REMOVIDO do fluxo (§3.3 · _CONVENTIONS.md §5). export_to_davinci.py é legado e não é chamado por este squad.'
+    depends_on: [audio]
+    handon:
+      from: audio
+      artifacts:
+        - '{job}/12-takes/entregues/'
+        - '{job}/13-audio/entregues/'
+        - '{job}/06-decupagem/edit-spec.json'
+        - '{job}/12-takes/_direction/ae-compositions.md'
+      contract: 'Takes e áudio entregues'
+    substages:
+      - id: assembly.auto
+        executor: worker
+        name: 'Timeline auto-montada e autolegenda'
+        app: apps/video-studio
+        command: |
+          node apps/video-studio/scripts/ingest.ts {client} {creative_slug}
+          node apps/video-studio/scripts/check-assembly.ts --autocut --maxgap=0.4
+          cd apps/video-studio && npm run studio
+          cd apps/video-studio && npm run render {brand_slug}
+        command_note: >
+          ingest.ts monta timeline.json a partir do video-brief e dos materiais.
+          check-assembly.ts audita a montagem e fecha gaps. npm run studio abre o
+          Remotion Studio para preview; npm run render faz o render headless on-brand.
+        known_gap:
+          issue: >
+            ingest.ts e check-assembly.ts esperam a convenção
+            outputs/{client}/video-plans/{creative}/. Um job do creative-studio vive em
+            workspaces/businesses/oraclum/creative-studio/jobs/{job-id}/.
+          bridge_required: 'Espelhar o job na convenção que o studio lê antes de chamar o ingest.'
+          worker_candidate: 'Ponte job → outputs/{client}/video-plans/{creative}/. É a mesma ponte pendente do farming.'
+          status: nao_implementado
+        produces:
+          - '{job}/14-assembly/autolegenda/'
+          - '{job}/14-assembly/rough-cut/'
+        fallback: 'Ponte indisponível → o editor entrega a timeline no template e o operador importa direto no Premiere. Registrado em job.json → degraded[].'
+      - id: assembly.spec
+        executor: agent
+        owner_agent: editor
+        name: 'Especificação executável em AE e Premiere'
+        produces:
+          - '{job}/14-assembly/ae-comp-spec.md'
+          - '{job}/14-assembly/premiere-cut-spec.md'
+          - '{job}/14-assembly/export-presets.yaml'
+        must_include:
+          - 'Ordem de cortes com timecode e o porquê de cada corte — em sketch o corte É a piada'
+          - 'Composições de After Effects: cartelas, tag final, destaque de fala'
+          - 'Spec de legenda no padrão da série (travado na bíblia)'
+          - 'Pastas, nomenclatura de importação e organização de bins'
+          - 'Preset de export por canal: formato, codec, bitrate, resolução, safe area'
+          - 'O que o app próprio JÁ resolveu e não deve ser refeito na mão'
+        template: templates/edit-spec-tmpl.md
+      - id: assembly.human
+        executor: human
+        name: 'Cartelas no After Effects e corte final no Premiere'
+        stop: true
+        card: '{job}/_cards/card-montagem.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/14-assembly/master/'
+        checkpoint: cp-montagem
+        resume_with: tasks/resume-job.md
+        chain: ['apps/video-studio (já feito em assembly.auto)', 'After Effects — cartelas, tag final', 'Premiere Pro — corte, mix, master']
+      - id: assembly.review
+        executor: agent
+        owner_agent: editor
+        name: 'Revisão do corte'
+        reads: '{job}/14-assembly/master/'
+        produces: ['{job}/14-assembly/_review/review-r{n}.md']
+        checks: [timing_da_piada, sincronia_de_legenda, tag_final_no_padrao_da_serie, gancho_do_proximo_ep_presente, safe_area, presets_de_export]
+        loop:
+          back_to: assembly.human
+          max: 3
+    handoff:
+      to: factcheck
+      artifacts:
+        - '{job}/14-assembly/autolegenda/'
+        - '{job}/14-assembly/ae-comp-spec.md'
+        - '{job}/14-assembly/premiere-cut-spec.md'
+        - '{job}/14-assembly/master/'
+      gate: checklists/gate-assembly.md
+    fallback: 'Timing da piada não fecha na montagem → o editor devolve para decupagem com o timecode exato do problema.'
+    on_fail: continue_and_report
+
+  - id: factcheck
+    name: 'Checagem, direitos e risco jurídico da sátira'
+    owner_agent: fact-checker
+    task: tasks/factcheck.md
+    executor: agent
+    blocking: true
+    waiver_allowed: false
+    depends_on: [assembly]
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: >
+      Deste script o factcheck lê os checks BLOQUEANTES V3 (números fabricados),
+      V4 (atribuição inventada), V5 (léxico proibido) e V7 (CTA proibido). Exit 2 = FAIL.
+    mandatory_agent_review:
+      owner: fact-checker
+      covers:
+        - 'Pessoa real identificável na sátira sem autorização — o risco número um do gênero'
+        - 'Marca de terceiro reconhecível em contexto negativo'
+        - 'Direito de imagem e de voz dos personagens sintéticos'
+        - 'Regra sem case fabricado do _BLUEPRINT.md §1'
+        - 'Marcação de conteúdo gerado por IA quando a plataforma exigir'
+      note: >
+        Em sátira o risco não é número inventado: é pessoa ou marca real identificável.
+        Isso não é detectável por regex — o agente revisa sempre.
+    handon:
+      from: assembly
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/05-script/claim-ledger.json'
+      contract: 'Episódio montado'
+    handoff:
+      to: gate
+      artifacts:
+        - '{job}/15-gate/factcheck-report.md'
+      gate: checklists/gate-factcheck.md
+    fallback: 'NÃO EXISTE fallback que pule o estágio. Sem worker_assist, a revisão é integralmente manual.'
+    on_fail: halt
+
+  - id: gate
+    name: 'Quality gate do episódio'
+    owner_agent: qa-critic
+    task: tasks/gate.md
+    executor: agent
+    depends_on: [factcheck]
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: 'Deste script o gate lê V1 (hook), V2 (cadência de corte) e V6 (shotlist completa).'
+    handon:
+      from: factcheck
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/15-gate/factcheck-report.md'
+        - '{job}/04-story/canon-novo.md'
+      contract: 'factcheck PASS'
+    handoff:
+      to: delivery
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+      gate: checklists/gate-nicho-series.md
+    also_runs: checklists/gate-transversal-entrega.md
+    stage_gate: checklists/gate-qa.md
+    verdicts: [PASS, CONCERNS, FAIL, WAIVED]
+    verdict_routing:
+      PASS: delivery
+      CONCERNS: 'checkpoint cp-entrega — o founder decide entre corrigir e aceitar'
+      FAIL: 'volta ao estágio nomeado no gate-verdict.md'
+      WAIVED: 'segue com o waiver registrado em job.json → waivers[]'
+    serie_rule: 'Piloto reprovado bloqueia a temporada. Episódio reprovado bloqueia só a si.'
+    canon_gate:
+      regra: >
+        O gate também decide se canon-novo.md pode ser promovido ao registro da série.
+        Canon só entra em {serie}/biblia.yaml com veredito PASS. FAIL ou CONCERNS não
+        aceito = nada é promovido, e o episódio seguinte lê o canon anterior.
+    checkpoint: cp-entrega
+    on_fail: halt
+
+  - id: delivery
+    name: 'Entrega do episódio e promoção do canon'
+    owner_agent: exec-producer
+    task: tasks/delivery.md
+    executor: agent
+    depends_on: [gate]
+    subroutine:
+      workflow: wf-image-lab.yaml
+      mode: embutido
+      quando: 'Capa do episódio ausente → chama P6 em modo embutido antes de fechar a entrega.'
+    handon:
+      from: gate
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+        - '{job}/04-story/gancho-proximo-ep.md'
+        - '{job}/04-story/canon-novo.md'
+      contract: 'Veredito PASS ou CONCERNS aceito'
+    write_back:
+      executor: agent
+      alvo: '{serie}/'
+      atualiza:
+        - '{serie}/biblia.yaml — canon novo declarado em canon-novo.md'
+        - '{serie}/characters/ — sheets aprovados viram a nova versão canônica'
+        - '{serie}/episodes.json — entrada do episódio com job-id, sinopse, gancho, data'
+        - '{serie}/continuity-log.md — o que virou canon e por quê'
+        - '{serie}/lexico-da-bolha.md — jargão novo coletado no research'
+      libera: '{serie}/.lock'
+      regra: >
+        NADA entra no registro sem gate PASS. Um sheet reprovado que vaza para
+        characters/ contamina todos os episódios seguintes.
+    handoff:
+      to: null
+      artifacts:
+        - '{job}/16-delivery/entrega/'
+        - '{job}/16-delivery/publishing-kit.md'
+        - '{serie}/ (registro atualizado)'
+        - '{job}/job.json (status: delivered)'
+      gate: checklists/gate-delivery.md
+    fallback: >
+      Write-back falha (lock preso, registro corrompido) → a entrega do episódio SEGUE,
+      mas o job fecha com status delivered_pending_canon e o canon fica pendente em
+      job.json. Nunca se perde o episódio por causa do registro; nunca se promove canon
+      sem gate.
+    on_fail: halt
+
+reporting:
+  final_summary:
+    - episodio_entregue
+    - job_type_resolvido
+    - canon_promovido_ao_registro
+    - sheets_promovidos_a_canonico
+    - gancho_do_proximo_episodio
+    - waivers_registrados
+    - cards_humanos_emitidos_tempo_de_espera_e_rodadas_de_retake
+    - itens_degradados
+  degraded_registry: '{job}/job.json → degraded[]'
+  principle: >
+    O sumário é montado lendo o DISCO. Um episódio só conta como entregue se o .mp4 e
+    o publishing-kit existirem em {job}/16-delivery/entrega/, e o canon só conta como
+    promovido se {serie}/continuity-log.md registrar a entrada.
+
+handoff:
+  emit_to: '.aiox/handoffs/'
+  format: 'handoff-ocs-{job-id}-{stage}.yaml'
+  must_include: [job_id, pipeline_id, serie_id, episodio, job_type, stage_completed, gate_status, canon_pendente, waiting_human, next_action]

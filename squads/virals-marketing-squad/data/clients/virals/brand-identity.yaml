@@ -6,8 +6,9 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 meta:
-  versao: "1.0"
+  versao: "1.1"
   extraido_em: "2026-05-16"
+  revisado_em: "2026-08-15"
   status: "aguardando_validacao_do_dono"
   fontes:
     - "docs/01-Strategy/Planejamento Estratégico/01-FUNDAÇÃO ESTRATÉGICA/05-ICP PROFUNDO.md"
@@ -17,6 +18,12 @@ meta:
     - "docs/04-Products/Projetos/Virals Starter & Growth/Brand-Bible-Identidade-e-Voz.md"
     - "docs/04-Products/Ecossistema de Serviços/01-PROJETO VIRAL STARTER (LITE).md"
     - "docs/04-Products/Ecossistema de Serviços/02-PROJETO VIRAL GROWTH (FULL STACK).md"
+    - "ClickUp — Painel de Produtos (901323987788), reposicionamento 2026-08-15"
+  mudancas_v1_1:
+    - "Hunter Ads System descontinuado para novos clientes (status legado no ClickUp) — a aposta de hunting manual de creators sai, entra produção de conteúdo/vídeo gerado por IA"
+    - "Novo pilar: AI UGC & AI Vídeos Ecommerce — substitui Hunter Ads System como motor de criativo dos pacotes Starter/Growth"
+    - "Novo pilar: Dev AI — sites e landing pages construídos com IA, ausente até então do portfólio Virals"
+    - "Traffic Performance Protocol e Copy Strategy Framework reposicionados in-place como Traffic AI e Copy AI (mesmo core service, camada de IA explícita na entrega)"
 
 # ─────────────────────────────────────────────────────────────────────────────
 oferta:
@@ -30,18 +37,23 @@ oferta:
     genéricos. Crescimento sustentável vem de comunidades apaixonadas — e
     fundadores talentosos merecem dormir 8h, não checar criativos de madrugada.
   pilares_de_entrega:
-    - "Hunter Ads System — prospecção, ativação e gestão de creators"
-    - "Copy Strategy Framework — roteiros e narrativa viral"
-    - "Traffic Performance Protocol — gestão e escala de tráfego"
+    - "AI UGC & AI Vídeos Ecommerce — produção de vídeo/UGC gerado por IA (substitui o Hunter Ads System, hoje legado)"
+    - "Copy AI (Copy Strategy Framework) — roteiros e narrativa viral gerados/curados com IA"
+    - "Traffic AI (Traffic Performance Protocol) — gestão e escala de tráfego com apoio de IA"
+    - "Dev AI — sites e landing pages de ecommerce construídos com IA"
+  pilares_legado:
+    - nome: "Hunter Ads System"
+      status: "legado — não vendido para novos clientes a partir de 2026-08"
+      motivo: "substituído por AI UGC & AI Vídeos: mesmo objetivo (prova social + criativo de aquisição), execução via IA em vez de hunting/gestão manual de creators reais"
   produtos:
     - nome: "Viral Starter (Lite)"
       para: "marca saindo do amadorismo digital, validando aquisição"
-      escopo: "5-10 micro-creators · 10 roteiros/mês · 1 canal (Meta Ads)"
+      escopo: "AI UGC & AI Vídeos (10-15 criativos/mês) · Copy AI (5 roteiros/semana) · Traffic AI (1 canal, Meta Ads)"
       investimento: "R$ 6.397-7.997/mês + setup"
-      revenue_share: "1% sobre vendas geradas pelos creators"
+      revenue_share: "1% sobre vendas geradas pelo motor de criativos"
     - nome: "Viral Growth (Full Stack)"
       para: "marca pronta para escala agressiva (departamento de Growth completo)"
-      escopo: "20-50 creators · 40 roteiros/mês · omnichannel · consultoria CMO"
+      escopo: "AI UGC & AI Vídeos (40+ criativos/mês) · Copy AI (40+ roteiros/mês) · Traffic AI omnichannel · Dev AI (add-on) · consultoria CMO"
       investimento: "R$ 7.197-8.997/mês + setup"
       revenue_share: "1% sobre as vendas gerais da marca"
 
@@ -109,17 +121,22 @@ restricoes:
   sempre_fazer:
     - "Citar dados concretos e específicos (números, prazos, %)"
     - "Falar a língua nativa do D2C"
-    - "Nomear os sistemas proprietários (Hunter Ads System etc.)"
+    - "Nomear os sistemas proprietários (AI UGC & AI Vídeos, Copy AI, Traffic AI, Dev AI etc.)"
     - "Conectar com a dor literal do avatar"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Identidade visual — paleta canônica (decisão do dono · 2026-05-16).
+# Identidade visual — paleta canônica (decisão do dono · 2026-05-16; acento
+# atualizado 2026-08-16, ver histórico abaixo).
 identidade_visual:
-  paleta_canonica: "navy + coral"
-  primary: "#1A1A2E"
-  accent: "#E94560"
+  paleta_canonica: "navy + vermelho sinal"
+  primary: "#0C0A1F"
+  accent: "#FF5B3F"
   fonte_canonica: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
   nota: >
-    Paleta navy/coral mantida (já usada pelo motor de render desde a era Casey
-    e validada pela Brand Bible). Em 2026-05-22 a fonte canonical foi migrada
+    Paleta navy mantida (já usada pelo motor de render desde a era Casey e
+    validada pela Brand Bible). Em 2026-05-22 a fonte canonical foi migrada
     para a estrutura multi-cliente (data/clients/virals/brand-config.yaml).
+    Em 2026-08-16 o acento trocou de coral (#FF3D68) para Vermelho Sinal
+    (#FF5B3F em fundo escuro / #E3391F em fundo claro): coral lia "beauty/
+    wellness feminino" demais para o leque D2C que a marca passou a mirar
+    (unissex, moda, tech, casa).

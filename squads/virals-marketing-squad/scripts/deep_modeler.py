@@ -226,6 +226,55 @@ def _match_label(label, candidates):
     return False
 
 
+# Ruído do modelo de visão que NÃO é conteúdo do slide (preâmbulos, meta, handle).
+_OCR_RUIDO = re.compile(
+    r"^\s*(@|here'?s an analysis|análise da imagem|analise da imagem|"
+    r"user safety|transcribed text|texto transcrito|transcrição do texto|"
+    r"texto no slide|leitura visual|gatilhos de design|ângulo de modelagem|"
+    r"angulo de modelagem|visual elements|elementos visuais|colors|mood|"
+    r"\**\d+\.\s|the image|a imagem)",
+    re.IGNORECASE,
+)
+
+
+def _extract_named_section(block, header_regex):
+    """Texto sob um cabeçalho markdown '## <nome>' até o próximo '##'/'#'."""
+    pat = r"#{1,4}\s*" + header_regex + r"[^\n]*\n(.*?)(?=\n#{1,4}\s|\Z)"
+    m = re.search(pat, block, re.DOTALL | re.IGNORECASE)
+    return m.group(1) if m else ""
+
+
+def extract_ocr_lines(block):
+    """GARANTE a leitura do texto REAL do slide quando não há rótulos.
+
+    A transcrição da visão pode vir em dois formatos:
+      NOVO — seção limpa '## Texto no slide' (PT-BR estruturado).
+      LEGADO — bullets sob '1. Transcribed Text:' (visão antiga, em inglês).
+    Sem esta captura, o conteúdo de OURO ("Alguém mandaria isso para um amigo?")
+    era descartado e a copy acabava inventada.
+
+    Devolve lista de linhas de texto real, na ordem do slide.
+    """
+    # Formato NOVO primeiro: seção nomeada e explícita (extração confiável).
+    trecho = _extract_named_section(block, r"(?:texto no slide|texto transcrito|transcri[çc][ãa]o do texto)")
+    if not trecho:
+        # Legado: a seção '1.' costuma ser 'Transcribed Text'.
+        trecho = extract_section(block, 1)
+
+    linhas = []
+    for raw in trecho.split("\n"):
+        s = re.sub(r"^\s*[*\-•]\s+", "", raw).strip()  # tira marcador de bullet
+        s = re.sub(r"^\*+|\*+$", "", s).strip()          # tira ** de ênfase soltos
+        if len(s) < 4:
+            continue
+        if s.lower() in ("(sem texto)", "sem texto", "n/a"):
+            continue
+        if _OCR_RUIDO.match(s):
+            continue
+        linhas.append(s)
+    return linhas
+
+
 def pick_by_labels(items, label_set):
     """Escolhe o valor cujo rótulo casa com label_set, na ordem de prioridade.
 
@@ -326,7 +375,7 @@ def build_ai_prompt(headline, triggers, palette):
         f"Editorial marketing key visual representing the concept '{base}'. "
         f"Mood: {trigger_hint}. Modern flat editorial design, premium social "
         f"media aesthetic, brand palette deep navy {palette.get('primary', '#1A1A2E')} "
-        f"and coral {palette.get('accent', ACCENT_DEFAULT)}, soft cinematic "
+        f"and signal red {palette.get('accent', ACCENT_DEFAULT)}, soft cinematic "
         f"lighting, high-end, NO TEXT, NO WORDS, 1:1 composition."
     )
 
@@ -368,7 +417,7 @@ def analyze_slide(slide_n, total, block, screenshots, palette):
     body, b_label = pick_by_labels(items, BODY_LABELS)
     triggers = parse_design_triggers(block)
 
-    # headline_source: 'label' (rótulo explícito) | 'heuristic' | 'none'.
+    # headline_source: 'label' (rótulo explícito) | 'heuristic' | 'ocr' | 'none'.
     if headline:
         headline_source = "label"
     else:
@@ -378,10 +427,30 @@ def analyze_slide(slide_n, total, block, screenshots, palette):
             if len(val) >= 4 and not _match_label(lbl, BODY_LABELS):
                 headline, h_label, headline_source = val, f"heurística:{lbl}", "heuristic"
                 break
-        if headline_source == "heuristic":
+
+        # GARANTIA DE LEITURA: sem rótulos, capturar o OCR real do slide (o
+        # texto de ouro que a visão transcreveu em bullets). Sem isto, a copy é
+        # inventada — foi a raiz do "sistema de pré-visualização" fabricado.
+        if headline_source == "none":
+            ocr = extract_ocr_lines(block)
+            if ocr:
+                headline, h_label, headline_source = ocr[0], "ocr", "ocr"
+                if not body and len(ocr) > 1:
+                    body, b_label = " ".join(ocr[1:]), "ocr"
+                issues.append(f"slide {slide_n}: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real")
+            else:
+                issues.append(f"slide {slide_n}: nenhum texto de headline encontrado")
+        elif headline_source == "heuristic":
             issues.append(f"slide {slide_n}: headline via heurística ({h_label}) — revisar")
-        else:
-            issues.append(f"slide {slide_n}: nenhum texto de headline encontrado")
+
+    # Se pegamos headline por rótulo/heurística mas o body ficou vazio, ainda
+    # tentamos o OCR para o corpo — o conteúdo real não pode escapar.
+    if not body:
+        ocr = extract_ocr_lines(block)
+        rest = [l for l in ocr if l != headline]
+        if rest:
+            body, b_label = " ".join(rest), b_label or "ocr"
+
     headline = headline or ""
     body = body or ""
 

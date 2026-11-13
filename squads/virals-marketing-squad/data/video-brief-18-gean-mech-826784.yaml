@@ -1,0 +1,364 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:19:01'
+media_kind: video
+video_brief:
+  slug: video-18-gean-mech-826784
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\18-gean-mech-826784
+source:
+  creator: '@gean.mech'
+  platform: instagram
+  url: https://www.instagram.com/gean.mech/reel/DcCaiHpNMJX/
+  type: video-short
+  caption: 'Marombushi - Episódio 01.
+
+
+    Cariri - san, Xuliu - san e Bisteka - San são encurralados.
+
+
+    @higgsfield.ai'
+metadata:
+  view_count: null
+  like_count: 3
+  comment_count: null
+  duration_seconds: 47.29600143432617
+  cut_timestamps:
+  - 2.67
+  - 5.04
+  - 11.5
+  - 14.29
+  - 16.88
+  - 19.42
+  - 24.67
+  - 27.29
+  - 29.38
+  - 33.08
+  - 35.71
+  - 37.38
+  - 42.21
+hook_raw: Carita, you're Louis inside
+transcript:
+- start: 8
+  end: 11
+  text: Carita, you're Louis inside
+- start: 11
+  end: 17
+  text: What do you care about?
+- start: 17
+  end: 20
+  text: Yare, yare, toraburi mitai da na, Zuri
+- start: 20
+  end: 39
+  text: A sua boca
+- start: 39
+  end: 47
+  text: Yes, I will
+frames:
+- file: Screenshots/frame_01_at_00-08_Carita__you_re_Louis_inside_.jpg
+  timestamp: 00:08
+  t_seconds: 8
+- file: Screenshots/frame_02_at_00-11_What_do_you_care_about_.jpg
+  timestamp: 00:11
+  t_seconds: 11
+- file: Screenshots/frame_03_at_00-17_Yare__yare__toraburi_mitai_da_.jpg
+  timestamp: 00:17
+  t_seconds: 17
+- file: Screenshots/frame_04_at_00-20_A_sua_boca_.jpg
+  timestamp: 00:20
+  t_seconds: 20
+- file: Screenshots/frame_05_at_00-39_Yes__I_will_.jpg
+  timestamp: 00:39
+  t_seconds: 39
+beats:
+- n: 1
+  start: 8
+  end: 11
+  text: Carita, you're Louis inside
+  role: hook
+- n: 2
+  start: 11
+  end: 17
+  text: What do you care about?
+  role: build
+- n: 3
+  start: 17
+  end: 20
+  text: Yare, yare, toraburi mitai da na, Zuri
+  role: build
+- n: 4
+  start: 20
+  end: 39
+  text: A sua boca
+  role: build
+- n: 5
+  start: 39
+  end: 47
+  text: Yes, I will
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 5
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-08_Carita__you_re_Louis_inside_.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_02_at_00-11_What_do_you_care_about_.jpg
+    shot_type: talking_head
+    on_screen_text: ''
+    has_captions: true
+  - file: frame_03_at_00-17_Yare__yare__toraburi_mitai_da_.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_04_at_00-20_A_sua_boca_.jpg
+    shot_type: talking_head
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_05_at_00-39_Yes__I_will_.jpg
+    shot_type: talking_head
+    on_screen_text: ''
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.6
+    screen_capture: 0.0
+    broll: 0.4
+    graphic: 0.0
+  caption_style_seen: bottom center, amarelo/dourado com contorno escuro, CAIXA ALTA
+  text_overlay_style: Não utiliza texto-na-tela além das legendas.
+  visual_hook_device: Corte rápido de cena ampla e atmosférica para close-up intenso
+    e emocional de personagem.
+  broll_density: medium
+  edit_style_notes: Cortes rápidos e dinâmicos entre planos abertos atmosféricos e
+    close-ups dramáticos. Enquadramento focado na expressão facial para impacto emocional.
+    Alta qualidade cinematográfica com iluminação dramática.
+  palette:
+  - '#4A6D8C'
+  - '#C03020'
+  - '#E0A040'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:19:15'
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: visual_hook_device
+    text: Carita, you're Louis inside
+  - t: 17
+    device: language_shift
+    text: Yare, yare, toraburi mitai da na, Zuri
+  cut_cadence:
+    avaliacao: Ritmo acelerado com média de 3.38s por segmento, aproximando-se do
+      ideal de retenção para conteúdos de alta carga emocional/cinematográfica.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 14
+    segments: 14
+    duration_s: 47.3
+    avg_segment_s: 3.38
+  broll_strategy: Uso de B-roll de densidade média para alternar entre o 'talking
+    head' emocional e planos atmosféricos, evitando a fadiga visual e reforçando a
+    narrativa dramática.
+  caption_style: Bottom center, amarelo/dourado com contorno escuro, CAIXA ALTA; estilo
+    de alta legibilidade que foca na intensidade das palavras.
+  pacing_curve:
+  - window: 00-08s
+    densidade: alta
+  - window: 08-39s
+    densidade: media
+  - window: 39-47s
+    densidade: baixa
+  retention_devices:
+  - emotional_close_up
+  - multimodal_hook
+  - linguistic_pattern_interrupt
+  - dramatic_escalation
+  recommendation: Modelar o arco de tensão e a alternância entre planos abertos e
+    close-ups intensos. Manter o ritmo de cortes dinâmicos, mas adaptar a temática/voz
+    para o nicho do cliente, preservando o uso de legendas em caixa alta para reforço
+    de impacto.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T12:19:53'
+content_plan:
+  tema: A transição do trabalho manual para o workflow de agentes de IA
+  format_concept: talking-head
+  hook:
+    variants:
+    - pattern_interrupt: Corte rápido de tela de código (terminal) para close-up intenso
+        no rosto do apresentador
+      text_overlay: Sua operação é puramente manual?
+      spoken_open: Sua operação ainda é puramente manual?
+    - pattern_interrupt: Zoom-in agressivo em um log de execução de API rodando
+      text_overlay: Agentes de IA substituem processos
+      spoken_open: Agentes de IA substituem processos inteiros.
+    - pattern_interrupt: Flash visual de uma automação falhando (erro de código) para
+        rosto sério
+      text_overlay: O fim da escala manual
+      spoken_open: O fim da escala manual começa aqui.
+  storyboard:
+  - beat_n: 1
+    scene: 'Hook: Confronto direto com o problema da escala manual'
+    shot_type: close
+    duration_s: 3
+    on_screen_text: OPERAÇÃO MANUAL É ESCALA LIMITADA
+    broll: Nenhum
+    motion: zoom-in
+  - beat_n: 2
+    scene: 'Build: Questionamento sobre o que realmente importa no processo'
+    shot_type: médio
+    duration_s: 6
+    on_screen_text: O QUE VOCÊ PRIORIZA?
+    broll: Screen capture de logs de uma integração de CRM
+    motion: cut
+  - beat_n: 3
+    scene: 'Build: Mudança de padrão (linguístico/técnico) para introduzir o agente'
+    shot_type: insert
+    duration_s: 3
+    on_screen_text: INTEGRAÇÃO DE AGENTES
+    broll: Linhas de código/JSON sendo processadas em alta velocidade
+    motion: whip
+  - beat_n: 4
+    scene: 'Build: O detalhe técnico - a ''boca'' do sistema (a interface de saída/dados)'
+    shot_type: close
+    duration_s: 19
+    on_screen_text: DADOS EM TEMPO REAL
+    broll: Fluxo de dados saindo de uma API para um CRM
+    motion: none
+  - beat_n: 5
+    scene: 'CTA: Confirmação da capacidade de implementação'
+    shot_type: médio
+    duration_s: 7
+    on_screen_text: CONSTRUA SEU WORKFLOW
+    broll: Nenhum
+    motion: cut
+  script: 'Sua operação ainda é puramente manual? O que você realmente prioriza no
+    seu workflow hoje? É o preenchimento de planilha ou a estratégia de aquisição?
+    Veja o dado: o agente processa a integração enquanto você foca no que é prático.
+    É a eficiência da IA aplicada no seu CRM. Sim, eu construo isso.'
+  edit_spec:
+    zooms:
+    - no hook (beat 1)
+    - no beat 4 para enfatizar a seriedade técnica
+    transitions:
+    - whip @ beat 3
+    - cut @ beat 2 e 5
+    inserts:
+    - screen capture de logs @ beat 2
+    - fluxo de API @ beat 4
+    captions: bottom center, amarelo/dourado com contorno escuro, CAIXA ALTA
+    motion_graphics:
+    - overlay de logs de sistema @ beat 3
+    template_refs:
+      hook: hook-direct-question
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Apresentador olhando diretamente para a lente, expressão séria
+    framing: close
+    audio: fala
+    props: Iluminação lateral dramática
+    locacao: Escritório/Estúdio técnico
+    falas_chave: Sua operação ainda é puramente manual?
+  - plano: Captura de tela de terminal ou dashboard de automação
+    framing: médio
+    audio: ambiente
+    props: Software de automação/IDE
+    locacao: Digital
+    falas_chave: O que você realmente prioriza?
+  - plano: Apresentador em plano médio, gesticulando de forma técnica
+    framing: médio
+    audio: fala
+    props: Monitor ao fundo com código
+    locacao: Escritório/Estúdio técnico
+    falas_chave: É a eficiência da IA aplicada no seu CRM.
+  sound_design:
+    sfx:
+    - moment: hook @ 0s
+      category: impact
+      intent: Parar o scroll com peso emocional
+      intensity: medium
+    - moment: beat_n:3 @ 17s
+      category: swoosh
+      intent: Reforçar a transição de assunto/linguagem
+      intensity: medium
+    - moment: reveal @ 39s
+      category: click
+      intent: Marcar a confirmação final do CTA
+      intensity: subtle
+    music:
+      recommended: true
+      mood: tense
+      energy: medium
+      genre: cinematic electronic/dark ambient
+      ducking: true
+      rationale: Uma trilha de baixa frequência com batidas constantes ajuda a manter
+        a tensão e o foco na autoridade do Sábio.
+    rationale: O som deve ser minimalista para não competir com a terminologia técnica,
+      usando apenas impactos para pontuar as mudanças de ritmo (cortes).
+  rationale: O plano modela o 'curiosity gap' do benchmark através de um hook que
+    confronta a ineficiência, utiliza a alternância de planos (talking head vs. B-roll
+    de código) para manter a retenção e aplica a densidade de cortes rápida no início
+    para simular a urgência do problema, finalizando com a autoridade do 'Sábio' conforme
+    o DNA da Oraclum.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T12:20:29'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 7.6
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:20:29'

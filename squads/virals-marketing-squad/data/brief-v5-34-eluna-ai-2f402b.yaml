@@ -1,0 +1,375 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:42:02'
+archetype: news
+carousel_brief:
+  slug: v5-precision-34-eluna-ai-2f402b
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\34-eluna-ai-2f402b
+  source_url: https://www.instagram.com/eluna.ai/p/Db3d23wksmY/
+  tema: 'Modelagem de precisão: 34-eluna-ai-2f402b'
+  slide_count: 4
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 3
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.2/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a estética de ''post de fórum'' por demonstrações visuais reais do
+    software/automação funcionando em cada passo do processo. - Substituir a promessa
+    de ''simplicidade'' por ''eficiência técnica'', focando menos em ''começar'' e
+    mais em ''implementar'
+  audits_present: true
+benchmark_caption: 'Building your first AI agent is much simpler when you stop trying
+  to make it do everything at once.
+
+
+  Start with 1 clear job, choose a strong model, and connect only the tools needed
+  to complete that task.
+
+
+  The basic loop is simple, the model decides what to do, uses a tool, checks the
+  result, and continues.
+
+
+  Build 1 useful agent first, test it on real tasks, fix what breaks, and add complexity
+  only when you actually need it.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: THIS GUY EXPLAINS
+  reference_body: HOW YOU CAN BUILD YOUR FIRST AI AGENT TRENDING
+  headline: COMO CONSTRUIR SEU PRIMEIRO AGENTE DE IA
+  sub_headline: O CAMINHO
+  body_text: Substitua prompts isolados por um workflow modular para criar automações
+    que executam tarefas autonomamente.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 108
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline direta focada no benefício de sair da teoria para a prática:
+      ''Como construir seu primeiro agente de IA sem se perder no hype''.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:42:39'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: r/AgentsOfAI
+  reference_body: '353d Building your first AI Agent; A clear path! Discussion I''ve
+    seen a lot of people get excited about building AI agents but end up stuck because
+    everything sounds either too abstract or too hyped. If you''re serious about making
+    your first AI agent, here''s a path you can actually follow. This isn''t (another)
+    theory it''s the same process I''ve used multiple times to build working agents.
+    Decide on one specific job you want the agent to do. Examples: – Book a doctor’s
+    appointment from a hospital website – Monitor job boards and send you matching
+    jobs – Summarize unread emails in your inbox The smaller and clearer the problem,
+    the easier it is to design and debug. Use something that’s already good enough.
+    GPT, Claude, Gemini, or open-source options like LLaMA and Mistral if you want
+    to self-host. Just make sure the model can handle reasoning and structured outputs,
+    because that’s what agents rely on. This is the core part people skip. An agent
+    isn’t just a chatbot but it needs tools. You’ll need to decide what APIs or actions
+    it can use. A few common ones: – Web scraping or browsing (Playwright, Puppeeter,
+    or APIs if available) – Email API (Gmail API, Outlook API) – Calendar API (Google
+    Calendar, Outlook Calendar) – File operations (read/write to disk, parse PDFs,
+    etc.)'
+  headline: O GARGALO NÃO É A FERRAMENTA, É A ABSTRAÇÃO
+  sub_headline: O PROBLEMA
+  body_text: A dificuldade de execução geralmente vem da falta de um método de montagem.
+    Para construir um agente, é preciso definir a sequência de etapas em vez de tentar
+    resolver tudo em um único prompt.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 43
+    body_chars: 192
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: frustrated man computer
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Abordar a frustração comum: o excesso de abstração e termos complexos
+      que impede a execução. Validar que o problema não é a ferramenta, mas a falta
+      de um caminho claro.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:42:39'
+- slide_n: 3
+  variant: CONTENT
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: 'Start by wiring the basics:'
+  reference_body: '– Input from the user (the task or goal) – Pass it through the
+    model with instructions (system prompt) – Let the model decide the next step –
+    If a tool is needed (API call, scrape, action), execute it – Feed the result back
+    into the model for the next step – Continue until the task is done or the user
+    gets a final output This loop - model --> tool --> result --> model is the heartbeat
+    of every agent. Not true. Start with just short-term context (the last few messages).
+    If your agent needs to remember things across runs, use a database or a simple
+    JSON file. Only add vector databases or fancy retrieval when you really need them.
+    Once it works, give it a simple interface: – A web dashboard (Flask, FastAPI,
+    or Next.js) – A Slack/Discord bot – Or even just a script that runs on your machine
+    The point is to make it usable beyond your terminal so you see how it behaves
+    in a real workflow. Run real tasks, see where it breaks, patch it, run again.
+    Every agent I''ve built has gone through dozens of these cycles before becoming
+    reliable. Resist that. A single well-functioning agent that can book an appointment
+    or manage your email is worth way more than a "universal agent" that keeps failing.'
+  headline: O SEGREDO É DIVIDIR PARA CONQUISTAR
+  sub_headline: A LÓGICA
+  body_text: Em vez de um comando gigante, use um fluxo modular. O modelo decide o
+    que fazer, usa uma ferramenta e checa o resultado antes de seguir.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 136
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: software code screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Apresentar o workflow de 4 etapas de forma técnica e direta: 1. Input
+      do usuário; 2. Processamento via System Prompt; 3. Decisão do modelo; 4. Execução
+      de ferramenta (API/Scraping).'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:42:39'
+- slide_n: 4
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: null
+  reference_headline: ''
+  reference_body: ''
+  headline: DO CHAT PARA A CONSTRUÇÃO DE AUTOMAÇÕES
+  sub_headline: O PRÓXIMO PASSO
+  body_text: Pare de apenas conversar com a IA e comece a arquitetar fluxos. Qual
+    processo do seu dia a dia hoje demanda uma decisão e uma ação repetitiva?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 39
+    body_chars: 142
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hands typing keyboard
+  accent_color: '#A855F7'
+  source_slides: []
+  personalization:
+    status: DONE
+    directive: 'Reflexão final sobre a transição de ''usuário de chat'' para ''construtor
+      de automação''. CTA para o leitor pensar: ''Qual processo do seu dia a dia hoje
+      demanda uma decisão e uma ação repetitiva?'''
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:42:39'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/3
+  bodies_extracted: 3/3
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Desmistificação do processo de construção de agentes de IA através
+    de uma abordagem modular e simplificada.
+  formato: Guia educativo baseado em curadoria de comunidade (Reddit Style).
+  arco_narrativo: O post inicia com um gancho de autoridade/curiosidade, apresenta
+    um problema comum de abstração via prova social (Reddit) e entrega um framework
+    técnico simplificado para solução.
+  estrutura:
+  - slide_n: 1
+    papel: Hook/Gancho de atenção para atrair o público interessado em tendências
+      de IA.
+    essencial: true
+  - slide_n: 2
+    papel: Contextualização do problema e validação social através de uma discussão
+      de comunidade.
+    essencial: true
+  - slide_n: 3
+    papel: Entrega de valor técnico (framework de execução/passo a passo).
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Prova social imediata ao utilizar o formato de discussão do Reddit.
+  - Contraste entre a 'hype' (confusão) e o 'caminho claro' (solução).
+  - 'Quebra de complexidade: transforma um conceito avançado em um loop lógico de
+    4 etapas.'
+  - Headline de curiosidade ('This guy explains') que direciona o olhar para o conteúdo
+    técnico.
+  recomendacao:
+    slides_ideais: 4
+    justificativa: 'Para a versão Virals, manteremos a estrutura lógica, mas aplicaremos
+      a auditoria prévia: transformaremos o Slide 2 (estética de fórum) em um slide
+      de ''Problema vs. Realidade'' com elementos visuais, e adicionaremos um 4º slide
+      de ''Demonstração Visual/Workflow'' para substituir a abstração por eficiência
+      técnica, conforme exigido pelo painel de adaptação.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:42:12'
+content_plan:
+  archetype: news
+  slide_count: 4
+  tema: Como construir o primeiro agente de IA através de um workflow modular e prático.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CAMINHO
+    copy_direction: 'Headline direta focada no benefício de sair da teoria para a
+      prática: ''Como construir seu primeiro agente de IA sem se perder no hype''.'
+    image_direction: Fundo escuro tecnológico com um elemento visual de fluxo ou conexão
+      de nós, transmitindo clareza e estrutura.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O PROBLEMA
+    copy_direction: 'Abordar a frustração comum: o excesso de abstração e termos complexos
+      que impede a execução. Validar que o problema não é a ferramenta, mas a falta
+      de um caminho claro.'
+    image_direction: Visual que contraste o 'caos' (termos abstratos e hype) com a
+      'ordem' (um fluxo estruturado), simulando uma discussão de comunidade real sobre
+      o tema.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: PAYOFF
+    kicker: A LÓGICA
+    copy_direction: 'Apresentar o workflow de 4 etapas de forma técnica e direta:
+      1. Input do usuário; 2. Processamento via System Prompt; 3. Decisão do modelo;
+      4. Execução de ferramenta (API/Scraping).'
+    image_direction: Um diagrama de fluxo (workflow) limpo, mostrando o loop de decisão
+      do agente de forma visual e lógica.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: PAYOFF
+    kicker: O PRÓXIMO PASSO
+    copy_direction: 'Reflexão final sobre a transição de ''usuário de chat'' para
+      ''construtor de automação''. CTA para o leitor pensar: ''Qual processo do seu
+      dia a dia hoje demanda uma decisão e uma ação repetitiva?'''
+    image_direction: Visual minimalista com foco no texto, mantendo a estética de
+      autoridade e clareza da marca.
+    source_slides: []
+  rationale: O plano segue o arco de Schwartz (problem_aware), atacando a confusão
+    causada pelo hype da IA e entregando a estrutura lógica que o usuário busca. Reduzi
+    a abstração do benchmark transformando a discussão do Reddit em um contraste entre
+    'caos vs. estrutura', e utilizei o payoff para entregar o workflow técnico de
+    forma modular, conforme a voz pragmática da Virals.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T19:42:28'
+central_theme: Como construir o primeiro agente de IA através de um workflow modular
+  e prático.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:42:39'
+  slides: 4
+  central_theme: Como construir o primeiro agente de IA através de um workflow modular
+    e prático.
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:43:09'

@@ -9,12 +9,15 @@ squad:
   slashPrefix: viralsProjetos
 workspace_integration:
   level: read_write
-  rationale: Reads project briefings and writes tasks/milestones across all squad domains in ClickUp
+  rationale: Reads project briefings and writes tasks/milestones across all squad domains in ClickUp. Cobre as duas empresas do fundador (Virals e Oraclum) — pastas "Virals Starter & Growth" e "Oraclum Starter & Growth" existem em paralelo desde 2026-08.
   read_paths:
     - workspace/businesses/virals/projects/
     - workspace/businesses/virals/clients/
+    - workspace/businesses/oraclum/projects/
+    - workspace/businesses/oraclum/clients/
   write_paths:
     - workspace/businesses/virals/projects/
+    - workspace/businesses/oraclum/projects/
   template_namespace: projetos
 pattern_library:
   prefix: VP

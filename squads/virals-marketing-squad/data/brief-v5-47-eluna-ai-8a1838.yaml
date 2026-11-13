@@ -1,0 +1,304 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:41:06'
+archetype: news
+carousel_brief:
+  slug: v5-precision-47-eluna-ai-8a1838
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\47-eluna-ai-8a1838
+  source_url: https://www.instagram.com/eluna.ai/p/Db5ZBF2FERV/
+  tema: 'Modelagem de precisão: 47-eluna-ai-8a1838'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 3
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.2/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar o tom de curiosidade social por ''Radar de Tendências & Eficiência'', focando
+    em demonstrar variações de outputs de IA que impactam diretamente a tomada de
+    decisão de negócios. - Transformar o ''choque pela curiosidade cultural'' em um
+    ''alerta técn'
+  audits_present: true
+benchmark_caption: 'Google’s AI Overview apparently went from “sorry” to “check your
+  pockets” just because the nationality in the search changed.
+
+
+  For the British version, it imagined a polite apology, while the Romanian version
+  jumped straight to a pickpocket warning. 🫣'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: GOOGLE AI GIVES WILDLY
+  reference_body: DIFFERENT ANSWERS BASED ON COUNTRY TRENDING
+  headline: 'O RISCO: A IA DO GOOGLE NÃO É NEUTRA'
+  sub_headline: O RISCO
+  body_text: A localização do usuário altera drasticamente as respostas do modelo.
+    O viés algorítmico pode distorcer a percepção da realidade dependendo de onde
+    você acessa a ferramenta.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 36
+    body_chars: 173
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using smartphone city
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Headline direta sobre como a IA do Google entrega respostas diferentes
+      dependendo da localização do usuário. O foco é alertar para o viés algorítmico
+      que pode distorcer percepções.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:41:43'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Google
+  reference_body: a british man bumped int AI Mode Images Videos News Foru AI Overview
+    If a British man bumped into you, he almost certainly muttered an automatic "Sorry!"
+    or "Cheers, sorry!"—even if it was entirely your fault—sparking a polite, reflexive
+    exchange of mutual apologies. Instagram · Benjami... +1
+  headline: 'O CONTRASTE: ESTEREÓTIPOS POSITIVOS'
+  sub_headline: O CONTRASTE
+  body_text: Ao processar a interação de um homem britânico, a IA descreve um comportamento
+    social educado e automático. O modelo reflete vieses culturais favoráveis para
+    certas regiões.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 173
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: british man street london
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Apresentar o primeiro cenário: ao buscar sobre um homem britânico,
+      a IA descreve um comportamento social educado (''Sorry!''). Mostrar que o modelo
+      reflete estereótipos positivos de certas regiões.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:41:43'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: Google
+  reference_body: a romanian man bumped AI Mode Images Videos News Foru AI Overview
+    Check your pockets right now. If someone bumped into you unexpectedly in a crowded
+    area, it is a classic distraction technique for pickpocketing. Immediately verify
+    that you still have your wallet, phone, passport, and other valuables.
+  headline: O PERIGO POR TRÁS DO DADO
+  sub_headline: O ALERTA
+  body_text: Na Romênia, a IA mudou o tom para um alerta de crime. Isso prova que
+    ela repete preconceitos. Se você usa IA para decidir negócios, pode estar cometendo
+    erros graves.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 25
+    body_chars: 166
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person checking pocket wallet
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Revelar o segundo cenário: ao buscar sobre um homem romeno, a IA muda
+      o tom para um alerta de segurança/crime. Concluir que a IA não é neutra e reflete
+      vieses culturais de treinamento. Fechar com uma provocação sobre a confiabilidade
+      de dados de IA para automação e decisões de negócios.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:41:43'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/3
+  bodies_extracted: 3/3
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A disparidade de respostas da IA do Google baseada em estereótipos
+    nacionais e localização geográfica.
+  formato: Case de comparação visual (A/B testing de output).
+  arco_narrativo: O post inicia com uma promessa de choque/curiosidade (estranheza
+    nas respostas), apresenta a evidência do estereótipo positivo (Reino Unido) e
+    culmina no contraste com o estereótipo negativo (Romênia).
+  estrutura:
+  - slide_n: 1
+    papel: Hook visual e textual para gerar curiosidade sobre a inconsistência da
+      IA.
+    essencial: true
+  - slide_n: 2
+    papel: Prova social/evidência do primeiro cenário (Controle).
+    essencial: true
+  - slide_n: 3
+    papel: Clímax e revelação do contraste (Variável), fechando a tese do post.
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Contraste imediato e chocante entre as duas respostas.
+  - Uso de screenshots reais que validam a veracidade da informação.
+  - Exploração de gatilhos de curiosidade e viés cultural.
+  - 'Simplicidade narrativa: Premissa -> Exemplo A -> Exemplo B.'
+  recomendacao:
+    slides_ideais: 3
+    justificativa: A estrutura de 3 slides é a mínima necessária para manter o arco
+      de 'Tese, Prova A e Contraste B'. Para a versão Virals, a manutenção dos 3 slides
+      é ideal, porém alterando a narrativa de 'curiosidade cultural' para 'alerta
+      técnico sobre vieses de IA' conforme a auditoria estratégica.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:41:19'
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: O viés cultural e geográfico nas respostas da IA do Google.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O RISCO
+    copy_direction: Headline direta sobre como a IA do Google entrega respostas diferentes
+      dependendo da localização do usuário. O foco é alertar para o viés algorítmico
+      que pode distorcer percepções.
+    image_direction: 'Um print de interface de busca do Google com um elemento visual
+      que sugira dualidade ou espelhamento (ex: um lado claro, outro escuro).'
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O CONTRASTE
+    copy_direction: 'Apresentar o primeiro cenário: ao buscar sobre um homem britânico,
+      a IA descreve um comportamento social educado (''Sorry!''). Mostrar que o modelo
+      reflete estereótipos positivos de certas regiões.'
+    image_direction: Screenshot real da resposta da IA sobre o comportamento de um
+      britânico, destacando o texto sobre a cortesia automática.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: PAYOFF
+    kicker: O ALERTA
+    copy_direction: 'Revelar o segundo cenário: ao buscar sobre um homem romeno, a
+      IA muda o tom para um alerta de segurança/crime. Concluir que a IA não é neutra
+      e reflete vieses culturais de treinamento. Fechar com uma provocação sobre a
+      confiabilidade de dados de IA para automação e decisões de negócios.'
+    image_direction: Screenshot real da resposta da IA sobre o homem romeno, contrastando
+      visualmente com o slide anterior para enfatizar a mudança drástica de tom.
+    source_slides:
+    - 3
+  rationale: O plano segue a recomendação de 3 slides para manter o arco de 'Tese,
+    Prova A e Contraste B'. Utilizei o tom de 'O Sábio' da Virals para transformar
+    um post de curiosidade cultural em um alerta técnico sobre viés de dados, o que
+    é mais relevante para uma audiência de negócios e tecnologia. O hook foca no risco
+    (problema) e o payoff traz a reflexão necessária sobre a neutralidade da ferramenta.
+  planned_by: openrouter:google/gemma-4-26b-a4b-it:free
+  planned_at: '2026-08-12T19:41:36'
+central_theme: O viés cultural e geográfico nas respostas da IA do Google.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:41:43'
+  slides: 3
+  central_theme: O viés cultural e geográfico nas respostas da IA do Google.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 1
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:41:53'

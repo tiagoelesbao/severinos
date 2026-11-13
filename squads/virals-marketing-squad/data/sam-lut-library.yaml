@@ -1,0 +1,128 @@
+# Sam Kolder — LUT Library
+# Biblioteca de Look-Up Tables para color grading de vídeos
+# Utilizado por: sam-color-grade, sam-reel-edit, sam-long-edit
+
+lut_library:
+
+  cinematic-warm:
+    file: "data/luts/cinematic-warm.cube"
+    mood: "Quente, âmbar, cinematográfico"
+    description: "Tom dourado-âmbar com sombras suaves. Evoca nostalgia e energia."
+    use_for:
+      - "Reels de lifestyle e motivacional"
+      - "Conteúdo de viagem e aventura"
+      - "Talking head com iluminação natural"
+    intensity_default: 85
+    intensity_range: [60, 100]
+    base_correction_recommended: true
+
+  neutral-grade:
+    file: "data/luts/neutral-grade.cube"
+    mood: "Neutro, corretivo, profissional"
+    description: "Correção de cor neutra — elimina dominantes sem adicionar estilo."
+    use_for:
+      - "Entrevistas e podcasts"
+      - "Tutoriais e webinars"
+      - "Qualquer conteúdo longo"
+    intensity_default: 80
+    intensity_range: [50, 95]
+    base_correction_recommended: true
+
+  cool-blue:
+    file: "data/luts/cool-blue.cube"
+    mood: "Frio, azul, high-tech, moderno"
+    description: "Tons azulados e frios. Sombras em azul-marinho, destaques limpos."
+    use_for:
+      - "Conteúdo de tecnologia e SaaS"
+      - "Finanças e investimentos"
+      - "Conteúdo corporativo"
+    intensity_default: 75
+    intensity_range: [50, 90]
+    base_correction_recommended: false
+
+  matte-fade:
+    file: "data/luts/matte-fade.cube"
+    mood: "Desbotado, matte, editorial, premium"
+    description: "Lift de pretos (matte look), saturação reduzida. Estética editorial."
+    use_for:
+      - "Moda e lifestyle premium"
+      - "Behind the scenes estético"
+      - "Conteúdo aspiracional"
+    intensity_default: 70
+    intensity_range: [40, 85]
+    base_correction_recommended: true
+
+  high-contrast:
+    file: "data/luts/high-contrast.cube"
+    mood: "Contraste alto, impactante, energético"
+    description: "Pretos profundos, brancos estourados, cores saturadas."
+    use_for:
+      - "Conteúdo de esporte e fitness"
+      - "Transformações e resultados"
+      - "Conteúdo de ação"
+    intensity_default: 80
+    intensity_range: [60, 100]
+    base_correction_recommended: true
+
+  vintage-film:
+    file: "data/luts/vintage-film.cube"
+    mood: "Grão de filme, nostálgico, sépia suave"
+    description: "Emula película fotográfica com ligeiro grão e tons sépia."
+    use_for:
+      - "Storytelling e conteúdo narrativo"
+      - "Vlogs nostálgicos"
+      - "Conteúdo de memória e história"
+    intensity_default: 65
+    intensity_range: [40, 80]
+    base_correction_recommended: false
+    add_grain: true
+    grain_intensity: 0.05
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DOWNLOAD DE LUTs GRATUITOS
+# ─────────────────────────────────────────────────────────────────────────────
+lut_sources:
+  free:
+    - name: "IWLTBAP Free LUTs"
+      url: "https://iwltbap.com/free-luts/"
+      notes: "Alta qualidade, uso comercial permitido"
+    - name: "Lutify.me Free"
+      url: "https://lutify.me/free-luts/"
+      notes: "20 LUTs gratuitos profissionais"
+    - name: "RocketStock Free"
+      url: "https://www.rocketstock.com/free-after-effects-templates/35-free-luts-for-color-grading-videos/"
+      notes: "35 LUTs populares, CC0"
+    - name: "Color Grading Central"
+      url: "https://www.colorgradingcentral.com/free-luts"
+      notes: "Cinema-grade gratuitos"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CONFIGURAÇÃO DE APLICAÇÃO VIA FFMPEG
+# ─────────────────────────────────────────────────────────────────────────────
+ffmpeg_config:
+  # Intensidade 100%:
+  # ffmpeg -i input.mp4 -vf "lut3d=file.cube" output.mp4
+
+  # Intensidade variável (blend):
+  # ffmpeg -i input.mp4 -vf "lut3d=file.cube,blend=all_expr='A*I+B*(1-I)'" output.mp4
+  # Onde I = intensidade/100
+
+  # Com correção base antes do LUT:
+  # ffmpeg -i input.mp4 -vf "eq=brightness=0.05:contrast=1.1,lut3d=file.cube" output.mp4
+
+  cube_format_support: true   # FFmpeg ≥ 4.0 suporta .cube nativamente
+  requires_ffmpeg_version: "4.0"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DEFAULTS POR CONTENT TYPE
+# ─────────────────────────────────────────────────────────────────────────────
+content_type_defaults:
+  reel: "cinematic-warm"
+  tiktok: "cinematic-warm"
+  shorts: "high-contrast"
+  interview: "neutral-grade"
+  podcast: "neutral-grade"
+  tutorial: "neutral-grade"
+  lifestyle: "matte-fade"
+  fitness: "high-contrast"
+  tech: "cool-blue"

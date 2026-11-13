@@ -1,0 +1,40 @@
+workflow:
+  name: outreach-campaign
+  version: 1.0.0
+  description: "Campanha de abordagem: gerar scripts personalizados (Fase 3)"
+  squad: virals-creators-hunting-squad
+  trigger: "Quando batch de creators qualificadas disponível"
+
+steps:
+  - id: step-1-generate
+    name: "Gerar scripts de outreach"
+    script: scripts/generate-outreach-batch.js
+    args: "--scorecards ./data/scorecards/batch-scores-{date}.json --client {client}"
+    output: "data/outreach/outreach-batch-{date}.json"
+
+  - id: step-2-review
+    name: "Revisar scripts personalizados"
+    type: human
+    description: "Hunter revisa scripts e personaliza com post específico"
+    checklist: checklists/outreach-readiness-checklist.md
+
+  - id: step-3-execute
+    name: "Executar DMs"
+    type: human
+    description: "Hunter envia DMs manualmente seguindo batch"
+    timing: "10h-12h e 18h-20h, seg-qua"
+
+  - id: step-4-track
+    name: "Registrar respostas"
+    type: human
+    description: "Atualizar status no ClickUp (contacted/negotiating/rejected)"
+    script: scripts/clickup-pipeline-sync.js
+
+  - id: step-5-followup
+    name: "Follow-ups"
+    type: hybrid
+    description: "Gerar e executar D+1, D+3, D+7"
+    rules:
+      - "Se respondeu: parar follow-up"
+      - "Se não respondeu D+7: marcar no_response"
+      - "Máximo 3 touchpoints"

@@ -1,0 +1,96 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM — VIDEO TEMPLATE REGISTRY (Pipeline *industrialize-video)
+# Catálogo de packs visuais/cinéticos para vídeo curto da marca Oraclum.
+# Paleta Obsidian + Electric Cyan (de brand-config.yaml).
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "oraclum"
+  last_updated: "2026-08-04"
+  status: "active"
+  palette_ref: "brand-config.yaml (Obsidian #0F0C20 + Cyan #00F0FF)"
+
+# ── Packs de HOOK (0–3s) ────────────────────────────────────────────────────
+hook_packs:
+  - id: hook-interface-reveal
+    label: "Interface Reveal-Zoom"
+    device: snap-zoom
+    description: "Zoom na tela do software, demonstrando a automação ativa de imediato."
+    best_for_hook_types: [pattern interrupt, bold claim]
+  - id: hook-number-hardcut
+    label: "Number Hard-Cut"
+    device: hard-cut
+    description: "Corte seco para número-cyan GIGANTE representando métrica de eficiência."
+    best_for_hook_types: [bold claim]
+  - id: hook-direct-question
+    label: "Direct Question"
+    device: direct-address
+    description: "Pergunta provocadora na tela abrindo loop de curiosidade tecnológica."
+    best_for_hook_types: [curiosity gap, pattern interrupt]
+  - id: hook-code-run
+    label: "Code Run jump"
+    device: jump-cut
+    description: "Jump-cut mostrando logs de script rodando no terminal para prova social."
+    best_for_hook_types: [pattern interrupt]
+
+# ── Estilos de LEGENDA ──────────────────────────────────────────────────────
+caption_styles:
+  - id: cap-cyan-pop
+    label: "Cyan Word-Pop"
+    style: word-by-word
+    color: "#00F0FF"
+    description: "Palavra-a-palavra, keyword em electric cyan, peso Outfit Black."
+  - id: cap-mono-bold
+    label: "Mono Bold"
+    style: line-by-line
+    color: "#FFFFFF"
+    description: "Linhas curtas brancas, caixa-alta, direto — estilo clean."
+  - id: cap-keyword-underline
+    label: "Keyword Underline"
+    style: highlight
+    color: "#8A2BE2"
+    description: "Sublinhado cosmic purple na palavra de destaque."
+
+# ── Packs de TRANSIÇÃO ──────────────────────────────────────────────────────
+transition_packs:
+  - id: trans-cut-dry
+    label: "Dry Cut"
+    type: cut
+    description: "Corte seco, sem firula — ritmo técnico e objetivo."
+  - id: trans-speed-ramp
+    label: "Speed Ramp"
+    type: speed-ramp
+    description: "Aceleração curta entre cliques/ações de tela."
+  - id: trans-push
+    label: "Push"
+    type: push
+    description: "Empurra lateral suave na troca de ferramenta explicada."
+
+# ── Presets de MOTION GRAPHICS ──────────────────────────────────────────────
+motion_presets:
+  - id: motion-oraclum-lowerthird
+    label: "Oraclum Lower-Third"
+    kind: lower-third
+    description: "Faixa obsidian + 'Oraclum · IA aplicada' em cyan."
+  - id: motion-cyan-underline
+    label: "Cyan Underline"
+    kind: underline
+    description: "Sublinhado cyan animado na palavra-âncora."
+  - id: motion-big-number
+    label: "Big Number"
+    kind: number
+    description: "Número-herói cyan (Outfit Black) para dados de eficiência."
+
+# ── Recomendação por tipo de hook (scoring_match) ───────────────────────────
+scoring_match:
+  hook:
+    from_bold_claim: [hook-number-hardcut, hook-interface-reveal]
+    from_curiosity_gap: [hook-direct-question, hook-interface-reveal]
+    from_pattern_interrupt: [hook-interface-reveal, hook-code-run, hook-direct-question]
+  caption:
+    default: [cap-cyan-pop, cap-mono-bold, cap-keyword-underline]
+  transition:
+    default: [trans-cut-dry, trans-speed-ramp, trans-push]
+  motion:
+    default: [motion-oraclum-lowerthird, motion-cyan-underline, motion-big-number]

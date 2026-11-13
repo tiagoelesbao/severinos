@@ -1,0 +1,228 @@
+# WF-CASEY-CAROUSEL-001: Pipeline de Produção de Carrossel Informativo
+# Duration: 30-60 min por carrossel
+# Best for: Carrosséis educativos/informativos Instagram/LinkedIn
+# Key Agents: @casey-neistat-img
+# Stack: Pillow + OpenCV + PyCairo + FLUX.2/Diffusers
+
+workflow:
+  id: wf-casey-carousel-production
+  name: "Pipeline de Produção de Carrossel Informativo"
+  version: "1.0"
+  orchestrator: "casey-neistat-img"
+  duration: "30-60 min"
+  description: |
+    Workflow completo para produção de carrossel informativo multi-slide.
+    Fluxo: Briefing + Estrutura Narrativa → Planejamento de Slides →
+    Geração de Imagens (opcional IA) → Composição em Lote →
+    Coerência Visual → Export + ZIP.
+
+    Regra narrativa:
+    - Slide 1: Hook (para o scroll)
+    - Slides 2..N-1: Valor (um conceito por slide)
+    - Slide N: CTA (próximo passo claro)
+
+    Output: outputs/carousels/{slug}/
+    - slide_01.png .. slide_0N.png
+    - slide_*.webp
+    - carousel_manifest.json
+    - carousel_{slug}.zip (pronto para upload)
+
+  best_for:
+    - "Carrosséis educativos (top X, como fazer)"
+    - "Storytelling visual em slides"
+    - "Apresentação de produto/benefícios"
+    - "Conteúdo de autoridade e expertise"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: Briefing e Estrutura Narrativa
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1-STRUCTURE
+    name: "Briefing e Estrutura Narrativa"
+    tier: 1
+    description: |
+      Define a estrutura completa do carrossel antes de qualquer execução.
+      Mapeia conteúdo por slide com a regra Hook → Valor → CTA.
+      Elicita dados faltantes se content_data incompleto.
+
+    tasks:
+      - task_file: casey-carousel-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 1
+        description: "Validar briefing, confirmar slide_count, mapear conteúdo por slide"
+        output: "Estrutura narrativa aprovada com conteúdo por slide"
+
+    checkpoint:
+      criteria:
+        - "Slide 1 tem headline de hook claro e irresistível?"
+        - "Slides intermediários têm UM conceito cada (sem sobrecarga)?"
+        - "Último slide tem CTA explícito?"
+        - "slide_count entre 3 e 15?"
+        - "content_data completo para todos os slides?"
+      human_review: true
+      message: "APROVAR ESTRUTURA NARRATIVA antes de iniciar composição."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: Planejamento do Layout Master
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2-LAYOUT
+    name: "Planejamento do Layout Master"
+    tier: 1
+    description: |
+      Define o grid master que será replicado em todos os slides.
+      Garante consistência visual entre slides.
+
+    tasks:
+      - task_file: casey-carousel-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 2
+        description: "Definir grid master: posições, safe zones, tipografia, logo"
+        output: "Layout spec aprovada para uso em todos os slides"
+
+    checkpoint:
+      criteria:
+        - "Safe zones definidas (mín. 60px de margem)?"
+        - "Posição do número de slide definida?"
+        - "Tipografia headline/body e tamanhos definidos?"
+        - "Posição de logo consistente em todos os slides?"
+      human_review: false
+      message: "Verificar layout spec antes de composição em lote."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: Geração de Imagens (opcional)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3-IMAGES
+    name: "Geração de Imagens por Slide (IA)"
+    tier: 1
+    description: |
+      Para slides que requerem imagem gerada via IA.
+      Executa em lote para todos os slides com ai_prompt.
+      Slides texto-sobre-cor pulam esta fase.
+
+    tasks:
+      - task_file: casey-ai-generate.md
+        agent: casey-neistat-img
+        required: false
+        condition: "Algum slide tem ai_prompt no content_data"
+        description: "Gerar imagens para slides que requerem IA"
+        output: "Imagens base geradas para cada slide com ai_prompt"
+
+    checkpoint:
+      criteria:
+        - "Imagens geradas sem artefatos graves?"
+        - "Estilo visual coerente entre slides gerados?"
+      human_review: true
+      message: "Aprovar imagens IA antes de composição."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: Composição em Lote + Coerência Visual
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4-COMPOSE
+    name: "Composição em Lote e Coerência Visual"
+    tier: 1
+    description: |
+      Compõe todos os slides aplicando o layout master.
+      Após composição individual, aplica correção de cor batch via OpenCV
+      para garantir harmonia visual entre todos os slides da série.
+
+    tasks:
+      - task_file: casey-carousel-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 4
+        description: "Compor cada slide com Pillow: bg, overlay, headline, body, número, logo"
+        output: "N slides compostos individualmente"
+        order: 1
+
+      - task_file: casey-carousel-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 5
+        description: "Aplicar coerência visual batch via OpenCV — harmonizar paleta entre slides"
+        output: "N slides com paleta de cores harmonizada"
+        order: 2
+
+    checkpoint:
+      criteria:
+        - "Slide 1 é visualmente impactante?"
+        - "Coerência visual entre slides — mesma família de tons?"
+        - "Nenhum slide tem texto cortado ou ilegível?"
+        - "Número de slide visível em todos?"
+        - "Logo consistente em posição e tamanho?"
+      human_review: true
+      message: "VALIDAR SÉRIE COMPLETA: Revisar todos os slides em sequência antes de exportar."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: Export e Empacotamento
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-5-EXPORT
+    name: "Export e Empacotamento do Carrossel"
+    tier: 1
+    description: |
+      Exporta todos os slides em PNG e WebP, numerados sequencialmente.
+      Gera carousel_manifest.json e ZIP pronto para upload.
+
+    tasks:
+      - task_file: casey-carousel-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 6
+        description: "Salvar slides, gerar manifest e criar ZIP de upload"
+        output: "outputs/carousels/{slug}/ + carousel_{slug}.zip"
+
+    checkpoint:
+      criteria:
+        - "Slides numerados corretamente (slide_01 primeiro, slide_0N último)?"
+        - "ZIP contém todos os slides em ordem correta?"
+        - "carousel_manifest.json com estrutura narrativa documentada?"
+      human_review: false
+      message: "Validar ZIP antes de considerar concluído."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE:CASEY-CAROUSEL-PRODUCTION</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-{{phase_id}}</promise>"
+blocked_signal: "<promise>BLOCKED:CASEY-CAROUSEL-GARGALO</promise>"
+
+outputs:
+  Per_Carousel:
+    - "slide_01..0N.png — Slides numerados em PNG"
+    - "slide_*.webp — Versões WebP"
+    - "carousel_manifest.json — Estrutura narrativa e paths"
+    - "carousel_{slug}.zip — Pacote para upload direto"
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - halt_workflow: true
+  on_ai_generation_failure:
+    - fallback_to_next_model: true
+    - model_priority: ["flux-klein", "sdxl-local", "hf-api", "together-ai"]
+
+quality_checklist:
+  Narrativa:
+    - "[ ] Slide 1 para o scroll"
+    - "[ ] Um conceito por slide intermediário"
+    - "[ ] CTA claro no último slide"
+  Visual:
+    - "[ ] Coerência de paleta entre slides"
+    - "[ ] Tipografia consistente"
+    - "[ ] Safe zones respeitadas em todos os slides"
+  Export:
+    - "[ ] Slides em ordem correta no ZIP"
+    - "[ ] Manifest com estrutura narrativa"
+
+metadata:
+  version: "1.0"
+  framework: "Virals Media Image Pipeline v1"
+  created: "2026-05-10"
+  primary_use_case: "Carrossel informativo multi-slide"
+  related_workflows:
+    - "casey-post-production.yaml"
+  related_checklists:
+    - "casey-carousel-narrative-checklist.md"
+  related_templates:
+    - "casey-carousel-brief-tmpl.md"

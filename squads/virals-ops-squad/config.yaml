@@ -24,11 +24,13 @@ agents:
     file: agents/wickman.md
 workspace_integration:
   level: read_write
-  rationale: "Reads operational goals and metrics from ClickUp and writes POPs, audit reports and OKR status."
+  rationale: "Reads operational goals and metrics from ClickUp and writes POPs, audit reports and OKR status. Cobre as duas empresas do fundador (Virals e Oraclum) — o OKR do ClickUp (Objetivos & Metas) é unificado desde 2026-08-16."
   read_paths:
     - workspace/businesses/virals/ops/
+    - workspace/businesses/oraclum/ops/
   write_paths:
     - workspace/businesses/virals/ops/
+    - workspace/businesses/oraclum/ops/
   template_namespace: ops
 task_standards:
   enforce_anatomy: true

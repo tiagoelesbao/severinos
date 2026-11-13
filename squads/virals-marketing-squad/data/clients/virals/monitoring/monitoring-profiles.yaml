@@ -1,0 +1,222 @@
+# Monitoring Profiles: Daily Social Media
+# Squad: virals-marketing-squad
+# Frequency: Daily (Yesterday's posts)
+
+profiles:
+  instagram:
+    - handle: "@criativobruno"
+      url: "https://www.instagram.com/criativobruno/"
+      priority: medium
+    - handle: "@matheusmota"
+      url: "https://www.instagram.com/matheusmota/"
+      priority: medium
+    - handle: "@turbo.partners"
+      url: "https://www.instagram.com/turbo.partners/"
+      priority: medium
+    - handle: "@uana_amorim"
+      url: "https://www.instagram.com/uana_amorim/"
+      priority: medium
+    - handle: "@anibalriveros"
+      url: "https://www.instagram.com/anibalriveros/"
+      priority: medium
+    - handle: "@community_ca"
+      url: "https://www.instagram.com/community_ca/"
+      priority: medium
+    - handle: "@marcapropriabr"
+      url: "https://www.instagram.com/marcapropriabr/"
+      priority: medium
+    - handle: "@ecommercepuro"
+      url: "https://www.instagram.com/ecommercepuro/"
+      priority: medium
+    - handle: "@acelerai"
+      url: "https://www.instagram.com/acelerai/"
+      priority: medium
+    - handle: "@criadores.virais"
+      url: "https://www.instagram.com/criadores.virais/"
+      priority: medium
+    - handle: "@gustavo_siemsen"
+      url: "https://www.instagram.com/gustavo_siemsen/"
+      priority: medium
+    - handle: "@danielmarcapropria"
+      url: "https://www.instagram.com/danielmarcapropria/"
+      priority: medium
+    - handle: "@tay.ldantas"
+      url: "https://www.instagram.com/tay.ldantas/"
+      priority: medium
+    - handle: "@pandoriumdigital"
+      url: "https://www.instagram.com/pandoriumdigital/"
+      priority: medium
+    - handle: "@felipehatab"
+      url: "https://www.instagram.com/felipehatab/"
+      priority: medium
+    - handle: "@publicitarioscriativos"
+      url: "https://www.instagram.com/publicitarioscriativos/"
+      priority: medium
+    - handle: "@tabconselho"
+      url: "https://www.instagram.com/tabconselho/"
+      priority: medium
+    - handle: "@falajoaobranco"
+      url: "https://www.instagram.com/falajoaobranco/"
+      priority: medium
+    - handle: "@aceleramarca"
+      url: "https://www.instagram.com/aceleramarca/"
+      priority: medium
+    - handle: "@robsongalvao"
+      url: "https://www.instagram.com/robsongalvao/"
+      priority: medium
+    - handle: "@garyvee"
+      url: "https://www.instagram.com/garyvee/"
+      priority: medium
+    - handle: "@gretta"
+      url: "https://www.instagram.com/gretta/"
+      priority: medium
+    - handle: "@iamnicorojas"
+      url: "https://www.instagram.com/iamnicorojas/"
+      priority: medium
+    - handle: "@neilpatel"
+      url: "https://www.instagram.com/neilpatel/"
+      priority: medium
+    - handle: "@noahkagan"
+      url: "https://www.instagram.com/noahkagan/"
+      priority: medium
+    - handle: "@stack3dnews"
+      url: "https://www.instagram.com/stack3dnews/"
+      priority: medium
+    - handle: "@greglavslife"
+      url: "https://www.instagram.com/greglavslife/"
+      priority: medium
+    - handle: "@hormozi"
+      url: "https://www.instagram.com/hormozi/"
+      priority: medium
+    - handle: "@russellbrunson"
+      url: "https://www.instagram.com/russellbrunson/"
+      priority: medium
+
+  tiktok:
+    - handle: "@adibemarquescimed"
+      url: "https://www.tiktok.com/@adibemarquescimed"
+      priority: medium
+    - handle: "@joaoadibecimed"
+      url: "https://www.tiktok.com/@joaoadibecimed"
+      priority: medium
+    - handle: "@toguro"
+      url: "https://www.tiktok.com/@toguro"
+      priority: medium
+    - handle: "@alfredosoaresoficial"
+      url: "https://www.tiktok.com/@alfredosoaresoficial"
+      priority: medium
+    - handle: "@tallisgomes"
+      url: "https://www.tiktok.com/@tallisgomes"
+      priority: medium
+    - handle: "@uanaamorim"
+      url: "https://www.tiktok.com/@uanaamorim"
+      priority: medium
+    - handle: "@renato_cariani"
+      url: "https://www.tiktok.com/@renato_cariani"
+      priority: medium
+    - handle: "@tayldantas"
+      url: "https://www.tiktok.com/@tayldantas"
+      priority: medium
+    - handle: "@fe.hatab"
+      url: "https://www.tiktok.com/@fe.hatab"
+      priority: medium
+    - handle: "@falajoaobranco"
+      url: "https://www.tiktok.com/@falajoaobranco"
+      priority: medium
+    - handle: "@garyvee"
+      url: "https://www.tiktok.com/@garyvee"
+      priority: medium
+    - handle: "@neilpatel"
+      url: "https://www.tiktok.com/@neilpatel"
+      priority: medium
+    - handle: "@noahkagan"
+      url: "https://www.tiktok.com/@noahkagan"
+      priority: medium
+    - handle: "@greglav"
+      url: "https://www.tiktok.com/@greglav"
+      priority: medium
+    - handle: "@ahormozi"
+      url: "https://www.tiktok.com/@ahormozi"
+      priority: medium
+    - handle: "@russellbrunson"
+      url: "https://www.tiktok.com/@russellbrunson"
+      priority: medium
+
+  youtube:
+    - channel_id: "@thomasgonnet"
+      url: "https://www.youtube.com/@thomasgonnet"
+      priority: medium
+    - channel_id: "@bruno_faggion"
+      url: "https://www.youtube.com/@bruno_faggion"
+      priority: medium
+    - channel_id: "@AlexHormozi"
+      url: "https://www.youtube.com/@AlexHormozi"
+      priority: medium
+    - channel_id: "@willdemori"
+      url: "https://www.youtube.com/@willdemori"
+      priority: medium
+    - channel_id: "@AthosVilarins"
+      url: "https://www.youtube.com/@AthosVilarins"
+      priority: medium
+    - channel_id: "@victor.peixoto"
+      url: "https://www.youtube.com/@victor.peixoto"
+      priority: medium
+    - channel_id: "@cientistadomarketing"
+      url: "https://www.youtube.com/@cientistadomarketing"
+      priority: medium
+    - channel_id: "@ImanGadzhi"
+      url: "https://www.youtube.com/@ImanGadzhi"
+      priority: medium
+    - channel_id: "@MatheusBorgesOficial"
+      url: "https://www.youtube.com/@MatheusBorgesOficial"
+      priority: medium
+    - channel_id: "@jonascastromp4"
+      url: "https://www.youtube.com/@jonascastromp4"
+      priority: medium
+    - channel_id: "@obrunookamoto"
+      url: "https://www.youtube.com/@obrunookamoto"
+      priority: medium
+    - channel_id: "@GreylockVC"
+      url: "https://www.youtube.com/@GreylockVC/videos"
+      priority: medium
+    - channel_id: "@a16z"
+      url: "https://www.youtube.com/@a16z"
+      priority: medium
+    - channel_id: "@sequoiacapital"
+      url: "https://www.youtube.com/@sequoiacapital"
+      priority: medium
+    - channel_id: "@ycombinator"
+      url: "https://www.youtube.com/@ycombinator"
+      priority: medium
+    - channel_id: "@northropgrummanmedia"
+      url: "https://www.youtube.com/@northropgrummanmedia"
+      priority: medium
+    - channel_id: "@mmatheusporto"
+      url: "https://www.youtube.com/@mmatheusporto"
+      priority: medium
+    - channel_id: "@TheoBragaSme"
+      url: "https://www.youtube.com/@TheoBragaSme"
+      priority: medium
+    - channel_id: "@antoniobussiki1"
+      url: "https://www.youtube.com/@antoniobussiki1"
+      priority: medium
+    - channel_id: "@MatheusMotaMarca"
+      url: "https://www.youtube.com/@MatheusMotaMarca"
+      priority: medium
+    - channel_id: "@russellbrunson"
+      url: "https://www.youtube.com/@russellbrunson"
+      priority: medium
+    - channel_id: "@icarode.carvalho"
+      url: "https://www.youtube.com/@icarode.carvalho"
+      priority: medium
+    - channel_id: "@GabrielFerreira"
+      url: "https://www.youtube.com/@GabrielFerreira"
+      priority: medium
+    - channel_id: "@CanaldoEslen"
+      url: "https://www.youtube.com/@CanaldoEslen/videos"
+      priority: medium
+
+config:
+  date_offset_days: 1 # Analisar "ontem"
+  auto_etl: true
+  min_engagement_threshold: 10 # Ignorar posts com menos de 10 interações

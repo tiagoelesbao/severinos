@@ -1,0 +1,356 @@
+schema_version: '1.0'
+generated_at: '2026-08-19T23:17:50'
+media_kind: video
+video_brief:
+  slug: video-28-publicitarioscriativos-d40504
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\28-publicitarioscriativos-d40504
+source:
+  creator: '@publicitarioscriativos'
+  platform: instagram
+  url: https://www.instagram.com/publicitarioscriativos/reel/DcL8E7ljTw1/
+  type: video-short
+  caption: 'A luminária Luxo Jr. é a mascote oficial da Pixar, aparecendo na abertura
+    de cada filme do estúdio e virando um dos símbolos mais reconhecíveis da animação
+    mundial. Agora ela ganha vida também fora das telas.
+
+
+    O lançamento foi apresentado pela Disney durante a D23 e integra uma coleção de
+    colecionáveis dedicada aos 40 anos do estúdio. O item reproduz a estética clássica
+    do personagem, mas incorpora sensor de movimento, sons e respostas programadas,
+    funcionando como objeto interativo em vez de fonte real de iluminação.
+
+
+    A escolha reforça como o mercado de merchandising aposta em mascotes históricos
+    para transformar nostalgia em produto premium.'
+metadata:
+  view_count: null
+  like_count: 3213
+  comment_count: null
+  duration_seconds: 24
+  cut_timestamps: null
+hook_raw: Can you show me how this thing works? Oh This is just doing something?
+transcript:
+- start: 0
+  end: 2
+  text: Can you show me how this thing works?
+- start: 2
+  end: 2
+  text: Oh
+- start: 2
+  end: 4
+  text: This is just doing something?
+- start: 4
+  end: 4
+  text: 'No'
+- start: 4
+  end: 10
+  text: It is a little bit of noise uh sound activated and it's also motion sensor
+- start: 10
+  end: 12
+  text: I will say he's been tired so he hasn't been working great
+- start: 12
+  end: 15
+  text: Okay, it's better. The sensor is going to be right over here
+- start: 15
+  end: 16
+  text: Yeah, okay
+- start: 16
+  end: 17
+  text: Yeah
+- start: 17
+  end: 18
+  text: Yeah
+- start: 18
+  end: 19
+  text: You can have a helmet with me in a different place
+- start: 19
+  end: 20
+  text: You're friends
+- start: 20
+  end: 24
+  text: Yeah
+frames:
+- file: Screenshots/frame_01_at_00-00_Can_you_show_me_how_this_thing.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-04_No_.jpg
+  timestamp: 00:04
+  t_seconds: 4
+- file: Screenshots/frame_03_at_00-12_Okay__it_s_better__The_sensor_.jpg
+  timestamp: 00:12
+  t_seconds: 12
+- file: Screenshots/frame_04_at_00-17_Yeah_.jpg
+  timestamp: 00:17
+  t_seconds: 17
+- file: Screenshots/frame_05_at_00-20_Yeah_.jpg
+  timestamp: 00:20
+  t_seconds: 20
+beats:
+- n: 1
+  start: 0
+  end: 4
+  text: Can you show me how this thing works? Oh This is just doing something?
+  role: hook
+- n: 2
+  start: 4
+  end: 12
+  text: No It is a little bit of noise uh sound activated and it's also motion sensor
+    I will say he's been tired so he hasn't been working great
+  role: build
+- n: 3
+  start: 12
+  end: 17
+  text: Okay, it's better. The sensor is going to be right over here Yeah, okay Yeah
+  role: build
+- n: 4
+  start: 17
+  end: 20
+  text: Yeah You can have a helmet with me in a different place You're friends
+  role: build
+- n: 5
+  start: 20
+  end: 24
+  text: Yeah
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 13
+  frames: 5
+  beats: 5
+  video_gate_status: PASS
+visual_analysis: null
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: device demo
+    text: Can you show me how this thing works?
+  - t: 12
+    device: motion sensor activation
+    text: No it is a little bit of noise, sound activated and it's also motion sensor
+  cut_cadence:
+    avaliacao: Ritmo consistente com média 1.85s/segmento, alinhado ao checkpoint
+      de retenção (~1.5‑2s).
+    meets_retention_checkpoint: true
+    source: transcript-segments
+    segments: 13
+    duration_s: 24.0
+    avg_segment_s: 1.85
+  broll_strategy: Close‑ups do dispositivo, close‑ups do sensor de movimento, sobreposição
+    de texto curto, cortes rápidos para demonstrar a funcionalidade, fundo minimalista
+    para manter foco na ação.
+  caption_style: Legenda curta, keyword‑rich, emojis, CTA implícito, alinhada ao hook
+    e ao ritmo visual.
+  pacing_curve:
+  - window: 00-05s
+    densidade: alta
+  - window: 05-10s
+    densidade: moderada
+  - window: 10-15s
+    densidade: moderada
+  - window: 15-20s
+    densidade: baixa
+  - window: 20-24s
+    densidade: baixa
+  retention_devices:
+  - curiosity gap
+  - pattern interrupt
+  - visual demonstration
+  - build‑up
+  - call‑to‑action
+  recommendation: 'Mantenha o arco de curiosidade e a voz energética. Reforce o CTA
+    no final com um convite claro (“Veja mais no link”). Adicione um loop visual curto
+    (ex.: close‑up do sensor piscando) para incentivar rewatch. Preserve o ritmo de
+    1.5‑2s por segmento e use legendas curtas com emojis para reforçar a mensagem.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:19:15'
+content_plan:
+  tema: Demonstração prática de um agente de IA e automação de workflow para aquisição
+  format_concept: tutorial
+  hook:
+    variants:
+    - pattern_interrupt: Close rápido na tela com código/log de IA rodando
+      text_overlay: Como funciona a automação?
+      spoken_open: Você consegue me mostrar como isso aqui funciona na prática?
+    - pattern_interrupt: Corte seco entre rosto do speaker e dashboard de automação
+      text_overlay: Ver o agente rodando
+      spoken_open: Como este agentia realmente opera?
+    - pattern_interrupt: Mão apontando para um trigger de automação no CRM
+      text_overlay: Escalabilidade do sistema
+      spoken_open: Dá para ver o sistema funcionando agora?
+  storyboard:
+  - beat_n: 1
+    scene: 'Hook: Pergunta inicial'
+    shot_type: insert
+    duration_s: 4
+    on_screen_text: Sistema ativo ⚙️
+    broll: Gravação de tela (loom) do agente de IA processando dados
+    motion: zoom-in
+  - beat_n: 2
+    scene: 'Build: Explicação técnica'
+    shot_type: médio
+    duration_s: 8
+    on_screen_text: Agente + API + CRM
+    broll: Cortes rápidos entre o rosto do speaker e o fluxo de integração
+    motion: cut
+  - beat_n: 3
+    scene: 'Build: Ajuste e estabilidade'
+    shot_type: close
+    duration_s: 5
+    on_screen_text: Ajuste de workflow
+    broll: Close no mouse clicando em um parâmetro de prompt ou API
+    motion: zoom-in
+  - beat_n: 4
+    scene: 'Build: Flexibilidade'
+    shot_type: insert
+    duration_s: 3
+    on_screen_text: Escala e eficiência
+    broll: Visualização de múltiplos leads sendo processados simultaneamente
+    motion: whip
+  - beat_n: 5
+    scene: 'CTA: Reflexão sobre aplicação'
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: Sua aquisição é automática?
+    broll: Speaker olhando para a câmera com a tela de fundo
+    motion: none
+  script: Você consegue me mostrar como isso aqui funciona na prática? O agente é
+    ativado por gatilhos de dados, integrado via API e rodando o workflow de qualificação
+    sozinho. Às vezes o prompt precisa de ajuste fino para otimizar conversão. O sensor
+    de entrada está configurado aqui. Você consegue escalar este sistema para diferentes
+    canais sem equipe adicional?
+  edit_spec:
+    zooms:
+    - no 'ajustado'
+    - no 'sensor de entrada'
+    transitions:
+    - cut @ 4s
+    - whip @ 17s
+    - cut @ 20s
+    inserts:
+    - logs de IA
+    - fluxo de CRM
+    - clique no terminal
+    - dashboard de leads
+    captions: Estilo dinâmico, palavras-chave em destaque (amarelo/branco), emojis
+      técnicos (⚙️, 🤖, 📈)
+    motion_graphics:
+    - sinal de ativação do trigger
+    - checkmark verde no ajuste
+    template_refs:
+      hook: hook-direct-question
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Screen recording do agente de IA
+    framing: close
+    audio: fala
+    props: Software de automação
+    locacao: Desktop
+    falas_chave: como isso aqui funciona na prática?
+  - plano: Speaker explicando a lógica
+    framing: médio
+    audio: fala
+    props: Microfone de lapela
+    locacao: Escritório moderno/tech
+    falas_chave: ativado por gatilhos de dados
+  - plano: Close na configuração da ferramenta
+    framing: close
+    audio: fala
+    props: Mouse/Teclado
+    locacao: Desktop
+    falas_chave: ajuste fino necessário
+  - plano: Speaker finalizando com CTA
+    framing: médio
+    audio: fala
+    props: Fundo com telas de código
+    locacao: Escritório moderno/tech
+    falas_chave: escalar sem equipe adicional?
+  sound_design:
+    sfx:
+    - moment: hook
+      category: pop
+      intent: chamar atenção para o texto inicial
+      intensity: medium
+    - moment: beat_n:2
+      category: whoosh
+      intent: marcar a transição para a tela
+      intensity: subtle
+    - moment: reveal @ 14s
+      category: notification
+      intent: confirmar que o ajuste funcionou
+      intensity: medium
+    - moment: CTA
+      category: impact
+      intent: dar peso à pergunta final
+      intensity: subtle
+    music:
+      recommended: true
+      mood: lo-fi
+      energy: medium
+      genre: tech-minimalist
+      ducking: true
+      rationale: Mantém o ritmo constante sem distrair da explicação técnica, reforçando
+        a aura de 'produtividade/foco'.
+    rationale: Uso de sons curtos e secos para espelhar a objetividade do Sábio/Criador,
+      evitando excessos dramáticos.
+  rationale: O plano mantém a estrutura 'curiosidade -> demonstração -> ajuste ->
+    resultado', substituindo o gadget físico por um agente digital. Foca em evidências
+    práticas (logs de IA, fluxo de CRM) sem timing específico ou citações inventadas.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-19T23:23:48'
+quality_gate_video:
+  status: PASS
+  iterations: 1
+  model: openrouter:openrouter/free
+  blocking_failures: []
+  soft_failures: []
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: true
+      blocking: false
+      detail:
+        avg_storyboard_s: 4.8
+        benchmark_meets: true
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 4
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-19T23:24:18'

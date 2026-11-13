@@ -1,6 +1,17 @@
 /**
  * Project Intelligence Orchestrator v2.0
- * 
+ *
+ * ⚠️ LEGADO (2026-08-16) — NÃO REUTILIZAR SEM REESCREVER.
+ * As fases RESEARCH e COUNCIL abaixo têm texto de análise 100% hardcoded
+ * (estratégia "Virals 17-1-1", LinkedIn/YouTube, referências fixas) — não são
+ * parametrizadas, então "generalizar para Oraclum" significaria fabricar
+ * análise que não existe, o que fere a regra "nunca inventar case/capacidade"
+ * já documentada em squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml.
+ * Substituto real: os Docs nativos do ClickUp "Planejamento Estratégico"
+ * (Virals) e "Oraclum TECH" (Doc 2ky4er8u-11133), escritos e sincronizados
+ * manualmente a partir do brand-identity.yaml de cada marca — ver
+ * squads/virals-marketing-squad/data/clients/{virals,oraclum}/planejamento-estrategico.md.
+ *
  * 6-Phase Multi-Agent Pipeline:
  * 1. EXTRACT  — Fetch complete task data from ClickUp
  * 2. RESEARCH — Gather external references and benchmarks
@@ -99,15 +110,30 @@ function phaseCouncil(context) {
     council.hormozi = {
         agent: '@hormozi-sys',
         role: 'ROI & Alavancagem Operacional',
-        analysis: `Se você vai dedicar 3 horas/dia para marketing e prospecção, isso represeenta 90h/mês. A questão não é "quanto tempo", é "qual o multiplicador". Postar no LinkedIn tem multiplicador 1x (você faz, você ganha). Criar um vídeo pilar no YouTube que gera leads por 12 meses tem multiplicador 100x. A alavancagem real está no conteúdo como ativo permanente e no sistema de indicações como CAC negativo.`,
+        analysis: `Se você vai dedicar 3 horas/dia para marketing e prospecção, isso representa 90h/mês. A questão não é "quanto tempo", é "qual o multiplicador".`,
         recommendations: [
-            'Priorizar YouTube (ativo 100x) sobre LinkedIn (ativo 1x) em termos de investimento de tempo de produção',
-            'Implementar sistema de indicações desde o Dia 1 — cada cliente deve ser um canal de aquisição',
-            'Documentar POPs para batch recording: reduzir de 4h para 1.5h por sessão de gravação',
-            'Meta de Revenue per Hour (RPH): cada hora investida deve gerar R$ X em pipeline nos próximos 90 dias',
-            'Automatizar follow-up de leads via WhatsApp com sequência de 5 mensagens validadas'
+            {
+                title: 'Priorizar YouTube (ativo 100x)',
+                action: 'Criar canal e publicar primeiro vídeo pilar',
+                stories: [
+                    'Pesquisa de palavras-chave de cauda longa com alto volume',
+                    'Roteirização focada em retenção (Open Loops)',
+                    'Setup de iluminação e áudio profissional para gravação',
+                    'Edição dinâmica com B-rolls e legendas cinéticas'
+                ]
+            },
+            {
+                title: 'Implementar sistema de indicações',
+                action: 'Criar automação de pedido de indicação pós-venda',
+                stories: [
+                    'Desenho do fluxo de gatilhos no CRM',
+                    'Redação de scripts persuasivos para WhatsApp',
+                    'Setup de landing page de recompensa por indicação',
+                    'Integração com dashboard de acompanhamento de referências'
+                ]
+            }
         ],
-        alerts: ['⚠️ Gargalo: Se o Owner é o único que grava, cria e prospecta, o teto é o número de horas dele. Sistematizar ANTES de escalar.']
+        alerts: ['⚠️ Gargalo: Se o Owner é o único que grava, o teto é o número de horas dele.']
     };
 
     // --- @mrbeast-mk: Virality & CTR ---
@@ -115,14 +141,19 @@ function phaseCouncil(context) {
     council.mrbeast = {
         agent: '@mrbeast-mk',
         role: 'Viralidade & Retenção',
-        analysis: `O método TACOH para LinkedIn é sólido para construção de audiência, mas o framework de hooks está incompleto. Cada peça de conteúdo precisa de um "Beast Hook" nos primeiros 3 segundos que crie uma lacuna de curiosidade impossível de ignorar. O YouTube precisa de thumbnails com contraste emocional (antes/depois, problema/solução visual) e títulos com números específicos — "Como ganhei R$ 47.000 com 1 vídeo" performa 3x melhor que "Como ganhar dinheiro com vídeos".`,
+        analysis: `O método TACOH para LinkedIn é sólido, mas o framework de hooks precisa de um upgrade emocional.`,
         recommendations: [
-            'Criar banco de 50 hooks testados ANTES de começar a produzir (investir 1 semana só nisso)',
-            'Meta de CTR no YouTube: mínimo 8% — se cair abaixo, trocar thumbnail em 48h',
-            'Implementar "Open Loop" em todo conteúdo: revelar algo valioso no minuto 7, prometido no segundo 3',
-            'Reels/TikTok: usar formato "Resultado Primeiro" em 80% dos shorts — mostrar o resultado chocante nos primeiros 2 segundos'
-        ],
-        alerts: ['⚠️ Sem banco de hooks pré-validados, os primeiros 30 vídeos vão ter CTR abaixo de 3%. Investir no front-end.']
+            {
+                title: 'Criar banco de 50 hooks testados',
+                action: 'Documentar 50 ganchos de alta performance',
+                stories: [
+                    'Análise de 100 vídeos virais do nicho para extrair padrões',
+                    'Criação de variações de hooks (Negativo, Curiosidade, Resultado)',
+                    'A/B Testing de 10 hooks iniciais em micro-conteúdos',
+                    'Categorização no Notion por nível de retenção'
+                ]
+            }
+        ]
     };
 
     // --- @garyvee-mk: Brand & Distribution ---
@@ -130,14 +161,20 @@ function phaseCouncil(context) {
     council.garyvee = {
         agent: '@garyvee-mk',
         role: 'Marca & Distribuição',
-        analysis: `A estratégia 17-1-1 é ambiciosa mas executável se o conteúdo for NATIVO para cada plataforma. Não adianta gravar um vídeo de YouTube e cortar para Reels — isso é preguiça de distribuição. Cada plataforma tem sua linguagem. LinkedIn é texto + storytelling profissional. Instagram é visual + relatabilidade. TikTok é velocidade + tendências. A marca Virals precisa de uma voz consistente mas com formato adaptado.`,
+        analysis: `A estratégia 17-1-1 é ambiciosa mas executável se o conteúdo for NATIVO para cada plataforma.`,
         recommendations: [
-            'Pillar Content Strategy: 1 vídeo longo de YouTube → 5 clips nativos para Reels → 3 threads LinkedIn → 2 carrosséis Instagram',
-            'LinkedIn: postar 1x/dia com storytelling pessoal + lição de negócio. "Document, dont create."',
-            'Não usar o mesmo creative em todas as plataformas — cada uma precisa de formato nativo',
-            'Construir a "Brand Bible" nas primeiras 2 semanas: voz, paleta, tom, exemplos do/dont'
+            {
+                title: 'Pillar Content Strategy',
+                action: 'Definir workflow de desmembramento nativo',
+                stories: [
+                    'Extração de 5 clips "High-Hook" do vídeo de YouTube',
+                    'Escrita de 3 Threads para LinkedIn com viés profissional',
+                    'Design de 2 Carrosséis para Instagram com foco visual',
+                    'Gravação de narração nativa para Reels/TikTok'
+                ]
+            }
         ],
-        alerts: ['⚠️ Se o conteúdo não for nativo por plataforma, o alcance orgânico vai ser 5x menor do que o potencial.']
+        alerts: ['⚠️ Se o conteúdo não for nativo por plataforma, o alcance orgânico vai ser 5x menor.']
     };
 
     // --- @cagan-produto: Outcomes & 4 Risks ---
@@ -145,15 +182,20 @@ function phaseCouncil(context) {
     council.cagan = {
         agent: '@cagan-produto',
         role: 'Outcomes & 4 Riscos',
-        analysis: `O projeto como descrito está orientado a OUTPUTS (postar X vezes, gravar Y vídeos) e não a OUTCOMES (gerar Z leads qualificados, converter W%). Precisamos inverter a lógica: primeiro definir o outcome desejado (ex: 50 leads qualificados/mês no pipeline), depois descobrir qual output gera esse resultado. Sem isso, o time vai produzir muito conteúdo que não move o ponteiro.`,
+        analysis: `Precisamos focar em OUTCOMES. O projeto deve ser validado semanalmente com ciclos de Discovery.`,
         recommendations: [
-            'Redefinir sucesso como Outcome: "50 leads qualificados/mês" em vez de "17 posts/semana"',
-            'Risco de Valor: validar com 10 clientes ideais se o tipo de conteúdo planejado é o que eles consomem',
-            'Risco de Viabilidade: 3h/dia de produção é sustentável por 6 meses? Planejamento de burnout prevention',
-            'Implementar ciclo de Discovery semanal: analisar quais conteúdos geraram leads reais e dobrar a aposta neles',
-            'North Star Metric: Pipeline Qualified Leads (PQL) — métrica única que todos acompanham'
+            {
+                title: 'North Star Metric: PQL',
+                action: 'Implementar dashboard de acompanhamento de leads',
+                stories: [
+                    'Definição dos critérios de qualificação (MQL para PQL)',
+                    'Setup de UTM tags em todos os canais de distribuição',
+                    'Criação do relatório semanal de conversão por canal',
+                    'Feedback loop com vendas para ajuste de discurso'
+                ]
+            }
         ],
-        alerts: ['⚠️ Risco de "Feature Factory de Conteúdo": produzir muito sem medir impacto real em receita.']
+        alerts: ['⚠️ Risco de "Feature Factory de Conteúdo": produzir muito sem medir impacto real.']
     };
 
     console.log('  ✓ Intelligence Council completo (5 agentes)');

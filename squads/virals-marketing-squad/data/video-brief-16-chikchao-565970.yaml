@@ -1,0 +1,425 @@
+schema_version: '1.0'
+generated_at: '2026-08-19T23:11:58'
+media_kind: video
+video_brief:
+  slug: video-16-chikchao-565970
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\16-chikchao-565970
+source:
+  creator: '@chikchao'
+  platform: instagram
+  url: https://www.instagram.com/chikchao/reel/DcJM7uVtWwn/
+  type: video-short
+  caption: "I replaced this car with my dream BMW using AI. \U0001F92F\n\nMade with\
+    \ Syntx.ai and Seedance 2.5.\n\nComment “CAR” and I’ll send you all the prompts.\n\
+    \n\U0001F389Get 15% OFF with my code: CHIKCHAO\n\n@syntx_global \n\n#syntxai #seedance25\
+    \ #aivideo #aicar #bmwm3 cartransformation ai"
+metadata:
+  view_count: null
+  like_count: 3329
+  comment_count: null
+  duration_seconds: 24
+  cut_timestamps:
+  - 0.88
+  - 1.56
+  - 2.36
+  - 2.96
+  - 4.2
+  - 4.92
+  - 5.68
+  - 6.68
+  - 7.64
+  - 7.84
+  - 10.32
+  - 10.52
+  - 11.92
+  - 16.76
+  - 17.6
+  - 19.28
+  - 20.36
+hook_raw: Bütün kızlar bende var. Bende para çok çok var. Burnumda hep tutkular var.
+  Var var var var var var var var
+transcript:
+- start: 0
+  end: 8
+  text: Bütün kızlar bende var. Bende para çok çok var. Burnumda hep tutkular var.
+    Var var var var var var var var
+- start: 8
+  end: 10
+  text: First, record a video of your car
+- start: 10
+  end: 12
+  text: Then choose your dream car
+- start: 12
+  end: 15
+  text: Go to syntex.ai, select C dance 2.5 and choose HD
+- start: 15
+  end: 17
+  text: Upload your video and the car photo
+- start: 17
+  end: 18
+  text: Paste this prompt
+- start: 18
+  end: 20
+  text: Click generate and here is the result
+- start: 20
+  end: 24
+  text: Comment car and I'll send you all the prompts
+frames:
+- file: Screenshots/frame_01_at_00-00_B_t_n_k_zlar_bende_var__Bende_.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-08_First__record_a_video_of_your_.jpg
+  timestamp: 00:08
+  t_seconds: 8
+- file: Screenshots/frame_03_at_00-12_Go_to_syntex_ai__select_C_danc.jpg
+  timestamp: 00:12
+  t_seconds: 12
+- file: Screenshots/frame_04_at_00-17_Paste_this_prompt_.jpg
+  timestamp: 00:17
+  t_seconds: 17
+- file: Screenshots/frame_05_at_00-20_Comment_car_and_I_ll_send_you_.jpg
+  timestamp: 00:20
+  t_seconds: 20
+beats:
+- n: 1
+  start: 0
+  end: 8
+  text: Bütün kızlar bende var. Bende para çok çok var. Burnumda hep tutkular var.
+    Var var var var var var var var
+  role: hook
+- n: 2
+  start: 8
+  end: 12
+  text: First, record a video of your car Then choose your dream car
+  role: build
+- n: 3
+  start: 12
+  end: 17
+  text: Go to syntex.ai, select C dance 2.5 and choose HD Upload your video and the
+    car photo
+  role: build
+- n: 4
+  start: 17
+  end: 20
+  text: Paste this prompt Click generate and here is the result
+  role: build
+- n: 5
+  start: 20
+  end: 24
+  text: Comment car and I'll send you all the prompts
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 8
+  frames: 5
+  beats: 5
+  video_gate_status: FAIL
+  video_fidelity_unresolved:
+    numeros: &id001
+    - '48'
+    claims: &id002 []
+    tabu: &id003 []
+    cta: &id004 []
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-00_B_t_n_k_zlar_bende_var__Bende_.jpg
+    shot_type: talking_head
+    on_screen_text: 'Original
+
+      $8k CAR
+
+      SYNTX.AI
+
+      $200k CAR'
+    has_captions: false
+  - file: frame_02_at_00-08_First__record_a_video_of_your_.jpg
+    shot_type: screen_capture
+    on_screen_text: '00:00:00
+
+      0,5
+
+      1x
+
+      2
+
+      3'
+    has_captions: false
+  - file: frame_03_at_00-12_Go_to_syntex_ai__select_C_danc.jpg
+    shot_type: graphic
+    on_screen_text: 'S
+
+      go to'
+    has_captions: false
+  - file: frame_04_at_00-17_Paste_this_prompt_.jpg
+    shot_type: screen_capture
+    on_screen_text: 'Original video
+
+      car
+
+      Reference Car'
+    has_captions: false
+  - file: frame_05_at_00-20_Comment_car_and_I_ll_send_you_.jpg
+    shot_type: talking_head
+    on_screen_text: 'Original
+
+      SYNTX.AI
+
+      result'
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.4
+    screen_capture: 0.4
+    broll: 0.0
+    graphic: 0.2
+  caption_style_seen: no captions visible in provided frames
+  text_overlay_style: Uso de texto grande, branco e em negrito com contorno ou sombra
+    escura para destacar informações-chave (preços, rótulos 'Original'/'Result').
+    Textos menores e mais simples para instruções ou elementos de UI. O logo da marca
+    (SYNTX.AI) é integrado de forma sutil.
+  visual_hook_device: 'O vídeo começa imediatamente com uma comparação visual impactante
+    em tela dividida: um carro ''barato'' versus um carro ''luxuoso'', com valores
+    monetários explícitos. Essa transformação instantânea e a promessa de ''como fazer''
+    prendem a atenção.'
+  broll_density: low
+  edit_style_notes: 1. **Cortes rápidos e dinâmicos:** Transições ágeis entre talking
+    head, capturas de tela e gráficos mantêm o ritmo acelerado, ideal para plataformas
+    de vídeo curtos. 2. **Tela dividida para comparação:** O uso frequente de tela
+    dividida horizontal para mostrar 'antes e depois' ou 'original e resultado' é
+    um elemento visual chave para demonstrar a transformação. 3. **Perspectiva em
+    primeira pessoa:** O criador frequentemente segura a câmera, criando uma sensação
+    de POV (Point of View) e uma conexão direta e pessoal com o espectador.
+  palette:
+  - '#E03030'
+  - '#202020'
+  - '#87CEEB'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-19T23:12:14'
+benchmark_analysis:
+  hook_type: pattern interrupt
+  pattern_interrupts:
+  - t: 0
+    device: visual comparison in split screen
+    text: carro barato x carro luxuoso
+  - t: 0
+    device: keyword-rich speech opening
+    text: Bütün kızlar bende var... var var var
+  - t: 0
+    device: unexpected emotional tone mixed with curiosity
+    text: tom pessoal + promessa de transformação
+  cut_cadence:
+    avaliacao: ritmo muito dinâmico com cortes a cada 1.33s mantém atenção e evita
+      drop-off nos primeiros segundos
+    meets_retention_checkpoint: true
+    source: scene-detect
+    shots: 18
+    segments: 18
+    duration_s: 24.0
+    avg_segment_s: 1.33
+  broll_strategy: screen captures do SaaS e UI demonstram ação real do produto; talking
+    head mantém conexão humana; gráficos de transformação reforçam payoff visual
+  caption_style: high contrast bold sans serif com contorno escuro; texto grande para
+    antes/depois; subtítulos precisos sincronizados com fala e UI
+  pacing_curve:
+  - window: 00-05s
+    densidade: muito alta - hook visual + repetição verbal
+  - window: 05-15s
+    densidade: alta - instruções + demo de tela
+  - window: 15-24s
+    densidade: moderada - payoff + CTA
+  retention_devices:
+  - split screen payoff antes/depois
+  - repetição verbal para reforço de hook
+  - 'escalada clara: problema > solução > demo > resultado'
+  - CTA direto com incentivo à interação
+  - POV primeira pessoa para engajamento pessoal
+  recommendation: manter o arcodo de transformação visual e a estrutura de hook com
+    talking head + screen demo; trocar voz off por fala direta do criador mantendo
+    o mesmo ritmo de edição e cortes a cada ~1.5s
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:12:23'
+content_plan:
+  tema: O Sábio Criador em Busca da Eficiência
+  format_concept: talking-head
+  hook:
+    variants:
+    - pattern_interrupt: 'Mostra uma mesa com dois laptops lado a lado: um antigo
+        e outro moderno'
+      text_overlay: Automação lenta x Inteligência Ativa
+      spoken_open: Automação lenta consome horas... Inteligência Ativa gera resultados
+        agora
+    - pattern_interrupt: Paralela de uma linha de produto digitando manualmente versus
+        outra executando um agente
+      text_overlay: Manual x Agentizado
+      spoken_open: Manual gasta tempo... Agentizado gera escala
+    - pattern_interrupt: Zoom em um log de produção antes e depois da ativação do
+        serviço
+      text_overlay: Antes x Depois
+      spoken_open: Antes = ineficiência... Depois = eficiência real
+  storyboard:
+  - beat_n: 1
+    scene: Título em NAS no terço inferior do frame
+    shot_type: close
+    duration_s: 3
+    on_screen_text: SISTEMA ATIVO
+    broll: close_laptop_mesa
+    motion: cut
+  - beat_n: 2
+    scene: Criador ajustando óculos, mostrando os dois laptops
+    shot_type: close
+    duration_s: 4
+    on_screen_text: CODE x ONE CLICK
+    broll: hands_shutglasses
+    motion: zoom-out
+  - beat_n: 3
+    scene: Código fonte vs. clique de botão
+    shot_type: insert
+    duration_s: 3
+    on_screen_text: ANÁLISE AUTOMÁTICA
+    broll: cursor_code_button
+    motion: swipe
+  - beat_n: 4
+    scene: Fluxo de produtividade em execução
+    shot_type: insert
+    duration_s: 3
+    on_screen_text: Ação em tempo real
+    broll: downgraph
+    motion: pan
+  - beat_n: 5
+    scene: Plataforma de gestão em tela cheia
+    shot_type: full
+    duration_s: 5
+    on_screen_text: Ação em tempo real
+    broll: platform_demo
+    motion: glide
+  script: Automação lenta consome horas. Inteligência Ativa gera resultados agora.
+    Manual gasta recursos. Agentizado cria escalabilidade. MOSTRAR O FLUXO DE TRABALHO
+    ANTES E DEPOIS. MOSTRAR O CÓDIGO NA TELA. MOSTRAR A EXECUÇÃO DO WORKFLOW. EXECUTAR
+    O FLUXO EXATO DE PRODUÇÃO.
+  edit_spec:
+    zooms:
+    - beat_n_start
+    - beat_n_end
+    transitions:
+    - cut @ 3s
+    - swipe @ 5s
+    - glide @ 7s
+    captions: negrito branco com contorno escuro, 48px
+    motion_graphics:
+    - gauge_up @ later
+    - code_scroller @ later
+    template_refs:
+      hook: hook-interface-reveal
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+    inserts: []
+  shotlist:
+  - plano: Close em dois laptops lado a lado
+    framing: close
+    audio: spoken_open
+    props: laptops dusty and modern all-in-one
+    locacao: tech lab NYC
+    falas_chave: Automação lenta entope pipelines... Inteligência Ativa resolve isso
+      hoje
+  - plano: Mãos fechando óculos grandes revelando tela de backend
+    framing: close
+    audio: instrucional
+    props: MacBook Pro com óculos de designer
+    locacao: home office
+    falas_chave: 'No sistema, você tem escolhas: Automação Simples ou Engine de Inteligência
+      em Tempo Real. Vou mostrar exatamente como configuramos nosso workflow na rede
+      pública. Treinamos, fizemos o deploy e escalamos via comando: Python execute_ai_agent()'
+  - plano: Baralho de 5 linhas de código vs. click em botão laranja
+    framing: insert
+    audio: trilha_sonora
+    props: code printout e mouse
+    locacao: cript, webinário space
+    falas_chave: 'Como funciona: você emite comandos de criação do agente, integração
+      com CRM e monitoramento. O processo roda na prática, sem depender de cases imaginários.
+      É testável agora. Analise a estrutura do código open-source no GitHub: link'
+  sound_design:
+    sfx:
+    - moment: hook
+      category: click
+      intent: reforçar interação AI
+      intensity: subtle
+    - moment: beat_n:3
+      category: notification
+      intent: sinalizar ação instantânea
+      intensity: medium
+    - moment: beat_n:5
+      category: whoosh
+      intent: tomada de decisão crítica
+      intensity: strong
+    music:
+      recommended: false
+      mood: chill
+      energy: low
+      genre: performance scored
+      ducking: true
+      rationale: som discreto não distrai da voz; mantiene foco na exposição técnica
+    rationale: ''
+  rationale: Hooks com pattern_interrupt analógico adaptados ao contexto tecnológico,
+    mantendo o ritmo e foco em evidência prática. Tela dividida vira tela paralela
+    com a ferramenta em funcionamento, alinhando com a voz do sábio inovador. CTA
+    direcionado ao sistema público para simular prova sem case, focando em aplicação
+    imediata.
+  fidelity_check:
+    fabricated_numbers:
+    - 10x
+    status: WARN
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-19T23:13:53'
+quality_gate_video:
+  status: FAIL
+  iterations: 3
+  model: openrouter:openrouter/free
+  blocking_failures:
+  - V3_fid_numeros
+  soft_failures: []
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: true
+      blocking: false
+      detail:
+        avg_storyboard_s: 3.6
+        benchmark_meets: true
+    V3_fid_numeros:
+      ok: false
+      blocking: true
+      detail:
+        fabricados: *id001
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: *id002
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: *id003
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: *id004
+  checked_at: '2026-08-19T23:14:36'

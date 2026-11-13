@@ -1,0 +1,372 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM TECH · AI CREATIVE STUDIO — REFERÊNCIAS DE OFÍCIO
+#
+# Este arquivo descreve CÓDIGO, não portfólio. A pergunta que ele responde não é
+# "quem fez peça boa", é "o que faz esse tipo de peça funcionar".
+#
+# Motivo de existir: uma lista de nomes ("faça no estilo Nike") não orienta
+# produção — dois operadores leem a mesma frase e entregam coisas diferentes.
+# O código, sim: "herói em esforço e não em vitória, contraluz, corte no beat,
+# logo mudo no último frame" é executável e verificável.
+#
+# Consumido por: research-scout (quando não há benchmark), creative-director,
+# film-director, dop, art-director, image-lead, motion-lead, qa-critic (critério
+# de gate). É a rede de segurança quando o ETL de referência falha.
+#
+# ⚠️ As marcas citadas são referência de CÓDIGO PUBLICITÁRIO observável, não
+# clientes nem cases da Oraclum. Nenhuma peça deste squad pode sugerir vínculo,
+# reproduzir elemento protegido, ou usar a marca de terceiro como prova própria.
+# Ver `nao-copiar.md` de cada job e o bloqueio do `fact-checker`.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-21'
+  squad: oraclumtech-ai-creative-studio
+  natureza: 'gramática de gênero — o que faz a peça funcionar'
+  uso: 'insumo de direção e critério de gate; nunca instrução de cópia'
+  aviso_legal: >
+    Referência de código publicitário observável. Marcas citadas não são clientes,
+    parceiras nem casos da Oraclum. Reproduzir elemento identificável de campanha de
+    terceiro é bloqueio automático no estágio factcheck.
+
+# ═════════════════════════════════════════════════════════════════════════════
+generos:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - genero: brand-film
+    pipeline: P1
+    principio_do_genero: >
+      O comercial de marca não argumenta, ele faz DESEJAR. O argumento é tarefa da
+      peça de resposta direta. Aqui a peça constrói uma sensação e assina no fim —
+      quem tenta convencer com dado dentro de um brand film entrega os dois pela metade.
+    regra_de_ouro_do_oficio: 'O produto entra tarde e é tratado como objeto de desejo, nunca como cartela de oferta.'
+
+    familias_de_codigo:
+
+      - familia: cosmetico_e_beleza
+        referencias_observadas: ['Natura', 'O Boticário']
+        codigo_visual:
+          - 'A pele é a matéria-prima do quadro: textura, poro, brilho úmido. Luz difusa e envolvente, sem sombra dura.'
+          - 'Macro é obrigatório — creme, gota, pétala, vapor. É o macro que comunica sensorialidade, não o plano geral.'
+          - 'Gesto lento. Mãos que tocam, espalham, aproximam. A velocidade do movimento É a mensagem de cuidado.'
+          - 'Paleta quente e terrosa no código Natura (matéria-prima, origem, natureza); paleta afetiva e doméstica no código Boticário.'
+        codigo_narrativo:
+          natura: >
+            Origem e propósito. A história vai da matéria-prima ao corpo — de onde vem,
+            quem colhe, o que isso significa. Sustentabilidade não é claim de rodapé, é
+            a espinha da narrativa. Locução em segunda pessoa, tom de acolhimento.
+          boticario: >
+            Relação humana, não produto. A peça conta um vínculo (mãe, par, amizade) em
+            situação doméstica reconhecível, com atores reais, e vira num gesto de afeto.
+            O produto é o VEÍCULO do gesto — quem entrega, entrega o que o produto
+            representa. Data comemorativa é o gatilho clássico.
+        assinatura: 'Tipografia limpa no fim, silêncio ou trilha rarefeita, sem locutor gritando preço.'
+        armadilha: 'Macro bonito sem narrativa vira vídeo de banco de imagens. O sensorial precisa estar a serviço de uma história.'
+
+      - familia: lifestyle_pop_brasileiro
+        referencias_observadas: ['Havaianas']
+        codigo_visual:
+          - 'Cor saturada e chapada, composição gráfica quase de cartaz. Fundo sólido, sujeito recortado.'
+          - 'Plano frontal, simetria, humor visual. A piada acontece DENTRO do quadro, não no corte.'
+          - 'O produto é onipresente e assumido — aparece o tempo todo sem constrangimento, porque é icônico.'
+          - 'O detalhe do produto vira personagem (o pé, a sola, a tira).'
+        codigo_narrativo: >
+          Brasilidade pop e autoirônica. Ritmo de piada curta, música alegre, ausência
+          total de solenidade. A marca não se leva a sério — é isso que a torna simpática.
+        armadilha: 'Humor genérico. A graça vem de um detalhe brasileiro específico e reconhecível, não de piada universal.'
+
+      - familia: esporte_e_superacao
+        referencias_observadas: ['Nike', 'Adidas']
+        codigo_visual:
+          - 'Contraluz e silhueta. Suor, respiração, textura de pele em close.'
+          - 'Câmera na altura do ombro, próxima, instável — o espectador está DENTRO do esforço.'
+          - 'Slow motion reservado ao gesto atlético decisivo; o resto corre em ritmo real ou acelerado.'
+          - 'Corte no beat. A montagem é percussiva, o som comanda o corte.'
+        codigo_narrativo:
+          nike: >
+            O herói é filmado em ESFORÇO, não em vitória. O clímax é a decisão de
+            continuar, não o troféu. Verbo no imperativo, VO em segunda pessoa desafiadora.
+            Logo no último frame, mudo, sem locução — a marca não precisa se apresentar.
+          adidas: >
+            Coletivo em vez de indivíduo. Cultura de rua e de arquibancada, pertencimento
+            no lugar de épico solitário. As três listras entram como ELEMENTO DE
+            COMPOSIÇÃO do quadro, não como logo aplicado. Música é o motor, multidão é a energia.
+        armadilha: >
+          Épico sem conflito vira clipe motivacional de banco de imagens. Sem uma dor
+          concreta e específica na abertura, o slow motion não emociona ninguém.
+
+      - familia: tech_e_produto
+        referencias_observadas: ['Apple', 'Samsung']
+        codigo_visual:
+          apple:
+            - 'Fundo infinito, branco ou preto absoluto. Zero ruído visual — nada entra no quadro sem função.'
+            - 'Produto flutuando, luz de estúdio suave, reflexo especular controlado no chanfro.'
+            - 'Movimento de câmera milimétrico e contínuo; nunca brusco.'
+            - 'Tipografia centralizada, muito respiro, um argumento por tela.'
+            - 'Silêncio como recurso: som de UI e um único acorde valem mais que trilha cheia.'
+          samsung:
+            - 'Mais densidade: cor, brilho, tela dentro da tela, ritmo mais rápido.'
+            - 'Comparativo explícito e demonstração de recurso — "olha o zoom" é argumento válido aqui.'
+        codigo_narrativo:
+          apple: >
+            A DEMONSTRAÇÃO da função é o argumento. Nunca se fala de especificação sem
+            mostrar o benefício humano correspondente. Uma ideia por peça.
+          samsung: >
+            Prova de capacidade. A peça mostra o que o aparelho faz que o outro não faz,
+            de forma literal e verificável.
+        codigo_para_saas_e_servico:
+          nota: 'A família mais relevante para a própria Oraclum e para clientes de software.'
+          regras:
+            - 'Screen recording tratado como cinema: zoom sobre o cursor, corte no clique, latência removida.'
+            - 'Nunca mostrar a tela em tempo real — o tempo morto do carregamento mata a peça.'
+            - 'O ganho aparece como ANTES/DEPOIS de processo, não como número prometido.'
+        armadilha: 'Minimalismo sem produto excepcional vira vazio. O fundo infinito só funciona se o objeto aguenta ser olhado.'
+
+    checklist_de_gate:
+      - 'A big idea sobrevive à troca de formato?'
+      - 'O produto entra depois da sensação estar construída?'
+      - 'Existe UM plano que a pessoa lembraria no dia seguinte?'
+      - 'A assinatura final é silenciosa e limpa?'
+      - 'Nenhum elemento identificável de campanha de terceiro foi reproduzido?'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - genero: ugc-ads
+    pipeline: P2
+    principio_do_genero: >
+      A peça precisa parecer que NÃO é anúncio até o meio. Todo código aqui é o
+      inverso do brand film: onde o brand film busca acabamento, o UGC busca
+      evidência de autenticidade. Produção alta demais destrói a conversão.
+    codigo_de_camera:
+      - 'Câmera na mão, vertical, enquadramento levemente torto de propósito.'
+      - 'Olho na lente — a pessoa fala COM quem assiste, não para uma plateia.'
+      - 'Distância de braço: o enquadramento é o de quem se filma sozinho.'
+      - 'Iluminação disponível (janela, luz do ambiente), não montada.'
+    codigo_de_audio:
+      - 'Áudio de ambiente preservado. Silêncio de estúdio soa a comercial e derruba a credibilidade.'
+      - 'Imperfeição de fala mantida — respiração, hesitação, correção no meio da frase.'
+      - 'CTA falado, nunca em cartela. Cartela de CTA denuncia o anúncio.'
+    codigo_de_estrutura:
+      - 'O problema aparece na boca da pessoa no primeiro segundo — antes de qualquer apresentação.'
+      - 'Produto na mão em até 3s.'
+      - 'Corte cru, jump-cut, zero transição. Transição é linguagem de anúncio.'
+      - 'Legenda queimada, sempre — o feed roda sem som.'
+      - 'A objeção principal é dita em voz alta e respondida, não contornada.'
+    matriz_de_variacao:
+      regra: '1 corpo × N hooks'
+      por_que: >
+        O ativo não é o vídeo, é a matriz de teste. Trocar só a abertura mantendo o corpo
+        isola a variável e permite ler qual hook performa. É o padrão que o
+        plan_video_creative.py já aplica no virals-marketing-squad ("1 body, 3 hooks").
+    armadilhas:
+      - 'Produção alta demais: luz montada, áudio limpo e corte suave matam a conversão.'
+      - 'Creator sintético trocando de rosto entre cenas — o erro que mais reprova lote de IA.'
+      - 'Roteiro que soa a texto lido em vez de fala espontânea.'
+    checklist_de_gate:
+      - 'Parece anúncio nos primeiros 3s? Se sim, reprovado.'
+      - 'A dor é dita em linguagem de gente, não de marca?'
+      - 'É a MESMA pessoa em todos os planos?'
+      - 'Legenda queimada e legível sem som?'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - genero: nicho-series
+    pipeline: P3
+    principio_do_genero: >
+      O ativo é o PERSONAGEM, não o episódio. O episódio é descartável; o
+      reconhecimento acumulado é o patrimônio. Por isso continuidade vale mais que
+      variedade — o público volta pelo personagem, não pela novidade do cenário.
+    gramatica_de_sketch:
+      - 'Cold open: a cena já começou. Nada de apresentação, vinheta ou "oi gente".'
+      - 'Conflito declarado em até 5 segundos. Sketch que demora a instalar o problema perde a audiência antes da piada.'
+      - 'O personagem é definido por UM tique reconhecível — um jeito de falar, um objeto, uma mania. É o que permite identificá-lo em 2s.'
+      - 'Regra de 3: setup, reforço, quebra. A terceira ocorrência é onde a piada vira.'
+      - 'Câmera invisível: plano fixo médio, sem movimento autoral. O CORTE é a piada, não o enquadramento.'
+      - 'Tag final (o botão): 1–2s depois do clímax, uma última virada curta. É o que gera o replay.'
+      - 'Áudio limpo e sem trilha durante a fala. Trilha entra na tag e nas transições.'
+    gramatica_de_microdrama:
+      - 'A tensão substitui a piada: a mesma estrutura, com a quebra sendo emocional em vez de cômica.'
+      - 'Plano fechado sustenta drama melhor que plano aberto — e é mais barato de manter consistente.'
+      - 'Silêncio antes da virada. O corte seco depois dela.'
+    codigo_de_bolha:
+      - 'O jargão específico é o que torna a peça INTRADUZÍVEL para fora do nicho — e por isso compartilhável dentro dele.'
+      - 'A dor precisa ser hiperespecífica. "Reunião chata" não é bolha; "reunião que podia ser e-mail marcada 18h de sexta" é.'
+      - 'Nomes recorrentes viram meme interno. O público começa a citar o personagem nos comentários — é o sinal de que a série pegou.'
+      - 'Sátira que explica a piada não é sátira. Se precisa de legenda explicativa, o recorte está largo demais.'
+    continuidade_como_contrato:
+      - 'Wardrobe, cenário e voz travados entre episódios. A quebra silenciosa quebra a ilusão.'
+      - 'Três âncoras visuais mínimas bastam quando a reprodução perfeita é impossível: cor de parede, um prop, o figurino.'
+      - 'Gancho para o próximo episódio na última linha falada.'
+    armadilhas:
+      - 'Personagem trocando de rosto entre episódios — mata a série. Público perdoa cenário repetido, não perdoa isso.'
+      - 'Esticar a temporada além do arco: retenção cai no episódio 3.'
+      - 'Produção crescendo episódio a episódio até virar insustentável.'
+    checklist_de_gate:
+      - 'O conflito está instalado em 5s?'
+      - 'O tique do personagem aparece?'
+      - 'É a mesma pessoa, a mesma roupa e o mesmo cenário do episódio anterior?'
+      - 'A tag final existe?'
+      - 'Alguém de fora da bolha entenderia? (se sim, o recorte está largo demais)'
+      - 'Pessoa ou marca real identificável foi satirizada sem autorização? (bloqueio jurídico)'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - genero: oraclum-institucional
+    pipeline: P4
+    principio_do_genero: >
+      A prova é o SISTEMA RODANDO. A Oraclum não tem case de cliente, e por decisão
+      de marca não inventa um. Isso não é limitação — é o diferencial: mostrar o
+      log, a tela e o agente trabalhando é mais convincente que depoimento, porque
+      é verificável.
+    estrutura_dor_solucao:
+      - 'Abre na dor CONCRETA e específica, nunca abstrata. "Lead que o tráfego pagou morrendo no atendimento" e não "dificuldade de escalar".'
+      - 'A dor é do avatar, dita na linguagem dele, e o espectador precisa se reconhecer nela em 3s.'
+      - 'A solução aparece como MÉTODO em funcionamento, não como promessa: tela, fluxo, agente rodando.'
+      - 'Antes/depois de PROCESSO, não de faturamento. Processo é demonstrável; faturamento sem case é fabricação.'
+      - 'Termina em convite, não em promessa. "Vale uma conversa" e não "transforme seu negócio".'
+    codigo_visual:
+      - 'Paleta obsidian near-black com accent roxo único, herdada do brand-config (o site real não tem cyan em lugar nenhum).'
+      - 'Screen recording dirigido: zoom sobre o cursor, corte no clique, tempo morto removido.'
+      - 'Abstração geométrica e tipografia como elemento gráfico — não ilustração literal de IA.'
+      - 'Lower-third sóbrio, um argumento por tela, muito respiro.'
+    tabus_do_genero:
+      - 'Robô apertando mão humana, cérebro de circuito, humanoide azul — clichê visual proibido pelo brand-identity.'
+      - 'IA apresentada como mágica. O tom é O Sábio: conhecimento, clareza, dado.'
+      - 'Omitir limitação de ferramenta. Mostrar a falha aumenta a credibilidade em vez de reduzir.'
+      - 'Léxico proibido: "fórmula mágica", "fique rico fácil", "segredo infalível", "revolução milagrosa", "case de cliente".'
+      - 'Depoimento, número ou resultado de cliente inventado — bloqueio absoluto.'
+    armadilhas:
+      - 'Escorregar de demonstração de método para promessa de resultado é o erro mais fácil deste gênero.'
+      - 'Trilha épica contradiz o tom: soa a promessa vazia justamente na peça que vende sobriedade.'
+      - 'Peça bonita sem serviço-alvo definido — vira institucional genérico que não gera reunião.'
+    checklist_de_gate:
+      - 'A dor da abertura é específica e reconhecível?'
+      - 'A prova mostrada é sistema rodando, não afirmação?'
+      - 'Zero palavras do lexico.nunca_usar?'
+      - 'Zero clichê visual de IA?'
+      - 'Termina em convite?'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - genero: dark-room
+    pipeline: P5
+    principio_do_genero: >
+      Sem rosto, a autoridade vem da VOZ e da EDIÇÃO. E como não há rosto para
+      reconhecer, o canal precisa de uma assinatura substituta — paleta, tipografia
+      e motif sonoro — senão não é identificado no feed e nunca acumula audiência.
+    codigo_de_locucao:
+      - 'Primeira frase é PROMESSA DE INFORMAÇÃO, nunca saudação. "Oi, tudo bem" custa a retenção inteira.'
+      - 'Ritmo com variação audível: acelera na enumeração, desacelera na revelação. Ritmo constante soa robótico mesmo gravado por humano.'
+      - 'Respiração audível é credibilidade, não defeito.'
+      - 'A voz é o ativo do canal — trocar de locutor entre episódios reseta o reconhecimento acumulado.'
+    codigo_de_b_roll:
+      - 'A imagem entra 0,5–1s ANTES da palavra que ela ilustra. Imagem atrasada em relação à fala dá sensação de amadorismo.'
+      - 'Nenhum plano acima de ~4s. Acima disso a atenção cai, mesmo com locução boa.'
+      - 'O b-roll é APOIO, não protagonista: acervo coerente vence geração ruim com folga.'
+      - 'Movimento contínuo e lento — pan ou push suave. B-roll estático em canal dark parece tela travada.'
+    codigo_de_texto_na_tela:
+      - 'A palavra-chave é repetida na tela, nunca a frase inteira. Legenda cheia compete com a locução.'
+      - 'Destaque tipográfico no número e no nome próprio.'
+    codigo_de_retencao:
+      - 'Loop de curiosidade aberto a cada 20–30s: uma pergunta lançada que só será respondida adiante.'
+      - 'A informação mais forte NÃO abre o vídeo — abre a promessa dela.'
+    o_produto_no_youtube:
+      regra: 'Thumbnail e título SÃO o produto. O vídeo é o que entrega a promessa deles.'
+      consequencia: 'O episódio não é publicado sem thumbnail — o exec-producer segura a entrega.'
+    assinatura_substituta:
+      por_que: 'Sem rosto, o espectador precisa de outro sinal para reconhecer o canal em 1s de scroll.'
+      elementos: ['paleta fixa', 'tipografia fixa', 'motif sonoro de abertura', 'estrutura de episódio previsível']
+      onde_vive: 'channel-brief.yaml — escrito uma vez, travado por temporada'
+    armadilhas:
+      - 'Informação errada dita com voz confiante é o pior produto possível: derruba o canal inteiro, não só o episódio.'
+      - 'B-roll genérico repetido entre episódios faz o canal parecer automatizado (e ele é — mas não pode parecer).'
+      - 'Locução sem b-roll suficiente vira tela parada na montagem.'
+    checklist_de_gate:
+      - 'A primeira frase promete informação?'
+      - 'Nenhum plano acima de 4s?'
+      - 'Imagem antecipa a palavra?'
+      - 'Todo claim tem fonte primária no ledger?'
+      - 'A assinatura do canal está presente?'
+      - 'Thumbnail entregue?'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  - genero: image-lab
+    pipeline: P6
+    principio_do_genero: >
+      Imagem publicitária é lida em três distâncias diferentes, e precisa funcionar
+      nas três: à distância (silhueta e contraste), no feed (sujeito e emoção),
+      no zoom (acabamento e texto). Peça que só funciona no zoom não existe no feed.
+    leitura_em_tres_niveis:
+      distancia: 'A composição se lê como mancha. Silhueta e contraste de luminância resolvem — não a cor.'
+      feed: 'Sujeito e emoção legíveis a ~120px. Teste reduzindo antes de aprovar; é o teste mais barato e o mais ignorado.'
+      zoom: 'Acabamento, textura, rótulo, tipografia. É onde a geração por IA costuma entregar o defeito.'
+    codigo_de_thumbnail:
+      - 'Rosto com emoção legível e exagerada; expressão sutil desaparece no tamanho real.'
+      - 'Contraste de LUMINÂNCIA entre sujeito e fundo, não só de matiz.'
+      - 'Máximo 3–4 palavras. Corte a mensagem, nunca o corpo da fonte.'
+      - 'Saturação seletiva: satura o sujeito, dessatura o fundo. Fundo saturado compete e vence.'
+      - 'Curiosity gap visual — mostrar o que falta, não o resultado. A thumb que entrega a resposta não gera clique.'
+    codigo_de_imagem_publicitaria_de_produto:
+      - 'Hero angle: levemente acima e de três quartos. Frontal achata, muito baixo intimida.'
+      - 'Sombra de CONTATO é o que cola o produto na superfície. Sem ela a composição flutua e denuncia a montagem.'
+      - 'Reflexo especular controlado no chanfro e na borda — é o que comunica material.'
+      - 'A superfície embaixo do produto conta metade da história (mármore, madeira, água, tecido).'
+      - 'Rótulo legível e correto é inegociável: é o produto que o cliente vende.'
+    codigo_de_key_art:
+      - 'Um ponto focal só. Duas coisas competindo significa nenhuma vista.'
+      - 'Espaço negativo deliberado onde a tipografia vai entrar — pedido já na geração da cena.'
+      - 'A arte precisa sobreviver ao corte: pense o enquadramento para 1:1, 4:5 e 9:16 ao mesmo tempo.'
+    codigo_de_carrossel:
+      - 'O primeiro slide é a thumb; o último é o CTA. Os do meio são um por ideia.'
+      - 'Consistência de grid entre slides é o que faz o conjunto parecer profissional.'
+      - 'Elemento de continuidade (uma linha, uma cor, um número) puxa o dedo para o próximo slide.'
+    armadilhas:
+      - 'Texto gerado pelo modelo: sempre deformado, sempre reprovado. Cena vem da IA, texto vem da composição.'
+      - 'Composição bonita a 100% que desaparece no tamanho real.'
+      - 'Rosto genérico de IA — simétrico demais, pele lisa demais. Pede-se textura e assimetria explicitamente.'
+      - 'Direito de imagem: rosto reconhecível, obra de arte identificável ou marca de terceiro no quadro bloqueiam no factcheck.'
+    checklist_de_gate:
+      - 'Passa no teste de 120px?'
+      - 'Tem UM ponto focal?'
+      - 'Texto legível e correto (composto, não gerado)?'
+      - 'Rótulo do produto fiel ao real?'
+      - 'Safe area do canal respeitada?'
+      - 'Nenhum direito de terceiro no quadro?'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CÓDIGOS TRANSVERSAIS — valem em qualquer gênero
+# ═════════════════════════════════════════════════════════════════════════════
+transversais:
+
+  - id: hook
+    regra: 'Os primeiros 3 segundos decidem se o resto existe.'
+    codigos:
+      - 'Pattern interrupt: algo que não pertence ao feed daquele momento.'
+      - 'Curiosity gap: abrir uma pergunta que só o vídeo responde.'
+      - 'Bold claim: afirmação forte — só quando houver prova no ledger.'
+    armadilha: 'Hook que não tem relação com o corpo entrega view e destrói retenção. O hook promete o que a peça cumpre.'
+
+  - id: ritmo
+    regra: 'Corte no beat, não no fim da frase.'
+    porque: 'O ouvido antecipa a batida; cortar contra ela cria desconforto — que é ferramenta quando intencional e defeito quando não é.'
+
+  - id: silencio
+    regra: 'Silêncio antes da informação importante vale mais que trilha crescente.'
+    porque: 'A ausência de som cria atenção; o crescendo cria expectativa genérica.'
+
+  - id: assinatura_final
+    regra: 'Logo entra mudo, no último frame, sem locução redundante.'
+    porque: 'Marca que se apresenta em voz alta no fim soa insegura.'
+
+  - id: honestidade_de_limitacao
+    regra: 'Mostrar o que a ferramenta não faz aumenta a credibilidade da peça.'
+    porque: 'É regra explícita do brand-identity da Oraclum, e funciona para qualquer cliente técnico.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+uso_no_pipeline:
+  research_scout: 'Fallback quando o benchmark ETL falha — o código do gênero substitui a referência não coletada.'
+  creative_director: 'Verifica se a rota respeita o código do gênero ou se o rompe DE PROPÓSITO (romper sem saber é acidente).'
+  dop_e_art_director: 'Traduzem o código em decisão de luz, lente, paleta e tipografia.'
+  image_lead_e_motion_lead: 'Transformam o código em prompt e em critério de aceite do asset_direction.'
+  qa_critic: 'Usa o checklist_de_gate de cada gênero como parte do veredito.'
+  regra: >
+    Código é ponto de partida, não camisa de força. Romper o código é decisão legítima
+    do creative-director — desde que registrada no território criativo com o porquê.
+    O que não se aceita é romper por desconhecimento.

@@ -1,0 +1,45 @@
+# Mapa de Business Managers — Império Prêmios
+# Versão estruturada do diagrama fornecido pelo founder em 2026-10-04.
+# Padrão de referência: docs/meta_mba/Apostila/MODULO_14_INTEGRACAO_CRM_REVENUE_INTELLIGENCE_E_GOVERNANCA.md
+# seção 2 (BM de Ativos separada de BM de Execução, cartão numa BM própria).
+
+matriz_pixel:
+  nome: "BM00 - Império Prêmios - 2025"
+  papel: "Matriz — hospeda o Dataset/Pixel"
+  admins:
+    - "Tiago Nunes"
+    - "Brunão Império"
+    - "Fábio Henrique"
+    - "Mateus Santos"
+
+matriz_pagina:
+  nome: "Imperio Suporte 01"
+  papel: "Matriz — hospeda a Página do Facebook"
+  admins:
+    - "Tiago Nunes"
+    - "Bruno Avelino"
+    - "Fábio Henrique Santos"
+    - "Mateus Santos"
+
+operador_execucao:
+  nome: "IP Realiza"
+  papel: "Operador — contas de anúncio ATIVAS (recebe permissão de uso do Pixel da Matriz)"
+  admins:
+    - "Tiago Nunes"
+    - "JP Queiroz"
+    - "Mateus Santos"
+  contas_ativas:
+    - "IP Realiza"   # única conta ativa conhecida até 2026-10-04
+
+perfil_operador:
+  nome: "JP Queiroz"
+  papel: "Perfil pessoal com acesso de operação no dia a dia"
+
+# --- Gaps identificados na auditoria de 2026-10-04 (Módulo 14) ---
+gaps:
+  bm_pagamento_separada:
+    status: desconhecido
+    risco: "Módulo 14 recomenda cartão corporativo em BM própria, conectado por permissão às BMs de execução — não dentro da própria BM de execução. Não aparece no diagrama fornecido. Confirmar onde está o cartão hoje."
+  conta_contingencia:
+    status: ausente
+    risco: "Só existe 1 conta de anúncio ativa (IP Realiza) — ponto único de falha. Uma reprovação/restrição derruba a única conta operacional sem plano B imediato. Módulo 14 recomenda BM_EXEC2 de contingência."

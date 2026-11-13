@@ -1,0 +1,739 @@
+<title>Runbook dos Canais</title>
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     Sala de edição, não papel. Cinza frio de suíte de corte, azul
+     de osciloscópio como único sinal, e os painéis de comando
+     SEMPRE escuros — porque é de um terminal escuro que eles saem
+     e é para um terminal escuro que voltam. As quatro cores de
+     canal são DADO (a identidade real de cada um no código), não
+     decoração, e por isso não competem com o azul.
+     ───────────────────────────────────────────────────────────── */
+  :root{
+    --chao:#eceef0;
+    --painel:#ffffff;
+    --tinta:#14171a;
+    --surdo:#5b636b;
+    --regua:#d6dade;
+    --sinal:#0d6b78;
+    --sinal-fraco:#0d6b7818;
+    --risco:#9e3520;
+    --term-bg:#15191d;
+    --term-tinta:#d7dee4;
+    --term-regua:#2a3138;
+    /* identidade real de cada canal, lida do código */
+    --c-fut:#1f5c1f; --c-est:#8a6a20; --c-cur:#137a3a; --c-avi:#b8460e;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --chao:#101317; --painel:#171b20; --tinta:#e6eaee; --surdo:#8e979f;
+      --regua:#262c33; --sinal:#4bb8c8; --sinal-fraco:#4bb8c81f;
+      --risco:#e0705a;
+      --term-bg:#0c0f12; --term-tinta:#d7dee4; --term-regua:#212830;
+      --c-fut:#6fbf6f; --c-est:#dfab4e; --c-cur:#4fca7c; --c-avi:#ef8a52;
+    }
+  }
+  :root[data-theme="dark"]{
+    --chao:#101317; --painel:#171b20; --tinta:#e6eaee; --surdo:#8e979f;
+    --regua:#262c33; --sinal:#4bb8c8; --sinal-fraco:#4bb8c81f;
+    --risco:#e0705a;
+    --term-bg:#0c0f12; --term-tinta:#d7dee4; --term-regua:#212830;
+    --c-fut:#6fbf6f; --c-est:#dfab4e; --c-cur:#4fca7c; --c-avi:#ef8a52;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+  body{
+    margin:0; background:var(--chao); color:var(--tinta);
+    font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .folha{max-width:880px; margin:0 auto; padding:56px 24px 140px}
+
+  /* ── tipografia ──────────────────────────────────────────── */
+  h1,h2,h3{
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-weight:600; text-wrap:balance;
+  }
+  h1{font-size:2.5rem; line-height:1.08; letter-spacing:-.02em; margin:0 0 10px}
+  h2{
+    font-size:1.6rem; line-height:1.2; letter-spacing:-.015em;
+    margin:0 0 6px;
+  }
+  h3{font-size:1.12rem; letter-spacing:-.005em; margin:30px 0 4px}
+  .rotulo{
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--surdo); margin:0 0 6px;
+  }
+  .lide{color:var(--surdo); font-size:1.06rem; max-width:60ch; margin:0 0 8px}
+  p{margin:9px 0; max-width:68ch}
+  a{color:var(--sinal); text-underline-offset:3px}
+  a:focus-visible,summary:focus-visible{
+    outline:2px solid var(--sinal); outline-offset:3px; border-radius:3px;
+  }
+  strong{font-weight:650}
+
+  /* ── seção ───────────────────────────────────────────────── */
+  section{margin-top:72px}
+  .cabeca{
+    border-top:2px solid var(--tinta); padding-top:14px; margin-bottom:20px;
+  }
+  section[data-canal] .cabeca{border-top-color:var(--cor)}
+  section[data-canal] .rotulo{color:var(--cor)}
+  [data-canal="fut"]{--cor:var(--c-fut)}
+  [data-canal="est"]{--cor:var(--c-est)}
+  [data-canal="cur"]{--cor:var(--c-cur)}
+  [data-canal="avi"]{--cor:var(--c-avi)}
+
+  /* ── trilho de passos: a numeração é verdadeira, é sequência ─ */
+  .trilho{
+    border-left:1px solid var(--regua); margin:26px 0 26px 15px;
+    padding-left:30px; display:flex; flex-direction:column; gap:30px;
+  }
+  .etapa{position:relative}
+  .etapa > h3{margin:0 0 2px}
+  .etapa::before{
+    content:attr(data-n); position:absolute; left:-45px; top:1px;
+    width:30px; height:30px; border-radius:50%;
+    background:var(--painel); border:1px solid var(--regua); color:var(--surdo);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.8rem; font-weight:600;
+    display:grid; place-items:center;
+  }
+
+  /* ── painel de comando: escuro nos dois temas, é um terminal ─ */
+  pre{
+    background:var(--term-bg); color:var(--term-tinta);
+    border:1px solid var(--term-regua); border-radius:6px;
+    padding:14px 16px; margin:12px 0; overflow-x:auto;
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-size:.845rem; line-height:1.6;
+  }
+  pre code{background:none; padding:0; color:inherit; font-size:1em}
+  code{
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-size:.86em; background:var(--sinal-fraco); color:inherit;
+    padding:1px 5px; border-radius:3px;
+  }
+  .cmt{color:#7f8d99}
+
+  /* ── tabelas: densas, sem zebra, dígitos alinhados ─────────── */
+  .rolar{overflow-x:auto; margin:16px 0}
+  table{
+    border-collapse:collapse; width:100%; font-size:.9rem;
+    font-variant-numeric:tabular-nums;
+  }
+  th,td{
+    text-align:left; padding:9px 14px 9px 0; vertical-align:top;
+    border-bottom:1px solid var(--regua);
+  }
+  th{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--surdo); font-weight:600; border-bottom-color:var(--tinta);
+  }
+  td:last-child,th:last-child{padding-right:0}
+
+  /* ── avisos ──────────────────────────────────────────────── */
+  aside{
+    background:var(--painel); border:1px solid var(--regua);
+    border-left:3px solid var(--sinal); border-radius:0 6px 6px 0;
+    padding:14px 20px; margin:18px 0;
+  }
+  aside.risco{border-left-color:var(--risco)}
+  aside h4{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+    margin:0 0 6px; color:var(--sinal);
+  }
+  aside.risco h4{color:var(--risco)}
+  aside p:last-child{margin-bottom:0}
+
+  /* ── sumário ─────────────────────────────────────────────── */
+  .sumario{
+    border-top:1px solid var(--regua); border-bottom:1px solid var(--regua);
+    padding:18px 0; margin:34px 0 0;
+  }
+  .sumario ol{
+    list-style:none; padding:0; margin:0;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:7px 28px;
+  }
+  .sumario li{display:flex; gap:10px; align-items:baseline}
+  .sumario .n{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.72rem; color:var(--surdo); min-width:1.2em;
+  }
+  .sumario a{color:var(--tinta); text-decoration:none}
+  .sumario a:hover{color:var(--sinal); text-decoration:underline}
+
+  ul.lista{padding-left:20px; max-width:68ch}
+  ul.lista li{margin:5px 0}
+
+  .fim{
+    margin-top:88px; padding-top:22px; border-top:1px solid var(--regua);
+    color:var(--surdo); font-size:.88rem;
+  }
+  .fim ul{padding-left:20px}
+
+  @media(max-width:600px){
+    h1{font-size:1.95rem}
+    .folha{padding:36px 18px 100px}
+    .trilho{margin-left:13px; padding-left:24px}
+    .etapa::before{left:-39px; width:26px; height:26px}
+  }
+</style>
+
+<div class="folha">
+
+<p class="rotulo">Oraclum · AI Creative Studio</p>
+<h1>Runbook dos canais</h1>
+<p class="lide">Como gerar o conteúdo de cada canal sem uma LLM executando nada —
+comando a comando, na ordem, com o que conferir entre um passo e outro.</p>
+<p class="lide" style="font-size:.95rem">Tudo aqui foi executado e medido. Não há
+comando inventado: onde um número aparece, ele saiu de uma medição.</p>
+
+<div class="sumario">
+  <ol>
+    <li><span class="n">00</span><a href="#antes">Antes de começar</a></li>
+    <li><span class="n">01</span><a href="#mapa">Que canal usa qual esteira</a></li>
+    <li><span class="n">02</span><a href="#futebol">Bora de Bola · longos</a></li>
+    <li><span class="n">03</span><a href="#fut-curtos">Bora de Bola · curtos</a></li>
+    <li><span class="n">04</span><a href="#estoico">Canal estoico · curtos</a></li>
+    <li><span class="n">05</span><a href="#tiktok">Curiosidades e Placas</a></li>
+    <li><span class="n">06</span><a href="#limpeza">Original sem legenda</a></li>
+    <li><span class="n">07</span><a href="#conferir">O que olhar antes de aprovar</a></li>
+    <li><span class="n">08</span><a href="#armadilhas">Armadilhas já pagas</a></li>
+    <li><span class="n">09</span><a href="#novo">Abrir um canal novo</a></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="antes">
+  <div class="cabeca">
+    <p class="rotulo">00 · Pré-requisitos</p>
+    <h2>Antes de começar</h2>
+  </div>
+
+  <p>Três coisas precisam estar de pé. Quando uma falta, o passo que depende dela
+  falha com mensagem confusa em vez de dizer o que está faltando.</p>
+
+  <div class="rolar">
+  <table>
+  <tr><th>O quê</th><th>Como ligar</th><th>Como saber que subiu</th></tr>
+  <tr>
+    <td><strong>ComfyUI</strong><br><span style="color:var(--surdo)">narração e geração de imagem</span></td>
+    <td><code>ComfyUI_windows_portable\run_nvidia_gpu.bat</code></td>
+    <td>abre <code>127.0.0.1:8188</code></td>
+  </tr>
+  <tr>
+    <td><strong>Chave do Pexels</strong><br><span style="color:var(--surdo)">acervo de vídeo</span></td>
+    <td>variável <code>PEXELS_API_KEY</code></td>
+    <td><code>echo %PEXELS_API_KEY%</code> responde</td>
+  </tr>
+  <tr>
+    <td><strong>ffmpeg</strong><br><span style="color:var(--surdo)">todo o vídeo</span></td>
+    <td>no PATH</td>
+    <td><code>ffmpeg -version</code> responde</td>
+  </tr>
+  </table>
+  </div>
+
+  <p>Todo comando roda a partir da raiz do repositório e sempre com
+  <code>-X utf8</code> — sem isso, qualquer acento na saída derruba o script no
+  Windows.</p>
+
+  <aside class="risco">
+    <h4>Nunca rode dois em paralelo</h4>
+    <p>Os scripts de vídeo usam as oito threads da CPU e gravam temporários com
+    nome previsível. Dois processos ao mesmo tempo não terminam mais rápido, e já
+    aconteceu de um ler os quadros do outro e concluir <em>"nenhuma faixa de
+    texto encontrada"</em> — sem erro nenhum.</p>
+  </aside>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="mapa">
+  <div class="cabeca">
+    <p class="rotulo">01 · Mapa</p>
+    <h2>Que canal usa qual esteira</h2>
+  </div>
+
+  <div class="rolar">
+  <table>
+  <tr><th>Canal</th><th>Publica</th><th>Longos</th><th>Curtos</th><th>Voz</th></tr>
+  <tr>
+    <td><strong style="color:var(--c-fut)">Bora de Bola</strong></td>
+    <td>YouTube</td>
+    <td><code>apps/canal-futebol/</code></td>
+    <td><code>--canal futebol</code></td>
+    <td>voz da casa</td>
+  </tr>
+  <tr>
+    <td><strong style="color:var(--c-est)">Canal estoico</strong></td>
+    <td>YouTube</td>
+    <td><code>apps/video-studio/</code></td>
+    <td><code>--canal estoico</code></td>
+    <td>voz da casa</td>
+  </tr>
+  <tr>
+    <td><strong style="color:var(--c-cur)">Curiosidades Animais</strong></td>
+    <td>TikTok</td>
+    <td>—</td>
+    <td><code>--canal curiosidades</code></td>
+    <td><strong>clonada</strong></td>
+  </tr>
+  <tr>
+    <td><strong style="color:var(--c-avi)">Placas de Aviso</strong></td>
+    <td>TikTok</td>
+    <td>—</td>
+    <td><code>--canal avisos</code></td>
+    <td><strong>clonada</strong></td>
+  </tr>
+  </table>
+  </div>
+
+  <p>Os dois canais de TikTok compartilham o mesmo motor e a mesma voz clonada
+  (<code>ref-amazonia.wav</code>). O que muda entre eles é o formato — contagem
+  regressiva num, seis blocos com placa no outro — e isso vive no
+  <code>curto.yaml</code> de cada peça, não no código.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="futebol" data-canal="fut">
+  <div class="cabeca">
+    <p class="rotulo">02 · Bora de Bola</p>
+    <h2>Episódio longo</h2>
+  </div>
+
+  <p>Nove etapas. O runbook completo, com as decisões de formato, está em
+  <code>apps/canal-futebol/ESTEIRA.md</code> — o que segue é a sequência
+  executável. Todos os comandos rodam <strong>de dentro de</strong>
+  <code>apps/canal-futebol</code>.</p>
+
+  <div class="trilho">
+
+    <div class="etapa" data-n="0">
+      <h3>Pauta — o que aconteceu hoje</h3>
+<pre><code>python -X utf8 ../pauta-futebol/pauta.py       <span class="cmt"># RSS: mercado, bastidor, polêmica</span>
+python -X utf8 ../pauta-futebol/fonte_api.py  <span class="cmt"># ESPN: o que o jogo gerou</span></code></pre>
+      <p>Saem pautas ranqueadas de 0 a 100 com o motivo de cada uma ter subido.
+      <strong>Você escolhe uma</strong> e preenche o <code>fato.json</code> —
+      ação, alvo e consequência. Deixar campo vazio é melhor que preencher com
+      adivinhação: o título só pode prometer o que a fonte sustenta.</p>
+    </div>
+
+    <div class="etapa" data-n="1">
+      <h3>Embalagem — título e thumb, antes do roteiro</h3>
+<pre><code>python -X utf8 ../regra-de-3/gerador.py --nicho futebol --fato 00-pauta/fato.json
+python -X utf8 thumb/gera_thumb.py {slug}</code></pre>
+      <aside>
+        <h4>Por que antes</h4>
+        <p>70 a 75% da primeira avaliação do algoritmo é o clique. Título escrito
+        depois do roteiro <em>descreve</em>; escrito antes, <em>promete</em>. O
+        roteiro passa a receber uma promessa a cumprir, não um resumo.</p>
+      </aside>
+    </div>
+
+    <div class="etapa" data-n="2">
+      <h3>Roteiro</h3>
+      <p>Escrito à mão em <code>{slug}/01-roteiro/roteiro.md</code>, em blocos
+      <code>## BLOCO N</code>. Ele existe para cumprir a promessa do título nos
+      primeiros 45 segundos.</p>
+    </div>
+
+    <div class="etapa" data-n="3">
+      <h3>Narração</h3>
+<pre><code>python -X utf8 narra_comfy.py {slug}       <span class="cmt"># precisa do ComfyUI no ar</span>
+python -X utf8 audita_narracao.py {slug}   <span class="cmt"># transcreve de volta e mede o erro</span></code></pre>
+      <p>A auditoria mede <strong>fala</strong>, não ortografia. Erro alto num
+      bloco quase sempre é nome próprio que o modelo não conhece — corrige-se no
+      dicionário <code>PRONUNCIA</code> do <code>narra_comfy.py</code>, não no
+      roteiro.</p>
+    </div>
+
+    <div class="etapa" data-n="4">
+      <h3>B-roll — três camadas, não uma</h3>
+<pre><code>python -X utf8 broll/acervo.py {slug}         <span class="cmt"># vídeo genérico (Pexels)</span>
+python -X utf8 broll/fotos_do_fato.py {slug}  <span class="cmt"># as fotos que os portais publicaram</span>
+python -X utf8 broll/cartelas.py {slug}       <span class="cmt"># o texto, em camada transparente</span></code></pre>
+      <aside class="risco">
+        <h4>Aqui você olha — o acervo mente</h4>
+        <p>Abra <code>03-takes/acervo/_CONFERIR.jpg</code> antes de montar. O
+        banco devolve "parecido", não "o que foi pedido", e take errado num vídeo
+        de notícia não é ilustração fraca — é informação errada.</p>
+      </aside>
+    </div>
+
+    <div class="etapa" data-n="5">
+      <h3>Áudio</h3>
+<pre><code>python -X utf8 mixa.py {slug}</code></pre>
+    </div>
+
+    <div class="etapa" data-n="6">
+      <h3>Montagem</h3>
+<pre><code>python -X utf8 monta.py {slug} --rascunho   <span class="cmt"># 480p, para conferir</span>
+python -X utf8 monta.py {slug}              <span class="cmt"># 1080p</span></code></pre>
+      <p><strong>Sempre o rascunho primeiro.</strong> Ele leva um minuto; o final
+      leva dez. Nunca renderize em 1080 algo que você ainda não viu.</p>
+    </div>
+
+    <div class="etapa" data-n="7">
+      <h3>Guarda de imagem</h3>
+<pre><code>python -X utf8 audita_camadas.py {slug}</code></pre>
+      <p>Confere na imagem se as cartelas entraram. Tem um limite conhecido: não
+      detecta cartela repetida em intervalos <strong>não contíguos</strong> — já
+      aprovou uma que aparecia três vezes porque cada intervalo passava sozinho.</p>
+    </div>
+
+    <div class="etapa" data-n="8">
+      <h3>Pack de publicação</h3>
+<pre><code>python -X utf8 pack.py novo {slug} --titulo "..." --estilo E3
+python -X utf8 pack.py estado              <span class="cmt"># o estado de todos os episódios</span></code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="fut-curtos" data-canal="fut">
+  <div class="cabeca">
+    <p class="rotulo">03 · Bora de Bola</p>
+    <h2>Curtos derivados</h2>
+  </div>
+
+  <p>O curto <strong>herda</strong> o acervo do episódio longo. Por isso ele custa
+  minutos, não horas — e por isso o corte é reconhecido como do canal quando
+  aparece no feed.</p>
+
+<pre><code>cd apps/canal-estoico
+
+python -X utf8 narra_comfy.py {slug} --curto --canal-dir ...\canais\bora-de-bola
+python -X utf8 fecha_narracao_curto.py {slug} --canal futebol
+python -X utf8 monta_curto.py {slug} --canal futebol --rascunho --herda-de {slug-longo}
+python -X utf8 monta_curto.py {slug} --canal futebol --herda-de {slug-longo}</code></pre>
+
+  <p>O <code>--herda-de</code> aponta para o episódio longo cujo acervo o curto
+  vai usar. Sem ele, o curto cai no banco genérico do canal.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="estoico" data-canal="est">
+  <div class="cabeca">
+    <p class="rotulo">04 · Canal estoico</p>
+    <h2>Curtos</h2>
+  </div>
+
+  <p>Mesma esteira, trocando o canal. A diferença real é de conteúdo: no estoico
+  o take é <strong>atmosfera</strong> — mármore, vela, céu. Qualquer um serve,
+  porque o roteiro não nomeia o que está na tela.</p>
+
+<pre><code>cd apps/canal-estoico
+
+python -X utf8 acervo_curto.py {slug} --canal estoico
+python -X utf8 fecha_narracao_curto.py {slug} --canal estoico
+python -X utf8 monta_curto.py {slug} --canal estoico --rascunho
+python -X utf8 monta_curto.py {slug} --canal estoico</code></pre>
+
+  <p>Os longos do estoico não passam por aqui — são montados no
+  <code>apps/video-studio</code>, e o caminho está em
+  <code>docs/PIPELINE-LITE.md</code>.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="tiktok" data-canal="cur">
+  <div class="cabeca">
+    <p class="rotulo">05 · Curiosidades Animais + Placas de Aviso</p>
+    <h2>Os dois canais de TikTok</h2>
+  </div>
+
+  <p>Estes dois são <strong>roteirizados por especificação</strong>. Você não
+  escreve YAML: descreve a peça em poucas linhas num arquivo Python e o gerador
+  produz o roteiro, o <code>curto.yaml</code> e o prompt do hook.</p>
+
+  <h3>5.1 · Descrever a peça</h3>
+  <p>Abra <code>apps/canal-estoico/lote_dark.py</code>. Há dois dicionários:
+  <code>CUR</code> (contagem regressiva) e <code>AVI</code> (placa em seis
+  blocos). Copie uma entrada existente e troque o conteúdo.</p>
+
+<pre><code>"CUR-l10-meu-assunto-40s": {
+    "titulo": "Os animais mais X do mundo",
+    "hook": "photorealistic ... vertical composition",   <span class="cmt"># a cena improvável</span>
+    "itens": [
+        ("Quatro", "o bicho",
+         "Primeira frase de explicação. Segunda frase.",
+         "english pexels query", ["subject"], None),
+        <span class="cmt"># 4 ou 5 itens, do maior número para o 1</span>
+    ],
+    "fecho": "Comenta aí ...",
+    "fecho_q": ("closing scene query", ["scene"]),
+},</code></pre>
+
+  <aside class="risco">
+    <h4>A regra do <code>exige</code> — a que mais custou caro</h4>
+    <p>A lista depois da consulta é o que a <strong>descrição do Pexels</strong>
+    tem de citar. Ela carrega <strong>só o sujeito, nunca o cenário</strong>.</p>
+    <p><code>["shrimp","mantis","reef"]</code> aceitou <em>coral-reef</em>,
+    <em>reef-shark</em> e <em>seahorse-in-reef</em> no bloco do
+    camarão-louva-a-deus. A palavra de cena é a que o banco tem aos milhares —
+    então é ela que passa.</p>
+  </aside>
+
+  <p>O último campo é um <strong>prompt de geração</strong>. Preencha quando o
+  banco provavelmente não tem a espécie: cobra-coral não existe no Pexels, e as
+  42 respostas das duas consultas eram pôr-do-sol, naja, cobra-d'água e
+  salamandra. Com o prompt, o pipeline gera a espécie certa em vez de mostrar
+  outra.</p>
+
+  <h3 style="color:var(--c-avi)">Uma peça de placas</h3>
+<pre><code>"AVI-l09-minha-placa-40s": {
+    "placa": "o que a placa proíbe",
+    "pict": "cuidado-bicho",       <span class="cmt"># nao-alimentar | nao-toque | cuidado-bicho</span>
+    "onde": "numa estrada de parque",
+    "leitura": "Bro, essa placa mostra ...?",
+    "hook": "photorealistic ... uncluttered",   <span class="cmt"># FUNDO LIMPO no terço superior</span>
+    "rima": "bicho que ...",       <span class="cmt"># o insert tem a MESMA condição do assunto</span>
+    "payoff": ["Frase 1.", "Frase 2.", "Frase 3."],
+    "consultas": [
+        ("english query", "cenario-estrada", 3, ["road"]),
+        ("english query", "reativo", 3, ["dog"]),
+        ("english query", "fofo", 2, ["puppy"]),
+        ("english query", "dependente", 3, ["dog","stray"]),
+        ("english query", "payoff", 2, ["scene"]),
+    ],
+},</code></pre>
+
+  <p>A placa tem de ser <strong>real</strong> e o payoff <strong>honesto</strong>.
+  O gancho é o estranhamento, não a mentira — nos sete vídeos modelados, o bloco
+  final sempre explica o que a placa de fato é.</p>
+
+  <h3>5.2 · Gerar o pack</h3>
+<pre><code>cd apps/canal-estoico
+python -X utf8 lote_dark.py --lista       <span class="cmt"># ver tudo o que está declarado</span>
+python -X utf8 lote_dark.py CUR-l10-meu-assunto-40s
+python -X utf8 lote_dark.py --todos       <span class="cmt"># regerar o lote inteiro</span></code></pre>
+  <p>Escreve <code>01-roteiro/roteiro.md</code>,
+  <code>01-roteiro/hook.txt</code> e <code>curto.yaml</code>, e imprime quantas
+  palavras e quantos segundos de fala a peça terá. <strong>Leia o
+  roteiro</strong> — é a última chance barata de corrigir texto.</p>
+
+  <h3>5.3 · Rodar a esteira</h3>
+<pre><code>python -X utf8 roda_lote.py CUR-l10-meu-assunto-40s --ate acervo
+<span class="cmt">#   → OLHE a folha de contato antes de continuar</span>
+
+python -X utf8 roda_lote.py CUR-l10-meu-assunto-40s</code></pre>
+
+  <p>O runner faz seis passos e <strong>pula o que já existe</strong>, então pode
+  ser interrompido e retomado à vontade:</p>
+
+  <div class="rolar">
+  <table>
+  <tr><th>#</th><th>Passo</th><th>Sai em</th><th>Custo</th></tr>
+  <tr><td>1</td><td>hook gerado (Flux2-Klein)</td><td><code>03-takes/hook.png</code></td><td>~40 s · GPU</td></tr>
+  <tr><td>2</td><td>acervo com guarda de conteúdo</td><td><code>03-takes/acervo/</code></td><td>1–4 min</td></tr>
+  <tr><td>3</td><td>narração clonada</td><td><code>02-narracao/vo.mp3</code></td><td>2–4 min · GPU</td></tr>
+  <tr><td>4</td><td>transcrição (tempos de palavra)</td><td><code>fala-real.json</code></td><td>~1 min · CPU</td></tr>
+  <tr><td>5</td><td>montagem rascunho</td><td>540×960</td><td>~2 min</td></tr>
+  <tr><td>6</td><td>montagem final</td><td>1080×1920</td><td>5–10 min</td></tr>
+  </table>
+  </div>
+
+  <p>Para o lote inteiro:</p>
+<pre><code>python -X utf8 roda_lote.py --todos --canal curiosidades --ate acervo
+python -X utf8 roda_lote.py --todos --canal curiosidades</code></pre>
+
+  <h3>5.4 · O que o motor imprime, e o que significa</h3>
+<pre><code>41 de 41 segmentos com take ancorado na fala
+hook gerado de 3.0s + 41 segmentos · corte a 1.1s · 0 repeticoes consecutivas
+49 legendas em libass · 132 janelas de karaoke · margem 190 px
+3 camadas do formato (emoji, botao, placa) ancoradas na fala</code></pre>
+
+  <div class="rolar">
+  <table>
+  <tr><th>Linha</th><th>Tem de ser</th><th>Se não for</th></tr>
+  <tr><td>N de N ancorado</td><td>os dois números iguais</td>
+      <td>alguma âncora não casou — o motor imprime qual</td></tr>
+  <tr><td>repetições consecutivas</td><td><strong>sempre 0</strong></td>
+      <td>algum bloco ficou com um clipe só; aumente o <code>n</code> ou declare <code>imagem</code></td></tr>
+  <tr><td>N camadas do formato</td><td>igual ao que o YAML declara</td>
+      <td>uma camada não achou a âncora na fala</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="limpeza">
+  <div class="cabeca">
+    <p class="rotulo">06 · Entrega</p>
+    <h2>O original sem legenda</h2>
+  </div>
+
+  <p>Quando a peça é modelada num vídeo de terceiro, entregamos o original limpo
+  ao lado do nosso corte, em <code>04-final/original-limpo.mp4</code>.</p>
+
+<pre><code>cd apps/video-tools
+
+python -X utf8 limpa_legenda.py "caminho\do\original.mp4"
+<span class="cmt">#   só detecta e imprime as faixas encontradas</span>
+
+python -X utf8 limpa_legenda.py "caminho\do\original.mp4" -o "...\04-final\original-limpo.mp4"</code></pre>
+
+  <p>Reconstrói o fundo atrás do texto com LaMa, a 0,30 s por quadro na CPU —
+  cerca de <strong>dez minutos</strong> num vídeo de 60 s. No fim ele roda o
+  próprio detector na saída e avisa se sobrou texto.</p>
+
+  <p>Se o LaMa não estiver instalado:</p>
+<pre><code>python -m pip install --no-deps simple-lama-inpainting</code></pre>
+  <p>O <code>--no-deps</code> é necessário: sem ele o pip tenta compilar uma
+  versão antiga do numpy e falha por não achar compilador.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="conferir">
+  <div class="cabeca">
+    <p class="rotulo">07 · Aprovação</p>
+    <h2>O que olhar antes de aprovar</h2>
+  </div>
+
+  <p>Cinco conferências. As três primeiras o motor entrega de graça; as duas
+  últimas exigem olho.</p>
+
+  <div class="rolar">
+  <table>
+  <tr><th>#</th><th>O quê</th><th>Onde</th></tr>
+  <tr><td>1</td><td>repetições consecutivas = 0</td><td>o motor imprime</td></tr>
+  <tr><td>2</td><td>todas as âncoras casaram</td><td>o motor imprime</td></tr>
+  <tr><td>3</td><td>número de camadas bate com o YAML</td><td>o motor imprime</td></tr>
+  <tr><td>4</td><td><strong>o take mostra o que a locução nomeia</strong></td>
+      <td>10 quadros espalhados pelo vídeo</td></tr>
+  <tr><td>5</td><td><strong>o CTA não cobre a legenda</strong></td>
+      <td>um quadro no segundo do CTA</td></tr>
+  </table>
+  </div>
+
+  <p>Para tirar um quadro:</p>
+<pre><code>ffmpeg -ss 12.5 -i curto.mp4 -frames:v 1 quadro.png</code></pre>
+
+  <aside>
+    <h4>Um número que vale medir nos canais de TikTok</h4>
+    <p>A voz do vídeo final tem de ficar perto de <strong>128 Hz</strong>, que é
+    a da referência. Medir no <code>curto.mp4</code>, não no
+    <code>vo.mp3</code> — já aconteceu de o clone sair certo em 127,7 Hz e a
+    montagem derrubar para 108,6.</p>
+  </aside>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="armadilhas">
+  <div class="cabeca">
+    <p class="rotulo">08 · Repertório</p>
+    <h2>Armadilhas já pagas</h2>
+  </div>
+
+  <h3>Passo que diz "pronto" sem ter feito o trabalho</h3>
+  <p>Aconteceu três vezes em dois dias, em lugares diferentes. O cache de
+  narração dizia <code>(mantido)</code> devolvendo a voz antiga; a transcrição
+  valia por existir e alinhava a legenda a um áudio que não estava mais lá; e um
+  filtro do ffmpeg era recusado em silêncio, devolvendo o quadro cru.</p>
+  <p><strong>A defesa:</strong> quando o resultado parecer bom demais ou idêntico
+  ao anterior, apague o artefato e refaça. Todos os scripts refazem o que não
+  existe.</p>
+
+  <h3>Número herdado de outra calibração</h3>
+  <p>Cinco vezes o mesmo erro: um número medido num contexto foi copiado para
+  outro e quebrou em silêncio.</p>
+  <div class="rolar">
+  <table>
+  <tr><th>Número</th><th>Veio de</th><th>Quebrou porque</th></tr>
+  <tr><td>margem 120 px</td><td>squad de farming</td>
+      <td>linha centrada chega a x=960; a coluna de botões começa em 900</td></tr>
+  <tr><td>fator 0,728</td><td>fonte Montserrat</td><td>a Impact mede 0,8168</td></tr>
+  <tr><td>guarda luma ≤ 110</td><td>canal estoico</td><td>acervo de bicho é claro</td></tr>
+  <tr><td>pitch 0,88</td><td>voz da casa</td><td>o clone já chega em 127,7 Hz</td></tr>
+  <tr><td>239 wpm</td><td>outro vídeo do benchmark</td><td>a referência fala a 128</td></tr>
+  </table>
+  </div>
+
+  <h3>Guarda que olha um item por vez não vê padrão</h3>
+  <p>O <code>audita_camadas.py</code> aprovou uma cartela que aparecia três vezes
+  porque cada intervalo passava sozinho. O filtro de acervo aprovou uma modelo de
+  estúdio com uma píton no pescoço como cobra-coral porque duração, orientação e
+  tom estavam certos — ninguém olhava o <strong>assunto</strong>.</p>
+
+  <h3>Sempre rascunho antes do final</h3>
+  <p>O rascunho sai em 540×960 e leva um a dois minutos. O final leva de cinco a
+  dez. Todo defeito que já apareceu era visível no rascunho.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="novo">
+  <div class="cabeca">
+    <p class="rotulo">09 · Expansão</p>
+    <h2>Abrir um canal novo</h2>
+  </div>
+
+  <p>Um canal é uma entrada no dicionário <code>CANAIS</code> do
+  <code>apps/canal-estoico/monta_curto.py</code> mais uma pasta em disco. Vinte
+  linhas, não um arquivo novo — é o que faz as correções chegarem em todos os
+  canais de uma vez.</p>
+
+  <h3>1 · A entrada no motor</h3>
+<pre><code>"meu-canal": {
+    "curtos": os.path.join(_CANAIS, "pasta-do-canal", "curtos"),
+    "trilha": os.path.join(_TRILHAS, "02-leitos", "...", "leito.wav"),
+    "realce": "0x22DD22",          <span class="cmt"># cor da palavra em destaque</span>
+    "realce_ass": "&amp;H0022DD22",    <span class="cmt"># a MESMA cor, em AABBGGRR</span>
+    "rotulo": "Nome do Canal",
+    "cta": "Segue para mais",
+    "grade": "eq=saturation=1.06:contrast=1.08",
+    "pingpong": False,             <span class="cmt"># True só quando o take é atmosfera</span>
+    "corte": 1.1,                  <span class="cmt"># segundos por segmento</span>
+    "voz": 1.0,
+    "pitch": 1.0,
+},</code></pre>
+
+  <aside class="risco">
+    <h4>Os dois campos que erram calados</h4>
+    <p><code>realce_ass</code> é a mesma cor em <strong>AABBGGRR</strong>, não em
+    RRGGBB — invertida. Cor errada aqui não dá erro: sai outra cor na legenda.</p>
+    <p><code>pingpong</code> só pode ser <code>True</code> quando o take é
+    atmosfera. Bicho, jogada e carro têm direção; rodar de trás para frente perde
+    o sentido e o espectador percebe.</p>
+  </aside>
+
+  <h3>2 · A pasta</h3>
+<pre><code>canais/pasta-do-canal/
+├── channel-brief.yaml     <span class="cmt">avatar, tabus, duração-alvo</span>
+├── thumb-system.yaml      <span class="cmt">grade, tipografia, cor, regra de rosto</span>
+├── title-patterns.md      <span class="cmt">o que já foi usado — não repetir</span>
+└── curtos/                <span class="cmt">um diretório por peça</span></code></pre>
+
+  <p>Sem <code>channel-brief.yaml</code> o canal ainda não existe como canal: o
+  primeiro trabalho é de fundação, e nenhum episódio abre antes.</p>
+
+  <h3>3 · Se o canal usar voz clonada</h3>
+<pre><code>ffmpeg -i referencia.mp4 -vn -ac 1 -ar 24000 ^
+  -af "atrim=18.2:30.4,asetpts=PTS-STARTPTS,highpass=f=70,afftdn=nr=10:nf=-28,loudnorm=I=-18:TP=-2:LRA=9" ^
+  "...\ComfyUI\input\ref-nome.wav"</code></pre>
+  <p>Vinte a trinta segundos de fala contínua bastam. Depois passe
+  <code>--voz-ref ref-nome.wav</code> na narração — e deixe <code>voz</code> e
+  <code>pitch</code> em <strong>1.0</strong>, porque o clone já entrega o timbre
+  e o ritmo da referência.</p>
+</section>
+
+<div class="fim">
+  <p>Documentos que este runbook resume — leia quando precisar do porquê, não do
+  como:</p>
+  <ul>
+    <li><code>docs/CANAIS-TIKTOK-DARK.md</code> — o método dos dois canais de TikTok, com os números medidos</li>
+    <li><code>docs/MODELAGEM-LOTE-08-09.md</code> — a decomposição dos 15 vídeos modelados</li>
+    <li><code>docs/METODO-INSERT-ANIMAL.md</code> — a forma dos vídeos de placa</li>
+    <li><code>docs/DERIVACAO-CURTOS.md</code> — o motor de curto e suas decisões</li>
+    <li><code>apps/canal-futebol/ESTEIRA.md</code> — o runbook do episódio longo de futebol</li>
+    <li><code>docs/PIPELINE-LITE.md</code> — a esteira do longo estoico</li>
+  </ul>
+</div>
+
+</div>

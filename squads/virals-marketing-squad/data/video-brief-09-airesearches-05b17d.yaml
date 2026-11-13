@@ -1,0 +1,132 @@
+schema_version: '1.0'
+generated_at: '2026-08-19T23:06:27'
+media_kind: video
+video_brief:
+  slug: video-09-airesearches-05b17d
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\09-airesearches-05b17d
+source:
+  creator: '@airesearches'
+  platform: instagram
+  url: https://www.instagram.com/airesearches/reel/DcLsM-gKy3k/
+  type: video-short
+  caption: 'Unitree’s new “Superman” humanoid just pushed past human sprinting speeds,
+    with the company claiming a top speed of 12.66 m/s (45.6 km/h), slightly above
+    Usain Bolt’s estimated peak speed during his world-record 100m run.
+
+
+    But the record-breaking run didn’t end quite as smoothly. Videos circulating online
+    appear to show the humanoid losing control at high speed and crashing straight
+    into an electrical box.
+
+
+    The robot has only been in development for a little over three months, according
+    to Unitree, so apparently it has already figured out the speed part. Braking might
+    be next.
+
+
+    🎥: @ErenChenAl on X
+
+
+    Follow @airesearches to stay updated on the world''s most fascinating AI developments.'
+metadata:
+  view_count: null
+  like_count: 2243
+  comment_count: null
+  duration_seconds: 8
+  cut_timestamps: null
+hook_raw: Oh yeah
+transcript:
+- start: 4
+  end: 8
+  text: Oh yeah
+frames:
+- file: Screenshots/frame_01_at_00-04_Oh_yeah_.jpg
+  timestamp: 00:04
+  t_seconds: 4
+beats:
+- n: 1
+  start: 0
+  end: 8
+  text: Oh yeah
+  role: single
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 1
+  frames: 1
+  beats: 1
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-04_Oh_yeah_.jpg
+    shot_type: broll
+    on_screen_text: 'Ai researches
+
+      Robot breaking the human speed record and BREAKING an electrical box at the
+      same time'
+    has_captions: false
+  frames_sent: 1
+  shot_mix:
+    talking_head: 0.0
+    screen_capture: 0.0
+    broll: 0.8
+    graphic: 0.2
+  caption_style_seen: Nenhuma legenda de áudio visível.
+  text_overlay_style: Texto grande, em caixa alta (para ênfase em palavras-chave como
+    'BREAKING'), cor branca, fonte sans-serif, posicionado na parte superior da tela.
+    Inclui um pequeno logo/handle no canto superior esquerdo.
+  visual_hook_device: O gancho visual é a sobreposição de texto impactante que descreve
+    uma situação inusitada e humorística (robô quebrando recorde e caixa elétrica),
+    combinado com a imagem de um robô em movimento em um cenário de evento.
+  broll_density: medium
+  edit_style_notes: '[''Enquadramento: Plano aberto/médio que captura a ação principal
+    (robô) e o contexto do evento (arena, pessoa no chão), fornecendo uma visão clara
+    da cena.'', ''Uso de texto na tela: Sobreposições de texto são cruciais para a
+    narrativa e o gancho, com palavras-chave em destaque para atrair a atenção imediata
+    e guiar o espectador.'', ''Ritmo visual: A natureza dinâmica e potencialmente
+    caótica da cena sugere um ritmo de edição rápido, com cortes ágeis para manter
+    o engajamento e a energia do vídeo.'']'
+  palette:
+  - '#000000'
+  - '#FFFFFF'
+  - '#1A4B8F'
+  - '#66C2D9'
+  - '#A0A0A0'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-19T23:07:08'
+benchmark_analysis:
+  hook_type: pattern interrupt
+  pattern_interrupts:
+  - t: 0
+    device: audio spoken by presenter
+    text: Oh yeah
+  cut_cadence:
+    avaliacao: O ritmo constante de 8s por segmento mantém o engajamento e cumpre
+      o checkpoint de retenção a cada ~1,5–2s.
+    meets_retention_checkpoint: false
+    source: transcript-segments
+    segments: 1
+    duration_s: 8.0
+    avg_segment_s: 8.0
+  broll_strategy: Utiliza b‑roll dinâmico de arena, pessoa caída e o robô em movimento,
+    mantendo o visual sempre ativo e reforçando a ação descrita.
+  caption_style: Texto em caixa alta branca, grande, sem legenda de áudio; inclui
+    keyword highlights e logo/handle no canto superior esquerdo.
+  pacing_curve:
+  - window: 00-03s
+    densidade: high
+  - window: 03-08s
+    densidade: medium-high
+  retention_devices:
+  - loop visual do robô em movimento
+  - repetição da palavra‑chave 'BREAKING' como callback
+  - escalada de ação ao mostrar a caixa elétrica explodindo
+  - payoff com a Brandt quebrando recorde de visualizações
+  - ênclave de padrão interrompido logo no início
+  recommendation: Manter a estrutura de arco de 8 s, mas substituir a voz original
+    por uma narradora feminina com timbre enérgico; trocar o produto da Brandt por
+    outra marca mantendo o texto-overlay de caixa alta e o b‑roll de evento.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:07:16'

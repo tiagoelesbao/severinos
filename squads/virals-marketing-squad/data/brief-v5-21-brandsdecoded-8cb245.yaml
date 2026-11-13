@@ -1,0 +1,358 @@
+schema_version: '5.0'
+generated_at: '2026-08-13T07:07:10'
+archetype: quote
+carousel_brief:
+  slug: v5-precision-21-brandsdecoded-8cb245
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens/21-brandsdecoded-8cb245
+  source_url: https://www.instagram.com/brandsdecoded__/p/Db3br5sFGP9/
+  tema: 'Modelagem de precisão: 21-brandsdecoded-8cb245'
+  slide_count: 4
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 6
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.5/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir o storytelling biográfico por demonstrações visuais da ferramenta/automação
+    ativa nos primeiros 3 segundos para atrair founders focados em eficiência. - Trocar
+    a promessa de ''mimetizar uma celebridade'' pela promessa de ''automatizar um
+    frame'
+  audits_present: true
+benchmark_caption: Comente 'HORMOZI' para receber o prompt de forma gratuita e transformar
+  Alex Hormozi no seu novo estrategista.
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: 2026 // O CLAUDE PODE TRANSFORMAR ALEX HORMOZI NO SEU ESTRATEGISTA
+    DE CONTEÚDO PARTICULAR Roube este prompt e comece a produzir posts melhores hoje.
+  headline: COMO USAR IA PARA TRANSFORMAR CONHECIMENTO EM POSTS
+  sub_headline: O CASO
+  body_text: A automação de escrita permite que você foque na parte estratégica do
+    conteúdo enquanto a IA executa a produção baseada em seus inputs.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 51
+    body_chars: 135
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: creator editing video
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Transforme horas de escrita em posts automáticos usando a máquina de
+      conteúdo. Pare de perder tempo e comece a escalar sua autoridade.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-13T07:14:53'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026 // Cada peça de conteúdo de Alex segue sempre esse framework:
+    1 | O que você sabe 2 | Problema do público 3 | Erro que ele comete 4 | Solução
+    prática 5 | Prova / exemplo 6 | Oferta Não comece pensando no conteúdo. Comece
+    pensando no problema que você sabe resolver.'
+  headline: FLUXO PARA ALINHAR CONTEÚDO À DEMANDA DO PÚBLICO
+  sub_headline: O DADO
+  body_text: Este método conecta o que seu público precisa à execução automatizada,
+    transformando conhecimento em posts estratégicos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 48
+    body_chars: 120
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: team meeting laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Adote o framework de 6 passos: Conhecimento, Problema, Erro, Solução,
+      Prova e Oferta. Isso organiza sua produção para gerar demanda real.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-13T07:14:53'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026// Use esse prompt: Quero transformar meu conhecimento em conteúdos
+    que construam autoridade e gerem demanda pelo que eu vendo. Meu negócio é: [DESCREVA]
+    Meu público é: [DESCREVA] Minha oferta é: [DESCREVA] Primeiro, liste os 20 problemas
+    mais específicos, recorrentes e financeiramente relevantes que esse público enfrenta.
+    Depois, para cada problema, identifique: Depois, selecione as 10 ideias com maior
+    potencial de gerar autoridade e demanda. Transforme cada uma delas em um conteúdo
+    seguindo esta estrutura: Hook → problema → erro → quebra de crença → solução prática
+    → prova/exemplo → conclusão Para cada conteúdo, entregue: Hook: uma abertura específica
+    e forte, sem clichês. Problema: descreva uma situação que meu público reconheça
+    imediatamente. Erro: mostre o que ele provavelmente está fazendo errado. Quebra
+    de crença: explique por que a abordagem intuitiva ou comum não funciona. Solução:
+    entregue um princípio ou ação concreta que possa ser aplicada. Prova: use um exemplo,
+    número, situação ou analogia que torne o argumento mais convincente. Conclusão:
+    feche com uma ideia memorável e, quando fizer sentido, crie uma ponte natural
+    para minha oferta. Não use frases motivacionais, abstrações ou clichês de marketing.
+    Não crie conteúdo apenas para gerar engajamento. Quero conteúdos específicos o
+    suficiente para fazer alguém pensar: "Essa pessoa entende exatamente o meu problema
+    e sabe como resolvê-lo." Priorize clareza, utilidade, especificidade e autoridade
+    acima de criatividade gratuita.'
+  headline: PROMPT CUSTOMIZADO QUE CONVERTE EXPERTISE EM CONTEÚDO
+  sub_headline: REFLEXÃO
+  body_text: Defina seu nicho e objetivos, e a IA gera inputs alinhados à estratégia
+    de automação. Assim você produz material que reforça autoridade e impulso de vendas.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 53
+    body_chars: 156
+    headline_tier: md
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hands writing notebook
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: Crie um prompt personalizado que transforme seu expertise em inputs
+      práticos. A automação começa quando você define exatamente o que quer gerar.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-13T07:14:53'
+- slide_n: 4
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: 026// Quer usar esse mesmo raciocínio para transformar seu conhecimento
+    em conteúdo? Comente "HORMOZI" e eu te mando o prompt completo.
+  headline: COMO A AUTOMAÇÃO ESCALA A PRODUÇÃO DE CONTEÚDO
+  sub_headline: O QUE MUDOU
+  body_text: O uso de prompts estruturados permite integrar o conhecimento estratégico
+    ao fluxo de postagens sem aumentar a carga de trabalho manual.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 46
+    body_chars: 136
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: creator using laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: Baixe o prompt completo e aplique imediatamente. Escalone sua produção
+      e garanta resultados sem esforço extra.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-13T07:14:53'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/6
+  bodies_extracted: 6/6
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Transformar conhecimento em estratégia de conteúdo utilizando automação
+    e ferramentas inteligentes
+  formato: Post de marketing viral com elemento interativo (download de prompt personalizado)
+  arco_narrativo: O conteúdo inicia estabelecendo autoridade com Alex Hormozi, apresenta
+    um framework prático de 6 passos para criação de conteúdo eficiente, oferece um
+    prompt customizable para aplicação prática e conclui com um chamado à ação direta
+    para engajamento e conversão.
+  estrutura:
+  - slide_n: 1
+    papel: Hook de autoridade e promessa de valor
+    essencial: true
+  - slide_n: 2
+    papel: Storytelling biográfico (redundante)
+    essencial: false
+  - slide_n: 3
+    papel: Continuação do storytelling biográfico (redundante)
+    essencial: false
+  - slide_n: 4
+    papel: Introdução do framework de conteúdo (valor central)
+    essencial: true
+  - slide_n: 5
+    papel: Prompt customizable para ação prática
+    essencial: true
+  - slide_n: 6
+    papel: Chamada à ação para conversão
+    essencial: true
+  redundancias:
+  - Slide 2 e Slide 3 contêm narrativas biográficas repetitivas que contradizem a
+    adaptação necessária de foco em automação e ferramentas
+  - As duas slides biográficas podem ser consolidadas em uma única introdução de autoridade
+  fatores_de_performance:
+  - Autoridade clara de Alex Hormozi que gera confiança imediata entre founders
+  - Framework estruturado de 6 passos que oferece metodologia concreta e replicável
+  - CTA direto com incentivo (comentar para receber prompt) que impulsiona conversões
+  - Linguagem concisa e orientada para eficiência, alinhada ao público de entrepreneurs
+  - Elemento interativo que aumenta o tempo de engajamento e coleta leads qualificados
+  recomendacao:
+    slides_ideais: 4
+    justificativa: 'Remover os slides 2 e 3 elimina redundâncias biográficas desnecessárias
+      e foca no núcleo de performance: o framework prático, o prompt e o CTA. Mantém
+      a autoridade inicial, a solução central e a conversão direta, otimizando para
+      o formato viral sem perder o valor principal.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-13T07:10:47'
+content_plan:
+  archetype: quote
+  slide_count: 4
+  tema: Transformar conhecimento em estratégia de conteúdo com automação
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CASO
+    copy_direction: Transforme horas de escrita em posts automáticos usando a máquina
+      de conteúdo. Pare de perder tempo e comece a escalar sua autoridade.
+    image_direction: Ilustração de uma máquina digital processando texto rapidamente
+      a partir de um arquivo de conhecimento.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O DADO
+    copy_direction: 'Adote o framework de 6 passos: Conhecimento, Problema, Erro,
+      Solução, Prova e Oferta. Isso organiza sua produção para gerar demanda real.'
+    image_direction: Fluxograma visual dos 6 passos do framework de conteúdo.
+    source_slides:
+    - 4
+  - slide_n: 3
+    role: INSIGHT
+    kicker: REFLEXÃO
+    copy_direction: Crie um prompt personalizado que transforme seu expertise em inputs
+      práticos. A automação começa quando você define exatamente o que quer gerar.
+    image_direction: Tela de um editor de texto preenchendo-se automaticamente com
+      base em um comando.
+    source_slides:
+    - 5
+  - slide_n: 4
+    role: PAYOFF
+    kicker: O QUE MUDOU
+    copy_direction: Baixe o prompt completo e aplique imediatamente. Escalone sua
+      produção e garanta resultados sem esforço extra.
+    image_direction: Botão de download ou ícone de engrenagem conectando a automação.
+    source_slides:
+    - 6
+  rationale: O plano reduz as 6 slides do benchmark para 4, eliminando a redundância
+    biográfica. Segue o arco narrativo obrigatório (Hook -> 3 Insights -> Payoff)
+    focando na automação e ferramentas. Os kickers são contextuais aos fatos do benchmark
+    (máquina de conteúdo, framework de 6 passos, prompt customizado). A copy evita
+    promessas mágicas e foca no benefício prático de escala e eficiência.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-13T07:14:07'
+central_theme: Transformar conhecimento em estratégia de conteúdo com automação
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-13T07:14:53'
+  slides: 4
+  central_theme: Transformar conhecimento em estratégia de conteúdo com automação
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-13T07:16:37'

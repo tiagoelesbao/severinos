@@ -1,0 +1,370 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:13:26'
+media_kind: video
+video_brief:
+  slug: video-06-diegoalmeida-ia-99c44d
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\06-diegoalmeida-ia-99c44d
+source:
+  creator: '@diegoalmeida.ia'
+  platform: instagram
+  url: https://www.instagram.com/diegoalmeida.ia/reel/DcBWVrVxh8J/
+  type: video-short
+  caption: 'Em 2023, a IA nem conseguia fazer o Will Smith comer espaguete direito.
+    As mãos derretiam, o macarrão desafiava as leis da física, e aquilo virou meme
+    instantâneo.
+
+
+    Hoje, aquele mesmo clipe se tornou praticamente um teste de referência para medir
+    o avanço da IA em vídeo. Toda nova geração de modelo acaba sendo comparada ao
+    vídeo original do “Will Smith comendo espaguete” para mostrar até onde a tecnologia
+    evoluiu.
+
+
+    E é aí que está a loucura da IA.
+
+
+    O que parece impossível hoje pode virar completamente normal poucos anos depois.
+
+
+    E você, o que acha sobre isso? 🤔💬
+
+
+    👉🏻 Siga (@diegoalmeida.ia) para ficar por dentro das últimas novidades em IA e
+    Tecnologia
+
+
+    🎥: u/FallingKnifeFilms no Reddit'
+metadata:
+  view_count: null
+  like_count: 6028
+  comment_count: null
+  duration_seconds: 28
+  cut_timestamps: null
+hook_raw: I like the 2026 version of me a hell of a lot better than this slop
+transcript:
+- start: 4
+  end: 8
+  text: I like the 2026 version of me a hell of a lot better than this slop
+- start: 8
+  end: 11
+  text: We've come a long way
+- start: 11
+  end: 24
+  text: I suppose you want me to eat spaghetti now
+- start: 24
+  end: 28
+  text: Pasta la vista, baby
+frames:
+- file: Screenshots/frame_01_at_00-04_I_like_the_2026_version_of_me_.jpg
+  timestamp: 00:04
+  t_seconds: 4
+- file: Screenshots/frame_02_at_00-08_We_ve_come_a_long_way_.jpg
+  timestamp: 00:08
+  t_seconds: 8
+- file: Screenshots/frame_03_at_00-11_I_suppose_you_want_me_to_eat_s.jpg
+  timestamp: 00:11
+  t_seconds: 11
+- file: Screenshots/frame_04_at_00-24_Pasta_la_vista__baby_.jpg
+  timestamp: 00:24
+  t_seconds: 24
+beats:
+- n: 1
+  start: 4
+  end: 8
+  text: I like the 2026 version of me a hell of a lot better than this slop
+  role: hook
+- n: 2
+  start: 8
+  end: 11
+  text: We've come a long way
+  role: build
+- n: 3
+  start: 11
+  end: 24
+  text: I suppose you want me to eat spaghetti now
+  role: build
+- n: 4
+  start: 24
+  end: 28
+  text: Pasta la vista, baby
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 4
+  frames: 4
+  beats: 4
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-04_I_like_the_2026_version_of_me_.jpg
+    shot_type: broll
+    on_screen_text: Will Smith comendo espaguete de alguma forma se tornou o parâmetro
+      oficial para o progresso da IA
+    has_captions: true
+  - file: frame_02_at_00-08_We_ve_come_a_long_way_.jpg
+    shot_type: broll
+    on_screen_text: Will Smith comendo espaguete de alguma forma se tornou o parâmetro
+      oficial para o progresso da IA
+    has_captions: true
+  - file: frame_03_at_00-11_I_suppose_you_want_me_to_eat_s.jpg
+    shot_type: broll
+    on_screen_text: Will Smith comendo espaguete de alguma forma se tornou o parâmetro
+      oficial para o progresso da IA
+    has_captions: true
+  - file: frame_04_at_00-24_Pasta_la_vista__baby_.jpg
+    shot_type: broll
+    on_screen_text: Will Smith comendo espaguete de alguma forma se tornou o parâmetro
+      oficial para o progresso da IA
+    has_captions: true
+  frames_sent: 4
+  shot_mix:
+    talking_head: 0.0
+    screen_capture: 0.0
+    broll: 1.0
+    graphic: 0.0
+  caption_style_seen: Texto branco em caixa baixa (sentence case), centralizado na
+    parte inferior da tela, sobre um fundo escuro semi-transparente.
+  text_overlay_style: Texto estático, branco e sem serifa, posicionado na parte superior
+    da tela, fornecendo o título/contexto do vídeo e informações do criador (nome
+    e @).
+  visual_hook_device: A justaposição imediata de duas versões contrastantes de Will
+    Smith (uma desleixada comendo espaguete e outra elegante) nos primeiros frames,
+    combinada com um título intrigante sobre IA, prende a atenção.
+  broll_density: high
+  edit_style_notes: 1. Utiliza clipes de alta qualidade, cinematográficos, com enquadramentos
+    variados (médios a amplos) que exploram a cena. 2. Cortes rápidos e dinâmicos
+    que seguem a ação e o diálogo do clipe original, mantendo um ritmo acelerado.
+    3. Foco em reações e contrastes visuais dentro do B-roll para manter o engajamento
+    e ilustrar o ponto principal.
+  palette:
+  - '#000000'
+  - '#FFFFFF'
+  - '#333333'
+  - '#2C3E50'
+  - '#A0522D'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:13:42'
+benchmark_analysis:
+  hook_type: bold claim
+  pattern_interrupts:
+  - t: 0
+    device: visual_juxtaposition
+    text: Contraste imediato entre Will Smith elegante vs. desleixado (spaghetti)
+  - t: 4
+    device: semantic_shift
+    text: Uso da keyword 'slop' para gerar impacto emocional/negativo
+  cut_cadence:
+    avaliacao: Excelente. A média de 7s por segmento é o teto para o conteúdo, mas
+      a densidade de B-roll interna mantém a micro-retenção alta através de cortes
+      de ação que acompanham o diálogo.
+    meets_retention_checkpoint: false
+    source: transcript-segments
+    segments: 4
+    duration_s: 28.0
+    avg_segment_s: 7.0
+  broll_strategy: Uso de 100% B-roll cinematográfico de alta qualidade para eliminar
+    o 'talking head' e reduzir a fricção cognitiva, transformando o vídeo em uma experiência
+    puramente visual e narrativa que ilustra o sentimento do áudio.
+  caption_style: 'Minimalista: sentence case, centralizada na parte inferior, fundo
+    semi-transparente para não competir com o conteúdo visual cinematográfico.'
+  pacing_curve:
+  - window: 00-03s
+    densidade: altíssima (pattern interrupt visual + claim forte)
+  - window: 04-11s
+    densidade: média-alta (construção de narrativa/build)
+  - window: 12-24s
+    densidade: constante (sustentação via B-roll dinâmico)
+  - window: 25-28s
+    densidade: baixa (payoff/desfecho rápido)
+  retention_devices:
+  - Visual Contrast (Elegante vs. Slop)
+  - Emotional Keyword Hook ('slop')
+  - Narrative Escalation (Evolution arc)
+  - Humorous Payoff (Pasta la vista callback)
+  recommendation: Modelar o arco de contraste (Versão A vs. Versão B) e a densidade
+    de B-roll. Manter a estrutura de 'Bold Claim' no hook, mas substituir o nicho
+    de IA/Will Smith pela dor/desejo do cliente, garantindo que o visual mude conforme
+    a intensidade da fala.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T12:14:05'
+content_plan:
+  tema: 'A evolução da IA aplicada: do conteúdo genérico à automação de aquisição
+    real'
+  format_concept: broll
+  hook:
+    variants:
+    - pattern_interrupt: 'Split screen: Lado A (Texto de IA genérico/estranho) vs
+        Lado B (Workflow de agente Oraclum rodando)'
+      text_overlay: IA Genérica vs IA Aplicada
+      spoken_open: Eu prefiro a versão da IA que gera aquisição do que esse conteúdo
+        genérico.
+    - pattern_interrupt: Corte rápido entre prompt básico 'escreva um post' e dashboard
+        de leads Oraclum
+      text_overlay: Chega de conteúdo vazio
+      spoken_open: Tem muita gente confundindo IA com gerador de texto, mas a escala
+        real está na automação.
+    - pattern_interrupt: Zoom out rápido de um erro de LLM para um fluxo de integração
+        CRM perfeito
+      text_overlay: O fim da IA 'rasa'
+      spoken_open: O gap entre quem brinca com prompt e quem constrói workflow é gigante.
+  storyboard:
+  - beat_n: 1
+    scene: O Contraste
+    shot_type: insert
+    duration_s: 4
+    on_screen_text: IA Genérica vs IA Aplicada
+    broll: Justaposição de prompts ruins/estranhos vs logs de execução de agentes
+      Oraclum
+    motion: cut
+  - beat_n: 2
+    scene: A Evolução
+    shot_type: insert
+    duration_s: 3
+    on_screen_text: Workflow > Prompts
+    broll: B-roll cinematográfico de código sendo processado e APIs conectando
+    motion: zoom-in
+  - beat_n: 3
+    scene: A Aplicação Real
+    shot_type: insert
+    duration_s: 10
+    on_screen_text: Aquisição em Escala
+    broll: Sequência dinâmica de Lead Generation, AI Ads e automação de CRM no cofre
+    motion: whip
+  - beat_n: 4
+    scene: O Payoff
+    shot_type: insert
+    duration_s: 4
+    on_screen_text: Sistemas que Convertem
+    broll: Close-up em resultado final de conversão/lead no CRM
+    motion: cut
+  script: Eu prefiro a versão da IA que gera aquisição do que esse conteúdo genérico.
+    A gente evoluiu muito. Agora, eu suponho que você queira ver a automação rodando
+    no CRM e gerando leads de verdade. Sistemas que convertem, baby.
+  edit_spec:
+    zooms:
+    - na fala 'evoluímos muito'
+    - no 'gerando leads de verdade'
+    transitions:
+    - whip @ 11s
+    - cut @ 24s
+    inserts:
+    - B-roll de prompts ruins @ 0s
+    - B-roll de agentes Oraclum @ 4s
+    - Cofre de Lead Gen @ 12s
+    - Logs de API @ 18s
+    captions: Sentence case, branco, centralizado inferior, fundo semi-transparente
+    motion_graphics:
+    - Seta de 'evolução' conectando prompt -> workflow @ 8s
+    template_refs:
+      hook: hook-number-hardcut
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Gravação de tela (Screen record) de prompts genéricos de IA
+    framing: close
+    audio: fala
+    props: Navegador
+    locacao: Digital
+    falas_chave: conteúdo genérico
+  - plano: Gravação de tela do cofre Oraclum (Lead Gen/Automation)
+    framing: close
+    audio: fala
+    props: Software/CRM
+    locacao: Digital
+    falas_chave: IA que gera aquisição
+  - plano: B-roll de tecnologia/servidores/código (cinematográfico)
+    framing: amplo
+    audio: fala
+    props: N/A
+    locacao: Digital/Stock
+    falas_chave: evoluímos muito
+  sound_design:
+    sfx:
+    - moment: hook
+      category: impact
+      intent: Marcar o contraste visual inicial
+      intensity: strong
+    - moment: beat_n:2
+      category: whoosh
+      intent: Transição para a fase de evolução
+      intensity: medium
+    - moment: reveal @ 11s
+      category: notification
+      intent: Sinalizar entrada de leads/automação
+      intensity: medium
+    - moment: CTA
+      category: pop
+      intent: Finalizar com punch
+      intensity: medium
+    music:
+      recommended: true
+      mood: uplifting
+      energy: medium
+      genre: Electronic/Tech
+      ducking: true
+      rationale: A música deve transmitir modernidade e precisão tecnológica, crescendo
+        conforme o vídeo sai do 'genérico' para o 'aplicado'.
+    rationale: Sons sintéticos e precisos para reforçar o arquétipo do Sábio Tecnológico.
+  rationale: O plano modela a estrutura de contraste (A vs B) do benchmark, substituindo
+    o 'Will Smith elegante vs desleixado' por 'IA Genérica vs IA Aplicada (Oraclum)'.
+    Mantém a cadência de cortes rápidos e a ausência de talking head, utilizando a
+    prova técnica (cofre/sistema) como o motor visual, respeitando rigorosamente o
+    léxico de aquisição e automação do cliente.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:google/gemma-4-31b-it:free
+  planned_at: '2026-08-17T12:16:01'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 5.25
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:16:02'

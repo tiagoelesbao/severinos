@@ -47,6 +47,24 @@ def _brief(gate_status="PASS", unresolved=None):
     }
 
 
+def test_render_plan_md_sound_design_section():
+    b = _brief("PASS")
+    b["content_plan"]["sound_design"] = {
+        "sfx": [{"moment": "hook", "category": "whoosh", "intent": "abrir", "intensity": "strong"}],
+        "music": {"recommended": True, "mood": "tense", "energy": "high", "genre": "lo-fi", "ducking": True, "rationale": "segura a tensão"},
+        "rationale": "sublinha os cortes",
+    }
+    md = vp.render_plan_md(b)
+    assert "## 🔊 Sound design" in md
+    assert "whoosh" in md
+    assert "Trilha:" in md and "tense" in md
+
+
+def test_render_plan_md_no_sound_design_section_when_absent():
+    md = vp.render_plan_md(_brief("PASS"))  # fixture sem sound_design
+    assert "🔊 Sound design" not in md
+
+
 def test_is_blocked_pass():
     assert vp.is_blocked(_brief("PASS")) is False
 

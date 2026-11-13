@@ -29,7 +29,26 @@ Os dois trabalham de forma coordenada: Ezra constrói o pipeline, Perry ativa a 
 - `tasks/`: Tarefas atômicas e organismos de execução.
 - `workflows/`: Fluxos multi-agente e processos contínuos.
 - `checklists/`: Critérios de validação para lançamentos e saúde de tráfego.
-- `templates/`: Modelos de scripts, emails, briefs e relatórios.
+- `templates/`: Modelos de scripts, emails, briefs e manifestos de templates de criativo.
+- `scripts/`: Executores Python/JS — pipelines de benchmark e motor de criativos.
+- `tools/`: Serviços auxiliares (`pexels_service`, `vvs_render_service`, etc.).
+- `services/`: Serviços externos integrados (ex.: `creative-design-service` = app Next.js).
+- `data/`: Briefs versionados + identidades por cliente em `data/clients/<slug>/` (`brand-identity.yaml`, `brand-config.yaml`). Registry canonical: `data/clients/_registry.yaml`.
+
+## 🎨 Pipeline Creative Intelligence (`*design-creative`)
+
+A partir da migração AIOX (epic `EPIC-MKT-Creative-AIOX-Alignment`), o motor de criativos é um pipeline AIOX-formal de 6 etapas:
+
+| # | Task | Executor | Modo |
+|---|---|---|---|
+| 1 | `tasks/creative-modeling.md` | `scripts/deep_modeler.py` | fatal |
+| 2 | `tasks/creative-analysis.md` | `scripts/analyze_benchmark.py` | não-fatal |
+| 3 | `tasks/creative-planning.md` | `scripts/plan_creative.py` | não-fatal |
+| 4 | `tasks/creative-recast.md` | `scripts/recast_engine.py` | não-fatal |
+| 5 | `tasks/creative-quality-gate.md` | `scripts/quality_gate.py` | não-fatal |
+| 6 | `tasks/creative-render.md` | `scripts/orchestrate_carousel.py` | fatal |
+
+Workflow: `workflows/design-creative.workflow.md`. Render: 1080×1350 (4:5 — grade do Instagram).
 
 ## 🚀 Como Iniciar
 

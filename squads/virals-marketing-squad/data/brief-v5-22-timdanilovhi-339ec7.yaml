@@ -1,0 +1,515 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T20:00:08'
+archetype: news
+carousel_brief:
+  slug: v5-precision-22-timdanilovhi-339ec7
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\22-timdanilovhi-339ec7
+  source_url: https://www.instagram.com/timdanilovhi/p/Db3_sLGDMid/
+  tema: 'Modelagem de precisão: 22-timdanilovhi-339ec7'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 9
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.6/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a prova social passiva (prints de vídeos) por demonstrações ativas
+    de workflows de IA e painéis de automação nos slides de solução. - Substituir
+    o ângulo de ''oportunidade de ganho rápido'' por um ângulo de ''análise técnica
+    de mudanças de pla'
+  audits_present: true
+benchmark_caption: "❗️SAVE THIS: YouTube has just updated their monetization requirements.\
+  \ \n\nStarting in Feb 2027 you’d need:\n• 8,000 watch hours\n• or 20m short form\
+  \ views\n\nDouble of what it takes to get monetized now.\n\nWhich makes “now” the\
+  \ PERFECT moment to start and get monetized before the policy changes.\n\n\U0001F4E9\
+  \ Comment “NICHE” and join the Niche Bending Marathon where we break down proven\
+  \ niches that work in 2026"
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.png
+  reference_headline: THE REQUIREMENTS / Tim Danilov
+  reference_body: '1,000 SUBSCRIBERS 8,000 WATCH HOURS SHORTS VIEWS YOUTUBE MADE IT
+    IMPOSSIBLE TO GET MONETIZED READ MORE BELOW BREAKING ❗❗❗ YouTube is raising the
+    bar for new Faceless YouTube creators. Starting Feb 1, 2027, new channels need:
+    8,000 watch hours (up from 4,000) or 20M Shorts views in 90 days (up from 10M)
+    ... to join the YouTube Partner Program NEWS AND EVENTS NEW OPPORTUNITIES TO EARN
+    AND CHANGES TO THE YOUTUBE PARTNER PROGRAM THE YOUTUBE TEAM We''re making important
+    changes to help the YouTube Partner Program remain the leader in the creator economy.
+    AUG 10, 2026 4 MINUTE READ'
+  headline: MONETIZAR NO YOUTUBE FICOU MAIS DIFÍCIL
+  sub_headline: O ALERTA
+  body_text: O YouTube está elevando as barreiras para novos canais faceless. Quem
+    ajustar o workflow agora escala antes da nova regra entrar em vigor.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 39
+    body_chars: 138
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person looking at computer screen serious
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Headline direta focada no benefício de antecipação: ''Monetizar o
+      YouTube ficou mais difícil (mas você pode correr na frente)''. Body: O YouTube
+      aumentou as barreiras para novos canais faceless. Quem agir agora escala antes
+      da nova regra.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.png
+  reference_headline: Tim Danilov
+  reference_body: 'BREAKING ❗❗❗ YouTube is raising the bar for new Faceless YouTube
+    creators. Starting Feb 1, 2027, new channels need: 8,000 watch hours (up from
+    4,000) or 20M Shorts views in 90 days (up from 10M) ... to join the YouTube Partner
+    Program NEWS AND EVENTS NEW OPPORTUNITIES TO EARN AND CHANGES TO THE YOUTUBE PARTNER
+    PROGRAM THE YOUTUBE TEAM We''re making important changes to help the YouTube Partner
+    Program remain the leader in the creator economy. AUG 10, 2026 4 MINUTE READ'
+  headline: A MUDANÇA NAS REGRAS DE MONETIZAÇÃO
+  sub_headline: A MUDANÇA
+  body_text: A partir de 1º de fevereiro de 2027, a exigência sobe para 8.000 horas
+    de exibição ou 20 milhões de views em Shorts nos últimos 90 dias.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 136
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: digital clock close up
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Dados concretos da atualização: a partir de 1º de fevereiro de 2027,
+      a exigência sobe para 8.000 horas de exibição (antes 4.000) ou 20 milhões de
+      views em Shorts nos últimos 90 dias (antes 10 milhões).'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.png
+  reference_headline: But if getting monetized a couple weeks later instead of today
+    scares you, you should NOT be doing YouTube in the first place.
+  reference_body: 'So here''s 5 niches to get monetized with within the next month:'
+  headline: O PROBLEMA NÃO É A REGRA, É O NICHO
+  sub_headline: O PONTO
+  body_text: O aumento do prazo não deve ser um obstáculo, mas um filtro. A solução
+    para monetizar rápido exige foco em alta retenção e volume de produção.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 142
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man thinking in office
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Reframe do medo em eficiência: se o aumento do prazo assusta, o problema
+      não é a regra, mas a escolha do nicho. A solução para monetizar rápido é focar
+      em alta retenção e volume.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.png
+  reference_headline: '1) Housing:'
+  reference_body: ''
+  headline: 'NICHO: HOUSING'
+  sub_headline: NICHO 01
+  body_text: Conteúdo imobiliário e tours por casas. Um nicho de alto valor percebido
+    com retenção visual orgânica para o espectador.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 14
+    body_chars: 120
+    headline_tier: xl
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: modern luxury house interior
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Foco em 'Housing' (Imobiliário/Casas). Nicho de alto valor percebido
+      e retenção visual orgânica.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.png
+  reference_headline: '2) Whiteboard animation: / 3) USA History'
+  reference_body: ' '
+  headline: 'NICHO: WHITEBOARD E HISTÓRIA'
+  sub_headline: NICHO 02
+  body_text: Whiteboard Animation e História dos EUA. Formatos que utilizam o visual
+    para simplificar conceitos complexos e manter o usuário assistindo.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 139
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hand drawing on whiteboard
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  - 6
+  personalization:
+    status: DONE
+    directive: Foco em 'Whiteboard Animation' e 'História dos EUA'. Formatos que simplificam
+      conceitos complexos e mantêm o usuário assistindo até o fim.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.png
+  reference_headline: 4) AI Recreation of GTA / Tim Danilov
+  reference_body: ' 5) Movies Stickman 616 Subscribe if you love the MCU ..more Subscribe
+    Home Videos Live Playlists Latest Popular Oldest Every Ironman Suit Explained
+    in 15 Minutes .. Every Spiderman Suit Explained in 10 Minutes .. Every War Machine
+    Suit Explained in 8 Minutes Stickman 616 Stock Footage Explained Good Explores
+    Marvel Cinematic Universe lore and character variants by cataloging suits,...
+    Discovered 1 week ago Hunt niche YouTube'
+  headline: 'NICHO: CULTURA POP E IA'
+  sub_headline: NICHO 03
+  body_text: Recriações de GTA com IA e análises de cinema. Conteúdos de alta demanda
+    que utilizam IA aplicada para escala de produção.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 23
+    body_chars: 122
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person editing video professional
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  - 8
+  personalization:
+    status: DONE
+    directive: Foco em 'Recriações de GTA com IA' e 'Análises de Cinema/MCU'. Conteúdos
+      de cultura pop que utilizam IA aplicada para escala de produção.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+- slide_n: 7
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_03.png
+  reference_headline: But if getting monetized a couple weeks later instead of today
+    scares you, you should NOT be doing YouTube in the first place.
+  reference_body: 'So here''s 5 niches to get monetized with within the next month:'
+  headline: A BARREIRA DE ENTRADA FILTRA AMADORES
+  sub_headline: REFLEXÃO
+  body_text: O novo cenário exige eficiência. O workflow agora depende de IA para
+    garantir volume e precisão na escolha do nicho. Quais desses modelos permitem
+    escala sem aumentar o custo de produção?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 37
+    body_chars: 187
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hands typing on laptop keyboard
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Takeaway prático: a barreira de entrada maior filtra amadores. O workflow
+      agora exige IA para volume e precisão na escolha do nicho. Qual desses modelos
+      você conseguiria automatizar hoje?'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:01:10'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: nenhum texto de headline encontrado'
+  headlines_extracted: 0/9
+  bodies_extracted: 4/9
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  fact_fidelity_repaired:
+    4:
+    - '01'
+    5:
+    - '02'
+    6:
+    - '03'
+benchmark_analysis:
+  tema_central: O aumento das exigências de monetização do YouTube como gatilho de
+    urgência para a adoção de nichos específicos.
+  formato: News-jacking com curadoria de oportunidades (News-driven Listicle).
+  arco_narrativo: O post utiliza um evento de mudança de política (medo/urgência)
+    para quebrar a paralisia do espectador, oferece uma solução imediata através de
+    uma lista de nichos e finaliza com uma chamada para ação (CTA) para um evento
+    de profundidade.
+  estrutura:
+  - slide_n: 1
+    papel: Hook de alto impacto apresentando o problema/mudança drástica.
+    essencial: true
+  - slide_n: 2
+    papel: Contextualização técnica e prova da notícia (autoridade).
+    essencial: true
+  - slide_n: 3
+    papel: Quebra de objeção e transição para a solução (reframe do medo em oportunidade).
+    essencial: true
+  - slide_n: 4
+    papel: 'Entrega de valor: Nicho 1.'
+    essencial: true
+  - slide_n: 5
+    papel: 'Entrega de valor: Nicho 2.'
+    essencial: true
+  - slide_n: 6
+    papel: 'Entrega de valor: Nicho 3.'
+    essencial: true
+  - slide_n: 7
+    papel: 'Entrega de valor: Nicho 4.'
+    essencial: true
+  - slide_n: 8
+    papel: 'Entrega de valor: Nicho 5 e prova social/exemplo visual.'
+    essencial: true
+  - slide_n: 9
+    papel: Slide vazio/erro de exportação.
+    essencial: false
+  redundancias:
+  - O Slide 2 e o Slide 1 repetem a informação da mudança, embora o 2 seja mais detalhado;
+    o Slide 9 é lixo de conteúdo.
+  fatores_de_performance:
+  - 'Uso de News-jacking: aproveita uma mudança de regra real para gerar urgência
+    imediata.'
+  - 'Reframe Psicológico: transforma uma notícia negativa (exigência maior) em um
+    incentivo positivo (corra antes que mude).'
+  - 'Listicle de baixo atrito: entrega nichos prontos, reduzindo o esforço cognitivo
+    de quem consome.'
+  - 'CTA de alto engajamento: o uso de palavra-chave no comentário (''NICHE'') para
+    automação de Direct/Lead Gen.'
+  recomendacao:
+    slides_ideais: 7
+    justificativa: Para a metodologia Virals, devemos fundir o Slide 1 e 2 em um único
+      Hook visualmente impactante e técnico. Os nichos devem ser apresentados de forma
+      mais densa (podendo agrupar 2 por slide se forem curtos) para manter o ritmo
+      de consumo alto e evitar o 'scroll fatigue', focando na transição direta do
+      problema para a solução técnica.
+  analyzed_by: openrouter:google/gemma-4-26b-a4b-it:free
+  analyzed_at: '2026-08-12T20:00:27'
+content_plan:
+  archetype: news
+  slide_count: 7
+  tema: Aumento das exigências de monetização do YouTube e nichos de escala rápida.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O ALERTA
+    copy_direction: 'Headline direta focada no benefício de antecipação: ''Monetizar
+      o YouTube ficou mais difícil (mas você pode correr na frente)''. Body: O YouTube
+      aumentou as barreiras para novos canais faceless. Quem agir agora escala antes
+      da nova regra.'
+    image_direction: Print real do painel de monetização do YouTube com destaque visual
+      (círculo vermelho) nos novos números de horas e views.
+    source_slides:
+    - 1
+    - 2
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A MUDANÇA
+    copy_direction: 'Dados concretos da atualização: a partir de 1º de fevereiro de
+      2027, a exigência sobe para 8.000 horas de exibição (antes 4.000) ou 20 milhões
+      de views em Shorts nos últimos 90 dias (antes 10 milhões).'
+    image_direction: Tabela comparativa 'Antes vs Depois' com design limpo e tecnológico,
+      destacando o salto nos números.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: O PONTO
+    copy_direction: 'Reframe do medo em eficiência: se o aumento do prazo assusta,
+      o problema não é a regra, mas a escolha do nicho. A solução para monetizar rápido
+      é focar em alta retenção e volume.'
+    image_direction: Gráfico de linha ascendente simplificado representando crescimento
+      de canal, com um ícone de 'check' no topo.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: NICHO 01
+    copy_direction: Foco em 'Housing' (Imobiliário/Casas). Nicho de alto valor percebido
+      e retenção visual orgânica.
+    image_direction: Montagem de thumbnails de casas de luxo ou tours imobiliários
+      com elementos de interface de vídeo.
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: NICHO 02
+    copy_direction: Foco em 'Whiteboard Animation' e 'História dos EUA'. Formatos
+      que simplificam conceitos complexos e mantêm o usuário assistindo até o fim.
+    image_direction: 'Split screen: de um lado um esboço de animação de whiteboard,
+      do outro uma imagem histórica icônica dos EUA.'
+    source_slides:
+    - 5
+    - 6
+  - slide_n: 6
+    role: INSIGHT
+    kicker: NICHO 03
+    copy_direction: Foco em 'Recriações de GTA com IA' e 'Análises de Cinema/MCU'.
+      Conteúdos de cultura pop que utilizam IA aplicada para escala de produção.
+    image_direction: Exemplo visual de personagem de GTA estilizado ao lado de um
+      frame de filme da Marvel.
+    source_slides:
+    - 7
+    - 8
+  - slide_n: 7
+    role: PAYOFF
+    kicker: REFLEXÃO
+    copy_direction: 'Takeaway prático: a barreira de entrada maior filtra amadores.
+      O workflow agora exige IA para volume e precisão na escolha do nicho. Qual desses
+      modelos você conseguiria automatizar hoje?'
+    image_direction: Imagem minimalista de um setup de trabalho com IA (tela com código
+      ou agente de IA) e fundo escuro.
+    source_slides:
+    - 3
+  rationale: Fundi os slides 1 e 2 para eliminar a redundância e criar um hook técnico
+    imediato. Agrupei os nichos em blocos temáticos (Educação/História e Cultura Pop/IA)
+    para acelerar o ritmo de consumo e evitar a fadiga do scroll, reduzindo de 9 para
+    7 slides. Mantive a fidelidade rigorosa aos dados de data e números do benchmark,
+    aplicando a voz pragmática da Virals sem inventar estatísticas.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T20:00:59'
+central_theme: Aumento das exigências de monetização do YouTube e nichos de escala
+  rápida.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T20:01:10'
+  slides: 7
+  central_theme: Aumento das exigências de monetização do YouTube e nichos de escala
+    rápida.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T20:01:50'

@@ -1,0 +1,386 @@
+   0.00    5.92  You can now create a whole cast of AI characters and make them act and interact in the same scene.
+   5.92    9.68  Thanks to a brand new generation of open models they are far more photorealistic than ever,
+   9.68   15.04  rivaling and in my opinion even surpassing close source tools like chat gpt and even nano banana pro.
+  15.04   20.48  They work in any style and are super controllable. I mean look at this you can draw a bounding box
+  20.48   24.96  for each character and object and the model places them exactly inside it. This gives you
+  24.96   29.44  full control over your composition without needing to rerun the prompt 20 times. So in this video
+  29.44   32.96  I'm going to show you how you can build your own perfect data sets for each character,
+  32.96   37.28  train your own AI models on them and keep them all consistent across every single shot.
+  37.28   41.76  So whether you want to create AI influencers, movie protagonists or AI animation characters,
+  41.76   46.56  all of it can run locally on your own hardware for free. So let's start building your cast.
+  48.32   53.36  Everything comes down to one technique. Alora. Alora is a small file that sits on top of
+  53.36   57.28  a big model. The base model already knows what humans in general look like but it doesn't know
+  57.28   62.00  what your specific person looks like. And we can train Alora by just showing it a bunch of images
+  62.00   66.48  of your specific character. Here are five rules and concepts you need to know to train a good one.
+  66.48   71.28  Number one, the trigger word. The trigger word is a made up word you put in every caption for
+  71.28   75.92  your character. During training everything that's not explicitly mentioned in the caption gets
+  75.92   81.52  attached to this word. Your trigger word becomes your character. Number two, very things you
+  81.52   86.56  want to generalize. For example if you train Alora only on close up images of your character,
+  86.56   91.36  the model starts to learn that your character only really exists in a close up position. So definitely
+  91.36   95.44  put some wide shots in there as well. The same goes for lighting and poses and clothes and
+  95.44   99.60  everything else, which brings us to rule number three. Decide what should stay consistent and
+  99.60  103.12  what you want to be able to change later. If your character is only supposed to wear
+ 103.12  107.12  one set of clothes, it's fine to train on the same set of clothes in each image. But
+ 107.12  111.20  if you want to maybe dress up your character later, you should vary this in the data set.
+ 111.20  116.16  But also use rule number four. The caption decides whether you can change something later.
+ 116.16  120.48  So for example, you have a set of 20 images of your character with the same clothes. As long as
+ 120.48  126.08  you add a detailed caption, you are probably able to change it later because Alora learns
+ 126.08  130.16  that these clothes are not attached to your trigger word. So the more detailed your caption,
+ 130.16  134.32  the more flexible you are later. But also the longer your prompt has to be because you have
+ 134.32  138.32  to recall all these elements that you want to your character to have. And this is because
+ 138.32  143.04  of rule number five. A caption is basically a reverse prompt. And that's why you always
+ 143.04  148.48  need to create these captions in the same style you would later create an image prompt for that
+ 148.48  153.52  image model. For example, create two ones like long natural language prompts and ideogram four
+ 153.52  157.44  once structured jasons with bounding boxes. You're probably thinking, wow, this sounds like a lot
+ 157.44  161.28  of work creating these data sets. But we created automated workflows that help you set it all
+ 161.28  165.20  up and make character creation a lot of fun. Once you have these data sets, you are flexible
+ 165.20  169.68  to train laws for any AI image model. But because they're quite new and pretty cool,
+ 169.68  174.64  I will show you how to create models for create two ideogram four, which is that model that allows
+ 174.64  178.40  you to draw these bounding boxes and really precisely place your character in the scene.
+ 178.40  183.12  And also one 2.2, which is not an image model, it's a video model. So you can also create some
+ 183.12  188.00  cool scenes with your characters. All of this runs inside of ConfUi, a free node based interface
+ 188.00  192.24  for AI models. If you've never installed it, we have a free step by step guide on our website.
+ 192.24  197.04  Once ConfUi is running, you always set up the workflows in the exact same way drag and drop
+ 197.04  204.40  the workflow file into the ConfUi interface, open the ConfUi manager and click install missing custom
+ 204.40  212.32  nodes, select them all and install them. And then restart ConfUi. Then it's time to load the models
+ 212.32  217.20  used in this workflow. And you can always find the models we use in these nodes next to each
+ 217.20  221.68  model loader node. So you just click on it, download the model and place it in the mentioned
+ 221.68  227.92  folder. And once that's done, either restart ConfUi or click R to refresh and select the correct model.
+ 227.92  232.56  So let's open the new consistent character creator, the simple version. We are going to work
+ 232.56  237.84  from left to right. So let's zoom in on the left here. As always, here you can find a little
+ 237.84  242.48  guide. And here you can find the model selection, the model loader group. Next to these model
+ 242.48  246.24  orders, you can find the corresponding node telling you where to download the model
+ 246.24  250.40  and where to put it in your ConfUi folder structure. These two groups down here,
+ 250.40  254.72  you can ignore these are utility groups. So let's move up here to the settings. First,
+ 254.72  259.12  we need to name our character. And I usually name the character the same word that the
+ 259.12  263.20  trigger word will be. Next, you can set the resolution, don't change anything here.
+ 263.20  268.72  And finally here, we can set if you want to save out the data set. And I recommend that set that
+ 268.72  273.12  to two here to preview mode first. That way you can refine your data set. And once you're
+ 273.12  277.92  happy, you just switch that to one, click run the workflow again, and it will save out your
+ 277.92  282.88  final images. So now let's import our character here. And I want to create a realistic character.
+ 282.88  287.52  So I import this image right here. Usually I would recommend to import like a high quality,
+ 287.52  293.04  high resolution, full body image. I don't have that of this character yet. So I only
+ 293.04  297.60  import this one right here. The workflow will still work. But if you load like a close up
+ 297.60  301.92  like this, you need to be a bit more specific in the prom clothes would usually be extracted
+ 301.92  305.60  from the full body image. But since we only have like the upper body here, we should name
+ 305.60  309.92  the rest. Otherwise the model will just fill it in. So let's add something like wearing black loafers.
+ 309.92  314.48  Oh, and I forgot I want to go to preview mode right here. So this is basically all you need
+ 314.48  320.24  to set up right now. You can already zoom out and click run. So now a few things are happening.
+ 320.24  324.08  First of all, a close up of the face will be extracted. Now in this case, it's not that
+ 324.08  328.00  important because the input image is already a sort of close up. But if you have like a
+ 328.00  332.72  wide body shot, it's really helpful for the model to understand your character if it also sees
+ 332.72  336.80  this close up shot. And next, when we zoom out here, you can see the workflow is already
+ 336.80  340.96  generating a data set a few minutes later, and our data set is done. And you can see
+ 340.96  346.88  we have a really nice collection of varied images of our character in different situations,
+ 346.88  353.60  close up wide shots, different lighting conditions, emotions, failing to look at a frog.
+ 353.60  357.36  Now the cool thing about this workflow is that it's completely modular. So if you want to
+ 357.36  361.76  change something, for example, you can come to this group right here and maybe change the
+ 361.76  367.28  prompt. Maybe she's sitting on a bench in a desert at night with a crashed UFO in the background
+ 367.28  371.36  holding a sandwich. Now if you only want to rerun individual images, you can always click on that
+ 371.36  375.44  save note above here and click on this play button and it will start calculating again.
+ 376.08  381.04  But you can also create your own groups because these are completely modular. You could
+ 381.04  386.64  just select one of these groups and copy them anywhere you like. And now you can think of
+ 386.64  391.12  which reference images you want to connect. And you can see here you have up to four
+ 391.12  396.64  inputs. And right now I'm referencing the t-pose and the original input phase. But of course,
+ 396.64  401.20  we could reference any other image that we created here. But usually the t-pose and
+ 401.20  405.52  the full phase is giving you a lot of flexibility. So let's create another pose right here.
+ 405.52  409.44  So a wide shot of the character sitting in a cafe maybe, and this looks pretty good.
+ 409.44  413.52  Now, of course, you can edit all these prompts and make them more specific to your
+ 413.52  418.40  characters. I just try to keep them like really general so they work with any kind of character.
+ 418.40  422.00  But for this character, I already tested training Alora and it worked really well.
+ 422.00  429.04  But I realized that her necklace changed a lot. So what we could do now is just copy
+ 429.04  434.00  this group right here and put it somewhere. It really doesn't matter where. And let's try
+ 434.00  438.96  something like this. And now we have a close-up shot of her necklace, though I think it looks
+ 438.96  444.08  a bit different. So what we could do now is create a load image node and just use the
+ 444.08  451.60  snipping tool and do this. Go back here, copy that in there and also use this one as a third
+ 451.60  455.44  reference image. And now it looks much better and much closer to the original.
+ 455.44  460.56  If we want even more images of this, we could copy this group and you can see that there's
+ 460.56  467.84  a set node right here. So we could call that necklace and then right here instead of the
+ 467.84  476.88  T-pose we could reference necklace and then create a close-up side view. And you can see here during
+ 476.88  481.60  image generation it's trying to generate shoes and that's because they're in the general prompt.
+ 481.60  487.04  So you can not only choose which reference images you want to choose but you can also
+ 487.04  491.44  choose the prompts that you want to reference. This gets the style prompt and the close
+ 492.24  497.12  and feeds that into the prompt right here but you can also only connect this manual
+ 497.20  502.40  prompt right here like so and this is looking a lot better. You don't have to create these additional
+ 502.40  506.48  images but you can see how much fun it is and sometimes it's necessary if your character has
+ 506.48  511.36  like really specific detail that you want to show the model. Okay so now that we have these images
+ 511.36  516.64  let's just go here to the beginning and save out this data set by selecting one
+ 516.64  521.76  and clicking run again. Once you're done you can find all your images in CompUi Output
+ 521.84  527.36  ccc and you will see a folder that is named like your character. Here are all the images that you
+ 527.36  532.40  generated during the testing phase and here you can see your final data set with the selection
+ 532.40  536.96  of your final images. But before we start training the Laura let me show you how easy it is to train
+ 536.96  541.44  other styles as well. So for example maybe you remember this guy this is Hans Schmankel the
+ 541.44  545.44  first ever character created with one of my consistent character workflows I think like two
+ 545.44  550.64  years ago or something. Drag and drop this full body image right here. I'm calling him Hans
+ 550.72  556.80  Schmankel so then I will put in a different prompt. I will put in a 3d animated Bavarian man cg rendering
+ 556.80  562.24  and for the claws I will put in nothing because we already have like the full claws here and I
+ 562.24  566.48  will stop talking this way. It automatically extracted the face and started working on the
+ 566.48  571.12  images. Yeah it just works really well for any kind of style. He's also managing to actually
+ 571.12  576.88  look at that frog and that prompt. I just noticed a mistake sorry let me fix that. Ah yes much
+ 576.88  582.72  better. So I forgot these necklace images right here so now he's wearing that beautiful necklace
+ 582.72  587.92  let's remove these new prompts. So yeah this came out really beautiful. Speaking of beautiful this
+ 587.92  591.92  video is sponsored by our amazing patreon supporters. If you want to get your hands on
+ 591.92  596.24  advanced workflows the example data sets and lauras we trained for this video and our
+ 596.24  599.68  amazing discord community the link is in the description. As an additional thank you
+ 599.68  604.64  to all our power Laura trainers out here our advanced supporters on patreon can also get
+ 604.64  609.84  the advanced version of the character creator and it adds two stages. First of all the upscaler
+ 609.84  616.08  this one upscales all your images using cdr2 to 2k resolution and create really amazing detail
+ 616.08  620.80  without changing the look of your character. It's so much fun to just use the comparo note
+ 620.80  625.76  right here it's just amazing and the second one is the face detailer. I noticed that in some
+ 625.76  631.12  shots when the the face is really small for example like in full body t-poses the face changes
+ 631.20  635.44  a little bit because the model doesn't have enough resolution to generate so I created this
+ 635.44  640.88  face detailer group right here but this one will not just upscale every image because in some images
+ 640.88  646.24  the face is already filling up almost the whole image so we created this custom note here that
+ 646.24  651.92  will pre-select the images where your face is too small and only upscales them using the face
+ 651.92  656.40  detailer and look at these amazing results like here the style doesn't even matter it works
+ 656.40  661.52  for any type of character and really helps to pull your face closer to your original input face.
+ 661.52  666.24  You can also get your hands on beta versions of the next versions of the character workflow I'm always
+ 666.24  670.96  testing it with new models for example right now I'm testing a version based on crea2 there was a
+ 670.96  676.24  community patch by ostris to kind of turn this into an edit model and I have some really promising
+ 676.24  681.44  results though they are not as good as the one with a current version but we'll see maybe in a
+ 681.44  685.52  few weeks it'll be the main version but now let's continue with the free versions of the
+ 685.52  691.04  workflow and you can use this workflow the data set tagger to caption your whole data set for this
+ 691.04  696.56  copy the link to your data set folder and also add a laura trigger word up here and for pretty much
+ 696.56  702.32  every model except for your ideogram you want to put in txt here next you can click on this
+ 702.32  706.96  preview image node and click this play button to check if all your images loaded correctly
+ 706.96  711.52  next scroll down here this is the prompt studio and here you can select a bunch of presets
+ 711.60  716.56  for different models and we want to create a laura for crea2 and a few minutes later it's done right here
+ 716.56  721.20  you have this preview node where you can check out all the different prompts it created so remember
+ 721.20  726.96  it's using this detailed caption style you can also just adjust this prompt right here write an
+ 726.96  731.60  align it's basically an llm so a large language model you can write in here don't mention the
+ 731.60  736.80  clothes for example and that typically works really well but for now this data set looks good
+ 736.80  742.80  and if we now check out the folder you can see that there are corresponding text files for each
+ 742.80  747.76  image this is the perfect data set we can start training with you can use any laura trainer
+ 747.76  752.88  with this data set but i'm going to use ai toolkit by ostris because i think it's the
+ 752.88  757.84  simplest one and also ostris the creator has like this really cool youtube channel where he shows you
+ 757.84  761.92  how you can train all sorts of different lauras so if you want to dive in deeper definitely
+ 761.92  767.44  check out his channel you can run ai toolkit fully locally and ostris has done a lot of work getting
+ 767.44  772.40  these large models to work on like older gpus but what i'm going to do is i'm going to use the
+ 772.40  776.64  run port template because especially with the newer models you really have to have the newest
+ 776.64  782.32  gpus to train lauras fast or it will just take forever so i'm going to sign into run port by the
+ 782.32  786.88  way we also have an affiliate link that if you use that to sign up you get a credit bonus between
+ 786.88  790.88  five and five hundred dollars for the first ten dollars you spend on the platform so once you've
+ 790.88  797.04  added a few dollars you can go to hub and search for ai toolkit and you want to use this one here
+ 797.04  802.32  the official one click configure a pod select a gpu here you can see all the gpus that it's working
+ 802.32  807.76  with you can see a 50 90 is one dollar an hour but because i need a laura fast i'm going to use the
+ 807.76  813.52  rtx pro 6000 and click deploy pod now you need to log in and if you didn't set a new password the
+ 813.52  819.20  password will just be password first we need to upload our data set so go to data sets click new
+ 819.20  825.44  data set and i will just call it again like the trigger word now you can click add images and
+ 825.44  831.84  just drag and drop that here and here are all our images and the corresponding captions so now
+ 831.84  837.52  we can go to new job here we need to give it a name and i will again call it like this and maybe
+ 837.52  843.04  like a version number behind that and next we need to select the model architecture and if you
+ 843.04  850.48  want to train a laura for krea we need to select krea to raw because i have like a 6000 pro i don't
+ 850.48  855.20  need to use the low virum option i can just deactivate that we could go lower for the linear
+ 855.20  861.20  rank here i think we could do 16 but i'm just going to leave that 3000 steps might be too much but
+ 861.20  866.56  let's just keep it because you can download all the versions in between and select our data set
+ 866.56  872.08  now during training you can create samples and here for example it will create samples every 250
+ 872.08  877.76  steps so you can see how your laura is training i think i will just keep that as it is and down here
+ 877.76  882.32  you have the example prompt so what we could do here is we could adjust them for example we could
+ 882.32  888.40  put in our trigger word for example emily demo a woman with red hair no she does not have red hair
+ 888.40  893.60  you can also delete some here we maybe we don't need that many here's my selection of prompts i
+ 893.60  899.04  try to keep them as simple as possible to really see what kind of qualities get attached to my
+ 899.04  905.92  trigger word so now i can just click create job this will then take us to this job and here we can
+ 905.92  911.28  just click this play button right here and it'll start after roughly 80 minutes the training has
+ 911.28  916.16  been completed during training you can always go to samples and see how your model trains
+ 916.16  920.96  in the beginning here you see the model has no idea what our character looks like and then
+ 920.96  927.76  iteration after iteration more features of our character start showing up and then roughly around
+ 927.76  935.12  here it's starting to look really close to her this is at step 2500 speaking of steps go back to
+ 935.12  940.48  overview and here to the right you can download the last versions of your model this will be the
+ 940.48  945.92  last one at step 3000 but the last one doesn't mean it will be the best one so download this one but
+ 945.92  950.32  also download some of the other ones here and test them out with an image generation workflow
+ 950.32  954.64  to find the best version you can test out this workflow with any crea2 workflow but i also
+ 954.64  959.84  wanted to give you this very basic free one right here that i used to create all the images
+ 959.84  964.48  again you can find all the models you need right here in the description down here in this note
+ 964.48  969.44  you load in your character laura and you can see i'm loading in the previous version of emily here
+ 969.44  973.44  because the other one is still training and i think you usually find the best version of your
+ 973.44  980.32  laura between step 1250 and 2000 actually at least in my experience so you can see here i'm
+ 980.32  988.40  i'm testing it with 1500 and this simple prompt and i would say this is working quite well now crea
+ 988.40  994.40  really loves these super detailed prompts so i recommend writing a prompt like this one time
+ 994.40 1000.16  or having an lm write it for you and then just adjusting it for the different scenes
+1000.16 1006.48  you can create some really amazing stuff with it we could also add like an amateur style laura
+1006.48 1012.32  so it looks a bit less fashion professional photo group shoot style but i think that's pretty cool
+1012.32 1017.36  okay but what about multiple characters let's give her some friends so i ran the character
+1017.36 1023.76  creator three times one time for every character we have this cool model right here for her i also
+1023.76 1029.92  created some additional close-ups of her makeup and her ear piercings and makeup again you
+1029.92 1035.36  already know her for her i created some more close-up shots of that necklace and the mesh top
+1035.36 1040.64  without the blazer a single shot of that necklace and with different lighting conditions side view
+1040.64 1046.72  extreme close-up and then we also have this guy right here and for him i created some additional
+1046.72 1052.40  necklace shots as well i threw them all together in one folder but then the trick is to also include
+1052.40 1056.88  images of these characters together in the same shot so the model can learn that these are
+1056.88 1062.00  separate entities and to create these it's super simple you can use any edit based image
+1062.00 1067.76  model but one way to do it is just to duplicate one of these groups in the character creator
+1067.76 1073.92  and then i created two load image nodes for each character and always loaded the white shot and a
+1073.92 1080.88  close-up and concatenated them together like this with this node resize them to make them a bit
+1080.88 1086.08  smaller and then i've had them all as references into the sampler group creating a prompt like
+1086.08 1090.80  this the three characters are standing together in an image blah blah blah like this i created
+1090.80 1096.08  a few variations sometimes with two characters sometimes with all three and not just standing
+1096.08 1100.80  next to each other but sometimes also interacting make sure to throw these in into your full data
+1100.80 1107.52  set folder like this and now let's caption these images for this again i load the data set tagger
+1107.52 1114.24  workflow and this time i leave the set laura trigger word empty and for this i'm going to select
+1114.24 1119.12  create two and because this is just a large language model you can add your own tagging
+1119.12 1124.24  rules your own captioning rules so for example i just added this blonde woman with a bus card is
+1124.24 1129.60  berlin model the black man with a gray turtleneck is male model number one and the woman with curly
+1129.60 1134.96  hair is emily number five if there are multiple characters in the same image add their trigger
+1134.96 1139.20  words and describe where they are in the image and how they are interacting and now
+1139.20 1146.56  since we're still training a crea laura let's add dot txt and uh just click run and it worked
+1146.56 1151.92  really well like berlin model and emily stand side by side on ascending beach like it just
+1151.92 1158.80  worked so now we can go back to run pod we can add a new data set and this time i called multiple
+1158.80 1167.36  realistic add images select all and drag and drop them in here again it loaded all these images
+1167.36 1174.64  correctly and now we can create a new job select crea laura i'm still on that good gpu and now
+1174.64 1181.84  for three characters i think what i will do is i will bump this one up to 64 linear rank 64
+1181.84 1188.80  other than that make sure to select the correct data set and now for the prompts what i usually do
+1188.80 1194.16  is i use a large language model of my choice of course this can also be like a local one and
+1194.16 1199.44  now we have these final prompts and i'm just going to copy them over let's click create job
+1200.24 1205.36  and add that to the queue so i downloaded all the different versions and i think my favorite one
+1205.36 1214.08  is the at step 2200 so i loaded that in and you can see again i had an lm create this really long
+1214.08 1219.52  prompt for me that i usually just describe the next scene and it will use this prompt format
+1219.52 1225.20  and this will create some really beautiful images this one is like a model fashion photo shoot in
+1225.20 1231.12  like a hotel room and that worked so well like his necklace is correct her necklace is correct
+1231.12 1236.48  her piercings are correct now and now we could just like copy this prompt format put these
+1236.48 1240.40  characters in an old castle or wherever you want them to be describe the scene and it will
+1240.40 1245.28  adjust everything around that and the hotel room change to this weird castle again really good
+1245.28 1250.96  image except how he's touching this curtain is a bit awkward but other than that really really
+1250.96 1255.44  cool and just so you know how well this works this is just my output folder this was the first
+1255.44 1261.76  image this one was the next one and because i had the lm make him buy this water bottle that
+1261.76 1268.72  appeared a few more times in the following shots which is a bit weird in the club but
+1268.72 1273.20  still hydrated and so i asked to remove that water bottle and you can see how you precise
+1273.20 1280.32  you can prompt then i brought them together waited some solar shots that worked really well
+1281.84 1286.40  so this is no cherry picking these are all the images that came out of the model here i tried
+1286.40 1291.28  something more complex that is a prompt issue that now emily is there two times in the shot
+1291.28 1297.12  i fixed that then it worked well again so here you can see it worked and here's the hotel a
+1297.12 1302.00  museum and an empty swimming pool i'm really impressed by these images and i think you
+1302.00 1305.92  could push this even further if you add like a realism laura for example and the cool thing about
+1305.92 1311.12  crea is that you can prompt really precisely so you can really tell the model where each character is
+1311.12 1316.64  placed and what kind of composition you want and this of course also works with any style so
+1316.64 1324.24  let's revisit hans schmankhal and his wife ania schmankhal and you can see it was just so much
+1324.24 1330.40  so much fun to prompt different situations and it just worked it just worked so well like the
+1330.40 1333.92  only thing that didn't really work at first was i wanted to make them ride these cows but
+1333.92 1338.96  then i got more precise with the prompt and from then on it just worked and even though there are
+1338.96 1344.16  not many other clothing styles in the data set it was still able to give hans this really cool
+1344.16 1349.76  bathing outfit here but now let's talk about ideogram 4 ideogram 4 is a really cool new
+1349.76 1354.16  open weight model that allows you to prompt with bounding boxes so you have full control
+1354.16 1357.84  over the placement of your character and the process for creating a data set and training
+1357.84 1362.08  the lore is really similar but there are some differences so let's go through it first let me
+1362.08 1368.48  copy this data set and call it uh ideogram and now we still have all the the text captions in there
+1368.48 1373.68  i'm just going to delete them so we only have the images and let's go back to the tagger i
+1373.68 1378.72  load that in and give it the path to this folder this time the jason file extension is correct
+1378.72 1384.24  and we also have the ideogram 4 model selected right here this is a much longer prompt but you
+1384.24 1390.16  care about this part right here this is pretty much the same thing as with the create thing you just add
+1390.16 1395.68  which character has uh which caption which trigger word once you have added this click run and once
+1395.68 1403.28  it's done you can not only see the um jason files that it created you can also see a preview of
+1403.28 1407.92  the bounding boxes and don't worry if they are like multiple ideogram will create extra bounding
+1407.92 1413.20  boxes like for example here for the tree or there is a little frog down here and it saw that so
+1413.28 1418.48  that's pretty cool sometimes the bounding boxes are not correct though so to fix this you have multiple
+1418.48 1426.00  options one is our tag and review workflow and then you copy in the path and click run right here and
+1426.00 1432.00  here you can go through all these images and if there's a wrong bounding box like this you can
+1432.00 1436.48  just uh change that just make sure the whole character is covered like this and here you can
+1436.48 1442.08  see the multiple people and here it worked really well and once you have corrected all
+1442.08 1447.76  your images you can just run the workflow and this will then actually override these jason files
+1447.76 1453.12  but you can also correct and create these prompts right in ai toolkit which is especially handy if
+1453.12 1458.24  you have like an older gpu because large language bots can also take quite a long time so for this
+1458.24 1464.16  i'm going to create a new data set and again i'm calling this multiple realistic ideogram i select
+1464.16 1468.88  everything and just drag and drop that in here so here is our data set and you can see
+1468.88 1473.60  that the captions are missing and that's because up here you need to change that to jason the cool
+1473.60 1479.60  thing about ai toolkit is that you can also click on an image and this will then also show these
+1479.60 1484.72  bounding boxes and you can also edit them and save them and this is honestly a really cool
+1484.72 1490.32  interface to um edit your jason prompts with you can also auto caption your images so this is
+1490.32 1496.08  pretty much the the exact same process as our confu i workflow for this you just upload an
+1496.08 1503.28  image only data set and then you go here select um ideogram for a captioner this is also using the
+1503.28 1508.32  same model that we are using when three and then you can click add to q and it will do the exact
+1508.32 1513.76  same process but right in ai toolkit if it doesn't track your element you can also add a new element
+1513.76 1519.36  and draw a new bounding box for it and i really recommend taking the time and working through
+1519.36 1524.40  these images it really helps when generating images later once you're done you can click
+1524.48 1530.64  new job now before we can start training we need to get access to the ideogram model this is a gated
+1530.64 1536.64  model with a special license so you have to log into hugging phase create an account and go to
+1536.64 1542.72  this ideogram page and click that you accept the license then what you need to do is go to
+1542.72 1550.80  access tokens and click here create new token a read token is fine give it a name create token
+1550.80 1557.76  and then you have this key here and you want to copy this go back to ai toolkit settings and
+1558.40 1564.24  enter your hugging phase token here and now you can give it a name select ideogram for again i
+1564.24 1571.12  don't need the low virum option for three characters again i'm bumping this up to 64 also select the
+1571.12 1576.72  correct data set and now for the prompts what i like to do for the test prompts i like to go to
+1576.72 1582.96  data sets and select an image where all of these characters are in frame and i'm just going to copy
+1582.96 1588.40  this description then i'm using a large language model of my choice copy in the prompt and say
+1588.40 1593.44  create 10 example prompts using this format and one problem that happens is that claud actually
+1593.44 1598.32  thought that the bounding boxes are wrong because ideogram uses a format where they are rotated
+1598.32 1604.08  but this is actually correct that's just some ideogram weirdness so we have to tell claud no
+1604.08 1608.96  this is actually correct so if your large language model tells you this is the wrong format no this is
+1608.96 1613.52  actually the correct format and then again i just copy over all these prompts and make sure if you
+1613.52 1620.40  select the correct data set to change the caption extension to jason and that's it you can now
+1620.40 1626.24  click create job and add it to the queue once training is finished you can use my example
+1626.24 1631.44  ideogram workflow it looks like this to the left here you can select the preset pretty much
+1631.44 1638.48  always want to use maximum quality you can set the resolution and megapixels i would leave that as it is
+1638.48 1645.36  and now you need to add your ideogram laura two times and you can see i used iteration 2000 so
+1645.36 1651.52  even though it continued on to 3000 these came out looking a little over baked a little bit weird
+1651.52 1659.04  so i'm usually using something around 2000 2250 steps now you need to download all these models
+1659.04 1663.60  and i just realized i forgot to add the download links i will do that so when you download the work
+1663.60 1669.52  file you will find the loader notes right here and then we are using this ideogram prompt
+1669.52 1674.88  built up by keyjai first of all you start with the high level description of your scene
+1674.88 1680.32  and down here you add a description of your background you can select your style describe
+1680.32 1686.48  your photo the aesthetics the lighting the medium you can describe all of that you don't have
+1686.56 1693.36  to describe it and then the cool feature about it is that you can manually create these prompt boxes
+1693.36 1698.32  right here in this on this canvas you can just drag for a new bounding box and then you have a prompt
+1698.32 1702.64  for each of these bounding boxes but let's now delete this and show you what i've done here so
+1702.64 1709.04  i created the first bounding box and here i put in a prompt with the trigger word for each character
+1709.04 1715.84  so this is male model this is emily and this is berlin model and you can see i've added the
+1715.84 1720.80  trigger word as well as a short description then for example to show you how much you can control
+1720.80 1726.48  this i also added this additional bounding box here to show you that you can make him hold up
+1726.48 1733.44  his hand holding a walnut and then i also placed animals on top of each head so for example he has
+1733.44 1740.08  a brown squirrel sitting on his head a bluebird sitting in her hair and a mantis insect climbing
+1740.08 1746.96  on her head when i click run this jason prompt is created that will then be fed into the sampler and
+1747.68 1753.20  yeah this is the final image just for fun i added this draw bounding box note so you can actually
+1753.20 1758.72  see how precise that is that's so cool like for example let's let's add another mantis so we
+1758.72 1766.08  could just like maybe copy this put this here and say a mantis insect climbing on climbing on her
+1766.08 1772.56  leather coat let's try that and you can already see another mantis appearing here that's really cool
+1772.56 1778.64  but also creepy and here are the bounding boxes again so this is a bit heavier don't expect it to
+1778.64 1784.88  work like the first time you try this it definitely needs some time to get used to and figure out
+1784.88 1789.36  the best format but once you've got a hang of it it's like so much fun so yeah this image is
+1789.36 1793.76  kind of cool i added these two characters like to see if they i can generate a back view of them
+1793.76 1799.84  if that works that worked fine i generated her and then i added this uh fish and then i added this
+1799.84 1805.28  red hat which was a lot of fun and i feel like this model even responds well to these weird
+1805.28 1810.96  poses right here like this is an awkward camera angle and an awkward pose but still it worked
+1810.96 1815.68  really well okay but what if you want to train a video model of course you could take these images
+1815.68 1822.24  and use like LTX for example or a pay tool like cling or seed dance but you can also train your
+1822.24 1827.04  own video model with it and prompt for your characters and this has some really great
+1827.04 1831.20  results some really good consistency and it's really easy to do like once you figured out all
+1831.20 1836.24  this stuff it's really easy again you can use the exact same data set that you created before
+1836.24 1840.08  like with the different characters all in one folder and if you want you can import the
+1840.08 1846.16  data set tagger and here from the presets select one video because one is a video model but you
+1846.16 1851.28  can train it purely on images which is really cool but we already created like a data set for
+1851.36 1857.44  kriya and this is very similar so i'm just going to try if i can train the one model on the kriya data
+1857.44 1865.92  set so back to run pot i click new job and now for characters you can train either a one 2.2
+1865.92 1872.72  low noise model or you can train a one 2.1 model and the cool thing about this one is that it
+1872.72 1880.08  works with one 2.1 and one 2.2 and since i often use tools like our ai rendering workflow that
+1880.08 1886.56  one works with a version of one that was trained on one 2.1 i usually like to train one 2.1 models
+1886.56 1891.44  just because i'm more flexible that way i'm going to select this one bump up the rank a little bit
+1891.44 1897.36  i'm going to select the multiple realistic data set and down here since this is a video model
+1897.36 1902.32  this will try to generate video as demo but this just takes a really long time and i don't
+1902.32 1908.08  want that so here on the number of frames just set that to one so it will generate
+1908.08 1912.72  sample images instead you can go to your large language model of choice and i'm just going to
+1912.72 1917.36  write i already created these jason prompts so now i'm just telling it convert the jason prompts to
+1917.36 1923.60  video prompts for one 2.1 so let's copy over these prompts they look pretty good we need the text
+1923.60 1929.68  extension for this one and yeah that's all we need to do we can click create job and add it to our
+1929.68 1934.72  queue once it's done you can add the last free workflow for today to conf your eye this one
+1934.72 1943.12  is just a one 2.2 video generation workflow and as always you can find the links to the models in
+1943.12 1949.76  these descriptions you can see i'm loading in like a laura stack right here so i'm loading in the
+1949.76 1954.56  light x2v laura that allows you to run this workflow a lot faster you can find all the
+1954.56 1959.28  links to these lauras right here for this one i tested out the different lauras and i found that
+1959.28 1967.76  at step 2500 it was the best one so i load that in at full strength not just for the high noise
+1967.76 1973.52  laura stack but also for the low noise laura stack so it's right here and then for the prompt again
+1973.52 1978.24  it's really good to create like a sort of preset and then tell a large language model this is the
+1978.24 1982.80  format please adapt this format to the next scene since we already created these example
+1982.80 1988.64  prompts i will just copy this one or three subway platform let's load that in make sure that you
+1988.64 1994.56  add these keywords here for the lauras to activate and now all that's left to do is click run and yeah
+1994.56 2000.16  there it is first try this is what came out of it but i think it looks really cool so yeah that's it
+2000.16 2004.64  i'm really impressed with how far we've come with multiple characters in one scene i remember when
+2004.64 2010.48  i first tried to train a flux laura on multiple characters it was like horrible merging and stuff
+2010.48 2015.20  like that or then you had to use like regional prompting techniques that were super heavy
+2015.20 2022.00  on your computer and not easy to use so this is just a lot more fun personally if i would recommend
+2022.00 2027.20  this workflow to newcomers i would suggest you start with the kria 2 workflow because kria 2
+2027.20 2032.56  is kind of light on your computer it's pretty fast compared to the other models it has some good
+2032.56 2038.08  prompt adherence it has some good support by the community some amazing style lauras already so if
+2038.08 2042.56  you want to push it more towards realism there are some cool lauras for that already
+2043.36 2048.80  yeah but other than that that's it for this one and again huge thanks to our amazing patreon supporters
+2048.80 2054.00  for making these videos possible remember if you want access to our amazing discord community and the
+2054.00 2059.44  lauras that i trained additional example files and the advanced workflows consider supporting us
+2059.44 2065.76  it really makes spending weeks trying to figure all this stuff out possible so thanks a lot for that
+2065.76 2072.16  thanks for watching and see you next time

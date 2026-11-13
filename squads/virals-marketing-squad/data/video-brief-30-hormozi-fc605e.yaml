@@ -1,0 +1,413 @@
+schema_version: '1.0'
+generated_at: '2026-06-20T00:52:37'
+media_kind: video
+video_brief:
+  slug: video-30-hormozi-fc605e
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/30-hormozi-fc605e
+source:
+  creator: '@hormozi'
+  platform: instagram
+  url: https://www.instagram.com/hormozi/reel/DZlltO4hCXR/
+  type: video-short
+  caption: 'I’ve always had an aversion to people saying “I want to build an empire”
+    mostly because it’s…
+
+
+    Delusional - and - empires all have one thing in common - they end.
+
+
+    So I’ve always preferred utility as the goal. Be useful. Help. Maximize that.
+    And you’ll get whatever you want. And, like everything, the people you help and
+    the things you do will disappear. But that’s okay. While you were here, you came
+    and served.
+
+
+    And I see that as a life well lived. “Empire” or not.'
+metadata:
+  view_count: null
+  like_count: 5862
+  comment_count: null
+  duration_seconds: 32.282
+hook_raw: If you could have all the money and power in the world
+transcript:
+- start: 0
+  end: 1
+  text: If you could have
+- start: 1
+  end: 3
+  text: all the money and power in the world
+- start: 3
+  end: 6
+  text: or just peace
+- start: 6
+  end: 8
+  text: which one do you lean towards?
+- start: 8
+  end: 9
+  text: It would be all the money and power
+- start: 9
+  end: 13
+  text: And to be clear, the money and power can never be the goal
+- start: 13
+  end: 14
+  text: Yeah
+- start: 14
+  end: 20
+  text: It's I translate that into would you rather have infinite potential energy
+    that you can transmit into whatever you want
+- start: 20
+  end: 21
+  text: or peace
+- start: 21
+  end: 24
+  text: And I can do a hell of a lot more with power and money
+- start: 24
+  end: 27
+  text: And a lot of people will have a negative connotation to even the words power
+    and money, but
+- start: 27
+  end: 31
+  text: power and money can be used to build hospitals, save countries, save people
+- start: 31
+  end: 33
+  text: Peace can
+frames:
+- file: Screenshots/frame_01_at_00-00_If_you_could_have.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-06_which_one_do_you_lean_towards_.jpg
+  timestamp: 00:06
+  t_seconds: 6
+- file: Screenshots/frame_03_at_00-13_Yeah_.jpg
+  timestamp: 00:13
+  t_seconds: 13
+- file: Screenshots/frame_04_at_00-21_And_I_can_do_a_hell_of_a_lot_m.jpg
+  timestamp: 00:21
+  t_seconds: 21
+- file: Screenshots/frame_05_at_00-31_Peace_can.jpg
+  timestamp: 00:31
+  t_seconds: 31
+beats:
+- n: 1
+  start: 0
+  end: 6
+  text: If you could have all the money and power in the world or just peace
+  role: hook
+- n: 2
+  start: 6
+  end: 13
+  text: which one do you lean towards? It would be all the money and power And to
+    be clear, the money and power can never be the goal
+  role: build
+- n: 3
+  start: 13
+  end: 21
+  text: Yeah It's I translate that into would you rather have infinite potential energy
+    that you can transmit into whatever you want or peace
+  role: build
+- n: 4
+  start: 21
+  end: 31
+  text: And I can do a hell of a lot more with power and money And a lot of people
+    will have a negative connotation to even the words power and money, but power
+    and money can be used to build hospitals, save countries, save people
+  role: build
+- n: 5
+  start: 31
+  end: 33
+  text: Peace can
+  role: cta
+analysis_raw_present: true
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues: []
+  segments: 13
+  frames: 5
+  beats: 5
+  video_gate_status: FAIL
+  video_fidelity_unresolved:
+    numeros: &id001
+    - '1.8'
+    claims: &id002 []
+    tabu: &id003 []
+    cta: &id004 []
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: visual flash of white text on black background
+    text: If you could have all the money and power in the world or just peace?
+  - t: 6
+    device: quick cut to speaker’s face, slight camera tilt
+    text: which one do you lean towards?
+  - t: 13
+    device: text overlay of “infinite potential energy” appears as a graphic
+    text: would you rather have infinite potential energy?
+  - t: 21
+    device: beat‑sync cut to a rapid montage of luxury cars vs. nature scene
+    text: power and money can be used to build
+  cut_cadence:
+    avaliacao: o ritmo de ~2.5 s por segmento está ligeiramente acima do ideal de
+      1.5‑2 s, mas o uso constante de micro‑cortes mantém a atenção; a presença de
+      13 segmentos em 32 s garante múltiplos checkpoints de retenção
+    meets_retention_checkpoint: true
+    segments: 13
+    duration_s: 32.28
+    avg_segment_s: 2.48
+  broll_strategy: B‑roll alterna entre cenas de alta riqueza (carros, arranha‑céus)
+    e imagens de serenidade (campo, água). Cada mudança visual reforça a dicotomia
+    do discurso, permitindo que o cérebro associe conceito abstrato (poder/dinheiro)
+    a imagens concretas, aumentando a memória e reduzindo a fuga.
+  caption_style: Legendas em caixa alta, fonte sem serifa, com destaque em amarelo
+    nos termos‑chave (money, power, peace, infinite potential). Sincronizadas palavra‑por‑palavra,
+    reforçando o ritmo rápido e facilitando a leitura sem sobrecarregar.
+  pacing_curve:
+  - window: 00-05s
+    densidade: alta (3 cortes, texto + fala simultânea)
+  - window: 05-15s
+    densidade: moderada‑alta (2‑3 cortes por segundo, introdução de analogia)
+  - window: 15-25s
+    densidade: moderada (cortes mais espaçados, aprofundamento conceitual)
+  - window: 25-32s
+    densidade: baixa‑moderada (preparação para CTA, fade out)
+  retention_devices:
+  - loop inicial – pergunta que será respondida ao final
+  - callback ao mencionar “peace” no início e novamente no CTA
+  - escalada de abstração – de dinheiro → poder → energia infinita → paz
+  - payoff – promessa implícita de insight sobre escolha final
+  - micro‑cliffhangers a cada 2‑3 s que provocam curiosidade
+  recommendation: 'Modelar o vídeo do cliente mantendo o arco de dúvida‑resolução
+    (hook → escalada → payoff). Trocar a voz para um timbre mais íntimo se o público
+    for B2C, mas preservar a cadência agressiva de cortes. Inserir um frame final
+    com CTA explícito (ex.: "Comente sua escolha") e usar legendas coloridas nos termos-chave
+    para reforçar a retenção.'
+  analyzed_by: openrouter:openai/gpt-oss-120b:free
+  analyzed_at: '2026-06-20T00:52:56'
+content_plan:
+  tema: 'Dinheiro, poder e paz: qual o real valor quando o founder tem o bastidor
+    do que ninguém mostra'
+  format_concept: talking-head
+  hook:
+    variants:
+    - pattern_interrupt: flash rápido de texto branco sobre fundo preto
+      text_overlay: Dinheiro e poder ou paz?
+      spoken_open: Você já parou pra pensar se vale mais ter todo o dinheiro e poder
+        ou apenas paz?
+    - pattern_interrupt: corte brusco para o rosto de Tiago, câmera levemente inclinada
+      text_overlay: Qual caminho você escolhe?
+      spoken_open: 'Qual caminho você escolhe: a grana que abre portas ou a paz que
+        abre mente?'
+    - pattern_interrupt: gráfica animada de energia infinita surgindo ao lado
+      text_overlay: Energia infinita ou tranquilidade?
+      spoken_open: Imagine ter energia infinita nas mãos – ainda prefere a tranquilidade?
+  storyboard:
+  - beat_n: 1
+    scene: Tiago aparece em frente a um fundo neutro, luz de corte forte
+    shot_type: close
+    duration_s: 2.5
+    on_screen_text: Dinheiro e poder ou paz?
+    broll: ''
+    motion: cut
+  - beat_n: 2
+    scene: Tiago responde direto ao ponto, gesticulando com a mão
+    shot_type: médio
+    duration_s: 2
+    on_screen_text: O dinheiro nunca foi o objetivo
+    broll: ''
+    motion: zoom‑in leve
+  - beat_n: 3
+    scene: 'Inserção de tela dividida: à esquerda, fila de carrinhos de compras de
+      luxo; à direita, vista de um hospital construído recentemente'
+    shot_type: insert
+    duration_s: 2
+    on_screen_text: Poder + grana = construção
+    broll: luxo‑x‑saúde
+    motion: whip cut
+  - beat_n: 4
+    scene: Tiago volta ao foco, fala sobre energia infinita
+    shot_type: close
+    duration_s: 2.5
+    on_screen_text: Energia infinita, onde aplicar?
+    broll: ''
+    motion: cut
+  - beat_n: 5
+    scene: B‑roll de drones sobre campo solar e depois sobre um lago calmo
+    shot_type: amplo
+    duration_s: 2
+    on_screen_text: Construir hospitais
+    broll: campo‑solar‑x‑lago
+    motion: pan lento
+  - beat_n: 6
+    scene: Tiago fala sobre “construir hospitais, salvar vidas”
+    shot_type: médio
+    duration_s: 2.5
+    on_screen_text: IA aplicada ao real
+    broll: ''
+    motion: cut
+  - beat_n: 7
+    scene: B‑roll rápido de equipe de founders trabalhando em processo de IA (código,
+      telas de dashboard)
+    shot_type: insert
+    duration_s: 2
+    on_screen_text: Paz pode
+    broll: dashboard‑IA
+    motion: quick cut
+  - beat_n: 8
+    scene: Tiago finaliza apontando para a câmera
+    shot_type: close
+    duration_s: 2
+    on_screen_text: Qual escolha te deixa acordado à noite?
+    broll: ''
+    motion: zoom‑in
+  - beat_n: 9
+    scene: Tela final com pergunta de reflexão
+    shot_type: amplo
+    duration_s: 2
+    on_screen_text: Qual escolha te deixa acordado à noite?
+    broll: ''
+    motion: fade out
+  script: 'Você já parou pra pensar se vale mais ter todo o dinheiro e poder ou apenas
+    paz? Eu não tô aqui pra vender sonho. O dinheiro nunca foi o objetivo – o objetivo
+    é o que a gente cria com ele. Poder + grana abre portas pra construir hospitais,
+    salvar vidas, escalar IA que entrega resultados reais. Agora imagine ter energia
+    infinita nas mãos: onde você aplicaria? Pode ser energia pra alimentar um campo
+    solar ou pra acelerar o pipeline de dados da sua startup. Mas a verdade que poucos
+    mostram: tudo isso perde sentido sem paz. Paz pode ser a única coisa que transforma
+    poder em legado. E você, qual escolha te deixa acordado à noite?'
+  edit_spec:
+    zooms:
+    - close‑in na fala de Tiago nos momentos de destaque
+    - zoom‑out rápido para B‑roll de luxo vs. saúde
+    transitions:
+    - cut puro a cada 1.8 s
+    - whip entre o shot de luxo e o hospital
+    - fade out no final
+    inserts:
+    - b‑roll luxo‑x‑saúde
+    - b‑roll campo‑solar‑x‑lago
+    - b‑roll dashboard‑IA
+    captions: Caixa alta, fonte sem serifa, termos‑chave (DINHEIRO, PODER, PAZ, ENERGIA
+      INFINITA) em amarelo; sincronizadas palavra‑por‑palavra.
+    motion_graphics:
+    - gráfico animado “energia infinita” surgindo ao lado da cabeça de Tiago
+    - texto destaque “Construir hospitais” pulando quando mencionado
+  shotlist:
+  - plano: Tiago de frente, fundo preto
+    framing: close
+    audio: fala clara, sem música
+    props: cadeira minimalista, microfone lapela
+    locacao: estúdio com luz de corte
+    falas_chave: Você já parou pra pensar se vale mais ter todo o dinheiro e poder
+      ou apenas paz?
+  - plano: Tiago gesticulando, mostrando a “não, o objetivo não é dinheiro”
+    framing: médio
+    audio: fala, leve som ambiente de ar‑condicionado
+    props: tablet mostrando números de investimento
+    locacao: mesmo estúdio
+    falas_chave: O dinheiro nunca foi o objetivo – o objetivo é o que a gente cria
+      com ele.
+  - plano: 'Tela dividida: luxo vs. hospital'
+    framing: insert
+    audio: efeitos sonoros sutis de city e batimento de coração
+    props: clipes pre‑selecionados
+    locacao: arquivo B‑roll
+    falas_chave: 'Agora imagine ter energia infinita nas mãos: onde você aplicaria?'
+  - plano: Tiago falando energia infinita
+    framing: close
+    audio: fala, música de fundo baixa crescendo
+    props: lâmpada de LED que acende ao falar
+    locacao: estúdio
+    falas_chave: Poder + grana abre portas pra construir hospitais, salvar vidas.
+  - plano: Drone sobre campo solar e lago
+    framing: amplo
+    audio: som de vento leve
+    props: ''
+    locacao: arquivo de drone
+    falas_chave: Paz pode ser a única coisa que transforma poder em legado.
+  - plano: Tiago enfatizando hospitais
+    framing: médio
+    audio: fala, batida leve de percussão
+    props: ''
+    locacao: estúdio
+    falas_chave: Qual escolha te deixa acordado à noite?
+  - plano: Dashboard de IA em ação
+    framing: insert
+    audio: beep tecnológico
+    props: ''
+    locacao: arquivo de software
+    falas_chave: ''
+  - plano: Tiago finalizando, olhar direto
+    framing: close
+    audio: fala, silêncio de fundo
+    props: ''
+    locacao: estúdio
+    falas_chave: Paz pode ser a única coisa que transforma poder em legado.
+  - plano: Tela final com texto provocativo
+    framing: amplo
+    audio: sombra sonora curta
+    props: ''
+    locacao: grafismo digital
+    falas_chave: Qual escolha te deixa acordado à noite?
+  rationale: O plano segue a estrutura de curiosidade‑resolução (hook → abstração
+    → payoff) com cortes rápidos e inserções visuais que contrastam luxo e saúde,
+    energia e serenidade. Tiago fala direto, como founder‑herói, sem rodeios, trazendo
+    exemplos concretos como construir hospitais e IA aplicada. Não há promessas vazias;
+    o final deixa uma pergunta que provoca reflexão, alinhado ao estilo call‑to‑think.
+    Legendas em caixa alta destacam termos‑chave para reforçar a mensagem.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openai/gpt-oss-120b:free
+  planned_at: '2026-06-20T00:54:33'
+quality_gate_video:
+  status: FAIL
+  iterations: 2
+  model: openrouter:openai/gpt-oss-120b:free
+  blocking_failures:
+  - V3_fid_numeros
+  soft_failures:
+  - V6_shotlist
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: true
+      blocking: false
+      detail:
+        avg_storyboard_s: 2.17
+        benchmark_meets: true
+    V3_fid_numeros:
+      ok: false
+      blocking: true
+      detail:
+        fabricados: *id001
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: *id002
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: *id003
+    V6_shotlist:
+      ok: false
+      blocking: false
+      detail:
+        total: 9
+        incompletos:
+        - 7
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: *id004
+  checked_at: '2026-06-20T00:56:01'

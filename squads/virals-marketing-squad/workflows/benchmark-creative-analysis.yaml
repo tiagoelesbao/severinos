@@ -1,0 +1,292 @@
+# WF-BENCH-001: Pipeline de Benchmark e Análise de Criativos
+# Duration: Sob demanda (sequencial por conteúdo)
+# Best for: Desconstrução de criativos de concorrentes para modulação e produção
+# Key Agents: @marketing-chief, @mrbeast-mk, @garyvee-mk, @ladeira
+# ETL Service: services/ETL/
+
+workflow:
+  id: wf-benchmark-creative-analysis
+  name: "Pipeline de Benchmark e Análise de Criativos"
+  version: "1.0"
+  orchestrator: "marketing-chief"
+  duration: "Sob demanda"
+  description: |
+    Workflow completo para benchmark de criativos de concorrentes. Processa conteúdos
+    um a um (link por link), executando: extração ETL → auditorias especializadas
+    (MrBeast, GaryVee, Ladeira) → síntese em Blueprint de Modulação.
+
+    Output por conteúdo: services/ETL/outputs/Conteudo{N}-{titulo}/
+    - Transcrição.md
+    - Benchmark.json
+    - Screenshots/
+    - Análise.md (relatório completo)
+
+    Processamento sequencial: Conteúdo N+1 só inicia após N completar.
+
+  best_for:
+    - "Desconstrução de criativos virais de concorrentes"
+    - "Geração de blueprints de modulação para produção interna"
+    - "Benchmark de referências de conteúdo por plataforma"
+    - "Alimentar base de conhecimento de padrões virais"
+
+  decision_matrix_fit:
+    awareness: "Research"
+    sophistication: "Advanced"
+    price_point: "N/A (análise interna)"
+    traffic_temp: "N/A"
+    primary_output: "Intelligence & Blueprints"
+
+  clone_combinations:
+    primary: "mrbeast-mk, garyvee-mk, ladeira"
+    secondary:
+      - "marketing-chief"
+
+  etl_service:
+    path: "services/ETL/"
+    pipeline: "etl-pipeline.js"
+    orchestrator: "etl-orchestrator.js"
+    batch: "batch-processor.js"
+    output_base: "services/ETL/outputs/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: ETL Extraction (Automated)
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1-ETL
+    name: "Extração e Preparação de Assets (ETL)"
+    tier: 1
+    description: |
+      Fase automatizada via services/ETL/. Download do conteúdo, extração de
+      áudio, captura de frames, transcrição via Gemini, e criação do dossier
+      de handoff. Cria a pasta de output do conteúdo.
+
+    tasks:
+      - task_file: benchmark-etl-extract.md
+        agent: marketing-chief
+        required: true
+        description: "Executa o pipeline ETL (Single ou Batch) automaticamente via CLI baseado no input do usuário."
+        instruction: "Analise o input do usuário ao iniciar o workflow:\n1. Se o usuário forneceu um caminho de arquivo (.md/.txt) com links: rode `node squads/virals-marketing-squad/scripts/run-benchmark-batch.js <CAMINHO_DO_ARQUIVO>` no terminal.\n2. Se o usuário forneceu uma URL direta de vídeo (ex: https://...): rode `node squads/virals-marketing-squad/scripts/run-benchmark-single.js <URL> 1` no terminal.\nAguarde o script finalizar e depois leia os JSON dossiers gerados."
+        output: "services/ETL/outputs/Conteudo{N}-{titulo}/ + dossier em .aiox/handoffs/"
+
+    checkpoint:
+      criteria:
+        - "Status do ETL é 'success' ou 'metadata_only'?"
+        - "Se video: Vídeo baixado (> 0 bytes) e Transcrição/Frames presentes?"
+        - "Se post: Conteudo.md contém o texto do post/metadados?"
+        - "Dossier JSON criado em .aiox/handoffs/ com o 'type' correto?"
+        - "SCREENSHOTS: Mínimo 5 frames capturados na pasta Screenshots/?"
+      human_review: false
+      message: "Verificar assets ANTES de iniciar auditorias. Screenshots são OBRIGATÓRIOS."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: Expert Audits (Agent-Driven, Sequencial)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2-AUDITS
+    name: "Auditorias Especializadas"
+    tier: 1
+    description: |
+      Três agentes especializados analisam o conteúdo sob suas lentes únicas.
+      Cada um gera uma seção do relatório final com score 1-10.
+      Execução sequencial (pode ser paralelizada no futuro).
+
+    tasks:
+      - task_file: benchmark-mrbeast-audit.md
+        agent: mrbeast-mk
+        required: true
+        description: "Auditoria de retenção: hook, open loops, curva de energia."
+        output: "mrbeast_audit_section + retention_score"
+        order: 1
+
+      - task_file: benchmark-garyvee-audit.md
+        agent: garyvee-mk
+        required: true
+        description: "Auditoria de contexto: vibe, empatia, shareability, platform fit."
+        output: "garyvee_audit_section + context_score"
+        order: 2
+
+      - task_file: benchmark-ladeira-audit.md
+        agent: ladeira
+        required: true
+        description: "Auditoria de copy: headline, framework, gatilhos mentais, CTA."
+        output: "ladeira_audit_section + copy_score"
+        order: 3
+
+    checkpoint:
+      criteria:
+        - "Todas as 3 auditorias geraram seus scores (1-10)?"
+        - "Cada seção contém análise substantiva (não genérica)?"
+        - "Open loops mapeados com timestamps?"
+        - "Gatilhos mentais identificados com trechos específicos?"
+        - "MULTIMODAL: Cada auditoria referencia screenshots específicos por número?"
+        - "MULTIMODAL: Texto visual dos screenshots foi cruzado com transcrição?"
+        - "MULTIMODAL: Penalidade de -2 aplicada se screenshots não analisados?"
+      human_review: true
+      message: "VALIDAR ANÁLISE MULTIMODAL: Se alguma auditoria não mencionou screenshots → REFAZER."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: Synthesis & Blueprint Generation
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3-SYNTHESIS
+    name: "Síntese e Geração do Blueprint de Modulação"
+    tier: 1
+    description: |
+      Consolida os outputs das 3 auditorias em um relatório final unificado
+      usando o template viral-deep-analysis-tmpl.md. Gera Scoring Matrix,
+      Script de Modulação, Visual Style Guide e Psychological Triggers Map.
+
+    tasks:
+      - task_file: benchmark-modulation-blueprint.md
+        agent: marketing-chief
+        required: true
+        description: "Sintetiza auditorias no relatório final Análise.md."
+        output: "services/ETL/outputs/Conteudo{N}-{titulo}/Análise.md"
+        template: "viral-deep-analysis-tmpl.md"
+
+    checkpoint:
+      criteria:
+        - "Análise.md gerado com todas as 10 seções do template?"
+        - "Scoring Matrix com scores de todos os 3 auditores?"
+        - "Blueprint contém Script + Visual Guide + Triggers Map?"
+        - "Transcrição completa incluída na seção final?"
+      human_review: true
+      message: "Revisar Análise.md antes de arquivar e prosseguir para próximo conteúdo."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: Cleanup & Archive
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4-CLEANUP
+    name: "Limpeza e Arquivamento"
+    tier: 1
+    description: |
+      Organiza output final, deleta assets temporários (vídeo/áudio brutos),
+      marca handoff como consumido, valida checklist e prepara para o próximo
+      conteúdo no batch.
+
+    tasks:
+      - task_file: analyze-benchmark.md
+        agent: marketing-chief
+        required: true
+        description: "Step 6 do orquestrador: cleanup e validação final."
+        output: "Pasta final validada + handoff consumed"
+
+    checkpoint:
+      criteria:
+        - "Pasta contém exatamente: Transcrição.md, Benchmark.json, Screenshots/, Análise.md?"
+        - "Handoff JSON marcado como consumed: true?"
+        - "Vídeo e áudio brutos deletados do temp?"
+        - "Checklist benchmark-analysis-checklist.md validado?"
+      human_review: false
+      message: "Conteúdo arquivado. Pronto para processar o próximo."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# BATCH LOOP
+# ═══════════════════════════════════════════════════════════════════════════════
+batch_processing:
+  mode: "sequential"
+  description: |
+    Quando executado em batch (200+ links), o workflow repete as Phases 1-4
+    para cada link sequencialmente. O conteúdo N+1 só inicia após o N completar.
+  links_source: "services/ETL/Extract/Links/"
+  script: "scripts/run-benchmark-batch.js"
+  cooldown_between_links_ms: 2000
+  on_error: "log_and_continue"
+  summary_output: ".aiox/logs/batch-summary-{timestamp}.json"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - notify_stakeholders: true
+    - create_remediation_task: false
+    - halt_workflow: false  # Em batch mode, pula para próximo link
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_previous_phase: true
+    - max_retries: 2
+
+  on_etl_failure:
+    - log_error: true
+    - save_error_log: "services/ETL/outputs/Conteudo{N}-{titulo}/error.log"
+    - skip_to_next: true  # Não trava o batch
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE:BENCHMARK-ANALYSIS</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-{{phase_id}}</promise>"
+blocked_signal: "<promise>BLOCKED:BENCHMARK-GARGALO</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT ARTIFACTS
+# ═══════════════════════════════════════════════════════════════════════════════
+outputs:
+  Per_Content:
+    - "Transcrição.md — Transcrição completa"
+    - "Benchmark.json — Dados brutos ETL"
+    - "Screenshots/ — Frames capturados"
+    - "Análise.md — Relatório de benchmark completo"
+  Batch:
+    - "batch-summary.json — Resumo de processamento"
+    - "Pasta por conteúdo em services/ETL/outputs/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+quality_checklist:
+  ETL_Extraction:
+    - "[ ] Vídeo baixado corretamente"
+    - "[ ] Transcrição não-vazia"
+    - "[ ] Mínimo 5 frames capturados"
+    - "[ ] Screenshots salvos em pasta Screenshots/"
+  Expert_Audits:
+    - "[ ] 3 scores fornecidos (1-10)"
+    - "[ ] Open loops com timestamps"
+    - "[ ] Gatilhos mentais com trechos"
+    - "[ ] MULTIMODAL: MrBeast citou screenshots específicos (ex: '#3, #7')"
+    - "[ ] MULTIMODAL: GaryVee citou screenshots para vibe/branding"
+    - "[ ] MULTIMODAL: Ladeira citou screenshots para text overlays"
+    - "[ ] MULTIMODAL: Cross-reference entre texto falado e texto visual"
+    - "[ ] MULTIMODAL: Penalidade -2 aplicada se screenshots ausentes"
+  Synthesis:
+    - "[ ] Template 100% preenchido"
+    - "[ ] Scoring Matrix consolidada"
+    - "[ ] Seção Deconstrução Multimodal com dados visuais reais"
+  Cleanup:
+    - "[ ] Assets brutos deletados"
+    - "[ ] Handoff consumed"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# GOVERNANCE GATE
+# ═══════════════════════════════════════════════════════════════════════════════
+governance_gate:
+  protocol: "squads/squad-creator/protocols/ai-first-governance.md"
+  required_checks:
+    - "ETL service configured and accessible"
+    - "Canonical agent sources validated (MrBeast, GaryVee, Ladeira)"
+    - "Template version matches workflow version"
+
+  ci_policy:
+    blocking_deterministic_only: true
+    deterministic_checks:
+      - "syntax/schema"
+      - "broken references"
+      - "required tasks presence"
+    semantic_checks_enforced_in_workflow: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+metadata:
+  version: "1.0"
+  framework: "Virals Benchmark Pipeline v1"
+  created: "2026-03-24"
+  primary_use_case: "Competitive Creative Intelligence"
+  related_workflows:
+    - "viral-content-pipeline.yaml (production, not analysis)"
+  related_checklists:
+    - "benchmark-analysis-checklist.md"
+  related_templates:
+    - "viral-deep-analysis-tmpl.md"

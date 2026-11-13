@@ -4,17 +4,24 @@
 
 brand:
   name: "Virals"
-  version: "1.0.0"
-  last_updated: "2026-05-10"
+  version: "1.1.0"
+  last_updated: "2026-08-16"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PALETA DE CORES
 # ─────────────────────────────────────────────────────────────────────────────
 # Paleta Aurora — estudo do Planejamento Estratégico (aprovada 2026-05-18).
+# Acento trocado em 2026-08-16: coral #FF3D68 -> Vermelho Sinal. Motivo: o coral
+# lia "beauty/wellness feminino" demais para o leque D2C que a Virals passou a
+# mirar (unissex, moda, tech, casa — não só nichos femininos). Vermelho Sinal é
+# a leitura mais "sem gênero" testada (urgência/confiança em qualquer categoria).
+# Duas variantes por contraste: #FF5B3F sobre fundo escuro (primary/secondary),
+# #E3391F sobre fundo claro (palette.light). accent_alt/accent_aurora mantidos
+# como acentos secundários opcionais — não fazem parte da decisão de hoje.
 palette:
   primary: "#0C0A1F"        # Deep Void — preto-violeta (arquétipo Mago)
   secondary: "#181436"      # Nebula — variação para gradientes/profundidade
-  accent: "#FF3D68"         # Viral Pulse — coral-magenta, CTAs e destaques
+  accent: "#FF5B3F"         # Vermelho Sinal (fundo escuro) — CTAs e destaques
   accent_alt: "#7B5BFF"     # Magic Indigo — transformação, degradê boreal
   accent_aurora: "#2DE2C8"  # Aurora Teal — crescimento/dados, glow boreal
   text_primary: "#FFFFFF"   # Texto sobre fundo escuro
@@ -22,11 +29,11 @@ palette:
   overlay_dark: "#00000066" # Overlay sobre imagens (40% opacidade)
   overlay_light: "#FFFFFF1A"# Overlay claro sutil
 
-  # Paleta alternativa (claro)
+  # Paleta alternativa (claro) — modo clean/minimalista
   light:
     background: "#F5F4FA"
     text: "#0C0A1F"
-    accent: "#FF3D68"
+    accent: "#E3391F"       # Vermelho Sinal (fundo claro)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TIPOGRAFIA
@@ -59,7 +66,7 @@ typography:
     fallback: "Arial"
     size: 36
     color: "#FFFFFF"
-    background: "#E94560"
+    background: "#FF5B3F"
     padding: [12, 32]  # [vertical, horizontal] em pixels
 
   slide_number:
@@ -121,7 +128,7 @@ layout:
 # ─────────────────────────────────────────────────────────────────────────────
 vector_elements:
   accent_line:
-    color: "#E94560"
+    color: "#FF5B3F"
     thickness: 4
     margin_from_text: 16
 
@@ -131,7 +138,7 @@ vector_elements:
 
   corner_accent:
     enabled: false          # Ativar para estética de moldura
-    color: "#E94560"
+    color: "#FF5B3F"
     size: 40
     thickness: 3
 

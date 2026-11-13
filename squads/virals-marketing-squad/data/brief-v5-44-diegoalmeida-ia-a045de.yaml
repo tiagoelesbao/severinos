@@ -1,0 +1,334 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T16:22:00'
+archetype: news
+carousel_brief:
+  slug: v5-precision-44-diegoalmeida-ia-a045de
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\44-diegoalmeida-ia-a045de
+  source_url: https://www.instagram.com/diegoalmeida.ia/p/Db3tyVGkZqL/
+  tema: 'Modelagem de precisão: 44-diegoalmeida-ia-a045de'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#A855F7'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 3
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.6/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a narrativa de ''filme/entretenimento'' por ''ganho de eficiência/ROI'',
+    trocando a prova de imagem cinematográfica por dashboards de automação ativa.
+    - Substituir a CTA de engajamento genérica por uma provocação técnica sobre a
+    implementação d'
+  audits_present: true
+benchmark_caption: "\U0001F6A8 O Higgsfield Seedance 2.5 estava no ar há menos de\
+  \ um dia quando alguém já havia concluído um longa-metragem de 110 minutos usando\
+  \ o modelo.\n\nAtualmente, o modelo ocupa o 1º lugar no ranking de imagem para vídeo\
+  \ do LMArena, com 1823 de Elo. Em segundo lugar está o minimax-h3, com 1476. As\
+  \ variantes do Veo 3.1, do Google, ocupam as posições 8, 9 e 10.\n\nÉ uma diferença\
+  \ de 347 pontos, com intervalos de confiança de ±10 e ±19 que nem sequer se sobrepõem.\
+  \ O LMArena funciona com votações cegas, comparando dois resultados por vez, então\
+  \ quem escolhe o vencedor não sabe qual modelo produziu cada vídeo.\n\nO filme é\
+  \ “Cully Hill Boys”, estrelado por N3ON, MK, Rampage Jackson e Israel Adesanya,\
+  \ e será lançado em breve no YouTube. Segundo a Higgsfield, o longa inteiro foi\
+  \ produzido com o Seedance 2.5 por US$ 2 milhões.\n\nDepois disso, eles zeraram\
+  \ o preço. São 33 dias de uso ilimitado do Seedance 2.5 para novos usuários, anunciados\
+  \ no mesmo dia em que o modelo assumiu a liderança do ranking.\n\nEles também publicaram\
+  \ o processo de produção usado para criar o filme e disponibilizaram US$ 1 milhão\
+  \ para filmes produzidos com a ferramenta.\n\nA história aqui não é simplesmente\
+  \ que um modelo venceu um ranking. É que a empresa que ocupa o 1º lugar tornou o\
+  \ modelo gratuito e ainda revelou o método usado para produzir com ele.\n\nHoje\
+  \ à noite, você pode assistir ao que outra pessoa criou, ou começar a construir\
+  \ o seu próprio.\n\nO que você acha disso? \U0001F914\U0001F4AC\n\n#HiggsfieldPartner\
+  \ \n\n*Publicidade"
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: HIGGSFIELD
+  reference_body: SEEDANCE 2.5 UNLIMITED Diego Almeida diegoalmeida.ia FILME TOTALMENTE
+    GERADO POR IA, ESTRELADO POR N3ON, RAMPAGE JACKSON, ISRAEL ADESANYA E MK, ACABA
+    DE SER CRIADO COM O HIGGSFIELD SEEDANCE 2.5 DESLIZE PARA VER O TRAILER
+  headline: 'HIGGSFIELD SEEDANCE 2.5: ALTA FIDELIDADE EM VÍDEO'
+  sub_headline: O NOVO PADRÃO
+  body_text: O novo modelo Seedance 2.5 entrega realismo cinematográfico através de
+    assets abertos, eliminando a dependência de grandes estúdios para produções de
+    alta qualidade.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 49
+    body_chars: 165
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: cinematic film production lighting
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline focada no benefício de escala e qualidade: ''Produza vídeos
+      de nível cinematográfico com o novo Seedance 2.5''. O texto deve destacar que
+      o modelo acaba de atingir um novo patamar de realismo e capacidade técnica.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T16:22:38'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: O Seedance 2.5, da ByteDance, alcançou a maior pontuação da
+    história em um ranking de geração de vídeos por IA, superando todos os principais
+    benchmarks em uma série de avaliações.
+  reference_body: Image-to-Video 1 seedance-2.5-720p 1478 ±10 2 minimax-h3 1476 ±19
+    3 grok-imagine-video-1.5-720p 1462 ±6 4 gemini-omni-flash 1462 ±7 5 happyhorse-1.0
+    1442 ±10 6 wan2.7-i2v 1427 ±7 7 grok-imagine-video-720p 1417 ±6 8 veo-3.1-audio
+    1397 ±11 9 veo-3.1-audio-1080p 1390 ±9 10 veo-3.1-fast-audio 1384 ±9 View all
+  headline: 'A PROVA: LIDERANÇA TÉCNICA NO RANKING LMARENA'
+  sub_headline: A PROVA
+  body_text: O modelo Seedance 2.5 alcançou a maior pontuação da história em avaliações
+    de geração de vídeo. No benchmark de Image-to-Video, o modelo superou players
+    como Minimax e Gemini.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 45
+    body_chars: 175
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: data analytics screen dashboard
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: Explicar que o modelo não é apenas uma promessa, mas validado pelo
+      ranking LMArena, superando outros grandes players de IA de vídeo. Mostrar a
+      superioridade técnica através dos dados do ranking (Image-to-Video) para gerar
+      autoridade.
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T16:22:38'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: A Higgsfield também disponibilizou publicamente todos os prompts,
+    assets e keyframes usados no filme.
+  reference_body: 'Agora, os usuários podem recriar suas próprias versões do filme
+    por US$ 0 por geração. Os criadores afirmam: “Muitos cineastas construíram seus
+    trabalhos a partir do código aberto. Isso contribuiu muito para o avanço da indústria.”
+    SEEDANCE 2.5 720P PRICE COMPARISON MODEL Higgsfield $0 OpenArt Advanced $5.90
+    Runway Popular $9.33 HIGGSFIELD GLOBAL FILM FESTIVAL PRICE POOL : $1,000,000 IN
+    CASH #1 Place $500,000 #2 Place $200,000 #3 Place $100,000 Audience Choice, $100,000
+    10 Honorable Mentions, $10,000 each Requires a paid Higgsfield plan. Available
+    to new subscribers and to existing users who purchase the one-time unlimited offer.'
+  headline: PRODUZA VÍDEOS DE CINEMA SEM GASTAR UMA FORTUNA
+  sub_headline: APLICAÇÃO PRÁTICA
+  body_text: A Higgsfield liberou todos os prompts e arquivos para você copiar o processo.
+    Agora, você tem o mesmo workflow de um longa-metragem nas suas mãos. O custo de
+    produção acabou de despencar.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 47
+    body_chars: 187
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: video editor working computer
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Entregar o valor imediato: a Higgsfield liberou publicamente os prompts,
+      assets e keyframes. Isso permite que o usuário saia da teoria e implemente o
+      workflow de imediato sem custo de geração. CTA: ''Como você integraria esse
+      nível de fidelidade no seu workflow atual?'''
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T16:22:38'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/3
+  bodies_extracted: 3/3
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A ascensão do modelo Higgsfield Seedance 2.5 como líder em vídeo IA
+    e a democratização do seu uso através de um case de longa-metragem.
+  formato: News-Case Híbrido (Notícia + Prova Social/Técnica)
+  arco_narrativo: Impacto imediato (filme gerado) -> Democratização do acesso (prompts
+    abertos/grátis) -> Validação técnica (ranking LMArena) -> Chamada para ação.
+  estrutura:
+  - slide_n: 1
+    papel: Hook visual e prova de conceito (O 'uau' do resultado final)
+    essencial: true
+  - slide_n: 2
+    papel: Quebra de barreira e oferta (Acessibilidade e open-source)
+    essencial: true
+  - slide_n: 3
+    papel: Autoridade e validação quantitativa (Prova matemática da superioridade)
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - 'Contraste extremo: Longa-metragem de 110min vs. modelo lançado há menos de um
+    dia'
+  - 'Validação por terceira parte: Uso de dados do LMArena para evitar a percepção
+    de ''promessa de marketing'''
+  - 'Gatilho de Gratuidade: Transformação de uma ferramenta de US$ 2M em uso ilimitado
+    para novos usuários'
+  - 'Transparência Técnica: Abertura de prompts e assets, gerando valor imediato para
+    o usuário'
+  recomendacao:
+    slides_ideais: 3
+    justificativa: 'A estrutura atual é enxuta e segue a lógica: Desejo (S1), Possibilidade
+      (S2) e Confiança (S3). Para a versão Virals, manteremos a quantidade, mas aplicaremos
+      a adaptação estratégica de trocar a narrativa de ''filme'' por ''eficiência/ROI''
+      e ''dashboards'', conforme a auditoria prévia.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T16:22:15'
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: A ascensão do Higgsfield Seedance 2.5 e a democratização da produção de vídeo
+    de alta fidelidade via assets abertos.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O NOVO PADRÃO
+    copy_direction: 'Headline focada no benefício de escala e qualidade: ''Produza
+      vídeos de nível cinematográfico com o novo Seedance 2.5''. O texto deve destacar
+      que o modelo acaba de atingir um novo patamar de realismo e capacidade técnica.'
+    image_direction: Frame de alta qualidade visual do filme mencionado no benchmark,
+      demonstrando o realismo extremo do modelo Seedance 2.5.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A PROVA
+    copy_direction: Explicar que o modelo não é apenas uma promessa, mas validado
+      pelo ranking LMArena, superando outros grandes players de IA de vídeo. Mostrar
+      a superioridade técnica através dos dados do ranking (Image-to-Video) para gerar
+      autoridade.
+    image_direction: Gráfico limpo ou tabela comparativa estilizada mostrando o Seedance
+      2.5 no topo do ranking LMArena frente aos concorrentes citados.
+    source_slides:
+    - 3
+  - slide_n: 3
+    role: PAYOFF
+    kicker: APLICAÇÃO PRÁTICA
+    copy_direction: 'Entregar o valor imediato: a Higgsfield liberou publicamente
+      os prompts, assets e keyframes. Isso permite que o usuário saia da teoria e
+      implemente o workflow de imediato sem custo de geração. CTA: ''Como você integraria
+      esse nível de fidelidade no seu workflow atual?'''
+    image_direction: Interface de software ou visualização de uma biblioteca de assets/prompts
+      sendo aberta, remetendo à ideia de 'código aberto' e 'prático'.
+    source_slides:
+    - 2
+  rationale: 'O plano condensa a notícia de impacto (S1), valida a qualidade com dados
+    técnicos reais (S2) e entrega o benefício prático de acesso aos assets para aplicação
+    imediata (S3). Respeita o nível ''problem_aware'' ao mostrar que o gargalo da
+    qualidade de vídeo IA foi quebrado, e segue o arco de narrativa única: Novo Padrão
+    -> Validação Técnica -> Como usar agora.'
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T16:22:29'
+central_theme: A ascensão do Higgsfield Seedance 2.5 e a democratização da produção
+  de vídeo de alta fidelidade via assets abertos.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:google/gemma-4-26b-a4b-it:free
+  recast_at: '2026-08-12T16:22:38'
+  slides: 3
+  central_theme: A ascensão do Higgsfield Seedance 2.5 e a democratização da produção
+    de vídeo de alta fidelidade via assets abertos.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T16:23:04'

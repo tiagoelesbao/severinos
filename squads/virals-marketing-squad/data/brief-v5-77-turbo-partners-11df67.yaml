@@ -1,0 +1,474 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:50:06'
+archetype: news
+carousel_brief:
+  slug: v5-precision-77-turbo-partners-11df67
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\77-turbo-partners-11df67
+  source_url: https://www.instagram.com/turbo.partners/p/Db3_M3ejkKp/
+  tema: 'Modelagem de precisão: 77-turbo-partners-11df67'
+  slide_count: 6
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 6
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.9/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar o gancho de marketing/anúncios por um gancho de utilidade técnica/automação,
+    garantindo que o primeiro slide já apresente um print de um fluxo de IA ou dashboard
+    em vez de apenas texto e imagem de banco. - Trocar a lógica de ''como anunciar
+    no C'
+  audits_present: true
+benchmark_caption: 'O ChatGPT está criando um novo espaço de disputa pela atenção
+  e sua marca precisa começar a entender como ocupar esse espaço.⁠
+
+  ⁠
+
+  Não é só sobre aparecer. É sobre ser relevante para a intenção certa, no contexto
+  certo e com a mensagem certa.⁠
+
+  ⁠
+
+  💬 Comente “CHATGPT” e conheça o ChatGPT Ads. #turbopartners'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Turbo
+  reference_body: Meta COMO FAZER SUA EMPRESA APARECER NO CHATGPT ADS
+  headline: APAREÇA NO CHATGPT ANTES DE TODO MUNDO
+  sub_headline: A OPORTUNIDADE
+  body_text: Pare de apenas responder prompts. Comece a aparecer para quem já está
+    buscando a sua solução via IA.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 38
+    body_chars: 100
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using smartphone close up
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline direta focada no benefício: Como colocar sua empresa nos
+      resultados do ChatGPT Ads. O hook deve focar em ser encontrado por quem já está
+      buscando a solução via IA.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:51:03'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: E COMO VOCÊ
+  reference_body: 'AUMENTA SUAS CHANCES DE APARECER? Comece pelo básico: QUE SEU CLIENTE
+    FAZ. Pense nas situações em que ele procura uma solução. “Qual plataforma devo
+    usar?” “Como reduzir meu CAC?” “Qual agência pode me ajudar a escalar?” É aí que
+    mora a oportunidade...'
+  headline: O SEGREDO É A INTENÇÃO DO USUÁRIO
+  sub_headline: A LÓGICA
+  body_text: Não foque em lances cegos. O jogo é mapear as perguntas reais do seu
+    cliente para entregar a resposta certa na hora certa.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 33
+    body_chars: 122
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person typing on laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Explique que a visibilidade não vem de lances cegos, mas da intenção
+      do usuário. Direcione a copy para mapear as perguntas reais do cliente (ex:
+      ''Qual plataforma usar?'' ou ''Como reduzir CAC?'').'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:51:03'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: E COMO VOCÊ / Não faça 10 versões falando a mesma coisa.
+  reference_body: 'AUMENTA SUAS CHANCES DE APARECER? Comece pelo básico: QUE SEU CLIENTE
+    FAZ. Pense nas situações em que ele procura uma solução. “Qual plataforma devo
+    usar?” “Como reduzir meu CAC?” “Qual agência pode me ajudar a escalar?” É aí que
+    mora a oportunidade... Crie mensagens para diferentes necessidades, dores e momentos
+    de decisão. A própria OpenAl recomenda uma variedade de anúncios com ângulos realmente
+    diferentes para ampliar as oportunidades de correspondência.'
+  headline: DIVERSIFIQUE SEUS ÂNGULOS DE ABORDAGEM
+  sub_headline: A ESTRATÉGIA
+  body_text: Não replique a mesma mensagem dez vezes. A própria OpenAI recomenda criar
+    anúncios com diferentes abordagens para atender a distintas dores e momentos de
+    decisão.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 38
+    body_chars: 162
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: creative team brainstorming
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  - 3
+  personalization:
+    status: DONE
+    directive: Ataque o erro de repetir a mesma mensagem. Oriente a criar ângulos
+      diferentes para dores e momentos de decisão distintos, seguindo a recomendação
+      da OpenAI de diversificar as abordagens.
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:51:03'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Como posso reduzir o CAC do meu e-commerce?
+  reference_body: 'Para reduzir o CAC do seu e-commerce, foque em melhorar a eficiência
+    dos seus anúncios e da sua conversão. Aqui estão algumas estratégias que funcionam
+    bem: Se quiser, posso detalhar cada uma dessas estratégias. No ChatGPT, ser útil
+    importa. Em vez de: ❌ “A melhor solução do mercado.” Prefira: ✅ “Veja como reduzir
+    o CAC do seu e-commerce sem depender apenas de aumentar a verba.” Clareza > slogan.
+    A orientação oficial é priorizar mensagens específicas, claras e focadas no benefício.'
+  headline: O WORKFLOW DE RECOMENDAÇÃO DA IA
+  sub_headline: NA PRÁTICA
+  body_text: 'O agente atua como um consultor: o usuário pergunta ''Como reduzir o
+    CAC do meu e-commerce?'' e a IA responde sugerindo estratégias de eficiência.
+    Seu papel é ser a solução recomendada.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 32
+    body_chars: 183
+    headline_tier: lg
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: laptop screen displaying chat interface
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Exemplo real de workflow: Pergunta (''Como reduzir o CAC do e-commerce?'')
+      $\rightarrow$ Resposta da IA sugerindo a solução $\rightarrow$ Gancho para detalhamento.
+      Mostre a IA como um agente de recomendação.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:51:03'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Seu anúncio pode ser relevante.
+  reference_body: 'Mas, se a página de destino não entrega o que prometeu... você
+    perde a oportunidade de vender! Anúncio + contexto + oferta + página precisam
+    contar a mesma história. Estou criando uma landing page para uma campanha. O anúncio
+    promete ajudar e-commerces a reduzir o CAC. O que essa página precisa ter? Se
+    essa é a promessa do anúncio, a landing page precisa continuar exatamente essa
+    conversa. Aqui está o que eu incluiria: A primeira coisa que o visitante vê precisa
+    reforçar a promessa. Exemplo: "Reduza seu CAC sem depender apenas de aumentar
+    a verba." Mostre de forma clara como você vai ajudar e o resultado que ele pode
+    esperar. Exemplo: "Estratégias validadas para diminuir seu custo de aquisição
+    e aumentar suas vendas." Explique os pilares ou etapas do método. Deixe claro
+    o caminho. Exemplo: Diagnóstico • Estratégia • Execução • Otimização • Resultados
+    Traga números, cases e depoimentos que gerem confiança. Exemplo: "+150 e-commerces
+    atendidos" "CAC reduzido em até 32%" Depoimentos reais. O botão precisa ser o
+    próximo passo lógico para o visitante. Exemplo: "Quero reduzir meu CAC agora"
+    Lembre-se: o visitante clicou por uma promessa. A landing page precisa entregar
+    a continuação dela.'
+  headline: O RISCO DA QUEBRA DE EXPECTATIVA
+  sub_headline: O PONTO CRÍTICO
+  body_text: Não adianta ter um anúncio relevante se a sua Landing Page não entrega
+    a promessa. O fluxo precisa de uma integração perfeita entre anúncio, contexto,
+    oferta e página.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 32
+    body_chars: 167
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person analyzing website on monitor
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Alerta sobre a quebra de expectativa. Se o anúncio é relevante mas
+      a Landing Page não entrega a promessa, a conversão morre. O fluxo deve ser:
+      Anúncio $\rightarrow$ Contexto $\rightarrow$ Oferta $\rightarrow$ Página.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:51:03'
+- slide_n: 6
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: SUA MARCA ESTÁ PREPARADA PARA
+  reference_body: SER ENCONTRADA NA ERA DA IA? Não espere o canal amadurecer para
+    começar a entender como ele funciona. Comente “CHATGPT” e conheça o ChatGPT Ads.
+  headline: SUA MARCA ESTÁ PRONTA PARA SER ENCONTRADA PELA IA?
+  sub_headline: REFLEXÃO
+  body_text: O posicionamento em canais de intenção via IA exige que a marca deixe
+    de ser apenas um link para se tornar a resposta definitiva do assistente.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 50
+    body_chars: 143
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: focused entrepreneur working
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Fechamento provocativo: a era da IA mudou a forma de ser encontrado.
+      Quem entende a mecânica agora domina o canal antes da saturação. Pergunta final
+      para estimular o pensamento sobre a prontidão da marca.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T19:51:03'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/6
+  bodies_extracted: 6/6
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+  cliches_detected:
+    6:
+    - \bcomente?\s+['\"]?\w+['\"]?\b
+benchmark_analysis:
+  tema_central: Estratégias de posicionamento e relevância de marca para o novo canal
+    de publicidade ChatGPT Ads.
+  formato: Guia educativo de estratégia de marketing (How-to Guide).
+  arco_narrativo: O post começa com uma oportunidade de mercado (gancho), explica
+    a lógica de funcionamento baseada na intenção do usuário, fornece um exemplo prático
+    de aplicação (pergunta/resposta), apresenta o erro comum de conversão (página
+    de destino) e finaliza com uma chamada para ação de autoridade.
+  estrutura:
+  - slide_n: 1
+    papel: 'Gancho/Headline: Apresentação do novo canal e promessa de aprendizado.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Conceito: Mudança de mentalidade do anúncio tradicional para a intenção
+      do usuário.'
+    essencial: true
+  - slide_n: 3
+    papel: 'Diretriz Estratégica: A importância da diversidade de ângulos de abordagem.'
+    essencial: false
+  - slide_n: 4
+    papel: 'Prova de Conceito/Exemplo: Demonstração prática de como a IA responde
+      a uma dor de negócio.'
+    essencial: true
+  - slide_n: 5
+    papel: 'O ''Pulo do Gato''/Alerta: Conexão entre o anúncio e a experiência de
+      conversão (Landing Page).'
+    essencial: true
+  - slide_n: 6
+    papel: 'CTA/Fechamento: Provocação de urgência e conversão direta via comentário.'
+    essencial: true
+  redundancias:
+  - O Slide 3 pode ser fundido ao Slide 2, pois ambos tratam da lógica de entender
+    a intenção e diversificar a mensagem para atender diferentes momentos.
+  fatores_de_performance:
+  - Antecipação de tendência (Early Adopter Advantage).
+  - Uso de exemplo prático (Show, don't just tell) no Slide 4.
+  - Quebra de expectativa ao conectar o anúncio de IA com o problema clássico de Landing
+    Page.
+  - CTA de alta fricção baixa (comentário por palavra-chave) para automação de leads.
+  recomendacao:
+    slides_ideais: 5
+    justificativa: Ao fundir a teoria da diversidade de mensagens (Slide 3) com o
+      conceito de intenção (Slide 2), o conteúdo fica mais direto e mantém o ritmo
+      de aprendizado acelerado, evitando a fadiga do usuário antes de chegar ao exemplo
+      prático e ao CTA.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:50:22'
+content_plan:
+  archetype: news
+  slide_count: 6
+  tema: Posicionamento estratégico para ChatGPT Ads
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: A OPORTUNIDADE
+    copy_direction: 'Headline direta focada no benefício: Como colocar sua empresa
+      nos resultados do ChatGPT Ads. O hook deve focar em ser encontrado por quem
+      já está buscando a solução via IA.'
+    image_direction: Interface do ChatGPT com um destaque visual (glow ou seta) simulando
+      a aparição de uma marca recomendada.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A LÓGICA
+    copy_direction: 'Explique que a visibilidade não vem de lances cegos, mas da intenção
+      do usuário. Direcione a copy para mapear as perguntas reais do cliente (ex:
+      ''Qual plataforma usar?'' ou ''Como reduzir CAC?'').'
+    image_direction: 'Diagrama simples: Pergunta do Usuário $\rightarrow$ Intenção
+      $\rightarrow$ Sua Marca.'
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A ESTRATÉGIA
+    copy_direction: Ataque o erro de repetir a mesma mensagem. Oriente a criar ângulos
+      diferentes para dores e momentos de decisão distintos, seguindo a recomendação
+      da OpenAI de diversificar as abordagens.
+    image_direction: Visual de 'estratégias ramificadas' ou cards comparando 'Mensagem
+      Única' (X) vs 'Múltiplos Ângulos' (Check).
+    source_slides:
+    - 2
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: NA PRÁTICA
+    copy_direction: 'Exemplo real de workflow: Pergunta (''Como reduzir o CAC do e-commerce?'')
+      $\rightarrow$ Resposta da IA sugerindo a solução $\rightarrow$ Gancho para detalhamento.
+      Mostre a IA como um agente de recomendação.'
+    image_direction: Mockup de chat real com a pergunta e a resposta estruturada em
+      tópicos, como no benchmark.
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: O PONTO CRÍTICO
+    copy_direction: 'Alerta sobre a quebra de expectativa. Se o anúncio é relevante
+      mas a Landing Page não entrega a promessa, a conversão morre. O fluxo deve ser:
+      Anúncio $\rightarrow$ Contexto $\rightarrow$ Oferta $\rightarrow$ Página.'
+    image_direction: Fluxograma linear conectando o chat da IA a uma página de destino,
+      com um sinal de alerta no ponto de conexão.
+    source_slides:
+    - 5
+  - slide_n: 6
+    role: PAYOFF
+    kicker: REFLEXÃO
+    copy_direction: 'Fechamento provocativo: a era da IA mudou a forma de ser encontrado.
+      Quem entende a mecânica agora domina o canal antes da saturação. Pergunta final
+      para estimular o pensamento sobre a prontidão da marca.'
+    image_direction: Imagem minimalista de alta tecnologia ou um close-up de um prompt
+      de comando, transmitindo autoridade e vanguarda.
+    source_slides:
+    - 6
+  rationale: Apliquei a recomendação da análise fundindo a teoria de intenção e diversidade
+    de mensagens (slides 2 e 3 do benchmark) para manter o ritmo. O arco segue rigorosamente
+    o modelo HOOK-INSIGHT-PAYOFF, transformando a 'venda' do benchmark em um conteúdo
+    educativo de 'estratégia de escala'. Substituí a CTA de comentário por uma call-to-think,
+    conforme a identidade da marca, e utilizei termos como 'workflow' e 'agente' para
+    alinhar ao tom do Sábio/Criador.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T19:50:51'
+central_theme: Posicionamento estratégico para ChatGPT Ads
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:google/gemma-4-26b-a4b-it:free
+  recast_at: '2026-08-12T19:51:03'
+  slides: 6
+  central_theme: Posicionamento estratégico para ChatGPT Ads
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:51:44'

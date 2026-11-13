@@ -1,0 +1,1367 @@
+schema_version: "5.0"
+generated_at: 2026-08-17T12:20:38
+archetype: news
+carousel_brief:
+  slug: v5-precision-22-diegoalmeida-ia-1b8f2e
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\22-diegoalmeida-ia-1b8f2e
+  source_url: https://www.instagram.com/diegoalmeida.ia/p/DcBfGmbEV-P/
+  tema: "Modelagem de precisão: 22-diegoalmeida-ia-1b8f2e"
+  slide_count: 4
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: "#08080C"
+    secondary: "#12121C"
+    accent: "#A855F7"
+    accent_alt: "#7E22CE"
+    accent_aurora: "#D8B4FE"
+    text_primary: "#FFFFFF"
+    text_secondary: "#A1A1AA"
+    overlay_dark: "#0000008C"
+    overlay_light: "#FFFFFF1A"
+    light:
+      background: "#F4F3F7"
+      text: "#08080C"
+      accent: "#A855F7"
+  accent: "#A855F7"
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: "#FFFFFF"
+      letter_spacing: -1
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: "#D0CDE0"
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: "#08080C"
+      background: "#FFFFFF"
+      padding:
+        - 12
+        - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: "#A1A1AA"
+      format: "{current}/{total}"
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: "#000000"
+        opacity: 0.55
+      dark_strong:
+        color: "#000000"
+        opacity: 0.75
+      brand_subtle:
+        color: "#08080C"
+        opacity: 0.35
+      none:
+        opacity: 0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 4
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: "**📈 Score ponderado:** 5.5/10 · **Classificação:** Mediano 🟠 ·
+    **Veredito dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do
+    painel):** - Substituir gancho textual por gravação de 3s do CLI processando
+    arquivo real; eliminar slide 4 motivacional e substituir por bloco de
+    comandos copiáveis + link direto para `skills/remove-ai-marks/`; manter
+    tabela técnica do slide 2 como autoridade"
+  audits_present: true
+benchmark_caption: >-
+  Guillaume Meyer lançou o projeto sob licença MIT, e em poucos dias já passou
+  de 4.700 estrelas no GitHub.
+
+
+  A ferramenta suporta formatos comuns como PNG, JPEG, SVG, PDF, DOCX, HTML e
+  Markdown, indo bem além de simples arquivo de texto.
+
+
+  O repositório também é transparente sobre a troca envolvida, reescrever demais
+  pode enfraquecer os sinais de marca d’água, mas também acaba achatando o tom,
+  a precisão e a qualidade da escrita original.
+
+
+  Meyer também avisa que nenhuma ferramenta consegue garantir que um detector
+  oficial de fabricante vai falhar, então isso não está sendo vendido como uma
+  solução perfeita.
+
+
+  Link do projeto: github.com/guillaumemeyer/watermarks-remover
+
+
+  E você, o que acha sobre isso? 🤔💬
+
+
+  👉🏻 Siga (@diegoalmeida.ia) para ficar por dentro das últimas novidades em IA
+  e Tecnologia
+
+
+  Fonte: Guillaume Meyer/GitHub
+content_data:
+  - slide_n: 1
+    variant: HOOK
+    role: HOOK
+    screenshot_ref: Screenshots/slide_01.jpg
+    reference_headline: Diego Almeida
+    reference_body: diegoalmeida.ia UM DESENVOLVEDOR CRIOU UMA FERRAMENTA CAPAZ DE
+      REMOVER AS MARCAS QUE IDENTIFICAM CONTEÚDOS GERADOS POR IA NO CLAUDE,
+      GEMINI E CHATGPT DESLIZE PARA VER MAIS ->
+    headline: ""
+    sub_headline: ""
+    body_text: ""
+    design_triggers: []
+    text_metrics:
+      headline_chars: 40
+      body_chars: 121
+      headline_tier: md
+      body_tier: md
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: laptop screen code
+    accent_color: "#A855F7"
+    source_slides:
+      - 1
+    personalization:
+      status: DONE
+      directive: "Headline direta focada no benefício: Como remover as marcas que
+        identificam textos e arquivos gerados por IA (Claude, Gemini e
+        ChatGPT)."
+      recast_model: openrouter:openrouter/free
+      recast_at: 2026-08-17T16:10:34
+    headline_font_size: null
+    body_font_size: null
+    image_url: null
+    image_zoom: 1
+    image_pos_x: 50
+    image_pos_y: 50
+    layers:
+      - id: s_msyqfc5w_583
+        type: shape
+        name: Anel decorativo 1
+        x: -150
+        y: 940
+        w: 420
+        h: 420
+        rotation: 0
+        opacity: 0.4
+        zIndex: 1
+        kind: ellipse
+        fill: transparent
+        stroke: "#7E22CE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: s_msyqfc5w_584
+        type: shape
+        name: Anel decorativo 2
+        x: 74
+        y: 1080
+        w: 280
+        h: 280
+        rotation: 0
+        opacity: 0.35
+        zIndex: 2
+        kind: ellipse
+        fill: transparent
+        stroke: "#D8B4FE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: t_msyqfc5w_585
+        type: text
+        name: Índice (fantasma)
+        x: 560
+        y: 980
+        w: 620
+        h: 460
+        rotation: 0
+        opacity: 0.05
+        zIndex: 3
+        content: "01"
+        fontSize: 440
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: ghost
+      - id: t_msyqfc5w_587
+        type: text
+        name: Paginação
+        x: 690
+        y: 74
+        w: 300
+        h: 40
+        rotation: 0
+        opacity: 0.5
+        zIndex: 5
+        content: 01 / 04
+        fontSize: 20
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 6
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: pagination
+      - id: s_msyqfc5w_588
+        type: shape
+        name: Trilho de progresso
+        x: 862
+        y: 124
+        w: 128
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 6
+        kind: rect
+        fill: rgba(255,255,255,0.14)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 2
+        role: progressTrack
+      - id: s_msyqfc5w_589
+        type: shape
+        name: Progresso
+        x: 862
+        y: 124
+        w: 32
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 7
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 2
+        role: progressFill
+      - id: t_msyqfc5w_590
+        type: text
+        name: Deslize
+        x: 630
+        y: 1244
+        w: 360
+        h: 40
+        rotation: 0
+        opacity: 0.42
+        zIndex: 8
+        content: DESLIZE →
+        fontSize: 19
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 4
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: swipe
+      - id: t_msyqfc5w_593
+        type: text
+        name: Headline
+        x: 90
+        y: 184
+        w: 900
+        h: 236
+        rotation: 0
+        opacity: 1
+        zIndex: 11
+        content: LIMPE O rótulo DE "conteudo feito por ia" dos seus posts
+        fontSize: 54
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: left
+        lineHeight: 0.98
+        letterSpacing: -1
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: true
+        role: headline
+      - id: i_msyqfc5w_594
+        type: image
+        name: Imagem (card)
+        x: 82
+        y: 494
+        w: 916
+        h: 586
+        rotation: 0
+        opacity: 1
+        zIndex: 12
+        src: /render-assets/upload_1787062558031.jpg
+        objectFit: cover
+        radius: 34
+        brightness: 100
+        contrast: 100
+        saturate: 100
+        blur: 0
+        flipX: false
+        flipY: false
+        frame: card
+        role: image
+        query: laptop screen code
+        frameAccent: "#A855F7"
+      - id: t_msyqfc5w_597
+        type: text
+        name: Body
+        x: 90
+        y: 350
+        w: 872
+        h: 140
+        rotation: 0
+        opacity: 1
+        zIndex: 15
+        content: "Aprenda a usar a ferramenta gratuita que remove os rastros de IA do
+          seu conteúdo e podem estar atrapalhando a sua entrega "
+        fontSize: 27
+        fontWeight: 500
+        color: "#FFFFFFCC"
+        align: left
+        lineHeight: 1.4
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: body
+    background:
+      type: brand
+      mood: editorial
+    template_id: carousel-slide
+    source_slide_n: 1
+  - slide_n: 2
+    variant: CONTENT
+    role: INSIGHT
+    screenshot_ref: Screenshots/slide_02.jpg
+    reference_headline: Diego Almeida
+    reference_body: "diegoalmeida.ia A ferramenta de código aberto consegue remover
+      caracteres Unicode invisíveis de textos gerados por IA, além de eliminar
+      metadados como C2PA, EXIF e XMP de arquivos compatíveis. README Code of
+      conduct Contributing MIT license Security WATERMARKS-REMOVER
+      watermarks-remover passing release v0.4.0 Stars 6.8k Forks 724 Agent skill
+      + stdlib Python scripts to strip multi-vendor AI provenance marks from
+      text and files — for privacy and hygiene on content you own. Layer Target
+      Invisible Unicode, exotic spaces, bidi, tag chars Deterministic Python
+      scripts Statistical (token-sampling) text watermarks Agent rewrite +
+      optional rewrite_text.py hook Files C2PA / EXIF / XMP / doc props PNG,
+      JPEG, SVG, PDF, DOCX, ODT, HTML, Markdown Vendors / ecosystems
+      (class-level): Claude, Gemini / SynthID-Text, OpenAI provenance surfaces,
+      open-LLM Kirchenbauer-style marks. Latest release: v0.4.0 Skill path:
+      skills/remove-ai-marks/ (migration: formerly remove-claude-marks ; slash
+      alias /remove-claude-marks still documented) Link do projeto no Github:
+      https://github.com/guillaumemeyer/watermarks-remover"
+    headline: ""
+    sub_headline: ""
+    body_text: ""
+    design_triggers: []
+    text_metrics:
+      headline_chars: 41
+      body_chars: 142
+      headline_tier: md
+      body_tier: md
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: person typing keyboard
+    accent_color: "#A855F7"
+    source_slides:
+      - 2
+    personalization:
+      status: DONE
+      directive: "Explicação pragmática da ferramenta de código aberto: ela elimina
+        caracteres Unicode invisíveis em textos e apaga metadados técnicos como
+        C2PA, EXIF e XMP de arquivos."
+      recast_model: openrouter:openrouter/free
+      recast_at: 2026-08-17T16:10:34
+    headline_font_size: null
+    body_font_size: null
+    image_url: null
+    image_zoom: 1
+    image_pos_x: 50
+    image_pos_y: 50
+    layers:
+      - id: s_msyqfc5w_598
+        type: shape
+        name: Anel decorativo 1
+        x: -150
+        y: 940
+        w: 420
+        h: 420
+        rotation: 0
+        opacity: 0.4
+        zIndex: 1
+        kind: ellipse
+        fill: transparent
+        stroke: "#7E22CE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: s_msyqfc5w_599
+        type: shape
+        name: Anel decorativo 2
+        x: 20
+        y: 1060
+        w: 280
+        h: 280
+        rotation: 0
+        opacity: 0.35
+        zIndex: 2
+        kind: ellipse
+        fill: transparent
+        stroke: "#D8B4FE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: t_msyqfc5w_600
+        type: text
+        name: Índice (fantasma)
+        x: 560
+        y: 980
+        w: 620
+        h: 460
+        rotation: 0
+        opacity: 0.05
+        zIndex: 3
+        content: "02"
+        fontSize: 440
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: ghost
+      - id: t_msyqfc5w_602
+        type: text
+        name: Paginação
+        x: 690
+        y: 74
+        w: 300
+        h: 40
+        rotation: 0
+        opacity: 0.5
+        zIndex: 5
+        content: 02 / 04
+        fontSize: 20
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 6
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: pagination
+      - id: s_msyqfc5w_603
+        type: shape
+        name: Trilho de progresso
+        x: 862
+        y: 124
+        w: 128
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 6
+        kind: rect
+        fill: rgba(255,255,255,0.14)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 2
+        role: progressTrack
+      - id: s_msyqfc5w_604
+        type: shape
+        name: Progresso
+        x: 862
+        y: 124
+        w: 64
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 7
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 2
+        role: progressFill
+      - id: t_msyqfc5w_605
+        type: text
+        name: Deslize
+        x: 630
+        y: 1244
+        w: 360
+        h: 40
+        rotation: 0
+        opacity: 0.42
+        zIndex: 8
+        content: DESLIZE →
+        fontSize: 19
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 4
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: swipe
+      - id: t_msyqfc5w_608
+        type: text
+        name: Headline
+        x: 113
+        y: 436
+        w: 900
+        h: 236
+        rotation: 0
+        opacity: 1
+        zIndex: 11
+        content: A LÓGICA POR TRÁS DA REMOÇÃO DE METADADOS
+        fontSize: 54
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: left
+        lineHeight: 0.98
+        letterSpacing: -1
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: true
+        role: headline
+      - id: s_msyqfc5w_610
+        type: shape
+        name: Painel do corpo
+        x: 106
+        y: 652
+        w: 900
+        h: 176
+        rotation: 0
+        opacity: 1
+        zIndex: 13
+        kind: rect
+        fill: rgba(255,255,255,0.05)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 20
+        role: decor
+        glass: true
+      - id: s_msyqfc5w_611
+        type: shape
+        name: Barra de corpo
+        x: 109
+        y: 675
+        w: 4
+        h: 130
+        rotation: 0
+        opacity: 1
+        zIndex: 15
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 4
+        role: divider
+        glow: true
+      - id: t_msyqfc5w_612
+        type: text
+        name: Body
+        x: 124
+        y: 665
+        w: 872
+        h: 140
+        rotation: 0
+        opacity: 1
+        zIndex: 14
+        content: Essa solução open-source atua na limpeza de caracteres Unicode
+          invisíveis em textos e apaga registros técnicos como C2PA, EXIF e XMP
+          de arquivos.
+        fontSize: 27
+        fontWeight: 500
+        color: "#FFFFFFCC"
+        align: left
+        lineHeight: 1.4
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: body
+    background:
+      type: brand
+      mood: editorial
+    template_id: carousel-slide
+    source_slide_n: 2
+  - slide_n: 3
+    variant: CONTENT
+    role: INSIGHT
+    screenshot_ref: Screenshots/slide_03.jpg
+    reference_headline: Diego Almeida
+    reference_body: "diegoalmeida.ia Guillaume Meyer Traduzido do inglês Mostrar
+      original watermarks-remover agora suporta marcas d'água do OpenAI e
+      Gemini, além do Claude. Avalie esta tradução:
+      guillaumemeyer/watermarks-remover Strip multi-vendor AI provenance marks:
+      Unicode text hygiene, statistical rewrite hooks, and C2PA/metadata from
+      PNG/JPEG/SVG/PDF/DOCX/HTML/MD 0 Contributors 0 Issues 155 Stars 13 Forks
+      GitHub - guillaumemeyer/watermarks-remover: Strip multi-vendor AI
+      provenan... De github.com 5:31 PM · 11 de ago de 2026 · 2,3 mi
+      Visualizações"
+    headline: ""
+    sub_headline: ""
+    body_text: ""
+    design_triggers: []
+    text_metrics:
+      headline_chars: 30
+      body_chars: 130
+      headline_tier: lg
+      body_tier: md
+      density: medium
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: software interface screen
+    accent_color: "#A855F7"
+    source_slides:
+      - 3
+    personalization:
+      status: DONE
+      directive: Demonstração de que a ferramenta é real e funcional, citando o
+        repositório (watermarks-remover) que já suporta as principais LLMs do
+        mercado.
+      recast_model: openrouter:openrouter/free
+      recast_at: 2026-08-17T16:10:34
+    headline_font_size: null
+    body_font_size: null
+    image_url: null
+    image_zoom: 1
+    image_pos_x: 50
+    image_pos_y: 50
+    layers:
+      - id: s_msyqfc5w_613
+        type: shape
+        name: Anel decorativo 1
+        x: -150
+        y: 940
+        w: 420
+        h: 420
+        rotation: 0
+        opacity: 0.4
+        zIndex: 1
+        kind: ellipse
+        fill: transparent
+        stroke: "#7E22CE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: s_msyqfc5w_614
+        type: shape
+        name: Anel decorativo 2
+        x: 20
+        y: 1060
+        w: 280
+        h: 280
+        rotation: 0
+        opacity: 0.35
+        zIndex: 2
+        kind: ellipse
+        fill: transparent
+        stroke: "#D8B4FE"
+        strokeWidth: 1.5
+        radius: 24
+        role: decor
+      - id: t_msyqfc5w_615
+        type: text
+        name: Índice (fantasma)
+        x: 560
+        y: 980
+        w: 620
+        h: 460
+        rotation: 0
+        opacity: 0.05
+        zIndex: 3
+        content: "03"
+        fontSize: 440
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: ghost
+      - id: t_msyqfc5w_616
+        type: text
+        name: Assinatura
+        x: 90
+        y: 70
+        w: 600
+        h: 50
+        rotation: 0
+        opacity: 1
+        zIndex: 4
+        content: "@oraclum"
+        fontSize: 22
+        fontWeight: 900
+        color: "#A855F7"
+        align: left
+        lineHeight: 1.1
+        letterSpacing: 4
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: signature
+      - id: t_msyqfc5w_617
+        type: text
+        name: Paginação
+        x: 690
+        y: 74
+        w: 300
+        h: 40
+        rotation: 0
+        opacity: 0.5
+        zIndex: 5
+        content: 03 / 04
+        fontSize: 20
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 6
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: pagination
+      - id: s_msyqfc5w_618
+        type: shape
+        name: Trilho de progresso
+        x: 862
+        y: 124
+        w: 128
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 6
+        kind: rect
+        fill: rgba(255,255,255,0.14)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 2
+        role: progressTrack
+      - id: s_msyqfc5w_619
+        type: shape
+        name: Progresso
+        x: 862
+        y: 124
+        w: 96
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 7
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 2
+        role: progressFill
+      - id: t_msyqfc5w_620
+        type: text
+        name: Deslize
+        x: 630
+        y: 1244
+        w: 360
+        h: 40
+        rotation: 0
+        opacity: 0.42
+        zIndex: 8
+        content: DESLIZE →
+        fontSize: 19
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: right
+        lineHeight: 1.1
+        letterSpacing: 4
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: swipe
+      - id: s_msyqfc5w_621
+        type: shape
+        name: Régua kicker
+        x: 90
+        y: 208
+        w: 56
+        h: 4
+        rotation: 0
+        opacity: 1
+        zIndex: 9
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 4
+        role: divider
+        glow: true
+      - id: t_msyqfc5w_622
+        type: text
+        name: Kicker
+        x: 162
+        y: 186
+        w: 828
+        h: 48
+        rotation: 0
+        opacity: 1
+        zIndex: 10
+        content: A PROVA
+        fontSize: 22
+        fontWeight: 900
+        color: "#A855F7"
+        align: left
+        lineHeight: 1.1
+        letterSpacing: 6
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: kicker
+        glow: true
+      - id: t_msyqfc5w_623
+        type: text
+        name: Headline
+        x: 90
+        y: 208
+        w: 900
+        h: 236
+        rotation: 0
+        opacity: 1
+        zIndex: 11
+        content: IMPLEMENTAÇÃO REAL E FUNCIONAL
+        fontSize: 54
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: left
+        lineHeight: 0.98
+        letterSpacing: -1
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: true
+        role: headline
+      - id: i_msyqfc5w_624
+        type: image
+        name: Imagem (card)
+        x: 160
+        y: 419
+        w: 760
+        h: 534
+        rotation: 0
+        opacity: 1
+        zIndex: 12
+        src: /render-assets/upload_1787062082568.png
+        objectFit: cover
+        radius: 34
+        brightness: 100
+        contrast: 100
+        saturate: 100
+        blur: 0
+        flipX: false
+        flipY: false
+        frame: card
+        role: image
+        query: software interface screen
+        frameAccent: "#A855F7"
+      - id: s_msyqfc5w_625
+        type: shape
+        name: Painel do corpo
+        x: 90
+        y: 1058
+        w: 900
+        h: 176
+        rotation: 0
+        opacity: 1
+        zIndex: 13
+        kind: rect
+        fill: rgba(255,255,255,0.05)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 20
+        role: decor
+        glass: true
+      - id: s_msyqfc5w_626
+        type: shape
+        name: Barra de corpo
+        x: 90
+        y: 1074
+        w: 4
+        h: 130
+        rotation: 0
+        opacity: 1
+        zIndex: 14
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 4
+        role: divider
+        glow: true
+      - id: t_msyqfc5w_627
+        type: text
+        name: Body
+        x: 118
+        y: 1074
+        w: 872
+        h: 140
+        rotation: 0
+        opacity: 1
+        zIndex: 15
+        content: O repositório watermarks-remover já oferece suporte prático para as
+          principais LLMs do mercado, incluindo OpenAI, Gemini e Claude.
+        fontSize: 27
+        fontWeight: 500
+        color: "#FFFFFFCC"
+        align: left
+        lineHeight: 1.4
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: body
+      - id: t_msyqn2dk_643
+        type: text
+        name: Texto
+        x: 92
+        y: 879
+        w: 900
+        h: 240
+        rotation: 0
+        opacity: 1
+        zIndex: 16
+        content: https://github.com/guillaumemeyer/watermarks-remover
+        fontSize: 20
+        fontWeight: 300
+        color: "#FFFFFF"
+        align: center
+        lineHeight: 1.1
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+    background:
+      type: brand
+      mood: editorial
+    template_id: carousel-slide
+    source_slide_n: 3
+  - slide_n: 4
+    variant: CTA
+    role: PAYOFF
+    screenshot_ref: Screenshots/slide_04.jpg
+    reference_headline: NEXT LEVEL
+    reference_body: "SIGA PARA DOMINAR A IA ANTES DE TODO MUNDO CONTEÚDO DIÁRIO
+      SOBRE IA, FERRAMENTAS E O QUE REALMENTE IMPORTA Diego Almeida | IA 1.459
+      publicações 295 mil seguidores seguindo Construindo com IA Compartilhando
+      o que é incrível, o que é prático e o que vem por aí Collabs:
+      diego@coloniadaia.com beacons.ai/diegoalmeida.i... e outros 3 links
+      Seguido(a) por maisgomesadv, mauriciogb85 e outras 277 pessoas Seguindo
+      Mensagem Email O ÚNICO RISCO QUE PREVALE É NÃO FAZER NADA. SE VOCÊ NÃO SE
+      CAPACITAR, NÃO SE PREPARAR, NÃO SE DESENVOLVER, NÃO SE ADAPTAR, A PESSOA
+      QUE VAI PERDER A OPORTUNIDADE É VOCÊ. Novo O QUATRO DE ATENDIMENTO COM A
+      IA MENOS CUSTO E VELOCIDADE, SEM ESQUECER A REDUÇÃO DE FRUSTRAÇÃO MENTES
+      QUE USAM IA SAEM NA FRENTE O FUTURO NÃO ESPERA. NEM TODO MUNDO VAI CHEGAR
+      LÁ."
+    headline: ""
+    sub_headline: ""
+    body_text: ""
+    design_triggers: []
+    text_metrics:
+      headline_chars: 37
+      body_chars: 174
+      headline_tier: md
+      body_tier: sm
+      density: heavy
+      headline_overflow_risk: false
+      body_overflow_risk: false
+    pexels_query: person thinking office
+    accent_color: "#A855F7"
+    source_slides:
+      - 4
+    personalization:
+      status: DONE
+      directive: "Takeaway prático: a democratização de ferramentas open-source torna
+        a detecção de IA cada vez mais complexa. A pergunta agora é: a qualidade
+        do conteúdo importa mais do que a sua origem?"
+      recast_model: openrouter:openrouter/free
+      recast_at: 2026-08-17T16:10:34
+    headline_font_size: null
+    body_font_size: null
+    image_url: null
+    image_zoom: 1
+    image_pos_x: 50
+    image_pos_y: 50
+    layers:
+      - id: t_msyr22jo_644
+        type: text
+        name: Eyebrow
+        x: 90
+        y: 80
+        w: 400
+        h: 34
+        rotation: 0
+        opacity: 1
+        zIndex: 1
+        content: REFLEXÃO
+        fontSize: 15
+        fontWeight: 800
+        color: rgba(255,255,255,0.5)
+        align: left
+        lineHeight: 1.1
+        letterSpacing: 4
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: kicker
+      - id: t_msyr22jo_645
+        type: text
+        name: Fechamento
+        x: 90
+        y: 422
+        w: 900
+        h: 260
+        rotation: 0
+        opacity: 1
+        zIndex: 2
+        content: A NOVA COMPLEXIDADE DA DETECÇÃO DE IA
+        fontSize: 74
+        fontWeight: 800
+        color: "#FFFFFF"
+        align: center
+        lineHeight: 1.12
+        letterSpacing: -1
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: headline
+      - id: t_msyr22jo_646
+        type: text
+        name: Body
+        x: 155
+        y: 682
+        w: 780
+        h: 90
+        rotation: 0
+        opacity: 1
+        zIndex: 3
+        content: Com a democratização de ferramentas open-source, rastrear a origem do
+          conteúdo tornou-se um desafio. A questão agora é se a qualidade
+          entrega mais valor do que a procedência.
+        fontSize: 27
+        fontWeight: 500
+        color: rgba(255,255,255,0.7)
+        align: center
+        lineHeight: 1.4
+        letterSpacing: 0
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: false
+        italic: false
+        shadow: false
+        role: body
+      - id: s_msyr22jo_647
+        type: shape
+        name: Pílula CTA
+        x: 310
+        y: 830
+        w: 460
+        h: 84
+        rotation: 0
+        opacity: 1
+        zIndex: 4
+        kind: rect
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 42
+        role: decor
+      - id: t_msyr22jo_648
+        type: text
+        name: CTA
+        x: 315
+        y: 856
+        w: 460
+        h: 32
+        rotation: 0
+        opacity: 1
+        zIndex: 5
+        content: comente sua opinião
+        fontSize: 19
+        fontWeight: 900
+        color: "#FFFFFF"
+        align: center
+        lineHeight: 1.1
+        letterSpacing: 2
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: callToThink
+      - id: s_msyr22jo_649
+        type: shape
+        name: Ponto 1
+        x: 509
+        y: 1250
+        w: 8
+        h: 8
+        rotation: 0
+        opacity: 1
+        zIndex: 6
+        kind: ellipse
+        fill: rgba(255,255,255,0.2)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 0
+        role: dot
+      - id: s_msyr22jo_650
+        type: shape
+        name: Ponto 2
+        x: 527
+        y: 1250
+        w: 8
+        h: 8
+        rotation: 0
+        opacity: 1
+        zIndex: 7
+        kind: ellipse
+        fill: rgba(255,255,255,0.2)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 0
+        role: dot
+      - id: s_msyr22jo_651
+        type: shape
+        name: Ponto 3
+        x: 545
+        y: 1250
+        w: 8
+        h: 8
+        rotation: 0
+        opacity: 1
+        zIndex: 8
+        kind: ellipse
+        fill: rgba(255,255,255,0.2)
+        stroke: transparent
+        strokeWidth: 0
+        radius: 0
+        role: dot
+      - id: s_msyr22jo_652
+        type: shape
+        name: Ponto 4
+        x: 563
+        y: 1250
+        w: 8
+        h: 8
+        rotation: 0
+        opacity: 1
+        zIndex: 9
+        kind: ellipse
+        fill: "#A855F7"
+        stroke: transparent
+        strokeWidth: 0
+        radius: 0
+        role: dot
+      - id: t_msyr22jo_653
+        type: text
+        name: Assinatura
+        x: 90
+        y: 70
+        w: 900
+        h: 40
+        rotation: 0
+        opacity: 1
+        zIndex: 10
+        content: "@oraclum"
+        fontSize: 18
+        fontWeight: 800
+        color: rgba(255,255,255,0.5)
+        align: center
+        lineHeight: 1.1
+        letterSpacing: 3
+        fontFamily: Outfit, system-ui, sans-serif
+        uppercase: true
+        italic: false
+        shadow: false
+        role: signature
+    background:
+      type: solid
+      color: "#08080C"
+    template_id: clean-closing
+    source_slide_n: 4
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+    - "slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o
+      conteúdo real"
+    - "slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o
+      conteúdo real"
+    - "slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o
+      conteúdo real"
+    - "slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o
+      conteúdo real"
+  headlines_extracted: 0/4
+  bodies_extracted: 4/4
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Lançamento de uma ferramenta open-source para remoção de marcas
+    d'água e metadados de conteúdos gerados por IA.
+  formato: Case único de ferramenta tecnológica (Utility Tool Spotlight).
+  arco_narrativo: O post inicia com uma promessa disruptiva (remover marcas de
+    IA), apresenta a capacidade técnica da ferramenta, prova a existência via
+    print do repositório e encerra com um CTA de autoridade.
+  estrutura:
+    - slide_n: 1
+      papel: Gancho de curiosidade e promessa de valor (The Hook).
+      essencial: true
+    - slide_n: 2
+      papel: Explicação técnica e prova de funcionalidades (The How).
+      essencial: true
+    - slide_n: 3
+      papel: Prova social e validação via fonte original/GitHub (The Proof).
+      essencial: true
+    - slide_n: 4
+      papel: Conversão e reforço de branding (The CTA).
+      essencial: false
+  redundancias:
+    - Slide 4 (CTA genérico que pode ser fundido ao slide 3 ou substituído por
+      algo mais prático)
+  fatores_de_performance:
+    - Apelo ao 'hack' ou 'contorno' de sistemas de detecção de IA (curiosidade
+      proibida).
+    - Referência a players gigantes (Claude, Gemini, ChatGPT) aumentando o
+      alcance orgânico.
+    - Uso de prova real (screenshot do GitHub) que gera confiança imediata no
+      nicho dev/tech.
+    - Headline direta e focada no benefício imediato.
+  recomendacao:
+    slides_ideais: 3
+    justificativa: "O slide 4 é puramente motivacional/institucional e dilui a
+      retenção. A versão Virals deve focar na entrega técnica: Gancho ->
+      Funcionamento/Tabela -> Prova/Comandos, movendo o CTA para a legenda ou
+      integrando-o ao último slide de valor."
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: 2026-08-17T12:20:52
+content_plan:
+  archetype: news
+  slide_count: 4
+  tema: Ferramenta open-source para remoção de marcas d'água e metadados de IA
+  slides:
+    - slide_n: 1
+      role: HOOK
+      kicker: O DESAFIO
+      copy_direction: "Headline direta focada no benefício: Como remover as marcas que
+        identificam textos e arquivos gerados por IA (Claude, Gemini e
+        ChatGPT)."
+      image_direction: Visual limpo com logos do Claude, Gemini e ChatGPT e um ícone
+        de 'limpeza' ou 'remover', sugerindo a ação de desidentificação.
+      source_slides:
+        - 1
+    - slide_n: 2
+      role: INSIGHT
+      kicker: A SOLUÇÃO
+      copy_direction: "Explicação pragmática da ferramenta de código aberto: ela
+        elimina caracteres Unicode invisíveis em textos e apaga metadados
+        técnicos como C2PA, EXIF e XMP de arquivos."
+      image_direction: "Diagrama simples ou split screen: de um lado 'Conteúdo com
+        Metadados/Marcas' $\\rightarrow$ seta $\\rightarrow$ 'Conteúdo Limpo'."
+      source_slides:
+        - 2
+    - slide_n: 3
+      role: INSIGHT
+      kicker: A PROVA
+      copy_direction: Demonstração de que a ferramenta é real e funcional, citando o
+        repositório (watermarks-remover) que já suporta as principais LLMs do
+        mercado.
+      image_direction: Print real do repositório no GitHub (watermarks-remover),
+        destacando a descrição do projeto e a compatibilidade com OpenAI, Gemini
+        e Claude.
+      source_slides:
+        - 3
+    - slide_n: 4
+      role: PAYOFF
+      kicker: REFLEXÃO
+      copy_direction: "Takeaway prático: a democratização de ferramentas open-source
+        torna a detecção de IA cada vez mais complexa. A pergunta agora é: a
+        qualidade do conteúdo importa mais do que a sua origem?"
+      image_direction: Imagem minimalista e tecnológica que remeta a análise de dados
+        ou um prompt de comando, com espaço para a pergunta reflexiva.
+      source_slides:
+        - 4
+  rationale: O plano segue a recomendação de remover redundâncias do benchmark,
+    mas expande para 4 slides para respeitar o Arco Narrativo Obrigatório (Hook
+    -> Insight -> Insight -> Payoff). Transformamos o CTA genérico do benchmark
+    em um 'call-to-think' conforme a identidade da Oraclum. Mantivemos a
+    fidelidade absoluta aos fatos técnicos (Unicode, C2PA, EXIF, XMP) e marcas
+    citadas, eliminando qualquer menção ao autor original do benchmark.
+  planned_by: openrouter:openrouter/free
+  planned_at: 2026-08-17T12:21:13
+central_theme: Ferramenta open-source para remoção de marcas d'água e metadados de IA
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: 2026-08-17T16:10:34
+  slides: 4
+  central_theme: Ferramenta open-source para remoção de marcas d'água e metadados de IA
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 1
+  model: openrouter:openrouter/free
+  checked_at: 2026-08-17T16:10:46
+edited_at: 2026-08-18T14:21:16.341Z
