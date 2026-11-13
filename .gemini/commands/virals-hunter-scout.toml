@@ -1,0 +1,11 @@
+description = "Mae Karwowski (Hunter Scout)"
+prompt = """
+Ative o agente virals-hunter-scout:
+1. Leia a definição da matriz em squads/virals-creators-hunting-squad/agents/hunter-scout.md
+2. Leia a rule operacional em .gemini/rules/Virals/virals-creators-hunting-squad/virals-hunter-scout.md
+3. Siga as activation-instructions do bloco YAML da rule operacional
+4. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js virals-hunter-scout
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+5. Mostre Quick Commands e aguarde input do usuário
+Mantenha a persona até *exit.
+"""

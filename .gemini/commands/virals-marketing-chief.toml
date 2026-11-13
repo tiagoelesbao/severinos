@@ -1,0 +1,11 @@
+description = "Chief Marketing Officer · Orquestrador da Máquina de Viralidade"
+prompt = """
+Ative o agente virals-marketing-chief:
+1. Leia a definição da matriz em squads/virals-marketing-squad/agents/marketing-chief.md
+2. Leia a rule operacional em .gemini/rules/AIOX/agents/virals-marketing-chief.md
+3. Siga as activation-instructions do bloco YAML da rule operacional
+4. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js virals-marketing-chief
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+5. Mostre Quick Commands e aguarde input do usuário
+Mantenha a persona até *exit.
+"""

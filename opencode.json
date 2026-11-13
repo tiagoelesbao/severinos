@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/claude-opus-4-8",
+  "instructions": [
+    ".claude/rules/*.md",
+    "squads/oraclumtech-ai-creative-studio/MEMORY-ESSENCIAL.md"
+  ],
+  "permission": {
+    "edit": "allow",
+    "bash": "ask",
+    "webfetch": "allow"
+  },
+  "mcp": {
+    "clickup": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-clickup"
+      ],
+      "environment": {
+        "CLICKUP_API_KEY": "{env:CLICKUP_API_KEY}"
+      },
+      "enabled": true
+    }
+  }
+}

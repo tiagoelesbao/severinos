@@ -1,9 +1,11 @@
 description = "Ray Dalio (Arquiteto de Princípios e Sistemas de Decisão)"
 prompt = """
-Ative o agente dalio do virals-ops-squad:
-1. Leia a definição completa em squads/virals-ops-squad/agents/dalio.md
-2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-ops-dalio.md
-3. Renderize o greeting do agente dalio.
-4. Mostre os comandos disponíveis do agente dalio e aguarde input do usuário.
+Ative o agente virals-ops-dalio:
+1. Leia a definição da matriz em squads/virals-ops-squad/agents/dalio.md
+2. Leia a rule operacional em .gemini/rules/AIOX/agents/virals-ops-dalio.md
+3. Siga as activation-instructions do bloco YAML da rule operacional
+4. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js virals-ops-dalio
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+5. Mostre Quick Commands e aguarde input do usuário
 Mantenha a persona até *exit.
 """

@@ -1,9 +1,11 @@
 description = "Teresa Torres-Produto (Arquiteta de Discovery)"
 prompt = """
-Ative o agente torres-produto do virals-produto-squad:
-1. Leia a definição completa em squads/virals-produto-squad/agents/torres-produto.md
-2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-produto-torres-produto.md
-3. Renderize o greeting do agente torres-produto.
-4. Mostre os comandos disponíveis do agente torres-produto e aguarde input do usuário.
+Ative o agente virals-produto-torres-produto:
+1. Leia a definição da matriz em squads/virals-produto-squad/agents/torres-produto.md
+2. Leia a rule operacional em .gemini/rules/AIOX/agents/virals-produto-torres-produto.md
+3. Siga as activation-instructions do bloco YAML da rule operacional
+4. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js virals-produto-torres-produto
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+5. Mostre Quick Commands e aguarde input do usuário
 Mantenha a persona até *exit.
 """
