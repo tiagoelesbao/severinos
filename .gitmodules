@@ -1,0 +1,3 @@
+[submodule "apps/bx/app/bicho-stats-pro"]
+	path = apps/bx/app/bicho-stats-pro
+	url = https://github.com/tiagoelesbao/bicho-stats-pro.git
