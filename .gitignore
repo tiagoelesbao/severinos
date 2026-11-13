@@ -45,6 +45,11 @@ temp/
 services/ETL/Extract/Links/.runtime/
 services/ETL/Extract/outputs/discovery_debug/
 
+# VEX-14 — artefatos do auto-update do yt-dlp e cookies derivados de sessão
+services/ETL/bin/*.bak
+services/ETL/bin/.yt-dlp-update-stamp
+services/ETL/Extract/auth/.*_bridged_cookies.txt
+
 # Creative pipeline — generated artifacts (NÃO versionar: regeneráveis e pesados)
 outputs/
 apps/creative-design/public/render-assets/
@@ -68,3 +73,65 @@ node_modules
 # AIOX Local (AIOX)
 .aiox-core/local/
 .aiox/install-log.txt
+services/ETL/Transform/video-intelligence/.vision-models-cache.json
+squads/virals-marketing-squad/scripts/.text-models-cache.json
+
+.vercel
+
+# ──────────────────────────────────────────────────────────────────────────
+# Política de versionamento — definida em 2026-11-12
+# O conhecimento entra no git. Os bytes regeneráveis, não.
+# ──────────────────────────────────────────────────────────────────────────
+
+# Workspaces de negócio (6,9 GB): relatórios, claims, JSON e SRT entram;
+# captura e render ficam fora — são regeneráveis pelos pipelines.
+workspaces/**/*.jpg
+workspaces/**/*.jpeg
+workspaces/**/*.png
+workspaces/**/*.gif
+workspaces/**/*.webp
+workspaces/**/*.mp4
+workspaces/**/*.mov
+workspaces/**/*.mp3
+workspaces/**/*.wav
+workspaces/**/*.m4a
+
+# Frames de análise do AI Creative Studio (2.519 jpg, 196 MB).
+# Agentes, tasks, checklists, workflows, scripts e .md continuam versionados.
+squads/oraclumtech-ai-creative-studio/**/*.jpg
+squads/oraclumtech-ai-creative-studio/**/*.jpeg
+squads/oraclumtech-ai-creative-studio/**/*.png
+squads/oraclumtech-ai-creative-studio/**/*.webp
+squads/oraclumtech-ai-creative-studio/**/*.mp4
+squads/oraclumtech-ai-creative-studio/**/*.mp3
+squads/oraclumtech-ai-creative-studio/**/*.wav
+
+# apps/bx: réplica do framework e das configs de agente que já vivem na raiz.
+# Só app/ e Squads/ são conteúdo próprio do projeto.
+apps/bx/.aiox-core/
+apps/bx/.agent/
+apps/bx/.agents/
+apps/bx/.antigravity/
+apps/bx/.claude/
+apps/bx/.codex/
+apps/bx/.cursor/
+apps/bx/.gemini/
+apps/bx/.github/
+apps/bx/.grok/
+apps/bx/.kimi/
+
+# Prints soltos na raiz dos projetos
+/image*.png
+apps/bx/image*.png
+
+# Distribuição de terceiro desempacotada no repo (yt-dlp + ffmpeg para Windows).
+# É baixável e pesa 136 binários; o auto-update dela já era ignorado.
+services/ETL/yt-dlp_win/
+services/ETL/bin/*.exe
+
+# Live de futebol: diretórios de trabalho com áudio gerado por TTS.
+# assets/ (torcida, provas de voz) é curadoria e continua versionado.
+apps/live-futebol/_pack/
+apps/live-futebol/_falas/
+apps/live-futebol/_vozes/
+apps/live-futebol/__pycache__/
