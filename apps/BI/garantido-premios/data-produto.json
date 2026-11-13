@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-13T13:53:06.627327-03:00",
+  "atualizado_em": "2026-11-13T14:53:13.376728-03:00",
   "periodo_dias": 30,
   "conta_anuncio_ativa": "act_28685818161087189",
   "pedidos_reais": {
@@ -1305,14 +1305,14 @@
       "premios_qtd": 5,
       "preco_numero": 14.0,
       "premio": 1000.0,
-      "faturamento": 98.0,
-      "pedidos": 2,
-      "lucro_bruto": -902.0,
-      "taxa_plataforma": 4.9,
-      "margem_contribuicao": -906.9,
-      "margem_pct": -925.4,
+      "faturamento": 294.0,
+      "pedidos": 13,
+      "lucro_bruto": -706.0,
+      "taxa_plataforma": 14.7,
+      "margem_contribuicao": -720.7,
+      "margem_pct": -245.1,
       "primeiro_pedido": "2026-11-13T16:35:54.532000+00:00",
-      "ultimo_pedido": "2026-11-13T16:39:08.226000+00:00",
+      "ultimo_pedido": "2026-11-13T17:52:07.744000+00:00",
       "dia": "2026-11-13"
     }
   ],
@@ -2650,9 +2650,16 @@
     {
       "dia": "2026-11-13",
       "hora": 13,
-      "pedidos": 14,
-      "faturamento": 898.0,
+      "pedidos": 15,
+      "faturamento": 912.0,
       "lucro_estimado": 200.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 14,
+      "pedidos": 10,
+      "faturamento": 182.0,
+      "lucro_estimado": 0.0
     }
   ],
   "pedidos_perfil": {
@@ -3390,17 +3397,17 @@
       {
         "dia": "2026-11-13",
         "quantidade": 1,
-        "pedidos": 51
+        "pedidos": 60
       },
       {
         "dia": "2026-11-13",
         "quantidade": 2,
-        "pedidos": 31
+        "pedidos": 32
       },
       {
         "dia": "2026-11-13",
         "quantidade": 3,
-        "pedidos": 11
+        "pedidos": 12
       },
       {
         "dia": "2026-11-13",
@@ -3682,20 +3689,20 @@
       {
         "dia": "2026-11-13",
         "faixa": "R$10-20",
-        "pedidos": 52,
-        "valor": 834.5
+        "pedidos": 61,
+        "valor": 960.5
       },
       {
         "dia": "2026-11-13",
         "faixa": "R$20-40",
-        "pedidos": 33,
-        "valor": 1094.0
+        "pedidos": 34,
+        "valor": 1122.0
       },
       {
         "dia": "2026-11-13",
         "faixa": "acima de R$40",
-        "pedidos": 24,
-        "valor": 2222.0
+        "pedidos": 25,
+        "valor": 2264.0
       },
       {
         "dia": "2026-11-13",
@@ -3709,7 +3716,7 @@
     "disponivel": true,
     "pct_receita_top_n": 53.6,
     "top_n": 15,
-    "receita_total": 72788.0,
+    "receita_total": 72984.0,
     "compradores_distintos": 231,
     "compradores": [
       {
@@ -3749,8 +3756,8 @@
       },
       {
         "telefone_mascarado": "(37) 9****-4308",
-        "pedidos": 90,
-        "valor": 1786.0
+        "pedidos": 91,
+        "valor": 1800.0
       },
       {
         "telefone_mascarado": "(42) 9****-9161",
@@ -3758,14 +3765,14 @@
         "valor": 1544.0
       },
       {
+        "telefone_mascarado": "(99) 9****-2846",
+        "pedidos": 74,
+        "valor": 1384.5
+      },
+      {
         "telefone_mascarado": "(27) 9****-6447",
         "pedidos": 42,
         "valor": 1335.5
-      },
-      {
-        "telefone_mascarado": "(99) 9****-2846",
-        "pedidos": 72,
-        "valor": 1314.5
       },
       {
         "telefone_mascarado": "(65) 1****-6441",

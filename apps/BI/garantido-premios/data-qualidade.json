@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-13T13:53:06.627327-03:00",
+  "atualizado_em": "2026-11-13T14:53:13.376728-03:00",
   "periodo_dias": 30,
   "conta_anuncio_ativa": "act_28685818161087189",
   "pixel_funil_diario": {
@@ -8,22 +8,22 @@
       {
         "dia": "2026-10-16",
         "evento": "PageView",
-        "count": 2369
+        "count": 2205
       },
       {
         "dia": "2026-10-16",
         "evento": "ViewContent",
-        "count": 1414
+        "count": 1323
       },
       {
         "dia": "2026-10-16",
         "evento": "AddToCart",
-        "count": 272
+        "count": 244
       },
       {
         "dia": "2026-10-16",
         "evento": "InitiateCheckout",
-        "count": 257
+        "count": 233
       },
       {
         "dia": "2026-10-16",
@@ -943,52 +943,52 @@
       {
         "dia": "2026-11-13",
         "evento": "PageView",
-        "count": 1545
+        "count": 1800
       },
       {
         "dia": "2026-11-13",
         "evento": "ViewContent",
-        "count": 992
+        "count": 1184
       },
       {
         "dia": "2026-11-13",
         "evento": "ViewContentPlataforma",
-        "count": 991
+        "count": 1183
       },
       {
         "dia": "2026-11-13",
         "evento": "PageViewPlataforma",
-        "count": 768
+        "count": 908
       },
       {
         "dia": "2026-11-13",
         "evento": "Purchase",
-        "count": 193
+        "count": 205
       },
       {
         "dia": "2026-11-13",
         "evento": "AddToCartPlataforma",
-        "count": 253
+        "count": 289
       },
       {
         "dia": "2026-11-13",
         "evento": "AddToCart",
-        "count": 252
+        "count": 288
       },
       {
         "dia": "2026-11-13",
         "evento": "InitiateCheckout",
-        "count": 232
+        "count": 268
       },
       {
         "dia": "2026-11-13",
         "evento": "InitiateCheckoutPlataforma",
-        "count": 232
+        "count": 268
       },
       {
         "dia": "2026-11-13",
         "evento": "PurchasePlataforma",
-        "count": 95
+        "count": 107
       },
       {
         "dia": "2026-11-13",
@@ -998,14 +998,14 @@
       {
         "dia": "2026-11-13",
         "evento": "PurchaseGroup",
-        "count": 88
+        "count": 100
       }
     ]
   },
   "grupo_whatsapp_cliques": {
     "disponivel": true,
     "motivo": null,
-    "total_periodo": 18316,
+    "total_periodo": 18366,
     "por_dia": [
       {
         "dia": "2026-10-19",
@@ -1109,34 +1109,34 @@
       },
       {
         "dia": "2026-11-13",
-        "cliques": 401
+        "cliques": 451
       }
     ]
   },
   "funil_etapas": [
     {
       "evento": "PageView",
-      "count": 96335,
+      "count": 96426,
       "pct_da_primeira": null
     },
     {
       "evento": "ViewContent",
-      "count": 55341,
-      "pct_da_primeira": 57.4
+      "count": 55442,
+      "pct_da_primeira": 57.5
     },
     {
       "evento": "AddToCart",
-      "count": 15834,
+      "count": 15842,
       "pct_da_primeira": 16.4
     },
     {
       "evento": "InitiateCheckout",
-      "count": 14743,
+      "count": 14755,
       "pct_da_primeira": 15.3
     },
     {
       "evento": "Purchase",
-      "count": 837,
+      "count": 849,
       "pct_da_primeira": 0.9
     }
   ],

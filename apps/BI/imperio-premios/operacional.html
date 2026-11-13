@@ -536,7 +536,13 @@ function render(periodoInicio, periodoFim) {
       linhasMeta.push(`<tr class="${temCriativo ? 'utm-grupo' : ''}" ${temCriativo ? `data-alvo="${grupoId}"` : ''}><td>${nome}</td><td class="num">${info.pedidos}</td><td class="num">${formatBRL(info.valor)}</td></tr>`);
       Object.entries(criativos).sort((a, b) => b[1].valor - a[1].valor).forEach(([adId, cinfo]) => {
         const infoAd = infoAnuncio[adId];
-        const nomeAd = infoAd ? infoAd.nome : `Anúncio ID ${adId} (fora da conta ativa atual — pode ser anúncio pausado/removido)`;
+        // Valor sintético de _com_meta_sem_utm (bi_aggregator.py) — venda
+        // confirmada via fbc, mas sem UTM/touch pra saber QUAL anúncio foi
+        // (achado 2026-11-13). Não é um ID de anúncio de verdade, não
+        // mostrar como se fosse um anúncio pausado/removido.
+        const nomeAd = adId.startsWith('(criativo não identificado')
+          ? adId
+          : (infoAd ? infoAd.nome : `Anúncio ID ${adId} (fora da conta ativa atual — pode ser anúncio pausado/removido)`);
         linhasMeta.push(`<tr class="utm-detalhe ${grupoId}"><td>${nomeAd}</td><td class="num">${cinfo.pedidos}</td><td class="num">${formatBRL(cinfo.valor)}</td></tr>`);
       });
     });

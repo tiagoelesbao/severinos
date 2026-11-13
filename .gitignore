@@ -166,3 +166,8 @@ services/Meta/**/__pycache__/
 # Logs operacionais e seus backups
 **/*.log.bak*
 apps/BI/**/*.log
+
+# Estado de deduplicação da CAPI: listas de IDs já processados que crescem a
+# cada execução e sujavam o repositório toda vez que o agregador rodava.
+services/Meta/**/capi_*sent_ids*.json
+services/Meta/**/checkpoint_*.json

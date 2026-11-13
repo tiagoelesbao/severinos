@@ -812,11 +812,45 @@ def montar_canal_diario(df_pedidos):
     ]
 
 
+SEM_UTM_CAMPANHA = "(sem UTM — fbc confirmado)"
+SEM_UTM_CRIATIVO = "(criativo não identificado — sem UTM capturada)"
+
+
+def _com_meta_sem_utm(df_pedidos):
+    """Acrescenta, só pra esta visão (não mexe no df original nem no resto
+    do pipeline), os pedidos que são Meta Ads CONFIRMADO via fbc fresco mas
+    que não têm UTM nenhuma (nem webhook nem touch capturaram) — hoje esses
+    pedidos ficavam de fora da seção 'Meta Ads' inteira (card, tabela por
+    campanha, tabela por criativo), mesmo já estando corretamente
+    classificados em Canal_Atribuicao como 'Meta Ads (clique confirmado,
+    sem UTM)'. Achado 2026-11-13 (founder, auditoria de criativo por
+    anúncio): 2 anúncios recém-lançados tinham Purchase real reportado pela
+    Meta mas ZERO venda aparecendo em qualquer lugar da seção Meta Ads — a
+    causa é baixa cobertura do touch (fbp+UTM) pra anúncio muito novo, não
+    um erro de configuração (confirmado comparando config do anúncio
+    com outro do MESMO ad set que captura bem). Enquanto a cobertura do
+    touch não melhora, pelo menos o VOLUME (pedidos/valor) fica visível
+    aqui, com UTM_Source/Campaign/Content sintéticos e nomes que deixam
+    claro que não é um criativo/campanha identificados de verdade — nunca
+    inventa qual campanha/criativo foi, só agrega o que sabemos: veio de
+    clique real confirmado em algum anúncio Meta."""
+    df = df_pedidos.copy()
+    sem_utm_mas_fbc = (
+        (df["UTM_Source"].fillna("") == "") &
+        df["Canal_Atribuicao"].str.startswith("Meta Ads (clique confirmado", na=False)
+    )
+    df.loc[sem_utm_mas_fbc, "UTM_Source"] = "meta"
+    df.loc[sem_utm_mas_fbc, "UTM_Campaign"] = SEM_UTM_CAMPANHA
+    df.loc[sem_utm_mas_fbc, "UTM_Content"] = SEM_UTM_CRIATIVO
+    return df
+
+
 def montar_utm_diario(df_pedidos):
     """dia × utm_source × utm_campaign — flat, mesmo padrão de canal_diario
     acima: só pedidos com UTM_Source preenchido entram aqui (pedido sem UTM
     já aparece no resto do BI via Canal de Atribuição — esta seção é só a
-    granularidade fina de quem TEM utm).
+    granularidade fina de quem TEM utm). Inclui também, via
+    `_com_meta_sem_utm`, o Meta Ads confirmado por fbc mesmo sem UTM real.
 
     Existe porque o cliente só passou a usar de verdade a convenção de UTM
     no link do grupo de WhatsApp em 2026-10-13/14 — antes disso o campo
@@ -831,7 +865,8 @@ def montar_utm_diario(df_pedidos):
     utm_content tende a ser o link individual do post (alta cardinalidade,
     não informativo numa tabela agregada) — se precisar dele, está no CSV
     bruto, não faz sentido pré-agregar aqui."""
-    df = df_pedidos[df_pedidos["UTM_Source"].fillna("") != ""].copy()
+    df = _com_meta_sem_utm(df_pedidos)
+    df = df[df["UTM_Source"].fillna("") != ""].copy()
     if df.empty:
         return []
     df["_dia"] = _dia_negocio(df["_data_ord"].dt.tz_convert(TZ_BRASIL))
@@ -862,10 +897,16 @@ def montar_utm_criativo_diario(df_pedidos):
     Por que só Meta (ao contrário de montar_utm_diario, que cobre todo
     utm_source): pro WhatsApp o utm_content tende a ser o link individual do
     post (alta cardinalidade, não um ID estável de anúncio) — mesma razão já
-    documentada por que ele fica de fora da agregação geral acima."""
-    df = df_pedidos[
-        (df_pedidos["UTM_Source"].fillna("").str.lower() == "meta") &
-        (df_pedidos["UTM_Content"].fillna("") != "")
+    documentada por que ele fica de fora da agregação geral acima.
+
+    Inclui também, via `_com_meta_sem_utm`, o Meta Ads confirmado por fbc
+    mesmo sem UTM/touch real — aparece como campanha/criativo
+    "(sem UTM — fbc confirmado)"/"(criativo não identificado...)" em vez
+    de sumir inteiramente da análise (achado 2026-11-13)."""
+    df = _com_meta_sem_utm(df_pedidos)
+    df = df[
+        (df["UTM_Source"].fillna("").str.lower() == "meta") &
+        (df["UTM_Content"].fillna("") != "")
     ].copy()
     if df.empty:
         return []
