@@ -44,6 +44,33 @@ Verificado: **nenhum arquivo já rastreado virou ignorado** — não houve remo�
 
 ---
 
+## 1-A. Dado pessoal — o achado mais grave da limpeza
+
+A varredura feita **antes** de cada commit encontrou identificação de clientes reais em texto
+puro, prestes a entrar no git pela primeira vez:
+
+| Onde | Volume | Conteúdo |
+|---|---|---|
+| `squads/**/meta-ads/audiences/*.csv` | 5 arquivos · 44 MB · um com **500 mil registros** | e-mail e telefone |
+| `services/Meta/imperio-premios/*.csv` e derivados | 17 arquivos · **~275 MB** | **Nome, Telefone, Email, Cpf** e IDs de pagamento |
+
+**Nenhum deles jamais esteve no histórico** — verificado em todas as refs antes de seguir. Se
+tivessem entrado, sair seria reescrita de histórico, não `git rm`.
+
+Três lições que viraram regra no `.gitignore`:
+
+1. **Extensão não basta como filtro.** Três arquivos escaparam da primeira regra por terem sufixo
+   depois da extensão: `.csv.bak-corrompido`, `.csv.pre-dedup`.
+2. **Varrer por conteúdo, não por nome.** Os `dados_brutos_completos*.csv` não têm "audiência" nem
+   "lead" no nome; foram achados procurando o padrão de e-mail dentro dos arquivos.
+3. **Estado de runtime sujava o repo a cada execução.** `capi_*_sent_ids_*.json` e
+   `checkpoint_*.json` crescem a cada run do agregador. Saíram do índice.
+
+O que **continua** versionado: os README, scripts e a documentação que descrevem esses dados. O
+dado em si vive só na máquina.
+
+---
+
 ## 2. Saúde dos apps — medida, não estimada
 
 | App | Typecheck | Testes | Lint |
