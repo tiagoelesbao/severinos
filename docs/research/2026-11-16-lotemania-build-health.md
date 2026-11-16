@@ -112,3 +112,67 @@ sem default export do Next não é erro de compilação, é rota que não render
 
 *Medido com `pnpm install --prefer-offline` (23,4 s), `npx tsc --noEmit` e `npx next build` em
 2026-11-16. `pnpm` 12.15.0, Node do ambiente, TypeScript 5.9.3, Next 16.4.3.*
+
+---
+
+## 7. Adendo — o schema: zero índice de performance, zero migração versionada
+
+Medido na mesma passada, porque a pergunta "isto aguenta produção?" não para no build.
+
+### 33 tabelas, 10 restrições de unicidade, **nenhum índice de performance**
+
+Todo índice declarado no schema é `uniqueIndex` — ou seja, **restrição de integridade**, não
+decisão de desempenho. Não existe **um único** `index()` em `src/db/schema/`.
+
+As dez restrições existentes, e só elas:
+
+| Tabela | Restrição |
+|---|---|
+| `discount_links` | `(tenant_id, code)` |
+| `users` | `(tenant_id, email)` · `(tenant_id, username)` · `(tenant_id, phone)` · `(tenant_id, affiliate_code)` |
+| `blocked_numbers` | `(tenant_id, phone)` |
+| `integrations` | `(tenant_id, provider)` |
+| `payment_gateways` | `(tenant_id, provider)` |
+| `products` | `(tenant_id, slug)` |
+| `site_pages` | `(tenant_id, slug)` |
+
+**Vinte e quatro tabelas não têm absolutamente nada.** Entre elas, as quatro do caminho do
+dinheiro: `product_numbers`, `orders`, `banking_transactions` e `payment_webhook_events`.
+
+Isso confirma a `LTM-01` e a amplia: o problema não é "falta o índice de `product_numbers`",
+é que **nenhuma consulta deste sistema tem índice**, exceto onde um `uniqueIndex` criou um por
+efeito colateral. Cada listagem de pedidos do painel é varredura de tabela.
+
+### Zero migração versionada
+
+```
+drizzle.config.ts → out: "./drizzle"
+pasta ./drizzle    → não existe
+```
+
+Nunca se rodou `drizzle-kit generate`. O único caminho exercitado é `db:push`, que **compara o
+schema com o banco ao vivo e aplica a diferença, sem histórico**.
+
+Três consequências, todas para a migração do Império:
+
+1. **Não há como saber o que já foi aplicado** a um banco. Não existe `_journal.json`, não
+   existe trilha.
+2. **Não há como reverter.** O portão **G6** do epic exige plano de volta exercitado — sem
+   migração versionada, o "plano de volta" do schema é restaurar backup.
+3. **`push` em tabela com dado é operação sem revisão.** Hoje o banco está vazio e isso é
+   indolor. No dia em que ele tiver 900 mil linhas de `product_numbers` e R$ 90 mil/dia
+   atravessando, não é.
+
+A nota de ondas do epic já previa colisão em `drizzle/meta/_journal.json` entre stories que
+geram migração. **O arquivo não existe** — a primeira story a gerar migração vai criá-lo. A
+nota continua válida a partir daí.
+
+### O que isto acrescenta à LTM-01
+
+A story hoje é "criar os índices de `product_numbers` e `orders`". O escopo honesto é maior:
+
+- [ ] Estabelecer o **regime de migração versionada** (`drizzle-kit generate` + pasta `drizzle/`
+      commitada) **antes** de qualquer índice — senão o índice também nasce sem histórico;
+- [ ] Índices do caminho do dinheiro, com `EXPLAIN` como critério de aceite;
+- [ ] Decidir, tabela a tabela, quais das 24 sem índice precisam de um — não é "todas", e
+      índice a mais custa escrita no ponto de contenção que a `LTM-02` está consertando.
