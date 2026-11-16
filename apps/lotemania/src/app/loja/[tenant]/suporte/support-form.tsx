@@ -69,7 +69,7 @@ export function SupportForm({ tenantSlug }: { tenantSlug: string }) {
           />
         </div>
       </FormField>
-      <Select items={CATEGORY_ITEMS} value={category} onValueChange={setCategory}>
+      <Select items={CATEGORY_ITEMS} value={category} onValueChange={(v) => setCategory(v ?? "")}>
         <SelectTrigger>
           <SelectValue placeholder="Selecione um assunto" />
         </SelectTrigger>

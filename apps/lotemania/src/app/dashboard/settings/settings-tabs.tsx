@@ -22,11 +22,15 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { siteConfigSchema, type SiteConfig } from "@/lib/validations/site-config";
+import {
+  siteConfigSchema,
+  type SiteConfig,
+  type SiteConfigFormInput,
+} from "@/lib/validations/site-config";
 import { updateSiteConfig } from "@/lib/actions/settings";
 import { SettingsForm } from "./settings-form";
 
-type FieldName = keyof SiteConfig;
+type FieldName = keyof SiteConfigFormInput;
 
 function TextRow({
   name,
@@ -38,7 +42,7 @@ function TextRow({
   name: FieldName;
   label: string;
   hint?: string;
-  register: UseFormRegister<SiteConfig>;
+  register: UseFormRegister<SiteConfigFormInput>;
   type?: "text" | "number";
 }) {
   return (
@@ -59,7 +63,7 @@ function AreaRow({
   name: FieldName;
   label: string;
   hint?: string;
-  register: UseFormRegister<SiteConfig>;
+  register: UseFormRegister<SiteConfigFormInput>;
 }) {
   return (
     <div className="flex flex-col gap-2">
@@ -79,7 +83,7 @@ function SwitchRow({
   name: FieldName;
   label: string;
   hint?: string;
-  control: Control<SiteConfig>;
+  control: Control<SiteConfigFormInput, unknown, SiteConfig>;
 }) {
   return (
     <div className="flex items-center justify-between rounded-md border p-3">
@@ -110,7 +114,7 @@ function SelectRow({
   name: FieldName;
   label: string;
   options: { value: string; label: string }[];
-  control: Control<SiteConfig>;
+  control: Control<SiteConfigFormInput, unknown, SiteConfig>;
 }) {
   return (
     <div className="flex flex-col gap-2">
@@ -151,7 +155,11 @@ export function SettingsTabs({
   initial: SiteConfig;
 }) {
   const [isPending, startTransition] = useTransition();
-  const { register, control, handleSubmit } = useForm<SiteConfig>({
+  const { register, control, handleSubmit } = useForm<
+    SiteConfigFormInput,
+    unknown,
+    SiteConfig
+  >({
     resolver: zodResolver(siteConfigSchema),
     defaultValues: initial,
   });

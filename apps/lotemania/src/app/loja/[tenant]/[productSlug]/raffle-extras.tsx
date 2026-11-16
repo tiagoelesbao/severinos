@@ -7,7 +7,7 @@
 // minificado em /_next/static/immutable/chunks/ e do HTML renderizado.
 // Ver docs/research/2026-11-16-lotemania-build-health.md.
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import {
   Link2,
@@ -154,11 +154,19 @@ export function PrizesPanel({ prizes, title }: { prizes: string[]; title: string
   );
 }
 
+// A URL da página é estado externo ao React. Lida por useSyncExternalStore em
+// vez de setState dentro de um efeito: mesmo resultado, sem o render em
+// cascata que o lint barra. No servidor devolve "" — por isso o HTML servido
+// sai com os links de compartilhamento vazios e eles se preenchem na
+// hidratação. É exatamente o comportamento que já está em produção.
+const subscribeToLocation = () => () => {};
+
 export function ShareRow({ title }: { title: string }) {
-  // A URL só existe depois da hidratação, então o HTML servido sai com os
-  // links de compartilhamento vazios. É o comportamento atual em produção.
-  const [url, setUrl] = useState("");
-  useEffect(() => setUrl(window.location.href), []);
+  const url = useSyncExternalStore(
+    subscribeToLocation,
+    () => window.location.href,
+    () => "",
+  );
 
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);

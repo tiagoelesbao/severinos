@@ -40,7 +40,7 @@ import { updateProductSettings } from "@/lib/actions/product-settings";
 import { updateProduct } from "@/lib/actions/products";
 import { slugify } from "@/lib/slugify";
 import { ProductEditTabsBar, type EditTab } from "./product-edit-tabs-bar";
-import { BonusGameSection } from "./bonus-game-section";
+import { BonusGameSection, type Game } from "./bonus-game-section";
 
 const DDD_OPTIONS = ["11", "21", "31", "41", "51", "61", "71", "81", "85", "91"];
 
@@ -87,14 +87,6 @@ function SwitchRow({
     </label>
   );
 }
-
-type Game = {
-  id: string;
-  title: string;
-  isActive: boolean;
-  items: string[];
-  combos: { numbers: number[]; label: string | null }[];
-};
 
 export function AdvancedSettingsTabs({
   productId,

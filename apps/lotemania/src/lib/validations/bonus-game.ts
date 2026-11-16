@@ -14,10 +14,14 @@ export const bonusGameSchema = z.object({
   items: z.string().min(1, "Informe ao menos um item"),
   totalBoxes: z.coerce.number().int().positive().optional(),
 });
-export type BonusGameInput = z.infer<typeof bonusGameSchema>;
+/** Values the form holds before zod coercion runs. */
+export type BonusGameFormInput = z.input<typeof bonusGameSchema>;
+export type BonusGameInput = z.output<typeof bonusGameSchema>;
 
 export const bonusGameComboSchema = z.object({
   quantity: z.coerce.number().int().positive(),
   price: z.coerce.number().positive(),
 });
-export type BonusGameComboInput = z.infer<typeof bonusGameComboSchema>;
+/** Values the form holds before zod coercion runs. */
+export type BonusGameComboFormInput = z.input<typeof bonusGameComboSchema>;
+export type BonusGameComboInput = z.output<typeof bonusGameComboSchema>;

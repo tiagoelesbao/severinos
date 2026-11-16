@@ -16,7 +16,11 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { affiliateSchema, type AffiliateInput } from "@/lib/validations/affiliate";
+import {
+  affiliateSchema,
+  type AffiliateFormInput,
+  type AffiliateInput,
+} from "@/lib/validations/affiliate";
 import { createAffiliate } from "@/lib/actions/affiliates";
 
 export function NewAffiliateDialog() {
@@ -27,7 +31,7 @@ export function NewAffiliateDialog() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<AffiliateInput>({
+  } = useForm<AffiliateFormInput, unknown, AffiliateInput>({
     resolver: zodResolver(affiliateSchema),
     defaultValues: { commissionRate: 10 },
   });

@@ -23,7 +23,9 @@ import {
   bonusGameComboSchema,
   bonusGameLabels,
   type BonusGameKind,
+  type BonusGameFormInput,
   type BonusGameInput,
+  type BonusGameComboFormInput,
   type BonusGameComboInput,
 } from "@/lib/validations/bonus-game";
 import {
@@ -33,7 +35,12 @@ import {
 } from "@/lib/actions/bonus-games";
 import { formatCurrency } from "@/lib/format";
 
-type Game = {
+/**
+ * View model de um jogo bonus. O shape dos combos acompanha as tabelas
+ * awarded_box_combos / reward_spin_combos / scratch_card_combos.
+ * Fonte unica: advanced-settings-tabs importa este tipo em vez de redeclarar.
+ */
+export type Game = {
   id: string;
   title: string;
   isActive: boolean;
@@ -58,7 +65,9 @@ export function BonusGameSection({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<BonusGameInput>({ resolver: zodResolver(bonusGameSchema) });
+  } = useForm<BonusGameFormInput, unknown, BonusGameInput>({
+    resolver: zodResolver(bonusGameSchema),
+  });
 
   function onSubmit(data: BonusGameInput) {
     startTransition(async () => {
@@ -140,7 +149,9 @@ function GameRow({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<BonusGameComboInput>({ resolver: zodResolver(bonusGameComboSchema) });
+  } = useForm<BonusGameComboFormInput, unknown, BonusGameComboInput>({
+    resolver: zodResolver(bonusGameComboSchema),
+  });
 
   function onComboSubmit(data: BonusGameComboInput) {
     startTransition(async () => {

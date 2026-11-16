@@ -140,7 +140,7 @@ export function RichTextEditor({
         <div className="h-4 w-px bg-border" />
         <ToolbarSelect
           value="16px"
-          onChange={(v) => (editor.commands as any).setFontSize(v)}
+          onChange={(v) => editor.chain().focus().setFontSize(v).run()}
           options={FONT_SIZES}
           width="w-16"
         />

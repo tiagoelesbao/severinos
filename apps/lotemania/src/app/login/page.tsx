@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
@@ -36,7 +35,12 @@ export default function LoginPage() {
       return;
     }
 
-    const from = searchParams.get("from") ?? "/dashboard/app";
+    // Lido aqui, no handler, e nao via useSearchParams(): o hook obriga /login
+    // a ter uma fronteira de Suspense acima dele, e o que a fronteira prerendera
+    // e o fallback — o formulario inteiro sairia do HTML estatico e so apareceria
+    // depois do JS carregar. O valor so e necessario neste instante, no submit.
+    const from =
+      new URLSearchParams(window.location.search).get("from") ?? "/dashboard/app";
     router.push(from);
     router.refresh();
   }

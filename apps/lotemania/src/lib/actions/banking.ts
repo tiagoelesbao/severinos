@@ -23,7 +23,12 @@ export async function setPaymentRequestStatus(
     .update(paymentRequests)
     .set({
       status,
-      processedAt: status === "pending" ? null : new Date(),
+      // O ternario anterior era `status === "pending" ? null : new Date()`:
+      // ramo morto, porque esta funcao so aceita approved | rejected | paid.
+      // "pending" e o default da coluna, atribuido na criacao da solicitacao,
+      // nunca por aqui. Os tres status que chegam aqui sao todos terminais, e
+      // todos devem carimbar a data — que e o que o codigo ja fazia de fato.
+      processedAt: new Date(),
     })
     .where(
       and(eq(paymentRequests.id, id), eq(paymentRequests.tenantId, user.tenantId)),

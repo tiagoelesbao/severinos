@@ -59,7 +59,9 @@ export const siteConfigSchema = z.object({
   showFees: z.boolean().default(true),
 });
 
-export type SiteConfig = z.infer<typeof siteConfigSchema>;
+/** Values the form holds before zod defaults run — every field optional. */
+export type SiteConfigFormInput = z.input<typeof siteConfigSchema>;
+export type SiteConfig = z.output<typeof siteConfigSchema>;
 
 export function defaultSiteConfig(): SiteConfig {
   return siteConfigSchema.parse({});

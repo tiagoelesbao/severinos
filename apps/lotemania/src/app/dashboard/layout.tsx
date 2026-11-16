@@ -25,7 +25,8 @@ export default async function DashboardLayout({
       .where(eq(users.id, session.sub))
       .limit(1);
     if (user) {
-      userName = user.name;
+      // users.name e nullable no schema; mantem o fallback declarado acima.
+      userName = user.name ?? userName;
       userRole = user.role;
     }
 

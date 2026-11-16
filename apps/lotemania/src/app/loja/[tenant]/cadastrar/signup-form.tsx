@@ -142,7 +142,10 @@ export function SignupForm({ tenantSlug }: { tenantSlug: string }) {
 
       <div className="grid grid-cols-2 gap-3">
         <FormField label="UF" required>
-          <Select items={UF_ITEMS} onValueChange={(v) => setValue("state", v)}>
+          <Select<string>
+            items={UF_ITEMS}
+            onValueChange={(v) => setValue("state", v ?? "")}
+          >
             <SelectTrigger className="h-7 w-full border-none px-0">
               <SelectValue placeholder="UF" />
             </SelectTrigger>

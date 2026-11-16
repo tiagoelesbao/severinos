@@ -15,7 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { productSchema, type ProductInput } from "@/lib/validations/product";
+import {
+  productSchema,
+  type ProductFormInput,
+  type ProductInput,
+} from "@/lib/validations/product";
 import { createProduct } from "@/lib/actions/products";
 
 export default function NewProductPage() {
@@ -26,7 +30,7 @@ export default function NewProductPage() {
     setValue,
     watch,
     formState: { errors },
-  } = useForm<ProductInput>({
+  } = useForm<ProductFormInput, unknown, ProductInput>({
     resolver: zodResolver(productSchema),
     defaultValues: { privacy: "public" },
   });

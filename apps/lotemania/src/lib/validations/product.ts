@@ -15,4 +15,6 @@ export const productSchema = z.object({
   imageUrl: z.string().url().optional().or(z.literal("")),
 });
 
-export type ProductInput = z.infer<typeof productSchema>;
+/** Values the form holds before zod coercion/defaults run. */
+export type ProductFormInput = z.input<typeof productSchema>;
+export type ProductInput = z.output<typeof productSchema>;

@@ -46,7 +46,11 @@ export const productAdvancedSettingsSchema = z.object({
       accessLink: z.string().default(""),
       buttonText: z.string().default(""),
     })
-    .default({}),
+    // prefault, nao default: `.default({})` devolvia o `{}` literal como saida,
+    // sem aplicar os defaults dos campos acima — o tipo prometia strings e o
+    // runtime entregava undefined. `.prefault({})` faz o `{}` passar pelo parse,
+    // entao cada campo recebe o default que ja estava declarado aqui.
+    .prefault({}),
 
   // Afiliados
   allowAffiliates: z.boolean().default(false),
@@ -81,7 +85,8 @@ export const productAdvancedSettingsSchema = z.object({
       discord: z.string().default(""),
       instagram: z.string().default(""),
     })
-    .default({}),
+    // idem groupCta: prefault para que os defaults dos campos sejam aplicados.
+    .prefault({}),
 
   // Capitalizadora
   capitalizerEnabled: z.boolean().default(false),

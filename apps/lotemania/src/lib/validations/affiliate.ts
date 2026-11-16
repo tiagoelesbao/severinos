@@ -7,7 +7,9 @@ export const affiliateSchema = z.object({
   commissionRate: z.coerce.number().min(0).max(100).default(10),
 });
 
-export type AffiliateInput = z.infer<typeof affiliateSchema>;
+/** Values the form holds before zod coercion/defaults run. */
+export type AffiliateFormInput = z.input<typeof affiliateSchema>;
+export type AffiliateInput = z.output<typeof affiliateSchema>;
 
 export const discountLinkSchema = z.object({
   title: z.string().min(2, "Título muito curto"),
@@ -25,4 +27,6 @@ export const discountLinkSchema = z.object({
   perUserLimit: z.coerce.number().int().min(0).default(0),
 });
 
-export type DiscountLinkInput = z.infer<typeof discountLinkSchema>;
+/** Values the form holds before zod coercion/defaults run. */
+export type DiscountLinkFormInput = z.input<typeof discountLinkSchema>;
+export type DiscountLinkInput = z.output<typeof discountLinkSchema>;

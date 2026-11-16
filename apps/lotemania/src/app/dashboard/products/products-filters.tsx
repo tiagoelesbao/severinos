@@ -32,7 +32,7 @@ export function ProductsFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  function setParam(key: string, value: string) {
+  function setParam(key: string, value: string | null) {
     const params = new URLSearchParams(searchParams.toString());
     if (value && value !== "all") params.set(key, value);
     else params.delete(key);

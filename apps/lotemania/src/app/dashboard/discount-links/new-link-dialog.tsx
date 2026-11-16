@@ -26,6 +26,7 @@ import {
 import {
   discountLinkSchema,
   type DiscountLinkInput,
+  type DiscountLinkFormInput,
 } from "@/lib/validations/affiliate";
 import { createDiscountLink } from "@/lib/actions/affiliates";
 
@@ -40,7 +41,7 @@ export function NewLinkDialog() {
     setValue,
     reset,
     formState: { errors },
-  } = useForm<DiscountLinkInput>({
+  } = useForm<DiscountLinkFormInput, unknown, DiscountLinkInput>({
     resolver: zodResolver(discountLinkSchema),
     defaultValues: {
       checkoutType: "direto",

@@ -74,7 +74,7 @@ export function ReportsForm({ products }: { products: { id: string; title: strin
             ))}
           </SelectContent>
         </Select>
-        <Select items={productItems} value={productId} onValueChange={setProductId}>
+        <Select items={productItems} value={productId} onValueChange={(v) => setProductId(v ?? "all")}>
           <SelectTrigger className="w-[200px]">
             <SelectValue />
           </SelectTrigger>
