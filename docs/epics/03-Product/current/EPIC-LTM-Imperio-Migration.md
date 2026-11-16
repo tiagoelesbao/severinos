@@ -1,0 +1,177 @@
+# EPIC-LTM: Migração do Império Prêmios para o lotemania
+
+## Visão Geral
+
+Levar o **Império Prêmios** da **Sorteamos** (hoje em `painel.rapidinhas24hr.com`) para o **lotemania** (`apps/lotemania`, importado em 2026-11-16 pelo commit `2ac7d133`) sem perder um pedido, um real ou um dado de atribuição.
+
+O lotemania é a sucessora da Sorteamos: mesma operação, plataforma própria, multi-tenant white-label. A troca só acontece quando o lotemania aguentar o que a Sorteamos já aguenta — e isso é medível, não opinável.
+
+## Status: 📝 DRAFT (aguardando validação do @po)
+
+**Epic ID:** LTM
+**Owner:** @pm (Morgan) · implementação @dev · schema @data-engineer
+**Priority:** **Critical** — é o caminho do dinheiro de um cliente em produção
+**Criado:** 2026-11-16
+**App:** `apps/lotemania` · **Origem a substituir:** Sorteamos (`api.rapidinhas24hr.com`)
+
+---
+
+## Estado real, medido
+
+Fonte: `apps/lotemania/README.md` (levantamento de 2026-11-16) e leitura direta do código.
+
+### O que o lotemania é hoje
+
+| | |
+|---|---|
+| Arquivos / linhas | 187 · 14.462 |
+| Páginas de dashboard | 27 — **3 são arquivos vazios**; `reports` tem **22 linhas** |
+| Transações no banco | **zero** `db.transaction()` em 14.462 linhas |
+| Índices em `product_numbers` | **nenhum** (o comentário no schema afirma que existe) |
+| Pedidos pagos de verdade | **zero** — o webhook de pagamento é um `TODO` |
+| Atribuição por pedido | **nenhuma** — sem `utm_*`, `fbc`, `fbp`, `gclid`, `ttclid` |
+| API de leitura para o ETL | **não existe** (só `auth/*` e o webhook) |
+| Testes | **zero** |
+
+É um **andaime**. O esqueleto e o schema estão certos; a profundidade não existe.
+
+### O que a migração tem que aguentar
+
+Medido no BI do Império, últimos 7 dias:
+
+| | |
+|---|---|
+| Rodadas | **177** · 174 esgotadas · **100 números cada** |
+| Esgotamento típico | **1,8 h** · o mais rápido em **18 min** (~5,5 números/minuto) |
+| Pedidos pagos | **10.550** · R$ 639.325 · ticket médio R$ 61 |
+| Rodadas ativas simultâneas | **5** |
+| Fluxo diário | **≈ R$ 90 mil/dia** |
+
+O gargalo **não é volume de dados** (~900 mil linhas/ano em `product_numbers` é trivial para Postgres *com índice*). O gargalo é **contenção**: cem números finitos esgotando em minutos, cinco rodadas ao mesmo tempo.
+
+---
+
+## O problema, em uma frase
+
+Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem índice ele varre a tabela a cada reserva, sem transação ele deixa pedido órfão quando duas pessoas disputam o mesmo número, sem fechamento de pedido o PIX pago não vira título, e sem atribuição por pedido a migração cega o CAPI do Meta e o BI inteiro no dia do corte.
+
+---
+
+## Frentes
+
+| Frente | Objetivo | Stories | Status |
+|---|---|---|---|
+| **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01` a `LTM-05` | **Draft — este epic** |
+| **B — Paridade** | Fechar a distância funcional contra a Sorteamos: telas vazias, `reports`, os 3 exports | *a definir* | **Bloqueada** pela baseline em extração (`docs/research/2026-11-16-baseline-sorteamos/`) |
+| **C — Features novas** | O que o cliente pediu e a Sorteamos não faz — começando pela **cota dividida** | *a definir* | **Bloqueada** por modelagem (`/grill-with-docs`) **e** pela Frente A |
+
+### Frente A — Fundação (escopo deste epic)
+
+| Story | Problema que fecha | Prioridade |
+|---|---|---|
+| **LTM-01** | **F1** — `product_numbers` e `orders` sem índice nenhum; comentário do schema mente | P0 |
+| **LTM-02** | **F2** — driver `neon-http` não faz transação; reserva desfaz "na mão" | P0 |
+| **LTM-03** | **F3** — webhook valida HMAC e para num `TODO`; sem idempotência | P0 |
+| **LTM-04** | **F4** — atribuição por pedido não existe; sem API de leitura para o ETL | P0 |
+| **LTM-05** | **F5** — zero testes no caminho do dinheiro | P0 |
+
+### Frente B — Paridade (fora deste epic)
+
+O escopo da paridade **não é inventado aqui**. Ele vem da baseline da Sorteamos que está sendo extraída em `docs/research/2026-11-16-baseline-sorteamos/`. O que já se sabe sem a baseline, do próprio levantamento do app: 3 páginas de dashboard são arquivos vazios, `reports` tem 22 linhas contra 3 exports na Sorteamos. As stories da Frente B nascem quando a baseline fechar.
+
+### Frente C — Features novas: a cota dividida (escopo futuro, **não vire story agora**)
+
+O Império quer **dividir a cota em dois**: cada número pode ser comprado inteiro ou em duas metades, por duas pessoas. Quem compra inteiro leva tudo; duas metades dividem o prêmio. Permite prêmios maiores (100k, 200k) sobre os mesmos 100 números — é a razão de negócio da feature.
+
+**Por que ela não pode ser story hoje:**
+
+1. **Quebra a premissa de um dono por linha.** Hoje `product_numbers` tem uma linha por número e a reserva é um `UPDATE ... WHERE status = 'available'` — atômico *porque* cabe exatamente um dono. Com metades, a linha passa a ter dois donos possíveis e três estados de ocupação (vazio / meio / cheio), e o `UPDATE` condicional atual deixa de ser suficiente.
+2. **Dobra a contenção.** O mesmo número passa a ser disputável duas vezes. Com esgotamento medido em 18 min no pior caso, isso dobra a pressão exatamente no ponto que `LTM-01` e `LTM-02` estão consertando.
+3. **Muda o rateio de prêmio**, que é dinheiro do ganhador — território onde mexer sem a suíte de `LTM-05` é irresponsável.
+
+**Dependência explícita:** a modelagem passa por `/grill-with-docs` **depois** de `LTM-01`, `LTM-02` e `LTM-05` estarem Done. Só então vira story.
+
+---
+
+## Sequenciamento e dependências
+
+```
+LTM-05 (testes) ──┬─► LTM-02 (transação) ──┬─► LTM-03 (webhook fecha pedido)
+LTM-01 (índices) ─┘                        └─► LTM-04 (atribuição + API de leitura)
+
+Frente A completa ──► Frente C (cota dividida, após /grill-with-docs)
+Baseline Sorteamos ──► Frente B (paridade)
+```
+
+**Ordem de execução recomendada:** `LTM-05` + `LTM-01` → `LTM-02` → `LTM-03` + `LTM-04`.
+
+### Por que esta ordem
+
+| Aresta | Razão |
+|---|---|
+| `LTM-05` antes de `LTM-02` | O teste de concorrência da reserva é **o critério de aceite** da LTM-02: ele tem que falhar antes e passar depois. Sem a suíte, "ficou atômico" é afirmação sem prova. |
+| `LTM-02` antes de `LTM-03` | Fechar pedido sem transação recria o problema que a LTM-02 resolve — marcar `orders.paid` + `product_numbers.sold` + `banking_transactions` em três `UPDATE` soltos é a mesma classe de bug, agora com dinheiro já capturado. |
+| `LTM-01` independente | Só toca schema e migração. Pode rodar em paralelo com a LTM-05. |
+| `LTM-03` e `LTM-04` em paralelo | Arquivos-fonte disjuntos (ver nota de ondas abaixo). |
+
+### Nota para formação de ondas (`.claude/rules/parallel-waves.md`)
+
+- **Onda 1:** `LTM-05` (`tests/`, `package.json`, config de teste) + `LTM-01` (`src/db/schema/raffles.ts`, migração). Arquivos disjuntos.
+- **Onda 2:** `LTM-02` sozinha (`src/db/index.ts`, `src/lib/actions/reserve.ts`, `src/lib/actions/checkout.ts`, `package.json`).
+- **Onda 3:** `LTM-03` (`src/app/api/webhooks/...`, `src/db/schema/payments.ts`) + `LTM-04` (schema de atribuição, `src/lib/actions/reserve.ts`, rotas novas em `src/app/api/v1/`).
+- ⚠️ **Recurso mutável compartilhado:** o journal do Drizzle (`drizzle/meta/_journal.json`) é tocado por qualquer story que gere migração. Duas `drizzle-kit generate` concorrentes colidem. **Serializar o passo de geração de migração** mesmo quando as stories rodam em paralelo.
+
+---
+
+## Critérios de "pronto para migrar o cliente"
+
+A migração do Império só é autorizada quando **todos** os sete portões abaixo estiverem verdes. Nenhum deles é opinião.
+
+| Portão | Critério | Como se comprova |
+|---|---|---|
+| **G1 — Fundação** | `LTM-01` a `LTM-05` em Done | Suíte verde; o verificador de invariantes da LTM-05 passa no cenário de concorrência |
+| **G2 — Paridade** | Zero tela vazia no caminho do operador do Império; os exports da Sorteamos reproduzidos | Checklist derivado da baseline (`docs/research/2026-11-16-baseline-sorteamos/`), item a item |
+| **G3 — Atribuição e BI** | O ETL (`services/Meta/imperio-premios/client_api.py`) e o CAPI leem o lotemania **sem perda de campo** | Janela de leitura dupla: mesmo período lido das duas plataformas produz o mesmo faturamento e a mesma contagem de pedidos pagos |
+| **G4 — Carga** | Cenário medido executado em staging: 5 rodadas simultâneas de 100 números, esgotando no ritmo do pior caso real (~5,5 números/minuto) | Zero oversell, zero pedido órfão, zero número com dois donos — verificador de invariantes da LTM-05 ao final |
+| **G5 — Dinheiro real** | Pelo menos **um** pedido pago ponta a ponta com gateway PIX real, em produção, num sorteio de teste | Pedido `paid`, números `sold`, `banking_transactions` com o crédito, evento de webhook casado |
+| **G6 — Reversão** | Plano de volta à Sorteamos escrito **e exercitado uma vez** antes do corte | Registro do ensaio de reversão com tempo medido |
+| **G7 — Dado pessoal** | A migração de histórico respeita a política de 2026-11-12 (`docs/ESTADO-ATUAL.md` §1-A) | Nenhum CPF, telefone, e-mail ou nome em artefato versionado; varredura antes de cada commit |
+
+**G1 a G5 são bloqueantes para o corte. G6 e G7 são bloqueantes para o commit do corte.**
+
+---
+
+## KPIs de sucesso do epic
+
+- [ ] Reserva em sorteio com 1 milhão de linhas em `product_numbers` sem `Seq Scan` (comprovado por `EXPLAIN`)
+- [ ] 100% do caminho do dinheiro dentro de transação — zero compensação manual no código
+- [ ] Evento de webhook reentregue 5× produz **1** pedido pago e **1** lançamento bancário
+- [ ] Todo campo de atribuição que o `client_api.py` lê hoje existe e chega preenchido no lotemania
+- [ ] Suíte roda contra Postgres de verdade e cobre o ramo de falha de cada arquivo do caminho do dinheiro
+
+---
+
+## Riscos do epic
+
+| Risco | Severidade | Mitigação |
+|---|---|---|
+| Corte com paridade incompleta derruba o faturamento do cliente | **Alto** | G2 bloqueante; corte só com a baseline fechada e conferida item a item |
+| Perda de atribuição no dia do corte cega o CAPI e o BI | **Alto** | G3 exige janela de leitura dupla antes do corte, não depois |
+| Criação de índice em tabela grande no momento da importação do histórico | **Médio** | Criar os índices **antes** de importar histórico, com a tabela vazia (ver LTM-01) |
+| Migração de dados pessoais do Império para artefato versionado | **Médio** | G7 — política já escrita no `.gitignore` desde 2026-11-12 |
+| Cota dividida entrar antes da fundação fechar | **Médio** | Frente C explicitamente bloqueada por A; registrado acima |
+| Driver WebSocket (`neon-serverless`) se comportar diferente no runtime do Next | **Médio** | LTM-02 exige smoke em `next build` + `next start`, não só em teste |
+
+---
+
+## Referências
+
+- App: `apps/lotemania/` · levantamento honesto em `apps/lotemania/README.md`
+- Estado do sistema e política de dado pessoal: `docs/ESTADO-ATUAL.md`
+- ETL que hoje lê a Sorteamos: `services/Meta/imperio-premios/client_api.py`
+- CAPI em tempo real (consome `data.params` do `order.paid`): `apps/webhook-imperio-capi/api/order-paid.js`
+- Captura de UTM própria: `apps/utm-capture-imperio/api/capture.js`
+- Stories: `docs/stories/03-Product/EPIC-LTM-Imperio-Migration/`
+
+---
+*A plataforma que não vende não migra. A que vende errado migra o erro junto.*
