@@ -59,6 +59,11 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 4. **API de leitura com contrato idêntico ao que o ETL já consome**, para que a migração do `client_api.py` seja **trocar a URL base e nada mais**. Dois endpoints, 0-indexados, com os mesmos filtros.
 5. **O evento de saída `order.paid` reusa `outbound_webhooks`**, que já existe no schema (`src/db/schema/integrations.ts`, com `outbound_webhook_deliveries` para a trilha). Não há infraestrutura nova a construir — há um payload a emitir no formato que o `order-paid.js` já lê.
 6. **Autenticação obrigatória e nada a mais do que o necessário.** Os endpoints devolvem dado pessoal do comprador; respondem só autenticados, escopados ao tenant. O que a resposta inclui é o que o ETL comprovadamente lê — nada "por conveniência futura".
+7. **A integração nativa de Meta Ads da Sorteamos fica de fora desta story — e isso é deliberado.** A observação ao vivo revelou cinco rotas que não conhecíamos (`/api/meta-ads`, `/config`, `/active`, `/fetch-account-ids`, `/associate-account-ids`): a plataforma associa contas de anúncio nativamente.
+
+   Isso **não muda** o que a LTM-04 faz, porque o contrato de saída desta story vem dos dois consumidores que já rodam (`order-paid.js` e `client_api.py`), não da plataforma. Mas levanta uma pergunta que vale responder **antes** de construir: se a Sorteamos já associa conta de anúncio, **por que `utmSource` chega vazio hoje?** Ou a integração não está configurada, ou ela preenche outro campo que não estamos lendo.
+
+   **Ação:** observar `/api/meta-ads/config` no painel antes de implementar. Se a resposta for "a integração existe e preenche", o Achado A muda de causa e a captura própria pode ser menor do que esta story supõe. Se for "nunca foi configurada", esta story segue exatamente como está. **Não bloqueia** — a captura de primeiro toque é necessária nos dois cenários.
 
 ## Tarefas (Checklist)
 

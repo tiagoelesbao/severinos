@@ -25,7 +25,8 @@ Fonte: `apps/lotemania/README.md` (levantamento de 2026-11-16) e leitura direta 
 | | |
 |---|---|
 | Arquivos / linhas | 187 · 14.462 |
-| Páginas de dashboard | 27 — **3 são arquivos vazios**; `reports` tem **22 linhas** |
+| Páginas de dashboard | 27 — **1 vazia de fato** (`social`); `analytics` tem 20 linhas; `reports` tem **149 linhas em 2 arquivos** |
+| Gateway de produção | **`paysure` não existe no enum** — o lotemania não consegue nem representar quem recebe o dinheiro |
 | Transações no banco | **zero** `db.transaction()` em 14.462 linhas |
 | Índices em `product_numbers` | **nenhum** (o comentário no schema afirma que existe) |
 | Pedidos pagos de verdade | **zero** — o webhook de pagamento é um `TODO` |
@@ -34,6 +35,8 @@ Fonte: `apps/lotemania/README.md` (levantamento de 2026-11-16) e leitura direta 
 | Testes | **zero** |
 
 É um **andaime**. O esqueleto e o schema estão certos; a profundidade não existe.
+
+> **Correção de medição (2026-11-16).** A primeira versão desta tabela dizia "3 páginas vazias" e "`reports` com 22 linhas". Estava errado: a medição contou só o `page.tsx` de cada pasta e generalizou. Recontado pela pasta inteira, **só `social` é vazia** e `reports` tem 149 linhas. O erro foi medir o arquivo de entrada e concluir sobre a feature — a tela mora na pasta. Registrado aqui porque três documentos propagaram o número errado antes da correção.
 
 ### O que a migração tem que aguentar
 
@@ -62,7 +65,7 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 | Frente | Objetivo | Stories | Status |
 |---|---|---|---|
 | **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01` a `LTM-05` | **Draft — este epic** |
-| **B — Paridade** | Fechar a distância funcional contra a Sorteamos: telas vazias, `reports`, os 3 exports | *a definir* | **Bloqueada** pela baseline em extração (`docs/research/2026-11-16-baseline-sorteamos/`) |
+| **B — Paridade** | Fechar a distância funcional contra a Sorteamos: `social`, os 3 exports por sorteio, os 3 tipos de `/reports`, mídia em S3 | *a definir* | **Escopo aberto** — baseline fechada o bastante para desenhar, mas **3 decisões de produto pendentes** (B1/B2/B3 abaixo) e as 14 abas do editor ainda não observadas |
 | **C — Features novas** | O que o cliente pediu e a Sorteamos não faz — começando pela **cota dividida** | *a definir* | **Bloqueada** por modelagem (`/grill-with-docs`) **e** pela Frente A |
 
 ### Frente A — Fundação (escopo deste epic)
@@ -77,7 +80,36 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 
 ### Frente B — Paridade (fora deste epic)
 
-O escopo da paridade **não é inventado aqui**. Ele vem da baseline da Sorteamos que está sendo extraída em `docs/research/2026-11-16-baseline-sorteamos/`. O que já se sabe sem a baseline, do próprio levantamento do app: 3 páginas de dashboard são arquivos vazios, `reports` tem 22 linhas contra 3 exports na Sorteamos. As stories da Frente B nascem quando a baseline fechar.
+O escopo da paridade **não é inventado aqui**. Ele vem da baseline da Sorteamos em `docs/research/2026-11-16-baseline-sorteamos/`, agora com observação ao vivo do painel (documento `06`). Três achados **mudam o enquadramento da frente inteira** e precisam de decisão do dono do negócio antes de virar story:
+
+#### B1 — "Paridade visual idêntica" é uma decisão de template, não de implementação
+
+A identidade visual da Sorteamos **é o Minimal UI**, um template React admin comercial, com uma paleta verde por cima. Provado pelos ícones `ic_*.svg`, pela fonte Public Sans e pela rota de demonstração `/user/reece-chung/edit` deixada no bundle.
+
+Reconstruir isso à mão é refazer um template que se compra. **Decisão:** adotar o mesmo template no lotemania (paridade visual sai quase de graça), ou assumir identidade própria e tratar "idêntico" como "equivalente em função". Não é escolha de engenharia.
+
+#### B2 — Analytics não é uma feature a replicar; é andaime morto
+
+A tela `/dashboard/analytics` da Sorteamos exibe **dados fictícios do template, intocados**: "Bug Reports 234", séries "Team A / B / C", eixo de Jan '03 a Oct '03, pizza por continente. **Nenhum número ali vem do Império.**
+
+Clonar isso seria clonar andaime. A tela `analytics` do lotemania, com suas 20 linhas, já é mais honesta que a original. Isto **elimina** a story de paridade de Analytics e a substitui por uma pergunta de produto: construir analytics de verdade (o BI do Império já existe e faz isso), ou remover o item da barra lateral.
+
+#### B3 — O escopo de integrações encolheu por decisão do founder
+
+A Sorteamos expõe 104 endpoints, incluindo 19 gateways e integrações de WhatsApp, SMS e push. **Decisão do founder em 2026-11-16: só a `paysure` importa agora.** z-api, wizebot, onesignal, paposms, liguelead, dxmidia e nexopro **saem da paridade**. O que sobra de gateway vira um item da `LTM-03`, não uma frente.
+
+#### O que de fato sobra para a Frente B
+
+| Item | Origem | Tamanho |
+|---|---|---|
+| `social` — única tela vazia de verdade | levantamento do app | pequeno |
+| Os 3 relatórios do menu por sorteio (Vendas, Expirados, Participantes) | exports reais do cliente, já em `docs/research/.../05` | médio — é contrato de coluna, não tela |
+| Os 3 tipos do `/reports` (`sales_by_day`, `top10_buyers`, `top10_regions`) | observação ao vivo | médio |
+| `/settings/payment-errors` e `/settings/security-blocks` | só existem na Sorteamos | a dimensionar |
+| As 14 abas do editor de sorteio | **ainda não observadas** | desconhecido — é o maior buraco restante |
+| Armazenamento de mídia (S3) | hoje `products.imageUrl` é só string | médio |
+
+**Bloqueio restante:** as 14 abas do editor e o modal de Faturamento continuam não observados. A passada de observação parou porque **a sessão do painel expirou** — precisa do founder logado para continuar.
 
 ### Frente C — Features novas: a cota dividida (escopo futuro, **não vire story agora**)
 
