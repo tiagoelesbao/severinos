@@ -6,10 +6,20 @@
 <title>Império — Conheça a gente</title>
 <meta name="description" content="Conheça a Império e fique por dentro do que está acontecendo." />
 <link rel="icon" type="image/png" href="favicon.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="montserrat-variable.woff2" crossorigin>
 <style>
+  /* Montserrat self-hospedada: o Google serve todos os pesos (400-900)
+     no MESMO arquivo woff2 variável — uma única @font-face com range de
+     peso cobre os 5 <link> que a versão por Google Fonts precisava, e
+     elimina a cadeia de DNS/TLS/CSS/font externa (fonts.googleapis.com
+     + fonts.gstatic.com) que bloqueava o primeiro parágrafo de texto. */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400 900;
+    font-display: swap;
+    src: url('montserrat-variable.woff2') format('woff2');
+  }
   /* 2026-10-15: paleta clara refeita com critério de design system, não
      um dark-mode invertido às pressas. Todo neutro (fundo, bordas, texto
      secundário) tem o MESMO viés de matiz (um ivory quente, ~40° no
