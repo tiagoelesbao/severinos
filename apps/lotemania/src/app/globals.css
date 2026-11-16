@@ -1,0 +1,132 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Lotemania admin is always-dark (navy + emerald), matching the
+   * original Sorteamos panel — there is no light mode here. */
+  --background: #0d1117;
+  --foreground: #e6e9ee;
+  --card: #171e2b;
+  --card-foreground: #e6e9ee;
+  --popover: #171e2b;
+  --popover-foreground: #e6e9ee;
+  --primary: #10b981;
+  --primary-foreground: #06201a;
+  --secondary: #1f2937;
+  --secondary-foreground: #e6e9ee;
+  --muted: #1a2230;
+  --muted-foreground: #8b96a5;
+  --accent: #1f2937;
+  --accent-foreground: #e6e9ee;
+  --destructive: #ef4444;
+  --border: #242d3b;
+  --input: #1b2435;
+  --ring: #10b981;
+  --chart-1: #10b981;
+  --chart-2: #f59e0b;
+  --chart-3: #3b82f6;
+  --chart-4: #a855f7;
+  --chart-5: #ef4444;
+  --radius: 0.625rem;
+  --sidebar: #0f1521;
+  --sidebar-foreground: #e6e9ee;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #06201a;
+  --sidebar-accent: #171e2b;
+  --sidebar-accent-foreground: #e6e9ee;
+  --sidebar-border: #242d3b;
+  --sidebar-ring: #10b981;
+}
+
+.dark {
+  --background: #0d1117;
+  --foreground: #e6e9ee;
+  --card: #171e2b;
+  --card-foreground: #e6e9ee;
+  --popover: #171e2b;
+  --popover-foreground: #e6e9ee;
+  --primary: #10b981;
+  --primary-foreground: #06201a;
+  --secondary: #1f2937;
+  --secondary-foreground: #e6e9ee;
+  --muted: #1a2230;
+  --muted-foreground: #8b96a5;
+  --accent: #1f2937;
+  --accent-foreground: #e6e9ee;
+  --destructive: #ef4444;
+  --border: #242d3b;
+  --input: #1b2435;
+  --ring: #10b981;
+  --chart-1: #10b981;
+  --chart-2: #f59e0b;
+  --chart-3: #3b82f6;
+  --chart-4: #a855f7;
+  --chart-5: #ef4444;
+  --sidebar: #0f1521;
+  --sidebar-foreground: #e6e9ee;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #06201a;
+  --sidebar-accent: #171e2b;
+  --sidebar-accent-foreground: #e6e9ee;
+  --sidebar-border: #242d3b;
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
