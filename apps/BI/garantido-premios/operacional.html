@@ -26,7 +26,7 @@
   <p class="periodo-label">Fonte: beacon próprio (<code>/api/beacon</code> → tabela <code>lp_eventos</code>), não o pixel da Meta — a API de stats do pixel não quebra por parâmetro customizado, só por nome de evento, então não dava pra comparar v1×v2 entre si. Dado 100% nosso, desde 2026-10-30 (data de nascimento do beacon — não compare contra período anterior).</p>
   <div class="table-wrap">
     <table id="tabela-lp-eventos">
-      <thead><tr><th>Versão</th><th class="num">PresselPageView</th><th class="num">ClickSorteios</th></tr></thead>
+      <thead><tr><th>Versão</th><th class="num">PresselPageView</th><th class="num">ClickSorteios</th><th class="num">ClickGroup</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -76,7 +76,7 @@
 let DADOS = null;
 const ORDEM_FUNIL = ['PageView', 'ViewContent', 'AddToCart', 'InitiateCheckout', 'Purchase', 'Lead', 'ClickSorteios'];
 const FUNIS = [
-  { origem: 'pressel', titulo: 'Funil da pressel', nota: 'Página-ponte: o clique acontece aqui, a compra acontece na plataforma. Base de 100% é o PageView da pressel.', ordem: ['PageView', 'ViewContent', 'ClickSorteios'] },
+  { origem: 'pressel', titulo: 'Funil da pressel', nota: 'Página-ponte: o clique acontece aqui, a compra acontece na plataforma. Base de 100% é o PageView da pressel. ClickGroup (2026-11-14) é o clique no botão de entrar no grupo de WhatsApp direto pela pressel — caminho separado de ClickSorteios, que vai pro site.', ordem: ['PageView', 'ViewContent', 'ClickSorteios', 'ClickGroup'] },
   { origem: 'site', titulo: 'Funil da plataforma (garantidopremios.com)', nota: 'Todas as origens de tráfego somadas (anúncio, grupo, orgânico, direto) — não é só uma campanha. Base de 100% é o PageView da plataforma.', ordem: ['PageView', 'ViewContent', 'AddToCart', 'InitiateCheckout', 'Purchase', 'Lead'] },
 ];
 
@@ -130,7 +130,7 @@ function render(periodoInicio, periodoFim) {
   // --- Funil por versão de LP, filtrado por período ---
   const tbodyLp = document.querySelector('#tabela-lp-eventos tbody');
   if (!d.lp_eventos_diario || !d.lp_eventos_diario.length) {
-    tbodyLp.innerHTML = '<tr><td colspan="3" style="color:var(--muted);">Sem dado — tabela lp_eventos ainda não existe ou beacon não recebeu evento no período.</td></tr>';
+    tbodyLp.innerHTML = '<tr><td colspan="4" style="color:var(--muted);">Sem dado — tabela lp_eventos ainda não existe ou beacon não recebeu evento no período.</td></tr>';
   } else {
     const porVariant = {};
     d.lp_eventos_diario.filter(r => r.dia >= periodoInicio && r.dia <= periodoFim).forEach(r => {
@@ -139,8 +139,8 @@ function render(periodoInicio, periodoFim) {
     });
     const variants = Object.keys(porVariant).sort();
     tbodyLp.innerHTML = variants.map(v => `
-      <tr><td>${v}</td><td class="num">${formatNum(porVariant[v].PresselPageView || 0)}</td><td class="num">${formatNum(porVariant[v].ClickSorteios || 0)}</td></tr>
-    `).join('') || '<tr><td colspan="3" style="color:var(--muted);">Sem evento no período.</td></tr>';
+      <tr><td>${v}</td><td class="num">${formatNum(porVariant[v].PresselPageView || 0)}</td><td class="num">${formatNum(porVariant[v].ClickSorteios || 0)}</td><td class="num">${formatNum(porVariant[v].ClickGroup || 0)}</td></tr>
+    `).join('') || '<tr><td colspan="4" style="color:var(--muted);">Sem evento no período.</td></tr>';
   }
 
   // --- Cliques do grupo, filtrado por período ---

@@ -1,0 +1,2 @@
+- [Varredura de PII por conteúdo, não por nome](feedback_pii_scan_by_content_not_filename.md) — relatório .md carrega telefone real de cliente; filename scan dá zero falso-negativo tranquilizador.
+- [Vercel: link por CLI, sem gatilho de git](project_vercel_cli_linked_no_git_trigger.md) — os 8 apps não são git-connected; push nunca deploya, e revert nunca desfaz deploy.

@@ -246,7 +246,7 @@ def pull_meta_insights():
 # simplesmente cai no bucket default sem precisar editar isto de novo.
 SITE_SUFIXOS = ("garantidopremios.com",)
 
-EVENTOS_FUNIL_HOST = ["PageView", "ViewContent", "AddToCart", "InitiateCheckout", "Purchase", "Lead", "ClickSorteios"]
+EVENTOS_FUNIL_HOST = ["PageView", "ViewContent", "AddToCart", "InitiateCheckout", "Purchase", "Lead", "ClickSorteios", "ClickGroup"]
 
 
 def _classificar_origem_host(host):

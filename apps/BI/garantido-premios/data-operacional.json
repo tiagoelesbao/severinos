@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-13T14:53:13.376728-03:00",
+  "atualizado_em": "2026-11-16T09:53:34.064529-03:00",
   "periodo_dias": 30,
   "conta_anuncio_ativa": "act_28685818161087189",
   "meta_ads": {
@@ -8,12 +8,12 @@
       {
         "id": "52590612488572",
         "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — Cópia",
-        "status": "ACTIVE"
+        "status": "PAUSED"
       },
       {
         "id": "52585846881972",
         "nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
-        "status": "ACTIVE"
+        "status": "PAUSED"
       },
       {
         "id": "52585837725172",
@@ -29,14 +29,29 @@
         "id": "52585083931572",
         "nome": "Nova campanha de Engajamento",
         "status": "PAUSED"
+      },
+      {
+        "id": "120253524977510736",
+        "nome": "Nova campanha de Vendas — Cópia",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "120253516815310736",
+        "nome": "Nova campanha de Vendas",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "120253512910890736",
+        "nome": "Nova campanha de Engajamento",
+        "status": "ACTIVE"
       }
     ],
     "campanha_totais": [
       {
         "id": "52585846881972",
         "nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
-        "gasto": 2111.47,
-        "impressoes": 24789,
+        "gasto": 2112.59,
+        "impressoes": 24800,
         "cliques": 614,
         "ctr": 2.48
       },
@@ -47,6 +62,22 @@
         "impressoes": 6021,
         "cliques": 98,
         "ctr": 1.63
+      },
+      {
+        "id": "120253516815310736",
+        "nome": "Nova campanha de Vendas",
+        "gasto": 98.69,
+        "impressoes": 2041,
+        "cliques": 104,
+        "ctr": 5.1
+      },
+      {
+        "id": "120253512910890736",
+        "nome": "Nova campanha de Engajamento",
+        "gasto": 23.77,
+        "impressoes": 1189,
+        "cliques": 12,
+        "ctr": 1.01
       },
       {
         "id": "52585083931572",
@@ -204,29 +235,47 @@
       },
       {
         "dia": "2026-11-13",
-        "gasto": 94.03,
-        "impressoes": 1614,
-        "cliques": 15
+        "gasto": 98.79,
+        "impressoes": 1850,
+        "cliques": 57
+      },
+      {
+        "dia": "2026-11-14",
+        "gasto": 59.4,
+        "impressoes": 1612,
+        "cliques": 61
+      },
+      {
+        "dia": "2026-11-15",
+        "gasto": 52.16,
+        "impressoes": 1198,
+        "cliques": 9
+      },
+      {
+        "dia": "2026-11-16",
+        "gasto": 7.26,
+        "impressoes": 195,
+        "cliques": 4
       }
     ],
     "totais": {
-      "gasto": 2371.68,
-      "impressoes": 32974,
-      "cliques": 715,
-      "ctr": 2.17
+      "gasto": 2495.26,
+      "impressoes": 36215,
+      "cliques": 831,
+      "ctr": 2.29
     },
-    "total_anuncios": 14,
+    "total_anuncios": 19,
     "ads": [
       {
         "ad_id": "52590612489372",
         "nome": "[VD][20261112] - Copy 01",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897554453_1159556416614071_913352446198235736_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=W8O9327D25AQ7kNvwH1WKFY&_nc_oc=AdqOTKqR75Cx3z0-pLq1lAR6y5Os400oALSpjY8Jcb9PIe98QGr-gAx0w46FxBvMNPD4WjQj40ScP6lOV9lhpXEV&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQLIwE8SLFoDwq3ybQS0_CFsE-FkKI5jOrYLGWW9UIHkAJNC4trX0dSBXiQFJPpllEYzbUaP__spXw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQSGS847qYoD-zqNF2zwZurl2OknDhupApADAxgA6nCLHA&oe=6AFD1A2D",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897554453_1159556416614071_913352446198235736_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=-7GZtNl6h-gQ7kNvwHTq9me&_nc_oc=AdrB1kKT0JnROVs_UUzVkqg7N6GSVKUkiCapGppRG-oEWm24OSFnE-jOZYclz7HUmT1HrfIXKObE-8iyPhdhhJIp&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQLPe8NW_NddlwwqvGCTDF3j-PaA28HlrKCVg1EhyuC9qPFSziLoeGBqcz_8pXof5dRay-hdRW3Brg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQTmFD3uDQaMeZo_HTMd2p453E2WH0tgFAaz6Y9_U0YC2g&oe=6B00D66D",
           "image_url": null,
           "video_id": "1422792029841931",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLEKxaauAwFtCs2IiAKMamLtm5tBz-R844Kqqh1qGmiut10Xe0I4UhZUD1abo0mFObrsnZ_QNFNzBXpfvWrcadvOvnaQgMiPeqWzV25iXUEhPK5NnJ7TJgPoQGraClnervdByZ8so4kZ0acCUSxDK21bDkbDS4vvV7Qkkz7IUWetWsZuq6oYQuHte8Xz3_ILczxbFXWHmXJtgGi2PQSvb3gqU2htCuoxkSdA_7aodYv3_--_J9pM5nlfQ50EcAJ3lVGj9gMdBYkNFcbTWDTIjIbpQQ-Ue1jDcWniFgLdSeVXucU9_3eFREoG_h7ZDOSlxnN0XnAIzUwVQRexTYq2HqgMSr7tdPjD6bOMq7-a8QslQCyE4RM0ASDqbZFX49ijiOpPvQJu7WJUpnT2ELfMOeSBxELc0Mvf5bu6gY7x8NAsM0wYfoFDlDRPQnnWVqXUfI&amp;t=AQLCxwqNbRxqWozXoCg\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKdK8W0KDyooO9Jvp78H3oysrjt0qVAG9gQEtsFBQdDfiWxOl_n_Fk0PDgDC5HbX3LggWWWT3ePy8hd5ztyWJTujTUvXXyiTFlRGmsHgjL3n-x_B-gVLAByKPLgKCRSko2Qsv9K6NFpj9lLhydV-r8D5pv6Ib5c5ZRmQkZbqeJH2nW5uKMkCy_dgycLYAp1K90A5N9k-hDv0Fzmq6aOq4kGXYvFyGdMgvNyEvauh-1gm8NPMSD8VrugCG714z4uoGZUx7Sxh4eImcoQ83rQY8DS4EhblO7A1R7pyjLak_guwraxOX2NbK0WsWWlY5kOeNUCqWhIH3revQwWlZjURM98XsiAzsFOFk1aRcITZ8tYOgY-cGncTJFSOfH_QGQ67hKhF66_RPWEPAHsFl7y17QZDUoDkSy7DU3Ig7IJsOOi0facYc94k3fqUKd-_3xTSM4&amp;t=AQL3vK8UifMn3Dt1bfM\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -234,11 +283,11 @@
         "nome": "[PUBLI][20261112] - Copy 01",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899863634_1181146617636197_2256294393784777869_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=F9Abnug95J4Q7kNvwFx1HZ9&_nc_oc=AdqUB-6ZcY7PnmQDRpLaOl3hdtwkKCoH2sd-DU6ng3w-SE8qorPcFR5rXL0s6a73XPPGWBeplEM8-QkDLYZKKPsX&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQI6jwJcsgLplxf9VTkZf-AwgD0zatObmRh0OE4B7Aa_G9r0wCotWFS8zfGuJCelBhEW-DyaozHh6Q&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQTQOZ4cc_0leqgcB1GGA7kSh59QmeA_Qd15LlyDzUx9WA&oe=6AFD11A8",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899863634_1181146617636197_2256294393784777869_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=U_npMmJO9bQQ7kNvwHhM_sU&_nc_oc=AdrNuRVW3XR5m337Rnof4b07uq2ZuhwfOeJBvRLivuceAnkvTOnH-EreDH2yjWBStX0qZqm6PlkKgUVVCUrDgfk-&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQK4MyY1inMtlOrLZNjnXlBHOLCuKBq98KTbhG_FkcgD2-XLMDMEW4IDxa4mRfEDFO1YB82ab-pSEw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQSQPFy-s6At5rWjv1sMOaiDS5tVOB7UmP0xtLn6KJdi2w&oe=6B00CDE8",
           "image_url": null,
           "video_id": "1181146604302865",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLwrvU2yJdanxbiGIAHmBjuQTBvS-sRtFSJBB8x68BWlkOfQImJ_uCb-ot4mk_fs5Sf7a39TZ1TTAziBdwA9Nfk4xxcZlfN_qtXIPJ38dsDYAYvd2C_tZ50DNkK57OkqAyIo-Y3V4V0Cvpvy7U3HNg7L_Tq55fOfvrOHNYVULC4lCqXdSSVOUKTAuFdIHTRFrdtKlxWxYxihqEGalBIpUIh76sLcqB9laMDxFxdZC0KtYkGePtwsxZfwfIeZa_Se6pxEegsnUO1D9n5NsRXKlNdPsEsOmlhEUzbb01aEvWtucQ7WE2RUm_EBjJL5IcTfGi72eeIJsh4ef8EFfWJj9f4rj-xQR8RK7_WpvQ0SZ8lZHDNoFflY4k1-hK5xNjfdC39-bbH2CyjydL-0yJcdobH4E6_GUSKSrTp8FYwQ-d97a3j3syDr0xu6XHS5WYF7yk&amp;t=AQLB4Qw9ZVgjYDKKMfM\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLRI1YQLONLunAvj4CQB0go-qM49FD4TLVsptnawWieztnWgfGOiHr7yZz93JS5oBB53Cfd4Nv8qetwauDYLMUVJ5Y1YqcM442UTbnLqAUb0pzHjYcNokiOd3VhnsrO67dEsAizOhpOtSwELHEOy_VSOxqUg1JunB3mlu3eNvgvkAMyR6w9REgKbLi1QOlW71sp5Q2YUniFvvrkN7uPFbSZpaPjrn3PCfgc64ALEKKF2r-Ki4Kigc07Qu_YOVgH_t3TecwzFQxLVg3ZJ1D12e6ygz8aHm3DN47ZOSsRgG5QGt0FMUBKf1nbs8FviVDdtaNj5CgeoD9n8vN39w9i0rQrz88L_Mo0PcwEVL-LwcKyI1toEAEmLjgonYxryN1mUKFjQu7kDbpaN3hcTwFPsppARdOHl1jt0DOmVJQqsENL_Ls-VLspkbDbEqeM20kk8W4&amp;t=AQIHmbYLGWfQwoA9HRY\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -246,11 +295,11 @@
         "nome": "[VD][20261112] - Motion 02",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899828647_1659319905840185_7680304498610929074_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=iwsCOtSIWo4Q7kNvwEjzm-q&_nc_oc=Adou9LU-HwAEnKZHAVXPvise15LKaCts-9QovQSG2IlyuX06jb7ejkvDiN8EJFUkXgLNM_2rnzXLkHwgCgTtj39F&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQIzHQSCg_o0w0uMMlUPJkh6QuFOYtwbpO46iTI9jytVm_KI11VRLMiCeEwYxvedlWmjc90JwwEgdQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQSWIw0Zy28aHDtA9K1W_MkqPesCSjTK9pmmuGaoUTNmjA&oe=6AFD148B",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899828647_1659319905840185_7680304498610929074_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Gr_3bQImINYQ7kNvwG_TgTX&_nc_oc=AdqOXk80vaANsWVgFQnRuKgZ1D4OQ-F0dIPY_IXF56AguCpOEIs9MWAErNfZZp21DcB_gxsv0pE70YfL-t4CYYCO&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQLa299DhRb-A8pO6msbG2-6DnGza5TcFZktNgUo9EgQV6QckMCnv-s7yM2jguhPCGjGbf7qCFLy7w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQpbWMxaV6HmshQZ0SFlppVXNdmFL93pcU0vvraagslmg&oe=6B00D0CB",
           "image_url": null,
           "video_id": "1427712879432740",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQL3R9BbQxehHkwRoLfdqFEVVsJzmpfAFGZORAcbcLRsP9FgV_o931S9x08bDmjCcO_cm9NoHWQU973xD48eJJC6uaKO7Aqb-TuS2bkRn4UZVDR5_EcVq6xVMN_4pH-n62Dt5wQVjJE3KjP6MC8z-04wItV0LZP_hAy44yrXxmOlSG7_ISh-tCMryX4M0NmaIi9KRz3t39e4u5sMLKUc-85e3RfRu7mQlTBgbm07K9p3b2Ou06wFvSEVvnkcs14l0OCmiEpOBAX87LT-PvqeN2FTCQq4lI3QciSA56Iu-XL-o0HXh_Rmnh9xfpQ_0RPzBYX_txWLo8k3MegO_lYeGwCZLAuHHej_i2HaPNKX-YJNrZNSZ3VBdD5pv_oS-I9od7SJbu1eJO_BvrNwyDrBCHbOWG06iogXleJ9sdwy3Ax9onCqk1A30qRNF8PCn1lxerM&amp;t=AQISYLDO-XhmGVujNJo\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJ5rl8PQV5sTXPnPq0ziWLzYFDKbKjyWXbpTRbfZjJIQb-nnQXKVJoPF5cJgs0BP6ymfRz-5lnkXBKwSvFxn3FAGVorSw21TJiNo0fwtStIErvd_aronPtZDf8lk_BxSXCyN5evMiv5JbrZQbAsFGeD3vZ5ESVF9-m0I0esVRcEznlk6Q20mMhUkJAQQVDMs5VuwwpdYHLzm8l5k-ru6o43fX_OleKpqWIrw3_rpGfbTJ6uJfaeqyH_a-7WFKCOiiR8K0idQzlGPIz-clso7LUqxV509RhXekXLlyGBO2QBTtIGwbkBfHMRkOfYAeb4RioDTEJJ7XKIn_avER4KX_EKL3c4WG0PBZn5GZ6RzySBnpZJS5xapIpPPGAun3A3o_MfBRMKYJOF31pFCDThdmdgZKKGn2tHGeogoFqn187hF1et8AqI24EfOay1SskM9EI&amp;t=AQICIez1wXUq94rAtEk\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -258,11 +307,11 @@
         "nome": "[VD][20261112] - Motivação 02",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/896560887_1078610721864170_1573138927780442158_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=MaFSTmdeABkQ7kNvwHthunh&_nc_oc=AdqZChKiBxx45fVerPjwGru0TbiK1sJY0Fe4jwBkJWqN6pGGKWUtu7prcz1lGem1HkdgsYgBBL7f0jll6Kdd5cKo&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQJQhK9xSoRVBNmO2-5ke4Ze9qw8lwZabnONp0WRXUPOZ-If9t5uj88zKnXFQSMo6RCjHVqUtmEa4w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQTSNszJcXCwAboJYHGsIkLMD8T5zAalsxPqFs85B3dkVg&oe=6AFD2714",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/896560887_1078610721864170_1573138927780442158_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=MaFSTmdeABkQ7kNvwFIlRuZ&_nc_oc=AdqHq6gk-UJBfWGO9CK2AI2hIa__8S22Jf0R9HqH3ox-rHYMi_ryu-JfHtgPzZJlOgijkg6lpdlFfo-HTzCbQjhx&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQKP6ftdgsHf9082gm7FNHmeV8kjibUmRTx2L1gSb9NhwHu56PfOxP0hRVkBv_IZB2lcrdbfYV8whw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRpsZ2DyZkMLgAX-hhHg_9bVpkfXVVZu3BcGh1tqmmZ0w&oe=6B00E354",
           "image_url": null,
           "video_id": "1814922109557208",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJe2KSEcc4dy6EQOlbjxpzbU3bAb6CIUZaiRHiLMWPIwDwL3aWx8UakpCGyNJG6HyQqV74wfvjt91cIjW4WBImfVpCXBkmfYI4zwJc4FDWPZ73xFrwazE4oytfso4EC3qHOgMmt8HY3r9OYWs4CJds9WD_LLbkrfCPK5MtECsST65Nlb9gREZ_PdGb9-0sutTGArg-AG8SL1DuU26cjy-HE_XGhIDsNO_1YcaZ91RhsCI2FDj1GeeJf3M9q8W2_aP2WsaV5UGbLXNnKsB_0dPmjdDbbdJJkHJGEAwL-UPXI_800Pn9O6I0p-9y0y9dGNj63H0mCspZeBDtM6RVUsO8FOmXekjen70vcbNy0DSoh09kpSC_uf0ZpVUN_3LQXUKFLx-QBQWDtldFhsFxtSqzM1U8YyIje7OqehEgof0OmMfqhmb3EePEyflux4MYaY20&amp;t=AQLsNsird3DaUEfXrTM\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJfMtpkhBiONAdpt49Qdwaq2xvYO2gPXfKgNNpCH0-VK_hcEL7x4gAdQBxAExUD5UHJX5VO-9aqqu5qVOA7zx1v50otuOwnqCRhPMHiqKCJig2f1oXy6mFQtoGk0jTvmdQ12TKidY-zewPSl-I8C1wORsrH3zt_6uybTzrXNdR5cXVd-eD_M6MDfyFvXauD9ogcXXwy-XKuXiGjbptOgSU3NBf6g0RpiGjcCPRXPBKLsb-1NwWGf-yHNfMKRg42kpZ6oh86yDsoS-0taEMBIxNujH73O0fEs6OSBFR5OxcGeuK26hOho_cZJgjO87uk0jYf8GRLd0D7YvdKOW5oTH_Wd4kNsuelK4q7y2WwDaxZNUtjxDbrMwG6ntvnAp7gTmQGWRSf2RyaD2oL-toFkQqOMt2i5fnZtfUnMVmtcDYfCyZ0IdRCEHhw5B2PWycj7ng&amp;t=AQIb3_6xs14jnI4BHKI\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -270,11 +319,11 @@
         "nome": "[VD][20261112] - Motion 01",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899532957_1675915267515250_4721453333417776775_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=urn-rmGc1cQQ7kNvwEc9XXb&_nc_oc=Adp95HIoL1yBQRUYdZGB77qUfnJC0h_bDPklKKr0u5sf468SQ6odhEnbkwefsj6B2LJikmm_RTIuk513Udfdw4bQ&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQJK63uDL29MtOyaaGktrxEPbFSXpsG9ityqIvHiMu2qTdf1o3_LQ0hskUZP-soPjUnLU8MGa9_P8w&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQR3620d3UXDLBpVnAWzNGSFLWRani7QWxvrZi4dRAkNJg&oe=6AFD1F0E",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899532957_1675915267515250_4721453333417776775_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Hjwi4VyDA0QQ7kNvwFM6CoM&_nc_oc=AdpXnh3HYwwByZ5iSclY3COFki4yBg81QmRINcDB5zJM35HE5SZHWz3BPZlkvX8HCp2ATlTZj8Arp4f_ppkVi7P_&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQJQLHNlNXS4y0hQVDE8FeFMFzoeaAXVEulJHr8AwB_EyfM7c5_-3hiiOIntNafHPLsiFEzfQvo4og&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQPAOBjVMlFRVpKcDo3tJVBdk4Q8-EUBtMZYPxfQu-xNQ&oe=6B00DB4E",
           "image_url": null,
           "video_id": "1792175955331319",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJb90wDXjkYyDjk2Zc3msC0ar7l7qQ9Nla8YcKcCn6WB3X88lwVnh0WDZx-5VGQvkoBk5xF87BC-F65M4DC2ebqgwefv_j7km_go4BPrtTwF9zQLkieEIxv8LWNgyhWF4MDgL-U1bw1OfavVodMLQMlalaI16zn-09gG-xmGRoD3hR_kCyistn_RYJ3k8l4HXcGglz8OmQyOmjqSFtZBdhGAnhHR1jl4uiZSs8GhgXK4bUBkJGIaBd0u5BIIMltnacOVUD9UkSvglI4_bv6iBquiVyTROlbM-2CX7Q-Ed4GDUzUe8yNpuxboWazcLMebjjeYKwv5aV17PIT2feYJUI_rhH2NUzHbxB4sLGK8_-8HogRduPZqhZLuQz_LIA4Avw3ukzTmEIbI9_6-ngl5cP2fDzU2xzBUo2vnVjbW613N9Jw2yI8pEMDNX5HN-6bxgQ&amp;t=AQKjVV7sYdyS2zKyoCo\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJH6DtR48mnKKh9oo9Feh4lUYFFwITLq0WXxp5CDEgfon21XO9Z2685bI0kQBGmg2RpCzxejFNOfNcQ_8sYfQZriLbZbJkQ2Wxj-E5G8q4YC6GJFta1S-rPUUvZ2nbFXh_RAskEzqoJSbZnOa7Rkgc-oipx5gq8t_fxLclU2zGuogttpFS_629sEt7g2RWVmUasFr68aASxJONSiC8L_GWhV7ks7f3xILLGmSehoznifjkNnD8o1PKFp6LejaIWyROimg4GQP7_u3BRucPpmfOyAKI6j0sLE6t244w4NouC4o0eWeUBQHYn7xkEyj4AIL5B6mmJZptJP8b3MbkV-pOpHv9YKerHk63ihhyOyotUD0GB6fLszNOsFv9Tu2LIZJ4n__bwAjvSwxOQz2MwuR-ntdG-SiZhMSJ9_ZEmrKSzYYDfypGJitvXS2JhEQtW8GU&amp;t=AQL51mf7EBdLQInneBA\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -282,11 +331,11 @@
         "nome": "[VD][20261112] - Copy Carro 01",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899613467_3243063019228442_1094024962540166266_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=WSI77hD0rcMQ7kNvwHbo4e_&_nc_oc=Adr4d8jtiF1kbFAwH5UiaEu_aOxQRvaJyMkHk_D5o6PpF7lhiauWrmEXBhKiP0_DUoK_ChfQdde6HJlTzMlUTx-Y&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQJ-HGWNEeuQWiJcJ3g9XgM55asNCAQRk7IpKwKbWfv2R2mvekdwF3mTi_KBqUBKjUQI5ZPKwF34KA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRZmcTfjItEfm13wIzUsOgBFdXpsJcp-ewbxCCI0etFmA&oe=6AFD1937",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899613467_3243063019228442_1094024962540166266_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=jSTf8tTAJIsQ7kNvwFo82LT&_nc_oc=AdqGORvlqWtatFtQAbTZP2aMYrhsLRkcviyxN_TNV7JXjpNBIGpWWu8XpxNIA9otBR4lRRiaY-UEZEJwrcRHjvCp&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQLvBeuiCPNgQdDu1jTW7Pd_FJ-qQ08TBJvudytTZ-CzjXdN9L1nrynn5g5BRmvJGUmJS4HIhtnAOA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRWquyy50IataorS2ydTnoH4xkQ3FqH8zcWAwQZyLJsLA&oe=6B00D577",
           "image_url": null,
           "video_id": "2244918033085963",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKuBDql4XGuoRCaheIq3QOD400M5PruMZ9di9bTixi529WHyYYK-zHAQsm08sJglU4I9I6N-UYsZ294N4qggRkTlr-928qrwTIUSHOzgvKsSeatGHuSwQUUXALkRHaDZ1NV0J_Ee__6rq2_0wqs1WHshQLyV3cWjZmJpUSA_cAz0I6IWkmfA-M-WphwaoRb73Fj5fmuz0JgolmJHGSIESJcyzKAF5ont8hZbPEiwzyVLRqlnULp7-C_yLtmJlu6Dq6I48esjg4kilFwFiSb1l-0kZaC5CbjLCZor4n8llJl2pc5qS_UO7HFfLtMuAkompGmacTuvMUUYNEPISpcw0nTL3J7XK1V-QoxAahY65u81BM0A1l3IWPd_p5cx__T3tB78TY2vo-YeamaFSc52EM3PVkUuK1KL0cB3knEHihvJRzLq9VDCrHVuOKroJusf_o&amp;t=AQJyC5JV2PIRAhRGGZQ\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQIc_LSCDmC3_Pd3bF9nwak80DMrVuMqpqrCpf07yPRd5L-UOK7GUHRMCpgdVEyTf6kkw5gTYtaMpjKtuGV0-jM5FUrO-mr8yDKAviFRXS0bDnWTjY_Bn6HyDIDkW6EibYp3XEPUZbN4rXEogRVH2_f0TqvYnHN7oxSG0C3Ob1g5NjpQ4teN8QCxpz7I_eYOIKTWjNW0f-FGwfQZTKzNEvqiQ7er5kNXe3j-AlNOixCkBDsn7q96J_xMCt3RHP7SHva97euy6wUBcOkUGZIF0L94IGDb6BPdxSPu4eB6RX0OHZg4ikitNhjL1xW8KBCRM0SWhPrf0zp5A-ZRJTYPib6fmIz47_24MwDJ5JBJi__IUBWQZ1gSctSsBWEHzpKVtUd7h_6a5x3Evz6uZ9A5LhTSxfu9q0lk7SW3azjve7kLRlXQiAwKn45FbI1gFvNLfhk&amp;t=AQLVXRQeJ1wBhgkMdH0\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -294,11 +343,11 @@
         "nome": "[VD][20261112] - Motivação 01",
         "campanha_id": "52590612488572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/906063051_1410446187539526_8325949869523098070_n.jpg?_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Z6gJAHKDloEQ7kNvwE3qX57&_nc_oc=Adonz6R9mWt1bzm_b6aWI39ZavxCKrqQNxV-NxqcJiw3DUG1624YxdkP8r7s7rbEaHOxnTsMESP7wDCZjBHCw0s2&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=u0gwlPu-jdFU8isbylWiSQ&_nc_tpa=Q5bMBQIm1NdDSvolCBehbOo0ZOnWRcX1akANhlx2FgZd4JGOEM0JVDbp-HWnGiaDCGQCNqAbqdB8nuscSQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQ1rz4-0IEebI4iaUpNkBZ-p3_XUWdJx4PyRzOFjrEE1w&oe=6AFD3101",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/906063051_1410446187539526_8325949869523098070_n.jpg?_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=KBUOldvhmMgQ7kNvwFDrcjV&_nc_oc=AdokKWDtvwCajxz21N3aEhAJwQcG2pgCQwKa_ZPqg7MKkYPFGO7C1SHOuRc59F9cXxBvSRoe7SL954u6xVl0V4Uj&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=_Kqs0wQ2FjSCpDHL2jhUrw&_nc_tpa=Q5bMBQKMScRR76vOgYKlG9aKPxophv2pjCp5B3AnrB5N8cNLU2aoEA8PltPnUZMOSHJP9WIW-KVp9XAREA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQTSdNQF038vF3kf_nyjlZB8Sit6dVwsPUcJblGBUzzj5w&oe=6B00B501",
           "image_url": null,
           "video_id": "1080083171680600",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJ8OyFI78AO7nGqWUZmZAVJ9o2ruX0e-IVIDswOwNjSUF01NSZxGgJ5FPsdYaR3vSqFFi6IDwm1iy9E3XmKT9m3RcH2lfT7kmAvalcm288T9lsnfvnOqvaWCnPTTzoxRDnLpkUXBlEwt7xquZSfSU423onlv5i5cJGDi24DiE2OBqmws8EPoZHNEiARTE6hZEYjc5zNoIgzeYp2-6VanH_unbdJ5jQedf1HPuWIdoI6xdL_8QkqTqYhgy_zgsOZrOnFjFucuc7bACA9tgt2Clp0lITE4A-fBokyyVqD_Fz6SvcEWFews989SEY-ryXt23GiKH6WGm2DmlU0Q41sN797l6RMPyYKNzeK-ScAlOM1m1LujvXY37Y3qemy5qqyRY58rx803fFxOXOfoDLmuwmZHVeYe6eYpOyko5fy0Up8k7m3HshbBMRK6w8DIdKOuGc&amp;t=AQI-swIC-_UaRFP1PKE\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQIeLPoZ0opEJrHT9fAW-ecikyk0VwD-i3NPaGBKVQOzHf9JXhdkwDb97b40RaOxTge-VXfFxRIKVQIf1w-KEZMDhduSTpnPRQ5ojCuUC1UQ51YeCE1_uYqmoqhD_RAoCVJgzq2OTNqyUUu71EjJJ-Vp7ylUJUHmXV2T82iA0_wSZRHjrGjp2VBh29biwvaFsm-mMyJRRjY82m0HjWw9pqaRHUBjnfyGxcr63gBmoquyeL2pKklR9et0XUOnDYyjq78Dq9dVx89bBbH1O3yFosYtqchzLKlZFKeHlki8JWVxCo_H1uwlST1XuOruZNw6k4ck1vfFnJ1QDhZetM6eguvwKoWIrZIjhES4PL5FgtJVTI980Awc60ki_66xtQBsokTiJxsJibHKWlC5hqMvbFbcPYuHRyY2OanYcvobgA8Q6aNHU3ykvKsrzVWgmHVkYEk&amp;t=AQI-bc7wV7qCUZKgzLU\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -306,11 +355,11 @@
         "nome": "var 01",
         "campanha_id": "52585846881972",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/863143288_2166282390642718_5736572618940579395_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=uv0Zptb-s9UQ7kNvwE706Vp&_nc_oc=Ado_Dm46FkqEyfHYYBX2KZQA0SotQrmkDPRgDn-2-NPZQuUcra6gqe9l_eKexphFpGi6ILucYq9WyxOZacbjEhYB&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=G50V36ifG3N1BliN8EBPWg&_nc_tpa=Q5bMBQIa5gkkmevoE7Q7MAmvLTIlXuJy5CI9qMSxVk_3XAB_k_2Q1kkyRe-hzgSiBR_MS-DcKQmq75iVwA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQSYJmD6gr0XtDuiXVtOQqHuIgvUKmGDU1wM31ynwe_kpw&oe=6AFD0AC1",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/863143288_2166282390642718_5736572618940579395_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=XjKd9RSwpU4Q7kNvwHXywNI&_nc_oc=AdpzzkLPebiOUCR1qSCl2V-My7HnA5Xo6nsfTDfNmDzmfHHv1YElkre1X10IX7trUNDi_gNzal83ylFgqY9gnk7B&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=lBBKPxdBcm1Gl-vNuPSDsQ&_nc_tpa=Q5bMBQIpkPI2M4iN-K5NhyI65K4YARC_NRZ0gTvDxTkCmpWVikG8rwbHoXgmI-Vn59eE-K4WHDw_8iTRUw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRzcPZJgIlDoXZJbEQ-PRvPlaKPXehK2GOi5mZuNRiCPQ&oe=6B00C701",
           "image_url": null,
           "video_id": "2178264233116468",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLI-vQ9LnEJyE8aLd24hkP7Cy_CzrD7LrNOYGqoewkPgzwrdj4qUeaQ_mO_i3THao5ImJM-bEscku7q7YGhvajSt-rsgTL_uYw6L9OeDnWhRRop_UvguOkk9Bvce-NJVH9e90StziPBs0nzYflDE3a8VEMmYSf-b2kgqw9PQobWqZQ0W2NF1QxXS8a3ZTPfxH3xhAcGZX8yPBy3iyz8I66lB5OzZ6VkKEGwe6FrD0cCs5YPsqjeosC8ktBZANnX4vwa_Tk0ZJt30DZd9Htk09yILCvJ6nTAccEYSYQvCNlX9dVAWzlX7D177sAKJHR0k4Qdu_d0WgSCEkHLd5M2gHoBX73g2PgF-Pj_PDxCTgYw0JB6AkEDq1FJnSZVZXuO9yo1atIoNefgoM2f3tSaN3BmA0B8BmAIKxgxJTvXdm5xdSFgeDxhD9qEvGEoCf19feY&amp;t=AQK5mH5JOXdj0aT2fjQ\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQI7z3535XhmwQA_VUCXfoBeAECET22PsIfzhtETBC8Z1XeP4PyM8eLHsMCZ_-Vr_tReLSbE6ilIsxsyPFW5GW4dvlYvVB29bOYiFkhxxhCEsHAWOgv0Gdit_hLyD4Wcb7A8A9q_54G0m30KiiiL_4P-EVkfKns2ccCaPcmfpsN7gCruBmmbaBm-1PxE8UajIJgnyhFq3uw6fV2f9MWi0zSerUysPhWST2YEouYjRYA1aPmpKmxflxBiPsuQf5sqvufhvuCZVnvkRvIJ-7hyGuBQMW3cGZbRg0T9vx-v1-TJ0tdtHEVp5Lm2P2qDAhjgdhkleR2K5lDPmrpdRka3RJW9qcxxQ05o5bppgEiDpyWG3KWxxlSUbUK48OASHTZG36oa1sbKKJUSGtD8Yu7N6ZBzDlWYn123Ples4YD269jThSGVLWQQ2oH7McYhM52MZVk&amp;t=AQKoN12_8_VfQUFebks\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -318,11 +367,11 @@
         "nome": "[VD][20261110] - Teste - var 03",
         "campanha_id": "52585846881972",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897569699_2674804219589172_6524929539832938228_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=dOUFLsnzou4Q7kNvwHlXISO&_nc_oc=AdojMfnIY13zZMAhZ8dwXy2PX3HixEu4TinZ4z3w_-UeIjq-it5D69LVo5F43SDMu6a2ayuZvV0hyZx98v19xKBL&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=G50V36ifG3N1BliN8EBPWg&_nc_tpa=Q5bMBQIQ-iRlWqdCmCClCZbDQhk3nx3o--k5S7I_uh8e8qacJEO031oDwgCl0Ujjz2Ug2Jr7e9D9lEKiQw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQSvqOsVJTGIxvC-ALnMGZ32dlKNSGlzq75Q6vfG4u5a-A&oe=6AFD145C",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897569699_2674804219589172_6524929539832938228_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=uB0vIX81CxsQ7kNvwGs_ory&_nc_oc=Adoi3eKo_1OtkmzTBLOgGPt3HHf9WajmGehQ3biGKfMzdVToKwswaruRRkwiJYgw8L3vuUK81E7-NGRktki_FNBB&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=lBBKPxdBcm1Gl-vNuPSDsQ&_nc_tpa=Q5bMBQKvSZXnD1QpVbNolbZ6GAufUd3xVnUCv7NIRKG4OaQF12xipLbEESZr-BzCzRVTi63WnpukQj_ynQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRy6m2IzgYB63aAgF4j4HtUlc3kkwpczSkuH2AOR_BQ2Q&oe=6B00D09C",
           "image_url": null,
           "video_id": "2160919921171748",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQI0wpcHzU6z1GelKRO678ZhybCbCgU5D2M5iJaucDi35R4h0jLiPtEqWJ38FUuFQV_kwvu48LgXPn1TtpbBGJVCsygzO1yB2QGAJ3QHaizFVdr8_-kqY8RErQOlPkgnNxpwfd92NWIy0GK3gR5MBS1WL0qPoH6E_LZMGr0VYFgtHZkJg3rF9_i2TjJDkVLNOkpx3PEzbljRL_mX2jG_fNZ6xy2znaUNHhB2bURe3IRgMOgz_ZBCZ9Sps-X_IO_ap03r-vRGRHBhKuVtSTlQes2dTlFQCsuAMpVLbfi9fuh7Tfgbw8qygy1yIOsAFvkgdVOPiBeZaffyvBn-YU_TX_u6puZUiZwZe_vm3ZBplhrlZlNiC9AUECbNDDjOzWhn1SRtNgXT3O9mC0Fa_zf3Xgn1UbNRVNPn-uyLIMH3HgquDMSDLyUN_R94gAYqM8zip4M&amp;t=AQKoE-li7fK34dEb-5I\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKoU526WXMXbNzr3nqXNnfw6RmZ2QJBnD0cG7KjjEi55w3bB-aUhNINPJqZX6e5ii9GwgHse-aL1J-w_vW33gHBNBWuyd0xT4etBzurkdXBW7jFrwMZr89ZXhBjrRtBeKpydXK3yqakWS4m0_QshfKjxvDeUD7vc5OjHeSgdKl6nQxVMmAtpNJrX8PVIWzbka5Zgs_Wk42lwWorF3oyGKqZcBrz2ZST3vzGk-ArE5vlhlggD_hng_m0xaY7N2JKAP9LcpcEx4b1s0-ZijaMshwRWmLJ4PfwH1zfhgj01YR94A4SVDWBtvPA2zFg_ID3qdWDJyjNJKGo0KAOKUkyMzb6GyYxiMQWjudwXruYlTQlCkysJvxlkF_S_-TayBktU4ma5cH_ju0L1pyklZ9zRqSJIJukvPebqSFIbboLQ9BEWKfSPkVKNtj0XU3cM5udATI&amp;t=AQKFQdJasyVQVumXM2E\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -330,11 +379,11 @@
         "nome": "[VD][20261110] -Teste - publi 02",
         "campanha_id": "52585846881972",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/895742796_1917290950033023_7093485775472767886_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=g1Ps9Cn0STwQ7kNvwEaRbx1&_nc_oc=Adpute1UCJifQxn7njnTu6FYIfQJlXASVQU4NztgvtekJKWq8tDgdzX64-d1SrL8ffbP_j1sTLJNBdBRTR4RK-hD&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=G50V36ifG3N1BliN8EBPWg&_nc_tpa=Q5bMBQKR1JwxwZyK7tcbPYznaezVEUshuCRbzAvK_GHm0g5BkJ2Zj9FdtMqL9I6BTi1BOwKufg-nb-sw5A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQSuoIGDR3ci_tAd_v4HACkQcH0T7_gorWErQCPTHQ6ENA&oe=6AFD2496",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/895742796_1917290950033023_7093485775472767886_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=g1Ps9Cn0STwQ7kNvwGyPj_M&_nc_oc=AdofMlsz7BfTUTY6CkD2liKLleQaHDa1_j3vpq0_WUIyQLav6mzT28iHiCWpMgPklT6eTUYaX5njZU28WyPfFBrS&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=lBBKPxdBcm1Gl-vNuPSDsQ&_nc_tpa=Q5bMBQLq9uCraFhr5yqA1o_uT6tS2szFDiT9JMlkDNmof9yuCoL8hC_w7ECYT2yWKXJ1drRlDmlmlo1sDg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQTNLP0F-oB5I4wADXDQFhoAMo4St2g7c0CprR7GBwiOUQ&oe=6B00E0D6",
           "image_url": null,
           "video_id": "1917290930033025",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQL4MefIoMySxnPgKauOy3SwcnCfG0xHEFZB4p9Xcd4ghy4J40RM3LFmoEz-lzRnRAZisY5_XuOFT7RXFcKW-v_YiCr7crBbTMPnuTGxBtOpj7Cm1k9A9CgP-KK694ORBf35PJKJejgn0xDHXGjnsOziPOMmT9z7DLKPkBaOWxkNUZU4lZYMLkQAjiIqWDjiYN2X1F4j3RldMgpWu4UUD2jvs1cDOijd50hzOm_18-9HF3tXf_r_CbKsf0YhVqh2IkVCYNDRIgVTp0fsMymkzH6hq2p7hf2vPxUYOFz93z49b3H7pbdBanZ7jsvUWktPDDjfhjUtDJMSmQny1B7BqBx-SQtrfpBS2d35Y7sokCWrFllJ4XDni1EvW0KzVDAGrPV-0ztUCqdHEGgv1XC_Qe5ONXUSa67fpM81Mf7bqGgL-nWfaQeCfGHJbR6Kg2Iiu9c&amp;t=AQLDwQeZeTk96vKnATU\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKbxOdC-Y8BqRsLTVW_R5TM5jbNtrMTxbRUF8kc7I6Qa4PL5eRMhoYyDQSRDOIxAzU-prNcYyuavb2S__OD54c-DLxmKj84XV8uvyzKfG6sH2fEngXxVwoXTMwhwSNPE4M-isn-maF3noPY9Df6S1o5hNatFFFLdVRQm-0pMjP3_vFrA-Oh7-KaDOqCaW_X4Abpn8LbgMxrsA3s7uCOUdf-hiqLzqTILTDwhB62SnVqp3clUVQtZFnBMWOU9R10iPYb19yXCUAEv3qkDbfPe8LLXy40ssxonK_35RSftmpsxD7CCTc59GerjS3o3dDYmsfVvSnelzY0GVCQvNK5ZAoeDjWPCXRWH3fmB8Xd4cY0tXqN77ou2i10sFxG_c_m0X08YsK9ZIw6nZhhhYnC9gNs6aBitUTSSkwPofRfZgNCOZV53OFdvGlYoBLVRoUtCro&amp;t=AQKusa69I7P-msVQQ48\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -342,11 +391,11 @@
         "nome": "var 03",
         "campanha_id": "52585846881972",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/869211442_1871741020498939_9166051802392609664_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=7s5uyF_IAUMQ7kNvwHWEthR&_nc_oc=AdoHf5ZjYeQC6ZikYGMsWkwgOsWzSyGfefGjBzBa49_DDD0qZ0sFlhM3TrsZPv06K-svHpRp8QWlXlhj5RD4ZHfW&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=G50V36ifG3N1BliN8EBPWg&_nc_tpa=Q5bMBQIhyfBSvIrNgOqpQxXPfp5BdfSFjNrPnyUoO3x1t130nNFPTOBr-rV_fsaTbd6BMigcCuhgcOI-Tw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQRgqSiaP2dE9U7FHY5O15ZzCTl6uSO_in9UQEypw8I2A&oe=6AFD15F1",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/869211442_1871741020498939_9166051802392609664_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Wzfq_fg_QCkQ7kNvwE9Ktqu&_nc_oc=AdrJY8AGyUnN3N2QTgsH4QZmB76AvSttwladXeCFM_w-n_s1ucz2EfRUdP1EEvbgslWpU0x2Vcxf_SAbECm1ZyVk&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=lBBKPxdBcm1Gl-vNuPSDsQ&_nc_tpa=Q5bMBQKpWgXW9mhIJ_8aCJOfXRCQ_FcJ4r6og96EKgIV5txGUy1j6WgWnhLw_FJFmMyMP5DTZ54dnUChDA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQQe6wycp5GxAG4SDBxx3TrkCYi5PLqzzmE5XMjn5yY9CQ&oe=6B00D231",
           "image_url": null,
           "video_id": "1645174723652350",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLKL8JnpQcve9zQhu8RLCEbKmzs4mWlFLHC0XC-8RMkBATO2YjzEPw08DtpKsCYBvXmvsnMuQztigLCqlEm13vv_K7Z1waod8Sje3UVvMJ3M6GqgWV3OCcI0UztHFrcW-qWgsx6TcC_jjO-5aXOQh_K3VIqG1prYj5gK2kI19qv-AKcP0Iou1PFiRJez2NE1AoHasv5NuVVopLIi1gOOSTGXbKP_YR-8xnBzdBjwgVdQwePwAlXuYgsPQ9g3OFPLWHyEkTYRvgQo930Z05NWYrmWtMaMsU9UWO8JVxBOwwHGHN-hXhuUksI04m8ybq52SRoThQ8uSAVp5v462dWlf7vXbQtsX9T6fTziM3qSj3Soh1PPfmA4W9snqDJd6y1bBpdndQT2xaquogvDc_boESGAAzPN0VhfbPuDcgrc8fXLd2z1bdtsQrIxTy_9H55h_0&amp;t=AQKL8tLkY-zyGddnVSs\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQIaptI6tJmfO1J9C_XwS2ZU3-CCrAE_ws115L4oXzgt84k2mI-tOCCPWa7Rf5aVe8M9F77W2GJbMCowI0sgFqodHTcdFPqVB_UA0snWc67Q056MibV1Idqi0UGbyqC8rq4i_8r9-nmsIYeqbamuISrMziT1am7XKyTTV3nHNB5uWjsPlvrJlTk-m9hMk4s3ZmVa2QTKRKIuHhKXFr26NE1IPMndYZp9kDo9Dzmf4M_W8jUHFGgMuAvSBan7zehQYZ8T_W2-ae_YCe0NX7hysFYReM4LD-lWS4rb9QoYZFhVX2jQEjHy1XBA3yQ1B55WEqi49iErsfbwwSWUh599A5q-dJfH7PZBfI7Zwnj_dAJUNUc6nR5aZ86Mpw3aPswZflK7k6qzWeiYwgFYb9sJlZWf26g9sTj9sapqGVeWG-6XERUuMgcHC2zoGbDEhDgowks&amp;t=AQI0Y5UxfV_AFZMYe0c\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -354,11 +403,11 @@
         "nome": "publicação 27/10",
         "campanha_id": "52585846881972",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897191015_1145443771189066_6514907466175099297_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=VhBewruWCxsQ7kNvwHSa86_&_nc_oc=AdpD_RtmdiVaejBhP-betNvwHdvIilgfJl2og40J8YM8z7uH0PpVnWX2IuGI5AQCxyefYjO9gZcWsA5NpZMZPpgs&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=G50V36ifG3N1BliN8EBPWg&_nc_tpa=Q5bMBQIuxthVdD7Sx10DdzfAO9Ogpq1n7od2BKyOhT0ZSQQM6MZoZZm7Fkxkatl0dvVcTRLTke7lIelGyg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQQ4hMD_W2pdPb7jDz8mt5ByIbrS3QFCrHuLzwBVcTmygw&oe=6AFD383B",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/897191015_1145443771189066_6514907466175099297_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=8ZFV2St-v7oQ7kNvwHmRh9m&_nc_oc=AdoUmOnJNESpnx5rb-vNKWeciK1wtg_2bx0e9UhYlftyyPubCdz5i-9tSNl95koJIP5LOLYiu8pmw5qh8aoxuMO3&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=lBBKPxdBcm1Gl-vNuPSDsQ&_nc_tpa=Q5bMBQLqBz0kkHbJvEfhavaFBgacKBFWiu2dc_T8_bw1wqYDT-klPILkfwNmow57kT6VAAw2gY8iUKGRxg&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQS-RyMPWhPvJb2Mz5ARIL5iCS_3GSbQgQ0mQT0Zi0eqXA&oe=6B00BC3B",
           "image_url": null,
           "video_id": "1145443747855735",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQL4Ut5Q8DIPUlg7V0AOF4OV0WfDqYo5rNmx_my30tsQ5Q5KOC0mFS6ePo2KEfoGccplErD_1ZII_A3wIe3WRLnrnfrL6gq9vjGanj0HaDgXmhVa7YYp2a8LEnkor-w2fhRjiB0Sd_rkBo1S18c76YysY7Vo_kcj3nxN0Q3Vlobzjg_JNjZnVSelHphXy7Tg8ue4otrncsPle9zxqzjNA2Oop--jo8JYTofFWsgaUPe1InkDMbvXsqZwaJDNAQcklcB2G8aD4xwHFD6jvSHttkiTKf_YK08lbK8Yv9r_Oh8Cn8bOdX-mvg8atprNCyQH1bBefRS98X3dPVmsfssi2uMutCpCkBFJHUhhOdBw4pnKvYlPn0iRKxyWxiyzV1KjqmFGeOcGiNy6FlpHKSuXPM8aLkxd1prrLy8pB62-4MuNPbxuhKrdgBFi_J3j3QGx33U&amp;t=AQLhfIKuCuXu01ugglI\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLuJ9x6EowsCR-8qh8kE4gWJe_HPKL0QBSUx_G5bwG903iYxiOIKl2tLcW_b2ndAOqyvSVWTphOFf6FTGCAEnv6u7o87NHCOeKqZdzQFnE6VyK52wbLF8XLK4Y1ZrWmrLBxB3DOb5bmsCCF4TNTB3vHAjR1o0cZqnvEG8w4VRk2Nmv6Ht2Vb6EfmRpJnib1zwoPr7oBmgJsg1grQkBIae7aTUqE3lbC8xrFeJ724U345aXq_pxrNCMmfZbp-hHbD6VCXb1vgYHDWNsNeH0N_5tphH3Vmqr_u0ZQ7DZ2FVdnBLj314h2PMZvH0auTffmhYkckU9wcelGizLTvFqNtDA9XV5FKDjfdyfefbfj2ElhQfbOzswvgmn6mpqX_DM0OsWFvSh5V7UdVh1GXdFWErevBPNsTL25g0tnqt9PtkAMTvvZrhk0HuJ3aKtbOqOcWNQ&amp;t=AQJcpnsCCvp-HrkL8BE\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -366,11 +415,11 @@
         "nome": "publicação 28/10",
         "campanha_id": "52585846881972",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/901263456_2682609665541534_4822846768482585726_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Wggu_yj20SwQ7kNvwH6MSYy&_nc_oc=Adq0EtY1PIQwt2vTHMaoM4EQKEZ3nVvoK6NZwoRsx55sdMPpkZP1sZQ4o7rULVZe-dyz9bcQMR2_-k5OeT3nFZX8&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=G50V36ifG3N1BliN8EBPWg&_nc_tpa=Q5bMBQIhExqsTeZ0iMYm2g6ETnuludGA-Vvirqrnmy4WORWhE8_CZoHvnCk2wj9mB_NKmNfzVBxZSSSr-Q&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQTMT7IZEeJMJskj_xI7c7JMi7uXSx1lAf83ETgf8ra0Jg&oe=6AFD29F6",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/901263456_2682609665541534_4822846768482585726_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=a6PsaTkbW7oQ7kNvwFFoBNl&_nc_oc=AdpeLuGqGarcK4l8AlgFKH0RG3eZ6x_D9hMM3BjhnQEr53lhIOfGz5m0vS6Pc2gfBDmi0pG6bjHWs2cBx19pcxsj&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=lBBKPxdBcm1Gl-vNuPSDsQ&_nc_tpa=Q5bMBQLJ1-aPAMcvLDEWH0TBG40njdNYSNc9kCZL0CzjVxoaW9Ox9TWPlgaUO_q3d76sLpAMFk57oWelOw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQSkCiw7dnFjunAZtxqBkCW4b3hBqAeQp5Zq-bKIPvwaeQ&oe=6B00E636",
           "image_url": null,
           "video_id": "2682609628874871",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKe4jNnxaFu45-q8ymGTe8WW7CF6B3IReHPSSaD5SUBWhOTaeTSO9xGZg8Z2clfPKeH4z2Q5mYvI2DN1Mw35ZY5doCSN0d7O7JMyKll3QS17Z9fk4_HzLrTsd4WfP_H1_iufBgnOsNBx02pke0syTjziyz955zAnFW6N6saBYi-E-wllQtJbcYGODYBZZY3F8WT5Eng2sTHbblcdvakDqPx5exY-hvjDjKjdyEn2qCklmDYsBa7P7GZ9b23HZD0xRLxNnppnrvWTCirHJyEHn0ZqE8t_aINWsoSDXka0FiU_2bmsD5mRW4Hfsax-AcgYmhDkoWec3VTcEnqil3cV-OP7XJZmneH831aaogTOw_t13N4_qc0cMnZOR9H_HRKq7-iaJq-fwcx8ABkIcktsr94rTo7mfBBIS-9tOjN3FsTl-PKNf4iUmf8UwKi5LaMzTU&amp;t=AQJMgKRgyBhnUG21km0\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQI9g83_lb7DMZu1rfldlq99R9jBl5Z-OJLx9gqBRTKF-auRU8ehqiKlEuPP7nm60W5m6HWVH1TIRAKbQ040boY5Oz1D8GfBv0SzGijfY2jqkA4wMEpPZG1QKUXpEOMDIynwRZJWiWXpqx4-0wcnXoy5tY13IJSf-WMHCU7c4rB-ZpXpnUJPEBMlfkvyaapo8MMormWC2h2ZP0XJ-UmikJ8GY7XgV7bgmPCQEf3KPeob4s3tDXKEJUMJvPfpmEXs2Vnt09Og7gIutD8w7YgtZqE7xvtf2a6UE4YqJcb33J-kbaCYoxR8HYq6G21BkfqPO192Q6UZ2VMfjcPj7ekNEAzIiCM0vwc4maqPkxoAjRA5rRojQILaBGdWy9j9St_MgqA4SbgB5KCpeP0Y45fAdTga8GZjSd5ArkccmMQiQiunx21tCQ9FLODrV_p13qOZhws&amp;t=AQLZvTgNTMkQpk6XIu4\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       },
       {
@@ -378,11 +427,71 @@
         "nome": "Novo anúncio de Engajamento",
         "campanha_id": "52585083931572",
         "criativo": {
-          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/858213934_1145360591480475_2394374149960411737_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=1V-tAPPSFlcQ7kNvwFTFLBZ&_nc_oc=AdofS4CP1JEJ0cKckjKiQstcCpwOoS08Y0XhXX6ZU4s0y-_uejeKgVRKzzv4sipcLKFtUbrLqCwyTzVJniir9j4X&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=dhExiDmn-uW1V7zPaHUIow&_nc_tpa=Q5bMBQJaPCXaxPU8t7fIQQtNhrtDuKgrGRPR_HOPLohjVzjIP9546TKaChUWAe-xuQ9ByxYx00trTv3L5g&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQRb1zEvMPvbewLa7H35nrQe5-Y4DnI93ThsKwoYgJFHOg&oe=6AFD152E",
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/858213934_1145360591480475_2394374149960411737_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=CLa8wWn_7MgQ7kNvwFtxwd5&_nc_oc=AdpBeXbA4_cTK4tYUpKm2WqqGOphQJkApVCadf9cRyLRNi8JEVPOdmJta2K3-h5zu2hznb_lQ9O1_pXJA7EiNb9J&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=PPZpntV98-SXm-dpc8qZHA&_nc_tpa=Q5bMBQILOo01OX7LLHlZxQiJDhorWUc4I47HEnTjbPE5wVIV7Z2L-Pfl3fW5b-qLFQUBacuDhxDcj5UhVA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQSOmAur_lRKUNNvZkUKW_zKuI3eQxcPb8bQ2Oy-dsNysw&oe=6B00D16E",
           "image_url": null,
           "video_id": "1145360561480478",
           "tipo": "video",
-          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQJYfa0crQWfBWPgvKX8xjhGJfiGVfbUSRAJG5HMKe2bodX27xHTnfIEwOinrhKeH6xy0ut4lVEHhb0fJuYZOrLqkg-XHSaD1YZ9nzUSme0Am47TiDyG0pgC0NZBBCu9cc-ksHp-CKzB0ghOLu5B0ilsQaUO9Ru1lJyAHsszi5sjmF5xP1S2xjD4AwqRro_VJHxtmILPVYR3DWGKThGWRdl_hNQ56hjIgdZfl56YerbbhRA3pIusYK10I5faLpd3hRYkicPOlRoE3qX14uPkGXjjD_ArPBByLJzCoIaKzlSbzL9qJ0wD9UM4upfBC6zcNe9ghlr7qbnIrXScOVS6j9b70SDau9x46eM_pbaCAG3wc6JED3Lks_6SJieEJ5mpbQT9QeeQiRW-42T09f340nhXONsZR0w_SwJoPmPSjK6jEsF5fcqkOn-PYwpx1F4dzP8&amp;t=AQKfKAWnIXat8pM5jsE\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLpVNf2_FM1XEf5QndkXCVSn2Dvy4AHcOVloqVGLGjXkG0wCjDHX5WEuYu7qqexY2jbgZ4_aKqGRyE7q5l7FlAyjk3BUqmhw-fNyQC6rlraBxJRWHZ-93vrFHD6N44dWLiwKQjdbMyCgYLsa3u1UsvWX-3MXx5NwauMj1ejRXCCxJNwhIYFL-0lY1LHWZzjGyyQneC3UU_8LxCW2wiJEZAZAlUZdG7bmk2ZXcJ6AYe_rPcYmvM5GxhVKBOy8gul3XSRGlQR9-UyjJmle0w9mRRUPEuWAXbJlUfSpMbUU6mwejyzBcRxKlNdPAC-TjiR15xvNEkn9NBX0Nbq1f0D0dmDj4Q09rYZ9pyBGBbeKkMeyQG3RUa8hbgHWy6EGme3hXxWCeaW-NniVmNEvJ6jPFG3wI_vHQmUXjygGaXxWSk4EQSdzu1D8sqOQxyqwRUpqVY&amp;t=AQJh_01vzWP26a-3oKM\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "120253525506840736",
+        "nome": "02",
+        "campanha_id": "120253524977510736",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/904247297_1782224302893763_1757152081904242719_n.jpg?_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=aiwxoupEDNIQ7kNvwE_dPZs&_nc_oc=AdqoJEZQT23gBizQWm8ooBkslYjQNbE98b4P11Np-d-LTBVYtC2PaJZZjwI1l9lAu0xlbpQYGYCtIDZGaJCbAT21&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=QQHLZFhjYb1acclrWIu8jw&_nc_tpa=Q5bMBQJmZhyFi7sM8gct5dVnW5xeUZBoZ2pgyacaEKJkfS8AR5DPw0SNpMwuQoHKD-rQGQuQYHxkCzRb7A&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQT2D41izi1T09-euHLyQAF-eCUIiifAk4IOexbG5XEiOA&oe=6B00B3EF",
+          "image_url": null,
+          "video_id": "1652952173224361",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLx4TSky6xUHSo3YA7aPw9d7c984QK1VXehDuNmTQQw0IF6AAe5Xr52-ssh67X-2gDrzDKxbglBr_b8hYgaJhCj_ybL8PLN1gRBhboknmbmxj4F9vLwwxnFXQKAi-JUfshNTwVssyFfJIpgiLf0urS8SuN1_in_NvR3v8MYZzcKUEX4GBGfMqboEoZuV75OBWiNCMBDymc5Gy7_Bk1rd4Ub5BZq57df7SovFWGkaVs68f62PmyWpAo-3hr56KFHfXGW0eeSMNJSLNY_YiZUL-ZhjU0Z8lVws5b9RB8gw5mtw72sG19JfvLXZzSSAWPaC8LFcqhF3ijC_d7gxOMVsGS_b2omMDPckMAZ1FAcNG-wLI8n-41zl06V-d1Il2zp7dtoMFFteZL4LlswoAu04PUoZPDgDLKhHaJbl2u7pn-bc_3p8ZUvEMRx4J_O6Fu6KTY&amp;t=AQLVG5AizxEhHqjvm5E\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "120253524977520736",
+        "nome": "01",
+        "campanha_id": "120253524977510736",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/899711959_1800618251209968_4143588989185614931_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=vnZ1hjYcsQYQ7kNvwHmm3kV&_nc_oc=Adq6sIxFwD_u6TdO65Z3O4Ql9bWv0xfv_MkGhYOlOzp7wGcEOSDyuJEeEqVsiZdS5QD3hDWcA2Jv-9weeHi5Xj6n&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=QQHLZFhjYb1acclrWIu8jw&_nc_tpa=Q5bMBQJ90arl1MBZcVwfDiypPXmir9A9LrE-NHMP8wTMaMDMWNhlHTsza-ysyIf3S1o1svzmPEhGJZAGOA&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQR2M8WCuEY4vu_FJ1JN4adUUN7f5ANwvdo5j54LmCrBjw&oe=6B00C5B5",
+          "image_url": null,
+          "video_id": "1707181657879080",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLjj1GD4tG8OtIMabQ2qtbf2vRj19giAOz2Dl-4KpVR1AE_VkYQeapAVX-UInlVrAwPEBO-AFWbugFd3hqAi1vrKgVKuX8vijt8p_8RJN1pJoGUuUEZ80YJx4wVdkJOwNHhj8HuJDxL8HpjuO-uwWpn9MaYPW-BCFlmPkygFipGRdVKol4vzyYJzahjcBxYQ1FyAZMIhVREQNKIZJmxPhJyRhykiGeIrqkGxvF3ljO9B3Uc_UXIZfGVHOtbMKICI3tCf1Oatx7dv1bG7j7RgJS4lNsllisi8ZRDxVLCWPvbbXt-dgNgdEPVR1sTWoSmCfPtBDCFqw-vjUPftX9xg5TdiCy7sUfdYa1B2HcWQPw5qAMNbVsrywyf1Ssw6214iIXqcAIFljlrU6MOkPdfjYldYRBjHJQq-jv9p1LJSOOJa1V67y1OGv_-4O7te9V8Jmc&amp;t=AQIPOBIjl6kaKRP6ui4\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "120253525516670736",
+        "nome": "03",
+        "campanha_id": "120253524977510736",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/895705271_1177327321317309_150669360689010956_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=ov3SEvbaWvgQ7kNvwHdD5dO&_nc_oc=AdqE3KyDbv93lxxdSCAJWJN1cvfL6ODsoIrwDzuTgt1zj26BYk9XtEoJ2O4Bz3V_fkYOV5TdBp9CubSk4628omQ1&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=QQHLZFhjYb1acclrWIu8jw&_nc_tpa=Q5bMBQIaUBH5NBrTV3-8YnHgFJmoF0cP7RgvmcQpGrsLPHXPr7bRDi2lU2hkTBlwceZfWWC9MiMa5GRsSQ&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQRyG2G7ANPfKh-bujpuI6qyl9BCfnE7pJV7kno3Gk507Q&oe=6B00DFCB",
+          "image_url": null,
+          "video_id": "975675788534706",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQKU0pCvLiJYQ8JtsK3O5Frru5Yi6Fp2BGWpukvmj-WIIl72i1opyhUJu92oiGc7oDQcp8qujLoKWreHKU3o19yA1C-l6tqkyw2cjzUBZgMBFcY_2je1VAtoCZKrZZR7rNT8IhuWgXD8mP3VXUU0O_sQghsqZ_BtH0omtN-3_BgT68G7HUM4vsWxB_FuVfpmGq4sij_XxB1xXSg0IE4bk9WWa-FLsEjylEQWxoFDYNrQmKOt7ysbAG0MFEErxZrU2fi8pQE9C1omBd-162dE1ZR40zgFbFEwEsVOD66CqcnqYWNrtLJfNAsRwsWPkT_pZl2YfyVq_N7SgI2bTnWyEd3yqnAMQkkbnZoZEyaFQT9UxGkKTDJCFCE5BRICSY3vfp569IcYxV8_Rqi9MeSXsBu3kSf_kRnOQ9p7cFSN2ij-bAg1cjjnpSTrH7cXic8VrzE&amp;t=AQImNDcaAIiPULIhO6k\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "120253516826750736",
+        "nome": "02",
+        "campanha_id": "120253516815310736",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/902251573_2337754803732473_4168448358216520434_n.jpg?_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=--_pGK11TOwQ7kNvwGBv5b_&_nc_oc=AdoLUSyJfjVCoLhJi5Ut2meL9zsaG8DV0wshKYX0zmR2ed6LALWvq1qBwN8Ueq9yYc-9yozw9RFyN2rk1KREXlV3&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=kN83KX5TuNpDryx218ULiw&_nc_tpa=Q5bMBQJStqSU3-6QCHNuguiWO097u0q_WDtC0njhAhlRl-6Hz88UnRs2j4EP5jirFZPugv-KA_NfS82TPw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQTJi5EmBNWsQZVYc3K1IEWOR1IFN6H5JSt-DM9QCmf3sQ&oe=6B00BA9B",
+          "image_url": null,
+          "video_id": "2337754783732475",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLew7xjjCSnlmwpZUjr05h9AKK5YEGl1Q2l3uuG7ODmmm5NPI8ERbEWjzHMzKWJIw3wtBm24KsmiR4qIRv8thPJ4u8yojKeDkTJ5BChwPULjvWJY197lYWJE2b8trDDumMxDtmolJ8bR-Jx0mLbs1rXYT2hllkiXNwrKU8VI4V0C2DvT9rGGTTiXE2-w1OsXkIXk7HJV6kXXdzF-cyE5eBYQVuPq2gv5h1GTkzMLO6VNXb6AtUJzp_CNmk90k_A7w2J7zOo68wkMJVHxxbdNHWUpcs7pQXxXh0ZP4An4uHcuBYgUzGc4R8rRoUSX5C1y7F0YnwXl2iIr68-dAedhCRMJfd5sGveM4cT9umzYMONte_CyVs6as5aLL1aoCwxlqUqPlR8CGd12h_GMi8utksa2iaAyW1XomtRadPoyrG8YqhbeIo534JtNsUphqWyGuE&amp;t=AQLmCbUUCgXxSvQnH2g\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
+        }
+      },
+      {
+        "ad_id": "120253512910870736",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "120253512910890736",
+        "criativo": {
+          "thumbnail_url": "https://scontent.fcpq7-1.fna.fbcdn.net/v/t15.5256-10/896338464_1725082532447741_1975214769309427540_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_ohc=Xky3mcTenHkQ7kNvwFrZWF0&_nc_oc=AdpGss-udf5vhCPZvXdGTnaK-L0-fkFKJgsdW4YNSd26gSNXF12_fy50S3nmf2GqsAtbNoKYnSmzFiXE9Rsr2rM3&_nc_zt=23&_nc_ht=scontent.fcpq7-1.fna&edm=ANIILHsEAAAA&_nc_gid=QdetiywhT2MsxRNSPbop3A&_nc_tpa=Q5bMBQJOQQpO4igDjm8IY60DCZUNYr2kjMDyTfe7JYGeh03zmdGqiDPCqC82hHZDodhAufDnVFEnHuIlaw&stp=c0.5000x0.5000f_dst-emg0_p64x64_q75_tt6&ur=a7ce7f&_nc_sid=58080a&oh=00_AQQQzyahkTqGNQtZhZqHrzOX9jaclTNqZDM16dF-k6ejqw&oe=6B00D1BD",
+          "image_url": null,
+          "video_id": "1725082512447743",
+          "tipo": "video",
+          "preview_html": "<iframe src=\"https://business.facebook.com/ads/api/preview_iframe.php?d=AQLF2rD9xj29ZVOpqdZrQXm3srLxH3nNnkGvAMSWxIYuABucNEBJ3F3sedG4AvfPJOGEBojf95rSYziLmm04bQ1c_MSbBNd7_XT7fhvYbcm6gv3Jj1z4HXXG8HIXMbV1iuFhe_EMTgQYeuUJX7uXAa2eKJWkMgWMm_A_DH-VPUlK0SJ1r1DEmseID908PZJis-98tJfO5Raf2aS6NVw17cM1eyBlcIYXgp9xyE17m8nGUs2-FaWl3fDqleM7XhlELnqjjjzwxAV5fV83VB0GW97f2OhcrM3nMKjO5ZQ5vTP6mbuimg00_xxJxEXSnnLn-EX8GfMgIuCLZ5WPyyeqX3F4hqdsMxhJTI50TjBaZmY0fHupnhLgVsMVdeOpf5EGYzRaoRP5-Z-n8qaj9MZlQmCozUTKezsv8VSOVNKwE8qXv7oRweB2t1CLYjJHA_e6S70&amp;t=AQK87DSt597_K9JgAPY\" width=\"335\" height=\"450\" scrolling=\"yes\" style=\"border: none;\" allow=\"autoplay\"></iframe>"
         }
       }
     ],
@@ -624,7 +733,7 @@
         "nome": "var 01",
         "campanha_id": "52585846881972",
         "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
-        "spend": 2.07,
+        "spend": 2.15,
         "clicks": 0,
         "purchases": 0,
         "purchase_value": 0.0
@@ -668,8 +777,19 @@
         "nome": "[VD][20261110] - Teste - var 03",
         "campanha_id": "52585846881972",
         "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
-        "spend": 2.12,
+        "spend": 2.18,
         "clicks": 1,
+        "purchases": 1,
+        "purchase_value": 14.0
+      },
+      {
+        "dia": "2026-11-14",
+        "ad_id": "52589975221172",
+        "nome": "[VD][20261110] - Teste - var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
         "purchases": 0,
         "purchase_value": 0.0
       },
@@ -712,10 +832,21 @@
         "nome": "[VD][20261110] -Teste - publi 02",
         "campanha_id": "52585846881972",
         "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
-        "spend": 26.35,
+        "spend": 26.39,
         "clicks": 4,
-        "purchases": 9,
-        "purchase_value": 132.0
+        "purchases": 14,
+        "purchase_value": 304.5
+      },
+      {
+        "dia": "2026-11-14",
+        "ad_id": "52589975220772",
+        "nome": "[VD][20261110] -Teste - publi 02",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 2,
+        "purchase_value": 48.0
       },
       {
         "dia": "2026-10-27",
@@ -910,10 +1041,32 @@
         "nome": "var 03",
         "campanha_id": "52585846881972",
         "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
-        "spend": 63.49,
+        "spend": 64.43,
         "clicks": 10,
-        "purchases": 23,
-        "purchase_value": 1005.5
+        "purchases": 42,
+        "purchase_value": 1677.0
+      },
+      {
+        "dia": "2026-11-14",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-15",
+        "ad_id": "52586565717972",
+        "nome": "var 03",
+        "campanha_id": "52585846881972",
+        "campanha_nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+        "spend": 0.0,
+        "clicks": 0,
+        "purchases": 0,
+        "purchase_value": 0.0
       },
       {
         "dia": "2026-10-28",
@@ -1167,6 +1320,94 @@
         "clicks": 0,
         "purchases": 0,
         "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-13",
+        "ad_id": "120253516826750736",
+        "nome": "02",
+        "campanha_id": "120253516815310736",
+        "campanha_nome": "Nova campanha de Vendas",
+        "spend": 1.01,
+        "clicks": 40,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-14",
+        "ad_id": "120253516826750736",
+        "nome": "02",
+        "campanha_id": "120253516815310736",
+        "campanha_nome": "Nova campanha de Vendas",
+        "spend": 48.92,
+        "clicks": 55,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-15",
+        "ad_id": "120253516826750736",
+        "nome": "02",
+        "campanha_id": "120253516815310736",
+        "campanha_nome": "Nova campanha de Vendas",
+        "spend": 42.1,
+        "clicks": 7,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-16",
+        "ad_id": "120253516826750736",
+        "nome": "02",
+        "campanha_id": "120253516815310736",
+        "campanha_nome": "Nova campanha de Vendas",
+        "spend": 6.66,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-13",
+        "ad_id": "120253512910870736",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "120253512910890736",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 2.63,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-14",
+        "ad_id": "120253512910870736",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "120253512910890736",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 10.48,
+        "clicks": 6,
+        "purchases": 4,
+        "purchase_value": 136.0
+      },
+      {
+        "dia": "2026-11-15",
+        "ad_id": "120253512910870736",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "120253512910890736",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 10.06,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
+      },
+      {
+        "dia": "2026-11-16",
+        "ad_id": "120253512910870736",
+        "nome": "Novo anúncio de Engajamento",
+        "campanha_id": "120253512910890736",
+        "campanha_nome": "Nova campanha de Engajamento",
+        "spend": 0.6,
+        "clicks": 2,
+        "purchases": 0,
+        "purchase_value": 0.0
       }
     ]
   },
@@ -1174,114 +1415,24 @@
     "_mock": false,
     "dados": [
       {
-        "dia": "2026-10-16",
-        "evento": "PageView",
-        "count": 2205
-      },
-      {
-        "dia": "2026-10-16",
-        "evento": "ViewContent",
-        "count": 1323
-      },
-      {
-        "dia": "2026-10-16",
-        "evento": "AddToCart",
-        "count": 244
-      },
-      {
-        "dia": "2026-10-16",
-        "evento": "InitiateCheckout",
-        "count": 233
-      },
-      {
-        "dia": "2026-10-16",
-        "evento": "Lead",
-        "count": 8
-      },
-      {
-        "dia": "2026-10-16",
-        "evento": "Purchase",
-        "count": 4
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "PageView",
-        "count": 4485
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "ViewContent",
-        "count": 2700
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "AddToCart",
-        "count": 645
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "InitiateCheckout",
-        "count": 582
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "Lead",
-        "count": 6
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "Purchase",
-        "count": 21
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "ClickSorteios",
-        "count": 11
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "PageView",
-        "count": 627
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "ViewContent",
-        "count": 300
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "AddToCart",
-        "count": 72
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "InitiateCheckout",
-        "count": 66
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "Purchase",
-        "count": 3
-      },
-      {
         "dia": "2026-10-19",
         "evento": "PageView",
-        "count": 4006
+        "count": 3682
       },
       {
         "dia": "2026-10-19",
         "evento": "ViewContent",
-        "count": 2389
+        "count": 2230
       },
       {
         "dia": "2026-10-19",
         "evento": "AddToCart",
-        "count": 577
+        "count": 543
       },
       {
         "dia": "2026-10-19",
         "evento": "InitiateCheckout",
-        "count": 536
+        "count": 504
       },
       {
         "dia": "2026-10-19",
@@ -2111,62 +2262,222 @@
       {
         "dia": "2026-11-13",
         "evento": "PageView",
-        "count": 1800
+        "count": 4477
       },
       {
         "dia": "2026-11-13",
         "evento": "ViewContent",
-        "count": 1184
+        "count": 2928
       },
       {
         "dia": "2026-11-13",
         "evento": "ViewContentPlataforma",
-        "count": 1183
+        "count": 2927
       },
       {
         "dia": "2026-11-13",
         "evento": "PageViewPlataforma",
-        "count": 908
+        "count": 2243
       },
       {
         "dia": "2026-11-13",
         "evento": "Purchase",
-        "count": 205
+        "count": 420
       },
       {
         "dia": "2026-11-13",
         "evento": "AddToCartPlataforma",
-        "count": 289
+        "count": 739
       },
       {
         "dia": "2026-11-13",
         "evento": "AddToCart",
-        "count": 288
+        "count": 737
       },
       {
         "dia": "2026-11-13",
         "evento": "InitiateCheckout",
-        "count": 268
+        "count": 669
       },
       {
         "dia": "2026-11-13",
         "evento": "InitiateCheckoutPlataforma",
-        "count": 268
+        "count": 670
       },
       {
         "dia": "2026-11-13",
         "evento": "PurchasePlataforma",
-        "count": 107
+        "count": 322
       },
       {
         "dia": "2026-11-13",
         "evento": "ClickSorteios",
-        "count": 12
+        "count": 21
       },
       {
         "dia": "2026-11-13",
         "evento": "PurchaseGroup",
-        "count": 100
+        "count": 307
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PageView",
+        "count": 4896
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ViewContent",
+        "count": 3313
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ViewContentPlataforma",
+        "count": 3304
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PageViewPlataforma",
+        "count": 2635
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "AddToCartPlataforma",
+        "count": 708
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "AddToCart",
+        "count": 711
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "InitiateCheckout",
+        "count": 652
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 653
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "Purchase",
+        "count": 56
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PurchaseGroup",
+        "count": 370
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PurchasePlataforma",
+        "count": 54
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ClickSorteios",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ClickGroup",
+        "count": 12
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PageView",
+        "count": 599
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ClickSorteios",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PageViewPlataforma",
+        "count": 356
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ViewContent",
+        "count": 412
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ViewContentPlataforma",
+        "count": 412
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "AddToCartPlataforma",
+        "count": 67
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "AddToCart",
+        "count": 67
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "InitiateCheckout",
+        "count": 59
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 59
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PurchaseGroup",
+        "count": 29
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PageView",
+        "count": 315
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PageViewPlataforma",
+        "count": 191
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "ViewContent",
+        "count": 226
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "ViewContentPlataforma",
+        "count": 227
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "AddToCartPlataforma",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "AddToCart",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "InitiateCheckout",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PurchaseGroup",
+        "count": 14
       }
     ]
   },
@@ -2174,46 +2485,10 @@
     "_mock": false,
     "dados": [
       {
-        "dia": "2026-10-16",
-        "evento": "PageView",
-        "origem": "site",
-        "count": 2182
-      },
-      {
-        "dia": "2026-10-16",
-        "evento": "PageView",
-        "origem": "pressel",
-        "count": 6
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "PageView",
-        "origem": "site",
-        "count": 4408
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "PageView",
-        "origem": "pressel",
-        "count": 39
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "PageView",
-        "origem": "site",
-        "count": 613
-      },
-      {
-        "dia": "2026-10-18",
-        "evento": "PageView",
-        "origem": "pressel",
-        "count": 10
-      },
-      {
         "dia": "2026-10-19",
         "evento": "PageView",
         "origem": "site",
-        "count": 3991
+        "count": 3667
       },
       {
         "dia": "2026-10-19",
@@ -2513,37 +2788,55 @@
         "dia": "2026-11-13",
         "evento": "PageView",
         "origem": "site",
-        "count": 1774
+        "count": 4339
       },
       {
         "dia": "2026-11-13",
         "evento": "PageView",
         "origem": "pressel",
-        "count": 26
+        "count": 135
       },
       {
-        "dia": "2026-10-16",
-        "evento": "ViewContent",
+        "dia": "2026-11-14",
+        "evento": "PageView",
         "origem": "site",
-        "count": 1318
+        "count": 4726
       },
       {
-        "dia": "2026-10-17",
-        "evento": "ViewContent",
-        "origem": "site",
-        "count": 2685
+        "dia": "2026-11-14",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 165
       },
       {
-        "dia": "2026-10-18",
-        "evento": "ViewContent",
+        "dia": "2026-11-15",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 20
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PageView",
         "origem": "site",
-        "count": 297
+        "count": 577
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PageView",
+        "origem": "site",
+        "count": 311
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PageView",
+        "origem": "pressel",
+        "count": 4
       },
       {
         "dia": "2026-10-19",
         "evento": "ViewContent",
         "origem": "site",
-        "count": 2387
+        "count": 2228
       },
       {
         "dia": "2026-10-20",
@@ -2693,31 +2986,31 @@
         "dia": "2026-11-13",
         "evento": "ViewContent",
         "origem": "site",
-        "count": 1184
+        "count": 2928
       },
       {
-        "dia": "2026-10-16",
-        "evento": "AddToCart",
+        "dia": "2026-11-14",
+        "evento": "ViewContent",
         "origem": "site",
-        "count": 244
+        "count": 3312
       },
       {
-        "dia": "2026-10-17",
-        "evento": "AddToCart",
+        "dia": "2026-11-15",
+        "evento": "ViewContent",
         "origem": "site",
-        "count": 643
+        "count": 411
       },
       {
-        "dia": "2026-10-18",
-        "evento": "AddToCart",
+        "dia": "2026-11-16",
+        "evento": "ViewContent",
         "origem": "site",
-        "count": 72
+        "count": 226
       },
       {
         "dia": "2026-10-19",
         "evento": "AddToCart",
         "origem": "site",
-        "count": 577
+        "count": 543
       },
       {
         "dia": "2026-10-20",
@@ -2867,31 +3160,31 @@
         "dia": "2026-11-13",
         "evento": "AddToCart",
         "origem": "site",
-        "count": 288
+        "count": 737
       },
       {
-        "dia": "2026-10-16",
-        "evento": "InitiateCheckout",
+        "dia": "2026-11-14",
+        "evento": "AddToCart",
         "origem": "site",
-        "count": 231
+        "count": 711
       },
       {
-        "dia": "2026-10-17",
-        "evento": "InitiateCheckout",
+        "dia": "2026-11-15",
+        "evento": "AddToCart",
         "origem": "site",
-        "count": 580
+        "count": 67
       },
       {
-        "dia": "2026-10-18",
-        "evento": "InitiateCheckout",
+        "dia": "2026-11-16",
+        "evento": "AddToCart",
         "origem": "site",
-        "count": 66
+        "count": 36
       },
       {
         "dia": "2026-10-19",
         "evento": "InitiateCheckout",
         "origem": "site",
-        "count": 536
+        "count": 504
       },
       {
         "dia": "2026-10-20",
@@ -3041,25 +3334,25 @@
         "dia": "2026-11-13",
         "evento": "InitiateCheckout",
         "origem": "site",
-        "count": 268
+        "count": 669
       },
       {
-        "dia": "2026-10-16",
-        "evento": "Purchase",
+        "dia": "2026-11-14",
+        "evento": "InitiateCheckout",
         "origem": "site",
-        "count": 4
+        "count": 652
       },
       {
-        "dia": "2026-10-17",
-        "evento": "Purchase",
+        "dia": "2026-11-15",
+        "evento": "InitiateCheckout",
         "origem": "site",
-        "count": 21
+        "count": 59
       },
       {
-        "dia": "2026-10-18",
-        "evento": "Purchase",
+        "dia": "2026-11-16",
+        "evento": "InitiateCheckout",
         "origem": "site",
-        "count": 3
+        "count": 36
       },
       {
         "dia": "2026-10-19",
@@ -3185,19 +3478,13 @@
         "dia": "2026-11-13",
         "evento": "Purchase",
         "origem": "site",
-        "count": 205
+        "count": 420
       },
       {
-        "dia": "2026-10-16",
-        "evento": "Lead",
+        "dia": "2026-11-14",
+        "evento": "Purchase",
         "origem": "site",
-        "count": 8
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "Lead",
-        "origem": "site",
-        "count": 6
+        "count": 56
       },
       {
         "dia": "2026-10-19",
@@ -3318,12 +3605,6 @@
         "evento": "Lead",
         "origem": "site",
         "count": 10
-      },
-      {
-        "dia": "2026-10-17",
-        "evento": "ClickSorteios",
-        "origem": "pressel",
-        "count": 11
       },
       {
         "dia": "2026-10-20",
@@ -3467,15 +3748,94 @@
         "dia": "2026-11-13",
         "evento": "ClickSorteios",
         "origem": "pressel",
+        "count": 21
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ClickSorteios",
+        "origem": "pressel",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ClickGroup",
+        "origem": "pressel",
         "count": 12
       }
     ]
   },
-  "lp_eventos_diario": [],
+  "lp_eventos_diario": [
+    {
+      "dia": "2026-11-14",
+      "variant": "v1",
+      "evento": "PresselPageView",
+      "count": 5
+    },
+    {
+      "dia": "2026-11-14",
+      "variant": "v2",
+      "evento": "PresselPageView",
+      "count": 23
+    },
+    {
+      "dia": "2026-11-14",
+      "variant": "v2",
+      "evento": "ClickGroup",
+      "count": 2
+    },
+    {
+      "dia": "2026-11-14",
+      "variant": "v2",
+      "evento": "ClickSorteios",
+      "count": 5
+    },
+    {
+      "dia": "2026-11-15",
+      "variant": "v2",
+      "evento": "PresselPageView",
+      "count": 16
+    },
+    {
+      "dia": "2026-11-15",
+      "variant": "v2",
+      "evento": "ClickSorteios",
+      "count": 3
+    },
+    {
+      "dia": "2026-11-15",
+      "variant": "v2",
+      "evento": "ClickGroup",
+      "count": 1
+    },
+    {
+      "dia": "2026-11-16",
+      "variant": "v2",
+      "evento": "PresselPageView",
+      "count": 8
+    },
+    {
+      "dia": "2026-11-16",
+      "variant": "v1",
+      "evento": "PresselPageView",
+      "count": 4
+    },
+    {
+      "dia": "2026-11-16",
+      "variant": "v2",
+      "evento": "ClickGroup",
+      "count": 1
+    }
+  ],
   "grupo_whatsapp_cliques": {
     "disponivel": true,
     "motivo": null,
-    "total_periodo": 18366,
+    "total_periodo": 20325,
     "por_dia": [
       {
         "dia": "2026-10-19",
@@ -3579,7 +3939,19 @@
       },
       {
         "dia": "2026-11-13",
-        "cliques": 451
+        "cliques": 1043
+      },
+      {
+        "dia": "2026-11-14",
+        "cliques": 1103
+      },
+      {
+        "dia": "2026-11-15",
+        "cliques": 136
+      },
+      {
+        "dia": "2026-11-16",
+        "cliques": 128
       }
     ]
   },
@@ -3598,15 +3970,15 @@
       "dia": "2026-11-03",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 11,
-      "valor": 452.5
+      "pedidos": 10,
+      "valor": 445.0
     },
     {
       "dia": "2026-11-03",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 143,
-      "valor": 3803.5
+      "pedidos": 144,
+      "valor": 3811.0
     },
     {
       "dia": "2026-11-04",
@@ -3626,15 +3998,15 @@
       "dia": "2026-11-04",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 36,
-      "valor": 965.5
+      "pedidos": 31,
+      "valor": 844.5
     },
     {
       "dia": "2026-11-04",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 227,
-      "valor": 4557.0
+      "pedidos": 232,
+      "valor": 4678.0
     },
     {
       "dia": "2026-11-05",
@@ -3647,15 +4019,15 @@
       "dia": "2026-11-05",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 49,
-      "valor": 2319.0
+      "pedidos": 45,
+      "valor": 2120.0
     },
     {
       "dia": "2026-11-05",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 247,
-      "valor": 5582.0
+      "pedidos": 251,
+      "valor": 5781.0
     },
     {
       "dia": "2026-11-06",
@@ -3675,15 +4047,15 @@
       "dia": "2026-11-06",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 38,
-      "valor": 2255.5
+      "pedidos": 28,
+      "valor": 1910.5
     },
     {
       "dia": "2026-11-06",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 238,
-      "valor": 6061.0
+      "pedidos": 248,
+      "valor": 6406.0
     },
     {
       "dia": "2026-11-07",
@@ -3703,15 +4075,15 @@
       "dia": "2026-11-07",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 41,
-      "valor": 1729.5
+      "pedidos": 28,
+      "valor": 1029.5
     },
     {
       "dia": "2026-11-07",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 182,
-      "valor": 3332.5
+      "pedidos": 195,
+      "valor": 4032.5
     },
     {
       "dia": "2026-11-08",
@@ -3731,15 +4103,15 @@
       "dia": "2026-11-09",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 33,
-      "valor": 1572.0
+      "pedidos": 29,
+      "valor": 1506.5
     },
     {
       "dia": "2026-11-09",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 223,
-      "valor": 4379.0
+      "pedidos": 227,
+      "valor": 4444.5
     },
     {
       "dia": "2026-11-10",
@@ -3773,15 +4145,15 @@
       "dia": "2026-11-11",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 36,
-      "valor": 2723.5
+      "pedidos": 32,
+      "valor": 2597.5
     },
     {
       "dia": "2026-11-11",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 272,
-      "valor": 10450.0
+      "pedidos": 276,
+      "valor": 10576.0
     },
     {
       "dia": "2026-11-12",
@@ -3801,15 +4173,15 @@
       "dia": "2026-11-12",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 28,
-      "valor": 1826.0
+      "pedidos": 26,
+      "valor": 1801.0
     },
     {
       "dia": "2026-11-12",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 293,
-      "valor": 8807.5
+      "pedidos": 295,
+      "valor": 8832.5
     },
     {
       "dia": "2026-11-13",
@@ -3829,15 +4201,71 @@
       "dia": "2026-11-13",
       "canal_grupo": "Meta — sinal fraco (sem clique)",
       "canal_detalhe": "Meta (pixel, sem clique confirmado)",
-      "pedidos": 17,
-      "valor": 758.5
+      "pedidos": 22,
+      "valor": 1072.5
     },
     {
       "dia": "2026-11-13",
       "canal_grupo": "Outra UTM",
       "canal_detalhe": "UTM: whatsapp",
-      "pedidos": 111,
-      "valor": 3599.5
+      "pedidos": 280,
+      "valor": 8995.5
+    },
+    {
+      "dia": "2026-11-14",
+      "canal_grupo": "Direto/Orgânico/Desconhecido",
+      "canal_detalhe": "Direto/Orgânico/Desconhecido",
+      "pedidos": 4,
+      "valor": 446.5
+    },
+    {
+      "dia": "2026-11-14",
+      "canal_grupo": "Meta Ads — confirmado",
+      "canal_detalhe": "Meta Ads (clique confirmado, sem UTM)",
+      "pedidos": 2,
+      "valor": 88.0
+    },
+    {
+      "dia": "2026-11-14",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 13,
+      "valor": 992.0
+    },
+    {
+      "dia": "2026-11-14",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 288,
+      "valor": 10819.5
+    },
+    {
+      "dia": "2026-11-15",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 1,
+      "valor": 32.0
+    },
+    {
+      "dia": "2026-11-15",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 28,
+      "valor": 1040.0
+    },
+    {
+      "dia": "2026-11-16",
+      "canal_grupo": "Meta — sinal fraco (sem clique)",
+      "canal_detalhe": "Meta (pixel, sem clique confirmado)",
+      "pedidos": 2,
+      "valor": 144.0
+    },
+    {
+      "dia": "2026-11-16",
+      "canal_grupo": "Outra UTM",
+      "canal_detalhe": "UTM: whatsapp",
+      "pedidos": 21,
+      "valor": 534.0
     }
   ],
   "utm_diario": [
@@ -3845,36 +4273,36 @@
       "dia": "2026-11-03",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 143,
-      "valor": 3803.5
+      "pedidos": 144,
+      "valor": 3811.0
     },
     {
       "dia": "2026-11-04",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 227,
-      "valor": 4557.0
+      "pedidos": 232,
+      "valor": 4678.0
     },
     {
       "dia": "2026-11-05",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 247,
-      "valor": 5582.0
+      "pedidos": 251,
+      "valor": 5781.0
     },
     {
       "dia": "2026-11-06",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 238,
-      "valor": 6061.0
+      "pedidos": 248,
+      "valor": 6406.0
     },
     {
       "dia": "2026-11-07",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 182,
-      "valor": 3332.5
+      "pedidos": 195,
+      "valor": 4032.5
     },
     {
       "dia": "2026-11-08",
@@ -3887,8 +4315,8 @@
       "dia": "2026-11-09",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 223,
-      "valor": 4379.0
+      "pedidos": 227,
+      "valor": 4444.5
     },
     {
       "dia": "2026-11-10",
@@ -3901,22 +4329,43 @@
       "dia": "2026-11-11",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 272,
-      "valor": 10450.0
+      "pedidos": 276,
+      "valor": 10576.0
     },
     {
       "dia": "2026-11-12",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 293,
-      "valor": 8807.5
+      "pedidos": 295,
+      "valor": 8832.5
     },
     {
       "dia": "2026-11-13",
       "utm_source": "whatsapp",
       "utm_campaign": "grupo-principal",
-      "pedidos": 111,
-      "valor": 3599.5
+      "pedidos": 280,
+      "valor": 8995.5
+    },
+    {
+      "dia": "2026-11-14",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 288,
+      "valor": 10819.5
+    },
+    {
+      "dia": "2026-11-15",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 28,
+      "valor": 1040.0
+    },
+    {
+      "dia": "2026-11-16",
+      "utm_source": "whatsapp",
+      "utm_campaign": "grupo-principal",
+      "pedidos": 21,
+      "valor": 534.0
     }
   ],
   "utm_criativo_diario": []
