@@ -138,3 +138,65 @@ _(registrar a decisão e quem decidiu)_
 
 ### Notas
 _(preencher na implementação)_
+
+## Validação @po (2026-11-16)
+
+**Veredicto: NO-GO — 6,5/10.** Status permanece `Draft`.
+
+Para registro: o diagnóstico desta story é o melhor do epic. Tudo que ela afirma do código confere — o `TODO` está em `route.ts:76-78`; o HMAC checa comprimento **antes** do `timingSafeEqual` (`:54-56`); o evento é gravado antes da decisão de assinatura (`:65-71`); `payment_webhook_events` tem `orderId` nulável; `banking_transactions` tem `orderId` e `externalReference`; `simulatePayment` tem a sequência de fechamento completa; o enum tem 18 provedores, inclui `pay2m` e **não** inclui `paysure`; e `06-observacao-ao-vivo.md:89-90` sustenta a `paysure` com `clientId` + `clientSecret`.
+
+O NO-GO não é por qualidade de redação. É porque, **como está escrita, esta story não pode ser concluída** — e o motivo é estrutural, não cosmético.
+
+### Correção obrigatória 1 — AC11 é circular: a story não pode ficar Done
+
+O AC11 exige que o adaptador da `paysure` nasça de **um aviso real capturado**. Para capturar um aviso real é preciso a credencial da paysure ligada recebendo pagamento. Mas o **Escopo OUT desta própria story** diz: "credenciais reais de gateway em produção (é o portão **G5** do epic, não engenharia)". E o epic coloca **G1 (LTM-01 a LTM-05 em Done) antes de G5**.
+
+Logo: AC11 depende de G5 → G5 depende de G1 → G1 depende desta story. **Ciclo fechado.** Um @dev que chegue no AC11 tem duas saídas e as duas são ruins: inventar o esquema da paysure a partir de documentação parafraseada — que é **exatamente** o erro que o `x-webhook-signature` genérico já cometeu nesta base, como a própria seção de Riscos reconhece — ou parar a story.
+
+Exigido: **quebrar o ciclo explicitamente**, de uma das duas formas.
+
+- **(a) Nomear o caminho de captura que não passa por G5.** A `paysure` já está em produção **na Sorteamos** — o aviso real existe hoje, do outro lado. Então a captura é ação de observação do painel/credencial do cliente, não de engenharia. Se for essa a escolha, ela entra em **Dependências** com dono e data, não como campo em branco no Dev Agent Record. Atenção: `05-pendente-de-observacao.md` e `06-observacao-ao-vivo.md` registram que a observação parou porque **a sessão do painel expirou** — ou seja, esta captura está hoje bloqueada numa ação do founder, e isso precisa estar escrito como bloqueio datado.
+- **(b) Dividir a story.** `LTM-03a` — `paysure` no enum, chave de idempotência com unicidade, `settle-order` transacional, arcabouço de adaptador, fail-loud no não-casado e no não-suportado, lista do operador. **Tudo isso é testável hoje**, sem aviso real nenhum, usando o HMAC que já existe como adaptador de referência. `LTM-03b` — o adaptador da `paysure`, bloqueado pelo aviso capturado. Isto **destrava o caminho do dinheiro** sem autorizar ninguém a inventar o formato da paysure.
+
+**Recomendação do @po: (b), com (a) rodando em paralelo.** A divisão transforma um bloqueio externo numa dependência de uma story pequena, em vez de deixar a onda 3 inteira esperando o founder logar no painel.
+
+### Correção obrigatória 2 — o AC10 falha mesmo depois de a tarefa 1 ser cumprida
+
+A tarefa diz: acrescentar `paysure` ao `paymentGatewayProviderEnum` em `src/db/schema/payments.ts`. Só que **não é o enum do schema que produz o 404**. A lista que a rota consulta é outra:
+
+```
+src/app/api/webhooks/payment/[tenant]/[provider]/route.ts:21
+  if (!PAYMENT_GATEWAY_PROVIDERS.includes(provider as never)) → 404
+```
+
+`PAYMENT_GATEWAY_PROVIDERS` é uma **segunda cópia** da lista dos 18 provedores, em `src/lib/validations/payment-gateway.ts:3-21`, e tem **três** consumidores:
+
+| Consumidor | Consequência de não atualizar |
+|---|---|
+| `route.ts:21` | o webhook da paysure continua respondendo **404** — o AC10 falha |
+| `src/lib/validations/payment-gateway.ts:25` (`z.enum`) | salvar a credencial da paysure é **rejeitado na validação** |
+| `src/app/dashboard/integrations/payments/page.tsx:54` | a paysure **não aparece** na tela de integrações — o operador não consegue nem configurá-la |
+
+Exigido: a tarefa de acrescentar `paysure` passa a nomear `src/lib/validations/payment-gateway.ts` **junto com** o schema, e o AC10 passa a cobrir também o salvamento da credencial e a presença na tela. Opcional, para @architect decidir: derivar o `z.enum` do `pgEnum` para a lista deixar de existir em duplicata — não é requisito desta story, é a raiz do problema.
+
+**Consequência para a formação de ondas:** `src/lib/validations/payment-gateway.ts` e `src/app/dashboard/integrations/payments/page.tsx` **não estão no conjunto de arquivos declarado** da story. `.claude/rules/parallel-waves.md` exige conjunto completo para formar onda. Não há colisão real com a LTM-04 (ela não toca esses arquivos), mas a declaração tem que ser corrigida antes do despacho.
+
+### Correção obrigatória 3 — dependência externa não declarada
+
+"Aviso real da `paysure` capturado" é hoje o **maior bloqueio** da story e aparece só como tabela em branco no Dev Agent Record. Tem que subir para **Dependências**, com dono (founder), o que exatamente se precisa (corpo, cabeçalhos, esquema de verificação) e onde se obtém.
+
+### Correção obrigatória 4 — ordem dos ACs
+
+A numeração corre **AC1-7, AC10, AC11, AC8, AC9**. AC8 e AC9 ficaram depois dos inseridos hoje. Reordenar preservando os identificadores (mover AC8 e AC9 para antes de AC10), para que marcar "AC8 feito" não seja ambíguo.
+
+### O que **não** é problema (verificado, para não ser reaberto)
+
+- **Os itens 1 a 7 da decisão de arquitetura estão coerentes** entre si e com os ACs. O item 4 (`paysure` no enum) é de fato o pré-requisito que ele diz ser, e o item 3 (assinatura dentro do adaptador) é consistente com o item 5 e com o achado de `06`.
+- **A dependência de LTM-02 e LTM-05 está certa** e não é circular: a LTM-05 testa o código que já existe, então ela fecha sem depender de nada desta.
+- **Os AC2 e AC3 (idempotência sequencial e concorrente) são testáveis hoje** — não precisam da paysure. São o núcleo do `LTM-03a` proposto.
+
+## Change Log
+
+| Data | Versão | Descrição | Autor |
+|---|---|---|---|
+| 2026-11-16 | 1.1 | Validação NO-GO (6,5/10) — AC11 circular (depende de G5, que depende desta story); AC10 não alcançável pela tarefa declarada (o 404 vem de `lib/validations/payment-gateway.ts`, não do enum); dependência do aviso real não declarada; ACs fora de ordem. Permanece Draft. | @po (Pax) |

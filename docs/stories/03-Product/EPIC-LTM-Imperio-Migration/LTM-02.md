@@ -1,6 +1,6 @@
 # LTM-02: Driver transacional e reserva atômica — fim do "desfaz na mão"
 
-**Status:** Draft
+**Status:** Ready
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F2**
 **Prioridade:** **P0** — é a fundação de tudo que mexe em dinheiro; a LTM-03 não pode ser feita antes
 **Complexidade:** L (Standard) — troca de driver + reescrita do caminho de reserva + prova de concorrência
@@ -18,10 +18,13 @@
 
 `apps/lotemania/src/db/index.ts`, íntegro, são 7 linhas:
 
-```
+```ts
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
+import * as schema from "./schema";
+
 const sql = neon(process.env.DATABASE_URL!);
+
 export const db = drizzle(sql, { schema });
 ```
 
@@ -52,6 +55,8 @@ A mesma ausência de atomicidade está em `expireStaleReservationsAndCheckSpam`,
 3. **`expireStaleReservationsAndCheckSpam` e `simulatePayment` também em transação** — pelo mesmo motivo, e porque a LTM-03 vai reusar o fechamento de pedido.
 4. **Pool com limite explícito.** Rota de servidor do Next cria e descarta contexto com frequência; pool sem teto em plataforma serverless esgota a conexão do Neon. O teto é configuração, não padrão implícito.
 5. **O nível de isolamento é decisão explícita, documentada.** O `UPDATE` condicional por status com `uniqueIndex` em `(product_id, number)` (LTM-01) já dá a exclusão mútua por linha sob `READ COMMITTED` — a transação é o que torna a sequência toda reversível, não o que resolve a corrida. Isso precisa estar escrito, porque a próxima pessoa vai perguntar.
+
+   > **Pergunta aberta que a documentação tem que responder (@po, validação 2026-11-16).** Exclusão mútua *por linha* não é, por si, o que garante o AC3 — que exige **um vencedor com os 10 números**, não "ninguém com número nenhum". Com 20 disputantes pelo mesmo conjunto, se dois `UPDATE` tomarem subconjuntos diferentes, **os dois** voltam com menos do que pediram e **os dois** desfazem: resultado possível é 10 números livres e zero reservas, que falha o AC3 tanto antes quanto depois da transação. O que decide isso é a **ordem em que as linhas são travadas**, e é aí que o índice da LTM-01 entra — não só pela unicidade. **A tarefa de documentação acima deve apurar e registrar qual mecanismo garante o vencedor único** (ordem de travamento por varredura de índice, travamento do conjunto inteiro, ou repetição limitada), com a verificação que sustenta a conclusão. Não presuma: o AC3 repetido 10× (LTM-05, mitigação de intermitência) é o que separa mecanismo de sorte.
 6. **Compatibilidade de runtime verificada no runtime real**, não só em teste: o driver WebSocket precisa funcionar no runtime em que as server actions efetivamente rodam.
 
 ## Tarefas (Checklist)
@@ -110,3 +115,20 @@ _(colar aqui)_
 
 ### Notas
 _(preencher na implementação)_
+
+## Validação @po (2026-11-16)
+
+**Veredicto: GO — 9/10.** Toda a evidência confere com o código: `src/db/index.ts` usa `neon-http` e tem as 7 linhas; `reserveSelectedNumbers` (`reserve.ts:77`) insere o pedido, faz o `UPDATE` condicional e compensa à mão em `reserve.ts:164-169`; `expireStaleReservationsAndCheckSpam` (`reserve.ts:23`) tem as três escritas soltas descritas; `simulatePayment` (`checkout.ts:10`) tem as quatro.
+
+Correções aplicadas nesta validação:
+
+1. **Citação do `db/index.ts` completada** — faltava o `import * as schema`, e a frase dizia "íntegro".
+2. **Pergunta aberta registrada no item 5 da decisão de arquitetura** — o AC3 exige **um vencedor com os 10 números**; exclusão mútua por linha, sozinha, admite o resultado "todos desfazem, ninguém leva". A tarefa de documentar o isolamento passa a ter que apurar qual mecanismo garante o vencedor único. É o ponto onde a dependência da LTM-01 é mais forte do que a story dizia.
+
+**Não bloqueante, para ciência do @dev:** `product_numbers.order_id` não tem FK para `orders` (ver LTM-01, AC8). O invariante "número reservado apontando para pedido inexistente" do AC3 é, por isso, responsabilidade da aplicação e do verificador da LTM-05 — não do banco.
+
+## Change Log
+
+| Data | Versão | Descrição | Autor |
+|---|---|---|---|
+| 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Citação do driver completada; pergunta aberta sobre o mecanismo de vencedor único registrada no item 5. | @po (Pax) |

@@ -6,7 +6,7 @@ Levar o **Império Prêmios** da **Sorteamos** (hoje em `painel.rapidinhas24hr.c
 
 O lotemania é a sucessora da Sorteamos: mesma operação, plataforma própria, multi-tenant white-label. A troca só acontece quando o lotemania aguentar o que a Sorteamos já aguenta — e isso é medível, não opinável.
 
-## Status: 📝 DRAFT (aguardando validação do @po)
+## Status: ✅ VALIDADO PARCIALMENTE (@po, 2026-11-16) — 4 de 5 stories em `Ready`, LTM-03 em `Draft` (NO-GO)
 
 **Epic ID:** LTM
 **Owner:** @pm (Morgan) · implementação @dev · schema @data-engineer
@@ -64,7 +64,7 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 
 | Frente | Objetivo | Stories | Status |
 |---|---|---|---|
-| **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01` a `LTM-05` | **Draft — este epic** |
+| **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01` a `LTM-05` | **Validada (@po 2026-11-16)** — 01/02/04/05 em `Ready`; `LTM-03` NO-GO, segue `Draft` |
 | **B — Paridade** | Fechar a distância funcional contra a Sorteamos: `social`, os 3 exports por sorteio, os 3 tipos de `/reports`, mídia em S3 | *a definir* | **Escopo aberto** — baseline fechada o bastante para desenhar, mas **3 decisões de produto pendentes** (B1/B2/B3 abaixo) e as 14 abas do editor ainda não observadas |
 | **C — Features novas** | O que o cliente pediu e a Sorteamos não faz — começando pela **cota dividida** | *a definir* | **Bloqueada** por modelagem (`/grill-with-docs`) **e** pela Frente A |
 
@@ -154,6 +154,34 @@ Baseline Sorteamos ──► Frente B (paridade)
 - ⚠️ **Recurso mutável compartilhado:** o journal do Drizzle (`drizzle/meta/_journal.json`) é tocado por qualquer story que gere migração. Duas `drizzle-kit generate` concorrentes colidem. **Serializar o passo de geração de migração** mesmo quando as stories rodam em paralelo.
 
 ---
+
+## Validação do @po (2026-11-16)
+
+| Story | Pontuação | Veredicto | Status |
+|---|---|---|---|
+| LTM-01 (índices) | 9/10 | **GO** | `Ready` |
+| LTM-02 (transação) | 9/10 | **GO** | `Ready` |
+| LTM-03 (webhook) | 6,5/10 | **NO-GO** | `Draft` — 4 correções obrigatórias na própria story |
+| LTM-04 (atribuição) | 9/10 | **GO** | `Ready` |
+| LTM-05 (testes) | 9/10 | **GO** | `Ready` |
+
+**A onda 1 está liberada.** `LTM-05` e `LTM-01` passaram com rigor extra justamente porque travam a cadeia; a onda 2 (`LTM-02`) também está `Ready`. O NO-GO da `LTM-03` está na **onda 3** e não atrasa nada antes dela — mas precisa de decisão **antes** do despacho da onda 3, e uma das saídas é externa (ver abaixo).
+
+### Contradição de portão que este epic precisa resolver
+
+**G5 não pode vir depois de G1 para a `LTM-03`.** O AC11 da `LTM-03` exige que o adaptador da `paysure` nasça de um **aviso real capturado**. Capturar exige credencial ligada — que este epic coloca em **G5**. E G5 vem depois de **G1 (LTM-01 a LTM-05 em Done)**, que contém a `LTM-03`. Ciclo fechado: a story não pode ficar Done.
+
+A saída que não passa por G5: a `paysure` **já está em produção na Sorteamos**, então o aviso real existe hoje, do outro lado — é captura por observação, não por engenharia. Mas `05-pendente-de-observacao.md` e `06-observacao-ao-vivo.md` registram que a observação parou porque **a sessão do painel expirou**. Portanto:
+
+> **Bloqueio externo, dono: founder.** Capturar um aviso real da `paysure` (corpo, cabeçalhos e esquema de verificação) é **pré-requisito da `LTM-03`**, não produto do G5. Enquanto não houver data para isso, a recomendação do @po é **dividir a story** (`LTM-03a` sem a paysure, testável hoje; `LTM-03b` só o adaptador), para a onda 3 não ficar esperando um login.
+
+### Achados que o epic não registrava
+
+1. **`product_numbers.order_id` não tem FK para `orders`.** É por isso que "número órfão" é alcançável — e é o invariante que `LTM-02` (AC3) e `LTM-05` (AC5-d) verificam por asserção. Criar ou não a FK é decisão de @architect/@data-engineer; passou a ser AC8 da `LTM-01` **registrar a decisão**.
+2. **A lista de provedores existe em duplicata.** `PAYMENT_GATEWAY_PROVIDERS` (`src/lib/validations/payment-gateway.ts`) é uma segunda cópia dos 18 provedores e é **ela** que produz o 404 do webhook, além de alimentar a validação da credencial e a tela de integrações. Acrescentar `paysure` só no `pgEnum` não resolve nada dos três.
+3. **`paymentId`/`paymentEndToEndId` não têm onde morar.** O ETL os lê (`client_api.py:508-509`), e o lotemania só tem `externalReference` em `banking_transactions`. É uma aresta `LTM-03` ↔ `LTM-04` que não estava mapeada, e as duas estão na mesma onda gerando migração.
+4. **B3 não é decisão pendente.** A tabela de Frentes diz que a Frente B tem "3 decisões de produto pendentes (B1/B2/B3)", mas o próprio texto do B3 registra a decisão **já tomada** pelo founder em 2026-11-16 (só `paysure`). Pendentes são B1 e B2.
+5. **Os números do BI são uma janela móvel de 7 dias.** Conferidos hoje contra `apps/BI/imperio-premios/data-produto.json`: os estruturais batem exatamente — `numeros_total` = 100 em 100% das rodadas, mediana de esgotamento **1,748 h** (≈ 1,8 h) e mínimo **0,3 h** (18 min ⇒ ~5,5 números/minuto). Já as contagens agregadas andaram com o refresh de hoje (a janela de 7 dias agora dá 193 rodadas e ≈ R$ 701 mil, contra as 177 e R$ 639.325 registradas aqui). **Nada está errado** — é janela móvel. Recomendação: marcar a tabela com a data do snapshot, para a deriva não ser lida como erro de medição mais tarde.
 
 ## Critérios de "pronto para migrar o cliente"
 

@@ -1,6 +1,6 @@
 # LTM-04: Atribuição por pedido e API de leitura — o contrato já existe, só não é emitido
 
-**Status:** Draft
+**Status:** Ready
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F4**
 **Prioridade:** **P0** — sem isso o corte cega o CAPI do Meta e o BI inteiro no mesmo dia
 **Complexidade:** L (Standard) — captura na origem + colunas novas + API de leitura com contrato fixo + payload de saída
@@ -78,6 +78,8 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 ## Critérios de Aceite
 
 - [ ] **AC1 (contrato do ETL, campo por campo):** um teste de contrato enumera **todos** os campos que `services/Meta/imperio-premios/client_api.py` consome de um pedido e falha se **qualquer um** estiver ausente da resposta de `GET /api/v1/products/{id}/orders`. A lista do teste é derivada do código do ETL (arquivo e linha citados no teste), não de memória.
+  - **Lacuna já identificada na validação (@po, 2026-11-16), para não ser descoberta no meio da implementação.** O ETL lê `paymentId` e `paymentEndToEndId` (`client_api.py:508-509`) e `paymentAt` (`:545`). Hoje o lotemania **não tem onde guardar o identificador fim-a-fim**: `orders` tem `paymentGatewayProvider` e `paidAt`, e `banking_transactions` tem só `externalReference` (`src/db/schema/payments.ts`). Ou seja: este AC **exige um campo que ainda não existe no schema**, e ele mora no caminho de pagamento — território da LTM-03 (`settle-order`), não da tabela de atribuição desta story. Resolução: a story que chegar depois acrescenta o campo; se a LTM-04 chegar primeiro, ela o acrescenta e a LTM-03 o preenche. O que **não** pode acontecer é o AC1 ser marcado verde tendo removido `paymentEndToEndId` da lista enumerada — a lista é derivada do consumidor, e encurtá-la é falsificar o contrato.
+  - **Nomes dos parâmetros do contrato**, lidos do ETL e não de memória: `page` (0-indexado), `rowsPerPage` (o ETL usa 25 em `/products` e 100 em pedidos) e `filters` como **string JSON** (`client_api.py:168`, `:256-260`). O AC3 cobre isso por comportamento; estão nomeados aqui para que a implementação não precise descobrir.
 - [ ] **AC2 (contrato do CAPI, campo por campo):** teste equivalente para o evento `order.paid`: todo caminho que `apps/webhook-imperio-capi/api/order-paid.js` lê (`data.id`, `data.total`, `data.user.{id,email,phone}`, `data.params.{fbc,fbp,ip,userAgent,utmSource,utmMedium,utmCampaign,utmContent,utmTerm,gclid,ttclid}`, `event`, `timestamp`, header de autenticação) está presente e no mesmo lugar.
 - [ ] **AC3 (o ETL migra trocando só a URL base):** o `client_api.py` apontado para o lotemania, **sem nenhuma outra alteração**, autentica, lista produtos e lista pedidos de um produto, e produz as linhas de dados brutos. Comprovado por execução real contra uma base semeada, com a saída registrada no Dev Record (**sem dado pessoal — usar dados sintéticos no seed**).
 - [ ] **AC4 (a UTM sobrevive à navegação — o Achado A):** um teste de ponta a ponta entra na loja com os cinco parâmetros de UTM na URL, **navega internamente** até o sorteio, reserva e paga; o pedido resultante tem os cinco valores preenchidos. Este AC é o que separa "tem as colunas" de "tem o dado" — e é exatamente o cenário em que a Sorteamos falha em 100% dos pedidos.
@@ -101,7 +103,9 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 ## Dependências
 
 - **Depende de LTM-02 (bloqueante)** — AC8 exige a gravação na mesma transação do pedido.
-- **Depende de LTM-03** — a emissão de `order.paid` pendura no fechamento do pedido. Se a LTM-03 ainda não estiver pronta quando esta chegar ao fim, a emissão fica pendurada no `simulatePayment` e a troca é trivial.
+- **Depende de LTM-03** — por **duas** razões, não uma:
+  1. a emissão de `order.paid` pendura no fechamento do pedido. Se a LTM-03 ainda não estiver pronta quando esta chegar ao fim, a emissão fica pendurada no `simulatePayment` e a troca é trivial;
+  2. **os identificadores de pagamento que o AC1 exige** (`paymentId`, `paymentEndToEndId`) não existem no schema e pertencem ao caminho de pagamento da LTM-03 (@po, 2026-11-16). Esta aresta não estava mapeada; quem chegar primeiro cria o campo, quem chegar depois o preenche — mas a aresta existe e precisa ser combinada entre as duas stories da onda 3 antes de começarem.
 - **Depende de LTM-01** — a listagem de pedidos por produto (AC1/AC3) é uma das consultas que justificam os índices de `orders`.
 - **Depende de LTM-05** — todos os ACs são automatizados.
 - **Onda 3, pode ir em paralelo com LTM-03.** Toca `src/db/schema/attribution.ts` (novo), `src/lib/actions/reserve.ts`, `src/app/loja/[tenant]/` e `src/app/api/v1/` (novo). Disjunto da LTM-03.
@@ -128,3 +132,27 @@ _(colar a saída — seed sintético, sem dado pessoal)_
 
 ### Notas
 _(preencher na implementação)_
+
+## Validação @po (2026-11-16)
+
+**Veredicto: GO — 9/10.** A story é a mais bem ancorada do epic: o contrato de saída não é inventado, é lido de dois consumidores que já rodam. Conferido um a um:
+
+- `orders` (`raffles.ts:93-117`) não tem campo de atribuição nenhum ✓
+- `utm_links` (`settings.ts`) é construtor de link com `source`/`medium`/`campaign`/`clicks` — agregado por link, nada por pedido ✓
+- `outbound_webhooks` e `outbound_webhook_deliveries` já existem (`integrations.ts:53` e `:67`) — não há infraestrutura a construir ✓
+- `order-paid.js` lê `data.params.*` e autentica por `X-AUTH-WEBHOOK` ✓ (comentários nas linhas 10-14 e 29)
+- `client_api.py` é 0-indexado com a nota do custo de ~75% ✓ (`:152-160`)
+- `users` tem `name`, `email`, `phone`, `cpf` — o ETL encontra o comprador ✓
+- As cinco rotas `/api/meta-ads` estão em `06-observacao-ao-vivo.md:96-100`, com a prioridade registrada na linha 202 ✓
+
+Correções aplicadas nesta validação:
+
+1. **Lacuna de schema no AC1 antecipada** — o ETL lê `paymentId` e `paymentEndToEndId`, e **não existe campo fim-a-fim** no lotemania. O AC era testável, mas não satisfazível com a lista de tarefas declarada: a tabela de atribuição não é onde esse campo mora. Ficou registrado, com a proibição explícita de "fechar" o AC encurtando a lista de campos.
+2. **Aresta LTM-03 ↔ LTM-04 mapeada** — a dependência era declarada só pela emissão do `order.paid`; agora inclui o campo de identificador de pagamento. As duas stories da onda 3 precisam combinar quem cria o campo **antes** de começarem, senão colidem na migração (que o epic já manda serializar).
+3. **Nomes dos parâmetros do contrato nomeados** — `page`, `rowsPerPage`, `filters` (string JSON), com arquivo e linha.
+
+## Change Log
+
+| Data | Versão | Descrição | Autor |
+|---|---|---|---|
+| 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Lacuna de `paymentEndToEndId` no AC1 registrada, aresta com a LTM-03 mapeada, parâmetros do contrato nomeados. | @po (Pax) |

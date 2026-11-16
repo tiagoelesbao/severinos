@@ -1,6 +1,6 @@
 # LTM-01: Índices em `product_numbers` e `orders` — o comentário do schema vira verdade
 
-**Status:** Draft
+**Status:** Ready
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F1**
 **Prioridade:** **P0** — toda reserva hoje faz varredura sequencial; o esgotamento medido mais rápido é de 18 min (~5,5 números/minuto) com 5 rodadas simultâneas
 **Complexidade:** M (Standard) — schema + migração + prova de plano de execução, sem lógica de aplicação
@@ -31,7 +31,9 @@ Acessos reais que hoje varrem a tabela:
 
 `orders` também não tem índice declarado nenhum — só o `id`. As FKs para `tenants`, `users` e `products` **não criam índice** no Postgres (ao contrário do que muita gente assume).
 
-Comparação de referência: `products` e `payment_gateways` **têm** `uniqueIndex` declarado no mesmo arquivo e no mesmo estilo — o padrão do projeto existe e `product_numbers` ficou de fora.
+Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mesmo arquivo** (`raffles.ts:78`), e o mesmo padrão aparece em `core.ts` (`users`, 4 índices), `payments.ts:124` (`payment_gateways`), `integrations.ts:45`, `affiliates.ts:70` e `settings.ts:103` — o padrão do projeto existe em seis arquivos de schema e `product_numbers` ficou de fora.
+
+**Achado adicional da validação (@po, 2026-11-16):** `productNumbers.orderId` é declarado como `uuid("order_id")` **sem `.references(() => orders.id)`** — não existe chave estrangeira para `orders`. É por isso que "número reservado apontando para pedido inexistente" é um estado alcançável, e é exatamente o invariante que a LTM-02 (AC3) e a LTM-05 (AC5-d) verificam por asserção. Esta story indexa essa coluna; **se a FK deve ou não existir é decisão de @architect/@data-engineer**, não desta validação. O que a story passa a exigir é que a decisão seja **tomada e registrada** (AC8), não silenciosamente herdada.
 
 ## Decisão de arquitetura (proposta)
 
@@ -55,12 +57,14 @@ Comparação de referência: `products` e `payment_gateways` **têm** `uniqueInd
 ## Critérios de Aceite
 
 - [ ] **AC1 (a invariante existe):** inserir duas linhas com o mesmo `(product_id, number)` falha com violação de unicidade. Comprovado por teste automatizado que espera o erro — não por inspeção visual do schema.
+  - **Nota de sequenciamento (@po, 2026-11-16):** este AC é o único que depende da base de teste da LTM-05, e as duas stories rodam na **mesma onda 1**. A prova independente de que os índices existem é o **AC7** (`pg_indexes`), que não depende de ninguém. Portanto: a story pode ser implementada e revisada em paralelo com a LTM-05, mas **não pode ser marcada `Done` com o AC1 pendente** — se a suíte da LTM-05 chegar depois, a LTM-01 fica em `InReview` até o teste rodar. "Pendência registrada" não substitui o AC.
 - [ ] **AC2 (reserva sem varredura):** numa base semeada com **1 milhão** de linhas em `product_numbers`, a consulta de reserva (um `product_id`, 10 números, status disponível) executa **sem `Seq Scan on product_numbers`** no plano. Prova: saída de `EXPLAIN (ANALYZE, BUFFERS)` colada no Dev Record, antes (com `Seq Scan`) e depois (com `Index Scan` ou `Bitmap Index Scan`).
 - [ ] **AC3 (invariância de escala):** a mesma consulta de reserva executada numa base de 10 mil linhas e numa de 1 milhão difere em menos de **2×** no tempo medido (`EXPLAIN ANALYZE`, mediana de 10 execuções). É este critério — e não um limite absoluto de milissegundos — que prova que o custo deixou de acompanhar o tamanho da tabela.
 - [ ] **AC4 (cada índice tem dono):** para **cada** índice criado em `orders` e em `product_numbers` existe, no Dev Record, a consulta real do código que o usa (arquivo e linha) e o `EXPLAIN` mostrando o índice sendo escolhido. Índice sem consulta que o justifique é removido antes do fim da story — índice não usado é custo de escrita em todo pedido pago, e são 10.550 por semana.
 - [ ] **AC5 (varredura de expiração):** a consulta de expiração (junção `orders` × `product_numbers`, reserva vencida, pedido pendente) executa sem `Seq Scan` em nenhuma das duas tabelas na base de 1 milhão de linhas. `EXPLAIN` no Dev Record.
 - [ ] **AC6 (o schema para de mentir):** uma busca por "Indexed by" em `src/db/schema/raffles.ts` ou não retorna nada, ou retorna um comentário cujo conteúdo corresponde a índice declarado no mesmo arquivo.
 - [ ] **AC7 (migração reprodutível):** `pnpm db:push` numa base limpa produz exatamente os índices acima, verificado por consulta a `pg_indexes` listando os nomes esperados.
+- [ ] **AC8 (a FK ausente de `product_numbers.order_id` é decisão registrada, não omissão):** o Dev Record traz a decisão explícita — criar a FK para `orders.id` ou **deliberadamente** não criar — com a razão e quem decidiu. Se a decisão for não criar, o comentário no schema diz isso em uma linha, para que a próxima pessoa saiba que o invariante de órfão é responsabilidade da aplicação e do verificador da LTM-05, não do banco. Nenhum caminho desta story deixa a coluna indexada sem que a questão da FK tenha sido respondida.
 
 ## Escopo
 
@@ -94,3 +98,19 @@ _(colar aqui)_
 
 ### Notas
 _(preencher na implementação)_
+
+## Validação @po (2026-11-16)
+
+**Veredicto: GO — 9/10.** Evidência conferida contra o código real: `productNumbers` (`raffles.ts:82`) e `orders` (`raffles.ts:93`) de fato não têm terceiro argumento; o comentário mentiroso está em `raffles.ts:81`; os quatro caminhos de acesso citados existem. Os números do BI reproduzem: `numeros_total` é 100 em 100% das rodadas, mediana de esgotamento 1,748 h (≈ 1,8 h) e mínimo 0,3 h (18 min ⇒ ~5,5 números/minuto).
+
+Correções aplicadas nesta validação:
+
+1. **Evidência imprecisa corrigida** — `payment_gateways` não está no mesmo arquivo que `products`; o padrão de `uniqueIndex` foi reenquadrado com os seis arquivos onde ele de fato aparece.
+2. **AC1 destravado do limbo** — nota de sequenciamento: AC7 é a prova independente; `Done` continua exigindo o AC1.
+3. **AC8 novo** — a ausência de FK em `product_numbers.order_id` passa a ser decisão registrada. Esta story indexa a coluna; a decisão de FK é de @architect/@data-engineer e precisa ficar escrita.
+
+## Change Log
+
+| Data | Versão | Descrição | Autor |
+|---|---|---|---|
+| 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Evidência de `uniqueIndex` corrigida, AC1 com nota de sequenciamento, AC8 (decisão de FK) acrescentado. | @po (Pax) |
