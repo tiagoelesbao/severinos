@@ -104,9 +104,12 @@ Não é tudo igual. Dois grupos:
 | **Destravar o build** | `badge.tsx` (1 componente trivial de UI), `raffle-extras.tsx` (7 componentes da loja), `settings-tabs`, `users-filters`, `contact-card` | Implementação de verdade — o `raffle-extras` é o único grande |
 | **Limpar o typecheck** | 11 `TS2322` + 9 `TS2345` do mesmo padrão `string \| null` do `Select`, 2 zod, 1 `LayoutProps`, 1 comparação morta | Mecânico, exceto a comparação morta em `banking.ts` que precisa de decisão: qual era a intenção |
 
-As três páginas de 0 bytes (`analytics`, `social`, `utm-links`) **não quebram o build** — rota
-sem default export do Next não é erro de compilação, é rota que não renderiza. Elas são Frente B
-(paridade), não `LTM-00`.
+As três páginas de 0 bytes (`analytics`, `social`, `utm-links`) são **provavelmente** Frente B
+(paridade) e não `LTM-00` — mas isso **não foi verificado**. O build morre antes, nos imports
+quebrados, e nunca chega a avaliar essas rotas. O Next exige um default export de `page.tsx` e
+pode muito bem recusar um arquivo vazio. **Decidir isso é o segundo passo da `LTM-00`:** depois
+que os cinco módulos importados existirem, rodar o build de novo e ver se as três rotas vazias
+passam ou não. Se não passarem, entram no escopo de destravar o build, não no de paridade.
 
 ---
 
