@@ -3,11 +3,12 @@
 Plataforma **white-label multi-tenant de sorteios**. Sucessora da Sorteamos — a
 plataforma que hoje roda o Império Prêmios em `painel.rapidinhas24hr.com`.
 
-> **Estado honesto, medido em 2026-11-16:** isto é um **andaime**, não um clone funcional.
-> O esqueleto e o schema estão certos; a profundidade não existe ainda. Três páginas do
-> dashboard são arquivos vazios e o webhook de pagamento é um `TODO` — **ninguém nunca
-> comprou nada neste sistema**. O mapa completo está em `docs/ESTADO-ATUAL.md` e no epic
-> de paridade.
+> **Estado honesto, medido em 2026-11-16 e corrigido na baseline:** o esqueleto e o schema
+> estão certos; a profundidade varia muito por tela. **Uma** página do dashboard é vazia de
+> fato (`social`), `analytics` tem 20 linhas e o resto tem corpo. O que de fato trava é
+> outra coisa: o webhook de pagamento é um `TODO`, então **ninguém nunca comprou nada neste
+> sistema**. Mapa completo em `docs/research/2026-11-16-baseline-sorteamos/` e no
+> `EPIC-LTM-Imperio-Migration`.
 
 ## Stack
 
@@ -40,7 +41,12 @@ pnpm dev
 
 **Não há `test` nem `typecheck`.** São 187 arquivos e 14.462 linhas sem um único teste —
 o primeiro item de dívida, e crítico porque vamos mexer em propriedade de cota e rateio
-de prêmio.
+de prêmio. É a story `LTM-05`.
+
+> Nota de método: a primeira medição deste README contou só os `page.tsx` de cada pasta e
+> generalizou a partir disso — daí "três páginas vazias" e "reports com 22 linhas", ambos
+> errados. A baseline corrigiu contando a pasta inteira. Medir o arquivo de entrada e
+> concluir sobre a feature é o erro; a tela mora na pasta.
 
 ## Estrutura
 
@@ -83,7 +89,8 @@ Resumo; o detalhe vive no epic.
 | Webhook de pagamento | valida HMAC corretamente, depois tem um `TODO` no lugar de fechar o pedido |
 | Atribuição por pedido | **nada** — sem `fbc`, `fbp`, `gclid`, `ttclid`, `utm`. O export da Sorteamos tem todos |
 | API de leitura para o nosso ETL | não existe |
-| Paridade de telas | 3 páginas vazias, `reports` com 22 linhas contra 3 exports na Sorteamos |
+| Paridade de telas | `social` vazia; `analytics` com 20 linhas. `reports` tem 149 linhas e 5 tipos — a Sorteamos tem 5 relatórios, não 3 |
+| Gateway de produção fora do enum | **`paysure`** é o provedor real em produção e não está no enum de `payment_gateways`; `pay2m` está |
 | Testes | zero |
 
 ## Volume que precisa aguentar
