@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l03-venenosos-40s · Os animais mais venenosos do mundo
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l03-venenosos-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "blue ringed octopus", etiqueta: "quatro-opolvodean", n: 3, exige: [octopus], ancora: "Numero Quatro o polvo-de-aneis-azuis",
+       imagem: "photorealistic macro photograph of a blue-ringed octopus on sand underwater, vivid electric blue rings glowing on yellow skin, shallow tropical water, wildlife documentary still, vertical composition"}
+    - {q: "stonefish underwater reef", etiqueta: "tres-opeixepedr", n: 3, exige: [stonefish], ancora: "Numero Tres o peixe-pedra",
+       imagem: "photorealistic underwater photograph of a stonefish camouflaged among rocks on the seabed, mottled brown skin, dorsal spines raised, tropical reef, wildlife documentary still, vertical composition"}
+    - {q: "golden poison dart frog", etiqueta: "dois-aradourada", n: 3, exige: [frog, poison], ancora: "Numero Dois a ra-dourada",
+       imagem: "photorealistic macro photograph of a golden poison dart frog on a wet leaf in the rainforest, brilliant yellow skin, shallow depth of field, wildlife documentary still, vertical composition"}
+    - {q: "box jellyfish swimming", etiqueta: "um-avespadoma", n: 3, exige: [jellyfish], ancora: "Numero Um a vespa-do-mar"}
+    - {q: "deep ocean blue water", etiqueta: "fecho", n: 2, exige: [ocean, water, underwater], ancora: "Comenta ai se tu ja viu algum desses de perto."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Os animais mais venenosos do mundo."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois a ra-dourada"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai se tu ja viu algum desses de perto."}

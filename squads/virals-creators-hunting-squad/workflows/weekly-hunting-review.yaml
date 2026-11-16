@@ -1,0 +1,39 @@
+workflow:
+  name: weekly-hunting-review
+  version: 1.0.0
+  description: "Review semanal de hunting para L10"
+  squad: virals-creators-hunting-squad
+  trigger: "Toda sexta-feira ou dia anterior à L10"
+  frequency: weekly
+
+steps:
+  - id: step-1-generate
+    name: "Gerar relatório semanal"
+    type: worker
+    script: scripts/weekly-report-generator.js
+    output: "data/reports/weekly-report-{date}.md"
+
+  - id: step-2-sync
+    name: "Sync ClickUp (pull)"
+    type: worker
+    script: scripts/clickup-pipeline-sync.js
+    args: "--pull-pipeline"
+
+  - id: step-3-review
+    name: "Revisar métricas"
+    type: agent
+    executor: "@hunter-manager (Jason)"
+    checklist: checklists/weekly-review-checklist.md
+
+  - id: step-4-issues
+    name: "Identificar IDS"
+    type: agent
+    description: >
+      Se taxa de resposta < 10%: IDS na L10
+      Se pipeline vazio: expandir hashtags/nichos
+      Se meta < 50% no mês: alerta vermelho
+
+  - id: step-5-present
+    name: "Apresentar na L10"
+    type: human
+    template: templates/weekly-hunt-report.md

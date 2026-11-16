@@ -1,0 +1,250 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM — IDENTIDADE DE MARCA (AGÊNCIA IA-FIRST DE AQUISIÇÃO E CONVERSÃO)
+# Fonte canônica de Avatar, Tom de Voz, Pilares e Restrições da Oraclum.
+# Consumido pelo Recast Engine, Plan Creative, Fit Scorer e análises agênticas.
+#
+# TESE CENTRAL (v2): Oraclum é uma agência IA-first — entrega os serviços
+# tradicionais de aquisição e conversão de clientes (tráfego, social mídia,
+# web design, geração de leads, automação comercial/CRM, inteligência de
+# dados) só que produzidos e operados com IA: mais rápido, com maior valor
+# agregado e escalabilidade do que o modelo tradicional de agência/equipe.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "2.1"
+  criado_em: "2026-08-04"
+  revisado_em: "2026-08-15"
+  status: "active"
+  fontes:
+    - "Manual de posicionamento Oraclum 2026"
+    - "Diretrizes de conteúdo em massa de IA"
+    - "Reposicionamento 2026-08-14 — dono: Virals sem clientes/cases ainda, redirecionando comunicação para Oraclum como agência IA-first"
+    - "apps/captura_ia/src/data/vault/* — 26 guias reais do cofre (LEAD GENERATION, CLAUDE, AI ADS, TOOLS AND SKILLS, AI CONTENT, AUTOMATION, PROMPTS), fonte de evidência do que a Oraclum de fato sabe entregar"
+    - "ClickUp — Painel de Produtos (901323987788), 5 cards Oraclum criados 2026-08-15"
+  mudancas_v2:
+    - "Papel migrado de 'plataforma de conteúdo/educação sobre IA' para AGÊNCIA IA-FIRST que entrega serviço (aquisição + conversão), com o vault de guias gratuitos como isca/prova de método, não como produto final"
+    - "Adicionado portfolio_servicos — 6 frentes ancoradas nas categorias reais do cofre, incluindo automação comercial/CRM e inteligência de dados (antes ausentes)"
+    - "Avatar estendido: além de quem quer aprender IA sozinho, agora inclui donos de negócio que querem o RESULTADO entregue (aquisição + conversão) sem operar a IA eles mesmos"
+    - "Regra de prova adicionada: sem cases de cliente ainda — a prova é o próprio cofre/sistema rodando (26 guias reais, agentes reais), nunca case fabricado"
+  mudancas_v2_1:
+    - "portfolio_servicos com submarca explícita por serviço (Oraclum X / AI Gen / AI Dev / Ops / Sales), espelhando os 5 cards criados no Painel de Produtos do ClickUp"
+    - "inteligencia-dados-decisao dobrado dentro de automacao-comercial-crm (Oraclum Ops) — mesmo card no catálogo, sem duplicar produto"
+
+# ─────────────────────────────────────────────────────────────────────────────
+perfil:
+  identidade: "Oraclum"
+  nome_formal: "Oraclum Tech"
+  handle: "@oraclum"
+  papel: >
+    Agência IA-first de aquisição e conversão de clientes. Entrega os serviços
+    que uma agência tradicional entrega — tráfego pago, social mídia, web
+    design/landing pages, geração de leads, automação comercial/CRM e
+    inteligência de dados para decisão — só que construídos e operados com
+    diferentes métodos de IA: mais rápido, com maior valor agregado e
+    escalabilidade do que o modelo de agência com equipe grande.
+  objetivo_perfil: "Autoridade + geração de leads para os serviços de aquisição/conversão via IA — o cofre de guias gratuitos é a isca que prova o método antes da venda."
+  posicionamento: |
+    Não vendemos "gestão de tráfego" nem "consultoria de IA" separados. Entregamos
+    o ciclo inteiro de aquisição e conversão de cliente — tráfego, criativo, site,
+    geração de leads, automação de atendimento e leitura de dado — construído com
+    agentes de IA em vez de equipe grande. O mesmo resultado que uma agência
+    tradicional entrega, só que mais rápido, mais barato de escalar e com mais
+    inteligência de dado por trás de cada decisão.
+  big_idea: "IA não é o futuro, é a infraestrutura do presente. Uma agência que não usa IA para produzir entrega mais devagar, mais caro e sem dado — e vai perder para quem usa."
+  promessa_central: "A gente entrega aquisição de cliente de ponta a ponta — tráfego, criativo, site, leads e conversão — construído e operado com IA, com a mesma qualidade de uma agência grande e a velocidade que só automação permite."
+  manifesto: >
+    O mercado de agência vende hora de gente e chama de expertise. A gente
+    substitui parte disso por agentes de IA que produzem criativo, escrevem
+    outbound, sobem site, automatizam atendimento e leem o número — e mostra
+    o processo rodando, não promete resultado em slide. Não temos ainda um
+    catálogo de cases de cliente — temos o próprio cofre de 26 guias, testado
+    e usado publicamente, como prova de que o método funciona antes de cobrar
+    por ele. Aplicação real primeiro, discurso depois.
+
+# ─────────────────────────────────────────────────────────────────────────────
+avatar:
+  quem: >
+    Dois perfis convivendo no mesmo público: (1) quem quer aprender e operar IA
+    sozinho — consome o cofre gratuito, constrói autoridade própria; (2) donos
+    de negócio que querem o RESULTADO de aquisição/conversão pronto, sem tempo
+    ou time para operar a IA — viram comprador do serviço via Oraclum.
+  demografia: "20-45 anos · Brasil · founders, gestores de marketing/vendas, freelancers e agências que precisam de mais aquisição e conversão com menos operação manual"
+  segmentos_em_teste:
+    - id: "founders-digitais"
+      nome: "Founders de negócios digitais (agências, SaaS, e-commerce)"
+      dor: "Gargalo operacional e custo de equipe alto para tráfego, conteúdo, site e atendimento"
+      narrativa: "Como automatizar 80% do seu onboarding de clientes ou funil de vendas usando IA."
+    - id: "profissionais-corporativos"
+      nome: "Profissionais liberais e executivos"
+      dor: "Medo de obsolescência profissional perante o avanço rápido da IA"
+      narrativa: "Domine as ferramentas de IA que estão redefinindo seu cargo e se torne insubstituível."
+    - id: "criadores-conteudo"
+      nome: "Criadores de conteúdo e agências de mídia"
+      dor: "Dificuldade em manter volume alto de publicações mantendo qualidade"
+      narrativa: "A máquina de postagens infinitas: workflow passo-a-passo para produzir 30 vídeos de IA por semana."
+    - id: "donos-de-negocio-compradores"
+      nome: "Donos de negócio que querem aquisição/conversão pronta (compradores do serviço)"
+      dor: "Sabe que precisa de tráfego + criativo + site + CRM funcionando junto, mas não tem tempo, time nem estômago pra montar isso operando ferramenta por ferramenta"
+      narrativa: "A gente monta e opera o sistema de aquisição inteiro com IA — você recebe lead qualificado e conversa que já anda sozinha, não uma lista de ferramenta pra aprender."
+  dores:
+    - "Perda de tempo em tarefas operacionais repetitivas (tráfego, criativo, atendimento)"
+    - "Dificuldade de acompanhar as novidades e ferramentas de IA lançadas diariamente"
+    - "Ceticismo sobre a utilidade real de IA no dia a dia dos negócios"
+    - "Lead chega e morre no funil por falta de automação de atendimento/CRM"
+    - "Decisão de mídia no escuro — sem visibilidade real de número e qualidade de lead"
+  frustracoes:
+    - "Cansado de cursos superficiais de 'como fazer prompts no ChatGPT'"
+    - "Falta de exemplos práticos e de código/workflows reais rodando na prática"
+    - "Contratou agência que só entrega mídia e nunca resolve o que acontece com o lead depois"
+  sonho: >
+    Ter um ecossistema de aquisição e conversão de clientes altamente automatizado
+    — tráfego, criativo, site e CRM operando com agentes de IA, dado real
+    orientando cada decisão — sem precisar montar equipe grande pra sustentar.
+  crencas_a_quebrar:
+    - "IA é muito complexa de implementar sem saber programar"
+    - "IA vai substituir o humano completamente em vez de amplificá-lo"
+    - "Automação custa caro ou exige ferramentas inacessíveis"
+    - "Agência de tráfego e automação de atendimento são serviços separados — na prática um sem o outro perde lead que já foi pago"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Portfólio de serviços — ancorado nas 7 categorias reais do cofre
+# (apps/captura_ia/src/data/vault). O conteúdo educa E atrai comprador do
+# serviço, igual ao padrão já validado em @tiagoelesbao/portfolio_servicos.
+#
+# 2026-08-15 — submarcas alinhadas ao Painel de Produtos do ClickUp
+# (Produto > Gestão de Produtos > Painel de Produtos, campo Empresa):
+# Oraclum X, Oraclum AI Gen, Oraclum AI Dev, Oraclum Ops, Oraclum Sales.
+# "inteligencia-dados-decisao" foi dobrado dentro de Oraclum Ops (decisão
+# de mídia/oferta depende do mesmo dado de CRM+mídia que a automação lê).
+portfolio_servicos:
+  publico_alvo: "Donos de negócio e gestores que precisam de aquisição e conversão de cliente funcionando de ponta a ponta, sem montar time grande pra operar."
+  servicos:
+    - id: "trafego-ads-ia"
+      submarca: "Oraclum X"
+      nome: "Tráfego & Anúncios com IA"
+      vault_source: "AI ADS"
+      dor_que_resolve: "Criativo de anúncio caro e lento de produzir, decisão de mídia sem visibilidade do que o concorrente está fazendo."
+      resultado: "Anúncios em vídeo e UGC produzidos com IA (ex.: Higgsfield, Arcads), inteligência competitiva sobre anúncios de concorrente, conta de anúncios conectada e monitorada."
+    - id: "social-conteudo-ia"
+      submarca: "Oraclum AI Gen"
+      nome: "Social Mídia & Conteúdo com IA"
+      vault_source: "AI CONTENT + AUTOMATION (publicação)"
+      dor_que_resolve: "Manter volume alto de publicação em várias redes sem contratar equipe de conteúdo inteira."
+      resultado: "Equipe de conteúdo com agentes de IA produzindo e publicando automaticamente em múltiplas redes, com texto que não soa 'feito por IA'."
+    - id: "sites-lp-ia"
+      submarca: "Oraclum AI Dev"
+      nome: "Sites & Landing Pages com IA"
+      vault_source: "TOOLS AND SKILLS"
+      dor_que_resolve: "Site/LP lento de sair do papel, caro, ou com a 'cara genérica de IA' que não converte."
+      resultado: "Site publicado rápido com IA, sem o visual clichê — alinhado ao criativo que traz o tráfego."
+    - id: "leads-prospeccao-ia"
+      submarca: "Oraclum Sales"
+      nome: "Geração de Leads & Prospecção com IA"
+      vault_source: "LEAD GENERATION"
+      dor_que_resolve: "Prospecção manual lenta, lista de lead genérica e sem pesquisa por trás."
+      resultado: "Lista de lead raspada por critério real, pesquisa individual por prospect, rascunho de abordagem pronto — humano só aprova e envia."
+    - id: "automacao-comercial-crm"
+      submarca: "Oraclum Ops"
+      nome: "Automação Comercial, CRM & Inteligência de Dados"
+      vault_source: "AUTOMATION + AI ADS (competitor intelligence)"
+      dor_que_resolve: "Lead que o tráfego já pagou pra gerar morre no atendimento por falta de resposta rápida ou follow-up; decisão de mídia e oferta tomada no escuro."
+      resultado: "Pipeline de CRM operado com IA (ex.: GoHighLevel, ManyChat), atendimento e follow-up automatizados, e leitura real do funil (mídia + CRM) para decisão assertiva — o que escalar, o que cortar, onde está o gargalo."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Pacotes — mesma arquitetura de bundle usada em @virals/brand-identity.yaml
+# (produtos empacotados a partir dos serviços à la carte do portfolio_servicos
+# acima). Criados no ClickUp — Painel de Produtos em 2026-08-15.
+produtos:
+  - nome: "Oraclum Starter (Lite)"
+    para: "negócio que precisa profissionalizar tráfego, criativo e site sem montar time interno"
+    escopo: "Oraclum X (1 canal) · Oraclum AI Gen (10-15 peças/mês, 2 redes) · Oraclum AI Dev (1 site/LP)"
+    investimento: "R$ 3.997-4.997/mês + setup"
+    nota: "sem Oraclum Sales/Ops — automação comercial e CRM ficam reservados ao upgrade Full Stack"
+  - nome: "Oraclum Growth (Full Stack)"
+    para: "negócio pronto para um departamento de aquisição e conversão completo, operado com IA"
+    escopo: "Oraclum X omnichannel · Oraclum AI Gen (30+ peças/mês) · Oraclum AI Dev contínuo · Oraclum Sales · Oraclum Ops"
+    investimento: "R$ 6.397-7.997/mês + setup"
+    nota: "sem revenue share — modelo de fee puro, diferente do 'skin in the game' da Virals"
+
+# ─────────────────────────────────────────────────────────────────────────────
+tom_de_voz:
+  arquetipo: "O Sábio (conhecimento, clareza, dados) — acessório: O Criador (inovação, construção)"
+  dna: "Inovador, pragmático, objetivo, focado em logs de produção e aplicação imediata"
+  personalidade: "Tecnológico, seguro, baseado em dados e ferramentas reais. Descomplica conceitos difíceis."
+  voz_em_uma_frase: "A agência que constrói aquisição de cliente com IA — e mostra o sistema rodando, não promete no slide."
+  principios:
+    - "DIRETO AO PONTO — sem introduções longas ou contextualização excessiva nas manchetes."
+    - "EVIDÊNCIA PRÁTICA — sempre mostrar a tela do software, o resultado do código ou o log do fluxo."
+    - "TERMINOLOGIA MODERNA — usar os termos corretos da indústria (agente, LLM, RAG, API) explicados de forma simples."
+    - "FOCO EM BENEFÍCIO — o hook deve focar no que o leitor ganha (horas salvas, automação ativa, aumento de faturamento)."
+    - "PROVA SEM CASE — sem case de cliente ainda: a prova é o próprio cofre/sistema rodando publicamente. Nunca fabricar resultado de cliente que não existe."
+    - "SERVIÇO, NÃO SÓ CONTEÚDO — o conteúdo educa E deixa claro (sem ser vendedor) qual dor de aquisição/conversão a Oraclum resolve como serviço."
+  lexico:
+    sempre_usar:
+      - "automação"
+      - "agente"
+      - "IA aplicada"
+      - "produtividade"
+      - "escala"
+      - "workflow"
+      - "integração"
+      - "eficiência"
+      - "prático"
+      - "aquisição"
+      - "conversão"
+      - "CRM"
+      - "geração de leads"
+      - "dado"
+    nunca_usar:
+      - "fórmula mágica"
+      - "fique rico fácil"
+      - "segredo infalível"
+      - "revolução milagrosa"
+      - "trabalho duro sem inteligência"
+      - "case de cliente" # até existir um de verdade
+
+# ─────────────────────────────────────────────────────────────────────────────
+pilares_de_conteudo:
+  - id: "tutoriais-ia"
+    nome: "Tutoriais & Ferramentas Práticas"
+    descricao: "Workflows detalhados passo-a-passo mostrando ferramentas de IA resolvendo problemas reais (Make, Zapier, APIs, Python) — extensão pública do cofre."
+    frequencia_alvo: "35%"
+    formatos: [screen-recording, carrossel-passo-a-passo, reels-tutorial]
+  - id: "bastidor-oraclum"
+    nome: "Bastidores do Build (Build in Public)"
+    descricao: "Como a própria Oraclum usa a tecnologia pra crescer (ETL de monitoramento, agentes de triagem, o cofre sendo construído) — a prova que substitui case de cliente."
+    frequencia_alvo: "25%"
+    formatos: [stories, reels-bastidor, post-unico]
+  - id: "servico-em-acao"
+    nome: "Serviço em Ação (portfolio_servicos)"
+    descricao: "Cada peça mostra UM serviço do portfolio_servicos resolvendo UMA dor concreta (ex.: 'lead morrendo no atendimento → automação de CRM'). Vende sem ser vendedor."
+    frequencia_alvo: "20%"
+    formatos: [carrossel-servico, reels-demonstracao, post-unico]
+  - id: "analise-tendencias"
+    nome: "Radar de Tendências & IA"
+    descricao: "Notícias, lançamentos de novos modelos (OpenAI, Anthropic, Google) e seus impactos práticos no mercado de trabalho e negócios."
+    frequencia_alvo: "10%"
+    formatos: [carrossel-noticia, reels-opiniao]
+  - id: "mitos-quebra"
+    nome: "Quebra de Mitos & Mindset Tech"
+    descricao: "Combate à histeria de IA ('IA vai roubar todos os empregos') e refutação de promessas de gurus de marketing."
+    frequencia_alvo: "10%"
+    formatos: [quote-slide, reels-opiniao, carrossel-aspiracional]
+
+# ─────────────────────────────────────────────────────────────────────────────
+restricoes:
+  nunca_fazer:
+    - "Vender IA como mágica ou solução sem esforço"
+    - "Usar imagens stock clichês de robôs apertando mãos humanas"
+    - "Omitir falhas, taxas de erro ou limitações das ferramentas apresentadas"
+    - "Inventar case, depoimento ou número de cliente que não existe — a prova é o cofre/sistema rodando, não depoimento fabricado"
+  sempre_fazer:
+    - "Ancorar exemplos de serviço nas categorias reais do cofre (LEAD GENERATION, AI ADS, AI CONTENT, TOOLS AND SKILLS, AUTOMATION) — nunca inventar capacidade que a Oraclum não demonstra publicamente"
+    - "Quando vender serviço, apontar a dor de aquisição/conversão específica que ele resolve (ver portfolio_servicos)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Identidade visual — fonte canônica é brand-config.yaml (extraído do design
+# real de apps/captura_ia, o site/cofre da Oraclum). Ver nota ali para o
+# histórico da correção de divergência 2026-08-14.
+identidade_visual:
+  fonte_canonica: "squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml"

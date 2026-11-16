@@ -1,0 +1,39 @@
+{
+  "rank": 4,
+  "creator": "@hormozi",
+  "url": "https://www.instagram.com/hormozi/reel/DYYVzOvBCju/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by hormozi",
+  "description": "Everyone wants to be successful.\n\nNo one wants to be embarrassed.\n\nThe price of the first is the second.",
+  "author": "Alex Hormozi",
+  "view_count": null,
+  "like_count": 6576,
+  "comment_count": null,
+  "duration_seconds": 20.689,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/702231549_18322946197250343_7017902533317299245_n.jpg?stp=dst-jpg_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi43MjAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuYzIifQ&_nc_ht=instagram.fcpq7-1.fna.fbcdn.net&_nc_cat=103&_nc_oc=Q6cZ2gHAPYEcwdMa8Wwxp3jG7Zmb73STY02K6PZi99ZkMxxMXfI998-bXBlJyamo8nkVG9IyYS4tndaZNktGMXTlUtxE&_nc_ohc=DKeXmmI0HcgQ7kNvwGQ9F8n&_nc_gid=xpul8gq1tAJm46fHQsZWzQ&edm=ANTKIIoBAAAA&ccb=7-5&oh=00_Af5PQ4C6uW9q2uvnF6qH02x4zGWj_7RMEqUnC0Vk-3_vCQ&oe=6A0E69DF&_nc_sid=d885a2",
+  "screenshots_count": 4,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "You can learn anything you wan"
+    },
+    {
+      "time": 7,
+      "label": "I think the most underrated mo"
+    },
+    {
+      "time": 12,
+      "label": "Because one of the surest ways"
+    },
+    {
+      "time": 19,
+      "label": "is to avoid failing."
+    }
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-05-16T17:21:43.823Z"
+}

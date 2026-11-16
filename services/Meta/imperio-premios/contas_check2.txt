@@ -1,0 +1,145 @@
+========== act_1809822716714730 ==========
+campaigns -> 200
+{
+  "data": [
+    {
+      "id": "52604268430211",
+      "name": "[CA2]Campanha 1 — Advantage + Vendas (Prospecção)",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-21T12:02:35-0300"
+    },
+    {
+      "id": "52598855759811",
+      "name": "Campanha 1 — Advantage+ Vendas (Prospecção) — Cópia",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-10-06T09:31:03-0300"
+    },
+    {
+      "id": "52598698261011",
+      "name": "Campanha 1 — Advantage+ Vendas (Prospecção)",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-10-06T00:04:44-0300"
+    },
+    {
+      "id": "52598661982611",
+      "name": "Novo objetivo Engajamento Campanha com configurações recomendadas",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-05T17:39:32-0300"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVHRUdS1aRzh5bkpUdloxQ2tJYjlMOXJNcEEtcVk4UlUxTll6S3lVd18tdlUydjdXcVhGWmtDSVpDaGp6NVZA1UTk5UzN3NjVKY0dlNm5OcGRsOC0yWm5R",
+      "after": "QVFIVFA4Q2NMdU5nWjJnMk1nUFJ6QXR5ako4dkc3TFdUV2FHaHhkMGlQd1M5MEZAzX1doWUVkOHhYODNWeE1tZA1hfZAzFhNVM5dU9sWUhWckhoZAHNEbU9KdkhB"
+    }
+  }
+}
+
+adspixels -> 200
+{
+  "data": [
+    {
+      "id": "2276849516022676",
+      "name": "IMP 2"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MjI3Njg0OTUxNjAyMjY3NgZDZD",
+      "after": "MjI3Njg0OTUxNjAyMjY3NgZDZD"
+    }
+  }
+}
+
+customconversions -> 200
+{
+  "data": []
+}
+
+========== act_2076716696539325 ==========
+campaigns -> 200
+{
+  "data": [
+    {
+      "id": "120260935498070537",
+      "name": "Campanha 2.1 — CBO Teste de Criativos",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-15T12:00:36-0300"
+    },
+    {
+      "id": "120260904054060537",
+      "name": "Campanha 3 — Retargeting (Site)",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-13T15:00:02-0300"
+    },
+    {
+      "id": "120260873501680537",
+      "name": "Campanha 2 — CBO Teste de Criativos",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-11T20:48:38-0300"
+    },
+    {
+      "id": "120260833091750537",
+      "name": "Campanha 1 — Advantage + Vendas (Prospecção) — v3",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "created_time": "2026-10-09T18:12:54-0300"
+    },
+    {
+      "id": "120260832886260537",
+      "name": "Campanha 1 — Advantage + Vendas (Prospecção) — v2",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-10-08T20:43:33-0300"
+    },
+    {
+      "id": "120260798037040537",
+      "name": "Campanha 1 — Advantage + Vendas (Prospecção)",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-10-06T15:19:35-0300"
+    },
+    {
+      "id": "120260796401420537",
+      "name": "Novo objetivo Engajamento Campanha com configurações recomendadas",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-10-06T12:27:40-0300"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVHNVeDRkR0ZAGaGZAWS0lJN2ktSWh3SDhISUJCa2puSFJvSzc0T2tDT2Rtb1NwVmJfZAElYVmJqeXB1N21pMUNlRzdETGt0ZAVBSUndkN0liSEVEVXJNdkRB",
+      "after": "QVFIVGdhY0szZAW1kOVpITndPRVFPeXg2QjJkQ1ZAiaVRUc0I0WGlJUFNOTzAtQkhSbkk1ZAlFUWUpRQ25ScjJ3VFI4Wmp5akFGR3hObVlrX1czZA3NraXl5MlhB"
+    }
+  }
+}
+
+adspixels -> 200
+{
+  "data": [
+    {
+      "id": "2276849516022676",
+      "name": "IMP 2"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MjI3Njg0OTUxNjAyMjY3NgZDZD",
+      "after": "MjI3Njg0OTUxNjAyMjY3NgZDZD"
+    }
+  }
+}
+
+customconversions -> 200
+{
+  "data": []
+}
+

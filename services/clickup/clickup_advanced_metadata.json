@@ -1,4 +1,13 @@
 {
+  "teamId": "90131882266",
+  "members": [
+    {
+      "id": 61023009,
+      "username": "Tiago Elesbão",
+      "email": "tn.elesbao@gmail.com",
+      "role": "owner"
+    }
+  ],
   "hierarchy": {
     "Gestão": {
       "id": "901312418172",
@@ -20,6 +29,179 @@
         }
       ],
       "folders": {
+        "Objetivos & Metas (OKR)": {
+          "id": "901316483302",
+          "lists": {
+            "Q1 - FUNDAÇÃO": {
+              "id": "901324539965",
+              "views": [
+                {
+                  "id": "2ky4er8u-1453",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1473",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1493",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Q2 - TRAÇÃO": {
+              "id": "901324542703",
+              "views": [
+                {
+                  "id": "2ky4er8u-1633",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1613",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1673",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Q3 - AUTORIDADE": {
+              "id": "901324542712",
+              "views": [
+                {
+                  "id": "2ky4er8u-1713",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1693",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1753",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            },
+            "Q4 - CONSOLIDAÇÃO": {
+              "id": "901324542728",
+              "views": [
+                {
+                  "id": "2ky4er8u-1793",
+                  "name": "Objetivos do Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1773",
+                  "name": "Objetivos do Último Mês",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-1833",
+                  "name": "Objetivos do Próximo Mês",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
+                  "name": "OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
+                  "name": "Tipo de OKR",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
+                  "name": "Complexidade",
+                  "type": "drop_down"
+                },
+                {
+                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
+                  "name": "Departamento",
+                  "type": "drop_down"
+                }
+              ]
+            }
+          }
+        },
         "Financeiro": {
           "id": "901316371991",
           "lists": {
@@ -225,10 +407,15 @@
           "lists": {
             "Responsabilidades": {
               "id": "901324633919",
+              "views": [],
+              "customFields": []
+            },
+            "ADR": {
+              "id": "901326514614",
               "views": [
                 {
-                  "id": "2ky4er8u-2053",
-                  "name": "Documento",
+                  "id": "2ky4er8u-14913",
+                  "name": "Template",
                   "type": "doc"
                 }
               ],
@@ -282,6 +469,162 @@
               ]
             }
           }
+        }
+      },
+      "folderless_lists": {}
+    },
+    "OPS": {
+      "id": "901313436808",
+      "views": [
+        {
+          "id": "4-901313436808-28",
+          "name": "Overview",
+          "type": "location_overview"
+        }
+      ],
+      "folders": {
+        "Rocks Trimestrais": {
+          "id": "901317466926",
+          "lists": {
+            "Q1 Rocks Planning ": {
+              "id": "901326514558",
+              "views": [
+                {
+                  "id": "2ky4er8u-14893",
+                  "name": "Documento",
+                  "type": "doc"
+                }
+              ],
+              "customFields": []
+            }
+          }
+        },
+        "Processos & POPs": {
+          "id": "901316565019",
+          "lists": {
+            "Mapeamento de Processos": {
+              "id": "901324654421",
+              "views": [
+                {
+                  "id": "2ky4er8u-5953",
+                  "name": "Processos de Marketing",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5993",
+                  "name": "Processos de Projetos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5933",
+                  "name": "Processos de Produtos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-6013",
+                  "name": "Processos de Gente & Cultura",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5913",
+                  "name": "Processos de Vendas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-6033",
+                  "name": "Processos de Gestão",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "7ffeef8a-3afd-41fa-9a5d-51fcdf00592a",
+                  "name": "Departamento",
+                  "type": "labels"
+                }
+              ]
+            },
+            "Construção de POPs": {
+              "id": "901324654420",
+              "views": [
+                {
+                  "id": "2ky4er8u-5793",
+                  "name": "Processos de Marketing",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5853",
+                  "name": "Processos de Projetos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5833",
+                  "name": "Processos de Produtos",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5873",
+                  "name": "Processos de Gente & Cultura",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5813",
+                  "name": "Processos de Vendas",
+                  "type": "list"
+                },
+                {
+                  "id": "2ky4er8u-5893",
+                  "name": "Processos de Gestão",
+                  "type": "list"
+                }
+              ],
+              "customFields": [
+                {
+                  "id": "7ffeef8a-3afd-41fa-9a5d-51fcdf00592a",
+                  "name": "Departamento",
+                  "type": "labels"
+                }
+              ]
+            }
+          }
+        },
+        "Saúde Operacional": {
+          "id": "901317466942",
+          "lists": {
+            "Issues List": {
+              "id": "901326514497",
+              "views": [
+                {
+                  "id": "2ky4er8u-14813",
+                  "name": "Template",
+                  "type": "doc"
+                }
+              ],
+              "customFields": []
+            },
+            "Scorecard": {
+              "id": "901326514554",
+              "views": [
+                {
+                  "id": "2ky4er8u-14833",
+                  "name": "Template",
+                  "type": "doc"
+                }
+              ],
+              "customFields": []
+            },
+            "Health Check": {
+              "id": "901326514556",
+              "views": [
+                {
+                  "id": "2ky4er8u-14853",
+                  "name": "Template",
+                  "type": "doc"
+                }
+              ],
+              "customFields": []
+            }
+          }
         },
         "Rotinas Organizacionais": {
           "id": "901316563160",
@@ -319,6 +662,11 @@
           "id": "4-901312944890-28",
           "name": "Overview",
           "type": "location_overview"
+        },
+        {
+          "id": "2ky4er8u-14773",
+          "name": "Accountability Chart",
+          "type": "doc"
         }
       ],
       "folders": {
@@ -1127,11 +1475,6 @@
               ],
               "customFields": [
                 {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
-                {
                   "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
                   "name": "Valor",
                   "type": "currency"
@@ -1140,6 +1483,11 @@
                   "id": "4c1c83a0-f9a5-4f29-a64f-988830d401a6",
                   "name": "Estrategista",
                   "type": "users"
+                },
+                {
+                  "id": "500c9145-016e-43b6-bc5d-b5449c846b62",
+                  "name": "Produtos",
+                  "type": "list_relationship"
                 },
                 {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
@@ -1167,6 +1515,11 @@
                   "type": "users"
                 },
                 {
+                  "id": "803878f4-1035-4ba8-bb5f-7d7ce468ecdf",
+                  "name": "Termo de Abertura do Projeto",
+                  "type": "url"
+                },
+                {
                   "id": "8f11eb2c-6a63-4bd4-a803-a5fb84b8ee1f",
                   "name": "Copywriter",
                   "type": "users"
@@ -1185,6 +1538,11 @@
                   "id": "caf96393-d003-40b3-a9d9-ab4f47fdfc8b",
                   "name": "Gestor de Tráfego",
                   "type": "users"
+                },
+                {
+                  "id": "e76db335-41b1-4c05-bc84-cacf67dc46d9",
+                  "name": "Briefing",
+                  "type": "attachment"
                 }
               ]
             },
@@ -1208,11 +1566,6 @@
                 }
               ],
               "customFields": [
-                {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
                 {
                   "id": "22f7d88f-8f8c-437a-8900-2c31b27c559e",
                   "name": "Valor",
@@ -1275,39 +1628,7 @@
         "Virals Starter & Growth": {
           "id": "901316668857",
           "lists": {
-            "Implementação [Kickoff]": {
-              "id": "901324798950",
-              "views": [
-                {
-                  "id": "2ky4er8u-7953",
-                  "name": "Andamento das Prioridades",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-7973",
-                  "name": "Andamento das Atividades ",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
-                  "name": "Progresso ⏳",
-                  "type": "automatic_progress"
-                },
-                {
-                  "id": "a457f51d-c736-40b9-9eaf-7de4f32ec6dc",
-                  "name": "Gestor de Projetos",
-                  "type": "users"
-                }
-              ]
-            },
-            "Ativação & Testes": {
+            "Planejamento & Preparação": {
               "id": "901324798948",
               "views": [
                 {
@@ -1323,11 +1644,6 @@
               ],
               "customFields": [
                 {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
-                {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
                   "name": "Progresso ⏳",
                   "type": "automatic_progress"
@@ -1339,27 +1655,22 @@
                 }
               ]
             },
-            "Validação & Escala": {
+            "Execução & Monitoramento": {
               "id": "901324798949",
               "views": [
                 {
-                  "id": "2ky4er8u-7933",
-                  "name": "Andamento das Atividades ",
+                  "id": "2ky4er8u-7893",
+                  "name": "Andamento das Prioridades",
                   "type": "list"
                 },
                 {
-                  "id": "2ky4er8u-7893",
-                  "name": "Andamento das Prioridades",
+                  "id": "2ky4er8u-7933",
+                  "name": "Andamento das Atividades ",
                   "type": "list"
                 }
               ],
               "customFields": [
                 {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
-                {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
                   "name": "Progresso ⏳",
                   "type": "automatic_progress"
@@ -1371,7 +1682,7 @@
                 }
               ]
             },
-            "Encerramento & Upgrade": {
+            "Finalização & Encerramento": {
               "id": "901324798947",
               "views": [
                 {
@@ -1386,11 +1697,6 @@
                 }
               ],
               "customFields": [
-                {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
                 {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
                   "name": "Progresso ⏳",
@@ -1424,11 +1730,6 @@
               ],
               "customFields": [
                 {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
-                {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
                   "name": "Progresso ⏳",
                   "type": "automatic_progress"
@@ -1456,11 +1757,6 @@
               ],
               "customFields": [
                 {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
-                {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
                   "name": "Progresso ⏳",
                   "type": "automatic_progress"
@@ -1487,11 +1783,6 @@
                 }
               ],
               "customFields": [
-                {
-                  "id": "1c0973ed-5a6b-496b-a297-40724dd941cc",
-                  "name": "Produto",
-                  "type": "drop_down"
-                },
                 {
                   "id": "50f0a179-f40f-49e2-b8e7-83c388bc6d5a",
                   "name": "Progresso ⏳",
@@ -1542,7 +1833,7 @@
                 },
                 {
                   "id": "2ky4er8u-14713",
-                  "name": "Processos & POPs",
+                  "name": "Estratégias & Funis",
                   "type": "doc"
                 }
               ],
@@ -1733,6 +2024,11 @@
                   "id": "2ky4er8u-14373",
                   "name": "PROCESSO - Planejamento & Cronogramas",
                   "type": "doc"
+                },
+                {
+                  "id": "2ky4er8u-14933",
+                  "name": "Império View",
+                  "type": "list"
                 }
               ],
               "customFields": [
@@ -2236,13 +2532,13 @@
               "id": "901325936640",
               "views": [
                 {
-                  "id": "2ky4er8u-13113",
-                  "name": "Fluxos Em Veiculação",
+                  "id": "2ky4er8u-13133",
+                  "name": "Fluxos Vencidos",
                   "type": "list"
                 },
                 {
-                  "id": "2ky4er8u-13133",
-                  "name": "Fluxos Vencidos",
+                  "id": "2ky4er8u-13173",
+                  "name": "Fluxos Em Veiculação",
                   "type": "list"
                 },
                 {
@@ -2251,7 +2547,7 @@
                   "type": "list"
                 },
                 {
-                  "id": "2ky4er8u-13173",
+                  "id": "2ky4er8u-13113",
                   "name": "Fluxos Em Veiculação",
                   "type": "list"
                 }
@@ -2262,13 +2558,13 @@
               "id": "901325936641",
               "views": [
                 {
-                  "id": "2ky4er8u-13293",
-                  "name": "Aquecimento",
+                  "id": "2ky4er8u-13273",
+                  "name": "Poder de Disparo",
                   "type": "list"
                 },
                 {
-                  "id": "2ky4er8u-13333",
-                  "name": "Status dos Chips",
+                  "id": "2ky4er8u-13293",
+                  "name": "Aquecimento",
                   "type": "list"
                 },
                 {
@@ -2277,8 +2573,8 @@
                   "type": "list"
                 },
                 {
-                  "id": "2ky4er8u-13273",
-                  "name": "Poder de Disparo",
+                  "id": "2ky4er8u-13333",
+                  "name": "Status dos Chips",
                   "type": "list"
                 }
               ],
@@ -3204,321 +3500,6 @@
         }
       },
       "folderless_lists": {}
-    },
-    "OPS": {
-      "id": "901313436808",
-      "views": [
-        {
-          "id": "4-901313436808-28",
-          "name": "Overview",
-          "type": "location_overview"
-        }
-      ],
-      "folders": {
-        "Rocks Trimestrais": {
-          "id": "901317466926",
-          "lists": {
-            "List": {
-              "id": "901325936960",
-              "views": [],
-              "customFields": []
-            }
-          }
-        },
-        "Objetivos & Metas (OKR)": {
-          "id": "901316483302",
-          "lists": {
-            "Q1 - FUNDAÇÃO": {
-              "id": "901324539965",
-              "views": [
-                {
-                  "id": "2ky4er8u-1453",
-                  "name": "Objetivos do Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1473",
-                  "name": "Objetivos do Último Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1493",
-                  "name": "Objetivos do Próximo Mês",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
-                  "name": "OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
-                  "name": "Tipo de OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
-                  "name": "Complexidade",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
-                  "name": "Departamento",
-                  "type": "drop_down"
-                }
-              ]
-            },
-            "Q2 - TRAÇÃO": {
-              "id": "901324542703",
-              "views": [
-                {
-                  "id": "2ky4er8u-1633",
-                  "name": "Objetivos do Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1613",
-                  "name": "Objetivos do Último Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1673",
-                  "name": "Objetivos do Próximo Mês",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
-                  "name": "OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
-                  "name": "Tipo de OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
-                  "name": "Complexidade",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
-                  "name": "Departamento",
-                  "type": "drop_down"
-                }
-              ]
-            },
-            "Q3 - AUTORIDADE": {
-              "id": "901324542712",
-              "views": [
-                {
-                  "id": "2ky4er8u-1713",
-                  "name": "Objetivos do Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1693",
-                  "name": "Objetivos do Último Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1753",
-                  "name": "Objetivos do Próximo Mês",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
-                  "name": "OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
-                  "name": "Tipo de OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
-                  "name": "Complexidade",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
-                  "name": "Departamento",
-                  "type": "drop_down"
-                }
-              ]
-            },
-            "Q4 - CONSOLIDAÇÃO": {
-              "id": "901324542728",
-              "views": [
-                {
-                  "id": "2ky4er8u-1793",
-                  "name": "Objetivos do Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1773",
-                  "name": "Objetivos do Último Mês",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-1833",
-                  "name": "Objetivos do Próximo Mês",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "3da16247-4499-4e4d-b810-75977877b14f",
-                  "name": "OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "3f1e17b4-cbd3-4a11-94f7-81f9f20f8284",
-                  "name": "Tipo de OKR",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "790443aa-9ad7-4bdf-8f31-5d91b752523d",
-                  "name": "Complexidade",
-                  "type": "drop_down"
-                },
-                {
-                  "id": "dc4e4983-e47a-49eb-aef9-f40a756cb3ed",
-                  "name": "Departamento",
-                  "type": "drop_down"
-                }
-              ]
-            }
-          }
-        },
-        "Processos & POPs": {
-          "id": "901316565019",
-          "lists": {
-            "Mapeamento de Processos": {
-              "id": "901324654421",
-              "views": [
-                {
-                  "id": "2ky4er8u-5953",
-                  "name": "Processos de Marketing",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5993",
-                  "name": "Processos de Projetos",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5933",
-                  "name": "Processos de Produtos",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-6013",
-                  "name": "Processos de Gente & Cultura",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5913",
-                  "name": "Processos de Vendas",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-6033",
-                  "name": "Processos de Gestão",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "7ffeef8a-3afd-41fa-9a5d-51fcdf00592a",
-                  "name": "Departamento",
-                  "type": "labels"
-                }
-              ]
-            },
-            "Construção de POPs": {
-              "id": "901324654420",
-              "views": [
-                {
-                  "id": "2ky4er8u-5793",
-                  "name": "Processos de Marketing",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5853",
-                  "name": "Processos de Projetos",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5833",
-                  "name": "Processos de Produtos",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5873",
-                  "name": "Processos de Gente & Cultura",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5813",
-                  "name": "Processos de Vendas",
-                  "type": "list"
-                },
-                {
-                  "id": "2ky4er8u-5893",
-                  "name": "Processos de Gestão",
-                  "type": "list"
-                }
-              ],
-              "customFields": [
-                {
-                  "id": "7ffeef8a-3afd-41fa-9a5d-51fcdf00592a",
-                  "name": "Departamento",
-                  "type": "labels"
-                }
-              ]
-            }
-          }
-        },
-        "Lançamentos": {
-          "id": "901317466930",
-          "lists": {
-            "List": {
-              "id": "901325936969",
-              "views": [],
-              "customFields": []
-            }
-          }
-        },
-        "BI & Métricas": {
-          "id": "901317466936",
-          "lists": {
-            "List": {
-              "id": "901325936978",
-              "views": [],
-              "customFields": []
-            }
-          }
-        },
-        "Saúde Operacional": {
-          "id": "901317466942",
-          "lists": {
-            "List": {
-              "id": "901325936985",
-              "views": [],
-              "customFields": []
-            }
-          }
-        }
-      },
-      "folderless_lists": {}
     }
   },
   "customTaskTypes": [
@@ -3720,6 +3701,36 @@
       "avatar": {
         "source": "fas",
         "value": "book"
+      }
+    },
+    {
+      "id": 1020,
+      "name": "Carrocel",
+      "name_plural": "Carroceis",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "buffer"
+      }
+    },
+    {
+      "id": 1021,
+      "name": "Post",
+      "name_plural": "Posts",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "camera"
+      }
+    },
+    {
+      "id": 1022,
+      "name": "Post de Texto",
+      "name_plural": "Posts de Texto",
+      "description": null,
+      "avatar": {
+        "source": "fas",
+        "value": "pencil"
       }
     }
   ],

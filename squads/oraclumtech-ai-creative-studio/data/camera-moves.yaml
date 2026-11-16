@@ -1,0 +1,570 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# VOCABULÁRIO CONTROLADO DE MOVIMENTO DE CÂMERA
+#
+# Consumido por: @dop (estágio `look`), @motion-lead (estágio `takes`),
+#                @film-director (estágio `decupagem`)
+# Entra no artefato: asset_direction (Pacote de Direção) → card de tarefa humana
+#
+# POR QUE ISTO EXISTE
+# "Movimento de câmera" escrito em prosa livre é a maior fonte de retake em I2V.
+# O modelo obedece termo técnico e ignora adjetivo. Este arquivo fixa o termo em
+# inglês que vai no prompt, o que o movimento FAZ narrativamente, e quando ele é
+# a escolha certa — para o diretor escolher pelo efeito, não pelo nome bonito.
+#
+# REGRA DE OURO (_BLUEPRINT.md §3.1): quem gera é humano. Este arquivo alimenta a
+# direção que o humano recebe, não uma chamada automática.
+#
+# Fonte: Filmboss · IA Boss Módulo 04, "Lista dos Principais movimentos"
+#        + VEO 3 Master Prompt Preset + Preset Kling 2.1
+#        + (2026-08-30) IA Boss Módulo 05 aulas 04, 05 e 08 e
+#          AI Image Creator PRO Módulo 12 — frame inicial+final, transição e Motion Brush
+#        Ver docs/APRENDIZADOS-CURSOS.md para procedência completa.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-27'
+  squad: oraclumtech-ai-creative-studio
+  natureza: 'vocabulário controlado — o termo em `prompt_en` vai literal no prompt'
+  total_movimentos: 39
+  nota_de_contagem: >
+    A lista de origem traz 36 entradas, mas quatro delas agrupam pares de sentido
+    oposto (truck left/right, pedestal up/down, tilt up/down, pan left/right). Aqui
+    cada sentido é um id próprio, porque o prompt precisa do termo exato — daí 39.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMO ESCREVER MOVIMENTO NO PROMPT (regra estrutural, vale para toda ferramenta)
+principios:
+  - id: trajetoria_completa
+    regra: >
+      Movimento não é um substantivo, é uma trajetória. Descreva posição inicial,
+      direção, velocidade, relação com o sujeito e enquadramento final. "Dolly in"
+      sozinho é ambíguo; "a smooth dolly-in gradually approaches the subject,
+      ending at chest framing" não é.
+  - id: movimento_revela
+    regra: >
+      Conecte movimento de câmera a REVELAÇÃO visual, em vez de dizer só "zoom in".
+      Formulação que funciona: "the camera slowly moves closer, gradually revealing
+      fine textures, subtle lighting variations, and realistic facial details."
+      O modelo entende o propósito e entrega detalhe crescente.
+  - id: nao_proibir_o_que_se_quer
+    regra: >
+      O negative prompt padrão costuma conter "zoom, dolly, pan, tilt". Se o plano
+      PEDE dolly, remova "dolly" do negativo — senão o modelo recebe ordem
+      contraditória e devolve câmera parada ou tremida.
+  - id: positivo_vence_negativo
+    regra: >
+      Para travar câmera parada, descreva positivamente em vez de só proibir:
+      "Locked-off tripod, static frame, fixed 35mm lens, eye-level. The camera
+      remains completely stationary; single continuous shot, no cuts."
+  - id: um_movimento_por_take
+    regra: >
+      Movimentos compostos (#20, #28, #32, #33) têm taxa de erro alta em I2V.
+      Em peça de cliente, prefira decompor em dois takes e resolver a junção no
+      corte — é mais barato que gastar 6 gerações num movimento composto.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Campos de cada movimento:
+#   id            — identificador estável, usado no storyboard e no edit_spec
+#   prompt_en     — o termo que vai LITERAL no prompt (inglês)
+#   faz           — o efeito narrativo; é por aqui que o diretor escolhe
+#   usar_quando   — situação concreta
+#   risco_ia      — o que costuma dar errado na geração (vazio = movimento seguro)
+#   custo         — baixo | medio | alto (tentativas esperadas até acertar)
+
+movimentos:
+
+  # ── ÓRBITA E ARCO ──────────────────────────────────────────────────────────
+  - id: orbit-left
+    prompt_en: 'the camera slowly orbits around the subject, moving right to left'
+    faz: 'Parallax intenso; separa figura do fundo e transmite energia cinematográfica'
+    usar_quando: 'Revelar cenário complexo ou marcar protagonismo do sujeito'
+    risco_ia: 'Deriva de identidade no lado que não aparecia na imagem-âncora'
+    custo: medio
+
+  - id: orbit-right
+    prompt_en: 'the camera slowly orbits around the subject, moving left to right'
+    faz: 'Igual à órbita esquerda, sentido oposto'
+    usar_quando: 'Quando a ação segue sentido horário ou a luz principal vem da esquerda'
+    risco_ia: 'Mesmo da orbit-left'
+    custo: medio
+
+  - id: arc-360
+    prompt_en: 'the camera completes a full 360-degree orbit around the subject'
+    faz: 'Sensação de clímax ou virada de perspectiva; ressalta textura por todos os ângulos'
+    usar_quando: 'Momento de clímax; produto que precisa ser visto por inteiro'
+    risco_ia: 'ALTO — exige coerência 3D que o modelo não tem. O lado oculto é inventado.'
+    custo: alto
+
+  - id: orbit-zenital
+    prompt_en: 'the camera is positioned directly overhead at 90 degrees, rotating around the vertical axis'
+    faz: 'Reforça padrão geométrico de cenário, coreografia ou multidão'
+    usar_quando: 'Mesa posta, layout de produto, formação de grupo'
+    risco_ia: 'Perspectiva top-down costuma achatar; produto pequeno some'
+    custo: medio
+
+  - id: orbit-nose
+    prompt_en: 'a minimal orbit around the subject facial axis, keeping the face centered'
+    faz: 'Enfatiza sutileza facial sem perder enquadramento'
+    usar_quando: 'Close emocional; reação silenciosa'
+    risco_ia: 'Baixo — é o movimento de rosto mais seguro'
+    custo: baixo
+
+  - id: orbit-rack-focus
+    prompt_en: 'the camera slowly orbits while the focus shifts from the foreground to the background'
+    faz: 'Guia a atenção narrativa de um objeto para outro dentro do mesmo plano'
+    usar_quando: 'Transferir significado entre dois elementos sem cortar'
+    risco_ia: 'Composto — o rack focus costuma ser ignorado'
+    custo: alto
+
+  - id: reverse-orbital-pull
+    prompt_en: 'starting in a close-up on the face, the camera pulls back in a lateral arc revealing the environment'
+    faz: 'Combina recuo e órbita; apresentação dramática'
+    usar_quando: 'Abertura de peça; revelação de contexto a partir da emoção'
+    risco_ia: 'Composto'
+    custo: alto
+
+  # ── APROXIMAÇÃO E RECUO ────────────────────────────────────────────────────
+  - id: push-in
+    prompt_en: 'a smooth dolly-in gradually approaches the subject in a straight line'
+    faz: 'Aumenta tensão dramática; destaca expressão; coloca a audiência no espaço'
+    usar_quando: 'Virada emocional; momento de decisão; revelação de detalhe'
+    risco_ia: 'Baixo — é o movimento mais confiável em I2V'
+    custo: baixo
+
+  - id: pull-back
+    prompt_en: 'the camera gently pulls back in a straight line, away from the subject'
+    faz: 'Revela contexto, amplia escala, cria afastamento emocional ou libertação'
+    usar_quando: 'Fechamento; revelação de escala; final de arco'
+    risco_ia: 'Baixo — o modelo precisa inventar as bordas que entram no quadro'
+    custo: baixo
+
+  - id: dolly-zoom
+    prompt_en: 'a dolly-zoom effect: the camera moves forward while the lens zooms out, keeping the subject the same size'
+    faz: 'Sujeito estável, fundo comprime ou expande — distorção emocional marcante'
+    usar_quando: 'Choque, percepção alterada, virada de consciência'
+    risco_ia: 'ALTO — exige controle simultâneo de posição e lente'
+    custo: alto
+
+  - id: infinite-zoom-in
+    prompt_en: 'a continuous zoom-in that travels through the environment, unfolding into new spaces'
+    faz: 'Efeito hipnótico; muito usado em reels'
+    usar_quando: 'Transição macro→micro; peça de retenção'
+    risco_ia: 'Exige geração progressiva de detalhe; degrada rápido'
+    custo: alto
+
+  - id: infinite-zoom-out
+    prompt_en: 'starting from an extreme close-up, the camera pulls back continuously to reveal the full scale'
+    faz: 'Transição micro→macro narrativa'
+    usar_quando: 'Revelar que o detalhe fazia parte de algo maior; assinatura de marca no fim'
+    risco_ia: 'Mesmo do zoom-in'
+    custo: alto
+
+  - id: over-the-shoulder-push
+    prompt_en: 'the camera pushes forward from behind the character shoulder, moving past them to reveal their point of view'
+    faz: 'Transição entre ponto de vista subjetivo e objetivo'
+    usar_quando: 'Colocar o espectador no lugar do personagem'
+    risco_ia: 'A ultrapassagem costuma travar no ombro'
+    custo: medio
+
+  # ── DESLOCAMENTO ───────────────────────────────────────────────────────────
+  - id: truck-left
+    prompt_en: 'the camera trucks left, sliding parallel to the subject on a horizontal track'
+    faz: 'Mantém proporção; acompanha deslocamento lateral'
+    usar_quando: 'Caminhada, corrida, veículo, vitrine'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: truck-right
+    prompt_en: 'the camera trucks right, sliding parallel to the subject on a horizontal track'
+    faz: 'Igual, sentido oposto'
+    usar_quando: 'Mesmo da truck-left, conforme a direção da ação'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: pedestal-up
+    prompt_en: 'the camera rises vertically without tilting, keeping the lens angle fixed'
+    faz: 'Revela altura; mostra diferença de status; descobre espaço arquitetônico'
+    usar_quando: 'Objeto alto, arquitetura, hierarquia entre personagens'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: pedestal-down
+    prompt_en: 'the camera lowers vertically without tilting, keeping the lens angle fixed'
+    faz: 'Desce ao nível do detalhe ou do chão'
+    usar_quando: 'Aproximar do objeto no chão; entrar em escala menor'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: parallax-sweep
+    prompt_en: 'a long lateral movement with a very close foreground and a distant background, maximizing depth'
+    faz: 'Maximiza profundidade 3D'
+    usar_quando: 'Estabelecer profundidade de cenário; b-roll de apoio'
+    risco_ia: 'Baixo — é o que o procedural do repositório já faz bem (parallax-2p5d)'
+    custo: baixo
+
+  - id: floor-slide-low
+    prompt_en: 'a low-angle tracking shot sliding just above the ground surface'
+    faz: 'Enfatiza velocidade e escala'
+    usar_quando: 'Robô, carro, criança correndo, tênis'
+    risco_ia: 'Médio'
+    custo: medio
+
+  - id: first-person-glide
+    prompt_en: 'a smooth first-person point-of-view glide moving forward through the space'
+    faz: 'Experiência imersiva'
+    usar_quando: 'Walkthrough, trailer, tour de ambiente'
+    risco_ia: 'Médio'
+    custo: medio
+
+  # ── ROTAÇÃO NO EIXO ────────────────────────────────────────────────────────
+  - id: pan-left
+    prompt_en: 'the camera smoothly pans left, rotating in place'
+    faz: 'Segue ação ou apresenta ambiente sem mudar de posição'
+    usar_quando: 'Apresentar espaço; acompanhar movimento lateral'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: pan-right
+    prompt_en: 'the camera smoothly pans right, rotating in place'
+    faz: 'Igual, sentido oposto'
+    usar_quando: 'Mesmo do pan-left'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: tilt-up
+    prompt_en: 'the camera tilts upward, rotating on the horizontal axis'
+    faz: 'Mostra altura de edifício, skyline, olhar para algo elevado'
+    usar_quando: 'Revelar escala vertical; olhar de baixo para cima'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: tilt-down
+    prompt_en: 'the camera tilts downward, rotating on the horizontal axis'
+    faz: 'Desce o olhar; revela detalhe de figurino ou chão'
+    usar_quando: 'Detalhe de produto vestido; olhar para baixo'
+    risco_ia: 'Baixo'
+    custo: baixo
+
+  - id: whip-pan
+    prompt_en: 'an extremely fast whip pan creating motion blur'
+    faz: 'Corte disfarçado entre duas cenas'
+    usar_quando: 'Transição de ritmo alto; esconder limitação de continuidade'
+    risco_ia: 'Baixo — e é justamente o movimento que MASCARA falha de continuidade da IA'
+    custo: baixo
+
+  - id: tilt-roll
+    prompt_en: 'the camera tilts while applying a roll rotation on the optical axis'
+    faz: 'Vertigem ou caos controlado'
+    usar_quando: 'Desorientação, sonho, quebra de estabilidade'
+    risco_ia: 'Composto'
+    custo: alto
+
+  # ── GRUA E AÉREO ───────────────────────────────────────────────────────────
+  - id: crane-up-reveal
+    prompt_en: 'the camera starts low and cranes upward, revealing a wide horizon'
+    faz: 'Wow factor em establishing shot'
+    usar_quando: 'Abertura de brand film; revelação de cenário grandioso'
+    risco_ia: 'Médio — o horizonte que entra é inventado'
+    custo: medio
+
+  - id: crane-down-landing
+    prompt_en: 'the camera starts high and descends slowly to eye level'
+    faz: 'Transição de vista aérea para momento intimista em plano contínuo'
+    usar_quando: 'Entrar na história a partir do contexto'
+    risco_ia: 'Médio'
+    custo: medio
+
+  - id: jib-swoop
+    prompt_en: 'the camera moves in a diagonal swoop, combining vertical rise and lateral travel'
+    faz: 'Sensação de voo de pássaro'
+    usar_quando: 'Entrada em ambiente; acompanhar salto'
+    risco_ia: 'Composto'
+    custo: alto
+
+  - id: aerial-spiral-down
+    prompt_en: 'an aerial camera descends in a spiral over the point of interest'
+    faz: 'Narrativa vertical forte'
+    usar_quando: 'Cidade, cenário natural, revelação de local'
+    risco_ia: 'Composto; drone virtual costuma tremer'
+    custo: alto
+
+  - id: helix-climb
+    prompt_en: 'the camera travels in an ascending spiral around a subject who is also moving upward'
+    faz: 'Clímax de transformação'
+    usar_quando: 'Personagem subindo escada; virada de arco'
+    risco_ia: 'ALTO — dois movimentos simultâneos'
+    custo: alto
+
+  # ── ESTILO E EFEITO ────────────────────────────────────────────────────────
+  - id: handheld
+    prompt_en: 'a subtle handheld camera movement with organic micro-shakes follows the action'
+    faz: 'Realismo documental ou urgência'
+    usar_quando: 'UGC, depoimento, bastidor, cena de tensão'
+    risco_ia: 'Baixo — e é o que faz UGC parecer autêntico. Em P2, quase sempre é a escolha certa.'
+    custo: baixo
+
+  - id: steadicam-follow
+    prompt_en: 'a steadicam smoothly follows the character through the space, maintaining stability'
+    faz: 'Imersão; o espectador anda junto'
+    usar_quando: 'Percurso, chegada, acompanhamento de personagem'
+    risco_ia: 'Médio'
+    custo: medio
+
+  - id: bullet-time
+    prompt_en: 'the subject and particles freeze while the camera travels through the frozen scene'
+    faz: 'Congela ação e viaja pelo momento'
+    usar_quando: 'Momento de impacto; assinatura visual'
+    risco_ia: 'ALTO'
+    custo: alto
+
+  - id: hyperlapse
+    prompt_en: 'a hyperlapse: the camera travels a long distance at accelerated speed'
+    faz: 'Mostra evolução ou percurso'
+    usar_quando: 'Passagem de tempo; construção; trajeto urbano'
+    risco_ia: 'Médio'
+    custo: medio
+
+  - id: tabletop-spin
+    prompt_en: 'the camera rotates around a small object on a central axis'
+    faz: 'Potencializa textura e superfície'
+    usar_quando: 'PACKSHOT — produto, comida, cosmético. É o movimento-padrão do P6 e do P1.'
+    risco_ia: 'Baixo quando o objeto é simples; alto quando tem texto/logo que precisa sobreviver ao giro'
+    custo: medio
+
+  - id: mirror-flip-dolly
+    prompt_en: 'the camera pushes forward until it reflects the character in a mirror, then continues backward using the reflection as a transition'
+    faz: 'Usa reflexo como transição'
+    usar_quando: 'Transição criativa; dualidade de personagem'
+    risco_ia: 'ALTO — reflexo coerente é uma das maiores falhas da geração'
+    custo: alto
+
+  - id: neural-morph-sweep
+    prompt_en: 'a lateral movement that gradually morphs scene A into scene B'
+    faz: 'Metamorfose de espaço'
+    usar_quando: 'Antes/depois; transformação de ambiente'
+    risco_ia: 'Alto, mas é onde a IA supera captação real — vale o custo quando o efeito É o ponto'
+    custo: alto
+
+  - id: static
+    prompt_en: 'Locked-off tripod, static frame, fixed 35mm lens, eye-level. The camera remains completely stationary; single continuous shot, no cuts.'
+    faz: 'Valoriza o movimento do personagem, não o da câmera'
+    usar_quando: >
+      Quando a ação já carrega o plano. É a escolha mais subestimada e a mais segura
+      em I2V: sem movimento de câmera, todo o orçamento de coerência do modelo vai
+      para o sujeito. Em dúvida, comece por aqui.
+    risco_ia: 'Mínimo. Se o modelo insistir em mover, reforce no negative prompt.'
+    custo: baixo
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ATALHOS POR PIPELINE — o que o diretor escolhe quando não tem tempo de escolher
+padroes_por_pipeline:
+  P1_brand_film:
+    abertura: [crane-up-reveal, push-in, parallax-sweep]
+    produto: [tabletop-spin, orbit-nose, push-in]
+    fechamento: [pull-back, infinite-zoom-out]
+    nota: 'Peça-vitrine tolera movimento caro, mas só onde ele significa algo.'
+  P2_ugc_ads:
+    padrao: [handheld, static, push-in]
+    nota: 'Movimento sofisticado DENUNCIA que não é UGC real. Handheld e estático vendem mais.'
+  P3_nicho_series:
+    padrao: [static, push-in, whip-pan, pan-left, pan-right]
+    nota: 'Sketch vive de timing, não de câmera. Whip-pan resolve corte entre piadas.'
+  P4_oraclum_institucional:
+    padrao: [push-in, parallax-sweep, static, pedestal-up]
+    nota: 'Arquétipo Sábio pede câmera sóbria. Nada de bullet-time.'
+  P5_dark_room:
+    padrao: [parallax-sweep, push-in, pull-back, hyperlapse, static]
+    nota: 'Já resolvido pelo procedural do repositório (adapters/video/procedural.js) a custo zero.'
+  P6_image_lab:
+    nao_se_aplica: 'Pipeline de imagem estática. Movimento só se o entregável incluir take.'
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FRAME INICIAL + FRAME FINAL — o recurso que muda o que é possível pedir
+#
+# Fonte: Filmboss · IA Boss Módulo 05, aula 05 ("Kling 2.1 Entrada e Saída") e
+#        aula 04, mais AI Image Creator PRO Módulo 12 (Luma keyframes, Runway).
+#        Minerado em 2026-08-30.
+#
+# POR QUE ISTO NÃO ESTAVA AQUI
+# Todo movimento deste arquivo pressupõe UM frame de partida. Com dois frames a
+# lógica se inverte: não se descreve o movimento, descreve-se a PONTE. E planos
+# que eram impossíveis passam a ser baratos.
+# ─────────────────────────────────────────────────────────────────────────────
+frame_inicial_e_final:
+
+  status: a_validar_no_estudio
+
+  o_criterio_que_o_squad_ja_tinha: >
+    O `brand-film-playbook.yaml` §2.4 diz que a pergunta do @motion-lead não é "qual
+    modelo é melhor", é "este plano precisa de frame final travado?". Se sim, Kling 2.1
+    (35 créditos / 5 s). Se não, 2.5 Turbo (25 créditos). Esta seção diz QUANDO a
+    resposta é sim.
+
+  a_razao_tecnica_por_tras_de_tudo: >
+    Com um frame só, o modelo INVENTA o que não aparece. Ao pedir rotação a partir de
+    uma imagem de costas, "ele não iria fazer a rotação, ia inventar um novo rosto".
+    Com os dois frames ele tem base certa nas duas pontas e só precisa resolver o meio.
+    Toda a lista abaixo é consequência disso.
+
+  quando_a_resposta_e_SEMPRE_sim:
+    - 'Rotação ou órbita que REVELA o rosto — o caso canônico; sem end frame o rosto muda'
+    - 'Retorno a um personagem que já apareceu — a consistência tem que fechar no frame final'
+    - 'Transição entre duas cenas que já existem no corte'
+    - 'Transformação de objeto (robô ↔ carro, jovem ↔ idoso)'
+    - 'Animação de logo (frame 1 preto, frame 2 logo montada)'
+
+  catalogo_do_que_foi_testado:
+    nota: 'Nove tentativas relatadas na aula, com veredito. Três falharam, e as falhas ensinam mais.'
+    funcionou:
+      - caso: 'Plano aberto → close da mão'
+        prompt: '"A câmera vai se aproximando da mão da mulher, revelando detalhes, enquanto ela tempera uma comida."'
+        resultado: 'Consistência de mão e roupa mantida; o modelo resolveu sozinho a continuidade dos objetos da bancada.'
+      - caso: 'Órbita 2D com preservação de rosto'
+        prompt: '"A câmera orbita o personagem."'
+        resultado: 'Natural. O curso destaca que em 2D isso era o caso mais difícil justamente pela invenção de frames intermediários.'
+      - caso: 'Transição entre cenas distintas, como se fosse um drone'
+        resultado: 'Funcionou; a aberração ficou no MEIO do take — ver `a_aberracao_fica_no_meio` abaixo.'
+      - caso: 'Entrada em POV (fora do cockpit → primeira pessoa)'
+        resultado: 'Funcionou. "É um tipo de imagem que é difícil fazer gravando, e quase impossível fazer sem isso."'
+      - caso: 'Traseira do carro → frente, em órbita'
+        resultado: 'Funcionou.'
+      - caso: 'Animação de logo — frame preto → logo montada'
+        prompt: '"O pelicano vem voando lá do fundo, batendo as asas lentamente, até ficar na posição da logo, e o texto anima de forma elegante."'
+        resultado: >
+          Funcionou e o professor declara que usaria profissionalmente. Ressalva dele
+          mesmo: faria a animação do TEXTO no After, e só a do pássaro por IA.
+      - caso: 'Transformação de personagem (uma pessoa vira outra)'
+        resultado: '"Como você faria isso manualmente num After? Quase impossível."'
+    falhou:
+      - caso: '"Entrar na boca da mulher" para ir à próxima cena'
+        o_que_saiu: 'Ficou preto e cortou. O curso indica o Higgsfield como rota alternativa para esse tipo de efeito.'
+      - caso: 'Transição para uma personagem muito próxima da borda do quadro'
+        o_que_saiu: 'Não girou. "Ela estava muito próxima da rua, então não conseguiu entender que podia girar a câmera."'
+        licao: 'Sujeito colado na borda não deixa espaço para o modelo manobrar. Enquadrar com folga quando o plano vai virar ponte.'
+      - caso: 'Números e ponteiros'
+        o_que_saiu: '"Ele não se dá bem com números e ponteiros." Relógio, contador e placar não sobrevivem à interpolação.'
+
+  a_regra_dura_que_evita_metade_das_falhas:
+    nome: 'o que muda entre os dois frames é o que o modelo vai animar'
+    enunciado: >
+      Tudo o que NÃO deve se mexer precisa estar IDÊNTICO nos dois frames. Cenário,
+      iluminação, enquadramento de fundo. Se o fundo mudou, o modelo entende que o fundo
+      também é para animar, e aí vem a aberração.
+    caso_real: >
+      O plano do "homem vestido de rato" falhou porque o cenário do frame inicial não era
+      o mesmo do final. A correção que o próprio professor prescreve: recortar o
+      personagem no Photoshop e montar o fundo EXATAMENTE igual ao do outro frame.
+    consequencia_no_pacote: >
+      O card de takes com dois frames precisa declarar explicitamente O QUE MUDA entre
+      eles. É o campo que impede o operador de mandar dois stills bonitos e incompatíveis.
+
+  a_aberracao_fica_no_meio_e_o_corte_resolve:
+    o_que_e: >
+      Em ponte entre frames distantes, o defeito aparece na interpolação — no miolo do
+      take, não nas pontas, que são as imagens reais.
+    a_saida_barata: >
+      "Eu faria um speed ramp, um motion blur, para ir bem rapidinho para a parte do
+      final — ou seja, essa aberração que foi criada nem apareceria."
+    por_que_isto_vale_registrar: >
+      É a única técnica deste arquivo que salva um take REPROVADO sem gastar geração
+      nova. Acelerar o miolo custa dois keyframes no editor. O reflexo do squad é
+      regerar; nem sempre precisa.
+    onde_entra: 'Estágio `assembly`. O @editor precisa saber que isso é permitido antes de devolver o take.'
+
+  dosagem_de_plano_complexo:
+    o_achado: >
+      A peça de referência da aula (comercial de ~30 s, formato publicitário completo)
+      usou DUAS cenas complexas. O resto é simples.
+    a_frase_que_explica: >
+      "Se não for todas as cenas complexas, também é chato." O efeito de "como é que ele
+      fez isso" depende de ESCASSEZ. Complexidade em toda cena vira ruído e o espectador
+      para de reparar.
+    regra_de_decupagem: >
+      Duas cenas complexas por peça de ~30 s. O `film-director` marca quais são na
+      decupagem, e o `exec-producer` orça só essas com margem de tentativa.
+    beneficio_duplo: 'É simultaneamente decisão de ritmo e decisão de orçamento — raro.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TRANSIÇÃO — é montagem, não é take
+#
+# Fonte: Filmboss · IA Boss Módulo 05, aula 08 ("Transições e efeitos especiais").
+#        Minerado em 2026-08-30.
+# ─────────────────────────────────────────────────────────────────────────────
+transicao_como_ponte:
+
+  status: a_validar_no_estudio
+
+  o_mecanismo: >
+    Exportar o ÚLTIMO frame da cena A e o PRIMEIRO frame da cena B, gerar um clipe entre
+    os dois, e inserir esse clipe no meio da timeline. Como as pontas são idênticas aos
+    frames vizinhos, a emenda desaparece.
+  por_que_isso_e_o_ponto: >
+    A transição não é um plano novo — é uma COSTURA. Quem a trata como take pede um
+    movimento bonito e recebe algo que não encaixa em nenhuma das duas cenas.
+
+  preset_vence_prompt:
+    o_teste_lado_a_lado: >
+      A mesma transição foi tentada no Kling 1.6 com prompt detalhado e no Higgsfield com
+      preset. O Kling IGNOROU o prompt: "expliquei direitinho o que eu queria, e
+      simplesmente a Kling ignorou, ignorou o que eu pedi". O Higgsfield entregou com
+      preset e SEM prompt nenhum.
+    a_leitura: >
+      Transição é um EFEITO NOMEADO, não uma descrição de cena. Descrever a trajetória —
+      que é a regra deste arquivo para movimento de câmera — não funciona aqui.
+    presets_uteis_citados: [deep down, sand storm, disintegration, explosion]
+    quais_servem_para_que: >
+      "Boa parte desses efeitos são incríveis para efeito especial, mas o de
+      desintegração é bem legal para transição, o de tempestade também." Efeito especial
+      e transição usam o mesmo mecanismo com um frame a menos: UM frame + preset = efeito;
+      DOIS frames + preset = transição.
+
+  a_condicao_que_ninguem_verifica:
+    o_que_e: >
+      Quando os dois frames são MUITO parecidos — mesma modelo, mesmo ambiente, só a
+      distância diferente — todas as ferramentas fazem a mesma coisa: o movimento óbvio.
+      O professor testa em duas plataformas e recebe o mesmo resultado nas duas.
+    a_regra: >
+      Só existe transição se os dois frames forem suficientemente DIFERENTES. Entre dois
+      frames próximos, o que existe é um movimento de câmera comum — e aí este arquivo já
+      tem o vocabulário certo, mais barato e mais confiável.
+
+  o_custo_honesto:
+    citacao_do_professor: >
+      "Transições eu costumo fazer muito pouco nos meus vídeos, justamente porque costuma
+      dar mais errado. Aí eu não quero ficar gastando meus créditos à toa."
+    quando_vale: >
+      "Agora, se na sua narrativa tem uma transição muito doida ali que faz total sentido,
+      tenta fazer até acertar." Ou seja: quando a transição É o ponto narrativo, não
+      quando ela é decoração de corte.
+    classificacao_neste_arquivo:
+      risco_ia: 'ALTO'
+      custo: 'alto — orçar 3+ tentativas, e prever a alternativa de corte seco'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MOTION BRUSH — travar o que não deve se mexer
+#
+# Fonte: AI Image Creator PRO · Módulo 12, aula 4. Minerado em 2026-08-30.
+# ─────────────────────────────────────────────────────────────────────────────
+motion_brush:
+
+  status: a_validar_no_estudio
+  onde_existe: 'Kling (plano Pro na versão testada). Ver `model-routing.yaml` → matriz_de_motor_de_video.'
+
+  o_que_e: >
+    Pintar uma região do quadro e desenhar a TRAJETÓRIA que ela deve seguir. Cada região
+    ganha um pincel e uma direção próprios.
+
+  o_recurso_que_importa_mais_que_o_movimento: >
+    Pintar de PRETO o que deve ficar PARADO. No teste, quatro óculos foram dirigidos para
+    fora do quadro em direções diferentes e a figura central foi travada em preto.
+
+  por_que_isto_e_o_princípio_deste_arquivo_em_outra_forma: >
+    `positivo_vence_negativo` diz que, para travar câmera estática, descrever
+    positivamente vence proibir no negative prompt. O Motion Brush é a mesma ideia levada
+    ao pixel: em vez de escrever "no movement", pinta-se a região imóvel. É mais
+    determinístico que qualquer redação.
+
+  rendimento_medido: '4 opções geradas, 1 escolhida — as outras três deslocaram um detalhe pequeno (a haste de um dos óculos).'
+  onde_entra: 'Planos em que o sujeito deve permanecer fixo enquanto elementos secundários se movem. É a rota mais confiável para o `static` com vida ao redor.'

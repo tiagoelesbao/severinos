@@ -1,0 +1,77 @@
+niche:
+  id: noticias
+  label: Notícias e Acontecimentos
+  icon: '📰'
+  language: pt-BR
+  description: >
+    Conteúdo factual de acontecimentos recentes, curiosidades, "você viu o que
+    aconteceu", casos virais. Formato dominante: cartela de texto + imagem
+    ilustrativa + narração sintética ou legenda dinâmica.
+  why_farming: >
+    Nicho de tráfego constante e renovação diária de trend. A modelagem é quase
+    inteiramente textual + imagem ilustrativa — barato de produzir em lote.
+  # Este é o nicho de MAIOR risco editorial do squad: ver guardrails.
+
+discovery:
+  platform: tiktok
+  hashtags:
+    - noticias
+    - urgente
+    - acontecendoagora
+    - vocesabia
+    - curiosidades
+    - fatos
+    - viral
+    - brasil
+    - inacreditavel
+    - repercussao
+  anchor_profiles: []
+  # Janela curta: notícia velha não performa.
+  lookback_hours: 24
+  items_per_hashtag: 25
+
+cutoff:
+  min_viral_score: 10000
+  min_views: 100000
+  min_engagement_rate: 0.03
+  max_age_hours: 36
+
+modeling:
+  visual_style: >
+    Imagem editorial ilustrativa, luz neutra a fria, composição jornalística,
+    profundidade média. Estética de "foto de agência", não de arte conceitual.
+    Cartelas de texto são montadas no video-studio, nunca geradas pela IA.
+  avoid_in_prompt:
+    - rosto de pessoa pública real ou identificável
+    - logotipo, marca d'água ou identidade visual de veículo de imprensa real
+    - cena que possa ser lida como registro documental de evento específico
+    - texto renderizado dentro da imagem
+  audio_treatment: >
+    Transcreve o áudio original integralmente. A narração modelada deve preservar
+    a estrutura factual da transcrição — sem acrescentar dados, números ou fontes.
+  caption_style: bold-news-lower-third
+  typical_takes: 4
+
+# ⚠️ Nicho de maior risco. A fidelidade factual é gate BLOQUEANTE, não recomendação.
+guardrails:
+  policy_risk: high
+  rules:
+    - 'PROIBIDO afirmar qualquer fato que não esteja na transcrição do benchmark.'
+    - 'PROIBIDO inventar número, data, estatística, fonte, citação ou nome próprio.'
+    - 'PROIBIDO gerar imagem que simule registro real de um evento específico.'
+    - 'PROIBIDO usar rosto ou nome de pessoa real, pública ou privada.'
+    - 'Conteúdo não verificável deve ser enquadrado como curiosidade, não como notícia.'
+    - 'Se a transcrição do benchmark falhar, o criativo NÃO avança para F3.'
+  blocked_terms:
+    - segundo fontes
+    - confirmou à reportagem
+    - exclusivo
+    - urgente confirmado
+  fact_fidelity_gate:
+    enforced: true
+    blocking: true
+    rule: >
+      Toda afirmação factual do plano de modelagem precisa apontar para um trecho
+      da transcrição do benchmark. Afirmação sem âncora = criativo reprovado.
+      Este gate é TERMINAL: não é degradado nem contornado por modo automatizado.
+  gate: 'Violação de qualquer regra reprova o criativo em creative-export-checklist.md.'

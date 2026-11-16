@@ -1,0 +1,1804 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PLAYBOOK DE PRODUÇÃO DE IMAGEM — do prompt ao arquivo final
+#
+# Consumido por: @image-lead (`stills`, P6 image-lab), @art-director (`design`),
+#                @dop (`look`), @character-lead — papel exercido hoje pelo
+#                @image-lead + @film-director —, @exec-producer (`assign`, `budget`),
+#                @qa-critic (`gate-stills` Parte B, `gate-image-lab`)
+#
+# POR QUE ISTO EXISTE
+# O `prompt-architectures.yaml` responde "como escrever o prompt de cada ferramenta".
+# O `brand-film-playbook.yaml` responde "como um filme publicitário é decupado em
+# frames". Faltava o miolo: o que acontece DEPOIS que a primeira geração sai da
+# máquina e ANTES de o arquivo virar entrega. Este arquivo é a cadeia de refino,
+# correção de anomalia, upscale e acabamento manual — minerada dos dois cursos.
+#
+# O QUE ESTE ARQUIVO NÃO REPETE (para não duplicar)
+# · Estrutura de prompt por ferramenta → `prompt-architectures.yaml`
+# · Economia de frames, consistência facial frontal, limitação de lente,
+#   armadilhas de linguagem do P1 → `brand-film-playbook.yaml`
+# · Qual upscaler contratar e por quê → `model-routing.yaml` §upscale_finishing
+# · O que roda na máquina do founder → `local-generation-stack.yaml`
+#
+# REGRA DE OURO (_BLUEPRINT.md §3.1): o agente escreve a DIREÇÃO, o humano opera.
+# Nada aqui é chamada automática. Todo item alimenta um campo do `asset_direction`
+# ou um item de gate.
+#
+# Fonte: AI Image Creator PRO (Human Academy) módulos 02, 03, 06, 09, 10, 11, 13, 14
+#        e Filmboss (IA Boss + IA Skills Upscale). Ver docs/APRENDIZADOS-CURSOS.md.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  status: a_validar_no_estudio
+  aviso_de_transcricao: >
+    O corpus foi transcrito com Whisper `base`. Nomes de ferramenta e de parâmetro
+    saem corrompidos com frequência ("Midgirney", "absqueio", "repente" para
+    inpaint, "verite" para variety, "wordiness" para weird). Onde o termo só é
+    legível pelo contexto, o item traz `confianca: media` ou `baixa` e diz o que
+    não foi possível confirmar. Trecho mal transcrito é INDÍCIO, não fato.
+  nota_de_status: >
+    Conhecimento de curso, não de teste no nosso pipeline. É hipótese informada —
+    boa o bastante para orientar o primeiro lote do P6 e o primeiro `stills` do P1,
+    e deve ser confirmada ou corrigida pelo campo `avaliacao.o_que_mudou_na_direcao`
+    do Pacote de Direção depois dos primeiros jobs reais.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 0. A ESPINHA DORSAL DO FOUNDER — confirmada e corrigida contra o corpus
+#
+# O founder chegou a estes cursos com uma cadeia de 5 elos já formulada. Esta
+# seção existe para responder a ela item a item: o que o corpus CONFIRMA, o que
+# CORRIGE e o que ACRESCENTA. É a leitura mais rápida do arquivo inteiro.
+# ─────────────────────────────────────────────────────────────────────────────
+leitura_da_hipotese_do_founder:
+
+- elo: 1
+  hipotese: 'Prompt muito bem estudado e estruturado, não improvisado'
+  veredito: confirmado_com_correcao
+  o_que_o_corpus_confirma: >
+    Os dois cursos abrem pelo prompt e tratam a estrutura como a decisão que fixa o
+    teto do trabalho. "O processo é mais importante que o prompt individual" (IA Boss)
+    e "quanto mais detalhado for o prompt, mais assertivo e rápido é o resultado"
+    (AI Image Creator, A002).
+  a_correcao: >
+    "Estudado" NÃO quer dizer "escrito inteiro de uma vez". O método ensinado é o
+    oposto: COMEÇAR PEQUENO e enriquecer em rodadas, lendo o que a plataforma
+    devolve a cada passo. "Comece com uma frase só e entenda o que a plataforma está
+    te retornando; isso é o que te diz o próximo passo." O prompt final é longo, mas
+    ele é o RESULTADO de 5 a 6 rodadas de leitura, não o ponto de partida.
+  o_que_isso_muda_aqui: >
+    O `asset_direction` deve trazer o prompt final E a escada que levou até ele
+    quando o asset for âncora — porque a escada é o que se reusa no próximo job,
+    e o prompt final sozinho não ensina nada a quem vier depois.
+
+- elo: 2
+  hipotese: 'Refino obrigatório, feito com ferramentas nativas do Midjourney que não tenho localmente'
+  veredito: confirmado_e_reenquadrado
+  o_que_o_corpus_confirma: >
+    Refino é etapa, não conserto eventual. O workflow declarado do estúdio do curso
+    tem TRÊS etapas nomeadas — Discovery, Create, Refinamento — e a terceira é
+    obrigatória, com aprovação do cliente entre a segunda e a terceira (A003).
+  o_reenquadramento: >
+    "Refino" não é uma ferramenta, são SEIS finalidades distintas que por acaso moram
+    no mesmo menu do Midjourney. Separá-las é o que torna o método portátil: cada
+    finalidade tem um equivalente possível fora da ferramenta original. Ver §3.
+  correcao_importante: >
+    MOODBOARD NÃO É REFINO. É trava de estilo APLICADA ANTES de gerar, e o próprio
+    curso a coloca no menu `personalize`, não no menu de edição. Confundir os dois
+    leva a tentar consertar com moodboard uma imagem que já saiu — o que não funciona.
+    E, como o `local-generation-stack.yaml` já registra: moodboard trava ESTILO, não
+    trava IDENTIDADE. São dois problemas e duas soluções.
+
+- elo: 3
+  hipotese: 'Correção de anomalias: campos de texto, dedos e pernas são as falhas mais comuns e mais visíveis'
+  veredito: confirmado_com_causa_raiz_encontrada
+  o_que_o_corpus_confirma: >
+    As três aparecem por nome e com aula dedicada. Texto: "ele não conseguiu escrever
+    exatamente o mesmo texto nessas letras pequenas" (A076). Dedos: módulo inteiro
+    (A012, A098/A104). Pernas: recorrente na avaliação de saída ("a perna parece
+    bastante longa, o que daria para arrumar no Photoshop depois" — A036; "ele criou
+    uma terceira perna" — IA Boss).
+  o_achado_que_a_hipotese_nao_tinha: >
+    AS TRÊS TÊM A MESMA CAUSA: ORÇAMENTO DE PIXEL. O corpus diz isso três vezes, em
+    contextos diferentes e sem perceber que está dizendo a mesma coisa —
+    "essas opções em que o rosto fica muito pequeno em relação à imagem toda acabam
+    tendo aberrações; é importante que o rosto tenha uma área maior, para ele ter
+    mais pixels para trabalhar" (A069); "como é um objeto, essa região aqui é uma
+    parte pequena, a parte da imagem também tem poucos pixels para a IA trabalhar"
+    (A087, sobre uma letra B que saiu errada); e a instrução do Ideogram de
+    "limitar a imagem perto da seleção" antes de regenerar, porque "como o que a
+    gente quer alterar é pequeno, ele vai acabar gerando com uma resolução mais baixa"
+    (A098).
+  consequencia_de_metodo: >
+    A correção de anomalia NÃO é "pedir de novo": é REGERAR A REGIÃO COM MAIS PIXELS.
+    Recortar/enquadrar a região, gerar ali em resolução própria, recompor. Isso vale
+    igual para dedo, para letra de placa e para a articulação de uma perna. Uma regra
+    só, três sintomas.
+
+- elo: 4
+  hipotese: 'Upscale tradicional e, de preferência, com IA, praticamente obrigatório antes de virar take ou peça'
+  veredito: parcialmente_correto
+  onde_esta_certo: >
+    Para PEÇA FINAL DE IMAGEM (post, key art, anúncio, still de produto), os dois
+    cursos tratam upscale como etapa fixa. O AI Image Creator faz 3 a 4 upscales por
+    imagem finalizada e leva mais de um para o Photoshop.
+  onde_esta_errado: >
+    Para IMAGEM QUE VAI VIRAR TAKE DE VÍDEO, o Filmboss é explícito e contrário:
+    "em 90, 95% dos casos não precisa fazer" upscale antes do i2v — só se a imagem
+    saiu ruim. O upscale de imagem existe ali para SALVAR uma base fraca, não para
+    engordar uma base boa.
+  a_regra_que_reconcilia: >
+    O gatilho do upscale é o DESTINO, não o hábito. Peça que será VISTA como imagem
+    → upscale é etapa. Frame que será CONSUMIDO por um modelo de vídeo → upscale só
+    se o frame reprovar na inspeção. Ver §5 para a regra operacional completa.
+  o_perigo_que_a_hipotese_nao_previa: >
+    Upscale com criatividade alta TROCA A PESSOA. "Você vai falar: meu Deus, virou
+    outra pessoa" — e é pior justamente quando a identidade importa (clone, creator
+    sintético, elenco fixo). Onde a identidade é o ativo, REGERAR EM ALTA VENCE
+    UPSCALAR MATERIAL FRACO. Isto já estava no `model-routing.yaml`; aqui ganha o
+    caso de campo que o justifica.
+
+- elo: 5
+  hipotese: 'Photoshop manual para peças exigentes: luz, integração de objeto/personagem, correção de anomalia'
+  veredito: confirmado_e_ampliado
+  o_que_o_corpus_confirma: >
+    Os três itens aparecem exatamente com esses nomes e com técnica descrita passo a
+    passo (§6). O Photoshop é a terceira etapa formal do workflow do estúdio.
+  o_que_a_hipotese_nao_incluia_e_e_o_maior_achado_desta_frente: >
+    O PRODUTO REAL NÃO É GERADO — ELE É COLADO. O estúdio gera a cena com um
+    "produto de marcação" (um frasco parecido, só para fixar posição, escala e como
+    a luz incide) e substitui pelo PNG real do cliente no Photoshop. A consequência é
+    grande e inverte a direção do prompt: a cena precisa ser gerada NO ÂNGULO em que
+    a foto real do produto existe. "Se a gente tentar fazer alguma lateral ou outra
+    posição do produto, isso aqui não vai encaixar" (A042).
+  consequencia_no_squad: >
+    Em qualquer peça com produto real de cliente (P6 image-lab, packshot do P1), o
+    `asset_direction` precisa declarar o ângulo da foto-âncora do produto ANTES de
+    escrever o prompt da cena. O `IL-PD-05` do `gate-image-lab` já exige âncora de
+    fidelidade; falta exigir que o ÂNGULO da cena derive dela.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. A CADEIA CANÔNICA — 8 estágios, do briefing ao arquivo final
+#
+# É a fusão dos dois cursos. O AI Image Creator dá o esqueleto de 3 etapas
+# (Discovery → Create → Refinamento); o Filmboss dá o fluxo de upscale e o
+# critério de destino. Aqui está desdobrado em 8 passos com dono e consequência.
+# ─────────────────────────────────────────────────────────────────────────────
+cadeia_canonica:
+
+  principio_geral: >
+    Cada estágio só existe porque o seguinte não consegue resolver o que ele resolve.
+    Pular um estágio não economiza o trabalho — empurra o trabalho para um estágio
+    onde ele custa mais. Essa é a única frase que precisa sobreviver deste arquivo.
+
+  estagios:
+
+  - passo: 1
+    nome: 'Discovery — briefing, referências e moodboard'
+    o_que_resolve: >
+      Fixa a estética ANTES de existir pixel. Reunião com o cliente, coleta de
+      referências, montagem do moodboard, e — em peça com produto real — a coleta das
+      fotos do produto em alta, em vários ângulos e luzes, com fundo neutro.
+    entregavel: 'moodboard + pasta de fotos-âncora do produto/personagem'
+    se_pular: >
+      A geração vira exploração aleatória. O curso é direto: "geração exploratória sem
+      plano é o maior ralo de crédito". Sem foto-âncora do produto, a cena sai num
+      ângulo que o produto real não tem, e a peça inteira é descartada no passo 7.
+    nosso_estagio: 'research + look + design'
+    dono: '@research-scout (coleta) → @dop (`look`) e @art-director (`design`)'
+    nota_de_procedencia: 'AI Image Creator A003, A042; IA Boss Módulo 03.'
+
+  - passo: 2
+    nome: 'Prompt em escada'
+    o_que_resolve: >
+      Converte a intenção do briefing em instrução que o modelo lê. Feito em rodadas
+      curtas: uma frase → lê o retorno → enriquece → lê → enriquece. Ver §2.
+    entregavel: 'prompt final colável + registro das rodadas quando o asset é âncora'
+    se_pular: >
+      Prompt longo escrito de uma vez carrega instruções incompatíveis entre si sem
+      que ninguém perceba (ver §2.6). O modelo obedece uma e ignora a outra, e a
+      equipe passa a culpar o modelo por um defeito do texto.
+    nosso_estagio: stills
+    dono: '@image-lead'
+
+  - passo: 3
+    nome: 'Geração em lote e triagem'
+    o_que_resolve: >
+      Produz o conjunto de candidatas. É explicitamente um estágio de VOLUME: "aqui no
+      estúdio a gente acaba tendo que gerar muitas imagens para chegar na imagem final,
+      e está tudo certo".
+    entregavel: 'lote de candidatas + uma escolhida + descartes registrados com motivo'
+    se_pular: >
+      Aceitar a primeira geração é aceitar a mediana do modelo. E sem descarte
+      registrado, a armadilha do modelo não vira conhecimento do estúdio —
+      é exatamente o que o `STL-B-11` cobra.
+    nosso_estagio: stills
+    dono: 'operador humano; @image-lead avalia'
+
+  - passo: 4
+    nome: 'Refino local e global'
+    o_que_resolve: >
+      Ajusta a imagem escolhida sem jogar fora a composição que já foi aprovada.
+      Seis finalidades distintas — regeneração local, variação controlada, extensão de
+      quadro, retorno controlado ao gerador, retextura e reiluminação. Ver §3.
+    entregavel: 'imagem escolhida, corrigida, ainda em resolução nativa'
+    se_pular: >
+      A alternativa é regerar do zero — e regerar muda luz, cor e composição junto com
+      o defeito. O curso nomeia isso como o erro típico: "o comum a se pensar é 'vou
+      continuar girando mais opções', porém a iluminação pode vir diferente, um pouco
+      das cores...". Regerar para consertar um dedo custa a imagem inteira.
+    nosso_estagio: stills
+    dono: '@image-lead dirige; humano opera'
+
+  - passo: 5
+    nome: 'Correção de anomalia'
+    o_que_resolve: >
+      Ataca especificamente texto, mãos/dedos, pernas/anatomia e rosto. Tem método
+      próprio porque tem causa própria — orçamento de pixel. Ver §4.
+    entregavel: 'imagem sem defeito visível em exibição normal'
+    se_pular: >
+      É o defeito que o espectador vê primeiro e o que mais denuncia IA. E, ao
+      contrário de cor e enquadramento, NÃO melhora sozinho no upscale — o upscale
+      criativo às vezes conserta e às vezes "detona a mão" (Filmboss, palavra do
+      professor). Contar com o upscale para consertar anatomia é apostar.
+    nosso_estagio: 'stills → verificado em `gate-stills` STL-B-07 e STL-B-08'
+    dono: '@image-lead dirige; @qa-critic verifica'
+
+  - passo: 6
+    nome: 'Upscale de acabamento'
+    o_que_resolve: >
+      Duas coisas ao mesmo tempo, e é importante saber que são duas: (a) resolução
+      para o destino; (b) TEXTURA E MICRO-IMPERFEIÇÃO, que é o que tira a cara de
+      plástico da imagem gerada. O segundo é o motivo real de o estúdio do curso usar
+      Magnific mesmo quando a resolução já bastava.
+    entregavel: 'arquivo em alta, com textura de pele/tecido/material'
+    se_pular: >
+      Em peça final: a imagem fica lisa demais e lê como IA. Em frame que vira vídeo:
+      normalmente não se perde nada — ver §5.
+    nosso_estagio: 'stills (pós-processamento) — campo `pos_processamento`'
+    dono: '@image-lead'
+
+  - passo: 7
+    nome: 'Composição e acabamento manual (Photoshop)'
+    o_que_resolve: >
+      Inserção do produto/personagem real, ambientação (luz, sombra, cor, grão, blur),
+      limpeza, e composição de PARTES de várias gerações numa imagem só. Ver §6.
+    entregavel: 'PSD em camadas + arquivo achatado para entrega'
+    se_pular: >
+      A peça fica no nível "boa geração" e não chega a "foto de campanha". E toda
+      alteração pedida pelo cliente vira nova geração, porque não existe camada para
+      mexer — o curso insiste em manter o arquivo NÃO-DESTRUTIVO exatamente por isso.
+    nosso_estagio: 'design / assembly (no P6, `apps/creative-design`)'
+    dono: '@art-director + operador humano'
+
+  - passo: 8
+    nome: 'Aprovação e entrega'
+    o_que_resolve: 'Fecha o job com rastreabilidade e arquivo no formato do destino.'
+    entregavel: 'arquivo final + registro de ferramenta, prompt usado, parâmetros e operador'
+    se_pular: >
+      Sem rastreabilidade o acerto não é reproduzível — é o `STL-B-04`, o único item
+      NON-WAIVABLE da Parte B.
+    nosso_estagio: delivery
+    dono: '@exec-producer + @qa-critic'
+
+  onde_entra_a_aprovacao_do_cliente:
+    regra: >
+      O workflow do curso põe UMA aprovação entre o passo 3 e o passo 7 — o cliente
+      aprova a imagem AINDA COM O PRODUTO DE MARCAÇÃO, antes de qualquer minuto de
+      Photoshop. Só depois de aprovado é que se refina.
+    por_que_isso_importa_para_o_orcamento: >
+      É a diferença entre descartar 40 minutos de geração e descartar 4 horas de
+      composição manual. O `@exec-producer` deve posicionar o checkpoint do cliente
+      ANTES do passo 7, nunca depois.
+    confianca: alta
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. ESTRUTURA DE PROMPT — o que o `prompt-architectures.yaml` ainda não dizia
+#
+# A fórmula do Midjourney já está lá. O que segue são as REGRAS DE ESCRITA que
+# valem para qualquer gerador e que não estavam registradas.
+# ─────────────────────────────────────────────────────────────────────────────
+estrutura_de_prompt:
+
+  complementa: 'data/prompt-architectures.yaml → arquiteturas[ferramenta: Midjourney]'
+  nao_repete: 'a fórmula de 12 blocos, a tabela de lentes e os presets de estética já registrados lá'
+
+  regras:
+
+  - id: comeco_meio_fim
+    regra: >
+      O prompt tem três terços com funções distintas. COMEÇO: sujeito (personagem ou
+      produto) e ângulo de câmera. MEIO: estilo, luz, ação, locação e EMOÇÃO.
+      FIM: color grading, câmera, filme e — se quiser — fotógrafo ou artista de referência.
+    o_que_isso_acrescenta: >
+      A fórmula que já temos lista os blocos; esta regra diz em que TERÇO cada bloco
+      cai, e é o que permite reescrever um prompt existente sem refazê-lo.
+    para_que_serve_aqui: 'Campo `prompt` do `asset_direction`; @image-lead monta nesta ordem.'
+    fonte: 'AI Image Creator A002'
+    confianca: alta
+
+  - id: as_primeiras_palavras_mandam
+    regra: >
+      "A ordem dos fatores importa, e muito. As primeiras palavras do prompt sempre
+      vão ter uma prioridade maior."
+    tecnica_de_desempate: >
+      Quando a imagem insiste em não chegar onde se quer, o primeiro teste NÃO é
+      escrever mais — é MOVER para as primeiras palavras aquilo que mais importa na
+      cena. É um teste de custo zero que a equipe tende a nunca fazer.
+    para_que_serve_aqui: 'Campo `se_falhar` do `asset_direction`. É o plano B mais barato que existe.'
+    fonte: 'AI Image Creator A002'
+    confianca: alta
+
+  - id: grande_para_pequeno
+    regra: >
+      Ao descrever roupa (e, por extensão, qualquer conjunto de objetos), começar pelas
+      peças GRANDES e descer para as pequenas: jaqueta → calça → acessórios → tênis → boné.
+    por_que: 'O modelo entende melhor a hierarquia. Descrever o boné antes da jaqueta desorganiza a leitura.'
+    para_que_serve_aqui: 'Regra de escrita do @image-lead e do @art-director em wardrobe e props.'
+    fonte: 'AI Image Creator A002'
+    confianca: media
+    ressalva: 'O professor afirma o efeito sem demonstrar comparativo A/B na aula.'
+
+  - id: contexto_que_nao_aparece_na_imagem
+    regra: >
+      Escrever coisas que NÃO serão impressas no quadro — por que a personagem está
+      ali, o que ela acabou de receber, o que a espera — muda a expressão do personagem
+      e o mood geral da cena. "A gente falou sobre coisas que não necessariamente foram
+      impressas na imagem, mas que serviram de contexto."
+    para_que_serve_aqui: >
+      É a alavanca mais barata de DIREÇÃO DE ATOR num still. Vira campo recomendado do
+      `asset_direction` em qualquer plano com pessoa: uma linha de contexto narrativo
+      que ninguém vai ver e todo mundo vai sentir.
+    fonte: 'AI Image Creator A002'
+    confianca: alta
+
+  - id: extensao_por_escada
+    regra: >
+      Não escrever o prompt longo de uma vez. Rodada 1: uma frase. Lê o retorno.
+      Rodada 2: enquadramento e luz. Rodada 3: props e material. Rodada 4: paleta e
+      partículas. Rodada 5: limpeza ("clean", "minimalista") e palavras-chave de casa.
+    por_que_nao_e_perda_de_tempo: >
+      Cada rodada informa a seguinte. Escrever tudo de uma vez é apostar 6 rodadas
+      numa tacada e não saber qual bloco causou o quê quando dá errado.
+    para_que_serve_aqui: >
+      Muda o desenho do card humano em asset ÂNCORA: o card pede a escada, não uma
+      geração. Em asset derivado, o prompt já vem fechado e o card pede só o lote.
+    fonte: 'AI Image Creator A002, A042'
+    confianca: alta
+
+  - id: incompatibilidade_interna
+    regra: >
+      A causa oculta mais comum de "o modelo não obedece" é o prompt pedir duas coisas
+      que não cabem juntas. Exemplo do curso: pedir enquadramento "da cintura para cima"
+      E textura do chão, ou detalhe do tênis. O modelo ignora uma das duas — quase
+      sempre o enquadramento — e abre o plano.
+    procedimento: >
+      Ao terminar de escrever, RELER procurando incompatibilidade antes de gerar.
+      O professor sugere colar o prompt num LLM e pedir que aponte inconsistências.
+    para_que_serve_aqui: >
+      Vira item de auto-checagem do @image-lead antes de emitir o card, e candidato a
+      item novo do `gate-stills` Parte A: "o prompt não pede detalhe fora do
+      enquadramento declarado".
+    fonte: 'Filmboss · IA Boss, "O fator que deixa uma imagem realista"'
+    confianca: alta
+
+  - id: negativa_quando_funciona
+    regra: >
+      Negativa em PARÂMETRO dedicado (`--no X` do Midjourney) funciona bem para
+      REMOVER OBJETO E ELEMENTO DE CENÁRIO — grafite numa pista, plantas num café,
+      óculos numa modelo. Aceita mais de um termo.
+    onde_ela_nao_funciona: >
+      Negativa em PROSA, dentro do corpo do prompt, sobre ESTADO ou EXPRESSÃO, quase
+      nunca funciona — "não está sorrindo" já está registrado no
+      `brand-film-playbook.yaml` como caso de falha. Descrever positivamente o estado
+      desejado ("boca fechada com um sorrisinho") é o contorno.
+    a_distincao_que_ninguem_faz: >
+      É a mesma palavra "negativo" para duas coisas diferentes: campo estruturado do
+      modelo (funciona) versus frase negativa no meio do texto (não funciona).
+      Registrar a distinção evita que a equipe conclua "negativa não serve" e perca
+      um parâmetro barato e eficaz.
+    para_que_serve_aqui: 'Campo `prompt_negativo` do `asset_direction`.'
+    fonte: 'AI Image Creator A013; cruzado com brand-film-playbook §armadilhas_de_prompt'
+    confianca: alta
+
+  - id: imperfeicao_e_o_que_vende_realismo
+    regra: >
+      "A palavra é imperfeição. A imperfeição vai trazer o realismo." O que denuncia
+      IA não é falta de resolução — é pele lisa demais, tecido perfeito demais,
+      simetria demais.
+    vocabulario_que_o_curso_indica:
+    - 'poros na pele, pequenas marcas, micro pelos, pequenas imperfeições naturais'
+    - 'lente anamórfica — bokeh oval e aberração cromática discreta nas bordas'
+    - 'câmera com flash — devolve cara de foto real de stories'
+    - 'estilo de câmera analógica — ruído e desfoque; ATENÇÃO, tende a amarelar a imagem'
+    - 'textura nomeada por superfície: pele, cílio, cabelo, concreto, tecido'
+    armadilha: >
+      Prompt sobrecarregado de textura gera textura ONDE NÃO FOI PEDIDA — o exemplo do
+      curso é o modelo jogar água no rosto do personagem para ter o que texturizar.
+      Se acontecer, retirar os detalhes de textura mais específicos, não somar mais.
+    para_que_serve_aqui: >
+      Bloco de acabamento do `prompt`, e critério de aceite do @dop no `gate-look`
+      para peça que precisa parecer fotografia.
+    fonte: 'Filmboss · IA Boss, "O fator que deixa uma imagem realista"'
+    confianca: alta
+
+  parametros_do_midjourney:
+    nota: >
+      Ferramenta específica, não método. Fica registrado porque o `prompt-architectures.yaml`
+      mapeou a FÓRMULA do Midjourney sem mapear os PARÂMETROS, e a aula A005 os cobre.
+      Nomes reconstruídos do transcript degradado — conferir na interface antes de usar.
+    itens:
+    - parametro: 'stylize (--s)'
+      faixa: '0 a 1000, padrão 100'
+      recomendacao_do_curso: 'entre 200 e 300 para imagem comercial realista'
+      efeito_observado: >
+        0 devolve imagem crua e sem cor; 300 é o ponto de virada para imagem "viva",
+        com desfoque e realismo; 700 já estiliza a ponto de virar pintura; 1000
+        distorce e complica o cenário.
+      excecao_registrada: 'em still de PRODUTO o curso subiu para ~400 deliberadamente, aceitando mais estilização'
+      confianca: alta
+
+    - parametro: 'variety / chaos (--v ou --c)'
+      faixa: '0 a 100'
+      efeito: 'controla o quanto as 4 imagens do lote diferem entre si, não a qualidade'
+      uso_de_metodo: >
+        É a ferramenta de BUSCA DE CAMINHO, não de acabamento. Mesmo prompt + variety
+        alto revela composições que ninguém teria pedido. Baixar de volta depois de
+        escolher o caminho.
+      confianca: media
+      ressalva: 'transcrito como "verite"; nome real do parâmetro a confirmar na interface'
+
+    - parametro: 'weird (--weird)'
+      faixa: '0 a 3000'
+      veredito_do_curso: 'para imagem comercial "acaba não funcionando tão bem", e quando funciona é em valor baixo'
+      confianca: media
+
+    - parametro: 'modo raw'
+      recomendacao: 'SEMPRE, para trabalho comercial'
+      por_que: >
+        Menos interferência da estética automática da ferramenta. Resulta em imagem mais
+        natural, mais fiel ao prompt escrito, e com MAIS CONTROLE NA PÓS — que é o
+        argumento que importa aqui, porque a pós é o passo 7 desta cadeia.
+      confianca: alta
+
+    - parametro: 'aspect ratio'
+      preferencia_do_curso: '5:6 — proporção de câmera analógica; "para trazer imagens realistas, a gente gosta de se aproximar das câmeras"'
+      confianca: baixa
+      ressalva: 'o transcript diz "56"; pode ser 5:6 ou 4:5. Não confirmável sem o vídeo, que foi apagado.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. REFINO — as SEIS finalidades
+#
+# Esta é a seção mais importante para tradução local. Cada item descreve a
+# FINALIDADE, não a ferramenta, porque é a finalidade que precisamos reproduzir.
+# A ferramenta original fica registrada só como procedência.
+# ─────────────────────────────────────────────────────────────────────────────
+refino:
+
+  principio: >
+    Refinar é mudar UMA COISA sem perder o resto. Toda vez que a equipe regera do zero
+    para consertar um detalhe, ela troca um defeito conhecido por um conjunto de
+    defeitos novos. O valor destas seis finalidades é serem CIRÚRGICAS.
+
+  finalidades:
+
+  - id: regeneracao_local_mascarada
+    finalidade: 'Regerar SÓ a região marcada, preservando o resto do quadro pixel a pixel'
+    ferramenta_de_origem: 'Midjourney (editor → inpaint); Ideogram (canvas → magic fill); Photoshop (Generative Fill)'
+    e_a_finalidade_mais_importante_da_secao: true
+    como_o_curso_faz:
+      selecao: >
+        Selecionar um pouco PARA FORA do defeito. "É legal que a gente selecione um
+        pouquinho para fora, para não correr o risco de sobrar nenhum pedacinho" —
+        e, além disso, a folga dá ao modelo contexto do entorno.
+      deixar_guia_dentro_da_selecao: >
+        ACHADO NÃO ÓBVIO: ao corrigir uma mão, deixar DENTRO da seleção um dedo que
+        está correto. "O dedo é um guia praticamente, para também definir proporções."
+        Selecionar só a área errada tira do modelo a única referência de escala que ele
+        tinha.
+      apertar_o_enquadramento: >
+        Antes de gerar, limitar/aproximar o quadro em torno da seleção. Sem isso, a
+        região corrigida é gerada em resolução baixa e volta borrada. É a aplicação
+        direta da regra de orçamento de pixel (§4).
+      o_que_escrever_no_prompt:
+        no_midjourney: >
+          NADA. Testado no curso: "não alterar o prompt nesse momento dá mais certo do
+          que ficar tentando colocar outras palavras. É melhor deixar o modelo entender
+          o que ele pode trazer naquele pedacinho."
+        no_ideogram_e_no_photoshop: >
+          O OPOSTO, e a diferença é instrutiva: prompt curto ajuda, e prompt com
+          RELAÇÃO ajuda mais. Pedir "dedos" devolveu lixo; pedir "segurando o cartão"
+          devolveu mão utilizável. A instrução que funciona não descreve o objeto,
+          descreve o que ele está FAZENDO.
+      volume: >
+        "Não é um botão mágico. Você vai ter que gerar várias e várias imagens até
+        achar uma mão que fique perfeita." Acertar de primeira é registrado no curso
+        como sorte, não como padrão.
+    para_que_serve_aqui: >
+      É a capacidade que fecha o passo 5 da cadeia. Sem ela, correção de anomalia só
+      existe no Photoshop, na mão. Alimenta `tecnica` e `se_falhar` do `asset_direction`.
+    confianca: alta
+
+  - id: variacao_controlada
+    finalidade: 'Gerar vizinhas da imagem escolhida, quando ela está quase certa'
+    ferramenta_de_origem: 'Midjourney (vary subtle / vary strong; remix subtle / remix strong)'
+    o_que_cada_grau_faz:
+      sutil: 'não mexe em posição de câmera nem em pose; muda cor de olho, caimento de cabelo, detalhe pequeno'
+      forte: 'mantém o estilo, mas muda acessório, ângulo de câmera e pose'
+      remix: 'o mesmo, porém guiado por uma ALTERAÇÃO NO PROMPT — é variação dirigida, não aleatória'
+    quando_usar: >
+      "No momento em que a gente já tem uma imagem próxima do que quer, mas ainda não
+      está lá." Inclusive como plano A para imperfeição pequena de mão, rosto ou boca:
+      às vezes uma vizinha já vem sem o defeito, e sai mais barato que inpaint.
+    para_que_serve_aqui: >
+      Primeiro degrau do `se_falhar` do `asset_direction`, antes de escalar para
+      regeneração local. Barato, rápido, e o @image-lead deve tentá-lo primeiro.
+    confianca: alta
+
+  - id: extensao_de_quadro
+    finalidade: 'Ganhar quadro onde ele não existe, sem regerar a imagem'
+    ferramenta_de_origem: 'Midjourney (pan direcional, zoom out, move/resize no editor)'
+    tres_usos_reais_do_curso:
+    - 'abrir respiro num lado para caber a logo do cliente'
+    - 'converter a peça aprovada para outro aspect (horizontal → vertical de stories) sem regerar'
+    - 'afastar a câmera quando o cliente pede plano mais aberto'
+    detalhe_de_metodo: >
+      Ao expandir, o prompt editado age SÓ NA ÁREA NOVA. O miolo aprovado não é
+      tocado. Isso permite dirigir o que aparece no espaço criado ("um avião passando
+      no céu") sem risco para o que já foi aprovado.
+    para_que_serve_aqui: >
+      Resolve um problema real do P6: a mesma peça pedida em 1:1, 4:5 e 9:16. Hoje a
+      resposta implícita seria regerar três vezes — o que quebra a consistência da
+      série que o `IL-PD-06` exige. Extensão de quadro entrega as três a partir da mesma
+      imagem aprovada.
+    confianca: alta
+
+  - id: retorno_controlado_ao_gerador
+    finalidade: 'Devolver a imagem ao modelo com FORÇA REGULÁVEL, para trocar textura ou material sem perder a composição'
+    ferramenta_de_origem: 'Flux dev image-to-image no Fal.AI; realtime/enhance do Krea'
+    a_escada_de_forca_do_curso:
+      '0.3': 'muda quase nada; só começa a insinuar textura nova'
+      '0.6': 'ponto útil — troca a textura problemática e preserva a composição; foi onde a aula resolveu o gelo craquelado'
+      '0.8': 'muda demais; composição já se desloca, mas ainda pode render um pedaço aproveitável'
+    o_metodo_que_sai_disso_e_o_achado: >
+      NÃO SE ESCOLHE UMA FORÇA — GERAM-SE VÁRIAS E COMPÕE-SE. A aula gera em 0.3, 0.6
+      e 0.8, joga as três no Photoshop e monta a imagem final com máscara, pegando o
+      gelo de uma, o fundo de outra e o primeiro plano de uma terceira. A condição para
+      isso funcionar é que os objetos fiquem em posição semelhante entre as gerações —
+      o que a força baixa garante.
+    segundo_uso_registrado: >
+      Passar imagem do Midjourney por um modelo diferente muda a "linguagem visual" e
+      quebra vícios do gerador original, inclusive as imperfeições que ele repete.
+    para_que_serve_aqui: >
+      Alimenta o campo `tecnica` do `asset_direction` e é a rota mais provável de
+      substituir localmente boa parte do refino do Midjourney — img2img com denoise
+      controlável é capacidade comum, não recurso proprietário.
+    confianca: alta
+
+  - id: retextura_e_reiluminacao
+    finalidade: 'Manter a ESTRUTURA da imagem e trocar textura, estética ou direção de luz'
+    ferramenta_de_origem: 'Midjourney retexture (via controlnet); Magnific Relight'
+    retextura: >
+      Usa a estrutura da imagem existente para aplicar outra estética inteira —
+      transformar em desenho preto e branco, aplicar um universo visual, adicionar
+      chamas. É troca de pele sobre o mesmo esqueleto.
+    reiluminacao:
+      como_funciona: 'sobe a imagem e descreve a luz desejada em prompt simples ("luz natural de sol", "luz branca de estúdio")'
+      armadilha_grave: >
+        O modelo de relight DERRUBA A RESOLUÇÃO. "Ele faz um downscale, trabalha na
+        imagem, tenta compensar jogando para o mesmo tamanho, mas perde muito da
+        nitidez." Portanto relight vem ANTES do upscale, nunca depois. Quem inverte a
+        ordem paga o upscale duas vezes.
+      atenuacao_manual: 'levar as duas versões ao Photoshop e mascarar a nova luz por opacidade, em vez de aceitá-la inteira'
+      viés_observado: 'tende a puxar tudo para tom quente de sol mesmo quando se pede luz fria; exige reformular o prompt'
+    referencia_de_imagem_nao_funciona_aqui: >
+      Registrado no curso: passar uma imagem de referência de luz "não funciona muito
+      bem"; só o prompt em texto funciona.
+    para_que_serve_aqui: >
+      Reiluminação é o que permite ambientar um personagem/produto numa cena com luz
+      diferente da que ele nasceu — necessidade direta do P6 e do packshot do P1.
+      A ordem "relight antes de upscale" vira regra do campo `pos_processamento`.
+    confianca: alta
+
+  - id: trava_de_estilo_e_de_identidade
+    finalidade: 'Fazer várias peças diferentes saírem parecidas entre si de propósito'
+    atencao: 'ISTO NÃO É REFINO — é preparação, aplicada ANTES de gerar. Está aqui só para não ser confundido com refino.'
+    tres_mecanismos_distintos:
+    - mecanismo: 'moodboard (conjunto de imagens vira um código de estilo)'
+      trava: 'paleta, enquadramento típico, textura, "look" — o clima'
+      nao_trava: 'identidade de pessoa nem fidelidade de produto'
+      evidencia_do_curso: >
+        Mesmo prompt de 4 palavras, dois moodboards diferentes (um de ficção científica
+        noir, um de marca de moda), resultados irreconhecíveis entre si. E moodboards
+        podem ser SOMADOS, gerando um terceiro território.
+      uso_de_negocio: 'um moodboard por cliente — é a forma mais direta de ter "a cara da marca" sem treinar nada'
+    - mecanismo: 'referência de estilo (uma imagem, com peso regulável)'
+      trava: 'cor, desfoque, textura, profundidade de campo'
+      nota: 'o peso vai de 0 a 1000 na ferramenta de origem; nome do parâmetro corrompido no transcript'
+    - mecanismo: 'referência de personagem (uma ou mais imagens, com peso próprio 0–100)'
+      trava: 'o rosto e, em peso alto, a roupa exata'
+      comportamento: >
+        peso baixo mantém a pessoa mas sugere roupa e traços próprios; peso alto
+        tenta reproduzir a pessoa e o figurino exatos. Combinável com referência de
+        estilo — e a MESMA imagem pode servir às duas funções ao mesmo tempo.
+      travamento_de_referencias: 'as referências podem ser TRAVADAS para valer em vários prompts seguidos, sem reanexar'
+    o_risco_que_o_curso_nomeia: >
+      Referência forte + prompt curto = CÓPIA da referência. "A gente acabou tendo algo
+      muito próximo da referência." O contorno é escrever sobre a referência, misturar
+      mais de uma, e criar algo novo inspirado — que é, não por acaso, também a
+      resposta certa em direitos. Cruza com o `*rights` do @fact-checker.
+    para_que_serve_aqui: >
+      O moodboard por cliente é candidato direto a ativo do @art-director. A trava de
+      identidade já está registrada como lacuna 2b do `local-generation-stack.yaml`;
+      a trava de ESTILO não estava, e é mais fácil de resolver.
+    confianca: alta
+
+  ferramenta_lateral_que_vale_registrar:
+    id: descrever_imagem_em_palavras
+    o_que_e: 'subir uma referência e pedir ao modelo que a DESCREVA em prompt (o "describe" do Midjourney)'
+    para_que_serve_de_verdade: >
+      Não é para copiar a referência — é para DESCOBRIR COMO O MODELO CHAMA aquilo que
+      se está vendo. "Às vezes a gente não sabe como a plataforma entende alguma
+      característica específica." Devolve termos de filme, de estética e de artista que
+      a equipe não teria escrito sozinha.
+    ganho_secundario: >
+      Reconstruir a referência POR TEXTO em vez de por imagem devolve controle: cada
+      detalhe passa a ser editável no prompt, o que a referência-imagem não permite.
+    para_que_serve_aqui: >
+      Ferramenta de trabalho do @research-scout e do @dop no `look`: transforma um
+      moodboard em vocabulário utilizável. Vale a pena procurar equivalente local
+      (interrogação de imagem por VLM) porque o ganho é de VOCABULÁRIO, e vocabulário
+      é reusável em qualquer gerador.
+    confianca: alta
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. CATÁLOGO DE ANOMALIAS
+#
+# Ordenado por visibilidade para o espectador, que é a ordem em que custam caro.
+# ─────────────────────────────────────────────────────────────────────────────
+catalogo_de_anomalias:
+
+  causa_raiz_comum:
+    nome: 'orçamento de pixel'
+    enunciado: >
+      Toda região pequena dentro do quadro recebe poucos pixels, e em poucos pixels o
+      modelo não consegue resolver estrutura fina. Rosto pequeno, letra pequena, dedo
+      pequeno e articulação distante falham pela MESMA razão.
+    tres_consequencias_operacionais:
+    - 'PREVENÇÃO: enquadrar de modo que o que precisa estar certo ocupe área. Se o rosto importa, o rosto é grande.'
+    - 'CORREÇÃO: nunca regerar a região no enquadramento original — apertar o quadro em torno dela, gerar, recompor.'
+    - 'ACEITAÇÃO: o `gate-stills` STL-B-07 já usa o limiar certo ao exigir contagem de dedos quando rosto ou mão ocupam mais de 1/4 do quadro. Abaixo disso, o defeito costuma ser invisível — e caçá-lo é desperdício.'
+    confianca: alta
+
+  anomalias:
+
+  - id: texto_na_imagem
+    prioridade: 1
+    onde_aparece: >
+      Rótulo de produto, letreiro de loja, placa de carro, painel, headline dentro da
+      peça, logo com wordmark. Aparece mais em letra PEQUENA e em cena com texto longo.
+    por_que_e_a_pior: >
+      É irreversível no pixel e é a única anomalia que o espectador consegue LER.
+      Um dedo torto passa; uma palavra escrita errada não passa.
+    como_o_curso_evita:
+    - regra: 'NÃO PEDIR AO GERADOR QUE ESCREVA. Gerar a base sem texto e compor a tipografia depois, como mockup ou em editor gráfico.'
+      status_no_squad: 'já é regra dura — `IL-PD-04` e `STL-A-10`. O corpus CONFIRMA, não acrescenta.'
+    - regra: 'Quando o texto tem que nascer no pixel, dar-lhe ÁREA. O curso mostra o modelo resolvendo a frase só depois de aumentá-la a um tamanho em que consegue escrever.'
+    - regra: 'Suprimir texto por negativa quando ele aparece sem ser convidado (o negative de supressão já está em `prompt-architectures.yaml` para o Veo 3; vale igual em imagem).'
+    como_o_curso_corrige:
+    - tecnica: 'troca dirigida sobre lettering de referência'
+      descricao: >
+        MÉTODO MAIS FORTE DA SEÇÃO, e ele inverte o problema. Em vez de pedir ao modelo
+        que INVENTE tipografia, parte-se de uma imagem de lettering real (o professor
+        mantém uma pasta de referências no Pinterest) e pede-se a um modelo de EDIÇÃO
+        apenas: "mude o texto para X". A estrutura tipográfica, o material e a
+        iluminação vêm da referência; o modelo só troca as letras.
+      limites_medidos_na_aula:
+      - 'as letras da referência precisam estar LEGÍVEIS — referência com tipografia muito distorcida não é interpretada'
+      - 'palavra curta funciona; palavra longa falha. O caso da aula: 4 letras acertou, palavra maior no mesmo lettering falhou'
+      - 'é possível trocar UMA palavra de uma frase, preservando as outras — e isso costuma ser mais confiável que trocar tudo'
+      - 'repetir a geração resolve boa parte dos erros; é volume, não truque'
+      ganho_lateral: 'o resultado em 3D pode ser animado depois em i2v, e o modelo entende que é tridimensional'
+      confianca: alta
+    - tecnica: 'retoque manual das letras pequenas no Photoshop'
+      quando: 'rótulo de produto com texto miúdo — o próprio curso admite que "só precisa de novo de retoque nas letras pequenas"'
+    - tecnica: 'apagar o texto em vez de consertá-lo'
+      quando: 'quando o texto não é a peça. Registrado no IA Boss: "vou apagar esse cantinho que tem uma escrita" — remover é mais barato que acertar'
+    para_que_serve_aqui: >
+      Alimenta `armadilhas_conhecidas` e `se_falhar` do `asset_direction` em qualquer
+      peça com marca, placa, tela ou embalagem. A técnica de troca dirigida sobre
+      lettering é a única rota conhecida para tipografia expressiva dentro do pixel —
+      e vira necessidade local (§7).
+
+  - id: maos_e_dedos
+    prioridade: 2
+    onde_aparece: >
+      Mão em primeiro plano; mão INTERAGINDO com objeto (segurando cartão, copo,
+      celular) — o caso mais frequente e o mais difícil; mãos entrelaçadas.
+    sintomas_nomeados_no_corpus: ['dedo virando dois', 'dedo faltando', 'unha ausente ou falsa', 'proporção de dedo incoerente com a mão', 'seis dedos']
+    como_o_curso_evita:
+    - 'dar área à mão quando ela importa (orçamento de pixel)'
+    - 'descrever a AÇÃO da mão, não a mão. "Segurando o cartão" produz mão melhor que "mãos".'
+    como_o_curso_corrige_em_ordem_de_custo:
+    - degrau: 1
+      tecnica: 'upscale criativo'
+      quando: 'imperfeição PEQUENA. "É só fazer algumas etapas de upscale e provavelmente os erros pequenos vão ser corrigidos."'
+      risco: 'pode alterar fisionomia; ver §5'
+    - degrau: 2
+      tecnica: 'variação (vary) da imagem escolhida'
+      quando: 'a vizinha pode simplesmente não ter o defeito'
+    - degrau: 3
+      tecnica: 'regeneração local mascarada'
+      quando: 'erro GRANDE. É o degrau padrão.'
+      detalhes_que_fazem_diferenca:
+      - 'deixar um dedo correto dentro da seleção como guia de proporção'
+      - 'apertar o quadro em torno da mão antes de gerar'
+      - 'no Midjourney, não mexer no prompt; em ferramenta de canvas, descrever a interação'
+      - 'gerar em volume — o curso considera sorte acertar de primeira'
+    - degrau: 4
+      tecnica: 'upscale de acabamento com criatividade média e semelhança baixa'
+      quando: >
+        "Quando a estrutura está quase certa mas precisa arrumar alguns detalhes" —
+        unha, textura, olho, boca. A aula usa criatividade 5, HDR 0, semelhança -2
+        num upscaler dedicado. Valores da interface daquela ferramenta; o MÉTODO é
+        "dar liberdade moderada e deixar o modelo reinterpretar a região".
+      contra_evidencia_honesta: >
+        O Filmboss registra o caso oposto no mesmo tipo de ferramenta: "normalmente a
+        ferramenta conserta a mão, mas nesse caso ela detona a mão". Não é rota
+        confiável — é tentativa barata que às vezes resolve.
+    - degrau: 5
+      tecnica: 'Photoshop na mão'
+      quando: 'nada acima resolveu e a peça é exigente'
+    para_que_serve_aqui: 'Escada completa do `se_falhar` para qualquer plano com pessoa. @image-lead.'
+    confianca: alta
+
+  - id: pernas_e_anatomia_de_corpo_inteiro
+    prioridade: 3
+    onde_aparece: >
+      Plano aberto e corpo inteiro, onde cada membro recebe pouca área. Sintomas do
+      corpus: perna longa demais, terceira perna, braço fino demais na sombra,
+      articulação incoerente.
+    diferenca_em_relacao_as_maos: >
+      A anomalia de perna é quase sempre de PROPORÇÃO e de CONTAGEM, não de detalhe
+      fino. Isso muda a correção: inpaint local costuma ser ruim aqui, porque o erro
+      não está na região — está na relação entre a região e o corpo inteiro.
+    como_o_curso_evita:
+    - 'preferir enquadramento fechado quando a pose não é o assunto — é a mesma economia do `brand-film-playbook.yaml`, que resolve 70–80% das cenas com duas imagens-base'
+    - 'descrever a POSTURA e a AÇÃO explicitamente ("sentado", "em movimento", "apoiado na parede") em vez de deixar o modelo escolher'
+    - 'não pedir detalhe fora do enquadramento (§2, incompatibilidade interna) — é o que faz o modelo abrir o plano sem ser pedido e expor membros que não precisavam aparecer'
+    como_o_curso_corrige:
+    - 'DESCARTAR e escolher outra do lote. É a resposta que mais aparece no corpus para perna: o professor troca de imagem em vez de consertar.'
+    - 'variação forte, que remonta a pose'
+    - 'Photoshop — "a perna parece bastante longa, o que daria para arrumar no Photoshop depois". É trabalho de liquify e recorte, não de IA.'
+    honestidade_do_registro: >
+      Nenhum dos dois cursos ensina uma técnica DEDICADA a corrigir perna, como ensina
+      para mão e rosto. O tratamento é: prevenir por enquadramento, descartar, ou
+      resolver na mão. Registrar isso é mais útil que inventar um método que o corpus
+      não tem.
+    confianca: media
+
+  - id: rosto
+    prioridade: 4
+    onde_aparece: 'olho assimétrico, dente irregular, boca deformada, rosto pequeno no quadro'
+    como_o_curso_corrige:
+    - 'upscale criativo — é onde ele mais brilha; a aula mostra boca e dentes resolvidos por reinterpretação'
+    - 'regeneração local mascarada, mesma técnica das mãos'
+    - 'upscaler de acabamento com preset de retrato suave'
+    armadilha_dupla_do_rosto:
+    - 'upscale criativo pode ACRESCENTAR traço que não existia (a aula mostra uma pinta aparecendo do nada) — por isso se roda 2–3 vezes e se escolhe'
+    - 'se a identidade importa (clone, elenco fixo, creator sintético), upscale criativo é RISCO, não solução. Ver §5.'
+    cruzamento_com_o_que_ja_temos: >
+      O `brand-film-playbook.yaml` já registra a regra de ouro da consistência facial
+      (gerar SEMPRE primeiro a frontal). Ela é PREVENÇÃO de anomalia de rosto em
+      variações de ângulo — a mesma família de problema, resolvida antes.
+    confianca: alta
+
+  - id: iluminacao_incoerente_apos_edicao
+    prioridade: 5
+    o_que_e: >
+      A anomalia que ninguém procura porque não é anatômica. Ao trocar cenário por
+      edição, a luz do sujeito continua sendo a do cenário ANTIGO. O caso do curso:
+      trocou-se a rua por uma estação de metrô e a luz de sol continuou batendo na
+      personagem e na bolsa. "Acaba que pode soar um pouco fake."
+    regra_que_o_curso_extrai: >
+      "Quando a mudança for muito drástica, talvez seja melhor alterar o prompt e
+      fazer a imagem de novo." Existe um ponto em que editar sai mais caro que regerar,
+      e ele é definido pela LUZ, não pelo tamanho da área editada.
+    como_corrigir_sem_regerar: 'é o trabalho de ambientação do passo 7 — ver §6'
+    para_que_serve_aqui: >
+      Vira critério de aceite: "a direção da luz do sujeito é compatível com a do
+      cenário". Candidato a item do `gate-image-lab`, que hoje cobre reflexo incoerente
+      (`IL-PD-07`) mas não direção de luz após edição.
+    confianca: alta
+
+  - id: aberracao_induzida_pelo_proprio_acabamento
+    prioridade: 6
+    o_que_e: >
+      Defeito CRIADO pelo upscale ou pelo relight, não pelo gerador. Textura forçada
+      demais que deixa a superfície irreal; grão pré-existente que o upscaler
+      intensifica; logo ou estampa reinterpretada como outra coisa; borda com halo.
+    como_o_curso_evita:
+    - 'HDR e criatividade em zero como PADRÃO; subir só com motivo'
+    - 'o parâmetro mais agressivo do upscaler (fractality) é declarado "o que menos recomendo mexer" — a própria ferramenta avisa'
+    - 'reduzir o grão ANTES de subir para o upscaler, quando a base já é granulada'
+    - 'gerar duas versões, uma conservadora e uma forçada, e compor por máscara pegando só as regiões em que o forçado ganhou'
+    para_que_serve_aqui: >
+      Critério de aceite do `pos_processamento`: o upscale não pode ter introduzido
+      defeito. Hoje o `STL-B` checa anatomia e texto, mas não checa dano de acabamento.
+    confianca: alta
+
+  - id: logo_e_marca_alucinados
+    prioridade: 7
+    o_que_e: 'marca de terceiro que aparece sozinha no cenário, ou wordmark do cliente reconstruído errado'
+    status_no_squad: 'já é BLOQUEANTE no `STL-B-08`. O corpus confirma a frequência e não acrescenta técnica nova além das de texto.'
+    nota_de_direitos: 'quando aparece marca de terceiro, não é só defeito visual — é matéria do @fact-checker em `*rights`'
+    confianca: alta
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. UPSCALE — método, gatilho e limites
+#
+# O `model-routing.yaml` já decide QUAL ferramenta. Aqui está QUANDO, QUANTAS
+# vezes e o que não fazer.
+# ─────────────────────────────────────────────────────────────────────────────
+upscale:
+
+  o_que_upscale_realmente_faz: >
+    Não é ampliação. É INVENÇÃO DIRIGIDA DE DETALHE que não existia — o modelo preenche
+    as lacunas da imagem de origem. Daí decorrem todas as regras abaixo: quanto menos
+    informação a origem tem, mais o modelo inventa, e mais o resultado se afasta dela.
+
+  duas_funcoes_que_costumam_ser_confundidas:
+    resolucao: 'entregar arquivo maior para o destino'
+    textura: >
+      acrescentar micro-detalhe, poro, fio, trama e imperfeição — e é ESTA a função
+      que faz a imagem parar de parecer IA. Vale a pena rodar upscale mesmo quando a
+      resolução já bastava, se a imagem estiver "plastificada".
+
+  gatilho:
+    regra: 'o DESTINO decide, não o hábito'
+    tabela:
+    - destino: 'peça final de imagem (post, key art, anúncio, capa, still de produto)'
+      upscale: 'ETAPA FIXA'
+      por_que: 'a imagem vai ser olhada de perto e ampliada; e a textura é o que a faz ler como fotografia'
+      nosso_pipeline: 'P6 image-lab; packshot do P1'
+    - destino: 'frame que será consumido por modelo de vídeo (i2v)'
+      upscale: 'SÓ SE O FRAME REPROVAR NA INSPEÇÃO'
+      por_que: >
+        "Em 90, 95% dos casos não precisa fazer." O modelo de vídeo vai reinterpretar
+        a imagem de qualquer forma; o que ele precisa é de uma base NÍTIDA E SEM
+        ABERRAÇÃO, não de uma base grande.
+      nosso_pipeline: 'stills → takes, em P1, P2, P3, P5'
+    - destino: 'previz e triagem interna'
+      upscale: 'NUNCA'
+      por_que: 'gasta noite de máquina para decidir algo que se decide na miniatura'
+
+  a_regra_de_ordem_que_evita_retrabalho:
+    enunciado: >
+      Upscale de IMAGEM vem antes da geração do VÍDEO; upscale de VÍDEO vem depois.
+      Não se salva no upscale de vídeo um take que nasceu de uma imagem ruim.
+    citacao: >
+      "Não adianta você vir com essa imagem, se ela for uma imagem ruim e você gerar o
+      vídeo ruim, não adianta tentar salvar com upscale."
+    corolario_de_peso: >
+      O upscale de imagem é descrito como "imenso" no que consegue mudar; o de vídeo,
+      como "a cerejinha do bolo". Onde investir é no frame.
+    encaixe_no_squad: >
+      Confirma o princípio `i2v_antes_de_t2v` do `model-routing.yaml` por outro
+      caminho: a inspeção do frame é gate, não formalidade.
+
+  quantas_passadas:
+    em_peca_final: >
+      3 a 4 upscales da MESMA imagem, com configurações diferentes, e escolha entre
+      eles. Não é indecisão: cada passada reinterpreta e traz um detalhe diferente.
+    o_metodo_que_sai_disso: >
+      Não escolher UM upscale — levar DOIS OU MAIS ao Photoshop e usar a melhor parte
+      de cada. "Às vezes a textura da pele ficou melhor em uma e o background ficou
+      melhor em outra." É a mesma lógica da escada de força do img2img (§3): a decisão
+      final é de COMPOSIÇÃO, não de seleção.
+    fator_de_escala: >
+      2x a 4x é a faixa de trabalho declarada, mesmo quando a ferramenta oferece 16x.
+      Há teto de resolução de entrada nos upscalers dedicados; acima dele a ferramenta
+      recusa o arquivo.
+
+  os_dois_modos_e_a_escolha_entre_eles:
+    conservador:
+      o_que_faz: 'ganha resolução e não altera nenhuma característica'
+      quando: 'a imagem já está correta; identidade importa; peça de série que precisa casar com as anteriores'
+    criativo:
+      o_que_faz: 'REINTERPRETA a imagem — ganha resolução E corrige erros pequenos de mão, olho e boca'
+      quando: 'a imagem tem imperfeição pequena, ou está "nítida demais, muito sharp, com cara de IA"'
+      preco: 'pode mudar fisionomia, acrescentar traço que não existia, e alterar detalhe que estava certo'
+      procedimento: 'rodar 2 a 3 vezes e escolher; nunca aceitar a primeira sem comparar'
+
+  o_que_nao_fazer:
+  - proibicao: 'Não usar upscale como conserto de COMPOSIÇÃO.'
+    por_que: 'upscale não move objeto, não reenquadra e não resolve cena mal montada. Só nas imagens finais já selecionadas.'
+  - proibicao: 'Não upscalar material de origem muito fraca quando a identidade importa.'
+    por_que: >
+      "Quanto pior for a imagem que você colocar, menos consistente vai ser o
+      resultado." A imagem fica mais nítida e MAIS ERRADA ao mesmo tempo — vira outra
+      pessoa. Regerar em alta vence upscalar material fraco.
+    onde_isso_dói_mais: 'clone do founder, creator sintético do P2, elenco fixo do P5/P7'
+  - proibicao: 'Não subir criatividade e HDR "para melhorar".'
+    por_que: 'é a origem da aberração induzida (§4). Padrão em zero; subir só com motivo declarado.'
+  - proibicao: 'Não fazer upscale antes do relight.'
+    por_que: 'o relight derruba a resolução; a ordem correta é relight → upscale.'
+  - proibicao: 'Não mudar o ASPECT RATIO durante o upscale quando se quer fidelidade.'
+    por_que: >
+      Ao mudar de formato, o modelo REACOMODA a cena no novo quadro — pessoa alonga,
+      cenário se estica, elementos se deslocam. "Fica bonito, mas não fica 100% fiel."
+      Se o objetivo é a mesma imagem em alta, manter o formato da referência.
+  - proibicao: 'Não tratar upscale como obrigação de fluxo em todo asset.'
+    por_que: 'é a etapa mais cara em noite de máquina e a que menos rende em frame intermediário'
+
+  tecnica_de_prompt_de_upscale:
+    contexto: >
+      Quando o upscale é feito por um MODELO DE IMAGEM (e não por um upscaler
+      dedicado), o prompt é o que decide o resultado. O curso publica uma estrutura em
+      SEIS BLOCOS, e o valor dela é ser DEPURÁVEL: quando algo sai errado, sabe-se
+      exatamente qual bloco reescrever.
+    blocos:
+    - bloco: 'pedido'
+      conteudo: 'RECRIAR a imagem em alta resolução como fotografia profissional, com texturas reais, detalhamento de rosto, expressão e roupa'
+      detalhe_critico: >
+        O verbo "RECRIAR" é o que faz o upscale acontecer. Sem ele, o modelo tende a
+        repetir a imagem com um ajuste cosmético e o upscale não ocorre.
+    - bloco: 'contexto'
+      conteudo: 'quem é, que época, que ano, que idade — parágrafo curto'
+      quando_usar: 'figura pública, lugar reconhecível ou foto de época; opcional no resto'
+      por_que_funciona: >
+        Modelos com inteligência de contexto buscam referências reais em vez de
+        inventar. É a vantagem que os upscalers dedicados não têm, e já está
+        registrada no `model-routing.yaml`.
+    - bloco: 'consistência'
+      conteudo: 'manter a mesma composição, luz, cores, cenário e ação; melhorar apenas os detalhes pedidos'
+      nota: 'praticamente fixo entre jobs'
+    - bloco: 'qualidade e estilo'
+      conteudo: 'alta resolução, câmera profissional, abertura e profundidade de campo declaradas'
+      uso_de_depuracao: 'é AQUI que se corrige quando a saída vem com estética errada — o caso da aula foi uma foto antiga virando videogame, resolvido dizendo "fotografia dos anos 1970" e "câmera analógica"'
+    - bloco: 'detalhamento'
+      conteudo: 'poros, pequenas marcas, micro pelos, pequenas imperfeições naturais'
+      quando_nao_usar: 'plano aberto, cena sem pessoa — não faz sentido e pode inventar rosto onde não há'
+    - bloco: 'efeito'
+      conteudo: 'lente rápida com aberração cromática discreta nas bordas'
+      por_que: 'simula defeito de lente e dá ar orgânico; é sutil de propósito'
+    limite_declarado: >
+      Se duas ou três tentativas com ajuste de prompt não resolverem, o problema é a
+      IMAGEM DE REFERÊNCIA, não o prompt. Trocar a origem.
+    para_que_serve_aqui: >
+      É o template do campo `pos_processamento` do `asset_direction` quando a rota de
+      upscale for por modelo de imagem. Cada bloco vira uma linha editável, e o
+      @image-lead sabe qual mexer quando o retake vier.
+    confianca: alta
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. EDIÇÃO MANUAL — o que só se resolve na mão
+# ─────────────────────────────────────────────────────────────────────────────
+edicao_manual:
+
+  posicao_no_fluxo: >
+    Terceira e última etapa do workflow do estúdio, DEPOIS da aprovação do cliente
+    sobre a imagem gerada. Não é conserto de emergência — é acabamento planejado.
+
+  premissa_nao_destrutiva:
+    regra: >
+      Duplicar e rasterizar a imagem de entrada numa camada de trabalho, e manter um
+      grupo de backup. Todo ajuste em camada própria, com máscara.
+    por_que: >
+      "Caso posteriormente a gente faça algum ajuste que não ficou tão legal, ou o
+      cliente solicite alguma alteração, a gente consiga fazer de forma prática."
+      No nosso caso a razão é ainda mais forte: sem camadas, revisão de cliente vira
+      REGERAÇÃO, e regeração muda a imagem inteira.
+    para_que_serve_aqui: 'entregável do passo 7 é PSD em camadas + achatado, não só o achatado. Vira item de `delivery`.'
+
+  o_que_so_se_resolve_na_mao:
+
+  - tarefa: 'Inserção do produto ou personagem REAL na cena'
+    por_que_so_na_mao: >
+      Fidelidade absoluta ao ativo do cliente. Nenhum gerador reproduz um frasco, um
+      rótulo ou um logo com exatidão suficiente para campanha — e o curso resolve isso
+      não tentando: gera com produto de marcação e cola o PNG real.
+    o_que_a_tarefa_envolve_de_verdade:
+    - 'máscara de recorte no produto'
+    - 'inner glow para reconstruir o contorno de luz que o produto real não tem naquela cena'
+    - 'curvas em modo screen (luz) e multiply (sombra), clipadas, mascaradas lado a lado'
+    - 'levels clipados para casar a faixa tonal do produto com a da cena'
+    - 'solid color em modo color, com opacidade baixa, para casar a temperatura'
+    - 'sombra de contato pintada em camada multiply, com pincel achatado e flow baixo'
+    - 'sombra tingida com a cor do ambiente via curvas no canal azul — "quase imperceptível, mas faz a diferença"'
+    - 'flare de referência em modo screen, distorcido com warp para acompanhar a forma do produto'
+    - 'grão adicionado ao objeto inserido, quando ele está nítido demais em relação à cena'
+    - 'desfoque parcial (blur gallery) para o objeto herdar a profundidade de campo da cena'
+    para_que_serve_aqui: 'checklist do passo 7 no P6 e no packshot do P1. @art-director.'
+
+  - tarefa: 'Diagnóstico de luz — a "help layer"'
+    o_que_e: >
+      Camada de ajuste com saturação zerada em modo color, ligada por cima de tudo,
+      só para ENXERGAR a imagem em preto e branco. Serve para descobrir de onde vem a
+      luz e comparar a faixa tonal do elemento inserido com a da cena.
+    por_que_e_o_truque_mais_valioso_da_secao: >
+      É diagnóstico, não efeito. Sem ele, a ambientação é feita por impressão de cor —
+      e cor engana. Em preto e branco, o descasamento de luminância fica óbvio.
+      Também é a resposta para "por que essa colagem parece colagem" quando ninguém
+      sabe dizer o motivo.
+    aplicacao_secundaria: 'ler onde estão as áreas escuras e evitar preto absoluto, que "não existe" em fotografia'
+    para_que_serve_aqui: 'passo obrigatório antes de aprovar qualquer inserção. @art-director e @qa-critic.'
+
+  - tarefa: 'Composição de PARTES de várias gerações'
+    o_que_e: >
+      Pegar duas ou mais saídas — dois upscales, três forças de img2img, duas
+      variações — e montar uma imagem só, com máscara, usando a melhor região de cada.
+    por_que_so_na_mao: 'não existe geração que produza a melhor versão de todas as regiões ao mesmo tempo'
+    condicao_para_funcionar: 'os elementos precisam estar em posição semelhante entre as gerações — o que exige força baixa/média no img2img'
+    para_que_serve_aqui: >
+      É a técnica que converte "nenhuma das opções serve" em entrega. Vira degrau do
+      `se_falhar` antes de mandar regerar o lote inteiro.
+
+  - tarefa: 'Correção de anomalia que sobreviveu a tudo'
+    exemplos_do_corpus: ['perna longa demais', 'letra pequena de rótulo', 'luz vermelha forte que veio junto com a mão corrigida']
+    nota: 'aqui a mão é o último recurso, não o primeiro — a escada de §4 vem antes'
+
+  - tarefa: 'Ambientação e grading final'
+    o_que_envolve:
+    - 'vinheta por curvas duplicadas — screen mascarado no centro, multiply mascarado nas bordas — para dirigir o olhar'
+    - 'selective color por faixa (vermelhos, amarelos) para levar a cena à paleta da marca'
+    - 'photo filter para deslocar a temperatura geral'
+    - 'camada de equilíbrio: achatar cópia, aplicar blur average, inverter e pôr em soft light com fill baixo — casa as cores da cena inteira'
+    - 'reserva de área limpa para o título/logo que será aplicado depois'
+    para_que_serve_aqui: 'é o que aproxima a peça do `craft-references.yaml`. @dop e @art-director.'
+
+  - tarefa: 'Sujeira, partículas e overlays de textura'
+    o_que_e: 'pincéis de poeira, overlays de luz e flares aplicados em camadas próprias, com máscara, dessaturados e retintos para casar com a cena'
+    por_que_na_mao: 'controle de posição e intensidade; e porque pedir partículas ao gerador espalha partícula por toda a imagem, sem hierarquia'
+
+  o_que_e_desperdicio_fazer_na_mao:
+  - item: 'Limpeza de sujeira e remoção de elemento pequeno'
+    por_que: 'as ferramentas generativas do próprio editor resolvem em um clique e devolvem textura coerente com o entorno'
+    detalhe_de_metodo: >
+      Selecionar e gerar SEM PROMPT NENHUM. "O Photoshop já vai entender que ou é para
+      remover essa região ou trazer alternativas." Escrever prompt aqui costuma piorar.
+      E fazer os ajustes em SEQUÊNCIA, em camadas empilhadas — não tudo numa camada só.
+  - item: 'Reconstruir fundo, expandir cenário, criar céu'
+    por_que: 'é geração, não pintura; extensão de quadro (§3) resolve mais rápido e com mais coerência'
+  - item: 'Redesenhar mão ou rosto do zero'
+    por_que: 'a escada de §4 tem quatro degraus mais baratos antes disso'
+  - item: 'Retoque de pele para "melhorar"'
+    por_que: >
+      Inverte o objetivo. O corpus é explícito: o retoque de revista — tirar marca,
+      alisar pele — é justamente o que faz a imagem gerada parecer gerada. O trabalho
+      moderno é ADICIONAR imperfeição, não remover.
+  - item: 'Aumentar resolução no editor'
+    por_que: 'não é upscale; não inventa detalhe. É o §5.'
+
+  rastro_de_mascara:
+    problema: 'preenchimento generativo às vezes deixa uma demarcação visível na borda da seleção'
+    correcao: 'pintar de preto na máscara ao redor da seleção, devolvendo a informação da camada de baixo'
+    por_que_registrar: 'é o defeito mais comum de quem começa a usar preenchimento generativo, e some com um gesto'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. TRADUÇÃO PARA O NOSSO STACK
+#
+# Só a NECESSIDADE. A solução técnica (que nó, que modelo, que quantização) é de
+# outra frente — este arquivo não decide isso e não deve fingir que decide.
+# Toda necessidade abaixo nasce de uma FINALIDADE das seções 3 a 6, e a coluna
+# `de_onde_vem` diz qual.
+# ─────────────────────────────────────────────────────────────────────────────
+traducao_para_o_nosso_stack:
+
+  contexto_do_stack_hoje:
+    o_que_temos: 'FLUX.2 klein 4B (t2i, instalado, nenhum pixel gerado ainda), Wan 2.2 I2V (validado), áudio (instalado)'
+    o_que_nao_temos: >
+      NENHUMA capacidade de refino de imagem. Não há inpaint, não há img2img com força
+      controlável, não há upscaler, não há edição dirigida por linguagem, não há trava
+      de estilo por conjunto de referências. O stack local hoje gera e anima — não
+      refina.
+    consequencia_franca: >
+      Dos 8 estágios da cadeia canônica, o stack local cobre HOJE apenas o 3 (geração
+      em lote). Os estágios 4, 5 e 6 dependem inteiramente de ferramenta externa paga,
+      e o 7 depende do Photoshop, que o founder tem. Este é o vazio real que a frente
+      de tradução precisa fechar.
+    limite_ativo_a_respeitar: >
+      19 GiB de disco livres (medido em 2026-08-29). Não há folga para instalar tudo
+      isto. A ordem de prioridade abaixo existe justamente para escolher.
+
+  necessidades:
+
+  - prioridade: 1
+    necessidade: 'Regeneração local mascarada — trocar só a região marcada preservando o resto'
+    de_onde_vem: '§3 regeneracao_local_mascarada; §4 (mãos, rosto, texto)'
+    destrava: >
+      Os estágios 4 e 5 da cadeia inteiros. É a diferença entre corrigir um dedo e
+      jogar fora a imagem. Sem isto, toda anomalia vira Photoshop manual ou descarte.
+    requisitos_que_a_necessidade_impoe:
+    - 'aceitar máscara desenhada pelo operador, com folga para fora do defeito'
+    - 'permitir gerar a região em resolução PRÓPRIA e recompor — é o que resolve o orçamento de pixel'
+    - 'permitir prompt vazio (regenerar sem instrução) E prompt curto de relação ("segurando o cartão")'
+    - 'gerar em lote — o método exige volume, não uma tentativa'
+    quem_pede: '@image-lead'
+    status: a_especificar
+
+  - prioridade: 2
+    necessidade: 'Upscale de acabamento local, com controle de criatividade e de semelhança'
+    de_onde_vem: '§5 inteiro; §2 imperfeicao_e_o_que_vende_realismo'
+    destrava: 'o estágio 6, e com ele qualquer entrega de imagem em alta do P6 — o pipeline vendável isolado'
+    requisitos_que_a_necessidade_impoe:
+    - 'DOIS modos distintos: conservador (não altera nada) e criativo (reinterpreta e corrige)'
+    - 'criatividade e semelhança reguláveis, com padrão conservador'
+    - 'capaz de ACRESCENTAR micro-textura, não só resolução — é a função que tira a cara de plástico'
+    - 'reprodutível entre passadas, para que 3 upscales da mesma imagem sejam comparáveis'
+    nota_de_rota: >
+      O `model-routing.yaml` hoje aponta Nano Banana Pro como preferido — rota externa
+      e paga. Um equivalente local muda a economia do P6, onde o recurso escasso é
+      noite de máquina, não crédito.
+    quem_pede: '@image-lead'
+    status: a_especificar
+
+  - prioridade: 3
+    necessidade: 'Imagem-para-imagem com FORÇA regulável e reprodutível'
+    de_onde_vem: '§3 retorno_controlado_ao_gerador; §6 composicao_de_partes'
+    destrava: >
+      Troca de textura e de material sem perder composição; e o método de gerar três
+      forças e compor por máscara, que converte "nenhuma opção serve" em entrega.
+    requisitos_que_a_necessidade_impoe:
+    - 'força expressa num número comparável entre jobs, para a escada 0.3 / 0.6 / 0.8 fazer sentido'
+    - 'preservação de posição dos elementos em força baixa — é a condição da composição por máscara'
+    quem_pede: '@image-lead'
+    status: a_especificar
+    nota: 'é a mais provável de já estar ao alcance do que está instalado, e por isso a de melhor retorno por GB'
+
+  - prioridade: 4
+    necessidade: 'Edição dirigida por linguagem preservando identidade — inclusive TROCA DE TEXTO sobre lettering de referência'
+    de_onde_vem: '§4 texto_na_imagem; §3 trava_de_estilo_e_de_identidade'
+    destrava: >
+      A única rota conhecida para tipografia expressiva dentro do pixel, e a rota de
+      consistência de personagem já registrada como lacuna 2b do
+      `local-generation-stack.yaml`. São a MESMA capacidade servindo a dois fins.
+    requisitos_que_a_necessidade_impoe:
+    - 'preservar o que não foi pedido — o critério que separa esta rota da recriação total'
+    - 'aceitar instrução curta e literal ("mude o texto para X")'
+    - 'aceitar mais de uma imagem de referência, identificando qual é a principal'
+    nota_de_cruzamento: >
+      A lacuna 2b já avaliou Qwen-Image-Edit e registrou que em 8 GB "fica apertado de
+      verdade". O achado de texto REFORÇA a prioridade daquela lacuna — ela não serve
+      só a personagem, serve a toda peça com marca, placa ou rótulo.
+    quem_pede: '@image-lead + @art-director'
+    status: 'cruza com lacuna 2b do local-generation-stack.yaml'
+
+  - prioridade: 5
+    necessidade: 'Trava de ESTILO por conjunto de referências (equivalente ao moodboard), por cliente'
+    de_onde_vem: '§3 trava_de_estilo_e_de_identidade'
+    destrava: >
+      "A cara da marca" sem treinar modelo. Um conjunto por cliente, somável a outro.
+      É o que faz uma série de peças parecer uma série.
+    distincao_que_precisa_sobreviver: >
+      Trava ESTILO (luz, paleta, enquadramento). NÃO trava IDENTIDADE. São duas
+      necessidades e duas soluções — confundi-las é o erro que o
+      `local-generation-stack.yaml` já alerta.
+    quem_pede: '@art-director'
+    status: a_especificar
+
+  - prioridade: 6
+    necessidade: 'Extensão de quadro (gerar além das bordas da imagem aprovada)'
+    de_onde_vem: '§3 extensao_de_quadro'
+    destrava: >
+      Entregar a mesma peça aprovada em 1:1, 4:5 e 9:16 sem regerar — o que preserva a
+      consistência de série que o `IL-PD-06` exige e reduz o lote pela metade.
+    quem_pede: '@image-lead'
+    status: a_especificar
+
+  - prioridade: 7
+    necessidade: 'Reiluminação preservando estrutura'
+    de_onde_vem: '§3 retextura_e_reiluminacao'
+    destrava: 'ambientar produto ou personagem numa cena com luz diferente da que ele nasceu'
+    requisito_de_ordem: 'qualquer solução aqui roda ANTES do upscale, porque reiluminar tende a custar resolução'
+    quem_pede: '@dop + @image-lead'
+    status: a_especificar
+
+  - prioridade: 8
+    necessidade: 'Descrição de imagem em palavras (interrogação de referência)'
+    de_onde_vem: '§3 ferramenta_lateral_que_vale_registrar'
+    destrava: >
+      Converter moodboard em VOCABULÁRIO. O ganho é reusável em qualquer gerador,
+      presente ou futuro — é a necessidade com maior vida útil desta lista.
+    quem_pede: '@research-scout + @dop'
+    status: a_especificar
+
+  necessidades_que_nao_sao_de_software:
+
+  - necessidade: 'Biblioteca de referências de lettering, versionada'
+    de_onde_vem: '§4 texto_na_imagem'
+    o_que_e: >
+      Uma pasta curada de tipografias fotográficas e tridimensionais reais, que é o
+      INSUMO da troca dirigida de texto. Sem ela a técnica não existe — não há o que
+      editar.
+    quem_pede: '@art-director'
+
+  - necessidade: 'Kit de assets de composição — flares, overlays de luz, pincéis de poeira e partícula'
+    de_onde_vem: '§6 sujeira_particulas_e_overlays'
+    o_que_e: 'insumos do passo 7. O curso os distribui como pasta de assets porque são reusados em todo job.'
+    quem_pede: '@art-director'
+
+  - necessidade: 'Protocolo de foto-âncora de produto'
+    de_onde_vem: '§0 elo 5'
+    o_que_e: >
+      Regra de intake: em peça com produto real, pedir ao cliente as fotos em alta,
+      em vários ângulos e luzes, com fundo neutro, ANTES de escrever qualquer prompt —
+      e derivar o ângulo da cena da foto que existe. PNG com fundo transparente é o
+      ideal e deve ser pedido nominalmente.
+    quem_pede: '@brief-strategist + @exec-producer'
+    encaixe: 'item novo no `gate-brief` ou no `gate-intake`; hoje o `IL-PD-05` exige a âncora mas não o ângulo'
+
+  - necessidade: 'Checkpoint de cliente posicionado ANTES da composição manual'
+    de_onde_vem: '§1 onde_entra_a_aprovacao_do_cliente'
+    o_que_e: 'o cliente aprova a imagem gerada com produto de marcação; só depois se investe em Photoshop'
+    quem_pede: '@exec-producer'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. DIVERGÊNCIAS ENTRE OS DOIS CURSOS — registradas, não resolvidas
+# ─────────────────────────────────────────────────────────────────────────────
+divergencias:
+
+- tema: 'Upscale é obrigatório?'
+  ai_image_creator: 'sim — 3 a 4 passadas por imagem finalizada, sempre'
+  filmboss: 'não — "em 90, 95% dos casos não precisa fazer"'
+  leitura_do_squad: >
+    Não é contradição, é DESTINO diferente. Um curso produz imagem final para cliente;
+    o outro produz frame que vira vídeo. A regra de §5 (o destino decide) reconcilia os
+    dois sem descartar nenhum. Registrar assim evita que a equipe cite o curso errado
+    para o pipeline errado.
+  status: resolvido_por_criterio
+
+- tema: 'O que escrever no prompt ao regenerar uma região'
+  ai_image_creator_no_midjourney: 'NADA — testado, e manter o prompt original dá mais certo'
+  ai_image_creator_no_ideogram: 'prompt curto, e melhor ainda se descrever a INTERAÇÃO'
+  leitura_do_squad: >
+    Depende de a ferramenta manter ou não o prompt original em contexto. Onde o
+    contexto persiste, calar é melhor; onde a região é tratada como geração nova,
+    é preciso dizer o que ela é. A pergunta que o @image-lead deve fazer ao escolher
+    a rota local é: "esta ferramenta mantém o prompt da imagem original?"
+  status: resolvido_por_criterio
+
+- tema: 'Upscaler dedicado conserta mãos?'
+  ai_image_creator: 'sim — mostra unha, olho e boca resolvidos com criatividade 5 e semelhança -2'
+  filmboss: 'às vezes — "normalmente a ferramenta conserta a mão, mas nesse caso ela detona a mão"'
+  leitura_do_squad: >
+    Tentativa barata, não rota confiável. Fica no degrau 4 da escada de §4, depois do
+    inpaint, e nunca como única linha de defesa. Não prometer a cliente.
+  status: registrado_como_incerteza
+
+- tema: 'Quantas imagens treinam um modelo de personagem/produto'
+  filmboss_no_krea: '20 a 50 fotos; o professor usou 27 e depois 36'
+  ai_image_creator_no_fal_ai: >
+    10 a 30. Abaixo de 10 "não é suficiente para ele identificar"; acima de 30 acontece
+    OVERTRAINING — "ele acaba alucinando para absorver aquela pessoa, estilo ou produto"
+  leitura_do_squad: >
+    Faixa de sobreposição: 20 a 30. É onde as duas fontes concordam, e é o número que o
+    `character-lead` deve usar no primeiro teste. Abaixo de 10 e acima de 50 as duas
+    fontes concordam que não presta — o desacordo é só na largura do meio, e ele
+    provavelmente reflete plataformas diferentes (o Krea faz mais passos de treino).
+  o_que_as_duas_fontes_concordam_e_importa_mais_que_o_numero:
+    - 'Variar ÂNGULO do rosto e do objeto'
+    - 'Variar ILUMINAÇÃO (janela, sol duro, luz bonita)'
+    - 'Variar ou REMOVER o fundo — este é o erro que o Filmboss comete e admite: todas as fotos no mesmo set fizeram o modelo aprender o TRIPÉ do fundo, e ele voltava nas gerações'
+    - 'Escolher o modo específico (personagem / produto / estilo), nunca `geral`'
+    - 'Força do modelo treinado: 1.0 é o ponto ideal no Fal.ai; acima fica estranho, abaixo perde característica'
+  status: resolvido_por_faixa
+
+- tema: 'Upscaler dedicado conserta mãos? — segunda leitura'
+  o_que_a_2a_rodada_acrescenta: >
+    A aula bônus do AI Image Creator mostra o Magnific consertando olho, boca e dedos de
+    uma vez, com parâmetros explícitos: fator 2x, preset Retrato + Soft, criatividade 5,
+    HDR 0 e SEMELHANÇA -2. E declara o critério: serve "quando a estrutura está quase
+    certa mas precisa arrumar alguns detalhes".
+  a_contrapartida_que_o_professor_admite: >
+    "Ele trocou também um pouco o nariz. O cabelo também." Semelhança -2 dá liberdade
+    ao modelo, e a identidade se move junto com o defeito.
+  leitura_do_squad: >
+    A incerteza registrada antes se resolve por parâmetro, exatamente como a nossa
+    medição local resolveu a mesma dúvida pelo denoise. Regra: o upscaler dedicado
+    conserta mão E MUDA O ROSTO — logo NÃO usar em personagem que precisa de consistência
+    entre cenas. Serve em peça avulsa; é proibido em série, UGC com creator recorrente e
+    filme de marca com personagem.
+  cruzamento_com_a_medicao_local: >
+    Nossa medição no stack local (`validacao_no_stack_local`) já dizia a mesma coisa por
+    outro caminho: acima de ~0.15 de denoise o ladrilho ganha liberdade para redesenhar,
+    e o que ele redesenha pode ser melhor ou pior. Criatividade 5 / semelhança -2 no
+    Magnific é o análogo comercial de um denoise alto. A MEDIÇÃO LOCAL VENCE: em imagem
+    de personagem, força baixa.
+  status: resolvido_por_criterio
+
+- tema: 'Idioma do prompt'
+  contexto: >
+    O `prompt-architectures.yaml` fixou "inglês sempre" e o `brand-film-playbook.yaml`
+    já corrigiu para "inglês na geração, português na edição". Este corpus adiciona um
+    dado: o AI Image Creator escreve em português e traduz antes de colar, sem prejuízo
+    aparente na etapa de exploração.
+  leitura_do_squad: 'nenhuma mudança de regra. Reforça que a tradução pode ser a última etapa da escada de prompt, não a primeira.'
+  status: sem_impacto
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. SEGUNDA RODADA DE MINERAÇÃO — o que o Módulo 05 do IA Boss e os módulos
+#    04, 05, 12, 13 e 15 do AI Image Creator acrescentaram (2026-08-30)
+#
+# Esta seção NÃO reescreve as anteriores. Ela confirma, corrige e acrescenta.
+# Onde ela contradiz `validacao_no_stack_local` ou
+# `anomalias_reais_medidas_no_pack_estoico`, A MEDIÇÃO LOCAL VENCE e a divergência
+# está dita, não apagada.
+# ─────────────────────────────────────────────────────────────────────────────
+segunda_rodada:
+
+  # ── 8.1 — o orçamento de pixel ganha duas confirmações novas ──────────────
+  orcamento_de_pixel_confirmado_em_dois_contextos_novos:
+    o_que_ja_estava_registrado: >
+      §4 deste arquivo estabelece que texto errado, dedo a mais e perna deformada são
+      três sintomas de uma causa só: a região não tem pixels suficientes para o modelo
+      trabalhar. Três citações do corpus sustentavam isso.
+    quarta_ocorrencia:
+      contexto: 'LoRA de produto — controle de Xbox treinado no Fal.ai'
+      citacao: >
+        "Aconteceu aqui aquele mesmo problema da letra B. É compreensível, porque como é
+        um objeto, essa região aqui é uma parte pequena, a parte da imagem também tem
+        poucos pixels para a IA trabalhar."
+      por_que_importa: >
+        O defeito sobrevive AO TREINO. Um modelo treinado especificamente naquele produto
+        continua errando a letra pequena. Isso fecha uma dúvida legítima: treinar LoRA
+        NÃO é rota de correção de anomalia de escala. LoRA resolve identidade; não
+        resolve orçamento de pixel.
+    quinta_ocorrencia:
+      contexto: 'Correção de mão no canvas do Ideogram'
+      citacao: '"Como o que a gente quer alterar é pequeno, ele vai acabar gerando com uma resolução mais baixa."'
+      procedimento_confirmado: 'Apertar o quadro em torno da seleção ANTES de gerar — já registrado em §4, agora com segunda demonstração.'
+    consequencia_consolidada: >
+      O `exec-producer` pode tratar "orçamento de pixel" como lei do arquivo, não como
+      hipótese. Cinco ocorrências, em quatro ferramentas e dois cursos independentes.
+    confianca: alta
+
+  # ── 8.2 — o custo REAL de consertar uma mão ────────────────────────────────
+  custo_medido_da_correcao_de_mao:
+    por_que_isto_faltava: >
+      §4 descrevia o método de correção de mão com precisão e não dizia quanto custa.
+      Sem esse número o `exec-producer` orça uma tentativa e o operador gasta quatro.
+    o_que_a_aula_mostra:
+      caso_1: 'Acertou na primeira rodada de inpaint — e o professor avisa na hora: "aqui a gente acabou contando com a sorte também; saiba que não é um padrão".'
+      caso_2_completo:
+        rodada_1: 'Prompt "dedos". NENHUMA das opções aproveitável.'
+        rodada_2: 'Prompt "segurando o cartão". Opções melhores, mas a escolhida tinha luz vermelha forte demais.'
+        rodada_3: 'Mesma máscara, mesmo prompt, nova geração. Resolveu — 5 dedos corretos, luz normal.'
+    numero_para_orcamento: >
+      TRÊS rodadas de inpaint por mão, como caso típico. Uma rodada é o melhor caso e
+      depende de sorte declarada.
+    o_que_isso_muda: >
+      No `*budget`, mão visível em close deixa de ser "uma correção" e vira um item de
+      três tentativas. Combina com o `STL-B-07`: se rosto ou mão ocupam mais de ¼ do
+      quadro, o custo do plano sobe — e agora dá para dizer em quanto.
+    confianca: alta
+
+  # ── 8.3 — a máscara cobre o DESTINO, não a origem ──────────────────────────
+  mascara_de_destino:
+    o_que_e: >
+      Ao mascarar para trocar uma peça de roupa, pintar a área que a NOVA peça vai
+      ocupar, não a que a peça antiga ocupa.
+    citacao: >
+      "Eu não posso só apagar onde está. Se eu quiser que ela esteja com um moletom, eu
+      teria que pintar a parte do pescoço, porque o moletom pega até o pescoço — ele só
+      vai ser preenchido na parte onde eu estou pintando."
+    par_com_a_regra_ja_registrada: >
+      §4 já mandava DEIXAR dentro da máscara um dedo correto, como guia de proporção.
+      As duas regras juntas dão o desenho completo da máscara: ela precisa ser MAIOR que
+      a área errada (para caber o destino) e precisa CONTER uma âncora correta (para o
+      modelo saber a escala). Nem só a área errada, nem a região inteira.
+    onde_entra: 'gate-image-lab e o card de inpaint do @image-lead.'
+    confianca: alta
+
+  # ── 8.4 — força de upscale: três medições, uma conclusão ───────────────────
+  forca_de_upscale_convergencia_de_tres_fontes:
+    medicao_local_que_manda: >
+      `UltimateSDUpscale.denoise = 0.10`. Em 0.18 o ladrilho INVENTOU rachaduras e lascas
+      no mármore da bochecha. Registrado em `validacao_no_stack_local`, medido aqui.
+    terceira_medicao_do_corpus:
+      ferramenta: 'Visual Electric'
+      o_que_o_professor_mediu: >
+        "Fiz bastante testes aqui, e o ideal é não passar do 2x, porque ele começa a ter
+        muita alucinação, começa a perder muita textura. E não passar entre os 10 e 20%."
+        Em 3x com 40% ele mostra o resultado e conclui: "é inviável, muita aberração".
+    quarta_medicao_do_corpus:
+      ferramenta: 'Krea (upscale de um clique)'
+      o_que_aconteceu: >
+        "Tem vezes que esse upscale vai trazer uma pele plastificada, às vezes vai ficar
+        meio estranho." No caso da aula ele roda, inspeciona, conclui "deu uma zoada no
+        olho dela" e DESCARTA o upscale, usando a imagem sem.
+    a_conclusao_que_as_tres_compartilham: >
+      A força do upscale é o parâmetro que decide, e o valor útil é BAIXO — em qualquer
+      escala de qualquer ferramenta. 0.10 de denoise, 10-20% de força, fator 2x. Quem
+      sobe a força não ganha detalhe: ganha detalhe INVENTADO.
+    a_regra_operacional_que_falta_e_esta: >
+      Upscale é uma etapa que pode ser REJEITADA por inspeção. Rodar, comparar lado a
+      lado em zoom 100% e ficar com a imagem SEM upscale é um resultado legítimo, não uma
+      falha. O `monta_lite_vs_pro.py` do repositório existe exatamente para essa decisão.
+    confianca: alta
+
+  # ── 8.5 — o elemento inserido tem que ser DEGRADADO até a cena ─────────────
+  degradar_o_elemento_inserido:
+    o_achado: >
+      No mockup do Recraft, aplicar a arte não basta: enquanto ela continua sendo vetor,
+      "ele tem um pouco mais de resolução, até parece um vetor, acaba não aparecendo
+      ambientado na nossa imagem". A correção é RASTERIZAR — converter para bitmap — e
+      só então a arte ganha a mesma textura e o mesmo ruído da foto.
+    a_generalizacao_que_vale_alem_da_ferramenta: >
+      Todo elemento inserido numa cena gerada precisa ser rebaixado até a qualidade da
+      cena: resolução, grão, nitidez de borda e faixa tonal. Nitidez a mais denuncia
+      colagem tão rápido quanto luz errada.
+    par_com_a_help_layer_ja_registrada: >
+      §6 registra a "help layer" — camada de saturação zerada em modo color, para
+      enxergar a cena em preto e branco e comparar a LUMINÂNCIA do elemento inserido com
+      a da cena. Agora são dois eixos de checagem, e eles são independentes:
+      LUMINÂNCIA (help layer) e TEXTURA/RESOLUÇÃO (rasterizar). Uma colagem pode passar
+      num e falhar no outro.
+    item_novo_de_gate: >
+      `gate-image-lab`: elemento inserido com nitidez ou grão incompatíveis com a cena.
+      Irmão do item de direção de luz incoerente já proposto.
+    confianca: alta
+
+  # ── 8.6 — escolher a foto-base de mockup pela SOMBRA ───────────────────────
+  criterio_de_escolha_da_base_de_mockup:
+    o_que_e: >
+      Ao gerar candidatas para servir de base de mockup, o critério de seleção declarado
+      não é composição nem beleza: é ter SOMBRA QUE INTERAGE com o objeto.
+    citacao: >
+      "Para mockups, quando ela tem a sombra da cena interagindo, é uma boa opção, pois
+      assim quando você coloca o seu elemento de design aqui dentro, ela traz um realismo
+      maior e fica melhor integrado."
+    por_que_e_um_criterio_e_nao_um_gosto: >
+      A sombra é a informação que o modelo de aplicação usa para deformar a arte junto
+      com a superfície. Base sem sombra devolve arte chapada, e nenhuma quantidade de
+      prompt corrige isso depois.
+    e_o_criterio_irmao: >
+      Na aplicação, posicionar a arte pegando um pouco da ÁREA DE LUZ, não inteiramente
+      na sombra — "colocando um pouco para cá já traz um pouco mais de volume".
+    onde_entra: 'Critério de seleção no `gate-stills` quando o entregável é mockup.'
+    confianca: alta
+
+  # ── 8.7 — uma anomalia que faltava no catálogo: genericidade ───────────────
+  anomalia_cara_de_banco_de_imagens:
+    o_que_e: >
+      A imagem está tecnicamente correta — luz plausível, anatomia certa, produto fiel —
+      e mesmo assim não presta, porque parece foto de banco de imagens. É a única
+      anomalia deste arquivo que não é um defeito: é uma AUSÊNCIA.
+    como_o_corpus_a_nomeia: >
+      "Eu senti que faltou um pouco de personalidade na imagem, parece que a foto ficou
+      com cara de banco de imagens." (AI Image Creator, Módulo 13, ChatGPT/produto)
+    a_cura_que_o_corpus_demonstra: >
+      NÃO é escrever mais adjetivo. É acrescentar uma REFERÊNCIA ESTÉTICA — no caso,
+      fotos com ilustração sobreposta, depois uma com motion blur. A imagem seguinte
+      perdeu o aspecto genérico mantendo produto e cenário.
+    a_versao_do_filmboss_da_mesma_coisa: >
+      "Quanto mais vago for o seu prompt, mais a IA vai criar sozinha. Ela vai criar
+      coisas muito genéricas e muito aleatórias." O erro é o mesmo, visto da origem em
+      vez do resultado.
+    onde_entra: >
+      `gate-stills` e `gate-image-lab` — pergunta de reprovação: "esta imagem poderia
+      ilustrar qualquer marca deste segmento?". Se sim, falta referência, não prompt.
+    confianca: alta
+
+  # ── 8.8 — realismo orgânico é um DESTINO, não um estilo a mais ─────────────
+  realismo_organico:
+    a_distincao: >
+      Existe uma categoria de imagem cujo critério de sucesso é NÃO parecer produzida:
+      selfie, foto de celular, ultra-wide 0.5x, flash de câmera descartável. "Quando a
+      imagem é muito bonita, muito perfeita, muito plastificada, a galera fala: é IA.
+      Quando tem esse estilo mais orgânico, às vezes é muito difícil de perceber."
+    a_rota_barata_e_por_PRESET_nao_por_prompt: >
+      Higgsfield Soul tem presets nomeados (iPhone, Selfie 0.5, Outfit, Anos 90) e cada
+      um substitui a descrição técnica inteira. A economia declarada: "se você tivesse
+      que fazer isso normalmente, teria que descrever qual é o padrão, quais são as
+      cores, se tem aberração, se tem ruído". Com preset, o prompt vira uma frase: "um
+      homem sentado na praça comendo um hambúrguer".
+    a_regra_que_sai_dai: >
+      Em ferramenta com preset de estética, PROMPT LONGO É DESPERDÍCIO E PIORA. O
+      professor mede isso ao vivo: o LLM devolve um prompt imenso, ele desconfia ("eu
+      acho que não vai fazer bem") e pede "ajuste esse prompt para o padrão ideal do
+      Higgsfield". Só então funciona.
+    onde_isso_e_decisivo_no_squad: >
+      P2 (UGC/ads). O `camera-moves.yaml` já registra que movimento sofisticado DENUNCIA
+      que não é UGC real. Este é o correspondente em imagem: ACABAMENTO sofisticado
+      denuncia que não é foto real. As duas regras são a mesma regra.
+    confianca: alta
+
+  # ── 8.9 — quando o bloqueio de moderação não é sobre o conteúdo ────────────
+  bloqueio_por_ambiguidade:
+    o_que_aconteceu: >
+      O prompt "a personagem está deitada no sofá" foi bloqueado pela plataforma. O
+      professor reformula para "está deitada EM CIMA do sofá" e passa, com o mesmo
+      conteúdo.
+    a_leitura: >
+      O filtro não julgou o conteúdo — julgou a ambiguidade. Preposição vaga abre uma
+      leitura de risco que não estava na intenção.
+    procedimento: >
+      Diante de bloqueio inesperado, a primeira tentativa NÃO é suavizar o conteúdo nem
+      contornar o filtro: é DESAMBIGUAR a frase. Se a reformulação precisa é bloqueada
+      também, aí sim o pedido é que precisa mudar.
+    o_que_isto_nao_e: >
+      Não é técnica de contorno de filtro, e não deve virar uma. A regra é escrever com
+      precisão — o desbloqueio é efeito colateral, não o objetivo.
+    confianca: media
+
+  # ── 8.10 — relight: a ferramenta existe, e a ordem já estava certa ─────────
+  relight_com_recalculo_de_luz:
+    o_que_o_corpus_traz: >
+      IC-Light V2 (via Fal.ai) troca o fundo RECALCULANDO luz, sombra e saturação do
+      sujeito para o novo ambiente. É a ferramenta que resolve, na origem, a anomalia
+      que §6 e a pendência do `gate-image-lab` descrevem: personagem que muda de cenário
+      carregando a luz do cenário antigo.
+    a_ordem_ja_registrada_continua_valendo: >
+      §5 deste arquivo já estabeleceu que o modelo de reiluminação DERRUBA A RESOLUÇÃO
+      ("ele faz um downscale, trabalha na imagem, tenta compensar, mas perde muito da
+      nitidez"). Logo: RELIGHT ANTES DO UPSCALE. Quem inverte paga o upscale duas vezes.
+    e_o_comportamento_analogo_no_recraft: >
+      Ao trocar o fundo, o Recraft altera o PNG do produto para ambientá-lo — "trouxe um
+      leve magenta, e onde estava mais claro deu uma escurecida, porque não está tendo
+      luz direta". Isso é desejável. A contrapartida medida: às vezes acrescenta formas
+      que não pertencem ao objeto, e aí a correção é manual.
+    consequencia_para_o_produto_real: >
+      §7 registra que o produto real é COLADO, não gerado. Colar sem ambientar produz a
+      colagem que a help layer denuncia. A ambientação automática do relight é o passo
+      que fecha essa lacuna — e ele vem antes do upscale, como todo o resto.
+    confianca: alta
+
+  # ── 8.11 — foto ruim de celular vira still de catálogo ─────────────────────
+  recuperacao_de_foto_de_produto_ruim:
+    quando_usar: >
+      Quando o cliente NÃO TEM foto profissional do produto. É o complemento honesto de
+      §7 (o produto real é colado): se não há foto-âncora boa, a rota é regerar a partir
+      da foto ruim, com a fidelidade verificada no gate.
+    a_instrucao_que_decide: >
+      "Use essas imagens como referência APENAS PARA FORMATO, PROPORÇÃO E DETALHES."
+      Delimitar o que da referência deve ser usado é o que impede o modelo de herdar a
+      luz estourada e o fundo cheio de sombra da foto de celular.
+    os_quatro_blocos_que_o_prompt_precisa_ter:
+      - '1. O que MANTER do original: formato, ângulo, rótulo, material'
+      - '2. O que MELHORAR: luz, fundo, nitidez, sombras'
+      - '3. O USO FINAL: e-commerce, campanha, catálogo, rede social — o curso insiste que isto muda o resultado'
+      - '4. Clima, luz, textura, cor e ângulo desejados, mais a sensação a despertar'
+    o_passo_seguinte_que_quase_todo_mundo_pula: >
+      A imagem em fundo branco serve para e-commerce e NÃO serve para rede social —
+      ali ela precisa de contexto. Gerar as duas versões desde o começo, a partir da
+      mesma âncora, sai mais barato que descobrir depois.
+    confianca: alta
+
+  # ── 8.12 — higiene de pasta, que é barata e evita erro caro ────────────────
+  organizacao_de_arquivos:
+    o_que_o_corpus_faz: >
+      Referências FORA, geradas DENTRO. "Eu deixo do lado de fora as referências, e
+      depois eu vou fazer aqui a parte de geradas com IA." Depois, subpastas por tipo
+      (imagens geradas, vídeos gerados) e uma pasta "Não Usar".
+    por_que_entra_num_playbook_de_refino: >
+      A `degradacao_por_iteracao` deste arquivo depende de o operador conseguir ACHAR a
+      imagem-âncora original três rodadas depois. Sem separação física entre referência
+      e derivada, a regra "volte à âncora" é impossível de cumprir na prática.
+    nomenclatura_minima: 'Referências / Gerados / Não Usar / Versões Finais.'
+    confianca: alta
+
+  # ── 8.13 — o que NÃO foi incorporado, e por quê ────────────────────────────
+  nao_incorporado:
+    - item: 'Listas de "melhores ferramentas do momento" e preços do material "Minhas ferramentas de IA favoritas"'
+      motivo: >
+        Já era política declarada em `docs/APRENDIZADOS-CURSOS.md` §4. Envelhecem em
+        semanas. O que foi extraído dali é método: a distinção Nano Banana × Seedream
+        (recriar × preservar), a preferência pelo Veo `fast` sobre o padrão por custo, e
+        a nota de obsolescência do Midjourney — todos registrados em
+        `prompt-architectures.yaml` e `model-routing.yaml`.
+    - item: '`Links das Upscale.txt`'
+      motivo: >
+        O arquivo tem ZERO BYTES. Está listado como material do curso e não contém nada.
+        Registrado para que ninguém volte a procurar.
+
+# ─────────────────────────────────────────────────────────────────────────────
+manutencao:
+  responsavel: [image-lead, art-director, qa-critic]
+  regra: >
+    Todo item marcado `a_validar_no_estudio` vira `validado` só depois de rodar num
+    job real e produzir asset aproveitado. Quem validar registra a evidência aqui.
+  primeiro_teste_de_maior_retorno: >
+    O primeiro job do P6 image-lab com produto real de cliente exercita, de uma vez:
+    a foto-âncora (§0 elo 5), a escada de prompt (§2), o refino local (§3), a anomalia
+    de texto no rótulo (§4), o upscale de peça final (§5) e a inserção do produto (§6).
+    É o teste que mais informa por hora gasta.
+  o_que_este_arquivo_nao_e: >
+    Não é um manual de Photoshop nem de Midjourney. As ferramentas citadas são
+    PROCEDÊNCIA. O que se pretende reusar é a finalidade, a ordem e a consequência de
+    pular etapa — que sobrevivem à troca de qualquer ferramenta desta lista.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VALIDAÇÃO NO STACK LOCAL — medida, não estimada
+#
+# Primeira execução real da cadeia geração → detailer → upscale no ComfyUI local,
+# em 2026-08-29, sobre o pack de 4 imagens do dark estoico.
+# Workflow: assets/comfyui/workflows/flux2-klein-refino-upscale.json
+# Evidência visual: assets/pack-estoico/
+# ─────────────────────────────────────────────────────────────────────────────
+validacao_no_stack_local:
+
+  data: '2026-08-29'
+  modelo: 'FLUX.2 klein 4B Q8_0 (GGUF) — o mesmo da geração'
+  amostra: '4 imagens do pack estoico, 1024x1024, tema mármore sobre preto'
+  custo_medido: '~120 s por imagem para os DOIS estágios juntos, em RTX 4060 Ti 8 GB'
+
+  parametros_fixados:
+    - campo: 'FaceDetailer.denoise'
+      valor: 0.35
+      por_que: 'acima de ~0.45 o rosto redesenhado deixa de ser o mesmo rosto'
+    - campo: 'FaceDetailer.feather'
+      valor: 24
+      por_que: >
+        Com 5, o degrau médio de luminância na borda da máscara ficou em 1,44/255;
+        com 24 caiu para 1,14/255. Nenhum dos dois é visível a olho — mas 24 é grátis.
+    - campo: 'FaceDetailer.cfg'
+      valor: 1.0
+      por_que: 'klein é destilado. Qualquer valor acima de 1.0 queima a imagem.'
+    - campo: 'UltimateSDUpscale.denoise'
+      valor: 0.10
+      por_que: >
+        ESTE É O PARÂMETRO QUE MAIS DECIDE. Comecei em 0.18 e o ladrilho INVENTOU
+        rachaduras e lascas no mármore da bochecha — dano que não existia na imagem
+        crua. Em 0.10 a pele fica limpa e a barba continua ganhando fio a fio.
+        Comparação lado a lado em `assets/pack-estoico/ajuste-denoise-do-upscale.jpg`.
+    - campo: 'UltimateSDUpscale.tile_width / tile_height'
+      valor: 1024
+      por_que: 'resolução nativa do klein; ladrilho menor multiplica costura sem ganho'
+    - campo: 'UltimateSDUpscale.seam_fix_mode'
+      valor: 'Half Tile'
+      por_que: 'passada extra sobre as juntas; barata contra o defeito mais visível do método'
+
+  o_que_o_detailer_de_fato_tocou:
+    - imagem: 'e01 · filósofo sentado (corpo inteiro, rosto pequeno)'
+      area_redesenhada: '1,97% da imagem — só o rosto'
+    - imagem: 'e02 · busto em perfil (rosto ocupa o quadro)'
+      area_redesenhada: '13,76% — ganho mais visível do pack'
+    - imagem: 'e03 · mãos com pergaminho'
+      area_redesenhada: '0,00% — nenhum rosto na cena'
+    - imagem: 'e04 · templo noturno'
+      area_redesenhada: '0,00% — nenhum rosto na cena'
+
+  # ── O ACHADO QUE MUDA O PLANEJAMENTO ──────────────────────────────────────
+  limite_duro_dos_detectores_yolo:
+    o_que_foi_testado: >
+      Troquei o detector de `bbox/face_yolov8m.pt` para `bbox/hand_yolov8s.pt` e rodei
+      a mesma imagem de mãos de mármore segurando um pergaminho.
+    resultado: 'ZERO detecção. O detailer não tocou um pixel.'
+    interpretacao: >
+      Os detectores YOLO do Impact Pack foram treinados em FOTOGRAFIA DE PESSOA REAL.
+      Mão de estátua, mão desenhada, mão estilizada — nada disso dispara. O rosto de
+      mármore dispara porque a geometria facial é próxima o bastante; a mão não.
+    consequencia_pratica: >
+      Para o dark estoico (mármore) e para qualquer estética não-fotográfica, a rota
+      automática de conserto de mão NÃO EXISTE no stack local. O caminho é máscara
+      manual no MaskEditor + inpaint — que é justamente o gesto que o curso descreve
+      (deixar um dedo correto dentro da máscara como guia de proporção) e que a
+      seleção automática por bbox eliminava.
+    quando_a_rota_automatica_serve: >
+      Peça fotorrealista com pessoa real na cena — retrato, lifestyle, produto com
+      modelo. Aí o detector de mão dispara e o ganho é grande.
+    status: validado_por_medicao
+
+  contradicao_resolvida: >
+    O playbook trazia dos cursos que o upscaler "às vezes conserta a mão, às vezes
+    detona". A medição local explica POR QUÊ, e é mais simples do que parecia: não é
+    aleatório, é o denoise. Acima de ~0.15 o ladrilho tem liberdade para redesenhar e
+    o que ele redesenha pode ser melhor ou pior. Abaixo disso ele só resolve textura,
+    e é previsível. Se a mão está errada, o upscale NÃO é a ferramenta — é o inpaint.
+
+  o_que_ainda_falta:
+    - 'Rodar a cadeia numa peça FOTORREALISTA com pessoa, para exercitar o detector de mão'
+    - 'Testar o detailer sobre texto/rótulo — a anomalia de §4 que o pack estoico não tem'
+    - 'Medir se a 2ª passada de upscale (4096) compensa, ou se satura'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ANOMALIAS REAIS DO PACK ESTOICO — encontradas pelo founder, não por mim
+#
+# O pack v1 passou nos meus testes de nitidez e mesmo assim tinha QUATRO defeitos
+# estruturais. Nenhum deles é de textura; todos são de ANATOMIA ou ARQUITETURA, que
+# é exatamente o que nem o detailer nem o upscale enxergam.
+#
+# Registro isto porque a lição não é sobre estas 4 imagens: é sobre a ORDEM da
+# inspeção. Medição de nitidez não substitui olho humano olhando a cena inteira.
+# ─────────────────────────────────────────────────────────────────────────────
+anomalias_reais_medidas_no_pack_estoico:
+
+  data: '2026-08-29'
+  encontradas_por: founder
+  metodo_de_deteccao: 'olho, imagem inteira, marcação em vermelho — não houve métrica'
+
+  casos:
+
+  - id: perna_extra
+    imagem: 'e01 · filósofo sentado'
+    o_que_aconteceu: >
+      Dois pés corretos, mas TRÊS pernas — uma terceira perna nascendo do meio da
+      túnica, entre as duas legítimas.
+    familia: 'anatomia — membro duplicado sob tecido'
+    por_que_o_gerador_erra: >
+      A perna sai de dentro do drapeado. Onde o tecido esconde a origem do membro,
+      o modelo perde a âncora anatômica e continua desenhando pano até virar perna.
+      É a mesma raiz do dedo extra: a estrutura some sob a superfície.
+    por_que_o_detailer_nao_pega: 'não há rosto ali, e o YOLO de pessoa não dispara em mármore'
+    prevencao_que_funcionou_no_v2: >
+      Dizer o número explicitamente no positivo ("exactly two legs with both bare feet
+      resting flat on the plinth") e listar "third leg, duplicated leg, extra limb"
+      no negativo. Contar em voz alta no prompt é barato.
+    correcao_se_ja_existe: 'inpaint com máscara manual — não há rota automática'
+
+  - id: cunha_escura_sob_a_base
+    imagem: 'e02 · busto em perfil'
+    o_que_aconteceu: >
+      Uma cunha escura triangular flutuando sob a base do busto, sem função — nem
+      sombra, nem pedestal, nem apoio.
+    familia: 'geometria — objeto sem função na cena'
+    por_que_o_gerador_erra: >
+      O prompt não dizia em que o busto se apoia. Sem apoio nomeado, o modelo
+      improvisa uma forma escura que "parece" suporte contra o fundo preto.
+    prevencao_que_funcionou_no_v2: >
+      Nomear o apoio ("resting on a simple solid rectangular marble pedestal fully
+      visible and squarely supporting the bust"). Objeto não nomeado é objeto inventado.
+    correcao_se_ja_existe: 'fácil — fundo preto liso ao redor, inpaint resolve'
+
+  - id: objeto_nao_identificavel
+    imagem: 'e03 · mãos com pergaminho'
+    o_que_aconteceu: >
+      As mãos seguram um tubo oco de mármore que não é pergaminho nem qualquer
+      outra coisa reconhecível.
+    familia: 'semântica — o substantivo não sobreviveu à geração'
+    por_que_o_gerador_erra: >
+      "unrolled scroll" descreve um ESTADO, não uma FORMA. O modelo resolveu o estado
+      (algo cilíndrico e aberto) e perdeu o objeto. Pergaminho enrolado e pergaminho
+      aberto são silhuetas opostas, e o prompt não escolheu uma.
+    prevencao_que_funcionou_no_v2: >
+      Descrever a FORMA e não só o nome: "the scroll clearly unrolled flat between the
+      hands showing its written surface, wooden scroll rods at each end". E negativar
+      a forma errada: "tube, pipe, hollow cylinder".
+    licao_generalizavel: >
+      Quando o objeto sair irreconhecível, o defeito quase nunca é de qualidade — é
+      de o prompt ter nomeado o objeto sem descrever a silhueta dele.
+
+  - id: coluna_extra_na_borda
+    imagem: 'e04 · templo noturno'
+    o_que_aconteceu: >
+      Meia coluna a mais na borda direita, sem base e sem chegar ao entablamento —
+      flutuando fora da lógica da colunata.
+    familia: 'arquitetura — repetição que perde a regra na borda'
+    por_que_o_gerador_erra: >
+      Elemento repetido (coluna, janela, poste) é resolvido por padrão, não por
+      estrutura. Na borda o padrão é cortado e o modelo completa com meio elemento.
+    prevencao_que_funcionou_no_v2: >
+      Exigir a regra estrutural ("every column standing on its own base and reaching
+      the entablature above") e negativar o sintoma ("cut off column, floating column,
+      column without base").
+    correcao_barata_alternativa: >
+      Reenquadrar. A anomalia estava na borda — em 16:9 o corte muitas vezes já a
+      elimina, sem nenhuma geração nova.
+
+  # ── E A ANOMALIA QUE EU MESMO PEDI ────────────────────────────────────────
+  ruido_ao_redor_do_rosto:
+    o_que_o_founder_viu: 'leves ruídos ao redor da imagem do rosto'
+    causa: >
+      ESTAVA NO PROMPT. O v1 pedia "floating dust motes" e "fine dust particles
+      floating in the light". O modelo entregou exatamente isso.
+    licao: >
+      Antes de tratar sujeira como defeito do modelo, reler o prompt. Adjetivo
+      atmosférico ("dust", "haze", "particles", "grain", "bokeh") vira ruído quando o
+      fundo é preto chapado e a peça vai ser comprimida por um codec de vídeo.
+    status: 'removido no v2'
+
+  regra_que_nasce_daqui:
+    nome: 'inspeção estrutural antes de inspeção de textura'
+    enunciado: >
+      Olhar a CENA INTEIRA em busca de erro de contagem e de função ANTES de olhar
+      textura no zoom. Contar membros, contar elementos repetidos, e perguntar de
+      cada objeto: "isto tem função na cena?". Nitidez é o último passo, não o primeiro.
+    por_que: >
+      Textura ruim se conserta com upscale. Anatomia e arquitetura erradas exigem
+      geração nova ou inpaint manual — e descobrir isso DEPOIS de gastar upscale é
+      jogar fora o tempo mais caro do pipeline.
+    onde_entra: 'gate-stills, antes do critério de nitidez'

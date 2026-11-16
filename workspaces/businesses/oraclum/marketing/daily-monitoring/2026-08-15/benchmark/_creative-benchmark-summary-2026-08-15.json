@@ -1,0 +1,214 @@
+{
+  "date": "2026-08-15",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-08-17T00:54:41.546Z",
+  "finished_at": "2026-08-17T01:00:22.038Z",
+  "duration_ms": 340492,
+  "total": 13,
+  "ok": 13,
+  "degraded": 0,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "verdict": "Todos os criativos processados com assets reais.",
+  "results": [
+    {
+      "rank": 2,
+      "creator": "@miranhastudios",
+      "url": "https://www.instagram.com/miranhastudios/reel/Db_z2tdM4o1/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\02-miranhastudios-9f46e7",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 3,
+      "creator": "@rourke",
+      "url": "https://www.instagram.com/rourke/reel/DcBsFvrJJM7/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\03-rourke-307718",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 5,
+      "creator": "@krisspy_ia",
+      "url": "https://www.instagram.com/krisspy_ia/reel/Db_nvJvKbCQ/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\05-krisspy-ia-f713e7",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 7
+    },
+    {
+      "rank": 6,
+      "creator": "@diegoalmeida.ia",
+      "url": "https://www.instagram.com/diegoalmeida.ia/reel/DcBWVrVxh8J/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\06-diegoalmeida-ia-99c44d",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 4
+    },
+    {
+      "rank": 9,
+      "creator": "@krisspy_ia",
+      "url": "https://www.instagram.com/krisspy_ia/reel/DcBlQ8oqN0b/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\09-krisspy-ia-08ddfd",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 13,
+      "creator": "@airesearches",
+      "url": "https://www.instagram.com/airesearches/p/DcB29KWGT9k/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\13-airesearches-0535c0",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 14,
+      "creator": "@artificialintelligence.co",
+      "url": "https://www.instagram.com/artificialintelligence.co/p/DcBlf1hyhQx/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\14-artificialintelligence-co-5756c5",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 16,
+      "creator": "@airesearches",
+      "url": "https://www.instagram.com/airesearches/p/DcBrtExGS_x/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\16-airesearches-75d93f",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 2
+    },
+    {
+      "rank": 18,
+      "creator": "@gean.mech",
+      "url": "https://www.instagram.com/gean.mech/reel/DcCaiHpNMJX/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\18-gean-mech-826784",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 22,
+      "creator": "@diegoalmeida.ia",
+      "url": "https://www.instagram.com/diegoalmeida.ia/p/DcBfGmbEV-P/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\22-diegoalmeida-ia-1b8f2e",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 4
+    },
+    {
+      "rank": 23,
+      "creator": "@kevkevkiwi",
+      "url": "https://www.instagram.com/kevkevkiwi/reel/DcCjvyAhU52/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\23-kevkevkiwi-9e1e81",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 24,
+      "creator": "@ota.visual",
+      "url": "https://www.instagram.com/ota.visual/reel/Db_SVuNOsZA/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\24-ota-visual-c5cffc",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 3
+    },
+    {
+      "rank": 27,
+      "creator": "@aitrendz.xyz",
+      "url": "https://www.instagram.com/aitrendz.xyz/reel/DcBZa4bBaW2/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-15\\benchmark\\instagram\\27-aitrendz-xyz-a83c8d",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    }
+  ]
+}

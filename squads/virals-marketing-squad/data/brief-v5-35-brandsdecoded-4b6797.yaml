@@ -1,0 +1,542 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:55:12'
+archetype: single
+carousel_brief:
+  slug: v5-precision-35-brandsdecoded-4b6797
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\35-brandsdecoded-4b6797
+  source_url: https://www.instagram.com/brandsdecoded__/p/Db26s6ElfnT/
+  tema: 'Modelagem de precisão: 35-brandsdecoded-4b6797'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 10
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.6/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir o gancho de ''estilo de vida/autoridade'' por um gancho de ''eficiência
+    operacional'', trocando fotos de pessoas por demonstrações visuais de fluxos de
+    IA ou dashboards. - Transformar o debate ''Atenção vs. Convencimento'' em um debate
+    ''Volume de'
+  audits_present: true
+benchmark_caption: Gravar vídeos todos os dias é a única forma de construir autoridade
+  na internet?
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: 2026// Gravar vídeos todos os dias é a única forma de construir
+    autoridade na internet?
+  headline: PRECISA POSTAR TODO DIA PARA TER AUTORIDADE?
+  sub_headline: O DESAFIO
+  body_text: Existe um jeito mais rápido de convencer seu cliente do que postar conteúdo
+    sem parar. O segredo não é aparecer, é gerar confiança.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 131
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person filming smartphone tripod
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Questionar se gravar vídeos diários é realmente o único caminho para
+      construir autoridade. Focar no benefício de encontrar um método mais eficiente
+      de convencimento.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026 // Existe uma armadilha na internet hoje em dia: as pessoas
+    confundem alcance e seguidores com reputação e credibilidade. Trend, corte rápido,
+    polêmica, meme, promessa exagerada, gancho a cada três segundos. Tudo isso pode
+    gerar milhares ou milhões de visualizações. Só que seu conteúdo passa a competir
+    no mesmo feed com fofoca, humor, tigrinho e qualquer outra coisa capaz de entregar
+    dopamina mais rápido. Você pode viralizar sem dar ao público nenhum motivo para
+    comprar de você.'
+  headline: VISUALIZAÇÃO NÃO É REPUTAÇÃO
+  sub_headline: A ARMADILHA
+  body_text: Seguidores e views são métricas de vaidade. Trends e cortes rápidos chamam
+    atenção, mas raramente fazem alguém confiar no seu trabalho.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 135
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person looking at smartphone screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: Explicar a confusão comum entre métricas de vaidade (alcance/seguidores)
+      e ativos de negócio (reputação/credibilidade). Diferenciar trends e cortes rápidos
+      de autoridade real.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: O maior estudo do segmento identificou que o formato que mais
+    gera valor para um negócio, na verdade, é o carrossel. Por ser um formato mais
+    denso, te permite espaço para explicar um problema, defender uma ideia, mostrar
+    um case, apresentar dados e ensinar um método. Para quem vende conhecimento, dados
+    e ensinar um método. Para quem vende conhecimento, serviço ou produto, é perfeito
+    para construir confiança. / ATENÇÃO
+  reference_body: ' NÃO É INTENÇÃO Por que carrosséis costumam atrair clientes melhor
+    do que conteúdo feito só para parar o scroll CONTEÚDO PARA ATENÇÃO trend meme
+    polêmica gancho entretenimento CONTEÚDO PARA CONVENCIMENTO problema argumento
+    case método prova MUITA GENTE VÊ A PESSOA ENTENDE POR QUE DEVERIA TE OUVIR mas
+    pouca gente entende por que deveria comprar de você e começa a associar seu conteúdo
+    a valor, autoridade e solução O framework que explica essa diferença.'
+  headline: ATENÇÃO É DIFERENTE DE INTENÇÃO
+  sub_headline: A TESE
+  body_text: Memes param o scroll, mas conteúdos densos vendem. Use formatos profundos
+    para explicar seu método e transformar curiosos em compradores.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 31
+    body_chars: 137
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person reading tablet sofa
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  - 4
+  personalization:
+    status: DONE
+    directive: Apresentar o carrossel como a ferramenta de profundidade para quem
+      vende conhecimento ou serviços. Contrastar Atenção (entretenimento/meme) vs
+      Intenção (convencimento/método).
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: 'MODELO 01:'
+  reference_body: 'Pegue um assunto que já está recebendo atenção e leve para o seu
+    nicho. Encontre uma notícia, comportamento, personagem ou discussão que já esteja
+    circulando e faça a pergunta: “O que alguém da minha área consegue enxergar aqui
+    que o restante das pessoas não percebe?” É assim que você pega atenção emprestada
+    sem produzir conteúdo genérico sobre atualidades. "Era pra sempre só uma trepada
+    e olha onde nóstá." O que a psicologia explica sobre um cara que usa o chatGPT
+    para escrever seu discurso de casamento?'
+  headline: 'MODELO 01: ADAPTAÇÃO DE CONTEXTO'
+  sub_headline: MODELO 01
+  body_text: Pegue um assunto que já possui tração — uma notícia, um comportamento
+    ou uma discussão atual — e conecte-o diretamente ao seu nicho. Use a atenção de
+    terceiros para validar sua tese.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 32
+    body_chars: 182
+    headline_tier: lg
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person reading newspaper cafe
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: Ensinar a técnica de pegar um assunto que já tem atenção (notícia,
+      comportamento ou discussão) e adaptá-lo para a realidade do nicho do leitor.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026 // MODELO 02: transforme uma dor do público em diagnóstico
+    antes de entregar a solução. 10:05 Posts brandsdecoded_ Ariana Grande - petal
+    POR FAVOR, PARE DE SER LOW-PROFILE: COMO HYPAR SEU INSTAGRAM PROFISSIONAL EM 30
+    DIAS OU MENOS? 64,1 mil · Ver insights Turbinar post 1.102 brandsdecoded_ _Se
+    o seu perfil está estagnado, talvez o problema não seja falta de conteúdo — seja
+    falta de consistência, formato e distribuição... mais 2 dias atrás 10:06 Posts
+    brandsdecoded_ A MORTE DOS REELS: POR QUE TODO PERFIL DEVERIA POSTAR PELO MENOS
+    1 CARROSSEL POR DIA? E COMO APLICAR ESSA ESTRATÉGIA NA PRÁTICA 1/10 2.895 mil
+    · Ver insights Turbinar post 2.895 1.360 2.545 brandsdecoded_ _Essa conta nasceu
+    em janeiro de 2025 com zero seguidores. Em 14 meses, chegou a 277 mil — sem reels,
+    sem aparecer dançando. O... mais 2 dias atrás joaolansol Claude 10:06 Posts brandsdecoded_
+    O NOVO ALGORITMO DO INSTAGRAM EM 2026 E O FIM DO CRIADOR DE CONTEÚDO POR QUE TER
+    100 MIL SEGUIDORES PODE SER UM PESÍMO NEGÓCIO 1/10 1,5 mil · Ver insights Turbinar
+    de novo 40,8 mil 4.447 41,9 mil Curtido por joaolansol e outras pessoas brandsdecoded_
+    _O discurso do criador como protagonista central da plataforma começa a perder
+    força quando a lógica de distribuição muda sem... mais 14 horas Em vez de abrir
+    com “5 dicas para crescer”, faça a pessoa se localizar no problema. “Você posta
+    e não cresce?” “Viraliza e não vende?” Depois explique o que está causando aquilo,
+    entregue um método e mostre o próximo passo.'
+  headline: 'MODELO 02: DO PROBLEMA AO DIAGNÓSTICO'
+  sub_headline: MODELO 02
+  body_text: Não entregue apenas a solução de imediato. Transforme a dor do seu público
+    em um diagnóstico preciso antes de apresentar o método, aumentando a percepção
+    de valor do seu conhecimento.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 37
+    body_chars: 183
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person writing notebook desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: Orientar a transformar a dor do público em um diagnóstico preciso antes
+      de apresentar a solução, aumentando a percepção de valor.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_08.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026// MODELO 03: Use uma pessoa ou empresa conhecida para ensinar
+    um mecanismo. A criadora fitness mais amada do Brasil? COMO JU MAMUTE VIROU UMA
+    ''MUSA'' FITNESS E CRIOU UMA MARCA MILIONARIA JUNTO DA SUA COMUNIDADE brandsdecoded__
+    51,7 mil · Ver insights Turbinar post 801 22 12 75 Você não precisa contar a história
+    inteira do case. Escolha uma coisa específica que aquela pessoa faz bem, explique
+    por que funciona e transforme a observação em um princípio que o leitor consegue
+    aplicar. O nome conhecido chama atenção. O mecanismo faz o conteúdo valer o salvamento.'
+  headline: 'MODELO 03: ANÁLISE DE MECANISMOS DE SUCESSO'
+  sub_headline: MODELO 03
+  body_text: Utilize o estudo de uma figura ou empresa conhecida para ensinar um mecanismo
+    específico. Desmonte o processo que levou alguém ao topo para estruturar o seu
+    próprio ensino.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 43
+    body_chars: 172
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: team analyzing data laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 8
+  personalization:
+    status: DONE
+    directive: 'Mostrar como usar a análise de uma pessoa ou empresa conhecida para
+      ensinar um mecanismo específico de sucesso (Ex: como uma marca se tornou milionária).'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+- slide_n: 7
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_10.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026 // O problema da sua estratégia de conteúdo pode não ser falta
+    de criatividade, mas de processo. Um sistema forte transforma referências em estrutura
+    e resultados em aprendizado. Gravamos uma aula gratuita para te mostrar como transformar
+    repertório em carrosséis pensados para alcance, autoridade e conversão. 21:34
+    Posto brandsdecoded_ O NOVO ALGORITMO DO INSTAGRAM EM 2026 E O FIM DO CRIADOR
+    DE CONTEÚDO ACOMPANHE NESSE WEBINÁRIO: OBRIGADO POR SER UM CRIADOR DE CONTEÚDO
+    1.5 mil Ver insights 46,7 mil 4.444 41,8 mi Curtido por jameson e outras pessoas
+    brandsdecoded_ O discurso do criador de conteúdo está mudando... Comente “conteúdo”
+    para ter acesso imediato a essa aula'
+  headline: SUBSTITUA A SORTE POR UM WORKFLOW DE PRODUÇÃO
+  sub_headline: A LIÇÃO
+  body_text: O gargalo da sua estratégia pode não ser a falta de criatividade, mas
+    a ausência de um processo. Até que ponto a sua autoridade depende do algoritmo
+    ou de um método de produção replicável?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 45
+    body_chars: 188
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person working minimalist office
+  accent_color: '#A855F7'
+  source_slides:
+  - 10
+  personalization:
+    status: DONE
+    directive: Concluir que o resultado não vem da criatividade isolada, mas de um
+      workflow de produção. Substituir a sorte por um processo de escala.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:56:21'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: nenhum texto de headline encontrado'
+  - 'slide 10: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo
+    real'
+  headlines_extracted: 0/10
+  bodies_extracted: 8/10
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A transição da busca por alcance (atenção) para a construção de autoridade
+    real através de conteúdos densos e estratégicos (convencimento).
+  formato: Carrossel Educativo de Estratégia de Conteúdo (Framework/Methodology)
+  arco_narrativo: O post inicia com uma quebra de expectativa (desconstruindo a necessidade
+    de vídeos diários), identifica um problema de mercado (confusão entre alcance
+    e reputação), apresenta uma solução teórica (carrosséis para convencimento vs.
+    vídeos para atenção) e finaliza com a entrega prática (3 modelos de aplicação)
+    e um CTA de autoridade.
+  estrutura:
+  - slide_n: 1
+    papel: 'Gancho/Hook: Desafio de crença estabelecida para gerar curiosidade.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Problematização: Diferenciação entre métricas de vaidade e métricas de
+      negócio.'
+    essencial: true
+  - slide_n: 3
+    papel: 'Fundamentação/Tese: Defesa do formato carrossel como ferramenta de profundidade.'
+    essencial: true
+  - slide_n: 4
+    papel: 'Conceito Chave: O contraste binário entre Atenção vs. Intenção.'
+    essencial: true
+  - slide_n: 5
+    papel: 'Transição/Promessa: Identificação da barreira de execução e anúncio do
+      método.'
+    essencial: true
+  - slide_n: 6
+    papel: 'Entrega Prática 01: Aplicação de tendência no nicho.'
+    essencial: true
+  - slide_n: 7
+    papel: 'Entrega Prática 02: Diagnóstico de dor para solução.'
+    essencial: true
+  - slide_n: 8
+    papel: 'Entrega Prática 03: Estudo de caso/Mecanismo via terceiros.'
+    essencial: true
+  - slide_n: 9
+    papel: Vazio/Erro de exportação.
+    essencial: false
+  - slide_n: 10
+    papel: 'Conclusão e CTA: Mudança de mindset (processo > criatividade) e conversão.'
+    essencial: true
+  redundancias:
+  - Slide 9 está vazio/inexistente.
+  - Slide 3 e Slide 4 poderiam ser fundidos para acelerar a entrega da tese central.
+  fatores_de_performance:
+  - Contraste de conceitos (Atenção vs. Convencimento) que gera 'aha moment'.
+  - Uso de frameworks acionáveis (Modelo 01, 02, 03) que aumentam o salvamento.
+  - Autoridade por meio de diferenciação intelectual (não é sobre postar, é sobre
+    estratégia).
+  - Estrutura de 'Problem-Agitation-Solution' (PAS) muito bem definida.
+  recomendacao:
+    slides_ideais: 7
+    justativa: Para o padrão Virals, a densidade deve ser maior e o tempo de leitura
+      menor. Fundiríamos o Slide 3 e 4 em um único slide de 'Tese' e removeríamos
+      o slide de transição (5), indo direto para os modelos. Isso mantém o ritmo de
+      dopamina alto e foca na eficiência operacional exigida pela auditoria prévia.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:55:33'
+content_plan:
+  archetype: single
+  slide_count: 7
+  tema: A transição da busca por alcance para a construção de autoridade através de
+    conteúdos densos e estratégicos.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DESAFIO
+    copy_direction: Questionar se gravar vídeos diários é realmente o único caminho
+      para construir autoridade. Focar no benefício de encontrar um método mais eficiente
+      de convencimento.
+    image_direction: Visual impactante que contraste a exaustão de gravar vídeos constantes
+      com a clareza de uma estratégia definida.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A ARMADILHA
+    copy_direction: Explicar a confusão comum entre métricas de vaidade (alcance/seguidores)
+      e ativos de negócio (reputação/credibilidade). Diferenciar trends e cortes rápidos
+      de autoridade real.
+    image_direction: Gráfico simples ou ícones contrastando 'Alcance' (número alto,
+      valor baixo) vs 'Reputação' (número menor, valor alto).
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A TESE
+    copy_direction: Apresentar o carrossel como a ferramenta de profundidade para
+      quem vende conhecimento ou serviços. Contrastar Atenção (entretenimento/meme)
+      vs Intenção (convencimento/método).
+    image_direction: 'Tabela comparativa direta: Conteúdo para Atenção vs Conteúdo
+      para Convencimento.'
+    source_slides:
+    - 3
+    - 4
+  - slide_n: 4
+    role: INSIGHT
+    kicker: MODELO 01
+    copy_direction: Ensinar a técnica de pegar um assunto que já tem atenção (notícia,
+      comportamento ou discussão) e adaptá-lo para a realidade do nicho do leitor.
+    image_direction: "Esquema visual de 'Fluxo': Notícia Viral $\rightarrow$ Filtro\
+      \ do Nicho $\rightarrow$ Conteúdo de Autoridade."
+    source_slides:
+    - 6
+  - slide_n: 5
+    role: INSIGHT
+    kicker: MODELO 02
+    copy_direction: Orientar a transformar a dor do público em um diagnóstico preciso
+      antes de apresentar a solução, aumentando a percepção de valor.
+    image_direction: "Mockup de um post que mostre a estrutura: Dor $\rightarrow$\
+      \ Diagnóstico $\rightarrow$ Solução."
+    source_slides:
+    - 7
+  - slide_n: 6
+    role: INSIGHT
+    kicker: MODELO 03
+    copy_direction: 'Mostrar como usar a análise de uma pessoa ou empresa conhecida
+      para ensinar um mecanismo específico de sucesso (Ex: como uma marca se tornou
+      milionária).'
+    image_direction: Representação visual de 'Engenharia Reversa' de um case de sucesso.
+    source_slides:
+    - 8
+  - slide_n: 7
+    role: PAYOFF
+    kicker: A LIÇÃO
+    copy_direction: Concluir que o resultado não vem da criatividade isolada, mas
+      de um workflow de produção. Substituir a sorte por um processo de escala.
+    image_direction: 'Visual limpo com a frase central sobre processo vs criatividade.
+      CTA call-to-think: Questionar qual dos 3 modelos o leitor aplicaria primeiro
+      para converter atenção em intenção.'
+    source_slides:
+    - 10
+  rationale: Apliquei a recomendação de redução para 7 slides para aumentar a densidade
+    e o ritmo. Fundi os slides de fundamentação (3 e 4) e removi a transição redundante
+    (5), indo direto para a entrega prática. O arco segue a lógica de Problem-Agitation-Solution
+    (PAS), transformando a dor da 'escravidão dos vídeos' na solução de 'processo
+    de autoridade', mantendo a voz pragmática da Virals e eliminando qualquer menção
+    ao autor original.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T19:56:09'
+central_theme: A transição da busca por alcance para a construção de autoridade através
+  de conteúdos densos e estratégicos.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:56:21'
+  slides: 7
+  central_theme: A transição da busca por alcance para a construção de autoridade
+    através de conteúdos densos e estratégicos.
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:57:19'

@@ -1,0 +1,137 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — BRIEF FORMAL
+# Onde vive:  {job}/01-brief/brief.yaml
+# Quem preenche: @brief-strategist (a partir de {job}/01-brief/pedido.md)
+# Validado por:  checklists/gate-brief.md
+#
+# REGRA: campo obrigatório não sai com <...>, TODO ou null. O gate-brief reprova.
+# O brief é lido por TODOS os estágios seguintes — o que não estiver aqui não existe
+# para quem escreve o roteiro, dirige a imagem ou monta a peça.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  schema_version: "1.0"
+  job_id: "<job-id>"                       # igual ao de job.json
+  criado_em: "<YYYY-MM-DD HH:MM>"
+  criado_por: "@brief-strategist"
+  validado_por: "<quem aprovou o brief>"   # gate-brief BR-12
+  validado_em: "<YYYY-MM-DD>"
+
+# ── Cliente e gênero ─────────────────────────────────────────────────────────
+cliente:
+  slug: "<oraclum | slug-do-cliente>"
+  nome: "<Nome do cliente>"
+  tipo: "<interno-oraclum | perfil-proprio-farming | cliente-externo>"
+  # ADR-004: a identidade é COPIADA para brand-lock.yaml, não referenciada.
+  brand_identity_fonte: "squads/virals-marketing-squad/data/clients/<slug>/brand-identity.yaml"
+  brand_identity_versao: "<meta.versao do arquivo no momento da abertura>"
+  brand_lock: "{job}/01-brief/brand-lock.yaml"
+
+genero:
+  pipeline_id: "<brand-film | ugc-ads | nicho-series | oraclum-institucional | dark-room | image-lab>"
+  justificativa: "<por que este gênero, e não o vizinho — uma frase>"
+
+# ── O problema de negócio ────────────────────────────────────────────────────
+objetivo_negocio: >
+  <O que precisa acontecer NO MUNDO. Mudança de comportamento, não entregável.
+  ✅ "Fazer o dono de negócio pedir diagnóstico do funil dele."
+  ❌ "Produzir um vídeo de 30 segundos para o Instagram.">
+
+kpi:
+  metrica: "<lead qualificado | taxa de retenção aos 15s | CTR | seguidores | CPL>"
+  alvo: "<valor-alvo>"
+  baseline: "<valor atual, ou 'sem baseline'>"
+  onde_medido: "<Meta Ads Manager | ClickUp | Analytics | insights da conta>"
+  janela: "<7 dias após publicação>"
+
+# ── Para quem ────────────────────────────────────────────────────────────────
+avatar:
+  quem: "<descrição funcional: papel, momento de vida/negócio>"
+  dor: "<a dor CONCRETA que esta peça toca — uma só>"
+  contexto_de_consumo: "<onde e como essa pessoa encontra a peça: feed no fim do dia,
+    stories entre reuniões, YouTube no desktop>"
+  crenca_a_quebrar: "<o que ela acredita hoje que impede a ação>"
+  origem: "<campo do brand-identity de onde veio, ou pesquisa/observação própria>"
+
+insight: >
+  <A verdade sobre o avatar que a peça vai explorar. NÃO é o objetivo, NÃO é uma
+  feature. É a observação que faz a peça soar verdadeira.
+  ✅ "Ele não desconfia da IA; desconfia de quem promete IA sem mostrar rodando."
+  ❌ "Ele quer mais leads.">
+
+# ── A peça ───────────────────────────────────────────────────────────────────
+entregavel:
+  descricao: "<o que se produz, em uma frase>"
+  quantidade: <n>                          # ex.: 1 filme; 6 variações de UGC; 5 imagens
+  duracao_alvo_s: <n>                       # null em image-lab
+  variacoes_para_teste:
+    quantidade: <n>
+    variavel_isolada: "<hook | prova | CTA | creator | formato>"
+    hipotese: "<o que este teste pretende aprender>"
+
+destinos:
+  - canal: "<instagram-reels | tiktok | youtube-shorts | youtube | meta-ads | linkedin>"
+    aspect: "<9:16 | 1:1 | 4:5 | 16:9>"
+    resolucao: "<1080x1920>"
+    duracao_max_s: <n>
+    tipo_midia: "<organico | pago>"
+    observacoes: "<safe area específica, política de trilha para mídia paga>"
+
+# ── Restrições de marca (copiadas do brand-lock — não referenciadas) ─────────
+restricoes_de_marca:
+  arquetipo: "<ex.: O Sábio + O Criador>"
+  lexico_sempre_usar: ["<termo>", "<termo>"]
+  lexico_nunca_usar: ["<termo proibido>", "<termo proibido>"]
+  nunca_fazer:
+    - "<restrição literal do brand-identity>"
+  regra_de_prova: >
+    <Como esta marca prova o que afirma. Para a Oraclum: SEM CASE DE CLIENTE — a prova
+    é o sistema rodando (gravação de tela, log, artefato público). Qualquer resultado
+    atribuído a cliente é bloqueio non-waivable no factcheck.>
+  cta_proibidos: ["<padrão de CTA vedado>"]
+
+# ── O que NÃO fazer (mínimo 3, específicos deste job) ────────────────────────
+nao_fazer:
+  - "<ex.: nada de b-roll de robô humanoide ou cérebro digital>"
+  - "<ex.: não citar nome de concorrente, nem em sátira>"
+  - "<ex.: não usar trilha do acervo orgânico do Instagram — a peça vai para mídia paga>"
+
+# ── Referências ──────────────────────────────────────────────────────────────
+referencias:
+  responsavel: "<brief | research>"          # se 'research', o gate-research cobra
+  itens:
+    - url: "<link>"
+      o_que_observar: "<mecanismo específico a estudar>"
+    - url: "<link>"
+      o_que_observar: "<...>"
+  anti_referencias:
+    - descricao: "<o que existe no mercado e NÃO queremos parecer>"
+      motivo: "<por quê>"
+
+# ── Insumos do solicitante ───────────────────────────────────────────────────
+insumos:
+  disponiveis:
+    - tipo: "<logo | referência de produto | footage | acesso a sistema | dado>"
+      caminho: "{job}/01-brief/insumos/<arquivo>"
+  ausentes:
+    - tipo: "<o que falta>"
+      impacto: "<qual estágio trava sem isso>"
+      responsavel: "<quem vai providenciar>"
+      prazo: "<YYYY-MM-DD>"
+
+# ── Viabilidade (confirmada pelo @exec-producer — gate-brief BR-11) ─────────
+viabilidade:
+  prazo: "<YYYY-MM-DD>"
+  orcamento_creditos: <n>
+  assets_estimados: <n>
+  estagios_com_executor_human: ["stills", "takes", "audio"]
+  confirmado_por: "@exec-producer"
+  confirmado_em: "<YYYY-MM-DD>"
+  riscos:
+    - risco: "<o que pode atrasar ou estourar>"
+      mitigacao: "<o que fazer>"
+
+# ── Amarração final ──────────────────────────────────────────────────────────
+definicao_de_sucesso: >
+  <Em uma frase: como saberemos, olhando o KPI na janela declarada, que esta peça
+  funcionou. Precisa ser verificável — não "a peça ficou boa".>

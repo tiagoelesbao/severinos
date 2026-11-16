@@ -1,0 +1,2739 @@
+{
+  "id": "ambiente-360",
+  "revision": 0,
+  "last_node_id": 51,
+  "last_link_id": 70,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        40,
+        0
+      ],
+      "size": [
+        380,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "flux-2-klein-9b-fp8.safetensors",
+        "default"
+      ],
+      "title": "1 · Flux 2 Klein 9B"
+    },
+    {
+      "id": 2,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        40,
+        120
+      ],
+      "size": [
+        380,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            4,
+            20,
+            32,
+            45
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors",
+        1.0
+      ],
+      "title": "1 · LoRA 360 ERP outpaint  ← o que ensina equirretangular"
+    },
+    {
+      "id": 3,
+      "type": "CLIPLoader",
+      "pos": [
+        40,
+        240
+      ],
+      "size": [
+        380,
+        106
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2,
+            3,
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen_3_8b_fp8mixed.safetensors",
+        "flux2",
+        "default"
+      ],
+      "title": "1 · text encoder"
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [
+        40,
+        380
+      ],
+      "size": [
+        380,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            9,
+            16,
+            25,
+            28,
+            37,
+            41,
+            50
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "flux2-vae.safetensors"
+      ],
+      "title": "1 · VAE"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [
+        40,
+        470
+      ],
+      "size": [
+        380,
+        110
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6,
+            22,
+            34,
+            47
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "people, person, text, watermark, logo, seam, duplicated buildings, black bars, blurry, distorted"
+      ],
+      "title": "negativo (vale para as tres passadas)"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        500,
+        0
+      ],
+      "size": [
+        420,
+        150
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "The front of a simple brick house in a brazilian community at dusk, a metal gate, a doorway with warm light inside, a narrow sidewalk, documentary photography, wide angle shot on a 20mm lens, no people"
+      ],
+      "title": "2 · PROMPT da placa (foto normal do lugar)"
+    },
+    {
+      "id": 7,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        500,
+        180
+      ],
+      "size": [
+        300,
+        106
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "title": "2 · tela da placa"
+    },
+    {
+      "id": 8,
+      "type": "KSampler",
+      "pos": [
+        500,
+        320
+      ],
+      "size": [
+        320,
+        262
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 4
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        0,
+        "fixed",
+        20,
+        1.0,
+        "euler",
+        "simple",
+        1.0
+      ],
+      "title": "2 · gera a placa"
+    },
+    {
+      "id": 9,
+      "type": "VAEDecode",
+      "pos": [
+        500,
+        610
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 8
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        500,
+        700
+      ],
+      "size": [
+        380,
+        400
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "bruno-body.png",
+        "image"
+      ],
+      "title": "2 · OU carregue uma foto do lugar (troque aqui)"
+    },
+    {
+      "id": 11,
+      "type": "MickmumpitzPanoStageSwitch",
+      "pos": [
+        500,
+        1140
+      ],
+      "size": [
+        360,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_image",
+          "type": "IMAGE",
+          "link": 10
+        },
+        {
+          "name": "off_image",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoStageSwitch"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "2 · ligado = usa a GERADA · desligado = usa a FOTO"
+    },
+    {
+      "id": 12,
+      "type": "MickmumpitzPanoWarp",
+      "pos": [
+        1000,
+        0
+      ],
+      "size": [
+        380,
+        290
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "control_video",
+          "type": "IMAGE",
+          "links": [
+            15,
+            52
+          ]
+        },
+        {
+          "name": "control_mask",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "inpaint_mask",
+          "type": "MASK",
+          "links": [
+            18,
+            53
+          ]
+        },
+        {
+          "name": "erp_guide",
+          "type": "IMAGE",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoWarp"
+      },
+      "widgets_values": [
+        1408,
+        704,
+        1,
+        90.0,
+        0.0,
+        0.0,
+        0,
+        2.0,
+        10,
+        0.55,
+        "#000000"
+      ],
+      "title": "3 · WARP — a placa vira tela 1408x704 + mascara do que falta"
+    },
+    {
+      "id": 13,
+      "type": "PreviewImage",
+      "pos": [
+        1000,
+        330
+      ],
+      "size": [
+        380,
+        240
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "title": "a carta de grade (guia geometrico)"
+    },
+    {
+      "id": 14,
+      "type": "CLIPTextEncode",
+      "pos": [
+        1460,
+        0
+      ],
+      "size": [
+        420,
+        150
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            19,
+            31,
+            44
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "equirectangular 360 panorama, seamless spherical projection of a brazilian community street at dusk seen from a doorway, simple brick houses and gates continuing all the way around, warm window light, ground below, dusk sky above, consistent lighting, documentary photography, no people"
+      ],
+      "title": "PROMPT do 360 (diz 'equirectangular' — a LoRA espera)"
+    },
+    {
+      "id": 15,
+      "type": "VAEEncode",
+      "pos": [
+        1460,
+        200
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 15
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 16,
+      "type": "SetLatentNoiseMask",
+      "pos": [
+        1460,
+        280
+      ],
+      "size": [
+        260,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 17
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetLatentNoiseMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 17,
+      "type": "FluxGuidance",
+      "pos": [
+        1460,
+        360
+      ],
+      "size": [
+        260,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxGuidance"
+      },
+      "widgets_values": [
+        3.5
+      ]
+    },
+    {
+      "id": 18,
+      "type": "KSampler",
+      "pos": [
+        1460,
+        450
+      ],
+      "size": [
+        320,
+        262
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 20
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 21
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 22
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        1,
+        "fixed",
+        20,
+        1.0,
+        "euler",
+        "simple",
+        1.0
+      ],
+      "title": "4 · OUTPAINT — completa os 360"
+    },
+    {
+      "id": 19,
+      "type": "VAEDecode",
+      "pos": [
+        1460,
+        740
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 24
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 25
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            26
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 20,
+      "type": "MickmumpitzPanoSeamRoll",
+      "pos": [
+        1960,
+        0
+      ],
+      "size": [
+        340,
+        106
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 26
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "rolled_image",
+          "links": [
+            27
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "seam_mask",
+          "links": [
+            30
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoSeamRoll"
+      },
+      "widgets_values": [
+        0.06,
+        24
+      ],
+      "title": "5 · rola meia largura — a emenda vai para o centro"
+    },
+    {
+      "id": 21,
+      "type": "VAEEncode",
+      "pos": [
+        1960,
+        150
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 27
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            29
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 22,
+      "type": "SetLatentNoiseMask",
+      "pos": [
+        1960,
+        230
+      ],
+      "size": [
+        260,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 29
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 30
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            35
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetLatentNoiseMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 23,
+      "type": "FluxGuidance",
+      "pos": [
+        1960,
+        310
+      ],
+      "size": [
+        260,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 31
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            33
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxGuidance"
+      },
+      "widgets_values": [
+        3.5
+      ]
+    },
+    {
+      "id": 24,
+      "type": "KSampler",
+      "pos": [
+        1960,
+        400
+      ],
+      "size": [
+        320,
+        262
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 32
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 33
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 34
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 35
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            36
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        2,
+        "fixed",
+        20,
+        1.0,
+        "euler",
+        "simple",
+        1.0
+      ],
+      "title": "5 · pinta a emenda"
+    },
+    {
+      "id": 25,
+      "type": "VAEDecode",
+      "pos": [
+        1960,
+        690
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 36
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 37
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            38
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 26,
+      "type": "MickmumpitzPanoRollHorizontal",
+      "pos": [
+        1960,
+        760
+      ],
+      "size": [
+        340,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 38
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "image",
+          "links": [
+            39,
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoRollHorizontal"
+      },
+      "widgets_values": [
+        0.5
+      ],
+      "title": "5 · desenrola (a emenda volta para a borda)"
+    },
+    {
+      "id": 27,
+      "type": "MickmumpitzPanoUnfilledMask",
+      "pos": [
+        2400,
+        0
+      ],
+      "size": [
+        340,
+        170
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "mask",
+          "links": [
+            43
+          ]
+        },
+        {
+          "name": "IMAGE",
+          "type": "mask_preview",
+          "links": []
+        },
+        {
+          "name": "INT",
+          "type": "unfilled_rows",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoUnfilledMask"
+      },
+      "widgets_values": [
+        0.1,
+        0.4,
+        24,
+        12.0
+      ],
+      "title": "6 · o que sobrou preto (ceu e chao)"
+    },
+    {
+      "id": 28,
+      "type": "VAEEncode",
+      "pos": [
+        2400,
+        210
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 40
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            42
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 29,
+      "type": "SetLatentNoiseMask",
+      "pos": [
+        2400,
+        290
+      ],
+      "size": [
+        260,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 42
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            48
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetLatentNoiseMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 30,
+      "type": "FluxGuidance",
+      "pos": [
+        2400,
+        370
+      ],
+      "size": [
+        260,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 44
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            46
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxGuidance"
+      },
+      "widgets_values": [
+        3.5
+      ]
+    },
+    {
+      "id": 31,
+      "type": "KSampler",
+      "pos": [
+        2400,
+        460
+      ],
+      "size": [
+        320,
+        262
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 45
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 46
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 47
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 48
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            49
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        3,
+        "fixed",
+        20,
+        1.0,
+        "euler",
+        "simple",
+        1.0
+      ],
+      "title": "6 · fecha os polos"
+    },
+    {
+      "id": 32,
+      "type": "VAEDecode",
+      "pos": [
+        2400,
+        750
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 49
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 50
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            51
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 33,
+      "type": "MickmumpitzPanoHarmonizeBoundary",
+      "pos": [
+        2840,
+        0
+      ],
+      "size": [
+        360,
+        190
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 51
+        },
+        {
+          "name": "plate",
+          "type": "IMAGE",
+          "link": 52
+        },
+        {
+          "name": "inpaint_mask",
+          "type": "MASK",
+          "link": 53
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "image",
+          "links": [
+            54,
+            55,
+            59,
+            63,
+            67
+          ]
+        },
+        {
+          "name": "IMAGE",
+          "type": "correction_field",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoHarmonizeBoundary"
+      },
+      "widgets_values": [
+        1.0,
+        8,
+        800,
+        true
+      ],
+      "title": "7 · casa a cor do gerado com a placa (Poisson)"
+    },
+    {
+      "id": 34,
+      "type": "SaveImage",
+      "pos": [
+        2840,
+        230
+      ],
+      "size": [
+        500,
+        380
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 54
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ambiente-360/pano"
+      ],
+      "title": "7 · PANORAMA PRONTO"
+    },
+    {
+      "id": 35,
+      "type": "MickmumpitzPanoRollHorizontal",
+      "pos": [
+        3400,
+        0
+      ],
+      "size": [
+        330,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 55
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "image",
+          "links": [
+            56
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoRollHorizontal"
+      },
+      "widgets_values": [
+        0.0
+      ],
+      "title": "gira 0°"
+    },
+    {
+      "id": 36,
+      "type": "ImageCrop",
+      "pos": [
+        3400,
+        90
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            57,
+            58
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageCrop"
+      },
+      "widgets_values": [
+        352,
+        704,
+        528,
+        0
+      ],
+      "title": "recorta o centro"
+    },
+    {
+      "id": 37,
+      "type": "SetNode",
+      "pos": [
+        3740,
+        90
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "link": 57
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "AMB_000"
+      },
+      "widgets_values": [
+        "AMB_000"
+      ],
+      "title": "Set_AMB_000"
+    },
+    {
+      "id": 38,
+      "type": "SaveImage",
+      "pos": [
+        4020,
+        0
+      ],
+      "size": [
+        330,
+        300
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 58
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ambiente-360/amb_000"
+      ],
+      "title": "AMB 0°"
+    },
+    {
+      "id": 39,
+      "type": "MickmumpitzPanoRollHorizontal",
+      "pos": [
+        3400,
+        330
+      ],
+      "size": [
+        330,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "image",
+          "links": [
+            60
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoRollHorizontal"
+      },
+      "widgets_values": [
+        0.25
+      ],
+      "title": "gira 90°"
+    },
+    {
+      "id": 40,
+      "type": "ImageCrop",
+      "pos": [
+        3400,
+        420
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 60
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            61,
+            62
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageCrop"
+      },
+      "widgets_values": [
+        352,
+        704,
+        528,
+        0
+      ],
+      "title": "recorta o centro"
+    },
+    {
+      "id": 41,
+      "type": "SetNode",
+      "pos": [
+        3740,
+        420
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "link": 61
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "AMB_090"
+      },
+      "widgets_values": [
+        "AMB_090"
+      ],
+      "title": "Set_AMB_090"
+    },
+    {
+      "id": 42,
+      "type": "SaveImage",
+      "pos": [
+        4020,
+        330
+      ],
+      "size": [
+        330,
+        300
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 62
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ambiente-360/amb_090"
+      ],
+      "title": "AMB 90°"
+    },
+    {
+      "id": 43,
+      "type": "MickmumpitzPanoRollHorizontal",
+      "pos": [
+        3400,
+        660
+      ],
+      "size": [
+        330,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 63
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "image",
+          "links": [
+            64
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoRollHorizontal"
+      },
+      "widgets_values": [
+        0.5
+      ],
+      "title": "gira 180°"
+    },
+    {
+      "id": 44,
+      "type": "ImageCrop",
+      "pos": [
+        3400,
+        750
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 64
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            65,
+            66
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageCrop"
+      },
+      "widgets_values": [
+        352,
+        704,
+        528,
+        0
+      ],
+      "title": "recorta o centro"
+    },
+    {
+      "id": 45,
+      "type": "SetNode",
+      "pos": [
+        3740,
+        750
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "link": 65
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "AMB_180"
+      },
+      "widgets_values": [
+        "AMB_180"
+      ],
+      "title": "Set_AMB_180"
+    },
+    {
+      "id": 46,
+      "type": "SaveImage",
+      "pos": [
+        4020,
+        660
+      ],
+      "size": [
+        330,
+        300
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 66
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ambiente-360/amb_180"
+      ],
+      "title": "AMB 180°"
+    },
+    {
+      "id": 47,
+      "type": "MickmumpitzPanoRollHorizontal",
+      "pos": [
+        3400,
+        990
+      ],
+      "size": [
+        330,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 67
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "image",
+          "links": [
+            68
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MickmumpitzPanoRollHorizontal"
+      },
+      "widgets_values": [
+        0.75
+      ],
+      "title": "gira 270°"
+    },
+    {
+      "id": 48,
+      "type": "ImageCrop",
+      "pos": [
+        3400,
+        1080
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 68
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            69,
+            70
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageCrop"
+      },
+      "widgets_values": [
+        352,
+        704,
+        528,
+        0
+      ],
+      "title": "recorta o centro"
+    },
+    {
+      "id": 49,
+      "type": "SetNode",
+      "pos": [
+        3740,
+        1080
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "link": 69
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "AMB_270"
+      },
+      "widgets_values": [
+        "AMB_270"
+      ],
+      "title": "Set_AMB_270"
+    },
+    {
+      "id": 50,
+      "type": "SaveImage",
+      "pos": [
+        4020,
+        990
+      ],
+      "size": [
+        330,
+        300
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 70
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ambiente-360/amb_270"
+      ],
+      "title": "AMB 270°"
+    },
+    {
+      "id": 51,
+      "type": "MarkdownNote",
+      "pos": [
+        40,
+        620
+      ],
+      "size": [
+        420,
+        620
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "## Ambiente 360\n\n**Para que serve:** quando a camera vira num dialogo, o fundo tem de continuar\nsendo o mesmo lugar. Gera-se o lugar uma vez e recorta-se o pedaco atras de cada\ncamera.\n\n**Ordem de uso**\n1. Escreva o lugar no **PROMPT da placa** e rode o `2 · gera a placa`. Ou\n   desligue o switch e carregue uma foto.\n2. Confira a **carta de grade** — ela mostra onde a placa caiu na esfera.\n3. Rode o `7 · PANORAMA PRONTO`. Sao tres passadas de geracao; nao e rapido.\n4. Os recortes saem em `output/ambiente-360/` e ficam em `SetNode AMB_000`,\n   `AMB_090`, etc. — e so puxar com `GetNode` dentro do Movie Builder.\n\n**Se a emenda aparecer:** suba `seam_width` no `5 · rola`.\n**Se sobrar preto no ceu:** suba `grow` no `6 · o que sobrou preto`.\n**Se o gerado tiver outra cor que a placa:** e o `7 · HARMONIZE` que conserta;\nconfira que a `inpaint_mask` do warp chegou nele.\n\n**O recorte nao e o fundo final.** E a referencia que o Klein le ao desenhar o\nplano — ele so precisa saber o que ha naquela direcao.\n\n---\n\n**Quanto o modelo tem de inventar (medido):** uma placa de 70° cobre **7,2%** da\nesfera. Sobram **92,8%** para a LoRA preencher. E muito, e e exatamente o\ntrabalho para o qual ela foi treinada — mas se o resultado derivar (a rua vira\noutra rua do outro lado), o remedio nao e mexer no prompt: e dar mais placa.\n\nSuba o `h_fov_deg` do WARP e gere a placa como plano aberto: 90° cobre ~12%,\n120° cobre ~21%. O numero cresce com o QUADRADO do campo."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      3,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      3,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      2,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      5,
+      6,
+      0,
+      8,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      5,
+      0,
+      8,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      7,
+      0,
+      8,
+      3,
+      "LATENT"
+    ],
+    [
+      8,
+      8,
+      0,
+      9,
+      0,
+      "LATENT"
+    ],
+    [
+      9,
+      4,
+      0,
+      9,
+      1,
+      "VAE"
+    ],
+    [
+      10,
+      9,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      10,
+      0,
+      11,
+      1,
+      "IMAGE"
+    ],
+    [
+      12,
+      11,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      12,
+      3,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      14,
+      3,
+      0,
+      14,
+      0,
+      "CLIP"
+    ],
+    [
+      15,
+      12,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      4,
+      0,
+      15,
+      1,
+      "VAE"
+    ],
+    [
+      17,
+      15,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      18,
+      12,
+      2,
+      16,
+      1,
+      "MASK"
+    ],
+    [
+      19,
+      14,
+      0,
+      17,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      20,
+      2,
+      0,
+      18,
+      0,
+      "MODEL"
+    ],
+    [
+      21,
+      17,
+      0,
+      18,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      22,
+      5,
+      0,
+      18,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      23,
+      16,
+      0,
+      18,
+      3,
+      "LATENT"
+    ],
+    [
+      24,
+      18,
+      0,
+      19,
+      0,
+      "LATENT"
+    ],
+    [
+      25,
+      4,
+      0,
+      19,
+      1,
+      "VAE"
+    ],
+    [
+      26,
+      19,
+      0,
+      20,
+      0,
+      "IMAGE"
+    ],
+    [
+      27,
+      20,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ],
+    [
+      28,
+      4,
+      0,
+      21,
+      1,
+      "VAE"
+    ],
+    [
+      29,
+      21,
+      0,
+      22,
+      0,
+      "LATENT"
+    ],
+    [
+      30,
+      20,
+      1,
+      22,
+      1,
+      "MASK"
+    ],
+    [
+      31,
+      14,
+      0,
+      23,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      32,
+      2,
+      0,
+      24,
+      0,
+      "MODEL"
+    ],
+    [
+      33,
+      23,
+      0,
+      24,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      34,
+      5,
+      0,
+      24,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      35,
+      22,
+      0,
+      24,
+      3,
+      "LATENT"
+    ],
+    [
+      36,
+      24,
+      0,
+      25,
+      0,
+      "LATENT"
+    ],
+    [
+      37,
+      4,
+      0,
+      25,
+      1,
+      "VAE"
+    ],
+    [
+      38,
+      25,
+      0,
+      26,
+      0,
+      "IMAGE"
+    ],
+    [
+      39,
+      26,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      40,
+      26,
+      0,
+      28,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      4,
+      0,
+      28,
+      1,
+      "VAE"
+    ],
+    [
+      42,
+      28,
+      0,
+      29,
+      0,
+      "LATENT"
+    ],
+    [
+      43,
+      27,
+      0,
+      29,
+      1,
+      "MASK"
+    ],
+    [
+      44,
+      14,
+      0,
+      30,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      45,
+      2,
+      0,
+      31,
+      0,
+      "MODEL"
+    ],
+    [
+      46,
+      30,
+      0,
+      31,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      47,
+      5,
+      0,
+      31,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      48,
+      29,
+      0,
+      31,
+      3,
+      "LATENT"
+    ],
+    [
+      49,
+      31,
+      0,
+      32,
+      0,
+      "LATENT"
+    ],
+    [
+      50,
+      4,
+      0,
+      32,
+      1,
+      "VAE"
+    ],
+    [
+      51,
+      32,
+      0,
+      33,
+      0,
+      "IMAGE"
+    ],
+    [
+      52,
+      12,
+      0,
+      33,
+      1,
+      "IMAGE"
+    ],
+    [
+      53,
+      12,
+      2,
+      33,
+      2,
+      "MASK"
+    ],
+    [
+      54,
+      33,
+      0,
+      34,
+      0,
+      "IMAGE"
+    ],
+    [
+      55,
+      33,
+      0,
+      35,
+      0,
+      "IMAGE"
+    ],
+    [
+      56,
+      35,
+      0,
+      36,
+      0,
+      "IMAGE"
+    ],
+    [
+      57,
+      36,
+      0,
+      37,
+      0,
+      "IMAGE"
+    ],
+    [
+      58,
+      36,
+      0,
+      38,
+      0,
+      "IMAGE"
+    ],
+    [
+      59,
+      33,
+      0,
+      39,
+      0,
+      "IMAGE"
+    ],
+    [
+      60,
+      39,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ],
+    [
+      61,
+      40,
+      0,
+      41,
+      0,
+      "IMAGE"
+    ],
+    [
+      62,
+      40,
+      0,
+      42,
+      0,
+      "IMAGE"
+    ],
+    [
+      63,
+      33,
+      0,
+      43,
+      0,
+      "IMAGE"
+    ],
+    [
+      64,
+      43,
+      0,
+      44,
+      0,
+      "IMAGE"
+    ],
+    [
+      65,
+      44,
+      0,
+      45,
+      0,
+      "IMAGE"
+    ],
+    [
+      66,
+      44,
+      0,
+      46,
+      0,
+      "IMAGE"
+    ],
+    [
+      67,
+      33,
+      0,
+      47,
+      0,
+      "IMAGE"
+    ],
+    [
+      68,
+      47,
+      0,
+      48,
+      0,
+      "IMAGE"
+    ],
+    [
+      69,
+      48,
+      0,
+      49,
+      0,
+      "IMAGE"
+    ],
+    [
+      70,
+      48,
+      0,
+      50,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "1 · MODELOS",
+      "bounding": [
+        20,
+        -60,
+        420,
+        520
+      ],
+      "color": "#355",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "2 · PLACA DO LUGAR",
+      "bounding": [
+        480,
+        -60,
+        460,
+        1300
+      ],
+      "color": "#353",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "3 · WARP",
+      "bounding": [
+        980,
+        -60,
+        420,
+        640
+      ],
+      "color": "#535",
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "4 · OUTPAINT 360",
+      "bounding": [
+        1440,
+        -60,
+        460,
+        880
+      ],
+      "color": "#853",
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "5 · EMENDA",
+      "bounding": [
+        1940,
+        -60,
+        400,
+        900
+      ],
+      "color": "#853",
+      "flags": {}
+    },
+    {
+      "id": 6,
+      "title": "6 · POLOS",
+      "bounding": [
+        2380,
+        -60,
+        400,
+        960
+      ],
+      "color": "#853",
+      "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "7 · HARMONIZE + SALVA",
+      "bounding": [
+        2820,
+        -60,
+        540,
+        680
+      ],
+      "color": "#535",
+      "flags": {}
+    },
+    {
+      "id": 8,
+      "title": "8 · RECORTES POR ANGULO DE CAMERA",
+      "bounding": [
+        3380,
+        -60,
+        1000,
+        1400
+      ],
+      "color": "#357",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

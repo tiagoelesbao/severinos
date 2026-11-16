@@ -1,11 +1,157 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(node -c \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\services\\\\ETL\\\\Extract\\\\scrapers\\\\daily-monitor.js\")",
+      "Bash(node *)",
+      "Bash(head -25 .gemini/commands/virals-ops-dalio.toml)",
+      "Bash(head -12 .antigravity/agents/dalio.md)",
+      "Bash(node -e \"try{const p=require\\('./package.json'\\);console.log\\(Object.keys\\(p.scripts||{}\\).join\\('\\\\n'\\)\\)}catch\\(e\\){console.log\\('sem package.json raiz'\\)}\")",
+      "Bash(ls -la .claude/hooks)",
+      "Bash(ls -la ~/.claude/*.json)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(echo \"[exit code do node: $?]\")",
+      "Bash(python scripts/modeling/deep_modeler.py \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\workspaces\\\\businesses\\\\virals\\\\marketing\\\\daily-monitoring\\\\2026-05-16\\\\benchmark\\\\instagram\\\\02-publicitarioscriativos-148f72\" carousel)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(python -c ' *)",
+      "Bash(python scripts/modeling/deep_modeler.py \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\workspaces\\\\businesses\\\\virals\\\\marketing\\\\daily-monitoring\\\\2026-05-16\\\\benchmark\\\\instagram\\\\02-publicitarioscriativos-148f72\" single)",
+      "Bash(python squads/virals-marketing-squad/scripts/orchestrate_carousel.py \"squads/virals-marketing-squad/data/brief-v5-02-publicitarioscriativos-148f72.yaml\")",
+      "Bash(python scripts/modeling/deep_modeler.py \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\workspaces\\\\businesses\\\\virals\\\\marketing\\\\daily-monitoring\\\\2026-05-16\\\\benchmark\\\\instagram\\\\03-garyvee-8acbc7\" carousel)",
+      "Bash(python scripts/modeling/deep_modeler.py workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/__TRACKED_VAR__ carousel)",
+      "Bash(python scripts/modeling/deep_modeler.py \"workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/02-publicitarioscriativos-148f72\" carousel)",
+      "Bash(npx tsc *)",
+      "Bash(python squads/virals-marketing-squad/scripts/orchestrate_carousel.py \"squads/virals-marketing-squad/data/brief-v5-02-publicitarioscriativos-148f72.yaml\" --image-mode=brand)",
+      "Bash(python scripts/modeling/recast_engine.py \"squads/virals-marketing-squad/data/brief-v5-02-publicitarioscriativos-148f72.yaml\")",
+      "Bash(python squads/virals-marketing-squad/tools/pexels_service.py \"soda cola drink\")",
+      "Bash(python squads/virals-marketing-squad/scripts/orchestrate_carousel.py \"squads/virals-marketing-squad/data/brief-v5-02-publicitarioscriativos-148f72.yaml\" --image-mode=pexels)",
+      "Bash(python scripts/modeling/design_creative.py \"workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/02-publicitarioscriativos-148f72\" carousel --image-mode=pexels)",
+      "Bash(python scripts/modeling/design_creative.py \"workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/03-garyvee-8acbc7\" carousel --image-mode=pexels)",
+      "Bash(python scripts/modeling/design_creative.py \"workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/10-publicitarioscriativos-6eb2b7\" carousel --image-mode=pexels)",
+      "Bash(python scripts/modeling/deep_modeler.py \"workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/10-publicitarioscriativos-6eb2b7\" carousel)",
+      "Bash(python scripts/modeling/design_creative.py workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/__TRACKED_VAR__ carousel --image-mode=pexels)",
+      "Bash(python scripts/modeling/deep_modeler.py \"workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/03-garyvee-8acbc7\" carousel)",
+      "Bash(python scripts/modeling/analyze_benchmark.py \"squads/virals-marketing-squad/data/brief-v5-03-garyvee-8acbc7.yaml\")",
+      "Bash(python scripts/modeling/plan_creative.py \"squads/virals-marketing-squad/data/brief-v5-03-garyvee-8acbc7.yaml\")",
+      "Bash(npm install *)",
+      "Bash(curl -s --max-time 20 http://localhost:3001/api/briefs)",
+      "Bash(python scripts/modeling/quality_gate.py \"squads/virals-marketing-squad/data/brief-v5-03-garyvee-8acbc7.yaml\")",
+      "Bash(python squads/virals-marketing-squad/scripts/orchestrate_carousel.py \"squads/virals-marketing-squad/data/brief-v5-03-garyvee-8acbc7.yaml\" --image-mode=pexels)",
+      "Bash(python outputs/_shot.py)",
+      "Bash(python -X utf8 -c \"import sys; sys.path.insert\\(0, 'squads/virals-marketing-squad/scripts'\\); import quality_gate as qg; print\\('CHECKLIST count:', len\\(qg.CHECKLIST\\)\\); [print\\(' -', c\\) for c in qg.CHECKLIST]\")",
+      "Bash(python -X utf8 -c \"import yaml; y=yaml.safe_load\\(open\\('squads/virals-marketing-squad/squad.yaml', encoding='utf-8'\\)\\); cip=y['creative_intelligence_pipeline']; print\\('workflow:', cip['workflow']\\); print\\('tasks:', len\\(cip['tasks']\\)\\); print\\('checklists:', len\\(cip['checklists']\\)\\); print\\('templates:', len\\(cip['templates']\\)\\); print\\('tools:', len\\(cip['tools']\\)\\); print\\('services:', len\\(cip['services']\\)\\); print\\('scripts:', len\\(cip['scripts']\\)\\); print\\('viewport:', cip['render_service']['viewport']\\)\")",
+      "Bash(cp squads/virals-marketing-squad/data/Virals-moonitoring-profiles/*.yaml squads/virals-marketing-squad/data/clients/virals/monitoring/)",
+      "Bash(cp squads/virals-marketing-squad/data/Virals-moonitoring-profiles/*.yaml squads/virals-marketing-squad/data/clients/tiago-elesbao/monitoring/)",
+      "Bash(python *)",
+      "WebSearch",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/render)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/)",
+      "Bash(curl -s -o /dev/null -w \"GET /: %{http_code}\\\\n\" http://localhost:3001/ --max-time 3)",
+      "Bash(curl -s http://localhost:3001/ --max-time 3)",
+      "Bash(netstat -ano)",
+      "Bash(findstr LISTENING)",
+      "Bash(findstr \"300[0-9]\\\\|301[0-9]\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3011/)",
+      "Bash(RENDER_BASE_URL=http://localhost:3000 python squads/virals-marketing-squad/scripts/orchestrate_carousel.py squads/virals-marketing-squad/data/brief-v5-14-pablomarcal1-e129b8.yaml --image-mode=pexels --template=tiago-step)",
+      "Bash(curl -s -o /dev/null -w \"/studio HTTP %{http_code}\\\\n\" --max-time 25 \"http://localhost:3001/studio?client=tiago-elesbao\")",
+      "Bash(npx next *)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:3000/studio?client=tiago-elesbao&creative=13-realchasechappell-84d69e\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:3001/studio?client=tiago-elesbao&creative=13-realchasechappell-84d69e\")",
+      "Bash(npx eslint *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(awk 'NR>=28' src/components/Timeline.tsx)",
+      "Bash(grep -oE '#[0-9a-fA-F]{3,6}|rgba\\\\\\([^\\)]*\\\\\\)')",
+      "Bash(\"./services/ETL/yt-dlp_win/ffprobe.exe\" -v error -show_entries stream=width,height -of csv=p=0 scratchpad_test_pollinations.png)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:muapi.ai)",
+      "Bash(rm -rf \"workspaces/businesses/virals/farming/2026-07-26\")",
+      "Bash(rm -rf \".aiox/tmp/farming-test\")",
+      "Bash(rm -rf \"squads/virals-farming-squad/data/runs\")",
+      "Bash(python -)",
+      "Bash(rm anal.txt)",
+      "Bash(grep -v '^$')",
+      "Bash(python -c \"import ast,io;ast.parse\\(io.open\\('extrai_takes_referencia.py',encoding='utf-8'\\).read\\(\\)\\);print\\('sintaxe ok'\\)\")",
+      "Bash(rm -rf ../../docs/referencias/estoico/*/takes/unicos ../../docs/referencias/estoico/*/takes/takes.json)",
+      "Bash(\"C:/Users/Pichau/Desktop/ComfyUI_windows_portable/python_embeded/python.exe\" extrai_takes_referencia.py 2.0)",
+      "Bash(cat \"C:/Users/Pichau/.claude/jobs/60a696fb/tmp/visual_correcao.yaml\")",
+      "Bash(python _patch_cm.py)",
+      "Bash(rm -f _patch_pa.py _patch_irp.py _patch_mr.py _patch_cm.py)",
+      "Bash(sed -i 's|\"13.filename_prefix\": \"canal-estoico/%s/cru/%02d-%s\" % \\(_peca, _slug and _n, _slug\\),|\"13.filename_prefix\": \"canal-estoico/%s/cru/%02d-%s\" % \\(_peca, _n, _slug\\),|' run_batch.py)",
+      "Bash(python run_batch.py --list)",
+      "Read(//c/Users/Pichau/Desktop/ComfyUI_windows_portable/ComfyUI/output/narracao/**)",
+      "Bash(mv -v LA2-ansiedade-clone* LA3-tempo-clone* _descartadas/)",
+      "Bash(mkdir -p _imagens)",
+      "Bash(python -X utf8 -c ' *)",
+      "Bash(mkdir -p bora-de-bola)",
+      "Bash(python -X utf8 -)",
+      "Bash(python -X utf8 \"C:/Users/Pichau/.claude/jobs/6dc685ed/tmp/conserta_enfileira.py\")",
+      "Bash(nohup python -X utf8 narra_comfy.py 2026-09-04-abel-stjd)",
+      "Bash(rm -f \"../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-06-arbitragem-flu-vasco/04-takes/acervo/t13-processo.mp4\" \"../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-06-arbitragem-flu-vasco/04-takes/acervo/t14-tribunal.mp4\" \"../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-06-arbitragem-flu-vasco/04-takes/acervo/t15-tribunal.mp4\" \"../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-06-arbitragem-flu-vasco/04-takes/acervo/t16-processo.mp4\")",
+      "Bash(python -X utf8 monta.py 2026-09-06-arbitragem-flu-vasco)",
+      "Bash(rm -f ref-animal.wav ref_p*.wav lst.txt)",
+      "Bash(curl -s -m 5 -o /dev/null -w \"comfy:%{http_code}\\\\n\" http://127.0.0.1:8188/system_stats)",
+      "Bash(cp:*)",
+      "Bash(python -X utf8 narra_comfy.py:*)",
+      "Bash(python -X utf8 monta_curto.py:*)",
+      "Bash(python -X utf8 acervo_curto.py:*)",
+      "Bash(python -X utf8 fecha_narracao_curto.py:*)",
+      "Bash(python -X utf8 placa_aviso.py:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(ffprobe:*)",
+      "Bash(yt-dlp:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(py:*)",
+      "Bash(pip:*)",
+      "Bash(python -m pip:*)",
+      "Bash(python -X utf8:*)",
+      "Bash(ffplay:*)",
+      "Bash(curl:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(awk:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(tr:*)",
+      "Bash(echo:*)",
+      "Bash(printf:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(stat:*)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(for:*)",
+      "Bash(while:*)",
+      "Bash(until:*)",
+      "Bash(test:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "TodoWrite",
+      "Bash(vercel whoami *)"
+    ]
+  },
   "hooks": {
     "UserPromptSubmit": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "node \".claude/hooks/synapse-engine.js\""
+            "command": "node \".claude/hooks/synapse-engine.cjs\""
           }
         ]
       },
@@ -21,14 +167,34 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
             "command": "node \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\.claude\\\\hooks\\\\code-intel-pretool.cjs\"",
             "timeout": 10
           }
-        ],
-        "matcher": "Write|Edit"
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\Pichau\\\\Desktop\\\\Sistemas\\\\Virals\\\\severinos\\\\.claude\\\\hooks\\\\enforce-git-push-authority.cjs\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/vendor/agentville/secret-scan.mjs\"",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "PreCompact": [
@@ -42,5 +208,6 @@
         ]
       }
     ]
-  }
+  },
+  "defaultMode": "acceptEdits"
 }

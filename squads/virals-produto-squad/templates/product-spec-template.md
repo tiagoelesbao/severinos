@@ -15,7 +15,7 @@
 - [ ] **Valor:** O cliente quer?
 - [ ] **Usabilidade:** O cliente consegue usar?
 - [ ] **Viabilidade:** Conseguimos construir?
-- [ ] **Negócio:** Funciona para a Virals?
+- [ ] **Negócio:** Funciona para o negócio (Virals ou Oraclum, conforme a marca do produto)?
 
 ## 4. Aha Moment
 - Qual o momento exato em que o cliente percebe o valor?

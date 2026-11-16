@@ -1,0 +1,64 @@
+/me/adaccounts -> 200
+{
+  "data": [
+    {
+      "id": "act_1809822716714730",
+      "account_id": "1809822716714730",
+      "name": "CA IP Realiza - 01",
+      "account_status": 1,
+      "business": {
+        "id": "3640550059575630",
+        "name": "IP Realiza"
+      }
+    },
+    {
+      "id": "act_4883842965176343",
+      "account_id": "4883842965176343",
+      "name": "CA IP Realiza - 05",
+      "account_status": 1,
+      "business": {
+        "id": "3640550059575630",
+        "name": "IP Realiza"
+      }
+    },
+    {
+      "id": "act_1072883085538453",
+      "account_id": "1072883085538453",
+      "name": "CA IP Realiza - 03",
+      "account_status": 1,
+      "business": {
+        "id": "3640550059575630",
+        "name": "IP Realiza"
+      }
+    },
+    {
+      "id": "act_3273037322894228",
+      "account_id": "3273037322894228",
+      "name": "CA IP Realiza - 04",
+      "account_status": 1,
+      "business": {
+        "id": "3640550059575630",
+        "name": "IP Realiza"
+      }
+    },
+    {
+      "id": "act_2076716696539325",
+      "account_id": "2076716696539325",
+      "name": "CA IP Realiza - 02",
+      "account_status": 1,
+      "business": {
+        "id": "3640550059575630",
+        "name": "IP Realiza"
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "NTI1OTg2MjU1NzUwMTEZD",
+      "after": "MTIwMjYwNzk2MTgwNDcwNTM3"
+    }
+  }
+}
+
+act_1072883085538453 direto -> 200 {"id": "act_1072883085538453", "name": "CA IP Realiza - 03", "account_status": 1, "business": {"id": "3640550059575630", "name": "IP Realiza"}}
+

@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:03,111
+Animais que vivem mais de cem anos.
+
+2
+00:00:03,311 --> 00:00:05,088
+Número quatro: a tartaruga-gigante.
+
+3
+00:00:05,288 --> 00:00:11,954
+Ela passa dos cem anos com folga. Algumas registradas em cativeiro chegaram perto dos duzentos.
+
+4
+00:00:12,154 --> 00:00:13,931
+Número três: a baleia-da-groenlândia.
+
+5
+00:00:14,131 --> 00:00:22,575
+É o mamífero que mais vive de que se tem registro. Estimativas colocam alguns indivíduos acima dos duzentos anos.
+
+6
+00:00:22,775 --> 00:00:24,552
+Número dois: o tubarão-da-groenlândia.
+
+7
+00:00:24,752 --> 00:00:35,418
+Ele cresce cerca de um centímetro por ano. Só isso já indica uma vida de séculos, e ele amadurece perto dos cento e cinquenta.
+
+8
+00:00:35,618 --> 00:00:37,395
+Número um: a esponja-do-mar.
+
+9
+00:00:37,595 --> 00:00:43,817
+Parece pedra, mas é bicho. Algumas colônias de águas frias passam de mil anos.
+
+10
+00:00:44,017 --> 00:00:47,572
+Comenta aí qual desses tu achou mais absurdo.

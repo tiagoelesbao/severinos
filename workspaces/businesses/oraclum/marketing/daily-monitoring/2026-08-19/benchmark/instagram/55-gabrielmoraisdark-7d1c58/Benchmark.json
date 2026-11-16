@@ -1,0 +1,63 @@
+{
+  "rank": 55,
+  "creator": "@gabrielmoraisdark",
+  "url": "https://www.instagram.com/gabrielmoraisdark/reel/DcLzVoExa-N/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by gabrielmorais.ia",
+  "description": "Para receber o guia completo comenta EU QUERO e olha seu direct!",
+  "author": "Gabriel Morais",
+  "view_count": null,
+  "like_count": 72,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.71878-15/775567338_1052458504190218_7326169000871941896_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=105&ig_cache_key=Mzk2NjQ4OTY4MzM0MDY2ODgxMw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=EcROXnXHWDsQ7kNvwGlGQRq&_nc_oc=AdoCyYN4w7EL6iDrv0PToRA2DrN2NTAyXajuBcmG__EjbEatcCvZ1XF75qdPfF6iuPhI8ra0z-yBQPly62YpJ5V3&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=nS-QphqZhl2Im4w3X8aDFg&_nc_ss=7b689&oh=00_AQE2PpGE-kNgZ8GmZ5VJ2UbZGFTeDaCTa81L5EvD_qFDSg&oe=6A8BF440",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "E se eu te dissesse que dá pra"
+    },
+    {
+      "time": 7,
+      "label": "Primeiro, eu entro no chat GPT"
+    },
+    {
+      "time": 30,
+      "label": "Manda gerar e olha isso."
+    },
+    {
+      "time": 40,
+      "label": "Sério, como resistir?"
+    },
+    {
+      "time": 54,
+      "label": "Se você quer receber o passo a"
+    }
+  ],
+  "cut_timestamps": [
+    0.4,
+    2.13,
+    3.67,
+    5.07,
+    6.93,
+    8.9,
+    14.83,
+    18.17,
+    24.87,
+    30.53,
+    32.17,
+    32.7,
+    35.1,
+    37.27,
+    39.23,
+    41.87
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-19T19:50:43.299Z",
+  "item_status": "ok",
+  "status_reason": null
+}

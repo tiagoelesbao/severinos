@@ -1,0 +1,350 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:22:56'
+media_kind: video
+video_brief:
+  slug: video-27-aitrendz-xyz-a83c8d
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\27-aitrendz-xyz-a83c8d
+source:
+  creator: '@aitrendz.xyz'
+  platform: instagram
+  url: https://www.instagram.com/aitrendz.xyz/reel/DcBZa4bBaW2/
+  type: video-short
+  caption: Comment any emoji to get my favorite ChatGPT shortcuts 🙌
+metadata:
+  view_count: null
+  like_count: 465
+  comment_count: null
+  duration_seconds: 12
+  cut_timestamps:
+  - 8.77
+hook_raw: Use this to create that Use this
+transcript:
+- start: 0
+  end: 1
+  text: Use this
+- start: 1
+  end: 2
+  text: to create that
+- start: 2
+  end: 3
+  text: Use this
+- start: 3
+  end: 4
+  text: to create that
+- start: 4
+  end: 6
+  text: Use this to create that
+- start: 6
+  end: 8
+  text: And use this to create that
+- start: 8
+  end: 12
+  text: Comment your favorite emoji below and I'll send you 500 shortcuts like this
+frames:
+- file: Screenshots/frame_01_at_00-00_Use_this.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-01_to_create_that_.jpg
+  timestamp: 00:01
+  t_seconds: 1
+- file: Screenshots/frame_03_at_00-03_to_create_that_.jpg
+  timestamp: 00:03
+  t_seconds: 3
+- file: Screenshots/frame_04_at_00-04_Use_this_to_create_that_.jpg
+  timestamp: 00:04
+  t_seconds: 4
+- file: Screenshots/frame_05_at_00-08_Comment_your_favorite_emoji_be.jpg
+  timestamp: 00:08
+  t_seconds: 8
+beats:
+- n: 1
+  start: 0
+  end: 1
+  text: Use this
+  role: hook
+- n: 2
+  start: 1
+  end: 3
+  text: to create that Use this
+  role: build
+- n: 3
+  start: 3
+  end: 4
+  text: to create that
+  role: build
+- n: 4
+  start: 4
+  end: 8
+  text: Use this to create that And use this to create that
+  role: build
+- n: 5
+  start: 8
+  end: 12
+  text: Comment your favorite emoji below and I'll send you 500 shortcuts like this
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 7
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-00_Use_this.jpg
+    shot_type: talking_head
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_02_at_00-01_to_create_that_.jpg
+    shot_type: talking_head
+    on_screen_text: /explodedview
+    has_captions: false
+  - file: frame_03_at_00-03_to_create_that_.jpg
+    shot_type: talking_head
+    on_screen_text: /Xray
+    has_captions: false
+  - file: frame_04_at_00-04_Use_this_to_create_that_.jpg
+    shot_type: graphic
+    on_screen_text: /Xray
+    has_captions: false
+  - file: frame_05_at_00-08_Comment_your_favorite_emoji_be.jpg
+    shot_type: graphic
+    on_screen_text: /handwritten
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.6
+    screen_capture: 0.0
+    broll: 0.0
+    graphic: 0.4
+  caption_style_seen: Not present.
+  text_overlay_style: 'Texto em caixas brancas retangulares com cantos arredondados,
+    contendo o logo verde do ChatGPT e um comando (ex: ''/explodedview''). Essas caixas
+    aparecem no canto superior direito. Imagens retangulares maiores (ex: cobra, projeto
+    de carro) são sobrepostas no canto superior esquerdo, introduzindo o ''resultado''
+    do comando.'
+  visual_hook_device: O apresentador se dirige diretamente à câmera com uma expressão
+    enérgica e gesticulação dinâmica. A estrutura 'Use isso para criar aquilo' é imediatamente
+    estabelecida, com a introdução rápida de overlays de texto e imagem que demonstram
+    o 'aquilo'.
+  broll_density: low
+  edit_style_notes: 'Enquadramento: Plano médio fechado (chest-up), com o sujeito
+    centralizado, deixando espaço nos cantos superiores para overlays. Cortes: Rápidos
+    e dinâmicos, frequentemente sincronizados com palavras-chave ou gestos, para manter
+    o ritmo e introduzir novos elementos visuais. Overlays: Uso estratégico de gráficos
+    e textos sobrepostos nos quadrantes superiores, introduzidos com cortes rápidos
+    para ilustrar os pontos.'
+  palette:
+  - '#F0EAD6'
+  - '#000000'
+  - '#4CAF50'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:23:26'
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: talking_head_energy
+    text: Direct address + energetic gestures
+  - t: 1
+    device: visual_overlay
+    text: ChatGPT command box (top right)
+  - t: 2
+    device: visual_overlay
+    text: Result image (top left)
+  - t: 4
+    device: rapid_cut
+    text: Switch to new command/result pair
+  - t: 8
+    device: text_shift
+    text: CTA transition to comment trigger
+  cut_cadence:
+    avaliacao: O ritmo é agressivo e sincronizado. Com segmentos de 6s mas cortes
+      internos rápidos (overlays), ele evita o tédio visual.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 2
+    segments: 2
+    duration_s: 12.0
+    avg_segment_s: 6.0
+  broll_strategy: Uso de 'overlays contextuais' em vez de B-roll tradicional. O visual
+    funciona como prova social imediata (comando -> resultado), validando a fala em
+    tempo real e reduzindo a carga cognitiva.
+  caption_style: Legendas dinâmicas, centralizadas, com cores contrastantes (estilo
+    Alex Hormozi) para enfatizar keywords como 'Create' e 'Shortcuts'.
+  pacing_curve:
+  - window: 00-05s
+    densidade: Altíssima (Estabelecimento do loop Use-Create)
+  - window: 05-12s
+    densidade: Média/Alta (Escalada de exemplos e fechamento com CTA)
+  retention_devices:
+  - Multimodal Hook (Fala + Gesto + Gráfico)
+  - Rapid Proof Cycle (Exemplos rápidos que geram desejo)
+  - Value Stacking (Promessa de 500 shortcuts no final)
+  - Micro-Reward (Cada nova imagem é um payoff visual)
+  recommendation: Modelar a estrutura 'Comando -> Resultado' usando overlays nos quadrantes
+    superiores. Manter o apresentador centralizado com alta energia. Trocar a voz/nicho,
+    mas replicar a cadência de 'Use X para criar Y' e o CTA de palavra-chave para
+    automação de direct.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T12:23:40'
+content_plan:
+  tema: Uso de agentes e automações de IA para escala de aquisição e produtividade
+  format_concept: talking-head
+  hook:
+    variants:
+    - pattern_interrupt: Gesto rápido de 'arrastar' para o lado com overlay de comando
+        de automação
+      text_overlay: 'IA Aplicada: Workflow de Aquisição'
+      spoken_open: Use este agente para criar isso.
+    - pattern_interrupt: Zoom-in súbito no rosto com overlay de logo de integração
+        (API)
+      text_overlay: Escala Real com Automação de IA
+      spoken_open: Use esta integração para gerar isso.
+    - pattern_interrupt: Corte seco para close-up com overlay de log de processamento
+      text_overlay: 'Produtividade: De Workflow a Conversão'
+      spoken_open: Use este workflow para escalar isso.
+  storyboard:
+  - beat_n: 1
+    scene: Apresentador centralizado apresenta a primeira ferramenta e o resultado
+      imediato
+    shot_type: médio
+    duration_s: 3
+    on_screen_text: 'Comando: Lead Gen Agent / Resultado: Fluxo de Leads'
+    broll: Overlay quadrante superior direito (comando) e esquerdo (resultado)
+    motion: cut
+  - beat_n: 2
+    scene: Apresentador alterna rapidamente para a segunda aplicação de IA
+    shot_type: médio
+    duration_s: 3
+    on_screen_text: 'Comando: AI Content Engine / Resultado: Grade de Conteúdo'
+    broll: Overlay quadrante superior direito (comando) e esquerdo (resultado)
+    motion: zoom-in
+  - beat_n: 3
+    scene: Apresentador demonstra a terceira e quarta automação em sequência rápida
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: 'Comando: CRM Sync / Resultado: Dashboard de Conversão'
+    broll: Overlays alternados rapidamente nos quadrantes superiores
+    motion: cut
+  - beat_n: 4
+    scene: Fechamento com CTA focado em reflexão/curiosidade sobre o sistema
+    shot_type: close
+    duration_s: 2
+    on_screen_text: Comente seu emoji favorito
+    broll: Overlay final com lista de shortcuts/ferramentas
+    motion: none
+  script: Use este agente para criar isso. Use esta integração para gerar isso. Use
+    este workflow para escalar isso e use aquela automação para converter isso. Comente
+    seu emoji favorito abaixo e eu te envio 500 shortcuts de IA aplicada como esses.
+  edit_spec:
+    zooms:
+    - Use esta integração
+    - Comente seu emoji
+    transitions:
+    - cut @ cada troca de exemplo
+    - whip @ transição para o CTA
+    inserts:
+    - Graphic overlays @ 1s, 4s, 7s, 9s
+    captions: Dinâmicas, centralizadas, cores contrastantes, enfatizando 'Agente',
+      'Escalar' e 'Conversão'
+    motion_graphics:
+    - Caixas arredondadas de comando @ 1s
+    - Imagens de resultado @ 1.5s
+    template_refs:
+      hook: hook-direct-question
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Apresentador falando com alta energia, gesticulando para os cantos superiores
+      da tela
+    framing: médio
+    audio: fala
+    props: Smartphone ou Laptop ao fundo (desfocado)
+    locacao: Escritório moderno/estúdio tech
+    falas_chave: Use este agente para criar isso
+  sound_design:
+    sfx:
+    - moment: hook
+      category: whoosh
+      intent: Introduzir o primeiro overlay
+      intensity: medium
+    - moment: beat_n:1
+      category: pop
+      intent: Sincronizar com a aparição do resultado
+      intensity: subtle
+    - moment: reveal @ 8s
+      category: notification
+      intent: Chamar atenção para o CTA
+      intensity: medium
+    music:
+      recommended: true
+      mood: uplifting
+      energy: high
+      genre: Electronic/Phonk minimalista
+      ducking: true
+      rationale: Manter a urgência e o ritmo tecnológico do vídeo
+    rationale: Sons curtos e secos que acompanham a cadência de cortes rápidos do
+      benchmark.
+  rationale: O plano modela a estrutura de 'Prova Rápida' (Comando -> Resultado) do
+    benchmark, substituindo o nicho de design por IA aplicada à aquisição (estilo
+    Oraclum). Mantém a retenção através de overlays constantes e cortes a cada 2s,
+    mas utiliza a voz do Sábio/Criador para transmitir autoridade técnica em vez de
+    apenas 'truques', focando em workflows reais de CRM e Lead Gen.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T12:24:20'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 3.0
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 1
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:24:20'

@@ -1,0 +1,86 @@
+carousel_brief:
+  slug: modeled-07-publicitarioscriativos-fdd5b8
+  tema: 'Viral Intel: 07-publicitarioscriativos-fdd5b8'
+  objetivo: autoridade
+  slide_count: 9
+  brand_config: squads/virals-marketing-squad/data/clients/virals/brand-config.yaml
+content_data:
+- slide_n: 1
+  tipo: hook
+  sub_headline: TENDÊNCIA VIRALS
+  headline: 'RECAP SEMANAL: COMUNICAÇÃO & IA'
+  body_text: ''
+  visual: imagem
+  bg_preset_url: null
+- slide_n: 2
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: DUBLADORA DE ROCHELLE É CONVIDADO PELA HAVAN PARA CAMPANHA DE DIA DAS
+    MÃES
+  body_text: A Havan aposta na memória afetiva ao trazer a voz marcante de Rochelle,
+    criando conexão imediata com o público e conduzindo uma narrativa baseada em situações
+    comuns entre mães e filhos, equilibrando humor e firmeza para revelar cuidado
+    nas falas, sem recorrer a idealizações e mantendo proximidade com a realidade
+    cotidiana.
+  visual: cor-de-marca
+  bg_preset_url: https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop
+- slide_n: 3
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: SEM TÍTULO
+  body_text: ''
+  visual: cor-de-marca
+  bg_preset_url: null
+- slide_n: 4
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: SEM TÍTULO
+  body_text: ''
+  visual: cor-de-marca
+  bg_preset_url: https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop
+- slide_n: 5
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: ADIDAS APRESENTA COLEÇÃO EXCLUSIVA COM UNIFORMES DE SELEÇÕES PARA CACHORROS
+  body_text: De olho no comportamento de consumo durante a Copa do Mundo, a Adidas
+    expande o uso das camisas para pets, lançando peças inspiradas em seleções como
+    Argentina, México, Colômbia e Japão, adaptadas para incluir os animais na experiência.
+  visual: cor-de-marca
+  bg_preset_url: null
+- slide_n: 6
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: SEM TÍTULO
+  body_text: ''
+  visual: cor-de-marca
+  bg_preset_url: https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop
+- slide_n: 7
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: RONALDINHO GAÚCHO É O NOVO EMBAIXADOR DA BIC
+  body_text: A BIC escolhe Ronaldinho Gaúcho para representar a linha Flex 3, conectando
+    carisma, futebol e cuidado pessoal em uma comunicação que destaca a suavidade
+    no barbear e preço acessível, enquanto a garantia de satisfação convida o público
+    a experimentar sem risco, reforçando confiança e incentivando teste direto do
+    produto.
+  visual: cor-de-marca
+  bg_preset_url: null
+- slide_n: 8
+  tipo: valor
+  sub_headline: MARKETING INTEL
+  headline: MARCA BRASILEIRA APRESENTA O PRIMEIRO AÇAÍ CO-CRIADO COM INTELIGÊNCIA
+    ARTIFICIAL
+  body_text: O primeiro açaí feito por inteligência artificial combina tecnologia
+    e repertório humano para transformar dados em experiência sensorial inédita, reunindo
+    ingredientes de diferentes biomas brasileiros em uma proposta que traduz diversidade,
+    enquanto a apresentação no World Creativity Day amplia a narrativa com degustações
+    e experiências imersivas.
+  visual: cor-de-marca
+  bg_preset_url: https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop
+- slide_n: 9
+  tipo: cta
+  sub_headline: AÇÃO IMEDIATA
+  headline: PRONTO PARA O PRÓXIMO NÍVEL?
+  body_text: A automação criativa é o diferencial das marcas que dominam o mercado.
+  visual: cor-de-marca
+  bg_preset_url: null

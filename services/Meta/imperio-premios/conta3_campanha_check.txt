@@ -1,0 +1,296 @@
+adsets -> 200
+{
+  "data": [
+    {
+      "id": "52635744965286",
+      "name": "Publico Aberto",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "VALUE",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "OTHER",
+        "custom_event_str": "PurchaseCatalogo",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVGFoSzBwRXdrQnNTVTM3VVo4ekRvN29FVU1HbXcwVEFrQTd4ZAUw1RjR0ZAjNJdnJwT2R3dTZAsc1NvblpkWmRwY0QtcVR2T1djdTdfajZAFbE40N20xemN3",
+      "after": "QVFIVGFoSzBwRXdrQnNTVTM3VVo4ekRvN29FVU1HbXcwVEFrQTd4ZAUw1RjR0ZAjNJdnJwT2R3dTZAsc1NvblpkWmRwY0QtcVR2T1djdTdfajZAFbE40N20xemN3"
+    }
+  }
+}
+
+insights diario -> 200
+{
+  "data": [
+    {
+      "spend": "127.89",
+      "impressions": "617",
+      "clicks": "78",
+      "actions": [
+        {
+          "action_type": "web_in_store_purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "omni_purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "link_click",
+          "value": "91"
+        },
+        {
+          "action_type": "initiate_checkout",
+          "value": "84"
+        },
+        {
+          "action_type": "offsite_purchase_add_20_s_calls",
+          "value": "50"
+        },
+        {
+          "action_type": "add_to_cart",
+          "value": "82"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_initiate_checkout",
+          "value": "84"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_custom",
+          "value": "40"
+        },
+        {
+          "action_type": "offsite_initiate_checkout_add_20_s_calls",
+          "value": "84"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_add_to_cart",
+          "value": "82"
+        },
+        {
+          "action_type": "post_reaction",
+          "value": "2"
+        },
+        {
+          "action_type": "offsite_content_view_add_20_s_calls",
+          "value": "422"
+        },
+        {
+          "action_type": "landing_page_view",
+          "value": "66"
+        },
+        {
+          "action_type": "omni_landing_page_view",
+          "value": "66"
+        },
+        {
+          "action_type": "post_engagement",
+          "value": "350"
+        },
+        {
+          "action_type": "post_interaction_gross",
+          "value": "3"
+        },
+        {
+          "action_type": "comment",
+          "value": "1"
+        },
+        {
+          "action_type": "onsite_web_app_purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "page_engagement",
+          "value": "350"
+        },
+        {
+          "action_type": "purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "onsite_web_view_content",
+          "value": "422"
+        },
+        {
+          "action_type": "onsite_web_add_to_cart",
+          "value": "82"
+        },
+        {
+          "action_type": "post_interaction_net",
+          "value": "3"
+        },
+        {
+          "action_type": "onsite_web_app_view_content",
+          "value": "422"
+        },
+        {
+          "action_type": "view_content",
+          "value": "422"
+        },
+        {
+          "action_type": "onsite_conversion.post_net_comment",
+          "value": "1"
+        },
+        {
+          "action_type": "web_app_in_store_purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "onsite_web_app_add_to_cart",
+          "value": "82"
+        },
+        {
+          "action_type": "onsite_conversion.post_net_like",
+          "value": "2"
+        },
+        {
+          "action_type": "onsite_web_initiate_checkout",
+          "value": "84"
+        },
+        {
+          "action_type": "omni_initiated_checkout",
+          "value": "84"
+        },
+        {
+          "action_type": "offsite_content_view_add_meta_leads",
+          "value": "422"
+        },
+        {
+          "action_type": "onsite_web_purchase",
+          "value": "50"
+        },
+        {
+          "action_type": "custom_event_actions_add_20_s_calls",
+          "value": "40"
+        },
+        {
+          "action_type": "offsite_add_to_cart_add_20_s_calls",
+          "value": "82"
+        },
+        {
+          "action_type": "video_view",
+          "value": "256"
+        },
+        {
+          "action_type": "omni_add_to_cart",
+          "value": "82"
+        },
+        {
+          "action_type": "omni_view_content",
+          "value": "422"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_view_content",
+          "value": "422"
+        }
+      ],
+      "action_values": [
+        {
+          "action_type": "onsite_web_app_purchase",
+          "value": "5973"
+        },
+        {
+          "action_type": "onsite_web_app_add_to_cart",
+          "value": "4123"
+        },
+        {
+          "action_type": "onsite_web_add_to_cart",
+          "value": "4123"
+        },
+        {
+          "action_type": "omni_initiated_checkout",
+          "value": "8614"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_view_content",
+          "value": "15000.5"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_add_to_cart",
+          "value": "4123"
+        },
+        {
+          "action_type": "omni_view_content",
+          "value": "15000.5"
+        },
+        {
+          "action_type": "onsite_web_initiate_checkout",
+          "value": "8614"
+        },
+        {
+          "action_type": "onsite_web_purchase",
+          "value": "5973"
+        },
+        {
+          "action_type": "add_to_cart",
+          "value": "4123"
+        },
+        {
+          "action_type": "purchase",
+          "value": "5973"
+        },
+        {
+          "action_type": "view_content",
+          "value": "15000.5"
+        },
+        {
+          "action_type": "web_app_in_store_purchase",
+          "value": "0.6"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_initiate_checkout",
+          "value": "8614"
+        },
+        {
+          "action_type": "onsite_web_view_content",
+          "value": "15000.5"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_custom",
+          "value": "1324"
+        },
+        {
+          "action_type": "onsite_web_app_view_content",
+          "value": "15000.5"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_purchase",
+          "value": "5973"
+        },
+        {
+          "action_type": "initiate_checkout",
+          "value": "8614"
+        },
+        {
+          "action_type": "omni_add_to_cart",
+          "value": "4123"
+        },
+        {
+          "action_type": "omni_purchase",
+          "value": "5973"
+        },
+        {
+          "action_type": "web_in_store_purchase",
+          "value": "5973"
+        }
+      ],
+      "date_start": "2026-10-22",
+      "date_stop": "2026-10-22"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MAZDZD",
+      "after": "MAZDZD"
+    }
+  }
+}
+

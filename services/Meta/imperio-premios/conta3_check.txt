@@ -1,0 +1,22 @@
+act_1072883085538453 -> 403 {"error": {"message": "(#200) Ad account owner has NOT grant ads_management or ads_read permission, refer to https://developers.facebook.com/docs/marketing-api/get-started/authorization/#permissions-and-features for details.", "type": "OAuthException", "code": 200, "fbtrace_id": "A_qpeXqNaQZDLQ_JFhI0o8O"}}
+
+adspixels -> 403
+{
+  "error": {
+    "message": "(#200) Ad account owner has NOT grant ads_management or ads_read permission, refer to https://developers.facebook.com/docs/marketing-api/get-started/authorization/#permissions-and-features for details.",
+    "type": "OAuthException",
+    "code": 200,
+    "fbtrace_id": "AuMpkZcpnGDVwFOq0NjFD_I"
+  }
+}
+
+campaigns -> 403
+{
+  "error": {
+    "message": "(#200) Ad account owner has NOT grant ads_management or ads_read permission, refer to https://developers.facebook.com/docs/marketing-api/get-started/authorization/#permissions-and-features for details.",
+    "type": "OAuthException",
+    "code": 200,
+    "fbtrace_id": "AoVn9OsEO6g_mcsz1Q6xVVJ"
+  }
+}
+

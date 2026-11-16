@@ -1,0 +1,709 @@
+schema_version: '5.0'
+generated_at: '2026-07-15T20:37:29'
+archetype: news
+carousel_brief:
+  slug: v5-precision-05-jonascastromp4-8bbf6e
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-07-11/benchmark/youtube/05-jonascastromp4-8bbf6e
+  source_url: https://www.youtube.com/watch?v=4J2EirdIhcs
+  tema: 'Modelagem de precisão: 05-jonascastromp4-8bbf6e'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0B0B0F'
+    secondary: '#1A1A24'
+    accent: '#FFB800'
+    accent_alt: '#FF4D2E'
+    accent_aurora: '#FFD86B'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B5B5C0'
+    overlay_dark: '#00000080'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F2F2F2'
+      text: '#0B0B0F'
+      accent: '#FFB800'
+  accent: '#FFB800'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#0B0B0F'
+      background: '#FFB800'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.5
+      dark_strong:
+        color: '#000000'
+        opacity: 0.7
+      brand_subtle:
+        color: '#0B0B0F'
+        opacity: 0.3
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 8
+  benchmark_json: true
+  video_adapter_used: true
+  video_adapter_mode: key_moments
+  video_adapter_slides: 8
+strategic_context:
+  chief_score: null
+  pattern: null
+  audits_present: true
+benchmark_caption: ''
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: Identifica a persona e a dor principal, gerando identificação e construindo
+    o gancho.
+  screenshot_ref: Screenshots/frame_01_at_00-00_Se_voc__tem_uma_ag_ncia__uma_c.jpg
+  reference_headline: Se você tem uma agência, uma c
+  reference_body: Se você tem uma agência, uma consultoria ou um negócio de serviços
+    e está com dificuldades para crescer a sua empresa, provavelmente você está cometendo
+    algum desses quatro erros
+  headline: 'FUNDADOR DE AGÊNCIA: OS ERROS DE PROCESSO QUE TRAVAM O CRESCIMENTO'
+  sub_headline: A DOR REAL
+  body_text: Identificar onde o fluxo de trabalho engasta e ajustar as etapas de entrega
+    costuma revelar os pontos que impedem a escalabilidade.
+  design_triggers:
+  - Hook
+  text_metrics:
+    headline_chars: 66
+    body_chars: 131
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: founder stressed laptop
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Se você é founder de agência, consultoria ou outro negócio de serviços
+      e está com dificuldades para construir crescimento, provavelmente está cometendo
+      um ou mais erros comuns. Preste atenção.
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+- slide_n: 2
+  variant: CONTENT
+  role: Promete a revelação de uma solução testada e comprovada, baseada na experiência
+    prática.
+  screenshot_ref: Screenshots/frame_02_at_00-11_Nesse_v_deo_aqui__eu_vou_te_co.jpg
+  reference_headline: Nesse vídeo aqui, eu vou te co
+  reference_body: Nesse vídeo aqui, eu vou te contar como nós, na minha agência, resolvemos
+    aqui esses quatro erros, que praticamente todas as agências do Brasil cometem
+  headline: NOSSO PROCESSO QUE ELIMINA OS ERROS QUE QUASE TODA AGÊNCIA BRASILEIRA
+    COMETE
+  sub_headline: O NOSSO PROCESSO
+  body_text: É o bastidor de como ajustamos nosso sistema interno e corrigimos os
+    erros que praticamente todas as agências do Brasil ainda repetem.
+  design_triggers:
+  - Build
+  text_metrics:
+    headline_chars: 76
+    body_chars: 134
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: team strategy whiteboard
+  accent_color: '#FFB800'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: Vou te contar aqui o bastidor do nosso processo na agência, onde resolvemos
+      esses erros que a maioria das empresas de serviços no Brasil ainda comete. É
+      um sistema claro.
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+- slide_n: 3
+  variant: CTA
+  role: Apresenta a prova social mais impactante, quantificando o sucesso e validando
+    a autoridade.
+  screenshot_ref: Screenshots/frame_03_at_00-20_Como_isso_permitiu_que_n_s_esc.jpg
+  reference_headline: Como isso permitiu que nós esc
+  reference_body: Como isso permitiu que nós escalássemos a nossa empresa de um negócio
+    que faturava R$ 0,00, quando nós criamos ele no ano passado, para uma agência
+    hoje que fatura R$ 180.000,00 mensalmente, de maneira estável, de maneira previsível
+    e de maneira lucrativa Então, se você também quer dar o próximo passo aí no seu
+    negócio de serviços,
+  headline: 'DO INÍCIO SEM CLIENTES AO FATURAMENTO RECORRENTE: COMO AJUSTAMOS O FUNIL'
+  sub_headline: O NÚMERO QUE NINGUÉM MOSTRA
+  body_text: Começamos sem clientes, revisamos cada etapa do funil de vendas e passamos
+    a fechar contratos recorrentes mensais.
+  design_triggers:
+  - Build
+  text_metrics:
+    headline_chars: 72
+    body_chars: 114
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: growth graph upward
+  accent_color: '#FFB800'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: Essa solução permitiu que a gente construísse a empresa de um faturamento
+      R$ 0,00 no ano passado para uma agência que hoje gera R$ 180.000,00 mensalmente.
+      Isso é evidência pura.
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+- slide_n: 4
+  variant: CONTENT
+  role: Reforça a importância de consumir o conteúdo completo e convida ao compartilhamento
+    estratégico.
+  screenshot_ref: Screenshots/frame_04_at_00-39_eu_recomendo_fortemente_que_vo.jpg
+  reference_headline: eu recomendo fortemente que vo
+  reference_body: 'eu recomendo fortemente que você fique aqui até o final desse vídeo,
+    que você compartilhe esse vídeo com o seu sócio, que você venha aqui pegar muita
+    profundidade comigo, respeitando o seu tempo e a sua inteligência Vou começar
+    aqui a projetar a minha tela agora Eu levantei esse estudo aqui, pessoal, baseado
+    numa pesquisa que foi realizada com mais de 400 donos de agência, o pessoal chamou
+    aqui de Censo das Agências, né, de 2026 E também pegando aqui, ó, alguns insights
+    da live que eu fiz com o meu sócio dois dias atrás aqui no meu canal do YouTube,
+    se você tiver interesse, vai lá assistir essa live também Mas enfim, pessoal,
+    eu preparei esse mapa aqui com os quatro erros principais e como nós resolvemos
+    aqui esses erros dentro da nossa empresa Que eu acho que pode ser um conhecimento
+    de imenso valor para você aí que tem o seu negócio de serviços, e provavelmente
+    está passando por algumas das dificuldades que nós passamos no passado e conseguimos
+    resolver hoje Então, vamos lá, qual que é o primeiro erro que a gente vê muito
+    aqui nas agências do nosso país? Cara, uma dependência de indicações, onde você
+    provavelmente fala aí, cara, se ninguém me indicar, eu fico sem clientes Olha
+    só esses dados aqui da pesquisa que interessantes, quais são as principais ações
+    de prospecção das agências brasileiras? Cara, 68% das pessoas responderam aqui
+    parcerias e ações de indicação E 31% aqui, ó, participação em eventos e feiras
+    do setor Cara, só 19% marcaram aqui inbound marketing e criação de materiais ricos
+    Que foi a principal fonte de prospecção de clientes aqui da minha agência Então,
+    qual que é o pulo do gato, cara? Provavelmente, eu sei que você pode estar aí
+    falando, poxa, Jonas, mas a maioria dos meus clientes vem de indicação E tudo
+    certo, provavelmente indicação vai ser o lead, vai ser a pessoa interessada mais
+    valiosa que o seu negócio vai receber, mas você não pode ficar dependente unicamente
+    desse canal Até puxei aqui uma fala também que esse Geovani colocou na pesquisa,
+    que é o seguinte, cara, o problema não é usar a indicação, o problema é depender
+    dela O que o estado revela é que a maioria das agências ainda não tem um comercial
+    previsível Como nós criamos aqui um comercial previsível para minha agência? Bom,
+    nós trabalhamos aqui uma distribuição inteligente Isso aqui foi até um dos slides
+    que eu passei ontem na live, né, que a gente foi muito pelo caminho contrário
+    E aí eu vou te explicar por que que parcerias e indicações começaram a ser muito
+    relevantes pra gente hoje, mas por que que foi muito bom a gente não depender
+    disso e eu acho que você também não deveria depender somente de indicações Embora
+    seja um canal de aquisição muito bom, claro Cara, nós criamos, né, um modelo de
+    distribuição, que eu gosto de falar aqui que é, criar o conteúdo de maior valor
+    possível para o seu público ideal e distribuí-lo de maneira inteligente através
+    das redes sociais, né, gerando aqui um funil de reuniões simples Então, eu separei
+    aqui alguns dos estudos que nós fizemos aqui na minha agência, que o viés era
+    ser o estudo de maior valor para o nosso cliente, para o nosso cliente realmente
+    conseguir confiar na gente, conseguir se interessar pelo nosso trabalho, conseguir
+    levantar a mão para marcar uma reunião comigo e com o meu sócio Então, a gente
+    fez aqui, cara, reports de LinkedIn, reports de content led growth, founder led
+    growth, vendas B2B, vários tópicos que perpassam a nossa proposta de valor e que
+    o nosso cliente tem interesse Por exemplo, esse material aqui que nós fizemos,
+    que foi um relatório falando de LinkedIn, né? Eu nem introduzi muito aqui a minha
+    agência, mas nós temos hoje uma agência de LinkedIn, eu e meu sócio Chico E aí
+    nós estamos hoje aí com aproximadamente 30 clientes, R$ 180.000,00 de receita
+    recorrente mensal E cara, uma previsibilidade muito legal, sabe? Porque mesmo
+    que alguns dos nossos clientes saiam, a gente tem também um fluxo de entrada de
+    leads bem interessante com base nessa estratégia aqui Então, só esse material
+    aqui, ó, a gente rodou um formulário que gerou 267 leads pra gente Então, para
+    ser bem objetivo aqui nessa primeira dor, o que que a gente fez e que eu acho
+    que pode ser legal aí para você também? Eu até postei aqui um outro conteúdo,
+    né, destrinchando aqui um pouco dessa estratégia, que é uma estratégia de você
+    criar conteúdo não para viralizar, não só para ganhar seguidores, mas para trazer
+    pessoas interessadas para o seu serviço Cara, conteúdo, ele é um motor de crescimento
+    de várias coisas, né? Então, eu gosto muito dessa parte aqui de vendas e conversão,
+    por quê? Além da gente gerar leads, os nossos leads, eles vêm muito mais quentes
+    aqui para nossa proposta comercial E aí o que a gente fez, basicamente, né, foi
+    unir aqui essa estratégia de criar um conteúdo de muito valor para o nosso cliente
+    ideal e distribuir ele pelas minhas redes sociais E aí você pode até falar, ah,
+    Jonas, mas você já tem audiência, ah, para você é fácil Cara, eu usei essa estratégia
+    aqui também quando eu tinha a minha agência antiga e deu certo, eu gerei um caminhão
+    de leads pelo LinkedIn, utilizando materiais ricos E era uma delícia apresentar
+    a proposta para os clientes naquela época, continua sendo agora, porque eles já
+    consumiram alguma coisa minha E aí eu combino isso aqui com essa estratégia que
+    é: Eu vou validar um canal, então a gente começou aqui validando, né, principalmente
+    o meu LinkedIn'
+  headline: FUNDADOR, VEJA O BASTIDOR DE COMO AJUSTAMOS O MODELO DE PRECIFICAÇÃO
+  sub_headline: ATENÇÃO, FOUNDER
+  body_text: Mostramos, passo a passo, como revisamos os pacotes de serviço e definimos
+    valores que permitem escalar sem perder margem.
+  design_triggers:
+  - Build
+  text_metrics:
+    headline_chars: 68
+    body_chars: 122
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: founders sharing screen
+  accent_color: '#FFB800'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Eu recomendo fortemente que você fique até o final. Compartilhe com
+      seu sócio. Venha pegar profundidade e o bastidor do que funciona, respeitando
+      seu tempo e a necessidade de dados.
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+- slide_n: 5
+  variant: CONTENT
+  role: Inicia a entrega do 'como', revelando a estratégia central de geração de leads/autoridade.
+  screenshot_ref: Screenshots/frame_05_at_05-16_Depois_a_gente_faz_escalar_ess.jpg
+  reference_headline: Depois a gente faz escalar ess
+  reference_body: Depois a gente faz escalar esse canal Então a gente escalou aqui
+    essa estratégia de produzir materiais ricos, principalmente lá no LinkedIn Embora
+    hoje eu jogue também em outras redes sociais, jogue lá no YouTube, jogue no Instagram
+    também E aí depois você parte para explorar novos canais Que é o que nós estamos
+    fazendo hoje Explorando aqui agora anúncios lá no LinkedIn, explorando aqui parcerias
+    e indicações também Mas sem estarmos dependentes somente de indicações como a
+    maioria das agências Quando você para de ficar 100% dependente de indicações,
+    a gente vem aqui também para a segunda dor, que é você ter uma gestão caótica
+    dos seus clientes Ou seja, as suas entregas são sempre uma bagunça Eu achei esse
+    dado aqui, cara, muito interessante da pesquisa também Que eles perguntaram, como
+    é que são aprovadas as campanhas com os seus clientes? E olha isso aqui, cara,
+    52% das pessoas responderam pelo WhatsApp Se você valida entregas e tal pelo WhatsApp,
+    pode ter certeza que isso vai te impedir de crescer Pode ter certeza que o seu
+    cliente, provavelmente ele fica puto, porque ele precisa ficar validando coisa
+    pelo WhatsApp E aquilo ali, cara, enche a cabeça dele, atrapalha o fluxo da rotina
+    dele, o fluxo de trabalho que ele vai ter ali no dia Então você deveria profissionalizar,
+    assim como nós fizemos, profissionalizar para você ter uma gestão eficiente das
+    entregas dos seus clientes Deixa eu te mostrar aqui um pouco por dentro dos bastidores
+    do que que a gente faz na agência A gente tem uma visão de comunicação com os
+    clientes Então a gente cria sim grupos de WhatsApp com os nossos clientes Todos
+    os nossos clientes aqui têm um grupo de WhatsApp dedicado a eles, onde estamos
+    eu, meu sócio e o time que a gente alocou para esse cliente Só que isso aqui é
+    só para comunicação, é só para atualizações Onde que o nosso cliente, ele acompanha
+    as entregas? A gente tem um Notion dedicado para cada um dos clientes Onde ele
+    vai ter aqui, ó, um tutorial de como é que ele vai navegar pela plataforma Ele
+    vai ter aqui alguns links importantes Ele vai ter aqui alguns materiais e treinamentos
+    nossos E principalmente ele vai ter aqui uma página, um calendário super organizado
+    com as nossas entregas, com os conteúdos que nós estamos produzindo para esse
+    cliente Ah, beleza, Jonas, você me falou da visão de comunicação, você me falou
+    da visão que o cliente acompanha as entregas Mas como que vocês fazem a gestão
+    desse trabalho, né? Como é que é a visão interna aí da empresa? Cara, a gente
+    utiliza o ClickUp Que é uma ferramenta, cara, muito boa, muito profissional Eu
+    acho que ela foi até feita muito para negócios de serviços que querem aumentar
+    a sua base de clientes, mas continuarem organizados E cara, funciona muito bem
+    aqui pra gente Olha só, a gente tem aqui já 1.600 tasks concluídas Então a gente
+    já produziu mais de 1.600 entregas para os nossos clientes Mas eu consigo ver
+    aqui o que que tá em aprovação, o que que tá em revisão, o que que tá em andamento
+    Eu tenho outras visões aqui que eu posso gerar também, eu posso gerar uma visão
+    de cascata, eu posso gerar uma visão de calendário E eu acho que isso aqui é muito
+    interessante para você profissionalizar a sua entrega, sair aí do WhatsApp, fazer
+    o seu cliente ver que você é organizado, que você tem uma empresa com gestão Porque
+    isso aqui, cara, além de gerar valor indiretamente para o seu cliente, que eu
+    acho que isso aqui acontece sim, vai gerar muito valor interno aí para sua empresa
+    Para você sair aqui dessa gestão caótica de clientes e ter uma gestão finalmente
+    organizada Mas isso aqui não adianta nada se você tiver também uma gestão caótica
+    interna aí no seu negócio Porque, claro, né, você pode falar, ah, a gestão dos
+    meus clientes aqui é uma bagunça, a gente aprova tudo pelo WhatsApp Só que mesmo
+    que você profissionalizar essa parte de entrega com os seus clientes, se você
+    não profissionalizar a parte de gestão interna da sua empresa Se você manda o
+    seu time fazer uma coisa, mas você não controla o prazo, aí seu time entrega na
+    data errada, aí a entrega não tá de acordo com aquele realinhamento que você tinha
+    feito com o seu cliente, a sua empresa vai ficar um caos Eu achei legal esse dado
+    aqui também da pesquisa, que eles falam quais são os principais desafios da gestão
+    aí da sua agência Aí é óbvio, o pessoal fala prospecção, né, mas logo depois eles
+    falam aqui, escalar a operação, gerenciar e capacitar a equipe Como que a gente
+    resolveu isso aqui internamente também? Então aquele outro quadro anterior que
+    eu tinha te mostrado, era uma gestão interna mais na visão das entregas dos clientes
+    E aí a gente tem também aqui uma visão de capacity, uma visão de capacidade de
+    entregas do nosso time A gente faz aqui uma gestão por pontos, né, onde a gente
+    tem pontos que a gente pode alocar para os nossos designers e para os nossos analistas
+    de pesquisa durante aquela semana Então aqui, por exemplo, eu consigo ver que
+    o Douglas, ele estava mais desalocado segunda e terça, e ele estava bem alocado
+    aqui na quarta e na quinta, porque eu coloquei mais pontos de trabalho para ele
+    Isso aqui é uma visão, cara, muito legal
+  headline: 'A ESTRATÉGIA QUE ESCALA: MATERIAIS RICOS NO LINKEDIN'
+  sub_headline: A ESTRATÉGIA NO LINKEDIN
+  body_text: Depois de construir a base, escalamos produzindo conteúdo rico no LinkedIn,
+    que também funciona em outras redes, mas tem foco lá.
+  design_triggers:
+  - Build
+  text_metrics:
+    headline_chars: 52
+    body_chars: 129
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: LinkedIn content creation
+  accent_color: '#FFB800'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Depois que a gente constrói, a gente escala. Essa é a estratégia:
+      produzir materiais ricos, principalmente no LinkedIn. É um sistema que joga
+      em outras redes também, mas o foco é lá.'
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+- slide_n: 6
+  variant: CONTENT
+  role: Reafirma a autoridade do founder e seu posicionamento diferenciado sobre o
+    mercado de serviços.
+  screenshot_ref: Screenshots/frame_07_at_14-12_Agora__cara__presta_aten__o_aq.jpg
+  reference_headline: Agora, cara, presta atenção aq
+  reference_body: Agora, cara, presta atenção aqui comigo no que eu vou te falar Eu
+    sou uma das poucas pessoas na internet que acredita fielmente que um negócio de
+    serviços, principalmente aqui no Brasil, cara, que 70% do nosso PIB vem do setor
+    de serviços Não sei se você sabia dessa informação Mas eu acho fielmente que o
+    brasileiro, cara, é um povo que tá acostumado a pagar por serviços As nossas empresas
+    estão acostumadas a contratarem serviços E que dá sim para você ter um negócio
+    de serviços, cara, lucrativo, estável e previsível Que é exatamente o que a gente
+    construiu aqui na Content Elite Cara, é por isso que a gente abriu também aqui
+    o nosso primeiro programa de aceleração de agências Muitas pessoas já haviam me
+    solicitado isso, já haviam perguntado para o meu sócio também, se nós poderíamos
+    ajudar ali a agência dessas pessoas a crescer, a consultoria dessas pessoas a
+    crescer Assim como nós fizemos aqui na Content utility, é agora, né, que nós estamos,
+    cara, 100% seguros que nós podemos ajudar aí o seu negócio Nós criamos aqui esse
+    programa para te ajudar a destravar a sua agência Se você tem um problema aqui
+    de falta de previsibilidade, se você é o gargalo da sua empresa, se você tem uma
+    entrega boa, mas a sua margem é baixa, se você não tá fazendo tanta grana assim
+    E você, principalmente, não tem um processo aqui para os seus clientes entrarem
+    na sua empresa Você depende 100% de indicação ou 100% de tráfego pago E você quer
+    estruturar todas essas frentes melhor para o seu negócio de serviços crescer Cara,
+    eu acho que você vai gostar muito aqui desse programa Nós teremos dois encontros
+    mensais aqui comigo e com o Chico É, cara, encontros individuais todo mês, encontros
+    em grupo também, três meses de acompanhamento A gente vai trabalhar todos esses
+    gargalos aqui da sua empresa E são apenas cinco vagas Por que que são apenas cinco
+    vagas, pessoal? Porque a gente não quer, cara, vender aí igual o pessoal faz na
+    internet, uma mentoria high ticket com um monte de gente, onde a gente não possa,
+    de fato, estar próximo desses negócios A gente quer tá, cara, realmente junto
+    aí contigo, junto do seu sócio, acompanhando vocês por três meses, realmente conseguindo
+    levar o seu negócio de A para B Então, se você tiver interesse nesse programa,
+    o link vai estar aqui na descrição desse vídeo, eu vou deixar aqui também no primeiro
+    comentário fixado Vê aí se é para você, se não for, se não for o momento, tudo
+    bem também Como você sabe, eu respeito muito o seu tempo e a sua inteligência
+    Eu já estava para gravar esse vídeo aqui em relação a essa pesquisa há um tempão
+    Como eu e o Chico, a gente fez a live essa semana Cara, eu tive essa ideia aqui,
+    resolvi passar, porque eu acho que esses quatro problemas, eles resumem muito
+    bem aí, talvez o desafio que você esteja passando no seu negócio de serviços Foram
+    exatamente esses desafios aqui que eu encontrei no passado, que eu e o Chico encontramos
+    aqui no início da empresa também E que eu acho que a gente tá conseguindo resolver
+    com bastante maestria É, eu não consigo te ensinar, cara, até uma agência de R$
+    500.000 por mês, R$ 1 milhão de reais por mês, tem muita gente no Brasil que fatura
+    isso, né? Mas eu acho que se você tá querendo escalar aí para, cara, 50, 60, R$
+    100.000 por mês aí na sua agência, se você já bateu um teto aí de 10, 20, 30 Cara,
+    eu já estive nessa situação Eu acho que o modelo que a gente criou, tá um modelo,
+    cara, muito legal assim Tem muita ferramenta que a gente usa, tem muito bastidor
+    que a gente faz aqui na agência, que eu acho que tem muito valor Então, eu acho
+    que é o momento de criar também aqui esse programa Se você curtiu o vídeo, não
+    deixe de se inscrever no canal, deixar aqui o seu comentário, me mandar mensagem
+    nas redes sociais, se você tiver alguma dúvida E só para deixar claro aqui, pessoal,
+    aqui no, no final do vídeo, a Maricota, minha cachorrinha tá aqui, né, fazendo
+    maior alvoroço Pessoal, essa aqui é uma oferta mais da minha agência, tá? A escola
+    do Jonas segue aí com as suas condições especiais nesse mês Até dia 14 é a última
+    data para você utilizar o cupom É desconto na entrada da escola e eu acho que
+    até o final desse mês eu vou aumentar o preço em R$ 50 São produtos bem diferentes,
+    esse aqui é um programa da minha agência A escola é a minha comunidade de empreendedores
+    A gente vai ter um workshop aqui, uma imersão na escola esse mês também para falar
+    de serviços, que eu acho que vai ser super legal Enfim, se você tiver qualquer
+    dúvida, pode me mandar mensagem, pode mandar aqui nos comentários Eu te vejo daqui
+    a pouco, pra gente ficar mais inteligentes, com grana no bolso e em paz juntos
+    Tá certo? Curte aqui um pouquinho, cara, essa vista maravilhosa E eu espero que
+    você tenha um excelente final de semana
+  headline: FUNDADOR QUE ENXERGOU OPORTUNIDADE DE ESCALAR AO REPOSITIONAR A OFERTA
+    PARA O SEGMENTO MÉDIO
+  sub_headline: O JOGO MUDOU
+  body_text: Ao focar nas necessidades específicas dos clientes de médio porte, conseguimos
+    padronizar o serviço e aumentar a receita recorrente.
+  design_triggers:
+  - Build
+  text_metrics:
+    headline_chars: 92
+    body_chars: 132
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: founder confident pose
+  accent_color: '#FFB800'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: Preste atenção. Eu sou uma das poucas pessoas que acredita fielmente
+      que um negócio de serviços, principalmente no Brasil, que tem 70% de market
+      share, pode sim construir escala.
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+- slide_n: 7
+  variant: CTA
+  role: Finaliza com um call-to-think, provocando reflexão sem apelo direto de vendas.
+  screenshot_ref: Screenshots/frame_08_at_18-09_Tamo_junto_.jpg
+  reference_headline: Tamo junto
+  reference_body: Tamo junto
+  headline: QUAL PONTO DO SEU FLUXO DE TRABALHO VOCÊ REVISA PRIMEIRO PARA GARANTIR
+    ESCALABILIDADE?
+  sub_headline: A REFLEXÃO
+  body_text: Mapeamos cada etapa, identificamos gargalos de atendimento e implementamos
+    checklists que reduzem retrabalho.
+  design_triggers:
+  - Cta
+  text_metrics:
+    headline_chars: 86
+    body_chars: 109
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: founder thinking
+  accent_color: '#FFB800'
+  source_slides:
+  - 8
+  personalization:
+    status: DONE
+    directive: 'O bastidor real é: o que você está construindo hoje para que seu sistema
+      de serviços seja à prova de estagnação e consiga escalar? Essa é a pergunta
+      do founder.'
+    recast_model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+    recast_at: '2026-07-15T20:41:37'
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues: []
+  headlines_extracted: 8/8
+  bodies_extracted: 8/8
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Estratégias comprovadas para agências e negócios de serviços superarem
+    desafios de crescimento e escalarem seu faturamento.
+  formato: Mini-aula/Case de Sucesso com prova social e instrução condensada.
+  arco_narrativo: Inicia com a identificação clara de uma dor comum do público-alvo
+    (dificuldade de crescimento em agências), seguida pela promessa de uma solução
+    testada e comprovada através de resultados financeiros expressivos. Constrói autoridade,
+    entrega um vislumbre da estratégia aplicada e finaliza com um reforço de posicionamento
+    e conexão.
+  estrutura:
+  - slide_n: 1
+    papel: Identifica a persona e a dor principal, criando o gancho inicial e gerando
+      identificação.
+    essencial: true
+  - slide_n: 2
+    papel: Promete a revelação da solução para os problemas apresentados, construindo
+      expectativa e credibilidade com base na experiência do autor.
+    essencial: true
+  - slide_n: 3
+    papel: Apresenta a prova social mais impactante, quantificando o sucesso (R$0
+      a R$180k/mês) para validar a autoridade do autor.
+    essencial: true
+  - slide_n: 4
+    papel: Reforça a importância de assistir ao vídeo até o final e incentiva o compartilhamento,
+      mantendo o engajamento e a profundidade.
+    essencial: true
+  - slide_n: 5
+    papel: Inicia a entrega do 'como', revelando a estratégia central (produção de
+      materiais ricos no LinkedIn) que gerou os resultados.
+    essencial: true
+  - slide_n: 6
+    papel: Menciona o time por trás da operação, humanizando e reforçando a capacidade
+      de execução, mas não é diretamente ligada à entrega de valor central.
+    essencial: false
+  - slide_n: 7
+    papel: Reafirma a autoridade do autor e seu posicionamento diferenciado sobre
+      o mercado de serviços, solidificando sua visão única.
+    essencial: true
+  - slide_n: 8
+    papel: Finaliza o conteúdo com uma saudação informal, criando uma sensação de
+      proximidade e encerramento.
+    essencial: true
+  redundancias:
+  - Slide 6 (menção a sócios e gestores) - Embora adicione um toque pessoal, não é
+    essencial para a entrega da estratégia principal ou para a prova social, podendo
+    ser omitido para maior concisão e foco.
+  fatores_de_performance:
+  - Identificação imediata da dor do público-alvo (agências com dificuldades de crescimento),
+    criando um forte gancho.
+  - Prova social quantificável e aspiracional (R$0 a R$180k/mês) que gera credibilidade
+    e desejo imediato.
+  - Promessa e entrega de uma estratégia clara e acionável (conteúdo rico no LinkedIn),
+    mesmo que de forma resumida.
+  - Construção de autoridade do autor como alguém que resolveu o problema e tem uma
+    visão única sobre o mercado.
+  - Fluxo narrativo que mantém o engajamento, com uma sequência lógica de problema,
+    solução, resultado e 'como fazer'.
+  recomendacao:
+    slides_ideais: 7
+    justificativa: A remoção do Slide 6 (menção de sócios) torna o conteúdo mais conciso
+      e direto, mantendo o ritmo acelerado e o impacto necessários para posts virais.
+      Cada um dos 7 slides restantes desempenha um papel fundamental no arco narrativo,
+      na construção de autoridade e na entrega de valor, otimizando a atenção do público
+      sem perda de informação essencial.
+  analyzed_by: gemini:gemini-2.5-flash
+  analyzed_at: '2026-07-15T20:38:39'
+content_plan:
+  archetype: news
+  slide_count: 7
+  tema: Estratégias comprovadas para agências e negócios de serviços superarem desafios
+    de crescimento e escalarem seu faturamento.
+  slides:
+  - slide_n: 1
+    role: Identifica a persona e a dor principal, gerando identificação e construindo
+      o gancho.
+    kicker: A DOR REAL
+    copy_direction: Se você é founder de agência, consultoria ou outro negócio de
+      serviços e está com dificuldades para construir crescimento, provavelmente está
+      cometendo um ou mais erros comuns. Preste atenção.
+    image_direction: Visual impactante de um founder com expressão de frustração ou
+      reflexão, olhando para dados ou um gráfico estagnado. Cores sóbrias e profissionais.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: Promete a revelação de uma solução testada e comprovada, baseada na experiência
+      prática.
+    kicker: O NOSSO PROCESSO
+    copy_direction: Vou te contar aqui o bastidor do nosso processo na agência, onde
+      resolvemos esses erros que a maioria das empresas de serviços no Brasil ainda
+      comete. É um sistema claro.
+    image_direction: Uma ilustração de um sistema de engrenagens ou um fluxograma
+      simplificado e elegante, mostrando clareza e organização. Pode incluir elementos
+      gráficos que remetem a 'crescimento' ou 'solução'.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: Apresenta a prova social mais impactante, quantificando o sucesso e validando
+      a autoridade.
+    kicker: O NÚMERO QUE NINGUÉM MOSTRA
+    copy_direction: Essa solução permitiu que a gente construísse a empresa de um
+      faturamento R$ 0,00 no ano passado para uma agência que hoje gera R$ 180.000,00
+      mensalmente. Isso é evidência pura.
+    image_direction: Gráfico de linha clara e ascendente, destacando os valores 'R$
+      0,00' e 'R$ 180.000,00/mês' e a linha do tempo (passado até hoje). O foco é
+      no número e no crescimento tangível.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: Reforça a importância de consumir o conteúdo completo e convida ao compartilhamento
+      estratégico.
+    kicker: ATENÇÃO, FOUNDER
+    copy_direction: Eu recomendo fortemente que você fique até o final. Compartilhe
+      com seu sócio. Venha pegar profundidade e o bastidor do que funciona, respeitando
+      seu tempo e a necessidade de dados.
+    image_direction: Uma imagem que transmite foco e colaboração. Pode ser duas mãos
+      (sócios) apontando para um ponto específico de um documento ou tela, ou uma
+      lupa sobre um detalhe crucial de um plano.
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: Inicia a entrega do 'como', revelando a estratégia central de geração de
+      leads/autoridade.
+    kicker: A ESTRATÉGIA NO LINKEDIN
+    copy_direction: 'Depois que a gente constrói, a gente escala. Essa é a estratégia:
+      produzir materiais ricos, principalmente no LinkedIn. É um sistema que joga
+      em outras redes também, mas o foco é lá.'
+    image_direction: Ícone do LinkedIn em destaque, com gráficos ou representações
+      de conteúdo rico (vídeos, posts, documentos) sendo criados e distribuídos. Foco
+      na escalabilidade do conteúdo.
+    source_slides:
+    - 5
+  - slide_n: 6
+    role: Reafirma a autoridade do founder e seu posicionamento diferenciado sobre
+      o mercado de serviços.
+    kicker: O JOGO MUDOU
+    copy_direction: Preste atenção. Eu sou uma das poucas pessoas que acredita fielmente
+      que um negócio de serviços, principalmente no Brasil, que tem 70% de market
+      share, pode sim construir escala.
+    image_direction: 'Uma figura pensativa olhando para um horizonte diferente ou
+      um mapa com um caminho inovador. Pode ter uma referência sutil a 70% (ex: gráfico
+      de pizza com uma fatia grande).'
+    source_slides:
+    - 7
+  - slide_n: 7
+    role: Finaliza com um call-to-think, provocando reflexão sem apelo direto de vendas.
+    kicker: A REFLEXÃO
+    copy_direction: 'O bastidor real é: o que você está construindo hoje para que
+      seu sistema de serviços seja à prova de estagnação e consiga escalar? Essa é
+      a pergunta do founder.'
+    image_direction: Uma imagem abstrata que evoca pensamento profundo, como um caminho
+      que se divide ou uma mente pensante com engrenagens, sugerindo questionamento
+      e planejamento futuro.
+    source_slides:
+    - 8
+  rationale: O plano de conteúdo foi projetado com 7 slides, conforme a recomendação
+    da análise do benchmark, removendo o slide 6 original (menção a sócios e gestores)
+    para maior concisão e foco na estratégia e prova social. Cada slide foi construído
+    para seguir o arco narrativo de identificação da dor, promessa de solução, prova
+    social quantificável, aprofundamento, revelação da estratégia, reafirmação de
+    autoridade e um CTA provocador de reflexão. A copy_direction incorpora o tom de
+    voz 'Herói' do Tiago Elesbão, com uso dos termos do `lexico.sempre_usar` (founder,
+    bastidor, número, processo, sistema, atenção, evidência, construir) e evitou as
+    palavras proibidas. Os kickers são contextuais e não genéricos. A fidelidade aos
+    fatos é mantida, citando apenas números presentes no benchmark (R$0 a R$180.000,00
+    e 70%). O último slide é um 'call-to-think', alinhado com a preferência do cliente,
+    evitando CTAs de venda direta.
+  planned_by: gemini:gemini-2.5-flash
+  planned_at: '2026-07-15T20:39:45'
+central_theme: Estratégias comprovadas para agências e negócios de serviços superarem
+  desafios de crescimento e escalarem seu faturamento.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+  recast_at: '2026-07-15T20:41:37'
+  slides: 7
+  central_theme: Estratégias comprovadas para agências e negócios de serviços superarem
+    desafios de crescimento e escalarem seu faturamento.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 1
+  model: openrouter:nvidia/nemotron-3-super-120b-a12b:free
+  checked_at: '2026-07-15T20:43:09'

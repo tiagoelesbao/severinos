@@ -1,0 +1,330 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PLAYBOOK DO BRAND FILM (P1) — campanha publicitária desmontada
+#
+# Consumido por: @film-director (`decupagem`), @image-lead (`stills`),
+#                @motion-lead (`takes`), @dop (`look`), @exec-producer (`assign`, `budget`)
+#
+# POR QUE ISTO EXISTE
+# O P1 é o pipeline mais caro e o mais fácil de estourar orçamento. Este arquivo é
+# uma campanha real desmontada passo a passo — quantos frames ela custou, quais
+# rendem várias cenas, o que a IA não consegue fazer, e onde o prompt engana.
+# É o playbook que impede a equipe de descobrir na terceira campanha o que já se
+# sabia antes da primeira.
+#
+# REGRA DE OURO (_BLUEPRINT.md §3.1): quem gera é humano. Tudo aqui alimenta a
+# direção que o operador recebe.
+#
+# Fonte: Filmboss · IA Boss, Projeto Prático Apple (10 aulas + 2 materiais escritos).
+#        Ver docs/APRENDIZADOS-CURSOS.md.
+# Status: a_validar_no_estudio — conhecimento de curso, ainda não testado no nosso pipeline.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-27'
+  squad: oraclumtech-ai-creative-studio
+  pipeline: P1 brand-film
+  aplica_tambem_em: [P4 oraclum-institucional, P6 image-lab]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. NÍVEL DE PRODUÇÃO — decide quanto processo o job carrega
+#
+# É a primeira pergunta do `brief-strategist`, antes de qualquer estimativa. O
+# mesmo gênero em níveis diferentes é outro job.
+niveis_de_producao:
+  regra: >
+    Muita técnica deste playbook só se paga no nível PROFISSIONAL. Aplicar
+    conferência frame a frame num sketch de nicho é queimar tempo do founder.
+    O `exec-producer` usa o nível para decidir quais estágios rodam completos.
+  niveis:
+  - nivel: profissional
+    o_que_e: 'Campanha para marca que exige consistência máxima, zero erro e qualidade cinematográfica'
+    cliente: 'Paga valor alto e espera perfeição absoluta'
+    consequencia: 'Todos os 8 passos, conferência frame a frame, correção em Photoshop, proporção de produto auditada'
+    nosso_caso: 'Cliente externo de cosmético, esporte, tech — o P1 cheio'
+
+  - nivel: intermediario
+    o_que_e: 'Conteúdo para rede social, vídeo corporativo, material de marketing'
+    consequencia: 'Permite mais flexibilidade criativa mantendo bom padrão. Alguns passos podem ser simplificados.'
+    nosso_caso: 'P4 institucional Oraclum, peça de social de cliente'
+
+  - nivel: iniciante
+    o_que_e: 'Conteúdo autoral, canal próprio, material educacional'
+    consequencia: 'Processo simplificado e experimental sem comprometer o resultado'
+    nosso_caso: 'P3 nicho-series, P5 dark-room, perfis próprios de farming'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. OS 8 PASSOS — e onde cada um cai nos nossos estágios
+processo_de_producao:
+  - passo: 1
+    nome: 'Preparação e referências'
+    faz: 'Mood board e coleta de referência visual. É o alicerce que determina a qualidade final.'
+    nosso_estagio: research
+  - passo: 2
+    nome: 'Criação do primeiro frame'
+    faz: 'Imagem-base com personagem, roupa, cenário e estilo cinematográfico corretos'
+    nosso_estagio: stills
+    nota: 'É o passo MAIS DEMORADO e o mais crucial. O teto de qualidade do projeto inteiro é definido aqui.'
+  - passo: 3
+    nome: 'Modificação de frames'
+    faz: 'Variações de enquadramento, cenário, close e ângulo mantendo consistência'
+    nosso_estagio: stills + character
+  - passo: 4
+    nome: 'Refinamento frame a frame'
+    faz: 'Corrigir inconsistência, remover elemento indesejado, ajustar detalhe'
+    nosso_estagio: stills
+    ferramentas: 'Photoshop (preenchimento generativo), carimbo, Freepik, regeneração seletiva'
+  - passo: 5
+    nome: 'Geração de vídeos'
+    faz: 'Frames estáticos viram take, com direção de ator (reação, expressão) e movimento de câmera'
+    nosso_estagio: takes
+  - passo: 6
+    nome: 'Edição e montagem'
+    faz: 'Organizar clipes na timeline, construir narrativa, garantir que a história flui'
+    nosso_estagio: assembly
+  - passo: 7
+    nome: 'Sound design'
+    faz: 'Três camadas: ambiência (som do local), foley (som de ação física), efeitos'
+    nosso_estagio: audio
+    nota: 'A divisão em três camadas é a mesma que o `sound-designer` deve entregar no plano de som.'
+  - passo: 8
+    nome: 'Finalização'
+    faz: 'Cor, correção de áudio, trilha, render'
+    nosso_estagio: assembly (AE → Premiere)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. ECONOMIA DE FRAMES — o achado que mais muda orçamento
+economia_de_frames:
+  numero_real_da_campanha:
+    frames_unicos: 15
+    cenas_principais: 7
+    plataformas: 3
+  principio_central: >
+    Campanha publicitária tem frames MUITO repetidos — e isso é vantagem, não
+    limitação. Duas imagens-base (uma ABERTA e uma FECHADA) resolvem 70-80% das
+    cenas do vídeo final. O resto são pequenas variações de ângulo e movimento.
+  consequencia_no_orcamento: >
+    O `exec-producer` NÃO deve orçar uma geração por cena. Deve orçar: 2 frames-base
+    caros e bem-feitos + N variações baratas. Errar isso infla a estimativa em 3-4x
+    e faz o job parecer inviável quando não é.
+  como_planejar:
+    - 'Na decupagem, marque quais planos derivam do MESMO frame-base'
+    - 'Gere os 2 frames-base com todo o cuidado — é onde o tempo deve ir'
+    - 'Trate as variações como edição, não como geração nova'
+    - 'Gere versões extras dos frames de transição — dá opção na edição'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. REGRA DE OURO DA CONSISTÊNCIA FACIAL
+#    (a mais importante deste arquivo — vale para P1, P2 e P3)
+consistencia_facial:
+  regra: >
+    SEMPRE crie primeiro a versão com o rosto DE FRENTE, olhando para a câmera.
+  por_que: >
+    A partir de uma frontal, a IA consegue gerar perfil, três-quartos e outros
+    ângulos mantendo o rosto. O caminho inverso NÃO funciona: se você começa por um
+    perfil e pede a frontal, a IA cria um rosto DIFERENTE — ela não tem informação
+    do lado que nunca apareceu, então inventa.
+  consequencia_operacional: >
+    O frame-base do personagem é sempre frontal, mesmo que nenhum plano do roteiro
+    seja frontal. Ele existe para alimentar as variações, não necessariamente para
+    entrar no corte.
+  dono: '@character-lead — entra na reference sheet como primeira vista obrigatória'
+  gate: 'gate-character.md — sheet sem vista frontal é reprovação'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. MOOD BOARD
+mood_board:
+  define_tres_coisas: [estilo de iluminação, paleta de cores, tipo de enquadramento]
+  armadilha: >
+    Mood board cheio de fotografia experimental e ângulo inusitado faz a IA
+    reproduzir ESSA estética. Seja intencional: o mood board não é uma pasta de
+    coisas bonitas, é uma instrução.
+  duas_rotas:
+    - rota: 'Banco de frames de cinema (ex.: Shot Deck)'
+      quando: 'Quando o território criativo é referência de linguagem, não de peça específica'
+    - rota: 'Extrair frames do próprio vídeo de referência'
+      quando: 'Quando existe uma peça-bússola concreta'
+      como: 'Baixar em 4K → importar no Premiere → capturar frame a frame na timeline → renomear em lote (Adobe Bridge) em sequência numérica'
+  coesao: 'Quanto mais coeso o mood board, mais consistente o resultado. Mood board disperso gera saída dispersa.'
+  nosso_estagio: research
+  dono: '@research-scout, com aprovação do @dop no `look`'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. LIMITAÇÃO REAL: A IA NÃO MUDA LENTE
+#    Testado em três plataformas. Economiza gerações desperdiçadas.
+limitacao_de_lente:
+  o_que_nao_funciona: 'Pedir mudança de lente — grande angular de baixo para cima, por exemplo'
+  testado_em:
+    - ferramenta: 'Nano Banana'
+      resultado: 'Afasta a câmera, mas não muda a perspectiva da lente'
+    - ferramenta: 'Flux Kontext'
+      resultado: 'Sem alteração significativa'
+    - ferramenta: 'Midjourney'
+      resultado: 'Aplica distorção olho-de-peixe, que não é a essência da lente pedida'
+  conclusao: >
+    Na geração atual, IA não interpreta mudança de lente. Não gaste crédito tentando.
+  o_que_fazer: >
+    Trate a lente como decisão do FRAME-BASE, não como edição posterior. O @dop
+    especifica a lente no prompt de geração original (Midjourney responde a
+    `24mm/35mm/50mm/85mm/100mm` na composição inicial) e o enquadramento derivado
+    trabalha dentro dela.
+  dono: '@dop — entra em `armadilhas_conhecidas` do Pacote de Direção'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. ARMADILHAS DE LINGUAGEM NO PROMPT
+#    Casos reais em que o prompt óbvio produziu o resultado errado.
+armadilhas_de_prompt:
+  - pediu: '"close no MacBook"'
+    a_ia_entendeu: 'FECHAR o MacBook — deletou o dispositivo da cena'
+    solucao: '"super close-up nas costas de metal do MacBook, com ela em segundo plano"'
+    licao: 'Palavra com duplo sentido em português vira ação literal. Descreva o objeto e o material, não só a distância.'
+
+  - pediu: '"em plano desfocado"'
+    a_ia_entendeu: 'Desfoque excessivo, apagando o sujeito'
+    solucao: '"em segundo plano"'
+    licao: 'Termo técnico de foto pode virar efeito exagerado. Prefira descrever a POSIÇÃO à quantidade de desfoque.'
+
+  - pediu: '"não está sorrindo"'
+    a_ia_entendeu: 'Instrução negativa ignorada — continuou sorrindo'
+    tentativa_2: '"sorridente mas sem mostrar os dentes"'
+    solucao_final: '"boca fechada mas com um sorrisinho"'
+    licao: >
+      Instrução negativa sobre expressão quase nunca funciona. Descreva
+      POSITIVAMENTE o estado facial desejado. Mesma lógica do
+      `positivo_vence_negativo` em camera-moves.yaml.
+
+  - pediu: 'Objeto específico que o modelo não reconhece (um carregador de notebook)'
+    a_ia_entendeu: 'Colocou um MacBook inteiro no lugar'
+    solucao: >
+      Estratégia de SUBSTITUIÇÃO: gerar a cena com um objeto substituto que o modelo
+      reconhece (um estojo), depois trocar o objeto por edição dirigida, com descrição
+      física detalhada — "carregador pequeno, mal enrolado, jogado no chão".
+    licao: 'Quando o modelo não conhece o objeto, não insista no prompt. Componha em duas etapas.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. IDIOMA DO PROMPT — a exceção que corrige a regra
+idioma_do_prompt:
+  regra_geral: 'Inglês para GERAÇÃO (Midjourney, Veo, Kling) — economiza processamento e é onde os modelos foram treinados'
+  excecao_confirmada: >
+    Ferramentas de MODIFICAÇÃO (Nano Banana, Flux Kontext, Seedream) entendem
+    português perfeitamente. Nesses casos o português é preferível, porque o
+    operador escreve mais rápido e com mais precisão na própria língua.
+  como_registrar_no_pacote: 'O campo `prompt` declara o idioma usado. Não é "sempre inglês" — é inglês na geração, português na edição.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 9. ELEMENTOS DE PROFUNDIDADE — o detalhe que separa amador de profissional
+profundidade:
+  tecnica: 'Elemento em primeiro plano DESFOCADO — uma planta no canto, uma luminária, um objeto lateral'
+  prompt_exemplo: '"adicione uma planta em primeiro plano desfocado no canto esquerdo"'
+  por_que_funciona: >
+    Não é só estética: guia o olhar, cria hierarquia visual e adiciona o "algo a mais"
+    que separa produção amadora de trabalho profissional.
+  nota_de_ferramenta: 'Nano Banana executa esse tipo de adição com precisão alta, mantendo personagem e cenário intactos.'
+  se_falhar: 'Trocar de ferramenta (Flux Kontext Max, Seedream 4) antes de desistir da ideia. Cada uma tem ponto forte diferente.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 10. CONFERÊNCIA ANTES DE GERAR VÍDEO
+#     Um frame com erro vira um take com erro que custa 5x mais para refazer.
+conferencia_de_frames:
+  quando: 'ANTES de qualquer geração de vídeo — é gate de passagem de `stills` para `takes`'
+  checklist:
+    - 'Conceito e composição geral'
+    - 'Anatomia: mãos, pés, contagem de dedos'
+    - 'Elementos indesejados na cena'
+    - 'Consistência entre frames'
+    - 'Detalhes de produto: logo, interface, proporção'
+  ferramentas_de_correcao:
+    - ferramenta: 'Photoshop — preenchimento generativo'
+      nota: 'Gera 3 versões da área selecionada. Hoje é o que dá melhor resultado; entende contexto e recria de forma convincente.'
+    - ferramenta: 'Carimbo tradicional'
+      nota: 'Ainda serve para correção pontual e rápida em área simples'
+    - ferramenta: 'Edição dirigida por IA (Freepik/Nano Banana)'
+      nota: 'Para ajuste que exige recompor — ex.: "as pernas estão cruzadas de forma natural, levemente para a esquerda"'
+  ja_coberto_por: 'gate-stills.md, frente B'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 11. DETALHE DE MARCA — onde o P1 se ganha ou se perde
+detalhe_de_marca:
+  problema_real: 'O logo do produto não apareceu claramente nas gerações — virou uma bolinha indistinta'
+  solucao: 'Adicionar explicitamente, controlando o tamanho: "adicione um pequeno símbolo [da marca] em cinza escuro"'
+  regra_de_tamanho: >
+    O tamanho é crucial: grande demais fica artificial e chama atenção; pequeno
+    demais perde o propósito. Discreto mas presente.
+  quando_dispensar: 'Em plano que se afasta muito, o logo perde relevância — pode sair.'
+  armadilha_de_verossimilhanca:
+    exemplo: 'MacBooks atuais NÃO têm a maçã iluminada; só modelos antigos tinham. O logo aceso ainda aparece em filme porque é visualmente atraente, mas é inconsistência temporal.'
+    licao: >
+      A IA reproduz o que viu em filme, não o produto atual. Em peça de cliente, o
+      produto precisa ser conferido contra a versão REAL que está à venda — não
+      contra a memória visual do modelo.
+    dono: '@fact-checker — é checagem de fidelidade de produto, não só de claim'
+  proporcao: >
+    Enquadramento cria ilusão de tamanho. Em trabalho para marca real, a proporção
+    do produto precisa ser conferida e corrigida (redimensionar na edição ou no
+    Photoshop). Produto fora de proporção é erro que o cliente enxerga na hora.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 12. GERAÇÃO DE VÍDEO — escolha de modelo por tipo de plano
+geracao_de_video:
+  status: a_validar_no_estudio
+  nota_repo: 'Kling via API está bloqueado (exige Access Key + Secret). Rota é WEB, operada por humano.'
+  comparacao:
+    - modelo: 'Kling 2.1 Professional'
+      frames: 'Start Frame + End Frame'
+      creditos: '35 por 5s'
+      movimento: 'Mais previsível'
+      melhor_para: 'Transição complexa que exige controle exato de onde começa e termina'
+    - modelo: 'Kling 2.5 Turbo'
+      frames: 'Apenas Start Frame'
+      creditos: '25 por 5s'
+      movimento: 'Mais natural, especialmente em ação rápida'
+      melhor_para: 'Cena simples com um único frame'
+  estrategia: >
+    2.5 Turbo para cena simples, 2.1 Professional para transição. Essa combinação
+    economizou ~30% de crédito na campanha de referência, com as duas versões
+    entregando resultado utilizável.
+  regra_de_decisao_para_o_motion_lead: >
+    A pergunta não é "qual modelo é melhor", é "este plano precisa de frame final
+    travado?". Se sim, 2.1. Se não, 2.5 e economize.
+
+  fluxo_de_eficiencia: >
+    NÃO espere um vídeo terminar para começar o próximo. Cada geração leva 2-3
+    minutos; assim que uma dispara, prepare a próxima cena. Isso muda o desenho do
+    card humano: o card de `takes` deve entregar TODOS os prompts do lote de uma vez,
+    para o operador enfileirar — não um por vez.
+
+  exemplo_de_prompt_de_movimento: >
+    "A câmera aproxima da mulher de forma sutil, lenta e suave. Ela tem uma expressão
+    natural, sorridente, usando seu notebook. Conforme vai se aproximando, vai
+    revelando detalhes e texturas realistas."
+  exemplo_com_transicao: >
+    "A câmera começa próximo do rosto da mulher, depois se afasta lentamente com
+    movimento sutil e fluido, girando suavemente até enquadrar o notebook centralizado."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 13. ORGANIZAÇÃO DE ARQUIVOS
+#     Convergiu com a numeração que o squad já usa — registrado para não divergir.
+organizacao:
+  estrutura_do_curso:
+    '00': 'Preparação — mood boards, referências, análises'
+    '01': 'Imagens geradas — por cena ou sequência'
+    '02': 'Vídeos gerados — separados por take e versão'
+    '03': 'Edição — projeto do editor, áudio, assets'
+  nossa_convencao: 'Já resolvido por _CONVENTIONS.md §1 (pastas numeradas 01-brief … 16-delivery). Não adotar a estrutura do curso — a nossa é mais granular e já está implementada.'
+  o_que_adotar:
+    - 'Numeração sequencial dos frames correspondendo à ORDEM NARRATIVA (001, 002, 003…), não à ordem de geração'
+    - 'Subpasta `archive` em vez de deletar iteração anterior'
+    - 'Gerar versões extras dos frames de transição, para ter opção na edição'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 14. POSTURA — o que fazer quando a IA erra bonito
+descoberta_feliz:
+  caso_real: >
+    Ao pedir uma vista externa da janela com o personagem de costas, a IA criou a
+    janela no mesmo ângulo da câmera. Não era o pedido — e funcionou melhor,
+    entrando na campanha final.
+  regra: >
+    Nem toda divergência é erro. Antes de descartar e regerar, avalie se o resultado
+    inesperado não resolve melhor o problema. Isso é julgamento humano e é uma das
+    razões de a geração ser humana (_BLUEPRINT.md §3.1).
+  onde_registrar: 'Campo `avaliacao.o_que_mudou_na_direcao` do Pacote de Direção — a descoberta vira técnica no próximo lote.'

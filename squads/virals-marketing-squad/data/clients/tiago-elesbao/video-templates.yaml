@@ -1,0 +1,100 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TIAGO ELESBÃO — VIDEO TEMPLATE REGISTRY (Pipeline *industrialize-video · MVC-06)
+# Catálogo de packs visuais/cinéticos para vídeo curto do perfil pessoal
+# @tiagoelesbao. Paleta preto + âmbar (de brand-config.yaml). Voz Herói/Hormozi:
+# direto, cru, bastidor — sem hype, sem floreio.
+#
+# Consumido por: plan_video_creative.py (recomenda IDs no edit_spec) e, na
+# Fase B, pelo app proprietário de vídeo (apps/video-studio · Remotion).
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "tiago-elesbao"
+  last_updated: "2026-06-20"
+  status: "active"
+  palette_ref: "brand-config.yaml (preto #0B0B0F + âmbar #FFB800)"
+
+# ── Packs de HOOK (0–3s) ────────────────────────────────────────────────────
+hook_packs:
+  - id: hook-face-snap
+    label: "Face Snap-Zoom"
+    device: snap-zoom
+    description: "Zoom no rosto, olhar direto à câmera, sem aquecimento — vai ao ponto."
+    best_for_hook_types: [pattern interrupt, bold claim]
+  - id: hook-number-hardcut
+    label: "Number Hard-Cut"
+    device: hard-cut
+    description: "Corte seco para número-âmbar GIGANTE (só se o número for real da fonte)."
+    best_for_hook_types: [bold claim]
+  - id: hook-direct-question
+    label: "Direct Question"
+    device: direct-address
+    description: "Pergunta provocadora na tela + fala 'olha isso' — abre loop."
+    best_for_hook_types: [curiosity gap, pattern interrupt]
+  - id: hook-backstage-break
+    label: "Backstage Break"
+    device: jump-cut
+    description: "Jump-cut de bastidor cru (celular > estúdio) com texto de tensão."
+    best_for_hook_types: [pattern interrupt]
+
+# ── Estilos de LEGENDA ──────────────────────────────────────────────────────
+caption_styles:
+  - id: cap-amber-pop
+    label: "Âmbar Word-Pop"
+    style: word-by-word
+    color: "#FFB800"
+    description: "Palavra-a-palavra, keyword em âmbar, peso Outfit Black."
+  - id: cap-mono-bold
+    label: "Mono Bold"
+    style: line-by-line
+    color: "#FFFFFF"
+    description: "Linhas curtas brancas, caixa-alta, direto — estilo Hormozi."
+  - id: cap-keyword-underline
+    label: "Keyword Underline"
+    style: highlight
+    color: "#FF4D2E"
+    description: "Sublinhado laranja-vermelho na palavra de urgência."
+
+# ── Packs de TRANSIÇÃO ──────────────────────────────────────────────────────
+transition_packs:
+  - id: trans-cut-dry
+    label: "Dry Cut"
+    type: cut
+    description: "Corte seco, sem firula — ritmo de quem mostra o trabalho."
+  - id: trans-speed-ramp
+    label: "Speed Ramp"
+    type: speed-ramp
+    description: "Aceleração curta entre batidas para manter tração."
+  - id: trans-push
+    label: "Push"
+    type: push
+    description: "Empurra lateral na troca de tópico."
+
+# ── Presets de MOTION GRAPHICS ──────────────────────────────────────────────
+motion_presets:
+  - id: motion-founder-lowerthird
+    label: "Founder Lower-Third"
+    kind: lower-third
+    description: "Faixa preta + 'Tiago Elesbão · Founder' em âmbar."
+  - id: motion-amber-underline
+    label: "Âmbar Underline"
+    kind: underline
+    description: "Sublinhado âmbar animado na palavra-âncora."
+  - id: motion-big-number
+    label: "Big Number"
+    kind: number
+    description: "Número-herói âmbar (Outfit Black) — só com dado real da fonte."
+
+# ── Recomendação por tipo de hook (scoring_match) ───────────────────────────
+scoring_match:
+  hook:
+    from_bold_claim: [hook-number-hardcut, hook-face-snap]
+    from_curiosity_gap: [hook-direct-question, hook-face-snap]
+    from_pattern_interrupt: [hook-face-snap, hook-backstage-break, hook-direct-question]
+  caption:
+    default: [cap-amber-pop, cap-mono-bold, cap-keyword-underline]
+  transition:
+    default: [trans-cut-dry, trans-speed-ramp, trans-push]
+  motion:
+    default: [motion-founder-lowerthird, motion-amber-underline, motion-big-number]

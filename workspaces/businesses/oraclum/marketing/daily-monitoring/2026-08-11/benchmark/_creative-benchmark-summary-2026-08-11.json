@@ -1,0 +1,169 @@
+{
+  "date": "2026-08-11",
+  "topN": 1000,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-08-12T14:15:37.552Z",
+  "finished_at": "2026-08-12T14:32:29.600Z",
+  "duration_ms": 1012048,
+  "total": 10,
+  "ok": 9,
+  "degraded": 1,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "verdict": "⚠️ 1/10 criativo(s) SEM assets reais — a análise destes é de metadados/capa, não do criativo.",
+  "results": [
+    {
+      "rank": 74,
+      "creator": "@salesclub_oficial",
+      "url": "https://www.instagram.com/salesclub_oficial/p/Db3ZJkAEY01/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\74-salesclub-oficial-cacc27",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 8
+    },
+    {
+      "rank": 77,
+      "creator": "@turbo.partners",
+      "url": "https://www.instagram.com/turbo.partners/p/Db3_M3ejkKp/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\77-turbo-partners-11df67",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 6
+    },
+    {
+      "rank": 78,
+      "creator": "@artificialintelligence.co",
+      "url": "https://www.instagram.com/artificialintelligence.co/p/Db4vOg3iQLl/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\78-artificialintelligence-co-109481",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 6
+    },
+    {
+      "rank": 80,
+      "creator": "@artificialintelligence.co",
+      "url": "https://www.instagram.com/artificialintelligence.co/p/Db5YPtZCQ5a/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\80-artificialintelligence-co-44af46",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 2
+    },
+    {
+      "rank": 81,
+      "creator": "@odavilouback",
+      "url": "https://www.instagram.com/odavilouback/p/Db29Z04RkKm/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\81-odavilouback-e122e5",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 83,
+      "creator": "@acelerai",
+      "url": "https://www.instagram.com/acelerai/p/Db329-njzHp/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\83-acelerai-89a440",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 7
+    },
+    {
+      "rank": 84,
+      "creator": "@hernanvazquezmarketing",
+      "url": "https://www.instagram.com/hernanvazquezmarketing/p/Db4C3aQj8r3/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\84-hernanvazquezmarketing-c306ae",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 10
+    },
+    {
+      "rank": 87,
+      "creator": "@thaleslaray",
+      "url": "https://www.instagram.com/thaleslaray/p/Db3AIozEf0d/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\87-thaleslaray-11b0c7",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 8
+    },
+    {
+      "rank": 90,
+      "creator": "@acelerai",
+      "url": "https://www.instagram.com/acelerai/p/Db3h9zSk-my/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\90-acelerai-292a66",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 6
+    },
+    {
+      "rank": 91,
+      "creator": "@artificialintelligence.co",
+      "url": "https://www.instagram.com/artificialintelligence.co/p/Db3ubWmkzUl/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\91-artificialintelligence-co-c8ad16",
+      "status": "degraded",
+      "status_reason": "análise não produzida — o arquivo entrega o erro no lugar do conteúdo (\"Erro Final na Visão\")",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 13
+    }
+  ]
+}

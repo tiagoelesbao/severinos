@@ -1,0 +1,64 @@
+{
+  "date": "2026-07-20",
+  "topN": 5,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-07-20T12:58:59.792Z",
+  "finished_at": "2026-07-20T13:00:06.773Z",
+  "duration_ms": 66981,
+  "total": 3,
+  "ok": 3,
+  "degraded": 0,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "verdict": "Todos os criativos processados com assets reais.",
+  "results": [
+    {
+      "rank": 1,
+      "creator": "@acelerai",
+      "url": "https://www.instagram.com/acelerai/p/Da-PKmwIIuS/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-07-20\\benchmark\\instagram\\01-acelerai-d4e003",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 8
+    },
+    {
+      "rank": 2,
+      "creator": "@anibalriveros",
+      "url": "https://www.instagram.com/anibalriveros/reel/Da_DD_pgT6D/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-07-20\\benchmark\\instagram\\02-anibalriveros-87d91e",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 3,
+      "creator": "@falajoaobranco",
+      "url": "https://www.instagram.com/falajoaobranco/p/DbA02DLlub4/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-07-20\\benchmark\\instagram\\03-falajoaobranco-054ddc",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 2
+    }
+  ]
+}

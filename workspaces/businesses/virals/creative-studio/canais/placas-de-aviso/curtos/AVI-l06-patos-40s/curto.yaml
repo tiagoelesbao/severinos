@@ -1,0 +1,38 @@
+# ═══════════════════════════════════════════════════════════════════════
+# AVI-l06-patos-40s · placa de atenção: patos atravessando
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: AVI-l06-patos-40s
+  canal: placas-de-aviso
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  consultas:
+    - {q: "country road pond countryside", etiqueta: "cenario-estrada", n: 3, exige: [road, country, pond, lake], ancora: "Se voce ver essa placa numa estrada de campo, nao e decoracao."}
+    - {q: "ducks walking in a row", etiqueta: "reativo", n: 3, exige: [duck, ducks], ancora: "Bro, pato tem placa propria?"}
+    - {q: "ducklings following mother", etiqueta: "fofo", n: 2, exige: [duckling, duck, ducks], ancora: "Eu te conto, mas antes: se voce gosta de bicho, me segue aqui."}
+    - {q: "banco:inserts-emocionais", etiqueta: "dependente", n: 1, exige: [banco], continuo: true, ancora: "E olha so esse aqui. E exatamente o que essa placa tenta evitar: bicho pequeno que atravessa em fila e nao ve o carro."}
+    - {q: "calm lake water morning", etiqueta: "payoff", n: 2, exige: [lake, pond, water], ancora: "A placa e real e existe em qualquer estrada que passe perto de lago ou acude."}
+
+  # A placa e a assinatura do canal: entra nos primeiros segundos e VOLTA antes
+  # do payoff. A seta aponta PARA ela (angulo positivo, ver placa_aviso.py).
+  camadas:
+    - {tipo: placa, pict: cuidado-bicho, larg: 0.60, pos: meio, dur: 4.2,
+       ancora: "Se voce ver essa placa numa estrada de campo, nao e decoracao."}
+    # a seta sobe para 880: em 1010 ela encostava na legenda (centrada em 1114)
+    # e as duas brigavam pelo mesmo pedaco de quadro
+    - {tipo: seta, larg: 0.30, ang: 34, pos: 880, x: 0.08, dur: 3.4,
+       atraso: 0.6, ancora: "Se voce ver essa placa numa estrada de campo, nao e decoracao."}
+    - {tipo: emoji, glifo: "⁉️", px: 230, pos: topo, dur: 2.0,
+       ancora: "Bro, pato tem placa propria?"}
+    - {tipo: gesto, gesto: seguir, px: 260, pos: baixo, dur: 2.8,
+       ancora: "Eu te conto, mas antes: se voce gosta de bicho, me segue aqui."}
+    - {tipo: emoji, glifo: "😢", px: 200, pos: topo, dur: 2.2,
+       ancora: "Ninguem avisou ele. A placa e para a gente."}
+    - {tipo: emoji, glifo: "❤️❤️❤️", px: 150,
+       pos: acima-legenda, dur: 2.6, ancora: "Se voce acha isso triste, deixa um coracao nos comentarios."}
+    - {tipo: gesto, gesto: comentar, px: 250, pos: baixo, dur: 2.6,
+       atraso: 0.5, ancora: "Se voce acha isso triste, deixa um coracao nos comentarios."}
+    - {tipo: placa, pict: cuidado-bicho, larg: 0.46, pos: meio, dur: 2.4,
+       ancora: "A placa e real e existe em qualquer estrada que passe perto de lago ou acude."}

@@ -1,0 +1,38 @@
+# Template GERADO automaticamente por generate_template_from_benchmark.py
+# (Frente A — 'criar modelo a partir do benchmark').
+# Mesclado em memória pelo design_creative.py; consumido pelo componente
+# React BenchmarkDerivedSlide (template_id_render: benchmark-derived).
+# Edição manual é permitida (este NÃO é o templates.yaml curado).
+
+id: benchmark-generic-hormozi-fc605e
+label: ✨ Layout Genérico (gerado)
+description: Headline + corpo centrados sobre fundo de marca.
+react_component: BenchmarkDerivedSlide
+template_id_render: benchmark-derived
+best_for_bench_types:
+- carousel
+- single
+- video
+preview_status: ready
+generated: true
+source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/30-hormozi-fc605e
+output_type: single
+generated_at: '2026-06-16T22:53:32'
+spec:
+  id: benchmark-generic-hormozi-fc605e
+  archetype: generic
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/30-hormozi-fc605e
+  layout:
+    cardStyle: tweet
+    cardBg: '#F2F2F2'
+    cardText: '#0B0B0F'
+    cardRadius: 36
+    align: center
+    showAvatar: false
+    showHandleRow: false
+    verified: false
+  typography:
+    bodyScale: md
+  decor:
+    glow: true
+    grain: false

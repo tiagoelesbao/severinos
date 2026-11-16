@@ -5,7 +5,13 @@ You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Devel
 ## Core Development Rules
 
 ### Agent Integration
-- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst
+- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst, @squad-creator, @squad-chief
+- Recognize Custom Squad agents:
+  - **Ops:** @virals-ops-dalio, @virals-ops-wickman, @virals-ops-kaushik, @virals-ops-hormozi-sys, @virals-ops-walker-launch, @virals-ops-chief
+  - **Marketing:** @marketing-mrbeast-mk, @marketing-garyvee-mk, @marketing-ladeira, @marketing-georgi, @marketing-fishkin-mk, @marketing-perry-marshall, @marketing-ezra-firestone, @marketing-chief
+  - **Vendas:** @virals-vendas-hormozi-sales, @virals-vendas-belfort-sales, @virals-vendas-ross-sales, @virals-vendas-blount-sales, @virals-vendas-thiago-reis, @virals-vendas-chief
+  - **Produto:** @virals-produto-cagan, @virals-produto-torres, @virals-produto-wes-bush, @virals-produto-eyal, @virals-produto-lincoln, @virals-produto-chief
+  - **Projetos:** @virals-projetos-singer, @virals-projetos-sutherland, @virals-projetos-catmull, @virals-projetos-lencioni, @virals-projetos-allen
 - Agent commands use * prefix: *help, *create-story, *task, *exit
 - Follow agent-specific workflows and patterns
 

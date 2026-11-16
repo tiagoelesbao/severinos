@@ -1,0 +1,25 @@
+{
+  "id": "benchmark_1776461353655",
+  "origin": "Viral-ETL-Engine",
+  "target_agent": "marketing-chief",
+  "workflow_ref": "benchmark-creative-analysis.yaml",
+  "content": {
+    "url": "https://www.youtube.com/watch?v=yOxAfaaPbks",
+    "platform": "youtube",
+    "assets": {
+      "video": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\ETL\\outputs\\Conteudo-Youtube-848c8f-como-plotar-indicadores-como-ifr-no-grafico-de-preco-entend\\Índice Força Relativa (IFR) no Gráfico - Indicador Programação Profitchart.mp4",
+      "audio": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\ETL\\outputs\\Conteudo-Youtube-848c8f-como-plotar-indicadores-como-ifr-no-grafico-de-preco-entend\\Índice Força Relativa (IFR) no Gráfico - Indicador Programação Profitchart.mp3",
+      "frames_path": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\ETL\\outputs\\Conteudo-Youtube-848c8f-como-plotar-indicadores-como-ifr-no-grafico-de-preco-entend\\Screenshots",
+      "frames_count": 128
+    },
+    "output_dir": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\ETL\\outputs\\Conteudo-Youtube-848c8f-como-plotar-indicadores-como-ifr-no-grafico-de-preco-entend",
+    "metadata": {
+      "timestamp": "2026-04-17T21:29:13.655Z",
+      "content_index": 1,
+      "workflow_ref": "benchmark-creative-analysis.yaml",
+      "status": "ready_for_video_audit"
+    }
+  },
+  "status": "analysis_complete",
+  "consumed": true
+}

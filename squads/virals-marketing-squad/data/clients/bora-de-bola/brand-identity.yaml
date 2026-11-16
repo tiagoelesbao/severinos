@@ -1,0 +1,23 @@
+# Bora de Bola — Brand Identity
+identidade:
+  nome: "Bora de Bola"
+  tipo: "canal dark de futebol"
+  tese: >
+    Plantão de futebol brasileiro que chega primeiro e diz o que aconteceu, com
+    fonte citada em voz alta. A embalagem é agressiva; o conteúdo entrega o que
+    o título prometeu.
+  avatar: >
+    Homem, 18 a 45, torcedor de clube grande, consome futebol pelo celular várias
+    vezes ao dia. Parcela relevante acompanha odds e mercado de aposta.
+voz:
+  tom: "plantão — direto, rápido, sem opinião de torcida"
+  pessoa: "terceira; o canal informa, não torce"
+  proibido:
+    - declaração entre aspas que não exista literalmente na fonte
+    - '"fontes internas" sem fonte real'
+    - termo que desqualifique pessoa identificada
+regra_de_fonte:
+  principio: "A curiosidade pode ser nossa. O fato tem que ser deles."
+  padroes_liberados: [A, B1, B2]
+  padrao_bloqueado: B3
+detalhes_completos: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/channel-brief.yaml"

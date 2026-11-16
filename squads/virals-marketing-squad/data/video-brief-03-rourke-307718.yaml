@@ -1,0 +1,435 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:09:18'
+media_kind: video
+video_brief:
+  slug: video-03-rourke-307718
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\03-rourke-307718
+source:
+  creator: '@rourke'
+  platform: instagram
+  url: https://www.instagram.com/rourke/reel/DcBsFvrJJM7/
+  type: video-short
+  caption: 'AI can do all these VFX 🧟🔥
+
+
+    Comment “AI” to try it yourself on Magnific!
+
+
+    Seedance 2.5 lets you take real filmed footage and change the background, relight
+    the scene, add props, extras and full CGI elements without hiring a crew. Full
+    creative control over the look of a shot after it’s already been captured, right
+    down to the colour grade. Genuinely huge for filmmakers, advertisers and creators
+    making big-budget visuals on small budgets.
+
+
+    #Seedance25 #AIVFX #AIFilmmaking #VFXWithAI #CreativeAI'
+metadata:
+  view_count: null
+  like_count: 13332
+  comment_count: null
+  duration_seconds: 53
+  cut_timestamps:
+  - 20.27
+  - 20.3
+  - 23.73
+  - 25.07
+  - 26.6
+  - 26.63
+  - 44.43
+hook_raw: Ah!
+transcript:
+- start: 0
+  end: 3
+  text: Ah!
+- start: 3
+  end: 6
+  text: The days of putting makeup on actors are gone
+- start: 6
+  end: 8
+  text: Now, if you have an idea, you can make it
+- start: 8
+  end: 15
+  text: Hundreds of extras and VFX artists in a single generation
+- start: 15
+  end: 20
+  text: So, here's how you can do this, and I'll tell you how much it costs at the
+    end of the video
+- start: 20
+  end: 23
+  text: First, you need to restyle a background to get the look that you're going
+    for
+- start: 23
+  end: 26
+  text: Then, you need to create your character sheets to fit the environment
+- start: 26
+  end: 31
+  text: Upload all of that into crawl, including your original video footage and even
+    describe the scene
+- start: 31
+  end: 34
+  text: This will give you a prompt that we can now use
+- start: 34
+  end: 44
+  text: And we can take all of this to Magnific with CRs 2.5 and paste your prompt
+    in here, and you can adjust the duration of your video to be one second longer
+    than the original video input
+- start: 44
+  end: 49
+  text: You won't get the perfect video straight away, however, after a couple of
+    generations, you'll get something like this
+- start: 49
+  end: 53
+  text: So, if you want to try it out, type AI in the comments and I'll send you a
+    link
+frames:
+- file: Screenshots/frame_01_at_00-00_Ah_.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-06_Now__if_you_have_an_idea__you_.jpg
+  timestamp: 00:06
+  t_seconds: 6
+- file: Screenshots/frame_03_at_00-20_First__you_need_to_restyle_a_b.jpg
+  timestamp: 00:20
+  t_seconds: 20
+- file: Screenshots/frame_04_at_00-31_This_will_give_you_a_prompt_th.jpg
+  timestamp: 00:31
+  t_seconds: 31
+- file: Screenshots/frame_05_at_00-49_So__if_you_want_to_try_it_out_.jpg
+  timestamp: 00:49
+  t_seconds: 49
+beats:
+- n: 1
+  start: 0
+  end: 6
+  text: Ah! The days of putting makeup on actors are gone
+  role: hook
+- n: 2
+  start: 6
+  end: 20
+  text: Now, if you have an idea, you can make it Hundreds of extras and VFX artists
+    in a single generation So, here's how you can do this, and I'll tell you how much
+    it costs at the end of the video
+  role: build
+- n: 3
+  start: 20
+  end: 31
+  text: First, you need to restyle a background to get the look that you're going
+    for Then, you need to create your character sheets to fit the environment Upload
+    all of that into crawl, including your original video footage and even describe
+    the scene
+  role: build
+- n: 4
+  start: 31
+  end: 49
+  text: This will give you a prompt that we can now use And we can take all of this
+    to Magnific with CRs 2.5 and paste your prompt in here, and you can adjust the
+    duration of your video to be one second longer than the original video input You
+    won't get the perfect video straight away, however, after a couple of generations,
+    you'll get something like this
+  role: build
+- n: 5
+  start: 49
+  end: 53
+  text: So, if you want to try it out, type AI in the comments and I'll send you a
+    link
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 12
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-00_Ah_.jpg
+    shot_type: broll
+    on_screen_text: 'Original Video
+
+      AI Video
+
+      Behind The Scenes'
+    has_captions: false
+  - file: frame_02_at_00-06_Now__if_you_have_an_idea__you_.jpg
+    shot_type: broll
+    on_screen_text: 'Original Video
+
+      AI Video
+
+      Behind The Scenes'
+    has_captions: false
+  - file: frame_03_at_00-20_First__you_need_to_restyle_a_b.jpg
+    shot_type: broll
+    on_screen_text: 'Original Video
+
+      AI Video
+
+      Behind The Scenes'
+    has_captions: false
+  - file: frame_04_at_00-31_This_will_give_you_a_prompt_th.jpg
+    shot_type: screen_capture
+    on_screen_text: 'Claude
+
+      Make this mall look abandoned and post apocalyptic...'
+    has_captions: false
+  - file: frame_05_at_00-49_So__if_you_want_to_try_it_out_.jpg
+    shot_type: talking_head
+    on_screen_text: 'Total Cost: $400'
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.2
+    screen_capture: 0.2
+    broll: 0.6
+    graphic: 0.0
+  caption_style_seen: ''
+  text_overlay_style: 'Texto branco sans-serif, limpo e moderno, usado para rotular
+    seções (ex: "Original Video") e destacar informações-chave (ex: "Total Cost: $400").'
+  visual_hook_device: O gancho visual imediato é a comparação em painéis múltiplos
+    ("Original Video", "AI Video", "Behind The Scenes") que mostra uma transformação
+    dramática e o processo por trás dela, gerando curiosidade.
+  broll_density: high
+  edit_style_notes: '[''Uso frequente de tela dividida em três painéis para exibir
+    simultaneamente o vídeo original, a versão gerada por IA e os bastidores da gravação.'',
+    ''Cortes rápidos e ângulos variados dentro das seções de b-roll para manter o
+    interesse visual e destacar a ação ou a transformação.'', ''Overlays de texto
+    estratégicos e concisos para rotular seções e apresentar dados importantes, aumentando
+    a clareza sem sobrecarregar a tela.'']'
+  palette:
+  - '#1A1A1A'
+  - '#FFFFFF'
+  - '#B89C7A'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:10:09'
+benchmark_analysis:
+  hook_type: bold claim
+  pattern_interrupts:
+  - t: 0
+    device: visual multi-panel comparison
+    text: Ah! The days of putting makeup on actors are gone
+  - t: 6
+    device: screen capture transition
+    text: Now, if you have an idea, you can make it
+  - t: 20
+    device: b-roll process demonstration
+    text: First, you need to restyle a background
+  cut_cadence:
+    avaliacao: Excelente. A média de 6.62s por segmento é segura, mas o DNA visual
+      de alta densidade de b-roll (60%) sugere que as micro-trocas de frame ocorrem
+      internamente a cada 1.5-2s, cumprindo o checkpoint de retenção de 2026.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 8
+    segments: 8
+    duration_s: 53.0
+    avg_segment_s: 6.62
+  broll_strategy: 'Uso de ''Visual Proof''. O b-roll não é decorativo, é funcional:
+    ele demonstra o workflow (restyling, character sheets, Magnific) simultaneamente
+    à explicação técnica, eliminando a fadiga cognitiva de apenas ouvir uma instrução.'
+  caption_style: Modern Sans-serif, clean, high-contrast white text, used for labeling
+    workflow stages and key data points to reinforce the technical authority.
+  pacing_curve:
+  - window: 00-06s
+    densidade: altíssima (shock/impact)
+  - window: 06-31s
+    densidade: média-alta (tutorial/instructional)
+  - window: 31-49s
+    densidade: alta (rapid demonstration)
+  - window: 49-53s
+    densidade: baixa (conversion/cta)
+  retention_devices:
+  - 'Open Loop: ''I''ll tell you how much it costs at the end'''
+  - 'Visual Transformation: Before vs After via split-screen'
+  - 'Value Escalation: De simples ideia para execução complexa com ferramentas específicas'
+  - 'Micro-payoffs: Demonstração visual imediata de cada ferramenta citada'
+  recommendation: Modelar a estrutura de 'Promessa de Economia/Mudança de Paradigma'
+    + 'Open Loop de Custo'. Manter o arco de demonstração de ferramenta (Problem ->
+    Tool -> Result), mas trocar a voz para a do cliente, garantindo que o b-roll (60%)
+    acompanhe exatamente o que é dito para manter a densidade de informação visual.
+  analyzed_by: openrouter:google/gemma-4-26b-a4b-it:free
+  analyzed_at: '2026-08-17T12:10:27'
+content_plan:
+  tema: A substituição de produções complexas de VFX por workflows de IA aplicada
+  format_concept: tutorial
+  hook:
+    variants:
+    - pattern_interrupt: 'Tela dividida em 3 painéis: Vídeo Original | IA Processada
+        | Log do Workflow'
+      text_overlay: VFX e maquiagem via IA
+      spoken_open: A era de gastar com maquiagem e VFX mudou.
+    - pattern_interrupt: Corte rápido entre imagem bruta e resultado final hiper-realista
+      text_overlay: 'IA aplicada: Ideia vira execução'
+      spoken_open: Se você tem uma ideia, agora você consegue executar.
+    - pattern_interrupt: Zoom rápido em um prompt de texto transformando-se em cena
+        complexa
+      text_overlay: Workflow de VFX em escala
+      spoken_open: Centenas de extras e VFX em uma única geração.
+  storyboard:
+  - beat_n: 1
+    scene: Hook de impacto visual
+    shot_type: insert
+    duration_s: 6
+    on_screen_text: VFX vs IA aplicada
+    broll: Multi-panel comparison (Original vs AI vs BTS)
+    motion: cut
+  - beat_n: 2
+    scene: A demonstração de escala
+    shot_type: médio
+    duration_s: 14
+    on_screen_text: Workflow de Produtividade
+    broll: Screen capture de geração de múltiplos personagens/extras
+    motion: zoom-in
+  - beat_n: 3
+    scene: 'Passo 1: Restyling de Background'
+    shot_type: insert
+    duration_s: 11
+    on_screen_text: 'Passo 1: Background Restyling'
+    broll: Workflow de alteração de cenário via software de IA
+    motion: whip
+  - beat_n: 4
+    scene: 'Passo 2: Character Sheets e Crawl'
+    shot_type: insert
+    duration_s: 18
+    on_screen_text: 'Passo 2: Character Sheets'
+    broll: Demonstração de character sheets sendo integradas ao Crawl
+    motion: cut
+  - beat_n: 5
+    scene: Finalização com Magnific e interação
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: Interface Magnific
+    broll: Interface do Magnific ajustando a duração do vídeo
+    motion: none
+  script: A era de gastar com maquiagem e VFX mudou. Agora, se você tem uma ideia,
+    você consegue executar. Centenas de extras e VFX artists em uma única geração
+    de IA aplicada. Vou te mostrar o workflow prático para fazer isso, e no final
+    eu conto quanto custa. Primeiro, você faz o restyling do background para alcançar
+    a estética desejada. Depois, cria as character sheets para o ambiente. Sobe tudo
+    isso no Crawl, incluindo seu vídeo original, e descreve a cena. Isso gera o prompt
+    que vamos usar. Levamos tudo para o Magnific com CRs 2.5, colamos o prompt e ajustamos
+    a duração do vídeo para um segundo a mais que o original. Se quiser testar esse
+    workflow de produtividade, comente IA que eu te envio o link.
+  edit_spec:
+    zooms:
+    - ao mencionar 'centenas de extras'
+    - no momento de colar o prompt no Magnific
+    transitions:
+    - whip transition @ 20s
+    - cut @ 31s
+    - cut @ 49s
+    inserts:
+    - comparativo visual @ 0s
+    - screen capture workflow @ 20s
+    - demonstração character sheets @ 31s
+    - interface Magnific @ 40s
+    captions: Modern Sans-serif, branco, alto contraste, centralizado, labels para
+      etapas do workflow
+    motion_graphics:
+    - Seta indicando o campo de prompt @ 42s
+    - Label 'Custo' surgindo no final @ 49s
+    template_refs:
+      hook: hook-number-hardcut
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Talking head técnico
+    framing: médio
+    audio: fala
+    props: Microfone de lapela, setup tecnológico ao fundo
+    locacao: Estúdio/Escritório Oraclum
+    falas_chave: A era de gastar com maquiagem e VFX mudou
+  - plano: Captura de tela workflow IA
+    framing: close
+    audio: fala
+    props: Software de IA
+    locacao: Digital
+    falas_chave: Sobe tudo isso no Crawl
+  sound_design:
+    sfx:
+    - moment: hook
+      category: impact
+      intent: marcar a quebra de paradigma
+      intensity: strong
+    - moment: beat_n:3
+      category: whoosh
+      intent: transição entre etapas do workflow
+      intensity: medium
+    - moment: reveal @ 42s
+      category: click
+      intent: confirmar ação de colar prompt
+      intensity: subtle
+    - moment: CTA
+      category: notification
+      intent: estimular comentário
+      intensity: medium
+    music:
+      recommended: true
+      mood: uplifting
+      energy: medium
+      genre: electronic corporate tech
+      ducking: true
+      rationale: Manter o ritmo de 'inovação e construção' do arquétipo do Criador/Sábio
+    rationale: SFX ancorados em ações técnicas para reforçar a natureza pragmática
+      do serviço
+  rationale: O plano segue a estrutura de 'Demonstração Técnica -> Workflow Prático'.
+    Substitui termos de exagero pela voz da Oraclum (Sábio/Criador), focando em 'workflow',
+    'IA aplicada' e 'produtividade'. Remove fabricação de dados e substitui o CTA
+    por um call-to-think/interação técnica, garantindo que a prova seja o sistema
+    rodando.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T12:11:29'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 1
+  model: openrouter:openrouter/free
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 10.6
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 2
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:11:45'

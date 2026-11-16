@@ -1,0 +1,168 @@
+<meta charset="utf-8"><title>Estilos de thumb — canal estoico</title>
+<style>
+ :root{--prof:#0A0908;--fundo:#12100D;--ouro:#E3B04B;--tinta:#F4EFE6;
+       --fraca:#9a9086;--linha:#2a241c}
+ *{margin:0;padding:0;box-sizing:border-box}
+ body{background:var(--prof);color:var(--tinta);
+      font:400 15px/1.65 "Segoe UI",system-ui,sans-serif;padding:38px}
+ h1{font-size:31px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+ .sub{color:var(--fraca);max-width:80ch;margin-bottom:16px}
+ .copy{border-left:3px solid var(--ouro);padding:12px 16px;margin-bottom:14px;
+       background:rgba(227,176,75,.06);max-width:80ch}
+ .copy b{color:var(--ouro)}
+ pre.rel{background:#080706;border:1px solid var(--linha);border-radius:10px;
+     padding:16px 18px;margin-bottom:30px;max-width:80ch;overflow-x:auto;
+     font:400 13px/1.6 ui-monospace,Consolas,monospace;color:#cfc6b8}
+ .e{border:1px solid var(--linha);border-radius:14px;background:var(--fundo);
+    padding:20px;margin-bottom:22px}
+ .cab{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+ .cod{font:800 12px/1 ui-monospace,monospace;letter-spacing:.12em;color:var(--ouro);
+      border:1px solid #4a3d1e;padding:6px 9px;border-radius:5px}
+ h2{font-size:19px;font-weight:700;letter-spacing:-.01em}
+ .par{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+ .big{width:620px;border-radius:8px;display:block}
+ .feed{width:200px}
+ .fake{width:168px}
+ .fake img{width:168px;height:94px;object-fit:cover;border-radius:6px;display:block}
+ .fake .tt{font:600 13px/1.3 "Segoe UI",sans-serif;margin-top:6px;color:#fff}
+ .fake .mt{color:var(--fraca);font-size:11px;margin-top:3px}
+ .nota{color:var(--fraca);font-size:12px;margin-top:14px;line-height:1.5}
+ .pq{color:var(--fraca);margin-top:16px;max-width:92ch;font-size:14.5px}
+ .sec{font-size:23px;margin:38px 0 8px;border-top:1px solid var(--linha);padding-top:26px}
+ table{border-collapse:collapse;width:100%;margin-bottom:26px;font-size:13.5px}
+ th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--linha);
+       vertical-align:top}
+ th{color:var(--fraca);font-weight:600;font-size:12px;text-transform:uppercase;
+    letter-spacing:.06em}
+ .cod2{font:800 12px ui-monospace,monospace;color:var(--ouro)}
+ .tit{max-width:46ch}
+ /* O trecho DEPOIS do caractere 55 aparece apagado: é o que o feed não mostra.
+    Ver o corte é mais convincente que ler que ele existe. */
+ .corte{color:#5d564d}
+ tr.mau td{background:rgba(180,60,40,.10)}
+ .obs{color:var(--fraca);font-size:12.5px}
+ table.seo th{width:170px}
+ code{font:400 13px/1.55 ui-monospace,Consolas,monospace;color:#e6dccb;
+      background:#080706;border:1px solid var(--linha);border-radius:6px;
+      padding:8px 10px;display:block;white-space:pre-wrap}
+</style>
+<h1>Embalagem — LA3 · "O tempo que ainda sobra"</h1>
+<p class="sub">Canal Modern Estoicism. Título, thumb e SEO na mesma folha, porque
+são a mesma decisão. O gate é a coluna <b>pilares antes do corte</b>: pilar
+depois do caractere 55 existe no analytics e não existe para quem rola a tela.</p>
+<div class="copy"><b>Título:</b> EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | 6 práticas estoicas sobre o tempo<br><b>Thumb:</b> NENHUMA DELAS É ACORDAR CEDO</div>
+<pre class="rel">EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | 6 práticas estoicas sobre o tempo
+  88 caracteres · nota 100/100 · risco A
+  imediatismo  sim  prazo: em \d+ (minutos?|horas?|dias?|segundos?|semanas?)
+  curiosidade  sim  contra_expectativa: ninguem 
+  resolucao    sim  beneficio: recupera
+  thumb        0% das palavras repetem o titulo</pre>
+
+<h2 class="sec">Candidatos de título</h2>
+<p class="sub">Pontuados na hora por <code style="display:inline;padding:2px 6px">
+apps/regra-de-3/pilares.py</code>. A parte apagada do título é o que o feed corta.</p>
+<table>
+ <tr><th></th><th>Título</th><th>Car.</th><th>Nota</th><th>Risco</th>
+     <th>Pilares<br>antes do corte</th><th>Observação</th></tr>
+ <tr><td class='cod2'>C1</td><td class='tit'>EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | <span class='corte'>6 práticas estoicas sobre o tempo</span></td><td>88</td><td>100/100</td><td>A</td><td>3/3</td><td class='obs'>recomendado</td></tr><tr><td class='cod2'>C2</td><td class='tit'>QUANTO DO SEU DIA NÃO É SEU? em 7 dias você recupera ho<span class='corte'>ras | práticas estoicas sobre o tempo</span></td><td>92</td><td>100/100</td><td>B1</td><td>3/3</td><td class='obs'>B1 — pergunta; o nicho pergunta pouco</td></tr><tr><td class='cod2'>C3</td><td class='tit'>O QUE SÊNECA FAZIA TODO DIA PARA NÃO PERDER TEMPO — 6 p<span class='corte'>ráticas estoicas sobre o tempo</span></td><td>85</td><td>100/100</td><td>A</td><td>3/3</td><td class='obs'>nota cheia, mas afirma rotina de Sêneca que o roteiro não sustenta</td></tr><tr><td class='cod2'>C4</td><td class='tit'>EM 7 DIAS: 6 práticas estoicas para o tempo que ninguém<span class='corte'> te ensina</span></td><td>65</td><td>100/100</td><td>A</td><td>3/3</td><td class='obs'>curto e limpo; não traz a frase-alvo inteira</td></tr><tr><td class='cod2'>C5</td><td class='tit'>COMECE HOJE: 6 práticas estoicas para não perder mais o<span class='corte'> seu tempo</span></td><td>65</td><td>100/100</td><td>A</td><td>3/3</td><td class='obs'>idem C4, com imperativo no lugar do prazo</td></tr><tr><td class='cod2'>C6</td><td class='tit'>EM 7 DIAS VOCÊ RECUPERA O TEMPO QUE NINGUÉM TE DEVOLVE<span class='corte'></span></td><td>54</td><td>100/100</td><td>A</td><td>3/3</td><td class='obs'>cabe INTEIRO antes do corte; zero palavra de SEO — candidato a A/B</td></tr><tr class='mau'><td class='cod2'>C7</td><td class='tit'>EM 7 DIAS VOCÊ VÊ O QUE ROUBA AS SUAS HORAS — e recuper<span class='corte'>a o que dá para recuperar</span></td><td>80</td><td>80/100</td><td>A</td><td>2/3</td><td class='obs'>perde um pilar depois do corte</td></tr><tr class='mau'><td class='cod2'>C8</td><td class='tit'>PARE DE PERDER O SEU DIA: em 7 dias você recupera horas<span class='corte'> que ninguém devolve</span></td><td>75</td><td>75/100</td><td>A</td><td>2/3</td><td class='obs'>perde um pilar depois do corte</td></tr><tr class='mau'><td class='cod2'>—</td><td class='tit'>6 RITUAIS SECRETOS QUE OS ESTÓICOS USAVAM PARA LIDAR CO<span class='corte'>M A ANSIEDADE (EFEITO IMEDIATO)</span></td><td>86</td><td>75/100</td><td>A</td><td>2/3</td><td class='obs'>PUBLICADO — a régua aplicada ao que já está no ar (CTR 2,4%)</td></tr>
+</table>
+
+<h2 class="sec">Pacote de SEO</h2>
+<p class="sub">Sem dado de volume de busca — não há ferramenta de SEO configurada
+neste repositório. As palavras vêm da <b>observação dos títulos dos canais de
+referência</b>, não de medição.</p>
+<table class="seo">
+ <tr><th>Frase-alvo</th><td><code>práticas estoicas sobre o tempo</code><br>
+   <span class="obs">tem de aparecer no título, nos primeiros 150 caracteres da
+   descrição e na primeira tag — está nos três.</span></td></tr>
+ <tr><th>Descrição<br><span class="obs">primeiros 150</span></th>
+   <td><code>6 práticas estoicas sobre o tempo, cada uma com um desafio de 7 dias. Nenhuma delas é acordar mais cedo: todas são sobre parar de perder o tempo que você já tem.</code><br><span class="obs">161 caracteres; o corte da busca cai
+   dentro da segunda frase.</span></td></tr>
+ <tr><th>Tags</th><td><code>práticas estoicas sobre o tempo, estoicismo sobre o tempo, sêneca sobre o tempo, como não perder tempo estoicismo, sêneca a brevidade da vida, marco aurélio tempo, filosofia estoica tempo, como organizar o tempo estoicismo, parar de procrastinar estoicismo, adiamento sêneca, reflexões estoicas, práticas estoicas, hábitos estoicos, estoicismo diário, cartas a lucílio, sêneca, marco aurélio, epicteto, estoicismo</code><br>
+   <span class="obs">19 tags · 413 caracteres · da mais específica para a mais
+   genérica.</span></td></tr>
+</table>
+<p class="sub">Descrição completa, capítulos e fontes:
+<code>apps/canal-estoico/EMBALAGEM-LA3-tempo.md</code></p>
+
+
+<h2 class="sec">Estilos de thumb</h2>
+<p class="sub">A mesma copy <b>e a mesma foto</b> nos cinco desenhos. Comparar
+estilo com copy diferente não compara estilo — compara copy. Cada um aparece
+grande e a <b>168&nbsp;px</b>, que é o tamanho do feed.</p>
+
+<article class="e">
+  <div class="cab"><span class="cod">E1</span><h2>Sans monumental · figura à esquerda</h2></div>
+  <div class="par">
+    <img class="big" src="E1.png" alt="">
+    <div class="feed">
+      <div class="fake"><img src="E1.png" alt="">
+        <div class="tt">EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | …</div>
+        <div class="mt">Modern Estoicism · 12 mil visualizações · há 2 dias</div>
+      </div>
+      <p class="nota">168&nbsp;px — o tamanho real no feed do celular.<br>
+      Se a linha dourada não se lê aqui, ela não existe.</p>
+    </div>
+  </div>
+  <p class="pq">O desenho mais comum do nicho (print 91). Anton pesado, texto encostado à esquerda do bloco direito, uma linha dourada e nada mais. É o que menos depende da foto — funciona com qualquer busto.</p>
+</article>
+<article class="e">
+  <div class="cab"><span class="cod">E2</span><h2>Serifada clássica · figura à direita</h2></div>
+  <div class="par">
+    <img class="big" src="E2.png" alt="">
+    <div class="feed">
+      <div class="fake"><img src="E2.png" alt="">
+        <div class="tt">EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | …</div>
+        <div class="mt">Modern Estoicism · 12 mil visualizações · há 2 dias</div>
+      </div>
+      <p class="nota">168&nbsp;px — o tamanho real no feed do celular.<br>
+      Se a linha dourada não se lê aqui, ela não existe.</p>
+    </div>
+  </div>
+  <p class="pq">O registro de The Stoic Mode (prints 94/95): Playfair 900, figura à direita olhando para o texto. A serifada envelhece a peça de propósito — é a diferença entre 'dica' e 'doutrina'.</p>
+</article>
+<article class="e">
+  <div class="cab"><span class="cod">E3</span><h2>Sans com filete dourado</h2></div>
+  <div class="par">
+    <img class="big" src="E3.png" alt="">
+    <div class="feed">
+      <div class="fake"><img src="E3.png" alt="">
+        <div class="tt">EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | …</div>
+        <div class="mt">Modern Estoicism · 12 mil visualizações · há 2 dias</div>
+      </div>
+      <p class="nota">168&nbsp;px — o tamanho real no feed do celular.<br>
+      Se a linha dourada não se lê aqui, ela não existe.</p>
+    </div>
+  </div>
+  <p class="pq">O E1 com o risco dourado sob a linha-chave, como o print 92. O filete dá chão para o texto que flutua sobre o mármore e reforça o dourado sem gastar uma segunda palavra nele.</p>
+</article>
+<article class="e">
+  <div class="cab"><span class="cod">E4</span><h2>Serifada em três linhas · palavra dourada isolada</h2></div>
+  <div class="par">
+    <img class="big" src="E4.png" alt="">
+    <div class="feed">
+      <div class="fake"><img src="E4.png" alt="">
+        <div class="tt">EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | …</div>
+        <div class="mt">Modern Estoicism · 12 mil visualizações · há 2 dias</div>
+      </div>
+      <p class="nota">168&nbsp;px — o tamanho real no feed do celular.<br>
+      Se a linha dourada não se lê aqui, ela não existe.</p>
+    </div>
+  </div>
+  <p class="pq">Quebra a chave em duas para a palavra dourada ficar sozinha na linha — é o desenho do print 93 ('VIDA / SIMPLE'). A palavra isolada é a que mais sobrevive à redução a 168px.</p>
+</article>
+<article class="e">
+  <div class="cab"><span class="cod">E5</span><h2>Centralizada · figura ao fundo</h2></div>
+  <div class="par">
+    <img class="big" src="E5.png" alt="">
+    <div class="feed">
+      <div class="fake"><img src="E5.png" alt="">
+        <div class="tt">EM 7 DIAS VOCÊ RECUPERA HORAS QUE NINGUÉM TE DEVOLVE | …</div>
+        <div class="mt">Modern Estoicism · 12 mil visualizações · há 2 dias</div>
+      </div>
+      <p class="nota">168&nbsp;px — o tamanho real no feed do celular.<br>
+      Se a linha dourada não se lê aqui, ela não existe.</p>
+    </div>
+  </div>
+  <p class="pq">Sem divisão de lados: o mármore vira fundo velado e o texto ocupa o centro. É a mais legível aos 168px e a que menos mostra a imagem — serve de controle para saber quanto a figura de fato contribui.</p>
+</article>

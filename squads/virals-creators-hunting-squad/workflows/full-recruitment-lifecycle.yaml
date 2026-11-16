@@ -1,0 +1,104 @@
+workflow:
+  name: full-recruitment-lifecycle
+  version: 1.0.0
+  description: "Pipeline completo de recrutamento: ICP-C → Contratação (Fases 0-4)"
+  squad: virals-creators-hunting-squad
+  trigger: "Manual — @hunter-chief recebe ICP-C do cliente"
+  pop_reference: docs/03-Operations/POPs/pop-hunter-creators
+
+phases:
+  - id: phase-0-preparation
+    name: "Preparação (ICP-C → Critérios)"
+    executor: "@hunter-chief (Joe)"
+    tasks:
+      - task: tasks/transform-icp-to-criteria.md
+        type: agent
+    checklist: checklists/icp-readiness-checklist.md
+    checkpoint:
+      criteria: "Critérios de busca JSON gerados e validados"
+      fail_action: "Retornar ICP-C ao cliente para completar"
+
+  - id: phase-1-identification
+    name: "Identificação (Discovery)"
+    executor: "@hunter-scout (Mae)"
+    tasks:
+      - task: tasks/hunt-hashtag-mining.md
+        type: worker
+        script: scripts/hunt-creators.js
+      - task: tasks/hunt-tiktok-discovery.md
+        type: worker
+        script: scripts/tiktok-creator-search.js
+      - task: tasks/hunt-meta-adslibrary.md
+        type: worker
+        script: scripts/meta-adslibrary-monitor.js
+      - task: tasks/hunt-competitor-creators.md
+        type: agent
+      - task: tasks/hunt-profile-extraction.md
+        type: worker
+        script: scripts/extract-profile-data.js
+    checkpoint:
+      criteria: "Mínimo 15 novos prospects com dados extraídos"
+      fail_action: "Expandir hashtags ou nichos de busca"
+
+  - id: phase-2-qualification
+    name: "Qualificação (Scoring + Gates)"
+    executor: "@hunter-analyst (Gil)"
+    tasks:
+      - task: tasks/qualify-creator-scoring.md
+        type: worker
+        script: scripts/score-creator.js
+      - task: tasks/qualify-engagement-audit.md
+        type: agent
+      - task: tasks/qualify-brand-fit-check.md
+        type: agent
+      - task: tasks/qualify-gate-decision.md
+        type: agent
+    checklist: checklists/creator-qualification-checklist.md
+    checkpoint:
+      criteria: "Gate aplicado. Score > 7 = qualificada para Phase 3"
+      fail_action: "Se taxa < 10%: IDS na L10"
+
+  - id: phase-3-outreach
+    name: "Abordagem (Scripts — execução humana)"
+    executor: "@hunter-closer (Brittany)"
+    tasks:
+      - task: tasks/outreach-script-generator.md
+        type: agent
+      - task: tasks/outreach-dm-sequence.md
+        type: human
+        note: "Squad gera scripts, hunter executa DMs manualmente"
+      - task: tasks/outreach-whatsapp-conversion.md
+        type: human
+      - task: tasks/outreach-follow-up.md
+        type: agent
+      - task: tasks/outreach-closing.md
+        type: hybrid
+    checklist: checklists/outreach-readiness-checklist.md
+    checkpoint:
+      criteria: "Taxa de resposta > 10%"
+      fail_action: "Revisar scripts com @walker-launch"
+
+  - id: phase-4-management
+    name: "Gerenciamento (CRM + Performance)"
+    executor: "@hunter-manager (Jason)"
+    tasks:
+      - task: tasks/manage-onboarding.md
+        type: hybrid
+      - task: tasks/manage-clickup-sync.md
+        type: worker
+        script: scripts/clickup-pipeline-sync.js
+      - task: tasks/manage-performance-tracking.md
+        type: agent
+      - task: tasks/manage-weekly-report.md
+        type: worker
+        script: scripts/weekly-report-generator.js
+    checklist: checklists/onboarding-checklist.md
+    checkpoint:
+      criteria: "50 prospects/mês + 5 contratações/mês"
+      fail_action: "Review na L10 — ajustar metas ou expandir nichos"
+
+metrics:
+  monthly_targets:
+    prospects_qualified: 50
+    contracts_closed: 5
+    response_rate_min: 0.10

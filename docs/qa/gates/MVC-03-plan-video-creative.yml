@@ -1,0 +1,38 @@
+storyId: MVC-03
+epic: EPIC-MKT-Video-Creative
+title: "plan_video_creative (hook×3 + storyboard + roteiro + edit_spec + shotlist)"
+gate: CONCERNS
+reviewer: "@qa (Quinn)"
+date: "2026-06-20"
+
+acceptance_criteria:
+  AC1: { status: met, note: "hook.variants[3] multimodais (real: Poder ou paz? / E se fosse só paz? / Qual sua prioridade?)" }
+  AC2: { status: met, note: "storyboard batida-a-batida com duração/texto/motion (real: 9 batidas, 2,5s)" }
+  AC3: { status: partial, note: "Fidelidade por detecção: guard pegou números fabricados (WARN). Mas só números — fabricação qualitativa não coberta. Enforcement é da MVC-04." }
+  AC4: { status: met, note: "shotlist com plano/framing/audio/props/locação/falas_chave (real: 9 planos)" }
+  AC5: { status: met, note: "Regras anti-tabu e anti-autor injetadas; voz do cliente confirmada no real" }
+
+tests:
+  unit: { total: 7, passed: 7, file: "squads/virals-marketing-squad/scripts/test_plan_video_creative.py" }
+  real_data: { benchmark: "30-hormozi-fc605e", client: "tiago-elesbao", llm: "openrouter:gpt-oss-120b", result: "content_plan written; fidelity WARN (LLM fabricou números)" }
+  regression: { status: clean, note: "MVC-01 11/11, MVC-02 9/9, fact_fidelity 17/17" }
+
+issues:
+  - severity: medium
+    category: requirements
+    description: "Fidelidade liga só detect_fabricated_numbers; detect_fabricated_claims e source_entities (fabricação qualitativa) não são usados. Script real fabricou alegações qualitativas que escapam."
+    recommendation: "MVC-04 deve ligar detect_fabricated_claims + source_entities além de detect_fabricated_numbers."
+    status: tracked_followup
+    target: MVC-04
+  - severity: medium
+    category: process
+    description: "content_plan real gravado no disco com fabricação sinalizada (WARN) mas não bloqueada — enforcement diferido para MVC-04."
+    recommendation: "MVC-04 é pré-requisito RÍGIDO antes de qualquer uso em produção (gate terminal bloqueante)."
+    status: tracked_followup
+    target: MVC-04
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "MVC-04 (quality_gate_video) — gate terminal com fidelidade completa (numbers+claims) + self-healing. Push pendente → @devops."

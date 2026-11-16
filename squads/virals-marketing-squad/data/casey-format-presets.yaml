@@ -1,0 +1,95 @@
+# Casey Neistat — Format Presets
+# Dimensões e configurações por formato de plataforma
+# Utilizado por: casey-image-resize-export, casey-post-single-create
+
+format_presets:
+
+  "1:1":
+    width: 1080
+    height: 1080
+    aspect_ratio: "1:1"
+    platforms: ["Instagram Feed", "Facebook Feed", "Carrossel Instagram"]
+    use_case: "Feed quadrado — mais universal, excelente para carrosséis"
+    crop_mode_default: "center"
+    file_suffix: "1080x1080"
+
+  "4:5":
+    width: 1080
+    height: 1350
+    aspect_ratio: "4:5"
+    platforms: ["Instagram Feed vertical"]
+    use_case: "Ocupa mais espaço no feed — maior visibilidade"
+    crop_mode_default: "center"
+    file_suffix: "1080x1350"
+
+  "9:16":
+    width: 1080
+    height: 1920
+    aspect_ratio: "9:16"
+    platforms: ["Instagram Stories", "Reels Cover", "TikTok", "Pinterest Idea"]
+    use_case: "Stories e Reels — máximo vertical"
+    crop_mode_default: "center"
+    file_suffix: "1080x1920"
+    note: "Adicionar elementos de topo (notch) e base (barra) para stories"
+
+  "16:9":
+    width: 1920
+    height: 1080
+    aspect_ratio: "16:9"
+    platforms: ["YouTube Thumbnail", "LinkedIn Feed", "Twitter/X"]
+    use_case: "Landscape — YouTube e LinkedIn"
+    crop_mode_default: "center"
+    file_suffix: "1920x1080"
+
+  "1.91:1":
+    width: 1200
+    height: 628
+    aspect_ratio: "1.91:1"
+    platforms: ["LinkedIn Feed (sponsored)", "Facebook Ads", "Open Graph"]
+    use_case: "Open Graph e anúncios — padrão web"
+    crop_mode_default: "center"
+    file_suffix: "1200x628"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CONFIGURAÇÕES DE EXPORT
+# ─────────────────────────────────────────────────────────────────────────────
+export_settings:
+  png:
+    optimize: true
+    compress_level: 6     # 0-9, onde 9 é máxima compressão
+    max_size_mb: 2.0
+
+  webp:
+    quality: 85           # 0-100
+    method: 6             # Método de compressão (0-6)
+    lossless: false
+    max_size_mb: 0.5
+
+  jpeg:
+    quality: 92
+    optimize: true
+    progressive: true
+    max_size_mb: 1.0
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DEFAULTS POR PLATAFORMA
+# ─────────────────────────────────────────────────────────────────────────────
+platform_defaults:
+  instagram:
+    primary_format: "1:1"
+    secondary_formats: ["4:5", "9:16"]
+    preferred_ext: "webp"
+
+  linkedin:
+    primary_format: "1.91:1"
+    secondary_formats: ["16:9"]
+    preferred_ext: "png"
+
+  tiktok:
+    primary_format: "9:16"
+    preferred_ext: "webp"
+
+  youtube:
+    primary_format: "16:9"
+    preferred_ext: "png"
+    min_width: 1280       # YouTube recomenda 1280px mínimo para thumbnails

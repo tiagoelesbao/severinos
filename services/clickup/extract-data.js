@@ -67,8 +67,17 @@ async function getCustomTaskTypes(teamId) {
 }
 
 
+async function getMembers(teamId) {
+    try {
+        const response = await client.get(`/team/${teamId}`);
+        return response.data.team.members || [];
+    } catch (e) {
+        return [];
+    }
+}
+
 async function extractHierarchy() {
-    console.log('--- Starting Advanced ClickUp Extraction ---');
+    console.log('--- Starting Hyper-Advanced ClickUp Extraction ---');
     try {
         const { teams } = await getTeams();
         if (!teams || teams.length === 0) return;
@@ -82,10 +91,22 @@ async function extractHierarchy() {
         console.log(`Working on Team: ${team.name} (ID: ${team.id})`);
 
         const advancedMetadata = {
+            teamId: team.id,
+            members: [],
             hierarchy: {},
             customTaskTypes: [],
             globalFieldsFound: new Set()
         };
+
+        // Fetch Workspace Members
+        console.log('Fetching Workspace Members...');
+        const members = await getMembers(team.id);
+        advancedMetadata.members = members.map(m => ({
+            id: m.user.id,
+            username: m.user.username,
+            email: m.user.email,
+            role: m.user.role_key
+        }));
 
         // Fetch Workspace level Custom Task Types
         console.log('Fetching Workspace Custom Task Types...');

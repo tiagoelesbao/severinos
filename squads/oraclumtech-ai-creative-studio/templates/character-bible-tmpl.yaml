@@ -1,0 +1,199 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — BÍBLIA DE PERSONAGEM
+# Serve aos DOIS casos: personagem de série (P3 nicho-series) e creator sintético
+# de UGC (P2 ugc-ads). O que muda entre eles é o bloco `perfil_de_uso`, não o schema.
+#
+# ONDE VIVE (importante): a identidade PERSISTE ACIMA DO JOB.
+#   squads/oraclumtech-ai-creative-studio/data/characters/{character-id}/
+#   ├── identity.yaml        ← ESTE ARQUIVO
+#   ├── canon.png            ← imagem-âncora permanente (1ª frontal aprovada)
+#   ├── sheets/              ← vistas aprovadas: frontal, três-quartos, perfil, expressões
+#   ├── prompt-block.md      ← bloco de texto literal, idêntico em todo prompt
+#   └── continuity-log.md    ← onde apareceu, que deriva houve, que decisão foi tomada
+#
+# O JOB APENAS REFERENCIA. `{job}/09-character/elenco.yaml` aponta os character-id e
+# declara o ESTADO do personagem naquele job (figurino da cena, estado físico).
+# O job NUNCA redefine a identidade. Ver a seção final deste template.
+#
+# Quem preenche: @character-lead · Validado por: checklists/gate-character.md
+# Por que o registry existe: um job isolado não detecta deriva entre episódios, porque
+# não tem o episódio anterior. A deriva acontece devagar, um pouco por episódio, cada
+# passo dentro da tolerância.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  schema_version: "1.0"
+  character_id: "<slug-estavel>"            # nunca muda; é a chave do registry
+  criado_em: "<YYYY-MM-DD>"
+  criado_por: "@character-lead"
+  ultima_revisao: "<YYYY-MM-DD>"
+  versao_canon: 1                            # incrementa só quando o canon.png muda
+  status: "<ativo | aposentado>"
+
+# ── Identificação ────────────────────────────────────────────────────────────
+identidade:
+  nome: "<nome do personagem — fictício>"
+  tipo: "<personagem-serie | creator-sintetico | figurante-recorrente>"
+  cliente: "<slug do cliente dono do personagem>"
+  escopo: "<canal | campanha | serie>"       # onde este personagem pode aparecer
+  descricao_curta: "<uma frase: quem é e qual a função narrativa/comercial>"
+
+# ── Perfil de uso (o que difere série de UGC) ───────────────────────────────
+perfil_de_uso:
+  # Preencha o bloco do seu caso e remova o outro.
+
+  serie:                                     # P3 — nicho-series
+    papel: "<protagonista | antagonista | coadjuvante recorrente>"
+    arquetipo_satirizado: "<o TIPO SOCIAL alvo da sátira — nunca uma pessoa real>"
+    bordao: "<frase/tique verbal original — não copiado de pessoa real>"
+    funcao_no_arco: "<o que este personagem faz acontecer na história>"
+    episodios: ["<ep-id>", "<ep-id>"]
+
+  creator_sintetico:                         # P2 — ugc-ads
+    avatar_alvo: "<o avatar do brief que este creator precisa espelhar>"
+    faixa_socioeconomica: "<coerente com o avatar — gate-ugc-ads UGC-AU-05>"
+    ambiente_base: "<cômodo/cenário doméstico plausível para esse avatar>"
+    codigo_de_gravacao: "<câmera na mão, luz de ambiente, enquadramento imperfeito>"
+    produtos_que_pode_apresentar: ["<produto>"]
+    nao_pode_apresentar: ["<categoria vedada — ex.: saúde, financeiro>"]
+
+# ── Traços âncora (2 a 4 — a espinha dorsal da consistência) ────────────────
+# REGRA: distintivo, inequívoco e verificável em qualquer enquadramento razoável.
+# Menos de 2 não trava nada. Mais de 4 e o modelo começa a ignorar alguns.
+# ✅ "cicatriz de 2 cm acima da sobrancelha direita"  ❌ "olhos castanhos"
+# ✅ "mecha branca na têmpora esquerda"               ❌ "rosto simpático"
+# O *drift-check verifica estes PRIMEIRO. Ausência de traço âncora é FAIL imediato.
+tracos_ancora:
+  - id: "ta-01"
+    traco: "<característica distintiva e apontável>"
+    verificacao: "<como confirmar num frame: 'está aqui' ou 'não está'>"
+    obrigatorio_em: "<todos os planos | planos com rosto visível>"
+  - id: "ta-02"
+    traco: "<...>"
+    verificacao: "<...>"
+    obrigatorio_em: "<...>"
+
+# ── Atributos com tolerância declarada ──────────────────────────────────────
+# Em gravação real o ator é o mesmo. Em geração, NADA é o mesmo por construção —
+# então "igual" não é critério aplicável e "parecido" não é verificável.
+# Cada atributo declara o valor canônico e o quanto pode variar sem virar outra pessoa.
+atributos:
+  - atributo: "formato_de_rosto"
+    canonico: "<valor>"
+    tolerancia: "<o que ainda é aceitável>"
+    fora_de_tolerancia: "<o que já é outra pessoa>"
+  - atributo: "faixa_etaria_aparente"
+    canonico: "<ex.: 32-36>"
+    tolerancia: "<±4 anos>"
+    fora_de_tolerancia: "<aparentar 20 ou 50>"
+  - atributo: "tom_de_pele"
+    canonico: "<referência>"
+    tolerancia: "<variação por temperatura de luz>"
+    fora_de_tolerancia: "<mudança de tom real>"
+  - atributo: "cabelo"
+    canonico: "<cor, corte, comprimento, textura>"
+    tolerancia: "<penteado pode variar>"
+    fora_de_tolerancia: "<comprimento ou cor diferentes>"
+  - atributo: "biotipo"
+    canonico: "<valor>"
+    tolerancia: "<...>"
+    fora_de_tolerancia: "<...>"
+
+# ── Wardrobe ─────────────────────────────────────────────────────────────────
+wardrobe:
+  base:
+    descricao: "<peça, cor, textura, caimento>"
+    acessorios: ["<acessório permanente — pode ser traço âncora>"]
+  variacoes_permitidas:
+    - contexto: "<cena/episódio em que muda>"
+      descricao: "<...>"
+      justificativa_narrativa: "<por que muda — sem motivo, é quebra de continuidade>"
+  proibido: ["<peça que descaracteriza o personagem>"]
+
+# ── Voz ──────────────────────────────────────────────────────────────────────
+voz:
+  preset: "<id exato do preset/voz na ferramenta>"
+  ferramenta: "<nome + versão>"
+  idioma: "pt-BR"
+  ritmo: "<valor>"
+  entonacao_referencia: "<como fala: rápido e seco, pausado e didático…>"
+  amostra_aprovada: "data/characters/<character-id>/sheets/voz-referencia.wav"
+  # gate-audio AU-A-06: reusar SEMPRE o mesmo preset entre episódios/lotes.
+
+# ── Comportamento (o que o público reconhece antes do rosto) ────────────────
+comportamento:
+  postura: "<...>"
+  jeito_de_falar: "<...>"
+  tiques: ["<gesto recorrente>"]
+  o_que_nunca_faria: ["<ação fora de personagem>"]
+
+# ── Âncora técnica de geração ───────────────────────────────────────────────
+ancora_tecnica:
+  mecanismo: "<reference sheet | seed travada | imagem-âncora | LoRA/checkpoint>"
+  valor: "<VALOR CONCRETO — seed exata, caminho do arquivo, id do modelo>"
+  # gate-character CH-02: mecanismo sem valor REPROVA. Sem o valor, o próximo
+  # episódio ou o próximo lote não reproduz o personagem.
+  canon: "data/characters/<character-id>/canon.png"
+  prompt_block: "data/characters/<character-id>/prompt-block.md"
+  sheets:
+    frontal: "data/characters/<character-id>/sheets/frontal.png"
+    tres_quartos: "data/characters/<character-id>/sheets/tres-quartos.png"
+    perfil: "data/characters/<character-id>/sheets/perfil.png"      # obrigatório p/ vídeo
+    expressoes: ["<caminho>"]
+  ferramenta_de_origem: "<nome + modelo/versão que gerou o canon>"
+
+# ── Armadilhas conhecidas deste personagem ──────────────────────────────────
+# O que o modelo costuma errar NESTE personagem. Vai direto para o Pacote de Direção.
+armadilhas:
+  - problema: "<ex.: idade aparente sobe em luz dura>"
+    contorno: "<ex.: pedir luz difusa ou reforçar a faixa etária no prompt>"
+  - problema: "<ex.: a mecha branca some em três-quartos>"
+    contorno: "<ex.: gerar frontal e usar como referência>"
+
+# ── Direitos e disclosure (NON-WAIVABLE no gate-character e no factcheck) ───
+direitos:
+  declaracao_nao_semelhanca: >
+    <Declaração explícita de que este personagem NÃO guarda semelhança com pessoa real
+    identificável. Quando inspirado em arquétipo real, descrever o afastamento
+    deliberado: nome fictício, bordão original, semelhança física afastada.>
+  verificado_em: "<YYYY-MM-DD>"
+  verificado_por: "@character-lead"
+  base_de_uso: "<100% sintético | pessoa real com cessão assinada>"
+  cessao_ref: "<caminho do termo, quando houver pessoa real>"
+  voz_base_de_uso: "<biblioteca licenciada com cláusula de uso comercial E de IA | titular autorizado>"
+  voz_licenca_ref: "<caminho do comprovante>"
+  disclosure_ia:
+    obrigatorio: <true|false>
+    caso: "<AID-3 creator sintético apresentando produto | AID-5 paródia | n/a>"
+    como: "<flag nativa da plataforma | rótulo na peça>"
+
+# ── Histórico de continuidade ───────────────────────────────────────────────
+# Espelha data/characters/<character-id>/continuity-log.md.
+continuidade:
+  aparicoes:
+    - job_id: "<job-id>"
+      episodio: "<ep-id | lote>"
+      data: "<YYYY-MM-DD>"
+      assets: <n>
+      deriva_observada: "<o que fugiu do canônico, ou 'nenhuma'>"
+      decisao: "<mantido o canon | canon atualizado (versao_canon++) | asset descartado>"
+  revisoes_de_canon:
+    - versao: 2
+      data: "<YYYY-MM-DD>"
+      motivo: "<por que o canon mudou — mudar canon é decisão, não acidente>"
+      autor: "@character-lead"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BLOCO DO LADO DO JOB — vai em {job}/09-character/elenco.yaml, NÃO aqui.
+# Reproduzido como referência: o job declara ESTADO, nunca IDENTIDADE.
+#
+# elenco:
+#   - character_id: "<slug>"
+#     identity_ref: "squads/oraclumtech-ai-creative-studio/data/characters/<slug>/identity.yaml"
+#     versao_canon_usada: 1
+#     estado_no_job:
+#       figurino: "<o figurino desta peça, dentro das variações permitidas>"
+#       estado_fisico: "<cansado, molhado de chuva, recém-acordado>"
+#       cenas: ["p01", "p04", "p07"]
+#     observacoes: "<...>"
+# ─────────────────────────────────────────────────────────────────────────────

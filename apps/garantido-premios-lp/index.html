@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Garantido — Conheça a gente</title>
+<meta name="description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta name="theme-color" content="#f3f8f3" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="preload" as="image" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ===========================================================
+     GARANTIDO PRÊMIOS — design system "mint lab"
+     Base clara (menta/branco) + verde da marca como única cor de
+     acento, malha de pontos discreta (caráter de painel de dados,
+     que é o produto) e tipografia display condensada espelhando o
+     wordmark. Paleta deliberadamente restrita a verde/preto/branco:
+     qualquer tom quente (âmbar/ocre/metálico) pertence à identidade
+     do outro cliente do mesmo nicho e NÃO pode aparecer aqui.
+     =========================================================== */
+  :root {
+    /* superfícies */
+    --bg:        #f3f8f3;  /* verde-menta quase branco (tema claro garantido) */
+    --surface:   #ffffff;
+    --line:      #d9e4da;
+    --line-soft: rgba(13, 42, 22, .07);
+
+    /* texto */
+    --ink:   #0d2216;      /* preto-esverdeado */
+    --ink-2: #3f5848;
+    --ink-3: #6b8071;
+
+    /* verde da marca — tokens reais do bicho-stats-garantido */
+    --green:      #097f23;  /* primary tema claro */
+    --green-deep: #045a16;
+    --green-mid:  #0b9a2a;
+    --neon:       #01bf01;  /* verde do brasão */
+    --neon-hi:    #37e332;  /* accent */
+    --mint:       #cef4d2;  /* accent tema claro */
+
+    --radius:    15px;
+    --radius-sm: 11px;
+    --shadow:     0 1px 2px rgba(13,42,22,.04), 0 10px 26px -18px rgba(13,42,22,.30);
+    --shadow-cta: 0 10px 26px -10px rgba(9,127,35,.52);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; min-width: 0; }
+  html { overflow: hidden; height: 100%; width: 100%; }
+
+  /* UMA DOBRA SÓ — requisito do founder, não acidente de código.
+     Sem scroll: a página inteira cabe em 100dvh. */
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* ---------- AURORA: 3 blobs radiais desfocados ----------
+     Keyframes só com transform/opacity (trabalho de compositor);
+     nunca background-position, que repinta o gradiente inteiro a
+     cada frame e derruba o FPS em celular — e é em celular, dentro
+     do feed, que 100% deste tráfego chega. Área presa por
+     overflow:hidden + contain, blur modesto, 3 camadas no máximo. */
+  .aurora {
+    position: fixed; inset: 0; z-index: -3;
+    overflow: hidden; pointer-events: none; contain: strict;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(54px); will-change: transform; }
+  .blob-1 {
+    width: 64vmax; height: 64vmax; top: -30vmax; left: -18vmax;
+    background: radial-gradient(circle, rgba(55,227,50,.46), rgba(55,227,50,0) 68%);
+    animation: drift-1 26s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 48vmax; height: 48vmax; top: -12vmax; right: -20vmax;
+    background: radial-gradient(circle, rgba(1,191,1,.34), rgba(1,191,1,0) 70%);
+    animation: drift-2 32s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 58vmax; height: 58vmax; bottom: -32vmax; right: -14vmax;
+    background: radial-gradient(circle, rgba(9,127,35,.26), rgba(9,127,35,0) 70%);
+    animation: drift-3 29s ease-in-out infinite;
+  }
+  @keyframes drift-1 {
+    0%,100% { transform: translate3d(0,0,0) scale(1); }
+    50%     { transform: translate3d(8%, 6%, 0) scale(1.12); }
+  }
+  @keyframes drift-2 {
+    0%,100% { transform: translate3d(0,0,0) scale(1.06); }
+    50%     { transform: translate3d(-10%, 8%, 0) scale(.92); }
+  }
+  @keyframes drift-3 {
+    0%,100% { transform: translate3d(0,0,0) scale(.94); }
+    50%     { transform: translate3d(-9%, -7%, 0) scale(1.12); }
+  }
+
+  /* malha de pontos — pintada uma vez, nunca animada: custo zero por
+     frame. É o que dá o caráter de "painel de números" e afasta o
+     resultado do look genérico de gradiente. */
+  .mesh {
+    position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background-image: radial-gradient(rgba(9,127,35,.30) .9px, transparent .9px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 42%, #000 20%, transparent 78%);
+    mask-image: radial-gradient(ellipse 85% 65% at 50% 42%, #000 20%, transparent 78%);
+    opacity: .5;
+  }
+
+  /* grão fino: tira o aspecto "gradiente de CSS" e dá textura
+     impressa. Um elemento, SVG inline, zero request. */
+  .grain {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    opacity: .04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap { width: 100%; max-width: 600px; margin: 0 auto; padding: 0 clamp(16px, 4.6vw, 26px); overflow-wrap: break-word; }
+  h1, h2, h3, p { overflow-wrap: break-word; }
+
+  /* ---------------------- HEADER (glass) ----------------------
+     Vidro fica só no header e em superfícies de rótulo curto —
+     texto corrido nunca sobre vidro (contraste imprevisível). */
+  header {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,.60);
+    -webkit-backdrop-filter: blur(14px) saturate(165%);
+    backdrop-filter: blur(14px) saturate(165%);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  header .wrap {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding-top: clamp(6px, 1.1vh, 10px); padding-bottom: clamp(6px, 1.1vh, 10px);
+  }
+  .brand img { height: clamp(24px, 4.1vh, 34px); width: auto; display: block; }
+  .live {
+    flex: 0 0 auto;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--mint);
+    border: 1px solid rgba(9,127,35,.22);
+    border-radius: 999px;
+    padding: 4px 10px 4px 8px;
+    font-size: clamp(8px, 1.1vh, 9.5px);
+    font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: #04390c; white-space: nowrap;
+  }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--neon);
+    animation: pulse 2.1s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%  { box-shadow: 0 0 0 0 rgba(1,191,1,.55); }
+    70% { box-shadow: 0 0 0 7px rgba(1,191,1,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(1,191,1,0); }
+  }
+
+  /* ----------------------- MAIN / A DOBRA -----------------------
+     Conteúdo centrado com gaps explícitos (não space-between): em
+     viewport curta ele compacta sem nunca empurrar um CTA para fora
+     da dobra, e em desktop fica agrupado em vez de esticado. */
+  main { flex: 1 1 auto; display: flex; min-height: 0; overflow: hidden; }
+  main > .wrap {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: clamp(9px, 2.1vh, 22px);
+    padding-top: clamp(10px, 2.1vh, 24px);
+    padding-bottom: clamp(10px, 2.1vh, 24px);
+  }
+
+  /* -------------------------- HERO -------------------------- */
+  .hero { text-align: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: clamp(8px, 1.15vh, 10px);
+    font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: clamp(5px, 1vh, 10px);
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: ''; width: clamp(14px, 4vw, 30px); height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(9,127,35,.55));
+  }
+  .eyebrow::after { background: linear-gradient(90deg, rgba(9,127,35,.55), transparent); }
+
+  /* Tipografia expressiva em dois degraus: a afirmação grande em
+     display condensada (eco do wordmark) e a virada de chave logo
+     abaixo, menor, carimbada pela pincelada verde. O contraste de
+     corpo é o que dá hierarquia sem gastar altura da dobra. */
+  .hero h1 {
+    font-family: 'Anton', 'Plus Jakarta Sans', Impact, sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(26px, 4.85vh, 44px);
+    line-height: 1.02;
+    letter-spacing: -.004em;
+    color: var(--ink);
+  }
+  .kicker {
+    font-family: 'Anton', 'Plus Jakarta Sans', Impact, sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(14.5px, 2.42vh, 22px);
+    line-height: 1.16;
+    letter-spacing: .004em;
+    color: #06230f;
+    margin-top: clamp(5px, 1.1vh, 11px);
+    margin-bottom: clamp(9px, 1.75vh, 17px);
+  }
+  /* pincelada verde atrás da frase-chave — eco do traço sob
+     "PRÊMIOS" no logo. Inline-block + nowrap mantêm a mancha presa
+     a uma linha só, então ela nunca vaza para a linha seguinte. */
+  .mark {
+    position: relative; display: inline-block; white-space: nowrap;
+    padding: 0 .22em;
+  }
+  .mark::before {
+    content: ''; position: absolute; z-index: -1;
+    left: 0; right: 0; bottom: .02em; height: .50em;
+    background: linear-gradient(100deg, var(--neon), var(--neon-hi));
+    border-radius: 3px 9px 4px 8px;
+    transform: rotate(-.8deg);
+    box-shadow: 0 5px 16px -7px rgba(1,191,1,.8);
+  }
+  .hero .sub {
+    font-size: clamp(11px, 1.62vh, 14.5px);
+    line-height: 1.42;
+    color: var(--ink-2);
+    max-width: 43ch; margin: 0 auto;
+  }
+
+  /* --------------------- BENTO "COMO FUNCIONA" ---------------------
+     Grid assimétrico: o tile 01 toma a linha inteira e os outros dois
+     dividem a de baixo. Três tiles — longe do ponto em que um bento
+     vira parede. */
+  .bento {
+    display: grid; gap: clamp(5px, 1.1vh, 10px);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "a a" "b c";
+  }
+  .tile {
+    background: rgba(255,255,255,.82);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    padding: clamp(6px, 1.2vh, 13px) clamp(10px, 2.6vw, 16px);
+    display: flex; flex-direction: column; gap: 1px;
+    position: relative; overflow: hidden;
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  /* filete verde na borda esquerda: marcador de marca nos tiles */
+  .tile::before {
+    content: ''; position: absolute; left: 0; top: 16%; bottom: 16%;
+    width: 2.5px; border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, var(--neon), var(--green));
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    border-color: rgba(9,127,35,.34);
+    box-shadow: 0 1px 2px rgba(13,42,22,.04), 0 16px 32px -20px rgba(9,127,35,.45);
+  }
+  .tile:nth-child(1) { grid-area: a; }
+  .tile:nth-child(2) { grid-area: b; }
+  .tile:nth-child(3) { grid-area: c; }
+  .tile .n {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(8px, 1.1vh, 10px);
+    color: var(--neon); letter-spacing: .09em; line-height: 1.1;
+  }
+  .tile h3 {
+    font-family: 'Anton', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(10.5px, 1.55vh, 14px);
+    line-height: 1.08; letter-spacing: .006em;
+    color: var(--ink);
+  }
+  .tile p {
+    font-size: clamp(8.5px, 1.3vh, 11.5px);
+    line-height: 1.32; color: var(--ink-3);
+  }
+
+  /* ------------------------- PONTE ------------------------- */
+  .bridge {
+    font-size: clamp(9px, 1.35vh, 12px);
+    line-height: 1.44;
+    color: var(--ink-2);
+    text-align: center;
+    max-width: 52ch; margin: 0 auto;
+  }
+  .bridge strong { color: var(--ink); font-weight: 800; }
+
+  /* -------------------------- CTAs -------------------------- */
+  .ctas { display: flex; flex-direction: column; gap: clamp(6px, 1.1vh, 10px); }
+  .btn {
+    display: block; width: 100%; text-align: center;
+    border: none; cursor: pointer; text-decoration: none;
+    border-radius: var(--radius);
+    padding: clamp(9px, 1.7vh, 15px) 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(12.5px, 1.85vh, 16px);
+    letter-spacing: -.004em;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease, color .16s ease;
+    position: relative; overflow: hidden;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn:focus-visible { outline: 3px solid var(--neon); outline-offset: 2px; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green) 48%, var(--green-deep) 100%);
+    color: #ffffff;
+    box-shadow: var(--shadow-cta);
+  }
+  .btn-primary:hover { box-shadow: 0 14px 34px -10px rgba(9,127,35,.62); transform: translateY(-1px); }
+  /* varredura de brilho: transform puro, barato no compositor */
+  .btn-primary::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 42%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.32), transparent);
+    transform: skewX(-18deg);
+    animation: sweep 4.6s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    0%, 62%  { transform: translateX(0) skewX(-18deg); }
+    88%,100% { transform: translateX(420%) skewX(-18deg); }
+  }
+  .btn-primary .btn-sub {
+    display: block;
+    font-size: clamp(8.5px, 1.2vh, 11px);
+    font-weight: 600; letter-spacing: .01em;
+    opacity: .88; margin-top: 2px;
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,.74);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+  .btn-secondary:hover { background: #fff; border-color: var(--green); color: var(--green-deep); transform: translateY(-1px); }
+
+  /* -------------------------- FOOTER -------------------------- */
+  footer {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,.56);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line-soft);
+    padding: clamp(5px, 1vh, 10px) 0 max(clamp(5px, 1vh, 10px), env(safe-area-inset-bottom));
+  }
+  footer .wrap { display: flex; flex-direction: column; gap: clamp(3px, .7vh, 7px); }
+  .foot-top { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 9px; }
+  .badge-18 {
+    flex: 0 0 auto;
+    background: var(--ink); color: #eaf5ec;
+    border-radius: 6px; padding: 2px 7px;
+    font-size: 9.5px; font-weight: 800; letter-spacing: .04em;
+  }
+  footer p {
+    flex: 1 1 210px; min-width: 175px;
+    font-size: clamp(7.5px, 1.02vh, 9.5px);
+    line-height: 1.32; color: var(--ink-3);
+  }
+  .legal { display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; font-size: clamp(8px, 1.05vh, 10px); }
+  .legal a {
+    color: var(--green); text-decoration: none; font-weight: 700; white-space: nowrap;
+    border-bottom: 1px solid rgba(9,127,35,.28);
+  }
+  .legal span { color: #bfcfc2; }
+
+  /* ---- a partir de ~560px o bento abre em 3 colunas ---- */
+  @media (min-width: 560px) {
+    .bento { grid-template-columns: 1.3fr 1fr 1fr; grid-template-areas: "a b c"; }
+  }
+  /* ---- desktop: respira mais e sobe o corpo da tipografia. Sem isto a
+          escala em vh (calibrada para a altura curta do celular) deixa a
+          página pequena no meio de uma tela larga. ---- */
+  @media (min-width: 900px) and (min-height: 640px) {
+    .wrap { max-width: 780px; }
+    main > .wrap { gap: clamp(12px, 2.3vh, 26px); }
+    .eyebrow { font-size: clamp(9.5px, 1.4vh, 11.5px); }
+    .hero h1 { font-size: clamp(34px, 5.9vh, 54px); }
+    .kicker { font-size: clamp(18px, 3.05vh, 27px); }
+    .hero .sub { font-size: clamp(13.5px, 1.95vh, 16.5px); max-width: 46ch; }
+    .tile h3 { font-size: clamp(12.5px, 1.85vh, 15.5px); }
+    .tile p { font-size: clamp(10.5px, 1.5vh, 12.5px); }
+    .tile .n { font-size: clamp(9px, 1.25vh, 11px); }
+    .bridge { font-size: clamp(11px, 1.6vh, 13px); }
+    .btn { font-size: clamp(14.5px, 2.05vh, 17.5px); }
+    .btn-primary .btn-sub { font-size: clamp(10px, 1.35vh, 12px); }
+    footer p { font-size: clamp(9px, 1.15vh, 10.5px); }
+    .legal { font-size: clamp(9.5px, 1.2vh, 11px); }
+  }
+
+  /* ---- viewport curta (320x568, e in-app browsers que comem altura
+          com a própria barra): compacta ritmo e corpo de texto para o
+          segundo CTA nunca encostar no footer. Nada é removido —
+          toda a copy continua na dobra. ---- */
+  @media (max-height: 620px) {
+    main > .wrap { gap: 6px; padding-top: 7px; padding-bottom: 7px; }
+    .kicker { margin-top: 4px; margin-bottom: 6px; }
+    .hero .sub { font-size: 10.5px; line-height: 1.34; }
+    .bridge { font-size: 8.5px; line-height: 1.34; }
+    .bento { gap: 4px; }
+    .tile { padding: 5px 10px; }
+    footer { padding-top: 4px; }
+    footer .wrap { gap: 2px; }
+  }
+
+  /* ---- acessibilidade: respeita quem pediu menos movimento ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .blob, .dot, .btn-primary::after { animation: none !important; }
+    .btn, .tile { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Fundo animado (aurora + malha + grão). Puramente decorativo: fora
+     do fluxo, aria-hidden e sem pointer-events, então nunca intercepta
+     o toque nos CTAs. -->
+<div class="aurora" aria-hidden="true">
+  <span class="blob blob-1"></span>
+  <span class="blob blob-2"></span>
+  <span class="blob blob-3"></span>
+</div>
+<div class="mesh" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap">
+    <span class="brand"><img src="logo.png" alt="Garantido Prêmios" width="600" height="150" /></span>
+    <span class="live"><span class="dot"></span>Rodada ativa agora</span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <span class="eyebrow">Rodada atual aberta</span>
+      <h1>100 números</h1>
+      <p class="kicker">Chance real, <span class="mark">sem enrolação</span></p>
+      <p class="sub">
+        A Garantido é uma comunidade que leva oportunidades reais pra quem
+        tá perto — nas ruas, nos bairros, pra gente real. Escolha como quer
+        continuar.
+      </p>
+    </section>
+
+    <section class="bento" aria-label="Como funciona">
+      <article class="tile">
+        <span class="n">01</span>
+        <h3>100 números por rodada</h3>
+        <p>Só 100 números disponíveis em cada rodada — simples assim.</p>
+      </article>
+      <article class="tile">
+        <span class="n">02</span>
+        <h3>Várias vezes ao dia</h3>
+        <p>Resultado sai em horários certos, todo santo dia.</p>
+      </article>
+      <article class="tile">
+        <span class="n">03</span>
+        <h3>Mais de um ganhador</h3>
+        <p>Em cada rodada pode sair mais de um ganhador.</p>
+      </article>
+    </section>
+
+    <p class="bridge">
+      Tudo começa com uma ideia simples: tem gente que merece uma chance,
+      e a Garantido gosta de proporcionar isso de um jeito direto, sem
+      enrolação — <strong>resultados sempre públicos</strong>, pra todo
+      mundo ver. A partir daqui, você escolhe por onde quer seguir.
+    </p>
+
+    <section class="ctas">
+      <!-- Garantido não usa grupo de WhatsApp como CTA — os 2 botões levam
+           pro site, só com enquadramento diferente (2026-10-08). -->
+      <a href="https://garantidopremios.com/" class="btn btn-primary" id="cta-principal">
+        Conhecer a ação disponível
+        <span class="btn-sub">Números, prêmio e regras em um lugar só</span>
+      </a>
+      <a href="https://garantidopremios.com/" class="btn btn-secondary" id="cta-site">
+        Ver o que está disponível agora
+      </a>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <span class="badge-18">18+</span>
+      <p>
+        A Garantido está em conformidade com as normas aplicáveis.
+        Participação exclusiva para maiores de 18 anos. Resultados por
+        sorteio público — sem garantia de retorno. Participe com
+        responsabilidade.
+      </p>
+    </div>
+    <div class="legal">
+      <a href="https://garantidopremios.com/" target="_blank" rel="noopener">Site</a>
+      <span>·</span>
+      <a href="termos.html" target="_blank" rel="noopener">Termos</a>
+      <span>·</span>
+      <a href="privacidade.html" target="_blank" rel="noopener">Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Meta Pixel base code — mesma estrutura já validada em produção na LP
+     do outro cliente do nicho. Dispara PageView (pré-requisito de qualquer
+     campanha de retargeting) e Lead no clique do grupo.
+     Confirmado 2026-10-30: 1099998719036800 É o pixel real (bate com
+     META_GARANTIDO_PREMIOS_DATASET_ID, conta de Ads já ativa) — não é mais
+     placeholder, o TODO antigo estava desatualizado. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1099998719036800');
+fbq('track', 'PageView');
+
+// Beacon próprio (2026-10-30): grava em paralelo na tabela lp_eventos
+// (/api/beacon), variant='v1' — mesmo padrão do Império. A API de stats do
+// Pixel da Meta não quebra por parâmetro customizado, então sem isto não
+// dava pra comparar v1×v2 desta LP no BI.
+function obterSessionIdLp() {
+  try {
+    var sid = sessionStorage.getItem('lp_session_id');
+    if (!sid) {
+      sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(36).slice(2));
+      sessionStorage.setItem('lp_session_id', sid);
+    }
+    return sid;
+  } catch (e) { return null; }
+}
+function mandarBeacon(evento) {
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    var payload = JSON.stringify({
+      variant: 'v1',
+      evento: evento,
+      session_id: obterSessionIdLp(),
+      utm_source: qs.get('utm_source') || null,
+      utm_campaign: qs.get('utm_campaign') || null,
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/beacon', new Blob([payload], { type: 'text/plain' }));
+    } else {
+      fetch('/api/beacon', { method: 'POST', body: payload, keepalive: true, headers: { 'Content-Type': 'text/plain' } }).catch(function () {});
+    }
+  } catch (e) {}
+}
+mandarBeacon('PresselPageView');
+
+// Repassa UTM/fbclid da URL de entrada (vindos do url_tags do anúncio) pros
+// links de saída. Sem isso o rastreio se perde ao sair da LP: os <a href> são
+// estáticos, então o Ads Manager pode estar com url_tags perfeito e ainda
+// assim chegar 0% de UTM no destino — foi exatamente o que aconteceu na LP
+// irmã antes deste trecho existir. É lógica pura, não depende de nenhum dado
+// da Garantido, então já funciona hoje.
+(function () {
+  var qs = window.location.search;
+  if (!qs) return;
+  var incoming = new URLSearchParams(qs);
+  ['cta-principal', 'cta-site'].forEach(function (id) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    // Guard defensivo: só carimba UTM se o href já for uma URL de verdade
+    // (não um placeholder tipo #TODO-...), caso algum CTA volte a ficar
+    // sem destino real no futuro.
+    var raw = a.getAttribute('href') || '';
+    if (raw.charAt(0) === '#') return;
+    try {
+      var url = new URL(a.href);
+      incoming.forEach(function (value, key) { url.searchParams.set(key, value); });
+      a.href = url.toString();
+    } catch (e) {}
+  });
+})();
+
+// Mesmo padrão aplicado na LP irmã do Império (2026-10-08): event_id
+// explícito em todo evento customizado/clique — evita o alerta "Alta
+// prioridade" de desduplicação do Events Manager mesmo sem nenhuma fonte
+// servidor hoje. Os 2 CTAs levam pro mesmo destino (site), então
+// compartilham o mesmo nome de evento — content_name distingue qual botão.
+function gerarEventId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return Date.now() + '-' + Math.random().toString(36).slice(2);
+}
+
+document.getElementById('cta-principal').addEventListener('click', function () {
+  fbq('trackCustom', 'ClickSorteios', { content_name: 'cta_principal' }, { eventID: gerarEventId() });
+  mandarBeacon('ClickSorteios');
+});
+document.getElementById('cta-site').addEventListener('click', function () {
+  fbq('trackCustom', 'ClickSorteios', { content_name: 'cta_secundario' }, { eventID: gerarEventId() });
+  mandarBeacon('ClickSorteios');
+});
+</script>
+<!-- 1099998719036800 confirmado como pixel real — ver nota acima -->
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1099998719036800&ev=PageView&noscript=1"
+/></noscript>
+
+</body>
+</html>

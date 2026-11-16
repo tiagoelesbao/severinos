@@ -1,0 +1,224 @@
+schema_version: '5.0'
+generated_at: '2026-05-19T21:42:41'
+archetype: quote
+carousel_brief:
+  slug: v5-precision-02-garyvee-337571
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\virals\marketing\daily-monitoring\2026-05-19\benchmark\instagram\02-garyvee-337571
+  source_url: https://www.instagram.com/garyvee/p/DYf8AMNDLl7/
+  tema: 'Modelagem de precisão: 02-garyvee-337571'
+  slide_count: 1
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/virals/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0C0A1F'
+    secondary: '#181436'
+    accent: '#FF5B3F'
+    accent_alt: '#7B5BFF'
+    accent_aurora: '#2DE2C8'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B9B6CC'
+    overlay_dark: '#00000066'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F5F4FA'
+      text: '#0C0A1F'
+      accent: '#E3391F'
+  accent: '#FF5B3F'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#FFFFFF'
+      background: '#FF5B3F'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.4
+      dark_strong:
+        color: '#000000'
+        opacity: 0.6
+      brand_subtle:
+        color: '#1A1A2E'
+        opacity: 0.25
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 1
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**Recomendação:** Modelar para Engajamento e Viralização. **Ação:** Replicar
+    a estética "Street Photography" com cores complementares fortes (Azul/Laranja).
+    Usar a estrutura de "Metáfora de Contexto Familiar" (esportes, jogos, filmes)
+    para explicar um conceito de negócio ou vida. O CTA focado em "ajudar um amigo"
+    deve ser testado em nossas próximas campanhas de branding para aumentar o K-Factor
+    (v'
+  audits_present: true
+benchmark_caption: 'This is for everyone who thinks they’re “losing” … pls share this
+  with someone who’s confused in their life ❤️
+
+
+  #inspiration #perspective #garyvee'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: Apresentar a mensagem central de resiliência, gerar contraste emocional e
+    citar autoridade para estimular o engajamento imediato
+  screenshot_ref: Screenshots/slide_01.png
+  reference_headline: JUST BECAUSE YOU'RE LOSING AT HALF-TIME DOESN'T MEAN IT'S OVER
+  reference_body: ''
+  headline: SÓ PORQUE VOCÊ ESTÁ ENFRENTE AO PLACAR NA METADE NÃO SIGNIFICA QUE ACABOU
+  sub_headline: O DESAFIO
+  body_text: A metade do jogo é só o ponto de partida. Quem vira o placar entende
+    que ainda tem tempo de mudar a história. Compartilhe com quem precisa ouvir isso
+    e não desista.
+  design_triggers:
+  - Contraste De Cores
+  - Tipografia Impactante
+  - Citação Inspiradora/Resonante
+  - Autoridade/Credibilidade (Garyvee)
+  - Imagem De Pessoas (Human Connection)
+  - Contexto Urbano Autêntico
+  - Elementos De Destaque
+  - Sublinhado
+  text_metrics:
+    headline_chars: 73
+    body_chars: 164
+    headline_tier: sm
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: sports halftime comeback
+  accent_color: '#FF5B3F'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline em caixa alta: "JUST BECAUSE YOU''RE LOSING AT HALF‑TIME
+      DOESN''T MEAN IT''S OVER". Body curto em tom direto, estilo GaryVee, reforçando
+      que a metade do caminho é apenas um ponto de virada. Cite Gary Vee como referência
+      de autoridade e encerre com CTA: "Marca alguém que precisa ouvir isso e não
+      desista".'
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-05-19T21:43:16'
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: headline via heurística (heurística:citação principal) — revisar'
+  headlines_extracted: 1/1
+  bodies_extracted: 0/1
+  headlines_via_heuristic: 1
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Superar o momento de derrota intermediária e perceber que ainda há
+    chances de vitória
+  formato: Quote motivacional com chamada para ação de apoio
+  arco_narrativo: Inicia com a afirmação de que estar perdendo na metade do caminho
+    não significa o fim, gera contraste emocional, reforça autoridade com referência
+    a Gary Vee e encerra com CTA de compartilhar para quem está confuso
+  estrutura:
+  - slide_n: 1
+    papel: Apresenta a mensagem central de resiliência, utiliza contraste visual e
+      autoridade para gerar engajamento imediato
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Uso de contraste de cores forte que capta atenção imediata
+  - Tipografia impactante que destaca a mensagem principal
+  - Autoridade de marca (Gary Vee) que confere credibilidade
+  - Chamada emocional de compartilhar, incentivando o K‑Factor
+  - Formato curto e direto, otimizado para consumo rápido em feeds
+  recomendacao:
+    slides_ideais: 1
+    justificativa: O conteúdo já entrega toda a mensagem de forma clara e persuasiva
+      em um único slide; dividir em mais slides diluiria o impacto visual e reduziria
+      o CTR
+  analyzed_by: openrouter:openai/gpt-oss-120b:free
+  analyzed_at: '2026-05-19T21:42:52'
+content_plan:
+  archetype: quote
+  slide_count: 1
+  tema: Superar o momento de derrota intermediária e perceber que ainda há chances
+    de vitória
+  slides:
+  - slide_n: 1
+    role: Apresentar a mensagem central de resiliência, gerar contraste emocional
+      e citar autoridade para estimular o engajamento imediato
+    kicker: O DESAFIO
+    copy_direction: 'Headline em caixa alta: "JUST BECAUSE YOU''RE LOSING AT HALF‑TIME
+      DOESN''T MEAN IT''S OVER". Body curto em tom direto, estilo GaryVee, reforçando
+      que a metade do caminho é apenas um ponto de virada. Cite Gary Vee como referência
+      de autoridade e encerre com CTA: "Marca alguém que precisa ouvir isso e não
+      desista".'
+    image_direction: Fundo com contraste forte (preto + amarelo neon). Texto central
+      em tipografia bold, alinhado à esquerda. Inserir silhueta de um atleta no momento
+      de pausa, sombra projetada para sugerir recuperação. Pequeno logo Virals discreto
+      no canto inferior direito.
+    source_slides:
+    - 1
+  rationale: 'A análise indica que o conteúdo já entrega toda a mensagem em um único
+    slide com alto impacto visual e autoridade. Manter um único slide preserva o pico
+    de atenção (primeiro segundo) e maximiza o CTR. O kicker "O DESAFIO" contextualiza
+    a dor do avatar D2C, enquanto a copy segue a voz Virals: direto, confiante, com
+    dados implícitos (ex.: "perdendo na metade" = ponto de virada mensurável). O visual
+    usa contraste de cores e tipografia impactante, atendendo aos fatores de performance
+    apontados. CTA de compartilhamento gera K‑Factor sem promessas vazias.'
+  planned_by: openrouter:openai/gpt-oss-120b:free
+  planned_at: '2026-05-19T21:43:10'
+central_theme: Superar o momento de derrota intermediária e perceber que ainda há
+  chances de vitória
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openai/gpt-oss-120b:free
+  recast_at: '2026-05-19T21:43:16'
+  slides: 1
+  central_theme: Superar o momento de derrota intermediária e perceber que ainda há
+    chances de vitória
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openai/gpt-oss-120b:free
+  checked_at: '2026-05-19T21:43:38'

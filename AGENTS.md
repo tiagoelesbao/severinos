@@ -1,4 +1,4 @@
-# AGENTS.md - Synkra AIOS (Codex CLI)
+# AGENTS.md - Synkra AIOX (Codex CLI)
 
 Este arquivo define as instrucoes do projeto para o Codex CLI.
 
@@ -61,43 +61,32 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aiox-core/
 - `@data-engineer`, `/data-engineer`, `/data-engineer.md` -> `.aiox-core/development/agents/data-engineer.md`
 - `@ux-design-expert`, `/ux-design-expert`, `/ux-design-expert.md` -> `.aiox-core/development/agents/ux-design-expert.md`
 - `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
-- `@squad-chief`, `/squad-chief`, `/squad-chief.md` -> `squads/squad-creator-alternative/agents/squad-chief.md`
 - `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
-
-### Virals OPS Squad (Custom)
-- `@virals-ops-dalio`, `/virals-ops-dalio`, `/virals-ops-dalio.md` -> `squads/virals-ops-squad/agents/dalio.md`
-- `@virals-ops-wickman`, `/virals-ops-wickman`, `/virals-ops-wickman.md` -> `squads/virals-ops-squad/agents/wickman.md`
-- `@virals-ops-kaushik`, `/virals-ops-kaushik`, `/virals-ops-kaushik.md` -> `squads/virals-ops-squad/agents/kaushik.md`
-- `@virals-ops-hormozi-sys`, `/virals-ops-hormozi-sys`, `/virals-ops-hormozi-sys.md` -> `squads/virals-ops-squad/agents/hormozi-sys.md`
-- `@virals-ops-walker-launch`, `/virals-ops-walker-launch`, `/virals-ops-walker-launch.md` -> `squads/virals-ops-squad/agents/walker-launch.md`
-
-### Virals Marketing Squad (Custom)
-- `@marketing-mrbeast-mk`, `/marketing-mrbeast-mk`, `/marketing-mrbeast-mk.md` -> `squads/virals-marketing-squad/agents/mrbeast-mk.md`
-- `@marketing-garyvee-mk`, `/marketing-garyvee-mk`, `/marketing-garyvee-mk.md` -> `squads/virals-marketing-squad/agents/garyvee-mk.md`
-- `@marketing-ladeira`, `/marketing-ladeira`, `/marketing-ladeira.md` -> `squads/virals-marketing-squad/agents/ladeira.md`
-- `@marketing-georgi`, `/marketing-georgi`, `/marketing-georgi.md` -> `squads/virals-marketing-squad/agents/georgi.md`
-- `@marketing-fishkin-mk`, `/marketing-fishkin-mk`, `/marketing-fishkin-mk.md` -> `squads/virals-marketing-squad/agents/fishkin-mk.md`
-- `@marketing-perry-marshall`, `/marketing-perry-marshall`, `/marketing-perry-marshall.md` -> `squads/virals-marketing-squad/agents/perry-marshall.md`
-- `@marketing-ezra-firestone`, `/marketing-ezra-firestone`, `/marketing-ezra-firestone.md` -> `squads/virals-marketing-squad/agents/ezra-firestone.md`
-
-### Virals Vendas Squad (Custom)
-- `@virals-vendas-hormozi-sales`, `/virals-vendas-hormozi-sales`, `/virals-vendas-hormozi-sales.md` -> `squads/virals-vendas-squad/agents/hormozi-sales.md`
-- `@virals-vendas-belfort-sales`, `/virals-vendas-belfort-sales`, `/virals-vendas-belfort-sales.md` -> `squads/virals-vendas-squad/agents/belfort-sales.md`
-- `@virals-vendas-ross-sales`, `/virals-vendas-ross-sales`, `/virals-vendas-ross-sales.md` -> `squads/virals-vendas-squad/agents/ross-sales.md`
-- `@virals-vendas-blount-sales`, `/virals-vendas-blount-sales`, `/virals-vendas-blount-sales.md` -> `squads/virals-vendas-squad/agents/blount-sales.md`
-- `@virals-vendas-thiago-reis`, `/virals-vendas-thiago-reis`, `/virals-vendas-thiago-reis.md` -> `squads/virals-vendas-squad/agents/thiago-reis.md`
-
-### Virals Produto Squad (Custom)
-- `@virals-produto-cagan`, `/virals-produto-cagan`, `/virals-produto-cagan.md` -> `squads/virals-produto-squad/agents/cagan-produto.md`
-- `@virals-produto-torres`, `/virals-produto-torres`, `/virals-produto-torres.md` -> `squads/virals-produto-squad/agents/torres-produto.md`
-- `@virals-produto-wes-bush`, `/virals-produto-wes-bush`, `/virals-produto-wes-bush.md` -> `squads/virals-produto-squad/agents/wes-bush-produto.md`
-- `@virals-produto-eyal`, `/virals-produto-eyal`, `/virals-produto-eyal.md` -> `squads/virals-produto-squad/agents/eyal-produto.md`
-- `@virals-produto-lincoln`, `/virals-produto-lincoln`, `/virals-produto-lincoln.md` -> `squads/virals-produto-squad/agents/lincoln-produto.md`
-
-### Virals Projetos Squad (Custom)
-- `@virals-projetos-singer`, `/virals-projetos-singer`, `/virals-projetos-singer.md` -> `squads/virals-projetos-squad/agents/singer-proj.md`
-- `@virals-projetos-sutherland`, `/virals-projetos-sutherland`, `/virals-projetos-sutherland.md` -> `squads/virals-projetos-squad/agents/sutherland-proj.md`
-- `@virals-projetos-catmull`, `/virals-projetos-catmull`, `/virals-projetos-catmull.md` -> `squads/virals-projetos-squad/agents/catmull-proj.md`
-- `@virals-projetos-lencioni`, `/virals-projetos-lencioni`, `/virals-projetos-lencioni.md` -> `squads/virals-projetos-squad/agents/lencioni-proj.md`
-- `@virals-projetos-allen`, `/virals-projetos-allen`, `/virals-projetos-allen.md` -> `squads/virals-projetos-squad/agents/allen-proj.md`
 <!-- AIOX-MANAGED-END: shortcuts -->
+
+<!-- Fora dos blocos AIOX-MANAGED: escrito à mão, não é sobrescrito pelo sync:ide. -->
+
+## Squads de negócio
+
+Além dos agentes de engenharia acima, o repositório carrega squads de negócio em
+`squads/`. Cada um tem o seu próprio `MEMORY.md`, que é a fonte dos números
+medidos e das decisões já tomadas — **leia antes de propor qualquer coisa** no
+domínio dele, ou você reabre investigação encerrada.
+
+| Squad | Domínio | Entrada |
+|---|---|---|
+| `virals-marketing-squad` | conteúdo, tráfego, pipeline ClickUp | `/marketing-chief` |
+| `oraclumtech-ai-creative-studio` | produção audiovisual local (ComfyUI) | `/studio-chief` |
+
+### Oraclum Tech · AI Creative Studio
+
+Regra de ouro: **o squad DIRIGE a geração; quem GERA é o humano**, no ComfyUI
+local. Nenhuma task produz pixel ou áudio sozinha — elas escrevem prompts, montam
+filas de job, medem o resultado e decidem o que refazer. O que roda de verdade é
+`squads/oraclumtech-ai-creative-studio/assets/comfyui/run_batch.py`.
+
+- Guia operacional completo (como rodar tudo na mão):
+  `squads/oraclumtech-ai-creative-studio/docs/GUIA-MANUAL.html`
+- Sem persona, passo a passo, para modelo fraco ou sessão sem contexto:
+  `/pipeline-manual`
+- **Uma tarefa pesada por vez.** A máquina tem 16 GB e o gargalo é RAM, não VRAM.

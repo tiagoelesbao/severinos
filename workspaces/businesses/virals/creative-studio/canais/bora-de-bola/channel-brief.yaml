@@ -1,0 +1,174 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# BORA DE BOLA — brief do CANAL
+#
+# Escrito uma vez, referenciado por todo episódio. É por isso que o pipeline
+# `wf-dark-room` não tem estágio `brief`: ele acontece aqui, e não no job.
+#
+# Fundado em 2026-09-04 · revisar por temporada
+# ═══════════════════════════════════════════════════════════════════════════
+
+canal:
+  id: bora-de-bola
+  nome: Bora de Bola
+  dono: Virals
+  formato: dark (sem rosto) — locução sobre imagem
+  nicho: futebol brasileiro
+  idioma: pt-BR
+  fundado: '2026-09-04'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# POSICIONAMENTO
+# ─────────────────────────────────────────────────────────────────────────────
+posicionamento:
+  tese: >
+    Plantão de futebol brasileiro que chega primeiro e diz o que aconteceu, com
+    fonte citada em voz alta. A embalagem é agressiva; o conteúdo entrega o que
+    o título prometeu.
+
+  o_que_nao_e: >
+    Não é canal de opinião, não é canal de torcida e não é canal de investigação.
+    Não inventa declaração, não usa "fontes internas" que não existem e não
+    especula sobre a vida pessoal de ninguém.
+
+  duas_frentes:
+    esteira: >
+      Mercado da bola e pós-jogo, todo dia. É o volume — o que constrói o
+      catálogo e a frequência que o algoritmo premia.
+    live: >
+      Transmissão com overlay de dados durante a partida. É o diferencial —
+      nenhum canal pequeno tem minicampo, estatística ao vivo e narração
+      automática. Ver `apps/canal-futebol/GUIA-DIAS-DE-JOGO.md` para a grade.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AVATAR
+# ─────────────────────────────────────────────────────────────────────────────
+avatar:
+  quem: >
+    Homem, 18 a 45, torcedor de clube grande brasileiro, consome futebol pelo
+    celular várias vezes ao dia. Uma parcela relevante acompanha odds e mercado
+    de aposta — é ela que sustenta a audiência das lives em horário morto.
+  quando_assiste:
+    - manhã cedo, indo trabalhar (plantão da noite anterior)
+    - intervalo do almoço
+    - noite, depois do jogo
+  o_que_ele_quer: saber primeiro, e saber se é verdade
+  o_que_o_irrita: título que promete o que o vídeo não entrega
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FORMATO
+# ─────────────────────────────────────────────────────────────────────────────
+formato:
+  duracao_alvo: '10 a 13 minutos'
+  ritmo_alvo_ppm: 134          # medido no BTB Sports; ver ANALISE-REFERENCIA.md
+  palavras_por_video: '~1.600'
+  estrutura: 'apps/canal-futebol/ANALISE-REFERENCIA.md § A estrutura, com o relógio'
+  regra_de_ouro_da_estrutura: >
+    A notícia principal é entregue nos primeiros 10 segundos — antes da vinheta e
+    antes do CTA. Retenção vem de entregar e prometer mais três, não de segurar.
+  cta:
+    quando: 'aos 2:10, nunca antes'
+    como: 'com justificativa, não pedido seco'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REGRA DE FONTE — o que sustenta o canal
+# ─────────────────────────────────────────────────────────────────────────────
+regra_de_fonte:
+  principio: 'A curiosidade pode ser nossa. O fato tem que ser deles.'
+  obrigatorio:
+    - toda afirmação factual tem entrada no claim-ledger com link
+    - a fonte é CITADA EM VOZ ALTA no vídeo, com o nome do veículo ou do jornalista
+    - quando há histórico de acerto da fonte, ele é dito ("que acertou a contratação de X")
+  proibido:
+    - declaração entre aspas que não exista literalmente na fonte
+    - 'expressões como "fontes internas" ou "soube em primeira mão" sem fonte real'
+    - número, valor ou prazo sem link
+  padroes_de_titulo_liberados: [A, B1, B2]
+  padrao_bloqueado: B3
+  b3_por_que: >
+    Fala inventada atribuída a pessoa nomeada. Difamação (ilícito civil
+    independente de intenção) somada a prática enganosa no YouTube — que é
+    aviso, não strike contestável, e três avisos encerram o canal. O motor
+    `apps/regra-de-3` descarta B3 mecanicamente.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TABUS — léxico e assunto que não entram
+# ─────────────────────────────────────────────────────────────────────────────
+tabus:
+  assunto:
+    - vida pessoal, família e filhos de atleta
+    - saúde mental, orientação sexual, religião
+    - processo judicial em curso tratado como culpa formada
+    - qualquer conteúdo que envolva menor de idade
+    - convite, link ou código de casa de aposta (a audiência aposta; o canal não promove)
+  lexico_proibido:
+    - 'ladrão / bandido / vagabundo referindo-se a pessoa identificada'
+    - termo racista, homofóbico ou capacitista, inclusive em citação
+    - 'a palavra "exclusivo" quando a matéria é de terceiro'
+  regra_de_imagem: >
+    Imagem de blog puxada por RSS NÃO dá direito de uso — a maioria é licenciada
+    de agência. Ver `fontes-confiaveis.md § Direito de imagem` para as rotas limpas.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IDENTIDADE
+# ─────────────────────────────────────────────────────────────────────────────
+identidade:
+  logo: 'assets/logo.png'
+  banner: 'assets/banner.png'
+  sistema_de_thumb: 'thumb-system.yaml'
+  voz: 'voice-lock.yaml'
+  paleta:   # extraída das artes, não estimada a olho
+    verde_fundo: '#0C240C'
+    verde_medio: '#0C3C0C'
+    verde_campo: '#246C0C'
+    verde_limao: '#84B40C'
+    amarelo: '#FCCC0C'
+    amarelo_claro: '#FCE40C'
+    branco: '#FCFCFC'
+    preto: '#0C0C0C'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CADÊNCIA
+# ─────────────────────────────────────────────────────────────────────────────
+cadencia:
+  meta_inicial: '2 a 3 vídeos por dia na primeira semana'
+  meta_regime: '5 a 8 por dia'
+  referencia: 'BTB Sports publica ~65 por semana — é esteira, não investigação'
+  dias_fortes:
+    dom_noite_seg: 'rodada da Série A — o pico'
+    seg_a_qui: 'Série B joga todo dia; é o insumo que a Série A não dá'
+    qua_qui: 'Libertadores e Sul-Americana'
+    sex: 'mercado da bola pelo RSS — não há futebol brasileiro'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PIPELINE
+# ─────────────────────────────────────────────────────────────────────────────
+pipeline:
+  workflow: 'squads/oraclumtech-ai-creative-studio/workflows/wf-dark-room.yaml'
+  etapas:
+    1_descoberta: '/pauta-futebol   → pautas ranqueadas com o fato estruturado'
+    2_packaging: '/packaging       → título + thumb + a PROMESSA (antes do roteiro)'
+    3_roteiro: '@head-of-copy     → escreve para cumprir a promessa'
+    4_imagens: '@art-director     → thumb dentro do thumb-system'
+    5_locucao: 'apps/live-futebol/voz.py com o perfil `vod` do voice-lock'
+    6_montagem: '@editor'
+    7_gate: 'gate-packaging + gate-script + gate-factcheck'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GATE DE DURAÇÃO — definido pelo founder em 2026-09-06
+# ─────────────────────────────────────────────────────────────────────────────
+duracao:
+  minima: '10 minutos'
+  regra: >
+    NENHUM episódio deste canal sai abaixo de 10 minutos. O episódio de 06/09
+    saiu com 4min21 e foi RECUSADO. O piloto tinha 11min09 — esse é o patamar.
+  por_que: >
+    Vídeo curto em canal de notícia não monetiza e não sustenta a segunda
+    janela de entrega. O formato do nicho é o plantão longo, não o corte.
+  como_planejar: >
+    A 195,7 palavras/min (ritmo MEDIDO do motor), 10 minutos exigem ~1.960
+    palavras de roteiro. Contar ANTES de narrar: `conta` no fim do roteiro.md.
+  o_que_NAO_fazer: >
+    Encher com repetição ou opinião para bater o número. O gate de duração não
+    revoga o gate de fidelidade — cada minuto a mais precisa de fato novo com
+    âncora em fonte. Se a pauta não sustenta 10 minutos, a pauta está errada,
+    não a duração.

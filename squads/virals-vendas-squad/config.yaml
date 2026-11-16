@@ -24,11 +24,13 @@ agents:
     file: agents/thiago-reis.md
 workspace_integration:
   level: read_write
-  rationale: "Reads lead data and CRM status from ClickUp and writes sales reports and pipeline updates."
+  rationale: "Reads lead data and CRM status from ClickUp and writes sales reports and pipeline updates. Cobre as duas empresas do fundador (Virals e Oraclum)."
   read_paths:
     - workspace/businesses/virals/sales/
+    - workspace/businesses/oraclum/sales/
   write_paths:
     - workspace/businesses/virals/sales/
+    - workspace/businesses/oraclum/sales/
   template_namespace: sales
 task_standards:
   enforce_anatomy: true

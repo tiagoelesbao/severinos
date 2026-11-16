@@ -1,0 +1,666 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# STACK DE GERAÇÃO LOCAL — ComfyUI do founder
+#
+# Consumido por: @image-lead (`stills`), @motion-lead (`takes`),
+#                @sound-designer (`audio`), @exec-producer (`assign`, `budget`)
+#
+# POR QUE ISTO EXISTE
+# O `model-routing.yaml` responde "qual ferramenta usar". Este arquivo responde
+# "o que roda NA MÁQUINA, com qual licença, em quanta VRAM, e onde o arquivo mora".
+# É o inventário da capacidade instalada — não de intenção.
+#
+# REGRA DE OURO (_BLUEPRINT.md §3.1): quem gera é humano. Este arquivo descreve o
+# motor que o operador opera, não uma chamada automática.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.2.0'
+  criado_em: '2026-08-28'
+  atualizado_em: '2026-08-29'
+  mudanca_1_2_0: >
+    ÁUDIO GENERATIVO INSTALADO e a lacuna de TRILHA (era P4) FECHADA: Stable Audio Open
+    1.0 (checkpoint + text encoder T5 base) e ACE-Step v1 3.5B, ambos com suporte NATIVO
+    no ComfyUI 0.33.1 — nenhum custom node envolvido. 12,52 GiB em disco. Workflows
+    audio-trilha-sfx.json e audio-musica-acestep.json criados e validados
+    estruturalmente. Status `instalado` — nenhuma amostra gerada ainda.
+    CORREÇÃO DE DESENHO no mesmo movimento: música deixa de ser "P4, última prioridade"
+    e passa a CAPACIDADE TRANSVERSAL — ver a seção `musica_capacidade_transversal`.
+    ATENÇÃO ao escopo: a lacuna P3 NÃO foi fechada. Ela é Foley *sincronizado ao vídeo*
+    e o que entrou é text-to-audio. Fechou só o braço "banco de SFX avulso". Detalhe na
+    própria lacuna 3, que foi reescrita em vez de removida.
+  mudanca_1_1_0: >
+    Lacuna de prioridade 2 "Geração de imagem local" FECHADA: FLUX.2 [klein] 4B em
+    GGUF Q8_0 instalado, com encoder Qwen3-4B e VAE do Comfy-Org. Workflow
+    flux2-klein-t2i.json criado e validado estruturalmente. Status `instalado` —
+    nenhuma imagem gerada ainda.
+  squad: oraclumtech-ai-creative-studio
+  maquina: 'workstation do founder'
+  comfyui: 'C:\Users\Pichau\Desktop\ComfyUI_windows_portable (portable, 0.33.1)'
+  api: 'http://127.0.0.1:8188 — REST. POST /prompt enfileira, /history/{id} colhe.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+hardware:
+  gpu: 'NVIDIA RTX 4060 Ti'
+  vram_gb: 8
+  ram_gb: 16
+  disco_livre_gb: 19   # medido em 2026-08-29 após instalar o stack de áudio
+  nota_de_disco: >
+    O valor acima oscila: durante a instalação do FLUX.2 o livre caiu de 49 GB para
+    31 GB, mas o stack de imagem responde por 11,81 GiB disso — o resto foi sessão
+    concorrente e pagefile. Ao orçar espaço, contar o tamanho dos arquivos, não o delta
+    do `df`. O stack de ÁUDIO (2026-08-29) foi a exceção que confirma a regra: 31,61 →
+    19,09 GiB livres, delta de 12,52 GiB, batendo ao byte com a soma dos três arquivos
+    — porque desta vez a máquina estava sem sessão concorrente de render.
+  alerta_de_disco: >
+    19 GiB livres é o ponto mais apertado que este setup já esteve. Com imagem + vídeo +
+    TTS + áudio instalados, o disco deixou de ser "o limite mais apertado" para ser o
+    limite ATIVO. Instalar qualquer modelo novo (InfiniteTalk, Qwen-Image-Edit,
+    HunyuanVideo-Foley) exige decidir ANTES o que sai. Não há mais folga para instalar
+    por curiosidade.
+  modo_de_operacao:
+    padrao: 'render noturno — máquina livre, nenhuma tela aberta, sem uso concorrente'
+    tolerancia_a_lentidao: 'ALTA — decisão explícita do founder'
+    evidencia: 'roda Wan 2.2 A14B a 20 steps + RIFE + upscale 4x sem estourar'
+    declaracao_do_founder_2026_08_29: >
+      "demora na geração pra mim não é problema, prefiro que demore mas eu tenha
+      sempre os resultados de maior qualidade possível"
+    consequencia_na_escolha_de_modelo: >
+      REGRA DE DESEMPATE PERMANENTE. Entre dois modelos, vence o de maior qualidade
+      mesmo que seja várias vezes mais lento. Modelo "turbo", "fast", "distilled" ou
+      "lightning" só entra como PREVIZ — nunca como padrão de entrega. Isto já
+      decidiu: as LoRAs lightx2v ficaram fora do fluxo principal do Wan, e o Q8_0
+      venceu o Q4_K_M no FLUX. Aplicar o mesmo critério a toda avaliação futura.
+  nota_de_cu126: >
+    O ComfyUI avisa no boot: "You need pytorch with cu130 or higher to use optimized
+    CUDA operations". O torch aqui é 2.13.0+cu126, então esse caminho otimizado está
+    DESLIGADO — vale para todo modelo, não só os novos. Não é defeito e não deve ser
+    mexido por conta própria: subir para cu130 arrasta o ambiente inteiro (numpy,
+    TTS-Audio-Suite) e é decisão do founder, não efeito colateral de instalação.
+  a_regra_que_manda: >
+    CORRIGIDO em 2026-08-28. A leitura anterior ("8 GB é o teto que decide tudo")
+    estava mal calibrada. Com offload e render noturno, o setup engole modelo pesado
+    — o próprio Wan A14B em dois estágios é prova. A regra real é:
+    OTIMIZAR POR QUALIDADE MÁXIMA, aceitando lentidão. Quantização alta vence
+    quantização baixa mesmo custando horas; o gargalo é a noite, e a noite é longa.
+  o_que_ainda_e_limite:
+    - 'Modelo que não cabe nem com offload (ex.: pede 24 GB residentes)'
+    - 'DISCO — 36 GB livres (2026-08-28). É o limite mais apertado hoje, não a VRAM.'
+    - >
+      RAM 16 GB — descoberto ao instalar o FLUX.2 klein. Text encoder grande roda na
+      CPU antes de subir para a placa: o encoder bf16 do klein tem 7,49 GiB e o pico
+      é no encode. Quantização do UNet resolve VRAM e não resolve isto. Ao avaliar
+      modelo novo, olhar o tamanho do ENCODER, não só o do UNet.
+  consequencia_de_orcamento: >
+    O recurso escasso NÃO é crédito de API, nem VRAM — é DISCO e noite de máquina.
+    O `*budget` do exec-producer conta GB e noites, não dólar.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INSTALADO E VALIDADO — roda hoje
+# ─────────────────────────────────────────────────────────────────────────────
+instalado:
+  video_i2v:
+    - id: wan22-i2v-a14b
+      nome: 'Wan 2.2 I2V A14B (GGUF Q4_K_M, dual-stage)'
+      arquivos:
+        - { file: 'Wan2.2-I2V-A14B-HighNoise-Q4_K_M.gguf', pasta: 'models/unet', tamanho: '9.0G' }
+        - { file: 'Wan2.2-I2V-A14B-LowNoise-Q4_K_M.gguf', pasta: 'models/unet', tamanho: '9.0G' }
+      encoder: { file: 'umt5-xxl-encoder-Q8_0.gguf', pasta: 'models/text_encoders', tamanho: '5.7G' }
+      vae: { file: 'wan_2.1_vae.safetensors', pasta: 'models/vae', tamanho: '243M' }
+      status: validado
+      evidencia: 'lote "vovós" renderizado com 6 takes — frames/render_jobs.json'
+      nota_de_vae: >
+        Usa o VAE 2.1, não o 2.2. Está correto: o wan2.2_vae é do modelo TI2V 5B,
+        não do A14B. Trocar quebra.
+
+    - id: lightx2v-4step
+      nome: 'LoRAs de destilação lightx2v 4-step (high + low noise)'
+      arquivos:
+        - { file: 'wan2.2_i2v_A14b_high_noise_lora_rank64_lightx2v_4step_1022.safetensors', pasta: 'models/loras', tamanho: '606M' }
+        - { file: 'wan2.2_i2v_A14b_low_noise_lora_rank64_lightx2v_4step_1022.safetensors', pasta: 'models/loras', tamanho: '706M' }
+      status: 'instalado, DELIBERADAMENTE fora do fluxo principal'
+      decisao_do_founder: >
+        Testadas e REMOVIDAS: derrubavam a qualidade do output. Não é esquecimento —
+        é decisão validada em produção. O fluxo de entrega roda sem LoRA, 20 steps
+        a cfg 4, e é assim que deve continuar.
+      onde_sobrevivem: 'assets/comfyui/workflows/wan22-i2v-fast.json — só previz'
+      para_que_servem_entao: >
+        Decidir SE um take funciona (composição, enquadramento, se o movimento pega)
+        antes de gastar 5x o tempo no render de verdade. É triagem, não entrega.
+      armadilha: 'cfg DEVE cair para 1.0 quando elas entram. LoRA de destilação com cfg alto queima a imagem.'
+
+  imagem_t2i:
+    - id: flux2-klein-4b
+      nome: 'FLUX.2 [klein] 4B (GGUF Q8_0)'
+      licenca: 'Apache 2.0 — uso comercial liberado, sem asterisco'
+      arquivos:
+        - { file: 'flux-2-klein-4b-Q8_0.gguf', pasta: 'models/unet', tamanho: '4,00 GiB (4.300.644.928 bytes)' }
+      encoder: { file: 'qwen_3_4b.safetensors', pasta: 'models/text_encoders', tamanho: '7,49 GiB (8.044.982.048 bytes)' }
+      vae: { file: 'flux2-vae.safetensors', pasta: 'models/vae', tamanho: '321 MiB (336.211.292 bytes)' }
+      total_em_disco: '11,81 GiB'
+      status: instalado
+      ja_conferido:
+        - 'Tamanho dos 3 arquivos idêntico ao manifesto do HuggingFace, byte a byte'
+        - 'Header do GGUF lido: magic GGUF v3, general.architecture=flux, file_type=7 (Q8_0), 149 tensores'
+        - 'Grafo conferido contra o /object_info da instalação real: as 12 classes de nó existem, e todo input, widget e saída bate com o schema'
+        - 'Os 3 arquivos aparecem nos dropdowns dos loaders — prova que a pasta está certa'
+        - 'CLIPLoader aceita type=flux2 nesta versão (ComfyUI 0.33.1)'
+      o_que_falta_para_validar: >
+        GERAR IMAGEM e ela ser aproveitada em job real. Nenhum pixel saiu ainda — o
+        grafo foi conferido, não executado. Enquanto isso não acontece, é capacidade
+        instalada, não capacidade provada.
+      por_que_nao_rodou_ainda: >
+        No momento da instalação a máquina estava com 2,3 GB de RAM livres de 16 GB
+        (ComfyUI já no ar com outra sessão). O encoder sozinho pede 7,49 GiB. Rodar ali
+        seria atropelar a sessão em curso e medir errado. Fica para a janela de render
+        noturno, que é o modo de operação padrão desta casa.
+      procedencia:
+        modelo: 'unsloth/FLUX.2-klein-4B-GGUF (base_model: black-forest-labs/FLUX.2-klein-4B)'
+        encoder_e_vae: 'Comfy-Org/vae-text-encorder-for-flux-klein-4b'
+        conferido: 'Repo e arquivo verificados via API do HuggingFace antes do download — não é URL adivinhada.'
+      por_que_o_4B_e_nao_o_9B: >
+        ARMADILHA DE LICENÇA. Existe FLUX.2 [klein] 9B e ele é melhor. Mas só o 4B saiu
+        sob Apache 2.0 — o 9B é NON-COMMERCIAL, mesma cilada do flux1-dev/flux1-krea-dev
+        já registrada em `rejeitados`. Canal monetizado torna licença critério técnico.
+        Quem for buscar GGUF vai esbarrar primeiro nos repos 9B: não são utilizáveis aqui.
+      por_que_q8_0: >
+        Corrigindo a estimativa antiga deste arquivo ("~2.6 GB em Q4_K_M"): Q4_K_M existe
+        e tem 2,43 GiB, mas é a escolha errada para esta casa. O klein é DISTILLED — a
+        alavanca de qualidade não é step count, é quantização. Q8_0 (4,00 GiB) é
+        praticamente sem perda contra o BF16 (7,22 GiB) e ainda deixa ~4 GB de VRAM
+        livres para o VAE decode. Cabe, então leva o Q8_0.
+      config_de_execucao: >
+        4 steps, cfg 1.0, sampler euler, sigmas pelo Flux2Scheduler. NÃO usa o nó
+        FluxGuidance: o transformer/config.json do klein-4B traz `guidance_embeds: false`.
+        O modelo não tem embed de guidance — o nó seria decoração.
+      armadilha_de_ram: >
+        O gargalo aqui é RAM, não VRAM. O encoder bf16 tem 7,49 GiB numa máquina de 16 GB;
+        o pico é no encode. Se estourar, o fallback é `qwen_3_4b_fp4_flux2.safetensors`
+        (3,58 GiB, mesmo repo Comfy-Org) — custa aderência ao prompt, então é saída de
+        emergência, não padrão. Não foi baixado para não gastar disco por antecipação.
+      workflow: 'assets/comfyui/workflows/flux2-klein-t2i.json'
+      nota_de_transicao: >
+        MANTIDA da versão anterior e ainda vale: o founder já aprova o look do Krea.
+        Trocar por modelo local muda a estética. Rodar os dois em paralelo por um lote
+        antes de migrar de vez, e registrar a comparação — não migrar às cegas.
+      ainda_nao_instalados:
+        - { id: z-image-turbo, licenca: 'Apache 2.0', quando: 'iterar rápido — quando o gargalo é número de tentativas, não qualidade absoluta', status: a_validar_no_estudio }
+        - { id: qwen-image, licenca: 'Apache 2.0', quando: 'TEXTO dentro da imagem (cartela, thumb) — melhor renderização de texto entre os abertos', status: a_validar_no_estudio }
+
+  # ═══ ÁUDIO GENERATIVO — instalado em 2026-08-29 ═══════════════════════════
+  # Fecha a lacuna de TRILHA (era P4) e o braço "banco de SFX" da P3.
+  # Os dois têm suporte NATIVO no ComfyUI — nenhum custom node.
+  audio_musica_e_sfx:
+    - id: stable-audio-open-1.0
+      nome: 'Stable Audio Open 1.0'
+      papel: 'trilha de APOIO e banco de SFX — o áudio que sustenta a peça, não o que é a peça'
+      licenca: 'Stability AI Community License'
+      licenca_detalhe: >
+        ATENÇÃO — é a ÚNICA peça do stack local cuja licença depende do FATURAMENTO, não
+        do uso. Comercial liberado abaixo de USD 1 milhão de receita anual, exigindo
+        registro em stability.ai/community-license e atribuição "Powered by Stability AI"
+        visível. Acima disso a licença TERMINA e passa a exigir acordo enterprise.
+        Não é Apache 2.0. Revisar na virada de cada ano fiscal — é o único item do stack
+        que pode deixar de ser utilizável sem que ninguém mexa em nada.
+      arquivos:
+        - { file: 'stable-audio-open-1.0.safetensors', pasta: 'models/checkpoints', tamanho: '4,521 GiB (4.853.889.016 bytes)' }
+      encoder: { file: 't5-base.safetensors', pasta: 'models/text_encoders', tamanho: '0,830 GiB (891.646.390 bytes)' }
+      total_em_disco: '5,351 GiB'
+      teto_de_duracao: '47 segundos — limite do embedder de duração do modelo, não escolha nossa'
+      status: instalado
+      procedencia:
+        checkpoint: 'Comfy-Org/stable-audio-open-1.0_repackaged (base: stabilityai/stable-audio-open-1.0)'
+        encoder: 'ComfyUI-Wiki/t5-base (Apache 2.0)'
+        conferido: >
+          Repos e arquivos verificados via API do HuggingFace antes do download — não é URL
+          adivinhada. As duas URLs vieram do próprio pacote comfyui-workflow-templates
+          0.11.41 instalado na máquina (template audio_stable_audio_example.json), que é a
+          fonte oficial e evita o palpite.
+        armadilha_do_repo: >
+          O repo original `stabilityai/stable-audio-open-1.0` é GATED — exige aceite de
+          licença e token. Quem tentar baixar direto dele por script vai tomar 401 e achar
+          que é problema de rede. O repackaged do Comfy-Org é aberto e é o que os templates
+          oficiais apontam.
+      ja_conferido:
+        - 'Tamanho dos 2 arquivos idêntico ao manifesto do HuggingFace, byte a byte'
+        - 'Header safetensors lido: 745 tensores no checkpoint, 258 no encoder'
+        - 'Os 2 arquivos aparecem no folder_paths.get_filename_list() do ComfyUI — prova de pasta certa'
+        - 'As 8 classes de nó do grafo existem no /object_info real (930 nós) — suporte NATIVO confirmado'
+        - 'Grafo validado: zero links quebrados, inputs/widgets batem com o schema'
+        - 'Conversão UI→API do smoke test testada a seco: zero input faltando ou sobrando'
+      por_que_precisa_de_encoder_separado: >
+        O checkpoint NÃO carrega o text encoder. O header safetensors mostra 745 tensores e
+        apenas os conditioners de `seconds_start`/`seconds_total` — nenhum T5. Por isso o
+        t5-base.safetensors vai separado em models/text_encoders e entra pelo CLIPLoader
+        nativo com type=stable_audio. A saída CLIP do CheckpointLoaderSimple fica sem uso,
+        e isso é correto, não esquecimento. É o oposto do ACE-Step, que é all-in-one.
+      config_de_execucao: >
+        50 steps, cfg 4.98, sampler dpmpp_3m_sde_gpu, scheduler exponential. Valores do
+        template oficial. Este modelo NÃO é destilado — aqui step count É a alavanca de
+        qualidade, ao contrário do FLUX klein, onde a alavanca era quantização. A regra da
+        casa (qualidade máxima aceitando lentidão) empurra para steps altos.
+      workflow: 'assets/comfyui/workflows/audio-trilha-sfx.json'
+      o_que_falta_para_validar: 'Gerar leito/SFX e ele ser aproveitado em job real'
+
+    - id: ace-step-v1-3.5b
+      nome: 'ACE-Step v1 3.5B (all-in-one)'
+      papel: 'música COMPLETA com letra e vocal — o substituto local do Suno'
+      licenca: 'Apache 2.0 — uso comercial liberado, sem asterisco e sem teto de faturamento'
+      arquivos:
+        - { file: 'ace_step_v1_3.5b.safetensors', pasta: 'models/checkpoints', tamanho: '7,171 GiB (7.699.743.341 bytes)' }
+      encoder: 'EMBUTIDO no checkpoint (text_encoders.umt5base) — não precisa de arquivo separado'
+      total_em_disco: '7,171 GiB'
+      status: instalado
+      procedencia:
+        modelo: 'Comfy-Org/ACE-Step_ComfyUI_repackaged — all_in_one/ace_step_v1_3.5b.safetensors'
+        conferido: 'Repo aberto (não-gated), licença Apache 2.0 confirmada via API do HuggingFace. URL vinda do template oficial audio_ace_step_1_t2a_song.json.'
+      ja_conferido:
+        - 'Tamanho idêntico ao manifesto do HuggingFace, byte a byte'
+        - 'Header safetensors: 1903 tensores, incluindo text_encoders.umt5base — all-in-one confirmado'
+        - 'Aparece no folder_paths.get_filename_list("checkpoints")'
+        - 'As 10 classes de nó do grafo existem no /object_info real — suporte NATIVO confirmado'
+        - 'Grafo validado: zero links quebrados, inputs/widgets batem com o schema'
+      os_dois_campos_sao_o_recurso: >
+        `tags` e `lyrics` são entradas SEPARADAS do nó TextEncodeAceStepAudio, e essa
+        separação é o recurso principal do modelo — é exatamente o fluxo de dois artefatos
+        que a aula 3 ensinou. Estilo curto (~200 caracteres) num campo, letra de verdade no
+        outro, com marcadores estruturais entre colchetes ([verse], [chorus], [instrumental]).
+        Misturar os dois campos quebra o modelo. Não é campo livre único.
+      config_de_execucao: >
+        50 steps, cfg 5.0, euler, scheduler simple, shift 5.0 no ModelSamplingSD3, tonemap
+        Reinhard 1.0, lyrics_strength 0.99. Todos do template oficial, sem alteração.
+      o_que_a_licenca_local_NAO_resolve: >
+        Apache 2.0 + geração local elimina a PRIMEIRA das quatro ressalvas da aula 3 — a
+        titularidade deixa de depender dos termos de uso de uma plataforma, porque não há
+        plataforma entre o founder e o arquivo. As outras TRÊS continuam de pé e nenhum
+        modelo resolve: proteção contestada de obra puramente gerada, possibilidade de
+        reivindicação de Content ID por semelhança, e política própria de distribuidora
+        sobre IA. Instalar o modelo não é resolver o direito.
+      workflow: 'assets/comfyui/workflows/audio-musica-acestep.json'
+      o_que_falta_para_validar: 'Gerar faixa e ela ser aproveitada num loop real'
+
+  audio_nota_de_teste: >
+    NENHUMA amostra de áudio foi gerada na instalação. No momento havia 5,68 GiB de RAM
+      livre e o Stable Audio Open sozinho pede ~5,7 GiB só para carregar checkpoint +
+      encoder antes de subir para a placa — abaixo do piso de 6 GiB que a própria tarefa
+      fixou. O ComfyUI, que estava no ar, caiu durante os downloads. Ficou pronto o script
+      `assets/comfyui/smoke-test-audio.py`, que aborta sozinho abaixo de 6 GiB, confere as
+      travas de numpy/torch e gera as duas amostras na janela de render noturno.
+
+  interpolacao_e_upscale:
+    - { id: rife, file: 'rife49.pth', node: 'RIFE VFI', uso: 'dobra 16→32fps', status: validado }
+    - { id: ultrasharp, file: '4x-UltraSharp.pth', pasta: 'models/upscale_models', uso: 'acabamento do take', status: validado }
+    - { id: realesrgan, file: 'RealESRGAN_x2plus.pth', pasta: 'models/upscale_models', status: instalado }
+
+  custom_nodes:
+    - { nome: 'ComfyUI-GGUF', autor: 'city96', uso: 'UnetLoaderGGUF, CLIPLoaderGGUF — indispensável neste setup' }
+    - { nome: 'ComfyUI-Frame-Interpolation', uso: 'RIFE VFI' }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LACUNAS — o que falta para o pipeline fechar local
+# Prioridade = ordem de instalação recomendada.
+# ─────────────────────────────────────────────────────────────────────────────
+lacunas:
+
+  # ═══ 1. NARRAÇÃO ═══════════════════════════════════════════════════════════
+  - prioridade: 1
+    lacuna: 'Narração / TTS'
+    destrava: 'P5 dark-room e P7 novela-recap inteiros'
+    node_suite:
+      nome: 'TTS-Audio-Suite'
+      repo: 'https://github.com/diodiogod/TTS-Audio-Suite'
+      instalacao: 'git clone em custom_nodes/ + python_embeded\python.exe install.py'
+      por_que_esta_e_nao_outra: >
+        Multi-engine sob a mesma interface de nós — troca o motor sem trocar o
+        workflow. E tem timing por SRT nativo, que é o que amarra o áudio à
+        pré-composição.
+      recurso_decisivo:
+        nome: 'Adjusted_SRT'
+        o_que_faz: 'Devolve o timing REAL do áudio gerado, não o estimado'
+        por_que_importa: >
+          É o que permite entregar timeline pré-montada com legenda sincronizada e
+          slots vazios esperando os takes. Sem isso, alguém sincroniza na mão.
+      nodes_relevantes: ['Unified TTS SRT', 'Text to SRT Builder', 'ChatterBox SRT Voice TTS', 'ASR Transcribe']
+    engines_rejeitados:
+      - { id: echo-tts, motivo: 'CC-BY-NC-SA — não-comercial' }
+      - { id: fish-audio-s2-pro, motivo: 'Fish Audio Research License' }
+      - { id: xtts-coqui, motivo: 'CPML — não-comercial. É o do vídeo de referência; soa bem e não pode ser usado.' }
+      - { id: dramabox, motivo: 'pede ~24 GB de VRAM' }
+      - { id: kokoro, motivo: 'Apache 2.0 mas PT-BR fraco' }
+      - { id: melotts, motivo: 'MIT mas não suporta português' }
+    engines:
+      - id: chatterbox-23l
+        recomendacao: 'PRIMEIRA ESCOLHA'
+        licenca: 'MIT'
+        pt_br: true
+        clonagem: true
+        por_que: 'Única com licença limpa E português confirmado. Canal monetizado torna licença critério técnico.'
+      - id: f5-tts
+        recomendacao: 'segunda — testar lado a lado'
+        licenca: 'permissiva'
+        pt_br: true
+        clonagem: true
+        por_que: 'Maduro, leve, clonagem boa. Tem edição de palavra pontual.'
+      - id: vibevoice
+        recomendacao: 'testar antes de contar'
+        long_form: '90 minutos'
+        pt_br: 'não listado — verificar'
+        por_que: 'O long-form seria ideal para roteiro de 7 min, mas PT pode não existir.'
+      - id: qwen3-tts
+        recomendacao: 'terceira leva'
+        pt_br: true
+    metodo_de_escolha: >
+      Não dá para decidir por especificação. Gerar a MESMA frase em PT-BR com a
+      MESMA voz de referência em Chatterbox 23L e F5-TTS, e decidir com o ouvido.
+      Registrar o vencedor aqui.
+
+  # ═══ 2. GERAÇÃO DE IMAGEM — FECHADA em 2026-08-28 ══════════════════════════
+  # Resolvida com FLUX.2 [klein] 4B Q8_0. Ver `instalado.imagem_t2i`.
+  # Os rejeitados por licença ficam registrados aqui para não voltarem à pauta:
+  - prioridade: 2
+    lacuna: 'Geração de imagem local — RESOLVIDA (ver instalado.imagem_t2i)'
+    status_da_lacuna: fechada
+    fechada_em: '2026-08-28'
+    fechada_com: 'flux2-klein-4b (Apache 2.0, GGUF Q8_0) — status `instalado`, ainda não `validado`'
+    rejeitados_por_licenca:
+      - { id: 'flux1-dev', motivo: 'Licença não-comercial. Excelente fotorrealismo, mas trava uso comercial.' }
+      - { id: 'flux1-krea-dev', motivo: 'Mesma licença. É literalmente o modelo por trás do Krea — a tentação óbvia, e a que não pode.' }
+      - { id: 'flux2-klein-9B', motivo: 'NON-COMMERCIAL. É o irmão maior e melhor do que instalamos, e é a primeira coisa que aparece procurando GGUF de klein. Não serve.' }
+
+  # ═══ 2b. CONSISTÊNCIA DE PERSONAGEM ════════════════════════════════════════
+  - prioridade: 2
+    lacuna: 'Consistência de personagem entre takes e entre episódios'
+    destrava: 'Lote de vídeo longo com elenco fixo — é o que o P7 novela-recap exige todo dia'
+    o_problema_real: >
+      Gerar UMA imagem boa é fácil. O difícil é a MESMA senhora, com o mesmo rosto e
+      a mesma roupa, em 8 takes diferentes, todo dia, por meses. O `takes_wan.md` do
+      founder já documentou a falha: "só citar o nome não é suficiente, cada geração
+      é independente" — foi por isso que as Donas saíram jovens na v1.
+    tres_rotas:
+      - rota: 'LoRA por personagem'
+        recomendacao: 'MELHOR PARA O CASO DE NOVELA — investigar primeiro'
+        por_que: >
+          Elenco de novela é FIXO e se repete todo episódio. Treinar uma LoRA por
+          personagem uma vez e reusar diariamente por meses é o oposto de truque de
+          referência: a identidade fica no peso do modelo, não num prompt que pode
+          ser ignorado. Custo de VRAM existe só no treino, e treino é uma vez.
+        quando_nao_vale: 'Personagem que aparece uma vez só. Aí é overhead puro.'
+        status: a_validar_no_estudio
+      - rota: 'Qwen-Image-Edit (2509 / 2511)'
+        licenca: 'Apache 2.0'
+        recurso: 'Aceita até 3 imagens de referência, citáveis no prompt como "image 1", "image 2", "image 3"'
+        por_que: 'É o equivalente local do Nano Banana / Flux Kontext, com licença limpa. Rota certa conceitualmente.'
+        problema_de_vram: >
+          ATENÇÃO — em 8 GB fica apertado de verdade. Só Q2_K (7,06 GB) ou Q3_K_S
+          (8,95 GB, já estoura e exige offload), ambos com Lightning LoRA, e o
+          resultado sai "visivelmente mais macio" que as quantizações altas.
+          É o caso em que o modelo certo esbarra na placa.
+        status: a_validar_no_estudio
+      - rota: 'PuLID / IPAdapter sobre o modelo base'
+        por_que: 'Leve, roda com folga em 8 GB, resolve consistência facial a partir de uma referência'
+        limite: 'Mais fraco que LoRA para identidade completa (rosto + roupa + porte)'
+        status: a_validar_no_estudio
+    rejeitado:
+      - { id: 'flux-kontext-dev', motivo: 'Tecnicamente excelente para consistência, licença não-comercial' }
+    o_que_o_moodboard_resolve: >
+      Moodboard trava ESTILO (luz, paleta, enquadramento) — não trava IDENTIDADE.
+      São dois problemas distintos e o founder já vive os dois: o `takes_wan.md` tem
+      uma seção de house style (estilo) e uma tabela de elenco (identidade). O
+      moodboard cobre a primeira; LoRA ou referência cobre a segunda.
+
+  # ═══ 2c. SUBSTITUIÇÃO E TRANSFERÊNCIA DE MOVIMENTO ═════════════════════════
+  - prioridade: 2
+    lacuna: 'Substituir personagem/objeto/cenário preservando o movimento original'
+    destrava: 'Rota de produção que não depende de gerar o movimento do zero'
+    de_onde_veio: >
+      Insight do founder: viu criadores aplicando "borrões preto e branco" sobre
+      trecho de filme para mapear movimento e, com moodboard de personagem,
+      recriar a cena. A técnica existe e tem nome — é control video no VACE.
+    candidatos:
+      - id: wan-animate-2.2
+        nome: 'Wan 2.2 Animate (14B)'
+        o_que_faz: >
+          Extrai o movimento de um vídeo de entrada, segmenta o sujeito e sintetiza
+          um personagem novo seguindo o MESMO movimento, preservando a iluminação
+          original da cena.
+        casos_de_uso:
+          - 'Troca de personagem, figurino ou objeto mantendo a luz original'
+          - 'Transferência de movimento: personagem parado copia uma performance real'
+          - 'Previz e dublê: bloqueia a cena com um ator e troca o personagem depois'
+        bonus: 'A mesma família de workflow faz lip-sync'
+        templates_oficiais:
+          - 'video_wan2_2_14B_animate (ComfyUI oficial)'
+          - 'templates_purz_wan22_animate_auto_full_scene'
+        status: a_validar_no_estudio
+      - id: vace
+        nome: 'VACE (Wan) — control video + reference2video'
+        o_que_e: 'É exatamente a técnica que o founder descreveu'
+        como_funciona: >
+          Encadeia encoders VACE: o primeiro recebe DEPTH pré-processado (o "borrão
+          preto e branco" — mapa de profundidade em escala de cinza), o segundo recebe
+          DWPose (esqueleto). Somados a uma imagem de referência do personagem,
+          reconstroem a cena com sujeito novo e movimento idêntico.
+        por_que_importa_para_nos: >
+          Reference2Video dispensa character sheet: a referência entra direto no
+          grafo. Resolve consistência POR CENA, não por prompt.
+        status: a_validar_no_estudio
+    nota_de_portfolio: >
+      Isto não é só técnica — é oferta. "Troco o personagem do seu vídeo mantendo a
+      cena" e "recrio esta cena com o seu produto" são serviços vendáveis que o P1 e
+      o P6 não cobrem hoje.
+
+  # ═══ 2d. LIP-SYNC ══════════════════════════════════════════════════════════
+  - prioridade: 2
+    lacuna: 'Lip-sync — casar fala gerada com boca do personagem'
+    destrava: 'P2 ugc-ads (creator sintético falando) e qualquer peça com personagem falando'
+    candidatos:
+      - id: infinitetalk
+        nome: 'InfiniteTalk (MeiGen-AI)'
+        recomendacao: 'PRIMEIRA ESCOLHA'
+        o_que_faz: 'Vídeo de avatar falando, a partir de imagem estática OU de vídeo existente, dirigido por áudio'
+        por_que: >
+          Comprimento ilimitado, e supera o MultiTalk em estabilidade — menos
+          distorção de mão e corpo, lip-sync melhor. Tem modo video2video, então
+          serve para corrigir a boca de um take que já existe.
+        instalacao: 'Via ComfyUI-WanVideoWrapper (kijai) — usa os workflows de exemplo do wrapper'
+        pasta: 'models/diffusion_models'
+        status: a_validar_no_estudio
+      - id: longcat-video-avatar
+        nome: 'LongCat-Video-Avatar 1.5'
+        nota: 'Mais recente (mai/2026). Troca Wav2Vec2 por Whisper-Large para sync mais preciso; aceita áudio multi-stream.'
+        status: a_validar_no_estudio
+    encaixe_no_pipeline: >
+      O `Adjusted_SRT` do TTS dá o timing exato da fala; o InfiniteTalk recebe esse
+      áudio e o take. É o par que fecha "personagem falando" ponta a ponta, local.
+
+  # ═══ 3. ÁUDIO SINCRONIZADO AO TAKE — PARCIALMENTE fechada em 2026-08-29 ════
+  - prioridade: 3
+    lacuna: 'Foley e SFX sincronizados ao vídeo (video-to-audio)'
+    destrava: 'O motor de vídeo passa a entregar take COM áudio condizente'
+    status_da_lacuna: parcialmente_fechada
+    o_que_fechou: >
+      O braço "BANCO de SFX avulso" — Stable Audio Open instalado gera whoosh, ambiência e
+      impacto a partir de TEXTO, e isso já cobre o uso SFX da tabela de capacidade
+      transversal. Ver `instalado.audio_musica_e_sfx`.
+    o_que_continua_aberto: >
+      O braço que dá nome à lacuna: som SINCRONIZADO AO MOVIMENTO do take. Stable Audio
+      Open é text-to-audio — ele não olha o vídeo. Onda que sobe e desce com a água, passo
+      que bate no frame do pé no chão, tiro no frame certo: nada disso ele faz, porque ele
+      não recebe o vídeo como entrada. Continua exigindo HunyuanVideo-Foley ou MMAudio.
+    por_que_isto_esta_registrado_assim: >
+      Seria fácil marcar esta lacuna como fechada — "instalei um gerador de SFX, pronto".
+      Seria errado. Banco de efeitos e foley sincronizado são capacidades diferentes, e o
+      próprio texto original desta lacuna já sabia disso ao dizer "em vez de gerar por
+      take". Quem for montar o pipeline precisa saber que o take ainda sai MUDO do motor
+      de vídeo, e que o SFX é colado na montagem, escolhido de um banco — não nasce colado.
+    consequencia_pratica: >
+      Para os testes A e B, o caminho hoje é: gerar um punhado de SFX por texto, guardar no
+      banco, e sincronizar na mesa de montagem. É mais trabalhoso que o foley automático,
+      mas é MAIS consistente entre episódios — que é justamente o que canal dark precisa.
+      A lacuna real que sobra é de automação, não de capacidade.
+    candidatos:
+      - id: hunyuanvideo-foley
+        recomendacao: 'PRIMEIRA ESCOLHA'
+        autor: 'Tencent'
+        repos_comfyui:
+          - 'https://github.com/if-ai/ComfyUI_HunyuanVideoFoley'
+          - 'https://github.com/phazei/ComfyUI-HunyuanVideo-Foley'
+        entrada: 'vídeo + prompt de texto'
+        saida: 'áudio sincronizado ao movimento'
+        por_que: >
+          Treinado multimodal desde o início (texto + vídeo → áudio), não é áudio
+          colado depois. Onda que sobe e desce com a água, fogo que estala no ritmo
+          da chama, tiro no frame certo.
+        status: a_validar_no_estudio
+      - id: mmaudio
+        recomendacao: 'alternativa'
+        dependencias: ['decord', 'moviepy']
+        status: a_validar_no_estudio
+    onde_encaixa_no_grafo: >
+      Depois do `CreateVideo` e antes do `SaveVideo`: o vídeo sai → entra no Foley
+      com o prompt de som daquele take → sai com foley embutido. O prompt de som
+      vem do `sound_design` que o `plan_video_creative.py` já produz.
+
+  # ═══ 4. TRILHA — FECHADA em 2026-08-29 ═════════════════════════════════════
+  # A prioridade "4" abaixo é HISTÓRICA e estava ERRADA. Ver
+  # `musica_capacidade_transversal` logo após o bloco de lacunas.
+  - prioridade: 4
+    lacuna: 'Trilha sonora de fundo — RESOLVIDA (ver instalado.audio_musica_e_sfx)'
+    status_da_lacuna: fechada
+    fechada_em: '2026-08-29'
+    fechada_com: >
+      ACE-Step v1 3.5B (música com letra e vocal) + Stable Audio Open 1.0 (leito
+      instrumental e SFX). Ambos `instalado`, nenhum ainda `validado`.
+    a_prioridade_estava_errada: >
+      Esta lacuna foi catalogada como P4, ÚLTIMA prioridade, atrás de lip-sync e
+      transferência de movimento. Errado — e o erro tinha consequência de sequência: o
+      teste do Airbnb (peça publicitária) vem ANTES do teste de música no plano de
+      validação, e ele PRECISA de trilha para existir. Peça publicitária sem trilha não é
+      peça, é sequência de takes. Uma lacuna classificada como última na fila bloqueava,
+      na prática, o primeiro entregável comercial. Ver `musica_capacidade_transversal`.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MÚSICA COMO CAPACIDADE TRANSVERSAL — correção de desenho (2026-08-29)
+#
+# Este bloco existe para impedir que a classificação antiga volte por inércia.
+# ─────────────────────────────────────────────────────────────────────────────
+musica_capacidade_transversal:
+  o_que_mudou: >
+    Música saiu de "P4, última prioridade" e passou a CAPACIDADE TRANSVERSAL. Não é uma
+    lacuna que se fecha e se esquece num canto do pipeline: ela atravessa praticamente
+    todo entregável do squad.
+  de_onde_veio_a_correcao: >
+    Do founder, e a partir da ordem dos testes. O documento antigo tratava trilha como
+    enfeite que se resolve no fim. Mas o teste do Airbnb acontece ANTES do teste de
+    música e depende dela para existir. A prioridade estava invertida em relação à ordem
+    real de execução — o item classificado como último era pré-requisito do primeiro.
+  os_tres_usos:
+    - uso: produto
+      o_que_e: 'A faixa É o ativo vendido/monetizado. O áudio é a entrega, não o vídeo.'
+      onde: 'Teste C, nicho dark de música (P5 dark-room, variante live-music-loop)'
+      modelo: 'ACE-Step v1 3.5B'
+      por_que_este: 'É o único que faz letra, vocal e estrutura. E é Apache 2.0 — sem teto de faturamento, o que importa quando a faixa é o produto monetizado.'
+    - uso: apoio
+      o_que_e: 'Guia a sensação, preenche o vazio e SUSTENTA O RITMO DO CORTE. É o que separa uma peça de uma sequência de takes.'
+      onde: 'Testes A e B, e TODA peça comercial'
+      modelo: 'Stable Audio Open 1.0'
+      por_que_este: 'Leito instrumental curto é exatamente o que ele faz bem, e é mais barato que rodar um modelo de música completa para gerar algo sem voz.'
+    - uso: sfx
+      o_que_e: 'Whoosh, ambiência, impacto — efeito avulso, montado em banco reutilizável'
+      onde: 'Todos os pipelines'
+      modelo: 'Stable Audio Open 1.0'
+      por_que_banco_e_nao_por_take: 'Mais barato e mais CONSISTENTE entre episódios, que é o que canal dark precisa. E é o que dá para fazer hoje: foley sincronizado ao movimento continua aberto (lacuna 3).'
+  a_frase_que_resume: >
+    Trilha não é acabamento — é estrutura. Ela guia a sensação e sustenta o ritmo do
+    corte. Por isso não pode ser a última coisa da fila: ela é pré-requisito da primeira.
+  consequencia_organizacional: >
+    Os testes A e B passam a EXIGIR trilha no estágio `audio`, e o `sound-designer` deixa
+    de ser figurante nesses jobs — passa a ter entregável obrigatório em toda peça, não só
+    nas que têm narração.
+  o_que_isto_NAO_significa: >
+    Não significa que áudio virou prioridade máxima sobre tudo. Significa que ele deixou
+    de ser uma ETAPA no fim da esteira e virou um INSUMO que atravessa a esteira inteira —
+    a mesma diferença que existe entre "revisar o texto no fim" e "escrever bem desde o
+    começo". Continua valendo a regra de ouro: quem gera é humano.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WORKFLOWS DO SQUAD
+workflows:
+  diretorio: 'assets/comfyui/workflows/'
+  lista:
+  - id: wan22-i2v-max
+    arquivo: 'wan22-i2v-max.json'
+    origem: 'espelho do fluxo validado do founder (lote vovós)'
+    config: '20 steps, cfg 4, split 0-6/6-20 — SEM LoRA'
+    quando: 'PADRÃO — toda peça que vale qualidade'
+  - id: wan22-i2v-fast
+    arquivo: 'wan22-i2v-fast.json'
+    origem: 'derivado do max + LoRAs lightx2v'
+    config: '4 steps, cfg 1, split 0-2/2-4'
+    quando: 'PREVIZ apenas — decidir se o take funciona antes de gastar 5x no render real'
+    custo: 'qualidade cai. Nunca entregar a partir deste.'
+  - id: flux2-klein-t2i
+    arquivo: 'flux2-klein-t2i.json'
+    origem: 'montado do zero a partir dos schemas reais do ComfyUI 0.33.1 instalado + card oficial da BFL'
+    config: '4 steps, cfg 1.0, euler, sigmas via Flux2Scheduler, 1024×1024, Q8_0'
+    quando: 'PADRÃO de texto→imagem. Still de abertura, moodboard, e o frame que depois vira {{IMAGEM_DE_ENTRADA}} do wan22-i2v-max.'
+    placeholders: ['{{PROMPT_POSITIVO}}', '{{PROMPT_NEGATIVO}}', '{{JOB}}', '{{TAKE}}']
+    saida: 'image/oraclum/{{JOB}}/{{TAKE}}'
+    armadilha: >
+      width/height do Flux2Scheduler DEVEM bater com os do EmptyFlux2LatentImage — é o
+      scheduler que calcula as sigmas em função da resolução. Divergir sai com schedule
+      calibrado para outro tamanho. E cfg fica em 1.0: subir liga o negativo, dobra o
+      tempo por step e tende a queimar a imagem.
+
+  - id: audio-trilha-sfx
+    arquivo: 'audio-trilha-sfx.json'
+    origem: 'derivado do template oficial audio_stable_audio_example.json (pacote comfyui-workflow-templates 0.11.41 instalado) + schemas reais do /object_info'
+    config: '50 steps, cfg 4.98, dpmpp_3m_sde_gpu, exponential — valores do template oficial'
+    quando: 'PADRÃO para áudio NÃO-vocal: leito instrumental de peça publicitária e banco de SFX avulso. Usos `apoio` e `sfx`.'
+    placeholders: ['{{PROMPT_AUDIO}}', '{{DURACAO_S}}', '{{JOB}}', '{{PECA}}']
+    saida: 'audio/oraclum/{{JOB}}/{{PECA}} — FLAC'
+    teto: '47 segundos. Para leito mais longo, gerar blocos e concatenar na montagem.'
+    armadilha: >
+      {{DURACAO_S}} entra em DOIS nós — ConditioningStableAudio.seconds_total e
+      EmptyLatentAudio.seconds — e os dois DEVEM receber o mesmo valor. Divergir gera
+      áudio calibrado para um arco de duração diferente do que cabe no latent: o modelo
+      planeja intro, desenvolvimento e fecho em cima do seconds_total. É a mesma classe de
+      armadilha do flux2-klein-t2i entre Flux2Scheduler e EmptyFlux2LatentImage.
+    por_que_flac: >
+      A saída aqui é INSUMO, não entrega: leito e SFX voltam para a mesa, são cortados,
+      sobrepostos e remixados, e perda de MP3 acumula a cada reprocessamento. As amostras
+      de narração do TTS são mp3 porque são entrega final; banco de áudio não é.
+  - id: audio-musica-acestep
+    arquivo: 'audio-musica-acestep.json'
+    origem: 'derivado dos templates oficiais audio_ace_step_1_t2a_song.json e audio_ace_step_1_t2a_instrumentals.json + schemas reais do /object_info'
+    config: '50 steps, cfg 5.0, euler, simple, shift 5.0, lyrics_strength 0.99 — valores dos templates oficiais'
+    quando: 'Música COMPLETA com letra e vocal. Uso `produto` — nicho dark de música, onde a faixa é o ativo.'
+    placeholders: ['{{ESTILO}}', '{{LETRA}}', '{{DURACAO_S}}', '{{JOB}}', '{{FAIXA}}']
+    saida: 'audio/oraclum/{{JOB}}/{{FAIXA}} — FLAC'
+    armadilha: >
+      {{ESTILO}} e {{LETRA}} vão em campos SEPARADOS (tags e lyrics) e não são
+      intercambiáveis. Estilo é lista curta de descritores por vírgula (~200 caracteres);
+      letra é a letra mesmo, com marcadores [verse]/[chorus]/[instrumental]. Para
+      instrumental puro, {{LETRA}} recebe apenas os marcadores — não fica vazio.
+    nota_de_workflow_unico: >
+      Os dois templates oficiais (canção e instrumental) têm o MESMO grafo — o que muda são
+      só os campos de texto. Por isso aqui existe um workflow só, e não dois.
+  smoke_test:
+    arquivo: 'assets/comfyui/smoke-test-audio.py'
+    o_que_faz: 'Gera as duas amostras pendentes (leito de hospedagem 30s + trecho musical) e salva em assets/comfyui/samples/'
+    guardas: 'Aborta abaixo de 6 GiB de RAM livre; confere numpy 2.2.x e torch 2.13.0+cu126 antes de rodar'
+    por_que_existe: 'Os modelos foram instalados numa janela sem RAM suficiente. É o teste que ficou pendente, pronto para a janela noturna.'
+
+  parametros_comuns:
+    resolucao: '960×720 (metade de 1920×1440 — sem distorção a partir do 4:3 do Krea)'
+    fps_base: 16
+    fps_final: '32 (RIFE 2x)'
+    regra_de_length: 'length precisa ser 4n+1 — 25, 33, 37, 49, 65'
+    placeholders: ['{{PROMPT_POSITIVO}}', '{{PROMPT_NEGATIVO}}', '{{IMAGEM_DE_ENTRADA}}', '{{JOB}}', '{{TAKE}}']
+
+# ─────────────────────────────────────────────────────────────────────────────
+manutencao:
+  responsavel: [image-lead, motion-lead, sound-designer]
+  regra: >
+    Todo item `a_validar_no_estudio` vira `validado` SÓ depois de rodar na máquina
+    do founder e produzir asset aproveitado em job real. Até lá é hipótese informada.
+    Quem validar registra a evidência aqui, como já está feito para o Wan.

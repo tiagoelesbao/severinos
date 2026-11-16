@@ -1,0 +1,34 @@
+{
+  "date": "2026-08-19",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-08-19T20:42:18.251Z",
+  "finished_at": "2026-08-19T20:42:58.464Z",
+  "duration_ms": 40213,
+  "total": 1,
+  "ok": 0,
+  "degraded": 1,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "verdict": "⚠️ 1/1 criativo(s) SEM assets reais — a análise destes é de metadados/capa, não do criativo.",
+  "results": [
+    {
+      "rank": 36,
+      "creator": "@aivideobootcamp",
+      "url": "https://www.instagram.com/aivideobootcamp/p/DcMSYK_DrLa/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-19\\benchmark\\instagram\\36-aivideobootcamp-432bdd",
+      "status": "degraded",
+      "status_reason": "apenas metadados — sem vídeo/imagem para analisar",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    }
+  ]
+}

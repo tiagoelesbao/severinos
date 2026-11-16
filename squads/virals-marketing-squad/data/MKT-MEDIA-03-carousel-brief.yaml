@@ -1,0 +1,43 @@
+carousel_brief:
+  slug: "mkt-media-03-carousel-test"
+  tema: "3 Pilares da Automação de Design"
+  objetivo: "educar"
+  slide_count: 5
+  tipo_narrativa: "lista-numerada"
+  tom: "educativo"
+  brand_config: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
+  formato_principal: "1:1"
+  gerar_webp: true
+
+content_data:
+  - slide_n: 1
+    tipo: "hook"
+    headline: "O DESIGN NUNCA MAIS SERÁ O MESMO."
+    body_text: "Conheça os 3 pilares da automação que estão mudando o jogo."
+    visual: "imagem"
+    ai_prompt: "A futuristic robotic arm painting a masterpiece on a canvas, neon sparks, professional studio lighting, cinematic 8k"
+
+  - slide_n: 2
+    tipo: "valor"
+    headline: "1. COERÊNCIA EM ESCALA"
+    body_text: "Garantir que 100 posts sigam a mesma marca sem intervenção humana."
+    visual: "cor-de-marca"
+
+  - slide_n: 3
+    tipo: "valor"
+    headline: "2. VELOCIDADE DE EXECUÇÃO"
+    body_text: "De horas para segundos. O pipeline Casey Neistat foca na entrega rápida."
+    visual: "cor-de-marca"
+
+  - slide_n: 4
+    tipo: "valor"
+    headline: "3. INTELIGÊNCIA CRIATIVA"
+    body_text: "IA não substitui o designer, ela amplifica sua visão e possibilidades."
+    visual: "cor-de-marca"
+
+  - slide_n: 5
+    tipo: "cta"
+    headline: "CURTIU O FUTURO?"
+    body_text: "Salve este post para consultar depois e siga para acompanhar a jornada."
+    visual: "cor-de-marca"
+    cta_action: "salvar"

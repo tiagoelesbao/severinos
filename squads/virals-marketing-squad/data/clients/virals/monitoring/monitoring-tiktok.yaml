@@ -1,0 +1,54 @@
+# Monitoring Profiles: TikTok
+# Squad: virals-marketing-squad
+# Frequency: Daily (Yesterday's posts)
+
+profiles:
+  tiktok:
+    - handle: "@adibemarquescimed"
+      url: "https://www.tiktok.com/@adibemarquescimed"
+      priority: medium
+    - handle: "@joaoadibecimed"
+      url: "https://www.tiktok.com/@joaoadibecimed"
+      priority: medium
+    - handle: "@toguro"
+      url: "https://www.tiktok.com/@toguro"
+      priority: medium
+    - handle: "@alfredosoaresoficial"
+      url: "https://www.tiktok.com/@alfredosoaresoficial"
+      priority: medium
+    - handle: "@tallisgomes"
+      url: "https://www.tiktok.com/@tallisgomes"
+      priority: medium
+    - handle: "@uanaamorim"
+      url: "https://www.tiktok.com/@uanaamorim"
+      priority: medium
+    - handle: "@renato_cariani"
+      url: "https://www.tiktok.com/@renato_cariani"
+      priority: medium
+    - handle: "@tayldantas"
+      url: "https://www.tiktok.com/@tayldantas"
+      priority: medium
+    - handle: "@fe.hatab"
+      url: "https://www.tiktok.com/@fe.hatab"
+      priority: medium
+    - handle: "@falajoaobranco"
+      url: "https://www.tiktok.com/@falajoaobranco"
+      priority: medium
+    - handle: "@garyvee"
+      url: "https://www.tiktok.com/@garyvee"
+      priority: medium
+    - handle: "@neilpatel"
+      url: "https://www.tiktok.com/@neilpatel"
+      priority: medium
+    - handle: "@noahkagan"
+      url: "https://www.tiktok.com/@noahkagan"
+      priority: medium
+    - handle: "@greglav"
+      url: "https://www.tiktok.com/@greglav"
+      priority: medium
+    - handle: "@ahormozi"
+      url: "https://www.tiktok.com/@ahormozi"
+      priority: medium
+    - handle: "@russellbrunson"
+      url: "https://www.tiktok.com/@russellbrunson"
+      priority: medium

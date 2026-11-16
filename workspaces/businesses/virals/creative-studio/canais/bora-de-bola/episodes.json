@@ -1,0 +1,28 @@
+{
+  "canal": "bora-de-bola",
+  "atualizado": "2026-09-05",
+  "nota": "Índice dos episódios do canal. Cada entrada aponta para o pack completo; o publicacao.yaml de cada episódio é a fonte da verdade, este arquivo é a visão de conjunto.",
+  "episodios": [
+    {
+      "slug": "2026-09-04-abel-stjd",
+      "n": 1,
+      "piloto": true,
+      "titulo": "AGORA! Abel fora, e o Palmeiras não aceita o veredito",
+      "thumb_texto": "ABSOLVIÇÃO VIROU CONDENAÇÃO",
+      "estilo_thumb": "E3",
+      "pauta": "Abel Ferreira suspenso por dois jogos pelo STJD; Palmeiras pede efeito suspensivo",
+      "duracao": "11min09s",
+      "publicado_em": null,
+      "url": null,
+      "pack": "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd",
+      "editavel": "outputs/bora-de-bola/video-plans/2026-09-04-abel-stjd",
+      "desempenho": {
+        "impressoes": null,
+        "ctr": null,
+        "retencao_media": null,
+        "colhido_em": null
+      },
+      "nota": "Primeiro episódio publicado. É a peça de referência da esteira — ver apps/canal-futebol/ESTEIRA.md e MEMORY.md do squad §6.4."
+    }
+  ]
+}

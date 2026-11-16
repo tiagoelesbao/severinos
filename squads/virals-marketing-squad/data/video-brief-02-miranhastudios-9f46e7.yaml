@@ -1,0 +1,436 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:07:45'
+media_kind: video
+video_brief:
+  slug: video-02-miranhastudios-9f46e7
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\02-miranhastudios-9f46e7
+source:
+  creator: '@miranhastudios'
+  platform: instagram
+  url: https://www.instagram.com/miranhastudios/reel/Db_z2tdM4o1/
+  type: video-short
+  caption: Marombas & Furiosos -ep1 “ apostando tudo “
+metadata:
+  view_count: null
+  like_count: 58561
+  comment_count: null
+  duration_seconds: 98
+  cut_timestamps:
+  - 12.17
+  - 17.93
+  - 26.2
+  - 34
+  - 35
+  - 36.47
+  - 37.03
+  - 39.03
+  - 42.9
+  - 44.83
+  - 55.57
+  - 57.4
+  - 59.07
+  - 76.77
+  - 78.6
+  - 79.47
+  - 80.27
+  - 80.93
+  - 81.77
+  - 84.1
+  - 84.57
+  - 84.67
+  - 84.93
+  - 86.17
+  - 88.1
+  - 96.7
+  - 97.27
+  - 98.83
+hook_raw: Bonito o carro. Agora é banco público
+transcript:
+- start: 6
+  end: 8
+  text: Bonito o carro. Agora é banco público
+- start: 8
+  end: 10
+  text: Tira a bunda da minha brasília
+- start: 10
+  end: 24
+  text: Watch your back, watch your back, watch your back, watch your back, watch
+    your back, watch your back, watch your back, watch your back
+- start: 24
+  end: 26
+  text: Você tem certeza que vai apostar seu carro nessa corrida?
+- start: 26
+  end: 29
+  text: E se perder?
+- start: 29
+  end: 43
+  text: Dificilmente eu perdo
+- start: 43
+  end: 44
+  text: É aqui
+- start: 44
+  end: 48
+  text: Já burro, é o que é
+- start: 48
+  end: 52
+  text: É o que é
+- start: 52
+  end: 58
+  text: É o que é
+- start: 58
+  end: 92
+  text: É o que é
+- start: 92
+  end: 94
+  text: Vamos para trás!
+- start: 94
+  end: 98
+  text: É agora!
+frames:
+- file: Screenshots/frame_01_at_00-06_Bonito_o_carro__Agora___banco_.jpg
+  timestamp: 00:06
+  t_seconds: 6
+- file: Screenshots/frame_02_at_00-24_Voc__tem_certeza_que_vai_apost.jpg
+  timestamp: 00:24
+  t_seconds: 24
+- file: Screenshots/frame_03_at_00-43___aqui_.jpg
+  timestamp: 00:43
+  t_seconds: 43
+- file: Screenshots/frame_04_at_00-52___o_que___.jpg
+  timestamp: 00:52
+  t_seconds: 52
+- file: Screenshots/frame_05_at_01-34___agora_.jpg
+  timestamp: 01:34
+  t_seconds: 94
+beats:
+- n: 1
+  start: 6
+  end: 24
+  text: Bonito o carro. Agora é banco público Tira a bunda da minha brasília Watch
+    your back, watch your back, watch your back, watch your back, watch your back,
+    watch your back, watch your back, watch your back
+  role: hook
+- n: 2
+  start: 24
+  end: 43
+  text: Você tem certeza que vai apostar seu carro nessa corrida? E se perder? Dificilmente
+    eu perdo
+  role: build
+- n: 3
+  start: 43
+  end: 52
+  text: É aqui Já burro, é o que é É o que é
+  role: build
+- n: 4
+  start: 52
+  end: 94
+  text: É o que é É o que é Vamos para trás!
+  role: build
+- n: 5
+  start: 94
+  end: 98
+  text: É agora!
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 13
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-06_Bonito_o_carro__Agora___banco_.jpg
+    shot_type: broll
+    on_screen_text: MIRANHA STUDIOS
+    has_captions: false
+  - file: frame_02_at_00-24_Voc__tem_certeza_que_vai_apost.jpg
+    shot_type: broll
+    on_screen_text: MIRANHA STUDIOS
+    has_captions: false
+  - file: frame_03_at_00-43___aqui_.jpg
+    shot_type: broll
+    on_screen_text: MIRANHA STUDIOS
+    has_captions: false
+  - file: frame_04_at_00-52___o_que___.jpg
+    shot_type: broll
+    on_screen_text: MIRANHA STUDIOS
+    has_captions: false
+  - file: frame_05_at_01-34___agora_.jpg
+    shot_type: broll
+    on_screen_text: MIRANHA STUDIOS
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.0
+    screen_capture: 0.0
+    broll: 1.0
+    graphic: 0.0
+  caption_style_seen: Nenhuma legenda visível nos frames fornecidos.
+  text_overlay_style: Uso de um logo de marca ('MIRANHA STUDIOS') fixo no canto inferior
+    esquerdo, sem outros overlays de texto narrativo ou explicativo.
+  visual_hook_device: O primeiro frame apresenta um carro clássico laranja vibrante
+    em um cenário noturno de rua, com personagens descontraídos, criando uma atmosfera
+    de 'encontro' ou 'desafio' que gera curiosidade imediata.
+  broll_density: high
+  edit_style_notes: '[''Enquadramento Dinâmico: Alterna entre planos abertos para
+    estabelecer o ambiente (rua, pista) e planos médios/fechados dentro dos carros
+    para focar na ação e nas expressões dos personagens.'', ''Iluminação Cinematográfica
+    Noturna: Forte uso de luzes práticas (rua, carro) e efeitos de neon (underglow
+    azul) para criar um clima dramático e destacar elementos chave, com predominância
+    de tons escuros e contrastes de luz.'', ''Cortes Rápidos e Orientados à Ação:
+    Os cortes parecem seguir o ritmo da narrativa, focando em reações, detalhes dos
+    carros e a progressão da cena, sugerindo um ritmo de edição ágil e envolvente.'']'
+  palette:
+  - '#E65100'
+  - '#1A237E'
+  - '#00B0FF'
+  - '#333333'
+  - '#FFD700'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:08:07'
+benchmark_analysis:
+  hook_type: curiosity gap
+  pattern_interrupts:
+  - t: 0
+    device: visual_contrast
+    text: Carro laranja vibrante vs cenário noturno escuro
+  - t: 6
+    device: audio_shift
+    text: Transição para trilha repetitiva 'watch your back' gerando tensão
+  - t: 24
+    device: narrative_pivot
+    text: 'Mudança de tom: do deboche para a aposta de alto risco'
+  - t: 52
+    device: action_acceleration
+    text: Aumento de cortes rápidos sincronizados com a largada/corrida
+  cut_cadence:
+    avaliacao: Alta performance. A média de 3.5s por segmento é compensada por cortes
+      internos de ação e movimento de câmera (dinâmica de B-roll), mantendo o estímulo
+      visual constante.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 28
+    segments: 28
+    duration_s: 98.0
+    avg_segment_s: 3.5
+  broll_strategy: Sustentação imersiva. O vídeo abdica de talking head para focar
+    100% em B-roll cinematográfico, transformando a fala em 'voice-over' de uma cena
+    de filme, o que remove a barreira da 'venda' e entrega entretenimento puro.
+  caption_style: 'Dynamic Kinetic Typography: Legendas centrais, palavra por palavra,
+    com cores contrastantes (amarelo/branco) e animação de ''pop'' para enfatizar
+    as keywords da aposta e do desafio.'
+  pacing_curve:
+  - window: 00-06s
+    densidade: Alta (Estabelecimento de conflito)
+  - window: 06-43s
+    densidade: Média (Construção de tensão/diálogo)
+  - window: 43-94s
+    densidade: Altíssima (Clímax visual e rítmico)
+  - window: 94-98s
+    densidade: Explosiva (Payoff final/CTA)
+  retention_devices:
+  - 'High Stakes: A aposta do carro cria um investimento emocional do espectador no
+    resultado'
+  - 'Audio Loop/Build-up: A repetição rítmica do áudio cria ansiedade e urgência'
+  - 'Visual Contrast: O uso de neon underglow contra o preto da noite mantém a atenção
+    hipnotizada'
+  - 'Escalada Narrativa: Transição clara de ''conversa'' para ''ação'', evitando a
+    monotonia do diálogo'
+  recommendation: 'Modelar a estrutura de ''Aposta/Desafio''. Manter o arco: Hook
+    provocativo -> Estabelecimento de risco -> Tensão crescente -> Payoff visual.
+    Trocar a voz para a persona do cliente, mas manter o ritmo de cortes abaixo de
+    4s e a estética de B-roll cinematográfico para evitar o aspecto de ''vídeo amador''.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T12:08:27'
+content_plan:
+  tema: O risco de confiar em processos manuais vs. a segurança da automação com agentes
+    de IA
+  format_concept: skit
+  hook:
+    variants:
+    - pattern_interrupt: 'Split screen: Um fluxo de planilhas confusas vs. um terminal
+        de código rodando limpo'
+      text_overlay: Seu processo é um risco
+      spoken_open: Bonito o seu workflow manual. Agora é banco público.
+    - pattern_interrupt: Close-up ultra rápido de um erro de sistema (tela vermelha)
+        seguido de um log de IA resolvendo
+      text_overlay: Aposta alta em processos manuais
+      spoken_open: Bonito o seu CRM. Agora é banco público.
+    - pattern_interrupt: Zoom out rápido de uma pessoa sobrecarregada com notificações
+        para um agente de IA operando sozinho
+      text_overlay: Pare de apostar na sorte
+      spoken_open: Bonito o seu controle. Agora é banco público.
+  storyboard:
+  - beat_n: 1
+    scene: 'Estabelecimento do conflito: O ''carro bonito'' é o workflow manual que
+      parece bom, mas é vulnerável.'
+    shot_type: médio
+    duration_s: 6
+    on_screen_text: Workflow Manual = Risco
+    broll: Pessoa tentando organizar leads em planilhas que não batem
+    motion: zoom-in
+  - beat_n: 2
+    scene: 'Construção da tensão: O risco da perda de dados ou leads por falta de
+      automação.'
+    shot_type: insert
+    duration_s: 18
+    on_screen_text: E se você perder o lead?
+    broll: Logs de erro de API ou notificações de CRM ignoradas
+    motion: cut
+  - beat_n: 3
+    scene: 'O Pivot: Apresentação da solução técnica (O Agente).'
+    shot_type: insert
+    duration_s: 15
+    on_screen_text: Agente de IA em ação
+    broll: Tela de terminal mostrando execução de script/agente de IA
+    motion: whip
+  - beat_n: 4
+    scene: 'Clímax/Ação: A automação rodando em escala, sem erro.'
+    shot_type: médio
+    duration_s: 40
+    on_screen_text: Escala com precisão
+    broll: Sequência rápida de logs de integração, CRM atualizando e leads entrando
+    motion: cut
+  - beat_n: 5
+    scene: 'CTA: Convite para pensar sobre o sistema atual.'
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: Sua escala é real?
+    broll: O rosto do cliente (Sábio) olhando para a câmera com confiança
+    motion: none
+  script: 'Bonito o seu workflow. Agora é banco público. Tira esse processo manual
+    da frente e olha o risco que você corre. Você tem certeza que vai apostar sua
+    aquisição de clientes nesse modelo? E se o dado se perder? Se a integração falhar?
+    É o que é. O erro é o que acontece quando não existe um agente. É o que é. Vamos
+    para o que funciona! É aqui: automação, integração e escala. É agora. Como está
+    o seu sistema?'
+  edit_spec:
+    zooms:
+    - no 'Agora é banco público'
+    - no 'E se o dado se perder?'
+    - na transição para o terminal
+    transitions:
+    - whip @ 24s (transição para o risco)
+    - cut @ 43s (transição para a solução técnica)
+    inserts:
+    - b-roll de erro @ 10s
+    - b-roll de terminal/código @ 43s
+    - b-roll de leads entrando @ 70s
+    captions: 'Dynamic Kinetic Typography: Palavra por palavra, cores branco e azul
+      tecnológico, estilo pop para termos como ''Agente'', ''Automação'' e ''Escala''.'
+    motion_graphics:
+    - overlay de terminal rodando @ 45s
+    - barra de progresso de integração @ 80s
+    template_refs:
+      hook: hook-direct-question
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Ator/Cliente olhando para um monitor com expressão de dúvida/preocupação
+    framing: médio
+    audio: fala
+    props: Notebook, luz de escritório
+    locacao: Escritório/Home office
+    falas_chave: Bonito o seu workflow. Agora é banco público.
+  - plano: Gravação de tela de código ou logs de automação (Agente)
+    framing: insert
+    audio: ambiente/trilha
+    props: Software de automação/Terminal
+    locacao: Digital
+    falas_chave: 'É aqui: automação, integração e escala.'
+  - plano: Cliente olhando diretamente para a câmera, tom calmo e seguro
+    framing: médio
+    audio: fala
+    props: Luz suave de três pontos
+    locacao: Escritório
+    falas_chave: Como está o seu sistema?
+  sound_design:
+    sfx:
+    - moment: hook @ 0s
+      category: impact
+      intent: marcar o choque da frase 'banco público'
+      intensity: medium
+    - moment: beat_n:2 @ 15s
+      category: riser
+      intent: aumentar a tensão sobre o risco de erro
+      intensity: medium
+    - moment: beat_n:3 @ 43s
+      category: whoosh
+      intent: transição rápida para a solução tecnológica
+      intensity: strong
+    - moment: beat_n:4 @ 60s
+      category: click
+      intent: sincronizar com cada linha de log que aparece
+      intensity: subtle
+    music:
+      recommended: true
+      mood: tense
+      energy: medium
+      genre: cinematic electronic pulse
+      ducking: true
+      rationale: Inicia com um pulso de tensão para criar o 'curiosity gap' e transita
+        para um ritmo constante e tecnológico para sustentar a autoridade do 'Sábio'.
+    rationale: 'O som segue a curva de tensão do benchmark: tensão/medo no início
+      (risco do erro) e ritmo constante/preciso no final (confiança da automação).'
+  rationale: O plano modela a estrutura de 'Aposta/Risco' do benchmark, trocando o
+    carro por 'processos manuais' e o 'desafio de corrida' pelo 'desafio da escala'.
+    Mantém o uso de B-roll cinematográfico para evitar o tom de 'vendedor de curso'
+    e foca na prova técnica (logs/sistema), respeitando o DNA de autoridade da Oraclum.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T12:09:09'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 16.6
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:09:09'

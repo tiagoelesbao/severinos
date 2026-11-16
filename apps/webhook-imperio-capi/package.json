@@ -1,0 +1,5 @@
+{
+  "name": "webhook-imperio-capi",
+  "private": true,
+  "type": "module"
+}

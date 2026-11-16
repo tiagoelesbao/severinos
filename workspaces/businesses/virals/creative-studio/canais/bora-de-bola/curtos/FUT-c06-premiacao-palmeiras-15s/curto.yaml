@@ -1,0 +1,61 @@
+# ═══════════════════════════════════════════════════════════════════════
+# FUT-c06-premiacao-palmeiras-15s
+# Metodo: squads/oraclumtech-ai-creative-studio/docs/DERIVACAO-CURTOS.md
+# ═══════════════════════════════════════════════════════════════════════
+
+curto:
+  slug: FUT-c06-premiacao-palmeiras-15s
+  canal: bora-de-bola
+  criado_em: '2026-09-07'
+  status: montado           # montado | aprovado | publicado
+
+derivado_de:
+  episodio: 2026-09-04-abel-stjd
+  bloco: 'BLOCO 4'
+  longo_publicado: true
+
+faixa:
+  alvo: '15 s'
+  palavras: 52
+  duracao_medida: '17,1 s de fala · ritmo do motor, nao estimativa'
+  por_que_esta_faixa: >
+    sonda: testa se dado financeiro puro engaja neste canal
+
+# ── A CORRENTE ──────────────────────────────────────────────────────────
+etapas:
+  '01-roteiro':  { feito: true, responsavel: 'roteiro proprio — o longo e fonte de fato, nao de audio' }
+  '02-narracao': { feito: true, responsavel: 'narra_comfy.py --curto (a MESMA voz do episodio)' }
+  '03-takes':    { feito: true, responsavel: 'acervo do episodio, recortado 9:16' }
+  '04-final':    { feito: true, responsavel: 'monta_curto.py --canal futebol' }
+
+# ── O MATERIAL VISUAL, E POR QUE ELE VEM DO EPISODIO ────────────────────
+# O pool VERTICAL de futebol no Pexels e pequeno. A folha de contato de 07/09
+# devolveu gaivotas passeando dentro do gol, vista aerea de cidade como "luz de
+# estadio", e um lineout de RUGBY para "soccer players celebrating goal".
+#
+# O acervo do EPISODIO ja passou por essa conferencia e e do mesmo assunto. Ele
+# e 1920x1080 e entra recortado no centro -- para estadio, torcida e gramado
+# isso nao custa nada, porque o assunto ocupa o quadro todo.
+#
+# Bonus: o curto usa o mesmo material do longo, o que e o que faz alguem
+# reconhecer o canal quando o corte aparece no feed.
+visual:
+  fonte: 'acervo do episodio 2026-09-04-abel-stjd'
+  gradacao: 'saturacao 0,82 · contraste 1,10 — o futebol e colorido de proposito'
+  ordem: 'girada por slug, senao os seis curtos saem visualmente identicos'
+  # AS FOTOS REAIS DO FATO — pelos BLOCOS do episodio, que ja foram
+  # conferidos foto a foto contra o titulo da materia de origem.
+  fotos_blocos: ["BLOCO 4"]
+  # fallback por substring; erra (trouxe arte do Brasileirao FEMININO)
+  # AS FOTOS REAIS DO FATO. Filtram as 74 fotos do episodio para o assunto
+  # DESTE curto -- gramado generico ilustra, foto do fato e o que se veio ver.
+  fotos_termos: [palmeiras, abel]
+
+publicacao:
+  plataformas: []
+  url: ''
+  publicado_em: ''
+  desempenho:
+    retencao_3s: null
+    visualizacoes: null
+    colhido_em: null

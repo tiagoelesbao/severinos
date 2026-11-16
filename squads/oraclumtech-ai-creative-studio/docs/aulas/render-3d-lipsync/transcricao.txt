@@ -1,0 +1,582 @@
+   0.00    3.68  You can now render entire CG movies locally on your own computer.
+   4.84    8.54  We've built a pipeline that lets you export sequences from pretty much any 3D tool,
+   8.54   12.68  guide the style using reference images and render out the whole thing, and pretty fast.
+  12.68   17.64  The AI brings the shots to life, adding textures, lighting and effects like water splashes or fire,
+  17.64   21.04  but the coolest part is that you can even add lip-sync and facial animation.
+  21.04   25.24  Just give it an audio file, mark the regions where the AI is allowed to take over
+  25.24   27.64  and it will bring your performances to life.
+  27.64   31.44  Hey, just wanted to let you know that this workflow is so much fun.
+  31.96   33.84  Oh, and this works with any style.
+  33.84   36.44  Anime, realistic, claymation, you name it.
+  36.44   40.36  To really show you what you can do with it, we created a full short film using this technique,
+  40.36   42.16  which you can watch at the end of this video.
+  42.16   46.28  So let me show you how we built this workflow, how you can run it locally on your own computer
+  46.28   49.72  and then walk you through some of the more challenging shots that we created.
+  50.20   51.36  Right this way!
+  51.80   54.88  But before we get into it, quick thanks to this video's sponsor NVIDIA.
+  54.88   59.80  They reached out to us to show you a bunch of their amazing AI workflows for controllable video generation
+  59.80   61.96  and the best part is they're all completely free to use.
+  61.96   64.96  Learn more about how I integrated them into my pipeline later in this video
+  64.96   67.36  and thanks again to NVIDIA for making this video possible
+  67.36   71.64  and also sending me this brand new GeForce RTX 5090 to test it on.
+  71.64   73.40  This made things so much faster.
+  73.40   75.76  You might remember my last video on AI rendering.
+  75.76   78.44  Here I used a special version of the one video model
+  78.44   81.24  that lets you anchor the style using reference images
+  81.24   86.40  and drive the animation using render passes extracted straight from the 3D program.
+  86.40   88.84  The problem with one is that while it looks really cool,
+  88.84   91.52  it's pretty heavy on your computer and not exactly fast.
+  91.52   93.08  You could actually say it's pretty slow.
+  93.08   96.36  But then NVIDIA reached out and showed me their free video generation guide.
+  96.36  100.24  It's a fully local pipeline built in three parts that you can mix and match.
+ 100.24  104.32  One blender add-on that generates a bunch of three assets straight from a simple text prompt.
+ 104.32  107.72  A second that lets you use AI to render a start and end frames
+ 107.72  111.04  based on your 3D geometry straight inside of blender
+ 111.04  114.24  and a ConfUi template that renders the video between those frames
+ 114.24  119.36  with the RTX 2.3 video model and then upscales everything to 4K resolution.
+ 119.36  121.20  That second part, the keyframe generators,
+ 121.20  124.64  basically flux wired as a render engine straight inside of blender.
+ 124.64  128.32  You rough out your scene in the viewport even just with gray boxes
+ 128.32  130.72  and it turns the layout into a depth map
+ 130.72  132.32  that guides the flux image model.
+ 132.32  134.12  So your composition and camera are locked
+ 134.12  135.88  while the prompt drives to the look.
+ 135.88  139.20  And this is exactly the type of control that I'm always excited about
+ 139.20  142.16  and I actually use this workflow a lot in the early stages
+ 142.16  145.04  to generate concept art of our location, the hotel.
+ 145.04  146.48  So after having so much fun with it,
+ 146.48  149.52  I wanted to see if I could rework my own AR rendering workflow
+ 149.52  154.68  using RTX 2.3 and integrate some parts of this pipeline into my workflow.
+ 154.68  157.08  Now, RTX is not just a video model that's pretty fast.
+ 157.08  160.84  It's also an audio model generating audio and video simultaneously.
+ 160.84  164.12  And that way you can make your characters talk with just a simple prompt.
+ 164.12  166.28  But you can also inject existing audio
+ 166.28  169.68  and the model will then try to generate a video that fits that audio file.
+ 169.68  170.80  We need to run.
+ 172.20  174.60  No!
+ 174.60  176.60  Inspired by that, I recently built a workflow
+ 176.60  180.28  including a custom node that adds lip sync to existing clips.
+ 180.28  181.84  And that gave me an idea.
+ 181.84  185.16  What if I use the same trick while rendering a 3D sequence?
+ 185.16  188.32  Handed the 3D layout, a prompt and the audio
+ 188.32  192.16  and get back a finished animated lip sync render in one go.
+ 192.16  195.64  I've added lip sync support to RTX 2.3
+ 195.72  198.28  using a video and audio input file.
+ 198.28  199.80  Like in the last video on AR rendering,
+ 199.80  203.04  we first need to create the control passes from the 3D scene.
+ 203.04  204.44  The first one is a depth pass,
+ 204.44  207.36  just a black and white video where white pixels are close to the camera
+ 207.36  209.16  and black pixels are further away.
+ 209.16  211.08  The second one is an outline pass.
+ 211.08  215.04  This one tells the AI where the edges of your geometry are in your scene
+ 215.04  217.08  and lets it fill out everything in between.
+ 217.08  218.08  You can use either one
+ 218.08  220.88  or you can combine the two for maximum precision.
+ 220.88  223.48  That way the model knows the structure from the outlines
+ 223.52  226.52  and understands the 3D geometry from the depth pass.
+ 226.52  229.72  So then I tried also adding audio to the mix, but that didn't work.
+ 229.72  232.08  Hey, just wanted to let you know that I can talk now.
+ 232.08  233.28  Yay!
+ 233.28  236.48  Because the audio is fighting with the control passes.
+ 236.48  238.84  The AR model can't generate a moving mouth
+ 238.84  240.24  if the control passes tell it,
+ 240.24  242.00  hey, there is nothing moving there, right?
+ 242.00  243.36  But the fix is pretty easy.
+ 243.36  245.20  You can just create a black and white mask.
+ 245.20  248.44  White tells the model to follow the control guides precisely
+ 248.44  251.68  and in the black areas, it's free to generate new detail.
+ 251.72  253.64  So if you put the black area over the mouth,
+ 253.64  254.88  it can add lip sync.
+ 256.20  258.56  Hey, just wanted to let you know that I can talk now.
+ 258.56  260.04  Yay!
+ 260.04  261.44  If you put it over the full face,
+ 261.44  263.28  it can add full facial animation.
+ 264.52  266.92  Hey, just wanted to let you know that I can talk now.
+ 266.92  268.24  Yay!
+ 269.12  270.60  With the proof of concept working,
+ 270.60  272.84  I started working on the actual film
+ 272.84  275.00  and I wanted to mimic a real production
+ 275.00  276.92  as closely as I could.
+ 276.92  279.72  So I began with hand-drawn concept art,
+ 279.72  282.24  turned those sketches into finished designs
+ 282.24  284.00  using Flux 2 Klein
+ 284.00  286.96  and then painted back over them again by hand
+ 286.96  288.44  to give them more personality
+ 288.44  289.96  and some fun little details.
+ 290.96  292.24  I then planned out the whole film
+ 292.24  293.72  as a hand-drawn storyboard.
+ 295.52  297.48  So now it was time to build the environments
+ 297.48  299.24  and for that I used another free tool
+ 299.24  300.80  from the Nvidia guide,
+ 300.80  303.32  their 3D object generation blueprint,
+ 303.32  305.00  a blender add-on that generates
+ 305.00  308.20  a whole set of assets from a simple prompt.
+ 308.20  309.36  You just describe a scene,
+ 309.36  312.44  something simple like a cozy rustic motel room
+ 312.44  315.20  and the Llama 3.1 language model brainstorms
+ 315.20  317.88  a whole list of objects that might belong in it.
+ 317.88  320.04  Nvidia Zana model then generates a quick preview
+ 320.04  322.48  of each object and you just regenerate,
+ 322.48  324.40  keep or throw out whatever you want.
+ 324.40  326.32  Once you're happy with a selection of assets,
+ 326.32  328.72  Microsoft Trailers turns the previews you picked
+ 328.72  330.40  into actual 3D models
+ 330.40  332.88  with geometry, textures and materials.
+ 332.88  334.00  But you don't really need to worry
+ 334.00  335.40  about all these technicalities.
+ 335.40  337.36  You just install it, type in your prompt
+ 337.36  340.20  and a few moments later you have a full catalog of assets
+ 340.20  341.48  ready to use in Blender.
+ 341.48  342.72  And it was honestly so much fun
+ 342.72  344.20  creating the scenes like this.
+ 344.20  345.92  We just laid out the basic rooms
+ 345.92  347.96  and dressed them with the generated assets
+ 347.96  350.00  and ended up with these amazing scenes.
+ 350.00  353.48  A cozy bar, a motel tucked into a national park,
+ 354.48  357.16  a natural hot spring just to name a few.
+ 357.16  359.20  It felt a bit like walking into a prop house,
+ 359.20  360.76  grabbing the objects that we liked
+ 360.76  362.36  and dressing the scenes with them.
+ 363.36  364.80  By the way, you can find all the links
+ 364.80  366.56  to these tools in the description.
+ 367.76  370.32  Now I needed to bring all my characters into 3D
+ 370.32  372.00  and I tried a few different generators
+ 372.00  374.00  and settled on Trellis for ConfUI
+ 374.00  376.92  because I wanted this whole pipeline to stay free.
+ 376.92  378.64  Of course, you could swap in a paid tool
+ 378.64  381.16  or model the characters yourself for better quality.
+ 381.16  382.80  To improve my results with Trellis,
+ 382.80  384.72  I generated the head separately
+ 384.72  388.12  and just stuck it on top of the body for this character.
+ 388.12  390.24  These models come out wildly unoptimized.
+ 390.24  392.48  So before rigging, I bring down the vertex count
+ 392.48  394.00  with the decimate modifier
+ 394.00  396.20  and then in edit mode, I select everything
+ 396.20  397.96  and click merge by distance.
+ 397.96  400.56  That gives me a lighter cleaner mesh to rig.
+ 400.56  403.04  Though clean is a bit of a stretch here,
+ 403.04  404.08  it's not clean at all.
+ 404.08  404.92  But it still works
+ 404.92  406.80  because the rig doesn't need to be perfect
+ 406.80  409.12  as it's just a guide for the later steps.
+ 409.12  412.60  To rig it, I used blenders built in Rigify add-on,
+ 412.60  414.72  which lets you just place a few bones
+ 414.72  416.84  and then it auto builds the full rig
+ 416.84  418.48  with proper proportions.
+ 418.48  420.64  Proper proportions.
+ 420.64  422.08  I did some manual weight painting
+ 422.08  423.92  to fix some of the broken areas,
+ 423.92  426.16  added a backpack to our protagonist's rig
+ 426.16  428.56  since she carries it through several scenes
+ 428.56  430.68  and built in manual eyeballs.
+ 430.68  433.44  So I could test how well the eye movement
+ 433.44  435.24  carries through to the render.
+ 435.24  437.04  But that part is completely optional.
+ 437.04  439.68  You could also use one of the online auto rigging tools,
+ 439.68  441.16  for example, to create your rig.
+ 441.16  443.00  Once I generated rigged and tested
+ 443.00  444.56  all of our character rigs,
+ 444.56  446.88  I booked a voice actor for our lead
+ 446.88  449.44  and imported everything into Blender.
+ 449.44  451.32  Animation was honestly the most fun part
+ 451.32  453.28  and it's really why I built this workflow
+ 453.28  454.68  in the first place.
+ 454.68  456.36  I'm not the biggest fan of generating
+ 456.36  458.52  entire movies just from prompts alone
+ 458.52  460.20  and accepting whatever comes back.
+ 460.20  461.04  And that's why I love
+ 461.04  463.36  these open source local models so much.
+ 463.36  465.08  You can build your own pipelines
+ 465.08  467.52  where you can choose exactly how much control
+ 467.52  468.84  you hand over to the model
+ 468.84  471.08  and how much you keep for yourself.
+ 471.08  472.16  With the animation finished,
+ 472.16  473.68  we can move over to rendering.
+ 473.68  475.96  Let's say we want to render this scene right here.
+ 475.96  478.20  We first need to create the outline pass
+ 478.20  479.44  and the depth pass.
+ 479.44  481.56  Let's start with the outline pass.
+ 481.56  483.60  For this, we have a few options.
+ 483.60  485.48  We could use the freestyle tool
+ 485.48  487.60  that you can find on Blender right here.
+ 487.60  489.44  And we use this in the last video,
+ 489.44  491.84  but this time I actually want to go the lazy route.
+ 491.84  494.00  So for this, I just switch the render engine
+ 494.00  496.84  to work bench and go to render mode.
+ 496.84  501.56  And I like to activate outline and cavity, I think,
+ 501.56  502.80  something like this.
+ 502.80  505.24  And now we actually are going to render this out
+ 505.24  508.32  and then extract the outlines later in ConfUi.
+ 508.32  511.68  So you can just go to output, select a path,
+ 511.68  513.00  and I'm just going straight to video.
+ 513.00  515.12  I don't save out an image sequence.
+ 515.12  518.08  I just select video and color black and white
+ 518.08  519.92  because we don't need color.
+ 519.92  522.08  Next, let's prepare the depth pass.
+ 522.08  526.00  For this, go to view layer and activate depth.
+ 526.00  528.16  Now render out an image
+ 528.16  532.80  and then go to compositing, click new.
+ 532.80  534.24  And you can see the render layers
+ 534.24  536.64  now have this depth output right here.
+ 536.64  538.40  Let's connect that to the viewer node.
+ 538.40  541.04  It's completely white, but all the values are inside there.
+ 541.04  542.52  We just need to make them visible.
+ 542.52  545.40  The first thing you need to know is that they are inverted.
+ 545.40  548.20  So first let's add an invert color node.
+ 548.20  551.00  Now you could add a normalized node in between
+ 551.00  553.96  and this will put all the values between zero and one.
+ 553.96  555.32  So white is now close
+ 555.32  557.76  and black is further away exactly what we want.
+ 557.76  559.60  And if you want, you can actually
+ 559.60  561.80  separate the foreground out more
+ 561.80  564.96  by adding this RGB curve node right here
+ 564.96  567.56  and just like doing something like this.
+ 567.56  570.12  So we can focus on the foreground.
+ 570.12  572.20  The background is not that important.
+ 572.20  574.92  So now you could either create a file output node,
+ 574.92  577.84  save out all these images, or if you're really lazy,
+ 577.84  581.44  you could just connect this to the group output again,
+ 581.44  584.68  go to output, give this sequence a different name
+ 584.68  586.16  and render everything again.
+ 586.16  588.00  Now we could already use these passes
+ 588.00  590.68  to render out the sequence with the AR renderer.
+ 590.68  593.08  The problem is that we only have the prompt
+ 593.08  594.56  to control the look of the scene.
+ 594.56  597.60  So it will probably change from scene to scene.
+ 597.60  599.24  So now we need to log in the style
+ 599.24  601.12  using some reference images.
+ 601.12  604.24  You can use any reference-based AI image generator,
+ 604.24  606.76  but I'm also giving you my free Flux9B
+ 606.76  608.00  image generation workflow,
+ 608.00  610.68  which is the one that I used for all of the shots.
+ 610.68  612.88  The workflow runs inside of ConfUI,
+ 612.88  615.60  a free node-based interface for AI models.
+ 615.60  617.36  And conveniently, NVIDIA works directly
+ 617.36  620.60  with a team of ConfUI to optimize it for RTX card.
+ 620.60  622.72  And that collaboration alone has boosted performance
+ 622.72  623.92  by up to 40%.
+ 623.92  625.48  If you've never installed ConfUI,
+ 625.48  626.96  we have a free step-by-step guide
+ 626.96  629.04  walking you through the process in the description.
+ 629.04  629.96  Once you have it running,
+ 629.96  632.08  you'll always set up the workflows in the same way.
+ 632.08  634.56  You just drag and drop in the JSON file
+ 634.56  636.28  into the ConfUI interface.
+ 636.28  639.12  Now you need to install a few missing custom nodes.
+ 639.12  641.16  So for this, go to the manager,
+ 641.16  643.84  click install missing custom nodes,
+ 643.84  647.04  select all of them, wait for it to install
+ 647.04  648.84  and restart ConfUI.
+ 650.08  652.36  Now you actually need to download the models used
+ 652.36  653.20  in this workflow.
+ 653.20  656.00  And we always put a little note to the left of the workflow
+ 656.00  658.44  with all the links to the models that you need.
+ 658.44  660.60  And it also tells you where you need to put these models
+ 660.60  662.64  in your ConfUI folder structure.
+ 662.64  665.52  And I want to try to get away with only one reference image.
+ 665.52  667.24  For this, I'm going to look for a frame
+ 667.24  669.68  where both characters are in view.
+ 669.68  672.96  So now I'm going to click render image
+ 672.96  676.56  and I'm going to save out that depth pass.
+ 676.56  678.84  Then I come back to compositing,
+ 678.84  680.64  connect this one right here,
+ 680.64  682.16  click render image again.
+ 682.16  685.08  And I'm also going to save out this one right here.
+ 685.08  686.88  Now back in my Flux2 client,
+ 686.88  688.96  9B image generation workflow,
+ 688.96  693.48  you import your rendering here and your depth map here.
+ 693.48  694.32  Oh, and by the way,
+ 694.32  696.08  the rendering doesn't need to be clay shaded.
+ 696.08  697.64  It can be any type of rendering
+ 697.64  699.60  because the candy node right here
+ 699.60  700.92  that will extract the outlines,
+ 700.92  702.60  that can deal with any type of information.
+ 702.60  703.56  With that imported,
+ 703.56  706.76  I also add the reference image for the characters.
+ 706.76  709.20  This workflow can take up to four references
+ 709.20  710.56  and they can be anything.
+ 710.56  713.04  Characters with objects or environments.
+ 713.04  715.08  Pro tip, if that's not enough for you,
+ 715.08  717.40  you can also put even more references
+ 717.40  719.72  onto one single image like this.
+ 719.72  720.84  Now you can use a prompt
+ 720.84  723.40  to reference all these objects in this image.
+ 723.40  724.56  Speaking of prompts,
+ 724.56  726.20  right here you put in your prompt
+ 726.20  728.24  and you just describe in detail
+ 728.24  732.36  which objects and characters you want in which region.
+ 732.36  733.92  This is an iterative process.
+ 733.92  736.52  Don't expect it to work with the first image.
+ 736.52  738.84  I usually need it around three tries.
+ 738.84  741.88  Start simple and build up your prompt from there.
+ 741.88  744.72  Also make sure to try out a bunch of different seeds.
+ 744.72  746.48  Sometimes you're just unlucky with a seed
+ 746.48  749.08  and a different one will just give you the perfect image.
+ 749.08  750.56  So with our final style frame,
+ 750.56  753.28  we can now move over to the AI rendering workflow.
+ 753.28  754.88  Drag and drop the workflow file
+ 754.88  756.92  into the ConfUI interface
+ 756.92  759.44  and install the missing custom nodes.
+ 759.44  761.72  We're going to work from left to right.
+ 761.72  765.68  So let's quickly zoom in on this node right here.
+ 765.68  768.28  It lists all of the models you need to download
+ 768.28  771.08  for this workflow and shows you where to put them
+ 771.08  773.08  in your ConfUI folder structure.
+ 773.08  775.96  Since I could run this on the powerful RTX 5090,
+ 775.96  778.68  I used the full DevFP8 model
+ 778.68  782.20  together with a distilled Laura that speeds things up a lot.
+ 782.20  783.44  And speaking of fast,
+ 783.44  785.44  if you have a 50 series card,
+ 785.44  788.96  you can also use the NVFP4 version of the model.
+ 788.96  791.68  NVFP4 is Nvidia's four bit format
+ 791.68  794.68  that runs on 50 series fifth gen tensor cores.
+ 794.68  798.16  So the model takes up far less VRAM and runs even faster.
+ 798.20  800.36  Around three times quicker than full precision
+ 800.36  802.04  with very little quality loss.
+ 802.04  803.48  If you have an older card
+ 803.48  805.40  or you don't have a lot of VRAM,
+ 805.40  808.72  you can also use the GDUF versions of the models.
+ 808.72  811.28  You can check out all the different configurations
+ 811.28  812.72  in the node in the workflow
+ 812.72  814.64  or in our free Patreon post.
+ 814.64  816.12  Once all the models are loaded,
+ 816.12  818.20  you can set the resolution here.
+ 818.20  819.80  And this one works well,
+ 819.80  821.20  but if you have more time,
+ 821.20  824.48  you could bump it up to full HD or even 2K.
+ 824.48  827.52  Just remember the resolution needs to be divisible
+ 827.52  830.12  by 64 or it will give you an error.
+ 830.12  832.28  Below that, you can set the frame load cap,
+ 832.28  833.76  how many frames you want to load,
+ 833.76  836.64  and I'm just matching it to the length of my video sequence,
+ 836.64  837.80  but you could also go lower
+ 837.80  839.60  if you just want to test things, for example.
+ 839.60  842.44  To the right, you can load in your reference images
+ 842.44  843.96  and you can load up to three
+ 843.96  846.52  and place them anywhere in your sequence.
+ 846.52  850.20  Since I created a middle frame, I'll put it there.
+ 850.20  852.68  Next, I loaded my control passes.
+ 852.68  854.80  Depth first, then the outline pass
+ 854.80  857.08  and finally the mouth mask.
+ 857.08  858.92  You don't have to use a mouth mask,
+ 858.92  861.00  especially if you don't want to add lip sync,
+ 861.00  862.00  you don't need that.
+ 862.00  863.84  But in my case, I wanted to add lip sync,
+ 863.84  867.24  so I created this by just importing the layout rendering
+ 867.24  868.64  into After Effects
+ 868.64  871.44  and roughly animating this mask over the mouth.
+ 871.44  872.88  Of course, you could set up something
+ 872.88  874.44  that automatically renders a mask
+ 874.44  876.12  straight from Blender, for example,
+ 876.12  878.40  but like creating something rough like this
+ 878.40  879.64  usually works really well.
+ 879.64  881.04  So imported here
+ 881.04  883.40  and now it's time to add the voiceover.
+ 883.40  886.48  Make sure it's just dialogue with no music
+ 886.48  889.24  and it's at least the same length as your video
+ 889.24  890.48  because if it's shorter,
+ 890.48  892.36  sometimes the model will actually generate
+ 892.36  895.12  like new gibberish language after that.
+ 895.12  897.16  Oh, then there's this switch here
+ 897.16  900.04  where you can activate or deactivate the mouth mask.
+ 900.04  901.68  Of course, in my case, I want to use it,
+ 901.68  902.84  so I activate it.
+ 902.84  904.24  Now you can click the play button here
+ 904.24  906.92  on this preview node and see the final control pass.
+ 906.92  910.04  It merges your depth pass with the Kenny outlines
+ 910.04  911.96  extracted from your layout video
+ 911.96  913.52  into a single control video
+ 913.52  915.88  and this is what will guide the movement in your shot.
+ 915.88  919.40  You can adjust the extracted Kenny outlines here if needed.
+ 919.40  921.68  Now it's time to move to the heart of the workflow,
+ 921.68  922.56  the sampling group.
+ 922.56  924.72  If you go inside, you can see the full wiring
+ 924.72  928.04  but genuinely don't need to worry about any of it.
+ 928.04  931.48  Just go back and let's zoom in on these settings right here.
+ 931.48  932.64  First, you have the seat,
+ 932.64  935.00  the random noise the workflow uses to generate.
+ 935.00  936.40  If you have a shot you like,
+ 936.40  938.00  but it's not quite perfect,
+ 938.00  940.24  you can change the seat, run the workflow again
+ 940.24  942.08  and you'll get a slightly different version
+ 942.08  944.08  and sometimes that fixes mistakes.
+ 944.08  947.20  Next you can activate or deactivate the driving video.
+ 947.20  948.44  If you deactivate it,
+ 948.44  951.80  the workflow only interpolates between your images,
+ 951.80  954.68  which is also cool, but not what we want in this case.
+ 954.68  955.80  What you can do though
+ 955.80  958.04  is lower the driving video's strength.
+ 958.04  961.52  The lower you go, the freer LTX is to generate
+ 961.52  963.80  and the more important your prompt becomes.
+ 963.80  965.20  For simple animation like this,
+ 965.20  967.64  this can really add some interesting detail
+ 967.64  969.00  but for more complex stuff,
+ 969.00  971.92  it usually breaks the animation if you go too low.
+ 971.92  972.84  After that you can set
+ 972.84  974.72  whether you want to use the guiding frames.
+ 974.72  976.20  For example, take the start frame.
+ 976.20  978.32  If you want to use it, click true
+ 978.32  981.20  and set how strongly it should influence the video.
+ 981.20  982.16  Now for the placement,
+ 982.16  984.64  right now it's set to one to use it as the first frame
+ 984.64  987.40  but you could also put in a different frame number right here.
+ 987.40  988.24  But for this shot,
+ 988.24  989.88  I didn't really generate a start frame,
+ 989.88  991.08  I used the middle frame,
+ 991.08  992.76  so I put it in the middle.
+ 992.76  994.96  So I click true on the middle frame,
+ 994.96  998.92  place it in the exact frame I originally created it from
+ 998.92 1001.96  and set the strength to 0.75.
+1001.96 1005.04  Finally down here you can set whether to use lip sync
+1005.04 1007.56  and yeah, I do, so I activate it.
+1007.56 1009.08  Now it's time to write the prompt
+1009.08 1011.52  and the driving video and the reference images
+1011.52 1014.40  are doing a lot of the heavy lifting
+1014.40 1016.80  but you should still describe what happens
+1016.80 1018.48  in your shot in detail.
+1018.48 1020.36  I like to describe the events
+1020.36 1022.68  that happen in the shot in order
+1022.68 1024.32  and then focus on details
+1024.32 1026.20  like for example the expressions.
+1026.20 1027.76  So that's everything you need to set up.
+1027.76 1029.48  Now I can click Q prompt
+1029.48 1032.28  and on a 5090, this whole process of rendering it
+1032.28 1034.48  just takes under two minutes for this shot.
+1034.48 1038.32  I usually test my workflows on a 4070 and a 4090
+1038.32 1039.36  and it runs just fine
+1039.36 1042.84  without even needing to use the GGF versions of the models.
+1042.84 1045.44  But this is where the NVIDIA GeForce RTX 5090
+1045.44 1046.64  really earns its keep.
+1046.64 1050.64  One shot, 330 frames renders in about a minute 50.
+1050.64 1051.96  That comes down to the cards,
+1051.96 1055.24  33 gigabytes of VRAM and FP4 acceleration
+1055.24 1057.04  and what honestly amazed me the most
+1057.04 1059.72  was that I could continue editing the movie
+1059.72 1061.36  while other shots were rendering
+1061.36 1063.12  in ConfUI in the background.
+1063.12 1065.96  The other trick that RTX cards can do is upscaling.
+1065.96 1068.48  NVIDIA's RTX video super resolution
+1068.48 1071.24  brings it to ConfUI through a dedicated note.
+1071.24 1073.12  It scales your output up to 4K
+1073.12 1075.84  in just a couple of seconds, sharpening edges
+1075.84 1078.24  and cleaning up compression as it goes.
+1078.24 1079.44  Seriously, look at this.
+1079.44 1081.84  I just load in the clip, click Q prompt
+1081.84 1085.80  and it's 4K.
+1085.80 1088.56  It's completely free and it runs on any RTX cards
+1088.56 1090.16  and not just the 50 series.
+1090.16 1092.88  And before editing, I ran every single shot through it.
+1092.88 1096.16  Then I edited all these 4K clips in DaVinci Resolve,
+1096.16 1098.48  added the voiceover and sound effects,
+1098.48 1100.08  did some light color correction
+1100.08 1103.60  and added a few effects to make it feel a bit more analog
+1103.60 1106.16  and match the vibe of the movie that I was going for.
+1106.16 1107.40  Before I show you the final movie,
+1107.40 1109.96  let's look at some more challenging shots from the movie
+1109.96 1111.72  and let me show you how I created them.
+1111.72 1114.12  And for advanced Patreon supporters, as always,
+1114.12 1116.92  you can grab the example file to be made for this short film
+1116.92 1118.64  so you can pull everything apart
+1118.64 1120.56  and test it on your own machine.
+1120.56 1122.64  So after testing this workflow for a while,
+1122.64 1125.92  I grew pretty confident that I could push the animation
+1125.92 1128.32  even further than I originally planned.
+1128.32 1129.72  Look at this scene, for example,
+1129.72 1132.24  here the bear enters the scene
+1132.24 1135.20  and then the camera moves to a completely different location,
+1135.20 1136.60  another character shows up
+1136.60 1139.88  and then the bear also switches side for a second there.
+1139.88 1141.72  And all this is happening simultaneously
+1141.72 1143.96  while the character is also talking.
+1143.96 1146.60  And to make this work, I started really simple.
+1146.60 1150.68  I tried using one control frame, one guide frame
+1150.68 1152.76  and this fell apart pretty quickly.
+1152.76 1156.40  So I added a second control frame here in the beginning.
+1156.40 1158.40  Now a large part of the sequence actually worked
+1158.40 1161.36  but there was a massive challenge right here
+1161.36 1163.92  when the character had to change the side.
+1163.92 1165.48  But this, I think I prompted for this
+1165.48 1168.24  for like half an hour to make this frame work.
+1168.24 1170.72  I was kind of worried that the lip sync wouldn't work at all
+1170.72 1172.40  because of this intense movement
+1172.44 1174.48  but especially in the beginning of the shot,
+1174.48 1175.92  it worked really well.
+1175.92 1177.96  So with this shot, I had some challenges
+1177.96 1179.16  when she is standing up,
+1179.16 1181.60  like even though the control net was pretty precise,
+1181.60 1182.92  I had a lot of variations
+1182.92 1185.04  where she wasn't using the right hand
+1185.04 1186.60  and this was just a prompting issue.
+1186.60 1188.28  I just needed to say in the prompt,
+1188.28 1190.60  she is reaching for the table for the desk
+1190.60 1192.96  with her left hand and then it worked.
+1192.96 1196.48  Another thing to note in this shot is like the newspaper.
+1196.48 1198.36  The guiding frame is from around here.
+1198.36 1201.16  So the model had to like interpolate
+1201.16 1203.28  all the information on the newspaper.
+1203.28 1206.20  And right now that's of course, complete gibberish.
+1206.20 1209.12  But what we could do is like we could extract this frame
+1209.12 1211.04  and then go into Photoshop for example
+1211.04 1213.76  and add like a correct newspaper on top of this
+1213.76 1216.44  and load that in as an additional start frame.
+1216.44 1218.44  This shot just took a few iterations
+1218.44 1220.76  to get right with the movement of the bear
+1220.76 1223.04  but I'm really happy with it
+1223.04 1225.84  and I love how it adds these little effects
+1225.84 1229.24  like for example, the steam coming from the fish.
+1229.24 1231.64  Like this is something that's really, really cool.
+1231.64 1234.72  Or for example, like effects like water splashing here
+1234.72 1237.08  when she reaches for the glass.
+1237.08 1241.64  To my surprise, this shot was actually a massive challenge
+1241.64 1245.40  because we start in one area of the image
+1245.40 1248.72  and we end in another area of the image.
+1248.72 1252.08  Now I was able to very easily generate the start frame
+1252.08 1254.44  and the end frame in the same style.
+1254.44 1255.92  That worked pretty well.
+1255.92 1258.92  The problem was that minor details shifted
+1258.92 1261.68  and that meant that LTX got confused
+1261.68 1264.28  on how to actually merge these together.
+1264.28 1266.68  It did an okay job, but you can see all this noise
+1266.68 1268.68  that's happening here, all this warping.
+1268.68 1270.40  That looks really ugly.
+1270.40 1273.68  So what I did instead is I fixed this manually.
+1273.68 1276.84  So in Photoshop, I loaded the start frame
+1276.84 1280.32  and then I took the end frame and merged them together.
+1280.32 1282.52  I did the same thing for the end frame
+1282.52 1285.96  and that way the movement is now way more consistent
+1285.96 1287.64  though still not perfect.
+1287.76 1290.36  And another challenge with the shot is that
+1290.36 1292.16  the lip sync works really well
+1292.16 1294.44  if your character is close to the camera,
+1294.44 1296.92  but it starts to fall apart when your character
+1296.92 1298.04  is further away.
+1298.04 1301.04  Another important pro tip is to activate previews
+1301.04 1302.20  in ConfUI.
+1302.20 1304.76  Often you can already see if your shot is working
+1304.76 1307.48  as intended or not from the first step on.
+1307.48 1308.76  So if it doesn't look correct,
+1308.76 1310.60  you can just stop the generation,
+1310.60 1312.12  fix it and run it again.
+1312.12 1314.00  And that saved me so much time.
+1314.00 1316.28  Okay, I think that's all I have to say.
+1316.28 1317.48  So without further ado,
+1317.48 1320.16  here is the final short film, Bare Minimum.
+1331.00 1332.52  You're in 12.
+1332.52 1333.60  Breakfast whenever.
+1337.52 1338.72  Right this way.
+1339.76 1342.00  Sam in the face, 24 hours.
+1342.88 1344.84  Far is open till you fall asleep.
+1344.84 1348.00  Good and tonic, Sam in sunrise and the nab on the beach.
+1349.12 1351.60  Honeyfellas on every floor.
+1351.60 1353.56  Personal long screens all back.
+1354.92 1356.28  Sorry, it's a small one.
+1357.28 1360.12  That's a club size, but good for a quick nap.
+1361.08 1362.88  You're not hibernating, are you?
+1365.80 1366.64  Free parking.
+1367.60 1370.36  Huge thanks to Nvidia for making this video possible.
+1370.36 1371.44  If you want to check out
+1371.44 1373.52  their controllable video generation guide,
+1373.52 1374.76  the link is in the description
+1374.76 1376.44  and it's a great place to start
+1376.44 1378.52  with controllable video generation.
+1378.52 1379.52  See you next time.

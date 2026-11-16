@@ -1,0 +1,429 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:21:20'
+media_kind: video
+video_brief:
+  slug: video-23-kevkevkiwi-9e1e81
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\23-kevkevkiwi-9e1e81
+source:
+  creator: '@kevkevkiwi'
+  platform: instagram
+  url: https://www.instagram.com/kevkevkiwi/reel/DcCjvyAhU52/
+  type: video-short
+  caption: '🐉🔥 Comment “DRAGON” and you’ll get a DM with the exact prompt I used.
+    📩
+
+
+    Here’s a complete breakdown of this viral AI dragon-riding video. Original creator:
+    @mrbashr_ai 🙌 I used @higgsfield.ai for the AI. 🤖 If you copy and paste my prompt,
+    you can get a similar result! ✨
+
+
+    🚀 Get up to 33 days of unlimited access to Seedance 2.5. It’s available for a
+    limited time only! ⏳✨
+
+
+    🔥 Seedance 2.5 1080p is now available on Higgsfield! All new users get 5 free
+    generations. 🎬✨'
+metadata:
+  view_count: null
+  like_count: 2714
+  comment_count: null
+  duration_seconds: 51
+  cut_timestamps:
+  - 12.43
+  - 14.47
+  - 15.4
+  - 17.17
+  - 27.5
+  - 49.73
+hook_raw: Be nice to me, please
+transcript:
+- start: 1
+  end: 5
+  text: Be nice to me, please
+- start: 5
+  end: 7
+  text: Oh, oh, oh, oh, oh, oh!
+- start: 7
+  end: 11
+  text: Oh, no, no, no, no!
+- start: 11
+  end: 12
+  text: Oh!
+- start: 12
+  end: 14
+  text: To recreate the scene, you need your own dragon
+- start: 14
+  end: 18
+  text: Open up Higgsfield.ai and select C Dance 2.5
+- start: 18
+  end: 21
+  text: I use a picture of my own dragon as a reference image
+- start: 21
+  end: 23
+  text: Comment dragon and I will DM you my prompt
+- start: 23
+  end: 35
+  text: Make sure to activate the highest quality because Higgsfield got early access
+    to this feature
+- start: 35
+  end: 36
+  text: Hey, hey, hey, hey!
+- start: 36
+  end: 37
+  text: Hey, hey!
+- start: 37
+  end: 41
+  text: Oh, no, no, no, no!
+- start: 41
+  end: 42
+  text: Oh, oh!
+- start: 42
+  end: 44
+  text: Oh, oh!
+- start: 44
+  end: 44
+  text: Oh!
+- start: 44
+  end: 45
+  text: Oh!
+- start: 45
+  end: 46
+  text: Oh!
+- start: 46
+  end: 46
+  text: Hey!
+- start: 46
+  end: 47
+  text: Hey!
+- start: 47
+  end: 51
+  text: Oh, oh!
+frames:
+- file: Screenshots/frame_01_at_00-01_Be_nice_to_me__please_.jpg
+  timestamp: 00:01
+  t_seconds: 1
+- file: Screenshots/frame_02_at_00-12_To_recreate_the_scene__you_nee.jpg
+  timestamp: 00:12
+  t_seconds: 12
+- file: Screenshots/frame_03_at_00-35_Hey__hey__hey__hey_.jpg
+  timestamp: 00:35
+  t_seconds: 35
+- file: Screenshots/frame_04_at_00-44_Oh_.jpg
+  timestamp: 00:44
+  t_seconds: 44
+- file: Screenshots/frame_05_at_00-47_Oh__oh_.jpg
+  timestamp: 00:47
+  t_seconds: 47
+beats:
+- n: 1
+  start: 1
+  end: 12
+  text: Be nice to me, please Oh, oh, oh, oh, oh, oh! Oh, no, no, no, no! Oh!
+  role: hook
+- n: 2
+  start: 12
+  end: 35
+  text: To recreate the scene, you need your own dragon Open up Higgsfield.ai and
+    select C Dance 2.5 I use a picture of my own dragon as a reference image Comment
+    dragon and I will DM you my prompt Make sure to activate the highest quality because
+    Higgsfield got early access to this feature
+  role: build
+- n: 3
+  start: 35
+  end: 44
+  text: Hey, hey, hey, hey! Hey, hey! Oh, no, no, no, no! Oh, oh! Oh, oh!
+  role: build
+- n: 4
+  start: 44
+  end: 47
+  text: Oh! Oh! Oh! Hey! Hey!
+  role: build
+- n: 5
+  start: 47
+  end: 51
+  text: Oh, oh!
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 20
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-01_Be_nice_to_me__please_.jpg
+    shot_type: talking_head
+    on_screen_text: adutuny
+    has_captions: true
+  - file: frame_02_at_00-12_To_recreate_the_scene__you_nee.jpg
+    shot_type: talking_head
+    on_screen_text: adutuny
+    has_captions: true
+  - file: frame_03_at_00-35_Hey__hey__hey__hey_.jpg
+    shot_type: screen_capture
+    on_screen_text: ''
+    has_captions: true
+  - file: frame_04_at_00-44_Oh_.jpg
+    shot_type: screen_capture
+    on_screen_text: ''
+    has_captions: true
+  - file: frame_05_at_00-47_Oh__oh_.jpg
+    shot_type: screen_capture
+    on_screen_text: ''
+    has_captions: true
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.4
+    screen_capture: 0.6
+    broll: 0.0
+    graphic: 0.0
+  caption_style_seen: Legendas na parte inferior central, texto branco com contorno/sombra
+    preta, palavras ativas destacadas em amarelo, em caixa alta.
+  text_overlay_style: Nenhum texto na tela visível além do logo invertido na roupa
+    do apresentador, que é parte do cenário e não um overlay de edição.
+  visual_hook_device: A justaposição imediata de um apresentador casual reagindo a
+    um vídeo de alta produção e fantasia (dragão voando) em um formato picture-in-picture,
+    criando um gancho de 'reação' ou 'comentário' nos primeiros segundos.
+  broll_density: low
+  edit_style_notes: '1. Enquadramento: O apresentador é enquadrado em um plano médio-fechado,
+    ligeiramente descentralizado para acomodar a tela de captura de tela sobreposta.
+    A captura de tela é um vídeo vertical em formato de retângulo arredondado. 2.
+    Cortes: Cortes diretos e rápidos entre o apresentador reagindo e a tela cheia
+    do conteúdo, mantendo um ritmo acelerado. 3. Integração de Conteúdo: Transição
+    fluida entre a reação do criador e o conteúdo em tela cheia, criando um fluxo
+    dinâmico e envolvente.'
+  palette:
+  - '#4A4A4A'
+  - '#7B2E35'
+  - '#A0A0A0'
+  - '#C4A484'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:21:46'
+benchmark_analysis:
+  hook_type: pattern interrupt
+  pattern_interrupts:
+  - t: 0
+    device: visual juxtaposition
+    text: Apresentador casual reagindo a um dragão de alta fantasia em PiP (Picture-in-Picture)
+  - t: 1
+    device: audio/visual sync
+    text: Beat drop imediato sincronizado com a mudança de expressão/movimento
+  cut_cadence:
+    avaliacao: Alta performance. A média de 7.29s por segmento é sustentada por micro-variações
+      de escala (talking head vs screen capture), evitando a fadiga visual.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 7
+    segments: 7
+    duration_s: 51.0
+    avg_segment_s: 7.29
+  broll_strategy: Uso de Screen Capture funcional como b-roll educativo. O visual
+    não é apenas decorativo, ele é o tutorial em tempo real, transformando a demonstração
+    técnica no motor da retenção.
+  caption_style: Legendas dinâmicas de alto contraste (branco/amarelo), centralizadas,
+    focadas em palavras-chave de ação para reforçar o tutorial.
+  pacing_curve:
+  - window: 00-12s
+    densidade: Extrema (Hook & Energy Burst)
+  - window: 12-35s
+    densidade: Moderada (Information Delivery/Tutorial)
+  - window: 35-51s
+    densidade: Alta (Musical Build & CTA Loop)
+  retention_devices:
+  - Visual Payoff (ver o dragão funcionando)
+  - Curiosity Gap (como eu faço isso?)
+  - Micro-Escala (alternância rápida entre rosto e tela)
+  - Low-friction CTA (comando de comentário para DM)
+  recommendation: 'Modelar a estrutura de ''Reação + Demonstração Técnica''. Manter
+    o arco: 1. Impacto Visual (Hook) -> 2. O ''Como fazer'' (Tutorial rápido) -> 3.
+    Recompensa Visual (Build) -> 4. CTA de comentário. Trocar a voz e o nicho, mas
+    manter a densidade de cortes e o uso de tela sobreposta para tutorial.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T12:22:00'
+content_plan:
+  tema: Demonstração de automação de fluxo de dados com IA aplicada
+  format_concept: reaction
+  hook:
+    variants:
+    - pattern_interrupt: Apresentador olhando para um terminal de código/log correndo
+        em alta velocidade em PiP
+      text_overlay: AQUISIÇÃO DE LEADS EM ESCALA
+      spoken_open: Isso aqui não é mágica, é IA aplicada.
+    - pattern_interrupt: Zoom rápido no rosto do apresentador com expressão de surpresa
+        ao ver um dashboard de leads
+      text_overlay: WORKFLOW DE IA APLICADA
+      spoken_open: Olha a velocidade dessa integração rodando.
+    - pattern_interrupt: 'Tela dividida: de um lado um workflow complexo, do outro
+        o apresentador reagindo'
+      text_overlay: EFICIÊNCIA EM ESCALA
+      spoken_open: Você já automatizou esse processo?
+  storyboard:
+  - beat_n: 1
+    scene: Hook de impacto visual com reação ao sistema rodando
+    shot_type: médio
+    duration_s: 3
+    on_screen_text: AUTOMAÇÃO EM TEMPO REAL
+    broll: Screen capture de logs de integração (API/CRM)
+    motion: zoom-in
+  - beat_n: 2
+    scene: Explicação técnica rápida do workflow
+    shot_type: médio
+    duration_s: 12
+    on_screen_text: INTEGRAÇÃO IA + CRM
+    broll: Screen capture do agente processando dados
+    motion: cut
+  - beat_n: 3
+    scene: Demonstração da ferramenta sendo usada na prática
+    shot_type: insert
+    duration_s: 20
+    on_screen_text: AGENTE DE CONVERSÃO ATIVO
+    broll: Screen capture de ferramenta de IA aplicada
+    motion: none
+  - beat_n: 4
+    scene: Build de energia visual com cortes rápidos do sistema
+    shot_type: médio
+    duration_s: 10
+    on_screen_text: ESCALA E EFICIÊNCIA
+    broll: Sequência rápida de logs e dashboards
+    motion: whip
+  - beat_n: 5
+    scene: CTA Call-to-think
+    shot_type: close
+    duration_s: 6
+    on_screen_text: COMO ESTÁ SEU WORKFLOW?
+    broll: Apresentador olhando direto para câmera
+    motion: cut
+  script: Isso aqui não é mágica, é IA aplicada. Para rodar esse workflow de aquisição,
+    você precisa de uma ferramenta que processe o dado com eficiência. Eu uso esse
+    fluxo para transformar dado bruto em oportunidade de conversão. Como você está
+    estruturando seu workflow de escala hoje?
+  edit_spec:
+    zooms:
+    - na fala 'Isso aqui não é mágica'
+    - no final para o CTA reflexivo
+    transitions:
+    - whip @ 12s
+    - cut @ 35s
+    inserts:
+    - screen capture de logs @ 5s
+    - screen capture de dashboard @ 20s
+    captions: 'Legendas dinâmicas, branco com destaque em amarelo nas palavras: automação,
+      agente, conversão, sistema.'
+    motion_graphics:
+    - rectângulo arredondado na tela de captura @ 5s
+    - pop-up de texto no CTA @ 45s
+    template_refs:
+      hook: hook-interface-reveal
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Apresentador reagindo a uma tela de código/dashboard
+    framing: médio
+    audio: fala
+    props: Notebook ou Monitor ao fundo
+    locacao: Escritório/Setup Tecnológico
+    falas_chave: Isso aqui não é mágica, é IA aplicada.
+  - plano: Captura de tela mostrando o agente de IA operando
+    framing: insert
+    audio: ambiente
+    props: Software de automação/CRM
+    locacao: Digital
+    falas_chave: Eu uso esse fluxo aqui para processar leads...
+  - plano: Apresentador falando diretamente para a câmera
+    framing: close
+    audio: fala
+    props: Nenhum
+    locacao: Escritório
+    falas_chave: Como você está estruturando seu workflow?
+  sound_design:
+    sfx:
+    - moment: hook @ 0s
+      category: impact
+      intent: parar o scroll com impacto
+      intensity: strong
+    - moment: beat_n:2 @ 12s
+      category: swoosh
+      intent: transição para a tela técnica
+      intensity: medium
+    - moment: beat_n:3 @ 20s
+      category: click
+      intent: reforçar cliques na interface
+      intensity: subtle
+    - moment: cta @ 45s
+      category: pop
+      intent: chamar atenção para o texto do CTA
+      intensity: medium
+    music:
+      recommended: true
+      mood: uplifting
+      energy: medium
+      genre: electronic/tech
+      ducking: true
+      rationale: Trilha tecnológica que mantém o ritmo de produtividade sem sobrepor
+        a voz do Sábio.
+    rationale: O sound design utiliza impactos no início para retenção e micro-sons
+      (clicks/pops) para sincronizar com a demonstração técnica, transformando o vídeo
+      em uma experiência de 'software em ação'.
+  rationale: O plano modela a estrutura 'Reação + Demonstração', substituindo a fantasia
+    pelo workflow técnico real. Mantém o ritmo de cortes rápidos e o uso de PiP para
+    tutorial, respeitando o DNA de 'evidência prática' e foco em automação, sem utilizar
+    métricas não confirmadas.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T12:22:37'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 1
+  model: openrouter:openrouter/free
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 10.2
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:22:47'

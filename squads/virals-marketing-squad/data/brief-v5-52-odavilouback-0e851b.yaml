@@ -1,0 +1,553 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:43:21'
+archetype: news
+carousel_brief:
+  slug: v5-precision-52-odavilouback-0e851b
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\52-odavilouback-0e851b
+  source_url: https://www.instagram.com/odavilouback/p/Db4NSrdEThP/
+  tema: 'Modelagem de precisão: 52-odavilouback-0e851b'
+  slide_count: 8
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 9
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.0/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a estética de ''infoprodutor de Instagram'' por demonstrações visuais
+    de dashboards de IA e workflows de automação logo no primeiro slide. - Substituir
+    a promessa de ''crescimento de audiência'' pela promessa de ''construção de infraestrutura
+    de'
+  audits_present: true
+benchmark_caption: 'Crescer no Instagram não precisa significar expor sua vida, sua
+  rotina ou transformar seu perfil em um reality show.
+
+
+  O jogo mudou: hoje, quem constrói audiência de verdade é reconhecido pelas ideias
+  que defende, pela consistência e pela forma como transforma essas ideias em diferentes
+  conteúdos.
+
+
+  É por isso que você precisa de uma arquitetura de conteúdo: tese, microprogramas
+  e narrativas trabalhando juntos para fortalecer seu posicionamento.
+
+
+  Quer aprender como aplicar essa estratégia na prática?
+
+
+  Comente CÓDIGO e receba a gravação da Aula 01 do Novo Código da Audiência.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: NOVO CODIGO DA AUDIENCIA
+  reference_body: EVENTO CHURN E GRATUITO zuck Instagram HQ > COMO PRODUZIR CONTEÚDO
+    PARA O NOVO CÓDIGO DO INSTAGRAM?
+  headline: O NOVO CÓDIGO DA AUDIÊNCIA
+  sub_headline: O NOVO CÓDIGO
+  body_text: Escala real não vem de exposição pessoal, mas de arquitetura de ideias.
+    O novo paradigma do Instagram prioriza quem domina a mensagem, não quem domina
+    a câmera.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 26
+    body_chars: 160
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person holding smartphone
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline forte focada no benefício de escala: Como construir audiência
+      através de ideias, não de exposição pessoal. Abordar a mudança de paradigma
+      mencionada no evento do Instagram.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Por muitos anos, te venderam um único caminho para crescer no
+    Instagram.
+  reference_body: 'Se você quisesse construir uma audiência, você precisava: Mostrar
+    sua rotina. Expor sua vida pessoal. Exibir viagens, carros e conquistas. Chamar
+    atenção o tempo todo. Esse modelo criou milhares de influenciadores. Mas também
+    fez muitos especialistas acreditarem que, para crescer, precisariam abrir mão
+    da própria identidade.'
+  headline: O MODELO OBSOLETO
+  sub_headline: O MODELO OBSOLETO
+  body_text: Crescer expondo rotina, viagens e conquistas pessoais é um workflow exaustivo
+    que não escala. O lifestyle gera atenção passageira, mas não constrói autoridade
+    real.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 17
+    body_chars: 164
+    headline_tier: xl
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: luxury hotel room
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Expor a exaustão do modelo antigo: crescer expondo rotina, viagens
+      e conquistas pessoais. Mostrar que esse caminho de ''lifestyle'' não escala
+      para autoridade real.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: SÓ QUE HOJE O ALGORITMO DO INSTAGRAM MUDOU
+  reference_body: E agora quem constrói audiência de verdade fica conhecido pelas
+    suas ideias e não pelo seu “lifestyle” instragramável ou por truques de “velhos
+    gurus”.
+  headline: A MUDANÇA DO ALGORITMO
+  sub_headline: A MUDANÇA
+  body_text: O foco no 'instagramável' perdeu espaço para a consistência da mensagem.
+    Hoje, quem constrói audiência de verdade é reconhecido pelas suas ideias, não
+    por truques de gurus.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 22
+    body_chars: 172
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: digital screen blurred
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Validar a nova lógica do algoritmo: a prioridade agora é a consistência
+      da mensagem em diferentes formatos, substituindo o foco no ''instagramável''.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: O algoritmo agora prioriza quem consegue passar a mesma mensagem,
+    com consistência, em diferentes formatos.
+  reference_body: 'E pra isso, você precisa seguir uma Arquitetura de Conteúdo. E
+    ELA FUNCIONA EM 4 PASSOS:'
+  headline: ARQUITETURA DE CONTEÚDO
+  sub_headline: A SOLUÇÃO
+  body_text: Para repetir a mensagem com eficiência em diferentes formatos, você precisa
+    de um workflow estruturado. A solução está em seguir uma arquitetura dividida
+    em 4 passos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 23
+    body_chars: 166
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person planning notebook
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Introduzir o conceito de Arquitetura de Conteúdo como o workflow necessário
+      para repetir a mensagem com eficiência e escala.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Tese
+  reference_body: É ela que faz as pessoas começarem a reconhecer a sua forma de pensar
+    e a lembrar de você na hora de contratar. Sem tese, você tem conteúdo. Com tese,
+    você tem posicionamento.
+  headline: 'PILAR 1: TESE'
+  sub_headline: 'PILAR 1: TESE'
+  body_text: A tese transforma conteúdo em posicionamento estratégico. É ela que faz
+    o mercado reconhecer sua forma de pensar e lembrar de você na hora da contratação.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 13
+    body_chars: 154
+    headline_tier: xl
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: focused man office
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: Explicar que a tese transforma conteúdo em posicionamento. É o que
+      faz o cliente lembrar de você para contratar, não apenas para consumir.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Microprogramas
+  reference_body: Microprogramas são formatos fixos que se repetem toda semana e que
+    sustentam essa tese. Seu perfil vai funcionar como se fosse uma emissora de televisão,
+    onde o seu seguidor passa a esperar o próximo episódio.
+  headline: 'PILAR 2: MICROPROGRAMAS'
+  sub_headline: 'PILAR 2: MICROPROGRAMAS'
+  body_text: Formatos fixos e recorrentes que criam previsibilidade para quem segue.
+    Seu perfil passa a operar como uma emissora, sustentando a tese semanalmente.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 23
+    body_chars: 149
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: video editing software
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: Definir microprogramas como formatos fixos e recorrentes que criam
+      previsibilidade para o seguidor, como uma emissora de TV constante.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 7
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Narrativas / Uma ideia só vira autoridade quando ela aparece
+  reference_body: Suas ideias precisam de histórias pra sobreviver. Essas histórias
+    podem ser cases, erros, bastidores, o que deu certo e o que você faria diferente.
+    É isso que vai fazer o mercado lembrar de você quando precisar de alguém que faz
+    o que você faz. REPETIDAS VEZES E e é aqui que a sua mensagem passa a circular
+    de forma consistente e em formatos diferentes, alcançando gente que nunca te viu
+    ao mesmo tempo que reforça a sua tese para quem já te acompanha.
+  headline: 'PILAR 3: NARRATIVAS'
+  sub_headline: 'PILAR 3: NARRATIVAS'
+  body_text: Ideias só viram autoridade quando são repetidas através de cases, erros
+    e bastidores. As histórias fazem a mensagem circular e gerar retenção real.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 19
+    body_chars: 147
+    headline_tier: xl
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person talking meeting
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  - 8
+  personalization:
+    status: DONE
+    directive: Mostrar que ideias precisam de histórias (cases, erros, bastidores)
+      para circular e gerar retenção real.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+- slide_n: 8
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_09.jpg
+  reference_headline: NOVO CÓDIGO DA AUDIÊNCIA
+  reference_body: EVENTO ONLINE E GRATUITO E é exatamente essa arquitetura de conteúdo
+    que estamos ensinando no treinamento do Novo Código da Audiência. Quer receber
+    a gravação da aula 01? É SÓ COMENTAR CODIGO.
+  headline: APLICAÇÃO PRÁTICA
+  sub_headline: APLICAÇÃO PRÁTICA
+  body_text: Autoridade é o resultado de ideias consistentes distribuídas em múltiplos
+    formatos. O seu perfil hoje é sustentado por uma arquitetura de ideias ou por
+    exposição aleatória?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 17
+    body_chars: 172
+    headline_tier: xl
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: laptop on desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 9
+  personalization:
+    status: DONE
+    directive: 'Conclusão: Autoridade é o resultado de ideias repetidas com consistência
+      em diferentes formatos. CTA: Convite para refletir sobre a arquitetura atual
+      do próprio perfil e menção ao treinamento para quem busca o método completo.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:44:30'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/9
+  bodies_extracted: 9/9
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Transição do modelo de crescimento baseado em lifestyle para um modelo
+    baseado em arquitetura de ideias e posicionamento estratégico.
+  formato: Manifesto Educativo com Funil de Conversão (Carrossel de Autoridade).
+  arco_narrativo: Inicia com a quebra de um paradigma antigo (lifestyle), apresenta
+    a nova realidade do algoritmo, introduz a solução técnica (Arquitetura de Conteúdo)
+    detalhando seus pilares e encerra com uma CTA direta para aprofundamento.
+  estrutura:
+  - slide_n: 1
+    papel: 'Gancho/Promessa: Estabelece a tese do ''Novo Código''.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Vilão/Contraste: Expõe a dor e o modelo obsoleto de exposição pessoal.'
+    essencial: true
+  - slide_n: 3
+    papel: 'Virada de Chave: Valida a mudança de comportamento do algoritmo.'
+    essencial: true
+  - slide_n: 4
+    papel: 'Apresentação da Solução: Introduz a ''Arquitetura de Conteúdo''.'
+    essencial: true
+  - slide_n: 5
+    papel: ' Pilar 1: Explica a importância da Tese para o posicionamento.'
+    essencial: true
+  - slide_n: 6
+    papel: 'Pilar 2: Explica a recorrência através de Microprogramas.'
+    essencial: true
+  - slide_n: 7
+    papel: 'Pilar 3: Explica a retenção e conexão via Narrativas.'
+    essencial: true
+  - slide_n: 8
+    papel: 'Reforço de Valor: Conecta a técnica ao resultado de autoridade.'
+    essencial: false
+  - slide_n: 9
+    papel: 'CTA: Conversão direta para lead via palavra-chave.'
+    essencial: true
+  redundancias:
+  - Slide 8 pode ser fundido ao Slide 7 ou Slide 4, pois apenas reforça a tese da
+    consistência já mencionada anteriormente.
+  fatores_de_performance:
+  - 'Quebra de padrão: Ataca a ''fadiga do lifestyle'', gerando alívio para quem não
+    quer se expor.'
+  - 'Autoridade por Metodologia: Dá nome aos processos (Tese, Microprogramas, Narrativas),
+    transformando conselhos em um ''método''.'
+  - 'Lógica de ''Novo vs Velho'': Utiliza a dicotomia para criar urgência na atualização
+    do conhecimento do usuário.'
+  - 'CTA de baixo atrito: Uso de automação via comentário para entrega de valor imediato.'
+  recomendacao:
+    slides_ideais: 8
+    justificativa: A remoção do slide 8 torna a progressão mais ágil, movendo o usuário
+      da explicação técnica (pilares) diretamente para a conversão, sem repetir a
+      premissa de consistência.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:43:44'
+content_plan:
+  archetype: news
+  slide_count: 8
+  tema: Transição do modelo de crescimento por lifestyle para o modelo de arquitetura
+    de ideias e posicionamento estratégico.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O NOVO CÓDIGO
+    copy_direction: 'Headline forte focada no benefício de escala: Como construir
+      audiência através de ideias, não de exposição pessoal. Abordar a mudança de
+      paradigma mencionada no evento do Instagram.'
+    image_direction: Tipografia robusta e centralizada, estilo manifesto tecnológico,
+      fundo limpo com elementos sutis de interface/código.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O MODELO OBSOLETO
+    copy_direction: 'Expor a exaustão do modelo antigo: crescer expondo rotina, viagens
+      e conquistas pessoais. Mostrar que esse caminho de ''lifestyle'' não escala
+      para autoridade real.'
+    image_direction: 'Contraste visual: elementos que remetam a ostentação vs. elementos
+      de dados/conhecimento, com aspecto de ''descarte''.'
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: A MUDANÇA
+    copy_direction: 'Validar a nova lógica do algoritmo: a prioridade agora é a consistência
+      da mensagem em diferentes formatos, substituindo o foco no ''instagramável''.'
+    image_direction: Gráfico simplificado ou representação visual de fluxo de informação
+      sendo priorizada pelo sistema.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: A SOLUÇÃO
+    copy_direction: Introduzir o conceito de Arquitetura de Conteúdo como o workflow
+      necessário para repetir a mensagem com eficiência e escala.
+    image_direction: Diagrama de estrutura ou blueprint de um sistema de conteúdo.
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: 'PILAR 1: TESE'
+    copy_direction: Explicar que a tese transforma conteúdo em posicionamento. É o
+      que faz o cliente lembrar de você para contratar, não apenas para consumir.
+    image_direction: Ícone de núcleo ou centro de um sistema, representando a base
+      de tudo.
+    source_slides:
+    - 5
+  - slide_n: 6
+    role: INSIGHT
+    kicker: 'PILAR 2: MICROPROGRAMAS'
+    copy_direction: Definir microprogramas como formatos fixos e recorrentes que criam
+      previsibilidade para o seguidor, como uma emissora de TV constante.
+    image_direction: Representação de blocos de construção ou grade de programação
+      repetitiva.
+    source_slides:
+    - 6
+  - slide_n: 7
+    role: INSIGHT
+    kicker: 'PILAR 3: NARRATIVAS'
+    copy_direction: Mostrar que ideias precisam de histórias (cases, erros, bastidores)
+      para circular e gerar retenção real.
+    image_direction: Linha do tempo ou fluxo narrativo conectando pontos de dados
+      a experiências reais.
+    source_slides:
+    - 7
+    - 8
+  - slide_n: 8
+    role: PAYOFF
+    kicker: APLICAÇÃO PRÁTICA
+    copy_direction: 'Conclusão: Autoridade é o resultado de ideias repetidas com consistência
+      em diferentes formatos. CTA: Convite para refletir sobre a arquitetura atual
+      do próprio perfil e menção ao treinamento para quem busca o método completo.'
+    image_direction: Imagem de conclusão de workflow, limpa, com espaço para reflexão
+      e o comando de ação.
+    source_slides:
+    - 9
+  rationale: O plano reduz o benchmark de 9 para 8 slides, fundindo os reforços de
+    redundância (slide 8 do original) conforme a recomendação técnica. O arco segue
+    o modelo de 'Slippery Slide', onde cada slide prepara o terreno para o próximo,
+    movendo o usuário da dor do lifestyle obsoleto para a solução técnica da Arquitetura
+    de Conteúdo. A voz foi ajustada para o arquétipo do Sábio/Criador da Virals, usando
+    termos como 'workflow' e 'arquitetura' para evitar o tom motivacional genérico
+    e focar na construção de sistemas de audiência.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T19:44:09'
+central_theme: Transição do modelo de crescimento por lifestyle para o modelo de arquitetura
+  de ideias e posicionamento estratégico.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:44:30'
+  slides: 8
+  central_theme: Transição do modelo de crescimento por lifestyle para o modelo de
+    arquitetura de ideias e posicionamento estratégico.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:45:02'

@@ -1,0 +1,12 @@
+template: ImperioIgnicaoPunho
+take_file: take1_conformado.mov
+headline:
+  text: "PRIMEIRA VEZ NA IMPÉRIO? É MAIS SIMPLES DO QUE PARECE."
+  highlight_word: "PARECE."
+hook: imperio-hook-zoom-in
+angulo: acessibilidade
+nota: >
+  Copy = headline do Ângulo 3 (Acessibilidade) em copy-angles-2026-10-09.md
+  §3, cross-aplicada no headline de fechamento. Mesma ressalva de
+  take1-confianca-zoomin.yaml quanto aos overlays de abertura (fixos,
+  genéricos). highlight_word = última palavra (convenção mecânica).

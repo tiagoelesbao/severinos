@@ -1,0 +1,264 @@
+{
+ "roteiro": "B3-noite",
+ "wpm": 171.6,
+ "blocos": [
+  {
+   "i": 0,
+   "palavras": 19,
+   "duracao_s": 6.6,
+   "texto": "Todo dia termina duas vezes. Uma quando você para de trabalhar. Outra quando você finalmente deixa o dia ir."
+  },
+  {
+   "i": 1,
+   "palavras": 24,
+   "duracao_s": 8.4,
+   "texto": "Para os estoicos, o intervalo entre essas duas coisas era o momento mais honesto do dia. Ninguém está olhando. Não há nada a defender."
+  },
+  {
+   "i": 2,
+   "palavras": 13,
+   "duracao_s": 4.5,
+   "texto": "A forma como você encerra hoje decide com que material você começa amanhã."
+  },
+  {
+   "i": 3,
+   "palavras": 22,
+   "duracao_s": 7.7,
+   "texto": "Mas como parar de repassar conversas quando a cabeça encosta no travesseiro? Como fechar um dia que não saiu como você queria?"
+  },
+  {
+   "i": 4,
+   "palavras": 13,
+   "duracao_s": 4.5,
+   "texto": "Os estoicos tinham um hábito para isso, e era feito exatamente nesta hora."
+  },
+  {
+   "i": 5,
+   "palavras": 22,
+   "duracao_s": 7.7,
+   "texto": "Encerrar o dia é como guardar as ferramentas. Não muda o trabalho de hoje — muda quanto tempo você perde amanhã procurando."
+  },
+  {
+   "i": 6,
+   "palavras": 18,
+   "duracao_s": 6.3,
+   "texto": "Você pode terminar o dia se acusando, ou terminando-o de verdade. As duas coisas custam o mesmo tempo."
+  },
+  {
+   "i": 7,
+   "palavras": 7,
+   "duracao_s": 2.4,
+   "texto": "Qual das duas você vai fazer hoje?"
+  },
+  {
+   "i": 8,
+   "palavras": 12,
+   "duracao_s": 4.2,
+   "texto": "Três reflexões estoicas para antes de dormir. Não precisa levantar. Só ouvir."
+  },
+  {
+   "i": 9,
+   "palavras": 26,
+   "duracao_s": 9.1,
+   "texto": "Escreve nos comentários a frase da noite — hoje eu encerro o dia. Deixa o like, se inscreve, e compartilha com quem dorme mal repassando conversas."
+  },
+  {
+   "i": 10,
+   "palavras": 2,
+   "duracao_s": 0.7,
+   "texto": "Vamos juntos."
+  },
+  {
+   "i": 11,
+   "palavras": 6,
+   "duracao_s": 2.1,
+   "texto": "Reflexão um: o exame do dia."
+  },
+  {
+   "i": 12,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "\"Percorro todo o meu dia e meço de novo o que fiz e disse. Nada escondo de mim mesmo, nada deixo passar.\" Sêneca."
+  },
+  {
+   "i": 13,
+   "palavras": 2,
+   "duracao_s": 0.7,
+   "texto": "Respire fundo."
+  },
+  {
+   "i": 14,
+   "palavras": 17,
+   "duracao_s": 5.9,
+   "texto": "Passe o dia de hoje em revista, sem pressa. Não procurando culpa — procurando o que aconteceu."
+  },
+  {
+   "i": 15,
+   "palavras": 20,
+   "duracao_s": 7.0,
+   "texto": "O que você fez bem hoje? Não precisa ser grande. Uma paciência que você teve. Uma coisa que você terminou."
+  },
+  {
+   "i": 16,
+   "palavras": 11,
+   "duracao_s": 3.8,
+   "texto": "O que você faria diferente? E, principalmente: o que ficou aberto?"
+  },
+  {
+   "i": 17,
+   "palavras": 26,
+   "duracao_s": 9.1,
+   "texto": "Não é a lista de erros que liberta — é a lista de pendências. Não é o julgamento que fecha o dia — é o inventário."
+  },
+  {
+   "i": 18,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Um comerciante que não conta o caixa à noite não dorme melhor. Dorme sem saber."
+  },
+  {
+   "i": 19,
+   "palavras": 17,
+   "duracao_s": 5.9,
+   "texto": "Visualize amanhã de manhã encontrando um dia já fechado, e não um dia empilhado sobre o anterior."
+  },
+  {
+   "i": 20,
+   "palavras": 16,
+   "duracao_s": 5.6,
+   "texto": "Isso não significa se punir pelo que deu errado. Sêneca era explícito: é exame, não tribunal."
+  },
+  {
+   "i": 21,
+   "palavras": 6,
+   "duracao_s": 2.1,
+   "texto": "Reflexão dois: perdoar é liberar espaço."
+  },
+  {
+   "i": 22,
+   "palavras": 18,
+   "duracao_s": 6.3,
+   "texto": "\"Quando alguém te ofende, lembra que foi a opinião dele que o levou a agir assim.\" Marco Aurélio."
+  },
+  {
+   "i": 23,
+   "palavras": 3,
+   "duracao_s": 1.0,
+   "texto": "Feche os olhos."
+  },
+  {
+   "i": 24,
+   "palavras": 18,
+   "duracao_s": 6.3,
+   "texto": "Pense na conversa de hoje que ainda está com você. Aquela que você continuou sozinho, no carro, depois."
+  },
+  {
+   "i": 25,
+   "palavras": 16,
+   "duracao_s": 5.6,
+   "texto": "Quantas vezes você já a repetiu na cabeça? E em quantas delas o outro ficou sabendo?"
+  },
+  {
+   "i": 26,
+   "palavras": 1,
+   "duracao_s": 0.3,
+   "texto": "Nenhuma."
+  },
+  {
+   "i": 27,
+   "palavras": 32,
+   "duracao_s": 11.2,
+   "texto": "Não é o outro que continua te machucando — é a repetição. Não é o que foi dito que rouba a sua noite — é a resposta que você ainda está preparando."
+  },
+  {
+   "i": 28,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "É como carregar uma brasa para atirar em alguém. A mão que queima é a sua, e a pessoa nem está na sala."
+  },
+  {
+   "i": 29,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "Visualize o momento em que você decide não repetir a conversa uma quinta vez. Ela não desaparece. Mas para de ocupar a cama."
+  },
+  {
+   "i": 30,
+   "palavras": 24,
+   "duracao_s": 8.4,
+   "texto": "Isso não significa esquecer, aceitar ou dizer que estava tudo bem. Significa parar de emprestar a sua noite para uma conversa que já acabou."
+  },
+  {
+   "i": 31,
+   "palavras": 7,
+   "duracao_s": 2.4,
+   "texto": "Reflexão três: o sono é um ensaio."
+  },
+  {
+   "i": 32,
+   "palavras": 21,
+   "duracao_s": 7.3,
+   "texto": "\"Todas as noites, ao adormecer, morremos um pouco. E toda manhã nascemos de novo.\" A ideia atravessa toda a tradição estoica."
+  },
+  {
+   "i": 33,
+   "palavras": 5,
+   "duracao_s": 1.7,
+   "texto": "Respire, e não force nada."
+  },
+  {
+   "i": 34,
+   "palavras": 28,
+   "duracao_s": 9.8,
+   "texto": "Pense no que você está entregando agora. Você vai deixar de existir por algumas horas. O mundo vai seguir sem a sua supervisão, e vai estar lá amanhã."
+  },
+  {
+   "i": 35,
+   "palavras": 15,
+   "duracao_s": 5.2,
+   "texto": "Isso deveria assustar. Mas não assusta — porque você já fez isso milhares de vezes."
+  },
+  {
+   "i": 36,
+   "palavras": 26,
+   "duracao_s": 9.1,
+   "texto": "Não é o descanso que o corpo pede — é a entrega. Não é o cansaço que impede o sono — é a recusa de soltar."
+  },
+  {
+   "i": 37,
+   "palavras": 14,
+   "duracao_s": 4.9,
+   "texto": "Uma corda esticada a noite inteira não guarda força. Ela se rompe mais cedo."
+  },
+  {
+   "i": 38,
+   "palavras": 22,
+   "duracao_s": 7.7,
+   "texto": "Visualize a última coisa que você pensa antes de dormir sendo algo que você escolheu — e não a primeira que apareceu."
+  },
+  {
+   "i": 39,
+   "palavras": 23,
+   "duracao_s": 8.0,
+   "texto": "Isso não significa que preocupação real não exista. Significa que ela também vai estar aí amanhã, e amanhã você estará inteiro para encará-la."
+  },
+  {
+   "i": 40,
+   "palavras": 10,
+   "duracao_s": 3.5,
+   "texto": "O dia acabou. Não precisa de mais nada de você."
+  },
+  {
+   "i": 41,
+   "palavras": 5,
+   "duracao_s": 1.7,
+   "texto": "Deixe-o ir, e volte amanhã."
+  },
+  {
+   "i": 42,
+   "palavras": 19,
+   "duracao_s": 6.6,
+   "texto": "Se isso te ajudou a dormir, deixa o like. E clica no vídeo que está aparecendo na tela agora."
+  }
+ ]
+}

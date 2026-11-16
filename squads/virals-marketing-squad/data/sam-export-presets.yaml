@@ -1,0 +1,149 @@
+# Sam Kolder — Export Presets
+# Configurações de exportação por plataforma para vídeos
+# Utilizado por: sam-reformat-export, sam-reel-edit, sam-long-edit
+
+export_presets:
+
+  reels:
+    platform: "Instagram Reels"
+    width: 1080
+    height: 1920
+    aspect_ratio: "9:16"
+    fps: 30
+    video_codec: "libx264"
+    video_bitrate: "8M"
+    video_profile: "high"
+    audio_codec: "aac"
+    audio_bitrate: "128k"
+    audio_sample_rate: 44100
+    container: "mp4"
+    max_duration_s: 90
+    max_file_size_mb: 250
+    ffmpeg_extra: "-movflags +faststart"
+    notes: "faststart para streaming progressivo no feed"
+
+  tiktok:
+    platform: "TikTok"
+    width: 1080
+    height: 1920
+    aspect_ratio: "9:16"
+    fps: 30
+    video_codec: "libx264"
+    video_bitrate: "8M"
+    video_profile: "high"
+    audio_codec: "aac"
+    audio_bitrate: "128k"
+    audio_sample_rate: 44100
+    container: "mp4"
+    max_duration_s: 600
+    max_file_size_mb: 287
+    ffmpeg_extra: "-movflags +faststart"
+
+  shorts:
+    platform: "YouTube Shorts"
+    width: 1080
+    height: 1920
+    aspect_ratio: "9:16"
+    fps: 60                   # YouTube Shorts suporta 60fps
+    video_codec: "libx264"
+    video_bitrate: "8M"
+    video_profile: "high"
+    audio_codec: "aac"
+    audio_bitrate: "192k"
+    audio_sample_rate: 48000
+    container: "mp4"
+    max_duration_s: 60
+    max_file_size_mb: 128
+    ffmpeg_extra: "-movflags +faststart"
+
+  feed-square:
+    platform: "Instagram Feed (quadrado)"
+    width: 1080
+    height: 1080
+    aspect_ratio: "1:1"
+    fps: 30
+    video_codec: "libx264"
+    video_bitrate: "6M"
+    audio_codec: "aac"
+    audio_bitrate: "128k"
+    container: "mp4"
+    max_duration_s: 60
+    max_file_size_mb: 100
+
+  feed-vertical:
+    platform: "Instagram Feed (vertical)"
+    width: 1080
+    height: 1350
+    aspect_ratio: "4:5"
+    fps: 30
+    video_codec: "libx264"
+    video_bitrate: "6M"
+    audio_codec: "aac"
+    audio_bitrate: "128k"
+    container: "mp4"
+    max_duration_s: 60
+
+  youtube:
+    platform: "YouTube"
+    width: 1920
+    height: 1080
+    aspect_ratio: "16:9"
+    fps: 60
+    video_codec: "libx264"
+    video_bitrate: "12M"
+    video_profile: "high"
+    audio_codec: "aac"
+    audio_bitrate: "192k"
+    audio_sample_rate: 48000
+    container: "mp4"
+    max_duration_s: null  # sem limite
+    max_file_size_mb: null
+    ffmpeg_extra: "-movflags +faststart"
+    notes: "Recomendado pelo YouTube para qualidade máxima"
+
+  linkedin:
+    platform: "LinkedIn"
+    width: 1920
+    height: 1080
+    aspect_ratio: "16:9"
+    fps: 30
+    video_codec: "libx264"
+    video_bitrate: "8M"
+    audio_codec: "aac"
+    audio_bitrate: "128k"
+    container: "mp4"
+    max_duration_s: 600
+    max_file_size_mb: 5120
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REFRAME MODES
+# ─────────────────────────────────────────────────────────────────────────────
+reframe_modes:
+
+  center:
+    description: "Crop centralizado — ponto médio do frame"
+    ffmpeg_filter: "crop={w}:{h}:(iw-{w})/2:(ih-{h})/2"
+
+  blur-bg:
+    description: "Fundo blur — escala o vídeo e preenche com blur do original"
+    ffmpeg_filter: |
+      [0:v]scale={w}:{h}:force_original_aspect_ratio=decrease,
+      pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black[fg];
+      [0:v]scale={w}:{h},boxblur=20[bg];
+      [bg][fg]overlay=(W-w)/2:(H-h)/2
+
+  smart:
+    description: "Face detection via OpenCV — mantém rosto no centro"
+    requires: "opencv-python"
+    fallback: "center"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OUTPUT STRUCTURE
+# ─────────────────────────────────────────────────────────────────────────────
+output:
+  base_dir: "outputs/"
+  reels_dir: "outputs/reels/"
+  long_form_dir: "outputs/long-form/"
+  highlights_dir: "outputs/highlights/"
+  temp_dir: "outputs/.temp/"
+  auto_cleanup_temp: true

@@ -1,0 +1,8 @@
+template: ImperioIgnicaoPunho
+take_file: take1_conformado.mov
+headline:
+  text: "ESSA PODE SER A SUA VITÓRIA."
+  highlight_word: "VITÓRIA."
+hook: imperio-hook-parada
+angulo: premio
+nota: "Controle A/B — câmera parada reproduz o comportamento ORIGINAL da peça (pixel-idêntico ao render antes desta receita existir). Baseline pra comparar contra zoom-in/zoom-out."

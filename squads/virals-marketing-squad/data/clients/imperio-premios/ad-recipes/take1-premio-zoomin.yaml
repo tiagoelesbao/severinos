@@ -1,0 +1,11 @@
+# Receita — réplica da prova de conceito do Garantido (2026-10-18) pro
+# Império. Combina HOOK_TEMPLATE (câmera) × COPY de forma independente — ver
+# squads/virals-marketing-squad/docs/pipeline-templates-video-escala-2026-10-10.md §2.3
+template: ImperioIgnicaoPunho
+take_file: take1_conformado.mov
+headline:
+  text: "ESSA PODE SER A SUA VITÓRIA."
+  highlight_word: "VITÓRIA."
+hook: imperio-hook-zoom-in  # id em video-templates.yaml (hook_packs)
+angulo: premio
+nota: "Copy = headline já aprovada e em produção pra esta peça (copy-angles-2026-10-09.md §1a, Ângulo Prêmio — única copy com beats de overlay escritos pra este take especificamente). Hook = zoom-in (padrão anterior era câmera parada, sem movimento algum)."

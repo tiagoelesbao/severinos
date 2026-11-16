@@ -1,0 +1,311 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — PACOTE DE DIREÇÃO (`asset_direction`)
+# Schema canônico: _BLUEPRINT.md §3.2 · Convenções: _CONVENTIONS.md §4
+#
+# ONDE VIVE (um arquivo por asset):
+#   {job}/11-stills/_direction/{asset-id}.yaml     ← @image-lead
+#   {job}/12-takes/_direction/{asset-id}.yaml      ← @motion-lead
+#   {job}/13-audio/_direction/{asset-id}.yaml      ← @sound-designer
+#
+# POR QUE ESTE É O ARTEFATO CENTRAL DO SQUAD (Regra de Ouro — §3.1):
+# O estúdio NÃO gera a imagem, o vídeo nem a voz. O estúdio DIRIGE a geração, que é
+# humana. Então o entregável do agente de execução NÃO é o asset — é ESTE arquivo.
+# Ele é julgado como entregável de primeira classe: um pacote vago é FALHA mesmo que
+# o asset tenha saído bom por sorte, porque acerto sem direção não se repete no
+# próximo lote, no próximo episódio, nem com outro operador.
+#
+# CICLO DE VIDA — dois momentos distintos, não confundir:
+#   1. ANTES do card  → o AGENTE preenche as seções 1 a 9 (`direcao`).
+#                       Gate: gate-stills / gate-takes / gate-audio, PARTE A.
+#                       Reprovou? O CARD NÃO SAI. Mandar humano gerar com pacote
+#                       incompleto queima crédito e tempo de pessoa.
+#   2. O @exec-producer emite o card humano ({job}/_cards/{card-id}.md) A PARTIR
+#      deste arquivo — o card é a face legível do pacote, este é a fonte.
+#   3. DEPOIS da devolução → o OPERADOR HUMANO preenche a seção 10 (`retorno`).
+#                       Gate: PARTE B dos mesmos checklists.
+#                       Auditado pelo @fact-checker: TR-PD-12, STL-B-04, TK-B-04,
+#                       AU-B-05 — todos BLOQUEANTES NON-WAIVABLE.
+#
+# COMO USAR: copie, preencha o bloco `comum` + o bloco do seu tipo (`imagem`,
+# `video` OU `voz`), e APAGUE os dois blocos de tipo que não se aplicam.
+# Nenhum campo obrigatório pode sair com <...>, {{...}}, TODO ou "a definir".
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ═════════════════════════════════════════════════════════════════════════════
+# PARTE 1 — DIREÇÃO · preenchida pelo AGENTE, antes do card
+# ═════════════════════════════════════════════════════════════════════════════
+asset_direction:
+
+  # ── 0. Identificação ───────────────────────────────────────────────────────
+  meta:
+    schema_version: "1.0"
+    asset_id: "<asset-id>"              # idêntico ao do storyboard e da shotlist
+    tipo: "<imagem | video | voz>"
+    job_id: "<job-id>"
+    pipeline_id: "<brand-film | ugc-ads | nicho-series | oraclum-institucional | dark-room | image-lab>"
+    dirigido_por: "<@image-lead | @motion-lead | @sound-designer>"
+    dirigido_em: "<YYYY-MM-DD HH:MM>"
+    rodada: 1                            # incrementa a cada retake DIRIGIDO
+    card_ref: "{job}/_cards/<card-id>.md"
+
+  # ── 1. Destino ─────────────────────────────────────────────────────────────
+  # STL-A-01 / TK-A-01: precisa apontar um plano REAL do storyboard. Pacote órfão
+  # (não serve nenhum plano) e plano sem pacote são falha dos dois lados.
+  destino:
+    plano_id: "<p03>"                    # bate com {job}/06-decupagem/storyboard.yaml
+    beat_n: <n>
+    uso_final: "<plano do storyboard | thumbnail | key art | packshot | capa de episódio | slide de carrossel | bloco de VO>"
+    o_que_precisa_comunicar: "<uma frase — o que este asset faz pela peça>"
+    momento_da_peca: "<abertura | desenvolvimento | virada | prova | fechamento>"
+
+  # ── 2. Ferramenta ──────────────────────────────────────────────────────────
+  # STL-A-03 / TR-PD-03: nome + modelo/versão. Categoria genérica ("um gerador de
+  # imagem") reprova. A alternativa é obrigatória E precisa dizer POR QUE é a
+  # segunda escolha — sem isso o operador não sabe quando trocar.
+  ferramenta_recomendada:
+    nome: "<nome da ferramenta>"
+    modelo_versao: "<modelo/versão exatos>"
+    porque_esta: "<o que esta ferramenta faz melhor NESTE plano — uma frase>"
+  ferramenta_alternativa:
+    nome: "<nome>"
+    modelo_versao: "<modelo/versão>"
+    usar_quando: "<condição concreta: 'se a principal estiver fora do ar' | 'se o rosto derivar mais de 2 vezes'>"
+    porque_e_segunda: "<o que ela perde em relação à principal>"
+
+  # ── 3. Prompt ──────────────────────────────────────────────────────────────
+  # STL-A-03 / TR-PD-02: COLÁVEL SEM EDIÇÃO. O gate varre por <, >, {{, [inserir,
+  # TODO, XXX e "adaptar conforme necessário" — qualquer um reprova.
+  # STL-A-04: o prompt precisa carregar o look-book (luz, lente, paleta) e o
+  # art-spec (cenário, props, wardrobe), não só o assunto do plano.
+  # Quando há personagem, o prompt-block do registry entra aqui LITERALMENTE,
+  # palavra por palavra — variação de texto entre gerações é variação de rosto.
+  prompt: |
+    <PROMPT COMPLETO, PRONTO PARA COLAR>
+
+  prompt_negativo: |
+    <texto do prompt negativo, OU: "n/a — a ferramenta não suporta prompt negativo">
+
+  # ── 4. Parâmetros ──────────────────────────────────────────────────────────
+  # TR-PD-04: valor concreto sempre. "Mais ou menos 5 segundos" não é parâmetro.
+  # Preencha `comum` + o bloco do seu tipo; apague os outros dois.
+  parametros:
+    comum:
+      aspect: "<9:16 | 1:1 | 4:5 | 16:9>"
+      seed: "<valor exato | livre — e por quê>"
+      outros: "<steps, cfg, guidance, style — o que a ferramenta expuser>"
+
+    imagem:                              # ── @image-lead
+      resolucao_alvo: "<1080x1920>"      # STL-A-05: ≥ à exigida pelo destino final
+      # IL-PD-04 / STL-A-10: texto legível NÃO é pedido ao gerador. A base sai sem
+      # texto e a tipografia entra depois em apps/creative-design, na fonte da marca.
+      texto_na_imagem: "<nenhum — tipografia composta na edição | n/a>"
+      ancora_consistencia:               # STL-A-06, obrigatório quando há personagem
+        character_id: "<slug do registry | null>"
+        mecanismo: "<reference sheet | seed travada | imagem-âncora | LoRA/checkpoint>"
+        valor: "<VALOR CONCRETO — caminho do arquivo, seed, id do modelo>"
+        canon_ref: "squads/oraclumtech-ai-creative-studio/data/characters/<slug>/canon.png"
+      referencia_de_produto: "<caminho da imagem oficial | null>"
+
+    video:                               # ── @motion-lead
+      # TK-A-03: I2V a partir de still APROVADO é o padrão. T2V exige justificativa —
+      # gerar no escuro produz deriva de look entre planos.
+      rota: "<I2V | T2V | animacao-em-after-effects>"
+      still_de_origem: "{job}/11-stills/entregues/<arquivo> | null"
+      justificativa_t2v: "<obrigatório se rota=T2V>"
+      duracao_s: <n>                     # TK-A-04: bate com a duração do plano
+      fps: <24 | 30 | 60>
+      resolucao_alvo: "<1080x1920>"
+      intensidade_movimento: "<valor na escala da ferramenta>"
+      # TK-A-05: instrução de câmera, não sensação. "Movimento dinâmico" reprova.
+      movimento:
+        tipo: "<push-in | pull-out | pan lateral | tilt | parallax | estático com micro-movimento>"
+        direcao: "<esquerda→direita | frente→trás | ...>"
+        intensidade: "<sutil | médio | acentuado>"
+
+    voz:                                 # ── @sound-designer
+      # AU-A-02: o texto exato é o roteiro APROVADO no gate-script, sem variante
+      # pendente. Divergência aqui vira claim fora do ledger e o factcheck barra.
+      texto_exato: |
+        <texto literal a ser lido>
+      preset_voz: "<id exato do preset na ferramenta>"
+      idioma: "pt-BR"
+      velocidade: "<valor>"
+      # AU-A-06: reusar o MESMO preset entre episódios/lotes. Mudou? Justifique.
+      reuso_de_preset:
+        usado_antes_em: "<job/episódio anterior | primeira vez>"
+        mudou: <true|false>
+        justificativa_da_mudanca: "<obrigatório se mudou>"
+      # AU-A-03: direção por bloco. Instrução única para a peça inteira produz VO plana.
+      interpretacao_por_bloco:
+        - bloco: "<abertura | desenvolvimento | virada | fechamento>"
+          trecho: "<primeiras palavras do bloco>"
+          intencao: "<o que essa parte precisa transmitir>"
+          ritmo: "<mais lento | normal | acelerado>"
+          enfase: "<palavras a enfatizar>"
+      # AU-A-05: a falha nº 1 de VO sintética, e só aparece depois de gerar.
+      pronuncia_de_termos_criticos:
+        - termo: "<nome próprio, marca, sigla, estrangeirismo>"
+          como_pronunciar: "<fonética ou reescrita>"
+      # AU-A-07 (NON-WAIVABLE): gatilho D-VOZ do @fact-checker.
+      origem_da_voz:
+        base: "<biblioteca licenciada | titular com autorização>"
+        licenca_cobre_uso_comercial: <true|false>
+        licenca_cobre_ia: <true|false>
+        comprovante: "<caminho do documento>"
+        nao_e_clone_de_pessoa_real: <true>
+
+  # ── 5. Técnica ─────────────────────────────────────────────────────────────
+  # TR-PD-05 / STL-A: mínimo 2 itens, cada um um COMO executável, em ordem.
+  # "Cinematográfico" não é técnica. "Gerar o still-âncora primeiro e usá-lo como
+  # referência nos demais planos da cena" é.
+  tecnica:
+    - ordem: 1
+      passo: "<verbo executável + o quê + quando>"
+      porque: "<o que isso evita ou melhora>"
+    - ordem: 2
+      passo: "<...>"
+      porque: "<...>"
+
+  # ── 6. Armadilhas conhecidas ───────────────────────────────────────────────
+  # TR-PD-06: mínimo 2, ESPECÍFICAS deste modelo e deste plano, cada uma com o
+  # contorno. Armadilha genérica sem contorno, ou repetida em todos os pacotes sem
+  # relação com o plano, reprova. É a seção que economiza as 8 tentativas do meio.
+  armadilhas_conhecidas:
+    - problema: "<o que ESTE modelo erra aqui>"
+      contorno: "<como evitar, em ação>"
+      origem: "<observado no job X | continuity-log do personagem | conhecimento do modelo>"
+    - problema: "<...>"
+      contorno: "<...>"
+      origem: "<...>"
+
+  # ── 7. Critério de aceite ──────────────────────────────────────────────────
+  # TR-PD-07 / STL-A-07: BINÁRIO e verificável por quem não participou da direção.
+  # "O produto aparece inteiro, sem corte de borda" (sim/não) passa.
+  # "O produto está bonito / premium / clean" reprova — é gosto, não teste.
+  # É contra ESTA lista que a Parte B julga o asset, não contra o gosto do revisor.
+  criterio_de_aceite:
+    especificos:
+      - "<critério binário 1>"
+      - "<critério binário 2>"
+      - "<critério binário 3>"
+    # Herdados por tipo — mantenha os do seu tipo, apague os demais.
+    universais:
+      - "Sem marca d'água, selo ou assinatura da ferramenta (conferir bordas e cantos)"
+      - "Sem logo, marca ou texto inventado no cenário"
+      - "Resolução entregue ≥ resolução-alvo declarada em parametros"
+    imagem:
+      - "Mãos, olhos e dentes corretos onde houver pessoa em destaque"
+      - "Traços âncora do personagem visíveis e corretos (quando aplicável)"
+      - "Luz, sombra e reflexo coerentes entre si"
+    video:
+      # TK-A-06: critérios copiados do still reprovam — precisam cobrir o que só o
+      # vídeo pode falhar.
+      - "Sem derretimento ao longo do movimento, principalmente no último terço"
+      - "Identidade do personagem estável do primeiro ao último frame"
+      - "O movimento é o tipo, a direção e a intensidade pedidos"
+      - "Duração e fps conforme os parâmetros"
+    voz:
+      # AU-A-08: critérios que só falam de "tom" e "energia" reprovam.
+      - "Toda palavra compreensível sem legenda, em alto-falante de celular"
+      - "Termos críticos pronunciados conforme a lista"
+      - "Sem artefato de síntese audível (corte metálico, respiração repetida, salto de timbre)"
+      - "O áudio corresponde ao texto aprovado, palavra por palavra"
+
+  # ── 8. Variações ───────────────────────────────────────────────────────────
+  # TR-PD-08: inteiro ≥ 2 (≥ 3 em peça de destaque). Variação única elimina a
+  # escolha, que é justamente onde entra o feeling humano.
+  quantas_variacoes: <n>
+  criterio_de_escolha: >
+    <O que faz uma variação vencer, em termos concretos. "A que tiver a luz mais
+    lateral e o rótulo mais legível" serve; "a mais bonita" não.>
+  ordem_de_geracao: "<plano-âncora primeiro | livre>"   # STL-A-13
+
+  # ── 9. Pós-processamento e plano B ─────────────────────────────────────────
+  # TR-PD-09: declarar mesmo quando não há. Ausência silenciosa faz o operador
+  # inventar ou pular.
+  pos_processamento: >
+    <upscale 2× → corte para 9:16 mantendo o produto no terço inferior → sem ajuste
+    de cor · OU: "nenhum">
+
+  # TR-PD-10 / TK-A-08: plano B CONCRETO e DIFERENTE. "Tentar de novo", "ajustar o
+  # prompt" e "avisar o time" reprovam. Ao 3º insucesso troca-se a ROTA do plano —
+  # o plano não é abandonado, a rota é.
+  se_falhar:
+    plano_b: "<rota alternativa concreta: outra ferramenta, ou outra abordagem>"
+    quando_acionar: "<após 3 rodadas sem aceite>"
+    quem_decide: "<@image-lead | @motion-lead | @sound-designer>"
+
+  # ── Orçamento (STL-A-14 / TK-A-12 / AU-A-12) ──────────────────────────────
+  custo:
+    creditos_estimados: <n>              # variações × custo por geração
+    tempo_estimado_min: <n>
+
+  # ── Insumos que o operador precisa ter aberto ─────────────────────────────
+  # Alimenta a seção 3 do human-task-card-tmpl.md.
+  insumos:
+    - tipo: "<still de origem | canon do personagem | prompt-block | referência de produto | frame de moodboard>"
+      caminho: "<caminho real>"
+      obrigatorio: <true|false>
+
+# ═════════════════════════════════════════════════════════════════════════════
+# PARTE 2 — RETORNO · preenchida pelo OPERADOR HUMANO, na devolução
+# ═════════════════════════════════════════════════════════════════════════════
+# NON-WAIVABLE. Auditado por TR-PD-12 (transversal), STL-B-04, TK-B-04, AU-B-05.
+# Sem estes campos o asset NÃO entra no master, mesmo que esteja perfeito:
+# asset que não é reproduzível não é auditável.
+# O campo `operador` é onde a Regra de Ouro se torna verificável — nome de PESSOA.
+# Operador registrado como agente = execução humana simulada = bloqueio.
+retorno:
+  preenchido_por: "<nome da pessoa que gerou>"     # NUNCA um agente
+  preenchido_em: "<YYYY-MM-DD HH:MM>"
+
+  rastreabilidade:
+    ferramenta: "<nome usado de fato>"
+    modelo_versao: "<modelo/versão usados de fato>"
+    # O PROMPT QUE FOI COLADO. Se você ajustou palavras na hora, registre o texto
+    # AJUSTADO, não o original do pacote. A diferença entre o prompt planejado e o
+    # usado é a informação mais valiosa que este estúdio produz — é ela que vira
+    # técnica e armadilha conhecida no próximo card.
+    prompt_usado: |
+      <texto literal colado na ferramenta>
+    prompt_divergiu_do_planejado: <true|false>
+    o_que_mudou_no_prompt: "<obrigatório se divergiu>"
+    parametros_usados:
+      seed: "<valor>"
+      aspect: "<valor>"
+      resolucao: "<valor>"
+      outros: "<duração, fps, motion, preset de voz — conforme o tipo>"
+    operador: "<nome da pessoa>"
+    data_hora_geracao: "<YYYY-MM-DD HH:MM>"
+
+  entrega:
+    variacoes_geradas: <n>
+    escolhida: "<arquivo>"
+    caminho: "{job}/<11-stills|12-takes|13-audio>/entregues/<asset-id>_v<n>.<ext>"
+    # TR-PD-08 / STL-B-11: descarte com motivo é o que transforma erro de modelo em
+    # conhecimento do estúdio. Sem isso, cada operador redescobre a mesma armadilha.
+    descartes:
+      - arquivo: "<arquivo>"
+        motivo: "<mão deformada | wardrobe mudou | logo alucinado | movimento derreteu | pronúncia errada>"
+
+  autoavaliacao:
+    # O operador marca a mesma lista da seção 7. A Parte B do gate confere.
+    criterios_atendidos: ["<critério>"]
+    criterios_nao_atendidos: ["<critério>"]
+    observacoes: >
+      <O que o modelo fez de inesperado. Vira `armadilhas_conhecidas` no próximo
+      pacote e, quando for de personagem, entra no continuity-log do registry.>
+
+# ═════════════════════════════════════════════════════════════════════════════
+# PARTE 3 — AVALIAÇÃO · preenchida pelo AGENTE que dirigiu (executor: agent)
+# ═════════════════════════════════════════════════════════════════════════════
+avaliacao:
+  avaliado_por: "<@image-lead | @motion-lead | @sound-designer>"
+  avaliado_em: "<YYYY-MM-DD HH:MM>"
+  resultado: "<ACEITO | RETAKE DIRIGIDO | ROTA TROCADA | CANCELADO>"
+  criterios_reprovados: ["<critério>"]
+  # TR-PD-13 / STL-B-12: retake sem atualizar a direção é PROIBIDO — repete o erro
+  # e queima crédito. Se a rodada > 1, este campo é obrigatório.
+  o_que_mudou_na_direcao: "<o que foi alterado no pacote para a próxima rodada>"
+  promovido_a_referencia: <true|false>   # asset que fecha look/personagem vira âncora
+  nota_para_o_proximo_job: "<o que valeu a pena e deve ser repetido>"

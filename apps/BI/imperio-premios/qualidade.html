@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Império — Qualidade de Dados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* Legenda de status + dot indicator — além do texto do badge, um ponto
+     colorido (verde/âmbar/vermelho/cinza) pra leitura rápida sem precisar
+     ler a palavra. */
+  .legenda-status { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11.5px; color: var(--muted); margin-bottom: 14px; }
+  .legenda-status span { display: inline-flex; align-items: center; gap: 6px; }
+
+  .status-dot { display: inline-block; width: 8px; height: 8px; min-width: 8px; border-radius: 50%; }
+  .status-dot.ok { background: var(--green); box-shadow: 0 0 5px rgba(61,220,111,0.6); }
+  .status-dot.validacao { background: var(--gold-light); box-shadow: 0 0 5px rgba(244,200,105,0.55); }
+  .status-dot.pendente { background: var(--red); box-shadow: 0 0 5px rgba(227,84,62,0.55); }
+  .status-dot.baixa { background: var(--muted); }
+
+  /* Badge recolorido: "pendente" agora é vermelho (problema real aberto),
+     "em_validacao" é âmbar (corrigido no código, aguardando confirmação),
+     separando os dois estados que antes só existiam como texto parecido. */
+  .badge { display: inline-flex; align-items: center; gap: 6px; }
+  .badge.ok { background: rgba(61,220,111,0.15); color: var(--green); }
+  .badge.validacao { background: rgba(244,200,105,0.15); color: var(--gold-light); }
+  .badge.pendente { background: rgba(227,84,62,0.15); color: #ffb3a7; }
+  .badge.baixa { background: rgba(164,164,176,0.15); color: var(--muted); }
+
+  #tabela-pendencias td { vertical-align: top; }
+  #tabela-pendencias td.item { font-weight: 700; font-size: 12.5px; min-width: 200px; }
+  #tabela-pendencias td.nota { color: var(--muted); font-size: 12px; max-width: 420px; }
+  #tabela-pendencias tr.linha-aberta td { background: rgba(227,84,62,0.04); }
+
+  .nota-resumo { cursor: pointer; }
+  .nota-resumo summary { cursor: pointer; list-style: none; }
+  .nota-resumo summary::-webkit-details-marker { display: none; }
+  .nota-resumo summary::after { content: ' · ver mais'; color: var(--gold-light); font-weight: 600; }
+  .nota-resumo[open] summary::after { content: ' · ver menos'; }
+  .nota-resumo .corpo { margin-top: 6px; }
+
+  .nota-utm { font-size: 12px; color: var(--muted); margin-top: 10px; padding: 10px 12px; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 8px; }
+
+  .secao-status { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 30px 0 12px; }
+  .secao-status h2 { margin: 0; }
+
+  details.log-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  details.log-wrap summary {
+    cursor: pointer; list-style: none; padding: 10px 14px; font-size: 12px; font-weight: 700;
+    color: var(--gold-light); display: flex; align-items: center; gap: 8px; user-select: none;
+  }
+  details.log-wrap summary::-webkit-details-marker { display: none; }
+  details.log-wrap summary::before { content: '▸'; transition: transform 0.15s; }
+  details.log-wrap[open] summary::before { transform: rotate(90deg); }
+  details.log-wrap pre.log { margin: 0; border: none; border-top: 1px solid var(--border); border-radius: 0; background: var(--bg); }
+</style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<main class="wrap">
+  <h1 class="titulo-pagina">Qualidade de Dados &amp; Funil</h1>
+  <p class="subtitulo-pagina">Prova de que o tracking está funcionando — não é dado de negócio, é diagnóstico da própria pipeline. Página específica pra este cliente, depois dos achados de fbc/UTM de outubro/2026.</p>
+
+  <h2>UTM</h2>
+  <div class="cards" id="cards-utm"></div>
+  <div class="nota-utm" id="nota-utm" style="display:none;"></div>
+
+  <h2>"Direto/Orgânico/Desconhecido" — série diária</h2>
+  <p class="nota-utm" style="display:block;">PONTO 3 (2026-10-16): acompanhar se este canal encolhe conforme a UTM do WhatsApp amadurece (confirmaria a leitura de ITP do Safari/iOS já registrada na pendência abaixo) ou fica estável/cresce (precisaria investigar de novo). Sem conclusão pré-definida — só a série pra observar.</p>
+  <div class="table-wrap">
+    <table id="tabela-direto-desconhecido">
+      <thead><tr><th>Dia</th><th class="num">Pedidos "Direto/Desconhecido"</th><th class="num">Pedidos total</th><th class="num">%</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2>Fbc (clique Meta Ads)</h2>
+  <div class="cards" id="cards-fbc"></div>
+
+  <h2>Pendências do Events Manager</h2>
+  <div class="legenda-status">
+    <span><span class="status-dot ok"></span>Resolvido</span>
+    <span><span class="status-dot validacao"></span>Em validação (corrigido, aguardando confirmação)</span>
+    <span><span class="status-dot pendente"></span>Pendente (aberto)</span>
+    <span><span class="status-dot baixa"></span>Baixa prioridade</span>
+  </div>
+  <div class="table-wrap">
+    <table id="tabela-pendencias">
+      <thead><tr><th>Item</th><th>Status</th><th>Resolvido em</th><th>Nota</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="secao-status">
+    <h2 style="margin:0;">Status — CAPI quase-tempo-real (capi_realtime.ps1, a cada 15min)</h2>
+  </div>
+  <div class="cards" id="cards-capi"></div>
+  <details class="log-wrap">
+    <summary>Ver log completo do último ciclo</summary>
+    <pre class="log" id="log-capi"></pre>
+  </details>
+
+  <div class="secao-status">
+    <h2 style="margin:0;">Status — refresh do BI (a cada 4h)</h2>
+  </div>
+  <div class="cards" id="cards-bi"></div>
+  <details class="log-wrap">
+    <summary>Ver log completo do último refresh</summary>
+    <pre class="log" id="log-bi"></pre>
+  </details>
+
+  <footer class="nota">BI Império · Qualidade de Dados</footer>
+</main>
+
+<script src="nav.js"></script>
+<script>
+function badge(status) {
+  const map = {
+    resolvido_por_nos: ['ok', '✓ Resolvido (por nós)'],
+    ja_estava_ok: ['ok', '✓ Já estava OK'],
+    em_validacao: ['validacao', '◐ Em validação'],
+    pendente: ['pendente', '✕ Pendente'],
+    pendente_baixa_prioridade: ['baixa', 'Baixa prioridade'],
+    investigado_nao_e_canal_oculto: ['ok', '✓ Investigado — não é canal oculto'],
+  };
+  const [cls, label] = map[status] || ['baixa', status];
+  return `<span class="badge ${cls}"><span class="status-dot ${cls}"></span>${label}</span>`;
+}
+
+function renderNota(nota) {
+  if (!nota) return '';
+  if (nota.length <= 140) return nota;
+  const resumo = nota.slice(0, 140).trim() + '…';
+  return `<details class="nota-resumo"><summary>${resumo}</summary><div class="corpo">${nota}</div></details>`;
+}
+
+async function carregar() {
+  await injetarNav('qualidade');
+  const res = await fetch('/api/dados?tipo=qualidade&t=' + Date.now());
+  const d = await res.json();
+
+  document.querySelector('.bi-nav').insertAdjacentHTML('afterend',
+    `<div class="meta wrap">Atualizado em ${new Date(d.atualizado_em).toLocaleString('pt-BR')}</div>`);
+
+  document.getElementById('cards-utm').innerHTML = [
+    { label: 'Pedidos na janela', value: formatNum(d.utm.total_pedidos) },
+    { label: 'Com UTM preenchido', value: formatNum(d.utm.com_utm) },
+    { label: '% com UTM', value: d.utm.pct + '%', cls: d.utm.pct < 50 ? 'red' : 'green' },
+  ].map(c => `<div class="card"><div class="label">${c.label}</div><div class="value ${c.cls||''}">${c.value}</div></div>`).join('');
+
+  if (d.utm.nota) {
+    const notaEl = document.getElementById('nota-utm');
+    notaEl.textContent = d.utm.nota;
+    notaEl.style.display = 'block';
+  }
+
+  const serieDireto = (d.direto_desconhecido_diario || []).slice().reverse();
+  document.querySelector('#tabela-direto-desconhecido tbody').innerHTML = serieDireto.map(r => `<tr>
+      <td>${r.dia}</td>
+      <td class="num">${formatNum(r.pedidos_direto)}</td>
+      <td class="num">${formatNum(r.pedidos_total)}</td>
+      <td class="num">${r.pct}%</td>
+    </tr>`).join('') || '<tr><td colspan="4" class="num" style="text-align:center;color:var(--muted);">sem dado</td></tr>';
+
+  document.getElementById('cards-fbc').innerHTML = [
+    { label: 'Fbc fresco (≤7 dias)', value: formatNum(d.fbc.fresco), cls: 'green' },
+    { label: 'Fbc expirado (omitido do nosso envio)', value: formatNum(d.fbc.expirado), cls: 'gold' },
+  ].map(c => `<div class="card"><div class="label">${c.label}</div><div class="value ${c.cls||''}">${c.value}</div></div>`).join('');
+
+  document.querySelector('#tabela-pendencias tbody').innerHTML = d.pendencias_events_manager.map(p =>
+    `<tr class="${p.status === 'pendente' ? 'linha-aberta' : ''}">
+      <td class="item">${p.item}</td>
+      <td>${badge(p.status)}</td>
+      <td>${p.data || '—'}</td>
+      <td class="nota">${renderNota(p.nota)}</td>
+    </tr>`
+  ).join('');
+
+  const capi = d.capi_realtime_status;
+  document.getElementById('cards-capi').innerHTML = [
+    { label: 'Última execução', value: capi.ultima_execucao ? new Date(capi.ultima_execucao).toLocaleString('pt-BR') : 'ainda não rodou' },
+    { label: 'Eventos no checkpoint', value: formatNum(capi.eventos_no_checkpoint) },
+  ].map(c => `<div class="card"><div class="label">${c.label}</div><div class="value">${c.value}</div></div>`).join('');
+  document.getElementById('log-capi').textContent = (capi.log_tail || []).join('\n') || '(sem log ainda)';
+
+  const bi = d.bi_refresh_status;
+  document.getElementById('cards-bi').innerHTML = [
+    { label: 'Última execução', value: bi.ultima_execucao ? new Date(bi.ultima_execucao).toLocaleString('pt-BR') : 'ainda não rodou' },
+  ].map(c => `<div class="card"><div class="label">${c.label}</div><div class="value">${c.value}</div></div>`).join('');
+  document.getElementById('log-bi').textContent = (bi.log_tail || []).join('\n') || '(sem log ainda)';
+}
+carregar().catch(err => { document.body.insertAdjacentHTML('beforeend', `<p style="color:red;padding:20px;">Erro: ${err.message}</p>`); });
+</script>
+
+</body>
+</html>

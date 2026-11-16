@@ -1,0 +1,158 @@
+{
+  "date": "2026-05-24",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-05-24T23:33:58.915Z",
+  "finished_at": "2026-05-24T23:38:40.287Z",
+  "duration_ms": 281372,
+  "total": 10,
+  "ok": 10,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "rank": 14,
+      "creator": "@pablomarcal1",
+      "url": "https://www.instagram.com/pablomarcal1/reel/DYuempCNifl/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\14-pablomarcal1-e129b8",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 18,
+      "creator": "@pablomarcal1",
+      "url": "https://www.instagram.com/pablomarcal1/reel/DYsrUGDNJZm/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\18-pablomarcal1-060c51",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 6
+    },
+    {
+      "rank": 19,
+      "creator": "@timkoda_",
+      "url": "https://www.instagram.com/timkoda_/reel/DYsOAAxMuO_/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\19-timkoda-e4bc13",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 20,
+      "creator": "@chatgptricks",
+      "url": "https://www.instagram.com/chatgptricks/p/DYs2yTBzA_W/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\20-chatgptricks-914960",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 21,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/reel/DYue7vAsc26/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\21-garyvee-fa0fc7",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel",
+        "degraded": true
+      },
+      "screenshots": 0
+    },
+    {
+      "rank": 22,
+      "creator": "@brasziw",
+      "url": "https://www.instagram.com/brasziw/reel/DYuGuVujfR7/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\22-brasziw-972e40",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 26,
+      "creator": "@gabriel.adamuchi",
+      "url": "https://www.instagram.com/gabriel.adamuchi/reel/DYseawWSgce/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\26-gabriel-adamuchi-669af6",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 27,
+      "creator": "@chatgptricks",
+      "url": "https://www.instagram.com/chatgptricks/p/DYrlNZVgFOU/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\27-chatgptricks-64df33",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 3
+    },
+    {
+      "rank": 28,
+      "creator": "@liloforte",
+      "url": "https://www.instagram.com/liloforte/p/DYsNj3tkbw0/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\28-liloforte-4a9520",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 29,
+      "creator": "@diegoalmeida.ia",
+      "url": "https://www.instagram.com/diegoalmeida.ia/p/DYr3h5akYsq/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-05-24\\benchmark\\instagram\\29-diegoalmeida-ia-965242",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 5
+    }
+  ]
+}

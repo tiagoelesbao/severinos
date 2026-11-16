@@ -1,0 +1,215 @@
+squad:
+  name: virals-creators-hunting-squad
+  version: 1.0.0
+  short-title: Virals Creators Hunting Squad
+  status: legacy  # 2026-08-16: Hunter Ads System descontinuado, ver ADR-001 (lista ADR, ClickUp Administrativo)
+  description: >
+    [LEGADO] Squad de recrutamento e gestão de micro-creators para produção de conteúdo UGC
+    autêntico e propagandas de marcas parceiras. Pipeline ICP-C driven com 4 fases:
+    Identificação → Qualificação → Abordagem → Gerenciamento.
+    Integrado com ClickUp CRM e inteligência via TikTok + Meta Ads Library.
+    Preservado apenas para clientes com contrato ativo no Hunter Ads System —
+    não usar para captar clientes novos (substituído por AI UGC & Vídeos Ecommerce).
+  author: Virals
+  icon: 🎯
+  entry_agent: hunter-chief
+  slashPrefix: viralsHunter
+
+agents:
+  - id: hunter-chief
+    file: agents/hunter-chief.md
+  - id: hunter-scout
+    file: agents/hunter-scout.md
+  - id: hunter-analyst
+    file: agents/hunter-analyst.md
+  - id: hunter-closer
+    file: agents/hunter-closer.md
+  - id: hunter-manager
+    file: agents/hunter-manager.md
+
+workspace_integration:
+  level: read_write
+  rationale: Reads ICP-C docs, writes creator pipeline data, syncs with ClickUp CRM
+  read_paths:
+    - docs/03-Operations/POPs/
+    - services/ETL/Extract/
+    - services/clickup/
+    - .aiox/handoffs/
+  write_paths:
+    - squads/virals-creators-hunting-squad/data/
+    - services/ETL/outputs/
+    - .aiox/handoffs/
+  template_namespace: hunting
+
+pattern_library:
+  prefix: VH
+  naming_convention:
+    format: '{PREFIX}-{CATEGORY}-{NUMBER}'
+    example: VH-TP-001
+  categories:
+    - id: TP
+      name: Task Patterns
+      description: Patterns for hunting task structure
+    - id: EP
+      name: Executor Patterns
+      description: Patterns for hunting executor selection
+  patterns: []
+
+task_standards:
+  enforce_anatomy: true
+  validator: VH-TP-001
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+
+executor_types:
+  human:
+    id: VH-EP-001
+    use_for:
+      - DM outreach execution
+      - WhatsApp conversations
+      - Final contract negotiation
+  agent:
+    id: VH-EP-002
+    use_for:
+      - ICP-C transformation
+      - Creator scoring analysis
+      - Brand fit evaluation
+      - Script generation
+  hybrid:
+    id: VH-EP-003
+    use_for:
+      - Qualification gate decisions
+      - Outreach script personalization
+      - Onboarding coordination
+  worker:
+    id: VH-EP-004
+    use_for:
+      - Hashtag mining (Playwright)
+      - Profile data extraction
+      - ClickUp sync
+      - Report generation
+      - TikTok/Meta scraping
+
+workflow_config:
+  checkpoint_policy: always_active
+  fail_fast: false
+  allow_manual_override: true
+
+hunting_pipeline:
+  pop_reference: docs/03-Operations/POPs/pop-hunter-creators
+  phases:
+    - id: phase-0-preparation
+      name: "Preparação (ICP-C → Critérios)"
+      tasks:
+        - tasks/transform-icp-to-criteria.md
+      checklist: checklists/icp-readiness-checklist.md
+    - id: phase-1-identification
+      name: "Identificação (Discovery)"
+      tasks:
+        - tasks/hunt-advanced-mining.md
+    - id: phase-2-qualification
+      name: "Qualificação (Scoring + Gates)"
+      tasks:
+        - tasks/qualify-advanced-scoring.md
+      checklist: checklists/creator-qualification-checklist.md
+    - id: phase-3-outreach
+      name: "Abordagem (Scripts — execução humana)"
+      tasks:
+        - tasks/outreach-script-generator.md
+        - tasks/outreach-dm-sequence.md
+        - tasks/outreach-whatsapp-conversion.md
+        - tasks/outreach-follow-up.md
+        - tasks/outreach-closing.md
+      checklist: checklists/outreach-readiness-checklist.md
+    - id: phase-4-management
+      name: "Gerenciamento (CRM + Performance)"
+      tasks:
+        - tasks/manage-onboarding.md
+        - tasks/manage-clickup-sync.md
+        - tasks/manage-performance-tracking.md
+        - tasks/manage-weekly-report.md
+      checklist: checklists/onboarding-checklist.md
+  workflows:
+    - workflows/full-recruitment-lifecycle.yaml
+    - workflows/daily-hunting-pipeline.yaml
+    - workflows/outreach-campaign.yaml
+    - workflows/creator-onboarding.yaml
+    - workflows/weekly-hunting-review.yaml
+  scripts:
+    - scripts/pipeline-miner.js
+    - scripts/pipeline-qualify.js
+    - scripts/score-creator.js
+    - scripts/weekly-report-generator.js
+
+clickup_integration:
+  service_path: services/clickup/
+  space:
+    name: Comercial
+    id: "901312526794"
+  folders:
+    prospection:
+      name: "Hunter ADS System"
+      id: "901317132090"
+      list:
+        name: "Prospecção"
+        id: "901325463808"
+        custom_fields:
+          existing:
+            - name: Cliente
+              id: "aac462ad-2ee8-40e2-bc92-3517275a293e"
+              type: drop_down
+          proposed:
+            - { name: "Instagram Handle", type: "short_text" }
+            - { name: "TikTok Handle", type: "short_text" }
+            - { name: "Nicho", type: "drop_down" }
+            - { name: "Followers", type: "number" }
+            - { name: "Engagement Rate", type: "number" }
+            - { name: "Creator Score", type: "number" }
+            - { name: "Fonte", type: "drop_down" }
+            - { name: "Link Perfil", type: "url" }
+            - { name: "Data Discovery", type: "date" }
+            - { name: "Notas", type: "text" }
+    crm:
+      name: "CRM Hunter"
+      id: "901317132094"
+      list:
+        name: "List"
+        id: "901325463813"
+        custom_fields:
+          existing: []
+          proposed:
+            - { name: "Cliente", type: "drop_down" }
+            - { name: "Instagram Handle", type: "short_text" }
+            - { name: "TikTok Handle", type: "short_text" }
+            - { name: "Nicho", type: "drop_down" }
+            - { name: "Tipo Contrato", type: "drop_down" }
+            - { name: "Valor Base", type: "currency" }
+            - { name: "Comissão %", type: "number" }
+            - { name: "Data Contratação", type: "date" }
+            - { name: "Performance Score", type: "number" }
+            - { name: "Entregáveis/Mês", type: "number" }
+            - { name: "Status Creator", type: "drop_down" }
+
+intelligence_layer:
+  tiktok:
+    mode: playwright_scraping
+    api_ready: false
+    setup_guide: docs/setup-tiktok-api.md
+  meta_ads_library:
+    mode: playwright_scraping
+    api_ready: false
+    setup_guide: docs/setup-meta-ads-api.md
+
+tested: false
+aios:
+  type: squad
+  minVersion: 2.1.0
+name: virals-creators-hunting-squad
+version: 1.0.0

@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Garantido — Produto</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* Página sem biblioteca de gráfico de propósito (pedido 2026-11-06: nível
+     de sofisticação do cliente é menor que o do Império) — tudo em cards +
+     barras horizontais simples (.bars, já existe no theme.css pro funil) e
+     tabela. Nenhum eixo, legenda ou escala logarítmica pra aprender. */
+  .bloco { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .bloco h3 { font-size: 13px; color: var(--text); margin-bottom: 2px; }
+  .bloco .pergunta { font-size: 12.5px; color: var(--gold-light); font-weight: 700; margin-bottom: 10px; }
+  .bloco .leitura { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .bloco .leitura strong { color: var(--text); }
+  .duas-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .duas-col { grid-template-columns: 1fr; } }
+
+  .bars-grande .bar-row { grid-template-columns: 190px 1fr 90px; }
+  .bar-row.melhor .bar-fill { background: linear-gradient(90deg, var(--green), var(--gold)); }
+  .bar-row.pior .bar-fill { background: var(--red); }
+  .bar-sub { font-size: 10.5px; color: var(--muted); margin-left: 4px; }
+
+  .pill-mini { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 10px; font-weight: 700; margin-right: 6px; }
+  .pill-mini.p { background: rgba(11,154,42,0.15); color: var(--green); }
+  .pill-mini.m { background: rgba(227,167,62,0.15); color: #e3a73e; }
+  .pill-mini.g { background: rgba(227,84,62,0.15); color: #ff9c8a; }
+  .pill-mini.s { background: rgba(160,176,166,0.15); color: var(--muted); }
+
+  #tabela-sorteios th { cursor: pointer; user-select: none; white-space: nowrap; }
+  #tabela-sorteios th:hover { color: var(--gold); }
+  #tabela-sorteios th.ord::after { content: ' ▾'; }
+  #tabela-sorteios th.ord.asc::after { content: ' ▴'; }
+  #tabela-sorteios td.tit { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .vazio { padding: 26px; text-align: center; color: var(--muted); font-size: 12.5px; }
+  .nota-metodo { font-size: 11px; color: #5c6b60; line-height: 1.55; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<main class="wrap">
+  <h1 class="titulo-pagina">Produto — os sorteios do período</h1>
+  <p class="subtitulo-pagina">
+    O que vendeu mais, o que deu mais lucro e quando os clientes compram. Direto ao ponto, pra decidir rápido o
+    próximo sorteio.
+  </p>
+
+  <div id="aviso-metodologia"></div>
+
+  <div id="filtro-periodo"></div>
+  <p class="periodo-label" id="periodo-label"></p>
+
+  <div id="corpo"></div>
+
+  <footer class="nota">BI Garantido · Produto · dado real dos pedidos pagos (webhook) desde 03/11/2026.</footer>
+</main>
+
+<script src="nav.js"></script>
+<script src="periodo.js"></script>
+<script>
+// ============================================================ constantes
+const PORTE_CLASSE = {
+  'Pequeno (até R$300)': 'p',
+  'Médio (R$300 a R$800)': 'm',
+  'Grande (acima de R$800)': 'g',
+  'Sem prêmio identificável': 's',
+};
+
+let DADOS = null;
+
+// ============================================================ formatação
+const num = (a) => a.filter((v) => v !== null && v !== undefined && isFinite(v));
+const soma = (a) => num(a).reduce((x, y) => x + y, 0);
+const mediana = (a) => { const s = num(a).slice().sort((x, y) => x - y); if (!s.length) return null; const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const fBRL0 = (v) => (v === null || v === undefined || !isFinite(v)) ? '—' : 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+const fBRL2 = (v) => (v === null || v === undefined || !isFinite(v)) ? '—' : 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fPct = (v, d = 1) => (v === null || v === undefined || !isFinite(v)) ? '—' : v.toFixed(d) + '%';
+function fJanela(iniISO, fimISO) {
+  const fmt = (iso) => { const d = new Date(iso); return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); };
+  const mesmoMomento = iniISO === fimISO;
+  return mesmoMomento ? fmt(iniISO) : `${fmt(iniISO)} → ${fmt(fimISO)}`;
+}
+
+// barra horizontal simples (reaproveita .bars/.bar-row do theme.css)
+function montarBars(linhas, { max, classeExtra } = {}) {
+  const teto = max || Math.max(1, ...linhas.map((l) => Math.abs(l.valor)));
+  return `<div class="bars ${classeExtra || ''}">` + linhas.map((l) => {
+    // Negativo nunca pode pintar de verde (cor de "bom") — mesmo sem o
+    // chamador passar classe explícita (caso de lucro por faixa, que pode
+    // dar prejuízo num período curto, ex. filtro "Hoje").
+    // Negativo força vermelho via style inline — nunca fica por conta da
+    // classe (que pode vir "melhor" mesmo com valor negativo, ex.: só 1
+    // sorteio no período e ele deu prejuízo, ainda assim é o "melhor" dos
+    // disponíveis).
+    const classe = l.classe || (l.valor < 0 ? 'pior' : '');
+    const corFill = l.valor < 0 ? 'background:var(--red);' : '';
+    return `
+    <div class="bar-row ${classe}">
+      <div>${l.rotulo}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(2, 100 * Math.abs(l.valor) / teto)}%;${corFill}"></div></div>
+      <div class="n" style="${l.valor < 0 ? 'color:var(--red);' : ''}">${l.rotuloValor !== undefined ? l.rotuloValor : fBRL0(l.valor)}</div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+// ============================================================ filtro
+function filtrar(inicio, fim) {
+  const d = DADOS;
+  const dentro = (dia) => dia >= inicio && dia <= fim;
+  return {
+    sorteios: (d.sorteios || []).filter((r) => dentro(r.dia)),
+    hora: (d.pedidos_hora || []).filter((r) => dentro(r.dia)),
+    qtd: ((d.pedidos_perfil || {}).por_quantidade || []).filter((r) => dentro(r.dia)),
+    faixaValor: ((d.pedidos_perfil || {}).por_faixa_valor || []).filter((r) => dentro(r.dia)),
+  };
+}
+
+// ============================================================ render
+function render(inicio, fim) {
+  const F = filtrar(inicio, fim);
+  const sorteios = F.sorteios;
+
+  const pedidos = soma(F.hora.map((h) => h.pedidos));
+  const faturamento = soma(F.hora.map((h) => h.faturamento));
+  const lucroBruto = soma(F.hora.map((h) => h.lucro_estimado));
+  const taxaPct = (DADOS.produto_parametros || {}).taxa_plataforma_pct || 0;
+  const lucroLiquido = lucroBruto - faturamento * taxaPct;
+
+  document.getElementById('periodo-label').textContent =
+    `Período: ${inicio} até ${fim} — ${sorteios.length} sorteio(s) iniciado(s) neste intervalo, ${pedidos.toLocaleString('pt-BR')} pedido(s) pago(s).`;
+
+  if (!pedidos) {
+    document.getElementById('corpo').innerHTML = `<div class="table-wrap"><div class="vazio">Nenhum pedido neste período. Experimente um intervalo maior no filtro acima.</div></div>`;
+    return;
+  }
+
+  document.getElementById('corpo').innerHTML = montarEsqueleto();
+
+  renderCards(pedidos, faturamento, lucroLiquido, sorteios);
+  renderPorte(sorteios);
+  renderFaixaPreco(sorteios);
+  renderRankingSorteios(sorteios);
+  renderHorario(F.hora);
+  renderPerfilPedido(F);
+  renderConcentracao();
+  renderTabela(sorteios);
+}
+
+function montarEsqueleto() {
+  return `
+  <div class="cards" id="cards-resumo"></div>
+
+  <div class="duas-col">
+    <div class="bloco">
+      <h3>Qual tamanho de prêmio dá mais lucro?</h3>
+      <div class="pergunta" id="pergunta-porte"></div>
+      <div id="bars-porte"></div>
+      <div class="leitura" id="leitura-porte"></div>
+    </div>
+    <div class="bloco">
+      <h3>Qual preço por número funciona melhor?</h3>
+      <div class="pergunta" id="pergunta-preco"></div>
+      <div id="bars-preco"></div>
+      <div class="leitura" id="leitura-preco"></div>
+    </div>
+  </div>
+
+  <div class="bloco">
+    <h3>Os melhores e os piores sorteios do período</h3>
+    <div class="pergunta">Ordenado por lucro (depois de descontar prêmio e taxa de plataforma)</div>
+    <div id="bars-ranking"></div>
+    <div class="leitura" id="leitura-ranking"></div>
+  </div>
+
+  <div class="duas-col">
+    <div class="bloco">
+      <h3>Que horário vende mais?</h3>
+      <div class="pergunta">Top horários por faturamento, fuso de Brasília</div>
+      <div id="bars-horario"></div>
+      <div class="leitura" id="leitura-horario"></div>
+    </div>
+    <div class="bloco">
+      <h3>Poucos clientes sustentam boa parte da receita?</h3>
+      <div class="pergunta" id="pergunta-conc"></div>
+      <div id="bars-conc"></div>
+      <div class="leitura" id="leitura-conc"></div>
+    </div>
+  </div>
+
+  <div class="duas-col">
+    <div class="bloco">
+      <h3>Quantos números o cliente compra por pedido?</h3>
+      <div id="bars-qtd"></div>
+    </div>
+    <div class="bloco">
+      <h3>Quanto o cliente gasta por pedido?</h3>
+      <div id="bars-faixa-valor"></div>
+    </div>
+  </div>
+
+  <h2>Tabela de sorteios do período</h2>
+  <div class="table-wrap">
+    <table id="tabela-sorteios">
+      <thead><tr>
+        <th data-c="titulo">Sorteio</th>
+        <th data-c="porte">Porte</th>
+        <th class="num" data-c="preco_numero">Preço/nº</th>
+        <th class="num" data-c="premio">Prêmio</th>
+        <th class="num" data-c="premios_qtd">Ganh.</th>
+        <th class="num" data-c="pedidos">Pedidos</th>
+        <th class="num" data-c="faturamento">Faturamento</th>
+        <th class="num ord" data-c="margem_contribuicao">Lucro</th>
+        <th class="num" data-c="margem_pct">Margem</th>
+        <th>Janela de vendas</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="nota-metodo">Clique no cabeçalho pra ordenar. "Janela de vendas" é do primeiro ao último pedido que recebemos pra esse sorteio — não confirma que ele esgotou (ver aviso no topo da página).</p>
+  `;
+}
+
+// -------------------------------------------------------------- resumo
+function renderCards(pedidos, faturamento, lucroLiquido, sorteios) {
+  const precos = sorteios.map((s) => s.preco_numero).filter((v) => v > 0);
+  const cards = [
+    { label: 'Sorteios no período', value: sorteios.length.toLocaleString('pt-BR') },
+    { label: 'Pedidos pagos', value: pedidos.toLocaleString('pt-BR'), sub: `ticket médio ${fBRL0(pedidos ? faturamento / pedidos : null)}` },
+    { label: 'Faturamento', value: fBRL0(faturamento), cls: 'gold' },
+    { label: 'Lucro (já descontada a taxa de plataforma)', value: fBRL0(lucroLiquido), cls: lucroLiquido < 0 ? 'red' : 'green', destaque: true,
+      sub: `margem de ${fPct(faturamento ? 100 * lucroLiquido / faturamento : null)} sobre o faturamento` },
+    { label: 'Preço mediano por número', value: fBRL0(mediana(precos)), sub: precos.length ? `de ${fBRL0(Math.min(...precos))} a ${fBRL0(Math.max(...precos))}` : '' },
+  ];
+  document.getElementById('cards-resumo').innerHTML = cards.map((c) =>
+    `<div class="card ${c.destaque ? 'destaque' : ''}"><div class="label">${c.label}</div><div class="value ${c.cls || ''}">${c.value}</div>${c.sub ? `<div class="sub">${c.sub}</div>` : ''}</div>`
+  ).join('');
+}
+
+// -------------------------------------------------------------- porte do prêmio
+function renderPorte(sorteios) {
+  const portes = (DADOS.produto_parametros || {}).portes || [];
+  const grupos = portes.map((p) => sorteios.filter((s) => s.porte === p));
+  const linhas = portes.map((p, i) => {
+    const g = grupos[i];
+    const fat = soma(g.map((s) => s.faturamento));
+    const luc = soma(g.map((s) => s.margem_contribuicao));
+    return { rotulo: `${p} <span class="bar-sub">(${g.length} sorteio${g.length === 1 ? '' : 's'})</span>`, valor: luc, rotuloValor: fBRL0(luc), fat };
+  }).filter((l) => l.fat > 0 || l.valor !== 0);
+
+  document.getElementById('pergunta-porte').textContent = 'Lucro total por faixa de prêmio, no período selecionado';
+  document.getElementById('bars-porte').innerHTML = linhas.length
+    ? montarBars(linhas, { classeExtra: 'bars-grande' })
+    : '<div class="vazio">Sem sorteio com prêmio identificado neste período.</div>';
+
+  const ordenado = linhas.slice().sort((a, b) => b.valor - a.valor);
+  const melhor = ordenado[0], pior = ordenado[ordenado.length - 1];
+  document.getElementById('leitura-porte').innerHTML = (!melhor || melhor === pior)
+    ? 'Poucos sorteios com prêmio identificado neste período pra comparar.'
+    : `<strong>${melhor.rotulo.split(' <span')[0]}</strong> foi a faixa mais lucrativa (${fBRL0(melhor.valor)}). `
+      + `<strong>${pior.rotulo.split(' <span')[0]}</strong> rendeu menos (${fBRL0(pior.valor)}).`;
+}
+
+// -------------------------------------------------------------- faixa de preço
+function renderFaixaPreco(sorteios) {
+  const faixas = (DADOS.produto_parametros || {}).faixas_preco || [];
+  const faixaDe = (preco) => {
+    const limites = [5, 8, 12, Infinity];
+    for (let i = 0; i < limites.length; i++) if (preco <= limites[i]) return faixas[i];
+    return faixas[faixas.length - 1];
+  };
+  const grupos = {};
+  sorteios.filter((s) => s.preco_numero > 0).forEach((s) => {
+    const f = faixaDe(s.preco_numero);
+    (grupos[f] = grupos[f] || []).push(s);
+  });
+  const linhas = faixas.map((f) => {
+    const g = grupos[f] || [];
+    const luc = soma(g.map((s) => s.margem_contribuicao));
+    return { rotulo: `${f} <span class="bar-sub">(${g.length} sorteio${g.length === 1 ? '' : 's'})</span>`, valor: luc, rotuloValor: fBRL0(luc), n: g.length };
+  }).filter((l) => l.n > 0);
+
+  document.getElementById('pergunta-preco').textContent = 'Lucro total por faixa de preço do número, no período selecionado';
+  document.getElementById('bars-preco').innerHTML = linhas.length
+    ? montarBars(linhas, { classeExtra: 'bars-grande' })
+    : '<div class="vazio">Sem sorteio com preço identificado neste período.</div>';
+
+  const ordenado = linhas.slice().sort((a, b) => b.valor - a.valor);
+  const melhor = ordenado[0];
+  document.getElementById('leitura-preco').innerHTML = !melhor
+    ? 'Poucos sorteios neste período pra comparar faixas de preço.'
+    : `A faixa <strong>${melhor.rotulo.split(' <span')[0]}</strong> foi a que mais deu lucro no período (${fBRL0(melhor.valor)}).`;
+}
+
+// -------------------------------------------------------------- ranking de sorteios
+function renderRankingSorteios(sorteios) {
+  const comPrem = sorteios.filter((s) => s.premio !== null);
+  const ordenado = comPrem.slice().sort((a, b) => b.margem_contribuicao - a.margem_contribuicao);
+  const top = ordenado.slice(0, 5);
+  const bottom = ordenado.slice(-5).reverse().filter((s) => !top.includes(s));
+
+  const teto = Math.max(1, ...ordenado.map((s) => Math.abs(s.margem_contribuicao)));
+  const linha = (s, classe) => ({
+    rotulo: `<span class="pill-mini ${PORTE_CLASSE[s.porte] || 's'}">${s.porte.split(' ')[0]}</span>${s.titulo}`,
+    valor: s.margem_contribuicao, rotuloValor: fBRL0(s.margem_contribuicao), classe,
+  });
+
+  let html = '';
+  if (top.length) html += `<p class="nota-metodo" style="margin-bottom:6px;">Melhores</p>` + montarBars(top.map((s) => linha(s, 'melhor')), { max: teto, classeExtra: 'bars-grande' });
+  if (bottom.length) html += `<p class="nota-metodo" style="margin:14px 0 6px;">Piores</p>` + montarBars(bottom.map((s) => linha(s, 'pior')), { max: teto, classeExtra: 'bars-grande' });
+
+  document.getElementById('bars-ranking').innerHTML = html || '<div class="vazio">Sem sorteio com prêmio identificado neste período.</div>';
+  document.getElementById('leitura-ranking').innerHTML = top.length
+    ? `<strong>${top[0].titulo}</strong> foi o sorteio mais lucrativo do período (${fBRL0(top[0].margem_contribuicao)}).`
+      + (bottom.length ? ` <strong>${bottom[0].titulo}</strong> foi o que menos rendeu (${fBRL0(bottom[0].margem_contribuicao)}).` : '')
+    : '';
+}
+
+// -------------------------------------------------------------- horário
+function renderHorario(hora) {
+  const porHora = Array.from({ length: 24 }, (_, h) => ({ h, pedidos: 0, fat: 0 }));
+  hora.forEach((r) => { porHora[r.hora].pedidos += r.pedidos; porHora[r.hora].fat += r.faturamento; });
+  const comVenda = porHora.filter((x) => x.fat > 0).sort((a, b) => b.fat - a.fat).slice(0, 6).sort((a, b) => a.h - b.h);
+
+  const linhas = comVenda.map((x) => ({
+    rotulo: String(x.h).padStart(2, '0') + 'h',
+    valor: x.fat, rotuloValor: fBRL0(x.fat),
+  }));
+  document.getElementById('bars-horario').innerHTML = linhas.length ? montarBars(linhas) : '<div class="vazio">Sem dado de horário neste período.</div>';
+
+  const top3 = porHora.slice().sort((a, b) => b.fat - a.fat).slice(0, 3).map((x) => String(x.h).padStart(2, '0') + 'h');
+  document.getElementById('leitura-horario').innerHTML = top3.length
+    ? `Os horários que mais vendem são <strong>${top3.join(', ')}</strong> — é quando vale concentrar o lançamento de um sorteio novo ou um lembrete no grupo.`
+    : '';
+}
+
+// -------------------------------------------------------------- concentração de compradores
+function renderConcentracao() {
+  const c = DADOS.concentracao_compradores || {};
+  document.getElementById('pergunta-conc').textContent = `Soma de TODO o período coletado (${DADOS.periodo_dias} dias) — não muda com o filtro acima`;
+  if (!c.disponivel || !c.compradores.length) {
+    document.getElementById('bars-conc').innerHTML = '<div class="vazio">Sem comprador identificado ainda.</div>';
+    document.getElementById('leitura-conc').innerHTML = '';
+    return;
+  }
+  const top10 = c.compradores.slice(0, 10);
+  const linhas = top10.map((cp) => ({
+    rotulo: cp.telefone_mascarado || '(sem telefone)',
+    valor: cp.valor, rotuloValor: fBRL0(cp.valor),
+  }));
+  document.getElementById('bars-conc').innerHTML = montarBars(linhas);
+  document.getElementById('leitura-conc').innerHTML =
+    `Os <strong>${c.top_n} clientes</strong> que mais compraram responderam por <strong>${fPct(c.pct_receita_top_n)}</strong> de todo o faturamento `
+    + `(${c.compradores_distintos} clientes identificados no total). Vale um tratamento especial pra esse grupo — é quem sustenta boa parte da receita.`;
+}
+
+// -------------------------------------------------------------- perfil do pedido
+function renderPerfilPedido(F) {
+  const porQtd = {};
+  F.qtd.forEach((r) => { if (r.quantidade === null) return; const k = r.quantidade >= 5 ? '5+' : String(r.quantidade); porQtd[k] = (porQtd[k] || 0) + r.pedidos; });
+  const ordemQtd = ['1', '2', '3', '4', '5+'];
+  const linhasQtd = ordemQtd.map((k) => ({ rotulo: `${k} número${k === '1' ? '' : 's'}`, valor: porQtd[k] || 0, rotuloValor: (porQtd[k] || 0).toLocaleString('pt-BR') })).filter((l) => l.valor > 0);
+  document.getElementById('bars-qtd').innerHTML = linhasQtd.length ? montarBars(linhasQtd) : '<div class="vazio">Sem dado neste período.</div>';
+
+  const porFaixa = {};
+  F.faixaValor.forEach((r) => { porFaixa[r.faixa] = (porFaixa[r.faixa] || 0) + r.valor; });
+  const ordemFaixa = ['até R$10', 'R$10-20', 'R$20-40', 'acima de R$40'];
+  const linhasFaixa = ordemFaixa.map((f) => ({ rotulo: f, valor: porFaixa[f] || 0, rotuloValor: fBRL0(porFaixa[f] || 0) })).filter((l) => l.valor > 0);
+  document.getElementById('bars-faixa-valor').innerHTML = linhasFaixa.length ? montarBars(linhasFaixa) : '<div class="vazio">Sem dado neste período.</div>';
+}
+
+// -------------------------------------------------------------- tabela
+let ORD = { col: 'margem_contribuicao', asc: false };
+function renderTabela(sorteios) {
+  const corpo = document.querySelector('#tabela-sorteios tbody');
+  const dados = sorteios.slice().sort((a, b) => {
+    const va = a[ORD.col], vb = b[ORD.col];
+    const na = (va === null || va === undefined), nb = (vb === null || vb === undefined);
+    if (na && nb) return 0;
+    if (na) return 1;
+    if (nb) return -1;
+    if (typeof va === 'string') return ORD.asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return ORD.asc ? va - vb : vb - va;
+  });
+  corpo.innerHTML = dados.map((s) => `<tr>
+    <td class="tit" title="${s.titulo.replace(/"/g, '&quot;')}">${s.titulo}</td>
+    <td><span class="pill-mini ${PORTE_CLASSE[s.porte] || 's'}">${s.porte.split(' ')[0]}</span></td>
+    <td class="num">${fBRL0(s.preco_numero)}</td>
+    <td class="num">${s.premio === null ? '—' : fBRL0(s.premio)}</td>
+    <td class="num">${s.premios_qtd || '—'}</td>
+    <td class="num">${s.pedidos}</td>
+    <td class="num">${fBRL0(s.faturamento)}</td>
+    <td class="num" style="color:${s.margem_contribuicao < 0 ? 'var(--red)' : 'var(--green)'}">${fBRL0(s.margem_contribuicao)}</td>
+    <td class="num">${fPct(s.margem_pct)}</td>
+    <td style="font-size:11.5px;color:var(--muted);">${fJanela(s.primeiro_pedido, s.ultimo_pedido)}</td>
+  </tr>`).join('') || '<tr><td colspan="10" class="vazio">sem sorteio no período</td></tr>';
+
+  document.querySelectorAll('#tabela-sorteios th').forEach((th) => {
+    th.classList.toggle('ord', th.dataset.c === ORD.col);
+    th.classList.toggle('asc', th.dataset.c === ORD.col && ORD.asc);
+    th.onclick = () => {
+      if (ORD.col === th.dataset.c) ORD.asc = !ORD.asc;
+      else { ORD.col = th.dataset.c; ORD.asc = false; }
+      renderTabela(sorteios);
+    };
+  });
+}
+
+// ============================================================ boot
+async function carregar() {
+  await injetarNav('produto');
+  const res = await fetch('/api/dados?tipo=produto&t=' + Date.now());
+  DADOS = await res.json();
+
+  document.querySelector('.bi-nav').insertAdjacentHTML('afterend',
+    `<div class="meta wrap">Atualizado em ${new Date(DADOS.atualizado_em).toLocaleString('pt-BR')}</div>`);
+
+  if (DADOS.pedidos_reais && DADOS.pedidos_reais._mock) {
+    document.getElementById('aviso-metodologia').innerHTML =
+      `🔒 <strong>Ainda sem pedido real suficiente.</strong> Assim que o webhook acumular mais histórico, esta página passa a mostrar os números de verdade.`;
+    document.getElementById('corpo').innerHTML = '';
+    return;
+  }
+
+  document.getElementById('aviso-metodologia').innerHTML =
+    `<strong>Como ler esta página.</strong> Só entram pedidos PAGOS. "Prêmio" é lido direto do título do sorteio. "Lucro" já desconta o prêmio e a taxa `
+    + `da plataforma (${fPct(100 * ((DADOS.produto_parametros || {}).taxa_plataforma_pct || 0), 0)}). A gente não sabe se um sorteio já esgotou (não temos esse sinal ainda) — `
+    + `por isso não falamos em "tempo até esgotar", só na janela de pedidos que já recebemos. Datas e horas em fuso de Brasília.`;
+
+  const sorteios = DADOS.sorteios || [];
+  const dias = sorteios.map((s) => s.dia).sort();
+  if (!dias.length) {
+    document.getElementById('filtro-periodo').innerHTML = '<p class="periodo-label">Sem sorteio com pedido pago ainda.</p>';
+    return;
+  }
+  montarFiltroPeriodo('filtro-periodo', {
+    campanhaInicio: dias[0],
+    min: dias[0],
+    max: dias[dias.length - 1],
+    presets: ['hoje', 'ontem', '7d', '30d', 'tudo', 'custom'],
+    inicial: '7d',
+    onChange: render,
+  });
+}
+carregar().catch((err) => {
+  document.getElementById('aviso-metodologia').textContent = 'Erro ao carregar: ' + err.message;
+  console.error(err);
+});
+</script>
+
+</body>
+</html>

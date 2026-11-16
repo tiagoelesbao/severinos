@@ -1,0 +1,200 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# BORA DE BOLA — sistema de thumbnail
+#
+# POR QUE UM SISTEMA, E NÃO GOSTO EPISÓDIO A EPISÓDIO
+#   Reconhecimento é o único ativo que um canal acumula com o tempo. Ele se
+#   constrói quando a thumb do episódio 40 é da mesma família da do episódio 1 —
+#   e se perde na primeira que resolve ser diferente.
+#
+#   Por isso este arquivo é normativo. O `@art-director` executa dentro dele; se
+#   um episódio pede algo que ele não prevê, o arquivo muda ANTES da thumb, e
+#   muda para todos os episódios seguintes.
+#
+# Cores extraídas das artes oficiais (logo e banner), não estimadas a olho.
+# ═══════════════════════════════════════════════════════════════════════════
+
+formato:
+  tamanho: 1280x720
+  proporcao: '16:9'
+  peso_maximo: '2 MB'
+  teste_obrigatorio: >
+    Toda thumb é avaliada reduzida a 168px de largura — o tamanho real no feed de
+    sugeridos do celular. O que não se lê aos 168px não existe.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COR
+# ─────────────────────────────────────────────────────────────────────────────
+cor:
+  fundo_base: '#0C240C'        # verde escuro — 66% do logo, é a cor-mãe
+  fundo_profundo: '#0C0C0C'    # preto, para vinheta e contraste de rosto
+  campo: '#246C0C'             # verde do gramado, para textura de fundo
+  realce_primario: '#FCCC0C'   # AMARELO — a cor do canal. Uma por thumb.
+  realce_claro: '#FCE40C'      # amarelo do banner, para brilho e borda
+  apoio: '#84B40C'             # verde-limão, só em detalhe
+  tinta: '#FCFCFC'             # branco
+  alerta: '#E02020'            # vermelho — SÓ para X, proibido e cartão
+
+  regra_do_amarelo: >
+    O amarelo é o que identifica o canal de longe. Ele carrega UMA coisa por
+    thumb — a palavra mais importante, ou a seta, ou a moldura. Nunca as três:
+    amarelo em tudo é o mesmo que amarelo em nada.
+
+  proibido:
+    - gradiente de mais de duas cores
+    - azul, roxo e rosa (não existem na identidade)
+    - cor de clube dominando o fundo (a thumb é do canal, não do time)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIPOGRAFIA
+# ─────────────────────────────────────────────────────────────────────────────
+tipografia:
+  familia: 'condensada, pesada, itálica — a mesma família do banner'
+  alternativas_livres: ['Anton', 'Archivo Black', 'Bebas Neue', 'Oswald Bold']
+  caixa: ALTA sempre
+  linha_principal:
+    tamanho_min: '96px em 1280x720'
+    cor: '#FCFCFC ou #FCCC0C'
+    contorno: '6 a 10px em #0C0C0C'
+    sombra: 'projetada, dura, deslocada 4px'
+  linha_secundaria:
+    tamanho: '55 a 70% da principal'
+    cor: 'a que a principal não usou'
+  palavras:
+    maximo: 5
+    ideal: '3 a 4'
+    por_que: >
+      Aos 168px de largura, cada palavra ocupa espaço real. Cinco palavras é o
+      limite em que a linha ainda se lê; acima disso vira textura.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GRADE
+# ─────────────────────────────────────────────────────────────────────────────
+grade:
+  layout_padrao: 'ROSTO À ESQUERDA · TEXTO À DIREITA'
+  faixa_do_rosto: '0 a 45% da largura'
+  faixa_do_texto: '45 a 100% da largura'
+  margem_segura: '48px em todas as bordas'
+  selo_do_canal:
+    onde: 'canto inferior esquerdo'
+    tamanho: '~90px'
+    o_que: 'a bola do logo com o arco amarelo — sem o texto'
+  faixa_inferior:
+    quando: 'só em live'
+    conteudo: 'pílula AO VIVO em #FCCC0C, como no banner'
+
+  variante_confronto:
+    quando: 'a pauta tem dois lados (clube × tribunal, técnico × jogador)'
+    layout: 'dois rostos, um de cada lado, olhando para o centro'
+    separador: 'raio ou risco amarelo vertical'
+    texto: 'centralizado entre os dois, em duas linhas'
+
+  variante_sem_rosto:
+    quando: 'não há foto utilizável do envolvido'
+    layout: 'escudo do clube grande à esquerda + texto à direita'
+    fonte_do_escudo: 'a.espncdn.com/i/teamlogos/soccer/500/{id}.png'
+    nota: >
+      É o caso mais comum. Retrato de atleta existe para ~6% do elenco na ESPN;
+      a camisa numerada do `stitcher` e o escudo são as rotas que sempre
+      funcionam. Ver `apps/live-futebol` § cascata de imagem.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATES — escolhidos em 2026-09-04, depois de comparar dez desenhos com a
+# MESMA copy. Comparar estilo com copy diferente compara copy, não estilo.
+#
+# A gramática comum saiu do estudo dos canais que performam (Notícias Maromba
+# 850 mil, BTB Sports 941 mil): a FOTO ocupa o quadro inteiro e o texto entra em
+# FAIXAS de largura total. O fundo de marca nunca disputa metade da peça — ele
+# vira vinheta, moldura e faixa.
+# ─────────────────────────────────────────────────────────────────────────────
+templates:
+  arquivo: 'apps/canal-futebol/thumb/estilos.html'
+  gerador: 'apps/canal-futebol/thumb/catalogo_estilos.py'
+
+  video_longo:      # os quatro selecionáveis na hora da criação
+    E3:
+      nome: 'Etiqueta de canto + faixa'
+      quando: 'padrão do dia a dia — serve para qualquer pauta'
+      elementos: [etiqueta_vermelha, faixa_rodape_solida]
+      nota: 'a cor da etiqueta chega antes do texto; é a leitura mais rápida'
+    E5:
+      nome: 'X sobre a pessoa'
+      quando: 'pauta de NEGAÇÃO — suspenso, cortado, fora, barrado'
+      elementos: [marcador_x, faixa_rodape_solida]
+      cuidado: 'gasta rápido; não usar dois dias seguidos'
+    E7:
+      nome: 'Dois painéis'
+      quando: 'confronto entre dois lados, ou antes e depois'
+      elementos: [duas_fotos, divisoria_branca, etiqueta, faixa_rodape_solida]
+    E10:
+      nome: 'Texto gigante no topo inteiro'
+      quando: 'a foto tem céu ou fundo limpo na parte de cima'
+      elementos: [faixa_topo_escura, sem_faixa_rodape]
+      cuidado: 'depende da foto; confira antes de escolher'
+
+  live:             # família SEPARADA — capa de transmissão, não thumb de vídeo
+    banner_partida:
+      nome: 'Split — visual à esquerda, marca à direita'
+      arquivo: 'apps/canal-futebol/thumb/template.html'
+      quando: 'capa de live de jogo: escudos, confronto, pílula AO VIVO'
+      nota: >
+        É o desenho que a primeira rodada produziu. Ele não funciona como thumb
+        de vídeo longo (a foto perde metade do quadro), mas funciona como banner
+        de partida, onde os dois escudos SÃO o assunto.
+      pendente: 'a cadeia de templates de live ainda será testada à parte'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REGRAS DE CORPO — medidas a 168px, que é onde a decisão acontece
+# ─────────────────────────────────────────────────────────────────────────────
+corpo_da_faixa:
+  principal: '118px em 1280×720 (96px com 22+ caracteres, 78px com 34+)'
+  secundaria: '46px'
+  regra: >
+    A ALTURA da faixa acompanha o texto — não o texto cabe na altura. O corpo
+    estava dimensionado para a peça grande e virava borrão no feed; foi o
+    primeiro defeito apontado.
+  realce_na_faixa_solida: '#E02020 (VERMELHO)'
+  por_que_vermelho: >
+    Amarelo sobre amarelo é invisível. Na faixa sólida o realce tem de ser a
+    única cor da paleta que grita sobre amarelo.
+  sem_contorno_sem_sombra: >
+    Sobre amarelo chapado, contorno e sombra só sujam a letra. Eles existem para
+    descolar texto claro de foto, não para texto preto sobre cor sólida.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ELEMENTOS
+# ─────────────────────────────────────────────────────────────────────────────
+elementos:
+  liberados:
+    seta: 'amarela, curva, no estilo do logo — indica direção ou consequência'
+    circulo_de_destaque: 'contorno amarelo em cima do que importa'
+    x_vermelho: 'só para negação: fora, cortado, proibido, expulso'
+    respingo: 'pincelada verde/amarela, como no banner, atrás do rosto'
+    luz_de_estadio: 'brilho amarelo no topo, como no banner'
+  proibidos:
+    - emoji
+    - seta 3D e efeito de bisel
+    - mais de dois elementos gráficos na mesma thumb
+    - print de rede social (é imagem de terceiro e não se lê aos 168px)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# A REGRA QUE MAIS IMPORTA
+# ─────────────────────────────────────────────────────────────────────────────
+relacao_com_o_titulo:
+  regra: 'A thumb diz o que o título NÃO disse.'
+  limite: 'no máximo 35% de palavras em comum'
+  verificacao: |
+    python apps/regra-de-3/gerador.py --diagnostico "TÍTULO" --thumb "TEXTO DA THUMB"
+  por_que: >
+    Título e thumb são dois espaços de venda. Dizer a mesma coisa nos dois é
+    usar um. Foi o defeito medido no canal estoico — 50% de repetição, CTR 2,4%.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHECAGEM ANTES DE PUBLICAR
+# ─────────────────────────────────────────────────────────────────────────────
+checagem:
+  - reduzir a 168px de largura e ler o texto principal
+  - conferir que o amarelo carrega UMA coisa só
+  - conferir a repetição contra o título (< 35%)
+  - conferir se o selo do canal está no canto inferior esquerdo
+  - conferir que a thumb não usa cor de clube como fundo
+  - conferir que nada foi prometido na thumb que o vídeo não entrega

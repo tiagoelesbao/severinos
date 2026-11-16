@@ -1,0 +1,97 @@
+# ═══════════════════════════════════════════════════════════════════════
+# 2026-09-06-arbitragem-flu-vasco
+# Segundo episódio do canal. Índice do episódio: cada estágio lê daqui.
+# ═══════════════════════════════════════════════════════════════════════
+
+episodio:
+  slug: 2026-09-06-arbitragem-flu-vasco
+  canal: bora-de-bola
+  n: 2
+  criado_em: '2026-09-06 09:12'
+  status: pronto-para-publicar
+
+decisoes:
+  titulo: 'URGENTE: Hulk detona o árbitro. Entenda a polêmica'
+  thumb_texto: 'SITUAÇÃO COMPLICOU / HULK FOI PRA CIMA DO ÁRBITRO'
+  estilo_thumb: 'E10 + variante_confronto (dois painéis)'
+  nota_do_pontuador: '100/100 · 50 caracteres · 3 pilares antes do corte'
+  promessa: >
+    O confronto dentro de campo, o que o Hulk disse do árbitro, e o lance da reta
+    final que a análise da Globo aponta como pênalti e vermelho não marcados.
+  aprovado_em: '2026-09-06'
+  aprovado_por: founder
+
+etapas:
+  '00-pauta':      { feito: true , responsavel: 'pauta.py (RSS) + fonte_api.py (ESPN)' }
+  '01-embalagem':  { feito: true , responsavel: '/packaging — pilares.py + direção do founder' }
+  '02-roteiro':    { feito: true , responsavel: '@head-of-copy' }
+  '03-narracao':   { feito: true , responsavel: 'narra_comfy.py + audita_narracao.py' }
+  '04-takes':      { feito: true , responsavel: 'acervo.py + fotos_do_fato.py + cartelas.py' }
+  '05-audio':      { feito: true , responsavel: 'mixa.py' }
+  '06-final':      { feito: true , responsavel: 'monta.py' }
+
+publicacao:
+  plataforma: youtube
+  seo: '01-embalagem/publicacao-seo.md'
+  frase_alvo: 'arbitragem fluminense vasco'
+  janela: 'o assunto morre em ~48h — publicar 06/09'
+  narracao:
+    arquivo: '03-narracao/vo.mp3'
+    duracao: '10min08s'
+    palavras: 1970
+    ritmo_real: '194,3 palavras/min'
+    motor: 'ComfyUI · ChatterBox PT-BR v3 · 01-voz-casa-ptbr'
+    auditoria: >
+      audita_narracao.py — 12 de 12 blocos OK, pior caso 10,5%. O bloco NÚMEROS
+      caiu de 14,8% para 8,9% depois do dicionário de pronúncia (26ª saía como
+      "vinte e seis A").
+  audio:
+    arquivo: '05-audio/mix.wav'
+    leito: 'le-tensao-baixa-LOOP.wav (geração própria, sem sample de terceiro)'
+    mixagem: 'voz -16 LUFS · leito -30 com ducking · -16,4 LUFS final'
+  video:
+    arquivo: '06-final/video.mp4'
+    duracao: '10min08s'
+    formato: '1920x1080 · h264 · aac 48 kHz'
+    tamanho: '255 MB'
+    planos: 123
+    broll: '16 takes de acervo + 41 fotos do fato + 20 cartelas ancoradas na voz'
+    gate_duracao: 'PASSA — mínimo 10 min (channel-brief)'
+    acervo_conferido: >
+      16/16 takes inspecionados um a um em _CONFERIR.jpg. Três foram descartados
+      antes de entrar: futebol americano (consulta com "football"), rugby
+      ("referee running on pitch") e uma corrente de crucifixo ("whistle close
+      up"). Todas as consultas agora dizem "soccer" e obrigam bola, cartão ou
+      jogador no quadro.
+    camadas_auditadas: >
+      audita_camadas.py — 20/20 cartelas aparecem e permanecem, medido no
+      arquivo final quadro a quadro. Durações de 4,8s a 29,8s, acompanhando o
+      trecho de fala que cada uma ilustra.
+    guardas: >
+      narração 261,46s · mix 261,40s · vídeo 261,40s — o vídeo não termina antes
+      da fala.
+  canal_id: ''
+  publicado_em: ''      # <- colar
+  url: ''               # <- colar
+  desempenho:
+    impressoes: null
+    ctr: null
+    retencao_media: null
+    colhido_em: null
+
+# ── O QUE MUDOU EM RELAÇÃO AO PILOTO ────────────────────────────────────
+aprendizados:
+  - >
+    O ROTEIRO FOI REESCRITO DEPOIS DA EMBALAGEM. O gancho nasceu do título
+    anterior ("ganhou e reclama") e não cumpria a thumb aprovada ("foi pra cima
+    do árbitro"). Reescrito para abrir pelo confronto. É o pipeline funcionando
+    como desenhado: a embalagem manda no roteiro, não o contrário.
+  - >
+    MARCADOR DE IMAGEM NÃO VAI NO ROTEIRO DESTE CANAL. Escrevi [img NN] no corpo
+    (padrão do canal estoico) e o TTS sintetizou o placeholder dele em inglês
+    dentro do mp3 — 11 cues de lixo, achadas só pela auditoria de WER. O
+    narra_comfy agora filtra linha que é só [...].
+  - >
+    A THUMB USOU FOTO DE PORTAL, autorizado pelo founder. A ESPN só tem retrato
+    de 2 dos 49 atletas do elenco, e a variante_confronto do thumb-system fica
+    inexecutável sem isso.

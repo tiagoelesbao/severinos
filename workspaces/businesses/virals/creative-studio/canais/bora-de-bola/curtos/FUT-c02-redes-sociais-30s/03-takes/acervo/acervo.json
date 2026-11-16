@@ -1,0 +1,65 @@
+{
+  "slug": "FUT-c02-redes-sociais-30s",
+  "takes": [
+    {
+      "arquivo": "t01-chuteira.mp4",
+      "etiqueta": "chuteira",
+      "consulta": "soccer boots close up grass",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1366,
+      "origem": "pexels",
+      "pexels_id": 9517878,
+      "autor": "Anastasia  Shuraeva",
+      "url": "https://www.pexels.com/video/women-playing-football-9517878/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-rede.mp4",
+      "etiqueta": "rede",
+      "consulta": "soccer goal net close up",
+      "duracao": 16,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 32518542,
+      "autor": "Efrem  Efre",
+      "url": "https://www.pexels.com/video/flock-of-seagulls-by-an-outdoor-soccer-net-32518542/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-treino.mp4",
+      "etiqueta": "treino",
+      "consulta": "soccer training session players",
+      "duracao": 9,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 6084028,
+      "autor": "Tima Miroshnichenko",
+      "url": "https://www.pexels.com/video/football-team-training-in-airdome-6084028/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-luz.mp4",
+      "etiqueta": "luz",
+      "consulta": "stadium lights night sky",
+      "duracao": 30,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 35988529,
+      "autor": "Aero Drone",
+      "url": "https://www.pexels.com/video/vibrant-city-skyline-at-night-with-illuminated-fields-35988529/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

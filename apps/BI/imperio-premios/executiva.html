@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Império — Visão Executiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+  .card .sub.suporte { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 10.5px; line-height: 1.5; }
+  .card .value.cinza { color: var(--muted); font-size: 15px; font-weight: 700; }
+  .tabs-dia { display: flex; gap: 6px; margin-bottom: 12px; }
+  .tabs-dia button {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    font-family: inherit; font-size: 11.5px; font-weight: 700; padding: 6px 14px;
+    border-radius: 7px; cursor: pointer;
+  }
+  .tabs-dia button.ativo { background: var(--bg-card); color: var(--gold-light); border-color: var(--gold); }
+  .bar-row { cursor: pointer; }
+  .bar-row:hover .bar-track { border-color: var(--gold); }
+  .bar-row.hoje .n::after { content: ' (em andamento)'; color: var(--gold-light); font-weight: 700; }
+  .expand-dia {
+    display: none; grid-column: 1 / -1; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; margin: -4px 0 6px; font-size: 12px;
+  }
+  .expand-dia.aberto { display: block; }
+  .aviso-premio-baixa { color: var(--blue-light); font-size: 11.5px; margin-bottom: 8px; }
+  .tabela-sorteios-wrap { overflow-x: auto; }
+  .tabela-sorteios { width: 100%; border-collapse: collapse; font-size: 11px; white-space: nowrap; }
+  .tabela-sorteios th { text-align: left; color: var(--muted); font-weight: 600; padding: 4px 8px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); }
+  .tabela-sorteios td { padding: 4px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .tabela-sorteios td.titulo-sorteio { color: var(--text); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tabela-sorteios td.num, .tabela-sorteios th.num { text-align: right; }
+  .tabela-sorteios td.forte { font-weight: 700; color: var(--gold-light); }
+  .tabela-sorteios tfoot td { border-top: 2px solid var(--border); border-bottom: none; font-weight: 700; color: var(--text); }
+  .bars { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .bar-row-wrap { display: grid; grid-template-columns: 140px 1fr 70px; align-items: center; gap: 10px; font-size: 12.5px; padding: 6px 0; }
+  .btn-auditar {
+    margin-top: 8px; background: transparent; border: 1px solid var(--border); color: var(--gold-light);
+    font-family: inherit; font-size: 10.5px; font-weight: 700; padding: 5px 10px; border-radius: 6px; cursor: pointer;
+  }
+  .btn-auditar:hover { border-color: var(--gold); background: rgba(227,167,62,0.08); }
+  .auditoria-modal {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000;
+    align-items: center; justify-content: center; padding: 30px;
+  }
+  .auditoria-modal.aberto { display: flex; }
+  .auditoria-modal .conteudo {
+    max-width: 760px; width: 100%; max-height: 85vh; overflow-y: auto; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 12px; padding: 24px; position: relative;
+  }
+  .auditoria-modal .fechar {
+    position: absolute; top: 16px; right: 16px; background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer;
+  }
+  .auditoria-modal table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 14px; }
+  .auditoria-modal th, .auditoria-modal td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .auditoria-modal th { color: var(--gold-light); font-weight: 700; font-size: 10.5px; text-transform: uppercase; }
+  .auditoria-modal td.num, .auditoria-modal th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .auditoria-modal tfoot td { font-weight: 800; border-top: 2px solid var(--border); border-bottom: none; }
+  .auditoria-modal td.sem-premio { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<main class="wrap">
+  <h1 class="titulo-pagina">Visão Executiva</h1>
+  <p class="subtitulo-pagina">Pro founder e pro cliente — poucos números, só o que decide o próximo passo. Detalhe tático fica nas outras páginas.</p>
+
+  <div id="aviso-metodologia"></div>
+  <div id="alerta-cac"></div>
+
+  <div id="filtro-periodo"></div>
+  <p class="periodo-label" id="periodo-label"></p>
+
+  <h2>Números do período selecionado</h2>
+  <div class="cards" id="cards-principais"></div>
+
+  <h2>Novo cliente vs. recorrente (só pedidos atribuídos a Meta Ads, no período selecionado)</h2>
+  <p class="periodo-label">Como é calculado: cada pedido é identificado por <strong>telefone (E.164)</strong>, com <strong>CPF como fallback</strong> quando não há telefone. "Cliente novo" = a primeira compra daquela pessoa <strong>dentro da janela de dados puxada</strong> (ver "janela" no topo da página Operacional); "Cliente recorrente" = qualquer compra seguinte da mesma pessoa, também dentro da janela. Limitação honesta: se a pessoa já tinha comprado alguma vez <strong>antes</strong> do início dessa janela, o pedido dela aparece aqui como "novo" mesmo não sendo — puxar uma janela maior reduz esse viés, mas só puxar o histórico completo elimina de vez.</p>
+  <div class="split">
+    <div class="card">
+      <div class="label">Cliente novo (1ª compra na janela)</div>
+      <div class="value green" id="novo-valor">—</div>
+      <div class="sub" id="novo-sub">—</div>
+    </div>
+    <div class="card">
+      <div class="label">Cliente recorrente</div>
+      <div class="value gold" id="recorrente-valor">—</div>
+      <div class="sub" id="recorrente-sub">—</div>
+    </div>
+  </div>
+
+  <h2>Faturamento do site por dia — janela 21h45 (contexto do negócio, não só esta campanha)</h2>
+  <p class="periodo-label">Dia de negócio real do cliente: fecha às 21h45 (horário real da rodada COR, o último sorteio do dia — corrigido 2026-11-13, era 21h30), não à meia-noite — ver prova em <code>prova-atribuicao-faturamento-diario-2026-10-16.md</code>.</p>
+  <div class="tabs-dia" id="tabs-dia">
+    <button data-modo="faturamento" class="ativo">Faturamento</button>
+    <button data-modo="lucro_estimado">Lucro (após prêmio)</button>
+  </div>
+  <div class="table-wrap" style="padding:16px;">
+    <div class="bars" id="diario-bars"></div>
+  </div>
+  <p class="periodo-label">Clique num dia pra ver a composição por sorteio. "Lucro" desconta o custo de prêmio dos sorteios (rateado por pedido) — sorteio sem prêmio identificável no título entra sem desconto. <span style="color:var(--blue-light)">Fatia azul-clara</span> na barra = baixa manual (número marcado "pago" por um admin, não venda real — já incluído no valor total, decomposto aqui só pra visibilidade). <strong>A barra mostra caixa do dia (venda real, não importa quando o sorteio fecha); a tabela que abre ao clicar mostra os sorteios que FECHARAM naquele dia (que pode ter vendido em dias diferentes) — os dois totais podem não bater, de propósito.</strong></p>
+
+  <h2>Faturamento do site por dia — janela 24h (meia-noite, padrão convencional)</h2>
+  <p class="periodo-label">Mesmo dado, agregado pela hora/data real da compra (meia-noite a meia-noite) — a janela "de antes", pra comparar lado a lado com a de 21h45 acima. Pedido do próprio cliente (2026-10-17): ver as duas juntas.</p>
+  <div class="tabs-dia" id="tabs-dia-24h">
+    <button data-modo="faturamento" class="ativo">Faturamento</button>
+    <button data-modo="lucro_estimado">Lucro (após prêmio)</button>
+  </div>
+  <div class="table-wrap" style="padding:16px;">
+    <div class="bars" id="diario-bars-24h"></div>
+  </div>
+  <p class="periodo-label">Clique num dia pra ver a composição por sorteio.</p>
+
+  <footer class="nota">BI Império · Visão Executiva · ver página "Qualidade de Dados" pra validar a origem de cada número.</footer>
+</main>
+
+<div class="auditoria-modal" id="auditoria-modal">
+  <div class="conteudo">
+    <button class="fechar" id="auditoria-fechar">✕</button>
+    <h2 style="margin:0;">Auditoria do Lucro — por sorteio</h2>
+    <p class="periodo-label" id="auditoria-periodo" style="margin-bottom:0;"></p>
+    <div id="auditoria-corpo"></div>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+<script src="periodo.js"></script>
+<script>
+let DADOS = null;
+let MODO_DIA = 'faturamento';
+let MODO_DIA_24H = 'faturamento';
+
+function filtrarDiarioPorRange(diario, inicio, fim) {
+  return diario.filter(d => d.dia >= inicio && d.dia <= fim);
+}
+
+function recalcularKPIs(diarioFiltrado, margemPct, campanhaInicio, taxaPlataformaPct) {
+  const soma = (lista, campo) => lista.reduce((acc, d) => acc + (d[campo] || 0), 0);
+  const faturamento_total = soma(diarioFiltrado, 'faturamento');
+  const lucro_negocio = soma(diarioFiltrado, 'lucro_estimado');
+  // Taxa da plataforma como dedução EXPLÍCITA em cima do lucro só-prêmio
+  // acima — 'lucro_negocio' continua batendo com o drill-down "Auditar por
+  // sorteio" (que só desconta prêmio); 'lucro_apos_taxa' desconta também a
+  // taxa, pedido 2026-10-15 pra deixar claro quanto é taxa.
+  const taxa_plataforma = faturamento_total * taxaPlataformaPct;
+  const lucro_apos_taxa = lucro_negocio - taxa_plataforma;
+
+  // CRÍTICO (mesmo achado 2026-10-07 do backend, nunca repetir no frontend):
+  // gasto de Ads só existe a partir do início real da campanha — nunca
+  // comparar esse gasto contra receita atribuída de uma janela que comece
+  // ANTES disso, ou o ROAS/margem infla artificialmente. Métricas de Ads
+  // (gasto/ROAS/CAC/margem/novo×recorrente) sempre recortam pra
+  // [início da campanha, fim do período selecionado], mesmo quando o
+  // filtro de período pedido pelo usuário começa antes.
+  const diarioAds = diarioFiltrado.filter(d => d.dia >= campanhaInicio);
+  const somaAds = (campo) => soma(diarioAds, campo);
+  const gasto = somaAds('gasto_campanha');
+  const valor_meta_ads = somaAds('meta_ads_valor');
+  const novo_valor = somaAds('meta_ads_novo_valor');
+  const novo_pedidos = somaAds('meta_ads_novo_pedidos');
+  const rec_valor = somaAds('meta_ads_recorrente_valor');
+  const rec_pedidos = somaAds('meta_ads_recorrente_pedidos');
+
+  const roas = gasto > 0 ? valor_meta_ads / gasto : null;
+  const cac_novo = (gasto > 0 && novo_pedidos > 0) ? gasto / novo_pedidos : null;
+  const ticket_medio_novo = novo_pedidos > 0 ? novo_valor / novo_pedidos : null;
+  const margem_campanha = gasto > 0 ? (valor_meta_ads * margemPct) - gasto : null;
+  const payback = (cac_novo !== null && ticket_medio_novo) ? cac_novo / ticket_medio_novo : null;
+
+  return {
+    faturamento_total, lucro_negocio, taxa_plataforma, lucro_apos_taxa, gasto, valor_meta_ads,
+    novo_valor, novo_pedidos, rec_valor, rec_pedidos,
+    roas, cac_novo, ticket_medio_novo, margem_campanha, payback,
+  };
+}
+
+// Auditoria do card "Lucro do site" — pedido 2026-10-07: founder quer ver,
+// sorteio a sorteio, o faturamento e o custo de prêmio identificado que
+// compõem a conta do lucro, pra conferir a mão. Agrupa sorteios_por_dia
+// (flat dia×sorteio) por sorteio dentro do período selecionado.
+function abrirAuditoriaLucro(periodoInicio, periodoFim) {
+  const porSorteio = {};
+  Object.entries(DADOS.sorteios_por_dia || {}).forEach(([dia, lista]) => {
+    if (dia < periodoInicio || dia > periodoFim) return;
+    lista.forEach(s => {
+      if (!porSorteio[s.product_id]) {
+        porSorteio[s.product_id] = { titulo: s.titulo, pedidos: 0, faturamento: 0, lucro_estimado: 0, valor_premio: s.valor_premio };
+      }
+      porSorteio[s.product_id].pedidos += s.pedidos;
+      porSorteio[s.product_id].faturamento += s.faturamento;
+      porSorteio[s.product_id].lucro_estimado += s.lucro_estimado;
+    });
+  });
+
+  const linhas = Object.values(porSorteio).sort((a, b) => b.faturamento - a.faturamento);
+  const totalFaturamento = linhas.reduce((a, l) => a + l.faturamento, 0);
+  const totalLucro = linhas.reduce((a, l) => a + l.lucro_estimado, 0);
+  const totalPremio = totalFaturamento - totalLucro;
+
+  document.getElementById('auditoria-periodo').textContent =
+    `Período: ${periodoInicio} até ${periodoFim} · ${linhas.length} sorteio(s) com pedido.`;
+
+  const linhasHtml = linhas.map(l => {
+    const custoPremioRateado = l.faturamento - l.lucro_estimado;
+    const premioCel = l.valor_premio
+      ? `${formatBRL(custoPremioRateado)}${Math.abs(custoPremioRateado - l.valor_premio) > 0.01 ? ` <span style="color:var(--muted)">(prêmio total do sorteio: ${formatBRL(l.valor_premio)})</span>` : ''}`
+      : `<span class="sem-premio">sem prêmio identificável — sem desconto</span>`;
+    return `<tr>
+      <td>${l.titulo}</td>
+      <td class="num">${l.pedidos}</td>
+      <td class="num">${formatBRL(l.faturamento)}</td>
+      <td class="num">${premioCel}</td>
+      <td class="num">${formatBRL(l.lucro_estimado)}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('auditoria-corpo').innerHTML = `
+    <table>
+      <thead><tr><th>Sorteio</th><th class="num">Pedidos</th><th class="num">Faturamento</th><th class="num">Custo de prêmio</th><th class="num">Lucro</th></tr></thead>
+      <tbody>${linhasHtml || '<tr><td colspan="5" class="num" style="text-align:center;color:var(--muted);">sem sorteio com pedido no período</td></tr>'}</tbody>
+      <tfoot><tr><td>Total</td><td class="num">${linhas.reduce((a,l)=>a+l.pedidos,0)}</td><td class="num">${formatBRL(totalFaturamento)}</td><td class="num">${formatBRL(totalPremio)}</td><td class="num">${formatBRL(totalLucro)}</td></tr></tfoot>
+    </table>
+    <p class="periodo-label" style="margin-top:12px;">Confere com o card: some "Faturamento" − "Custo de prêmio" por linha e bate com "Lucro" — a soma de todas as linhas bate com o total do card "Lucro do site" acima (pequena diferença pode ocorrer se um sorteio tiver vendas em mais de um dia e o período selecionado cortar no meio dele).</p>
+  `;
+  document.getElementById('auditoria-modal').classList.add('aberto');
+}
+document.getElementById('auditoria-fechar').addEventListener('click', () => document.getElementById('auditoria-modal').classList.remove('aberto'));
+document.getElementById('auditoria-modal').addEventListener('click', (e) => { if (e.target.id === 'auditoria-modal') e.currentTarget.classList.remove('aberto'); });
+
+function render(periodoInicio, periodoFim) {
+  const d = DADOS;
+  const diarioFiltrado = filtrarDiarioPorRange(d.diario, periodoInicio, periodoFim);
+  const margemPct = d.kpis_financeiros.margem_contribuicao_pct;
+  const taxaPlataformaPct = d.kpis_financeiros.taxa_plataforma_pct ?? 0.05;
+  const kf = recalcularKPIs(diarioFiltrado, margemPct, d.campanha_inicio, taxaPlataformaPct);
+
+  let labelPeriodo = `Período selecionado: ${periodoInicio} até ${periodoFim} (${diarioFiltrado.length} dia(s) com dado).`;
+  if (periodoInicio < d.campanha_inicio) {
+    labelPeriodo += ` Faturamento/Lucro acima são do site inteiro nesse intervalo — ROAS/CAC/Margem/Novo×Recorrente (campanha Meta Ads) continuam recortados a partir de ${d.campanha_inicio} (início real da campanha), mesmo dentro desse período maior, pra nunca comparar gasto com receita de antes da campanha existir.`;
+  }
+  document.getElementById('periodo-label').textContent = labelPeriodo;
+
+  // alerta automático — semáforo, só aparece quando há problema real
+  const alertaEl = document.getElementById('alerta-cac');
+  if (kf.gasto > 0 && kf.margem_campanha !== null && kf.margem_campanha < 0) {
+    alertaEl.innerHTML = `<div class="alerta vermelho">
+      <strong>⚠ Prejuízo na aquisição de cliente novo (campanha Meta Ads):</strong>
+      margem de contribuição da campanha no período está negativa (${formatBRL(kf.margem_campanha)}).
+      ${kf.cac_novo !== null ? `CAC de novo cliente (${formatBRL(kf.cac_novo)}) está consumindo mais do que a margem de ${(margemPct*100).toFixed(1)}% sustenta.` : 'Nenhum cliente novo atribuído a Meta Ads neste período ainda — CAC não calculável.'}
+      ROAS agregado pode parecer bom mesmo assim — ver o corte Novo×Recorrente abaixo antes de escalar.
+    </div>`;
+  } else if (kf.gasto > 0 && kf.margem_campanha !== null) {
+    alertaEl.innerHTML = `<div class="alerta verde">
+      <strong>✓ Margem de contribuição da campanha positiva</strong> no período: ${formatBRL(kf.margem_campanha)}.
+    </div>`;
+  } else {
+    alertaEl.innerHTML = '';
+  }
+
+  const roasSub = kf.gasto > 0
+    ? `${formatBRL(kf.valor_meta_ads)} atribuído ÷ ${formatBRL(kf.gasto)} investido`
+    : 'sem gasto de Ads neste período';
+  const cacValue = kf.cac_novo !== null ? formatBRL(kf.cac_novo) : 'sem cliente novo';
+  const cacSub = kf.cac_novo !== null
+    ? `${formatBRL(kf.gasto)} gasto ÷ ${kf.novo_pedidos} cliente(s) novo(s)`
+    : (kf.gasto > 0 ? `${formatBRL(kf.gasto)} gasto, 0 cliente novo atribuído — não é erro, é o que a Meta atribuiu` : 'sem gasto de Ads neste período');
+
+  const taxaSub = `Já descontado: prêmio dos sorteios do período + taxa da plataforma `
+    + `${(taxaPlataformaPct*100).toFixed(0)}% (${formatBRL(kf.taxa_plataforma)} sobre `
+    + `${formatBRL(kf.faturamento_total)} de faturamento). Lucro só-após-prêmio (sem taxa), `
+    + `usado no drill-down "Auditar por sorteio": ${formatBRL(kf.lucro_negocio)}.`;
+  const cards = [
+    { label: 'Faturamento do site (período)', value: formatBRL(kf.faturamento_total), cls: '' },
+    { label: `Lucro do site (período, após prêmio + taxa ${(taxaPlataformaPct*100).toFixed(0)}%)`, value: formatBRL(kf.lucro_apos_taxa), cls: kf.lucro_apos_taxa < 0 ? 'red' : 'green',
+      sub: taxaSub, destaque: true, auditavel: true },
+    { label: 'ROAS atribuído (Meta Ads)', value: (kf.roas !== null ? kf.roas.toFixed(2) + 'x' : '—'), cls: 'green', sub: roasSub },
+    { label: 'CAC — cliente novo (Meta Ads)', value: cacValue, cls: kf.cac_novo !== null ? 'gold' : 'cinza', sub: cacSub },
+    { label: 'Margem de contrib. da campanha (Ads)', value: kf.gasto > 0 ? formatBRL(kf.margem_campanha) : '—', cls: (kf.margem_campanha !== null && kf.margem_campanha < 0) ? 'red' : 'green' },
+    { label: 'LTV:CAC (proxy, ' + d.kpis_financeiros.ltv_proxy.janela_dias + 'd, cohort fixo)', value: (d.kpis_financeiros.ltv_cac_ratio ?? '—'), sub: 'Não responde ao filtro de período — cohort precisa de janela própria. ' + d.kpis_financeiros.nota_ltv_cac_benchmark },
+    { label: 'Payback (em compras, no período)', value: (kf.payback !== null ? kf.payback.toFixed(2) : '—'), sub: kf.ticket_medio_novo ? 'ticket médio novo: ' + formatBRL(kf.ticket_medio_novo) : 'sem cliente novo no período' },
+  ];
+  document.getElementById('cards-principais').innerHTML = cards.map(c =>
+    `<div class="card ${c.destaque ? 'destaque' : ''}"><div class="label">${c.label}</div><div class="value ${c.cls||''}">${c.value}</div>${c.sub ? `<div class="sub${c.destaque?' suporte':''}">${c.sub}</div>` : ''}${c.auditavel ? `<button class="btn-auditar" id="btn-auditar-lucro">🔍 Auditar por sorteio</button>` : ''}</div>`
+  ).join('');
+  const btnAuditar = document.getElementById('btn-auditar-lucro');
+  if (btnAuditar) btnAuditar.addEventListener('click', () => abrirAuditoriaLucro(periodoInicio, periodoFim));
+
+  document.getElementById('novo-valor').textContent = formatBRL(kf.novo_valor);
+  document.getElementById('novo-sub').textContent = kf.novo_pedidos + ' pedido(s)';
+  document.getElementById('recorrente-valor').textContent = formatBRL(kf.rec_valor);
+  document.getElementById('recorrente-sub').textContent = kf.rec_pedidos + ' pedido(s)';
+  if (kf.faturamento_total > 0) {
+    const pctMeta = ((kf.valor_meta_ads / kf.faturamento_total) * 100).toFixed(1);
+    document.getElementById('novo-sub').textContent += ` · fatia Meta Ads é ${pctMeta}% do faturamento total do período (resto é orgânico/grupo)`;
+  }
+
+  renderDiario(d);
+  renderDiario24h(d);
+}
+
+// Fábrica genérica: a mesma lógica de barras/expansão serve pra janela de
+// 21h45 (diario/sorteios_por_dia) e pra janela de 24h (diario_24h/
+// sorteios_por_dia_24h, pedido 2026-10-17) — só muda a chave dos dados, o
+// id do container e o estado de modo/expansão (cada gráfico guarda o seu).
+// Mesmo corte de 21h45 que `_dia_negocio()` usa no backend (bi_aggregator.py)
+// — corrigido 2026-11-13 (era 21h30; o sorteio COR, o último do dia, fecha
+// às 21h45, 15min depois do corte antigo) — replica aqui pra classificar,
+// no frontend, se um sorteio que aparece na lista de um dia (porque teve
+// VENDA naquele dia) foi de fato ABERTO naquele dia ou se é um sorteio mais
+// antigo ainda vendendo (achado 2026-11-12: cliente Império contou
+// manualmente sorteios abertos no dia e bateu diferente do "Total (N
+// sorteios)" daqui, porque essas são contagens diferentes — ver auditoria
+// no card abaixo).
+function diaNegocioDoISO(iso) {
+  if (!iso) return null;
+  const utcMs = new Date(iso).getTime();
+  if (Number.isNaN(utcMs)) return null;
+  const brtMs = utcMs - 3 * 3600 * 1000; // America/Sao_Paulo é sempre UTC-3 (sem horário de verão)
+  const deslocadoMs = brtMs + 2.25 * 3600 * 1000; // mesmo truque do backend: desloca (24h - 21h45)
+  return new Date(deslocadoMs).toISOString().slice(0, 10);
+}
+// Equivalente a `_dia_24h()` do backend (meia-noite a meia-noite) — usado só
+// na aba "janela de 24h" pra não misturar os dois critérios de corte
+// (comparar um `criado_em` com o dia-negócio quando o container é o de 24h
+// gera falso "abriu em outro dia" perto da virada 21h45-meia-noite).
+function dia24hDoISO(iso) {
+  if (!iso) return null;
+  const utcMs = new Date(iso).getTime();
+  if (Number.isNaN(utcMs)) return null;
+  const brtMs = utcMs - 3 * 3600 * 1000;
+  return new Date(brtMs).toISOString().slice(0, 10);
+}
+function formatarAbertura(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '—';
+  return d.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+// Tabela de auditoria por sorteio (pedido 2026-10-17): colunas com o
+// sorteio INTEIRO (não a fatia do dia) + decomposição de baixa manual +
+// margem de contribuição final, somas no rodapé, ordenada por
+// lançamento/resultado (o backend já entrega em `sorteiosDia` nessa ordem).
+// `diaAtual` (pedido 2026-11-12): dia de negócio da barra que foi expandida
+// — usado só pra marcar/contar quais sorteios da lista abriram NESSE dia
+// vs. sorteios mais antigos que só tiveram uma venda residual nele.
+function criarTabelaSorteiosDia(sorteiosDia, diaAtual, diaFn = diaNegocioDoISO) {
+  if (!sorteiosDia.length) {
+    return '<p class="periodo-label" style="margin:8px 0;">sem detalhe por sorteio</p>';
+  }
+  const somaCol = (chave) => sorteiosDia.reduce((acc, s) => acc + (s[chave] || 0), 0);
+  const linhas = sorteiosDia.map(s => {
+    const diaAbertura = diaFn(s.criado_em);
+    const abriuOutroDia = diaAbertura && diaAtual && diaAbertura !== diaAtual;
+    const aberturaLabel = formatarAbertura(s.criado_em)
+      + (abriuOutroDia ? ` <span style="color:var(--muted);font-weight:400;">(aberto ${diaAbertura})</span>` : '');
+    return `
+    <tr>
+      <td class="titulo-sorteio">${s.titulo}</td>
+      <td>${aberturaLabel}</td>
+      <td class="num">${formatBRL(s.faturamento_total_sorteio)}</td>
+      <td class="num">${s.pedidos_total_sorteio}</td>
+      <td class="num">${s.baixa_manual_numeros_total || 0}</td>
+      <td class="num">${formatBRL(s.baixa_manual_valor_total)}</td>
+      <td class="num">${s.valor_premio != null ? formatBRL(s.valor_premio) : '—'}</td>
+      <td class="num">${formatBRL(s.baixa_manual_premio_recuperado_total)}</td>
+      <td class="num">${formatBRL(s.lucro_bruto_total)}</td>
+      <td class="num">${formatBRL(s.taxa_plataforma_total)}</td>
+      <td class="num forte">${formatBRL(s.margem_contribuicao_total)}</td>
+    </tr>`;
+  }).join('');
+  // Quebra explícita por dia de ABERTURA (pedido 2026-11-13: o rótulo
+  // anterior "N abertos neste dia" gerou confusão — "neste dia" lia-se
+  // como "ontem" em vez de "no dia que está sendo fechado aqui". Agora o
+  // rodapé soletra cada dia de abertura por extenso, com o MESMO número
+  // que já aparece em cada linha da coluna "Aberto em" — sem resumo que
+  // precise de interpretação.
+  let labelTotal;
+  if (diaAtual) {
+    const porDiaAbertura = {};
+    sorteiosDia.forEach(s => {
+      const d = diaFn(s.criado_em) || '(sem data)';
+      porDiaAbertura[d] = (porDiaAbertura[d] || 0) + 1;
+    });
+    const partes = Object.entries(porDiaAbertura)
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([d, n]) => d === diaAtual
+        ? `${n} abriu${n === 1 ? '' : 'ram'} no próprio dia ${d}`
+        : `${n} abriu${n === 1 ? '' : 'ram'} em ${d}`);
+    labelTotal = `Total (${sorteiosDia.length} sorteio${sorteiosDia.length === 1 ? '' : 's'} fechados em ${diaAtual} — ${partes.join(', ')})`;
+  } else {
+    labelTotal = `Total (${sorteiosDia.length} sorteio${sorteiosDia.length === 1 ? '' : 's'} com venda)`;
+  }
+  return `<div class="tabela-sorteios-wrap"><table class="tabela-sorteios">
+    <thead><tr>
+      <th>Sorteio</th><th>Aberto em</th><th class="num">Faturamento total</th><th class="num">Vendas totais</th>
+      <th class="num">Baixas (qtd)</th><th class="num">Baixas (R$)</th><th class="num">Custo prêmio</th>
+      <th class="num">Retorno s/ baixas</th><th class="num">Lucro bruto</th><th class="num">Taxa plataforma</th>
+      <th class="num">Margem contrib.</th>
+    </tr></thead>
+    <tbody>${linhas}</tbody>
+    <tfoot><tr>
+      <td colspan="2">${labelTotal}</td>
+      <td class="num">${formatBRL(somaCol('faturamento_total_sorteio'))}</td>
+      <td class="num">${somaCol('pedidos_total_sorteio')}</td>
+      <td class="num">${somaCol('baixa_manual_numeros_total')}</td>
+      <td class="num">${formatBRL(somaCol('baixa_manual_valor_total'))}</td>
+      <td class="num">${formatBRL(somaCol('valor_premio'))}</td>
+      <td class="num">${formatBRL(somaCol('baixa_manual_premio_recuperado_total'))}</td>
+      <td class="num">${formatBRL(somaCol('lucro_bruto_total'))}</td>
+      <td class="num">${formatBRL(somaCol('taxa_plataforma_total'))}</td>
+      <td class="num forte">${formatBRL(somaCol('margem_contribuicao_total'))}</td>
+    </tr></tfoot>
+  </table></div>`;
+}
+
+function criarRenderDiario({ diarioKey, sorteiosKey, containerId, getModo, diaFn }) {
+  let expandido = null;
+  function render(d) {
+    const hoje = hojeISO();
+    const diario = d[diarioKey]; // gráfico diário sempre mostra a janela completa puxada (contexto), independente do filtro de KPI
+    const modo = getModo();
+    const maxDia = Math.max(...diario.map(x => x[modo] || 0), 1);
+
+    document.getElementById(containerId).innerHTML = diario.map(x => {
+      const val = x[modo] || 0;
+      const pct = Math.max(2, (val / maxDia) * 100);
+      const ehHoje = x.dia === hoje;
+      const corClasse = modo === 'lucro_estimado' && val < 0 ? 'style="background:var(--red)"' : '';
+      const estaExpandido = expandido === x.dia;
+      const sorteiosDia = (d[sorteiosKey][x.dia] || []);
+      // Baixa manual (2026-10-17): fatia do faturamento do dia que veio de
+      // número marcado "pago" na mão por um admin, não de venda real — já
+      // está dentro de "val" acima, aqui só desenha a fatia azul-claro
+      // sobre o fim da barra laranja (só faz sentido no modo Faturamento).
+      const valBaixa = modo === 'faturamento' ? (x.baixa_manual_valor || 0) : 0;
+      const pctBaixa = valBaixa > 0 ? Math.min(pct, (valBaixa / maxDia) * 100) : 0;
+      const segBaixa = pctBaixa > 0
+        ? `<div class="bar-fill-baixa" style="width:${pctBaixa}%;left:${Math.max(0, pct - pctBaixa)}%"></div>` : '';
+      const premioRecuperadoDia = sorteiosDia.reduce((acc, s) => acc + (s.baixa_manual_premio_recuperado_total || 0), 0);
+      const avisoPremio = premioRecuperadoDia > 0
+        ? `<div class="aviso-premio-baixa">⚠ Número de baixa manual foi premiado em algum sorteio desta lista — "Retorno s/ baixas" já soma esse valor de volta no Lucro bruto da tabela abaixo.</div>` : '';
+      const tabelaSorteios = criarTabelaSorteiosDia(sorteiosDia, x.dia, diaFn);
+      return `<div class="bar-row-wrap bar-row ${ehHoje ? 'hoje' : ''}" data-dia="${x.dia}">
+          <span>${x.dia}</span>
+          <div class="bar-track"><div class="bar-fill" ${corClasse} style="width:${pct}%"></div>${segBaixa}</div>
+          <span class="n">${formatBRL(val)}</span>
+        </div>
+        <div class="expand-dia ${estaExpandido ? 'aberto' : ''}" id="expand-${containerId}-${x.dia}">${avisoPremio}${tabelaSorteios}</div>`;
+    }).join('');
+
+    document.getElementById(containerId).querySelectorAll('.bar-row-wrap').forEach(row => {
+      row.addEventListener('click', () => {
+        const dia = row.dataset.dia;
+        expandido = (expandido === dia) ? null : dia;
+        render(d);
+      });
+    });
+  }
+  return render;
+}
+
+const renderDiario = criarRenderDiario({
+  // diaFn aqui é só pra classificar "aberto em outro dia" na coluna/rodapé
+  // do drill-down — usa dia24hDoISO (calendário puro) mesmo nesta janela,
+  // porque o FECHAMENTO do sorteio (backend) também é sempre por
+  // calendário agora (corrigido 2026-11-13 — ver bi_aggregator.py). A
+  // barra em si (x.dia) continua usando o corte de negócio de 21h45,
+  // é só a data de VENDA que usa esse corte.
+  diarioKey: 'diario', sorteiosKey: 'sorteios_por_dia', containerId: 'diario-bars',
+  getModo: () => MODO_DIA, diaFn: dia24hDoISO,
+});
+const renderDiario24h = criarRenderDiario({
+  diarioKey: 'diario_24h', sorteiosKey: 'sorteios_por_dia_24h', containerId: 'diario-bars-24h',
+  getModo: () => MODO_DIA_24H, diaFn: dia24hDoISO,
+});
+
+async function carregar() {
+  await injetarNav('executiva');
+  const res = await fetch('/api/dados?tipo=executiva&t=' + Date.now());
+  DADOS = await res.json();
+
+  document.querySelector('.bi-nav').insertAdjacentHTML('afterend',
+    `<div class="meta wrap">Atualizado em ${new Date(DADOS.atualizado_em).toLocaleString('pt-BR')} · campanha ativa desde ${DADOS.campanha_inicio}</div>`);
+  document.getElementById('aviso-metodologia').textContent = DADOS.aviso_metodologia;
+
+  document.getElementById('tabs-dia').querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      MODO_DIA = btn.dataset.modo;
+      document.querySelectorAll('#tabs-dia button').forEach(b => b.classList.remove('ativo'));
+      btn.classList.add('ativo');
+      renderDiario(DADOS);
+    });
+  });
+  document.getElementById('tabs-dia-24h').querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      MODO_DIA_24H = btn.dataset.modo;
+      document.querySelectorAll('#tabs-dia-24h button').forEach(b => b.classList.remove('ativo'));
+      btn.classList.add('ativo');
+      renderDiario24h(DADOS);
+    });
+  });
+
+  const diasComDado = DADOS.diario.map(x => x.dia);
+  montarFiltroPeriodo('filtro-periodo', {
+    campanhaInicio: DADOS.campanha_inicio,
+    min: diasComDado[0],
+    max: diasComDado[diasComDado.length - 1],
+    inicial: 'campanha',
+    onChange: render,
+  });
+}
+carregar().catch(err => { document.getElementById('aviso-metodologia').textContent = 'Erro ao carregar: ' + err.message; console.error(err); });
+</script>
+
+</body>
+</html>

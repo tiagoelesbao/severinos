@@ -24,11 +24,13 @@ agents:
     file: agents/wes-bush-produto.md
 workspace_integration:
   level: read_write
-  rationale: "Reads usage data and customer feedback from ClickUp/CRM and writes roadmaps, discovery logs and CS playbooks."
+  rationale: "Reads usage data and customer feedback from ClickUp/CRM and writes roadmaps, discovery logs and CS playbooks. Cobre as duas empresas do fundador (Virals e Oraclum) — catálogo de produto unificado no Painel de Produtos do ClickUp desde 2026-08."
   read_paths:
     - workspace/businesses/virals/product/
+    - workspace/businesses/oraclum/product/
   write_paths:
     - workspace/businesses/virals/product/
+    - workspace/businesses/oraclum/product/
   template_namespace: product
 task_standards:
   enforce_anatomy: true

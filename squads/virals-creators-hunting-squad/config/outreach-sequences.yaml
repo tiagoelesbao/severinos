@@ -1,0 +1,173 @@
+# Outreach Sequences — Walker Sequences + Variações
+# Baseado em: POP-HUNTER-001 + Brittany Hennessy (Personalized Pitch Framework)
+# Execução: HUMANA (squad gera scripts, hunter executa)
+
+sequences:
+  version: "1.0.0"
+  reference: "docs/03-Operations/POPs/pop-hunter-creators"
+  execution_mode: human
+  channels:
+    primary: "TikTok DM"           # Canal primário — pipeline-outreach.js
+    secondary: "Instagram DM"
+    conversion: "WhatsApp"
+
+  # ────────────────────────────────────────────────────────
+  # VARIAÇÃO 1: GANHO (do POP original)
+  # ────────────────────────────────────────────────────────
+  variacao_ganho:
+    id: "walker-seq-001"
+    name: "Variação Ganho"
+    best_for: "Creators que postam muito mas não monetizam"
+    channel: "Instagram/TikTok DM"
+    template: |
+      Oi {nome}! 👋
+
+      Tô acompanhando seu conteúdo de {nicho} e achei MUITO autêntico.
+      Especialmente aquele {referencia_post_especifico}.
+
+      Trabalho na Virals e temos uma parceria paga pra creators como você:
+      💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%
+      📹 Pra fazer exatamente o que você já faz — conteúdo de {nicho}
+
+      Posso te explicar melhor? Leva 2min 😊
+
+    variables:
+      - "{nome}: Nome da creator"
+      - "{nicho}: Nicho do ICP-C"
+      - "{referencia_post_especifico}: Post específico que demonstra estudo do perfil"
+
+  # ────────────────────────────────────────────────────────
+  # VARIAÇÃO 2: SOCIAL PROOF
+  # ────────────────────────────────────────────────────────
+  variacao_social_proof:
+    id: "walker-seq-002"
+    name: "Variação Social Proof"
+    best_for: "Creators mais cautelosas, que precisam de validação"
+    channel: "Instagram/TikTok DM"
+    template: |
+      Oi {nome}! 🙂
+
+      Vi seu perfil e me lembrou muito o estilo da {creator_referencia}
+      que já tá com a gente na Virals.
+
+      A gente trabalha com {qtd_creators}+ creators de {nicho} que
+      ganham entre R$300-600 fixo/mês só fazendo conteúdo autêntico
+      pros parceiros.
+
+      {creator_referencia} começou igual você e hoje já tá no tier
+      Senior. Quer saber como funciona?
+
+    variables:
+      - "{nome}: Nome da creator"
+      - "{creator_referencia}: Creator ativa similar (Social Proof)"
+      - "{qtd_creators}: Número de creators ativas no nicho"
+      - "{nicho}: Nicho do ICP-C"
+
+  # ────────────────────────────────────────────────────────
+  # VARIAÇÃO 3: ESCASSEZ
+  # ────────────────────────────────────────────────────────
+  variacao_escassez:
+    id: "walker-seq-003"
+    name: "Variação Escassez"
+    best_for: "Creators com alta demanda, precisa urgência"
+    channel: "Instagram/TikTok DM"
+    template: |
+      {nome}, tudo bem? 👋
+
+      Achei seu perfil de {nicho} incrível! A {marca_parceira} tá
+      procurando exatamente esse estilo de conteúdo.
+
+      Temos só {vagas_restantes} vagas abertas pra esse mês no nicho
+      de {nicho}. Se tiver interesse, preciso de um retorno até
+      {data_limite}.
+
+      Posso mandar os detalhes no WhatsApp? É rapidinho 😉
+
+    variables:
+      - "{nome}: Nome da creator"
+      - "{nicho}: Nicho do ICP-C"
+      - "{marca_parceira}: Nome da marca (se autorizado)"
+      - "{vagas_restantes}: Número de vagas (urgência)"
+      - "{data_limite}: Data limite para resposta"
+
+  # ────────────────────────────────────────────────────────
+  # CONVERSÃO PARA WHATSAPP
+  # ────────────────────────────────────────────────────────
+  whatsapp_conversion:
+    id: "walker-seq-wp-001"
+    name: "Conversão DM → WhatsApp"
+    channel: "WhatsApp"
+    template: |
+      Oi {nome}! Sou {hunter_nome} da Virals 🎯
+
+      Que bom que topou conversar! Vou te explicar rapidinho:
+
+      📋 **O que é:**
+      A Virals conecta creators com marcas que precisam de conteúdo
+      autêntico (UGC). Você grava vídeos curtos usando os produtos
+      — no seu estilo, sem roteiro engessado.
+
+      💰 **Como ganha:**
+      • Fixo: R$300-600/mês (depende do volume)
+      • Comissão: 20-35% sobre vendas dos seus vídeos
+      • Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)
+
+      🎮 **Gamificação:**
+      Tem um sistema de níveis — quanto mais você produz, mais sobe
+      de tier e mais ganha. Vou te mandar o PDF da Jornada Viral!
+
+      Quer que eu mande? 🚀
+
+    variables:
+      - "{nome}: Nome da creator"
+      - "{hunter_nome}: Nome do hunter"
+
+  # ────────────────────────────────────────────────────────
+  # FOLLOW-UP SEQUENCE
+  # ────────────────────────────────────────────────────────
+  follow_up:
+    d_plus_1:
+      channel: "Mesmo canal da DM original"
+      template: |
+        Oi {nome}! Mandei uma proposta ontem — viu? 😊
+        Se tiver qualquer dúvida, tô por aqui!
+
+    d_plus_3:
+      channel: "Mesmo canal"
+      template: |
+        {nome}, só passando pra lembrar da proposta!
+        As vagas de {nicho} tão indo rápido esse mês.
+        Posso te explicar melhor? 🙂
+
+    d_plus_7:
+      channel: "Mesmo canal"
+      template: |
+        Oi {nome}! Última mensagem sobre a parceria 🙏
+        Se não for o momento, sem problemas!
+        Mas fica o convite aberto caso mude de ideia.
+        Bom conteúdo! 💪
+
+    rules:
+      - "Se respondeu em D+1: NÃO enviar D+3 e D+7"
+      - "Se respondeu NÃO: parar sequência e marcar como 'rejected' no CRM"
+      - "Se não respondeu em D+7: marcar como 'no_response' e reavaliar em 30 dias"
+      - "NUNCA enviar mais de 3 follow-ups para a mesma pessoa"
+
+# Regras gerais
+rules:
+  personalization:
+    required: true
+    description: >
+      TODA mensagem DEVE referenciar um conteúdo específico da creator.
+      Mensagens genéricas resultam em baixa taxa de resposta.
+      Brittany Hennessy: "Demonstre que você estudou o conteúdo dela."
+
+  timing:
+    best_days: ["segunda", "terça", "quarta"]
+    best_hours: "10h-12h e 18h-20h"
+    avoid: "Domingo, feriados, horários de madrugada"
+
+  escalation:
+    response_rate_threshold: 0.10
+    action: "Se taxa de resposta < 10%: acionar @walker-launch para revisar scripts na L10"
+    reference: "POP-HUNTER-001 > Em Caso de Erro"

@@ -1,0 +1,207 @@
+schema_version: '5.0'
+generated_at: '2026-08-20T10:02:57'
+archetype: single
+post_brief:
+  slug: v5-single-51-eluna-ai-ee382e
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\51-eluna-ai-ee382e
+  source_url: https://www.instagram.com/eluna.ai/p/DcLpfAkjZ-J/
+  layout: text-over-image
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 1
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 5.3/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Transformar o conselho abstrato em uma demonstração prática: em vez de apenas
+    dizer que ''devemos construir com IA'', mostre um dashboard da Oraclum ou um fluxo
+    de automação ativo que exemplifique exatamente esse ''building''. - Transformar
+    o ''conselh'
+  audits_present: true
+content_data:
+- slide_n: 1
+  variant: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  source:
+    headline_label: ocr
+    headline_source: ocr
+    body_label: ocr
+    extraction_ok: false
+  reference_headline: '28-YEAR-OLD BILLIONAIRE ADVISES TEENAGERS: SPEND ALL YOUR TIME
+    ON AI, AND YOU WILL HAVE A SIGNIFICANT ADVANTAGE'
+  reference_body: TRENDING
+  headline: '28-YEAR-OLD BILLIONAIRE ADVISES TEENAGERS: SPEND ALL YOUR TIME ON AI,
+    AND YOU WILL HAVE A SIGNIFICANT ADVANTAGE'
+  sub_headline: ABERTURA
+  body_text: TRENDING
+  design_triggers: []
+  text_metrics:
+    headline_chars: 111
+    body_chars: 8
+    headline_tier: sm
+    body_tier: lg
+    density: medium
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  ai_prompt: 'Editorial marketing key visual representing the concept ''28-YEAR-OLD
+    BILLIONAIRE ADVISES TEENAGERS: SPEND ALL YOUR TIME ON AI, AND YOU WILL HAVE A
+    SIGNIFICANT ADVANTAGE''. Mood: editorial. Modern flat editorial design, premium
+    social media aesthetic, brand palette deep navy #08080C and signal red #A855F7,
+    soft cinematic lighting, high-end, NO TEXT, NO WORDS, 1:1 composition.'
+  accent_color: '#A855F7'
+  personalization:
+    status: PENDING_RECAST
+    directive: 'Manter o tema/notícia do slide; otimizar o gancho e adaptar à voz
+      Virals. Preservar os gatilhos: os gatilhos do benchmark.'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: WARN
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/1
+  bodies_extracted: 1/1
+  headlines_via_heuristic: 0
+  personalization_pending: 1
+benchmark_analysis:
+  tema_central: O conselho de um bilionário jovem sobre a vantagem competitiva de
+    dominar a IA.
+  formato: Quote de autoridade / Notícia Trend
+  arco_narrativo: Impacto imediato através de contraste (idade vs. riqueza) seguido
+    de uma diretriz clara de ação para o futuro.
+  estrutura:
+  - slide_n: 1
+    papel: Gancho de autoridade e CTA implícita (focar em IA)
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - 'Contraste aspiracional: 28 anos vs. Bilionário'
+  - 'Urgência e Vantagem: Promessa de ''vantagem significativa'''
+  - 'Simplicidade extrema: Mensagem direta sem fricção cognitiva'
+  - Alinhamento com a trend global de IA
+  recomendacao:
+    slides_ideais: 3
+    justificativa: 'O benchmark é apenas um gancho. Para a Virals, devemos expandir
+      para: 1. Gancho (o conselho), 2. Demonstração Prática (dashboard/fluxo Oraclum
+      conforme auditoria), 3. Conclusão/CTA para transformar a teoria em execução.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-20T10:03:33'
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: A vantagem competitiva de dominar a IA aplicada para garantir escala e eficiência.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CONSELHO
+    copy_direction: 'Headline direta e impactante focada no contraste: um bilionário
+      de 28 anos aconselha focar todo o tempo em IA para obter uma vantagem significativa.
+      O benefício é a vantagem competitiva real, não promessa de riqueza rápida.'
+    image_direction: Tipografia forte e minimalista sobre um fundo escuro e tecnológico.
+      Estilo editorial de notícias de alto nível.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A VANTAGEM
+    copy_direction: Explicar que essa vantagem não é teórica, mas operacional. Dominar
+      IA significa sair do operacional manual para o controle de workflows, agentes
+      e automação de processos de aquisição. É sobre eficiência e escala através da
+      tecnologia.
+    image_direction: Um print de alta qualidade de um log de execução de um agente
+      de IA ou um dashboard de automação rodando (exemplo de workflow de geração de
+      leads), mostrando a aplicação prática da tecnologia.
+    source_slides:
+    - 1
+  - slide_n: 3
+    role: PAYOFF
+    kicker: O PONTO
+    copy_direction: 'Concluir que a IA não é sobre ''aprender a usar ferramentas'',
+      mas sobre construir sistemas de aquisição que funcionam sem supervisão constante.
+      Provocar a reflexão: você está operando processos ou construindo sistemas?'
+    image_direction: Fundo limpo com tipografia centralizada, foco total na pergunta
+      reflexiva para gerar o 'call-to-think'.
+    source_slides:
+    - 1
+  rationale: O plano expande o gancho de autoridade do benchmark (que era apenas uma
+    frase) em um arco de consciência. Saímos da notícia (Slide 1) para a aplicação
+    prática via workflow/agentes (Slide 2 - seguindo a voz Oraclum de mostrar o sistema
+    rodando) e finalizamos com uma reflexão estratégica (Slide 3) que posiciona a
+    IA como infraestrutura de negócio, não apenas ferramenta.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-20T10:03:59'

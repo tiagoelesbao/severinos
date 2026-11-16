@@ -1,0 +1,100 @@
+# Brief de kickoff — Império Prêmios (sorteios)
+# Template original: docs/meta_mba/MODULO_01_FUNDAMENTOS_OFICIAIS_ECOSSISTEMA_E_ESTRUTURA.md
+# seção 6.3. Preenchido com dados reais do planejamento estratégico de 90
+# dias (docs/meta_mba/PLANEJAMENTO_ESTRATEGICO_90DIAS.md) e das respostas do
+# founder em 2026-10-04.
+#
+# Consumido por: squads/virals-marketing-squad/scripts/_meta_ads_client_resolver.py
+# e pela task perry-meta-kickoff-audit.md (auditoria dos Gates 0-4).
+
+cliente: "Império Prêmios"
+vertical: sorteios
+
+oferta:
+  descricao: >
+    Sorteios/rifas online com compra de cota/bilhete via PIX no checkout do
+    site (api.imperiopremioss.com). Portfólio segmentado em 3 portes:
+    Pequeno (até R$1k prêmio, margem 33,1%), Médio (R$1k-5k, margem 19,0%),
+    Jackpot (acima de R$5k, margem 17,0%) — ATENÇÃO: os 3 % por porte acima
+    ainda refletem taxa de plataforma 4% (não recalculados em 2026-10-15,
+    só o agregado abaixo foi). Não usar os 3 números por porte sem refazer
+    a conta a 5%.
+  ticket_medio: 4556.95   # por usuário em 90 dias (média geral; varia MUITO por porte — ver seção 4/6 do plano)
+  margem_contribuicao_pct: 0.1654   # 16,54% — média ponderada 90d (prêmio + taxa plataforma 5%, atualizado 2026-10-15, era 17,65%/4%)
+  modelo: site   # 100% checkout no site — confirmado pelo founder 2026-10-04, sem CAPI for Messaging
+
+politica:
+  enquadramento: gambling   # jogo online — definição Meta: valor monetário na entrada E no prêmio
+  autorizacao_meta: aprovada   # confirmado pelo founder 2026-10-04 — Gate 0 LIBERADO
+  licenca_regulatoria: pendente   # confirmar status jurídico (Lei 5.768/1971) — não bloqueante pra tracking/estrutura
+  age_gate_18: ok   # confirmado pelo founder 2026-10-05 — LP já é adaptada
+
+ativos:
+  bm_ativos_separada_da_execucao: true   # ver bm-map.yaml — Matriz-Pixel/Página já separadas do Operador
+  dominio_verificado: nao_urgente   # relevância é só Aggregated Event Measurement (iOS 14+ com ATT opt-out) — não bloqueia Pixel/CAPI padrão nem o lançamento. Pedir ao cliente em paralelo, sem travar nada.
+  dataset_id: "preenchido em .env (META_IMPERIO_PREMIOS_DATASET_ID)"   # 2026-10-05 — pixel compartilhado c/ BM Operador, App+System User criados lá
+
+tracking:
+  pixel: true   # 2026-10-05 — DOIS pixels client-side agora: (a) compartilhado c/ BM Operador (nosso), (b) nativo da plataforma Sorteamos (painel.imperiopremioss.com/settings/analytics) — mesmo Pixel ID 2276849516022676, confirmado
+  capi: true   # DUAS implementações CAPI agora — ver nota capi_duplo_achado abaixo. Risco de dedup não verificado ainda.
+  event_id_dedup: true   # nosso pipeline usa OrderId como event_id — NÃO confirmado se a CAPI nativa da plataforma usa o mesmo identificador (risco de double-count, ver nota)
+  emq_atual: 0.0   # ainda não lido no Events Manager (evento real enviado 2026-10-05, EMQ demora a popular)
+  capi_duplo_achado: >
+    2026-10-05 — a plataforma Sorteamos (que hospeda o site do cliente) tem
+    integração CAPI NATIVA própria (painel.imperiopremioss.com/settings/analytics):
+    mesmo Pixel ID que o nosso, token PRÓPRIO da plataforma (diferente do
+    META_IMPERIO_PREMIOS_ACCESS_TOKEN no .env), com regra condicional "enviar
+    purchase quando conter FBC e não for de campanhas de links bio/group/
+    community/stories" — ou seja, pode NÃO cobrir os ~68% de compras
+    pixel-sem-clique que o nosso pipeline cobre. Duas implicações: (1) nosso
+    pipeline provavelmente preenche uma lacuna real, não é redundante; (2) se
+    os dois usarem event_id diferentes pro MESMO pedido, duplica a conversão
+    no Meta. NÃO rodar send_backlog.py em agendamento contínuo até confirmar
+    isso no Events Manager (Diagnostics/Deduplication) — ver campaign-plan-wave1.md.
+
+orcamento:
+  cpa_alvo: null   # modelo de negócio tem recompra tão intensa (78 compras/usuário em 90d) que CPA fixo por compra não é a métrica certa — ver campaign-plan-wave1.md: otimizar por VALOR (ROAS), não CPA
+  budget_dia_disponivel: 1000.0   # baseline operacional acordado com o cliente 2026-10-05 — ele já investe isso hoje
+  meta_escala_cliente: 2000.0   # a 3000.0 — objetivo verbalizado pelo cliente, não é meta rígida ainda
+  nota_margem: >
+    Meta de margem líquida formal ainda não fechada com o cliente (ele estima ter
+    custos além da MC não capturados aqui). Decisão prática 2026-10-05: usar R$1.000/dia
+    como baseline e escalar com evidência de CPA marginal, não esperar a conversa de
+    margem travar o lançamento — o CAC máximo a 15% (cenário conservador, ~R$2.814/dia
+    em 90d) já cobre com folga a meta de R$2-3k/dia que o cliente quer, então o risco
+    de operar "cego" de margem formal nesse intervalo é baixo.
+
+criativo:
+  angulos_distintos: 5   # já desenhados no Módulo 01 seção 7.3: Prêmio, Prova, Confiança, Acessibilidade, Comunidade
+  formatos_distintos: 0   # ainda não produzidos — plano de produção em campaign-plan-wave1.md
+  pedidos_do_cliente:
+    atracao_fora_funil: "Vídeos de ação social, vídeo 'grana grátis' pra entrar nos grupos"
+    topo_funil_page_view: "Vídeos explicativos (como funciona pra comprar, como funciona o resultado), bônus 1º depósito/1ª compra"
+    meio_funil: "Vídeos de venda direta, fotos de rapidinha, vídeos de rapidinha"
+    fundo_funil: "App de estatísticas, benefício por ser cliente, remarketing, venda direta"
+
+# --- Dados reais já levantados (90 dias, 2026-07-05 a 2026-10-03) ---
+# Bloco histórico/congelado: taxa_plataforma_pct aqui é a que foi REALMENTE
+# usada nesta análise específica (4%) — não atualizar pra 5% retroativamente,
+# isso reescreveria o que já foi calculado. A taxa atual (5%, desde
+# 2026-10-15) está em oferta.margem_contribuicao_pct acima, que é o campo
+# que o BI (bi_aggregator.py) de fato lê em runtime.
+dados_90_dias:
+  faturamento_total: 9569598.00
+  custo_total_premios: 7498110.00
+  taxa_plataforma_pct: 4.0
+  margem_contribuicao: 1688704.08
+  roas_break_even: 5.67
+  participantes_unicos: 2100
+  compras_totais: 164561
+  pct_faturamento_clique_confirmado: 24.5   # Meta Ads (clique confirmado) — número "duro" pra bater com Ads Manager
+  pct_faturamento_pixel_sem_clique: 68.0
+  concentracao_top10pct_compradores_pct: 85.3   # achado mais importante do plano — otimizar por VALOR, não volume
+
+# --- Decisões pendentes (não bloqueiam mais o lançamento — orçamento resolvido na prática 2026-10-05) ---
+pendencias_com_cliente:
+  - "Meta de margem líquida formal: cliente acredita ter custos além da MC não capturados aqui — educar e fechar número, mas NÃO bloqueia o lançamento (baseline R$1k/dia já definido)."
+  - "Taxa de 4% é fixa independente do método de pagamento (PIX vs cartão)?"
+  - "Existe imposto não contabilizado separadamente?"
+  - "Aprovar priorização de budget em sorteios pequenos/recorrentes (margem 33,1%) vs. jackpots (17,0%, usar como alcance)?"
+  - "Confirmar domínio verificado no Business Manager e age-gate 18+ na landing page antes do primeiro anúncio ativar."

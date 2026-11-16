@@ -1,0 +1,65 @@
+{
+  "slug": "FUT-c06-premiacao-palmeiras-15s",
+  "takes": [
+    {
+      "arquivo": "t01-penalti.mp4",
+      "etiqueta": "penalti",
+      "consulta": "soccer penalty kick",
+      "duracao": 17,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 6077715,
+      "autor": "Tima Miroshnichenko",
+      "url": "https://www.pexels.com/video/soccer-players-kicking-ball-into-the-soccer-goal-6077715/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-arbitro.mp4",
+      "etiqueta": "arbitro",
+      "consulta": "soccer referee showing card",
+      "duracao": 14,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 37179914,
+      "autor": "This And No Internet 25",
+      "url": "https://www.pexels.com/video/exciting-amateur-soccer-game-on-outdoor-field-37179914/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-gol.mp4",
+      "etiqueta": "gol",
+      "consulta": "soccer players celebrating goal",
+      "duracao": 14,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 31326302,
+      "autor": "Oğuzhan Çoban",
+      "url": "https://www.pexels.com/video/exciting-soccer-celebration-near-the-corner-flag-31326302/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-arquibancada.mp4",
+      "etiqueta": "arquibancada",
+      "consulta": "empty soccer stadium seats",
+      "duracao": 11,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 37099690,
+      "autor": "Nenad Damljanovic",
+      "url": "https://www.pexels.com/video/empty-football-stadium-in-bright-daylight-37099690/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

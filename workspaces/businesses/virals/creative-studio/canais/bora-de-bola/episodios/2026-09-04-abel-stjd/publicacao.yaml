@@ -1,0 +1,134 @@
+# ═══════════════════════════════════════════════════════════════════════
+# 2026-09-04-abel-stjd
+# O índice do episódio. Cada estágio lê daqui e escreve de volta.
+# ═══════════════════════════════════════════════════════════════════════
+
+episodio:
+  slug: 2026-09-04-abel-stjd
+  canal: bora-de-bola
+  criado_em: '2026-09-04 20:03'
+  status: publicado       # pauta | embalagem | roteiro | producao | montagem | publicado
+  nota: >
+    PILOTO DO CANAL — primeiro episódio publicado. É a peça de referência para
+    todos os próximos: a esteira que o produziu está em apps/canal-futebol/ESTEIRA.md
+    e o índice do conhecimento está no MEMORY.md do squad, §6.4.
+
+# ── DECISÕES TRAVADAS ────────────────────────────────────────────────────
+# Mudar qualquer uma daqui exige refazer o que veio depois.
+decisoes:
+  titulo: "AGORA! Abel fora, e o Palmeiras não aceita o veredito"
+  thumb_texto: "ABSOLVIÇÃO VIROU CONDENAÇÃO"
+  estilo_thumb: E3        # E3 | E5 | E7 | E10 (thumb-system.yaml § templates)
+  promessa: >
+    Em 45 segundos o espectador sabe que Abel pegou dois jogos por chutar um
+    microfone, que fica fora contra o Botafogo no domingo, e que o Palmeiras já
+    vai pedir efeito suspensivo para tê-lo de volta.
+  aprovado_em: '2026-09-04'
+  aprovado_por: founder
+
+# ── A CORRENTE ───────────────────────────────────────────────────────────
+etapas:
+  '00-pauta':      { feito: true , responsavel: '/pauta-futebol' }
+  '01-embalagem':  { feito: true , responsavel: '/packaging' }
+  '02-roteiro':    { feito: true , responsavel: '@head-of-copy' }
+  '03-narracao':   { feito: true , responsavel: 'narra_comfy.py + audita_narracao.py' }
+  # O piloto NÃO usou imagem gerada por IA. As três camadas vieram de acervo
+  # (Pexels), das fotos que os portais publicaram e de cartelas em HTML — por
+  # isso o responsável não é o @image-lead.
+  '04-takes':      { feito: true , responsavel: 'broll/{acervo,fotos_do_fato,cartelas}.py' }
+  '05-audio':      { feito: true , responsavel: 'mixa.py' }
+  '06-final':      { feito: true , responsavel: 'monta.py' }
+
+# ── PUBLICAÇÃO ───────────────────────────────────────────────────────────
+publicacao:
+  plataforma: youtube
+  seo: '01-embalagem/publicacao-seo.md'
+  frase_alvo: 'abel ferreira suspenso stjd'
+  narracao:
+    arquivo: '03-narracao/vo.mp3'
+    duracao: '11min09s'
+    ritmo_real: '205,8 palavras/min'
+    motor: 'ComfyUI · ChatterBox PT-BR v3 · timing_mode concatenate'
+    perfil: '01-voz-casa-ptbr (banco de vozes do squad)'
+    blocos: '03-narracao/_blocos/ (12 arquivos + cache por hash do texto)'
+    auditoria: 'audita_narracao.py — 12/12 blocos, pior caso 7,9% de WER'
+    medido_em: '2026-09-05'
+  audio:
+    arquivo: '05-audio/mix.wav'
+    leito: 'le-tensao-baixa-LOOP.wav (Stable Audio Open, geração própria)'
+    mixagem: 'voz -16 LUFS · leito -30 com ducking sidechain · fade 2s/3s'
+    licenca: 'sem sample de terceiro — nenhuma pendência de direito autoral'
+  video:
+    arquivo: '06-final/video.mp4'
+    duracao: '11min09s'
+    formato: '1920x1080 · 30 fps · h264 · aac 48 kHz'
+    tamanho: '232 MB'
+    planos: '133 · corte seco · ~5s por plano'
+    broll: >
+      16 vídeos de acervo (Pexels) + 35 fotos publicadas pelos portais +
+      20 cartelas em CAMADA sobre o take (nunca como fundo)
+    movimento: >
+      vídeo entra sem zoom e num ponto sorteado; foto leva zoom calculado em
+      2560x1440 e reduzido — direto em 1080p o zoompan anda em degraus
+    editavel: 'outputs/bora-de-bola/video-plans/2026-09-04-abel-stjd (video-studio)'
+  # ── AGUARDANDO O FOUNDER ──────────────────────────────────────────────
+  # O vídeo FOI publicado em 2026-09-05, mas estes três campos só podem ser
+  # preenchidos por quem tem o link. Preencher aqui alimenta o episodes.json
+  # e é o que permite comparar o desempenho do episódio 2 contra este.
+  canal_id: ''            # <- colar
+  publicado_em: ''        # <- colar (data e hora)
+  url: ''                 # <- colar
+  # Colher em D+7 (≈2026-09-12) e em D+28. O CTR do piloto é a linha de base
+  # do canal: sem ele, nenhum título futuro tem contra o que ser medido.
+  desempenho:
+    impressoes: null
+    ctr: null
+    retencao_media: null
+    colhido_em: null
+
+# ── ÂNCORAS DA PROMESSA ──────────────────────────────────────────────────
+# Cada afirmação que o roteiro fizer precisa apontar para uma destas.
+fontes:
+  - id: 1
+    veiculo: ge.globo
+    o_que: 'dois jogos de suspensão por chutar microfone, no empate com o Mirassol'
+    url: 'https://ge.globo.com/futebol/times/palmeiras/noticia/2026/09/04/abel-ferreira-e-punido-com-dois-jogos-de-suspensao-por-chutar-microfone-e-desfalca-palmeiras.ghtml'
+  - id: 2
+    veiculo: ge.globo
+    o_que: 'Palmeiras vai recorrer e pedir efeito suspensivo'
+    url: 'https://ge.globo.com/futebol/times/palmeiras/noticia/2026/09/04/palmeiras-vai-recorrer-e-pedir-efeito-suspensivo-sobre-punicao-a-abel.ghtml'
+  - id: 3
+    veiculo: ge.globo
+    o_que: 'desfalca contra o Botafogo, domingo 18h30'
+  - id: 4
+    veiculo: 'UOL / PVC'
+    o_que: 'o julgamento começou com pedido de absolvição e virou depois da pausa'
+    url: 'https://www.uol.com.br/esporte/colunas/pvc/2026/09/04/abel-punido-por-dois-jogos-ficou-de-tamanho-justo.htm'
+    nota: 'é a fonte que sustenta a thumb'
+  - id: 9
+    veiculo: ge.globo
+    o_que: 'Palmeiras líder com 52 pontos (1 de vantagem) e único do Brasil vivo em 3 competições'
+    url: 'https://ge.globo.com/futebol/times/palmeiras/noticia/2026/09/05/palmeiras-e-unico-no-brasil-na-briga-por-titulo-em-tres-competicoes.ghtml'
+    nota: 'transforma "técnico suspenso" em "líder por 1 ponto perde o técnico" — é outra notícia'
+  - id: 10
+    veiculo: ge.globo
+    o_que: 'Barboza volta ao Nilton Santos como adversário, 3 meses após a despedida'
+    url: 'https://ge.globo.com/futebol/times/botafogo/noticia/2026/09/05/tres-meses-depois-de-choro-no-adeus-barboza-volta-ao-nilton-santos.ghtml'
+  - id: 11
+    veiculo: ge.globo
+    o_que: '26ª rodada; Flamengo joga no mesmo domingo'
+    nota: 'contexto da disputa direta'
+
+# ── ROTEIRO: a estrutura que o head-of-copy deve seguir ──────────────────
+estrutura_alvo:
+  duracao: '11min09s (medido)'
+  ritmo: '134 palavras/min'
+  palavras: '~1.600'
+  blocos:
+    - { de: '0:00', ate: '0:45', o_que: 'a punição inteira, em uma frase, nos primeiros 10s' }
+    - { de: '0:45', ate: '1:15', o_que: '2 jogos, 25ª rodada, Mirassol, domingo 18h30' }
+    - { de: '1:15', ate: '1:45', o_que: 'índice: recurso, jogo com o Botafogo, bastidor do julgamento' }
+    - { de: '1:45', ate: '2:10', o_que: 'vinheta' }
+    - { de: '2:10', ate: '2:45', o_que: 'CTA com justificativa' }
+    - { de: '2:45', ate: '11:30', o_que: 'recurso → escalação sem Abel → os bastidores' }
+    - { de: '11:30', ate: '12:30', o_que: 'citação do PVC e fecho' }

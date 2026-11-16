@@ -1,0 +1,503 @@
+{
+  "id": "a1d05a00-7c3e-4b91-9f20-5741b1a0d10f",
+  "revision": 0,
+  "last_node_id": 9,
+  "last_link_id": 11,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        120,
+        120
+      ],
+      "size": [
+        380,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": null
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "stable-audio-open-1.0.safetensors"
+      ],
+      "title": "Stable Audio Open 1.0 (CLIP daqui NAO e usado)"
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "pos": [
+        120,
+        280
+      ],
+      "size": [
+        380,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3,
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "t5-base.safetensors",
+        "stable_audio",
+        "default"
+      ],
+      "title": "Text encoder T5 base (type=stable_audio)"
+    },
+    {
+      "id": 3,
+      "type": "CLIPTextEncode",
+      "pos": [
+        560,
+        120
+      ],
+      "size": [
+        420,
+        200
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "{{PROMPT_AUDIO}}"
+      ],
+      "title": "Prompt de audio (positivo)"
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [
+        560,
+        370
+      ],
+      "size": [
+        420,
+        160
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Negativo (vazio = padrao do template oficial)"
+    },
+    {
+      "id": 5,
+      "type": "ConditioningStableAudio",
+      "pos": [
+        1030,
+        140
+      ],
+      "size": [
+        360,
+        106
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ConditioningStableAudio"
+      },
+      "widgets_values": [
+        0.0,
+        "{{DURACAO_S}}"
+      ],
+      "title": "Duracao condicionada (DEVE bater com o latent)"
+    },
+    {
+      "id": 6,
+      "type": "EmptyLatentAudio",
+      "pos": [
+        560,
+        580
+      ],
+      "size": [
+        360,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentAudio"
+      },
+      "widgets_values": [
+        "{{DURACAO_S}}",
+        1
+      ],
+      "title": "Latent de audio (DEVE bater com o conditioning)"
+    },
+    {
+      "id": 7,
+      "type": "KSampler",
+      "pos": [
+        1030,
+        340
+      ],
+      "size": [
+        360,
+        262
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        0,
+        "randomize",
+        50,
+        4.98,
+        "dpmpp_3m_sde_gpu",
+        "exponential",
+        1
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        1450,
+        340
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 10
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 9,
+      "type": "SaveAudio",
+      "pos": [
+        1450,
+        450
+      ],
+      "size": [
+        400,
+        112
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/oraclum/{{JOB}}/{{PECA}}"
+      ],
+      "title": "Saida FLAC lossless (banco reutilizavel)"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      1,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      3,
+      2,
+      0,
+      3,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      2,
+      0,
+      4,
+      0,
+      "CLIP"
+    ],
+    [
+      5,
+      3,
+      0,
+      5,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      4,
+      0,
+      5,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      5,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      5,
+      1,
+      7,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      6,
+      0,
+      7,
+      3,
+      "LATENT"
+    ],
+    [
+      10,
+      7,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      11,
+      8,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.75,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "frontendVersion": "1.48.7",
+    "oraclum": {
+      "workflow_id": "audio-trilha-sfx",
+      "origem": "montado pelo squad a partir do template oficial audio_stable_audio_example.json (pacote comfyui-workflow-templates 0.11.41 instalado na maquina do founder) + schemas reais do /object_info do ComfyUI 0.33.1. Difere do template oficial em dois pontos deliberados e documentados abaixo: usa ConditioningStableAudio e salva em FLAC.",
+      "quando_usar": "PADRAO para audio NAO-vocal: leito instrumental de peca publicitaria (trilha de apoio) e banco proprio de SFX avulso (whoosh, ambiencia, impacto). E o modelo dos usos 'apoio' e 'SFX' da tabela de musica como capacidade transversal. NAO serve para musica com letra e vocal - isso e o audio-musica-acestep.",
+      "config": "50 steps, cfg 4.98, sampler dpmpp_3m_sde_gpu, scheduler exponential, denoise 1.0. Valores do template oficial da ComfyUI, mantidos. Este e um modelo de difusao NAO-destilado, entao step count E a alavanca de qualidade aqui - ao contrario do FLUX klein, onde a alavanca e a quantizacao.",
+      "teto_de_duracao": "47 segundos. E limite do modelo, nao escolha nossa: o embedder de duracao foi treinado ate ~47s e o latent padrao do template oficial e 47.6s. Para leito mais longo, gerar blocos e concatenar na montagem - nao esticar o parametro.",
+      "armadilha_de_duracao": "{{DURACAO_S}} aparece em DOIS nos - ConditioningStableAudio.seconds_total e EmptyLatentAudio.seconds - e os dois DEVEM receber o mesmo valor. Divergir gera audio calibrado para um arco de duracao diferente do que cabe no latent: o modelo planeja intro, desenvolvimento e fecho em cima do seconds_total. Mesma classe de armadilha ja registrada no flux2-klein-t2i entre Flux2Scheduler e EmptyFlux2LatentImage.",
+      "por_que_conditioningstableaudio": "O template oficial NAO usa este no, e funciona: comfy/model_base.py deriva seconds_total de int(noise.shape[-1] / 21.53) quando o no esta ausente. Foi incluido de proposito para que a duracao seja parametro EXPLICITO e auditavel do grafo, em vez de efeito colateral do tamanho do latent - e porque libera seconds_start, que permite gerar variacoes do mesmo leito a partir de pontos diferentes do arco.",
+      "por_que_flac_e_nao_mp3": "O template oficial salva MP3. Aqui e FLAC (no SaveAudio) porque a saida deste workflow e INSUMO, nao entrega: leito e SFX voltam para a mesa de montagem, sao cortados, sobrepostos e remixados. Perda de MP3 acumula a cada reprocessamento. As amostras de narracao do TTS sao mp3 porque sao entrega final; banco de audio nao e.",
+      "por_que_o_clip_do_checkpoint_fica_solto": "O CheckpointLoaderSimple expoe uma saida CLIP, mas o checkpoint do Stable Audio Open NAO carrega o text encoder - o header safetensors tem 745 tensores e traz apenas os conditioners de seconds_start e seconds_total, nenhum T5. Por isso o encoder vem do CLIPLoader separado com type=stable_audio, e a saida CLIP do checkpoint fica deliberadamente sem link. Nao e esquecimento.",
+      "licenca": "Stability AI Community License - uso comercial PERMITIDO abaixo de USD 1 milhao de receita anual, mediante registro em stability.ai/community-license e atribuicao 'Powered by Stability AI' visivel. NAO e Apache 2.0. E a unica peca do stack local com licenca condicionada a faturamento: se a operacao cruzar USD 1M/ano a licenca TERMINA e passa a exigir acordo enterprise. Revisar anualmente.",
+      "placeholders": [
+        "{{PROMPT_AUDIO}}",
+        "{{DURACAO_S}}",
+        "{{JOB}}",
+        "{{PECA}}"
+      ],
+      "saida": "audio/oraclum/{{JOB}}/{{PECA}} (FLAC)"
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,512 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T20:06:54'
+archetype: news
+carousel_brief:
+  slug: v5-precision-38-brandsdecoded-37cc04
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\38-brandsdecoded-37cc04
+  source_url: https://www.instagram.com/brandsdecoded__/p/Db3m48xlAq7/
+  tema: 'Modelagem de precisão: 38-brandsdecoded-37cc04'
+  slide_count: 6
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 9
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.1/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a narrativa puramente textual dos slides iniciais por evidências visuais
+    (telas de software/fluxos de automação) para capturar a atenção de founders focados
+    em eficiência. - Trocar a análise de ''estratégia de postagem de um influencer''
+    por '
+  audits_present: true
+benchmark_caption: Decodificando a estratégia de conteúdo do @alfredosoares — e respondendo
+  se seus 12 posts por dia fazem sentido para um empresário do seu tamanho.
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Powered by Content Machine / Powered by Content Machine
+  reference_body: '2026 // O empresário que posta 12x por dia e fatura 500 milhões:
+    estratégia genial ou tiro no pé? O segredo por trás da estratégia de conteúdo
+    do Alfredo Soares. 2026// Para a maioria das pessoas, Alfredo Soares é um dos
+    maiores empresários do Brasil. É por isso que vê-lo tão ativo no Instagram pode
+    causar estranheza. Ao longo dos últimos anos, Alfredo fundou a Xtech, virou sócio
+    da VTEX, cofundou o G4 e investiu em dezenas de startups. Hoje, seu Instagram
+    reúne cerca de 1,6 milhão de seguidores e mais de 12 mil publicações. O mais interessante,
+    no entanto, não é simplesmente a quantidade de posts que ele vem publicando —
+    é entender o que está por trás dessa estratégia (e como ele consegue executar
+    isso).'
+  headline: '12 POSTS POR DIA: ESTRATÉGIA OU ERRO?'
+  sub_headline: O CASO
+  body_text: Um negócio fatura 500 milhões com esse volume. Mas será que você precisa
+    postar tanto para crescer ou está só perdendo tempo?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 37
+    body_chars: 125
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: businessman smartphone office
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Focar no contraste brutal: um empresário que fatura 500 milhões e
+      posta 12x por dia. Questionar se isso é erro ou escala de autoridade para atrair
+      negócios.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:08:40'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: Powered by Content Machine / Powered by Content Machine
+  reference_body: '2026 // 12 posts por dia parece algo completamente fora da realidade,
+    porém, para quem entendeu o jogo do Instagram de 2026, isso é intencional. O segredo
+    dele, no entanto, não está em ter 12 grandes ideias por dia. Alfredo amplia sua
+    fonte de pautas: rotina, negócios, conversas, notícias e acontecimentos do mercado
+    viram pontos de partida para conteúdos sobre os temas em que já tem autoridade.
+    2026 // Para quem usa conteúdo para gerar negócios, volume não é sobre maximizar
+    o engajamento de cada post. É sobre aparecer mais vezes para o mesmo potencial
+    cliente e acumular confiança. Enquanto muita gente posta pouco para proteger sua
+    média de likes e engajamento, Alfredo parte de outra lógica: nem todo post precisa
+    ser um sucesso isolado. Se, no conjunto, o conteúdo aumenta lembrança, autoridade
+    e oportunidades de negócio, a produção está cumprindo seu papel.'
+  headline: 'A LÓGICA: ONIPRESENÇA NÃO É SOBRE VIRALIZAÇÃO'
+  sub_headline: A LÓGICA
+  body_text: 'Volume intencional não serve para maximizar o engajamento de posts isolados.
+    O objetivo é a onipresença: aparecer repetidamente para o cliente ideal para acumular
+    confiança e gerar negócios.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 45
+    body_chars: 190
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person scrolling phone
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  - 5
+  personalization:
+    status: DONE
+    directive: Quebrar a ideia de que volume exige produção exaustiva. O objetivo
+      não é o engajamento viral, mas a onipresença para acumular confiança do cliente
+      ideal.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:08:40'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Para publicar tanto,
+  reference_body: Alfredo não precisa começar todo conteúdo ensinando uma técnica
+    de vendas. Uma empresa, uma notícia, uma conversa com outro empreendedor ou uma
+    decisão de negócio podem virar o ponto de partida. Depois, ele interpreta aquele
+    acontecimento pela ótica de quem vende e opera empresas. O assunto chama atenção.
+    Sua própria experiência dá a leitura. Powered by Content Machine 2026 // 12:05
+    Posts alfredosoares alfredosoares Traduzir com IA Se o Itaú mudou a lógica do
+    marketing, faça o mesmo o mais rápido possível 3.019 alfredosoares O maior banco
+    do Brasil acabou de admitir que estava errado... mais
+  headline: 'O MÉTODO: A VIDA REAL COMO MATÉRIA-PRIMA'
+  sub_headline: O MÉTODO
+  body_text: 'A produção não depende de roteiros técnicos exaustivos. O input vem
+    de fatos concretos: notícias do mercado, conversas com outros empreendedores e
+    decisões reais de negócio.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 40
+    body_chars: 173
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: business meeting talking
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Mostrar que a matéria-prima são fatos reais: notícias, conversas com
+      empreendedores e decisões de negócio. Transformar o dia a dia em input de conteúdo.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:08:40'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: O SISTEMA EDITORIAL
+  reference_body: DE ALFREDO SOARES Como transformo assuntos do mercado em conteúdo
+    que gera clareza, autoridade e impacto para quem me acompanha. 1 RADAR Encontra
+    uma conversa relevante no mercado. 2 TESE Assume uma opinião clara sobre aquilo.
+    3 EXPERIÊNCIA Puxa casos e aprendizados da própria trajetória. 4 TRADUÇÃO Transforma
+    o caso numa regra fácil de aplicar. 5 PROVA Conecta a ideia a negócios, números
+    e pessoas reais. 6 CONVERSÃO Leva parte dessa autoridade para livros, eventos
+    e produtos. ASSUNTO DO MERCADO LEITURA DE OPERADOR PRINCÍPIO APLICÁVEL ASSUNTO
+    DO MERCADO LEITURA DE OPERADOR PRINCÍPIO APLICÁVEL
+  headline: 'O WORKFLOW: IDENTIFICAÇÃO E POSICIONAMENTO'
+  sub_headline: O WORKFLOW
+  body_text: 'O processo opera em duas etapas: primeiro identificar conversas relevantes
+    no mercado; depois assumir uma posição clara sobre o fato para gerar impacto.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 42
+    body_chars: 152
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man writing notebook
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Apresentar o sistema editorial prático: 1. RADAR (encontrar conversa
+      relevante no mercado) e 2. TESE (assumir uma posição sobre o fato).'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:08:40'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Powered by Content Machine / No fundo, seu esforço em produzir
+    mais é para atrair mais leads e gerar receita.
+  reference_body: '2026// Uma importante distinção: Alfredo Soares não está interessado
+    em ser visto como um criador de conteúdo em si. 12:10 Posts alfredosoares alfredosoares
+    e rodvincenzi rodvincenzi - Áudio original O conselho que pode economizar anos
+    da sua jornada empreendedora 453 12 6 106 rodvincenzi Quem documenta a própria
+    jornada ...esce duas vezes, no mercado e no conhecimento. 12:09 Posts alfredosoares
+    alfredosoares - Áudio original SUA MARCA PODE SER MUITO MAIOR DO QUE VOCÊ IMAGINA
+    VOCÊ NO TEU INSTAGRAM, alfredosoares Curtido por macio_rodrigo e outras pessoas
+    12:11 Posts alfredosoares Traduzir com IA Seja maior do que a cadeira que você
+    está sentado. O telefone não toca para você, toca para quem estiver nela 3.368
+    61 145 478 andrielcaruso e outras pessoas Assuntos amplos permitem entrar em conversas
+    maiores do que “como vender melhor”. Mas a interpretação quase sempre devolve
+    o público para seus territórios: vendas, crescimento, empreendedorismo, gestão
+    e marca pessoal. Sua bio já conecta diretamente sua imagem ao G4, VTEX, Loja Integrada,
+    CRM Bônus, livros e programas. E o próprio Founder-Led Growth que ele ensina propõe
+    transformar a presença do fundador em canal de aquisição do negócio. É ele se
+    tornando um canal de aquisição poderosíssimo, enquanto se torna um case para inspirar
+    clientes a dar o próximo passo.'
+  headline: 'O NEGÓCIO: O CONTEÚDO COMO CANAL DE AQUISIÇÃO'
+  sub_headline: O NEGÓCIO
+  body_text: A meta não é ser um criador de conteúdo, mas aplicar o Founder-Led Growth.
+    A imagem do fundador vira um ativo de vendas que alimenta a receita de empresas
+    como G4 e VTEX.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 45
+    body_chars: 170
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: modern office building
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  - 8
+  personalization:
+    status: DONE
+    directive: Diferenciar criador de conteúdo de empresário. O volume serve para
+      alimentar o Founder-Led Growth, transformando a imagem do fundador em canal
+      de aquisição de leads e receita para empresas como G4 e VTEX.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:08:40'
+- slide_n: 6
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_09.jpg
+  reference_headline: Powered by Content Machine
+  reference_body: '2026// Antes de transformar sua especialidade em conteúdo, responda:
+    Checklist $\rightarrow$ Que acontecimento já tornou o tema relevante? $\rightarrow$
+    Qual leitura somente nossa experiência permite fazer? $\rightarrow$ Como introduzir
+    a técnica depois de criar a pergunta? $\rightarrow$ Que princípio do nicho também
+    importa fora dele? $\rightarrow$ Qual produto resolve a necessidade revelada pelo
+    conteúdo? $\rightarrow$ O post amplia alcance sem enfraquecer autoridade?'
+  headline: 'NA PRÁTICA: CHECKLIST DE VALIDAÇÃO'
+  sub_headline: NA PRÁTICA
+  body_text: 'Antes de publicar, valide: qual acontecimento torna o tema relevante
+    agora e qual leitura a experiência real permite fazer? Sua presença digital é
+    um custo ou um ativo de vendas?'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 34
+    body_chars: 178
+    headline_tier: lg
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person typing laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 9
+  personalization:
+    status: DONE
+    directive: 'Entregar o checklist de validação: Qual acontecimento torna o tema
+      relevante hoje? Qual leitura a experiência real permite fazer? Provocar a audiência
+      a pensar se sua presença digital é um custo ou um ativo de vendas.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:08:40'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/9
+  bodies_extracted: 9/9
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Desconstrução da estratégia de volume de conteúdo de Alfredo Soares
+    para validar o conceito de Founder-Led Growth.
+  formato: Case Study de Estratégia (Deconstruction)
+  arco_narrativo: O post começa com um questionamento provocativo (provocação/caos),
+    introduz o objeto de estudo (contexto), desmistifica a execução (mecanismo), revela
+    o sistema por trás do volume (metodologia), diferencia o objetivo (posicionamento)
+    e finaliza com um framework aplicável (utilidade).
+  estrutura:
+  - slide_n: 1
+    papel: 'Hook/Gancho: Contraste entre alto faturamento e alto volume de posts para
+      gerar curiosidade.'
+    essencial: true
+  - slide_n: 2
+    papel: 'Contextualização: Estabelece a autoridade do personagem analisado.'
+    essencial: false
+  - slide_n: 3
+    papel: 'Quebra de padrão: Antecipa que o volume não é aleatório, preparando para
+      a revelação do segredo.'
+    essencial: true
+  - slide_n: 4
+    papel: 'Explicação do Método: Mostra a origem simples dos temas para desmistificar
+      a complexidade.'
+    essencial: true
+  - slide_n: 5
+    papel: 'Mudança de Paradigma: Transição de ''Engajamento'' para ''Confiança/Presença''.'
+    essencial: true
+  - slide_n: 6
+    papel: 'Framework/Processo: Entrega o ''como fazer'' através do Sistema Editorial.'
+    essencial: true
+  - slide_n: 7
+    papel: 'Reforço de Posicionamento: Diferenciação entre Influenciador vs. Empresário.'
+    essencial: true
+  - slide_n: 8
+    papel: 'Conexão com o Business: Demonstra o retorno sobre o investimento (ROI)
+      da imagem.'
+    essencial: true
+  - slide_n: 9
+    papel: 'CTA de Valor/Checklist: Entrega uma ferramenta prática para o usuário
+      aplicar imediatamente.'
+    essencial: true
+  redundancias:
+  - Slide 2 (Poderia ser fundido ao Slide 1 ou 3 para acelerar o ritmo)
+  - Slide 7 (O conceito de não ser apenas um criador é reforçado no Slide 5 e 8, poderia
+    ser uma frase de transição)
+  fatores_de_performance:
+  - 'Contraste de autoridade: O choque entre ''faturamento de 500M'' e ''postar 12x
+    por dia''.'
+  - 'Desmistificação de esforço: Mostra que o volume vem de processos simples, não
+    de produção exaustiva.'
+  - 'Entrega de Framework: O post não apenas analisa, ele ensina um sistema (Radar
+    + Tese).'
+  - 'Alinhamento com o desejo do público: Foca em eficiência e geração de receita,
+    não em métricas de vaidade.'
+  recomendacao:
+    slides_ideais: 6
+    justificativa: O benchmark atual é prolixo. Para a Virals, o foco deve ser a eficiência.
+      Fundiríamos o Slide 1+2 (Gancho), manteríamos a revelação do método (Slide 4+5),
+      o Framework (Slide 6), o Business Case (Slide 8) e o Checklist final (Slide
+      9). Isso remove a 'encheção de linguiça' e mantém o impacto de autoridade e
+      utilidade.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T20:07:14'
+content_plan:
+  archetype: news
+  slide_count: 6
+  tema: Desconstrução da estratégia de volume de conteúdo para Founder-Led Growth
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CASO
+    copy_direction: 'Focar no contraste brutal: um empresário que fatura 500 milhões
+      e posta 12x por dia. Questionar se isso é erro ou escala de autoridade para
+      atrair negócios.'
+    image_direction: 'Split screen: de um lado um print de faturamento/empresa robusta,
+      do outro um feed denso de posts.'
+    source_slides:
+    - 1
+    - 2
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A LÓGICA
+    copy_direction: Quebrar a ideia de que volume exige produção exaustiva. O objetivo
+      não é o engajamento viral, mas a onipresença para acumular confiança do cliente
+      ideal.
+    image_direction: Gráfico simples mostrando a linha de 'Engajamento' (estável)
+      vs 'Confiança do Cliente' (ascendente com o volume).
+    source_slides:
+    - 3
+    - 5
+  - slide_n: 3
+    role: INSIGHT
+    kicker: O MÉTODO
+    copy_direction: 'Mostrar que a matéria-prima são fatos reais: notícias, conversas
+      com empreendedores e decisões de negócio. Transformar o dia a dia em input de
+      conteúdo.'
+    image_direction: "Fluxograma simples: Notícia/Conversa $\rightarrow$ Filtro de\
+      \ Negócio $\rightarrow$ Post."
+    source_slides:
+    - 4
+  - slide_n: 4
+    role: INSIGHT
+    kicker: O WORKFLOW
+    copy_direction: 'Apresentar o sistema editorial prático: 1. RADAR (encontrar conversa
+      relevante no mercado) e 2. TESE (assumir uma posição sobre o fato).'
+    image_direction: Interface de checklist ou dashboard minimalista com os passos
+      'Radar' e 'Tese' destacados.
+    source_slides:
+    - 6
+  - slide_n: 5
+    role: INSIGHT
+    kicker: O NEGÓCIO
+    copy_direction: Diferenciar criador de conteúdo de empresário. O volume serve
+      para alimentar o Founder-Led Growth, transformando a imagem do fundador em canal
+      de aquisição de leads e receita para empresas como G4 e VTEX.
+    image_direction: "Esquema visual: Imagem do Fundador $\rightarrow$ Canal de Atração\
+      \ $\rightarrow$ Receita das Empresas."
+    source_slides:
+    - 7
+    - 8
+  - slide_n: 6
+    role: PAYOFF
+    kicker: NA PRÁTICA
+    copy_direction: 'Entregar o checklist de validação: Qual acontecimento torna o
+      tema relevante hoje? Qual leitura a experiência real permite fazer? Provocar
+      a audiência a pensar se sua presença digital é um custo ou um ativo de vendas.'
+    image_direction: Card de checklist limpo com as duas perguntas principais em destaque.
+    source_slides:
+    - 9
+  rationale: "Apliquei a recomendação da análise holística para reduzir de 9 para\
+    \ 6 slides, eliminando redundâncias e acelerando o ritmo. O arco segue a jornada:\
+    \ Choque (Faturamento vs Volume) $\rightarrow$ Mudança de Paradigma (Confiança\
+    \ vs Engajamento) $\rightarrow$ Mecanismo (Radar/Tese) $\rightarrow$ Resultado\
+    \ Financeiro $\rightarrow$ Aplicação Prática. A voz da Virals foi inserida através\
+    \ de termos como 'workflow', 'input' e 'canal de aquisição', mantendo a fidelidade\
+    \ absoluta aos fatos e números do benchmark (500M, 12x dia, G4, VTEX) sem inventar\
+    \ estatísticas."
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T20:07:44'
+central_theme: Desconstrução da estratégia de volume de conteúdo para Founder-Led
+  Growth
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T20:08:40'
+  slides: 6
+  central_theme: Desconstrução da estratégia de volume de conteúdo para Founder-Led
+    Growth
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T20:09:18'

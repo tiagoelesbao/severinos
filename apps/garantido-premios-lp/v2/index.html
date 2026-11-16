@@ -3,16 +3,51 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Garantido Prêmios — 100 números, resultado no mesmo dia</title>
-<meta name="description" content="Rapidinhas Garantido Prêmios: apenas 100 números, extração pela PT-Rio e resultado no mesmo dia. Conheça a ação disponível." />
+<!-- Título/descrição/OG deliberadamente neutros — mesmo padrão já usado em
+     apps/garantido-premios-lp/index.html (v1). O conteúdo VISÍVEL da página
+     continua intacto; só o que a Meta raspa pra pré-visualização de link
+     (título, descrição, imagem) fica genérico, pra não reforçar a
+     classificação automática de conteúdo de aposta/loteria durante a
+     revisão de anúncio. NÃO reintroduzir "rapidinha"/"PT-Rio"/"extração"
+     aqui — isso é exatamente o que motivou a troca. -->
+<title>Garantido — Conheça a gente</title>
+<meta name="description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Garantido" />
+<meta property="og:title" content="Garantido — Conheça a gente" />
+<meta property="og:description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta property="og:image" content="https://garantido-premios-lp.vercel.app/v2/logo.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Garantido — Conheça a gente" />
+<meta name="twitter:description" content="Conheça a Garantido e fique por dentro do que está acontecendo." />
+<meta name="twitter:image" content="https://garantido-premios-lp.vercel.app/v2/logo.png" />
 <meta name="theme-color" content="#f3f8f3" />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="favicon.png" />
 <link rel="preload" as="image" href="logo.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="tela-app-garantido.webp" />
+<link rel="preload" as="font" type="font/woff2" href="anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="plusjakartasans-latin.woff2" crossorigin>
 <style>
+  /* Anton (peso único) e Plus Jakarta Sans (500-800, um único arquivo
+     variável no subset latin) self-hospedadas — mesma lógica aplicada
+     na LP do Império: elimina a cadeia fonts.googleapis.com +
+     fonts.gstatic.com que bloqueava o primeiro parágrafo de texto. */
+  @font-face {
+    font-family: 'Anton';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('anton-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 500 800;
+    font-display: swap;
+    src: url('plusjakartasans-latin.woff2') format('woff2');
+  }
+
   /* ===========================================================
      GARANTIDO PRÊMIOS — variação 2 ("mint lab / duas dobras")
 
@@ -819,6 +854,16 @@
   }
   .btn-ghost:hover { background: rgba(55,227,50,.14); border-color: rgba(55,227,50,.55); color: #fff; transform: translateY(-1px); }
 
+  /* .btn-ghost acima assume fundo escuro (var(--dk-*)) — ilegível na dobra 1,
+     que é clara. Variante própria pro hero (2026-11-16, botão de grupo). */
+  .btn-ghost-light {
+    background: #fff;
+    color: var(--green-deep);
+    border: 1.5px solid rgba(9,127,35,.35);
+    margin-top: clamp(8px, 2.2vw, 11px);
+  }
+  .btn-ghost-light:hover { background: var(--mint); border-color: var(--green); transform: translateY(-1px); }
+
   /* --------- 3 cards numerados --------- */
   .steps {
     display: grid; gap: clamp(9px, 2.4vw, 14px);
@@ -1108,6 +1153,13 @@
         Conhecer a ação disponível
         <span class="btn-sub">Veja prêmio, valor e números livres</span>
       </a>
+      <!-- 2026-11-16, pedido do founder: mesma opção de grupo que já existe
+           na dobra 2, agora também aqui — quem decide sem rolar a página
+           também vê o caminho do WhatsApp, não só o de compra. -->
+      <a href="https://chat.whatsapp.com/F1nCgs1uDdXC9fAuFJgvHl" class="btn btn-ghost-light" data-cta id="cta-grupo-hero" target="_blank" rel="noopener">
+        Entrar no grupo e acompanhar de perto
+        <span class="btn-sub">Novidades, resultados e bastidores em primeira mão</span>
+      </a>
       <p class="disclaim">Confira as informações e o regulamento antes de escolher.</p>
     </div>
 
@@ -1135,7 +1187,7 @@
               <div class="ph-screen" aria-hidden="true">
                 <!-- Screenshot real do site (2026-10-08), a pedido do founder:
                      fiel ao app de verdade em vez da reconstrução em CSS. -->
-                <img class="s-shot" src="./tela-app-garantido.png" alt="" width="484" height="896" loading="eager" />
+                <img class="s-shot" src="/v2/tela-app-garantido.webp" alt="" width="484" height="896" loading="eager" />
               </div>
               <span class="ph-island" aria-hidden="true"></span>
               <span class="ph-glare" aria-hidden="true"></span>
@@ -1187,16 +1239,23 @@
     <p class="sub">Você vê todas as informações antes de acessar a ação.</p>
 
     <div class="cta-block">
-      <!-- Os DOIS botões vão pro site (decisão do cliente: esta LP não
-           direciona pra grupo de WhatsApp). Enquadramentos diferentes de
-           propósito — um é o destino institucional, o outro é a rodada de
-           agora — para não repetir a mesma frase duas vezes na tela. -->
+      <!-- Os dois primeiros botões vão pro site — enquadramentos diferentes
+           de propósito (um é o destino institucional, o outro é a rodada
+           de agora), pra não repetir a mesma frase duas vezes na tela.
+           Terceiro botão (2026-11-14, pedido do founder): opção de entrar
+           no grupo de WhatsApp direto, em pé de igualdade com a compra —
+           mesmo padrão já usado na LP do Império (cta-grupo → link externo,
+           sem passar pela plataforma). -->
       <a href="https://garantidopremios.com/" class="btn btn-primary" data-cta id="cta-site" target="_blank" rel="noopener">
         Acessar o site oficial
       </a>
       <a href="https://garantidopremios.com/" class="btn btn-ghost" data-cta id="cta-site-alt" target="_blank" rel="noopener">
         Ver a ação disponível agora
         <span class="btn-sub">Prêmio, valor por número e quais ainda estão livres</span>
+      </a>
+      <a href="https://chat.whatsapp.com/F1nCgs1uDdXC9fAuFJgvHl" class="btn btn-ghost" data-cta id="cta-grupo" target="_blank" rel="noopener">
+        Entrar no grupo e acompanhar de perto
+        <span class="btn-sub">Novidades, resultados e bastidores em primeira mão</span>
       </a>
     </div>
 
@@ -1330,6 +1389,39 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1099998719036800');
 fbq('track', 'PageView');
 
+// Beacon próprio (2026-10-30): grava em paralelo na tabela lp_eventos
+// (/api/beacon), variant='v2' — mesmo padrão da v1/Império. A API de stats
+// do Pixel da Meta não quebra por parâmetro customizado, então sem isto
+// não dava pra comparar v1×v2 desta LP no BI.
+function obterSessionIdLp() {
+  try {
+    var sid = sessionStorage.getItem('lp_session_id');
+    if (!sid) {
+      sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + '-' + Math.random().toString(36).slice(2));
+      sessionStorage.setItem('lp_session_id', sid);
+    }
+    return sid;
+  } catch (e) { return null; }
+}
+function mandarBeacon(evento) {
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    var payload = JSON.stringify({
+      variant: 'v2',
+      evento: evento,
+      session_id: obterSessionIdLp(),
+      utm_source: qs.get('utm_source') || null,
+      utm_campaign: qs.get('utm_campaign') || null,
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/beacon', new Blob([payload], { type: 'text/plain' }));
+    } else {
+      fetch('/api/beacon', { method: 'POST', body: payload, keepalive: true, headers: { 'Content-Type': 'text/plain' } }).catch(function () {});
+    }
+  } catch (e) {}
+}
+mandarBeacon('PresselPageView');
+
 // Repassa UTM/fbclid da URL de entrada (vindos do url_tags do anúncio)
 // pros links de saída. Sem isso o rastreio se perde ao sair da LP: os
 // <a href> são estáticos, então o Ads Manager pode estar com url_tags
@@ -1368,28 +1460,33 @@ function gerarEventId() {
 }
 
 (function () {
-  // Os 4 CTAs vão pro MESMO destino (o site), então todos disparam
-  // ClickSorteios e quem separa é o content_name — não existe mais
-  // ClickGroup nesta LP, porque não existe mais botão de grupo.
-  // `variant: 'v2'` é o que torna o teste A/B legível no Events
+  // 4 CTAs de site disparam ClickSorteios (content_name separa qual botão
+  // foi) + 1 CTA de grupo (2026-11-14, pedido do founder) disparando
+  // ClickGroup — evento próprio, não reaproveita ClickSorteios, pro BI
+  // conseguir somar os dois cliques separadamente (ver bi_aggregator.py /
+  // apps/BI/garantido-premios/operacional.html, tabela "Funil por Versão
+  // de LP"). `variant: 'v2'` é o que torna o teste A/B legível no Events
   // Manager: os dois layouts compartilham o pixel, então sem este
   // parâmetro os cliques das duas variações chegam indistinguíveis.
   var map = {
     'cta-nav':       ['ClickSorteios', { content_name: 'site_header',    variant: 'v2' }],
     'cta-site-hero': ['ClickSorteios', { content_name: 'site_hero',      variant: 'v2' }],
     'cta-site':      ['ClickSorteios', { content_name: 'site_fold2',     variant: 'v2' }],
-    'cta-site-alt':  ['ClickSorteios', { content_name: 'site_fold2_alt', variant: 'v2' }]
+    'cta-site-alt':  ['ClickSorteios', { content_name: 'site_fold2_alt', variant: 'v2' }],
+    'cta-grupo-hero':['ClickGroup',    { content_name: 'grupo_whatsapp_hero', variant: 'v2' }],
+    'cta-grupo':     ['ClickGroup',    { content_name: 'grupo_whatsapp_fold2', variant: 'v2' }]
   };
   Object.keys(map).forEach(function (id) {
     var a = document.getElementById(id);
     if (!a) return;
     a.addEventListener('click', function () {
       fbq('trackCustom', map[id][0], map[id][1], { eventID: gerarEventId() });
+      mandarBeacon(map[id][0]);
     });
   });
 })();
 </script>
-<!-- TODO: substituir 1099998719036800 abaixo pelo mesmo ID real -->
+<!-- 1099998719036800 confirmado como pixel real em 2026-10-30 -->
 <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1099998719036800&ev=PageView&noscript=1"
 /></noscript>

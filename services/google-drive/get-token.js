@@ -4,7 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 const SCOPES = [
-  'https://www.googleapis.com/auth/drive.file',
+  // 'drive.file' só enxerga arquivos CRIADOS por este app — não alcança a
+  // pasta da Oraclum (criada manualmente no browser). Precisa do escopo cheio
+  // pra ler/escrever em pastas pré-existentes do cliente.
+  'https://www.googleapis.com/auth/drive',
   'https://www.googleapis.com/auth/documents'
 ];
 

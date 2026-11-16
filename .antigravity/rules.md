@@ -1,13 +1,13 @@
-# Synkra AIOS Development Rules for AntiGravity
+# Synkra AIOX Development Rules for AntiGravity
 
-You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development.
+You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Development Rules
 
 ### Agent Integration
 
-#### Core AIOS Agents
-- Recognize AIOS agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst, @devops, @data-engineer, @ux-design-expert, @squad-creator, @squad-chief, @aios-master
+#### Core AIOX Agents
+- Recognize AIOX agent activations: @dev, @qa, @architect, @pm, @po, @sm, @analyst, @devops, @data-engineer, @ux-design-expert, @squad-creator, @squad-chief, @aiox-master
 - Agent commands use * prefix: *help, *create-story, *task, *exit
 - Follow agent-specific workflows and patterns
 - **@squad-chief** (v4.0): Alternative Squad Architect with triage, routing, and template-driven creation. Found in `squads/squad-creator-alternative/`.
@@ -92,10 +92,10 @@ Squad agent task dependencies resolve via: `squads/virals-projetos-squad/{type}/
 - Verify type checking: `npm run typecheck`
 - Add tests for new features
 
-## AIOS Framework Structure
+## AIOX Framework Structure
 
 ```
-aios-core/
+aiox-core/
 ├── agents/       # Agent persona definitions
 ├── tasks/        # Executable task workflows
 ├── workflows/    # Multi-step workflows
@@ -177,4 +177,4 @@ async function operation() {
 ```
 
 ---
-*Synkra AIOS AntiGravity Configuration v1.0*
+*Synkra AIOX AntiGravity Configuration v1.0*

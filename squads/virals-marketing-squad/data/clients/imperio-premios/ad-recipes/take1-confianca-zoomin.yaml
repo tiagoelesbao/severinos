@@ -1,0 +1,16 @@
+template: ImperioIgnicaoPunho
+take_file: take1_conformado.mov
+headline:
+  text: "COMO FUNCIONA A IMPÉRIO, DIRETO AO PONTO."
+  highlight_word: "PONTO."
+hook: imperio-hook-zoom-in
+angulo: confianca
+nota: >
+  Copy = headline do Ângulo 2 (Confiança) em copy-angles-2026-10-09.md §2,
+  cross-aplicada aqui no headline de FECHAMENTO (Comp04) — os overlays de
+  ABERTURA do Take 1 ficam com o texto genérico de sempre ("A chance já tá
+  aberta." / "100 números..."), que não compromete com nenhum ângulo
+  específico. Prova deliberada (mesmo espírito do "Copy B" do Garantido) de
+  que copy já aprovada funciona cross-angle via receita, sem tocar .tsx —
+  NÃO é copy nova, é a headline literal do doc. highlight_word = última
+  palavra (convenção mecânica, mesma regra do default "VITÓRIA.").

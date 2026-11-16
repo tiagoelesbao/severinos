@@ -7,10 +7,13 @@
 
 import { Database } from 'bun:sqlite';
 import { mkdirSync } from 'fs';
-import { dirname } from 'path';
+import { homedir } from 'os';
+import { dirname, join } from 'path';
 import type { Event, Session, Stats } from './types';
 
-const DB_PATH = process.env.MONITOR_DB || `${process.env.HOME}/.aios/monitor/events.db`;
+// homedir() em vez de process.env.HOME: no Windows HOME nao existe (e USERPROFILE),
+// e o template virava a string 'undefined', criando uma pasta chamada 'undefined'.
+const DB_PATH = process.env.MONITOR_DB || join(homedir(), '.aios', 'monitor', 'events.db');
 
 // Ensure directory exists
 mkdirSync(dirname(DB_PATH), { recursive: true });

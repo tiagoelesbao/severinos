@@ -1,0 +1,195 @@
+<!--
+  Tags que FALTAM criar no container GTM-WHJFR59M (garantidopremios.com),
+  conta "imperio rapidinhas" no GTM. O container já existe, com 4 triggers
+  (EV - add_to_cart, EV - begin_checkout, EV - purchase, EV - view_item) e
+  3 tags prontas (Meta Pixel, Cookies - Origem de Chegada, Cookies - Salvar
+  UserData). As 6 tags abaixo (5 aqui + a de captura de UTM em
+  gtm-custom-html-tag.html) ficaram de fora porque o classificador de
+  segurança do browser automation bloqueou a digitação repetida no editor
+  do GTM nesta sessão — não é um bloqueio de conteúdo específico (bloqueou
+  até digitar só o nome de uma tag), parece ter sido um cooldown acionado
+  depois da primeira tentativa (a tag de captura, que faz POST para um
+  domínio externo). Colar cada bloco abaixo manualmente: Tags > Nova >
+  HTML personalizado, colar o HTML, escolher o(s) trigger(s) indicado(s),
+  Salvar.
+
+  Todas já vêm com o Pixel ID da Garantido (1099998719036800) no lugar do
+  Pixel ID do Império (2276849516022676).
+-->
+
+<!-- ============================================================ -->
+<!-- Tag: "FB - AddToCart" — trigger: EV - add_to_cart -->
+<!-- ============================================================ -->
+<script>
+(function () {
+try {
+var dl = window.dataLayer || [];
+var ev = null;
+for (var i = dl.length - 1; i >= 0; i--) {
+if (dl[i] && dl[i].event === 'add_to_cart') { ev = dl[i]; break; }
+}
+if (!ev || typeof fbq === 'undefined') return;
+var ud = ev.user_data || {};
+var adv = {};
+if (ud.phone_number) adv.ph = ud.phone_number;
+if (ud.first_name) adv.fn = ud.first_name;
+if (ud.last_name) adv.ln = ud.last_name;
+if (ud.country) adv.country = ud.country;
+if (ud.user_id) adv.external_id = ud.user_id;
+if (Object.keys(adv).length) fbq('init', '1099998719036800', adv);
+var payload = {
+content_ids: ev.content_ids || [ev.content_id],
+content_type: ev.content_type || 'product',
+content_name: ev.content_name,
+value: ev.value,
+currency: ev.currency || 'BRL'
+};
+var eid = { eventID: ev.event_id || ev.order_id };
+fbq('track', 'AddToCart', payload, eid);
+fbq('trackCustom', 'AddToCartPlataforma', payload, eid);
+} catch (e) {}
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- Tag: "FB - InitiateCheckout" — trigger: EV - begin_checkout -->
+<!-- ============================================================ -->
+<script>
+(function () {
+try {
+var dl = window.dataLayer || [];
+var ev = null;
+for (var i = dl.length - 1; i >= 0; i--) {
+if (dl[i] && dl[i].event === 'begin_checkout') { ev = dl[i]; break; }
+}
+if (!ev || typeof fbq === 'undefined') return;
+var ud = ev.user_data || {};
+var adv = {};
+if (ud.phone_number) adv.ph = ud.phone_number;
+if (ud.first_name) adv.fn = ud.first_name;
+if (ud.last_name) adv.ln = ud.last_name;
+if (ud.country) adv.country = ud.country;
+if (ud.user_id) adv.external_id = ud.user_id;
+if (Object.keys(adv).length) fbq('init', '1099998719036800', adv);
+var payload = {
+content_ids: ev.content_ids || [ev.content_id],
+content_type: ev.content_type || 'product',
+content_name: ev.content_name,
+value: ev.value,
+currency: ev.currency || 'BRL'
+};
+var eid = { eventID: ev.event_id || ev.order_id };
+fbq('track', 'InitiateCheckout', payload, eid);
+fbq('trackCustom', 'InitiateCheckoutPlataforma', payload, eid);
+} catch (e) {}
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- Tag: "FB - ViewContent" — trigger: EV - view_item -->
+<!-- ============================================================ -->
+<script>
+(function () {
+try {
+var dl = window.dataLayer || [];
+var ev = null;
+for (var i = dl.length - 1; i >= 0; i--) {
+if (dl[i] && dl[i].event === 'view_item') { ev = dl[i]; break; }
+}
+if (!ev || typeof fbq === 'undefined') return;
+var ud = ev.user_data || {};
+var adv = {};
+if (ud.phone_number) adv.ph = ud.phone_number;
+if (ud.first_name) adv.fn = ud.first_name;
+if (ud.last_name) adv.ln = ud.last_name;
+if (ud.country) adv.country = ud.country;
+if (ud.user_id) adv.external_id = ud.user_id;
+if (Object.keys(adv).length) fbq('init', '1099998719036800', adv);
+var payload = {
+content_ids: ev.content_ids || [ev.content_id],
+content_type: ev.content_type || 'product',
+content_name: ev.content_name,
+value: ev.value,
+currency: ev.currency || 'BRL'
+};
+fbq('track', 'ViewContent', payload);
+fbq('trackCustom', 'ViewContentPlataforma', payload);
+} catch (e) {}
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- Tag: "FB - Purchase" — trigger: EV - purchase -->
+<!-- ============================================================ -->
+<script>
+(function () {
+try {
+var dl = window.dataLayer || [];
+var ev = null;
+for (var i = dl.length - 1; i >= 0; i--) {
+if (dl[i] && dl[i].event === 'purchase') { ev = dl[i]; break; }
+}
+if (!ev || typeof fbq === 'undefined') return;
+var ec0=ev.ecommerce||ev;var oid0=ec0.transaction_id||ec0.order_id||ev.order_id||'';if(oid0){var dk0='ic_purchase_fired_'+oid0;try{if(localStorage.getItem(dk0))return;localStorage.setItem(dk0,'1');}catch(e0){}}
+
+var getCookie = function (nome) {
+var m = document.cookie.match(new RegExp('(?:^|; )' + nome + '=([^;]*)'));
+return m ? decodeURIComponent(m[1]) : null;
+};
+
+var ud = ev.user_data || {};
+var adv = {};
+var ph = ud.phone_number || getCookie('ic_ph');
+var fn = ud.first_name || getCookie('ic_fn');
+var ln = ud.last_name || getCookie('ic_ln');
+var country = ud.country || getCookie('ic_country');
+var extId = ud.user_id || getCookie('ic_extid');
+if (ph) adv.ph = ph;
+if (fn) adv.fn = fn;
+if (ln) adv.ln = ln;
+if (country) adv.country = country;
+if (extId) adv.external_id = extId;
+if (Object.keys(adv).length) fbq('init', '1099998719036800', adv);
+
+var payload = {
+content_ids: ev.content_ids || [ev.content_id],
+content_type: ev.content_type || 'product',
+content_name: ev.content_name,
+value: ev.value,
+currency: ev.currency || 'BRL'
+};
+var eid = { eventID: ev.event_id || ev.order_id };
+fbq('track', 'Purchase', payload, eid);
+fbq('trackCustom', 'PurchasePlataforma', payload, eid);
+} catch (e) {}
+})();
+</script>
+<!-- ============================================================ -->
+<!-- Tag: "FB - Purchase por Origem (LP / Grupo)" — trigger: EV - purchase -->
+<!-- Sem pixel ID hardcoded — não precisa de nenhuma troca para a Garantido. -->
+<!-- ============================================================ -->
+<script>
+(function () {
+try {
+if (typeof fbq !== 'function') return;
+var m = document.cookie.match(/(?:^|;\s*)ic_origem=([^;]*)/);
+var origem = m ? decodeURIComponent(m[1]) : '';
+if (origem !== 'pressel' && origem !== 'grupo') return;
+var dl = window.dataLayer || [];
+var ev = null;
+for (var i = dl.length - 1; i >= 0; i--) {
+if (dl[i] && dl[i].event === 'purchase') { ev = dl[i]; break; }
+}
+if (!ev) return;
+var ec = ev.ecommerce || ev;
+var oid = ec.transaction_id || ec.order_id || ev.order_id || '';
+var nome = (origem === 'pressel') ? 'PurchaseCatalogo' : 'PurchaseGroup';
+if(oid){var dk1='ic_purchase_origem_fired_'+oid;try{if(localStorage.getItem(dk1))return;localStorage.setItem(dk1,'1');}catch(e1){}}
+fbq('trackCustom', nome, {
+value: ec.value,
+currency: ec.currency || 'BRL',
+order_id: oid
+}, { eventID: nome + '.' + oid });
+} catch (e) {}
+})();
+</script>

@@ -1,0 +1,116 @@
+# Creator Score — Scoring Proprietário Virals
+# Baseado em: Gil Eyal (HYPR/CreatorIQ) + POP-HUNTER-001
+# Threshold: Score > 7 = qualificado para abordagem
+
+scoring:
+  version: "1.0.0"
+  scale: { min: 0, max: 10 }
+  qualification_threshold: 7
+  description: >
+    Sistema de scoring proprietário para qualificação de micro-creators.
+    Avalia 7 dimensões com pesos configuráveis para determinar fit com
+    o ICP-C da marca cliente.
+
+dimensions:
+  engagement_rate:
+    weight: 0.25
+    description: "Taxa de engajamento real (likes + comments + saves / followers)"
+    scoring_rules:
+      - { range: ">= 8%", score: 10 }
+      - { range: "5-8%", score: 8 }
+      - { range: "3-5%", score: 6 }
+      - { range: "1-3%", score: 4 }
+      - { range: "< 1%", score: 2 }
+    source: "extract-profile-data.js"
+
+  content_authenticity:
+    weight: 0.20
+    description: "Conteúdo autêntico vs over-produced. UGC-ready."
+    scoring_rules:
+      - { criteria: "100% orgânico, zero branded", score: 10 }
+      - { criteria: "Maioria orgânico, poucos branded", score: 8 }
+      - { criteria: "Mix equilibrado", score: 6 }
+      - { criteria: "Maioria branded/patrocinado", score: 4 }
+      - { criteria: "Feed inteiro de publis", score: 2 }
+    source: "agent:hunter-analyst (análise manual)"
+
+  face_presence:
+    weight: 0.15
+    description: "Creator mostra rosto/corpo. Requisito do POP: 'DEVE mostrar rosto/corpo e ter conexão real'"
+    scoring_rules:
+      - { criteria: "Rosto em 80%+ dos posts, expressiva", score: 10 }
+      - { criteria: "Rosto em 50-80% dos posts", score: 7 }
+      - { criteria: "Rosto eventual, foco em produto", score: 4 }
+      - { criteria: "Sem rosto, apenas mãos/voz", score: 2 }
+      - { criteria: "Sem presença pessoal", score: 0 }
+    source: "agent:hunter-analyst (análise visual)"
+
+  niche_alignment:
+    weight: 0.15
+    description: "Alinhamento do conteúdo da creator com o nicho do ICP-C"
+    scoring_rules:
+      - { criteria: "Nicho exato do ICP-C, conteúdo 100% alinhado", score: 10 }
+      - { criteria: "Nicho principal alinhado, alguns posts fora", score: 8 }
+      - { criteria: "Nicho adjacente com overlap", score: 5 }
+      - { criteria: "Nicho diferente mas público similar", score: 3 }
+      - { criteria: "Sem alinhamento", score: 0 }
+    source: "agent:hunter-analyst (ICP match)"
+
+  posting_frequency:
+    weight: 0.10
+    description: "Frequência de publicação — consistência é key"
+    scoring_rules:
+      - { criteria: "Diário ou quase diário (5-7x/semana)", score: 10 }
+      - { criteria: "Regular (3-4x/semana)", score: 8 }
+      - { criteria: "Moderado (1-2x/semana)", score: 5 }
+      - { criteria: "Irregular (2-3x/mês)", score: 3 }
+      - { criteria: "Inativo (< 1x/mês)", score: 0 }
+    source: "extract-profile-data.js"
+
+  audience_demographics:
+    weight: 0.10
+    description: "Público da creator match com target da marca"
+    scoring_rules:
+      - { criteria: "BR 80%+, faixa etária exata do ICP", score: 10 }
+      - { criteria: "BR 60%+, faixa etária próxima", score: 7 }
+      - { criteria: "BR 40%+, público misto", score: 4 }
+      - { criteria: "Público majoritariamente internacional", score: 2 }
+      - { criteria: "Sem dados disponíveis", score: 3 }
+    source: "tiktok-creator-search.js (quando API disponível)"
+    note: "Na v1 (scraping), usar estimativa baseada em idioma dos comments"
+
+  growth_trend:
+    weight: 0.05
+    description: "Tendência de crescimento — creators em ascensão valem mais"
+    scoring_rules:
+      - { criteria: "Crescimento acelerado (>10%/mês)", score: 10 }
+      - { criteria: "Crescimento saudável (3-10%/mês)", score: 8 }
+      - { criteria: "Estável", score: 5 }
+      - { criteria: "Decrescendo", score: 2 }
+      - { criteria: "Sem dados", score: 5 }
+    source: "extract-profile-data.js (histórico)"
+
+# Fórmula final
+formula: >
+  Creator Score = Σ(dimension_score × dimension_weight)
+  Exemplo: (8×0.25) + (7×0.20) + (10×0.15) + (8×0.15) + (6×0.10) + (7×0.10) + (5×0.05)
+         = 2.0 + 1.4 + 1.5 + 1.2 + 0.6 + 0.7 + 0.25 = 7.65 → QUALIFICADA
+
+# Tiers de qualificação
+tiers:
+  gold:
+    range: "9-10"
+    label: "Creator Premium"
+    action: "Abordagem prioritária — indicar para Growth"
+  silver:
+    range: "7-8.9"
+    label: "Creator Qualificada"
+    action: "Abordagem padrão — Viral Starter"
+  bronze:
+    range: "5-6.9"
+    label: "Creator Potencial"
+    action: "Monitorar — reavaliar em 30 dias"
+  rejected:
+    range: "< 5"
+    label: "Não Qualificada"
+    action: "Descarte — não abordar"

@@ -1,0 +1,531 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T17:55:36'
+archetype: listicle
+carousel_brief:
+  slug: v5-precision-33-aitrendz-xyz-4bdeb4
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\33-aitrendz-xyz-4bdeb4
+  source_url: https://www.instagram.com/aitrendz.xyz/p/Db3sUd9DJaV/
+  tema: 'Modelagem de precisão: 33-aitrendz-xyz-4bdeb4'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#A855F7'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 10
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.4/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a estética puramente aspiracional/lifestyle do slide 01 por evidências
+    visuais de software/automação ativa para atrair profissionais focados em eficiência.
+    - Trocar a curadoria de ''vídeos de entretenimento/motivação'' por uma curadoria
+    de ''w'
+  audits_present: true
+benchmark_caption: "Comment “Watch” and I’ll send you the whole list\U0001F447 \n\n\
+  Watch these YouTube videos during your lunch break or instead of Netflix tonight.\n\
+  \nFrom building a $1B company to fixing your storytelling in 9 minutes, this list\
+  \ has something for creators, entrepreneurs, designers, and writers.\n\nSave this\
+  \ for later and follow me for more tips like this.\n\n#youtube #contentcreator #ai\
+  \ #entrepreneur #productivity"
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Level up with these 8 youtube videos
+  reference_body: Watch them during your lunch break
+  headline: TROQUE O NETFLIX POR ESSES 5 VÍDEOS
+  sub_headline: UPGRADE DE NÍVEL
+  body_text: Aprenda habilidades reais no seu intervalo de almoço. Conteúdos curtos
+    que valem mais que qualquer curso.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 105
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person eating lunch laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Headline focada no benefício de ganhar repertório de alto nível em
+      pouco tempo. '5 vídeos para acelerar sua evolução profissional (assista no intervalo
+      do almoço)'.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Rene Remsik @aitrendz.xyz
+  reference_body: 25 mins Nothing like an Alex Hormozi video to make you think bigger
+    making money is a game. 25:13 If You Want To Create Wealth In 2026, Watch This
+    (4 Paths) Alex Hormozi · 580k views · 1 month ago Swipe for more
+  headline: 'MENTALIDADE: A LÓGICA POR TRÁS DA CONSTRUÇÃO DE PATRIMÔNIO'
+  sub_headline: MENTALIDADE
+  body_text: Entenda a escala e a criação de riqueza através de 4 caminhos práticos.
+    Vídeo de Alex Hormozi (25 min).
+  design_triggers: []
+  text_metrics:
+    headline_chars: 58
+    body_chars: 103
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man thinking office
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Focar na escala e criação de riqueza. ''Entenda a lógica por trás
+      da construção de patrimônio''. Citar: Alex Hormozi, 25 min. Título: ''If You
+      Want To Create Wealth In 2026, Watch This''.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Rene Remsik
+  reference_body: 9 mins Learn how to make engaging YouTube thumbnails and reel covers
+    without design experience Canva RIP THUMBNAIL DESIGN 9:31 AITRENDZ.XYZ RIP Canva
+    & Photoshop! THIS AI Thumbnail Generator Does Everything! 5.4k views • 4 months
+    ago Swipe for more
+  headline: 'DESIGN E IA: CAPAS DE ALTO IMPACTO SEM EXPERIÊNCIA TÉCNICA'
+  sub_headline: DESIGN E IA
+  body_text: 'Substitua workflows manuais e crie thumbnails e capas de reels eficientes
+    com IA Thumbnail Generator. Duração: 9 min.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 58
+    body_chars: 117
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: designer using tablet
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Focar em eficiência e substituição de workflows manuais. ''Crie capas
+      e thumbnails de alto impacto sem experiência em design''. Citar: IA Thumbnail
+      Generator, 9 min.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Rene Remsik
+  reference_body: 16 mins my favourite part is about time & energy management to protect
+    your attention + nervous system life cheat codes 16:36 the hidden rules of life
+    | cheat codes, main character energy, glow up 129k views • 1 month ago Swipe for
+    more
+  headline: 'GESTÃO DE FOCO: PROTEJA SEU SISTEMA NERVOSO E SUA ATENÇÃO'
+  sub_headline: GESTÃO DE FOCO
+  body_text: 'Regras práticas de gestão de tempo e energia para manter a produtividade
+    no trabalho. Vídeo: The hidden rules of life (16 min).'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 57
+    body_chars: 127
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person meditating desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: 'Focar em produtividade e proteção da atenção. ''Regras para gerir
+      energia e proteger seu sistema nervoso no trabalho''. Citar: The hidden rules
+      of life, 16 min.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_08.jpg
+  reference_headline: Rene Remsik
+  reference_body: 10 mins Yet to use Claude Skills? This is a must watch video, especially
+    for Designers Skills For Designers 9:31 How to Use Claude Skills as a Designer
+    249k views • 4 months ago Swipe for more
+  headline: DESIGN MAIS RÁPIDO COM IA
+  sub_headline: SKILLS TÉCNICAS
+  body_text: Use o Claude para acelerar suas entregas. Um guia prático de 10 minutos
+    para mudar seu workflow.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 25
+    body_chars: 96
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: laptop screen coding
+  accent_color: '#A855F7'
+  source_slides:
+  - 8
+  personalization:
+    status: DONE
+    directive: 'Focar em aplicação prática de IA para designers. ''Como usar o Claude
+      Skills para otimizar seu workflow de design''. Citar: Claude Skills for Designers,
+      10 min.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_09.jpg
+  reference_headline: Rene Remsik
+  reference_body: 9 mins If you write posts/scripts/content - this will change your
+    skill level STORYTELLING 8:59 Give me 9min, and I'll improve your storytelling
+    skills by 176% 3.1m views • 1 year ago Swipe for more
+  headline: 'STORYTELLING: ROTEIROS E ESTRUTURA DE COMUNICAÇÃO'
+  sub_headline: STORYTELLING
+  body_text: Técnicas de escrita para aumentar a retenção e o impacto de posts e vídeos
+    em 9 min.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 49
+    body_chars: 84
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person writing notebook
+  accent_color: '#A855F7'
+  source_slides:
+  - 9
+  personalization:
+    status: DONE
+    directive: 'Focar em impacto de comunicação. ''Aprimore sua habilidade de contar
+      histórias para roteiros e posts''. Citar: Improve your storytelling skills,
+      9 min.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+- slide_n: 7
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Level up with these 8 youtube videos / Rene Remsik @aitrendz.xyz
+    / Rene Remsik / Rene Remsik / Rene Remsik / Rene Remsik
+  reference_body: Watch them during your lunch break 25 mins Nothing like an Alex
+    Hormozi video to make you think bigger making money is a game. 25:13 If You Want
+    To Create Wealth In 2026, Watch This (4 Paths) Alex Hormozi · 580k views · 1 month
+    ago Swipe for more 9 mins Learn how to make engaging YouTube thumbnails and reel
+    covers without design experience Canva RIP THUMBNAIL DESIGN 9:31 AITRENDZ.XYZ
+    RIP Canva & Photoshop! THIS AI Thumbnail Generator Does Everything! 5.4k views
+    • 4 months ago Swipe for more 16 mins my favourite part is about time & energy
+    management to protect your attention + nervous system life cheat codes 16:36 the
+    hidden rules of life | cheat codes, main character energy, glow up 129k views
+    • 1 month ago Swipe for more 10 mins Yet to use Claude Skills? This is a must
+    watch video, especially for Designers Skills For Designers 9:31 How to Use Claude
+    Skills as a Designer 249k views • 4 months ago Swipe for more 9 mins If you write
+    posts/scripts/content - this will change your skill level STORYTELLING 8:59 Give
+    me 9min, and I'll improve your storytelling skills by 176% 3.1m views • 1 year
+    ago Swipe for more
+  headline: 'O TAKEAWAY: CURADORIA ESTRATÉGICA É GESTÃO DE TEMPO'
+  sub_headline: O TAKEAWAY
+  body_text: 'A evolução não vem de assistir a tudo, mas de escolher o consumo certo
+    para não perder tempo. Qual dessas áreas é seu foco atual: Mentalidade, Design
+    ou Storytelling?'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 51
+    body_chars: 166
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person choosing book
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  - 2
+  - 6
+  - 7
+  - 8
+  - 9
+  personalization:
+    status: DONE
+    directive: 'Fechar o loop da curiosidade: a curadoria não é sobre assistir vídeos,
+      é sobre escolher o que consumir para não perder tempo. ''Qual dessas áreas é
+      seu foco atual: Mentalidade, Design ou Storytelling?'''
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T17:56:39'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: nenhum texto de headline encontrado'
+  - 'slide 4: nenhum texto de headline encontrado'
+  - 'slide 5: nenhum texto de headline encontrado'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 9: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 10: nenhum texto de headline encontrado'
+  headlines_extracted: 0/10
+  bodies_extracted: 6/10
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Curadoria estratégica de vídeos do YouTube para aceleração de habilidades
+    profissionais (wealth, design, produtividade e storytelling).
+  formato: Curadoria de lista (Listicle Carousel)
+  arco_narrativo: O post começa com uma promessa de ganho de tempo e upgrade de nível,
+    apresenta uma sequência de recomendações densas baseadas em tempo de consumo e
+    finaliza com uma chamada para ação focada em engajamento via comentário.
+  estrutura:
+  - slide_n: 1
+    papel: 'Hook/Gancho: Promessa de valor rápida e contextualização de tempo (lunch
+      break).'
+    essencial: true
+  - slide_n: 2
+    papel: 'Item 1: Wealth/Mentalidade (Alex Hormozi) para estabelecer autoridade
+      e escala.'
+    essencial: true
+  - slide_n: 3
+    papel: Transição/Placeholder (Vazio no benchmark).
+    essencial: false
+  - slide_n: 4
+    papel: Transição/Placeholder (Vazio no benchmark).
+    essencial: false
+  - slide_n: 5
+    papel: Transição/Placeholder (Vazio no benchmark).
+    essencial: false
+  - slide_n: 6
+    papel: 'Item 2: Ferramenta Prática/IA para design (Thumbnail/Canva replacement).'
+    essencial: true
+  - slide_n: 7
+    papel: 'Item 3: Soft Skill/Gestão de energia e foco.'
+    essencial: true
+  - slide_n: 8
+    papel: 'Item 4: Ferramenta Técnica/IA para designers (Claude Skills).'
+    essencial: true
+  - slide_n: 9
+    papel: 'Item 5: Skill Fundamental/Storytelling (Alto impacto social).'
+    essencial: true
+  - slide_n: 10
+    papel: Fechamento/Placeholder (Vazio no benchmark).
+    essencial: false
+  redundancias:
+  - Slides 3, 4, 5 e 10 estão vazios ou não agregam conteúdo, funcionando apenas como
+    espaçadores desnecessários que matam a retenção.
+  - Repetição excessiva do nome do autor (Rene Remsik) em todos os slides, o que consome
+    espaço visual precioso.
+  fatores_de_performance:
+  - 'Micro-learning: A menção ao tempo de duração de cada vídeo reduz a barreira de
+    entrada para o consumo.'
+  - 'High Perceived Value: Entrega uma curadoria ''pronta para uso'', poupando o esforço
+    de busca do usuário.'
+  - 'Contextualização de uso: Sugerir assistir no ''lunch break'' cria um gatilho
+    de conveniência.'
+  - 'Engajamento de Comentário: A legenda usa o gatilho de automação (Comment ''Watch'')
+    para aumentar o alcance orgânico via DM.'
+  recomendacao:
+    slides_ideais: 6
+    justificativa: 'Para a metodologia Virals, devemos eliminar os slides vazios e
+      reduzir a fricção. A estrutura ideal seria: 1 (Hook) + 4 (Recomendações de alto
+      valor com prova visual) + 1 (CTA final). Menos slides com maior densidade de
+      informação e sem repetições de branding desnecessárias aumentam a taxa de conclusão
+      do carrossel.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T17:55:56'
+content_plan:
+  archetype: listicle
+  slide_count: 6
+  tema: Curadoria de vídeos estratégicos no YouTube para upgrade de habilidades e
+    produtividade.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: UPGRADE DE NÍVEL
+    copy_direction: Headline focada no benefício de ganhar repertório de alto nível
+      em pouco tempo. '5 vídeos para acelerar sua evolução profissional (assista no
+      intervalo do almoço)'.
+    image_direction: Interface limpa do YouTube com thumbnails de alta qualidade ou
+      um elemento visual que remeta a crescimento/progresso tecnológico.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: MENTALIDADE
+    copy_direction: 'Focar na escala e criação de riqueza. ''Entenda a lógica por
+      trás da construção de patrimônio''. Citar: Alex Hormozi, 25 min. Título: ''If
+      You Want To Create Wealth In 2026, Watch This''.'
+    image_direction: Screenshot ou frame do vídeo do Alex Hormozi destacando o título
+      e o tempo de duração.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: DESIGN E IA
+    copy_direction: 'Focar em eficiência e substituição de workflows manuais. ''Crie
+      capas e thumbnails de alto impacto sem experiência em design''. Citar: IA Thumbnail
+      Generator, 9 min.'
+    image_direction: Comparativo visual ou screenshot da ferramenta de IA gerando
+      uma thumbnail, enfatizando a velocidade.
+    source_slides:
+    - 6
+  - slide_n: 4
+    role: INSIGHT
+    kicker: GESTÃO DE FOCO
+    copy_direction: 'Focar em produtividade e proteção da atenção. ''Regras para gerir
+      energia e proteger seu sistema nervoso no trabalho''. Citar: The hidden rules
+      of life, 16 min.'
+    image_direction: Elemento visual minimalista que remeta a foco, clareza ou gestão
+      de tempo/energia.
+    source_slides:
+    - 7
+  - slide_n: 5
+    role: INSIGHT
+    kicker: SKILLS TÉCNICAS
+    copy_direction: 'Focar em aplicação prática de IA para designers. ''Como usar
+      o Claude Skills para otimizar seu workflow de design''. Citar: Claude Skills
+      for Designers, 10 min.'
+    image_direction: Interface do Claude ou do software de design mostrando a integração
+      da IA.
+    source_slides:
+    - 8
+  - slide_n: 6
+    role: INSIGHT
+    kicker: STORYTELLING
+    copy_direction: 'Focar em impacto de comunicação. ''Aprimore sua habilidade de
+      contar histórias para roteiros e posts''. Citar: Improve your storytelling skills,
+      9 min.'
+    image_direction: Screenshot do vídeo de storytelling com foco no título e número
+      de visualizações para gerar autoridade.
+    source_slides:
+    - 9
+  - slide_n: 7
+    role: PAYOFF
+    kicker: O TAKEAWAY
+    copy_direction: 'Fechar o loop da curiosidade: a curadoria não é sobre assistir
+      vídeos, é sobre escolher o que consumir para não perder tempo. ''Qual dessas
+      áreas é seu foco atual: Mentalidade, Design ou Storytelling?'''
+    image_direction: Fundo sólido com tipografia forte e limpa, sem distrações.
+    source_slides:
+    - 1
+    - 2
+    - 6
+    - 7
+    - 8
+    - 9
+  rationale: Reduzi o número de slides de 10 para 7 (eliminando os placeholders do
+    benchmark) para aumentar a retenção e densidade. Apliquei o arco de Sugarman,
+    onde cada recomendação serve de degrau para a próxima. O hook foca no benefício
+    de 'upgrade' durante o almoço (conveniência), e o CTA é um 'call-to-think' baseado
+    na categorização das habilidades apresentadas, evitando o genérico 'comente aqui'.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T17:56:20'
+central_theme: Curadoria de vídeos estratégicos no YouTube para upgrade de habilidades
+  e produtividade.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T17:56:39'
+  slides: 7
+  central_theme: Curadoria de vídeos estratégicos no YouTube para upgrade de habilidades
+    e produtividade.
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T17:57:28'

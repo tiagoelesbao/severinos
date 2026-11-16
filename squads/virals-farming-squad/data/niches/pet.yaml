@@ -1,0 +1,69 @@
+niche:
+  id: pet
+  label: Pet / Animais
+  icon: '🐾'
+  language: pt-BR
+  description: >
+    Conteúdo de animais domésticos: fofura, comportamento engraçado, resgate,
+    dicas rápidas de cuidado, "meu cachorro fez isso". Formato dominante:
+    clipe curto com movimento real do animal + áudio de trend ou narração.
+  why_farming: >
+    Nicho universalmente engajável, sem barreira cultural, com altíssimo
+    compartilhamento. Custo de modelagem baixo, mas exige movimento real —
+    é o nicho que mais justifica gastar cota de vídeo tier A.
+
+discovery:
+  platform: tiktok
+  hashtags:
+    - pet
+    - cachorro
+    - gato
+    - petlovers
+    - dog
+    - filhote
+    - resgateanimal
+    - caopanheiro
+    - gatinho
+    - animaisfofos
+    - vidadepet
+    - adotenaocompre
+  anchor_profiles: []
+  lookback_hours: 36
+  items_per_hashtag: 20
+
+cutoff:
+  min_viral_score: 12000
+  min_views: 120000
+  min_engagement_rate: 0.05
+  max_age_hours: 48
+
+modeling:
+  visual_style: >
+    Luz natural suave, ambiente doméstico reconhecível (sofá, cozinha, quintal),
+    animal em primeiro plano com profundidade de campo rasa, cores saturadas
+    e quentes. Estética de câmera de celular, não de estúdio.
+  avoid_in_prompt:
+    - animal em sofrimento, ferido ou em situação de risco
+    - anatomia distorcida (falha comum de IA em patas e focinho)
+    - texto renderizado dentro da imagem
+  audio_treatment: >
+    Preserva o áudio original (som do trend costuma ser o motor da viralização).
+    Se for áudio original com fala, transcreve e mantém a estrutura de fala.
+  caption_style: clean-white-shadow
+  typical_takes: 4
+  # Movimento é o conteúdo neste nicho — parallax não substitui.
+  prefer_generated_motion: true
+
+guardrails:
+  policy_risk: low
+  rules:
+    - 'NUNCA retratar maus-tratos, abandono explícito ou animal em perigo.'
+    - 'NÃO dar recomendação veterinária, diagnóstico ou dosagem de medicamento.'
+    - 'NÃO usar imagem de animal de pessoa real identificável sem contexto genérico.'
+    - 'Conteúdo de resgate deve ser genérico, sem alegar caso real específico.'
+  blocked_terms:
+    - remédio para
+    - dose de
+    - trate em casa
+    - não precisa de veterinário
+  gate: 'Violação de qualquer regra reprova o criativo em creative-export-checklist.md.'

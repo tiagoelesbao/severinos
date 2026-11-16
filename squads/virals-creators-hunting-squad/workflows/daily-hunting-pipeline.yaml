@@ -1,0 +1,24 @@
+workflow:
+  name: daily-hunting-pipeline
+  version: 1.1.0
+  description: "Pipeline diário de hunting unificado (Fase 1)"
+  squad: virals-creators-hunting-squad
+  trigger: "Diário — executar de segunda a sexta"
+  frequency: daily
+
+steps:
+  - id: step-1-mine
+    name: "Mineração Avançada (Hashtags + Sniper)"
+    script: scripts/pipeline-miner.js
+    args: "{cliente}"
+    output: "data/miners/dossier-{cliente}-{date}.md"
+
+  - id: step-2-validate
+    name: "Validação do Dossier"
+    type: human
+    executor: "@hunter-scout (Mae)"
+    description: "Revisar manual do dossier gerado antes de mover para Scoring."
+    depends_on: [step-1-mine]
+
+checkpoint:
+  criteria: "Mínimo 15 novos prospects qualificados no Dossier por rodada"

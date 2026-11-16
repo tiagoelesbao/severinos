@@ -1,0 +1,35 @@
+storyId: MVC-02
+epic: EPIC-MKT-Video-Creative
+title: "analyze_video_benchmark (análise holística de retenção)"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-20"
+
+acceptance_criteria:
+  AC1: { status: met, note: "Grava benchmark_analysis no brief (validado no real do Hormozi)" }
+  AC2: { status: met, note: "hook_type classificado entre as âncoras (real: curiosity gap)" }
+  AC3: { status: met, note: "cut_cadence/pacing_curve quantificam ritmo (real: 2,48s/segmento)" }
+  AC4: { status: met, note: "Não-fatal: RuntimeError/JSON inválido → heurística (testado via monkeypatch)" }
+  AC5: { status: met, note: "ValueError claro sem transcript (testado)" }
+
+tests:
+  unit: { total: 9, passed: 9, file: "squads/virals-marketing-squad/scripts/test_analyze_video_benchmark.py" }
+  real_data: { benchmark: "30-hormozi-fc605e", llm: "openrouter:gpt-oss-120b", result: "analysis written" }
+  regression: { status: clean, note: "MVC-01 11/11 intacta; todos os módulos importam" }
+
+issues:
+  - severity: low
+    category: code
+    description: "Se o LLM devolver cut_cadence como não-dict, as métricas determinísticas medidas não são injetadas (perde-se a fonte da verdade)."
+    recommendation: "Garantir cut_cadence sempre como dict com métricas medidas antes de mesclar a avaliação textual do LLM."
+  - severity: low
+    category: schema
+    description: "pacing_curve tem shapes divergentes entre heurística ({window,segments:int}) e LLM ({window,densidade:str}); setdefault deixa o do LLM prevalecer."
+    recommendation: "Tratar pacing_curve como determinístico (igual cut_cadence) OU fazer MVC-03 tolerar ambos. Endereçar ao construir MVC-03."
+    status: tracked_followup
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "MVC-03 (plan_video_creative). Push pendente → @devops."

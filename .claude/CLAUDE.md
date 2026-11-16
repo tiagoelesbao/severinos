@@ -1,3 +1,6 @@
+<!-- VIRALS-PROJECT-START -->
+
+
 # Synkra AIOX Development Rules for Claude Code
 
 You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
@@ -70,6 +73,62 @@ When an agent is active:
 - Use the agent's designated workflow patterns
 - Maintain the agent's perspective throughout the interaction
 <!-- AIOX-MANAGED-END: agent-system -->
+
+## Projeto Virals — Squads de Negócio
+
+Este repositório (`severinos`) é o projeto **Virals**: uma operação de negócio construída **sobre** o framework AIOX. O AIOX é a camada de infraestrutura (CLI, agentes de engenharia, Constitution); a **Virals** é a camada de negócio, composta por 5 squads especializados que orquestram marketing, vendas, produto, operações e projetos.
+
+### Squads de Negócio Virals
+
+| Squad | Prefixo de Agente | Orquestrador (Chief) | Domínio |
+|-------|-------------------|----------------------|---------|
+| Virals Marketing | `@marketing-*` | `@marketing-chief` 👑 | Conteúdo viral, tráfego, copy, SEO, funis |
+| Virals Vendas | `@virals-vendas-*` | `@sales-chief` 💰 | Ofertas, fechamento, prospecção, pipeline |
+| Virals Produto | `@virals-produto-*` | `@product-chief` 📦 | Discovery, onboarding, retenção, CS |
+| Virals Operações | `@virals-ops-*` | `@ops-chief` ⚙️ | Processos, OKRs, lançamentos, BI |
+| Virals Projetos | `@virals-projetos-*` | *(sem chief — 5 especialistas)* | Shaping, sprints, briefings, stakeholders |
+
+Cada squad tem agentes-especialistas modelados em autoridades reais (MrBeast, Hormozi, Cagan, Dalio, Singer, etc.). Os **Chiefs** orquestram e roteiam pedidos aos especialistas via `routing_rules`.
+
+### Ativação de Agentes Virals
+
+- Via menção: `@marketing-chief`, `@mrbeast-mk`, `@dalio`, etc.
+- Via slash command: `/VIRALS:agents:marketing-chief`, `/VIRALS:agents:virals-ops-dalio`, etc.
+- Comandos do agente usam prefixo `*` (ex.: `*help`, `*route`, `*guide`, `*exit`).
+- Todo agente Virals tem `*help` (lista comandos) e `*guide` (guia de uso completo).
+
+### Fontes de Definição (Sincronização)
+
+**`.claude/commands/VIRALS/agents/*.md` é a fonte canônica** dos agentes Virals — editar SEMPRE aqui. Os arquivos em `squads/*/agents/`, `.antigravity/agents/` e `.aiox-core/development/agents/` são cópias secundárias e podem divergir; não são autoridade.
+
+### Formato dos Agentes (Híbrido AIOX + VIRALS)
+
+Todo agente Virals segue o formato híbrido profissional, equivalente aos agentes AIOX nativos:
+- `ACTIVATION-NOTICE` + `CRITICAL` + bloco YAML completo
+- `IDE-FILE-RESOLUTION` + `REQUEST-RESOLUTION`
+- `activation-instructions` com greeting nativo (badge de permissão, papel, comandos `key`, dica de `*guide`, signature)
+- `persona_profile` (archetype, communication, greeting_levels, signature_closing)
+- `persona` (role, style, identity, focus, core_principles)
+- Blocos VIRALS preservados: `voice_dna`, `objection_algorithms`, `output_examples`, `framework_*`, e nos Chiefs `agent_registry`, `routing_rules`, `handoff_protocol`, `veto_conditions`
+- `commands` com `visibility: [full, quick, key]`
+- Seções markdown pós-YAML: Comandos Rápidos, Colaboração de Agentes, Guia do Agente
+
+### Pipelines de Inteligência (Marketing Chief)
+
+O `@marketing-chief` executa dois pipelines de ETL:
+
+| Comando | Descrição | Saída |
+|---------|-----------|-------|
+| `*daily-monitor` | Monitoramento diário multi-rede (Instagram/TikTok/YouTube/LinkedIn) | `workspaces/businesses/virals/marketing/daily-monitoring/{DATE}/*-ranking-*.md` |
+| `*creative-benchmark` | ETL profundo dos top criativos (transcrição + frames + análise) | `daily-monitoring/{DATE}/benchmark/{plataforma}/{rank}-{handle}/` |
+
+`*creative-benchmark` exige `*daily-monitor` previamente executado para a data-alvo.
+
+### Workspace de Negócio
+
+Artefatos operacionais da Virals (monitoramento, criativos, relatórios) vivem em `workspaces/businesses/virals/`. Scripts de squad vivem em `squads/{squad}/scripts/` e `services/ETL/`.
+
+<!-- VIRALS-PROJECT-END -->
 
 ## Development Methodology
 
@@ -351,6 +410,44 @@ npm run trace -- workflow-name
 - Include code examples in documentation
 - Keep README synchronized with actual behavior
 - Document breaking changes prominently
+
+## Mapa de Capacidades — a Bíblia do Severinos
+
+**`docs/guides/BIBLIA-SEVERINOS.md` é o índice canônico de tudo que este sistema sabe fazer.**
+Comece por lá quando não souber qual ativo usar. Atalho de decisão rápido: `/skill-router`.
+
+### Ativos importados em 2026-11-08
+
+| Frente | Onde | O que é |
+|---|---|---|
+| 18 skills de engenharia (Matt Pocock, MIT) | `.claude/skills/` | `grilling`, `grill-me`, `grill-with-docs`, `domain-modeling`, `codebase-design`, `tdd`, `diagnosing-bugs`, `code-review-2axis`, `pr`, `prototype`, `retro`, `improve-codebase-architecture`, `wizard`, `wayfinder`, `teach`, `to-questionnaire`, `wait-what`, `writing-for-agents` |
+| 3 skills comerciais/operacionais | `.claude/skills/` | `oferta-5p`, `proposta-comercial`, `manual-de-processo` |
+| 2 skills de apoio | `.claude/skills/` | `powershell-windows`, `skill-router` |
+| Editor de vídeo com fala real gravada | instalado em `~/.local/share/editonny` | skill `/editonny`. Ponte: `docs/guides/editonny-ponte.md` |
+| Playbook de 16 prompts + 23 fichas de ferramenta | `docs/guides/vibe-coding-toolkit/` | receitas apontáveis, não skills |
+| Regras ESLint com teto de linhas | `tools/eslint-rules/` | vendorizado, **não ligado** em nenhum app |
+| 6 hooks de guarda | `.claude/hooks/vendor/agentville/` | só `secret-scan` está ligado. Ver `CHANGES.md` de lá |
+| Blueprint de outbound autônomo | `docs/architecture/outbound-autonomo-blueprint.md` | blueprint; nada construído |
+
+### Duas regras novas em `.claude/rules/`
+
+| Rule File | Description |
+|---|---|
+| `claims-ledger.md` | O que pode ser afirmado em material público. Obrigatória para anúncio, DM, proposta, legenda e página |
+| `parallel-waves.md` | Propriedade de arquivo e de recurso no despacho de ondas paralelas de subagentes |
+
+### Config que as skills importadas leem
+
+| Arquivo | Para quê |
+|---|---|
+| `docs/agents/issue-tracker.md` | Onde o trabalho é rastreado (stories AIOX, epics, ClickUp) |
+| `docs/agents/domain.md` | `GLOSSARY.md` na raiz + ADRs em `docs/architecture/adr/` |
+
+### Procedência e licenças
+
+`docs/reference/PROCEDENCIA.md` (índice geral) e `.claude/skills/ATTRIBUTION.md` (por skill).
+Três assets vieram **sem licença declarada** — uso interno é o uso pretendido, mas não
+redistribua sem autorização do autor.
 
 ---
 *Synkra AIOX Claude Code Configuration v2.0*

@@ -1,0 +1,37 @@
+storyId: VEX-06
+epic: EPIC-MKT-Video-Excellence
+title: "Plano consumido de ponta a ponta — edit_spec pré-plotado + papéis dirigidos pelo plano"
+gate: PASS
+reviewer: "Claude no papel @qa"
+date: "2026-07-04"
+
+acceptance_criteria:
+  AC1: { status: met, note: "assembly.clips dirige papel/ordem; ClipRole aberto + roleColor por hash; filename vira fallback com aviso E1 quando 'unknown'" }
+  AC2: { status: met, note: "E2E real: kenBurns no hook (0–3s) e no reference (20–28s); manual preservado (teste)" }
+  AC3: { status: met, note: "4 placeholders na camada 'Inserts (plano)' nas janelas exatas; composição não renderiza placeholder sem src" }
+  AC4: { status: met, note: "warnings → avisos E1 'congruencia' com sugestão; load nunca quebra (teste)" }
+  AC5: { status: met, note: "applyEditSpec só com !persisted — reload de save não re-injeta (mesmo guard do sound design)" }
+
+tests:
+  unit: { total: 7, passed: 7, file: "apps/video-studio/src/lib/editSpec.test.ts" }
+  suite: { total: 102, passed: 102, note: "tsc + next build limpos" }
+  e2e_real: "edit_spec real (Chase Chappell): 5/5 itens aplicados, 0 avisos — incl. whip transition localizada PELA FALA ('aplica o playbook' → entrada do clipe generation)"
+
+seven_checks:
+  code_review: "OK — motor puro com resolver injetável; parser normaliza traços unicode; cadência global corretamente não-posicional"
+  unit_tests: "OK — momentos reais, finder, aplicação, warnings, imutabilidade, não-sobrescrita"
+  acceptance: "OK — AC1–AC5 com evidência real"
+  regression: "OK — 102/102; criativo real continua montando idêntico (assembly antigo sem clips → fallback intacto)"
+  performance: "OK — varredura O(palavras×keywords) na carga fresca apenas"
+  security: "OK — sem superfícies novas"
+  documentation: "OK — calibração do finder (filtro de termos de edição) documentada como achado de E2E"
+
+issues:
+  - severity: low
+    category: requirements
+    description: "Threshold do finder (maioria das keywords de conteúdo) pode gerar falso-positivo em planos com descrições muito genéricas."
+    recommendation: "Observar nos próximos criativos; o aviso E1 + posicionamento manual cobrem o erro."
+  - severity: low
+    category: tests
+    description: "Assembly.clips com papéis novos validado por unit/fixture; criativo REAL novo com scaffold VEX-02 (insert-01-*.mp4) ainda não exercitado fim-a-fim."
+    recommendation: "Confirmar no primeiro criativo de produção pós-VEX-02."

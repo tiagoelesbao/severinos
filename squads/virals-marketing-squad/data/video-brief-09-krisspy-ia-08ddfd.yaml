@@ -1,0 +1,365 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T12:16:10'
+media_kind: video
+video_brief:
+  slug: video-09-krisspy-ia-08ddfd
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\09-krisspy-ia-08ddfd
+source:
+  creator: '@krisspy_ia'
+  platform: instagram
+  url: https://www.instagram.com/krisspy_ia/reel/DcBlQ8oqN0b/
+  type: video-short
+  caption: "Calma, e so um sonho \n\nate o toguro tava no shape kkkkkk"
+metadata:
+  view_count: null
+  like_count: 12031
+  comment_count: null
+  duration_seconds: 37
+  cut_timestamps:
+  - 12.3
+  - 16.13
+  - 18.07
+  - 28.7
+hook_raw: Boa bisteca, agora é só descer para balneário
+transcript:
+- start: 10
+  end: 22
+  text: Boa bisteca, agora é só descer para balneário
+- start: 22
+  end: 23
+  text: Não me manda mensagem
+- start: 23
+  end: 25
+  text: Não me liga
+- start: 25
+  end: 33
+  text: Não me liga! Não me manda mensagem! Não me liga!
+- start: 33
+  end: 37
+  text: Posso dormir com você, Gabriel?
+frames:
+- file: Screenshots/frame_01_at_00-10_Boa_bisteca__agora___s__descer.jpg
+  timestamp: 00:10
+  t_seconds: 10
+- file: Screenshots/frame_02_at_00-22_N_o_me_manda_mensagem_.jpg
+  timestamp: 00:22
+  t_seconds: 22
+- file: Screenshots/frame_03_at_00-23_N_o_me_liga_.jpg
+  timestamp: 00:23
+  t_seconds: 23
+- file: Screenshots/frame_04_at_00-25_N_o_me_liga__N_o_me_manda_mens.jpg
+  timestamp: 00:25
+  t_seconds: 25
+- file: Screenshots/frame_05_at_00-33_Posso_dormir_com_voc___Gabriel.jpg
+  timestamp: 00:33
+  t_seconds: 33
+beats:
+- n: 1
+  start: 10
+  end: 22
+  text: Boa bisteca, agora é só descer para balneário
+  role: hook
+- n: 2
+  start: 22
+  end: 23
+  text: Não me manda mensagem
+  role: build
+- n: 3
+  start: 23
+  end: 25
+  text: Não me liga
+  role: build
+- n: 4
+  start: 25
+  end: 33
+  text: Não me liga! Não me manda mensagem! Não me liga!
+  role: build
+- n: 5
+  start: 33
+  end: 37
+  text: Posso dormir com você, Gabriel?
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 5
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-10_Boa_bisteca__agora___s__descer.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_02_at_00-22_N_o_me_manda_mensagem_.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_03_at_00-23_N_o_me_liga_.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_04_at_00-25_N_o_me_liga__N_o_me_manda_mens.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  - file: frame_05_at_00-33_Posso_dormir_com_voc___Gabriel.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: false
+  frames_sent: 5
+  shot_mix:
+    talking_head: 0.0
+    screen_capture: 0.0
+    broll: 1.0
+    graphic: 0.0
+  caption_style_seen: Nenhuma legenda visível nos frames fornecidos.
+  text_overlay_style: Nenhum texto-na-tela além de legendas (que não foram vistas).
+  visual_hook_device: A cena inicial é inusitada e de alto contraste, com um homem
+    musculoso em um cenário medieval fazendo exercícios, acompanhado por uma figura
+    cômica, criando um impacto visual imediato e gerando curiosidade.
+  broll_density: high
+  edit_style_notes: '1. Cortes Rápidos e Contextuais: Transições ágeis entre cenas
+    de alta produção que contam uma micro-história ou estabelecem um tom humorístico/dramático.
+    2. Enquadramento Cinematográfico: Uso predominante de planos médios e abertos
+    que valorizam o cenário e a ação, com iluminação e composição que remetem a produções
+    de cinema/TV. 3. Narrativa Visual Forte: Cada corte introduz um novo cenário ou
+    situação, mantendo o espectador engajado pela curiosidade sobre a próxima cena
+    e a progressão da história do personagem.'
+  palette:
+  - '#3A2C22'
+  - '#50A0E0'
+  - '#E0C080'
+  - '#202030'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T12:16:24'
+benchmark_analysis:
+  hook_type: pattern interrupt
+  pattern_interrupts:
+  - t: 0
+    device: Visual Contrast & Absurdity
+    text: Homem musculoso em cenário medieval com figura cômica
+  - t: 10
+    device: Auditory Pivot
+    text: 'Transição de beat para o hook verbal: ''Boa bisteca...'''
+  cut_cadence:
+    avaliacao: Ritmo de 7.4s por segmento é moderado para o padrão atual, mas compensado
+      pela alta densidade de B-roll e mudança de intensidade emocional no build-up.
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 5
+    segments: 5
+    duration_s: 37.0
+    avg_segment_s: 7.4
+  broll_strategy: Uso de B-roll cinematográfico de alta fidelidade para criar um 'unreal
+    feeling', onde a estética grandiosa contrasta com o áudio cotidiano/humorístico,
+    forçando o cérebro a tentar decifrar a conexão entre imagem e som.
+  caption_style: 'Dynamic Kinetic Typography: Legendas centralizadas, palavra por
+    palavra, com cores de alto contraste (amarelo/branco) para acompanhar o ritmo
+    frenético do build-up final.'
+  pacing_curve:
+  - window: 00-10s
+    densidade: baixa/estável
+  - window: 10-22s
+    densidade: média/narrativa
+  - window: 22-33s
+    densidade: alta/escalada de frequência
+  - window: 33-37s
+    densidade: pico/payoff
+  retention_devices:
+  - Visual Absurdity (Incongruity)
+  - Auditory Escalation (Build-up)
+  - Micro-storytelling via B-roll
+  - Comedic Payoff (The 'Gabriel' punchline)
+  recommendation: 'Modelar a estrutura de ''Contraste de Contexto'': utilize um visual
+    de altíssima produção/épico (B-roll) para entregar uma fala extremamente mundana
+    ou cômica. Mantenha o arco de aceleração (build-up) de áudio nos últimos 10 segundos
+    para garantir o payoff final.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T12:16:53'
+content_plan:
+  tema: A transição do caos manual para a escala de automação com IA
+  format_concept: skit
+  hook:
+    variants:
+    - pattern_interrupt: 'Visual absurdista: O especialista em IA vestindo uma armadura
+        medieval enquanto opera um MacBook Pro em uma mesa de pedra'
+      text_overlay: IA APLICADA NÃO É MÁGICA
+      spoken_open: Automação pronta, agora é só escalar a aquisição.
+    - pattern_interrupt: 'Cenário épico: Alguém em traje de gala/luxo em um ambiente
+        industrial bruto, segurando um tablet com logs de código'
+      text_overlay: SISTEMA RODANDO, RESULTADO REAL
+      spoken_open: Workflow validado, agora é só ligar a escala.
+    - pattern_interrupt: 'Contraste visual: Close em um rosto sério/estóico com fundo
+        de biblioteca antiga, mas usando um headset gamer neon'
+      text_overlay: PARE DE PERDER LEADS MANUAIS
+      spoken_open: Agente configurado, agora é só converter o lead.
+  storyboard:
+  - beat_n: 1
+    scene: 'O ''payoff'' inicial: Alívio após a construção do sistema'
+    shot_type: amplo
+    duration_s: 10
+    on_screen_text: AUTOMAÇÃO PRONTA
+    broll: Imagens cinematográficas de alta fidelidade contrastando com a fala pragmática
+    motion: none
+  - beat_n: 2
+    scene: 'O início da tensão: A rejeição ao processo manual'
+    shot_type: médio
+    duration_s: 3
+    on_screen_text: SEM PROCESSOS MANUAIS
+    broll: Corte rápido para detalhe de teclado sendo ignorado
+    motion: cut
+  - beat_n: 3
+    scene: 'A escalada: A recusa sistemática do erro humano'
+    shot_type: close
+    duration_s: 2
+    on_screen_text: SEM ERROS HUMANOS
+    broll: Imagens rápidas de logs de API rodando
+    motion: zoom-in
+  - beat_n: 4
+    scene: 'O build-up final: Repetição frenética da eficiência'
+    shot_type: insert
+    duration_s: 10
+    on_screen_text: ESCALA / CONVERSÃO / DADOS
+    broll: Montagem acelerada de workflows de CRM e agentes de IA
+    motion: whip
+  - beat_n: 5
+    scene: 'O fechamento: A pergunta reflexiva sobre a estrutura'
+    shot_type: médio
+    duration_s: 4
+    on_screen_text: VOCÊ TEM UM SISTEMA?
+    broll: Plano aberto do personagem em cenário inusitado olhando para a câmera
+    motion: none
+  script: Automação pronta, agora é só escalar a aquisição. Não me pede planilha.
+    Não me pede relatório manual. Não me pede planilha! Não me pede relatório! Não
+    me pede planilha! Posso integrar seu CRM agora, Gabriel?
+  edit_spec:
+    zooms:
+    - Não me pede relatório manual
+    - Não me pede planilha! (repetições)
+    transitions:
+    - Whip pan @ 22s
+    - Cut rápido @ 25s
+    inserts:
+    - Logs de código @ 23s
+    - Fluxo de automação @ 25s
+    - Dashboard de leads @ 30s
+    captions: 'Dynamic Kinetic Typography: Centralizadas, palavra por palavra, amarelo
+      e branco, acompanhando a aceleração do build-up'
+    motion_graphics:
+    - Ícones de API flutuando @ 28s
+    - Checkmark de 'Sucesso' @ 33s
+    template_refs:
+      hook: hook-interface-reveal
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: 'Personagem em cenário inusitado (Ex: Medieval/Industrial) com Laptop'
+    framing: amplo
+    audio: fala
+    props: Laptop, Armadura/Traje Luxo
+    locacao: Ambiente com textura forte
+    falas_chave: Automação pronta, agora é só escalar a aquisição.
+  - plano: Close no rosto expressando 'chega de amadorismo'
+    framing: close
+    audio: fala
+    props: Headset
+    locacao: Mesma do anterior
+    falas_chave: Não me pede planilha.
+  - plano: Insert de tela de código/workflow Oraclum
+    framing: insert
+    audio: trilha
+    props: Tela de software
+    locacao: Digital
+    falas_chave: Não me pede relatório!
+  sound_design:
+    sfx:
+    - moment: hook
+      category: impact
+      intent: Marcar a entrada do contraste visual
+      intensity: strong
+    - moment: beat_n:2
+      category: swoosh
+      intent: Transição para o build-up
+      intensity: medium
+    - moment: 25s-33s
+      category: click
+      intent: Sincronizar cada 'não me pede' com um clique de teclado mecânico
+      intensity: medium
+    - moment: reveal @ 33s
+      category: boom
+      intent: Interromper o build-up para o payoff final
+      intensity: strong
+    music:
+      recommended: true
+      mood: epic
+      energy: high
+      genre: Cinematic hybrid com elementos eletrônicos
+      ducking: true
+      rationale: A trilha deve começar minimalista e crescer em tensão (riser) até
+        o segundo 33, criando a mesma curva de retenção do benchmark.
+    rationale: O som ancora a transição do 'estranhamento' inicial para a 'urgência'
+      da eficiência tecnológica.
+  rationale: 'O plano modela a estrutura de ''Contraste de Contexto'' do benchmark:
+    usa B-roll épico/absurdo para entregar falas pragmáticas e diretas da Oraclum.
+    Mantém a curva de aceleração (build-up) sonora e visual nos segundos finais para
+    garantir o payoff, trocando o humor ''estranho'' do original por um humor ''estóico/tecnológico''
+    que condiz com o arquétipo do Sábio/Criador.'
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T12:17:45'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 5.8
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 3
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T12:17:45'

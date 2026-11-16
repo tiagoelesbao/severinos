@@ -1,0 +1,242 @@
+{
+  "date": "2026-06-16",
+  "topN": 50,
+  "platforms": [
+    "instagram",
+    "youtube"
+  ],
+  "started_at": "2026-06-16T21:45:56.269Z",
+  "finished_at": "2026-06-16T22:42:13.440Z",
+  "duration_ms": 3377171,
+  "total": 16,
+  "ok": 16,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "rank": 1,
+      "creator": "@falajoaobranco",
+      "url": "https://www.instagram.com/falajoaobranco/p/DZlP4DAlgua/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\01-falajoaobranco-209716",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 11
+    },
+    {
+      "rank": 2,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/p/DZlborDjMco/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\02-garyvee-b4e392",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 4
+    },
+    {
+      "rank": 5,
+      "creator": "@caiocarneiro",
+      "url": "https://www.instagram.com/caiocarneiro/p/DZmsoI2N0pM/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\05-caiocarneiro-62f1b9",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 8,
+      "creator": "@diegoalmeida.ia",
+      "url": "https://www.instagram.com/diegoalmeida.ia/reel/DZnUYywxX6-/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\08-diegoalmeida-ia-b56aed",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 9,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/DZmtLB3AJGp/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\09-publicitarioscriativos-1be750",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 10,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/p/DZmO9RNlZF2/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\10-hormozi-6221fd",
+      "status": "ok",
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 12,
+      "creator": "@garyvee",
+      "url": "https://www.instagram.com/garyvee/reel/DZkuYHKORc9/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\12-garyvee-14a1c0",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 13,
+      "creator": "@realchasechappell",
+      "url": "https://www.instagram.com/realchasechappell/reel/DZm-QqTR5UE/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\13-realchasechappell-84d69e",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 15,
+      "creator": "@falajoaobranco",
+      "url": "https://www.instagram.com/falajoaobranco/p/DZnail1lhyr/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\15-falajoaobranco-efac2a",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 9
+    },
+    {
+      "rank": 16,
+      "creator": "@pablomarcal1",
+      "url": "https://www.instagram.com/pablomarcal1/reel/DZnKr7mgeis/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\16-pablomarcal1-77f82e",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 22,
+      "creator": "@diegoalmeida.ia",
+      "url": "https://www.instagram.com/diegoalmeida.ia/p/DZnEqebEX6W/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\22-diegoalmeida-ia-6acf42",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 25,
+      "creator": "@chatgptricks",
+      "url": "https://www.instagram.com/chatgptricks/p/DZmve6alTPq/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\25-chatgptricks-62cf13",
+      "status": "ok",
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 30,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/reel/DZlltO4hCXR/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\instagram\\30-hormozi-fc605e",
+      "status": "ok",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 1,
+      "creator": "@ycombinator",
+      "url": "https://www.youtube.com/watch?v=ObBAxL2dFzw",
+      "platform": "youtube",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\youtube\\01-ycombinator-8007bf",
+      "status": "ok",
+      "classification": {
+        "type": "video-long",
+        "engine": "VideoAnalyzer",
+        "subtype": "youtube-long"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 2,
+      "creator": "@thomasgonnet",
+      "url": "https://www.youtube.com/watch?v=wprqboPQ3TU",
+      "platform": "youtube",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\youtube\\02-thomasgonnet-02fe9f",
+      "status": "ok",
+      "classification": {
+        "type": "video-long",
+        "engine": "VideoAnalyzer",
+        "subtype": "youtube-long"
+      },
+      "screenshots": 8
+    },
+    {
+      "rank": 4,
+      "creator": "@mmatheusporto",
+      "url": "https://www.youtube.com/watch?v=fy5rA6k_i7s",
+      "platform": "youtube",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-06-16\\benchmark\\youtube\\04-mmatheusporto-f718dc",
+      "status": "ok",
+      "classification": {
+        "type": "video-long",
+        "engine": "VideoAnalyzer",
+        "subtype": "youtube-long"
+      },
+      "screenshots": 8
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TIAGO ELESBÃO — IDENTIDADE DE MARCA PESSOAL
+# Fonte canônica de Avatar, Tom de Voz, Pilares e Restrições do perfil pessoal
+# @tiagoelesbao. Consumido pelo Recast Engine, Plan Creative, Fit Scorer e
+# análises agênticas para transformar briefs modelados em criativos AUTÊNTICOS
+# de Tiago Elesbão (não cópias de Virals nem genéricos).
+#
+# TESE CENTRAL (v2): "prova em movimento, não promessa no papel".
+# A pessoa (Tiago) documenta a construção do sistema de automação/IA ao vivo —
+# o log de produção é o conteúdo, o sistema rodando é a prova. A marca pessoal é
+# o TOPO DO FUNIL que atrai os 4 nichos-alvo; o benchmark one-shot converte.
+#
+# Diferenciação vs @virals:
+#   @virals       = institucional/produto (oferta, framework, serviço)
+#   @tiagoelesbao = pessoa real construindo à vista (bastidor, prova, jornada)
+#                   Funil cruzado: pessoa gera autoridade/demanda → serviço fecha.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "3.1"
+  extraido_em: "2026-05-22"
+  revisado_em: "2026-08-14"
+  status: "reposicionado_studio_multi_servico_hook_por_beneficio"
+  fontes:
+    - "Entrevista guiada @marketing-chief — sessão 2026-05-22 (rodadas 1-3)"
+    - "assets/estrategia-marca-automacao-ia.md — reposicionamento 'prova em movimento' (2026-07-17)"
+    - "Feedback do dono 2026-07-18 — studio multi-serviço, hook por benefício, menos jargão"
+    - "assets/study.md — sessão de estudo 'Engenharia de Aquisição' (2026-08-14): incorporado o FRAMEWORK (método com nome, 4 pilares), descartada a persona 'CEO Raiz' e as metáforas de luta/combate por decisão do dono ('não faz mais sentido pra nossa nova realidade')"
+  mudancas_v3.1:
+    - "Adicionada camada de método 'Engenharia de Aquisição' (ver metodo_engenharia_aquisicao) — 'prova em movimento' continua sendo A TESE; engenharia é o NOME do método que a prova documenta. Não substitui, complementa."
+    - "Descartado explicitamente: persona 'CEO Raiz', metáfora de luta/combate (jiu-jitsu, boxe, 'round de teste'), narrativa de rotina pessoal (3:30h). Persona pessoal continua sendo Tiago Elesbão real, sem personagem construído."
+  mudancas_v3:
+    - "Papel ampliado: de 'sistema de aquisição' para STUDIO que automatiza várias frentes com IA (criativo em escala = carro-chefe + tráfego, sites, identidade, narrativa)"
+    - "REGRA DO HOOK adicionada ao tom_de_voz: manchete lidera por BENEFÍCIO claro do que a audiência aprende/ganha — 'sistema/prova/automação' é CONTEXTO, jamais manchete"
+    - "REGRA DA SIMPLICIDADE: PT-BR de rede social rápida, objetivo, sem jargão abstrato ('previsibilidade de demanda sistematizada' e afins estão proibidos como headline)"
+    - "Avatar ampliado além de D2C — qualquer negócio que anuncia e precisa de criativo/aquisição em escala"
+    - "Adicionado portfolio_servicos — o conteúdo atrai comprador de SERVIÇO, não só audiência"
+  mudancas_v2:
+    - "Removido pilar 'lessons-cases' (cliente NÃO tem cases reais ainda) → 'learnings-aplicados'"
+    - "Posicionamento migrado para 'prova em movimento'"
+
+# ─────────────────────────────────────────────────────────────────────────────
+perfil:
+  identidade: "Tiago Elesbão"
+  handle: "@tiagoelesbao"
+  papel: "Founder da Virals · Studio que automatiza marketing e aquisição com IA (criativo em escala, tráfego, sites, marca, narrativa)"
+  objetivo_perfil: "Autoridade + geração de demanda B2B — atrair COMPRADORES dos serviços de automação com IA"
+  posicionamento: |
+    Ajudo negócios que anunciam a resolver o gargalo #1 — produzir criativo bom
+    em escala — automatizando a máquina inteira com IA: dos anúncios ao site, da
+    identidade à narrativa. E construo tudo à vista: o processo rodando é a prova.
+  big_idea: "Criativo bom em escala, sem depender de sorte nem de equipe gigante — automatizado com IA, construído à vista"
+  promessa_central: "O gargalo de todo negócio que anuncia é criativo. A gente automatizou a produção dele — e mostra rodando."
+  manifesto: >
+    Founder não posa de guru. Mostra o trabalho, o erro, o número — e o sistema
+    rodando. Enquanto o mercado VENDE automação como promessa, eu MOSTRO a
+    automação como log de produção: o ETL monitorando, os agentes trabalhando, o
+    criativo saindo do benchmark. Não tenho case de cliente ainda — tenho algo
+    que ninguém consegue fingir: o sistema funcionando ao vivo. O bastidor da
+    construção é o novo conteúdo nobre. E quem tem fome assiste até o fim.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Nome do método por trás da "prova em movimento" — não é personagem, é rótulo
+# pro sistema que já existe (ver negocios_para_bastidor e portfolio_servicos).
+# "Prova em movimento" é A TESE (o que a audiência vê); "Engenharia de
+# Aquisição" é o NOME do método que a prova documenta. Sem metáfora de luta,
+# sem persona construída — só o rigor que já é real no sistema.
+metodo_engenharia_aquisicao:
+  tese: "Aquisição de cliente não é sorte, é engenharia — hipótese, teste, dado e iteração, com o mesmo rigor que qualquer sistema de produção exige."
+  pilares:
+    - nome: "Diagnóstico"
+      o_que_e: "Mapear onde está o gargalo real (oferta, criativo, dado, retenção) antes de propor solução."
+    - nome: "Prototipagem"
+      o_que_e: "Testar barato e estruturado antes de escalar — o benchmark one-shot (Tier 1) é a prototipagem em produto."
+    - nome: "Escala"
+      o_que_e: "Só o que passou em validação recebe budget/automação — nunca escalar palpite."
+    - nome: "Manutenção"
+      o_que_e: "O sistema é monitorado e ajustado continuamente (o próprio ETL de monitoramento é manutenção em produção)."
+  uso_em_conteudo: >
+    Nomear o pilar quando fizer sentido no contexto real do que está sendo
+    mostrado (ex.: "isso aqui é a etapa de diagnóstico" sobre um dashboard de
+    benchmark) — nunca como jargão solto sem evidência atrás. Se a REGRA DA
+    SIMPLICIDADE do tom_de_voz e o nome do pilar entrarem em conflito, a regra
+    da simplicidade vence: o pilar é contexto, o benefício continua sendo o hook.
+
+# ─────────────────────────────────────────────────────────────────────────────
+avatar:
+  quem: "4 segmentos em teste paralelo, unidos pela dor de que criativo/aquisição é o gargalo e automação no mercado é promessa vazia"
+  demografia: "25-50 anos · Brasil · founders/gestores de negócios com orçamento de tráfego ou produção de conteúdo recorrente"
+  segmentos_em_teste:
+    - id: "infoprodutores"
+      nome: "Infoprodutores / educadores digitais"
+      dor: "Ad fatigue constante — precisam testar criativo novo toda semana"
+      narrativa: "Enquanto você grava o próximo lançamento, já sabemos qual criativo do seu nicho está funcionando essa semana."
+    - id: "dtc-ecommerce"
+      nome: "DTC / e-commerce"
+      dor: "CAC pago subindo, dependência de criativo novo pra sustentar ROAS"
+      narrativa: "Seu concorrente lançou 12 criativos essa semana. Aqui está o que performou — e uma versão pronta pra testar."
+    - id: "agencias"
+      nome: "Agências de performance (white-label)"
+      dor: "Não têm capacidade interna de monitoramento + produção em escala"
+      narrativa: "Sua carteira cresce, sua produção de criativo não precisa crescer junto."
+    - id: "clinicas"
+      nome: "Clínicas de alto ticket (estética/odonto)"
+      dor: "CAC local subindo, criativo é o gargalo #1"
+      narrativa: "O anúncio que está lotando a agenda da clínica ao lado — e uma versão pra sua."
+  dores:
+    - "Cansado de conteúdo motivacional vazio — quer ver número, sistema e processo"
+    - "Sente que está atrás na curva de IA/automação aplicada ao próprio negócio"
+    - "Não confia em quem VENDE automação sem MOSTRAR a automação rodando"
+    - "Criativo/aquisição virou o gargalo — testa no escuro, sem dado de mercado"
+  frustracoes:
+    - "Acompanha founders no Insta que só postam vitória — sente que tem algo escondido"
+    - "Quer ver alguém construindo de verdade, com o sistema à mostra, não cosplay de founder"
+    - "Cansado de promessa de 'vamos automatizar' sem nada rodando por trás"
+  sonho: >
+    Ter aquisição previsível com um sistema próprio (não dependente de gestor
+    terceirizado nem de sorte de viralização), antecipando queda de performance
+    com criativo novo sempre pronto — e tempo para pensar o negócio 5 anos à frente.
+  crencas_a_quebrar:
+    - "Que automação é promessa de agência — quando é log de produção verificável"
+    - "Que crescer é só investir mais em tráfego"
+    - "Que IA é hype e não muda nada"
+    - "Que founder precisa parecer sempre ganhando (e ter case pronto pra ter autoridade)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+tom_de_voz:
+  arquetipo: "Herói (luta, construção, superação) — acessórios: Criador + Sábio"
+  dna: "Engenheiro mostrando o log de produção — direto, técnico sem ser hermético, prova > propaganda"
+  personalidade: "Confiante, técnico, sem floreio. Mostra o sistema. Provoca quando precisa, ensina o que aprende."
+  voz_em_uma_frase: "Founder que mostra o sistema rodando — não a foto do troféu, o log de produção."
+  principios:
+    - "REGRA DO HOOK (a mais importante) — a MANCHETE lidera pelo BENEFÍCIO concreto: o que a pessoa APRENDE, GANHA ou EVITA lendo até o fim. A audiência tem que saber em 1 segundo o que leva. 'Sistema', 'prova', 'automação' são CONTEXTO no corpo, JAMAIS a manchete."
+    - "REGRA DA SIMPLICIDADE — PT-BR de rede social de conteúdo rápido: objetivo, concreto, uma ideia por slide. PROIBIDO jargão abstrato como manchete ('previsibilidade de demanda sistematizada', 'sistema de pré-visualização'). Se um estranho não entende em 2 segundos, reescreve."
+    - "MOSTRAR > DIZER — toda afirmação vem com número, evidência, bastidor ou exemplo concreto"
+    - "PROVA > PROMESSA — não vendo o que vou fazer; mostro o que já está rodando"
+    - "SEM RODEIO — primeiro segundo é o frame; sem aquecimento, vai direto ao ponto"
+    - "RETENÇÃO — cada slide abre uma curiosidade que o próximo paga; o último entrega o payoff prometido no hook"
+    - "LEARN IN PUBLIC — o que estudo hoje vira conteúdo aplicado amanhã, com crédito à fonte"
+    - "IA APLICADA, NÃO IA HYPE — toda menção a IA vem com caso de uso concreto"
+    - "VENDE O SERVIÇO — o conteúdo educa E atrai comprador; deixa claro (sem ser vendedor) qual dor de negócio a gente resolve (criativo em escala, tráfego, site, marca, narrativa)"
+    - "MÉTODO COM NOME — quando fizer sentido, nomear a etapa de metodo_engenharia_aquisicao (diagnóstico/prototipagem/escala/manutenção) por trás do que está sendo mostrado — mas SEMPRE subordinado à REGRA DO HOOK: o nome do pilar é contexto, nunca a manchete"
+  frases_chave_assinatura:
+    - "O que a concorrência ainda está planejando, a gente já automatizou"
+    - "Prova em movimento, não promessa no papel"
+    - "Construído à vista, não prometido no slide"
+    - "Olha o log de produção"
+    - "O jogo mudou"
+    - "Aquisição de cliente não é sorte, é engenharia"
+    - "Testou, validou, escalou"
+  frases_reservadas_para_virals:
+    nota: "Bordões institucionais @virals — não usar no perfil pessoal."
+    lista:
+      - "Skin in the game / Pôr a pele em jogo"
+      - "Não somos agência, somos seu departamento de Growth"
+  lexico:
+    sempre_usar:
+      - "founder"
+      - "bastidor"
+      - "número"
+      - "processo"
+      - "sistema"
+      - "prova"
+      - "rodando"
+      - "log"
+      - "automação"
+      - "benchmark"
+      - "evidência"
+      - "construir"
+      - "medir"
+      - "engenharia"
+      - "diagnóstico"
+      - "iteração"
+    nunca_usar:
+      - "empreendedorismo" # cheira a curso de Instagram dos anos 2010
+      - "mentoria"         # cheira a guru
+      - "dica"             # diminui o conteúdo — usar "lição" ou "leitura"
+      - "segredo"          # promessa vazia
+      - "sinergia"
+      - "alavancar"
+      - "holisticamente"
+      - "venha" # vendedor de praia — usar "se você quer X, fica"
+
+# ─────────────────────────────────────────────────────────────────────────────
+pilares_de_conteudo:
+  - id: "backstage-prova"
+    nome: "Backstage & Prova em Movimento"
+    descricao: >
+      Construir à vista: o sistema de automação/IA rodando (ETL monitorando,
+      agentes trabalhando, benchmark saindo, criativo nascendo do dado) MAIS o
+      humano por trás — decisões, erros, jornada. O log de produção é a prova
+      que ninguém consegue fingir. Câmera de celular > estúdio.
+    frequencia_alvo: "40%"
+    formatos: [reels, stories, carrossel-foto, screen-recording]
+  - id: "learnings-aplicados"
+    nome: "Learnings Aplicados (learn in public)"
+    descricao: >
+      O que estudo nos cursos e vídeos de marketing/IA, aplicado NA HORA ao que
+      estou construindo. "Estudei X, apliquei aqui no sistema, deu isso." Crédito
+      à fonte, número no resultado. Substitui o antigo pilar de cases (que ainda
+      não existem) — a lição vem do próprio build, não de cliente.
+    frequencia_alvo: "25%"
+    formatos: [carrossel-conteudo, reels-explicativo, post-unico]
+  - id: "mindset-mitos"
+    nome: "Mindset / Quebra de Mitos"
+    descricao: >
+      Contra-narrativas do nicho de automação/aquisição ("automação não é
+      promessa de agência, é log verificável"; "criativo do zero é desperdício
+      quando existe benchmark"). Posicionamento por contraste. Gera debate.
+    frequencia_alvo: "20%"
+    formatos: [carrossel-aspiracional, quote-slide, reels-opiniao]
+  - id: "analise-mercado-ia"
+    nome: "Análise de Mercado & IA"
+    descricao: >
+      Leitura de tendências de e-commerce, creators, IA aplicada e atenção —
+      usando o PRÓPRIO ETL de monitoramento como antena (dado real do que os
+      players do nicho estão fazendo esta semana). Sempre ancorada em sinal real.
+    frequencia_alvo: "15%"
+    formatos: [carrossel-noticia, reels-comentario, post-unico]
+
+# O que alimenta o bastidor — a matéria-prima real de conteúdo.
+negocios_para_bastidor:
+  - id: "sistema-automacao-ia"
+    nome: "Sistema de automação & IA (ESTE projeto — ETL, benchmark, fábrica de criativos, AIOX)"
+    prioridade: "alta"
+    o_que_mostrar: >
+      A FONTE PRINCIPAL DE PROVA. O sistema que orquestra agentes IA, monitora
+      concorrentes, gera criativos do benchmark. Meta-conteúdo: founder que
+      constrói e usa a própria automação ao vivo. Cada feature nova, cada
+      benchmark rodado, cada bug resolvido é conteúdo.
+  - id: "virals"
+    nome: "Virals (empresa / histórico em growth D2C)"
+    prioridade: "media"
+    o_que_mostrar: "Vocabulário nativo de D2C/e-commerce, histórico de growth. Base de credibilidade do nicho DTC — sem expor cliente sem autorização."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Portfólio de serviços — o conteúdo atrai COMPRADOR, não só audiência.
+# Ao produzir conteúdo, escolher a dor de negócio que um destes serviços resolve.
+portfolio_servicos:
+  publico_alvo: "Qualquer negócio que anuncia e precisa de criativo/aquisição em escala — founders D2C, infoprodutores, clínicas, agências, serviços locais. NÃO se limita a D2C."
+  servicos:
+    - id: "criativo-em-escala"
+      nome: "Produção de criativos automatizada em escala"
+      carro_chefe: true
+      dor_que_resolve: "Criativo é o gargalo de todo negócio que anuncia — testar peça nova toda semana é caro, lento e depende de sorte."
+      resultado: "Criativo novo sempre pronto, modelado no que já performa no nicho, produzido com IA sem escalar equipe."
+    - id: "trafego-pago"
+      nome: "Tráfego pago automatizado"
+      dor_que_resolve: "CAC subindo, gestão de tráfego reativa e cara."
+      resultado: "Campanhas otimizadas com automação, decisão baseada em dado do nicho."
+    - id: "sites"
+      nome: "Produção de websites/landing pages"
+      dor_que_resolve: "Página lenta pra sair, cara, e desconectada do anúncio."
+      resultado: "Site/LP publicado rápido, alinhado ao criativo que traz o tráfego."
+    - id: "identidade-marca"
+      nome: "Criação de identidade de marca"
+      dor_que_resolve: "Marca sem cara própria, visual genérico que não diferencia."
+      resultado: "Identidade construída com IA — paleta, tipografia, sistema visual coeso."
+    - id: "narrativa"
+      nome: "Narrativa e posicionamento"
+      dor_que_resolve: "Não sabe o que falar, mensagem genérica que não atrai nem converte."
+      resultado: "Narrativa de marca clara — o que fala, pra quem, com que ângulo."
+
+# ─────────────────────────────────────────────────────────────────────────────
+oferta_e_conversao:
+  modelo: "O sistema é o portfólio — a demonstração converte, não o depoimento"
+  funil: "Conteúdo pessoal (topo) → autoridade → Tier 1 benchmark one-shot (porta de entrada barata que GERA o case) → retainer"
+  tiers:
+    - tier: 1
+      nome: "Benchmark competitivo one-shot"
+      papel: "Porta de entrada / gerador de case rápido. É a ponte de conversão suave do conteúdo."
+    - tier: 2
+      nome: "Retainer — Radar de tendências + Fábrica de criativos"
+      papel: "Motor de receita recorrente."
+    - tier: 3
+      nome: "Add-on por segmento"
+      papel: "Maior LTV, específico por nicho."
+  nota: "Nome comercial da marca de serviço ainda em definição (ver assets/estrategia-marca-automacao-ia.md §2) — o perfil pessoal é agnóstico ao nome final."
+
+# ─────────────────────────────────────────────────────────────────────────────
+restricoes:
+  nunca_fazer:
+    - "Corporativês / jargões de consultoria (sinergia, alavancar, holisticamente)"
+    - "Promessa vazia sem prova rodando ('vamos automatizar seu processo' sem mostrar sistema)"
+    - "Inventar case ou número de cliente que não existe — a prova é o próprio sistema, não depoimento fabricado"
+    - "Auto-ajuda genérica ('acredite, sonhe grande', frases de pão-de-queijo motivacional)"
+    - "Exposição de clientes/sócios sem autorização explícita"
+    - "Política / polêmica fora de escopo"
+    - "Conteúdo AI genérico — imagem stock óbvia ou texto plano de ChatGPT sem voz humana"
+    - "Pose de guru — 'meu método secreto', 'eu ensinei o mercado', etc."
+  sempre_fazer:
+    - "Citar número, evidência, bastidor OU sistema rodando em toda afirmação"
+    - "Mostrar o log de produção sempre que possível (screen recording, dashboard, benchmark real)"
+    - "Dar crédito à fonte quando o conteúdo vier de um curso/vídeo estudado (learn in public)"
+    - "Falar a língua nativa do nicho-alvo (D2C, infoproduto, agência ou clínica — sem traduzir o óbvio)"
+    - "Usar primeira pessoa real ('eu fiz', 'a gente errou', 'olha o sistema rodando')"
+    - "Encerrar com pergunta provocadora ou convite a VER o sistema (nunca CTA de venda agressivo)"
+    - "Quando citar IA, dar exemplo concreto de uso (agente, automação, pipeline deste projeto)"
+
+cta_estilo:
+  preferencia: "call-to-think (provocação intelectual) + convite a VER o sistema > call-to-action de venda direta"
+  exemplos_bons:
+    - "Você está olhando esse gráfico do jeito errado. Repara aqui ↓"
+    - "Se você é founder e ainda testa criativo no escuro, está atrasado."
+    - "Quer ver isso rodando no seu nicho? Comento como embaixo."
+    - "Esse é o log do sistema essa semana. Quem ainda acha que automação é promessa, vou esperar."
+  exemplos_proibidos:
+    - "Chama no DM!"
+    - "Link na bio!"
+    - "Comenta 'EU QUERO' aqui embaixo!"
+  ponte_de_conversao: >
+    Quando fizer sentido, convidar para o Tier 1 (benchmark one-shot) como quem
+    oferece uma demonstração — "quer ver o benchmark do SEU nicho?" — não como
+    venda direta. A demonstração é a oferta.
+
+# ─────────────────────────────────────────────────────────────────────────────
+diferenciacao:
+  vs_virals_institucional:
+    virals: "Marca/empresa falando — oferta, framework, serviço, base D2C"
+    tiago: "Pessoa real construindo à vista — bastidor, sistema rodando, jornada, vulnerabilidade controlada"
+    funil_cruzado: "@tiagoelesbao gera autoridade e demanda → serviço de automação/IA converte (via Tier 1)"
+  vs_concorrencia:
+    mercado: "Vende automação como promessa futura ('vamos automatizar')"
+    tiago: "Mostra automação como prova presente ('está rodando, olha o log')"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Identidade visual — paleta canônica (proposta agente · 2026-05-22, mantida v2).
+identidade_visual:
+  paleta_canonica: "preto profundo + âmbar dourado"
+  primary: "#0B0B0F"         # Preto profundo (autoridade do Herói)
+  accent: "#FFB800"          # Âmbar dourado (vitória, medalha, foco)
+  accent_alt: "#FF4D2E"      # Laranja-vermelho (urgência, energia)
+  fonte_canonica: "squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml"
+  diferenciacao_visual: >
+    Virals usa paleta fria (navy + coral). Tiago Elesbão usa paleta quente
+    (preto + âmbar) — diferenciação imediata na timeline mantendo coerência de
+    qualidade tipográfica (mesma família Outfit). Estética "log de produção":
+    dashboards, terminais, dados reais na tela reforçam a tese de prova.
+  inspiracao:
+    - "Hormozi (preto + verde) — arquétipo Herói + autoridade direta"
+    - "GaryVee personal brand (preto + vermelho) — document don't create"
+    - "Naval/Lex Fridman (preto + branco) — minimalismo founder pessoal"

@@ -1,0 +1,98 @@
+storyId: MVC-10
+epic: EPIC-MKT-Video-Creative
+phase: B
+title: "Editor timeline /studio (tracks/clips + ajuste fino)"
+gate: CONCERNS
+reviewer: "@qa (Quinn)"
+date: "2026-06-21"
+
+acceptance_criteria:
+  AC1: { status: met, note: "/api/timeline → 6 clips+fxPlan; /studio → 200 (server real)" }
+  AC2: { status: partial, note: "Infra do Player validada (range 206, inputProps reativos); render VISUAL no browser não verificado" }
+  AC3: { status: met, note: "mover/aparar/preset via editorState (7 testes)" }
+  AC4: { status: partial, note: "editar legenda OK; trocar mídia = follow-up (fora do MVP)" }
+  AC5: { status: met, note: "undo/redo por snapshots" }
+
+independent_verification:
+  api_media: { range: 206, full: 200, notfound: 404, traversal: 403 }
+  api_timeline: { valid: ok, invalid: "500 (deveria 404)" }
+  studio_page: 200
+
+issues:
+  - severity: medium
+    category: validation
+    description: "Preview visual do @remotion/player no browser NÃO verificado (sem browser interativo). Infra toda provada."
+    recommendation: "Dono: npm run dev + abrir /studio e confirmar preview+edições, ou skill verify. Editor não é 'produto validado' até então."
+    status: owner_action
+  - severity: low
+    category: scope
+    description: "AC4 trocar mídia de um clip não implementado (fora do MVP)."
+    recommendation: "Follow-up."
+  - severity: low
+    category: api
+    description: "/api/timeline retorna 500 para criativo inexistente (deveria 404)."
+    recommendation: "Distinguir not-found de erro interno."
+  - severity: low
+    category: scope
+    description: "Transições entre clips (TransitionSeries) ainda não na UI (herdado MVC-09)."
+  - severity: low
+    category: process
+    description: "CodeRabbit não executado."
+
+next: "MVC-11 (export+persistência) fecha a Fase B. Owner: validar preview visual. Push pendente → @devops (4 stories acumuladas)."
+
+# ─────────────────────────────────────────────────────────────────────────────
+re_gate:
+  gate: CONCERNS
+  reviewer: "@qa (Quinn)"
+  date: "2026-06-22"
+  scope: "Redesign Fase B — editor NLE + auto-cut + slider de agressividade"
+  evidence:
+    tests: { runner: "node:test", editorState: 7, suite_total: 29, passed: 29 }
+    typecheck: clean
+    build: "next build OK (/studio, /api/timeline, /api/media)"
+    visual: "renderStill headless prova que a composição renderiza correta (frames inspecionados)"
+    autocut: "check em 3 limiares: maxgap 0,7→0,4→0,2 = 3→12→18 segmentos (resposta monotônica)"
+  improved:
+    - id: prior-medium-ac2-visual
+      was: "Preview visual do Player não verificado."
+      now: "PARCIALMENTE endereçado — a saída da composição foi verificada por stills renderizados. PORÉM a interação ao vivo do NLE (trim por arraste, sync do playhead, slider live) ainda NÃO foi confirmada num browser."
+  new_issues:
+    - severity: medium
+      category: security
+      description: "/api/timeline usa client/creative (query) direto em path.join e em video-brief-${creative}.yaml SEM sanitizar → path traversal (lê transcript.json/assembly.json/brief arbitrários). Risco real BAIXO (ferramenta local), mas é o mesmo gap que /api/media guardou."
+      recommendation: "Allowlist de slug (ex.: /^[a-z0-9-]+$/i) em client/creative no route, espelhando o guard do /api/media."
+    - severity: medium
+      category: validation
+      description: "Camada interativa do NLE (drag-trim, playhead↔PlayerRef, slider com debounce) não verificada em browser."
+      recommendation: "Dono: npm run dev + /studio; confirmar trim por arraste, playhead seguindo o play, e o slider de auto-cut recomputando ao vivo."
+  carried_over:
+    - severity: low
+      category: api
+      description: "/api/timeline ainda retorna 500 (não 404) para criativo inexistente."
+    - severity: low
+      category: process
+      description: "CodeRabbit não executado."
+  verdict: "CONCERNS — funcionalmente forte e a saída visual agora tem evidência (stills), mas (1) a interação do NLE segue sem check em browser e (2) novo gap de segurança (traversal no route). Aprovado para seguir; corrigir o traversal e validar a interação antes de tratar como produto pronto."
+
+re_verify:
+  date: "2026-06-22"
+  reviewer: "@qa (Quinn)"
+  scope: "Re-verificação dos 2 fixes do QA_FIX_REQUEST-MVC-10"
+  method: "Inspeção do guard (posição antes de I/O) + auditoria adversarial ao vivo (dev server :3000)"
+  fix1_path_traversal:
+    status: RESOLVED
+    evidence: "SLUG /^[a-z0-9][a-z0-9-]*$/i na linha 41, ANTES de fs.existsSync/ingestCreative. 7 vetores → 400: '../../foo', '..%2F..%2Fetc', '...', slug+slash, '-etc' (leading-dash), client traversal. Nenhum toca o filesystem."
+  fix2_404:
+    status: RESOLVED
+    evidence: "criativo inexistente válido-no-formato → 404 (antes 500). Erro real continua 500."
+  regression: "Nenhuma — válido 200, autocut+maxgap 200."
+  remaining:
+    - severity: medium
+      category: validation
+      description: "Interação ao vivo do NLE (trim por arraste, playhead↔PlayerRef, slider) ainda sem check em browser — AÇÃO DO DONO, não defeito de código."
+    - severity: low
+      category: process
+      description: "CodeRabbit pré-commit não executado."
+  gate_after_fixes: CONCERNS
+  rationale: "As 2 Concerns acionáveis por código estão FECHADAS e verificadas independentemente. O gate permanece CONCERNS unicamente pela dívida de validação interativa (evidência do dono), que não é defeito conhecido. Liberado para @devops (push); o dono valida o NLE no browser para promover a PASS."

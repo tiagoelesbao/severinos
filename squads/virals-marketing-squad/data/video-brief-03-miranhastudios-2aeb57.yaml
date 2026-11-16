@@ -1,0 +1,352 @@
+schema_version: '1.0'
+generated_at: '2026-08-19T22:59:30'
+media_kind: video
+video_brief:
+  slug: video-03-miranhastudios-2aeb57
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\03-miranhastudios-2aeb57
+source:
+  creator: '@miranhastudios'
+  platform: instagram
+  url: https://www.instagram.com/miranhastudios/reel/DcMq_4Osqzl/
+  type: video-short
+  caption: Ep3 - Marombas & Furiosos “ Sabor Piloto”
+metadata:
+  view_count: null
+  like_count: 35386
+  comment_count: null
+  duration_seconds: 170
+  cut_timestamps:
+  - 3
+  - 3.07
+  - 12.17
+  - 17.23
+  - 26
+  - 27.33
+  - 29.33
+  - 31.9
+  - 41.47
+  - 47.67
+  - 48.97
+  - 51.1
+  - 52.57
+  - 56.2
+  - 57.23
+  - 62.27
+  - 65.57
+  - 69.13
+  - 70.77
+  - 71.93
+  - 73.5
+  - 77.83
+  - 82
+  - 96.2
+  - 98.33
+  - 100.87
+  - 106.73
+  - 108.47
+  - 113.63
+  - 137
+  - 138.03
+  - 148.37
+  - 149.23
+  - 159.7
+  - 163
+  - 170.5
+  - 174.7
+hook_raw: I don't read the newspapers because they all have ugly prints
+transcript:
+- start: 2
+  end: 12
+  text: I don't read the newspapers because they all have ugly prints
+- start: 12
+  end: 13
+  text: YouTube
+- start: 13
+  end: 14
+  text: Save me out
+- start: 14
+  end: 16
+  text: YouTube
+- start: 16
+  end: 17
+  text: YouTube
+- start: 17
+  end: 24
+  text: YouTube
+- start: 24
+  end: 27
+  text: Vai, acelera fundo agora, Júlio
+- start: 27
+  end: 32
+  text: Tô com o pé no talo
+- start: 32
+  end: 35
+  text: Meu motorista já tá levando os dois carros
+- start: 35
+  end: 36
+  text: Isso mesmo
+- start: 36
+  end: 41
+  text: Não se preocupa, ele é ótimo profissional
+- start: 41
+  end: 45
+  text: on the storm
+- start: 45
+  end: 52
+  text: And give this a more
+- start: 52
+  end: 54
+  text: Desgraça!
+- start: 54
+  end: 60
+  text: Tá indo tirar a mãe da zona!
+- start: 60
+  end: 64
+  text: Mano, aquele maluco estranho de novo, tá seguindo a gente
+- start: 64
+  end: 67
+  text: Vou ver qual é a desse maluco
+- start: 67
+  end: 71
+  text: Hey, long time
+- start: 71
+  end: 76
+  text: Let your children play
+- start: 76
+  end: 78
+  text: And give this a more
+- start: 78
+  end: 82
+  text: I want to be on the road
+- start: 82
+  end: 88
+  text: Deixa ele pra lá, Júlio
+- start: 88
+  end: 93
+  text: on the storm
+- start: 93
+  end: 96
+  text: Fiquei sabendo que estão precisando de mais um piloto, pai
+- start: 96
+  end: 98
+  text: A gente vai precisar de mais carros
+- start: 98
+  end: 101
+  text: Eu sei onde a gente pode conseguir mais
+- start: 101
+  end: 102
+  text: Money
+- start: 102
+  end: 105
+  text: Money is the motivation, money is the conversation
+- start: 105
+  end: 108
+  text: You on vacation, we getting paid, so
+- start: 108
+  end: 109
+  text: We on paycation
+- start: 109
+  end: 111
+  text: I did it for the fam
+- start: 111
+  end: 113
+  text: It's whatever we had to do, it's just who I am
+- start: 113
+  end: 115
+  text: Yeah, it's the life I chose
+- start: 115
+  end: 120
+  text: Se liga
+- start: 120
+  end: 129
+  text: Aprende comigo, pai
+- start: 129
+  end: 139
+  text: Parado!
+- start: 139
+  end: 141
+  text: Júlio, alguma notícia?
+- start: 141
+  end: 151
+  text: Os dois estão demorando demais
+- start: 151
+  end: 166
+  text: Fica tranquilo, pai, missão cumprida
+- start: 166
+  end: 170
+  text: I want to if you know, if you're from Tokyo, if you sit it down you made it,
+    then you know you have to go
+frames:
+- file: Screenshots/frame_01_at_00-02_I_don_t_read_the_newspapers_be.jpg
+  timestamp: 00:02
+  t_seconds: 2
+- file: Screenshots/frame_02_at_00-24_Vai__acelera_fundo_agora__J_li.jpg
+  timestamp: 00:24
+  t_seconds: 24
+- file: Screenshots/frame_03_at_00-35_Isso_mesmo_.jpg
+  timestamp: 00:35
+  t_seconds: 35
+- file: Screenshots/frame_04_at_01-16_And_give_this_a_more_.jpg
+  timestamp: 01:16
+  t_seconds: 76
+- file: Screenshots/frame_05_at_01-48_We_on_paycation_.jpg
+  timestamp: 01:48
+  t_seconds: 108
+- file: Screenshots/frame_06_at_02-46_I_want_to_if_you_know__if_you_.jpg
+  timestamp: 02:46
+  t_seconds: 166
+beats:
+- n: 1
+  start: 2
+  end: 24
+  text: I don't read the newspapers because they all have ugly prints YouTube Save
+    me out YouTube YouTube YouTube
+  role: hook
+- n: 2
+  start: 24
+  end: 35
+  text: Vai, acelera fundo agora, Júlio Tô com o pé no talo Meu motorista já tá levando
+    os dois carros
+  role: build
+- n: 3
+  start: 35
+  end: 76
+  text: Isso mesmo Não se preocupa, ele é ótimo profissional on the storm And give
+    this a more Desgraça! Tá indo tirar a mãe da zona! Mano, aquele maluco estranho
+    de novo, tá seguindo a gente Vou ver qual é a desse maluco Hey, long time Let
+    your children play
+  role: build
+- n: 4
+  start: 76
+  end: 108
+  text: And give this a more I want to be on the road Deixa ele pra lá, Júlio on the
+    storm Fiquei sabendo que estão precisando de mais um piloto, pai A gente vai precisar
+    de mais carros Eu sei onde a gente pode conseguir mais Money Money is the motivation,
+    money is the conversation You on vacation, we getting paid, so
+  role: build
+- n: 5
+  start: 108
+  end: 166
+  text: We on paycation I did it for the fam It's whatever we had to do, it's just
+    who I am Yeah, it's the life I chose Se liga Aprende comigo, pai Parado! Júlio,
+    alguma notícia? Os dois estão demorando demais Fica tranquilo, pai, missão cumprida
+  role: build
+- n: 6
+  start: 166
+  end: 170
+  text: I want to if you know, if you're from Tokyo, if you sit it down you made it,
+    then you know you have to go
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 40
+  frames: 6
+  beats: 6
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-02_I_don_t_read_the_newspapers_be.jpg
+    shot_type: graphic
+    on_screen_text: MAROMBAS & FURIOSOS
+    has_captions: true
+  - file: frame_02_at_00-24_Vai__acelera_fundo_agora__J_li.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: true
+  - file: frame_03_at_00-35_Isso_mesmo_.jpg
+    shot_type: broll
+    on_screen_text: CIMED
+    has_captions: true
+  - file: frame_04_at_01-16_And_give_this_a_more_.jpg
+    shot_type: broll
+    on_screen_text: ''
+    has_captions: true
+  - file: frame_05_at_01-48_We_on_paycation_.jpg
+    shot_type: broll
+    on_screen_text: DIGA NÃO AO JOB
+    has_captions: true
+  - file: frame_06_at_02-46_I_want_to_if_you_know__if_you_.jpg
+    shot_type: broll
+    on_screen_text: BMW GTT
+    has_captions: true
+  frames_sent: 6
+  shot_mix:
+    talking_head: 0.0
+    screen_capture: 0.0
+    broll: 0.83
+    graphic: 0.17
+  caption_style_seen: Não visível nos frames. Geralmente, para este estilo de vídeo,
+    legendas são brancas com contorno escuro, em caixa-alta ou com destaque de cor
+    na palavra falada, posicionadas na parte inferior central.
+  text_overlay_style: Uso de títulos grandes e impactantes com estilo 3D metálico
+    no início. Textos são frequentemente integrados ao cenário ou adereços (camisetas,
+    carros) para branding ou narrativa, em vez de sobreposições simples. O logo de
+    produção ('MIRANHA STUDIOS') é fixo no canto inferior direito.
+  visual_hook_device: O vídeo abre com um título gráfico grandioso e em 3D ('MAROMBAS
+    & FURIOSOS') sobreposto a uma cena noturna dinâmica de carros, estabelecendo imediatamente
+    um tom cinematográfico e de alta energia, similar a um trailer de filme.
+  broll_density: high
+  edit_style_notes: '1. **Enquadramento Cinematográfico:** Predominam planos médios
+    e abertos com profundidade de campo, focando em personagens e veículos, criando
+    uma estética de ''filme''.
+
+    2. **Cortes Rápidos e Variados:** A edição utiliza cortes frequentes entre diferentes
+    cenas e ângulos (personagens, carros, ambientes) para manter um ritmo acelerado
+    e engajador, típico de trailers.
+
+    3. **Integração de Branding:** Elementos de texto e logos são incorporados de
+    forma orgânica ao ambiente (ex: em roupas, adesivos de carro), reforçando a autenticidade
+    e a narrativa.'
+  palette:
+  - '#808080'
+  - '#000000'
+  - '#FFD700'
+  - '#4682B4'
+  - '#8B4513'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-19T23:00:10'
+benchmark_analysis:
+  hook_type: pattern interrupt
+  pattern_interrupts:
+  - t: 0
+    device: afirmação absurda em tom despreocupado
+    text: I don't read the newspapers because they all have ugly prints
+  - t: 4
+    device: transicao repentina para musica japonesa
+    text: YouTube Save me out YouTube YouTube YouTube
+  - t: 35
+    device: corte abrupto para aceleracao narrativa
+    text: Vai, acelera fundo agora, Júlio Tô com o pé no talo
+  cut_cadence:
+    avaliacao: ritmo dinámico e consistente com 36 cortes em 170s, mantendo retenção
+      alta
+    meets_retention_checkpoint: false
+    source: scene-detect
+    shots: 36
+    segments: 36
+    duration_s: 170.0
+    avg_segment_s: 4.72
+  broll_strategy: alto b-roll com carros, acoes cinematicas e transicoes rapidas que
+    sustentam a energia verbal e criam pulso visual constante
+  caption_style: legendas brancas com contorno escuro, posicionadas na parte inferior
+    central, com destaque de cor ou caixa-alta nas palavras-chave da fala
+  pacing_curve:
+  - window: 00-05s
+    densidade: alta - hook visual e verbal impactam imediatamente
+  - window: 24-76s
+    densidade: alta - narrativa em escalada com musica e acoes
+  - window: 108-166s
+    densidade: media-alta - payoff emocional e resolucao parcial da trama
+  retention_devices:
+  - escalada narrativa com musica e acoes cinematicas
+  - callbacks visuais de carros e personagens recorrentes
+  - payoff emocional no final com mensagem de grupo/familia
+  - loop sonoro com frases repetidas e reforco de identidade
+  recommendation: manter arco de escalada cinematografica e elementos visuais de alta
+    energia; substituir unica voz por dupla narrativa dinamica (um tom grave, outro
+    agudo) para reforcar contraste e engajamento multivocal
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:00:23'

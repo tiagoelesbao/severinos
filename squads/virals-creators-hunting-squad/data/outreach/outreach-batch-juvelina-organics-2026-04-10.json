@@ -1,0 +1,658 @@
+{
+  "metadata": {
+    "date": "2026-04-10",
+    "client": "juvelina-organics",
+    "total": 34,
+    "source_dossier": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\virals-creators-hunting-squad\\data\\scorecards\\dossier-qualificacao-juvelina-organics-2026-04-06.md",
+    "pipeline": "pipeline-outreach.js v1.0",
+    "agent": "@hunter-closer (Brittany)"
+  },
+  "scripts": [
+    {
+      "handle": "@luzucoloto",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi luzucoloto! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi luzucoloto! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi luzucoloto! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "luzucoloto, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi luzucoloto! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @luzucoloto\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.959Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@peledeporcelana01",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi peledeporcelana01! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi peledeporcelana01! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi peledeporcelana01! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "peledeporcelana01, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi peledeporcelana01! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @peledeporcelana01\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.959Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@gabriella.mottaa",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi gabriella.mottaa! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi gabriella.mottaa! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi gabriella.mottaa! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "gabriella.mottaa, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi gabriella.mottaa! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @gabriella.mottaa\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.959Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@avalentt",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi avalentt! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi avalentt! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi avalentt! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "avalentt, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi avalentt! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @avalentt\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.960Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@evelyn.noda",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi evelyn.noda! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi evelyn.noda! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi evelyn.noda! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "evelyn.noda, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi evelyn.noda! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @evelyn.noda\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@cinaragonzales",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi cinaragonzales! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi cinaragonzales! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi cinaragonzales! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "cinaragonzales, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi cinaragonzales! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @cinaragonzales\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@soubiaf",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi soubiaf! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi soubiaf! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi soubiaf! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "soubiaf, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi soubiaf! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @soubiaf\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@taymila_mila",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi taymila_mila! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi taymila_mila! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi taymila_mila! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "taymila_mila, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi taymila_mila! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @taymila_mila\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@bettoauge",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi bettoauge! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi bettoauge! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi bettoauge! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "bettoauge, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi bettoauge! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @bettoauge\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@amandabiuger",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi amandabiuger! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi amandabiuger! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi amandabiuger! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "amandabiuger, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi amandabiuger! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @amandabiuger\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@doutorbarakat",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi doutorbarakat! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi doutorbarakat! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi doutorbarakat! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "doutorbarakat, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi doutorbarakat! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @doutorbarakat\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@ericasantosoficial7",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi ericasantosoficial7! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi ericasantosoficial7! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi ericasantosoficial7! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "ericasantosoficial7, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi ericasantosoficial7! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @ericasantosoficial7\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@studionatibezerra",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi studionatibezerra! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi studionatibezerra! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi studionatibezerra! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "studionatibezerra, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi studionatibezerra! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @studionatibezerra\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@lafernandesss",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi lafernandesss! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi lafernandesss! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi lafernandesss! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "lafernandesss, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi lafernandesss! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @lafernandesss\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@nathaliavalente",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi nathaliavalente! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi nathaliavalente! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi nathaliavalente! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "nathaliavalente, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi nathaliavalente! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @nathaliavalente\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@may_nareal",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi may_nareal! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi may_nareal! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi may_nareal! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "may_nareal, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi may_nareal! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @may_nareal\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@jardeledebran",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi jardeledebran! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi jardeledebran! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi jardeledebran! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "jardeledebran, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi jardeledebran! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @jardeledebran\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@isaacnutricionista",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi isaacnutricionista! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi isaacnutricionista! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi isaacnutricionista! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "isaacnutricionista, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi isaacnutricionista! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @isaacnutricionista\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@cams.ctr",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi cams.ctr! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi cams.ctr! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi cams.ctr! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "cams.ctr, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi cams.ctr! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @cams.ctr\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@vivischilling",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi vivischilling! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi vivischilling! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi vivischilling! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "vivischilling, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi vivischilling! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @vivischilling\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.961Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@rhavyniecastro",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi rhavyniecastro! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi rhavyniecastro! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi rhavyniecastro! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "rhavyniecastro, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi rhavyniecastro! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @rhavyniecastro\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@viclacerda.ms",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi viclacerda.ms! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi viclacerda.ms! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi viclacerda.ms! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "viclacerda.ms, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi viclacerda.ms! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @viclacerda.ms\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@by.pabline",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi by.pabline! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi by.pabline! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi by.pabline! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "by.pabline, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi by.pabline! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @by.pabline\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@isafelippi",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi isafelippi! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi isafelippi! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi isafelippi! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "isafelippi, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi isafelippi! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @isafelippi\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@sosmentoriadasaude",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi sosmentoriadasaude! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi sosmentoriadasaude! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi sosmentoriadasaude! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "sosmentoriadasaude, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi sosmentoriadasaude! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @sosmentoriadasaude\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@brunomottanutri",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi brunomottanutri! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi brunomottanutri! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi brunomottanutri! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "brunomottanutri, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi brunomottanutri! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @brunomottanutri\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@dani50mais",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi dani50mais! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi dani50mais! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi dani50mais! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "dani50mais, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi dani50mais! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @dani50mais\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@anutrisarah",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi anutrisarah! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi anutrisarah! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi anutrisarah! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "anutrisarah, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi anutrisarah! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @anutrisarah\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@_luizamota",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi _luizamota! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi _luizamota! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi _luizamota! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "_luizamota, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi _luizamota! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @_luizamota\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@draflaviajunqueira",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi draflaviajunqueira! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi draflaviajunqueira! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi draflaviajunqueira! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "draflaviajunqueira, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi draflaviajunqueira! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @draflaviajunqueira\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@eusourafaelguerra",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi eusourafaelguerra! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi eusourafaelguerra! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi eusourafaelguerra! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "eusourafaelguerra, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi eusourafaelguerra! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @eusourafaelguerra\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@lanobre100",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi lanobre100! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi lanobre100! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi lanobre100! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "lanobre100, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi lanobre100! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @lanobre100\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@daianaparisato",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi daianaparisato! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi daianaparisato! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi daianaparisato! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "daianaparisato, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi daianaparisato! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @daianaparisato\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    },
+    {
+      "handle": "@gabi_nutri1",
+      "score": 7.8,
+      "tier": "Creator Qualificada",
+      "nicho": "Creator",
+      "variation": "variacao_ganho",
+      "variation_name": "Variação Ganho",
+      "dm_script": "Oi gabi_nutri1! 👋\n\nTô acompanhando seu conteúdo de Creator e achei MUITO autêntico.\nEspecialmente aquele [PERSONALIZAR: mencionar post específico da creator].\n\nTrabalho na Virals e temos uma parceria paga pra creators como você:\n💰 Ganhos fixos de R$300-600/mês + comissão de 20-35%\n📹 Pra fazer exatamente o que você já faz — conteúdo de Creator\n\nPosso te explicar melhor? Leva 2min 😊\n",
+      "whatsapp_script": "Oi gabi_nutri1! Sou [SEU NOME] da Virals 🎯\n\nQue bom que topou conversar! Vou te explicar rapidinho:\n\n📋 **O que é:**\nA Virals conecta creators com marcas que precisam de conteúdo\nautêntico (UGC). Você grava vídeos curtos usando os produtos\n— no seu estilo, sem roteiro engessado.\n\n💰 **Como ganha:**\n• Fixo: R$300-600/mês (depende do volume)\n• Comissão: 20-35% sobre vendas dos seus vídeos\n• Bônus: R$100 (5 contratos/dia) ou R$300 (10 contratos/dia)\n\n🎮 **Gamificação:**\nTem um sistema de níveis — quanto mais você produz, mais sobe\nde tier e mais ganha. Vou te mandar o PDF da Jornada Viral!\n\nQuer que eu mande? 🚀\n",
+      "followup": {
+        "d1": "Oi gabi_nutri1! Mandei uma proposta ontem — viu? 😊\nSe tiver qualquer dúvida, tô por aqui!\n",
+        "d3": "gabi_nutri1, só passando pra lembrar da proposta!\nAs vagas de Creator tão indo rápido esse mês.\nPosso te explicar melhor? 🙂\n",
+        "d7": "Oi gabi_nutri1! Última mensagem sobre a parceria 🙏\nSe não for o momento, sem problemas!\nMas fica o convite aberto caso mude de ideia.\nBom conteúdo! 💪\n"
+      },
+      "closing_guide": "### Closing Guide — @gabi_nutri1\n\n**Quando ela responder com interesse:**\n\n1. **Qualificar no DM (2 perguntas max):**\n   - \"Você já fez publi antes ou seria a primeira vez?\"\n   - \"Você tem TikTok comercial/Creator Marketplace ativado?\"\n\n2. **Mover para WhatsApp:**\n   - \"Posso te mandar os detalhes por WhatsApp? Fica mais fácil pra explicar tudo direitinho!\"\n\n3. **No WhatsApp — enviar WhatsApp Pitch:**\n   - Enviar o script WhatsApp gerado abaixo\n   - Aguardar resposta antes de enviar PDF da Jornada Viral\n\n4. **Negociação:**\n   - Fixo sugerido: R$300-400/mês (Starter) → R$500-600/mês se tiver histórico\n   - Comissão: 20-25% (padrão) → 30-35% se quiser mais variável\n   - Teto de bônus: R$100 (5 contratos/dia) | R$300 (10 contratos/dia)\n\n5. **Fechar:**\n   - Enviar link do formulário de onboarding\n   - Marcar no ClickUp como \"negotiating\" → \"contracted\"\n\n**Se ela pedir para pensar:**\n   - \"Claro! Quando posso te dar um follow-up? 3 dias?\"\n   - Registrar data no ClickUp > campo Notas\n\n**Red Flags — Não contratar se:**\n   - Pede pagamento adiantado\n   - Quer postar sem usa produto\n   - Feed 100% brandado sem conteúdo orgânico",
+      "generated_at": "2026-04-10T22:47:31.962Z",
+      "status": "pending_send",
+      "note": "⚠️ PERSONALIZAR antes de enviar — substituir [PERSONALIZAR] por referência real!"
+    }
+  ]
+}

@@ -1,0 +1,336 @@
+schema_version: '5.0'
+generated_at: '2026-07-18T21:31:22'
+archetype: quote
+carousel_brief:
+  slug: v5-precision-07-community-ca-b558fd
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-07-17/benchmark/instagram/07-community-ca-b558fd
+  source_url: https://www.instagram.com/community_ca/p/Da2zjVviQw-/
+  tema: 'Modelagem de precisão: 07-community-ca-b558fd'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0B0B0F'
+    secondary: '#1A1A24'
+    accent: '#FFB800'
+    accent_alt: '#FF4D2E'
+    accent_aurora: '#FFD86B'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B5B5C0'
+    overlay_dark: '#00000080'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F2F2F2'
+      text: '#0B0B0F'
+      accent: '#FFB800'
+  accent: '#FFB800'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#0B0B0F'
+      background: '#FFB800'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.5
+      dark_strong:
+        color: '#000000'
+        opacity: 0.7
+      brand_subtle:
+        color: '#0B0B0F'
+        opacity: 0.3
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 4
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 5.8/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `inspirar` **Adaptações obrigatórias consolidadas (do painel):**
+    - Troque o foco de ''como não flopar um vídeo'' para ''como identificar falhas
+    no sistema de aquisição antes de queimar caixa''. - Substituir a narrativa de
+    ''criador de conteúdo'' por ''founder construindo sistema'', trocando o foco de
+    ''postar bem'' para '''
+  audits_present: true
+benchmark_caption: 'Seu Reels pode dar sinais de flop antes mesmo de ser publicado.
+
+
+  Existe um teste rápido que ajuda a identificar onde o conteúdo perde força e o que
+  precisa ser ajustado antes de chegar ao feed.
+
+
+  Passe o carrossel até o final e aplique no seu próximo vídeo.
+
+
+  Acompanhe a Community para planejar conteúdos com mais intenção.
+
+
+  #Communityca #contentcreator #contentmarketing #community #creatorscommunity'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: ''
+  reference_body: ''
+  headline: 'VALIDAÇÃO PRÉ-PUBLICAÇÃO: O FIM DO POST NO ESCURO'
+  sub_headline: O DIAGNÓSTICO
+  body_text: O flop acontece por falta de critério técnico. Use o teste de compartilhabilidade
+    para validar a mensagem antes de postar.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 49
+    body_chars: 122
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: binary filter
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Hook pelo benefício direto: pare de postar no escuro. O medo do flop
+      não é azar — é ausência de validação. Founder não aposta; testa. O slide entrega
+      a promessa: um filtro binário que transforma ''será que vai?'' em ''aprovado
+      para rodar''.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-18T21:32:25'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: 'Agora que você já terminou de assistir ao vídeo, pergunte a
+    si mesmo:'
+  reference_body: Alguém mandaria isso para um amigo? Se a resposta for não, está
+    faltando intenção e utilidade. Fortaleça a mensagem final antes de postar.
+  headline: 'O CRITÉRIO DE OURO: ALGUÉM MANDARIA PARA UM AMIGO?'
+  sub_headline: O CRITÉRIO
+  body_text: Se a resposta for não, o conteúdo carece de utilidade. Refine a mensagem
+    para gerar intenção de envio antes da publicação.
+  design_triggers:
+  - Contrast
+  - Typography
+  - White Space (Negative Space)
+  - Questioning
+  - Call To Action/Instruction
+  - Brand Identifier
+  - Emphasis
+  text_metrics:
+    headline_chars: 50
+    body_chars: 122
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: friend sending message
+  accent_color: '#FFB800'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'O único filtro que importa: ''Alguém mandaria isso para um amigo?''.
+      Se a resposta for não, falta intenção e utilidade. Não é ''engajamento'', é
+      compartilhabilidade real. Fortaleça a mensagem final *antes* de subir. Esse
+      é o controle de qualidade do sistema.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-18T21:32:25'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: Você leva 30 segundos para testar cada post.
+  reference_body: O flop deixa de ser uma surpresa e passa a ser metrificado.
+  headline: 30 SEGUNDOS PARA TESTAR, AJUSTAR E PUBLICAR
+  sub_headline: O PROCESSO
+  body_text: O teste de compartilhabilidade transforma a sorte em método. Qual critério
+    de validação você aplica hoje antes de apertar o botão de publicar?
+  design_triggers:
+  - Social Proof/Authority
+  - Scarcity/Urgency (Implied)
+  - Curiosity/Intrigue
+  - Simplicity/Clarity
+  - Visual Hierarchy
+  - Branding (Subtle)
+  - Aspiration
+  text_metrics:
+    headline_chars: 43
+    body_chars: 142
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: stopwatch timer
+  accent_color: '#FFB800'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 30 segundos por post. Custo operacional zero. O flop deixa de ser surpresa
+      e vira variável metrificada. Você roda o filtro, ajusta se preciso, publica
+      com prova. Sistema rodando — não promessa no slide.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-18T21:32:25'
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: nenhum texto de headline encontrado'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: nenhum texto de headline encontrado'
+  headlines_extracted: 0/4
+  bodies_extracted: 2/4
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Um método de autoavaliação rápida para validar a utilidade e o potencial
+    de compartilhamento de um conteúdo antes da publicação.
+  formato: Micro-framework de checklist/processo.
+  arco_narrativo: O post começa com um diagnóstico de problema (o medo do flop), apresenta
+    um questionamento reflexivo para o usuário (validação de utilidade), oferece uma
+    solução prática de baixo esforço (o teste de 30 segundos) e encerra com o benefício
+    de controle sobre o resultado.
+  estrutura:
+  - slide_n: 1
+    papel: Hook/Gancho visual e textual para capturar atenção através da dor do 'flop'.
+    essencial: true
+  - slide_n: 2
+    papel: 'O Filtro de Qualidade: Introdução do critério de compartilhabilidade como
+      métrica de sucesso.'
+    essencial: true
+  - slide_n: 3
+    papel: 'A Promessa de Eficiência: Redução da fricção ao mostrar que o processo
+      é rápido e transforma caos em métrica.'
+    essencial: true
+  - slide_n: 4
+    papel: CTA/Encerramento (implícito no contexto de carrossel padrão).
+    essencial: false
+  redundancias: []
+  fatores_de_performance:
+  - Identificação imediata de uma dor latente (o medo de postar e não ter alcance/flopar).
+  - Uso de um 'Filtro de Simplicidade' (se não mandaria para um amigo, não poste),
+    o que gera autoridade por critério.
+  - Transformação de um sentimento subjetivo (flop) em algo controlável e metrificável
+    (processo de 30 segundos).
+  - Baixa barreira de entrada para execução (método rápido e fácil de aplicar).
+  recomendacao:
+    slides_ideais: 3
+    justificativa: Para a audiência de Founders/Sistemas da Virals, o conteúdo deve
+      ser mais direto e 'snappy'. O Slide 1 (Hook), o Slide 2 (O Critério) e o Slide
+      3 (A Eficiência/Conclusão) formam um loop fechado de alta densidade de informação.
+      Um carrossel de 3 slides maximiza a taxa de conclusão (completion rate) e reduz
+      o tempo de consumo, entregando o insight sem 'encher linguiça'.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-07-18T21:31:48'
+content_plan:
+  archetype: quote
+  slide_count: 3
+  tema: 'Método de validação pré-publicação: o teste de compartilhabilidade de 30
+    segundos para eliminar o flop'
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DIAGNÓSTICO
+    copy_direction: 'Hook pelo benefício direto: pare de postar no escuro. O medo
+      do flop não é azar — é ausência de validação. Founder não aposta; testa. O slide
+      entrega a promessa: um filtro binário que transforma ''será que vai?'' em ''aprovado
+      para rodar''.'
+    image_direction: 'Tela de celular com botão ''Publicar'' destacado. Sobreposição
+      de um checklist vermelho/verde: ''Validado?'' Sim/Não. Estética de log de produção
+      / dashboard interno. Fonte monoespaçada.'
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O CRITÉRIO
+    copy_direction: 'O único filtro que importa: ''Alguém mandaria isso para um amigo?''.
+      Se a resposta for não, falta intenção e utilidade. Não é ''engajamento'', é
+      compartilhabilidade real. Fortaleça a mensagem final *antes* de subir. Esse
+      é o controle de qualidade do sistema.'
+    image_direction: 'Close no ícone de encaminhar (seta de share) com check verde.
+      Ao lado, texto curto: ''Mandaria pro amigo? [ ] Sim [ ] Não''. Visual de código/checklist
+      rodando no terminal.'
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: PAYOFF
+    kicker: O PROCESSO
+    copy_direction: 30 segundos por post. Custo operacional zero. O flop deixa de
+      ser surpresa e vira variável metrificada. Você roda o filtro, ajusta se preciso,
+      publica com prova. Sistema rodando — não promessa no slide.
+    image_direction: 'Cronômetro marcando 30s. Background: fluxo ''Rascunho -> Teste
+      30s -> Aprovado -> Publicado''. Log de produção visível. Estética ''construído
+      à vista''.'
+    source_slides:
+    - 3
+  rationale: 'Estrutura enxuta de 3 slides seguindo a recomendação de performance
+    (completion rate). Arco: Dor real (Hook) -> Critério binário acionável (Insight)
+    -> Execução prática com payoff de controle (Payoff). Linguagem alinhada ao DNA
+    Virals: founder, sistema, prova, log, processo, métrica. Zero léxico proibido.
+    CTA final implícito no payoff (call-to-think: ''Seu último post passaria no teste?'').'
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-07-18T21:32:07'
+central_theme: 'Método de validação pré-publicação: o teste de compartilhabilidade
+  de 30 segundos para eliminar o flop'
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-07-18T21:32:25'
+  slides: 3
+  central_theme: 'Método de validação pré-publicação: o teste de compartilhabilidade
+    de 30 segundos para eliminar o flop'
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-07-18T21:33:53'

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Garantido — Qualidade de Dados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+  .legenda-status { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11.5px; color: var(--muted); margin-bottom: 14px; }
+  .legenda-status span { display: inline-flex; align-items: center; gap: 6px; }
+</style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<main class="wrap">
+  <h1 class="titulo-pagina">Qualidade de Dados &amp; Funil</h1>
+  <p class="subtitulo-pagina">Prova de que o tracking está funcionando — não é dado de negócio, é diagnóstico da própria pipeline. Janela inteira puxada (<span id="janela-dias">—</span> dias), não responde a filtro de período.</p>
+
+  <h2>Funil de conversão (pixel nativo, janela inteira)</h2>
+  <p class="periodo-label">% é sempre sobre a 1ª etapa (PageView). Tracking nativo da Garantido — mesmo que gera os números operacionais, não é algo que construímos do zero (ver pendência "Webhook/CAPI próprio" abaixo).</p>
+  <div class="bars" id="funil-bars"></div>
+
+  <h2>Cliques no link do grupo de WhatsApp — série diária</h2>
+  <div class="table-wrap">
+    <table id="tabela-grupo">
+      <thead><tr><th>Dia</th><th class="num">Cliques</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2>Pendências</h2>
+  <div class="legenda-status">
+    <span><span class="status-dot ok"></span>Resolvido / disponível</span>
+    <span><span class="status-dot validacao"></span>Em validação</span>
+    <span><span class="status-dot pendente"></span>Pendente (aberto)</span>
+    <span><span class="status-dot baixa"></span>Não aplicável</span>
+  </div>
+  <div class="table-wrap">
+    <table id="tabela-pendencias">
+      <thead><tr><th>Item</th><th>Status</th><th>Data</th><th>Nota</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer class="nota">BI Garantido · Qualidade de Dados</footer>
+</main>
+
+<script src="nav.js"></script>
+<script>
+function badge(status) {
+  const map = {
+    ok: ['ok', '✓ OK'],
+    em_validacao: ['validacao', '◐ Em validação'],
+    pendente: ['pendente', '✕ Pendente'],
+    nao_aplicavel: ['baixa', 'N/A — decisão deliberada'],
+  };
+  const [cls, label] = map[status] || ['baixa', status];
+  return `<span class="badge ${cls}"><span class="status-dot ${cls}"></span>${label}</span>`;
+}
+
+async function carregar() {
+  await injetarNav('qualidade');
+  const res = await fetch('/api/dados?tipo=qualidade&t=' + Date.now());
+  const d = await res.json();
+
+  document.querySelector('.bi-nav').insertAdjacentHTML('afterend',
+    `<div class="meta wrap">Atualizado em ${new Date(d.atualizado_em).toLocaleString('pt-BR')}</div>`);
+  document.getElementById('janela-dias').textContent = d.periodo_dias;
+
+  const etapas = d.funil_etapas;
+  const max = Math.max(...etapas.map(e => e.count), 1);
+  document.getElementById('funil-bars').innerHTML = etapas.map(e => {
+    const pct = Math.max(2, (e.count / max) * 100);
+    const taxa = e.pct_da_primeira !== null ? ` <span class="funil-taxa">${e.pct_da_primeira}%</span>` : '';
+    return `<div class="bar-row"><span>${e.evento}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><span class="n">${formatNum(e.count)}${taxa}</span></div>`;
+  }).join('');
+
+  const g = d.grupo_whatsapp_cliques;
+  document.querySelector('#tabela-grupo tbody').innerHTML = g.disponivel
+    ? [...g.por_dia].reverse().map(r => `<tr><td>${r.dia}</td><td class="num">${formatNum(r.cliques)}</td></tr>`).join('')
+    : `<tr><td colspan="2" style="color:var(--muted);">${g.motivo}</td></tr>`;
+
+  document.querySelector('#tabela-pendencias tbody').innerHTML = d.pendencias.map(p =>
+    `<tr class="${p.status === 'pendente' ? 'linha-aberta' : ''}">
+      <td class="item">${p.item}</td>
+      <td>${badge(p.status)}</td>
+      <td>${p.data || '—'}</td>
+      <td class="nota">${p.nota || ''}</td>
+    </tr>`
+  ).join('');
+}
+carregar().catch(err => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#e3543e;padding:20px;">Erro: ${err.message}</p>`); console.error(err); });
+</script>
+
+</body>
+</html>

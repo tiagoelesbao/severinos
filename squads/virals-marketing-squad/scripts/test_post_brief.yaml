@@ -1,0 +1,22 @@
+post_brief:
+  slug: "mvp-test-post"
+  tema: "Lançamento da ferramenta de mídia"
+  objetivo: "anunciar"
+  
+  headline: "A produção de mídia acabou de ficar automatizada."
+  body_text: "Conheça o novo pipeline de design."
+  cta_text: "Veja como funciona"
+  
+  publico_alvo: "squad de marketing"
+  temperatura_audiencia: "quente"
+  
+  layout: "texto-over-imagem"
+  mood: "inspiracional"
+  
+  formatos:
+    - "1:1"
+    - "4:5"
+    - "9:16"
+  
+  brand_config: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
+  aplicar_logo: true

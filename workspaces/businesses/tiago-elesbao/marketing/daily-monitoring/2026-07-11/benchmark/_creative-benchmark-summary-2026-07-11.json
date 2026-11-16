@@ -1,0 +1,111 @@
+{
+  "date": "2026-07-11",
+  "topN": 10,
+  "platforms": [
+    "instagram",
+    "youtube"
+  ],
+  "started_at": "2026-07-17T00:42:08.968Z",
+  "finished_at": "2026-07-17T00:58:34.193Z",
+  "duration_ms": 985225,
+  "total": 6,
+  "ok": 5,
+  "degraded": 1,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "verdict": "⚠️ 1/6 criativo(s) SEM assets reais — a análise destes é de metadados/capa, não do criativo.",
+  "results": [
+    {
+      "rank": 13,
+      "creator": "@roihuntersoficial",
+      "url": "https://www.instagram.com/roihuntersoficial/reel/DaoIjEvgGS1/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-07-11\\benchmark\\instagram\\13-roihuntersoficial-891cfd",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 29,
+      "creator": "@hormozi",
+      "url": "https://www.instagram.com/hormozi/reel/DaokUOsuGq5/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-07-11\\benchmark\\instagram\\29-hormozi-1db0da",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 36,
+      "creator": "@pedrosobral",
+      "url": "https://www.instagram.com/pedrosobral/reel/DaoM-PqBeec/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-07-11\\benchmark\\instagram\\36-pedrosobral-60feec",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 4
+    },
+    {
+      "rank": 58,
+      "creator": "@realchasechappell",
+      "url": "https://www.instagram.com/realchasechappell/reel/Danu4Hbxouj/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-07-11\\benchmark\\instagram\\58-realchasechappell-84b2c8",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 4,
+      "creator": "@bruno_faggion",
+      "url": "https://www.youtube.com/watch?v=SyZb8lkRGgg",
+      "platform": "youtube",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-07-11\\benchmark\\youtube\\04-bruno-faggion-b583b1",
+      "status": "degraded",
+      "status_reason": "apenas metadados — sem vídeo/imagem para analisar",
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "video",
+        "degraded": true
+      },
+      "screenshots": 0
+    },
+    {
+      "rank": 5,
+      "creator": "@jonascastromp4",
+      "url": "https://www.youtube.com/watch?v=4J2EirdIhcs",
+      "platform": "youtube",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\tiago-elesbao\\marketing\\daily-monitoring\\2026-07-11\\benchmark\\youtube\\05-jonascastromp4-8bbf6e",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-long",
+        "engine": "VideoAnalyzer",
+        "subtype": "youtube-long"
+      },
+      "screenshots": 8
+    }
+  ]
+}

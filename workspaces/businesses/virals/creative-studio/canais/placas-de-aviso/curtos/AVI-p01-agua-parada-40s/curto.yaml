@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════════════════════════════════
+# AVI-P01 · piloto do canal de placas
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: AVI-p01-agua-parada-40s
+  canal: placas-de-aviso
+  criado_em: '2026-09-07'
+  status: montado
+
+visual:
+  # DUAS FAMILIAS, como no formato modelado: o cenario onde a placa se planta e
+  # os INSERTS DE ANIMAL, que sao o motor do formato.
+  #
+  # A primeira versao tinha quatro takes e dois deles com placa -- o mesmo plano
+  # voltava do inicio ao fim. Aqui sao doze, e os inserts tem funcao declarada:
+  # reativo (espanto), fofo (paga o CTA) e dependente (dividia emocional).
+  # `n` = clipes distintos por consulta. Doze takes para 52 segmentos ainda
+  # deixava o mesmo plano no ar por segundos seguidos (44 repeticoes); com
+  # dois a tres por etiqueta o bloco continua sendo o mesmo bicho, mas corta.
+  #
+  # `exige` = o que a descricao do Pexels tem de citar. Aqui os inserts sao de
+  # BICHO; take de gente na estrada entra facil numa busca por "estrada de
+  # parque" e nao serve.
+  consultas:
+    - {q: "empty forest road warning sign",    etiqueta: "cenario-estrada", n: 3, exige: [road, highway, asphalt, sign], ancora: "Se voce ver essa placa numa estrada de parque"}
+    - {q: "hiking trail forest path",          etiqueta: "cenario-trilha", n: 3, exige: [trail, path, forest, woods], ancora: "A placa proibe alimentar os animais por um motivo"}
+    - {q: "national park entrance road",       etiqueta: "cenario-parque", n: 2, exige: [park, road, forest]}
+    - {q: "dog tilting head confused close up", etiqueta: "reativo", n: 3, exige: [dog, puppy], ancora: "Bro o que essa placa quer dizer"}
+    - {q: "cat surprised wide eyes close up",  etiqueta: "reativo", n: 2, exige: [cat, kitten]}
+    - {q: "puppy playing grass close up",      etiqueta: "fofo", n: 3, exige: [puppy, dog], ancora: "se voce gosta de bicho me segue aqui"}
+    - {q: "kitten looking at camera",          etiqueta: "fofo", n: 2, exige: [kitten, cat]}
+    - {q: "stray dog waiting on roadside",     etiqueta: "dependente-1", n: 3, exige: [dog, stray], ancora: "Ele passou a vida esperando comida na beira da estrada"}
+    - {q: "thin street dog looking sad",       etiqueta: "dependente-2", n: 3, exige: [dog, stray], ancora: "Agora ele nao caca mais"}
+    - {q: "abandoned dog alone street",        etiqueta: "dependente-3", n: 3, exige: [dog, stray], ancora: "Se voce acha isso triste deixa um coracao nos comentarios"}
+    - {q: "wild animal crossing road",         etiqueta: "payoff-bicho", n: 3, exige: [deer, fox, animal, crossing, road], ancora: "para de cacar e vira atropelamento"}
+    - {q: "car driving forest road",           etiqueta: "payoff-carro", n: 2, exige: [car, road, driving]}
+
+
+  # ── AS CAMADAS DO FORMATO ────────────────────────────────────────────────
+  #
+  # Medidas em `docs/METODO-INSERT-ANIMAL.md`: a placa ocupa os primeiros cinco
+  # segundos e VOLTA antes do desfecho; o emoji cai no instante da reacao; o
+  # botao aparece na frase que pede a inscricao. Sem isto o video e acervo
+  # solto -- e foi exatamente esse o diagnostico do piloto anterior.
+  #
+  # Cada camada ancora num TRECHO DA FALA, nao num segundo fixo: mudou a
+  # narracao, a camada acompanha.
+  camadas:
+    - {tipo: placa, pict: nao-alimentar, larg: 0.60, pos: meio, dur: 4.2,
+       ancora: "Se voce ver essa placa numa estrada de parque"}
+    # a seta aponta PARA a placa (centro, y=700), entao nasce abaixo dela e
+    # a esquerda; em `baixo` ela apontava para a estrada vazia.
+    - {tipo: seta, larg: 0.30, ang: 34, pos: 1010, x: 0.10, dur: 3.4,
+       atraso: 0.6, ancora: "Se voce ver essa placa numa estrada de parque"}
+    - {tipo: emoji, glifo: "⁉️", px: 230, pos: topo, dur: 2.0,
+       ancora: "Bro o que essa placa quer dizer"}
+    # CTA DO TIKTOK, nao do YouTube: os dois canais vao so para la ate abrir
+    # o Shop, e "inscreva-se" pede um gesto que nao existe naquela tela.
+    - {tipo: gesto, gesto: seguir, px: 260, pos: baixo, dur: 2.8,
+       ancora: "se voce gosta de bicho me segue aqui"}
+    - {tipo: emoji, glifo: "😢", px: 200, pos: topo, dur: 2.2,
+       ancora: "Agora ele nao caca mais"}
+    - {tipo: emoji, glifo: "❤️❤️❤️", px: 150, pos: acima-legenda, dur: 2.6,
+       ancora: "Se voce acha isso triste deixa um coracao nos comentarios"}
+    - {tipo: gesto, gesto: comentar, px: 250, pos: baixo, dur: 2.6, atraso: 0.5,
+       ancora: "Se voce acha isso triste deixa um coracao nos comentarios"}
+    - {tipo: placa, pict: nao-alimentar, larg: 0.46, pos: meio, dur: 2.4,
+       ancora: "A placa proibe alimentar os animais por um motivo"}

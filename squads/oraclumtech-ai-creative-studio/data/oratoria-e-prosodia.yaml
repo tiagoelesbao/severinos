@@ -1,0 +1,247 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORATÓRIA E PROSÓDIA — dirigir a narração, não só gerá-la
+#
+# Consumido por: @head-of-copy (`script`), @sound-designer (`audio`)
+# Entra no artefato: o SRT de entrada do `tts-narracao-srt.json`
+#
+# POR QUE ISTO EXISTE
+# Voz neural boa lê o texto. Voz neural DIRIGIDA conduz o ouvinte. A diferença não
+# está no modelo — está em quem escreve o SRT. Este arquivo transforma técnica de
+# oratória em parâmetro que a máquina obedece.
+#
+# A VANTAGEM ESTRUTURAL QUE QUASE NINGUÉM TEM
+# A maioria alimenta TTS com texto corrido. Nós alimentamos com SRT. Isso significa
+# que o SRT não é só timing — é uma PARTITURA DE PROSÓDIA:
+#   · o INTERVALO entre cues  = duração da pausa
+#   · a DURAÇÃO do cue vs. nº de palavras = velocidade daquele trecho
+#   · a FRONTEIRA do cue      = ponto de respiração
+#   · a TAG dentro do cue     = intensidade emocional daquele trecho
+# Quem manda texto corrido não tem nenhuma dessas alavancas.
+#
+# Fonte: docs da TTS-Audio-Suite (PARAMETER_SWITCHING_GUIDE, CHATTERBOX_V2_SPECIAL_TOKENS)
+#        verificados em disco + retórica clássica e técnica de locução.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  engine_de_referencia: 'ChatterBox Official 23-Lang v3, voz embutida (voz canônica do canal)'
+  status: a_validar_no_estudio
+  nota_de_status: >
+    Os parâmetros e a sintaxe estão CONFIRMADOS na documentação da suíte instalada.
+    O efeito estético de cada técnica ainda não foi medido na nossa voz. Validar no
+    Teste B (dark estoicismo) do PLANO-DE-VALIDACAO.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. AS ALAVANCAS REAIS — o que a máquina de fato obedece
+alavancas:
+
+  - id: intervalo_entre_cues
+    o_que_controla: 'Duração da pausa'
+    como: >
+      Com `timing_mode: smart_natural`, o gap entre o fim de um cue e o início do
+      próximo vira silêncio real. Um intervalo de 1,2s antes da revelação É a pausa
+      dramática — escrita, não improvisada.
+    confiabilidade: ALTA
+    medido: 'No teste do agente: cue de 3,5s com 2,72s de fala natural gerou +0,78s de silêncio, sem esticar a voz.'
+
+  - id: duracao_vs_palavras
+    o_que_controla: 'Velocidade de fala do trecho'
+    como: >
+      Cue curto com muitas palavras = fala acelerada. Cue longo com poucas palavras =
+      fala espaçada, com silêncio ao redor. É como se acelera na enumeração e se
+      desacelera na revelação.
+    confiabilidade: ALTA
+    limite: 'Só dentro de `max_stretch_ratio`/`min_stretch_ratio`. Fora disso o smart_natural desiste e empurra os cues seguintes.'
+
+  - id: fronteira_de_cue
+    o_que_controla: 'Ponto de respiração'
+    como: 'Onde o cue termina, a locução respira. Quebrar uma frase em dois cues coloca uma respiração no meio dela.'
+    confiabilidade: ALTA
+
+  - id: tag_exaggeration
+    o_que_controla: 'Intensidade emocional daquele trecho'
+    sintaxe: '[exag:0.8] no início do texto do cue'
+    faixa: '0.0 a 2.0'
+    alias: 'exag = exaggeration'
+    como: >
+      Aplica SÓ àquele segmento e volta ao default do nó no cue seguinte. É a alavanca
+      de ênfase mais direta que temos.
+    confiabilidade: 'ALTA na sintaxe, A VALIDAR no efeito — falta medir a curva na nossa voz'
+
+  - id: tag_temperature
+    o_que_controla: 'Variação vs. previsibilidade da entrega'
+    sintaxe: '[temp:0.5]'
+    faixa: '0.1 a 2.0'
+    como: 'Baixo = leitura contida e previsível. Alto = mais variação melódica, e mais risco de erro de palavra.'
+    confiabilidade: ALTA
+    armadilha: 'Temperatura alta aumenta WER. Em roteiro, palavra errada custa mais que entonação chata.'
+
+  - id: tag_cfg
+    o_que_controla: 'Aderência ao timbre da voz de referência'
+    sintaxe: '[cfg:0.5]'
+    faixa: '0.0 a 1.0'
+    confiabilidade: ALTA
+
+  - id: tag_seed
+    o_que_controla: 'Reprodutibilidade'
+    sintaxe: '[seed:42]'
+    como: 'Mesmo seed = mesma entrega. Serve para refazer um cue sem refazer o episódio.'
+    confiabilidade: ALTA
+
+  - id: pontuacao
+    o_que_controla: 'Micro-pausa e melodia de fecho'
+    como: >
+      Vírgula = pausa curta. Ponto = queda de tom e pausa. Reticências = suspensão.
+      Travessão = corte abrupto. O curso do founder já havia notado que pontuação muda
+      o resultado; aqui vira ferramenta deliberada.
+    confiabilidade: 'MÉDIA — varia por engine, mas sempre existe algum efeito'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. O QUE NÃO FUNCIONA — registrado para ninguém perder tempo
+nao_confiavel:
+  - id: tokens_especiais_v2
+    o_que_e: 'Tags `<sigh>`, `<whisper>`, `<gasp>`, `<inhale>`, `<laughter>` do ChatterBox v2'
+    por_que_tenta: 'A lista é sedutora: sussurro, suspiro, respiração, riso — exatamente o vocabulário da oratória.'
+    a_realidade: >
+      A própria documentação da suíte marca como EXPERIMENTAL: os tokens existem no
+      vocabulário do tokenizer, mas o modelo pode não responder. Sem documentação
+      oficial da ResembleAI, efeito mínimo ou nulo, resultados inconsistentes.
+    veredito: 'NÃO construir técnica em cima disso. Testar por curiosidade, nunca por dependência.'
+    se_um_dia_funcionar: 'Usar `<tag>` com ângulo, não `[tag]` — colchete colide com o sistema de troca de personagem.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. TÉCNICAS DE ORATÓRIA → COMO SE ESCREVE NO SRT
+#
+# Cada técnica traz: o efeito retórico, como se realiza com as alavancas acima,
+# e onde ela cabe no formato.
+tecnicas:
+
+  - id: pausa-dramatica
+    nome: 'Pausa dramática'
+    efeito: >
+      O silêncio antes da informação vale mais que a informação. O ouvinte preenche a
+      lacuna com expectativa; a frase chega dentro de um espaço já aberto para ela.
+    como_realizar: 'Intervalo de 0,8–1,5s entre o cue de setup e o cue da revelação.'
+    onde_usa: 'Antes da virada do episódio; antes do nome do culpado; antes do número que choca.'
+    cuidado: 'Acima de ~2s soa como falha técnica, não como pausa.'
+
+  - id: enumeracao-acelerada
+    nome: 'Aceleração na enumeração, desaceleração na revelação'
+    efeito: >
+      Ritmo constante soa robótico mesmo gravado por humano. Variar é o que faz a voz
+      parecer que PENSA.
+    como_realizar: >
+      Na lista: cues curtos, muitas palavras, sem intervalo entre eles.
+      Na conclusão: cue longo, poucas palavras, com intervalo antes.
+    onde_usa: 'Já era regra do `craft-references.yaml` do dark-room. Agora tem execução.'
+
+  - id: enfase-por-isolamento
+    nome: 'Ênfase por isolamento'
+    efeito: 'Uma palavra sozinha no silêncio pesa mais que a mesma palavra gritada dentro da frase.'
+    como_realizar: 'A palavra ganha um cue só dela, com duração folgada e intervalo antes e depois.'
+    onde_usa: 'Nome próprio decisivo, número, o verbo que vira a cena.'
+    nota: 'Mais eficaz que subir `exag`. Estrutura vence intensidade.'
+
+  - id: escalada-emocional
+    nome: 'Escalada emocional'
+    efeito: 'Intensidade crescente ao longo de um bloco cria sensação de aproximação do clímax.'
+    como_realizar: 'Progressão de `[exag:...]` cue a cue — ex.: 0.4 → 0.6 → 0.8 → 1.0.'
+    onde_usa: 'Últimos 20–30s antes do gancho de fim de episódio.'
+    cuidado: 'Escalada sem queda cansa. Depois do pico, voltar a 0.4 no cue seguinte.'
+
+  - id: contraste-de-intensidade
+    nome: 'Contraste de intensidade'
+    efeito: >
+      O ouvido registra DIFERENÇA, não valor absoluto. Um trecho contido antes de um
+      trecho intenso faz o intenso soar mais forte que ele é.
+    como_realizar: '`[exag:0.2]` num cue, `[exag:0.9]` no seguinte.'
+    onde_usa: 'Fato frio seguido de consequência.'
+
+  - id: quebra-de-padrao
+    nome: 'Quebra de padrão rítmico'
+    efeito: 'A atenção cai quando o ritmo é previsível. Um cue curto depois de três longos reacorda.'
+    como_realizar: 'Alternar deliberadamente a duração dos cues; nunca três seguidos iguais.'
+    onde_usa: 'A cada 20–30s — casa com o loop de curiosidade que o dark-room já exige.'
+
+  - id: queda-de-fecho
+    nome: 'Queda de tom no fecho'
+    efeito: >
+      Frase que termina subindo soa como pergunta ou como incerteza. Frase que cai soa
+      como afirmação. Autoridade é melodia descendente.
+    como_realizar: 'Ponto final, não exclamação. Evitar reticências no fim de afirmação.'
+    onde_usa: 'Toda conclusão. Especialmente no institucional e no estoicismo.'
+
+  - id: regra-de-tres
+    nome: 'Tricolon (regra de três)'
+    efeito: >
+      Três elementos é o menor número que estabelece padrão. Dois é comparação, quatro
+      é lista. Três é ritmo.
+    como_realizar: 'Nível de texto, não de parâmetro: três cues curtos e paralelos, mesma duração.'
+    onde_usa: 'Enumerar princípios, consequências, escolhas.'
+
+  - id: respiracao-audivel
+    nome: 'Respiração como credibilidade'
+    efeito: >
+      O `craft-references.yaml` já dizia: respiração audível é credibilidade, não
+      defeito. Locução sem respiração soa sintética mesmo quando não é.
+    como_realizar: >
+      Quebrar frase longa em dois cues coloca a respiração no meio dela. Não precisa
+      de token — precisa de fronteira de cue.
+    onde_usa: 'Frase acima de ~15 palavras.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. EXEMPLO — o mesmo trecho, sem direção e com direção
+exemplo:
+  sem_direcao: |
+    1
+    00:00:00,000 --> 00:00:08,000
+    Marco Aurélio governava o maior império do mundo e escrevia todas as noites um
+    diário que nunca pretendeu publicar. Nele, não há ordens. Há dúvidas.
+
+  com_direcao: |
+    1
+    00:00:00,000 --> 00:00:04,200
+    [exag:0.3] Marco Aurélio governava o maior império do mundo.
+
+    2
+    00:00:04,600 --> 00:00:09,000
+    [exag:0.4] E escrevia, todas as noites, um diário que nunca pretendeu publicar.
+
+    3
+    00:00:10,200 --> 00:00:12,000
+    [exag:0.2] Nele, não há ordens.
+
+    4
+    00:00:13,000 --> 00:00:15,200
+    [exag:0.8] Há dúvidas.
+
+  o_que_mudou:
+    - 'Cue 1→2: fronteira coloca respiração no meio da frase longa (respiracao-audivel)'
+    - 'Intervalo de 1,2s antes do cue 3: pausa dramática antes da virada'
+    - 'Cue 3 contido em 0.2, cue 4 em 0.8: contraste de intensidade'
+    - 'Cue 4 isolado, duas palavras em 2,2s: ênfase por isolamento'
+    - 'Ponto final em todos: queda de fecho'
+  custo: 'Zero. Mesma voz, mesmo modelo, mesmo tempo de geração. A diferença é só como o SRT foi escrito.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. QUEM FAZ O QUÊ
+responsabilidades:
+  head_of_copy: >
+    Escreve o SRT COM a direção de prosódia embutida — intervalos, fronteiras e tags.
+    O roteiro não é texto que depois alguém temporiza: já nasce partitura.
+  sound_designer: >
+    Revisa a partitura, ajusta as tags contra a voz real e é dono da decisão de
+    `timing_mode`. Valida no retorno se a intenção sobreviveu à geração.
+  gate: >
+    `gate-audio.md` deve checar se a narração TEM direção de prosódia ou se é leitura
+    corrida. Leitura corrida em episódio de 7 minutos é falha de ofício, não de gosto.
+
+# ─────────────────────────────────────────────────────────────────────────────
+manutencao:
+  proxima_validacao: 'Teste B (dark estoicismo) — medir a curva real de `exag` na voz canônica e registrar aqui os valores que funcionam'
+  o_que_falta_medir:
+    - 'Faixa útil de `exag` na voz embutida: onde começa a soar forçado'
+    - 'Intervalo máximo antes de soar como falha técnica (estimado em ~2s, não medido)'
+    - 'Se `temp` acima de 0.7 degrada WER na nossa voz (no teste geral degradou)'

@@ -1,0 +1,306 @@
+schema_version: '5.0'
+generated_at: '2026-08-11T16:14:43'
+archetype: news
+carousel_brief:
+  slug: v5-precision-08-publicitarioscriativos-b3271c
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-11\benchmark\instagram\08-publicitarioscriativos-b3271c
+  source_url: https://www.instagram.com/publicitarioscriativos/p/Db3wDyknCvn/
+  tema: 'Modelagem de precisão: 08-publicitarioscriativos-b3271c'
+  slide_count: 3
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#A855F7'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 1
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 3.2/10 · **Classificação:** Fraco 🔴 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substitua o mascote em trono por uma captura de tela da IA em operação, exibindo
+    o fluxo de automação nos primeiros 3 s. - Transformar a imagem estática em um
+    vídeo de ritmo acelerado, substituindo a arte do Duolingo por cortes rápidos entre
+    apresen'
+  audits_present: true
+benchmark_caption: '6,428 likes, 76 comments - publicitarioscriativos on August 10,
+  2026: "O fim de uma temporada costuma marcar o encerramento de uma jornada, mas
+  para os fãs de Casa do Dragão virou o início de outra: aprender a língua dos Targaryen.
+  O desfecho da terceira temporada não gerou apenas repercussão sobre a trama, mas
+  também um salto direto no comportamento dos espectadores dentro de outro aplicativo.
+
+
+  Segundo dados do próprio Duolingo, o número de alunos ativos diariamente no curso
+  de Alto Valiriano cresceu 298% no Brasil desde a estreia da temporada, e 651% na
+  comparação ano a ano. O curso existe desde 2019, criado em parceria com o linguista
+  David J. Peterson, e ensina desde conversas cotidianas até comandos para se comunicar
+  com dragões.
+
+
+  O movimento reforça como o engajamento com uma série pode se estender para muito
+  além da tela, transformando entretenimento em comportamento real de consumo.'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.png
+  reference_headline: Episódio Final da Casa do Dragão impulsiona curso de Alto Valiriano
+    no Duolingo
+  reference_body: Procura pelo idioma fictício da série cresce 298% no Brasil após
+    desfecho da terceira temporada
+  headline: CASA DO DRAGÃO E O ALTO VALIRIANO NO DUOLINGO
+  sub_headline: A TREND
+  body_text: O sucesso da série levou espectadores a iniciarem cursos de Alto Valiriano
+    no Duolingo. O entretenimento serve como porta de entrada para novos aprendizados.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 45
+    body_chars: 157
+    headline_tier: md
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person watching tablet
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Headline direta sobre como o final de Casa do Dragão transformou entretenimento
+      em aprendizado real. O hook deve focar no benefício de entender como picos de
+      cultura pop geram demanda imediata de consumo.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-11T16:15:21'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_01.png
+  reference_headline: Episódio Final da Casa do Dragão impulsiona curso de Alto Valiriano
+    no Duolingo
+  reference_body: Procura pelo idioma fictício da série cresce 298% no Brasil após
+    desfecho da terceira temporada
+  headline: A CONEXÃO ENTRE SÉRIE E IDIOMA
+  sub_headline: O DADO
+  body_text: O volume de estudantes de Alto Valiriano no Duolingo cresceu após o lançamento
+    de Casa do Dragão. Narrativas fortes impulsionam a busca por conhecimentos específicos.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 30
+    body_chars: 166
+    headline_tier: lg
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: smartphone screen app
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Apresentar o fato concreto: a procura pelo Alto Valiriano cresceu
+      298% no Brasil após o desfecho da terceira temporada. Enfatizar a conexão inesperada
+      entre a série e o app de educação.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-11T16:15:21'
+- slide_n: 3
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_01.png
+  reference_headline: Episódio Final da Casa do Dragão impulsiona curso de Alto Valiriano
+    no Duolingo
+  reference_body: Procura pelo idioma fictício da série cresce 298% no Brasil após
+    desfecho da terceira temporada
+  headline: 'A LIÇÃO: NARRATIVAS QUE MOVEM O USUÁRIO'
+  sub_headline: A LIÇÃO
+  body_text: Quando a história engaja, o público aceita o esforço de aprender até
+    uma língua fictícia. Até que ponto o entretenimento molda o comportamento de consumo
+    atual?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 39
+    body_chars: 160
+    headline_tier: md
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person typing laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Transformar o caso em insight prático sobre comportamento: como a
+      narrativa certa move pessoas para a ação (mesmo para aprender uma língua fictícia).
+      Terminar com uma reflexão sobre como as marcas podem surfar em tendências para
+      gerar escala de interesse.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-11T16:15:21'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/1
+  bodies_extracted: 1/1
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: O impacto do desfecho de Casa do Dragão no aumento massivo de estudantes
+    de Alto Valiriano no Duolingo.
+  formato: Case de comportamento de consumo / News snippet
+  arco_narrativo: O conteúdo parte de um evento cultural pop (fim da temporada), apresenta
+    um dado estatístico surpreendente (estatísticas do Duolingo) e conclui com um
+    insight sobre a transição de entretenimento para comportamento real.
+  estrutura:
+  - slide_n: 1
+    papel: Gancho e entrega imediata do fato principal (Headline + Dado)
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Surfe em trend de alta relevância (Casa do Dragão)
+  - Uso de dados concretos e percentuais expressivos (298% e 651%)
+  - Conexão inesperada entre dois mundos (Série de TV vs. App de Educação)
+  - Curiosidade inerente ao aprendizado de uma língua fictícia
+  recomendacao:
+    slides_ideais: 3
+    justificativa: 'Embora o benchmark use apenas 1 slide, para a Virals a performance
+      aumenta ao distribuir a narrativa: Slide 1 (Gancho/Trend), Slide 2 (O dado/Prova
+      social) e Slide 3 (Insight estratégico/Conclusão), evitando a sobrecarga de
+      texto do post original.'
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-11T16:14:54'
+content_plan:
+  archetype: news
+  slide_count: 3
+  tema: O impacto de Casa do Dragão no aumento de estudantes de Alto Valiriano no
+    Duolingo
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: A TREND
+    copy_direction: Headline direta sobre como o final de Casa do Dragão transformou
+      entretenimento em aprendizado real. O hook deve focar no benefício de entender
+      como picos de cultura pop geram demanda imediata de consumo.
+    image_direction: 'Composição visual dividindo a tela: de um lado a estética de
+      Casa do Dragão, do outro a interface do Duolingo.'
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O DADO
+    copy_direction: 'Apresentar o fato concreto: a procura pelo Alto Valiriano cresceu
+      298% no Brasil após o desfecho da terceira temporada. Enfatizar a conexão inesperada
+      entre a série e o app de educação.'
+    image_direction: Gráfico simples ou elemento visual de crescimento destacando
+      o número 298% com a bandeira do Brasil e o ícone do idioma.
+    source_slides:
+    - 1
+  - slide_n: 3
+    role: PAYOFF
+    kicker: A LIÇÃO
+    copy_direction: 'Transformar o caso em insight prático sobre comportamento: como
+      a narrativa certa move pessoas para a ação (mesmo para aprender uma língua fictícia).
+      Terminar com uma reflexão sobre como as marcas podem surfar em tendências para
+      gerar escala de interesse.'
+    image_direction: Imagem minimalista que remeta a 'conexão' ou 'fluxo de comportamento',
+      mantendo a paleta de cores da marca Virals.
+    source_slides:
+    - 1
+  rationale: A estrutura foi expandida de 1 para 3 slides para evitar a sobrecarga
+    de texto e criar um arco narrativo fluido (Trend -> Dado -> Insight). O hook foca
+    na oportunidade de observar comportamentos de consumo, e o payoff entrega a lição
+    estratégica sem usar termos proibidos ou inventar dados, mantendo a fidelidade
+    total aos 298% citados na fonte.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-11T16:15:12'
+central_theme: O impacto de Casa do Dragão no aumento de estudantes de Alto Valiriano
+  no Duolingo
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-11T16:15:21'
+  slides: 3
+  central_theme: O impacto de Casa do Dragão no aumento de estudantes de Alto Valiriano
+    no Duolingo
+  slides_missing: []
+quality_gate:
+  status: WARN_MAX_ITER
+  iterations: 3
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-11T16:15:45'

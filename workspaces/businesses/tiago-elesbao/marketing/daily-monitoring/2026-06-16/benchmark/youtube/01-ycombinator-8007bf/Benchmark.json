@@ -1,0 +1,43 @@
+{
+  "rank": 1,
+  "creator": "@ycombinator",
+  "url": "https://www.youtube.com/watch?v=ObBAxL2dFzw",
+  "platform": "youtube",
+  "type": "video-long",
+  "subtype": "youtube-long",
+  "engine": "VideoAnalyzer",
+  "title": "Groww: If Your Customers Don't Love It or Hate It, You've Already Lost",
+  "description": "Lalit Keshre is the co-founder and CEO of Groww (W18), India's largest retail investment platform, offering stocks, mutual funds, and wealth management products to millions of customers. \n\nAt Startup School India, Keshre sat down with YC General Partner Jon Xu to reflect on what it takes to build fintech products at the highest level. \n\nChapters:\n\n00:00 - Intro\n01:32 - Growing Up Wanting to Be an IAS Officer\n03:41 - The First Idea That Failed\n05:36 - The Counterintuitive Bet on Transparency\n07:30 - 600 Customers in the First Month\n09:20 - WhatsApp Groups & Movie Theater Interviews\n11:09 - 100% Organic Growth\n13:14 - Playing Only in the Regulated Zone\n14:22 - Four Years of Zero Revenue\n15:53 - Obsessing Over Design & Product Love\n18:19 - Coding Again with Claude Code\n21:36 - How AI Changes What It Takes to Build\n23:10 - Serving Customers as They Get Wealthy\n25:42 - Four Co-Founders, Zero Conflicts\n28:58 - Do Something That Doesn't Feel Like Work",
+  "author": "Y Combinator",
+  "view_count": 4426,
+  "like_count": 131,
+  "comment_count": null,
+  "duration_seconds": 1810,
+  "thumbnail": "https://i.ytimg.com/vi/ObBAxL2dFzw/maxresdefault.jpg",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Most of the time like you woul"
+    },
+    {
+      "time": 104,
+      "label": "So"
+    },
+    {
+      "time": 225,
+      "label": "And that's something that we h"
+    },
+    {
+      "time": 376,
+      "label": "Because I think that is a bit "
+    },
+    {
+      "time": 597,
+      "label": "Like so we created like lot of"
+    }
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-06-16T21:58:52.702Z"
+}

@@ -1,0 +1,225 @@
+# WF-SAM-REEL-001: Pipeline de Produção de Reel/Short
+# Duration: 20-45 min por vídeo curto
+# Best for: Reels Instagram, TikTok, YouTube Shorts (até 90s)
+# Key Agents: @sam-kolder-vid
+# Stack: FFmpeg + MoviePy + Whisper + auto-editor + Movis
+
+workflow:
+  id: wf-sam-reel-production
+  name: "Pipeline de Produção de Reel/Short"
+  version: "1.0"
+  orchestrator: "sam-kolder-vid"
+  duration: "20-45 min"
+  description: |
+    Workflow completo para produção de vídeo curto (Reels/TikTok/Shorts).
+    Fluxo: Ingestão → Silence Cut → Seleção de Clips → Edição →
+    Motion Titles → Legendas → Color Grade → Reformat → Export.
+
+    Regra de produção:
+    - Primeiros 3s: hook visual obrigatório (texto de abertura + corte forte)
+    - Duração alvo: 30-60s (máx 90s)
+    - Formato principal: 9:16 (1080x1920)
+    - Legendas: sempre hardcoded
+
+    Output: outputs/reels/{slug}/
+    - reel_1080x1920.mp4 (principal)
+    - reel_1080x1080.mp4 (versão feed)
+    - reel.srt (legenda)
+    - reel_manifest.json
+
+  best_for:
+    - "Clips de highlight de conteúdo longo"
+    - "Conteúdo original curto (talking head)"
+    - "Behind the scenes e lifestyle"
+    - "Repurposing de vídeos longos"
+
+  platform_presets:
+    reels: {resolution: "1080x1920", fps: 30, bitrate: "8M", codec: "h264"}
+    tiktok: {resolution: "1080x1920", fps: 30, bitrate: "8M", codec: "h264"}
+    shorts: {resolution: "1080x1920", fps: 60, bitrate: "8M", codec: "h264"}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: Ingestão e Análise
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1-INGEST
+    name: "Ingestão e Análise do Material Bruto"
+    tier: 1
+    description: |
+      Analisa o material bruto via FFmpeg probe. Coleta briefing e define
+      pipeline de produção. Estima tempo de processamento.
+
+    tasks:
+      - task_file: sam-reel-edit.md
+        agent: sam-kolder-vid
+        required: true
+        step: 1
+        description: "FFmpeg probe + análise de duração, codec, resolução"
+        output: "Resumo do material + plano de pipeline aprovado"
+
+    checkpoint:
+      criteria:
+        - "Codec e resolução do vídeo bruto identificados?"
+        - "Briefing do reel coletado (hook, plataforma, duração alvo)?"
+        - "LUT preset selecionado?"
+      human_review: true
+      message: "Aprovar briefing e plano de pipeline antes de iniciar edição."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: Silence Cut
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2-SILENCE
+    name: "Silence Cut Automático"
+    tier: 1
+    description: |
+      Remove silêncios do material bruto via auto-editor.
+      Threshold configurado para conteúdo dinâmico de Reel (4%).
+
+    tasks:
+      - task_file: sam-silence-cut.md
+        agent: sam-kolder-vid
+        required: true
+        description: "auto-editor com threshold 4% para Reel"
+        output: "Vídeo sem silêncios + cut_report.json"
+
+    checkpoint:
+      criteria:
+        - "Silêncios removidos sem clipping de palavras?"
+        - "Cut report com % de tempo salvo gerado?"
+      human_review: false
+      message: "Validar que cortes não quebraram frases antes de prosseguir."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: Edição e Montagem
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3-EDIT
+    name: "Edição e Montagem do Reel"
+    tier: 1
+    description: |
+      Seleciona e monta os melhores clips. Aplica pacing, transitions
+      e hook visual nos primeiros 3 segundos.
+
+    tasks:
+      - task_file: sam-reel-edit.md
+        agent: sam-kolder-vid
+        required: true
+        step: 3
+        description: "Seleção de clips, montagem em MoviePy, aplicação de zoom transitions"
+        output: "Reel montado no target_duration_s"
+
+    checkpoint:
+      criteria:
+        - "Primeiros 3s têm hook visual claro?"
+        - "Duração dentro de ±5s do target?"
+        - "Pacing dinâmico (sem longos planos estáticos)?"
+      human_review: true
+      message: "VALIDAR MONTAGEM: Revisar reel montado antes de adicionar elementos visuais."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: Motion Titles e Legendas
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4-TITLES
+    name: "Motion Titles e Legendas Automáticas"
+    tier: 1
+    description: |
+      Adiciona textos animados (hook text, lower thirds, marca d'água).
+      Gera legendas via Whisper e hardcode no vídeo.
+
+    tasks:
+      - task_file: sam-motion-title.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Hook text animado + marca d'água via Movis/MoviePy"
+        output: "Reel com motion titles compostos"
+        order: 1
+
+      - task_file: sam-caption-auto.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Whisper transcreve + gera SRT + hardcode no vídeo"
+        output: "Reel com legendas burnadas + reel.srt"
+        order: 2
+
+    checkpoint:
+      criteria:
+        - "Hook text nos primeiros 3s visível e legível?"
+        - "Legendas sincronizadas com áudio?"
+        - "Legendas visíveis sem cobrir elementos importantes?"
+      human_review: true
+      message: "Validar legendas e textos animados antes do color grade."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: Color Grade e Export Final
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-5-GRADE-EXPORT
+    name: "Color Grade e Export Multi-Formato"
+    tier: 1
+    description: |
+      Aplica LUT cinematográfico via FFmpeg.
+      Exporta 9:16 (principal) e 1:1 (versão feed) com presets de plataforma.
+
+    tasks:
+      - task_file: sam-color-grade.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Aplicar LUT selecionado com intensidade padrão 85%"
+        output: "Reel com grading aplicado"
+        order: 1
+
+      - task_file: sam-reformat-export.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Export 9:16 (principal) + 1:1 (feed) + manifest"
+        output: "outputs/reels/{slug}/ com todos os formatos"
+        order: 2
+
+    checkpoint:
+      criteria:
+        - "LUT aplicado — diferença visual clara e intencional?"
+        - "Export 9:16 em 1080x1920 @ bitrate correto?"
+        - "reel_manifest.json com pipeline completo documentado?"
+      human_review: true
+      message: "VALIDAÇÃO FINAL: Assistir reel completo antes de concluir."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE:SAM-REEL-PRODUCTION</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-{{phase_id}}</promise>"
+blocked_signal: "<promise>BLOCKED:SAM-REEL-GARGALO</promise>"
+
+outputs:
+  Per_Reel:
+    - "reel_1080x1920.mp4 — Formato principal (Reels/TikTok/Shorts)"
+    - "reel_1080x1080.mp4 — Versão feed quadrada"
+    - "reel.srt — Arquivo de legenda"
+    - "reel_manifest.json — Pipeline de produção documentado"
+
+quality_checklist:
+  Hook:
+    - "[ ] Primeiros 3s têm hook visual"
+    - "[ ] Hook text animado presente"
+  Edição:
+    - "[ ] Pacing dinâmico"
+    - "[ ] Silêncios removidos"
+    - "[ ] Duração dentro do target"
+  Legendas:
+    - "[ ] Sincronizadas com áudio"
+    - "[ ] Visíveis e legíveis"
+  Color:
+    - "[ ] LUT aplicado e identificado"
+  Export:
+    - "[ ] 9:16 correto"
+    - "[ ] Manifest gerado"
+
+metadata:
+  version: "1.0"
+  framework: "Virals Media Video Pipeline v1"
+  created: "2026-05-10"
+  primary_use_case: "Produção de Reel/TikTok/Short cinematográfico"
+  related_workflows:
+    - "sam-long-form-production.yaml"
+  related_checklists:
+    - "sam-reel-quality-checklist.md"
+  related_templates:
+    - "sam-reel-brief-tmpl.md"

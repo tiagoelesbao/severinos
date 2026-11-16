@@ -1,0 +1,529 @@
+<title>Guia do OpenCode</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --surface-2: #f4f2ee;
+    --fg: #1a1a1c; --fg-muted: #55555c; --fg-faint: #8a8a94;
+    --line: #e3e0da; --accent: #7c3aed; --accent-soft: #f1ebfd;
+    --warn: #9a3412; --warn-soft: #fdf0e8; --ok: #0f766e; --ok-soft: #e6f2f0;
+    --code-bg: #f4f2ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e0f12; --surface: #16181d; --surface-2: #1c1f26;
+      --fg: #e8e8ea; --fg-muted: #a8a8b2; --fg-faint: #70707a;
+      --line: #272b33; --accent: #a78bfa; --accent-soft: #1d1830;
+      --warn: #ffab70; --warn-soft: #2a1a10; --ok: #2de2c8; --ok-soft: #12251f;
+      --code-bg: #1c1f26;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e0f12; --surface: #16181d; --surface-2: #1c1f26;
+    --fg: #e8e8ea; --fg-muted: #a8a8b2; --fg-faint: #70707a;
+    --line: #272b33; --accent: #a78bfa; --accent-soft: #1d1830;
+    --warn: #ffab70; --warn-soft: #2a1a10; --ok: #2de2c8; --ok-soft: #12251f;
+    --code-bg: #1c1f26;
+  }
+
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    margin: 0; padding: 0 1.2rem 6rem;
+  }
+  .wrap { max-width: 60rem; margin: 0 auto; }
+  header.capa { padding: 3.5rem 0 2rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+  header.capa h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 .4rem; letter-spacing: -.02em; }
+  header.capa p { color: var(--fg-muted); margin: 0; max-width: 44rem; }
+  .chapeu { color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .6rem; }
+
+  h2 { font-size: 1.4rem; margin: 3rem 0 .3rem; padding-top: 1.2rem; border-top: 1px solid var(--line); letter-spacing: -.01em; }
+  h2 .num { color: var(--fg-faint); font-weight: 400; margin-right: .5rem; }
+  h3 { font-size: 1.05rem; margin: 1.8rem 0 .4rem; }
+  h4 { font-size: .93rem; margin: 1.2rem 0 .3rem; color: var(--fg-muted); }
+  p { margin: .7rem 0; }
+  ul, ol { padding-left: 1.3rem; } li { margin: .3rem 0; }
+  a { color: var(--accent); }
+
+  code {
+    background: var(--code-bg); padding: .12em .38em; border-radius: 4px;
+    font: 500 .86em/1.4 "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+    word-break: break-word;
+  }
+  pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem; overflow-x: auto; margin: .8rem 0; }
+  pre code { background: none; padding: 0; font-size: .84rem; line-height: 1.55; }
+
+  .tabela-envolve { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .89rem; min-width: 32rem; }
+  th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 700; color: var(--fg-muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+  tbody tr:hover { background: var(--surface-2); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .nota, .aviso, .porque, .bom {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .8rem 1rem; border-radius: 0 6px 6px 0; margin: 1rem 0; font-size: .93rem;
+  }
+  .aviso { border-left-color: var(--warn); background: var(--warn-soft); }
+  .bom { border-left-color: var(--ok); background: var(--ok-soft); }
+  .porque { border-left-color: var(--fg-faint); background: var(--surface-2); }
+  .nota strong:first-child, .aviso strong:first-child, .porque strong:first-child, .bom strong:first-child { display: block; margin-bottom: .25rem; }
+
+  .prompt {
+    background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: .8rem 1rem; margin: .8rem 0;
+    font: 500 .88rem/1.5 "Cascadia Code", Consolas, monospace; white-space: pre-wrap;
+  }
+  .prompt::before {
+    content: "copie e cole"; display: block; font: 700 .66rem/1 -apple-system, sans-serif;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--fg-faint); margin-bottom: .5rem;
+  }
+
+  .dupla { display: grid; gap: .8rem; grid-template-columns: 1fr 1fr; margin: 1rem 0; }
+  @media (max-width: 42rem) { .dupla { grid-template-columns: 1fr; } }
+  .col { border: 1px solid var(--line); border-radius: 8px; padding: .85rem 1rem; background: var(--surface); }
+  .col.sim { border-top: 3px solid var(--ok); }
+  .col.nao { border-top: 3px solid var(--warn); }
+  .col h4 { margin: 0 0 .4rem; color: var(--fg); }
+  .col ul { margin: 0; padding-left: 1.1rem; font-size: .88rem; }
+
+  .passos { counter-reset: passo; list-style: none; padding-left: 0; }
+  .passos > li { counter-increment: passo; position: relative; padding-left: 2.4rem; margin: 1.1rem 0; }
+  .passos > li::before {
+    content: counter(passo); position: absolute; left: 0; top: .05rem;
+    width: 1.7rem; height: 1.7rem; border-radius: 50%;
+    background: var(--accent); color: var(--bg);
+    display: grid; place-items: center; font-size: .82rem; font-weight: 800;
+  }
+
+  nav.sumario { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.3rem; margin: 2rem 0; }
+  nav.sumario ol { columns: 2; column-gap: 2rem; margin: 0; font-size: .92rem; }
+  @media (max-width: 40rem) { nav.sumario ol { columns: 1; } }
+
+  .marca { color: var(--fg-faint); font-size: .82rem; }
+  .barra { display: inline-block; height: .55rem; background: var(--accent); border-radius: 2px; vertical-align: middle; }
+  footer { margin-top: 4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--fg-faint); font-size: .85rem; }
+</style>
+
+<div class="wrap">
+
+<header class="capa">
+  <div class="chapeu">Virals · severinos</div>
+  <h1>Guia do OpenCode — execução lite</h1>
+  <p>
+    Como usar o OpenCode neste repositório quando o modelo é <strong>pequeno ou
+    gratuito</strong>. O princípio que organiza tudo: quase nada deste pipeline
+    precisa de um modelo bom — precisa do comando certo, na ordem certa. O que o
+    modelo faz é lembrar qual é, ler o arquivo e conferir a saída.
+  </p>
+</header>
+
+<nav class="sumario">
+  <ol>
+    <li><a href="#papel">O papel do OpenCode aqui</a></li>
+    <li><a href="#orcamento">Orçamento de contexto</a></li>
+    <li><a href="#comandos">Os três comandos</a></li>
+    <li><a href="#regras">As cinco regras do modelo pequeno</a></li>
+    <li><a href="#divisao">Quem faz o quê</a></li>
+    <li><a href="#receitas">Receitas prontas</a></li>
+    <li><a href="#nunca">O que nunca delegar</a></li>
+    <li><a href="#perdeu">Quando o modelo se perde</a></li>
+    <li><a href="#config">Configuração e ajustes</a></li>
+  </ol>
+</nav>
+
+<!-- ===================================================================== -->
+<h2 id="papel"><span class="num">1</span>O papel do OpenCode aqui</h2>
+
+<p>
+Vale começar pela parte honesta: <strong>cerca de 80% deste pipeline é
+<code>python alguma-coisa.py</code></strong>. Não há raciocínio a fazer —
+há um comando a lembrar, um caminho a acertar e uma saída a conferir.
+</p>
+
+<p>Então o modelo tem três funções aqui, e só três:</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Função</th><th>Exemplo</th><th>Modelo pequeno dá conta?</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Lembrar o comando</strong></td><td>"qual o script que alinha legenda ao áudio?"</td><td>Sim</td></tr>
+    <tr><td><strong>Ler um arquivo e responder</strong></td><td>"quantas palavras tem o LA2?"</td><td>Sim</td></tr>
+    <tr><td><strong>Conferir uma saída</strong></td><td>"a duração bateu com o previsto?"</td><td>Sim, se você colar a saída</td></tr>
+    <tr><td>Decidir <em>o que</em> gerar</td><td>escrever prompt de imagem do zero</td><td><strong>Não</strong> — ver §7</td></tr>
+    <tr><td>Diagnosticar erro novo</td><td>"por que o Wan estourou a RAM?"</td><td><strong>Não</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="bom">
+<strong>A consequência prática é boa.</strong>
+Se o modelo só precisa acertar comando e caminho, um modelo free resolve a maior
+parte dos seus dias. O que ele <em>não</em> pode fazer é inventar — e as regras da
+§4 existem para tirar dele a oportunidade de inventar.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="orcamento"><span class="num">2</span>Orçamento de contexto</h2>
+
+<p>
+Isto é o que mais derruba sessão em modelo pequeno, e é invisível: arquivos são
+carregados <strong>antes de você digitar a primeira palavra</strong>.
+</p>
+
+<h3>O que entra em toda sessão</h3>
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Arquivo</th><th class="num">Tamanho</th><th class="num">~tokens</th><th></th></tr></thead>
+  <tbody>
+    <tr><td><code>.claude/rules/*.md</code> (11 arquivos)</td><td class="num">39 KB</td><td class="num">10,1k</td><td><span class="barra" style="width:9rem"></span></td></tr>
+    <tr><td><code>MEMORY-ESSENCIAL.md</code> do squad</td><td class="num">4 KB</td><td class="num">0,9k</td><td><span class="barra" style="width:.8rem"></span></td></tr>
+    <tr><td><strong>Total fixo</strong></td><td class="num"><strong>43 KB</strong></td><td class="num"><strong>~11k</strong></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>O que cada comando acrescenta</h3>
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Comando</th><th class="num">~tokens</th><th>Quando usar</th></tr></thead>
+  <tbody>
+    <tr><td><code>/pipeline-manual</code></td><td class="num">1,5k</td><td><strong>Padrão em modelo free.</strong> Sem persona, só comandos</td></tr>
+    <tr><td><code>/studio-chief</code></td><td class="num">19,5k</td><td>Só em modelo grande — carrega o agente inteiro</td></tr>
+    <tr><td><code>/marketing-chief</code></td><td class="num">~15k</td><td>Só em modelo grande</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="aviso">
+<strong>Numa janela de 32k, <code>/studio-chief</code> não cabe.</strong>
+11k fixos + 19,5k do agente = <strong>30,5k antes da primeira palavra</strong>.
+Sobra quase nada para a conversa, e o modelo começa a esquecer o começo dela
+imediatamente — que é como se manifesta: ele repete pergunta já respondida, ou
+volta a sugerir um passo que você já rodou.
+<br><br>
+Com <code>/pipeline-manual</code> o mesmo cenário fica em <strong>12,5k</strong>,
+e sobra janela de verdade.
+</div>
+
+<div class="porque">
+<strong>Por que existem dois arquivos de memória</strong>
+O <code>MEMORY.md</code> completo do squad tem 30 KB (~8k tokens) e era carregado
+em toda sessão. Para um modelo grande isso é barato e evita que ele reabra
+investigação já encerrada — que custa muito mais. Para um modelo pequeno é metade
+da janela.
+<br><br>
+Por isso o <code>MEMORY-ESSENCIAL.md</code>: 4 KB com os números que não podem ser
+reinventados e as armadilhas que custam refazer trabalho. É ele que entra em
+<code>instructions</code>. O completo continua existindo, e um modelo grande o lê
+sob demanda.
+</div>
+
+<h3>Se você quiser cortar mais</h3>
+<p>
+As <code>rules</code> são o maior bloco fixo, e a maioria delas é sobre o
+framework AIOX (stories, gates, handoff de agente) — <strong>nada a ver com o
+pipeline audiovisual</strong>. Para uma sessão que só vai rodar o pipeline, dá
+para restringir em <code>opencode.json</code>:
+</p>
+<pre><code>"instructions": [
+  "squads/oraclumtech-ai-creative-studio/MEMORY-ESSENCIAL.md"
+]</code></pre>
+<p>Isso derruba o custo fixo de ~11k para <strong>~0,9k</strong>.</p>
+<div class="aviso">
+<strong>O preço disso:</strong> sem as rules, o modelo perde as regras de
+delegação de agente e de ciclo de story. Se a sessão for <em>só</em> pipeline
+audiovisual, não faz falta. Se você for misturar com trabalho de framework ou
+com o squad de marketing, faz.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="comandos"><span class="num">3</span>Os três comandos</h2>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Comando</th><th>O que é</th><th>Modelo</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>/pipeline-manual</code></td>
+      <td><strong>Sem persona.</strong> Conduz o pipeline do Oraclum passo a passo,
+      um por mensagem, com o comando exato. Lê o cartão <code>PIPELINE-LITE.md</code>.</td>
+      <td>qualquer um</td>
+    </tr>
+    <tr>
+      <td><code>/studio-chief</code></td>
+      <td>O agente completo do squad, com persona, tabela de <code>*comandos</code>
+      e as tasks todas.</td>
+      <td>grande</td>
+    </tr>
+    <tr>
+      <td><code>/marketing-chief</code></td>
+      <td>CMO da Virals — pipeline ClickUp, monitoramento, benchmark.</td>
+      <td>grande</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="nota">
+<strong>Em modelo free, comece sempre por <code>/pipeline-manual</code>.</strong>
+Ele foi escrito para isto: instruções curtas, uma etapa por mensagem, e a ordem
+explícita de não inventar caminho nem parâmetro. Se a sessão precisar de algo que
+ele não cobre, aí sim vale abrir uma sessão nova com o agente completo — num
+modelo maior.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="regras"><span class="num">4</span>As cinco regras do modelo pequeno</h2>
+
+<ol class="passos">
+  <li>
+    <strong>Peça o comando, não o objetivo.</strong><br>
+    <span class="marca">"gere as imagens do LA2" é um objetivo — ele vai improvisar
+    um caminho. "qual comando roda o pack do LA2?" é uma pergunta com resposta
+    única, que está escrita num arquivo.</span>
+  </li>
+  <li>
+    <strong>Uma etapa por mensagem.</strong><br>
+    <span class="marca">Modelo pequeno perde o fio em tarefas de cinco passos —
+    ele executa os dois primeiros e inventa os três últimos. Rode um, cole a
+    saída, só então peça o próximo.</span>
+  </li>
+  <li>
+    <strong>Cole a saída de volta.</strong><br>
+    <span class="marca">Ele não sabe o que aconteceu no seu terminal. Sem a saída
+    colada, "deu certo?" só pode ser respondido com um chute educado — e ele vai
+    chutar que sim.</span>
+  </li>
+  <li>
+    <strong>Sessão nova a cada etapa grande.</strong><br>
+    <span class="marca">Terminou a geração de imagens e vai para a narração?
+    Sessão nova. O contexto acumulado da etapa anterior não ajuda em nada na
+    seguinte, e ocupa a janela que a seguinte precisa.</span>
+  </li>
+  <li>
+    <strong>Desconfie de caminho de arquivo.</strong><br>
+    <span class="marca">É o que modelo pequeno mais erra, e o erro é silencioso:
+    ele escreve um caminho plausível que não existe. Antes de rodar qualquer
+    comando com caminho, confira com <code>dir</code> ou <code>ls</code>.</span>
+  </li>
+</ol>
+
+<!-- ===================================================================== -->
+<h2 id="divisao"><span class="num">5</span>Quem faz o quê</h2>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Tarefa</th><th>Quem</th><th>Por quê</th></tr></thead>
+  <tbody>
+    <tr><td>Rodar <code>run_batch.py</code>, <code>conta_roteiros.py</code>, etc.</td><td><strong>Você</strong>, no terminal</td><td>É um comando. Não há decisão.</td></tr>
+    <tr><td>Lembrar qual script faz o quê</td><td>Modelo free</td><td>Está no cartão que ele já carregou</td></tr>
+    <tr><td>Achar um arquivo no repositório</td><td>Modelo free</td><td>Ele tem ferramenta de busca</td></tr>
+    <tr><td>Conferir se a duração bateu</td><td>Modelo free</td><td>Aritmética simples com a saída colada</td></tr>
+    <tr><td>Inspecionar a folha de contato</td><td><strong>Você</strong></td><td>É julgamento visual — contar membros, ver se o objeto tem função</td></tr>
+    <tr><td>Escrever prompt de imagem novo</td><td><strong>Modelo grande</strong> ou você</td><td>São 5 camadas de regra; errar uma custa uma rodada</td></tr>
+    <tr><td>Escrever roteiro</td><td><strong>Modelo grande</strong></td><td>Estrutura de 20 min com anedota e objeção respondida</td></tr>
+    <tr><td>Diagnosticar erro que não está no guia</td><td><strong>Modelo grande</strong></td><td>Exige ler código e cruzar hipótese</td></tr>
+    <tr><td>Mexer no código do <code>video-studio</code></td><td><strong>Modelo grande</strong></td><td>TypeScript com invariantes que teste não pega sozinho</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="receitas"><span class="num">6</span>Receitas prontas</h2>
+
+<p>Copie o texto, cole no chat do OpenCode. Foram escritos para não deixar margem.</p>
+
+<h3>Rodar uma etapa</h3>
+<div class="prompt">/pipeline-manual
+
+Estou na etapa de narração da peça LA2-ansiedade. Me dê só o próximo comando, um por vez. Não explique, não antecipe passos.</div>
+
+<h3>Conferir uma saída</h3>
+<div class="prompt">Rodei e a saída foi:
+
+[cole aqui]
+
+Isso está certo? Se sim, qual o próximo comando. Se não, o que fazer.</div>
+
+<h3>Achar um arquivo</h3>
+<div class="prompt">Onde fica o script que alinha as legendas ao áudio? Me dê o caminho completo e o comando de exemplo. Não invente — leia o cartão.</div>
+
+<h3>Retomar depois de uma pausa</h3>
+<div class="prompt">/pipeline-manual
+
+Retomando. Já fiz: roteiro medido, imagens geradas e inspecionadas, narração gerada e convertida para mp3. Não fiz: legendas e timeline. Qual o próximo comando.</div>
+
+<div class="nota">
+<strong>Repare no padrão.</strong>
+Toda receita diz <em>o que já foi feito</em> e pede <em>uma coisa só</em>. Isso
+substitui memória de contexto por informação explícita — que é exatamente o que
+falta num modelo pequeno.
+</div>
+
+<h3>Quando você quer o porquê</h3>
+<div class="prompt">Leia só a seção "Armadilhas já pagas" de squads/oraclumtech-ai-creative-studio/docs/GUIA-MANUAL.html e me diga se o erro abaixo já está documentado:
+
+[cole o erro]</div>
+
+<!-- ===================================================================== -->
+<h2 id="nunca"><span class="num">7</span>O que nunca delegar a modelo pequeno</h2>
+
+<div class="dupla">
+  <div class="col nao">
+    <h4>Não delegue</h4>
+    <ul>
+      <li>Escrever prompt de imagem do zero</li>
+      <li>Editar <code>run_batch.py</code> ou qualquer script</li>
+      <li>Decidir semente, CFG, resolução ou denoise</li>
+      <li>Escolher qual variação aprovar</li>
+      <li>Apagar arquivo em <code>ComfyUI/output/</code></li>
+      <li>"Otimizar" ou "melhorar" algo que funciona</li>
+    </ul>
+  </div>
+  <div class="col sim">
+    <h4>Delegue à vontade</h4>
+    <ul>
+      <li>Lembrar o comando e o caminho</li>
+      <li>Ler um arquivo e resumir</li>
+      <li>Comparar duas saídas numéricas</li>
+      <li>Achar em que arquivo está uma função</li>
+      <li>Converter formato (flac → mp3) com o comando pronto</li>
+      <li>Listar o que falta fazer</li>
+    </ul>
+  </div>
+</div>
+
+<h4>Por que prompt de imagem é a pior delegação</h4>
+<p>
+Um prompt que funciona carrega cinco camadas — enquadramento e posição no quadro,
+contagem explícita do assunto, fundo com profundidade, luz e acabamento — mais um
+negativo de doze termos. Modelo pequeno escreve algo plausível e <strong>perde
+uma delas</strong>: sem a contagem sai estátua com três pernas; sem o negativo
+anti-carne, o busto de bronze sai como retrato de homem vivo.
+</p>
+<div class="bom">
+<strong>O caminho seguro é copiar.</strong>
+Abra <code>assets/comfyui/pack_visual_lote_a.py</code> ou
+<code>modelagem_takes_v1.py</code>, copie uma entrada inteira e troque só o
+assunto. Toda a estrutura vem junto de graça.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="perdeu"><span class="num">8</span>Quando o modelo se perde</h2>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Sinal</th><th>O que está acontecendo</th><th>O que fazer</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Repete uma pergunta já respondida</td>
+      <td>a janela encheu e o começo da conversa saiu</td>
+      <td>sessão nova, com a receita "Retomar depois de uma pausa"</td>
+    </tr>
+    <tr>
+      <td>Sugere um passo que você já rodou</td>
+      <td>o mesmo — perdeu o estado</td>
+      <td>idem</td>
+    </tr>
+    <tr>
+      <td>Cita um arquivo que não existe</td>
+      <td>alucinação de caminho, a mais comum</td>
+      <td>peça para <em>listar a pasta</em> antes de responder</td>
+    </tr>
+    <tr>
+      <td>Inventa um parâmetro plausível</td>
+      <td>ele completou o padrão em vez de ler</td>
+      <td>"leia o arquivo X e me diga o valor exato"</td>
+    </tr>
+    <tr>
+      <td>Responde longo demais</td>
+      <td>está compensando incerteza com volume</td>
+      <td>"responda em uma linha, só o comando"</td>
+    </tr>
+    <tr>
+      <td>Diz que rodou algo</td>
+      <td>ele não rodou nada — quem roda é você</td>
+      <td>ignore e rode você mesmo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="aviso">
+<strong>O erro mais caro é o silencioso.</strong>
+Um caminho errado não dá erro vermelho: o script simplesmente não acha o arquivo e
+segue, ou grava no lugar errado. Antes de qualquer comando com caminho, confira a
+pasta. Custa cinco segundos e já evitou perder uma geração inteira.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="config"><span class="num">9</span>Configuração e ajustes</h2>
+
+<h3>O <code>opencode.json</code> hoje</h3>
+<pre><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/claude-opus-4-8",
+  "instructions": [
+    ".claude/rules/*.md",
+    "squads/oraclumtech-ai-creative-studio/MEMORY-ESSENCIAL.md"
+  ],
+  "permission": { "edit": "allow", "bash": "ask", "webfetch": "allow" }
+}</code></pre>
+
+<div class="nota">
+<strong><code>bash: "ask"</code> é o ajuste certo para modelo pequeno.</strong>
+Cada comando pede sua aprovação antes de rodar. É chato em modelo bom e é
+<em>proteção</em> em modelo fraco — é onde você pega o caminho inventado antes de
+ele virar arquivo no lugar errado. Não mude para <code>allow</code>.
+</div>
+
+<h3>Trocar de modelo</h3>
+<pre><code>opencode auth login          # escolher provider e credencial</code></pre>
+<p>Depois ajuste <code>"model"</code> no <code>opencode.json</code>.</p>
+
+<h3>Onde cada coisa vive</h3>
+<div class="tabela-envolve">
+<table>
+  <tbody>
+    <tr><td><code>opencode.json</code></td><td>modelo, instruções carregadas, permissões, MCP</td></tr>
+    <tr><td><code>AGENTS.md</code> (raiz)</td><td>regras do projeto, lidas nativamente</td></tr>
+    <tr><td><code>.opencode/commands/*.md</code></td><td>um arquivo por comando <code>/</code> — wrappers de ~10 linhas</td></tr>
+    <tr><td><code>squads/*/MEMORY-ESSENCIAL.md</code></td><td>versão curta, para caber na janela</td></tr>
+    <tr><td><code>squads/*/MEMORY.md</code></td><td>versão completa, sob demanda</td></tr>
+    <tr><td><code>squads/*/docs/PIPELINE-LITE.md</code></td><td>cartão de comandos</td></tr>
+    <tr><td><code>squads/*/docs/GUIA-MANUAL.html</code></td><td>guia completo — <strong>para o humano ler</strong>, não para carregar</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="porque">
+<strong>A regra que mantém isto sustentável</strong>
+Nada de lógica duplicada em <code>.opencode/</code>. Os comandos são wrappers que
+apontam para <code>squads/</code> com <code>@</code>. Editar o squad propaga para
+OpenCode, Claude Code e Cursor na próxima execução — e é por isso que só existe
+um lugar para corrigir quando algo muda.
+</div>
+
+<h3>Adicionar um comando novo</h3>
+<pre><code>.opencode/commands/meu-agente.md
+
+---
+description: "Uma linha que aparece na lista de comandos."
+---
+Instrução curta do que fazer.
+
+@squads/&lt;squad&gt;/agents/&lt;agente&gt;.md</code></pre>
+
+<div class="aviso">
+<strong>Cuidado com o que você põe depois do <code>@</code>.</strong>
+Ele injeta o arquivo <em>inteiro</em> na conversa. Um HTML de 44 KB vira 11k
+tokens — foi exatamente esse o erro na primeira versão do
+<code>/pipeline-manual</code>, e ele sozinho inviabilizava modelo pequeno.
+Aponte para o arquivo mais curto que resolve.
+</div>
+
+<footer>
+  Virals · severinos — guia de uso do OpenCode.<br>
+  Pipeline completo: <code>squads/oraclumtech-ai-creative-studio/docs/GUIA-MANUAL.html</code>
+</footer>
+
+</div>

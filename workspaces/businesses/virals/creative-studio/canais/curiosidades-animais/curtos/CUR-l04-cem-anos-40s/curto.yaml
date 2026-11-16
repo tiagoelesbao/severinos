@@ -1,0 +1,28 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l04-cem-anos-40s · Animais que vivem mais de cem anos
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l04-cem-anos-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "giant tortoise walking", etiqueta: "quatro-atartaruga", n: 3, exige: [tortoise, turtle], ancora: "Numero Quatro a tartaruga-gigante"}
+    - {q: "whale swimming arctic ocean", etiqueta: "tres-abaleiadag", n: 3, exige: [whale], ancora: "Numero Tres a baleia-da-groenlandia"}
+    - {q: "shark swimming deep cold water", etiqueta: "dois-otubaraoda", n: 3, exige: [shark], ancora: "Numero Dois o tubarao-da-groenlandia"}
+    - {q: "sea sponge underwater reef", etiqueta: "um-aesponjado", n: 3, exige: [sponge], ancora: "Numero Um a esponja-do-mar",
+       imagem: "photorealistic underwater photograph of a large barrel sponge on a deep cold rocky seabed, coarse porous surface, dim blue-green light, wildlife documentary still, vertical composition"}
+    - {q: "underwater rocks cold sea", etiqueta: "fecho", n: 2, exige: [underwater, sea, rock], ancora: "Comenta ai qual desses tu achou mais absurdo."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Animais que vivem mais de cem anos."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois o tubarao-da-groenlandia"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai qual desses tu achou mais absurdo."}

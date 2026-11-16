@@ -1,0 +1,29 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l09-sem-agua-40s · Animais que quase não precisam beber água
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l09-sem-agua-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "koala eucalyptus tree", etiqueta: "quatro-ocoala", n: 3, exige: [koala], ancora: "Numero Quatro o coala"}
+    - {q: "camel desert walking", etiqueta: "tres-ocamelo", n: 3, exige: [camel], ancora: "Numero Tres o camelo"}
+    - {q: "beetle desert sand dune", etiqueta: "dois-obesourodo", n: 3, exige: [beetle], ancora: "Numero Dois o besouro-do-deserto-da-namibia",
+       imagem: "photorealistic macro photograph of a darkling beetle standing head-down on a namib sand dune at dawn, fog droplets on its back, rippled sand, wildlife documentary still, vertical composition"}
+    - {q: "kangaroo rat desert night", etiqueta: "um-oratocangu", n: 3, exige: [rat, rodent], ancora: "Numero Um o rato-canguru",
+       imagem: "photorealistic macro photograph of a kangaroo rat on desert sand at night, large dark eyes, long tail, sparse dry vegetation, wildlife documentary still, vertical composition"}
+    - {q: "desert dunes sunset", etiqueta: "fecho", n: 2, exige: [desert, dune, sand], ancora: "Comenta ai quantos dias tu aguentaria."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Animais que quase nao precisam beber agua."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois o besouro-do-deserto-da-namibia"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai quantos dias tu aguentaria."}

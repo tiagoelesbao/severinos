@@ -1,0 +1,20 @@
+{
+  "rank": 1,
+  "creator": "@testcreator",
+  "url": "https://www.instagram.com/reel/TESTE/",
+  "platform": "instagram",
+  "type": "reel",
+  "subtype": "ig-reel",
+  "title": "Reel teste",
+  "description": "Como dobrar sua retencao em Reels",
+  "author": "testcreator",
+  "view_count": 1200000,
+  "like_count": 88000,
+  "comment_count": 2100,
+  "duration_seconds": 44,
+  "key_moments": [
+    {"time": 0, "label": "Hook: perda de audiencia"},
+    {"time": 15, "label": "Tres ajustes"},
+    {"time": 35, "label": "Payoff + CTA"}
+  ]
+}

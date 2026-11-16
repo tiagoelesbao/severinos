@@ -1,0 +1,15 @@
+{
+  "nicho": "futebol",
+  "sujeito": "Kaio Jorge",
+  "acao": "tomou a bola de Matheus Pereira e bateu o pênalti",
+  "acao_curta": "tomou o pênalti de Matheus Pereira",
+  "alvo": "Matheus Pereira",
+  "alvo_reage": true,
+  "consequencia": "discussão flagrada pela TV e leitura labial expondo o diálogo",
+  "verificado": [
+    "Matheus Pereira: Dá, me dá... Kaio, Kaio, vai ficar feio.",
+    "Kaio Jorge: Eu vou bater. Você não fez o gol, velho. Vai ficar feio se você não sair.",
+    "Matheus Pereira, apos o gol: Deixa de ser egoista, voce quer jogar so para voce.",
+    "Joao Marcelo: Eles se resolveram no vestiario. Os dois sao batedores, estao vindo bem, mas esta resolvido ja."
+  ]
+}

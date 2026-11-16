@@ -1,0 +1,33 @@
+storyId: MVC-05
+epic: EPIC-MKT-Video-Creative
+title: "video_plan.py (orquestrador 01→04 + gate de saída + Plano-de-Criativo.md + wire agente)"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-20"
+
+acceptance_criteria:
+  AC1: { status: met, note: "Encadeia 4 etapas; produz video-brief + (se aprovado) Plano-de-Criativo.md" }
+  AC2: { status: met, note: "FAIL → exit 2 sem render (provado no E2E real); --force libera" }
+  AC3: { status: met, note: "Plano-de-Criativo.md com hook×3/storyboard/roteiro/edit_spec/shotlist (8 testes + arquivo real)" }
+  AC4: { status: met, note: "industrialize_video_protocol reescrito: seletor de fase (planejar/produzir) + cliente" }
+  AC5: { status: met, note: "Smoke E2E real fim-a-fim; ainda expôs defeito de cobertura na MVC-04" }
+
+tests:
+  unit: { total: 8, passed: 8, file: "squads/virals-marketing-squad/scripts/test_video_plan.py" }
+  e2e_real: { benchmark: "30-hormozi-fc605e", result: "FAIL → SAÍDA BLOQUEADA (correto); is_blocked=True" }
+  regression: { status: clean, note: "67 testes verdes no total na Fase A" }
+
+notable:
+  - "Smoke E2E funcionou como rede de segurança: expôs PASS-falso da MVC-04 (fabricação em scene/inserts) → root-cause fix aplicado."
+
+issues:
+  - severity: low
+    category: code
+    description: "render_plan_md monta tabelas Markdown; célula com '|' quebraria a tabela."
+    recommendation: "Escapar '|' nas células numa iteração futura."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "Fase A completa (MVC-01..05). MVC-06 (video-templates.yaml) é ponte opcional p/ Fase B (app Remotion). Push pendente → @devops."

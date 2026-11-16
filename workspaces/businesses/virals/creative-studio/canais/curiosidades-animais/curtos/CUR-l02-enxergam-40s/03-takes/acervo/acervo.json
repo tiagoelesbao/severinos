@@ -1,0 +1,173 @@
+{
+  "slug": "CUR-l02-enxergam-40s",
+  "takes": [
+    {
+      "arquivo": "t01-quatro-ocamaraolo.png",
+      "etiqueta": "quatro-ocamaraolo",
+      "consulta": "mantis shrimp reef close up",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t02-quatro-ocamaraolo.png",
+      "etiqueta": "quatro-ocamaraolo",
+      "consulta": "mantis shrimp reef close up",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t03-quatro-ocamaraolo.png",
+      "etiqueta": "quatro-ocamaraolo",
+      "consulta": "mantis shrimp reef close up",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t04-tres-aabelha.mp4",
+      "etiqueta": "tres-aabelha",
+      "consulta": "bee on flower macro",
+      "duracao": 20,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 33379621,
+      "autor": "Hao Le",
+      "url": "https://www.pexels.com/video/macro-shot-of-bee-pollinating-white-flowers-33379621/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t05-tres-aabelha.mp4",
+      "etiqueta": "tres-aabelha",
+      "consulta": "bee on flower macro",
+      "duracao": 35,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 33124918,
+      "autor": "Hao Le",
+      "url": "https://www.pexels.com/video/close-up-of-bee-on-vibrant-echinacea-flowers-33124918/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t06-tres-aabelha.mp4",
+      "etiqueta": "tres-aabelha",
+      "consulta": "bee on flower macro",
+      "duracao": 12,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 33379614,
+      "autor": "Hao Le",
+      "url": "https://www.pexels.com/video/close-up-of-bee-pollinating-vibrant-flower-33379614/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t07-dois-acobradafa.png",
+      "etiqueta": "dois-acobradafa",
+      "consulta": "pit viper snake close up",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t08-dois-acobradafa.png",
+      "etiqueta": "dois-acobradafa",
+      "consulta": "pit viper snake close up",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t09-dois-acobradafa.png",
+      "etiqueta": "dois-acobradafa",
+      "consulta": "pit viper snake close up",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t10-um-acoruja.mp4",
+      "etiqueta": "um-acoruja",
+      "consulta": "owl at night close up",
+      "duracao": 19,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 36037561,
+      "autor": "Joolsmagools  ®️",
+      "url": "https://www.pexels.com/video/close-up-of-owl-perched-on-tree-branch-36037561/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t11-um-acoruja.mp4",
+      "etiqueta": "um-acoruja",
+      "consulta": "owl at night close up",
+      "duracao": 30,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 37518869,
+      "autor": "Vladimir Srajber",
+      "url": "https://www.pexels.com/video/majestic-eurasian-eagle-owl-perched-on-branch-37518869/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t12-um-acoruja.mp4",
+      "etiqueta": "um-acoruja",
+      "consulta": "owl at night close up",
+      "duracao": 11,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 39235296,
+      "autor": "Pawan Bhandari",
+      "url": "https://www.pexels.com/video/curious-barn-owl-gazing-through-window-39235296/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t13-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "night forest sky stars",
+      "duracao": 12,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 35461866,
+      "autor": "FURKAN GÜNEŞ",
+      "url": "https://www.pexels.com/video/night-sky-time-lapse-with-shooting-stars-35461866/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t14-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "night forest sky stars",
+      "duracao": 10,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 14209304,
+      "autor": "Purna Wirastana",
+      "url": "https://www.pexels.com/video/stars-on-night-sky-14209304/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

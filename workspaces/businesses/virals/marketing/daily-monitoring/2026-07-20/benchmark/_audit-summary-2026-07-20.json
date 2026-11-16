@@ -1,0 +1,301 @@
+{
+  "client": "virals",
+  "client_display": "Virals",
+  "date": "2026-07-20",
+  "platforms": [
+    "instagram"
+  ],
+  "agents_requested": [
+    "mrbeast-mk",
+    "garyvee-mk",
+    "ladeira",
+    "casey-neistat-img",
+    "sam-kolder-vid"
+  ],
+  "audit_config": "squads/virals-marketing-squad/data/clients/virals/audit-config.yaml",
+  "generated_at": "2026-07-20T10:10:58",
+  "synthesis_only": false,
+  "results": [
+    {
+      "creative_id": "01-acelerai-d4e003",
+      "platform": "instagram",
+      "creator": "@acelerai",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/acelerai/p/Da-PKmwIIuS/",
+      "rank": 1,
+      "audits": {
+        "mrbeast-mk": {
+          "score": 2.4,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Formato de lista numerada (7 itens) gera um pattern interrupt visual curto e memorável; funciona bem em carrosséis que precisam agarrar atenção rapidamente.",
+            "O criativo não apresenta dados concretos, prova social específica nem métricas de performance, violando o princípio de confiança baseada em dados do Virals.",
+            "Abstração de “filmes que valem hype” não dialoga com a dor do avatar (redutor de CAC, estrutura de creators), o que impede ressonância direta com seu público.",
+            "O texto utiliza linguagem genérica e de recomendação, não alinhada ao tom David, Gary‑style, direto e educacional do Virals.",
+            "Não há nenhum open loop ou micro‑reward que entregue valor ao founder, o que compromete a curva de energia e a retenção até o fim.",
+            "Não há payoff nem prova de benefício, resultando em falta de fechamento convincente."
+          ],
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 3.2,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo é uma lista de filmes de entretenimento, sem conexão com a dor do founder D2C (CAC, criativo queimando, falta de sono).",
+            "Não há menção aos sistemas proprietários da Virals (Hunter Ads System, Copy Strategy Framework, Traffic Performance Protocol) nem a qualquer métrica de crescimento ou revenue share.",
+            "A linguagem é genérica e voltada para público de cinema, ausente do tom GaryVee Style (Jab, Jab, Jab, Right Hook) e dos bordões assinatura da marca.",
+            "O formato de carousel é nativo do Instagram, mas o conteúdo não aproveita a atenção como arbitragem para aquisição de clientes D2C.",
+            "Não há chamada para ação, prova social de resultados ou qualquer elemento que induza o founder a compartilhar o post como conteúdo útil para seu negócio."
+          ],
+          "sections": {
+            "vibe_classification": "O tom é puramente de entretenimento, com apelo cultural voltado para fãs de cinema. Não há a confiança técnica nem a ousadia com pé no chão característica do DNA GaryVee da Virals. A vibe está distante do arquétipo Mago (transformação) que a marca busca.",
+            "dor_do_avatar_atingida": "O criativo não toca em nenhuma das dores do avatar: CAC em alta, criativos que queimam em 3-5 dias, falta de tempo para testar creators ou a ansiedade de verificar anúncios à noite. Assim, não gera empatia com o fundador D2C pós-PMF.",
+            "shareability_trigger": "O gatilho de compartilhamento é a curiosidade sobre filmes populares, útil para um público de cinéfilos, mas não para founders que buscam conteúdo que os ajude a reduzir CAC ou escalar via creators. Portanto, a probabilidade de um founder D2C compartilhar é baixa.",
+            "aderência_à_oferta_virals": "Não há referência ao posicionamento 'Não somos agência. Somos seu departamento de Growth.', ao modelo de revenue share de 1%, nem aos pilares Hunter Ads System, Copy Strategy Framework ou Traffic Performance Protocol. O conteúdo está completamente alheio à oferta da Virals.",
+            "adaptação_obrigatória_de_léxicobordão": "É necessário substituir o tom de lista de filmes por um formato que use os bordões da Virals (ex.: 'CAC 60% menor via creators', 'Skin in the game: 1% revenue share') e aplicar a estrutura Jab, Jab, Jab, Right Hook com dados concretos de resultados obtidos por creators."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reformate o carousel para apresentar 7 estratégias comprovadas de redução de CAC via creators, incluindo dados específicos (ex.: 'Redução de CAC de 48% em 30 dias com 10 micro-creators') e finalize com um right hook que convide o founder a conhecer o Hunter Ads System e o modelo de revenue share de 1%.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 2.0,
+          "veredito": "ignorar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O headline não apresenta benefício D2C nem dados, é apenas uma lista genérica de filmes, violando a regra de promessa vazia da Virals.",
+            "A estrutura é um simples listicle (curiosity-gap + autoridade) sem um framework persuasivo (PAS/AIDA) e sem urgência ou um CTA de conversão.",
+            "Os overlays são legíveis, mas o texto contém erros gramaticais (\"Esse filmes\"), linguagem genérica e hype vago, o que conflita com os padrões nativos e focados em dados da marca."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_virals": "**Rewrite:** 7 estudos de caso que mostram **CAC 60% menor** via creators.  \n**Why it works:** starts with concrete data, triggers authority, and promises a proven result – the exact pain point of the D2C founder.",
+            "framework_detectado": "The creative uses a **curiosity‑gap + authority list** (7 film titles). This is a simple listicle and not a persuasive framework like PAS/AIDA, so it must be rebuilt around a proven sales‑oriented structure.",
+            "gatilhos_mentais": "Authority (famous directors), curiosity (what hype?), and social proof (list). Missing: novelty, urgency, scarcity, and proof‑of‑results – all key triggers for the D2C founder.",
+            "cta_analysis_adaptação": "**Current CTA:** Question “Qual dessa lista você já assistiu?” – engages but does not convert. **Needs:** a direct, benefit‑first call‑to‑action that references the offer (e.g., “Start your Viral Starter plan and turn creators into your growth engine today”).",
+            "léxico_flags": "⚠️ **Taboo hits:** Generic hype language (“valam do hype”), vague promise (“valem o seu tempo”), grammatical slip (“Esse filmes”) – all conflict with Virals’ “zero excuses, native‑only” standards."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Rewrite the headline to a data‑driven, benefit‑first list (e.g., \"7 estudos de caso que mostram CAC 60% menor via creators\"), replace the question CTA with a direct conversion CTA (\"Start your Viral Starter plan and turn creators into your growth engine today\"), and replace the movie titles with real D2C case studies that include numbers.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 6.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Estrutura de lista numerada (7 itens) com gancho de curiosidade + autoridade funciona bem para carousel educacional da Virals",
+            "Hierarquia visual clara: número/título em destaque (vermelho), descrição secundária, logo do criador no canto — padrão replicável",
+            "Paleta atual usa vermelho vibrante + fundo branco; Virals exige navy + coral — requer reskin completo de cores e fundos",
+            "Tipografia sans-serif limpa e legível em mobile; compatível com Outfit sem ajustes maiores",
+            "Ausência de safe-zone violada; textos respeitam margens e largura máxima adequada para leitura em feed"
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide 1 abre com capa de lista: fundo escuro (foto com filtro vintage), título branco sobre barra vermelha, número '7' e logo. Slides 2–7 seguem template consistente: fundo branco texturizado, título em vermelho vibrante, subtítulo em cinza escuro, imagem central (still do filme) e descrição de 2–3 linhas. Slide 8 (não transcrito) provavelmente fecha com CTA ou resumo. Composição mobile-first: elementos centrados, leitura vertical fluida, sem poluição visual.",
+            "aderência_à_paleta_virals_navy_coral": "Baixa. O criativo usa vermelho puro (#FF0000 aprox.) como cor de destaque e fundos brancos/claros. A paleta Virals exige navy (#0A1428) como base e coral (#FF6B5B) como accent. O vermelho atual é mais saturado e frio que o coral; fundos brancos conflitam com o padrão navy-background dos carrosséis Virals. Requer substituição total: títulos em coral, fundos em navy (ou gradiente navy→preto), textos em branco/off-white.",
+            "recomendação_de_adaptação_visual": "Mantenha a estrutura de 7 slides + capa. Refaça: (1) Capa com fundo navy, título '7 ESTRATÉGIAS DE CREATORS QUE FUNCIONAM' em coral, badge 'Hunter Ads System' em coral outline. (2) Slides internos: fundo navy sólido, título da estratégia em coral (Outfit Bold), descrição em branco (Outfit Regular), screenshot real de creator/campanha no centro com borda coral sutil. (3) Rodapé fixo com logo Virals + 'Seu departamento de Growth' em coral 40% opacity. (4) Slide final: CTA 'Quer seu Hunter Ads System?' com seta coral apontando para link na bio.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "Este carrossel mapeia direto para o padrão **carousel-slide** da Virals (lista numerada educacional). Não serve para quote-slide (falta frase de impacto centralizada) nem single-post (exige imagem única de alto impacto). Use como base para: '7 Erros de CAC que Creators Resolvem', '7 Métricas que Provam Revenue Share 1%', '7 Marcas que Escalaram com Hunter Ads'. Cada slide = 1 insight acionável + prova visual (print de dashboard, creator, creative)."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar vermelho por coral, fundos brancos por navy, e refazer copy de 'filmes em hype' para 'estratégias de creators validadas com dados', citando Hunter Ads System e revenue share 1% em pelo menos 2 slides.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 3.46,
+      "classification": "Fraco 🔴",
+      "veredito_dominante": "ignorar",
+      "folder_rel": "instagram/01-acelerai-d4e003"
+    },
+    {
+      "creative_id": "02-anibalriveros-87d91e",
+      "platform": "instagram",
+      "creator": "@anibalriveros",
+      "type": "video-short/ig-reel",
+      "url": "https://www.instagram.com/anibalriveros/reel/Da_DD_pgT6D/",
+      "rank": 2,
+      "audits": {
+        "mrbeast-mk": {
+          "error": "parse_failed: Expecting value: line 1 column 1 (char 0)",
+          "raw": "User Safety: safe",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 5.5,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo usa atenção de evento esportivo (Copa) para vender, alinhado ao princípio 'Atenção é a Única Moeda', mas foca em marca própria e não em aquisição via creators.",
+            "Demonstra dor de fundador D2C que aproveita pausa publicitária para campanha, mas não cita CAC, criativo queimando ou sono — dores centrais do avatar Virals.",
+            "Shareability existe por polarização Brasil x Argentina, porém não é linguagem nativa D2C nem cita sistemas proprietários (Hunter Ads System etc.).",
+            "Viola restrição de genérico ao falar 'campanha publicitária' sem nomear estrutura Virals; requer reframe técnico para departamento de Growth."
+          ],
+          "sections": {
+            "vibe_classification": "Vibe de founder aproveitando atenção de evento macro para converter. Culturalmente relevante para D2C BR, mas tom informal sem DNA GaryVee de educar até doer.",
+            "dor_do_avatar_atingida": "Rosa parcial: mostra fundador criando oferta em dia de jogo para faturar dobro, tocando marca com sócio. Não cita CAC subindo, criativos queimando em 3-5 dias ou madrugada apagando incêndio.",
+            "shareability_trigger": "Polarização Argentina x Brasil gera comentário (placar). Founder D2C compartilharia como exemplo de oportunismo de atenção, não como solução de aquisição.",
+            "aderência_à_oferta_virals": "Longe do pacote: não cita Hunter Ads System, Copy Strategy Framework, Traffic Performance Protocol. Big idea 'Creators + Narrativas Virais' não aparece; é marca própria fazendo anúncio.",
+            "adaptação_obrigatória_de_léxicobordão": "Trocar 'campanha publicitária' por 'Hunter Ads System ativando creators em pausa de atenção'. Inserir 'CAC 60% menor via creators' e 'não somos agência, somos departamento de Growth'."
+          },
+          "lexico_flags": [
+            "campanha publicitária",
+            "anúncios da marca"
+          ],
+          "adaptacao_obrigatoria": "Reframe: mostrar que a marca usou Hunter Ads System e Copy Strategy Framework com creators para capturar atenção de jogo e baixar CAC 60%, não 'campanha publicitária' genérica.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 6.8,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook de contra-intuição poderoso: começa com um conflito (Brasil vs Argentina) para prender a atenção.",
+            "Uso mestre de 'Atenção como Moeda': o criador conecta um evento de massa ao faturamento imediato da marca.",
+            "Story-based puro: não vende o produto, vende a estratégia de negócio por trás do produto.",
+            "Falta de dados concretos: menciona 'faturar o dobro', mas não traz números reais, o que fere a diretriz de confiança baseada em dados da Virals."
+          ],
+          "sections": {
+            "headline_atual_rewrite_na_voz_virals": "Enquanto você luta com o CAC subindo, nós usamos narrativas virais para reduzir custos em até 60%. A atenção é a única moeda do D2C.",
+            "framework_detectado": "Story-based / Contrast Framework. Começa com um cenário inesperado (contraste), revela a lógica de negócio (estratégia) e finaliza com o resultado (faturamento).",
+            "gatilhos_mentais": "Novidade (produto blueberry para a seleção), Autoridade (estratégia de expansão internacional) e Prova Social implícita (marca líder em gominhas na Argentina).",
+            "cta_analysis_adaptação": "O CTA original é engajamento puro ('comenta o placar'). Para Virals, deve ser substituído por um CTA direto: 'Se você quer parar de queimar criativos e escalar via creators, chama no direct'.",
+            "léxico_flags": "O criador usa 'campanha publicitária' e 'mundo publicitário', termos que beiram o corporativês/genérico proibido na voz Virals."
+          },
+          "lexico_flags": [
+            "campanha publicitária",
+            "mundo publicitário"
+          ],
+          "adaptacao_obrigatoria": "Substituir a narrativa de 'oportunismo de evento' por 'estratégia de Hunter Ads System', trocando as promessas genéricas de faturamento por números concretos de redução de CAC.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "sam-kolder-vid": {
+          "score": 3.5,
+          "veredito": "inspirar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "Hook visual ausente de elementos gráficos ou coral accent; abre com talking-head sem parar o scroll em 0-3s.",
+            "Ritmo lento com sentenças longas e sem silence/jump cuts nativos da estética Virals.",
+            "B-roll é depoimento real de founder (case de atenção em dia de jogo), mas fora do universo D2C Brasil e sem framework.",
+            "Captions sem voz Virals: zero citação de CAC, creators ou sistemas proprietários.",
+            "Formato 9:16 presente, porém color grading genérico, sem LUT navy+coral."
+          ],
+          "sections": {
+            "hook_visual_0_3s": "Abre com founder falando direto na câmera sem overlay ou movimento que pare o scroll. Nenhum accent coral ou dado concreto nos 0-3s. Incompatível com princípio 'Atenção é a Única Moeda'.",
+            "ritmo_cortes": "Corte contínuo tipo vlog, sem jump cuts secos ou silence cuts. Ritmo longe do direto GaryVee Style da Virals. Precisaria de reedição radical de pacing.",
+            "color_grading_adaptação_para_lut_virals": "Estética natural/clara de storyteller, sem navy+coral. Para servir Virals exigiria aplicação de LUT cinemática e elementos visuais coral.",
+            "captions_flags_de_léxico": "Legibilidade ok, mas léxico é 'campanha publicitária', 'copa do mundo' — nada de jab, creator ou Hunter Ads System. Voz fora do DNA Virals.",
+            "b_roll_modelável_para_case_virals": "Depoimento real de founder aproveitando atenção de evento é inspirador como prova de 'atenção > mídia'. Porém não cita creators nem CAC 60% menor, logo não é case pronto."
+          },
+          "lexico_flags": [
+            "campanha publicitária"
+          ],
+          "adaptacao_obrigatoria": "Reframar o depoimento como case D2C BR onde creators capturam atenção de evento com CAC 60% menor e aplicar LUT navy+coral com captions em voz Virals.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.43,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "inspirar",
+      "folder_rel": "instagram/02-anibalriveros-87d91e"
+    },
+    {
+      "creative_id": "03-falajoaobranco-054ddc",
+      "platform": "instagram",
+      "creator": "@falajoaobranco",
+      "type": "carousel/ig-carousel",
+      "url": "https://www.instagram.com/falajoaobranco/p/DbA02DLlub4/",
+      "rank": 3,
+      "audits": {
+        "mrbeast-mk": {
+          "error": "parse_failed: Expecting value: line 1 column 1 (char 0)",
+          "raw": "User Safety: safe",
+          "_model": "openrouter:openrouter/free"
+        },
+        "garyvee-mk": {
+          "score": 5.5,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Gatilho de curiosidade forte, mas mensagem genérica não conecta com a dor específica de CAC elevado e dependência de Meta Ads",
+            "Falta alinhamento com os pilares de entrega (Hunter Ads System, Copy Strategy Framework, Traffic Performance Protocol)",
+            "Aviso sobre 'se importar' é pertinente, mas precisa ser direcionado a resultados tangíveis via creators, não apenas relacionamento",
+            "Léxico não incorpora bordões-chave como 'skin in the game' ou 'Nova Era do D2C'",
+            "Formato nativo do Instagram é eficaz, mas a narrativa precisa ser reescrita para focar em transformação escalável via creators"
+          ],
+          "sections": {
+            "vibe_classification": "Carrossel com gatilho de curiosidade + mensagem de customer care, mas sem foco no desafio D2C de escalar aquisição via creators. A estética é limpa e o contraste funciona, mas a narrativa não tem tom técnico GaryVee.",
+            "dor_do_avatar_atingida": "Parcialmente: toca em atenção ao cliente, mas não resolve problemas como CAC subindo 10-30% ao mês, criativos queimando em 3-5 dias ou necessidade de dormir 8h. Falta conexão com a 'dor do fundador D2C'.",
+            "shareability_trigger": "Criativo tem potencial de compartilhamento por causa do gatilho visual e da mensagem de relacionamento, mas não é uma revelação ou insight suficiente para founders sobrecarregados. Precisa de um 'jab' mais técnico.",
+            "aderência_à_oferta_virals": "Baixa: não menciona sistemas proprietários (Hunter Ads System, Copy Strategy Framework) e não conecta a mensagem de 'cuidado' a resultados como 'CAC 60% menor via creators'. Falta a promessa de crescimento exponencial.",
+            "adaptação_obrigatória_de_léxicobordão": "Substituir a mensagem genérica de 'se importar' por uma narrativa que mostre como o cuidado com creators e narrativas virais resolve problemas concretos de aquisição e escala para D2C."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Reescrever a narrativa para conectar a 'atenção ao cliente' a uma solução específica via creators, incluindo dados como 'CAC até 60% menor' e mencionando sistemas proprietários.",
+          "_model": "openrouter:openrouter/free"
+        },
+        "ladeira": {
+          "score": 5.2,
+          "veredito": "adaptar",
+          "modelable_for_client": false,
+          "key_findings": [
+            "O criativo gera curiosidade inicial com uma grande pergunta, mas não conecta diretamente ao modelo Virals de aquisição via creators",
+            "Uso de conteúdo muito genérico (experiência do CEO da Pepsi) sem demonstrar o valor escalável dos roteiros virais próprios",
+            "CTA implícito 'promete desvendar no ᴹa legenda' falha em direcionar para o CTA direto exigido pelo modelo Virals",
+            "Referência a 'cuidado e atenção' precisa alinhar-se ao foco do Virals em sistemas estruturados de crescimento"
+          ],
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Substituir a referência ao caso Pepsi pela fórmula Virals: 'Marcas gastam R$ 15k/mês em testes de criativos, mas com Virals, gastam zero em criativos e replicam campanhas virais com creators'",
+          "_model": "openrouter:openrouter/free"
+        },
+        "casey-neistat-img": {
+          "score": 7.2,
+          "veredito": "adaptar",
+          "modelable_for_client": true,
+          "key_findings": [
+            "Uso magistral de 'Pattern Interrupt' no Slide 01 através de imagem real e contra-intuitiva.",
+            "Hierarquia visual extremamente limpa no Slide 02, focada em legibilidade máxima (estilo quote-slide).",
+            "Estrutura de funil: Gancho Visual (Curiosidade) $\\rightarrow$ Entrega de Valor/Moral (Insight).",
+            "Layout mobile-first com respiro adequado e texto centralizado, facilitando o consumo rápido."
+          ],
+          "sections": {
+            "análise_visual_por_slide": "Slide 01: Composição orgânica, 'low-fi', que gera confiança e curiosidade. Slide 02: Design minimalista, fundo neutro com elemento geométrico de destaque (círculo), focando 100% na mensagem.",
+            "aderência_à_paleta_virals_navy_coral": "O criativo original usa Vermelho/Branco/Preto. A estrutura é perfeitamente adaptável: o fundo branco permanece, e o círculo vermelho do Slide 02 deve ser substituído pelo **Coral** da Virals, com o texto em **Navy**.",
+            "recomendação_de_adaptação_visual": "Substituir a fonte original pela **Outfit**. No Slide 01, manter a estética de 'foto de bastidor' (alinhado ao DNA Documentar > Criar), mas garantir que a pergunta 'Viu essa??' use a paleta Navy/Coral para branding.",
+            "template_modelável_carousel_slide_quote_slide_single_post": "O Slide 02 é um template perfeito de **quote-slide** para a Virals. Pode ser replicado para frases do manifesto ou princípios como 'Atenção é a Única Moeda', usando o círculo Coral como âncora visual."
+          },
+          "lexico_flags": [],
+          "adaptacao_obrigatoria": "Trocar o vermelho pelo Coral e o preto pelo Navy, substituindo a tipografia pela Outfit para diferenciar totalmente do perfil @tiagoelesbao.",
+          "_model": "openrouter:openrouter/free"
+        }
+      },
+      "total_score": 5.97,
+      "classification": "Mediano 🟠",
+      "veredito_dominante": "inspirar",
+      "folder_rel": "instagram/03-falajoaobranco-054ddc"
+    }
+  ],
+  "chief_synthesis": {
+    "padroes_cross_criativo": [
+      "[cross: 01-acelerai-d4e003, 03-falajoaobranco-054ddc] Formato de lista numerada (7 itens) gera um pattern interrupt visual curto e memorável; funciona bem em carrosséis que precisam agarrar atenção rapidamente.",
+      "[cross: 01-acelerai-d4e003, 03-falajoaobranco-054ddc] Trocar vermelho por coral e fundos brancos por navy (ou preto por navy) conforme adaptacao_obrigatoria de @casey-neistat-img"
+    ],
+    "criativos_modelar_diretamente": [],
+    "criativos_inspirar": [
+      "02-anibalriveros-87d91e",
+      "03-falajoaobranco-054ddc"
+    ],
+    "criativos_ignorar": [
+      "01-acelerai-d4e003"
+    ],
+    "leituras_estrategicas": [
+      "[cross: 01-acelerai-d4e003, 02-anibalriveros-87d91e, 03-falajoaobranco-054ddc] Não apresenta dados concretos, prova social específica nem métricas de performance; não há menção aos sistemas proprietários da Virals (Hunter Ads System, Copy Strategy Framework, Traffic Performance Protocol) nem a qualquer métrica de crescimento ou revenue share; falta alinhamento com os pilares de entrega (Hunter Ads System, Copy Strategy Framework, Traffic Performance Protocol)."
+    ],
+    "proximos_passos": [
+      "[01-acelerai-d4e003] rodar *design-creative para gerar carousel inspirado em 01-acelerai-d4e003",
+      "[02-anibalriveros-87d91e] rodar *industrialize-video usando padrão de 02-anibalriveros-87d91e",
+      "[03-falajoaobranco-054ddc] rodar *design-creative para gerar carousel inspirado em 03-falajoaobranco-054ddc"
+    ],
+    "_model": "openrouter:openrouter/free"
+  },
+  "validation_warnings": []
+}

@@ -1,0 +1,234 @@
+# Projeto extraido do estado validado em 2026-09-13.
+# Formato documentado em _MODELO.yaml
+
+projeto:
+  nome: imperio
+  cliente: Imperio Premios
+  peca: dia-das-criancas-2026
+personagem:
+  rosto: bruno-face.png
+  corpo: bruno-body.png
+  voz: voz-ref-04.wav
+  voz_corte: 4
+  roupa: >-
+    ONLY the white t-shirt from the reference, with the golden crown printed on
+    the chest - no jacket, no coat, short sleeves
+estilo: >-
+  Style: warm brazilian documentary realism, golden hour, muted warm palette,
+  subtle film grain
+ambiente:
+  contexto: >-
+    A 360 degree view from the middle of a dense urban favela in Sao Paulo, Brazil,
+    at golden hour. Bare brick houses stacked steeply on top of each other, concrete
+    alleys, blue plastic water tanks on the roofs, thick tangled power cables
+    overhead, concrete underfoot - no dirt roads, no open countryside.
+  panorama_pronto: pano-sp-aprovado.png
+  setores:
+  - chave: VIELA
+    angulo: 30
+    rotulo: viela de cimento
+    erp: >-
+      a narrow concrete alley between tall bare brick walls, thick tangled power
+      cables crossing low overhead, a few concrete steps, graffiti tags on the
+      wall
+    fundo: >-
+      the narrow concrete alley, bare brick walls close on both sides, tangled
+      power cables low overhead
+  - chave: ESCADARIA
+    angulo: 90
+    rotulo: escadaria da comunidade
+    erp: >-
+      a long concrete staircase climbing between stacked brick houses, a painted
+      metal handrail, plants in paint cans on the steps, blue plastic water tanks
+      on the roofs above
+    fundo: >-
+      the long concrete staircase climbing between the houses behind him, a painted
+      metal handrail, blue water tanks on the roofs
+  - chave: LAJES
+    angulo: 150
+    rotulo: as lajes e a vista
+    erp: >-
+      stacked unfinished brick houses piled on top of each other, exposed rebar,
+      blue water tanks, laundry on the rooftops, and far in the distance the sao
+      paulo skyline of grey towers under haze
+    fundo: >-
+      the stacked brick houses and rooftop water tanks behind him, with the distant
+      sao paulo skyline hazy on the horizon
+  - chave: QUADRA
+    angulo: 210
+    rotulo: quadra de cimento
+    erp: >-
+      a small concrete sports court with faded painted lines, metal goals, a tall
+      wire fence around it, brick houses rising right behind the fence
+    fundo: >-
+      the small concrete court with its metal goal and tall wire fence, brick
+      houses rising behind
+  - chave: BECO
+    angulo: 270
+    rotulo: beco dos varais
+    erp: >-
+      a tight alley with clothes lines strung across between windows, iron gates,
+      bicycles and a motorbike parked against the wall, satellite dishes bolted
+      to the bricks
+    fundo: >-
+      the tight alley with clothes lines strung overhead, iron gates and a motorbike
+      parked against the wall
+  - chave: MERCADINHO
+    angulo: 330
+    rotulo: mercadinho da esquina
+    erp: >-
+      a small corner shop with a metal security grille, a hand painted sign, crates
+      of fruit and crates of drinks stacked outside, plastic stools on the pavement
+    fundo: >-
+      the small corner shop with its metal grille and hand painted sign, crates
+      stacked outside
+video:
+  frames: 121
+  passos_imagem: 8
+  resolucao_imagem: 1080p
+  resolucao_video: 720p
+  upscale_ambiente: 4x-UltraSharp.pth
+  upscale: false
+  voz_referencia: false
+takes:
+# =====================================================================
+#  ROTEIRO v2 -- dois takes falados, quatro mudos
+#
+#  A medicao que reordenou tudo: num plano aberto o rosto chega ao LTX
+#  com 77 px, e com 77 px ele nao sustenta identidade por 121 frames --
+#  reconstroi o rosto a cada passo e deriva. Foi de onde veio a troca de
+#  pessoa no meio do take 3.
+#
+#  A saida nao e so tecnica. Os takes 3 a 6 deixam de depender do rosto
+#  porque deixam de ser sobre o Bruno: sao sobre as CRIANCAS. Plano
+#  aberto, sem fala, so acao e som ambiente. Ali 77 px de rosto nao e
+#  limitacao, e linguagem -- ninguem precisa reconhecer feicao de quem
+#  corre ao fundo.
+#
+#  E a fala fica onde o rosto e grande: dois closes, no comeco.
+# =====================================================================
+- n: 1
+  setor: VIELA
+  enquadramento: >-
+    Extreme close-up, his face fills the frame, chin slightly raised, jaw
+    set, eyes looking off to the side with quiet certainty, the brick wall
+    of the alley soft and close behind him
+  camera: >-
+    Almost static camera, a barely perceptible drift forward over five
+    seconds - the framing should look nearly the same at the start and at
+    the end
+  acao: >-
+    He holds absolutely still, chin up, breathing slow. His eyes shift and
+    lock forward with certainty. The smallest confident smile forms at one
+    corner of his mouth. He does not fidget, does not tilt his head
+  fala: Esse ano...
+  som: >-
+    TIMING: he speaks in the FIRST SECOND of the shot and then stops
+    completely. The remaining four seconds are pure silence with no speech
+    at all, and he holds the look through all of it. He speaks very slowly
+    and low, around 90 words per minute, with the calm of someone who
+    already decided. No music. Distant city hum, one motorbike far away
+- n: 2
+  setor: ESCADARIA
+  # TESTE CONTROLADO: este take usa prompt de video CURTO de proposito.
+  #
+  # Medindo o filme completo do autor, os prompts de video dele tem media de
+  # 179 caracteres. Os nossos estavam em 406 -- 2,3x mais longos -- e detalhar
+  # mais nunca melhorou nada aqui. O que melhorou foi dizer a coisa CERTA
+  # (TIMING em segundos, postura, negacao do que nao se quer).
+  #
+  # Os outros cinco takes seguem longos. Se este sair melhor, a comparacao
+  # vale para todos; se sair igual, o tamanho nao era a variavel.
+  #
+  # FRONTAL, nao mais de perfil. O perfil do take anterior tinha 770 px de
+  # rosto e nitidez 1228 -- o melhor de todos -- e ainda assim saiu outra
+  # pessoa. Nao era falta de pixel: a referencia e frontal, e num perfil
+  # somem justamente os tracos que o modelo usa para casar identidade
+  # (distancia entre os olhos, largura do rosto, simetria das sobrancelhas).
+  enquadramento: >-
+    Medium shot from the waist up, facing the camera directly, his chest and
+    shoulders fill the lower half of the frame and his face the upper half,
+    the concrete staircase and brick houses soft behind him
+  camera: Static camera, no movement
+  acao: >-
+    He looks straight into the camera and speaks. He does not turn his head
+    and does not walk. At the end he gives one small nod
+  fala: O Dia das Crianças vai ser diferente...
+  som: >-
+    TIMING: he speaks from second one to second three and a half, then
+    silence. Slow and confident, around 95 words per minute. Distant city
+    hum, children far away
+# ---------------------------------------------------------------------
+#  A PARTIR DAQUI NAO HA FALA. So acao e som ambiente.
+#  `fala` vazio faz o prompt sair com `[SPEECH]:` em branco -- o rotulo
+#  fica, o conteudo nao. Sem o rotulo o modelo inventa fala para
+#  preencher o campo que espera encontrar.
+# ---------------------------------------------------------------------
+- n: 3
+  setor: BECO
+  # Recentrado. Antes ele saia na lateral e cortado pela borda, com a
+  # crianca ocupando o centro -- o detector de rosto achou a crianca, nao
+  # ele. `centered in frame` e explicito porque `medium shot` sozinho nao
+  # diz onde a pessoa fica.
+  enquadramento: >-
+    Medium shot, he is centered in frame from the waist up, crouching
+    slightly, a small girl standing beside him on his left, both fully
+    inside the frame, the alley and clothes lines behind them
+  camera: Static camera, no movement
+  acao: >-
+    He holds out a wrapped gift and the girl takes it with both hands. He
+    stays beside her, facing the camera. No one kisses, no one embraces
+  fala: ''
+  som: >-
+    No speech at all. A child voice saying obrigado, quiet and small. A TV
+    inside a house, a dog barking down the alley
+- n: 4
+  setor: QUADRA
+  enquadramento: >-
+    Wide shot on the concrete court, six children running and playing with
+    a ball, some holding wrapped gifts, he is among them at a distance,
+    wire fence and brick houses behind
+  camera: >-
+    Wide handheld that drifts sideways across the court, following the
+    children rather than him
+  acao: >-
+    The children run in every direction, passing the ball, laughing. Two of
+    them carry wrapped gifts under their arms while they run. He is among
+    them, further back, laughing and clapping
+  fala: ''
+  som: >-
+    No speech at all. Children shouting and laughing, a ball bouncing hard
+    on concrete, sneakers squeaking, echo off the brick walls, a whistle
+    somewhere
+- n: 5
+  setor: LAJES
+  enquadramento: >-
+    Wide shot from below, three children sitting on a rooftop edge opening
+    wrapped gifts, blue water tanks and the sao paulo skyline hazy behind
+    them, late sun on their faces
+  camera: >-
+    Slow tilt up from the children to the rooftops and the city beyond
+  acao: >-
+    The children tear the paper off the gifts, one holds a new football up
+    against the sky. They talk over each other, excited. He is not in this
+    shot at all
+  fala: ''
+  som: >-
+    No speech at all. Paper tearing, children talking over each other
+    excitedly, laughter, distant city traffic far below, birds at dusk
+- n: 6
+  setor: MERCADINHO
+  enquadramento: >-
+    Medium shot at dusk, he stands by the corner shop watching children run
+    past him in the foreground carrying gifts, the alley opening behind him
+  camera: >-
+    Slow push out from medium to wide, the whole alley revealed behind him
+  acao: >-
+    Children cross in front of the lens, blurred, carrying gifts. He watches
+    them go, composed, and gives one slow deliberate nod to the camera at
+    the very end
+  fala: ''
+  som: >-
+    No speech at all. Children running and laughing past camera, corner shop
+    radio playing faintly, a fridge humming, evening birds, the city
+    settling

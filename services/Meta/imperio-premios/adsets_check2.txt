@@ -1,0 +1,119 @@
+========== act_2076716696539325 / Campanha 2.1 (120260935498070537) ==========
+{
+  "data": [
+    {
+      "id": "120260935498130537",
+      "name": "Publico Aberto",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "VALUE",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVHQ0bG4tY3ZA1bUJIMDBZAOFFOWmZAmNDhwcTZAKRmE4LXRQTE93ZA2V5eVhrMlpXNUYyS2pRdE1DWUNZAdUxYMmNLMDEzNUItLW9udG1CTy1KZAHVPdlpNYVRR",
+      "after": "QVFIVHQ0bG4tY3ZA1bUJIMDBZAOFFOWmZAmNDhwcTZAKRmE4LXRQTE93ZA2V5eVhrMlpXNUYyS2pRdE1DWUNZAdUxYMmNLMDEzNUItLW9udG1CTy1KZAHVPdlpNYVRR"
+    }
+  }
+}
+
+========== act_2076716696539325 / Campanha 3 - Retargeting (120260904054060537) ==========
+{
+  "data": [
+    {
+      "id": "120260904054100537",
+      "name": "All Viewers (Conquista de Clientes)",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVHlNRmZAXVjNIVFlLRXpHUXZAXQ19OOERsMnQzZAU10MGNEZAmVvSnpqRUM3OGtCWUEtdUxPRVhSVlVHSDQxYnRaUFh5LWlaNDU1S3ZAsZAkRjSzNITUVsVjdR",
+      "after": "QVFIVHlNRmZAXVjNIVFlLRXpHUXZAXQ19OOERsMnQzZAU10MGNEZAmVvSnpqRUM3OGtCWUEtdUxPRVhSVlVHSDQxYnRaUFh5LWlaNDU1S3ZAsZAkRjSzNITUVsVjdR"
+    }
+  }
+}
+
+========== act_2076716696539325 / Campanha 2 (120260873501680537) ==========
+{
+  "data": [
+    {
+      "id": "120260873501730537",
+      "name": "Publico Aberto",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVHNqa1pLS0ZAuUFhuRW11czFma25MU1BrdGFxMFdscWlkZAWoxTTNpS1RWak5xVmw2T0RlTWRwazBsZAHJtUVYyb1RZAc21lMkduY1ZAyWm1weG5pN2VKTlJn",
+      "after": "QVFIVHNqa1pLS0ZAuUFhuRW11czFma25MU1BrdGFxMFdscWlkZAWoxTTNpS1RWak5xVmw2T0RlTWRwazBsZAHJtUVYyb1RZAc21lMkduY1ZAyWm1weG5pN2VKTlJn"
+    }
+  }
+}
+
+========== act_2076716696539325 / Campanha 1 v3 (120260833091750537) ==========
+{
+  "data": [
+    {
+      "id": "120260833091780537",
+      "name": "Conjunto 1 — Prospecção Ampla (Advantage+)  — Conquista: (x)Clientes  Alto Valor; Gerais — LAL 1-3% Clientes",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVHh0RnJNSzZAzazBoVVRlOHhqS2NvWS0zUHNzM2kxSXM5OGVGVml2c0g4bkpwZAlR2YTMtdUZAJWTlYa25BeFB0d09QMFpBWV9zZAGJwQ1FsU2RXSUdNTHJ3",
+      "after": "QVFIVHh0RnJNSzZAzazBoVVRlOHhqS2NvWS0zUHNzM2kxSXM5OGVGVml2c0g4bkpwZAlR2YTMtdUZAJWTlYa25BeFB0d09QMFpBWV9zZAGJwQ1FsU2RXSUdNTHJ3"
+    }
+  }
+}
+
+========== act_1809822716714730 / Novo objetivo Engajamento (52598661982611) ==========
+{
+  "data": [
+    {
+      "id": "52598661983011",
+      "name": "Novo objetivo Engajamento Conjunto de anúncios com configurações recomendadas",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "PROFILE_AND_PAGE_ENGAGEMENT",
+      "promoted_object": {
+        "page_id": "548607351677498",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVDVvM296RFgwN0pJR1k2NFRWaHFxQ1NpX3JGMWx6cWxvUHpCQVBmUTRjUkFXTW16Y1ktZAG12cEFWNV9idzdyTUdHdGNBSWRiTTFnZAkYyaXpxNWFmLWpR",
+      "after": "QVFIVDVvM296RFgwN0pJR1k2NFRWaHFxQ1NpX3JGMWx6cWxvUHpCQVBmUTRjUkFXTW16Y1ktZAG12cEFWNV9idzdyTUdHdGNBSWRiTTFnZAkYyaXpxNWFmLWpR"
+    }
+  }
+}
+

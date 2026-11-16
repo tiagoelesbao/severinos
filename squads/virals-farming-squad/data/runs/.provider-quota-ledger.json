@@ -1,0 +1,60 @@
+{
+  "2026-07-29": {
+    "pexels-stock": {
+      "used": 130,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-29T01:24:20.819Z",
+      "last_error": "cota do Pexels esgotada (429)"
+    },
+    "cloudflare-flux": {
+      "used": 0,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-29T01:24:04.653Z",
+      "last_error": "429/quota_exceeded"
+    },
+    "cloudflare-sdxl": {
+      "used": 0,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-29T01:24:04.756Z",
+      "last_error": "429/quota_exceeded"
+    },
+    "hf-flux": {
+      "used": 0,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-29T01:24:21.196Z",
+      "last_error": "429/quota_exceeded"
+    },
+    "pollinations": {
+      "used": 4,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-29T01:24:07.170Z",
+      "last_error": "429/quota_exceeded"
+    }
+  },
+  "2026-07-30": {
+    "cloudflare-flux": {
+      "used": 53,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-30T19:37:25.321Z",
+      "last_error": "429/quota_exceeded"
+    },
+    "cloudflare-sdxl": {
+      "used": 3,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-30T19:37:25.416Z",
+      "last_error": "429/quota_exceeded"
+    },
+    "hf-flux": {
+      "used": 0,
+      "limit_hint": null,
+      "exhausted_at": "2026-07-30T19:37:25.597Z",
+      "last_error": "429/quota_exceeded"
+    },
+    "pollinations": {
+      "used": 7,
+      "limit_hint": null,
+      "exhausted_at": null,
+      "last_error": null
+    }
+  }
+}

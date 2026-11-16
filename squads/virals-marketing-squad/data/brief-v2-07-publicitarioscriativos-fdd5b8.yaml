@@ -1,0 +1,101 @@
+carousel_brief:
+  slug: v2-modeled-07-publicitarioscriativos-fdd5b8
+  tema: 'High Fidelity Modeling: 07-publicitarioscriativos-fdd5b8'
+  slide_count: 9
+  brand_config: squads/virals-marketing-squad/data/clients/virals/brand-config.yaml
+content_data:
+- slide_n: 1
+  tipo: hook
+  sub_headline: TENDÊNCIAS & INSIGHTS
+  headline: CAMPANHAS E NOTÍCIAS MAIS CRIATIVAS DA SEMANA
+  body_text: ''
+  accent_color: '#FF5B3F'
+  bg_preset_url: https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2000&auto=format&fit=crop
+  object_url: https://cdn-icons-png.flaticon.com/512/6298/6298377.png
+- slide_n: 2
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: DUBLADORA DE ROCHELLE É CONVIDADO PELA HAVAN PARA CAMPANHA DE DIA DAS
+    MÃES
+  body_text: A Havan aposta na memória afetiva ao trazer a voz marcante de Rochelle,
+    criando conexão imediata com o público e conduzindo uma narrativa baseada em situações
+    comuns entre mães e filhos, equilibrando humor e firmeza para revelar cuidado
+    nas falas, sem recorrer a idealizações e mantendo proximidade com a realidade
+    cotidiana.
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 3
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: MATTE LEÃO (LOGO TEXT)
+  body_text: ''
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 4
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: NUBANK LEVA SEU TOM DE ROXO PARA OS MACACÕES DA MERCEDES NA FÓRMULA 1
+  body_text: "Durante o GP de Miami, o Nubank torna sua presença impossível de ignorar\
+    \ ao aplicar o roxo característico nos macacões da MercedesAMG PETRONAS, criando\
+    \ associação visual imediata, enquanto diferentes versões de uniforme conectadas\
+    \ à trajetória da empresa ampliam o significado, complementadas por conteúdos\
+    \ e experiências que fortalecem o vínculo com territórios culturais relevantes.\n\
+    \   Logotipos nos macacões (visíveis): MercedesAMG, UBS, Crowdstrike, Snapdragon,\
+    \ PETRONAS, NU, INE(OS), HP(E), Microsoft.\n   Logotipo no canto superior direito\
+    \ (parcialmente visível): Símbolo do Nubank (flor/estrela).\n   Texto nos cartões\
+    \ (parcialmente visível): NU"
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 5
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: ADIDAS APRESENTA COLEÇÃO EXCLUSIVA COM UNIFORMES DE SELEÇÕES PARA CACHORROS
+  body_text: De olho no comportamento de consumo durante a Copa do Mundo, a Adidas
+    expande o uso das camisas para pets, lançando peças inspiradas em seleções como
+    Argentina, México, Colômbia e Japão, adaptadas para incluir os animais na experiência.
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 6
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: 'CASE ESTUDO #5'
+  body_text: ''
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 7
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: RONALDINHO GAÚCHO É O NOVO EMBAIXADOR DA BIC
+  body_text: A BIC escolhe Ronaldinho Gaúcho para representar a linha Flex 3, conectando
+    carisma, futebol e cuidado pessoal em uma comunicação que destaca a suavidade
+    no barbear e preço acessível, enquanto a garantia de satisfação convida o público
+    a experimentar sem risco, reforçando confiança e incentivando teste direto do
+    produto.
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 8
+  tipo: valor
+  sub_headline: VIRAL INTELLIGENCE
+  headline: MARCA BRASILEIRA APRESENTA O PRIMEIRO AÇAÍ COCRIADO COM INTELIGÊNCIA ARTIFICIAL
+  body_text: O primeiro açaí feito por inteligência artificial combina tecnologia
+    e repertório humano para transformar dados em experiência sensorial inédita, reunindo
+    ingredientes de diferentes biomas brasileiros em uma proposta que traduz diversidade,
+    enquanto a apresentação no World Creativity Day amplia a narrativa com degustações
+    e experiências imersivas.
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null
+- slide_n: 9
+  tipo: cta
+  sub_headline: PRÓXIMO PASSO
+  headline: ESTRATÉGIA É O QUE DIFERENCIA
+  body_text: Sua marca merece um design que converte. Fale com a Virals.
+  accent_color: '#FF5B3F'
+  bg_preset_url: null
+  object_url: null

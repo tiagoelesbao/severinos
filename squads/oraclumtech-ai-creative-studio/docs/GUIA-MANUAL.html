@@ -1,0 +1,1019 @@
+<title>Guia Manual do Studio</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --surface-2: #f4f2ee;
+    --fg: #1a1a1c; --fg-muted: #55555c; --fg-faint: #8a8a94;
+    --line: #e3e0da; --accent: #0f766e; --accent-soft: #e6f2f0;
+    --warn: #9a3412; --warn-soft: #fdf0e8; --code-bg: #f4f2ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e0f12; --surface: #16181d; --surface-2: #1c1f26;
+      --fg: #e8e8ea; --fg-muted: #a8a8b2; --fg-faint: #70707a;
+      --line: #272b33; --accent: #2de2c8; --accent-soft: #12251f;
+      --warn: #ffab70; --warn-soft: #2a1a10; --code-bg: #1c1f26;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e0f12; --surface: #16181d; --surface-2: #1c1f26;
+    --fg: #e8e8ea; --fg-muted: #a8a8b2; --fg-faint: #70707a;
+    --line: #272b33; --accent: #2de2c8; --accent-soft: #12251f;
+    --warn: #ffab70; --warn-soft: #2a1a10; --code-bg: #1c1f26;
+  }
+
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    margin: 0; padding: 0 1.2rem 6rem;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; }
+  header.capa {
+    padding: 3.5rem 0 2rem; border-bottom: 1px solid var(--line); margin-bottom: 2rem;
+  }
+  header.capa h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0 0 .4rem; letter-spacing: -.02em; }
+  header.capa p { color: var(--fg-muted); margin: 0; max-width: 44rem; }
+  .chapeu { color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .6rem; }
+
+  h2 {
+    font-size: 1.45rem; margin: 3.2rem 0 .3rem; letter-spacing: -.01em;
+    padding-top: 1.2rem; border-top: 1px solid var(--line);
+  }
+  h2 .num { color: var(--fg-faint); font-weight: 400; margin-right: .5rem; }
+  h3 { font-size: 1.08rem; margin: 2rem 0 .4rem; }
+  h4 { font-size: .95rem; margin: 1.3rem 0 .3rem; color: var(--fg-muted); }
+  p { margin: .7rem 0; }
+  ul, ol { padding-left: 1.3rem; }
+  li { margin: .3rem 0; }
+  a { color: var(--accent); }
+
+  code {
+    background: var(--code-bg); padding: .12em .38em; border-radius: 4px;
+    font: 500 .86em/1.4 "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+    word-break: break-word;
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: .8rem 0;
+  }
+  pre code { background: none; padding: 0; font-size: .84rem; line-height: 1.55; }
+
+  .tabela-envolve { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .89rem; min-width: 34rem; }
+  th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 700; color: var(--fg-muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  .nota, .aviso, .porque {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .8rem 1rem; border-radius: 0 6px 6px 0; margin: 1rem 0; font-size: .93rem;
+  }
+  .aviso { border-left-color: var(--warn); background: var(--warn-soft); }
+  .porque { border-left-color: var(--fg-faint); background: var(--surface-2); }
+  .nota strong:first-child, .aviso strong:first-child, .porque strong:first-child { display: block; margin-bottom: .25rem; }
+
+  .passos { counter-reset: passo; list-style: none; padding-left: 0; }
+  .passos > li {
+    counter-increment: passo; position: relative; padding-left: 2.4rem; margin: 1.1rem 0;
+  }
+  .passos > li::before {
+    content: counter(passo); position: absolute; left: 0; top: .05rem;
+    width: 1.7rem; height: 1.7rem; border-radius: 50%;
+    background: var(--accent); color: var(--bg);
+    display: grid; place-items: center; font-size: .82rem; font-weight: 800;
+  }
+
+  .cartoes { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin: 1rem 0; }
+  .cartao { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: .85rem 1rem; }
+  .cartao h4 { margin: 0 0 .3rem; color: var(--fg); font-size: .92rem; }
+  .cartao p { margin: 0; font-size: .86rem; color: var(--fg-muted); }
+
+  nav.sumario {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 1.1rem 1.3rem; margin: 2rem 0;
+  }
+  nav.sumario ol { columns: 2; column-gap: 2rem; margin: 0; font-size: .92rem; }
+  @media (max-width: 40rem) { nav.sumario ol { columns: 1; } }
+
+  kbd {
+    background: var(--surface-2); border: 1px solid var(--line); border-bottom-width: 2px;
+    border-radius: 4px; padding: .08em .4em; font-size: .82em; font-family: inherit;
+  }
+  .marca { color: var(--fg-faint); font-size: .82rem; }
+  footer { margin-top: 4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--fg-faint); font-size: .85rem; }
+</style>
+
+<div class="wrap">
+
+<header class="capa">
+  <div class="chapeu">Oraclum Tech · AI Creative Studio</div>
+  <h1>Guia manual do pipeline</h1>
+  <p>
+    Como produzir tudo — imagem, voz, trilha, vídeo e montagem — <strong>na mão</strong>,
+    sem depender de nenhum agente. Cada etapa traz o comando exato, o que esperar
+    de volta, e o motivo pelo qual ela é feita assim. Se algum dia só sobrar você,
+    um terminal e o ComfyUI aberto, este documento é suficiente.
+  </p>
+</header>
+
+<nav class="sumario">
+  <ol>
+    <li><a href="#antes">Antes de começar</a></li>
+    <li><a href="#mapa">Mapa do território</a></li>
+    <li><a href="#motor">O motor: <code>run_batch.py</code></a></li>
+    <li><a href="#modelar">Modelar uma referência</a></li>
+    <li><a href="#roteiro">Escrever e medir o roteiro</a></li>
+    <li><a href="#imagem">Gerar as imagens</a></li>
+    <li><a href="#refino">Refino e upscale</a></li>
+    <li><a href="#voz">Narração</a></li>
+    <li><a href="#legenda">Legendas alinhadas</a></li>
+    <li><a href="#audio">Trilha, ambiência e SFX</a></li>
+    <li><a href="#video">Vídeo com Wan (I2V)</a></li>
+    <li><a href="#overlays">Overlays de atmosfera</a></li>
+    <li><a href="#montagem">Montagem no video-studio</a></li>
+    <li><a href="#fx">Os quatro grupos de FX</a></li>
+    <li><a href="#noturno">Fila da madrugada</a></li>
+    <li><a href="#armadilhas">Armadilhas já pagas</a></li>
+    <li><a href="#receitas">Receitas completas</a></li>
+  </ol>
+</nav>
+
+<!-- ===================================================================== -->
+<h2 id="antes"><span class="num">1</span>Antes de começar</h2>
+
+<p>Três coisas precisam estar de pé. Nada mais.</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>O quê</th><th>Onde</th><th>Como saber que está ok</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>ComfyUI</strong></td>
+      <td><code>C:\Users\Pichau\Desktop\ComfyUI_windows_portable\</code></td>
+      <td><code>curl http://127.0.0.1:8188/system_stats</code> responde JSON</td>
+    </tr>
+    <tr>
+      <td><strong>Python + ffmpeg</strong></td>
+      <td>no PATH</td>
+      <td><code>python -V</code> e <code>ffmpeg -version</code> respondem</td>
+    </tr>
+    <tr>
+      <td><strong>video-studio</strong> (só para montar)</td>
+      <td><code>apps/video-studio</code></td>
+      <td><code>npm run dev</code> → <code>http://localhost:3000/studio</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="aviso">
+<strong>O limite real da máquina é RAM, não VRAM.</strong>
+São 16 GB, e o pico de qualquer pipeline de vídeo acontece na saída da
+interpolação, não na geração. Duas consequências práticas que valem mais do que
+qualquer configuração: <strong>uma tarefa por vez</strong> — dois
+<code>run_batch.py</code> simultâneos disputam a mesma memória e os dois ficam
+mais lentos que um sozinho —, e <strong>não rode Whisper com o ComfyUI
+carregado</strong>.
+</div>
+
+<p>
+Todo comando deste guia é rodado a partir da pasta de scripts:
+</p>
+<pre><code>cd C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\squads\oraclumtech-ai-creative-studio\assets\comfyui</code></pre>
+
+<!-- ===================================================================== -->
+<h2 id="mapa"><span class="num">2</span>Mapa do território</h2>
+
+<p>Onde cada coisa vive. Saber isto evita metade das perguntas.</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Pasta</th><th>O que tem</th></tr></thead>
+  <tbody>
+    <tr><td><code>assets/comfyui/</code></td><td>Todos os scripts e os workflows <code>.json</code> do ComfyUI</td></tr>
+    <tr><td><code>assets/comfyui/workflows/</code></td><td>14 workflows: t2i, refino, upscale, TTS, trilha, 7 presets de Wan</td></tr>
+    <tr><td><code>data/roteiros/estoico/</code></td><td>Roteiros <code>.md</code> + <code>.srt</code> + <code>.blocos.json</code> gerados</td></tr>
+    <tr><td><code>data/voice-packs/</code></td><td>Portfólio de vozes validadas, com <code>VALIDACAO.md</code></td></tr>
+    <tr><td><code>data/trilhas-and-sfx/</code></td><td>21 peças de áudio aprovadas, por segmento/tipo/intenção</td></tr>
+    <tr><td><code>data/identidades-visuais.yaml</code></td><td>A trava de look de cada canal — paleta, ambiente, legenda</td></tr>
+    <tr><td><code>data/dark-estoicismo-playbook.yaml</code></td><td>Tudo que foi medido nas peças de referência</td></tr>
+    <tr><td><code>assets/overlays/</code></td><td>11 overlays de atmosfera + <code>PROVA.jpg</code></td></tr>
+    <tr><td><code>ComfyUI/output/</code></td><td><strong>Onde tudo sai.</strong> Subpasta por job</td></tr>
+    <tr><td><code>outputs/&lt;cliente&gt;/video-plans/</code></td><td>Timelines prontas para o video-studio</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="motor"><span class="num">3</span>O motor: <code>run_batch.py</code></h2>
+
+<p>
+Quase tudo passa por aqui. Ele lê um workflow <code>.json</code> exportado da
+interface do ComfyUI, converte para o formato da API, aplica as substituições do
+job e enfileira. <strong>Um job por vez</strong>, sempre.
+</p>
+
+<pre><code># ver todos os jobs disponíveis (sem rodar nada)
+python run_batch.py --list
+
+# rodar só os que casam com um prefixo
+python run_batch.py --only fv2-
+python run_batch.py --only la-la1-02,la-la2-02
+
+# rodar a fila inteira (raramente é o que você quer)
+python run_batch.py</code></pre>
+
+<div class="porque">
+<strong>Por que existe a conversão de formato</strong>
+O ComfyUI exporta o workflow no formato da <em>interface</em> (com posições,
+links e widgets em ordem posicional). A API só aceita o formato de <em>prompt</em>
+(nós com entradas nomeadas). O conversor lê os nomes dos widgets em
+<code>/object_info</code> <strong>em tempo de execução</strong> — assim, quando um
+nó ganha um parâmetro novo numa atualização do ComfyUI, nada quebra.
+</div>
+
+<div class="aviso">
+<strong>A armadilha do bloco no fim do arquivo</strong>
+O guard <code>if __name__ == "__main__": main()</code> fica <strong>sempre no fim</strong>
+de <code>run_batch.py</code>. Toda lista de jobs nova é anexada <em>acima</em> dele.
+Já aconteceu duas vezes de um bloco entrar <em>depois</em> do guard — e aí os jobs
+simplesmente não existem quando o <code>main()</code> roda, sem erro nenhum.
+</div>
+
+<h3>Anatomia de um job</h3>
+<p>Um job é um dicionário. As chaves de <code>overrides</code> são <code>"&lt;id do nó&gt;.&lt;campo&gt;"</code>:</p>
+<pre><code>JOBS.append({
+    "id": "meu-job-01",
+    "workflow": "flux2-klein-t2i.json",
+    "nota": "descrição que aparece no log",
+    "overrides": {
+        "4.text": "prompt positivo aqui",
+        "5.text": "prompt negativo aqui",
+        "6.width": 1344, "6.height": 768,
+        "7.width": 1344, "7.height": 768,
+        "9.noise_seed": 7001,
+        "13.filename_prefix": "minha-pasta/nome-do-arquivo",
+    },
+})</code></pre>
+
+<p>Os ids dos nós do <code>flux2-klein-t2i.json</code>:</p>
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>id</th><th>nó</th><th>o que você mexe</th></tr></thead>
+  <tbody>
+    <tr><td>4</td><td>CLIPTextEncode</td><td><code>.text</code> — prompt <strong>positivo</strong></td></tr>
+    <tr><td>5</td><td>CLIPTextEncode</td><td><code>.text</code> — prompt <strong>negativo</strong></td></tr>
+    <tr><td>6</td><td>EmptyFlux2LatentImage</td><td><code>.width</code> / <code>.height</code></td></tr>
+    <tr><td>7</td><td>Flux2Scheduler</td><td><code>.width</code> / <code>.height</code> (têm de bater com o 6)</td></tr>
+    <tr><td>9</td><td>RandomNoise</td><td><code>.noise_seed</code> — a semente</td></tr>
+    <tr><td>13</td><td>SaveImage</td><td><code>.filename_prefix</code> — pasta/nome de saída</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="nota">
+<strong>Semente fixa entre variações, semente nova entre rodadas.</strong>
+Ao comparar dois prompts, a semente tem de ser <strong>a mesma</strong>, senão a
+comparação não distingue direção de acaso. Ao <em>refazer</em> algo que saiu
+errado, a semente tem de ser <strong>outra</strong> — repetir a mesma tende a
+repetir o mesmo defeito.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="modelar"><span class="num">4</span>Modelar uma referência</h2>
+
+<p>
+É o primeiro passo de qualquer nicho novo: pegar um vídeo que funciona e extrair
+dele a gramática — ritmo de fala, takes, paleta, tipo de transição.
+</p>
+
+<ol class="passos">
+  <li>
+    <strong>Transcrever inteiro</strong> — dá o wpm, as pausas e o ritmo por bloco de 5 min.
+    <pre><code>python transcreve_referencias.py "C:\caminho\video.mp4"</code></pre>
+    <span class="marca">Whisper <code>small</code>. Não rode com o ComfyUI carregado.</span>
+  </li>
+  <li>
+    <strong>Extrair os takes</strong> — descobre quantas imagens únicas existem e onde a peça começa a reciclar.
+    <pre><code>python extrai_takes_referencia.py "C:\caminho\video.mp4" v1-praticas</code></pre>
+    <span class="marca">Sai <code>takes.json</code>, <code>top20.jpg</code> e <code>contato.jpg</code> em <code>docs/referencias/</code>.</span>
+  </li>
+  <li>
+    <strong>Escrever o catálogo de takes</strong> — copie <code>modelagem_takes_v1.py</code> e descreva cada take em três variações.
+  </li>
+  <li>
+    <strong>Gerar e montar o storyboard</strong> para escolher uma variação por take.
+    <pre><code>python run_batch.py --only fv2-
+python monta_storyboard.py v2</code></pre>
+  </li>
+</ol>
+
+<div class="aviso">
+<strong>Detecção de corte não serve.</strong>
+<code>select=gt(scene,…)</code> devolveu <strong>zero cortes</strong> numa peça de
+34 min — ela não corta, <em>dissolve</em>. Por isso a extração usa amostragem
+uniforme a cada 2 s. E de graça isso já diz que a transição padrão daquele
+formato é dissolve, nunca corte seco.
+</div>
+
+<div class="aviso">
+<strong>Compare com a amostra ANTERIOR, não com a primeira do grupo.</strong>
+O zoom lento faz o hash perceptual derivar. Comparando sempre com a primeira,
+a mesma imagem virou 230 "takes" numa peça que tem 99.
+</div>
+
+<h3>As três variações — a regra</h3>
+<div class="cartoes">
+  <div class="cartao"><h4>Fiel</h4><p>Reproduz o frame real: mesmo sujeito, material, enquadramento e luz. Para quem quer o vídeo indistinguível da referência.</p></div>
+  <div class="cartao"><h4>Intermediária</h4><p>Mesmo sujeito e ambiente, variando <strong>uma</strong> variável de cinema — ângulo, distância ou direção da luz.</p></div>
+  <div class="cartao"><h4>Autoral</h4><p>Mesma ideia, luz e cor recompostas com liberdade. É por onde o canal ganha assinatura.</p></div>
+</div>
+
+<div class="nota">
+<strong>Cada variação repete o sujeito e o material por extenso.</strong>
+Escrever "the same figure…" não carrega nada — o modelo não tem memória do prompt
+anterior. Numa rodada em que abreviei assim, saiu gente de carne no lugar de estátua.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="roteiro"><span class="num">5</span>Escrever e medir o roteiro</h2>
+
+<p>
+O roteiro é um <code>.md</code> com marcadores de imagem e marcas de pausa. O
+formato importa porque três scripts diferentes o leem.
+</p>
+
+<pre><code>---
+id: LA1-disciplina
+estrutura: A
+titulo: A disciplina que não depende de vontade
+voz: 03-male-02 · modelo PT-BR
+palavras: 0
+duracao_calculada: 0m00s
+---
+
+## ABERTURA — os 10 movimentos
+
+**[img 01 — estátua de filósofo sentado, cabeça baixa]**
+
+*(1 · pergunta de promessa)*
+Você já reparou que sempre sabe o que precisa fazer — e mesmo assim não faz?
+
+*(3 · tese)* ‖
+Disciplina não é uma quantidade de vontade. É uma estrutura.</code></pre>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Marca</th><th>Significa</th><th>Quem lê</th></tr></thead>
+  <tbody>
+    <tr><td><code>**[img NN — descrição]**</code></td><td>a partir daqui, esta imagem cobre a tela</td><td><code>gera_timeline_dark.py</code></td></tr>
+    <tr><td><code>‖</code></td><td>abrir pausa de 0,4 a 0,8 s <strong>aqui</strong> — em nenhum outro lugar</td><td><code>conta_roteiros.py</code></td></tr>
+    <tr><td><code>*(n · papel)*</code></td><td>anotação de estrutura; não é narrado</td><td>você</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>Medir e gerar os derivados</h4>
+<pre><code>python conta_roteiros.py          # mede e reescreve os cabeçalhos
+python conta_roteiros.py --srt    # idem + grava .srt e .blocos.json</code></pre>
+
+<div class="aviso">
+<strong>Existem DOIS wpm e eles não são intercambiáveis.</strong>
+Custou uma geração inteira descobrir. O <code>WPM_REFERENCIA</code> é o ritmo de
+quem estamos modelando — serve para entender o gênero. O <code>WPM_MOTOR</code> é
+o ritmo da <em>nossa</em> voz, e é o único que prevê duração.
+<br><br>
+O <code>LA1</code> foi escrito para 20m17s a 127,5 wpm (o ritmo da referência) e
+saiu com <strong>14m56s</strong>: o motor <code>male02</code> fala a
+<strong>171,6 wpm</strong>. Não houve truncamento — 84 de 84 blocos, texto
+integral. <br><br>
+<code>palavras_alvo = minutos × WPM_MOTOR</code>. Para 20 min: <strong>3.432
+palavras</strong>, não 2.550. Meça o motor na primeira peça de cada voz nova: o
+<code>Adjusted_SRT</code> que o workflow devolve já traz o tempo real de cada bloco.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="imagem"><span class="num">6</span>Gerar as imagens</h2>
+
+<p>Modelo: <strong>FLUX.2 klein 4B Q8_0 GGUF</strong>. Workflow: <code>flux2-klein-t2i.json</code>.</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Parâmetro</th><th>Valor</th><th>Por quê</th></tr></thead>
+  <tbody>
+    <tr><td>CFG</td><td><strong>1.0</strong></td><td>O modelo é destilado. Subir o CFG queima a imagem.</td></tr>
+    <tr><td>Resolução 16:9</td><td>1344×768</td><td>Formato de YouTube. Os nós 6 e 7 têm de ter o mesmo valor.</td></tr>
+    <tr><td>Resolução 9:16</td><td>768×1344</td><td>Reels/Shorts.</td></tr>
+    <tr><td>Tempo</td><td>~15–25 s por imagem</td><td>Barato. Gere muitas e escolha.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>A estrutura de um prompt que funciona</h3>
+<p>Nesta ordem, sempre:</p>
+<ol>
+  <li><strong>Enquadramento e posição no quadro.</strong> "Wide cinematic horizontal composition… in the LEFT THIRD of the frame, cropped at mid-thigh". A referência quase nunca centraliza.</li>
+  <li><strong>O assunto, com contagem explícita.</strong> "exactly two legs with both bare feet flat on the plinth, complete anatomically correct body". <em>Número não dito é número errado.</em></li>
+  <li><strong>Fundo, com profundidade declarada.</strong> "dark teal void", "shallow depth of field".</li>
+  <li><strong>Luz.</strong> É ela que carrega o gênero.</li>
+  <li><strong>Acabamento comum.</strong> Partícula, risco de película, vinheta pesada.</li>
+</ol>
+
+<div class="aviso">
+<strong>Escultura vira gente: a negação é que fecha a porta.</strong>
+Todo close de busto saía como retrato de homem vivo — pele, poro, barba real —
+mesmo com "bronze" no prompt positivo. O prior do modelo para
+<em>bearded bust facing camera</em> é fotografia de pessoa, e adjetivo não vence prior.
+<br><br>
+O que resolve é negativo explícito: <code>human skin, skin pores, living person,
+real man, portrait photograph, flesh</code>, somado a um reforço de
+<strong>superfície</strong> (<code>chisel marks, micro-chipping, matte inorganic
+finish</code>).
+<br><br>
+<strong>E o reforço de superfície não pode citar material.</strong> Escrevendo
+<code>hard STONE surface, matte MINERAL texture</code>, a carne sumiu — e
+<em>branqueou tudo</em>, jogando o bronze quase preto para mármore claro. A cor
+tem de vir de um campo separado, colocado <strong>depois</strong>, para ser a
+última palavra do prompt.
+</div>
+
+<div class="aviso">
+<strong>Quando o adjetivo não resolve, tire o objeto da cena.</strong>
+O marcador "duas mãos de mármore segurando um pergaminho" saiu com pele humana em
+<strong>três rodadas seguidas</strong>, com "carved from marble, not flesh" no
+positivo e "human skin, flesh" no negativo. Reescrito como pergaminho aberto sobre
+laje, com <code>no hands and no people anywhere in frame</code>, saiu certo de
+primeira nas três peças. <em>Prior forte não se corrige com qualificador —
+corrige-se removendo o gatilho.</em>
+</div>
+
+<div class="nota">
+<strong>Nunca peça superfície escrita.</strong>
+Pergaminho, placa, livro: entram sempre em branco
+(<code>completely blank unmarked aged papyrus with no writing of any kind</code>).
+O modelo inventa glifos ilegíveis e o olho pega na hora.
+</div>
+
+<h3>Inspecionar antes de gastar acabamento</h3>
+<pre><code>python monta_folha_canal.py cru lote-a</code></pre>
+<p>
+Monta uma folha por peça em <code>assets/canal-estoico/</code>. A inspeção aqui é
+<strong>estrutural</strong>, não de textura: contar membros, contar elementos
+repetidos, e perguntar de cada objeto se ele tem função na cena. Textura ruim se
+conserta com upscale; anatomia e arquitetura erradas exigem geração nova — e
+gastar 4 h de acabamento antes dessa inspeção é gastar no lugar errado.
+</p>
+
+<!-- ===================================================================== -->
+<h2 id="refino"><span class="num">7</span>Refino e upscale</h2>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Workflow</th><th>O que faz</th><th>Tempo</th><th>Quando</th></tr></thead>
+  <tbody>
+    <tr><td><code>flux2-klein-lite-upscale.json</code></td><td>Upscale com difusão leve</td><td>~175 s</td><td>Rascunho, cauda do vídeo</td></tr>
+    <tr><td><code>flux2-klein-pro-refino-upscale.json</code></td><td>FaceDetailer + UltimateSDUpscale</td><td>~360 s</td><td>Os ~20 takes que carregam a peça</td></tr>
+    <tr><td><code>imagem-superres-fiel.json</code></td><td>ESRGAN 2×, <strong>sem difusão</strong></td><td>~20 s</td><td>Foto real que não pode ser alterada</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="aviso">
+<strong>O denoise do upscale é o parâmetro que mais estraga.</strong>
+Medido: <code>0.18</code> <em>inventa dano</em> na superfície — cria rachadura e
+mancha que não existiam. <code>0.10</code> é o valor certo.
+</div>
+
+<div class="nota">
+<strong>Foto de imóvel real não passa por difusão.</strong>
+Alterar um imóvel que existe é publicidade enganosa. Para essas, só
+<code>imagem-superres-fiel.json</code>: ESRGAN puro, que aumenta a resolução sem
+inventar nada.
+</div>
+
+<div class="porque">
+<strong>Dimensionar o acabamento pelo tempo em tela</strong>
+A primeira reciclagem de takes acontece em <strong>8:44</strong> (v1) e
+<strong>6:00</strong> (v2), e os 30 maiores cobrem 41% e 63% da peça. Então:
+<strong>PRO nos ~20 que carregam o vídeo, LITE na cauda</strong>. São 2 h de
+máquina em vez de 9, e a diferença não aparece na tela.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="voz"><span class="num">8</span>Narração</h2>
+
+<p>Workflow: <code>tts-narracao-srt.json</code>. Motor: <strong>ChatterBox 23-Lang</strong> (licença MIT, PT-BR nativo).</p>
+
+<h3>Duas rotas</h3>
+<div class="cartoes">
+  <div class="cartao">
+    <h4>LITE — por cue</h4>
+    <p>O SRT fino entra direto. Cada cue é uma geração, e cada emenda vira uma parada.
+    Medido: 47 pausas acima de 250 ms, 16% do tempo em silêncio digital. Conserta-se
+    depois com <code>ajusta_pausas.py</code> — mas é conserto.</p>
+  </div>
+  <div class="cartao">
+    <h4>PRO — por parágrafo <span class="marca">(padrão)</span></h4>
+    <p>O motor recebe um SRT cujos cues são os <strong>parágrafos</strong>. Dentro do
+    parágrafo a prosódia é contínua porque foi gerada de uma vez — e prosódia
+    contínua não se reconstrói depois de cortada.</p>
+  </div>
+</div>
+
+<h4>Rodar a rota PRO</h4>
+<pre><code># 1. monta o SRT de parágrafos a partir do .blocos.json
+python narracao_pro.py LA1-disciplina LA2-ansiedade LA3-tempo
+
+# 2. gera (um por vez — ~20 min de áudio leva ~19 min de máquina)
+python run_batch.py --only narpro-
+
+# 3. converte para mp3 (o Player engasga com wav de 100 MB)
+ffmpeg -i LA1-disciplina-male02_00001.flac -c:a libmp3lame -b:a 192k LA1-disciplina-male02.mp3</code></pre>
+
+<div class="porque">
+<strong>Por que a rota PRO não precisou de workflow novo</strong>
+O <code>UnifiedTTSSRTNode</code> tem <code>timing_mode: concatenate</code>, que
+<em>ignora</em> o timing de entrada, emenda o áudio natural e devolve um SRT com os
+tempos reais. Alimentado com um SRT de parágrafos, ele faz exatamente o que a rota
+PRO pede. O timing que entra serve só como ordem.
+</div>
+
+<div class="nota">
+<strong>O corte por tamanho é obrigatório.</strong>
+<code>narracao_pro.py</code> quebra parágrafos acima de 55 palavras
+<strong>em fronteira de frase</strong>. Gerações muito longas degradam no fim; e
+cortar no meio de uma frase produz entoação de ponto final onde não havia ponto —
+que é o defeito que a rota PRO existe para evitar.
+</div>
+
+<h3>Os modos de timing</h3>
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Modo</th><th>O que faz</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td><code>concatenate</code></td><td>Ignora o timing e emenda natural; devolve SRT novo</td><td><strong>Rota PRO</strong></td></tr>
+    <tr><td><code>smart_natural</code></td><td>Respeita o áudio, ajusta dentro da tolerância</td><td>Rota LITE</td></tr>
+    <tr><td><code>pad_with_silence</code></td><td>Áudio intacto, o resto vira silêncio</td><td>SRT com folga garantida</td></tr>
+    <tr><td><code>stretch_to_fit</code></td><td>Força o áudio a caber no cue</td><td><strong>PROIBIDO</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="aviso">
+<strong><code>stretch_to_fit</code> é proibido em narração.</strong>
+Medido: 1,29× a 1,61× de esticamento, e o WER da mesma frase subiu de
+<strong>0% para 15,8%</strong>. Além disso, nesse modo o <code>Adjusted_SRT</code>
+reporta a duração <em>pré</em>-esticamento — os fins de cue não batem com o áudio.
+</div>
+
+<div class="aviso">
+<strong>Armadilha de GPU entre engines.</strong>
+Depois que a ENGINE A (ChatterBox) roda, a ENGINE B (F5-TTS) falha em GPU com
+<code>Expected all tensors to be on the same device</code> — e a run é marcada como
+<em>success</em> mesmo assim, gravando ~1 s de áudio morto. <strong>Reinicie o
+ComfyUI antes de trocar A → B</strong>, ou rode a B em <code>device=cpu</code>
+(funciona, mas ~60× mais lento: 346 s contra 5 s).
+</div>
+
+<div class="aviso">
+<strong>Cada lote usa o clone do vídeo que ELE modela.</strong>
+O nome <code>ref_v2_1200.wav</code> parece dizer "versão 2 da referência" — o
+<code>v2</code> ali é <strong>vídeo 2</strong>, a peça de reflexões. Usar a voz
+errada não dá erro nenhum: sai uma narração perfeita com o timbre do vídeo que
+você não estava modelando.
+<br><br>
+<strong>Lote A</strong> (práticas) → <code>ref_video_limpo.wav</code>, 14 s ·
+<strong>Lote B</strong> (reflexões) → <code>ref_v2_1200.wav</code>, 20 s.
+<br><br>
+<code>limpo</code> e não <code>cru</code>: a versão crua carrega a trilha do
+vídeo por baixo da fala, e o clone aprende a trilha junto com a voz.
+</div>
+
+<div class="aviso">
+<strong>Vozes clonadas: só para estudo.</strong>
+As vozes clonadas de vídeos de referência estão aprovadas <em>de ouvido</em> e
+continuam <code>pode_publicar: nao</code> no banco. A restrição é de
+<strong>direito de voz</strong>, e ouvir não resolve direito. Para publicar, use
+<code>voz_male_02.wav</code>.
+</div>
+
+<h4>Se você usou a rota LITE e o áudio ficou "ligando e desligando"</h4>
+<pre><code>python ajusta_pausas.py "C:\...\narracao\A1-ordem-male02.wav"</code></pre>
+<p>
+Ele apara pausas acima de 0,75 s para 0,55 s com crossfade de 30 ms e deita uma
+cama de ruído de sala em −52 dB por baixo. O piso passa de −120 dB (silêncio
+digital, que é o que causa a sensação de microfone ligando) para −60 dB.
+</p>
+
+<!-- ===================================================================== -->
+<h2 id="legenda"><span class="num">9</span>Legendas alinhadas ao áudio</h2>
+
+<pre><code>python legendas_do_audio.py "C:\...\narracao\LA1-disciplina-male02.mp3" ../../data/roteiros/estoico/LA1-disciplina.srt</code></pre>
+
+<p>
+Sai um <code>.captions.json</code> ao lado do áudio. O
+<code>gera_timeline_dark.py</code> o encontra sozinho.
+</p>
+
+<div class="aviso">
+<strong>Nunca tire o tempo da legenda do SRT escrito.</strong>
+O SRT é uma <em>previsão</em>; o áudio gerado não obedece a ela. Medido numa peça:
+<code>+0,01 s</code> no primeiro cue, <code>+14,20 s</code> no último. O desvio é
+<strong>monotônico</strong> — cada pausa não prevista empurra tudo o que vem
+depois. É por isso que parecia piorar a cada bloco: não piorava por bloco,
+piorava sempre.
+</div>
+
+<div class="porque">
+<strong>Por que o alinhamento usa <code>SequenceMatcher</code></strong>
+Parear por posição não funciona: o Whisper ouviu 603 palavras e o roteiro tem 613,
+e o primeiro descompasso desalinha todo o resto — na primeira tentativa só 23%
+casaram, o que significa <em>palavra errada na tela na hora certa</em>, pior que o
+bug original. <code>difflib.SequenceMatcher</code> acha os blocos iguais e trata o
+resto como inserção ou omissão: subiu para <strong>94%</strong>.
+<br><br>
+A grafia vem do roteiro, o tempo vem do áudio. E o <code>.words.json</code> fica em
+cache, para afinar o alinhamento sem retranscrever.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="audio"><span class="num">10</span>Trilha, ambiência e SFX</h2>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Motor</th><th>Workflow</th><th>Para</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Stable Audio Open</strong></td><td><code>audio-trilha-sfx.json</code></td><td>Cama, ambiência, SFX</td></tr>
+    <tr><td><strong>ACE-Step 3.5B</strong></td><td><code>audio-musica-acestep.json</code></td><td>Música com estrutura</td></tr>
+  </tbody>
+</table>
+</div>
+
+<pre><code># gera o pack de peças
+python pecas_audio.py
+
+# organiza por segmento/tipo/intenção em data/trilhas-and-sfx/
+python organiza_audio.py
+
+# transforma as camas em loops perfeitos
+python faz_loops.py</code></pre>
+
+<div class="aviso">
+<strong>Loop tem de ser WAV.</strong>
+O MP3 falseia a medição da emenda — o codec adiciona silêncio de padding no início
+e no fim, e a emenda que parecia perfeita estala no player.
+</div>
+
+<div class="nota">
+<strong>Stable Audio compõe uma peça, não uma cama.</strong>
+Ele entrega algo com início, desenvolvimento e <em>fade</em> — o que é o oposto de
+uma cama contínua. Para cama, gere longo e recorte o miolo com
+<code>faz_loops.py</code>.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="video"><span class="num">11</span>Vídeo com Wan (I2V)</h2>
+
+<p>
+<strong>Wan 2.2 I2V A14B</strong> dual-stage GGUF Q4_K_M. São 7 presets em
+<code>workflows/wan22-i2v-*.json</code>, gerados por
+<code>gera_workflows_wan.py</code>.
+</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Preset</th><th>Gera</th><th>Upscale</th><th>RIFE</th><th>fps</th><th>Passos</th></tr></thead>
+  <tbody>
+    <tr><td><strong>validado</strong></td><td>720×960</td><td>4×</td><td>×2</td><td>32</td><td>20</td></tr>
+    <tr><td>nitido</td><td>832×1120</td><td>2×</td><td>×2</td><td>32</td><td>30</td></tr>
+    <tr><td>max / quality / suave / social / fast</td><td colspan="5" class="marca">variações de qualidade × tempo</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>A conta de memória — o que faz caber em 16 GB</h3>
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Resolução</th><th>Quadros</th><th>Upscale</th><th>dtype do RIFE</th><th>Saída</th><th>Pico</th><th></th></tr></thead>
+  <tbody>
+    <tr><td>720×960</td><td>65</td><td>4×</td><td>float32</td><td>2880×3840</td><td>17,3 GB</td><td><strong>estoura</strong></td></tr>
+    <tr><td>720×960</td><td>65</td><td>4×</td><td><strong>float16</strong></td><td>2880×3840</td><td>8,6 GB</td><td>ok</td></tr>
+    <tr><td>832×1120</td><td>65</td><td>2×</td><td>float16</td><td>1664×2240</td><td>2,9 GB</td><td>folgado</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="nota">
+<strong>O pico é na saída do RIFE, não na geração.</strong>
+Por isso <code>dtype: float16</code> na interpolação divide o pico por dois e faz o
+upscale 4× caber. O diagnóstico inicial ("o upscale é pesado demais") estava só
+metade certo.
+</div>
+
+<div class="nota">
+<strong>A regra de fps:</strong> <code>fps do CreateVideo = 16 × multiplicador do RIFE</code>.
+O Wan gera a 16 fps nativos. RIFE ×2 → 32 fps. Errar isso produz vídeo em câmera
+lenta ou acelerado sem que nada acuse erro.
+</div>
+
+<div class="aviso">
+<strong>Câmera parada é o que evita deformação.</strong>
+Comparando um fluxo validado com o nosso, os grafos eram idênticos nó a nó — a
+diferença estava no <em>prompt</em>. O que funciona abre com
+<code>Static camera shot</code>, diz <code>background elements remain completely
+still</code> e <strong>nega movimento de câmera no negativo</strong>. Pedir
+tilt-up ou push-in é exatamente onde telhados e folhagem deformam.
+</div>
+
+<div class="aviso">
+<strong>Se a run terminar sem produzir arquivo, olhe o último nó.</strong>
+Uma geração de 30 min "não produziu nada" — e na verdade tinha completado tudo,
+falhando no <code>SaveVideo</code> com
+<code>missing 1 required positional argument: 'codec'</code>. O conversor não
+reconhecia <code>COMFY_DYNAMICCOMBO_V3</code> como widget e o descartava em
+silêncio. Hoje a detecção aceita <code>list</code>, tipos escalares e qualquer
+tipo que contenha <code>COMBO</code>.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="overlays"><span class="num">12</span>Overlays de atmosfera</h2>
+
+<pre><code>python gera_overlays.py 10      # 11 overlays de 10 s, em loop perfeito
+python prova_overlays.py        # folha de prova: cada um COMPOSTO sobre imagem real</code></pre>
+
+<p>
+São <strong>sintéticos</strong>, gerados em numpy — partícula, grão, risco,
+vazamento de luz, papel, névoa, bolha, VHS, linhas de TV. Não são baixados de
+lugar nenhum de propósito: pack de overlay da web traz risco de licença que
+acabaria transferido para quem publica.
+</p>
+
+<div class="aviso">
+<strong>O modo de mesclagem é o que faz o efeito existir.</strong>
+Sem ele, o preto do overlay apenas <em>escurece</em> a imagem em vez de sumir — é a
+queixa de "o efeito não aparece". <code>screen</code> para overlay sobre preto;
+<code>overlay</code>/<code>soft-light</code> para textura em cinza médio;
+<code>multiply</code> para vinheta.
+</div>
+
+<div class="nota">
+<strong>Ruído não comprime.</strong>
+O VHS saiu com <strong>98 MB</strong> em 10 s no primeiro corte. Ruído em bloco
+4×2 (que também é mais fiel — fita não tem resolução de pixel) e
+<code>crf 30</code> derrubaram para <strong>6,4 MB</strong> sem diferença visível.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="montagem"><span class="num">13</span>Montagem no video-studio</h2>
+
+<pre><code># os dois passos na ordem certa, para todas as peças longas
+python fecha_pecas.py                    # voz clone
+python fecha_pecas.py --voz male02       # voz publicável
+
+# ou avulso
+python gera_timeline_dark.py LA1-disciplina --voz clone --cliente canal-estoico</code></pre>
+
+<p>Isso escreve, em <code>outputs/&lt;cliente&gt;/video-plans/&lt;peça&gt;/</code>:</p>
+<ul>
+  <li><code>studio-edit.json</code> — <strong>o arquivo autoritativo</strong></li>
+  <li><code>timeline.json</code> e <code>fx-plan.json</code></li>
+  <li><code>Materiais Brutos/</code> — todas as mídias copiadas</li>
+</ul>
+
+<p>Depois: <code>npm run dev</code> em <code>apps/video-studio</code> e abra a URL que o script imprime.</p>
+
+<div class="aviso">
+<strong>O <code>fx-plan.json</code> incompleto derruba a peça inteira, com a mensagem errada.</strong>
+Faltando <code>hookRenderer</code>, <code>captionRenderer</code> ou
+<code>motionRenderers</code>, a composição lança <em>antes de montar qualquer
+mídia</em> — nenhum PNG ou MP4 chega a ser pedido — e o editor mostra
+"Mídia incompatível neste clipe (formato/codec)", que aponta para o lugar errado.
+</div>
+
+<div class="nota">
+<strong>MP3 antes de WAV.</strong>
+O WAV de 20 min tem ~200 MB e o Player engasga ao buscar dentro dele. O export
+recodifica de qualquer forma, então a perda do 192k não chega ao master.
+</div>
+
+<div class="nota">
+<strong>A janela das imagens vem do ÁUDIO, não do SRT.</strong>
+Quando existe <code>.captions.json</code>, o script reconstrói os cues a partir
+dele. Sem isso, as imagens seguem a previsão enquanto a voz segue o relógio real —
+e no A1 isso deu <strong>76,5 s</strong> de descompasso.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="fx"><span class="num">14</span>Os quatro grupos de FX</h2>
+
+<p>
+No editor, quatro coisas diferentes que costumavam viver no mesmo saco. Detalhes
+em <code>apps/video-studio/docs/ECOSSISTEMA-FX.md</code>.
+</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Grupo</th><th>Escopo</th><th>Onde se edita</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Transição</strong> (16)</td><td>dois takes — fim de um, começo do outro</td><td>inspector do clipe de vídeo</td></tr>
+    <tr><td><strong>Animação</strong> (10)</td><td>um elemento, sozinho — entrada e saída</td><td>inspector do elemento</td></tr>
+    <tr><td><strong>Efeito</strong> (11)</td><td>camada sobreposta; não altera o clipe</td><td>aba <strong>Efeitos</strong> do bin</td></tr>
+    <tr><td><strong>Câmera</strong> (10)</td><td>o próprio quadro se movendo</td><td>inspector do clipe de vídeo</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+<strong>Peso</strong> — <code>calmo</code> / <code>medio</code> /
+<code>agressivo</code> — multiplica a amplitude por 0,6 / 1 / 1,9. Nas transições
+ele mexe também na <em>duração</em> (×1,6 / ×1 / ×0,55): agressivo é mais curto,
+não só mais forte. Um whip de 20 frames não é agressivo, é lento.
+</p>
+
+<div class="nota">
+<strong>Aplicar em todos com sentido alternado.</strong>
+O botão no inspector de câmera aplica o movimento à peça inteira invertendo o
+sentido a cada take. É o que impede a peça de respirar junto — e é como a
+repetição de uma mesma imagem no rodízio deixa de se denunciar.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="noturno"><span class="num">15</span>Fila da madrugada</h2>
+
+<p>Duplo clique em <code>RODAR-NOTURNO.bat</code>, ou pela linha de comando:</p>
+<pre><code>RODAR-NOTURNO.bat                    # 12 takes do Airbnb, preset validado
+RODAR-NOTURNO.bat airbnb- nitido     # idem, preset nitido
+RODAR-NOTURNO.bat nar-               # as narrações
+RODAR-NOTURNO.bat fid-               # a modelagem de fidelidade</code></pre>
+
+<p>
+Ele espera o ComfyUI responder, limpa fila residual, descarrega modelo preso, roda
+<strong>um job por vez</strong> e grava tudo em <code>_noturno-&lt;data&gt;.log</code>.
+</p>
+
+<div class="porque">
+<strong>Por que ele não inicia o ComfyUI</strong>
+Subir o ComfyUI a partir do script esconderia erro de inicialização no log de outro
+processo. O ComfyUI precisa estar aberto antes — é a única exigência.
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="armadilhas"><span class="num">16</span>Armadilhas já pagas</h2>
+
+<p>Cada uma destas custou tempo. Não custe de novo.</p>
+
+<div class="tabela-envolve">
+<table>
+  <thead><tr><th>Sintoma</th><th>Causa real</th><th>Correção</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Jobs novos "não existem" ao rodar</td>
+      <td>bloco anexado <em>depois</em> do <code>if __name__</code></td>
+      <td>toda lista vai <strong>acima</strong> do guard</td>
+    </tr>
+    <tr>
+      <td>Run de 30 min sem arquivo</td>
+      <td>widget <code>COMFY_DYNAMICCOMBO_V3</code> descartado em silêncio</td>
+      <td>detecção aceita qualquer tipo com <code>COMBO</code></td>
+    </tr>
+    <tr>
+      <td>Storyboard mostra a versão antiga</td>
+      <td>ComfyUI não sobrescreve: gera <code>_00002_</code> ao lado</td>
+      <td><code>max(…, key=mtime)</code>, nunca <code>sorted(…)[0]</code></td>
+    </tr>
+    <tr>
+      <td>Vídeo em câmera lenta</td>
+      <td>fps do CreateVideo não bate com o RIFE</td>
+      <td><code>fps = 16 × multiplicador</code></td>
+    </tr>
+    <tr>
+      <td>Legenda atrasa mais a cada bloco</td>
+      <td>tempo vindo do SRT escrito, não do áudio</td>
+      <td><code>legendas_do_audio.py</code></td>
+    </tr>
+    <tr>
+      <td>Imagens fora de sincronia com a voz</td>
+      <td>janela das imagens vinha do SRT</td>
+      <td>cues reconstruídos do <code>.captions.json</code></td>
+    </tr>
+    <tr>
+      <td>Peça sai mais curta que o previsto</td>
+      <td>wpm da referência usado para prever a nossa narração</td>
+      <td><code>WPM_MOTOR</code>, medido no <code>Adjusted_SRT</code></td>
+    </tr>
+    <tr>
+      <td>"Mídia incompatível neste clipe"</td>
+      <td><code>fx-plan.json</code> sem os três renderers</td>
+      <td>incluir <code>hookRenderer</code>, <code>captionRenderer</code>, <code>motionRenderers</code></td>
+    </tr>
+    <tr>
+      <td>Overlay não aparece</td>
+      <td>sem modo de mesclagem — o preto só escurece</td>
+      <td><code>blend: screen</code> (ou <code>soft-light</code> em textura)</td>
+    </tr>
+    <tr>
+      <td>Busto sai com pele humana</td>
+      <td>prior do modelo vence adjetivo no positivo</td>
+      <td>negativo anti-carne + reforço de superfície sem citar material</td>
+    </tr>
+    <tr>
+      <td>Estátua com três pernas</td>
+      <td>contagem não declarada no prompt</td>
+      <td>"exactly two legs… complete anatomically correct body"</td>
+    </tr>
+    <tr>
+      <td>Fila continua depois de você interromper</td>
+      <td><code>/interrupt</code> cancela o job, não o script</td>
+      <td>corrigido: a fila aborta ao ver <code>interrompido</code></td>
+    </tr>
+    <tr>
+      <td>Narração sai com timbre do vídeo errado</td>
+      <td><code>v2</code> em <code>ref_v2_1200</code> é <em>vídeo</em> 2</td>
+      <td><code>CLONE_DO_LOTE</code> resolve pelo prefixo do roteiro</td>
+    </tr>
+    <tr>
+      <td>Texto em negrito some da narração</td>
+      <td><code>\1</code> gravado como <code>\x01</code> por heredoc de shell</td>
+      <td>patch com regex vai por arquivo <code>.py</code>, nunca por heredoc</td>
+    </tr>
+    <tr>
+      <td>Overlay some depois de 10 s</td>
+      <td>camada declarada como um clipe com a duração da peça</td>
+      <td>repetição explícita, fade só nas pontas</td>
+    </tr>
+    <tr>
+      <td>Player travando na reprodução</td>
+      <td>frame corrente em estado do React re-renderizava tudo 30×/s</td>
+      <td>store externo (<code>lib/playhead.ts</code>) + <code>memo</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===================================================================== -->
+<h2 id="receitas"><span class="num">17</span>Receitas completas</h2>
+
+<h3>A · Um episódio novo, do zero ao editor</h3>
+<pre><code>cd ...\assets\comfyui
+
+# 1. escrever o roteiro em data/roteiros/estoico/MEU.md
+#    (marcadores [img NN] + marcas ‖ de pausa)
+
+# 2. medir e gerar os derivados
+python conta_roteiros.py --srt
+
+# 3. gerar o pack de imagens (um bloco de JOBS por peça em run_batch.py)
+python run_batch.py --only meu-pack-
+python monta_folha_canal.py cru lote-a      # INSPECIONAR antes de seguir
+
+# 4. narração pela rota PRO
+python narracao_pro.py MEU
+python run_batch.py --only narpro-
+ffmpeg -i ...\narracao\MEU-male02_00001.flac -c:a libmp3lame -b:a 192k ...\MEU-male02.mp3
+
+# 5. legendas do áudio real  (SEM o ComfyUI carregado)
+python legendas_do_audio.py "...\narracao\MEU-male02.mp3" ..\..\data\roteiros\estoico\MEU.srt
+
+# 6. montar a timeline
+python gera_timeline_dark.py MEU --voz male02 --cliente canal-estoico
+
+# 7. abrir o editor
+cd ..\..\..\..\apps\video-studio && npm run dev</code></pre>
+
+<h3>B · Modelar um nicho novo</h3>
+<pre><code># 1. transcrever a referência (SEM ComfyUI carregado)
+python transcreve_referencias.py "C:\...\referencia.mp4"
+
+# 2. extrair os takes
+python extrai_takes_referencia.py "C:\...\referencia.mp4" meu-nicho
+
+# 3. copiar modelagem_takes_v1.py e descrever cada take em 3 variações
+# 4. adicionar o bloco de JOBS em run_batch.py e gerar
+python run_batch.py --only fid-meu-nicho-
+
+# 5. storyboard para escolher
+python monta_storyboard.py meu-nicho</code></pre>
+
+<h3>C · Só uma imagem, rápido</h3>
+<p>Abra o ComfyUI no navegador, carregue <code>workflows/flux2-klein-t2i.json</code>,
+edite o nó 4 (positivo) e o 5 (negativo), confira <code>CFG 1.0</code> e clique em
+<em>Queue</em>. Sai em <code>ComfyUI/output/</code>.</p>
+
+<h3>D · Emergência: o ComfyUI travou com modelo preso</h3>
+<pre><code>curl -X POST http://127.0.0.1:8188/interrupt
+curl -X POST http://127.0.0.1:8188/queue -H "Content-Type: application/json" -d "{\"clear\":true}"
+curl -X POST http://127.0.0.1:8188/free  -H "Content-Type: application/json" -d "{\"unload_models\":true,\"free_memory\":true}"</code></pre>
+
+<div class="aviso">
+<strong><code>/interrupt</code> cancela o job atual, não a fila do seu script.</strong>
+Um <code>run_batch.py</code> em execução continua para o próximo job. Se você quer
+parar tudo, feche também a janela do terminal — já aconteceu de uma narração ser
+gerada com o texto antigo por causa disso.
+</div>
+
+<footer>
+  Oraclum Tech · AI Creative Studio — guia manual do pipeline.<br>
+  A fonte de verdade dos números e decisões é <code>MEMORY.md</code> do squad;
+  este documento é a versão operacional dela.
+</footer>
+
+</div>

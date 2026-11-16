@@ -1,0 +1,35 @@
+{
+  "rank": 4,
+  "creator": "@garyvee",
+  "url": "https://www.tiktok.com/@garyvee/video/7634997412754509070",
+  "platform": "tiktok",
+  "type": "video-short",
+  "subtype": "tiktok-video",
+  "engine": "VideoAnalyzer",
+  "title": "This is for the leaders and future leaders out there …  I hope this r...",
+  "description": "This is for the leaders and future leaders out there …  I hope this really “hits” for some ..",
+  "author": "garyvee",
+  "view_count": 104900,
+  "like_count": 4278,
+  "comment_count": null,
+  "duration_seconds": 13,
+  "thumbnail": "https://p16-common-sign.tiktokcdn.com/tos-useast5-p-0068-tx/oc0eiTLJWQnAdI4eLvQBJnGnf8aLIOzeFAYs90~tplv-tiktokx-origin.image?dr=14575&x-expires=1778000400&x-signature=3DfeWPQwlzGi%2BWnXeVk0R8W8Kj0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my2",
+  "screenshots_count": 3,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Gary, how do I get my employee"
+    },
+    {
+      "time": 3.76,
+      "label": "You don't, Frederick?"
+    },
+    {
+      "time": 8.6,
+      "label": "No employees should ever work "
+    }
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-05-03T16:58:32.201Z"
+}

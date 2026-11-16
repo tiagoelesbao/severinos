@@ -1,0 +1,403 @@
+schema_version: '5.0'
+generated_at: '2026-07-19T19:54:31'
+archetype: news
+carousel_brief:
+  slug: v5-precision-06-community-ca-aaf660
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-07-17/benchmark/instagram/06-community-ca-aaf660
+  source_url: https://www.instagram.com/community_ca/p/Da3V4LTiU39/
+  tema: 'Modelagem de precisão: 06-community-ca-aaf660'
+  slide_count: 5
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0B0B0F'
+    secondary: '#1A1A24'
+    accent: '#FFB800'
+    accent_alt: '#FF4D2E'
+    accent_aurora: '#FFD86B'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B5B5C0'
+    overlay_dark: '#00000080'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F2F2F2'
+      text: '#0B0B0F'
+      accent: '#FFB800'
+  accent: '#FFB800'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#0B0B0F'
+      background: '#FFB800'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.5
+      dark_strong:
+        color: '#000000'
+        opacity: 0.7
+      brand_subtle:
+        color: '#0B0B0F'
+        opacity: 0.3
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 5
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: null
+  audits_present: true
+benchmark_caption: "Existem 3 formas de transformar sua marca em um ecossistema de\
+  \ conteúdo.\n\nE em 2026, algumas estruturas estão ganhando força porque usam canais,\
+  \ audiência e posicionamento para criar conteúdos mais estratégicos. E seu negócio\
+  \ pode já estar seguindo uma delas sem perceber... \n\nConfira quais são e salve\
+  \ este conteúdo para usar como referência na hora de organizar sua linha editorial.\
+  \ \U0001FAF0\U0001F3FB\n\n#CommunityCA #contentcreator #contentmarketing #communityca\
+  \ #linhaeditorial"
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Os 3 tipos de
+  reference_body: MARCAS DE CONTEÚDO que estão DOMINANDO 2026 Em qual dessas três
+    seu negócio melhor se encaixa? community
+  headline: ENCONTRE SEU ARQUÉTIPO DE CONTEÚDO PARA 2026
+  sub_headline: O CENÁRIO
+  body_text: Exemplos reais como CazéTV mostram como modelos específicos geram resultados
+    consistentes.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 90
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person looking at city skyline
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline focada no benefício de identificar o modelo de negócio: ''Identifique
+      qual desses 3 modelos de marca vai dominar seu nicho em 2026''. Subtítulo: Pare
+      de tentar acertar o post e comece a construir o modelo certo.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-19T19:55:12'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: MARCA-PESSOA
+  reference_body: CASIMIRO CAZÉ TV INSTAGRAM TWITCH A PESSOA É A MARCA. Toda a audiência
+    confia na cara, na voz e na história de alguém, não em uma logo impessoal. Ela
+    cresce rápido porque a confiança já existe, mas para virar algo maior, precisa
+    aos poucos deixar de depender só dela.
+  headline: MARCA-PESSOA
+  sub_headline: MARCA-PESSOA
+  body_text: A autoridade é o rosto, não o logo. No caso da CazéTV, a confiança é
+    transferida diretamente para a pessoa, permitindo escala rápida via audiência
+    fiel. O ativo é a história e a voz.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 12
+    body_chars: 182
+    headline_tier: xl
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: man speaking microphone
+  accent_color: '#FFB800'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Definição: A autoridade é o rosto, não o logo. Case: Casimiro (CazéTV).
+      Prova: A confiança é transferida diretamente para a pessoa, permitindo escala
+      rápida via audiência fiel. O ativo é a história e a voz.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-19T19:55:12'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: MARCA-COMUNIDADE
+  reference_body: GRUPO GLOBO GRUPO GLOBO MULTI SHOW MULTISHOW sportv SPORTV CADA
+    FRENTE TEM IDENTIDADE PRÓPRIA E RODA SOZINHA. A conexão com a marca-mãe nem sempre
+    é visível ao público, mas é ela que sustenta tudo por trás.
+  headline: AUTONOMIA DE MARCA COM SUSTENTAÇÃO INVISÍVEL
+  sub_headline: MARCA-COMUNIDADE
+  body_text: Em um modelo de marca-comunidade, cada entidade mantém identidade única
+    e opera de forma autônoma. A conexão com a marca-mãe, embora invisível ao público,
+    é o alicerce que sustenta tudo por trás.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 195
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: television studio lights
+  accent_color: '#FFB800'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Definição: Identidades próprias que funcionam de forma autônoma. Case:
+      Grupo Globo (Multishow/Sportv). Prova: A marca-mãe sustenta o ecossistema, mas
+      as frentes rodam com DNA próprio, criando várias camadas de conexão.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-19T19:55:12'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: MARCA-SISTEMA
+  reference_body: 'DUOLINGO DUOLINGO LÍNGUAS DUOLINGO MATEMÁTICA DUOLINGO XADREZ ESSA
+    MARCA JÁ VIROU MÍDIA PRÓPRIA. Ela publica todo santo dia, em todo canal, endossando
+    cada braço com o mesmo nome, mas sempre com estratégia: cada conteúdo novo puxa
+    e, ao mesmo tempo, se aproveita da audiência dos outros. A marca vai crescendo
+    assim um pouco mais dia após dia.'
+  headline: MARCA-SISTEMA
+  sub_headline: MARCA-SISTEMA
+  body_text: 'A marca se torna o próprio canal de mídia. O Duolingo é a prova: publicação
+    diária e mídia multicanal sob o mesmo nome, operando um sistema de conteúdo em
+    escala industrial.'
+  design_triggers: []
+  text_metrics:
+    headline_chars: 13
+    body_chars: 173
+    headline_tier: xl
+    body_tier: sm
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using smartphone app
+  accent_color: '#FFB800'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: 'Definição: A marca se torna o próprio canal de mídia. Case: Duolingo.
+      Prova: Publicação diária e multicanal sob o mesmo nome. O sistema de conteúdo
+      é o produto, operando em escala industrial de presença.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-19T19:55:12'
+- slide_n: 5
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Salve este conteúdo para usar como referência na hora de organizar
+    sua linha editorial.
+  reference_body: ''
+  headline: O PRÓXIMO PASSO
+  sub_headline: O PRÓXIMO PASSO
+  body_text: Escolher o arquétipo define toda a sua linha editorial e seu processo
+    de produção. Em qual desses modelos seu negócio está tentando rodar hoje? Que
+    diferença essa escolha faz para sua estratégia?
+  design_triggers: []
+  text_metrics:
+    headline_chars: 15
+    body_chars: 195
+    headline_tier: xl
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hand saving file on computer
+  accent_color: '#FFB800'
+  source_slides:
+  - 5
+  personalization:
+    status: DONE
+    directive: 'Conclusão: Escolher o arquétipo define toda a sua linha editorial
+      e processo de produção. CTA (Call-to-think): Em qual desses modelos o seu negócio
+      está tentando rodar hoje? Salve para usar como benchmark na sua estratégia.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-07-19T19:55:12'
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/5
+  bodies_extracted: 4/5
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Classificação das marcas de conteúdo em três arquétipos estratégicos
+    (Marca-Pessoa, Marca-Comunidade, Marca-Sistema) com exemplos de mercado para guiar
+    a linha editorial.
+  formato: Framework educacional em carrossel (tipologia 3×1 com cases reais).
+  arco_narrativo: Gancho com promessa de futuro (2026) → Apresentação sequencial dos
+    3 arquétipos com cases de autoridade (Pessoa → Comunidade → Sistema) → Chamada
+    para ação de salvamento como ferramenta de trabalho.
+  estrutura:
+  - slide_n: 1
+    papel: 'Capa/gancho: apresenta a tese central (3 tipos dominantes em 2026) e a
+      pergunta de engajamento (qual se encaixa).'
+    essencial: true
+  - slide_n: 2
+    papel: 'Arquétipo 1 (Marca-Pessoa): define o conceito, mostra case de topo (Casimiro)
+      e destaca a vantagem (confiança/velocidade).'
+    essencial: true
+  - slide_n: 3
+    papel: 'Arquétipo 2 (Marca-Comunidade): define o conceito, usa case corporativo
+      forte (Globo/Multishow/Sportv) e explica a dinâmica (frentes autônomas + marca-mãe
+      invisível).'
+    essencial: true
+  - slide_n: 4
+    papel: 'Arquétipo 3 (Marca-Sistema): define o conceito, usa case de produto midiático
+      (Duolingo) e mostra a execução (publicação diária, multicanal, endosso nominal).'
+    essencial: true
+  - slide_n: 5
+    papel: 'CTA de utilidade: reforça o uso prático (linha editorial) e pede o salvamento
+      (sinal de valor para algoritmo).'
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Regra dos 3 (framework memorável e compartilhável)
+  - Cases de autoridade indiscutível (Casimiro, Globo, Duolingo) que validam a teoria
+    instantaneamente
+  - Gancho temporal ("2026") criando urgência e sensação de antecipação de tendência
+  - Utilidade prática explícita ("organizar linha editorial") transformando o post
+    em ferramenta de trabalho
+  - Estrutura paralela consistente nos slides 2-4 (conceito + case + diferencial)
+    facilitando a leitura rápida
+  recomendacao:
+    slides_ideais: 5
+    justificativa: O benchmark já está no tamanho ideal. Cada slide cumpre função
+      única na progressão lógica (tese → 3 provas → aplicação). Cortar qualquer slide
+      quebra a completude do framework; adicionar slides diluiria a densidade conceitual
+      que gera salvamentos.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-07-19T19:54:42'
+content_plan:
+  archetype: news
+  slide_count: 5
+  tema: Os 3 arquétipos de marcas de conteúdo dominantes em 2026
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O CENÁRIO
+    copy_direction: 'Headline focada no benefício de identificar o modelo de negócio:
+      ''Identifique qual desses 3 modelos de marca vai dominar seu nicho em 2026''.
+      Subtítulo: Pare de tentar acertar o post e comece a construir o modelo certo.'
+    image_direction: Fundo sóbrio, tipografia forte e centralizada. Estética de 'log
+      de produção' ou relatório técnico.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: MARCA-PESSOA
+    copy_direction: 'Definição: A autoridade é o rosto, não o logo. Case: Casimiro
+      (CazéTV). Prova: A confiança é transferida diretamente para a pessoa, permitindo
+      escala rápida via audiência fiel. O ativo é a história e a voz.'
+    image_direction: Exemplo visual do case (Casimiro) ao lado de uma breve lista
+      de características do modelo.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: MARCA-COMUNIDADE
+    copy_direction: 'Definição: Identidades próprias que funcionam de forma autônoma.
+      Case: Grupo Globo (Multishow/Sportv). Prova: A marca-mãe sustenta o ecossistema,
+      mas as frentes rodam com DNA próprio, criando várias camadas de conexão.'
+    image_direction: Diagrama simples mostrando uma marca central conectando diferentes
+      braços (identidades próprias).
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: MARCA-SISTEMA
+    copy_direction: 'Definição: A marca se torna o próprio canal de mídia. Case: Duolingo.
+      Prova: Publicação diária e multicanal sob o mesmo nome. O sistema de conteúdo
+      é o produto, operando em escala industrial de presença.'
+    image_direction: Mockup de multicanais (app, redes sociais) mostrando a consistência
+      do nome do case citado.
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: PAYOFF
+    kicker: O PRÓXIMO PASSO
+    copy_direction: 'Conclusão: Escolher o arquétipo define toda a sua linha editorial
+      e processo de produção. CTA (Call-to-think): Em qual desses modelos o seu negócio
+      está tentando rodar hoje? Salve para usar como benchmark na sua estratégia.'
+    image_direction: Slide limpo com foco na pergunta provocadora e ícone de salvamento
+      em destaque.
+    source_slides:
+    - 5
+  rationale: O plano segue a estrutura de 'slippery slide' do benchmark, mantendo
+    a autoridade dos cases (Casimiro, Globo, Duolingo) para validar a tese. A linguagem
+    foi ajustada para o tom 'Herói/Sábio' do Tiago, trocando o tom de 'dica' por um
+    tom de 'análise de modelo/sistema'. O gancho foca no benefício de posicionamento
+    estratégico para 2026, e o CTA evita o comercialismo, focando na reflexão sobre
+    o modelo atual do cliente.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-07-19T19:55:03'
+central_theme: Os 3 arquétipos de marcas de conteúdo dominantes em 2026
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-07-19T19:55:12'
+  slides: 5
+  central_theme: Os 3 arquétipos de marcas de conteúdo dominantes em 2026
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-07-19T19:56:46'

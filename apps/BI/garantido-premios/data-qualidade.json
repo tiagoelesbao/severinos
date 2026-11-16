@@ -1,0 +1,1251 @@
+{
+  "atualizado_em": "2026-11-16T09:53:34.064529-03:00",
+  "periodo_dias": 30,
+  "conta_anuncio_ativa": "act_28685818161087189",
+  "pixel_funil_diario": {
+    "_mock": false,
+    "dados": [
+      {
+        "dia": "2026-10-19",
+        "evento": "PageView",
+        "count": 3682
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "ViewContent",
+        "count": 2230
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "AddToCart",
+        "count": 543
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "InitiateCheckout",
+        "count": 504
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "Purchase",
+        "count": 19
+      },
+      {
+        "dia": "2026-10-19",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "PageView",
+        "count": 5073
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "ViewContent",
+        "count": 2990
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "AddToCart",
+        "count": 821
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "InitiateCheckout",
+        "count": 726
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "ClickSorteios",
+        "count": 7
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "Purchase",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-20",
+        "evento": "Lead",
+        "count": 18
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "PageView",
+        "count": 5225
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "ViewContent",
+        "count": 2904
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "AddToCart",
+        "count": 762
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "InitiateCheckout",
+        "count": 678
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "Lead",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "Purchase",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-21",
+        "evento": "ClickSorteios",
+        "count": 11
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "PageView",
+        "count": 4049
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "ViewContent",
+        "count": 2271
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "AddToCart",
+        "count": 630
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "InitiateCheckout",
+        "count": 585
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "ClickSorteios",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-22",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "PageView",
+        "count": 3860
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "ViewContent",
+        "count": 2192
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "ClickSorteios",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "InitiateCheckout",
+        "count": 603
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-23",
+        "evento": "Purchase",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "PageView",
+        "count": 3604
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "ViewContent",
+        "count": 1953
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "AddToCart",
+        "count": 624
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "InitiateCheckout",
+        "count": 568
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "ClickSorteios",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "Purchase",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-24",
+        "evento": "Lead",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "PageView",
+        "count": 637
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "ViewContent",
+        "count": 272
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "ClickSorteios",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "AddToCart",
+        "count": 43
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "InitiateCheckout",
+        "count": 43
+      },
+      {
+        "dia": "2026-10-25",
+        "evento": "Purchase",
+        "count": 3
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "PageView",
+        "count": 2815
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "ViewContent",
+        "count": 1443
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "ClickSorteios",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "AddToCart",
+        "count": 569
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "InitiateCheckout",
+        "count": 541
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "Purchase",
+        "count": 31
+      },
+      {
+        "dia": "2026-10-26",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "PageView",
+        "count": 3962
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "ViewContent",
+        "count": 2143
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "ClickSorteios",
+        "count": 40
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "AddToCart",
+        "count": 710
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "InitiateCheckout",
+        "count": 671
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "Lead",
+        "count": 16
+      },
+      {
+        "dia": "2026-10-27",
+        "evento": "Purchase",
+        "count": 39
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "PageView",
+        "count": 3791
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "ViewContent",
+        "count": 2103
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "InitiateCheckout",
+        "count": 599
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "ClickSorteios",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "Purchase",
+        "count": 12
+      },
+      {
+        "dia": "2026-10-28",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "PageView",
+        "count": 2969
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "AddToCart",
+        "count": 555
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "InitiateCheckout",
+        "count": 525
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "ViewContent",
+        "count": 1689
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "ClickSorteios",
+        "count": 26
+      },
+      {
+        "dia": "2026-10-29",
+        "evento": "Lead",
+        "count": 6
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "PageView",
+        "count": 3652
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "ViewContent",
+        "count": 2090
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "Purchase",
+        "count": 22
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "AddToCart",
+        "count": 645
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "InitiateCheckout",
+        "count": 612
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "ClickSorteios",
+        "count": 32
+      },
+      {
+        "dia": "2026-10-30",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "PageView",
+        "count": 2885
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "ViewContent",
+        "count": 1688
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "AddToCart",
+        "count": 490
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "InitiateCheckout",
+        "count": 450
+      },
+      {
+        "dia": "2026-10-31",
+        "evento": "ClickSorteios",
+        "count": 16
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "PageView",
+        "count": 878
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "ClickSorteios",
+        "count": 40
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "ViewContent",
+        "count": 417
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "AddToCart",
+        "count": 80
+      },
+      {
+        "dia": "2026-11-01",
+        "evento": "InitiateCheckout",
+        "count": 77
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "PageView",
+        "count": 3615
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "ClickSorteios",
+        "count": 54
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "ViewContent",
+        "count": 2124
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "AddToCart",
+        "count": 580
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "InitiateCheckout",
+        "count": 560
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-02",
+        "evento": "Purchase",
+        "count": 30
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "PageView",
+        "count": 3364
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "ViewContent",
+        "count": 1859
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "ClickSorteios",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "AddToCart",
+        "count": 575
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "InitiateCheckout",
+        "count": 546
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "Purchase",
+        "count": 1
+      },
+      {
+        "dia": "2026-11-03",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "PageView",
+        "count": 3634
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "ViewContent",
+        "count": 2052
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "AddToCart",
+        "count": 672
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "InitiateCheckout",
+        "count": 648
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "ClickSorteios",
+        "count": 52
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "Lead",
+        "count": 12
+      },
+      {
+        "dia": "2026-11-04",
+        "evento": "Purchase",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "PageView",
+        "count": 4201
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "ViewContent",
+        "count": 2364
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "AddToCart",
+        "count": 724
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "InitiateCheckout",
+        "count": 687
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "ClickSorteios",
+        "count": 50
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "Purchase",
+        "count": 22
+      },
+      {
+        "dia": "2026-11-05",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "PageView",
+        "count": 3718
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "ViewContent",
+        "count": 2111
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "ClickSorteios",
+        "count": 28
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "AddToCart",
+        "count": 637
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "InitiateCheckout",
+        "count": 611
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "Purchase",
+        "count": 35
+      },
+      {
+        "dia": "2026-11-06",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "PageView",
+        "count": 3915
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "AddToCart",
+        "count": 681
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "ViewContent",
+        "count": 2375
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "InitiateCheckout",
+        "count": 630
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "Purchase",
+        "count": 17
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "ClickSorteios",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-07",
+        "evento": "Lead",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "PageView",
+        "count": 731
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "ViewContent",
+        "count": 355
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "ClickSorteios",
+        "count": 10
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "AddToCart",
+        "count": 94
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "InitiateCheckout",
+        "count": 92
+      },
+      {
+        "dia": "2026-11-08",
+        "evento": "Lead",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "PageView",
+        "count": 3439
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "ViewContent",
+        "count": 1942
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "AddToCart",
+        "count": 646
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "InitiateCheckout",
+        "count": 609
+      },
+      {
+        "dia": "2026-11-09",
+        "evento": "Purchase",
+        "count": 2
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "PageView",
+        "count": 3655
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "ViewContent",
+        "count": 2246
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "AddToCart",
+        "count": 638
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "InitiateCheckout",
+        "count": 604
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "ClickSorteios",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-10",
+        "evento": "Purchase",
+        "count": 15
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "PageView",
+        "count": 5220
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "ViewContent",
+        "count": 3212
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "AddToCart",
+        "count": 774
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "InitiateCheckout",
+        "count": 686
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "ClickSorteios",
+        "count": 13
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "Purchase",
+        "count": 19
+      },
+      {
+        "dia": "2026-11-11",
+        "evento": "Lead",
+        "count": 8
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PageView",
+        "count": 4411
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ViewContent",
+        "count": 2751
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "AddToCart",
+        "count": 776
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "InitiateCheckout",
+        "count": 719
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ClickSorteios",
+        "count": 41
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "Lead",
+        "count": 10
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "ViewContentPlataforma",
+        "count": 1407
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PageViewPlataforma",
+        "count": 1112
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "AddToCartPlataforma",
+        "count": 355
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 316
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "Purchase",
+        "count": 286
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PurchaseGroup",
+        "count": 144
+      },
+      {
+        "dia": "2026-11-12",
+        "evento": "PurchasePlataforma",
+        "count": 159
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "PageView",
+        "count": 4477
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "ViewContent",
+        "count": 2928
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "ViewContentPlataforma",
+        "count": 2927
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "PageViewPlataforma",
+        "count": 2243
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "Purchase",
+        "count": 420
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "AddToCartPlataforma",
+        "count": 739
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "AddToCart",
+        "count": 737
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "InitiateCheckout",
+        "count": 669
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 670
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "PurchasePlataforma",
+        "count": 322
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "ClickSorteios",
+        "count": 21
+      },
+      {
+        "dia": "2026-11-13",
+        "evento": "PurchaseGroup",
+        "count": 307
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PageView",
+        "count": 4896
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ViewContent",
+        "count": 3313
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ViewContentPlataforma",
+        "count": 3304
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PageViewPlataforma",
+        "count": 2635
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "AddToCartPlataforma",
+        "count": 708
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "AddToCart",
+        "count": 711
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "InitiateCheckout",
+        "count": 652
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 653
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "Purchase",
+        "count": 56
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PurchaseGroup",
+        "count": 370
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "PurchasePlataforma",
+        "count": 54
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ClickSorteios",
+        "count": 31
+      },
+      {
+        "dia": "2026-11-14",
+        "evento": "ClickGroup",
+        "count": 12
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PageView",
+        "count": 599
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ClickSorteios",
+        "count": 4
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PageViewPlataforma",
+        "count": 356
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ViewContent",
+        "count": 412
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "ViewContentPlataforma",
+        "count": 412
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "AddToCartPlataforma",
+        "count": 67
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "AddToCart",
+        "count": 67
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "InitiateCheckout",
+        "count": 59
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 59
+      },
+      {
+        "dia": "2026-11-15",
+        "evento": "PurchaseGroup",
+        "count": 29
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PageView",
+        "count": 315
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PageViewPlataforma",
+        "count": 191
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "ViewContent",
+        "count": 226
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "ViewContentPlataforma",
+        "count": 227
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "AddToCartPlataforma",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "AddToCart",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "InitiateCheckout",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "InitiateCheckoutPlataforma",
+        "count": 36
+      },
+      {
+        "dia": "2026-11-16",
+        "evento": "PurchaseGroup",
+        "count": 14
+      }
+    ]
+  },
+  "grupo_whatsapp_cliques": {
+    "disponivel": true,
+    "motivo": null,
+    "total_periodo": 20325,
+    "por_dia": [
+      {
+        "dia": "2026-10-19",
+        "cliques": 704
+      },
+      {
+        "dia": "2026-10-20",
+        "cliques": 890
+      },
+      {
+        "dia": "2026-10-21",
+        "cliques": 911
+      },
+      {
+        "dia": "2026-10-22",
+        "cliques": 767
+      },
+      {
+        "dia": "2026-10-23",
+        "cliques": 847
+      },
+      {
+        "dia": "2026-10-24",
+        "cliques": 631
+      },
+      {
+        "dia": "2026-10-25",
+        "cliques": 196
+      },
+      {
+        "dia": "2026-10-26",
+        "cliques": 617
+      },
+      {
+        "dia": "2026-10-27",
+        "cliques": 841
+      },
+      {
+        "dia": "2026-10-28",
+        "cliques": 697
+      },
+      {
+        "dia": "2026-10-29",
+        "cliques": 607
+      },
+      {
+        "dia": "2026-10-30",
+        "cliques": 718
+      },
+      {
+        "dia": "2026-10-31",
+        "cliques": 525
+      },
+      {
+        "dia": "2026-11-01",
+        "cliques": 172
+      },
+      {
+        "dia": "2026-11-02",
+        "cliques": 490
+      },
+      {
+        "dia": "2026-11-03",
+        "cliques": 1060
+      },
+      {
+        "dia": "2026-11-04",
+        "cliques": 761
+      },
+      {
+        "dia": "2026-11-05",
+        "cliques": 887
+      },
+      {
+        "dia": "2026-11-06",
+        "cliques": 763
+      },
+      {
+        "dia": "2026-11-07",
+        "cliques": 473
+      },
+      {
+        "dia": "2026-11-08",
+        "cliques": 128
+      },
+      {
+        "dia": "2026-11-09",
+        "cliques": 693
+      },
+      {
+        "dia": "2026-11-10",
+        "cliques": 951
+      },
+      {
+        "dia": "2026-11-11",
+        "cliques": 1258
+      },
+      {
+        "dia": "2026-11-12",
+        "cliques": 1328
+      },
+      {
+        "dia": "2026-11-13",
+        "cliques": 1043
+      },
+      {
+        "dia": "2026-11-14",
+        "cliques": 1103
+      },
+      {
+        "dia": "2026-11-15",
+        "cliques": 136
+      },
+      {
+        "dia": "2026-11-16",
+        "cliques": 128
+      }
+    ]
+  },
+  "funil_etapas": [
+    {
+      "evento": "PageView",
+      "count": 97272,
+      "pct_da_primeira": null
+    },
+    {
+      "evento": "ViewContent",
+      "count": 56655,
+      "pct_da_primeira": 58.2
+    },
+    {
+      "evento": "AddToCart",
+      "count": 16110,
+      "pct_da_primeira": 16.6
+    },
+    {
+      "evento": "InitiateCheckout",
+      "count": 14990,
+      "pct_da_primeira": 15.4
+    },
+    {
+      "evento": "Purchase",
+      "count": 1092,
+      "pct_da_primeira": 1.1
+    }
+  ],
+  "pendencias": [
+    {
+      "item": "Pedidos reais (faturamento, ROAS, lucro, novo×recorrente)",
+      "status": "pendente",
+      "data": null,
+      "nota": "Aguardando acesso à API do backend da plataforma garantidopremios.com (equivalente a IMPERIO_PREMIOS_API_EMAIL/PASSWORD, ainda não existe pra Garantido). Sem isso não há pedido real pra cruzar com Meta Ads — nenhum número desta seção foi inventado."
+    },
+    {
+      "item": "EMQ (Event Match Quality)",
+      "status": "em_validacao",
+      "data": "2026-10-09",
+      "nota": "EMQ 9.0–9.3/10 em todos os eventos, medido manualmente no Events Manager em 2026-10-09 — a Graph API não devolve EMQ por request, então este número não é recalculado a cada refresh. Reconferir manualmente no Events Manager se o funil abaixo mudar de perfil."
+    },
+    {
+      "item": "Cliques no link do grupo de WhatsApp",
+      "status": "ok",
+      "data": "2026-10-30",
+      "nota": "Tabela short_link_clicks confirmada e recebendo dado real."
+    },
+    {
+      "item": "Webhook/CAPI próprio (tempo real)",
+      "status": "nao_aplicavel",
+      "data": null,
+      "nota": "Decisão deliberada: o tracking nativo da Garantido já mede EMQ 9.0-9.3/10 — não há gap que justifique construir um 2º pixel/CAPI como foi feito pro Império."
+    }
+  ]
+}

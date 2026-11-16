@@ -1,0 +1,653 @@
+# WF-OCS-P6 — Image Lab / Imagem pura
+# Vende sozinho E serve os outros 5 como sub-rotina. Não há timeline aqui.
+# Fonte: _BLUEPRINT.md §5 (P6) · Regra de ouro §3.1 · Pacote de Direção §3.2
+#        Convenções normativas: _CONVENTIONS.md · ADR-004, ADR-007
+# Perfil espelhado: data/pipeline-profiles.yaml → P6
+
+workflow:
+  id: wf-image-lab
+  pipeline_id: image-lab
+  name: 'Image Lab — imagem pura'
+  version: 1.0.0
+  squad: oraclumtech-ai-creative-studio
+  entry_agent: studio-chief
+  job_owner: studio-chief
+  genre_ref: 'data/genre-catalog.yaml#image-lab'
+  profile_ref: 'data/pipeline-profiles.yaml#P6'
+  handoff_contracts: 'data/handoff-matrix.yaml'
+  formato_master: 'definido no brief (1:1 · 4:5 · 9:16 · 16:9)'
+  unidade: 'asset (ou lote de assets do mesmo sistema visual)'
+  description: >
+    O único pipeline sem timeline. Sem editor, sem motion-lead, sem sound-designer:
+    não há montagem, não há duração, não há corte. O que existe é composição,
+    tipografia e legibilidade no destino. Entrega thumb, packshot, key art, capa de
+    episódio e carrossel — e é o único pipeline que outro pipeline pode chamar.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OS DOIS MODOS
+# ═══════════════════════════════════════════════════════════════════════════════
+modos:
+  autonomo:
+    quando: 'Cliente compra imagem. O job nasce de um pedido e entrega ao cliente.'
+    estagios: [intake, brief, research, design, character, stills, factcheck, gate, delivery]
+    job: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}/'
+    entrega: '{job}/16-delivery/entrega/ + publishing-kit.md'
+    cobranca: 'É uma peça vendida. Tem entrega própria.'
+  embutido:
+    quando: 'Chamado de dentro de P1–P5 — capa de episódio (P3), thumb (P5), key art (P1/P4).'
+    pula_estagios: [intake, brief, research]
+    pula_porque: >
+      O job pai já fez esse trabalho. Refazer o brief dentro da sub-rotina produziria
+      um segundo brief divergente do primeiro, e a capa deixaria de conversar com a peça.
+    herda_do_pai: [brief.yaml, brand-lock.yaml, art-spec.yaml]
+    estagios: [design, character, stills, factcheck, gate]
+    sem_delivery: >
+      Em modo embutido NÃO há delivery. O caminho do arquivo é devolvido ao job pai e o
+      job filho encerra sem entrega própria — evita cobrar duas vezes a mesma peça e
+      evita dois manifestos apontando para o mesmo asset.
+    grava_em: '{job-pai}/11-stills/subrotina-{asset}/'
+    ref: 'data/genre-catalog.yaml § image-lab.contrato_de_subrotina'
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTERFACE DE CHAMADA — como o pai chama e como recebe de volta
+# ═══════════════════════════════════════════════════════════════════════════════
+interface_de_subrotina:
+  principio: >
+    A chamada é por ARQUIVO, como todo handoff deste squad. O pai escreve um pedido em
+    disco, a sub-rotina lê, trabalha e escreve um resultado em disco. Não existe
+    "passar o contexto": se o pai morrer no meio, o pedido continua lá e a sub-rotina
+    pode ser retomada por tasks/resume-job.md.
+
+  quem_chama:
+    - pipeline: brand-film
+      estagio: stills
+      asset_tipico: 'key art da campanha, packshot de produto'
+    - pipeline: nicho-series
+      estagio: stills
+      asset_tipico: 'capa do episódio'
+    - pipeline: nicho-series
+      estagio: delivery
+      asset_tipico: 'capa ausente detectada no fechamento — chamada tardia'
+    - pipeline: oraclum-institucional
+      estagio: stills
+      asset_tipico: 'key art da peça, capa para o site'
+    - pipeline: dark-room
+      estagio: stills
+      asset_tipico: 'thumbnail do episódio (chamada SEMPRE presente)'
+    - pipeline: ugc-ads
+      estagio: stills
+      asset_tipico: 'thumb ou estático de apoio do lote'
+
+  # ── ENTRADA ────────────────────────────────────────────────────────────────
+  contrato_de_entrada:
+    escrito_por: 'o owner_agent do estágio que chama (image-lead, na maioria dos casos)'
+    path: '{job-pai}/11-stills/subrotina-{asset}/_request.yaml'
+    schema:
+      asset_id: 'slug único do asset dentro do job pai'
+      tipo: 'thumb | key-art | packshot | capa-episodio | carrossel | estatico-apoio'
+      formato: '1:1 | 4:5 | 9:16 | 16:9 — e as dimensões em px'
+      destino: >
+        ONDE a imagem vai viver: feed do Instagram, player do YouTube, topo do site,
+        biblioteca de anúncios. Define composição, safe area e tamanho mínimo de leitura.
+      texto_na_arte: 'O texto exato que precisa aparecer, ou null. Nunca "algo sobre X".'
+      job_pai: 'job-id do pai'
+      pipeline_pai: 'pipeline-id do pai'
+      heranca:
+        brief: '{job-pai}/01-brief/brief.yaml'
+        brand_lock: '{job-pai}/01-brief/brand-lock.yaml'
+        art_spec: '{job-pai}/08-design/art-spec.yaml (quando o pai tem estágio design)'
+        sistema_visual: 'ex.: canais/{canal}/thumb-system.yaml, series/{serie-id}/biblia.yaml'
+        personagem: '{job-pai}/09-character/sheets/ (quando o asset tem personagem recorrente)'
+      prazo: 'quando o pai precisa do asset para não travar'
+      quantas_variacoes: 'quantas opções o pai quer para escolher'
+    regra_de_heranca:
+      ref: 'ADR-004'
+      texto: >
+        A sub-rotina COPIA o brand-lock.yaml do pai para dentro do próprio escopo, não
+        aponta para ele. brand-lock é snapshot, não ponteiro — se o pai for reprocessado
+        depois com outra identidade, a capa gerada continua reproduzível como estava.
+
+  # ── SAÍDA ──────────────────────────────────────────────────────────────────
+  contrato_de_saida:
+    escrito_por: 'qa-critic no estágio gate da sub-rotina'
+    path: '{job-pai}/11-stills/subrotina-{asset}/_result.yaml'
+    schema:
+      asset_id: 'o mesmo do pedido'
+      status: 'entregue | parcial | bloqueado'
+      arquivos: 'lista de paths absolutos dentro de subrotina-{asset}/finalizadas/'
+      escolhido: 'o path da variação recomendada pelo image-lead (o pai pode discordar)'
+      gate_verdict: 'PASS | CONCERNS | FAIL | WAIVED'
+      factcheck: 'PASS obrigatório — bloqueante, sem waiver (ADR-003)'
+      degraded: 'o que não saiu como pedido e por quê'
+      rodadas_de_retake: 'quantas foram necessárias — alimenta o aprendizado do model-routing'
+    regra: >
+      O pai NÃO lê a pasta da sub-rotina procurando arquivo. Lê _result.yaml. Se o
+      arquivo não existe, a sub-rotina não terminou — e o pai fica em waiting_subroutine,
+      não avança com asset faltando.
+
+  # ── PROTOCOLO ──────────────────────────────────────────────────────────────
+  protocolo:
+    - passo: 1
+      quem: 'estágio do pai'
+      acao: 'escreve _request.yaml e marca job.json → subroutines[] com status: requested'
+    - passo: 2
+      quem: 'studio-chief'
+      acao: 'abre o job filho em modo embutido via tasks/open-job.md --mode=embutido --parent={job-pai}'
+    - passo: 3
+      quem: 'sub-rotina'
+      acao: 'roda design → character (condicional) → stills → factcheck → gate'
+    - passo: 4
+      quem: 'qa-critic da sub-rotina'
+      acao: 'escreve _result.yaml e marca o job filho como closed_embedded (sem delivery)'
+    - passo: 5
+      quem: 'estágio do pai'
+      acao: 'lê _result.yaml, atualiza job.json → subroutines[].status e segue'
+  falha:
+    sub_rotina_bloqueada: >
+      _result.yaml com status: bloqueado e o motivo. O pai decide: espera, troca o asset
+      por um plano B (ex.: thumb de acervo), ou para. Quem decide é o pai, nunca o filho.
+    pai_morre: >
+      O _request.yaml permanece em disco. tasks/resume-job.md reabre a sub-rotina pelo
+      pedido, sem precisar do contexto do pai.
+    recursao: 'PROIBIDA. Uma sub-rotina de image-lab não chama outra sub-rotina de image-lab.'
+
+golden_rule:
+  ref: '_BLUEPRINT.md §3.1 · _CONVENTIONS.md §6'
+  statement: >
+    O squad NÃO gera imagem. O estágio stills é executor human, sempre — inclusive em
+    modo embutido. Não existe atalho de sub-rotina que gere asset sozinho.
+  three_phase_shape: >
+    direction (agent, escreve o Pacote de Direção) → human (human, gera e deposita;
+    o pipeline PARA aqui) → review (agent, drift-check e retake dirigido, teto 3).
+  peso_extra_aqui: >
+    Este é o pipeline onde a regra de ouro mais se paga. Em imagem pura o resultado
+    depende de leitura de detalhe — mão, rótulo, tipografia, sujeira de composição —
+    que o operador vê em dois segundos e um agente não vê.
+
+inputs:
+  request:
+    type: text
+    required: false
+    description: 'Pedido do cliente. Obrigatório em modo autônomo; ignorado em embutido.'
+  mode:
+    type: enum
+    values: [autonomo, embutido]
+    default: autonomo
+  parent_job:
+    type: text
+    required: false
+    description: 'job-id do pai. Obrigatório quando mode == embutido.'
+  request_file:
+    type: path
+    required: false
+    description: '{job-pai}/11-stills/subrotina-{asset}/_request.yaml. Obrigatório quando mode == embutido.'
+  client:
+    type: slug
+    required: true
+    default: oraclum
+  tipo:
+    type: enum
+    values: [thumb, key-art, packshot, capa-episodio, carrossel, estatico-apoio]
+    required: true
+  formato:
+    type: enum
+    values: ['1:1', '4:5', '9:16', '16:9']
+    required: true
+  destino:
+    type: text
+    required: true
+    description: 'Onde a imagem vai viver. Sem isso não há critério de composição.'
+  quantas_variacoes:
+    type: number
+    default: 3
+  operator:
+    type: text
+    required: false
+    description: 'Quem executa os cards humanos de geração. Vazio = founder.'
+
+config:
+  job: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+  job_embutido: '{job-pai}/11-stills/subrotina-{asset}'
+  job_id_format: '{YYYY-MM-DD}-image-lab-{slug}-{hash4}'
+  job_state: '{job}/job.json'
+  card_dir: '{job}/_cards/'
+  degraded_registry: '{job}/job.json → degraded[]'
+  waiver_registry: '{job}/job.json → waivers[]'
+  fail_fast: false
+  retake_ceiling: 3
+
+gate_rule:
+  statement: 'Nenhum estágio começa sem o gate do anterior ter passado. Vale igual nos dois modos.'
+  enforcement: 'studio-chief valida job.json → stages[<anterior>].gate == PASS'
+  waiver:
+    allowed: true
+    except: [factcheck]
+    requires: [gate, motivo, autor, data]
+    recorded_in: '{job}/job.json → waivers[]'
+  blocking_stage: factcheck
+  blocking_note:
+    ref: 'ADR-003'
+    texto: >
+      factcheck é terminal e BLOQUEANTE, sem waiver possível — inclusive em modo
+      embutido. Em imagem o risco é direito de terceiro (rosto, marca, obra
+      reconhecível) e claim escrito na arte. Ambos bloqueiam.
+
+human_checkpoints:
+  - after: design
+    id: cp-arte
+    who: founder
+    only_when: 'mode == autonomo'
+    question: 'Layout, tipografia e paleta aprovados? É esta a rota visual?'
+    rationale: >
+      O gate mais barato do pipeline. Depois daqui começa a geração humana, que é o
+      recurso caro. Em modo embutido o checkpoint cai: a rota visual já foi aprovada
+      no job pai.
+    blocking: true
+    presents: ['{job}/08-design/art-spec.yaml', '{job}/08-design/layout.md']
+  - after: 'stills.human'
+    id: cp-stills
+    who: operator
+    type: execucao_humana
+    question: 'Assets gerados conforme o Pacote de Direção e depositados em 11-stills/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória, nos dois modos.'
+    blocking: true
+    card: '{job}/_cards/card-stills-{n}.md'
+  - after: 'stills.finish'
+    id: cp-finalizacao
+    who: operator
+    type: execucao_humana
+    question: 'Composição tipográfica e aplicação de marca feitas, com o resultado em 11-stills/finalizadas/?'
+    rationale: >
+      Nenhum gerador entrega texto e logo legíveis — é falha estrutural, não de prompt.
+      A tipografia entra em pós, na composição. Esta é uma segunda parada humana que só
+      este pipeline tem.
+    blocking: true
+    card: '{job}/_cards/card-finalizacao.md'
+  - after: gate
+    id: cp-entrega
+    who: founder
+    only_when: 'mode == autonomo'
+    question: 'Veredito lido. Libera a entrega?'
+    blocking: true
+
+stages:
+
+  - id: intake
+    name: 'Intake do pedido'
+    owner_agent: studio-chief
+    task: tasks/intake.md
+    executor: agent
+    skip_when: 'mode == embutido'
+    skip_note: 'Em modo embutido o pedido já existe: é o _request.yaml escrito pelo pai.'
+    handon:
+      from: request
+      artifacts: ['(pedido do cliente ou chamada de sub-rotina de outro pipeline)']
+      contract: 'Asset, formato e destino declarados'
+    handoff:
+      to: brief
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - '{job}/job.json'
+      gate: checklists/gate-intake.md
+    fallback: >
+      Pedido sem destino (onde a imagem vai viver) → devolve. O canal define composição,
+      safe area e leitura; sem ele não há critério de aceite possível.
+    on_fail: halt
+
+  - id: brief
+    name: 'Brief de imagem e trava de marca'
+    owner_agent: brief-strategist
+    task: tasks/brief.md
+    executor: agent
+    depends_on: [intake]
+    skip_when: 'mode == embutido'
+    skip_note: 'Em modo embutido o brief.yaml e o brand-lock.yaml são HERDADOS do pai (copiados, não referenciados — ADR-004).'
+    handon:
+      from: intake
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - 'squads/virals-marketing-squad/data/clients/{client}/brand-identity.yaml'
+        - 'squads/virals-marketing-squad/data/clients/{client}/brand-config.yaml'
+      contract: 'Destino e formato definidos'
+    handoff:
+      to: research
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{job}/01-brief/brand-lock.yaml'
+      gate: checklists/gate-brief.md
+    brand_lock_note:
+      ref: 'ADR-004'
+      texto: >
+        brand-lock.yaml é um SNAPSHOT da identidade no início do job, não um ponteiro
+        para o brand-identity do cliente. Se a marca mudar de paleta em três meses, o
+        job continua reproduzível exatamente como foi entregue.
+    fallback: >
+      Cliente sem brand-config → extrai paleta e tipografia do material existente
+      (site, perfil) e marca como provisório no brand-lock.
+    on_fail: halt
+
+  - id: research
+    name: 'Referência visual da categoria'
+    owner_agent: research-scout
+    task: tasks/research.md
+    executor: worker
+    executor_notes: 'Coleta de referência visual da categoria; a curadoria é do owner_agent.'
+    depends_on: [brief]
+    skip_when: 'mode == embutido'
+    skip_note: 'Em modo embutido a referência vem do art-spec do pai e do sistema visual herdado (thumb-system.yaml, bíblia da série).'
+    command: 'node squads/virals-marketing-squad/scripts/run-creative-benchmark.js --date={date} --top={top} --platforms=instagram'
+    command_note: >
+      Aqui o ETL serve para colher referência VISUAL de categoria — o que a concorrência
+      está fazendo em capa e thumb. A curadoria do moodboard é do research-scout: o ETL
+      traz volume, não critério.
+    handon:
+      from: brief
+      artifacts: ['{job}/01-brief/brief.yaml']
+      contract: 'Categoria e concorrentes definidos'
+    handoff:
+      to: design
+      artifacts:
+        - '{job}/02-research/moodboard/'
+        - '{job}/02-research/nao-copiar.md'
+      gate: checklists/gate-research.md
+    fallback: >
+      Sem referência de categoria → usa data/craft-references.yaml § image-lab e marca
+      como não-verificada.
+    on_fail: continue_and_report
+
+  - id: design
+    name: 'Layout, tipografia e sistema visual'
+    owner_agent: art-director
+    task: tasks/design.md
+    executor: agent
+    depends_on: [research]
+    entry_point_embutido: true
+    entry_note: 'Em modo embutido este é o PRIMEIRO estágio. Ele lê o _request.yaml do pai e a herança declarada nele.'
+    worker_assist: 'python squads/virals-marketing-squad/scripts/video_templates.py --list-video-templates --client={client}'
+    worker_assist_note: 'Lista os packs de tipografia e legenda do cliente. O art-director escolhe; o script só mostra o catálogo.'
+    handon:
+      from: research
+      artifacts:
+        - '{job}/02-research/moodboard/'
+        - '{job}/01-brief/brand-lock.yaml'
+        - '{job-pai}/11-stills/subrotina-{asset}/_request.yaml (modo embutido)'
+      contract: 'Moodboard curado + brand-lock — ou _request.yaml com herança declarada'
+    handoff:
+      to: character
+      artifacts:
+        - '{job}/08-design/art-spec.yaml'
+        - '{job}/08-design/layout.md'
+        - '{job}/08-design/tipografia.md'
+      gate: checklists/gate-design.md
+    checkpoint: cp-arte
+    fallback: >
+      Texto não cabe no formato pedido → o art-director corta o TEXTO, não o corpo da
+      fonte. Legibilidade no feed vence completude da mensagem.
+    on_fail: halt
+
+  - id: character
+    name: 'Personagem recorrente (condicional)'
+    owner_agent: character-lead
+    task: tasks/character.md
+    executor: agent
+    depends_on: [design]
+    condicional: 'somente quando o asset tem pessoa ou personagem recorrente (capa de episódio, creator, mascote)'
+    skip_when: 'o brief ou o _request.yaml não declara personagem recorrente'
+    handon:
+      from: design
+      artifacts:
+        - '{job}/08-design/art-spec.yaml'
+        - 'sheets existentes do personagem (series/{serie-id}/characters/ ou herança do pai)'
+      contract: 'Asset declara personagem recorrente'
+    handoff:
+      to: stills
+      artifacts:
+        - '{job}/09-character/character-bible.yaml'
+        - '{job}/09-character/sheets/'
+      gate: checklists/gate-character.md
+    fallback: >
+      Sem sheet prévio → cria o sheet como PRIMEIRO asset do job e usa-o como referência
+      dos demais. A ordem importa: gerar a capa antes do sheet produz um personagem que
+      não bate com nada.
+    on_fail: continue_and_report
+
+  - id: stills
+    name: 'Geração, finalização e avaliação'
+    owner_agent: image-lead
+    task: tasks/stills.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: >
+      Regra de ouro §3.1 / _CONVENTIONS.md §6. Vale nos dois modos. Em imagem pura o
+      julgamento de detalhe é o produto — não há atalho.
+    depends_on: [character]
+    quatro_fases_note: >
+      Este é o único estágio do squad com QUATRO fases em vez de três: direction →
+      human → finish → review. A fase `finish` existe porque nenhum gerador entrega
+      texto e logo legíveis, e a composição tipográfica é um segundo trabalho humano.
+    handon:
+      from: design
+      artifacts:
+        - '{job}/08-design/art-spec.yaml'
+        - '{job}/08-design/layout.md'
+        - '{job}/09-character/sheets/ (se houver)'
+      contract: 'Art-spec fechado com layout, tipografia e paleta'
+    substages:
+      - id: stills.direction
+        executor: agent
+        owner_agent: image-lead
+        name: 'Pacote de Direção por asset'
+        produces:
+          - '{job}/11-stills/_direction/{asset-id}.yaml'
+          - '{job}/11-stills/_direction/INDEX.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        must_include: [ferramenta_recomendada, prompt, prompt_negativo, parametros, tecnica, armadilhas_conhecidas, criterio_de_aceite, quantas_variacoes, pos_processamento, se_falhar]
+        routing_ref: 'data/model-routing.yaml#image'
+        regra_de_texto: >
+          O prompt NUNCA pede texto dentro da imagem. O prompt_negativo barra texto,
+          letreiro, watermark e logo. O gerador entrega CENA; texto e marca entram na
+          fase finish. Pedir texto ao gerador é o erro mais comum e o mais caro.
+        pos_processamento_note: >
+          O campo pos_processamento do pacote já declara o que a fase finish vai fazer:
+          upscale, corte no formato, aplicação tipográfica, aplicação de marca.
+      - id: stills.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-stills-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: studio-chief
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/11-stills/entregues/ — todo asset do INDEX com o número de variações pedido'
+        checkpoint: cp-stills
+        resume_with: tasks/resume-job.md
+        note: >
+          `entregues/` é o CRU devolvido pelo humano. Nunca simular. Se o operador
+          devolveu menos variações que o pedido, o estágio entra em degraded[].
+      - id: stills.finish
+        executor: human
+        name: 'Composição tipográfica e aplicação de marca'
+        stop: true
+        card: '{job}/_cards/card-finalizacao.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/11-stills/finalizadas/'
+        checkpoint: cp-finalizacao
+        resume_with: tasks/resume-job.md
+        worker_assist: 'python squads/virals-marketing-squad/scripts/design_creative.py {benchmark_dir} single --client={client} --template={template_id}'
+        worker_assist_note: >
+          design_creative.py encadeia modelagem, plano, recast, quality gate e
+          orquestração de render de peça estática do virals-marketing-squad. Serve como
+          FERRAMENTA DE APOIO do operador na composição, não como substituto da fase —
+          ele espera a convenção de brief do marketing squad, não o job do creative-studio.
+        app_alternativo: 'apps/creative-design — o equivalente do video-studio para imagem e carrossel (§3.3 / _CONVENTIONS.md §5).'
+        produces: ['{job}/11-stills/finalizadas/']
+      - id: stills.review
+        executor: agent
+        owner_agent: image-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/11-stills/finalizadas/'
+        produces:
+          - '{job}/11-stills/_review/review-r{n}.md'
+          - '{job}/11-stills/_direction/{asset-id}.r{n}.yaml'
+        checks:
+          - aderencia_ao_criterio_de_aceite
+          - legibilidade_no_tamanho_real_do_destino
+          - safe_area_do_canal
+          - paleta_conforme_brand_lock
+          - tipografia_conforme_design
+          - artefato_de_modelo_em_mao_rosto_e_rotulo
+          - ausencia_de_texto_gerado_pelo_modelo
+        legibilidade_note: >
+          A checagem de legibilidade é feita no TAMANHO REAL do destino, não em tela
+          cheia. Thumb aprovada em 1080px e ilegível em 168px é reprovada.
+        loop:
+          back_to: stills.finish
+          max: 3
+          on_ceiling: 'escala para studio-chief — se o problema for a cena e não a composição, volta para stills.human'
+    handoff:
+      to: factcheck
+      artifacts:
+        - '{job}/11-stills/_direction/'
+        - '{job}/11-stills/entregues/'
+        - '{job}/11-stills/finalizadas/'
+        - '{job}/11-stills/_review/'
+      gate: checklists/gate-stills.md
+    fallback: >
+      Rótulo, logo ou texto ilegível na geração (falha estrutural de todo gerador) →
+      composição sobre foto real ou aplicação tipográfica em pós. O gerador entrega
+      cena; texto e marca entram depois, na composição.
+    on_fail: continue_and_report
+
+  - id: factcheck
+    name: 'Direitos de terceiro e claim na arte'
+    owner_agent: fact-checker
+    task: tasks/factcheck.md
+    executor: agent
+    blocking: true
+    waiver_allowed: false
+    waiver_ref: 'ADR-003 — terminal e bloqueante, sem waiver, inclusive em modo embutido'
+    depends_on: [stills]
+    mandatory_agent_review:
+      owner: fact-checker
+      covers:
+        - 'Rosto de pessoa real identificável sem autorização'
+        - 'Marca, logo ou trade dress de terceiro reconhecível'
+        - 'Obra protegida reconhecível (quadro, personagem, arquitetura icônica)'
+        - 'Claim escrito na arte sem prova — "nº 1 do Brasil", "o melhor", número sem fonte'
+        - 'Regra sem case fabricado do _BLUEPRINT.md §1'
+        - 'Marcação de conteúdo gerado por IA quando a plataforma exigir'
+      note: >
+        Não há worker aqui: quality_gate_video.py valida plano de VÍDEO e não se aplica
+        a imagem pura. A revisão é integralmente do agente, item a item contra
+        checklists/gate-factcheck.md. Em imagem o risco é direito de terceiro e claim
+        escrito na arte — ambos bloqueiam.
+    worker_candidate: >
+      Guarda de claim em arte: OCR do texto composto na imagem cruzado com o
+      claim-ledger e com o léxico proibido do brand-lock. A base de OCR já existe no
+      virals-marketing-squad (test_ocr_extraction.py); falta o guarda que a consome
+      para imagem finalizada.
+    handon:
+      from: stills
+      artifacts:
+        - '{job}/11-stills/finalizadas/'
+        - '{job}/01-brief/brand-lock.yaml'
+      contract: 'Assets finalizados'
+    handoff:
+      to: gate
+      artifacts:
+        - '{job}/15-gate/factcheck-report.md'
+      gate: checklists/gate-factcheck.md
+    fallback: 'NÃO EXISTE fallback que pule o estágio, nos dois modos.'
+    on_fail: halt
+
+  - id: gate
+    name: 'Quality gate e veredito'
+    owner_agent: qa-critic
+    task: tasks/gate.md
+    executor: agent
+    depends_on: [factcheck]
+    handon:
+      from: factcheck
+      artifacts:
+        - '{job}/11-stills/finalizadas/'
+        - '{job}/15-gate/factcheck-report.md'
+      contract: 'factcheck PASS'
+    handoff:
+      to: delivery
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+      gate: checklists/gate-image-lab.md
+    also_runs: checklists/gate-transversal-entrega.md
+    stage_gate: checklists/gate-qa.md
+    verdicts: [PASS, CONCERNS, FAIL, WAIVED]
+    verdict_routing:
+      PASS: 'delivery (autônomo) · escreve _result.yaml e encerra (embutido)'
+      CONCERNS: 'checkpoint cp-entrega (autônomo) · _result.yaml com o veredito, e o PAI decide (embutido)'
+      FAIL: 'volta ao estágio nomeado no gate-verdict.md'
+      WAIVED: 'segue com o waiver registrado em job.json → waivers[]'
+    batch_rule: 'O veredito é por asset. Asset reprovado sai do lote; o lote entrega o que passou.'
+    saida_embutida:
+      executor: agent
+      quando: 'mode == embutido'
+      escreve: '{job-pai}/11-stills/subrotina-{asset}/_result.yaml'
+      schema_ref: 'interface_de_subrotina.contrato_de_saida'
+      encerra_job_como: closed_embedded
+      nao_faz: 'delivery — o pai é quem entrega'
+    checkpoint: cp-entrega
+    on_fail: halt
+
+  - id: delivery
+    name: 'Empacotamento e entrega'
+    owner_agent: studio-chief
+    task: tasks/delivery.md
+    executor: agent
+    depends_on: [gate]
+    skip_when: 'mode == embutido'
+    skip_note: >
+      Em modo embutido NÃO há delivery: o caminho do arquivo já foi devolvido ao pai em
+      _result.yaml e o job filho encerrou como closed_embedded. Evita cobrar duas vezes
+      a mesma peça e evita dois manifestos apontando para o mesmo asset.
+    owner_note: 'P6 não convoca exec-producer. O studio-chief empacota.'
+    worker_candidate: >
+      Empacotador de imagem: copia as finalizadas aprovadas, gera derivados por formato
+      declarado no brief, monta o manifesto com hash por arquivo e o publishing-kit.
+    handon:
+      from: gate
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+        - '{job}/11-stills/finalizadas/'
+      contract: 'Veredito PASS ou CONCERNS aceito'
+    handoff:
+      to: null
+      artifacts:
+        - '{job}/16-delivery/entrega/'
+        - '{job}/16-delivery/publishing-kit.md'
+        - '{job}/job.json (status: delivered)'
+      gate: checklists/gate-delivery.md
+    fallback: 'Entrega parcial só sai com o manifesto declarando qual asset ficou retido e por quê.'
+    on_fail: halt
+
+reporting:
+  final_summary:
+    - modo
+    - assets_entregues
+    - assets_retidos_e_motivo
+    - rodadas_de_retake_por_asset
+    - waivers_registrados
+    - cards_humanos_emitidos_e_tempo_de_espera
+    - itens_degradados
+  embutido_extra:
+    - job_pai
+    - caminho_devolvido_ao_pai
+    - status_do_result_yaml
+  degraded_registry: '{job}/job.json → degraded[]'
+  principle: >
+    O sumário é montado lendo o DISCO. Em modo embutido, a sub-rotina só reporta sucesso
+    se _result.yaml existir E os paths que ele declara existirem.
+
+handoff:
+  emit_to: '.aiox/handoffs/'
+  format: 'handoff-ocs-{job-id}-{stage}.yaml'
+  must_include: [job_id, pipeline_id, mode, parent_job, asset_id, stage_completed, gate_status, waiting_human, next_action]

@@ -1,0 +1,208 @@
+workflow:
+  id: full-farming-pipeline
+  name: Pipeline Completo de Aquecimento (F1 → F6)
+  version: 1.0.0
+  squad: virals-farming-squad
+  entry_agent: farming-chief
+  description: >
+    Do garimpo ao criativo exportado. Seis fases encadeadas com checkpoint entre cada uma:
+    nenhuma avança sem o gate da anterior. Suporta modo auto (API) e híbrido (geração
+    manual) em paridade.
+
+inputs:
+  niches:
+    type: list
+    required: true
+    description: 'Um ou mais nichos de data/niches/'
+  mode:
+    type: enum
+    values: [auto, hybrid]
+    default: hybrid
+    description: 'auto chama as APIs; hybrid entrega os prompts prontos'
+  top:
+    type: number
+    default: 8
+    description: 'Quantos criativos do ranking seguem para benchmark'
+  source:
+    type: enum
+    values: [hashtags, profiles, both]
+    default: both
+
+config:
+  checkpoint_policy: always_active
+  fail_fast: false
+  allow_manual_override: true
+  session_id_format: '{YYYY-MM-DD}-{nicho}-{hash6}'
+  output_root: workspaces/businesses/virals/farming
+
+phases:
+
+  - id: f1-discovery
+    name: 'Garimpo'
+    agent: farming-scout
+    task: tasks/farm-monitor-discovery.md
+    executor: worker
+    command: 'node squads/virals-farming-squad/scripts/farm-monitor.js --niche={niche} --source={source}'
+    outputs:
+      - 'ranking-{niche}-{date}.md'
+      - 'ranking-{niche}-{date}.json'
+    checklist: checklists/discovery-cutoff-checklist.md
+    checkpoint:
+      type: elicit
+      prompt: 'Ranking gerado. Quantos/quais criativos seguem para benchmark?'
+      on_zero_approved: 'Apresente o diagnóstico (falha de captura vs. corte rigoroso) antes de perguntar.'
+    on_failure: continue_and_report
+
+  - id: f2-benchmark
+    name: 'Benchmark ETL'
+    agent: farming-analyst
+    task: tasks/farm-benchmark-etl.md
+    executor: worker
+    depends_on: [f1-discovery]
+    command: 'node squads/virals-farming-squad/scripts/farm-benchmark.js --session={session_id} --top={top}'
+    outputs:
+      - 'benchmark/{origem}/{rank}-{handle}-{id}/'
+      - '_degraded.md'
+    checklist: checklists/benchmark-completeness-checklist.md
+    checkpoint:
+      type: verify
+      rule: 'A contagem de packs completos DEVE bater com as pastas que têm os assets em disco.'
+      blocking: true
+    gates:
+      - id: noticias-transcription
+        condition: 'niche == noticias AND transcription missing'
+        action: BLOCK
+        terminal: true
+        reason: 'Sem transcrição, toda afirmação factual do plano seria invenção.'
+    on_failure: continue_and_report
+
+  - id: f3-modeling
+    name: 'Modelagem Autoral'
+    agent: farming-modeler
+    task: tasks/farm-modeling-plan.md
+    executor: agent
+    depends_on: [f2-benchmark]
+    input_filter: 'apenas packs com status complete'
+    outputs:
+      - 'plano-criativo.md'
+      - 'prompts-imagem.md'
+      - 'prompts-animacao.md'
+    checklist: checklists/modeling-authorship-checklist.md
+    gates:
+      - id: layer-stripping
+        condition: 'prompts-imagem.md sem a seção de camadas descartadas'
+        action: BLOCK
+        reason: 'Sem descarte de camadas, o prompt pede legenda e watermark dentro da arte.'
+      - id: occlusion-invented
+        condition: 'área ocluída descrita em vez de declarada'
+        action: BLOCK
+        terminal: true
+        reason: 'Article IV — inventar o que está atrás da sobreposição é invenção.'
+    checkpoint:
+      type: elicit
+      prompt: 'Plano de modelagem pronto. Aprova para gerar imagens e vídeos?'
+      blocking: true
+      rationale: 'Gate mais barato do pipeline — depois daqui, cada erro custa cota.'
+    on_failure: halt
+
+  - id: f4-images
+    name: 'Geração de Imagens 9:16'
+    agent: farming-imager
+    task: tasks/farm-image-generation.md
+    executor: hybrid
+    depends_on: [f3-modeling]
+    outputs:
+      - 'images/take-N.png'
+      - 'images/_slots.json'
+    modes:
+      auto:
+        cascade: 'config/ai-providers.yaml → image.tiers'
+        on_quota_exceeded: demote_and_retry_next
+      hybrid:
+        emits: 'images/_prompts-para-colar.md'
+        checkpoint:
+          type: wait_for_files
+          prompt: 'Gere as imagens nas ferramentas e deposite em images/. Pronto?'
+    checkpoint:
+      type: verify
+      rule: 'Toda imagem de _slots.json existe e está em 9:16.'
+      blocking: true
+    on_failure: continue_and_report
+
+  - id: f5-takes
+    name: 'Geração de Takes de Vídeo'
+    agent: farming-animator
+    task: tasks/farm-video-takes.md
+    executor: hybrid
+    depends_on: [f4-images]
+    outputs:
+      - 'takes/take-N.mp4'
+      - 'takes/_slots.json'
+    modes:
+      auto:
+        cascade: 'config/ai-providers.yaml → video.tiers'
+        tier_resolution: '--tier > niche_overrides.video_preferred_tier > A'
+        guaranteed_floor: 'tier C — parallax procedural via ffmpeg, ilimitado'
+      hybrid:
+        emits: 'takes/_prompts-para-colar.md'
+        checkpoint:
+          type: wait_for_files
+    checkpoint:
+      type: verify
+      rule: 'Todo take existe, em 9:16, com duração conforme o plano.'
+      blocking: true
+    on_failure: continue_and_report
+
+  - id: f6-assembly
+    name: 'Montagem e Export'
+    agent: farming-producer
+    task: tasks/farm-studio-assembly.md
+    executor: worker
+    depends_on: [f5-takes]
+    bridge: tools/video-studio-bridge.md
+    outputs:
+      - 'export/criativo.mp4'
+      - 'export/publishing-kit.md'
+    checklist: checklists/creative-export-checklist.md
+    gates:
+      - id: niche-guardrails
+        condition: 'qualquer regra de guardrails do nicho violada'
+        action: BLOCK
+        reason: 'Risco de moderação e de dano ao espectador.'
+      - id: fact-fidelity
+        condition: 'niche == noticias AND afirmação sem âncora na transcrição'
+        action: BLOCK
+        terminal: true
+      - id: publishing-kit-missing
+        condition: 'export sem publishing-kit.md'
+        action: BLOCK
+        reason: 'O criativo só existe quando está publicável.'
+    checkpoint:
+      type: verify
+      rule: 'O gate roda ANTES do render — não se gasta máquina para produzir o impublicável.'
+      blocking: true
+    on_failure: halt
+
+reporting:
+  final_summary:
+    - criativos_exportados
+    - criativos_bloqueados_no_gate
+    - itens_degradados
+    - cota_consumida_por_provider
+    - handles_descobertos_para_promover
+  degraded_file: '_degraded.md'
+  principle: >
+    Uma sessão nunca reporta sucesso mascarando itens degradados. Se a contagem de
+    completos não bate com o disco, isso é bug, não sucesso.
+
+handoff:
+  emit_to: '.aiox/handoffs/'
+  format: 'handoff-farming-{session_id}-{phase}.yaml'
+  must_include:
+    - session_id
+    - niche
+    - phase_completed
+    - creatives_ok
+    - creatives_degraded
+    - quota_consumed
+    - next_action

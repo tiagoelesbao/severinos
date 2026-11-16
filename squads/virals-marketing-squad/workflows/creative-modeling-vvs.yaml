@@ -1,0 +1,39 @@
+# WF-CASEY-MODELING-001: Modelagem de Criativo Baseado em Benchmark
+# Best for: Criar posts de alta fidelidade visual inspirados em referências de elite.
+# Key Agents: @ladeira (Copy), @casey-neistat-img (Design)
+
+workflow:
+  id: "creative-modeling-vvs"
+  name: "Pipeline de Modelagem VVS"
+  version: "1.0.0"
+
+  phases:
+    - phase: "1. Ingestão de Referência"
+      description: "Análise do benchmark selecionado"
+      action_items:
+        - "Identificar headline, estrutura de copy e elementos visuais (Screenshot do benchmark)."
+        - "Extrair o 'sentimento' e a hierarquia de informação."
+
+    - phase: "2. Modelagem de Copy (@ladeira)"
+      description: "Adaptar a mensagem para a identidade Virals"
+      action_items:
+        - "Acionar @ladeira para criar headline e body text modelados."
+        - "Gerar output markdown estruturado (Headline, Body, CTA, AI Prompt)."
+
+    - phase: "3. Composição Visual (@casey-neistat-img)"
+      description: "Definir assets e layout VVS"
+      action_items:
+        - "Converter copy modelado para Briefing VVS YAML."
+        - "Selecionar fundo (Biblioteca VVS ou Geração IA Contextual)."
+        - "Escolher objeto flutuante/overlay para profundidade."
+
+    - phase: "4. Renderização de Elite"
+      description: "Geração via motor Playwright"
+      action_items:
+        - "Executar `vvs_render_service.py`."
+        - "Validar enquadramento do logo e contrastes."
+
+    - phase: "5. Auditoria Final (@mrbeast-mk)"
+      description: "Validação de impacto"
+      action_items:
+        - "Revisar retenção visual e clareza da mensagem."

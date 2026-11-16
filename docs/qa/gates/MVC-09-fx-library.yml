@@ -1,0 +1,77 @@
+storyId: MVC-09
+epic: EPIC-MKT-Video-Creative
+phase: B
+title: "Biblioteca de FX virais (hook FX, transições, legendas, motion)"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-21"
+
+acceptance_criteria:
+  AC1: { status: met, note: "3 hook FX, 3 renderers de transição, legendas word-by-word, 4 motion" }
+  AC2: { status: met, note: "todo preset do video-templates.yaml (tiago+virals) resolve — testado, 0 órfãos" }
+  AC3: { status: met, note: "legendas da narração (129 captions); accent #FFB800 no render (ver Concern timing)" }
+  AC4: { status: met, note: "FX herdam paleta do brand-config (render real on-brand)" }
+  AC5: { status: met, note: "BigNumber null sem dado real (isRenderableNumber testado)" }
+
+closes_prior_concerns:
+  MVC-07_brand_cwd: { status: closed, note: "brand.ts agora recebe repoRoot explícito" }
+  MVC-08_framing: { status: closed, note: "SmartFrame contain-blur preserva screen captures landscape" }
+
+evidence:
+  tests: { runner: "node:test", total: 13, passed: 13 }
+  typecheck: clean
+  build: "compiled successfully"
+  real_render: { creative: "13-realchasechappell-84d69e", out: "fx-smoke.mp4 h264+aac", fxplan: "hook=hard-cut caption=word-pop motion=[lower-third,progress-bar] captions=129 accent=#FFB800" }
+
+issues:
+  - severity: medium
+    category: quality
+    description: "Legendas com timing ESTIMADO (captionsFromScript), não sincronizado com o áudio real."
+    recommendation: "Whisper local (timing por palavra) antes de produção. Mitigação atual (risco-PO) é o fallback."
+    status: tracked_followup
+  - severity: low
+    category: tests
+    description: "resolveTransition sem teste (void); transições não aplicadas na composição."
+    recommendation: "TransitionSeries entre clips na MVC-10; cobrir resolveTransition lá."
+    target: MVC-10
+  - severity: low
+    category: performance
+    description: "SmartFrame contain-blur renderiza o clip 2x (fundo blur + foreground) — dobra o decode."
+    recommendation: "Monitorar no render full (MVC-11)."
+    target: MVC-11
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "MVC-10 (editor timeline /studio). Push pendente → @devops (MVC-07/08/09 acumuladas)."
+
+# ─────────────────────────────────────────────────────────────────────────────
+re_gate:
+  gate: PASS
+  reviewer: "@qa (Quinn)"
+  date: "2026-06-22"
+  scope: "Redesign Fase B — legendas reais (Whisper) + estética on-brand"
+  evidence:
+    tests: { runner: "node:test", transcript: 4, suite_total: 29, passed: 29 }
+    typecheck: clean
+    build: "next build OK"
+    visual: "renderStill headless gerou frames reais inspecionados (Claude e site da Grüns legíveis; keyword âmbar + scrim)"
+  resolved:
+    - id: prior-medium-estimated-timing
+      was: "Legendas com timing ESTIMADO (captionsFromScript), não sincronizadas com o áudio."
+      now: "Transcrição Whisper das gravações (transcript.ts/buildRealCaptions) — 146 captions no frame exato da fala. RESOLVIDO (fallback ao roteiro se sem transcript)."
+  new_issues:
+    - severity: low
+      category: tests
+      description: "Render FULL (todos os FX sobre o vídeo inteiro) ainda não validado — só stills + smoke."
+      recommendation: "E2E de render completo na MVC-11."
+    - severity: low
+      category: maintainability
+      description: "normalizeText/Captions usam range literal de diacríticos combinantes na regex (NFD). Funciona (testado) mas é frágil a editores."
+      recommendation: "Trocar por \\u0300-\\u036f explícito num follow-up."
+    - severity: low
+      category: environment
+      description: "Whisper é passo manual/cacheado por criativo (transcribe.py)."
+      recommendation: "Integrar ao pipeline (ver MVC-08)."
+  verdict: "PASS — fecha a Concern Medium de timing com legendas reais; estética comprovada por frames renderizados. Novos itens Low."

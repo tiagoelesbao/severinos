@@ -1,0 +1,33 @@
+carousel_brief:
+  slug: "modeling-publicitarios-test"
+  tema: "Modelagem de Elite Virals"
+  objetivo: "educar"
+  slide_count: 3
+  brand_config: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
+
+content_data:
+  - slide_n: 1
+    tipo: "hook"
+    sub_headline: "ESTRATÉGIA VIRALS"
+    headline: "A ciência por trás do scroll infinito"
+    body_text: "Como modelamos benchmarks de elite para dominar a atenção do seu lead."
+    visual: "imagem"
+    ai_prompt: "Abstract futuristic network, deep blue and cyan glow, cinematic bokeh, high tech background, 8k"
+    object_url: "https://cdn-icons-png.flaticon.com/512/6298/6298377.png"
+
+  - slide_n: 2
+    tipo: "valor"
+    sub_headline: "POR QUE MODELAR?"
+    headline: "Não reinvente a roda. Melhore ela."
+    body_text: "Modelar benchmarks permite absorver o que já funciona e injetar o DNA da sua marca."
+    bg_preset_url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop"
+    object_url: "https://cdn-icons-png.flaticon.com/512/1356/1356479.png"
+
+  - slide_n: 3
+    tipo: "cta"
+    sub_headline: "PRÓXIMO PASSO"
+    headline: "Domine sua Produção Agora"
+    body_text: "A automação VVS é o seu novo superpoder criativo. Salve para não esquecer."
+    visual: "cor-de-marca"
+    object_url: "https://cdn-icons-png.flaticon.com/512/2987/2987996.png"
+    accent_color: "#00D1FF"

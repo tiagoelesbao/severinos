@@ -1,0 +1,68 @@
+storyId: MVC-08
+epic: EPIC-MKT-Video-Creative
+phase: B
+title: "Ingestão — video-brief + material → timeline auto-montada"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-21"
+
+acceptance_criteria:
+  AC1: { status: met, note: "timeline.json: 6 clips na ordem hook→skill→reference→generation→result→cta, startFrames monotônicos" }
+  AC2: { status: met, note: "durações reais ffprobe por clip (4,37/4,67/6,23/9,97/5,2/7,73s)" }
+  AC3: { status: met, note: "audio_narrado.ogg 48,57s; rhythmGap=10,4s; render smoke com aac" }
+  AC4: { status: met, note: "TimelineComposition renderizou smoke mp4 1080x1920 h264+aac (validação parcial — ver Low)" }
+  AC5: { status: met, note: "GAP: clip ausente → gap:true + meta.gaps, timeline válido (teste unitário)" }
+
+evidence:
+  tests: { runner: "node:test", total: 6, passed: 6 }
+  typecheck: clean
+  build: "compiled successfully"
+  e2e: { creative: "13-realchasechappell-84d69e", timeline_json: ok, smoke_render: "1080x1920 h264+aac" }
+
+issues:
+  - severity: medium
+    category: design
+    description: "Ordem inferida por classifyRole (nome→papel); override 'order' não conectado a fonte (edit_spec/Plano-de-Criativo.md). 2 clips do mesmo papel ou nomes fora do padrão podem desordenar."
+    recommendation: "MVC-10: editor permite reordenar manual. Follow-up: conectar 'order' a uma assembly explícita no video-brief."
+    target: MVC-10
+  - severity: medium
+    category: design
+    description: "objectFit cover corta ~66% da largura de screen captures landscape (1920x1080) no canvas 1080x1920 — pode cortar conteúdo do site."
+    recommendation: "MVC-09: enquadramento inteligente (contain+fundo ou zoom/pan no foco)."
+    target: MVC-09
+  - severity: low
+    category: tests
+    description: "Render full não validado (só smoke 90 frames)."
+    recommendation: "E2E definitivo (sequência completa + áudio) na MVC-11."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "MVC-09 (biblioteca de FX/legendas virais). Push pendente → @devops."
+
+# ─────────────────────────────────────────────────────────────────────────────
+re_gate:
+  gate: PASS
+  reviewer: "@qa (Quinn)"
+  date: "2026-06-22"
+  scope: "Redesign Fase B — montagem narração-driven (inserts ancorados à fala)"
+  evidence:
+    tests: { runner: "node:test", ingest: 11, suite_total: 29, passed: 29 }
+    typecheck: clean
+    build: "next build OK"
+    real_run: "check-assembly: 6 clips na ordem; narração espinha 4,37→52,9s; playbackRate/insert coerente; auto-cut 60,7→56,1s"
+  resolved:
+    - id: prior-medium-order
+      was: "Ordem inferida sem âncora no plano (override 'order' solto)."
+      now: "assembly.json (mapa narração→insert do Plano) + computeMioloWindows ancoram cada insert ao trecho da fala. RESOLVIDO."
+  new_issues:
+    - severity: low
+      category: environment
+      description: "transcript.json/assembly.json por-criativo gitignored; novo criativo exige transcribe.py (Whisper) + assembly manual."
+      recommendation: "Automatizar no pipeline da Fase A (assembly derivado do video-brief; transcrição no fluxo)."
+    - severity: low
+      category: security
+      description: "ingestCreative deriva paths de client/creative sem sanitizar (gap pertence ao route — ver MVC-10 re_gate)."
+      recommendation: "Sanitizar slug no route /api/timeline."
+  verdict: "PASS mantido — core sólido, Concern anterior fechada, novos itens são Low (ambiente/segurança rastreados)."

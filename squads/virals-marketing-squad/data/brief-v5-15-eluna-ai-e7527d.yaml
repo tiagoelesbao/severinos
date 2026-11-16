@@ -1,0 +1,269 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T20:09:28'
+archetype: news
+carousel_brief:
+  slug: v5-precision-15-eluna-ai-e7527d
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\15-eluna-ai-e7527d
+  source_url: https://www.instagram.com/eluna.ai/p/Db2cJw0Emoa/
+  tema: 'Modelagem de precisão: 15-eluna-ai-e7527d'
+  slide_count: 2
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 2
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 6.0/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Trocar a abstração gramatical por uma demonstração visual de um ''erro de IA''
+    ou ''detalhe de automação'' que um profissional de alto nível deveria notar para
+    manter a eficiência. - Substituir a discussão de pontuação por uma nuance técnica
+    de automação '
+  audits_present: true
+benchmark_caption: 'The em dash had a perfectly respectable life until AI showed up.
+
+
+  Now you use one — and suddenly everyone assumes ChatGPT wrote the whole thing.
+
+
+  A beautiful piece of punctuation ruined by association.
+
+
+  Justice for the em dash. ✊'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: ¹ All em-dashes in these slides were human-generated.
+  reference_body: Terence Tao Mathematics in the age EM DASH DISCLAIMERS ARE NOW BEING
+    USED IN PRESENTATIONS TRENDING
+  headline: ESTE POST NÃO FOI FEITO POR IA
+  sub_headline: O DISCLAIMER
+  body_text: Repare nos detalhes. Em um mar de textos automáticos, o que é feito à
+    mão virou o maior sinal de autenticidade.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 30
+    body_chars: 111
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person typing keyboard close-up
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline irônica e direta: ''¹ Todos os em-dashes neste post foram
+      gerados por humanos.'' O objetivo é usar a própria estética do símbolo para
+      provocar a audiência sobre a desvalorização de detalhes técnicos que agora são
+      associados ao padrão de IA.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:10:35'
+- slide_n: 2
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: I believe we are entering a similarly turbulent period — a crisis
+    in the foundations of mathematical values and practices.
+  reference_body: But once we thoroughly examine and codify these foundations, our
+    community will emerge stronger and more resilient than before. ¹All em-dashes
+    in these slides were human-generated. Terence Tao Mathematics in the age of AI
+  headline: O NOVO DIFERENCIAL DE AUTORIDADE É A CURADORIA TÉCNICA.
+  sub_headline: O PONTO
+  body_text: Quando a IA escala a média, o rigor técnico humano torna-se a única via
+    para diferenciação de marca.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 55
+    body_chars: 100
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: designer using tablet pen
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Texto que conecta a estética ao valor profissional: Assim como na
+      matemática de Terence Tao, estamos em um período de crise nos fundamentos do
+      que é considerado ''valor''. Quando a IA padroniza o output, o detalhe técnico
+      e a escolha estética humana tornam-se o novo diferencial de autoridade e escala.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T20:10:35'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/2
+  bodies_extracted: 2/2
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A desvalorização de elementos estéticos/técnicos humanos devido à
+    associação automática com a escrita de IA.
+  formato: Case de opinião/provocação visual.
+  arco_narrativo: O post começa com uma afirmação irônica sobre a 'morte' de um símbolo
+    (em dash), utiliza um disclaimer visual no primeiro slide para provar o ponto
+    e culmina em um exemplo prático de uso sofisticado para validar a tese.
+  estrutura:
+  - slide_n: 1
+    papel: Gancho de autoridade e prova de conceito (disclaimer irônico).
+    essencial: true
+  - slide_n: 2
+    papel: Demonstração prática e aplicação do conceito em um contexto de alto nível.
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - 'Relatabilidade (Pain Point): Toca na ansiedade de profissionais de alto nível
+    sobre serem confundidos com IA.'
+  - 'Ironia e Humor: O uso do disclaimer como ''humor intelectualizado'' gera engajamento
+    por identificação.'
+  - 'Prova Social Implícita: Cita Terence Tao, elevando o nível do debate de ''gramática''
+    para ''estética de alto padrão''.'
+  - 'Contraste Visual: O uso do próprio símbolo objeto da discussão para validar o
+    argumento.'
+  recomendacao:
+    slides_ideais: 2
+    justificativa: O benchmark já é extremamente minimalista e direto. Manter 2 slides
+      preserva o ritmo de 'tese + prova'. Qualquer adição de slides para explicar
+      o contexto diluiria o impacto da ironia, que é o motor da performance.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T20:09:38'
+content_plan:
+  archetype: news
+  slide_count: 2
+  tema: A necessidade de diferenciação estética e técnica humana em um cenário saturado
+    de outputs de IA.
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O DISCLAIMER
+    copy_direction: 'Headline irônica e direta: ''¹ Todos os em-dashes neste post
+      foram gerados por humanos.'' O objetivo é usar a própria estética do símbolo
+      para provocar a audiência sobre a desvalorização de detalhes técnicos que agora
+      são associados ao padrão de IA.'
+    image_direction: Fundo limpo, tipografia minimalista e de alto padrão. O uso do
+      em-dash (—) deve ser o elemento visual central e elegante, sem distrações.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: PAYOFF
+    kicker: O PONTO
+    copy_direction: 'Texto que conecta a estética ao valor profissional: Assim como
+      na matemática de Terence Tao, estamos em um período de crise nos fundamentos
+      do que é considerado ''valor''. Quando a IA padroniza o output, o detalhe técnico
+      e a escolha estética humana tornam-se o novo diferencial de autoridade e escala.'
+    image_direction: Continuidade do estilo minimalista do slide anterior. O texto
+      deve ser organizado de forma que o em-dash seja usado corretamente para demonstrar
+      o conceito na prática.
+    source_slides:
+    - 2
+  rationale: O plano segue a recomendação de manter o minimalismo do benchmark (2
+    slides), pois a força do conteúdo reside na ironia e na prova visual imediata.
+    Apliquei o arco de 'tese + prova' para atender ao nível de awareness 'problem_aware',
+    transformando a ansiedade de ser confundido com IA em uma oportunidade de diferenciação
+    técnica (estética/detalhe). O kicker foi contextualizado para evitar o genérico
+    e a voz do cliente (Sábio/Criador) foi integrada ao tratar o detalhe como um diferencial
+    de autoridade.
+  planned_by: openrouter:google/gemma-4-26b-a4b-it:free
+  planned_at: '2026-08-12T20:10:29'
+central_theme: A necessidade de diferenciação estética e técnica humana em um cenário
+  saturado de outputs de IA.
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T20:10:35'
+  slides: 2
+  central_theme: A necessidade de diferenciação estética e técnica humana em um cenário
+    saturado de outputs de IA.
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T20:10:51'

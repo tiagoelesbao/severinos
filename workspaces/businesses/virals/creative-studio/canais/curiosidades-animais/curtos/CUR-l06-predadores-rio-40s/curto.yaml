@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l06-predadores-rio-40s · Os maiores predadores dos rios
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l06-predadores-rio-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "large catfish underwater river", etiqueta: "quatro-apiraiba", n: 3, exige: [catfish], ancora: "Numero Quatro a piraiba",
+       imagem: "photorealistic underwater photograph of a giant catfish in a murky amazon river, long barbels, broad flat head, greenish water, wildlife documentary still, vertical composition"}
+    - {q: "tiger fish river africa", etiqueta: "tres-opeixetigr", n: 3, exige: [tigerfish], ancora: "Numero Tres o peixe-tigre-golias",
+       imagem: "photorealistic underwater photograph of a goliath tigerfish in a dark african river, large interlocking teeth visible, silver scales, murky green water, wildlife documentary still, vertical composition"}
+    - {q: "caiman alligator in river", etiqueta: "dois-ojacareacu", n: 3, exige: [caiman, alligator, crocodile], ancora: "Numero Dois o jacare-acu"}
+    - {q: "anaconda large snake water", etiqueta: "um-asucuri", n: 3, exige: [anaconda], ancora: "Numero Um a sucuri",
+       imagem: "photorealistic wildlife photograph of a huge green anaconda partially submerged in a muddy amazon river, thick coils above the water surface, dense vegetation on the bank, overcast daylight, telephoto documentary still, vertical composition"}
+    - {q: "amazon river aerial jungle", etiqueta: "fecho", n: 2, exige: [river, jungle, rainforest, forest], ancora: "Comenta ai qual desses tu nao queria encontrar."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Os maiores predadores dos rios."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois o jacare-acu"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai qual desses tu nao queria encontrar."}

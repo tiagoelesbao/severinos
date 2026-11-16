@@ -1,0 +1,7 @@
+# Monitoring Configuration
+# Squad: virals-marketing-squad
+
+config:
+  date_offset_days: 1 # Analisar "ontem"
+  auto_etl: true
+  min_engagement_threshold: 10 # Ignorar posts com menos de 10 interações

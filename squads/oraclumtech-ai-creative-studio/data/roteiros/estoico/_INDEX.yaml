@@ -1,0 +1,195 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ROTEIROS DO CANAL DARK DE ESTOICISMO — 6 peças
+#
+# Consumido por: head-of-copy (escrita), sound-designer (narração e trilha),
+#                image-lead (pack visual), editor (composição)
+#
+# Duração NÃO é estimativa: sai de `conta_roteiros.py`, que conta o texto
+# narrado real e divide pelo ritmo MEDIDO da estrutura correspondente.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '2.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  pipeline: 'P5 dark-room'
+  formato_master: '16:9 — YouTube horizontal'
+  total_narracao: '28m22s nas 6 peças'
+  medir_de_novo: 'python assets/comfyui/conta_roteiros.py --srt'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AS DUAS ESTRUTURAS — ambas modeladas por transcrição integral
+procedencia:
+
+  estrutura_A:
+    natureza: MODELADA
+    fonte: 'docs/referencias/estoico/v1-praticas/ — 34m15s, 4368 palavras'
+    ritmo_medido: '127,5 wpm'
+    gramatica:
+    - 'Abertura em 10 movimentos, começando por PERGUNTA de promessa'
+    - 'Citação de autoridade NO MEIO da abertura, confirmando a tese já dita'
+    - 'Prática numerada: título → princípio → ANEDOTA HISTÓRICA → aplicação → desafio com prazo'
+    - 'Pedido de like no miolo, condicional'
+    adaptacao: >
+      A referência tem 10 práticas em 34 minutos; aqui são 3 em ~4m40s. A gramática
+      é a mesma, muda a contagem. Comprimir não inventa nada.
+
+  estrutura_B:
+    natureza: MODELADA
+    fonte: 'docs/referencias/estoico/v2-reflexoes/ — 42m17s, 6391 palavras'
+    ritmo_medido: '151,1 wpm'
+    gramatica:
+    - 'Abertura começando por AFIRMAÇÃO poética, não por pergunta'
+    - 'Par de perguntas de dor depois da premissa'
+    - 'CTA EMPILHADO na abertura — comentário + like + inscrição + compartilhar'
+    - 'Reflexão numerada: título → CITAÇÃO COMO EPÍGRAFE → imersão em 2ª pessoa → cenário imaginado → pergunta socrática → paralelismo retórico → metáfora estendida → visualização aplicada → ressalva ética'
+    - 'Sem anedota histórica, sem desafio com prazo, sem pedido de like no miolo'
+    inversao_central: >
+      Na A a citação vem no MEIO da abertura. Na B ela ABRE cada bloco. É a
+      diferença mais importante entre as duas.
+
+  quando_usar_cada_uma:
+    A: 'Quando o espectador procura o que FAZER. Conteúdo de ação.'
+    B: 'Quando o espectador procura como ESTAR. Conteúdo de estado — funciona como escuta, sem exigir caneta na mão.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# A CORREÇÃO QUE PRECISA SER DITA
+sound_design_do_genero:
+  regra: 'ESTE GÊNERO NÃO USA SFX.'
+  fonte: 'dark-estoicismo-playbook.yaml → audio.efeitos'
+  citacao: >
+    "Praticamente ausentes. O gênero NÃO usa SFX. Whoosh e impacto pertencem a
+    outro formato; aqui quebrariam a atmosfera."
+  o_que_isso_significa: >
+    O pack `04-sfx/` que você aprovou NÃO entra nas peças estoicas. Ele foi feito
+    para novela-recap, anúncio e institucional, onde a pontuação sonora ajuda.
+    Aqui a camada de áudio é narração + leito contínuo, e nada mais.
+  ambiencia: >
+    Pode entrar MUITO baixa, se a imagem pedir — `am-templo-pedra-eco-LOOP.wav`
+    casa com a cena do templo. Mas é presença, não evento: entra e fica, não pontua.
+  trilha: >
+    Contínua do primeiro ao último minuto. A referência não corta uma única vez em
+    34 minutos — corte de trilha em peça longa quebra o transe.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AS 6 PEÇAS — números medidos, não digitados
+pecas:
+
+- id: 'A1-ordem'
+  estrutura: A
+  titulo: 'A ordem que muda tudo'
+  arquivo: 'A1-ordem.md'
+  srt: 'A1-ordem.srt'
+  palavras: 613
+  duracao: '4m47s'
+  cues: 76
+  imagens: 7
+  voz: '03-male-02 · modelo PT-BR'
+  praticas: ['Comece pelo menor', 'Termine o que começou', 'Ordene antes de decidir']
+  anedotas: ['Marco Aurélio no Danúbio', 'Sêneca e o exame noturno', 'Catão e o treino do desconforto']
+
+- id: 'A2-controle'
+  estrutura: A
+  titulo: 'O que não depende de você'
+  arquivo: 'A2-controle.md'
+  srt: 'A2-controle.srt'
+  palavras: 594
+  duracao: '4m38s'
+  cues: 76
+  imagens: 7
+  voz: '03-male-02 · modelo 23-Lang'
+  praticas: ['Separe as duas colunas', 'Devolva o que não é seu', 'Aja no que sobrou']
+  anedotas: ['Epicteto e a perna quebrada', 'Zenão e o naufrágio', 'Musônio Rufo no exílio']
+
+- id: 'A3-memento'
+  estrutura: A
+  titulo: 'A morte como conselheira'
+  arquivo: 'A3-memento.md'
+  srt: 'A3-memento.srt'
+  palavras: 547
+  duracao: '4m16s'
+  cues: 66
+  imagens: 7
+  voz: '01-voz-casa-ptbr'
+  praticas: ['A pergunta da última hora', 'Trate cada despedida como possível', 'Escreva o que quer que fique']
+  anedotas: ['O escravo no triunfo romano', 'Sêneca sobre a brevidade', 'Marco Aurélio e a peste antonina']
+
+- id: 'B1-manha'
+  estrutura: B
+  titulo: 'Três reflexões para escutar toda manhã'
+  arquivo: 'B1-manha.md'
+  srt: 'B1-manha.srt'
+  palavras: 794
+  duracao: '5m15s'
+  cues: 94
+  imagens: 6
+  voz: '01-voz-casa-ptbr'
+  reflexoes: ['A primeira batalha é interna', 'O peso que você carrega é escolhido', 'O que você repete é quem você é']
+
+- id: 'B2-dias-dificeis'
+  estrutura: B
+  titulo: 'Três reflexões para os dias em que nada sai como planejado'
+  arquivo: 'B2-dias-dificeis.md'
+  srt: 'B2-dias-dificeis.srt'
+  palavras: 718
+  duracao: '4m45s'
+  cues: 83
+  imagens: 6
+  voz: '06-en-man'
+  reflexoes: ['O obstáculo faz parte do caminho', 'A expectativa é que dói', 'Isso também vai passar']
+
+- id: 'B3-noite'
+  estrutura: B
+  titulo: 'Três reflexões para antes de dormir'
+  arquivo: 'B3-noite.md'
+  srt: 'B3-noite.srt'
+  palavras: 698
+  duracao: '4m37s'
+  cues: 84
+  imagens: 6
+  voz: '02-voz-casa-23lang'
+  reflexoes: ['O exame do dia', 'Perdoar é liberar espaço', 'O sono é um ensaio']
+
+# ─────────────────────────────────────────────────────────────────────────────
+plano_de_imagem:
+  total: '39 imagens — 7 por peça na estrutura A, 6 na B'
+  catalogo: 'assets/comfyui/pack_visual_estoico.py'
+  geracao: 'python assets/comfyui/run_batch.py --only cnl-'
+  formato: '1344×768 na geração; acabamento leva a 2688×1536 (LITE) ou 4032×2304 (PRO)'
+  em_tela: >
+    Cada imagem cobre o trecho marcado com [img NN] no roteiro. Como a narração é
+    mais longa que o material único, a sequência REPETE — com movimento e transição
+    diferentes na segunda volta, para a repetição não se denunciar.
+  custo:
+    geracao_crua: '~25 s por imagem → ~16 min para as 39'
+    acabamento_LITE: '~175 s → ~1,9 h'
+    acabamento_PRO: '~360 s → ~3,9 h'
+  fluxo_com_inspecao_do_founder:
+  - '1. Gerar as 39 CRUAS — barato'
+  - '2. Folha de contato por peça → INSPEÇÃO E APROVAÇÃO DO FOUNDER'
+  - '3. Só as aprovadas recebem acabamento'
+  por_que_nessa_ordem: >
+    Gastar 4 h de acabamento antes da inspeção é gastar no lugar errado. E a
+    inspeção tem que ser ESTRUTURAL antes de textural — contar membros e elementos
+    repetidos, e perguntar de cada objeto se ele tem função na cena.
+
+# ─────────────────────────────────────────────────────────────────────────────
+plano_de_voz:
+  regra: >
+    Não há voz canônica — decisão do founder. O portfólio é escolhido por caso, e
+    aqui isso vira teste real: peças diferentes com vozes diferentes.
+  o_que_este_desenho_isola:
+    A1_vs_A2: 'mesma VOZ, ENGINE diferente (PT-BR vs 23-Lang) — isola o engine'
+    A3_vs_B1: 'mesma VOZ, ESTRUTURA diferente — isola o roteiro'
+    B2: '06-en-man foi validada COM RESSALVA (sílaba tônica). Peça longa testa se a ressalva aparece.'
+  atencao: >
+    Nenhum par do plano muda duas coisas ao mesmo tempo. Se mudar, o teste perde o
+    valor — e o gargalo medido do pack de voz é prosódia, que só aparece isolando.
+  timing: 'smart_natural — `stretch_to_fit` está proibido'
+
+plano_de_trilha:
+  leito_continuo: '02-leitos/contemplativo/le-contemplativo-mistico-LOOP.wav'
+  abertura: '01-trilhas/dark-estoicismo/tr-estoico-solene.mp3'
+  virada: '01-trilhas/dark-estoicismo/tr-estoico-tensao.mp3 — só em B2, na reflexão 2'
+  sfx: 'NENHUM — ver sound_design_do_genero'
+  nivel: 'leito 12 a 15 dB abaixo da narração'

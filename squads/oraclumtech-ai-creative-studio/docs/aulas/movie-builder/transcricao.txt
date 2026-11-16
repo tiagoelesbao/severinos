@@ -1,0 +1,297 @@
+   0.00    4.24  You can now build entire movies shot by shot locally on your own computer.
+   4.24    8.16  You just give the workflow image references and voice samples and based on your prompt,
+   8.16   12.64  it generates a start frame and a video with consistent lip-sync dialogue.
+  15.36   17.20  And then you can just move on to the next shot.
+  18.72   22.56  And this is genuinely a new way of making movies because nothing is bagged in.
+  22.56   25.44  Let's say we want to switch out the protagonist for a different character.
+  25.44   28.32  It's as easy as switching out the reference image and voice sample.
+  28.32   31.44  These insectoids, they are already on their way.
+  31.44   34.16  They're coming, but I have a solution.
+  34.16   36.00  Insectoids, they're already on their way.
+  37.76   40.00  They're coming, but I have a solution.
+  40.00   42.96  These insectoids, they are already on their way.
+  42.96   45.52  They're coming, but I have a solution.
+  45.52   47.76  So in this video, I'm going to walk you through the workflow,
+  47.76   50.48  show you how you can set it up locally on your own computer,
+  50.48   52.72  and then we're going to build some short films together.
+  52.72   55.20  So make sure to stick around till the end for the final results.
+  55.28   59.12  If you're watching this channel for a while,
+  59.12   61.68  you know that we're using the WAN video model a lot.
+  61.68   63.84  WAN gives you an enormous amount of control
+  63.84   66.88  and has a lot of community support, but it can be a bit slow.
+  66.88   70.56  So this time we wanted to build a workflow around LTX 2.3,
+  70.56   73.84  which is newer, but was never quite ready for our purposes.
+  73.84   76.72  But the open source community and the developers fixed that.
+  76.72   78.40  The Loras released over the last few months
+  78.40   81.44  have closed most of the quality gap with WAN in many regards,
+  81.44   84.40  and the base architecture is just fundamentally faster.
+  84.40   86.64  And thanks to the model's ability to generate audio
+  86.64   88.64  and the new LTX ID Lora,
+  88.64   92.56  we can now also keep the character voices consistent for each shot.
+  92.56   95.36  We have two options for guiding the style of our rendering.
+  95.36   98.32  These insectoids, they are already on their way.
+  98.32  101.12  For image generation, we're going to use Flux 2 Klein,
+ 101.12  103.04  a fast reference-based image model.
+ 103.04  105.52  You can use the 4B or 9B version.
+ 105.52  108.40  The 4B is much lighter, runs faster on older GPUs,
+ 108.40  111.52  and has a more permissive license that allows for commercial use.
+ 111.52  113.20  The 9B version features better quality,
+ 113.20  115.28  but is for non-commercial purposes only,
+ 115.28  117.20  unless you acquire a license.
+ 117.20  119.04  This all works instead of ConfUi,
+ 119.04  120.96  a node-based interface for AI models,
+ 120.96  124.64  and we have a free step-by-step guide on our Patreon on how to set it up.
+ 124.64  125.76  Once you have it up and running,
+ 125.76  128.48  you just need to drag and drop in the free workflow file
+ 128.48  130.32  into the interface and it will load up.
+ 130.32  131.76  But I don't know what's this!
+ 131.76  133.60  Missing custom nodes? Don't worry.
+ 133.60  135.92  Open the manager, click install missing custom nodes,
+ 135.92  138.32  select all of them, and restart ConfUi.
+ 138.32  139.52  But if it's still not working,
+ 139.52  141.44  there are two things you should watch out for.
+ 141.44  143.36  Sometimes the custom node pack rest for life
+ 143.36  145.76  doesn't auto-install cleanly through the manager.
+ 145.76  148.16  If you get an error when trying to generate, for example,
+ 148.16  151.76  just search it manually under custom nodes in the manager
+ 151.76  152.88  and install it from there.
+ 152.88  155.28  Also make sure to hit that update ConfUi button
+ 155.28  156.40  before you run this workflow,
+ 156.40  158.72  because there are some newer nodes in this workflow.
+ 158.72  160.72  Now it's time to download the actual models.
+ 160.72  162.64  So zoom in on the left side of the workflow
+ 162.64  163.68  and you can see that,
+ 163.68  165.60  next to each of these model loader nodes,
+ 165.60  167.92  you can see the corresponding node telling you
+ 167.92  169.28  where to download that model
+ 169.28  172.24  and where you need to put it in your ConfUi folder structure.
+ 172.24  174.64  Press R to refresh and make sure everything loads
+ 174.64  175.36  and you're done.
+ 175.36  177.76  And don't worry, you only need to do this once.
+ 177.76  179.12  If you don't have that much VRAM,
+ 179.12  181.92  you can also load the GGUF versions of the models.
+ 181.92  182.96  You trade in a bit of quality,
+ 182.96  184.88  but the models are much smaller
+ 184.88  186.56  and you can find them right here
+ 186.56  188.40  and connect them if needed.
+ 188.40  190.08  If you want to skip these installation steps
+ 190.08  191.76  or you have like a really old GPU,
+ 191.76  194.08  you can also run these workflows in the cloud.
+ 194.08  196.00  We created a ready-to-use run port template
+ 196.00  196.80  for this workflow.
+ 196.80  198.16  Most of the models come pre-installed,
+ 198.16  200.48  but if you want to use that 9B version of Flux,
+ 200.48  201.76  you have to download it manually
+ 201.76  204.08  because you have to accept that license.
+ 204.08  204.88  Just download it,
+ 204.88  207.04  put it inside of your run port folder
+ 207.04  208.32  and then you can start using it.
+ 208.32  210.08  And if you sign up to run port using our link,
+ 210.08  211.28  you get a random credit bonus
+ 211.28  212.72  between five and $500
+ 212.72  214.88  when you spend the first $10 on the platform.
+ 215.52  217.12  We're going to work from left to right
+ 217.12  218.96  and first let's adjust some settings.
+ 218.96  220.72  So here you can set your image resolution
+ 220.72  222.96  and this is pretty much a good starting value,
+ 222.96  225.44  but you can go higher if your GPU allows it.
+ 225.44  226.96  For video generation with LTX3,
+ 226.96  228.72  you're basically limited by your GPU,
+ 228.72  231.68  so 720p is a good starting value to try it out,
+ 231.68  235.12  but most of the time you could easily bump it up to 1080p
+ 235.12  236.00  if you want to.
+ 236.00  238.00  Next, go to this character setup group.
+ 238.00  239.12  Here you just need to plug in
+ 239.12  241.12  two reference images of your character,
+ 241.12  243.76  one face close-up and one full body image.
+ 243.76  244.96  This subgraph right here
+ 244.96  246.56  then automatically strips the background
+ 246.56  249.12  and puts them together into one reference sheet.
+ 249.12  250.96  The group then sends out these three images
+ 250.96  252.72  you can reference whenever needed.
+ 252.72  255.20  Face only, body only, or both combined,
+ 255.20  258.24  which is the one that usually works best for most shots.
+ 258.24  260.08  One small tip for the full body reference,
+ 260.08  262.48  use a shot where your character is turned slightly,
+ 262.48  263.76  something like this.
+ 263.76  265.52  This helps the model to understand
+ 265.52  267.12  what your character looks like from the side
+ 267.12  269.60  and just improves consistency a lot.
+ 269.60  270.80  If your movie has dialogue,
+ 270.80  272.64  plug in a voice sample right here
+ 272.64  274.16  and now it's time for the fun part,
+ 274.16  275.28  creating that movie.
+ 275.28  276.96  Usually I would write a script,
+ 276.96  278.16  create a shot list
+ 278.16  280.80  and then work through the movie shot by shot,
+ 280.80  283.68  but with this workflow you can also just improvise.
+ 283.76  286.00  Start with an idea and see where it takes you.
+ 286.00  287.44  Let's say we want to make a movie trailer
+ 287.44  288.80  about a scientist who found out
+ 288.80  291.20  that evil aliens are heading towards Earth.
+ 291.20  293.60  I load in my two reference images of my protagonist
+ 293.60  296.56  and move over to this first shot group right here.
+ 296.56  298.56  Now I need to connect the get face body note
+ 298.56  299.68  to the first image input
+ 299.68  300.72  because the model needs to know
+ 300.72  302.24  what my character should look like, right?
+ 302.24  303.84  You can connect up to four references
+ 303.84  305.20  and they don't need to be characters.
+ 305.20  308.32  You can also reference environments or other assets.
+ 308.32  310.40  And then you just need to create a detailed prompt
+ 310.40  312.40  and natural language describing your scene.
+ 312.48  313.76  It helps to be specific here,
+ 313.76  316.72  but as you can see I'm keeping their character description pretty vague
+ 316.72  319.92  because I want to be able to easily switch out the protagonist later
+ 319.92  322.72  without having to rewrite every single prompt.
+ 322.72  324.48  But you should probably add a short description
+ 324.48  325.76  of what your character looks like
+ 325.76  327.52  to help the model keep things consistent.
+ 327.52  328.08  Once you're done,
+ 328.08  330.72  click this save image node and press the play button.
+ 330.72  332.00  The workflow will then compute
+ 332.00  333.92  only the nodes needed for this image.
+ 333.92  335.36  If you're not happy with your image,
+ 335.36  336.40  simply adjust the prompt
+ 336.40  338.16  or change the seed right here.
+ 338.80  340.64  Next scroll down to the video section.
+ 340.64  342.56  Here you can set the length of your shot,
+ 342.56  343.28  the seeds,
+ 343.28  345.76  and whether you want to sample the video natively
+ 345.76  347.52  in your target resolution
+ 347.52  350.16  or upscale it for faster generation.
+ 350.16  353.04  You can also set if you want to use a voice reference.
+ 354.80  356.40  So I use this prompt format,
+ 356.40  359.68  filling it out with just some basic descriptions like this.
+ 359.68  362.08  Now click the play button on the save video node
+ 362.08  363.60  and there it is.
+ 363.60  365.12  Our first shot is done.
+ 365.12  366.24  Let's create another one.
+ 366.24  368.96  For this, go to this shot duplicator node.
+ 368.96  370.40  Select the shot you want to duplicate
+ 370.48  371.44  and click add shot.
+ 371.44  373.68  And wow, there it is.
+ 373.68  374.48  Crazy.
+ 374.48  376.16  It adds the shot to your shot list
+ 376.16  379.12  where you can also reorder shots later if you want to.
+ 379.12  381.76  But let's go to this new shot group it created right here
+ 381.76  383.84  and this features all the same settings as before
+ 383.84  386.00  so we can start where we left off.
+ 386.00  388.72  This new group also includes this color match node right here
+ 388.72  390.48  that references your first shot
+ 390.48  393.36  and this is just supposed to help keep the colors consistent
+ 393.36  395.36  and you can bypass it if you don't need it.
+ 395.36  396.00  And for this shot,
+ 396.00  397.84  I reference not only my character reference,
+ 397.84  399.28  but also the previous shot
+ 399.28  400.96  because I basically just want to zoom in
+ 400.96  403.12  and create another variation in the same scene.
+ 404.40  405.28  But what's this?
+ 405.28  408.00  Seems like no one is believing her that the aliens are coming
+ 408.00  409.44  but she wants to be prepared
+ 409.44  413.12  so she's going to craft her own weapon against these aliens.
+ 413.12  414.80  But what should it look like?
+ 414.80  415.60  To define the look,
+ 415.60  418.08  I'm going to scroll to this asset group here,
+ 418.08  419.12  duplicate it
+ 419.12  421.68  and I like to put it right above the shot
+ 421.68  423.68  where I first used the asset.
+ 423.68  425.68  Without connecting any reference images,
+ 425.68  428.24  I prompt for a handcrafted laser weapon.
+ 428.88  431.04  But I think she needs something stronger than this
+ 431.04  432.48  so I go to the drawing board
+ 432.48  435.36  and sketch out the design that I actually had in mind.
+ 435.36  438.32  I import the sketch using a load image node
+ 438.32  440.24  connected to the input here
+ 440.24  442.40  and this is pretty much the entire process.
+ 442.40  443.12  Shot by shot,
+ 443.12  445.44  you generate your way through your movie or scene,
+ 445.44  448.32  changing out elements or adjusting designs if needed.
+ 448.32  451.28  You're basically building a framework for your film.
+ 451.28  454.64  Every shot is just pulling in from that one reference group.
+ 454.64  455.44  So watch this.
+ 455.44  458.16  I swap out the reference images for pictures of me.
+ 458.16  460.40  I swap the voice sample for my own voice
+ 460.40  461.76  and I don't touch a single prompt,
+ 461.76  463.04  I just hit cube prompt
+ 463.04  464.88  and just like that it's the same movie
+ 464.88  466.40  but with me as the main actor.
+ 467.52  469.36  You can get this full movie workflow file
+ 469.36  470.56  for free on our Patreon
+ 470.56  472.24  and I recommend starting with it.
+ 472.24  474.72  This way you can see how the assets and prompts
+ 474.72  475.60  work together
+ 475.60  477.20  because I know it seems like a lot
+ 477.20  479.44  but after a while building movies like this
+ 479.44  480.96  will become very natural.
+ 480.96  482.64  And if you want to dive in even deeper
+ 482.64  484.48  you can also support us on Patreon
+ 484.48  487.52  and get your hands on the advanced version of this workflow.
+ 487.52  490.00  You'll also get access to an additional example movie,
+ 490.00  491.36  a step-by-step guide
+ 491.36  493.68  and our amazing Discord community.
+ 493.68  495.52  Our amazing Patreon supporters are the reason
+ 495.52  496.64  we can create these videos
+ 496.64  497.84  and release free workflows
+ 497.84  500.08  without having to rely on sponsored segments
+ 500.08  501.28  in every single video.
+ 501.28  503.12  So thank you very much for supporting.
+ 503.12  504.64  And now let's take a quick look
+ 504.64  506.96  at the advanced version of this workflow.
+ 506.96  509.52  This one features an additional 360 degree
+ 509.52  510.80  environment generation group.
+ 510.80  512.64  Create a prompt for an environment
+ 512.64  514.40  or load in a reference image
+ 514.40  516.32  and the workflow will automatically
+ 516.32  519.60  create a seamless 360 degree image.
+ 519.60  522.16  This image then lets you place your character
+ 522.16  523.84  in consistent environments.
+ 523.84  525.92  Let's say you have two characters talking to each other
+ 525.92  527.36  in this fantasy setting.
+ 527.36  529.44  You can now use the environment crop group
+ 529.44  532.48  to crop out the background area for each character.
+ 532.48  533.92  Load it into the shot group
+ 533.92  536.00  together with your character references
+ 536.00  538.88  and you've got a consistent shot reverse shot.
+ 538.88  541.04  This one is also part of the additional example files
+ 541.04  542.48  by the way if you want to check it out.
+ 542.72  546.40  Once you've created all your shots
+ 546.40  548.16  you'll find the final movie output group
+ 548.16  550.08  at the top of the workflow.
+ 550.08  552.32  It's one subgraph doing a few things.
+ 552.32  554.40  The shot assembler node collects all the outputs
+ 554.40  555.60  from every single shot group
+ 555.60  556.88  and puts them all together
+ 556.88  559.44  in the order that you set in this node right here.
+ 559.44  561.36  There's also a toggle that lets you save out
+ 561.36  563.28  each shot individually into a folder.
+ 563.28  564.72  Useful if you want to take the clips
+ 564.72  566.64  into DaVinci Resolve for example.
+ 566.64  568.00  You can also label different versions
+ 568.00  569.20  of the movie right here.
+ 569.20  571.20  And now let's take a look at that movie.
+ 571.92  574.56  These insectoids they are already on their way.
+ 575.60  577.92  They're coming but I have a solution.
+ 584.00  586.24  What you're seeing on your screen is live unedited footage
+ 586.24  587.68  from downtown and I've just been told
+ 587.68  589.04  this is happening simultaneously
+ 589.04  590.80  over at least 40 cities worldwide.
+ 590.80  592.64  Authorities are urging everyone to remain indoors,
+ 592.64  593.52  stay away from windows
+ 593.52  595.92  and whatever you do do not look directly up.
+ 601.68  608.32  Time to call the exterminator.
+ 613.68  616.08  Whether you use this workflow to create entire movies,
+ 616.08  617.84  bring your storyboard scribbled to life
+ 617.84  620.48  or use it as a previous tool for upcoming shoots,
+ 620.48  622.64  I hope you have a lot of fun trying it out.
+ 622.64  623.92  We want to add more features
+ 623.92  625.60  and develop this workflow further.
+ 625.60  627.44  So if you have any suggestions,
+ 627.44  629.28  feel free to post them in the comments
+ 629.28  630.80  or on our discord.
+ 630.80  633.04  Again, thanks to our lovely Patreon supporters
+ 633.04  634.72  for making these videos possible.
+ 634.72  636.72  If you want access to exclusive workflows,
+ 636.72  638.16  guides and example files,
+ 638.16  639.68  consider supporting us.
+ 639.68  643.68  See you next time.

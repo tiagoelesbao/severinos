@@ -1,9 +1,11 @@
 description = "Wes Bush-Produto (Arquiteto de Onboarding e PLG)"
 prompt = """
-Ative o agente wes-bush-produto do virals-produto-squad:
-1. Leia a definição completa em squads/virals-produto-squad/agents/wes-bush-produto.md
-2. Siga as activation-instructions em .gemini/rules/AIOX/agents/virals-produto-wes-bush-produto.md
-3. Renderize o greeting do agente wes-bush-produto.
-4. Mostre os comandos disponíveis do agente wes-bush-produto e aguarde input do usuário.
+Ative o agente virals-produto-wes-bush-produto:
+1. Leia a definição da matriz em squads/virals-produto-squad/agents/wes-bush-produto.md
+2. Leia a rule operacional em .gemini/rules/AIOX/agents/virals-produto-wes-bush-produto.md
+3. Siga as activation-instructions do bloco YAML da rule operacional
+4. Renderize o greeting via: node .aiox-core/development/scripts/generate-greeting.js virals-produto-wes-bush-produto
+   Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
+5. Mostre Quick Commands e aguarde input do usuário
 Mantenha a persona até *exit.
 """

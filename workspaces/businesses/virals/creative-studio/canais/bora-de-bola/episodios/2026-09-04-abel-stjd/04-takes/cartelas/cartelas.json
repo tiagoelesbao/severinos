@@ -1,0 +1,142 @@
+[
+  {
+    "n": 1,
+    "bloco": "GANCHO",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c01-gancho.png"
+  },
+  {
+    "n": 2,
+    "bloco": "NÚMEROS",
+    "tipo": "numero",
+    "modo": "painel",
+    "arquivo": "c02-numeros.png"
+  },
+  {
+    "n": 3,
+    "bloco": "NÚMEROS",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c03-numeros.png"
+  },
+  {
+    "n": 4,
+    "bloco": "ÍNDICE",
+    "tipo": "lista",
+    "modo": "painel",
+    "arquivo": "c04-indice.png"
+  },
+  {
+    "n": 5,
+    "bloco": "ÍNDICE",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c05-indice.png"
+  },
+  {
+    "n": 6,
+    "bloco": "CTA",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c06-cta.png"
+  },
+  {
+    "n": 7,
+    "bloco": "BLOCO 1",
+    "tipo": "frase",
+    "modo": "painel",
+    "arquivo": "c07-bloco1.png"
+  },
+  {
+    "n": 8,
+    "bloco": "BLOCO 1",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c08-bloco1.png"
+  },
+  {
+    "n": 9,
+    "bloco": "BLOCO 2",
+    "tipo": "escudos",
+    "modo": "painel",
+    "arquivo": "c09-bloco2.png"
+  },
+  {
+    "n": 10,
+    "bloco": "BLOCO 2",
+    "tipo": "numero",
+    "modo": "faixa",
+    "arquivo": "c10-bloco2.png"
+  },
+  {
+    "n": 11,
+    "bloco": "BLOCO 2B",
+    "tipo": "placar",
+    "modo": "painel",
+    "arquivo": "c11-bloco2b.png"
+  },
+  {
+    "n": 12,
+    "bloco": "BLOCO 2B",
+    "tipo": "numero",
+    "modo": "painel",
+    "arquivo": "c12-bloco2b.png"
+  },
+  {
+    "n": 13,
+    "bloco": "BLOCO 2C",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c13-bloco2c.png"
+  },
+  {
+    "n": 14,
+    "bloco": "BLOCO 2C",
+    "tipo": "escudos",
+    "modo": "faixa",
+    "arquivo": "c14-bloco2c.png"
+  },
+  {
+    "n": 15,
+    "bloco": "BLOCO 2C",
+    "tipo": "numero",
+    "modo": "faixa",
+    "arquivo": "c15-bloco2c.png"
+  },
+  {
+    "n": 16,
+    "bloco": "BLOCO 3",
+    "tipo": "frase",
+    "modo": "faixa",
+    "arquivo": "c16-bloco3.png"
+  },
+  {
+    "n": 17,
+    "bloco": "BLOCO 3",
+    "tipo": "linha_do_tempo",
+    "modo": "painel",
+    "arquivo": "c17-bloco3.png"
+  },
+  {
+    "n": 18,
+    "bloco": "BLOCO 4",
+    "tipo": "numero",
+    "modo": "painel",
+    "arquivo": "c18-bloco4.png"
+  },
+  {
+    "n": 19,
+    "bloco": "BLOCO 4",
+    "tipo": "numero",
+    "modo": "painel",
+    "arquivo": "c19-bloco4.png"
+  },
+  {
+    "n": 20,
+    "bloco": "FECHO",
+    "tipo": "frase",
+    "modo": "painel",
+    "arquivo": "c20-fecho.png"
+  }
+]

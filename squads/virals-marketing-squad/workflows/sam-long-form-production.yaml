@@ -1,0 +1,254 @@
+# WF-SAM-LONG-001: Pipeline de Produção de Vídeo Longo
+# Duration: 60-120 min por vídeo longo
+# Best for: YouTube, Podcasts-Vídeo, Webinars, Entrevistas
+# Key Agents: @sam-kolder-vid
+# Stack: FFmpeg + MoviePy + Whisper + auto-editor + Clips AI
+
+workflow:
+  id: wf-sam-long-form-production
+  name: "Pipeline de Produção de Vídeo Longo"
+  version: "1.0"
+  orchestrator: "sam-kolder-vid"
+  duration: "60-120 min"
+  description: |
+    Workflow completo para produção de vídeo longo (YouTube, podcast, webinar).
+    Fluxo: Ingestão → Silence Cut → Estrutura de Capítulos →
+    Edição → Legendas → Color Grade → Highlights (Reels) → Export.
+
+    Bônus automático: extrai 3-5 clips para Reels ao final do pipeline.
+
+    Output: outputs/long-form/{slug}/
+    - long_{slug}_16x9.mp4 (principal YouTube)
+    - long_{slug}.srt (legendas completas)
+    - chapters.txt (capítulos para YouTube)
+    - highlights/ (clips para Reels)
+    - long_manifest.json
+
+  best_for:
+    - "Entrevistas e podcasts-vídeo"
+    - "Tutoriais e webinars"
+    - "Documentários e vlogs longos"
+    - "Conteúdo de autoridade e educação"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: Ingestão e Análise
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1-INGEST
+    name: "Ingestão e Planejamento"
+    tier: 1
+    description: |
+      Analisa material bruto. Coleta briefing completo (plataforma, capítulos,
+      tom). Estima redução pós-silence-cut.
+
+    tasks:
+      - task_file: sam-long-edit.md
+        agent: sam-kolder-vid
+        required: true
+        step: 1
+        description: "FFmpeg probe + análise + coleta de briefing longo"
+        output: "Análise do material + plano aprovado"
+
+    checkpoint:
+      criteria:
+        - "Duração total do material bruto conhecida?"
+        - "Plataforma alvo definida (YouTube/LinkedIn/podcast)?"
+        - "Capítulos fornecidos ou autorizado auto-geração?"
+        - "LUT preset selecionado?"
+      human_review: true
+      message: "Aprovar plano antes de iniciar processamento."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: Silence Cut Conservador
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2-SILENCE
+    name: "Silence Cut Conservador"
+    tier: 1
+    description: |
+      Silence cut com threshold conservador (8-12%) para preservar
+      pausas naturais de fala sem comprometer o contexto.
+
+    tasks:
+      - task_file: sam-silence-cut.md
+        agent: sam-kolder-vid
+        required: true
+        description: "auto-editor com threshold 8-12% conforme content_type"
+        output: "Vídeo limpo sem silêncios excessivos + cut_report"
+
+    checkpoint:
+      criteria:
+        - "Cortes não quebraram frases ou contexto importante?"
+        - "Redução de tempo razoável (15-30% esperado)?"
+      human_review: true
+      message: "Validar amostra do vídeo cortado antes de prosseguir."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: Estrutura de Capítulos
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3-CHAPTERS
+    name: "Estrutura de Capítulos"
+    tier: 1
+    description: |
+      Gera ou valida os capítulos do vídeo.
+      Se não fornecidos: Whisper transcreve + NLP detecta tópicos.
+
+    tasks:
+      - task_file: sam-long-edit.md
+        agent: sam-kolder-vid
+        required: true
+        step: 3
+        description: "Gerar/validar capítulos com timestamps para YouTube"
+        output: "chapters.txt no formato YouTube + JSON de capítulos"
+
+    checkpoint:
+      criteria:
+        - "Todos os capítulos têm timestamps corretos?"
+        - "Títulos de capítulos são descritivos e claros?"
+        - "Capítulo 1 começa em 00:00?"
+      human_review: true
+      message: "VALIDAR CAPÍTULOS antes de edição final."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: Edição e Montagem
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4-EDIT
+    name: "Edição e Montagem do Longo"
+    tier: 1
+    description: |
+      Edita material limpo: intro, lower thirds, end screen.
+      Adiciona elementos de marca e transições entre capítulos.
+
+    tasks:
+      - task_file: sam-long-edit.md
+        agent: sam-kolder-vid
+        required: true
+        step: 4
+        description: "Editar intro, lower thirds, end screen, transições de capítulo"
+        output: "Vídeo longo montado com estrutura completa"
+
+    checkpoint:
+      criteria:
+        - "Intro presente (5-15s com logo)?"
+        - "Lower thirds para apresentador/convidado?"
+        - "End screen nos últimos 20s?"
+        - "Transições suaves entre capítulos?"
+      human_review: true
+      message: "VALIDAR MONTAGEM COMPLETA antes de legendas e grading."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: Legendas Completas
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-5-CAPTIONS
+    name: "Legendas Completas com Whisper"
+    tier: 1
+    description: |
+      Transcrição completa via Whisper (modelo medium para máxima precisão).
+      Gera SRT completo. Hardcode opcional (ou entrega .srt para upload no YouTube).
+
+    tasks:
+      - task_file: sam-caption-auto.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Whisper medium + SRT completo (hardcode opcional)"
+        output: "long_{slug}.srt + vídeo com legendas (se hardcode=true)"
+
+    checkpoint:
+      criteria:
+        - "SRT gerado para 100% da duração do vídeo?"
+        - "Sincronização verificada em 3 pontos aleatórios?"
+      human_review: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 6: Color Grade
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-6-GRADE
+    name: "Color Grade"
+    tier: 1
+    description: |
+      Aplica LUT de correção neutra. Para vídeo longo, o objetivo é
+      naturalidade e consistência, não estilo dramático.
+
+    tasks:
+      - task_file: sam-color-grade.md
+        agent: sam-kolder-vid
+        required: true
+        description: "LUT neutral-grade + correção base de exposição/WB"
+        output: "Vídeo com grading neutro aplicado"
+
+    checkpoint:
+      criteria:
+        - "Tons de pele naturais ao longo de todo o vídeo?"
+        - "Consistência de cor entre diferentes câmeras (se multicam)?"
+      human_review: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 7: Extração de Highlights para Reels
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-7-HIGHLIGHTS
+    name: "Extração de Highlights para Reels"
+    tier: 1
+    description: |
+      Extrai automaticamente 3-5 clips do vídeo longo para repurposing
+      como Reels/TikToks. Bônus automático do pipeline.
+
+    tasks:
+      - task_file: sam-clip-highlight.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Clips AI extrai top 5 highlights + reformat 9:16"
+        output: "highlights/ com 3-5 clips prontos para reel"
+
+    checkpoint:
+      criteria:
+        - "3-5 clips extraídos com sentido fora do contexto?"
+        - "Clips com duração de 45-90s?"
+      human_review: true
+      message: "Selecionar quais highlights seguirão para produção de Reel."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 8: Export Final
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-8-EXPORT
+    name: "Export Final Multi-Formato"
+    tier: 1
+    description: |
+      Exporta vídeo principal em 16:9 para YouTube + versão 1:1 para LinkedIn.
+      Gera long_manifest.json com pipeline completo.
+
+    tasks:
+      - task_file: sam-reformat-export.md
+        agent: sam-kolder-vid
+        required: true
+        description: "Export 16:9 YouTube + 1:1 LinkedIn + manifest"
+        output: "outputs/long-form/{slug}/ completo"
+
+    checkpoint:
+      criteria:
+        - "Export 16:9 em 1920x1080 @ ≥10Mbps?"
+        - "chapters.txt incluído na pasta de output?"
+        - "long_manifest.json com pipeline completo?"
+      human_review: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE:SAM-LONG-FORM-PRODUCTION</promise>"
+
+outputs:
+  Per_LongVideo:
+    - "long_{slug}_16x9.mp4 — Principal YouTube"
+    - "long_{slug}_1x1.mp4 — LinkedIn preview"
+    - "long_{slug}.srt — Legendas completas"
+    - "chapters.txt — Capítulos formato YouTube"
+    - "highlights/ — 3-5 clips para Reels"
+    - "long_manifest.json — Pipeline documentado"
+
+metadata:
+  version: "1.0"
+  framework: "Virals Media Video Pipeline v1"
+  created: "2026-05-10"
+  primary_use_case: "Produção de vídeo longo com repurposing automático"
+  related_workflows:
+    - "sam-reel-production.yaml"
+  related_checklists:
+    - "sam-video-production-checklist.md"

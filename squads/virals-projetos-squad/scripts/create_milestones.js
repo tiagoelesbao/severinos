@@ -1,137 +1,132 @@
 /**
- * Sutherland Milestone Creator v2.0
- * 
- * 1. Read Google Doc
- * 2. Parse Section 7 (Fases e Marcos)
- * 3. Create Tasks/Milestones in ClickUp (Virals Starter & Growth folder)
+ * Sutherland Milestone Creator v3.0
+ *
+ * Cria a hierarquia Epic -> Story (Setup/Execução/QA & Entrega) -> Checklist
+ * no ClickUp a partir de dados de marcos versionados no repositório
+ * (data/project-milestones.js), não mais de um Google Doc externo.
+ *
+ * v2.0 (legado) parseava um "Termo de Abertura" no Google Docs, hardcoded
+ * pra Virals (DOC_ID/FOLDER_ID/MAPPING fixos). Generalizado em 2026-08-16
+ * pra suportar múltiplas empresas (Virals + Oraclum) e ser idempotente
+ * (não duplica epic/story já existente com o mesmo nome).
+ *
+ * Uso:
+ *   node create_milestones.js virals [--dry-run]
+ *   node create_milestones.js oraclum [--dry-run]
  */
 
-const { ensureAuthenticated, docs } = require('../../../services/google-drive/client');
 const { tasks, client } = require('../../../services/clickup/index');
+const { VIRALS_MILESTONES, ORACLUM_MILESTONES } = require('../data/project-milestones');
 
-const CONFIG = {
-    DOC_ID: '1i5gHeoSe-UVU995lPccR6yDHHbBCIsndyg7pOWwEBUo', // Extract from CF later
-    FOLDER_ID: '901316668857', // Virals Starter & Growth (Correct Folder)
-    MAPPING: {
-        'Fase 1': '901324798948', // Planejamento & Preparação
-        'Fase 2': '901324798949', // Execução & Monitoramento
-        'Fase 3': '901324798947'  // Finalização & Encerramento
+const COMPANIES = { virals: VIRALS_MILESTONES, oraclum: ORACLUM_MILESTONES };
+
+let _taskCache = {};
+async function findExistingTask(listId, name, parent) {
+    // getTasks() por padrão NÃO retorna subtasks — precisa do param explícito
+    // e paginação (a API v2 pagina em blocos de 100). Cacheado por list.
+    if (!_taskCache[listId]) {
+        let page = 0, all = [];
+        while (true) {
+            const res = await client.get(`/list/${listId}/task`, {
+                params: { include_closed: true, subtasks: true, page }
+            });
+            all = all.concat(res.data.tasks);
+            if (res.data.last_page || res.data.tasks.length === 0) break;
+            page++;
+        }
+        _taskCache[listId] = all;
     }
-};
+    return _taskCache[listId].find(t => t.name === name && (t.parent || null) === (parent || null));
+}
 
-async function run(taskId, dryRun = false) {
+async function run(companyKey, dryRun = false) {
+    const config = COMPANIES[companyKey];
+    if (!config) {
+        console.error(`❌ Empresa desconhecida: "${companyKey}". Use "virals" ou "oraclum".`);
+        process.exitCode = 1;
+        return;
+    }
+
     console.log('╔══════════════════════════════════════════════╗');
-    console.log('║  SUTHERLAND MILESTONE CREATOR v2.0           ║');
-    if (dryRun) console.log('║  (DRY RUN - No ClickUp tasks created)        ║');
+    console.log('║  SUTHERLAND MILESTONE CREATOR v3.0            ║');
+    console.log(`║  Empresa: ${config.company.padEnd(35)}║`);
+    if (dryRun) console.log('║  (DRY RUN - No ClickUp tasks created)         ║');
     console.log('╚══════════════════════════════════════════════╝');
 
-    try {
-        await ensureAuthenticated();
+    let created = 0, skipped = 0;
 
-        // 1. Get Doc
-        console.log(`\n═══ 1. READING GOOGLE DOC ═══`);
-        const doc = await docs.documents.get({ documentId: CONFIG.DOC_ID });
-        console.log(`  ✓ Doc: ${doc.data.title}`);
+    for (const phase of config.phases) {
+        const listId = config.listMapping[phase.name] || config.listMapping['Fase 2'];
+        console.log(`\n  📂 [${phase.name}] -> List: ${listId}`);
 
-        // 2. Parse Tables
-        console.log(`\n═══ 2. PARSING MILESTONES ═══`);
-        const projectStages = parseTables(doc.data.body.content);
-        console.log(`  ✓ Found ${projectStages.length} phases with milestones`);
+        for (const milestone of phase.milestones) {
+            const epicName = `[${milestone.dept}] Marco: ${milestone.name}`;
+            console.log(`    💎 Marco (Epic): [${milestone.dept}] ${milestone.name}`);
 
-        // 3. Create ClickUp Tasks
-        console.log(`\n═══ 3. CREATING CLICKUP MILESTONES ═══`);
-        for (const stage of projectStages) {
-            const listId = CONFIG.MAPPING[stage.phase];
-            if (!listId) {
-                console.warn(`  ⚠️ No mapping for ${stage.phase}, skipping.`);
+            const description = `**Responsável:** ${milestone.owner}\n**Outcome:** ${milestone.kpi}\n\n**Origem:** Planejamento Estratégico ${config.company === 'virals' ? 'Virals' : 'Oraclum'} (Doc nativo ClickUp)\n**Project ID:** ${config.projectTaskId}`;
+
+            if (dryRun) {
+                console.log(`      ✓ [DRY RUN] Epic + ${milestone.stories?.length || 3} Stories para "${milestone.name}"`);
                 continue;
             }
 
-            console.log(`\n  📂 [${stage.phase}] -> List: ${listId}`);
-            for (const milestone of stage.milestones) {
-                console.log(`    🔨 Criando: [${milestone.dept}] ${milestone.name}`);
-                
-                const taskData = {
-                    name: `[${milestone.dept}] Marco: ${milestone.name}`,
-                    description: `**Responsável:** ${milestone.owner}\n**KPI de Sucesso:** ${milestone.kpi}\n\n**Origem:** [Termo de Abertura](https://docs.google.com/document/d/${doc.data.documentId}/edit)\n**Task Pai:** ${taskId}`,
-                    assignees: [], // Dynamic selection later
-                    status: 'BACKLOG',
-                    priority: 3,
-                    tags: ['milestone', milestone.dept.toLowerCase()],
-                    // parent: taskId // Sutherland v2.0 doesn't strictly need subtasks if moved to other lists
-                };
+            let epicId;
+            const existingEpic = await findExistingTask(listId, epicName, null);
+            if (existingEpic) {
+                console.log(`      ↻ Epic já existe (${existingEpic.id}) — pulando criação, mantendo`);
+                epicId = existingEpic.id;
+                skipped++;
+            } else {
+                const res = await client.post(`/list/${listId}/task`, {
+                    name: epicName, description, status: 'backlog'
+                });
+                epicId = res.data.id;
+                console.log(`      ✓ Epic criado (${epicId})`);
+                created++;
+            }
 
-                if (!dryRun) {
-                    await client.post(`/list/${listId}/task`, taskData);
-                    console.log(`      ✓ Criado.`);
-                } else {
-                    console.log(`      ✓ [DRY RUN] Task ready for ${listId}`);
+            const stories = milestone.stories || [
+                { name: `[Setup] ${milestone.name}` },
+                { name: `[Execução] ${milestone.name}` },
+                { name: `[QA & Entrega] ${milestone.name}` }
+            ];
+
+            for (const story of stories) {
+                const existingStory = await findExistingTask(listId, story.name, epicId);
+                if (existingStory) {
+                    console.log(`      ↻ Story já existe: ${story.name}`);
+                    skipped++;
+                    continue;
+                }
+                console.log(`      📜 Story: ${story.name}`);
+                const subRes = await client.post(`/list/${listId}/task`, {
+                    name: story.name, parent: epicId, status: 'backlog'
+                });
+                created++;
+
+                if (story.checklist && story.checklist.length > 0) {
+                    const ckRes = await client.post(`/task/${subRes.data.id}/checklist`, { name: 'Acceptance Criteria' });
+                    const ckId = ckRes.data.checklist.id;
+                    for (const item of story.checklist) {
+                        await client.post(`/checklist/${ckId}/checklist_item`, { name: item });
+                    }
                 }
             }
         }
-
-        console.log('\n╔══════════════════════════════════════════════╗');
-        console.log('║  ✅ MARCOS CRIADOS COM SUCESSO               ║');
-        console.log('╚══════════════════════════════════════════════╝');
-
-    } catch (e) {
-        console.error(`\n❌ FATAL: ${e.message}`);
-        console.error(e.stack);
     }
-}
 
-function parseTables(content) {
-    const stages = [];
-    let currentPhase = null;
-
-    for (const el of content) {
-        // Detect Phase Header (Heading 2)
-        if (el.paragraph && el.paragraph.paragraphStyle && el.paragraph.paragraphStyle.namedStyleType === 'HEADING_2') {
-            const text = el.paragraph.elements.map(e => e.textRun?.content || '').join('').trim();
-            if (text.includes('Fase 1')) currentPhase = 'Fase 1';
-            else if (text.includes('Fase 2')) currentPhase = 'Fase 2';
-            else if (text.includes('Fase 3')) currentPhase = 'Fase 3';
-        }
-
-        // Parse Table if under a Phase
-        if (el.table && currentPhase) {
-            const milestones = [];
-            const rows = el.table.tableRows;
-            
-            // Skip Header (rows[0])
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].tableCells;
-                const mData = {
-                    name: getCellText(cells[0]),
-                    dept: getCellText(cells[1]),
-                    owner: getCellText(cells[2]),
-                    kpi: getCellText(cells[3])
-                };
-                if (mData.name) milestones.push(mData);
-            }
-
-            if (milestones.length > 0) {
-                stages.push({ phase: currentPhase, milestones });
-                currentPhase = null; // Reset for next table
-            }
-        }
-    }
-    return stages;
-}
-
-function getCellText(cell) {
-    if (!cell.content) return '';
-    return cell.content.map(c => {
-        if (!c.paragraph) return '';
-        return c.paragraph.elements.map(e => e.textRun?.content || '').join('');
-    }).join('').trim();
+    console.log(`\n  RESUMO: ${created} criados, ${skipped} já existentes (pulados)`);
 }
 
 // CLI
 if (require.main === module) {
-    const taskId = process.argv[2] || '86ag692nm';
+    const companyKey = (process.argv[2] || '').toLowerCase();
     const dryRun = process.argv.includes('--dry-run');
-    run(taskId, dryRun);
+    if (!companyKey || !COMPANIES[companyKey]) {
+        console.error('Uso: node create_milestones.js <virals|oraclum> [--dry-run]');
+        process.exit(1);
+    }
+    run(companyKey, dryRun);
 }
 
 module.exports = { run };

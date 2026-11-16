@@ -1,0 +1,1343 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM TECH · AI CREATIVE STUDIO — PIPELINE PROFILES
+#
+# O gênero define o pipeline; o pipeline define o elenco. Este arquivo é a
+# máquina de estados de cada gênero MVP: estágios ORDENADOS, com owner, executor,
+# handon (o que recebe), handoff (o que entrega + gate) e fallback.
+#
+# REGRA DE OURO (_BLUEPRINT.md §3.1): `stills` e `takes` são executor: human em
+# TODOS os pipelines. A geração de voz dentro de `audio` também. O squad dirige
+# a geração — o entregável do agente é o PACOTE DE DIREÇÃO (asset_direction),
+# nunca o arquivo. Não existe variante worker/agent para esses estágios.
+#
+# FINALIZAÇÃO (_BLUEPRINT.md §3.3): app próprio (autolegenda/tratamentos) →
+# After Effects (motion/composição) → Premiere Pro (corte, mix, master).
+# DaVinci está fora. `assembly` entrega especificação executável, não render.
+#
+# Os ids de estágio são canônicos e fechados. Nenhum pipeline inventa id novo:
+#   intake · brief · research · concept · story · script · decupagem · look ·
+#   design · character · stills · takes · audio · assembly · factcheck · gate · delivery
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-21'
+  squad: oraclumtech-ai-creative-studio
+  fonte: '_BLUEPRINT.md §3, §3.1, §3.2, §3.3, §5'
+  raiz: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CONVENÇÕES — valem para todos os perfis abaixo
+# ═════════════════════════════════════════════════════════════════════════════
+convencoes:
+  executor_enum: [human, worker, agent]
+  regra_de_ouro:
+    estagios_travados: [stills, takes]
+    tambem_humano: 'geração de voz dentro do estágio audio'
+    proibicao: 'declarar worker/agent nesses estágios é violação de arquitetura, não preferência'
+  pre_requisito_de_geracao: >
+    Nenhum estágio human de geração inicia sem o Pacote de Direção (asset_direction)
+    correspondente escrito, revisado e presente em disco. Card sem pacote é retrabalho
+    garantido — é exatamente o que este squad existe para evitar.
+  card_de_tarefa_humana:
+    emitido_por: exec-producer
+    ou_na_ausencia_dele: studio-chief
+    path: '{job}/_cards/card-{stage}-{n}.md'
+    conteudo_minimo:
+      - 'O que gerar, em uma frase'
+      - 'Ferramenta recomendada + alternativa + por que'
+      - 'Prompt pronto para colar (e negativo, se a ferramenta aceitar)'
+      - 'Parâmetros exatos'
+      - 'Quantas variações gerar'
+      - 'Critério de aceite verificável'
+      - 'Onde devolver o arquivo (path exato) e com que nome'
+      - 'Plano B se a ferramenta falhar'
+  retorno_humano:
+    regra: >
+      O estágio só é marcado concluído quando o arquivo existe no path declarado.
+      O agente NUNCA registra como feito um asset que não recebeu. Se o operador
+      devolveu menos variações que o pedido, o estágio entra em `degraded[]`.
+  ciclo_de_retake:
+    passo_1: 'humano devolve o asset'
+    passo_2: 'owner_agent roda *drift-check contra o criterio_de_aceite (executor: agent)'
+    passo_3: 'se reprovar, o agente reescreve o asset_direction apontando O QUE mudar no prompt/parâmetro'
+    passo_4: 'novo card, nova geração humana'
+    teto: 3
+    ao_estourar: 'escala para studio-chief — o problema provavelmente está no estágio anterior, não no prompt'
+  waiver:
+    permitido_em: 'qualquer gate exceto factcheck'
+    registro: 'job.json → waivers[]: {gate, motivo, autor, data}'
+  checklists:
+    # Duas familias, prefixo unico `gate-` (_CONVENTIONS.md §2). Nao ha colisao:
+    # nenhum pipeline-id coincide com um stage-id.
+    de_estagio: 'checklists/gate-<stage-id>.md — 17, um por estagio canonico'
+    excecao_de_nome: 'o estagio `gate` usa checklists/gate-qa.md (e nao gate-gate.md)'
+    de_pipeline: 'checklists/gate-<pipeline-id>.md — 6, avaliam a PECA INTEIRA no estagio gate'
+    transversal: 'checklists/gate-transversal-entrega.md — roda junto ao gate de pipeline'
+    o_que_o_estagio_gate_roda:
+      - 'checklists/gate-<pipeline-id>.md  (declarado no campo gate do estagio)'
+      - 'checklists/gate-qa.md             (gate de estagio)'
+      - 'checklists/gate-transversal-entrega.md'
+    onde_grava_o_veredito: '{job}/15-gate/gate-verdict.md'
+
+# ═════════════════════════════════════════════════════════════════════════════
+pipelines:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # P1 — BRAND FILM
+  # O pipeline completo. Tem direção de fotografia E direção de arte porque a
+  # peça-vitrine é julgada pelo acabamento, não pela mensagem.
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: P1
+    genero: brand-film
+    nome: 'Brand Film — campanha e comercial de produto'
+    formato_master: '16:9'
+    derivados: ['9:16']
+    stages:
+
+      - id: intake
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: brief
+          artifacts: ['pedido bruto do cliente (conversa, e-mail, áudio transcrito)']
+          contract: 'Existe um pedido com objetivo declarado e um responsável do lado do cliente'
+        handoff:
+          to: brief
+          artifacts: ['{job}/00-intake/pedido.md', '{job}/job.json']
+          gate: checklists/gate-intake.md
+        fallback: 'Pedido vago demais para classificar gênero → devolve ao solicitante com 5 perguntas fechadas. Não abre job no escuro.'
+
+      - id: brief
+        owner_agent: brief-strategist
+        executor: agent
+        handon:
+          from: intake
+          artifacts: ['{job}/00-intake/pedido.md', 'brand-identity do cliente']
+          contract: 'pedido.md com objetivo, produto, prazo e canal'
+        handoff:
+          to: research
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/01-brief/brand-lock.yaml']
+          gate: checklists/gate-brief.md
+        fallback: 'Cliente sem brand-identity formalizada → brief-strategist monta um brand-lock mínimo (paleta, tom, tabus) e marca o job como brand_lock: provisorio.'
+
+      - id: research
+        owner_agent: research-scout
+        executor: worker
+        executor_notes: >
+          O worker é o benchmark ETL (download, frames, áudio, transcrição, visão).
+          A SÍNTESE do dossiê e o julgamento do "que não copiar" são do owner_agent,
+          feitos sobre a saída bruta do worker.
+        handon:
+          from: brief
+          artifacts: ['{job}/01-brief/brief.yaml']
+          contract: 'brief.yaml com categoria de produto, concorrentes e canal definidos'
+        handoff:
+          to: concept
+          artifacts:
+            - '{job}/02-research/dossie-referencia.md'
+            - '{job}/02-research/moodboard/'
+            - '{job}/02-research/nao-copiar.md'
+            - '{job}/02-research/benchmark/'
+          gate: checklists/gate-research.md
+        fallback: 'ETL falha ou referência inacessível → research-scout monta o dossiê a partir de craft-references.yaml (código do gênero) e marca cada referência como não-verificada.'
+
+      - id: concept
+        owner_agent: creative-director
+        executor: agent
+        human_checkpoint: true
+        handon:
+          from: research
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/02-research/dossie-referencia.md']
+          contract: 'Dossiê com no mínimo 3 referências de categoria e a lista do que não copiar'
+        handoff:
+          to: script
+          artifacts: ['{job}/03-concept/rotas.md', '{job}/03-concept/territorio-criativo.md']
+          gate: checklists/gate-concept.md
+        fallback: 'Founder/cliente reprova as 3 rotas → volta para research com o motivo da reprovação escrito. Não se gera uma 4ª rota com o mesmo insumo.'
+        nota: 'PONTO DE PARADA HUMANO. 3 rotas apresentadas, 1 escolhida por pessoa. Nada abaixo deste estágio começa sem a escolha registrada.'
+
+      - id: script
+        owner_agent: head-of-copy
+        executor: agent
+        handon:
+          from: concept
+          artifacts: ['{job}/03-concept/territorio-criativo.md', '{job}/01-brief/brand-lock.yaml']
+          contract: 'Território escolhido e registrado com autor e data'
+        handoff:
+          to: decupagem
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/05-script/claim-ledger.json']
+          gate: checklists/gate-script.md
+        fallback: 'Claim sem fonte no claim-ledger → head-of-copy reescreve a linha sem o claim. Não se produz peça com claim pendente de prova.'
+        nota: >
+          O claim-ledger.json é a defesa antecipada contra fabricação: cada afirmação
+          do roteiro aponta para uma fonte. Ele é o insumo do estágio factcheck lá na
+          frente — sem ele o factcheck vira opinião.
+
+      - id: decupagem
+        owner_agent: film-director
+        executor: agent
+        handon:
+          from: script
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/03-concept/territorio-criativo.md']
+          contract: 'Roteiro aprovado no gate-script'
+        handoff:
+          to: look
+          artifacts:
+            - '{job}/06-decupagem/storyboard.yaml'
+            - '{job}/06-decupagem/shotlist.md'
+            - '{job}/06-decupagem/edit-spec.json'
+          gate: checklists/gate-decupagem.md
+        fallback: 'Plano impossível de obter por geração nem por captação → film-director reescreve o plano; storyboard nunca sai com plano fantasma.'
+
+      - id: look
+        owner_agent: dop
+        executor: agent
+        handon:
+          from: decupagem
+          artifacts: ['{job}/06-decupagem/storyboard.yaml', '{job}/02-research/moodboard/']
+          contract: 'Storyboard com plano, duração e intenção por cena'
+        handoff:
+          to: design
+          artifacts: ['{job}/07-look/look-book.md', '{job}/07-look/grade-ref.md']
+          gate: checklists/gate-look.md
+        fallback: 'Sem referência de grade disponível → dop fixa a paleta a partir do brand-config do cliente e declara a decisão como provisória no look-book.'
+
+      - id: design
+        owner_agent: art-director
+        executor: agent
+        handon:
+          from: look
+          artifacts: ['{job}/07-look/look-book.md', '{job}/01-brief/brand-lock.yaml']
+          contract: 'Look-book com paleta, lente e tratamento por bloco'
+        handoff:
+          to: stills
+          artifacts: ['{job}/08-design/art-spec.yaml', '{job}/08-design/tipografia.md']
+          gate: checklists/gate-design.md
+        fallback: 'Conflito entre o look do dop e o brand-config do cliente → art-director escala para studio-chief. Marca vence estética; a decisão fica registrada.'
+
+      - id: stills
+        owner_agent: image-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: design
+          artifacts:
+            - '{job}/06-decupagem/storyboard.yaml'
+            - '{job}/07-look/look-book.md'
+            - '{job}/08-design/art-spec.yaml'
+          contract: 'Um plano de storyboard por asset a gerar, com look e art-spec fechados'
+        handoff:
+          to: takes
+          artifacts:
+            - '{job}/11-stills/_direction/'
+            - '{job}/_cards/'
+            - '{job}/11-stills/entregues/'
+          gate: checklists/gate-stills.md
+        fallback: >
+          Ferramenta recomendada indisponível → o Pacote de Direção já traz a alternativa
+          e o `se_falhar`. Se todas falharem, image-lead redireciona para acervo tratado
+          (foto real) e registra o asset em degraded[].
+        nota: >
+          O image-lead escreve o asset_direction e AVALIA o retorno (drift-check,
+          executor: agent). Quem gera é o operador humano. Ver ARCHITECTURE.md ADR-001.
+
+      - id: takes
+        owner_agent: motion-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: stills
+          artifacts:
+            - '{job}/11-stills/entregues/'
+            - '{job}/06-decupagem/storyboard.yaml'
+            - '{job}/07-look/look-book.md'
+          contract: 'Still-chave aprovado por plano — I2V a partir de still aprovado, não T2V no escuro'
+        handoff:
+          to: audio
+          artifacts:
+            - '{job}/12-takes/_direction/'
+            - '{job}/_cards/'
+            - '{job}/12-takes/entregues/'
+          gate: checklists/gate-takes.md
+        fallback: >
+          Movimento gerado inaceitável em 3 tentativas → motion-lead troca a rota do
+          plano: animação de câmera sobre o still (Ken Burns/parallax) ou composição em
+          After Effects. O plano não é abandonado, a rota é.
+
+      - id: audio
+        owner_agent: sound-designer
+        executor: human
+        handon:
+          from: takes
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/12-takes/entregues/']
+          contract: 'Roteiro final e duração real dos takes fechados'
+        handoff:
+          to: assembly
+          artifacts:
+            - '{job}/13-audio/sound-spec.yaml'
+            - '{job}/13-audio/_direction/'
+            - '{job}/13-audio/entregues/'
+          gate: checklists/gate-audio.md
+        fallback: 'VO não disponível a tempo → peça segue para assembly em corte mudo com legenda queimada, marcada em degraded[]. Nunca com voz sintética não aprovada.'
+        nota: 'A geração/gravação de voz é humana. O sound-designer dirige: casting, ritmo, direção de leitura, ducking e mixagem.'
+
+      - id: assembly
+        owner_agent: editor
+        executor: worker
+        executor_notes: >
+          O worker é o app próprio (autolegenda e tratamentos). A montagem em After
+          Effects e Premiere é HUMANA e roda a partir das specs entregues aqui.
+        handon:
+          from: audio
+          artifacts:
+            - '{job}/12-takes/entregues/'
+            - '{job}/13-audio/entregues/'
+            - '{job}/06-decupagem/edit-spec.json'
+          contract: 'Takes e áudio entregues, edit-spec fechado'
+        handoff:
+          to: factcheck
+          artifacts:
+            - '{job}/14-assembly/autolegenda/'
+            - '{job}/14-assembly/ae-comp-spec.md'
+            - '{job}/14-assembly/premiere-cut-spec.md'
+            - '{job}/14-assembly/master/'
+          gate: checklists/gate-assembly.md
+        fallback: 'App próprio falha na autolegenda → legenda entra como cue list para o Premiere, com timecode do Whisper. Não se digita legenda na mão.'
+
+      - id: factcheck
+        owner_agent: fact-checker
+        executor: agent
+        blocking: true
+        handon:
+          from: assembly
+          artifacts:
+            - '{job}/14-assembly/master/'
+            - '{job}/05-script/claim-ledger.json'
+            - '{job}/01-brief/brand-lock.yaml'
+          contract: 'Peça montada + claim-ledger completo'
+        handoff:
+          to: gate
+          artifacts: ['{job}/15-gate/factcheck-report.md']
+          gate: checklists/gate-factcheck.md
+        fallback: 'NÃO EXISTE FALLBACK. Reprovação aqui devolve a peça ao estágio de origem do problema (script, stills ou assembly). Waiver é proibido.'
+
+      - id: gate
+        owner_agent: qa-critic
+        executor: agent
+        handon:
+          from: factcheck
+          artifacts: ['{job}/14-assembly/master/', '{job}/15-gate/factcheck-report.md']
+          contract: 'factcheck com veredito PASS'
+        handoff:
+          to: delivery
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          gate: checklists/gate-brand-film.md
+        fallback: 'Veredito CONCERNS → entrega liberada com ressalva escrita e ciência do solicitante. FAIL → volta ao estágio apontado.'
+
+      - id: delivery
+        owner_agent: exec-producer
+        executor: agent
+        handon:
+          from: gate
+          artifacts: ['{job}/15-gate/gate-verdict.md', '{job}/14-assembly/master/']
+          contract: 'Veredito PASS ou CONCERNS com ciência registrada'
+        handoff:
+          to: null
+          artifacts:
+            - '{job}/16-delivery/entrega/'
+            - '{job}/16-delivery/publishing-kit.md'
+            - '{job}/job.json'  # status: delivered
+          gate: checklists/gate-delivery.md
+        fallback: 'Preset de canal indisponível → entrega o master e registra pendência de derivação. Nunca entrega arquivo fora de especificação sem avisar.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # P2 — UGC ADS
+  # Sem creative-director, sem dop, sem art-director: big idea e fotografia
+  # autoral trabalhariam CONTRA o código de UGC (a peça precisa parecer
+  # não-dirigida). Quem sustenta a qualidade é hook + consistência do creator.
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: P2
+    genero: ugc-ads
+    nome: 'UGC / Creator AI para conversão'
+    formato_master: '9:16'
+    unidade: 'lote (1 corpo × N hooks)'
+    stages:
+
+      - id: intake
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: brief
+          artifacts: ['pedido do gestor de tráfego ou do cliente']
+          contract: 'Oferta, público e conta de anúncios de destino declarados'
+        handoff:
+          to: brief
+          artifacts: ['{job}/00-intake/pedido.md', '{job}/job.json']
+          gate: checklists/gate-intake.md
+        fallback: 'Sem oferta clara → devolve. UGC sem oferta é conteúdo, não anúncio.'
+
+      - id: brief
+        owner_agent: brief-strategist
+        executor: agent
+        handon:
+          from: intake
+          artifacts: ['{job}/00-intake/pedido.md', 'brand-identity do cliente']
+          contract: 'pedido.md com oferta, dor e objeção principal'
+        handoff:
+          to: research
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/01-brief/brand-lock.yaml']
+          gate: checklists/gate-brief.md
+        fallback: 'Dor genérica demais → brief-strategist deriva a dor de comentários e reviews reais coletados no research; marca como hipótese a validar em mídia.'
+
+      - id: research
+        owner_agent: research-scout
+        executor: worker
+        executor_notes: 'Benchmark ETL sobre criativos concorrentes em veiculação; síntese pelo owner_agent.'
+        handon:
+          from: brief
+          artifacts: ['{job}/01-brief/brief.yaml']
+          contract: 'Categoria e concorrentes definidos'
+        handoff:
+          to: script
+          artifacts:
+            - '{job}/02-research/dossie-referencia.md'
+            - '{job}/02-research/hooks-em-veiculacao.md'
+            - '{job}/02-research/nao-copiar.md'
+          gate: checklists/gate-research.md
+        fallback: 'Sem acesso a biblioteca de anúncios → usa o código de ugc-ads em craft-references.yaml e marca as referências como não-verificadas.'
+
+      - id: script
+        owner_agent: head-of-copy
+        executor: agent
+        handon:
+          from: research
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/02-research/hooks-em-veiculacao.md']
+          contract: 'Dossiê com hooks concorrentes mapeados'
+        handoff:
+          to: character
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/05-script/hooks.md', '{job}/05-script/claim-ledger.json']
+          gate: checklists/gate-script.md
+        fallback: 'Claim de resultado sem prova → reescreve em linguagem de mecanismo ("como funciona") em vez de promessa de resultado.'
+        nota: 'Estratégia 1 corpo × 3 hooks — o padrão já validado em plan_video_creative.py do virals-marketing-squad.'
+
+      - id: character
+        owner_agent: character-lead
+        executor: agent
+        handon:
+          from: script
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/01-brief/brief.yaml']
+          contract: 'Roteiro com o perfil de quem fala (idade, contexto, jeito)'
+        handoff:
+          to: stills
+          artifacts: ['{job}/09-character/character-bible.yaml', '{job}/09-character/_direction/']
+          gate: checklists/gate-character.md
+        fallback: >
+          Consistência de rosto impossível de sustentar na ferramenta escolhida → troca
+          a estratégia do lote: creator de costas/mãos/POV, onde a identidade se sustenta
+          por wardrobe e ambiente em vez de rosto.
+        nota: >
+          O creator sintético é o ativo reutilizável do P2. Character sheet gerado uma
+          vez, reaproveitado em todo o lote e nos lotes seguintes daquele cliente.
+
+      - id: stills
+        owner_agent: image-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: character
+          artifacts: ['{job}/09-character/character-bible.yaml', '{job}/05-script/roteiro.md']
+          contract: 'Character sheet aprovado — sem ele o lote sai com N pessoas diferentes'
+        handoff:
+          to: takes
+          artifacts:
+            - '{job}/11-stills/_direction/'
+            - '{job}/_cards/'
+            - '{job}/11-stills/entregues/'
+          gate: checklists/gate-stills.md
+        fallback: 'Deriva de identidade entre frames → image-lead reduz o nº de cenas e reaproveita o mesmo still em mais de um bloco. Consistência vale mais que variedade de cenário no UGC.'
+
+      - id: takes
+        owner_agent: motion-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: stills
+          artifacts: ['{job}/11-stills/entregues/', '{job}/05-script/roteiro.md']
+          contract: 'Stills do creator aprovados no drift-check'
+        handoff:
+          to: audio
+          artifacts:
+            - '{job}/12-takes/_direction/'
+            - '{job}/_cards/'
+            - '{job}/12-takes/entregues/'
+          gate: checklists/gate-takes.md
+        fallback: 'Lip-sync inaceitável → troca para take sem fala em quadro (voz over cena, mãos, produto) e a fala vira VO. É o contorno mais barato e o mais usado em UGC real.'
+
+      - id: audio
+        owner_agent: sound-designer
+        executor: human
+        handon:
+          from: takes
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/12-takes/entregues/']
+          contract: 'Takes entregues com duração real'
+        handoff:
+          to: assembly
+          artifacts: ['{job}/13-audio/sound-spec.yaml', '{job}/13-audio/_direction/', '{job}/13-audio/entregues/']
+          gate: checklists/gate-audio.md
+        fallback: 'Sem VO → legenda queimada carrega a mensagem; a peça vai a teste mesmo assim, marcada em degraded[]. Em UGC, som limpo demais reduz credibilidade — imperfeição é aceitável, ausência total não.'
+
+      - id: assembly
+        owner_agent: editor
+        executor: worker
+        executor_notes: 'App próprio faz autolegenda e tratamento; Premiere faz o corte e o export das N variações (humano).'
+        handon:
+          from: audio
+          artifacts: ['{job}/12-takes/entregues/', '{job}/13-audio/entregues/', '{job}/05-script/hooks.md']
+          contract: 'Corpo único + N hooks prontos'
+        handoff:
+          to: factcheck
+          artifacts:
+            - '{job}/14-assembly/autolegenda/'
+            - '{job}/14-assembly/premiere-cut-spec.md'
+            - '{job}/14-assembly/master/'
+          gate: checklists/gate-assembly.md
+        fallback: 'Uma variação falha no export → as demais seguem. Lote não é bloqueado por uma peça.'
+        nota: 'P2 normalmente não usa After Effects — UGC com motion graphics deixa de parecer UGC. Lower-third e cartela só se o brief pedir.'
+
+      - id: factcheck
+        owner_agent: fact-checker
+        executor: agent
+        blocking: true
+        handon:
+          from: assembly
+          artifacts: ['{job}/14-assembly/master/', '{job}/05-script/claim-ledger.json']
+          contract: 'Todas as variações montadas'
+        handoff:
+          to: gate
+          artifacts: ['{job}/15-gate/factcheck-report.md']
+          gate: checklists/gate-factcheck.md
+        fallback: 'NÃO EXISTE. Claim de anúncio reprovado é risco de conta bloqueada, não de gosto.'
+
+      - id: gate
+        owner_agent: qa-critic
+        executor: agent
+        handon:
+          from: factcheck
+          artifacts: ['{job}/14-assembly/master/', '{job}/15-gate/factcheck-report.md']
+          contract: 'factcheck PASS'
+        handoff:
+          to: delivery
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          gate: checklists/gate-ugc-ads.md
+        fallback: 'Variação reprovada sai do lote; o lote entrega o que passou.'
+
+      - id: delivery
+        owner_agent: exec-producer
+        executor: agent
+        handon:
+          from: gate
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          contract: 'Ao menos uma variação aprovada'
+        handoff:
+          to: null
+          artifacts: ['{job}/16-delivery/entrega/', '{job}/16-delivery/publishing-kit.md']
+          gate: checklists/gate-delivery.md
+        fallback: 'Nenhuma variação aprovada → job volta para script. Não se entrega lote vazio com relatório.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # P3 — NICHO SERIES
+  # Único pipeline com `story`. Sem dop: em sketch de bolha a fotografia autoral
+  # atrapalha — o código é câmera "invisível", o corte é a piada.
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: P3
+    genero: nicho-series
+    nome: 'Nicho Series — sketch, sátira e microdrama de bolha'
+    formato_master: '9:16'
+    unidade: 'episódio dentro de uma temporada'
+    stages:
+
+      - id: intake
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: brief
+          artifacts: ['pedido: nova temporada, novo episódio, ou piloto']
+          contract: 'Declarado se é piloto (bíblia nova) ou episódio (bíblia existente)'
+        handoff:
+          to: brief
+          artifacts: ['{job}/00-intake/pedido.md', '{job}/job.json']
+          gate: checklists/gate-intake.md
+        fallback: 'Pedido de episódio sem bíblia existente → o job é reclassificado como piloto. Episódio sem bíblia produz personagem diferente a cada semana.'
+
+      - id: brief
+        owner_agent: brief-strategist
+        executor: agent
+        handon:
+          from: intake
+          artifacts: ['{job}/00-intake/pedido.md']
+          contract: 'Nicho/bolha declarado e página de destino identificada'
+        handoff:
+          to: research
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/01-brief/brand-lock.yaml']
+          gate: checklists/gate-brief.md
+        fallback: 'Bolha mal definida → brief-strategist estreita o recorte até caber em uma frase que só quem é da bolha entende. Bolha ampla demais mata a série.'
+
+      - id: research
+        owner_agent: research-scout
+        executor: worker
+        executor_notes: 'ETL sobre criativos da bolha; a curadoria do jargão e das dores é do owner_agent.'
+        handon:
+          from: brief
+          artifacts: ['{job}/01-brief/brief.yaml']
+          contract: 'Nicho definido com hashtags/perfis de entrada'
+        handoff:
+          to: concept
+          artifacts:
+            - '{job}/02-research/dossie-referencia.md'
+            - '{job}/02-research/lexico-da-bolha.md'
+            - '{job}/02-research/nao-copiar.md'
+          gate: checklists/gate-research.md
+        fallback: 'Captura da rede bloqueada → research-scout monta o léxico a partir de comentários já coletados e marca a amostra como parcial.'
+
+      - id: concept
+        owner_agent: showrunner
+        executor: agent
+        human_checkpoint: true
+        handon:
+          from: research
+          artifacts: ['{job}/02-research/lexico-da-bolha.md', '{job}/01-brief/brief.yaml']
+          contract: 'Léxico e dores da bolha mapeados'
+        handoff:
+          to: story
+          artifacts: ['{job}/03-concept/rotas.md', '{job}/03-concept/territorio-criativo.md']
+          gate: checklists/gate-concept.md
+        fallback: 'Nenhuma rota é engraçada/afiada o bastante → volta ao research. Piada fraca não se conserta na produção.'
+        nota: 'PONTO DE PARADA HUMANO — no piloto. Em episódios de temporada já aprovada, o território é herdado e o checkpoint cai.'
+        excecao_de_owner: >
+          Este é o único pipeline em que `concept` NÃO pertence ao creative-director:
+          o elenco do P3 no blueprint §5 não o convoca. Em série, a autoridade criativa
+          é o showrunner — ele é quem responde pelo território E pela bíblia, e separar
+          os dois criaria duas donos para a mesma voz. O studio-chief mantém o veto.
+          Ver ARCHITECTURE.md ADR-010.
+
+      - id: story
+        owner_agent: showrunner
+        executor: agent
+        handon:
+          from: concept
+          artifacts: ['{job}/03-concept/territorio-criativo.md', 'bíblia da temporada, se existir']
+          contract: 'Território aprovado ou bíblia vigente'
+        handoff:
+          to: script
+          artifacts:
+            - '{job}/04-story/biblia.yaml'
+            - '{job}/04-story/arco-temporada.md'
+            - '{job}/04-story/gancho-proximo-ep.md'
+          gate: checklists/gate-story.md
+        fallback: 'Arco não fecha em 6 episódios → showrunner reduz a temporada em vez de esticar o conflito. Temporada esticada perde retenção no ep 3.'
+
+      - id: script
+        owner_agent: head-of-copy
+        executor: agent
+        handon:
+          from: story
+          artifacts: ['{job}/04-story/biblia.yaml', '{job}/02-research/lexico-da-bolha.md']
+          contract: 'Bíblia com personagem, tique e conflito do episódio'
+        handoff:
+          to: decupagem
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/05-script/claim-ledger.json']
+          gate: checklists/gate-script.md
+        fallback: 'Fala fora do jargão da bolha → reescreve com o léxico. Sátira que explica a piada não é sátira.'
+
+      - id: decupagem
+        owner_agent: film-director
+        executor: agent
+        handon:
+          from: script
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/04-story/biblia.yaml']
+          contract: 'Roteiro aprovado'
+        handoff:
+          to: design
+          artifacts: ['{job}/06-decupagem/storyboard.yaml', '{job}/06-decupagem/edit-spec.json']
+          gate: checklists/gate-decupagem.md
+        fallback: 'Piada depende de um plano impossível de gerar → film-director move a piada para o corte ou para a fala. O timing é recuperável; o plano nem sempre.'
+
+      - id: design
+        owner_agent: art-director
+        executor: agent
+        handon:
+          from: decupagem
+          artifacts: ['{job}/06-decupagem/storyboard.yaml', '{job}/04-story/biblia.yaml']
+          contract: 'Storyboard + cenário e props definidos na bíblia'
+        handoff:
+          to: character
+          artifacts: ['{job}/08-design/art-spec.yaml', '{job}/08-design/continuidade.md']
+          gate: checklists/gate-design.md
+        fallback: 'Cenário do ep anterior irreprodutível → art-director fixa 3 âncoras visuais mínimas (cor de parede, um prop, o wardrobe) e aceita variação no resto.'
+
+      - id: character
+        owner_agent: character-lead
+        executor: agent
+        handon:
+          from: design
+          artifacts: ['{job}/04-story/biblia.yaml', '{job}/08-design/art-spec.yaml', 'character sheets de eps anteriores']
+          contract: 'Bíblia com elenco fixo; sheets anteriores quando houver'
+        handoff:
+          to: stills
+          artifacts: ['{job}/09-character/character-bible.yaml', '{job}/09-character/_direction/', '{job}/09-character/sheets/']
+          gate: checklists/gate-character.md
+        fallback: 'Personagem derivou desde o último episódio → regera o sheet a partir do sheet original, nunca a partir do último frame usado (a deriva se acumula).'
+
+      - id: stills
+        owner_agent: image-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: character
+          artifacts: ['{job}/09-character/sheets/', '{job}/06-decupagem/storyboard.yaml', '{job}/08-design/art-spec.yaml']
+          contract: 'Sheets aprovados + storyboard fechado'
+        handoff:
+          to: takes
+          artifacts: ['{job}/11-stills/_direction/', '{job}/_cards/', '{job}/11-stills/entregues/']
+          gate: checklists/gate-stills.md
+        fallback: 'Deriva de personagem entre cenas → reduz o número de cenas e reusa still. Público de série perdoa cenário repetido, não perdoa personagem trocado.'
+
+      - id: takes
+        owner_agent: motion-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: stills
+          artifacts: ['{job}/11-stills/entregues/', '{job}/06-decupagem/edit-spec.json']
+          contract: 'Stills aprovados no drift-check'
+        handoff:
+          to: audio
+          artifacts: ['{job}/12-takes/_direction/', '{job}/_cards/', '{job}/12-takes/entregues/']
+          gate: checklists/gate-takes.md
+        fallback: 'Movimento quebra a continuidade do personagem → plano fixo com micro-movimento. Em sketch, plano fixo é código, não pobreza.'
+
+      - id: audio
+        owner_agent: sound-designer
+        executor: human
+        handon:
+          from: takes
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/12-takes/entregues/']
+          contract: 'Takes com duração real'
+        handoff:
+          to: assembly
+          artifacts: ['{job}/13-audio/sound-spec.yaml', '{job}/13-audio/_direction/', '{job}/13-audio/entregues/']
+          gate: checklists/gate-audio.md
+        fallback: 'Voz do personagem inconsistente com eps anteriores → mantém a voz anterior e ajusta a fala. A voz é parte da bíblia.'
+        nota: 'Regra do gênero: sem trilha durante a fala. Trilha entra na tag final e nas transições.'
+
+      - id: assembly
+        owner_agent: editor
+        executor: worker
+        executor_notes: 'App próprio: autolegenda. AE: cartelas e tag final. Premiere: corte e master. Ambos humanos.'
+        handon:
+          from: audio
+          artifacts: ['{job}/12-takes/entregues/', '{job}/13-audio/entregues/', '{job}/06-decupagem/edit-spec.json']
+          contract: 'Takes e áudio entregues'
+        handoff:
+          to: factcheck
+          artifacts:
+            - '{job}/14-assembly/autolegenda/'
+            - '{job}/14-assembly/ae-comp-spec.md'
+            - '{job}/14-assembly/premiere-cut-spec.md'
+            - '{job}/14-assembly/master/'
+          gate: checklists/gate-assembly.md
+        fallback: 'Timing da piada não fecha na montagem → editor devolve para decupagem com o timecode exato do problema.'
+
+      - id: factcheck
+        owner_agent: fact-checker
+        executor: agent
+        blocking: true
+        handon:
+          from: assembly
+          artifacts: ['{job}/14-assembly/master/', '{job}/05-script/claim-ledger.json']
+          contract: 'Episódio montado'
+        handoff:
+          to: gate
+          artifacts: ['{job}/15-gate/factcheck-report.md']
+          gate: checklists/gate-factcheck.md
+        fallback: 'NÃO EXISTE. Em sátira o risco não é número inventado, é pessoa/marca real identificável sem autorização — e isso é jurídico.'
+
+      - id: gate
+        owner_agent: qa-critic
+        executor: agent
+        handon:
+          from: factcheck
+          artifacts: ['{job}/14-assembly/master/', '{job}/15-gate/factcheck-report.md']
+          contract: 'factcheck PASS'
+        handoff:
+          to: delivery
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          gate: checklists/gate-nicho-series.md
+        fallback: 'Piloto reprovado bloqueia a temporada. Episódio reprovado bloqueia só a si.'
+
+      - id: delivery
+        owner_agent: exec-producer
+        executor: agent
+        handon:
+          from: gate
+          artifacts: ['{job}/15-gate/gate-verdict.md', '{job}/04-story/gancho-proximo-ep.md']
+          contract: 'Veredito PASS/CONCERNS'
+        handoff:
+          to: null
+          artifacts: ['{job}/16-delivery/entrega/', '{job}/16-delivery/publishing-kit.md', 'bíblia atualizada na temporada']
+          gate: checklists/gate-delivery.md
+        fallback: 'Capa do episódio ausente → chama P6 em modo embutido antes de fechar a entrega.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # P4 — ORACLUM INSTITUCIONAL
+  # Sem research-scout (a pesquisa da Oraclum já é permanente no marketing squad)
+  # e sem exec-producer (job interno de peça única). studio-chief absorve
+  # intake e delivery. Ver ARCHITECTURE.md ADR-006.
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: P4
+    genero: oraclum-institucional
+    nome: 'Institucional cinemático dor → solução (Oraclum)'
+    formato_master: '16:9'
+    derivados: ['9:16']
+    brand_lock: squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml
+    stages:
+
+      - id: intake
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: brief
+          artifacts: ['pedido do founder']
+          contract: 'Serviço do portfolio_servicos e dor de aquisição/conversão declarados'
+        handoff:
+          to: brief
+          artifacts: ['{job}/00-intake/pedido.md', '{job}/job.json']
+          gate: checklists/gate-intake.md
+        fallback: 'Pedido sem serviço-alvo → studio-chief escolhe o serviço com maior lacuna de comunicação no portfólio e propõe. Institucional sem serviço-alvo vira peça bonita e inútil.'
+
+      - id: brief
+        owner_agent: brief-strategist
+        executor: agent
+        handon:
+          from: intake
+          artifacts: ['{job}/00-intake/pedido.md', 'brand-identity.yaml da Oraclum']
+          contract: 'brand-identity v2.1 carregada, com lexico.nunca_usar e restricoes'
+        handoff:
+          to: concept
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/01-brief/brand-lock.yaml', '{job}/02-research/dossie-herdado.md']
+          gate: checklists/gate-brief.md
+        fallback: 'Referência herdada do monitoramento diário indisponível → brief-strategist usa craft-references.yaml § oraclum-institucional e marca como não-verificada.'
+        nota: >
+          Este estágio também ancora a referência: em vez de rodar research novo, aponta
+          para o monitoramento diário já produzido pelo virals-marketing-squad. Rodar
+          benchmark a cada institucional seria pagar duas vezes pelo mesmo dado.
+
+      - id: concept
+        owner_agent: creative-director
+        executor: agent
+        human_checkpoint: true
+        handon:
+          from: brief
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/02-research/dossie-herdado.md']
+          contract: 'Brief com dor concreta e prova disponível (tela, log, agente rodando)'
+        handoff:
+          to: script
+          artifacts: ['{job}/03-concept/rotas.md', '{job}/03-concept/territorio-criativo.md']
+          gate: checklists/gate-concept.md
+        fallback: 'Nenhuma rota consegue provar sem case → volta ao brief para escolher outra prova disponível. Nunca se inventa case para fechar a rota.'
+        nota: 'PONTO DE PARADA HUMANO — o founder escolhe a rota.'
+
+      - id: script
+        owner_agent: head-of-copy
+        executor: agent
+        handon:
+          from: concept
+          artifacts: ['{job}/03-concept/territorio-criativo.md', '{job}/01-brief/brand-lock.yaml']
+          contract: 'Rota escolhida e registrada'
+        handoff:
+          to: decupagem
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/05-script/claim-ledger.json']
+          gate: checklists/gate-script.md
+        fallback: 'Roteiro escorrega para promessa de resultado → reescreve como demonstração de método. É a regra central do brand-identity da Oraclum.'
+
+      - id: decupagem
+        owner_agent: film-director
+        executor: agent
+        handon:
+          from: script
+          artifacts: ['{job}/05-script/roteiro.md']
+          contract: 'Roteiro aprovado'
+        handoff:
+          to: look
+          artifacts: ['{job}/06-decupagem/storyboard.yaml', '{job}/06-decupagem/shotlist.md', '{job}/06-decupagem/edit-spec.json']
+          gate: checklists/gate-decupagem.md
+        fallback: 'Prova em tela difícil de filmar → vira screen recording dirigido (zoom no cursor, corte no clique, latência removida) na shotlist.'
+
+      - id: look
+        owner_agent: dop
+        executor: agent
+        handon:
+          from: decupagem
+          artifacts: ['{job}/06-decupagem/storyboard.yaml', 'brand-config.yaml da Oraclum']
+          contract: 'Storyboard + paleta obsidian/purple do brand-config'
+        handoff:
+          to: stills
+          artifacts: ['{job}/07-look/look-book.md', '{job}/07-look/grade-ref.md']
+          gate: checklists/gate-look.md
+        fallback: 'Conflito de paleta entre peça e site → vence o brand-config (#08080C + #A855F7), que é extraído do site real.'
+
+      - id: stills
+        owner_agent: image-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: look
+          artifacts: ['{job}/06-decupagem/storyboard.yaml', '{job}/07-look/look-book.md']
+          contract: 'Look-book fechado com paleta e tratamento'
+        handoff:
+          to: takes
+          artifacts: ['{job}/11-stills/_direction/', '{job}/_cards/', '{job}/11-stills/entregues/']
+          gate: checklists/gate-stills.md
+        fallback: 'Imagem gerada cai no clichê de IA (robô, cérebro azul, circuito) → reprovação automática pelo brand-lock; image-lead redireciona para captura de tela real e abstração geométrica.'
+
+      - id: takes
+        owner_agent: motion-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: stills
+          artifacts: ['{job}/11-stills/entregues/', '{job}/06-decupagem/edit-spec.json']
+          contract: 'Stills aprovados'
+        handoff:
+          to: audio
+          artifacts: ['{job}/12-takes/_direction/', '{job}/_cards/', '{job}/12-takes/entregues/']
+          gate: checklists/gate-takes.md
+        fallback: 'Take de I2V inconsistente → movimento de câmera sobre still + motion graphics em AE. Institucional tolera bem plano gráfico.'
+
+      - id: audio
+        owner_agent: sound-designer
+        executor: human
+        handon:
+          from: takes
+          artifacts: ['{job}/05-script/roteiro.md', '{job}/12-takes/entregues/']
+          contract: 'Takes com duração real'
+        handoff:
+          to: assembly
+          artifacts: ['{job}/13-audio/sound-spec.yaml', '{job}/13-audio/_direction/', '{job}/13-audio/entregues/']
+          gate: checklists/gate-audio.md
+        fallback: 'Sem VO do founder → peça vira corte com cartela e trilha, marcada em degraded[]. Voz sintética não aprovada em peça institucional da própria marca é contradição com o discurso.'
+
+      - id: assembly
+        owner_agent: editor
+        executor: worker
+        executor_notes: 'App próprio: autolegenda. AE: lower-third Oraclum, big number, sublinhado. Premiere: corte e master.'
+        handon:
+          from: audio
+          artifacts: ['{job}/12-takes/entregues/', '{job}/13-audio/entregues/', '{job}/06-decupagem/edit-spec.json']
+          contract: 'Takes e áudio entregues'
+        handoff:
+          to: factcheck
+          artifacts:
+            - '{job}/14-assembly/autolegenda/'
+            - '{job}/14-assembly/ae-comp-spec.md'
+            - '{job}/14-assembly/premiere-cut-spec.md'
+            - '{job}/14-assembly/master/'
+          gate: checklists/gate-assembly.md
+        fallback: 'Preset de motion do video-templates.yaml em conflito com o brand-config → editor usa o brand-config e registra a divergência (o registry de templates está defasado, ver ARCHITECTURE.md).'
+
+      - id: factcheck
+        owner_agent: fact-checker
+        executor: agent
+        blocking: true
+        handon:
+          from: assembly
+          artifacts: ['{job}/14-assembly/master/', '{job}/05-script/claim-ledger.json', 'brand-identity.yaml']
+          contract: 'Peça montada'
+        handoff:
+          to: gate
+          artifacts: ['{job}/15-gate/factcheck-report.md']
+          gate: checklists/gate-factcheck.md
+        fallback: 'NÃO EXISTE. Aqui o gate mais importante é "sem case fabricado" — a regra que define a credibilidade da Oraclum.'
+
+      - id: gate
+        owner_agent: qa-critic
+        executor: agent
+        handon:
+          from: factcheck
+          artifacts: ['{job}/14-assembly/master/', '{job}/15-gate/factcheck-report.md']
+          contract: 'factcheck PASS'
+        handoff:
+          to: delivery
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          gate: checklists/gate-oraclum-institucional.md
+        fallback: 'FAIL → volta ao estágio apontado. Peça da própria casa não sai com CONCERNS silencioso.'
+
+      - id: delivery
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: gate
+          artifacts: ['{job}/15-gate/gate-verdict.md', '{job}/14-assembly/master/']
+          contract: 'Veredito PASS'
+        handoff:
+          to: null
+          artifacts: ['{job}/16-delivery/entrega/', '{job}/16-delivery/publishing-kit.md']
+          gate: checklists/gate-delivery.md
+        fallback: 'Sem exec-producer neste pipeline, o studio-chief empacota. Se o job crescer para campanha, reclassificar como lancamento-produto (backlog) e convocar exec-producer.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # P5 — DARK ROOM
+  # Não tem `brief` porque o brief do dark-room é por CANAL, não por peça:
+  # channel-brief.yaml escrito uma vez, referenciado por todo episódio.
+  # Ver ARCHITECTURE.md ADR-007.
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: P5
+    genero: dark-room
+    nome: 'Dark Room — canal sem rosto'
+    formato_master: '9:16'
+    derivados: ['16:9']
+    pre_requisito_persistente:
+      artefato: 'workspaces/businesses/oraclum/creative-studio/canais/{canal}/channel-brief.yaml'
+      criado_por: brief-strategist
+      frequencia: 'uma vez por canal, revisado por temporada'
+      sem_ele: 'o job NÃO inicia'
+    stages:
+
+      - id: intake
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: brief
+          artifacts: ['pauta do episódio', 'channel-brief.yaml do canal']
+          contract: 'Canal existe e tem channel-brief.yaml vigente'
+        handoff:
+          to: research
+          artifacts: ['{job}/00-intake/pauta.md', '{job}/job.json']
+          gate: checklists/gate-intake.md
+        fallback: 'Canal sem channel-brief → o job é convertido em job de fundação de canal (brief-strategist escreve o channel-brief antes de qualquer episódio).'
+
+      - id: research
+        owner_agent: research-scout
+        executor: worker
+        executor_notes: 'ETL de fontes e de canais concorrentes; a checagem de fonte primária é do owner_agent.'
+        handon:
+          from: intake
+          artifacts: ['{job}/00-intake/pauta.md', 'channel-brief.yaml']
+          contract: 'Pauta com tese e ângulo declarados'
+        handoff:
+          to: script
+          artifacts:
+            - '{job}/02-research/dossie-referencia.md'
+            - '{job}/02-research/fontes.json'
+            - '{job}/02-research/nao-copiar.md'
+          gate: checklists/gate-research.md
+        fallback: >
+          Fonte primária indisponível → o ângulo é trocado por outro coberto por fonte
+          disponível. Dark room vive de credibilidade acumulada; um episódio errado
+          derruba o canal inteiro.
+        nota: 'fontes.json é o insumo direto do claim-ledger — em dark-room a pesquisa É a matéria-prima do roteiro.'
+
+      - id: script
+        owner_agent: head-of-copy
+        executor: agent
+        handon:
+          from: research
+          artifacts: ['{job}/02-research/fontes.json', 'channel-brief.yaml']
+          contract: 'Fontes coletadas e verificadas'
+        handoff:
+          to: stills
+          artifacts:
+            - '{job}/05-script/roteiro.md'
+            - '{job}/05-script/claim-ledger.json'
+            - '{job}/05-script/mapa-broll.md'
+          gate: checklists/gate-script.md
+        fallback: 'Claim sem fonte em fontes.json → a frase sai do roteiro. Não há reescrita "suavizada" de claim sem fonte.'
+        nota: >
+          O mapa-broll.md faz o papel que a decupagem faria: liga cada bloco de locução
+          à imagem que o acompanha, com a antecipação de 0,5–1s que o código do gênero exige.
+          Este pipeline não convoca film-director — o mapa de b-roll é o substituto econômico.
+
+      - id: stills
+        owner_agent: image-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: script
+          artifacts: ['{job}/05-script/mapa-broll.md', 'channel-brief.yaml']
+          contract: 'Mapa de b-roll com uma cena descrita por bloco de locução'
+        handoff:
+          to: takes
+          artifacts: ['{job}/11-stills/_direction/', '{job}/_cards/', '{job}/11-stills/entregues/']
+          gate: checklists/gate-stills.md
+        fallback: 'Cena genérica demais para gerar bem → acervo tratado (foto/vídeo real) com atribuição registrada. Em dark-room o b-roll é apoio, não protagonista: acervo coerente vence geração ruim.'
+        nota: 'A thumbnail do episódio é sub-rotina P6 embutida — ver genre-catalog.yaml § image-lab.contrato_de_subrotina.'
+
+      - id: takes
+        owner_agent: motion-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: stills
+          artifacts: ['{job}/11-stills/entregues/', '{job}/05-script/mapa-broll.md']
+          contract: 'Stills entregues e aprovados'
+        handoff:
+          to: audio
+          artifacts: ['{job}/12-takes/_direction/', '{job}/_cards/', '{job}/12-takes/entregues/']
+          gate: checklists/gate-takes.md
+        fallback: 'I2V indisponível ou fraco → movimento de câmera sobre still. É o baseline aceito do gênero, não uma degradação.'
+
+      - id: audio
+        owner_agent: sound-designer
+        executor: human
+        handon:
+          from: takes
+          artifacts: ['{job}/05-script/roteiro.md', 'channel-brief.yaml']
+          contract: 'Roteiro final + voz definida no channel-brief'
+        handoff:
+          to: assembly
+          artifacts: ['{job}/13-audio/sound-spec.yaml', '{job}/13-audio/_direction/', '{job}/13-audio/entregues/']
+          gate: checklists/gate-audio.md
+        fallback: 'Sem VO o episódio NÃO existe. Este é o único pipeline em que a ausência de voz bloqueia — a voz é a assinatura do canal sem rosto.'
+        nota: 'A voz é o ativo do canal. Trocar a voz entre episódios reseta o reconhecimento do público — o channel-brief trava a escolha.'
+
+      - id: assembly
+        owner_agent: editor
+        executor: worker
+        executor_notes: 'App próprio: autolegenda por palavra (o formato exige). AE: cartelas e destaque de palavra-chave. Premiere: corte, mix e master.'
+        handon:
+          from: audio
+          artifacts: ['{job}/12-takes/entregues/', '{job}/13-audio/entregues/', '{job}/05-script/mapa-broll.md']
+          contract: 'Takes e VO entregues'
+        handoff:
+          to: factcheck
+          artifacts:
+            - '{job}/14-assembly/autolegenda/'
+            - '{job}/14-assembly/ae-comp-spec.md'
+            - '{job}/14-assembly/premiere-cut-spec.md'
+            - '{job}/14-assembly/master/'
+          gate: checklists/gate-assembly.md
+        fallback: 'B-roll insuficiente para cobrir a locução → editor estende plano com movimento lento, até o teto de ~4s por plano do código do gênero. Acima disso, volta para takes.'
+
+      - id: factcheck
+        owner_agent: fact-checker
+        executor: agent
+        blocking: true
+        handon:
+          from: assembly
+          artifacts: ['{job}/14-assembly/master/', '{job}/05-script/claim-ledger.json', '{job}/02-research/fontes.json']
+          contract: 'Episódio montado + ledger + fontes'
+        handoff:
+          to: gate
+          artifacts: ['{job}/15-gate/factcheck-report.md']
+          gate: checklists/gate-factcheck.md
+        fallback: 'NÃO EXISTE. Em dark-room este é o gate mais caro e o mais importante: informação errada com voz confiante é o pior produto possível.'
+
+      - id: gate
+        owner_agent: qa-critic
+        executor: agent
+        handon:
+          from: factcheck
+          artifacts: ['{job}/14-assembly/master/', '{job}/15-gate/factcheck-report.md']
+          contract: 'factcheck PASS'
+        handoff:
+          to: delivery
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          gate: checklists/gate-dark-room.md
+        fallback: 'FAIL de retenção (plano longo, hook fraco) → volta para assembly. FAIL de fato → volta para research.'
+
+      - id: delivery
+        owner_agent: exec-producer
+        executor: agent
+        handon:
+          from: gate
+          artifacts: ['{job}/15-gate/gate-verdict.md', 'thumbnail da sub-rotina P6']
+          contract: 'Veredito PASS + thumbnail entregue'
+        handoff:
+          to: null
+          artifacts: ['{job}/16-delivery/entrega/', '{job}/16-delivery/publishing-kit.md']
+          gate: checklists/gate-delivery.md
+        fallback: 'Sem thumbnail o episódio não é publicado no YouTube — o exec-producer segura a entrega e escala. No YouTube a thumb é metade do produto.'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # P6 — IMAGE LAB
+  # Vende sozinho e serve os outros 5 como sub-rotina. Sem editor, sem
+  # motion-lead, sem sound-designer: não há timeline aqui.
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: P6
+    genero: image-lab
+    nome: 'Image Lab — imagem pura'
+    formato_master: 'definido no brief (1:1 · 4:5 · 9:16 · 16:9)'
+    modo_embutido:
+      quando: 'chamado de dentro de P1–P5'
+      pula_estagios: [intake, brief, research]
+      herda: 'brief.yaml e art-spec.yaml do job pai'
+      grava_em: '{job-pai}/11-stills/subrotina-{asset}/'
+    stages:
+
+      - id: intake
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: brief
+          artifacts: ['pedido do cliente ou chamada de sub-rotina de outro pipeline']
+          contract: 'Asset, formato e destino declarados'
+        handoff:
+          to: brief
+          artifacts: ['{job}/00-intake/pedido.md', '{job}/job.json']
+          gate: checklists/gate-intake.md
+        fallback: 'Pedido sem destino (onde a imagem vai viver) → devolve. O canal define composição, safe area e leitura; sem ele não há critério.'
+
+      - id: brief
+        owner_agent: brief-strategist
+        executor: agent
+        handon:
+          from: intake
+          artifacts: ['{job}/00-intake/pedido.md', 'brand-identity/brand-config do cliente']
+          contract: 'Destino e formato definidos'
+        handoff:
+          to: research
+          artifacts: ['{job}/01-brief/brief.yaml', '{job}/01-brief/brand-lock.yaml']
+          gate: checklists/gate-brief.md
+        fallback: 'Cliente sem brand-config → extrai paleta e tipografia do material existente (site, perfil) e marca como provisório.'
+
+      - id: research
+        owner_agent: research-scout
+        executor: worker
+        executor_notes: 'Coleta de referência visual da categoria; a curadoria é do owner_agent.'
+        handon:
+          from: brief
+          artifacts: ['{job}/01-brief/brief.yaml']
+          contract: 'Categoria e concorrentes definidos'
+        handoff:
+          to: design
+          artifacts: ['{job}/02-research/moodboard/', '{job}/02-research/nao-copiar.md']
+          gate: checklists/gate-research.md
+        fallback: 'Sem referência de categoria → usa craft-references.yaml § image-lab e marca como não-verificada.'
+
+      - id: design
+        owner_agent: art-director
+        executor: agent
+        handon:
+          from: research
+          artifacts: ['{job}/02-research/moodboard/', '{job}/01-brief/brand-lock.yaml']
+          contract: 'Moodboard curado + brand-lock'
+        handoff:
+          to: character
+          artifacts: ['{job}/08-design/art-spec.yaml', '{job}/08-design/layout.md', '{job}/08-design/tipografia.md']
+          gate: checklists/gate-design.md
+        fallback: 'Texto não cabe no formato pedido → art-director corta o texto, não o corpo da fonte. Legibilidade no feed vence completude da mensagem.'
+
+      - id: character
+        owner_agent: character-lead
+        executor: agent
+        condicional: 'somente quando o asset tem pessoa/personagem recorrente (capa de episódio, creator, mascote)'
+        handon:
+          from: design
+          artifacts: ['{job}/08-design/art-spec.yaml', 'sheets existentes do personagem']
+          contract: 'Asset declara personagem recorrente no brief'
+        handoff:
+          to: stills
+          artifacts: ['{job}/09-character/character-bible.yaml', '{job}/09-character/sheets/']
+          gate: checklists/gate-character.md
+        fallback: 'Sem sheet prévio → cria o sheet como primeiro asset do job e usa-o como referência dos demais.'
+
+      - id: stills
+        owner_agent: image-lead
+        executor: human
+        regra_de_ouro: true
+        handon:
+          from: design
+          artifacts: ['{job}/08-design/art-spec.yaml', '{job}/08-design/layout.md', '{job}/09-character/sheets/ (se houver)']
+          contract: 'Art-spec fechado com layout, tipografia e paleta'
+        handoff:
+          to: factcheck
+          artifacts:
+            - '{job}/11-stills/_direction/'
+            - '{job}/_cards/'
+            - '{job}/11-stills/entregues/'
+            - '{job}/11-stills/finalizadas/'
+          gate: checklists/gate-stills.md
+        fallback: >
+          Rótulo/logo/texto ilegível na geração (falha estrutural de todo gerador) →
+          composição sobre foto real ou aplicação tipográfica em pós. O gerador entrega
+          cena; texto e marca entram depois, na composição.
+        nota: >
+          `finalizadas/` é o resultado após composição tipográfica e aplicação de marca,
+          o que pode usar o design_creative.py do virals-marketing-squad como ferramenta
+          de apoio do operador. `entregues/` é o cru devolvido pelo humano.
+
+      - id: factcheck
+        owner_agent: fact-checker
+        executor: agent
+        blocking: true
+        handon:
+          from: stills
+          artifacts: ['{job}/11-stills/finalizadas/', '{job}/01-brief/brand-lock.yaml']
+          contract: 'Assets finalizados'
+        handoff:
+          to: gate
+          artifacts: ['{job}/15-gate/factcheck-report.md']
+          gate: checklists/gate-factcheck.md
+        fallback: >
+          NÃO EXISTE. Em imagem o risco é direito de terceiro (rosto, marca, obra
+          reconhecível) e claim escrito na arte ("nº 1 do Brasil"). Ambos bloqueiam.
+
+      - id: gate
+        owner_agent: qa-critic
+        executor: agent
+        handon:
+          from: factcheck
+          artifacts: ['{job}/11-stills/finalizadas/', '{job}/15-gate/factcheck-report.md']
+          contract: 'factcheck PASS'
+        handoff:
+          to: delivery
+          artifacts: ['{job}/15-gate/gate-verdict.md']
+          gate: checklists/gate-image-lab.md
+        fallback: 'Asset reprovado sai do lote; o lote entrega o que passou.'
+
+      - id: delivery
+        owner_agent: studio-chief
+        executor: agent
+        handon:
+          from: gate
+          artifacts: ['{job}/15-gate/gate-verdict.md', '{job}/11-stills/finalizadas/']
+          contract: 'Veredito PASS/CONCERNS'
+        handoff:
+          to: null
+          artifacts: ['{job}/16-delivery/entrega/', '{job}/16-delivery/publishing-kit.md']
+          gate: checklists/gate-delivery.md
+        fallback: >
+          Em modo embutido não há delivery: o caminho do arquivo é devolvido ao job pai
+          e o job filho é encerrado sem entrega própria (evita cobrar duas vezes a
+          mesma peça).
+
+# ═════════════════════════════════════════════════════════════════════════════
+# MATRIZ DE COBERTURA — qual pipeline usa qual estágio
+# Serve de checklist para quem for escrever as tasks: uma task por par
+# (estágio × pipeline) marcado com x.
+# ═════════════════════════════════════════════════════════════════════════════
+cobertura:
+  legenda: 'x = presente · - = ausente · c = condicional'
+  matriz:
+    intake:    { P1: x, P2: x, P3: x, P4: x, P5: x, P6: x }
+    brief:     { P1: x, P2: x, P3: x, P4: x, P5: '-', P6: x }
+    research:  { P1: x, P2: x, P3: x, P4: '-', P5: x, P6: x }
+    concept:   { P1: x, P2: '-', P3: x, P4: x, P5: '-', P6: '-' }
+    story:     { P1: '-', P2: '-', P3: x, P4: '-', P5: '-', P6: '-' }
+    script:    { P1: x, P2: x, P3: x, P4: x, P5: x, P6: '-' }
+    decupagem: { P1: x, P2: '-', P3: x, P4: x, P5: '-', P6: '-' }
+    look:      { P1: x, P2: '-', P3: '-', P4: x, P5: '-', P6: '-' }
+    design:    { P1: x, P2: '-', P3: x, P4: '-', P5: '-', P6: x }
+    character: { P1: '-', P2: x, P3: x, P4: '-', P5: '-', P6: c }
+    stills:    { P1: x, P2: x, P3: x, P4: x, P5: x, P6: x }
+    takes:     { P1: x, P2: x, P3: x, P4: x, P5: x, P6: '-' }
+    audio:     { P1: x, P2: x, P3: x, P4: x, P5: x, P6: '-' }
+    assembly:  { P1: x, P2: x, P3: x, P4: x, P5: x, P6: '-' }
+    factcheck: { P1: x, P2: x, P3: x, P4: x, P5: x, P6: x }
+    gate:      { P1: x, P2: x, P3: x, P4: x, P5: x, P6: x }
+    delivery:  { P1: x, P2: x, P3: x, P4: x, P5: x, P6: x }
+  observacoes:
+    - 'stills, factcheck, gate e delivery são os únicos estágios presentes nos 6 pipelines — são o núcleo comum do squad.'
+    - 'story só existe no P3; look só em P1 e P4; concept em P1, P3 e P4.'
+    - 'P6 é o único sem takes/audio/assembly: não há timeline em imagem pura.'

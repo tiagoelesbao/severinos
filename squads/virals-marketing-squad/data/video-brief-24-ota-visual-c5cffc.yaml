@@ -1,0 +1,313 @@
+schema_version: '1.0'
+generated_at: '2026-08-17T11:56:44'
+media_kind: video
+video_brief:
+  slug: video-24-ota-visual-c5cffc
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-15\benchmark\instagram\24-ota-visual-c5cffc
+source:
+  creator: '@ota.visual'
+  platform: instagram
+  url: https://www.instagram.com/ota.visual/reel/Db_SVuNOsZA/
+  type: video-short
+  caption: 'A wizard trying to live a normal life in 2026.
+
+
+    Made with AI.
+
+
+    ⚠️ Don’t try this at home.
+
+
+    #wizard #foundfootage #cinematic #maincharacterenergy #caughtoncamera'
+metadata:
+  view_count: null
+  like_count: 3365
+  comment_count: null
+  duration_seconds: 10
+  cut_timestamps:
+  - 1.83
+  - 4.1
+  - 6.37
+hook_raw: Eat the war, motherfucker
+transcript:
+- start: 1
+  end: 3
+  text: Eat the war, motherfucker
+- start: 3
+  end: 6
+  text: Tequila Sprite, nice, real right, sipping on
+- start: 6
+  end: 10
+  text: Hope you have a nice one
+frames:
+- file: Screenshots/frame_01_at_00-01_Eat_the_war__motherfucker_.jpg
+  timestamp: 00:01
+  t_seconds: 1
+- file: Screenshots/frame_02_at_00-03_Tequila_Sprite__nice__real_rig.jpg
+  timestamp: 00:03
+  t_seconds: 3
+- file: Screenshots/frame_03_at_00-06_Hope_you_have_a_nice_one_.jpg
+  timestamp: 00:06
+  t_seconds: 6
+beats:
+- n: 1
+  start: 1
+  end: 3
+  text: Eat the war, motherfucker
+  role: hook
+- n: 2
+  start: 3
+  end: 6
+  text: Tequila Sprite, nice, real right, sipping on
+  role: build
+- n: 3
+  start: 6
+  end: 10
+  text: Hope you have a nice one
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 3
+  frames: 3
+  beats: 3
+  video_gate_status: PASS
+visual_analysis:
+  frames:
+  - file: frame_01_at_00-01_Eat_the_war__motherfucker_.jpg
+    shot_type: broll
+    on_screen_text: AI Generated
+    has_captions: false
+  - file: frame_02_at_00-03_Tequila_Sprite__nice__real_rig.jpg
+    shot_type: broll
+    on_screen_text: AI Generated
+    has_captions: false
+  - file: frame_03_at_00-06_Hope_you_have_a_nice_one_.jpg
+    shot_type: broll
+    on_screen_text: AI Generated
+    has_captions: false
+  frames_sent: 3
+  shot_mix:
+    talking_head: 0.0
+    screen_capture: 0.0
+    broll: 1.0
+    graphic: 0.0
+  caption_style_seen: Nenhuma legenda visível nos frames fornecidos.
+  text_overlay_style: Apenas marca d'água 'AI Generated' no canto superior esquerdo,
+    sem outros textos sobrepostos com função narrativa ou de destaque.
+  visual_hook_device: A cena inicial surreal e caótica, com um personagem inusitado
+    (mago) em um ambiente comum (supermercado) com explosões, cria um impacto visual
+    imediato e inesperado.
+  broll_density: high
+  edit_style_notes: '1. Cortes rápidos e justapostos: Transições abruptas entre cenas
+    de alto contraste temático, mantendo o ritmo acelerado. 2. Personagem central
+    consistente em contextos absurdos: O mesmo ''mago'' é o fio condutor visual, mas
+    suas ações e cenários são imprevisíveis e surreais, gerando curiosidade. 3. Estética
+    ''lo-fi'' / granulada: O visual geral remete a filmagens antigas ou de baixa qualidade,
+    com granulação e cores levemente dessaturadas, o que adiciona um toque de autenticidade
+    ou ''found footage'' apesar da menção ''AI Generated''.'
+  palette:
+  - '#3366CC'
+  - '#1A1A1A'
+  analyzed_by: gemini-2.5-flash
+  analyzed_at: '2026-08-17T11:56:58'
+benchmark_analysis:
+  hook_type: pattern interrupt
+  pattern_interrupts:
+  - t: 0
+    device: visual surrealism/auditory aggression
+    text: Eat the war, motherfucker
+  - t: 3
+    device: thematic juxtaposition
+    text: Transition from chaos to lifestyle/drinking
+  cut_cadence:
+    avaliacao: Extremamente agressiva e eficiente; a média de 2.5s/segmento está ligeiramente
+      acima do ideal de 1.5-2s, mas compensada pelo alto impacto visual por frame.
+    meets_retention_checkpoint: true
+    source: scene-detect
+    shots: 4
+    segments: 4
+    duration_s: 10.0
+    avg_segment_s: 2.5
+  broll_strategy: Uso de b-roll surrealista de alta densidade para ilustrar o absurdo
+    da lírica, mantendo o personagem central como âncora cognitiva em cenários de
+    alto contraste.
+  caption_style: Dynamic kinetic typography com cores saturadas e efeitos de glitch
+    para acompanhar o ritmo frenético e o tom caótico.
+  pacing_curve:
+  - window: 00-03s
+    densidade: máxima/impacto
+  - window: 03-06s
+    densidade: alta/ritmo de build
+  - window: 06-10s
+    densidade: moderada/resolução
+  retention_devices:
+  - Visual Pattern Interrupt (Mago no supermercado)
+  - Auditory Shock (Keyword-rich hook)
+  - Visual Consistency (Personagem central fixo)
+  - Micro-surrealism escalation
+  recommendation: Modelar o arco de 'Choque -> Contextualização Absurda -> Desfecho
+    Irônico'. Manter o ritmo de cortes rápidos (sub-3s), mas para o cliente, substituir
+    o tema surreal por um tema de nicho, garantindo que o hook visual rompa o padrão
+    de scroll imediatamente.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-17T11:57:10'
+content_plan:
+  tema: Automação de fluxo de leads com agentes de IA
+  format_concept: tutorial
+  hook:
+    variants:
+    - pattern_interrupt: Corte seco entre código bruto e um dashboard de CRM populando
+        sozinho
+      text_overlay: Pare de caçar leads manualmente
+      spoken_open: Isso aqui não é mágica, é workflow.
+    - pattern_interrupt: Zoom rápido em um log de API rodando em velocidade acelerada
+      text_overlay: Agentes de IA trabalhando por você
+      spoken_open: Enquanto você dorme, o agente executa.
+    - pattern_interrupt: 'Tela dividida: lado esquerdo caos de abas abertas / lado
+        direito terminal limpo'
+      text_overlay: Escala real com IA aplicada
+      spoken_open: O fim do trabalho manual na aquisição.
+  storyboard:
+  - beat_n: 1
+    scene: Hook visual de alto contraste entre o caos manual e a automação
+    shot_type: insert
+    duration_s: 3
+    on_screen_text: Workflow de IA em execução
+    broll: Captura de tela de terminal/código rodando e transição para CRM recebendo
+      dados
+    motion: whip
+  - beat_n: 2
+    scene: Demonstração técnica do agente integrando dados
+    shot_type: insert
+    duration_s: 4
+    on_screen_text: 'Integração: API + Agente + CRM'
+    broll: Screen record de uma ferramenta de automação ou log de sistema
+    motion: zoom-in
+  - beat_n: 3
+    scene: Desfecho focado na eficiência do sistema rodando
+    shot_type: médio
+    duration_s: 3
+    on_screen_text: O sistema é a prova
+    broll: O especialista olhando para a tela com confiança (âncora cognitiva)
+    motion: cut
+  script: Isso aqui não é mágica, é workflow. Um agente de IA processando dados e
+    alimentando seu CRM em tempo real. Automação pura para escala de aquisição. O
+    sistema está rodando.
+  edit_spec:
+    zooms:
+    - No momento 'Isso aqui não é mágica'
+    - No fechamento 'O sistema está rodando'
+    transitions:
+    - whip @ 0s
+    - cut @ 3s
+    - cut @ 7s
+    inserts:
+    - log de código @ 1s
+    - dashboard de CRM @ 4s
+    captions: Dynamic kinetic typography, estilo técnico, cores sóbrias (azul/branco),
+      fonte sans-serif moderna
+    motion_graphics:
+    - setas de fluxo de dados @ 4s
+    - highlight de linha de código @ 2s
+    template_refs:
+      hook: hook-interface-reveal
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: Captura de tela do terminal ou ferramenta de automação
+    framing: insert
+    audio: ambiente
+    props: Software de automação/terminal
+    locacao: Digital
+    falas_chave: N/A
+  - plano: Especialista em frente ao setup
+    framing: médio
+    audio: fala
+    props: Monitor, setup clean
+    locacao: Escritório/Home Office
+    falas_chave: O sistema está rodando.
+  sound_design:
+    sfx:
+    - moment: hook @ 0s
+      category: impact
+      intent: romper o scroll com choque visual e sonoro
+      intensity: strong
+    - moment: beat_n:2 @ 3s
+      category: click
+      intent: enfatizar a precisão da automação/cliques de software
+      intensity: medium
+    - moment: reveal @ 7s
+      category: whoosh
+      intent: transição para o desfecho
+      intensity: medium
+    music:
+      recommended: true
+      mood: tech
+      energy: medium
+      genre: electronic ambient
+      ducking: true
+      rationale: Trilha rítmica e minimalista que reforça a sensação de produtividade
+        e tecnologia sem distrair da fala técnica.
+    rationale: O design sonoro utiliza impactos para o hook (como o benchmark) e sons
+      de interface (clicks) para validar a 'prova real' do sistema rodando.
+  rationale: O plano modela a estrutura 'Choque -> Contextualização -> Desfecho' do
+    benchmark. Substituímos o surrealismo do mago pelo 'surrealismo técnico' (código/automação
+    fluida), mantendo a densidade de cortes e o uso de b-roll para sustentar a retenção,
+    adaptando o léxico para o arquétipo de Sábio/Criador da Oraclum.
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-17T11:57:40'
+quality_gate_video:
+  status: PASS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures: []
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: true
+      blocking: false
+      detail:
+        avg_storyboard_s: 3.33
+        benchmark_meets: true
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: true
+      blocking: false
+      detail:
+        total: 2
+        incompletos: []
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-17T11:57:40'

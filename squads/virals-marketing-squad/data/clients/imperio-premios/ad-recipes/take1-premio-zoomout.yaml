@@ -1,0 +1,8 @@
+template: ImperioIgnicaoPunho
+take_file: take1_conformado.mov
+headline:
+  text: "ESSA PODE SER A SUA VITÓRIA."
+  highlight_word: "VITÓRIA."
+hook: imperio-hook-zoom-out
+angulo: premio
+nota: "Mesma copy de take1-premio-zoomin.yaml, variando só o eixo de câmera — prova de que hook e copy são eixos independentes na receita."

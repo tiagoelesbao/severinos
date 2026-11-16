@@ -1,0 +1,12 @@
+# ORACLUM TECH — Cofre de Recursos de IA
+# O site é uma SPA estática com roteamento por hash (#/recursos, #/recursos/{slug}).
+# Só existe uma URL indexável de verdade: a raiz. Os fragmentos não são páginas
+# separadas para nenhum buscador — ver public/sitemap.xml.
+
+User-agent: *
+Allow: /
+
+# /assets/ NÃO pode ser bloqueado: o Googlebot precisa do JS e do CSS para
+# renderizar a página. Sem eles, o índice fica com um <div id="root"> vazio.
+
+Sitemap: https://oraclumtech-cofre.vercel.app/sitemap.xml

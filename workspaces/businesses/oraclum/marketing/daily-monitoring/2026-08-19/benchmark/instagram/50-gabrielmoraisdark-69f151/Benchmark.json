@@ -1,0 +1,62 @@
+{
+  "rank": 50,
+  "creator": "@gabrielmoraisdark",
+  "url": "https://www.instagram.com/gabrielmoraisdark/reel/DcMQAo8pDEr/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by gabrielmorais.ia",
+  "description": "Para receber o passo a passo comenta EU QUERO e olha seu direct!",
+  "author": "Gabriel Morais",
+  "view_count": null,
+  "like_count": 107,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.71878-15/777982913_2294480141288058_3068121899144062228_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=104&ig_cache_key=Mzk2NjYxNTc4NDUxNzgwODQyNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=gql_J-jHopwQ7kNvwH-bGq1&_nc_oc=AdpnmyBix9Pm1xsLTgkk5Ck3LMWf4YYifnTCQUo4rG2rdC3du4hy9umQRbk4USMYkN3PI__uGJNJKeXO2VoI8Jb7&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=4s6s3NGZBC_ye_Ib5meChg&_nc_ss=7b689&oh=00_AQHMXAA57stabH1nF488TLlGknhBJAoAnD-OTRN5BCwCPA&oe=6A8BDEF6",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Como fazer esse vídeo"
+    },
+    {
+      "time": 7,
+      "label": "Salve esse vídeo que eu vou te"
+    },
+    {
+      "time": 14,
+      "label": "envia a imagem e coloca esse c"
+    },
+    {
+      "time": 20,
+      "label": "Seleciona o Omni Flash."
+    },
+    {
+      "time": 37,
+      "label": "E se você quer receber o passo"
+    }
+  ],
+  "cut_timestamps": [
+    0.87,
+    4.07,
+    9.47,
+    9.6,
+    10.47,
+    11.73,
+    12.2,
+    12.83,
+    16.57,
+    18.17,
+    18.93,
+    19.63,
+    25.9,
+    27.1,
+    30.87
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-19T19:49:53.262Z",
+  "item_status": "ok",
+  "status_reason": null
+}

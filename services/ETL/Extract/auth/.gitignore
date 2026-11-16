@@ -1,0 +1,8 @@
+# Credenciais de sessão — NUNCA versionar.
+*_session.json
+cookies.txt
+*_cookies.txt
+.instagram_bridged_cookies.txt
+
+# Perfil persistente do Chrome usado no ig-login (pesado e contém sessão).
+.ig-browser-profile/

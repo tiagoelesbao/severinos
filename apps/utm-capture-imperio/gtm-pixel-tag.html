@@ -1,0 +1,39 @@
+<!--
+  Tag "Custom HTML" pro container Web GTM-58RGNFCK (site da plataforma —
+  era imperiopremioss.com, trocou pra rapidinhas24hr.com em 2026-10-22,
+  conferir se o container precisa de ajuste de trigger por host).
+  Nome sugerido: "Meta Pixel (via GTM)"
+  Trigger: "All Pages"
+
+  Base code oficial do Meta Pixel (mesmo Pixel ID já usado pela plataforma:
+  2276849516022676) — reimplementado dentro do GTM pra tirarmos a
+  dependência do Pixel nativo da plataforma (passo 1 do plano de migração
+  completa, ver gates-status.yaml). Depois de validado em paralelo com o
+  Pixel nativo deles (Events Manager > Test Events), o campo "Facebook
+  Pixel ID" do painel da plataforma pode ser limpo, e este vira o único
+  Pixel client-side do site.
+
+  IMPORTANTE — Tag Sequencing: a tag "HTML personalizado" (captura de
+  fbp/fbc/UTM, apps/utm-capture-imperio) precisa dessa tag rodando ANTES
+  dela, senão lê o cookie _fbp/_fbc antes de existir. Configurar em
+  Advanced Settings > Tag Sequencing > "Fire a tag before this one" na
+  tag de captura, apontando pra esta aqui — não dá pra fazer isso pelo
+  conteúdo da tag, é configuração manual no GTM.
+-->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2276849516022676');
+fbq('track', 'PageView');
+</script>
+<noscript>
+<img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2276849516022676&ev=PageView&noscript=1"
+/>
+</noscript>

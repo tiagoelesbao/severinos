@@ -1,0 +1,38 @@
+# ═══════════════════════════════════════════════════════════════════════
+# AVI-l05-bisao-40s · placa de não chegue perto do bisão
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: AVI-l05-bisao-40s
+  canal: placas-de-aviso
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  consultas:
+    - {q: "national park meadow road", etiqueta: "cenario-estrada", n: 3, exige: [park, meadow, road, field], ancora: "Se voce ver essa placa na entrada de um parque nacional, nao e decoracao."}
+    - {q: "bison grazing field", etiqueta: "reativo", n: 3, exige: [bison, buffalo], ancora: "Bro, essa placa mostra gente sendo jogada pro alto?"}
+    - {q: "bison herd walking", etiqueta: "fofo", n: 2, exige: [bison, buffalo], ancora: "Eu te conto, mas antes: se voce gosta de bicho, me segue aqui."}
+    - {q: "banco:inserts-emocionais", etiqueta: "dependente", n: 1, exige: [banco], continuo: true, ancora: "E olha so esse aqui. E exatamente o que essa placa tenta evitar: bicho que perde o medo de gente e paga por isso."}
+    - {q: "open plains grass wind", etiqueta: "payoff", n: 2, exige: [plain, grass, field, meadow], ancora: "A placa e real e esta em Yellowstone, com o desenho de um bisao jogando uma pessoa para o alto."}
+
+  # A placa e a assinatura do canal: entra nos primeiros segundos e VOLTA antes
+  # do payoff. A seta aponta PARA ela (angulo positivo, ver placa_aviso.py).
+  camadas:
+    - {tipo: placa, pict: pessoa-bracos, larg: 0.60, pos: meio, dur: 4.2,
+       ancora: "Se voce ver essa placa na entrada de um parque nacional, nao e decoracao."}
+    # a seta sobe para 880: em 1010 ela encostava na legenda (centrada em 1114)
+    # e as duas brigavam pelo mesmo pedaco de quadro
+    - {tipo: seta, larg: 0.30, ang: 34, pos: 880, x: 0.08, dur: 3.4,
+       atraso: 0.6, ancora: "Se voce ver essa placa na entrada de um parque nacional, nao e decoracao."}
+    - {tipo: emoji, glifo: "⁉️", px: 230, pos: topo, dur: 2.0,
+       ancora: "Bro, essa placa mostra gente sendo jogada pro alto?"}
+    - {tipo: gesto, gesto: seguir, px: 260, pos: baixo, dur: 2.8,
+       ancora: "Eu te conto, mas antes: se voce gosta de bicho, me segue aqui."}
+    - {tipo: emoji, glifo: "😢", px: 200, pos: topo, dur: 2.2,
+       ancora: "Ninguem avisou ele. A placa e para a gente."}
+    - {tipo: emoji, glifo: "❤️❤️❤️", px: 150,
+       pos: acima-legenda, dur: 2.6, ancora: "Se voce acha isso triste, deixa um coracao nos comentarios."}
+    - {tipo: gesto, gesto: comentar, px: 250, pos: baixo, dur: 2.6,
+       atraso: 0.5, ancora: "Se voce acha isso triste, deixa um coracao nos comentarios."}
+    - {tipo: placa, pict: pessoa-bracos, larg: 0.46, pos: meio, dur: 2.4,
+       ancora: "A placa e real e esta em Yellowstone, com o desenho de um bisao jogando uma pessoa para o alto."}

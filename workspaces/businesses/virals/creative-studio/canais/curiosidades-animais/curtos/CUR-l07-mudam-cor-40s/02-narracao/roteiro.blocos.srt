@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:02,222
+Animais que mudam de cor.
+
+2
+00:00:02,422 --> 00:00:04,199
+Número quatro: o camaleão.
+
+3
+00:00:04,399 --> 00:00:13,287
+Ele não muda de cor para se esconder, como muita gente pensa. Muda para regular temperatura e para se comunicar.
+
+4
+00:00:13,487 --> 00:00:15,264
+Número três: o linguado.
+
+5
+00:00:15,464 --> 00:00:24,352
+Ele copia o fundo em segundos, inclusive padrões de xadrez em teste de laboratório. E enterra as bordas na areia.
+
+6
+00:00:24,552 --> 00:00:26,329
+Número dois: a lebre-do-ártico.
+
+7
+00:00:26,529 --> 00:00:35,862
+No verão ela é marrom e no inverno fica branca. A troca é disparada pela duração do dia, não pela neve.
+
+8
+00:00:36,062 --> 00:00:37,839
+Número um: o polvo.
+
+9
+00:00:38,039 --> 00:00:46,927
+Ele muda cor e textura da pele ao mesmo tempo, em menos de um segundo. E faz isso sendo daltônico.
+
+10
+00:00:47,127 --> 00:00:51,127
+Comenta aí qual troca de cor te impressiona mais.

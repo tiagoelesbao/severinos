@@ -1,0 +1,439 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T17:54:09'
+archetype: news
+carousel_brief:
+  slug: v5-precision-11-peter-visuals-08fcc6
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\11-peter-visuals-08fcc6
+  source_url: https://www.instagram.com/peter.visuals/p/Db3NARMD1f1/
+  tema: 'Modelagem de precisão: 11-peter-visuals-08fcc6'
+  slide_count: 6
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A1A1AA'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#A855F7'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A1A1AA'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 6
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 8.0/10 · **Classificação:** Excelente 🟢 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a promessa de ''viralização/alcance'' por ''ganho de eficiência e produtividade
+    operacional'' para ressonar com o público de founders e profissionais de tecnologia.
+    - Substituir o ângulo de ''hack de crescimento de rede social'' por ''metodo'
+  audits_present: true
+benchmark_caption: How to force Instagram to show your reels to non followers.
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: How to Force Instagram
+  reference_body: to Show Your Reels to Non-Followers. Who viewed your post Followers
+    8.1% Non-followers 91.9%
+  headline: COMO ALCANÇAR 91.9% DE NÃO-SEGUIDORES COM UM ÚNICO REEL
+  sub_headline: O RESULTADO
+  body_text: Pare de falar apenas para quem já te segue. Use o Trial Reels para focar
+    seu alcance em novos públicos de forma estratégica.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 55
+    body_chars: 124
+    headline_tier: sm
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person looking at smartphone screen
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline focada no benefício de alcançar pessoas que não seguem o
+      perfil. Usar o dado real do benchmark: 91.9% de não-seguidores vs 8.1% de seguidores.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T17:55:07'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Instagram's CEO
+  reference_body: 'Adam Mosseri literally said this: Trial Reels are the best way
+    to reach people who don''t follow you.'
+  headline: A ESTRATÉGIA DE DESCOBERTA RECOMENDADA PELO INSTAGRAM
+  sub_headline: A FONTE
+  body_text: O uso de Trial Reels é apontado como a melhor via para atingir pessoas
+    que ainda não conhecem seu perfil. É o workflow ideal para escala de audiência.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 53
+    body_chars: 150
+    headline_tier: md
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: smartphone closeup studio
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: 'Validar a estratégia citando a recomendação do CEO do Instagram: Trial
+      Reels como a melhor via para atingir novos públicos.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T17:55:07'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: 'Here’s how it works:'
+  reference_body: First, post the Reel as a Trial Reel Your Reel gets shown ONLY to
+    non-followers for 24 hours New reel Hashtags Poll Prompt Tag people Add location
+    Cape Town, Western Cape Melkbosstrand London Rename audio Original audio Add AI
+    label We require you to label certain realistic content that's made with AI. Learn
+    more Audience Trial In feed and Reels, your reel will only be shown to non-followers
+    at first and won't appear on your profile. If it performs well, you can also choose
+    to automatically share it to everyone in trial settings. Post to itsmekirsti Threads
+    · Public Kirsti Lang Save draft Share
+  headline: O WORKFLOW PRÁTICO DO TRIAL REELS
+  sub_headline: O WORKFLOW
+  body_text: Poste seu conteúdo como Trial Reel. Durante as primeiras 24 horas, o
+    algoritmo exibe o vídeo exclusivamente para não-seguidores.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 33
+    body_chars: 128
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hands using smartphone
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Passo a passo prático: postar como Trial Reel para que o conteúdo
+      seja exibido apenas para não-seguidores durante as primeiras 24 horas.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T17:55:07'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Your current followers won't see it in their feed or on your
+    profile
+  reference_body: Instagram tests it with complete strangers After 24 hours, you see
+    how it performed with new audiences If it crushed → you can share it with your
+    followers If it flopped → nobody you know ever saw it
+  headline: O MECANISMO DE TESTE ISOLADO
+  sub_headline: O MECANISMO
+  body_text: Seus seguidores atuais não verão o vídeo no feed ou no perfil durante
+    o teste. O Instagram valida o conteúdo com estranhos primeiro.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 28
+    body_chars: 132
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person filming video phone
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  personalization:
+    status: DONE
+    directive: Explicar que o post não aparece no feed nem no perfil para os seguidores
+      atuais. O Instagram testa o conteúdo com estranhos primeiro.
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T17:55:07'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Your current followers won't see it in their feed or on your
+    profile / Why Trial Reels Are Game-Changing
+  reference_body: Instagram tests it with complete strangers After 24 hours, you see
+    how it performed with new audiences If it crushed → you can share it with your
+    followers If it flopped → nobody you know ever saw it Trial Reels force Instagram
+    into pure discovery mode. You get a clean test on strangers before deciding if
+    your content deserves your audience. That’s how smart creators test ideas without
+    killing reach or trust.
+  headline: A LÓGICA DE VALIDAÇÃO POR DADOS
+  sub_headline: A LÓGICA
+  body_text: Após 24 horas, analise a performance. Se o vídeo performou bem com novos
+    públicos, compartilhe com seus seguidores. Se flopou, o erro ficou restrito ao
+    teste.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 31
+    body_chars: 158
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person analyzing data laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  - 5
+  personalization:
+    status: DONE
+    directive: 'A decisão baseada em dados após 24h: se o vídeo performou bem, compartilha
+      com seguidores; se flopou, ninguém do círculo próximo viu.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T17:55:07'
+- slide_n: 6
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_05.jpg
+  reference_headline: Why Trial Reels Are Game-Changing / comment
+  reference_body: Trial Reels force Instagram into pure discovery mode. You get a
+    clean test on strangers before deciding if your content deserves your audience.
+    That’s how smart creators test ideas without killing reach or trust. “Attention”
+    I’ll send you 2000+ handpicked viral hooks to your DMs.
+  headline: TRANSFORME CRIAÇÃO EM UM PROCESSO DE ESCALA
+  sub_headline: REFLEXÃO
+  body_text: Remova o medo do erro validando ideias com estranhos antes da distribuição
+    total. Comente “Attention” e eu envio 2000+ hooks virais para o seu DM.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 43
+    body_chars: 146
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: creator working desk
+  accent_color: '#A855F7'
+  source_slides:
+  - 5
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Takeaway final: tratar a criação de conteúdo como um processo de escala
+      e teste, removendo o medo do erro ao validar ideias com estranhos antes da distribuição
+      total.'
+    recast_model: openrouter:google/gemma-4-26b-a4b-it:free
+    recast_at: '2026-08-12T17:55:07'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/6
+  bodies_extracted: 6/6
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: Utilização da função 'Trial Reels' do Instagram para validar conteúdo
+    com públicos novos antes da distribuição para seguidores.
+  formato: Tutorial de Feature/Hack Técnico
+  arco_narrativo: Promessa de resultado (alcance) -> Validação de autoridade (CEO)
+    -> Explicação do mecanismo -> Benefício psicológico/estratégico (segurança contra
+    fracasso) -> CTA de recompensa.
+  estrutura:
+  - slide_n: 1
+    papel: Hook visual e promessa baseada em dados (prova social)
+    essencial: true
+  - slide_n: 2
+    papel: Ancoragem de autoridade para eliminar objeções
+    essencial: true
+  - slide_n: 3
+    papel: Passo a passo técnico da execução
+    essencial: true
+  - slide_n: 4
+    papel: Explicação da lógica de teste e mitigação de risco
+    essencial: true
+  - slide_n: 5
+    papel: Reforço do valor estratégico e mentalidade de teste
+    essencial: false
+  - slide_n: 6
+    papel: Conversão via lead magnet (gancho de engajamento)
+    essencial: true
+  redundancias:
+  - 'Slide 5: O conceito de ''teste'' e ''descoberta'' já foi amplamente explicado
+    no Slide 4; a função de ''game-changing'' é redundante se o fluxo técnico estiver
+    claro.'
+  fatores_de_performance:
+  - Contraste forte entre seguidores (8.1%) e não-seguidores (91.9%) logo no início
+  - Uso de autoridade máxima (CEO do Instagram) para validar o método
+  - 'Apelo ao medo/ego: a ideia de que ''ninguém que você conhece verá se o post flopar'''
+  - CTA de alto valor percebido (2000+ hooks) trocado por uma palavra simples nos
+    comentários
+  recomendacao:
+    slides_ideais: 5
+    justificativa: A fusão do Slide 4 e 5 otimiza a retenção, mantendo a explicação
+      lógica e o benefício estratégico em um único bloco, acelerando a chegada ao
+      CTA final.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T17:54:26'
+content_plan:
+  archetype: news
+  slide_count: 6
+  tema: Utilização da função Trial Reels do Instagram para validação de conteúdo e
+    alcance de não-seguidores
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: O RESULTADO
+    copy_direction: 'Headline focada no benefício de alcançar pessoas que não seguem
+      o perfil. Usar o dado real do benchmark: 91.9% de não-seguidores vs 8.1% de
+      seguidores.'
+    image_direction: Print real de métricas do Instagram destacando a porcentagem
+      de não-seguidores em evidência.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: A FONTE
+    copy_direction: 'Validar a estratégia citando a recomendação do CEO do Instagram:
+      Trial Reels como a melhor via para atingir novos públicos.'
+    image_direction: Foto do CEO do Instagram (Adam Mosseri) com a frase principal
+      em destaque como um quote.
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: O WORKFLOW
+    copy_direction: 'Passo a passo prático: postar como Trial Reel para que o conteúdo
+      seja exibido apenas para não-seguidores durante as primeiras 24 horas.'
+    image_direction: Tutorial visual/prints da interface do Instagram mostrando a
+      opção de Trial Reel selecionada.
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: O MECANISMO
+    copy_direction: Explicar que o post não aparece no feed nem no perfil para os
+      seguidores atuais. O Instagram testa o conteúdo com estranhos primeiro.
+    image_direction: 'Diagrama simples mostrando o fluxo: Post -> Não-seguidores ->
+      Teste de performance.'
+    source_slides:
+    - 4
+  - slide_n: 5
+    role: INSIGHT
+    kicker: A LÓGICA
+    copy_direction: 'A decisão baseada em dados após 24h: se o vídeo performou bem,
+      compartilha com seguidores; se flopou, ninguém do círculo próximo viu.'
+    image_direction: Comparativo visual 'Se performou' (seta para cima/share) vs 'Se
+      flopou' (seta para baixo/invisível).
+    source_slides:
+    - 4
+    - 5
+  - slide_n: 6
+    role: PAYOFF
+    kicker: REFLEXÃO
+    copy_direction: 'Takeaway final: tratar a criação de conteúdo como um processo
+      de escala e teste, removendo o medo do erro ao validar ideias com estranhos
+      antes da distribuição total.'
+    image_direction: Elemento gráfico limpo, tipografia forte, convidando à reflexão
+      sobre a mentalidade de teste no Instagram.
+    source_slides:
+    - 5
+    - 6
+  rationale: O plano segue rigorosamente a estrutura de 6 slides solicitada no arco
+    narrativo, transformando o tutorial técnico do benchmark em uma jornada de descoberta.
+    O hook foca na dor do baixo alcance (problem_aware) usando dados reais. A redundância
+    do benchmark foi eliminada ao fundir a lógica de teste e o benefício estratégico
+    nos slides 4 e 5. A voz do Sábio/Criador foi aplicada através de termos como 'workflow',
+    'escala' e 'validação', evitando promessas mágicas e focando na eficiência do
+    mecanismo. O CTA foi convertido de um lead magnet para um call-to-think, conforme
+    a preferência de estilo.
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-12T17:54:54'
+central_theme: Utilização da função Trial Reels do Instagram para validação de conteúdo
+  e alcance de não-seguidores
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:google/gemma-4-26b-a4b-it:free
+  recast_at: '2026-08-12T17:55:07'
+  slides: 6
+  central_theme: Utilização da função Trial Reels do Instagram para validação de conteúdo
+    e alcance de não-seguidores
+  slides_missing: []

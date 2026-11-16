@@ -1,0 +1,158 @@
+workflow:
+  name: start-hunt-from-briefing
+  version: 1.0.0
+  description: >
+    Workflow completo da Fase 0: recebe um briefing livre do cliente
+    e gera todos os artefatos necessários para iniciar a Fase 1 (Identificação).
+    É o "botão de start" do pipeline de hunting.
+  squad: virals-creators-hunting-squad
+  trigger: "Manual — quando o @hunter-chief recebe um novo briefing de cliente"
+  pop_reference: docs/03-Operations/POPs/pop-hunter-creators
+
+  # ────────────────────────────────────────────────────────
+  # PRÉ-REQUISITOS
+  # ────────────────────────────────────────────────────────
+  prerequisites:
+    - description: "Briefing do cliente salvo em data/icp-briefings/"
+      format: "Markdown (.md)"
+      example: "data/icp-briefings/ICP-C_Juvelina_Organics.md"
+    - description: "js-yaml instalado (npm install js-yaml)"
+
+  # ────────────────────────────────────────────────────────
+  # STEPS
+  # ────────────────────────────────────────────────────────
+  steps:
+    - id: step-0-receive
+      name: "Receber briefing do cliente"
+      type: human
+      executor: "@hunter-chief (Joe) ou equipe comercial"
+      description: >
+        Receber o briefing do cliente por e-mail, WhatsApp, Google Drive, etc.
+        Salvar como Markdown em data/icp-briefings/{NomeDaMarca}.md.
+        O formato é livre — o cliente pode enviar como quiser.
+      output: "data/icp-briefings/{NomeDaMarca}.md"
+      validation:
+        - "Arquivo existe e tem conteúdo legível"
+        - "Contém minimamente: nome da marca, nicho, produto"
+
+    - id: step-1-dry-run
+      name: "Dry run — validar parsing"
+      type: worker
+      executor: "@hunter-chief (Joe)"
+      script: scripts/briefing-to-icp.js
+      args: "--briefing ./data/icp-briefings/{NomeDaMarca}.md --dry-run"
+      description: >
+        Execução seca para validar que o parser consegue extrair os dados
+        sem gerar arquivos. Verifica: marca identificada, nichos matched,
+        hashtags encontradas.
+      validation:
+        - "Brand name extraído corretamente"
+        - "Pelo menos 1 nicho matched ao catálogo"
+        - "Pelo menos 3 hashtags identificadas"
+
+    - id: step-2-transform
+      name: "Transformar briefing → ICP-C + Criteria"
+      type: worker
+      executor: "@hunter-chief (Joe)"
+      script: scripts/briefing-to-icp.js
+      args: "--briefing ./data/icp-briefings/{NomeDaMarca}.md"
+      description: >
+        Execução real. Gera os 3 artefatos:
+        1. ICP-C Structured (data/icp-structured/icp-c-{slug}-{date}.md)
+        2. Search Criteria JSON (data/search-criteria-{slug}-{date}.json)
+        3. Readiness Report (data/readiness-reports/readiness-{slug}-{date}.md)
+      output:
+        - "data/icp-structured/icp-c-{slug}-{date}.md"
+        - "data/search-criteria-{slug}-{date}.json"
+        - "data/readiness-reports/readiness-{slug}-{date}.md"
+      depends_on: [step-1-dry-run]
+
+    - id: step-3-review-readiness
+      name: "Revisar readiness report"
+      type: human
+      executor: "@hunter-chief (Joe)"
+      description: >
+        Abrir o readiness report gerado e verificar:
+        - Pass rate ≥ 75%? Se sim, prosseguir.
+        - Items faltantes? Completar manualmente no ICP-C structured.
+        - Creators de referência? Adicionar se souber (senão, preenche na Fase 1).
+        - Concorrentes? Adicionar para monitoramento na Ads Library.
+      input: "data/readiness-reports/readiness-{slug}-{date}.md"
+      gate:
+        pass: "≥ 75% — prosseguir para step-4"
+        fail: "< 75% — voltar ao cliente ou completar manualmente"
+
+    - id: step-4-enrich-manual
+      name: "Enriquecimento manual (se necessário)"
+      type: human
+      executor: "@hunter-chief (Joe)"
+      description: >
+        Complementar o ICP-C structured com informações que o parser
+        não conseguiu extrair automaticamente:
+        - Creators de referência (handles de creators similares)
+        - Marcas concorrentes (para monitoramento no Ads Library)
+        - Ajustar follower range se necessário
+        - Revisar hashtags e adicionar específicas do produto
+      input: "data/icp-structured/icp-c-{slug}-{date}.md"
+      optional: true
+
+    - id: step-5-validate-criteria
+      name: "Validar search criteria JSON"
+      type: human
+      executor: "@hunter-chief (Joe)"
+      description: >
+        Abrir o search criteria JSON e validar:
+        - Hashtags fazem sentido para o nicho?
+        - Demographics corretos?
+        - Follower range adequado?
+        - Red flags incluem concorrentes do cliente?
+        Ajustar se necessário (editar JSON diretamente).
+      input: "data/search-criteria-{slug}-{date}.json"
+
+    - id: step-6-activate-hunt
+      name: "Ativar hunting (bridge para Fase 1)"
+      type: worker
+      executor: "@hunter-scout (Mae)"
+      description: >
+        Com o search criteria validado, iniciar a Fase 1 automaticamente
+        rodando o pipeline-miner.js para gerar o Dossier.
+      script: scripts/pipeline-miner.js
+      args: "{slug}"
+      output: "data/miners/dossier-{slug}-{date}.md"
+      depends_on: [step-5-validate-criteria]
+
+  # ────────────────────────────────────────────────────────
+  # CHECKPOINT
+  # ────────────────────────────────────────────────────────
+  checkpoint:
+    criteria: >
+      Fase 0 completa quando:
+      1. ICP-C structured gerado e revisado
+      2. Search Criteria JSON validado
+      3. Readiness ≥ 75%
+      4. Hunt-creators.js executado com resultado (bridge para Fase 1)
+    fail_action: "Retornar ao cliente para completar briefing"
+
+  # ────────────────────────────────────────────────────────
+  # RESUMO DE USO
+  # ────────────────────────────────────────────────────────
+  usage_example: |
+    # 1. Salvar briefing do cliente
+    # (copiar para data/icp-briefings/)
+
+    # 2. Listar briefings disponíveis
+    node scripts/briefing-to-icp.js --list
+
+    # 3. Dry run
+    node scripts/briefing-to-icp.js --briefing ./data/icp-briefings/ICP-C_Juvelina_Organics.md --dry-run
+
+    # 4. Executar transformação
+    node scripts/briefing-to-icp.js --briefing ./data/icp-briefings/ICP-C_Juvelina_Organics.md
+
+    # 5. Revisar outputs em:
+    #    data/icp-structured/
+    #    data/search-criteria-*.json
+    #    data/readiness-reports/
+
+    # 6. Iniciar hunting avançado (Fase 1 completa)
+    node scripts/pipeline-miner.js juvelina-organics

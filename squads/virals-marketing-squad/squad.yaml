@@ -1,8 +1,8 @@
 squad:
   name: virals-marketing-squad
-  version: 1.0.0
+  version: 1.2.0
   short-title: Virals Marketing Squad
-  description: Squad de marketing responsável por conteúdo viral, copy de alta conversão, SEO e gestão dual de tráfego pago (direct response + brand/funil) da Virals.
+  description: Squad de marketing responsável por conteúdo viral, copy de alta conversão, SEO e gestão dual de tráfego pago (direct response + brand/funil) da Virals. Inclui pipeline de benchmark de criativos com ETL integrado.
   author: Virals
   icon: 🎯
   entry_agent: marketing-chief
@@ -24,13 +24,22 @@ agents:
     file: agents/perry-marshall.md
   - id: ezra-firestone
     file: agents/ezra-firestone.md
+  - id: casey-neistat-img
+    file: agents/casey-neistat-img.md
+  - id: sam-kolder-vid
+    file: agents/sam-kolder-vid.md
 workspace_integration:
   level: read_write
-  rationale: Reads marketing context from workspace and writes marketing artifacts back
+  rationale: Reads marketing context from workspace and writes marketing artifacts back. Cobre as duas empresas do fundador (Virals e Oraclum) — dados de monitoramento já existem em paralelo para as duas em workspace/businesses/{virals,oraclum}/marketing/.
   read_paths:
     - workspace/businesses/virals/marketing/
+    - workspace/businesses/oraclum/marketing/
+    - services/ETL/outputs/
+    - .aiox/handoffs/
   write_paths:
     - workspace/businesses/virals/marketing/
+    - workspace/businesses/oraclum/marketing/
+    - services/ETL/outputs/
   template_namespace: marketing
 pattern_library:
   prefix: VM
@@ -68,23 +77,162 @@ executor_types:
     use_for:
       - Content generation
       - Initial analysis
+      - Benchmark audits
   hybrid:
     id: VM-EP-003
     use_for:
       - Campaign optimization
       - Copy review
+      - Benchmark synthesis
   worker:
     id: VM-EP-004
     use_for:
       - Report generation
       - Data sync
+      - ETL extraction
 workflow_config:
   checkpoint_policy: always_active
   fail_fast: true
   allow_manual_override: false
+benchmark_pipeline:
+  service: services/ETL/
+  tasks:
+    - tasks/analyze-benchmark.md
+    - tasks/benchmark-etl-extract.md
+    - tasks/benchmark-mrbeast-audit.md
+    - tasks/benchmark-garyvee-audit.md
+    - tasks/benchmark-ladeira-audit.md
+    - tasks/benchmark-modulation-blueprint.md
+  workflow: workflows/benchmark-creative-analysis.yaml
+  checklist: checklists/benchmark-analysis-checklist.md
+  template: templates/viral-deep-analysis-tmpl.md
+  tool: tools/etl-service-bridge.md
+  scripts:
+    - scripts/run-benchmark-single.js
+    - scripts/run-benchmark-batch.js
+  output_base: services/ETL/outputs/
+# ─────────────────────────────────────────────────────────────────────────────
+# MEDIA PRODUCTION PIPELINE (Casey Neistat + Sam Kolder)
+# ─────────────────────────────────────────────────────────────────────────────
+media_production_pipeline:
+
+  casey_neistat_img:
+    agent: agents/casey-neistat-img.md
+    focus: "Post único e Carrossel Informativo"
+    stack: ["Pillow", "OpenCV", "PyCairo", "Wand", "FLUX.2-klein", "HF-Diffusers"]
+    tasks:
+      - tasks/casey-post-single-create.md
+      - tasks/casey-carousel-create.md
+      - tasks/casey-image-brand.md
+      - tasks/casey-image-batch.md
+      - tasks/casey-ai-generate.md
+      - tasks/casey-template-create.md
+      - tasks/casey-image-resize-export.md
+    workflows:
+      - workflows/casey-post-production.yaml
+      - workflows/casey-carousel-production.yaml
+    checklists:
+      - checklists/casey-post-visual-checklist.md
+      - checklists/casey-carousel-narrative-checklist.md
+    templates:
+      - templates/casey-post-brief-tmpl.md
+      - templates/casey-carousel-brief-tmpl.md
+    tools:
+      - tools/casey-pillow-composer.md
+      - tools/casey-ai-image-service.md
+    data:
+      # Brand-config canonical agora vive em data/clients/<slug>/brand-config.yaml.
+      # Cliente é resolvido em runtime via --client (default: virals).
+      - data/clients/_registry.yaml
+      - data/clients/virals/brand-config.yaml
+      - data/clients/tiago-elesbao/brand-config.yaml
+      - data/casey-format-presets.yaml
+
+  sam_kolder_vid:
+    agent: agents/sam-kolder-vid.md
+    focus: "Vídeos curtos (Reels/TikTok/Shorts) e Vídeos longos (YouTube/Podcast)"
+    stack: ["FFmpeg", "MoviePy-v2", "Whisper", "auto-editor", "Movis", "Clips-AI", "libopenshot"]
+    tasks:
+      - tasks/sam-reel-edit.md
+      - tasks/sam-long-edit.md
+      - tasks/sam-caption-auto.md
+      - tasks/sam-silence-cut.md
+      - tasks/sam-reformat-export.md
+      - tasks/sam-color-grade.md
+      - tasks/sam-clip-highlight.md
+      - tasks/sam-motion-title.md
+    workflows:
+      - workflows/sam-reel-production.yaml
+      - workflows/sam-long-form-production.yaml
+    checklists:
+      - checklists/sam-reel-quality-checklist.md
+      - checklists/sam-video-production-checklist.md
+    templates:
+      - templates/sam-reel-brief-tmpl.md
+      - templates/sam-video-brief-tmpl.md
+    tools:
+      - tools/sam-ffmpeg-service.md
+      - tools/sam-whisper-service.md
+    data:
+      - data/sam-export-presets.yaml
+      - data/sam-lut-library.yaml
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CREATIVE INTELLIGENCE PIPELINE (*design-creative)
+# Pipeline AIOX-formal de 6 etapas: benchmark VVS → criativo Virals (1080×1350).
+# Fonte canônica: workflows/design-creative.workflow.md
+# ─────────────────────────────────────────────────────────────────────────────
+creative_intelligence_pipeline:
+  trigger: '*design-creative'
+  orchestrator: agents/marketing-chief.md
+  executor_agent: agents/casey-neistat-img.md
+  workflow: workflows/design-creative.workflow.md
+  tasks:
+    - tasks/creative-modeling.md      # PHASE-1 (fatal)    — deep_modeler
+    - tasks/creative-analysis.md      # PHASE-2 (não-fatal)— analyze_benchmark
+    - tasks/creative-planning.md      # PHASE-3 (não-fatal)— plan_creative
+    - tasks/creative-recast.md        # PHASE-4 (não-fatal)— recast_engine
+    - tasks/creative-quality-gate.md  # PHASE-5 (não-fatal)— quality_gate
+    - tasks/creative-render.md        # PHASE-6 (fatal)    — orchestrate_carousel
+  checklists:
+    - checklists/creative-quality-checklist.md
+  templates:
+    - templates/modeled-carousel-slide.md  # carousel-slide
+    - templates/quote-slide.md             # quote-slide
+    - templates/single-post-slide.md       # single-post
+  tools:
+    - tools/vvs-render-service.md
+    - tools/pexels-service.md
+    - tools/casey-ai-image-service.md
+  services:
+    - services/creative-design-service.md  # apps/creative-design (render + editor)
+  scripts:
+    - scripts/design_creative.py        # orquestrador unificado (6 etapas, multi-cliente)
+    - scripts/_client_resolver.py       # resolução dinâmica de cliente (MKT-MC-02)
+    - scripts/deep_modeler.py           # PHASE-1
+    - scripts/analyze_benchmark.py      # PHASE-2
+    - scripts/plan_creative.py          # PHASE-3
+    - scripts/recast_engine.py          # PHASE-4
+    - scripts/quality_gate.py           # PHASE-5
+    - scripts/orchestrate_carousel.py   # PHASE-6
+  data:
+    - data/clients/_registry.yaml
+    - data/clients/virals/brand-identity.yaml
+    - data/clients/virals/brand-config.yaml
+    - data/clients/tiago-elesbao/brand-identity.yaml
+    - data/clients/tiago-elesbao/brand-config.yaml
+  output_base: outputs/<client_slug>/carousels/
+  brief_base: squads/virals-marketing-squad/data/brief-v5-*.yaml
+  render_service:
+    url: http://localhost:3001
+    viewport: [1080, 1350]   # 4:5 — grade do Instagram
+    health_endpoint: /
+    pre_check_timeout_s: 3
+
 tested: true
 aios:
   type: squad
   minVersion: 2.1.0
 name: virals-marketing-squad
-version: 1.0.0
+version: 1.2.0
+

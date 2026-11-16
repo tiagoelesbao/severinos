@@ -1,0 +1,246 @@
+{
+  "ad_account": "act_2076716696539325",
+  "campanhas": [
+    {
+      "id": "120260935498070537",
+      "nome": "Campanha 2.1 — CBO Teste de Criativos",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "120260904054060537",
+      "nome": "Campanha 3 — Retargeting (Site)",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "120260873501680537",
+      "nome": "Campanha 2 — CBO Teste de Criativos",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "120260833091750537",
+      "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — v3",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "120260832886260537",
+      "nome": "Campanha 1 — Advantage + Vendas (Prospecção) — v2",
+      "status": "PAUSED"
+    },
+    {
+      "id": "120260798037040537",
+      "nome": "Campanha 1 — Advantage + Vendas (Prospecção)",
+      "status": "PAUSED"
+    },
+    {
+      "id": "120260796401420537",
+      "nome": "Novo objetivo Engajamento Campanha com configurações recomendadas",
+      "status": "PAUSED"
+    }
+  ],
+  "daily_insights": [
+    {
+      "spend": "254.31",
+      "impressions": "4484",
+      "clicks": "256",
+      "reach": "1901",
+      "actions": [
+        {
+          "action_type": "web_in_store_purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "omni_purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "link_click",
+          "value": "123"
+        },
+        {
+          "action_type": "initiate_checkout",
+          "value": "19"
+        },
+        {
+          "action_type": "offsite_purchase_add_20_s_calls",
+          "value": "17"
+        },
+        {
+          "action_type": "add_to_cart",
+          "value": "16"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_initiate_checkout",
+          "value": "19"
+        },
+        {
+          "action_type": "offsite_initiate_checkout_add_20_s_calls",
+          "value": "19"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_add_to_cart",
+          "value": "16"
+        },
+        {
+          "action_type": "post_reaction",
+          "value": "95"
+        },
+        {
+          "action_type": "offsite_content_view_add_20_s_calls",
+          "value": "70"
+        },
+        {
+          "action_type": "landing_page_view",
+          "value": "98"
+        },
+        {
+          "action_type": "omni_landing_page_view",
+          "value": "98"
+        },
+        {
+          "action_type": "post_engagement",
+          "value": "1528"
+        },
+        {
+          "action_type": "post_interaction_gross",
+          "value": "98"
+        },
+        {
+          "action_type": "comment",
+          "value": "1"
+        },
+        {
+          "action_type": "onsite_web_app_purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "page_engagement",
+          "value": "1528"
+        },
+        {
+          "action_type": "purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "onsite_web_view_content",
+          "value": "70"
+        },
+        {
+          "action_type": "onsite_web_add_to_cart",
+          "value": "16"
+        },
+        {
+          "action_type": "post_interaction_net",
+          "value": "98"
+        },
+        {
+          "action_type": "onsite_web_app_view_content",
+          "value": "70"
+        },
+        {
+          "action_type": "post",
+          "value": "2"
+        },
+        {
+          "action_type": "view_content",
+          "value": "70"
+        },
+        {
+          "action_type": "onsite_conversion.post_net_comment",
+          "value": "1"
+        },
+        {
+          "action_type": "web_app_in_store_purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "onsite_web_app_add_to_cart",
+          "value": "16"
+        },
+        {
+          "action_type": "onsite_conversion.post_net_like",
+          "value": "95"
+        },
+        {
+          "action_type": "onsite_web_initiate_checkout",
+          "value": "19"
+        },
+        {
+          "action_type": "omni_initiated_checkout",
+          "value": "19"
+        },
+        {
+          "action_type": "offsite_content_view_add_meta_leads",
+          "value": "70"
+        },
+        {
+          "action_type": "onsite_web_purchase",
+          "value": "17"
+        },
+        {
+          "action_type": "offsite_add_to_cart_add_20_s_calls",
+          "value": "16"
+        },
+        {
+          "action_type": "video_view",
+          "value": "1307"
+        },
+        {
+          "action_type": "omni_add_to_cart",
+          "value": "16"
+        },
+        {
+          "action_type": "omni_view_content",
+          "value": "70"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_view_content",
+          "value": "70"
+        }
+      ],
+      "action_values": [
+        {
+          "action_type": "onsite_web_app_purchase",
+          "value": "1963"
+        },
+        {
+          "action_type": "onsite_web_app_add_to_cart",
+          "value": "1629"
+        },
+        {
+          "action_type": "onsite_web_add_to_cart",
+          "value": "1629"
+        },
+        {
+          "action_type": "omni_initiated_checkout",
+          "value": "2688"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_view_content",
+          "value": "3048.67"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_add_to_cart",
+          "value": "1629"
+        },
+        {
+          "action_type": "omni_view_content",
+          "value": "3048.67"
+        },
+        {
+          "action_type": "onsite_web_initiate_checkout",
+          "value": "2688"
+        },
+        {
+          "action_type": "onsite_web_purchase",
+          "value": "1963"
+        },
+        {
+          "action_type": "add_to_cart",
+          "value": "1629"
+        },
+        {
+          "action

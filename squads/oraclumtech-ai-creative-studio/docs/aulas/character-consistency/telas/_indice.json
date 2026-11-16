@@ -1,0 +1,206 @@
+{
+  "video": "Create HYPERREALISTIC AI Characters That INTERACT ｜ FREE & LOCAL.mp4",
+  "duracao": 2067.713741,
+  "telas": [
+    {
+      "arquivo": "001_0002.0s.png",
+      "segundo": 2.0,
+      "fala": "You can now create a whole cast of AI characters and make them act and interact in the same scene. Thanks to a brand new generation of open models they are far more photorealistic than ever, rivaling and in my opinion ev"
+    },
+    {
+      "arquivo": "002_0025.0s.png",
+      "segundo": 25.0,
+      "fala": "full control over your composition without needing to rerun the prompt 20 times. So in this video I'm going to show you how you can build your own perfect data sets for each character, train your own AI models on them an"
+    },
+    {
+      "arquivo": "003_0060.0s.png",
+      "segundo": 60.0,
+      "fala": "what your specific person looks like. And we can train Alora by just showing it a bunch of images of your specific character. Here are five rules and concepts you need to know to train a good one. Number one, the trigger"
+    },
+    {
+      "arquivo": "004_0102.0s.png",
+      "segundo": 102.0,
+      "fala": "what you want to be able to change later. If your character is only supposed to wear one set of clothes, it's fine to train on the same set of clothes in each image. But if you want to maybe dress up your character later"
+    },
+    {
+      "arquivo": "005_0138.3s.png",
+      "segundo": 138.3,
+      "fala": "to recall all these elements that you want to your character to have. And this is because of rule number five. A caption is basically a reverse prompt. And that's why you always need to create these captions in the same "
+    },
+    {
+      "arquivo": "006_0178.4s.png",
+      "segundo": 178.4,
+      "fala": "you to draw these bounding boxes and really precisely place your character in the scene. And also one 2.2, which is not an image model, it's a video model. So you can also create some cool scenes with your characters. Al"
+    },
+    {
+      "arquivo": "007_0212.3s.png",
+      "segundo": 212.3,
+      "fala": "used in this workflow. And you can always find the models we use in these nodes next to each model loader node. So you just click on it, download the model and place it in the mentioned"
+    },
+    {
+      "arquivo": "008_0256.0s.png",
+      "segundo": 256.0,
+      "fala": "we need to name our character. And I usually name the character the same word that the trigger word will be. Next, you can set the resolution, don't change anything here. And finally here, we can set if you want to save "
+    },
+    {
+      "arquivo": "009_0297.6s.png",
+      "segundo": 297.6,
+      "fala": "like this, you need to be a bit more specific in the prom clothes would usually be extracted from the full body image. But since we only have like the upper body here, we should name the rest. Otherwise the model will ju"
+    },
+    {
+      "arquivo": "010_0342.0s.png",
+      "segundo": 342.0,
+      "fala": "we have a really nice collection of varied images of our character in different situations, close up wide shots, different lighting conditions, emotions, failing to look at a frog."
+    },
+    {
+      "arquivo": "011_0409.4s.png",
+      "segundo": 409.4,
+      "fala": "So a wide shot of the character sitting in a cafe maybe, and this looks pretty good. Now, of course, you can edit all these prompts and make them more specific to your characters. I just try to keep them like really gene"
+    },
+    {
+      "arquivo": "012_0448.0s.png",
+      "segundo": 448.0,
+      "fala": "snipping tool and do this. Go back here, copy that in there and also use this one as a third reference image. And now it looks much better and much closer to the original. If we want even more images of this, we could co"
+    },
+    {
+      "arquivo": "013_0497.2s.png",
+      "segundo": 497.2,
+      "fala": "prompt right here like so and this is looking a lot better. You don't have to create these additional images but you can see how much fun it is and sometimes it's necessary if your character has"
+    },
+    {
+      "arquivo": "014_0541.4s.png",
+      "segundo": 541.4,
+      "fala": "first ever character created with one of my consistent character workflows I think like two years ago or something. Drag and drop this full body image right here. I'm calling him Hans"
+    },
+    {
+      "arquivo": "015_0572.0s.png",
+      "segundo": 572.0,
+      "fala": "look at that frog and that prompt. I just noticed a mistake sorry let me fix that. Ah yes much better. So I forgot these necklace images right here so now he's wearing that beautiful necklace"
+    },
+    {
+      "arquivo": "016_0616.0s.png",
+      "segundo": 616.0,
+      "fala": "without changing the look of your character. It's so much fun to just use the comparo note right here it's just amazing and the second one is the face detailer. I noticed that in some"
+    },
+    {
+      "arquivo": "017_0654.0s.png",
+      "segundo": 654.0,
+      "fala": "detailer and look at these amazing results like here the style doesn't even matter it works for any type of character and really helps to pull your face closer to your original input face. You can also get your hands on "
+    },
+    {
+      "arquivo": "018_0680.0s.png",
+      "segundo": 680.0,
+      "fala": "results though they are not as good as the one with a current version but we'll see maybe in a few weeks it'll be the main version but now let's continue with the free versions of the workflow and you can use this workfl"
+    },
+    {
+      "arquivo": "019_0721.2s.png",
+      "segundo": 721.2,
+      "fala": "it's using this detailed caption style you can also just adjust this prompt right here write an align it's basically an llm so a large language model you can write in here don't mention the"
+    },
+    {
+      "arquivo": "020_0828.0s.png",
+      "segundo": 828.0,
+      "fala": "just drag and drop that here and here are all our images and the corresponding captions so now we can go to new job here we need to give it a name and i will again call it like this and maybe"
+    },
+    {
+      "arquivo": "021_0872.1s.png",
+      "segundo": 872.1,
+      "fala": "steps so you can see how your laura is training i think i will just keep that as it is and down here you have the example prompt so what we could do here is we could adjust them for example we could"
+    },
+    {
+      "arquivo": "022_0926.0s.png",
+      "segundo": 926.0,
+      "fala": "here it's starting to look really close to her this is at step 2500 speaking of steps go back to"
+    },
+    {
+      "arquivo": "023_0959.8s.png",
+      "segundo": 959.8,
+      "fala": "again you can find all the models you need right here in the description down here in this note you load in your character laura and you can see i'm loading in the previous version of emily here"
+    },
+    {
+      "arquivo": "024_1046.7s.png",
+      "segundo": 1046.7,
+      "fala": "necklace shots as well i threw them all together in one folder but then the trick is to also include images of these characters together in the same shot so the model can learn that these are"
+    },
+    {
+      "arquivo": "025_1096.1s.png",
+      "segundo": 1096.1,
+      "fala": "next to each other but sometimes also interacting make sure to throw these in into your full data set folder like this and now let's caption these images for this again i load the data set tagger"
+    },
+    {
+      "arquivo": "026_1146.6s.png",
+      "segundo": 1146.6,
+      "fala": "really well like berlin model and emily stand side by side on ascending beach like it just worked so now we can go back to run pod we can add a new data set and this time i called multiple"
+    },
+    {
+      "arquivo": "027_1200.2s.png",
+      "segundo": 1200.2,
+      "fala": "and add that to the queue so i downloaded all the different versions and i think my favorite one is the at step 2200 so i loaded that in and you can see again i had an lm create this really long"
+    },
+    {
+      "arquivo": "028_1273.2s.png",
+      "segundo": 1273.2,
+      "fala": "you can prompt then i brought them together waited some solar shots that worked really well"
+    },
+    {
+      "arquivo": "029_1333.9s.png",
+      "segundo": 1333.9,
+      "fala": "only thing that didn't really work at first was i wanted to make them ride these cows but then i got more precise with the prompt and from then on it just worked and even though there are not many other clothing styles i"
+    },
+    {
+      "arquivo": "030_1432.0s.png",
+      "segundo": 1432.0,
+      "fala": "just uh change that just make sure the whole character is covered like this and here you can see the multiple people and here it worked really well and once you have corrected all"
+    },
+    {
+      "arquivo": "031_1503.3s.png",
+      "segundo": 1503.3,
+      "fala": "same model that we are using when three and then you can click add to q and it will do the exact same process but right in ai toolkit if it doesn't track your element you can also add a new element"
+    },
+    {
+      "arquivo": "032_1550.8s.png",
+      "segundo": 1550.8,
+      "fala": "and then you have this key here and you want to copy this go back to ai toolkit settings and enter your hugging phase token here and now you can give it a name select ideogram for again i"
+    },
+    {
+      "arquivo": "033_1604.1s.png",
+      "segundo": 1604.1,
+      "fala": "this is actually correct so if your large language model tells you this is the wrong format no this is actually the correct format and then again i just copy over all these prompts and make sure if you"
+    },
+    {
+      "arquivo": "034_1659.0s.png",
+      "segundo": 1659.0,
+      "fala": "and i just realized i forgot to add the download links i will do that so when you download the work file you will find the loader notes right here and then we are using this ideogram prompt"
+    },
+    {
+      "arquivo": "035_1709.0s.png",
+      "segundo": 1709.0,
+      "fala": "so this is male model this is emily and this is berlin model and you can see i've added the trigger word as well as a short description then for example to show you how much you can control"
+    },
+    {
+      "arquivo": "036_1788.0s.png",
+      "segundo": 1788.0,
+      "fala": "the best format but once you've got a hang of it it's like so much fun so yeah this image is kind of cool i added these two characters like to see if they i can generate a back view of them if that works that worked fine"
+    },
+    {
+      "arquivo": "037_1836.2s.png",
+      "segundo": 1836.2,
+      "fala": "like with the different characters all in one folder and if you want you can import the data set tagger and here from the presets select one video because one is a video model but you"
+    },
+    {
+      "arquivo": "038_1880.1s.png",
+      "segundo": 1880.1,
+      "fala": "one works with a version of one that was trained on one 2.1 i usually like to train one 2.1 models just because i'm more flexible that way i'm going to select this one bump up the rank a little bit"
+    },
+    {
+      "arquivo": "039_1929.7s.png",
+      "segundo": 1929.7,
+      "fala": "queue once it's done you can add the last free workflow for today to conf your eye this one is just a one 2.2 video generation workflow and as always you can find the links to the models in"
+    },
+    {
+      "arquivo": "040_2010.5s.png",
+      "segundo": 2010.5,
+      "fala": "like that or then you had to use like regional prompting techniques that were super heavy on your computer and not easy to use so this is just a lot more fun personally if i would recommend"
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "date": "2026-08-11",
+  "topN": 10,
+  "platforms": [
+    "instagram"
+  ],
+  "started_at": "2026-08-11T13:45:06.411Z",
+  "finished_at": "2026-08-11T13:53:02.731Z",
+  "duration_ms": 476320,
+  "total": 10,
+  "ok": 10,
+  "degraded": 0,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "verdict": "Todos os criativos processados com assets reais.",
+  "results": [
+    {
+      "rank": 1,
+      "creator": "@thediaryofaceopodcast",
+      "url": "https://www.instagram.com/thediaryofaceopodcast/reel/Db23A_HtrXX/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\01-thediaryofaceopodcast-4204c9",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 2,
+      "creator": "@thediaryofaceopodcast",
+      "url": "https://www.instagram.com/thediaryofaceopodcast/reel/Db30nlrM4N0/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\02-thediaryofaceopodcast-39cd29",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 3,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/Db26RbugHBv/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\03-publicitarioscriativos-2a87db",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 2
+    },
+    {
+      "rank": 4,
+      "creator": "@diegoalmeida.ia",
+      "url": "https://www.instagram.com/diegoalmeida.ia/reel/Db3EmN8REwY/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\04-diegoalmeida-ia-fc0cc2",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 5,
+      "creator": "@notjournal.ai",
+      "url": "https://www.instagram.com/notjournal.ai/p/Db3wJ4AnKn1/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\05-notjournal-ai-2c8df7",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 3
+    },
+    {
+      "rank": 6,
+      "creator": "@thediaryofaceopodcast",
+      "url": "https://www.instagram.com/steven/reel/Db2b_JTOrum/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\06-thediaryofaceopodcast-4236a2",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 7,
+      "creator": "@notjournal.ai",
+      "url": "https://www.instagram.com/notjournal.ai/reel/Db4Z9U5gH63/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\07-notjournal-ai-16f437",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 8,
+      "creator": "@publicitarioscriativos",
+      "url": "https://www.instagram.com/publicitarioscriativos/p/Db3wDyknCvn/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\08-publicitarioscriativos-b3271c",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "image-single",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-image"
+      },
+      "screenshots": 1
+    },
+    {
+      "rank": 9,
+      "creator": "@thediaryofaceopodcast",
+      "url": "https://www.instagram.com/thediaryofaceopodcast/p/Db5AOFokR5p/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\09-thediaryofaceopodcast-6ac798",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "carousel",
+        "engine": "ImageAnalyzer",
+        "subtype": "ig-carousel"
+      },
+      "screenshots": 5
+    },
+    {
+      "rank": 10,
+      "creator": "@eduardocavalcanti",
+      "url": "https://www.instagram.com/eduardocavalcanti/reel/Db22vlVRPNN/",
+      "platform": "instagram",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\oraclum\\marketing\\daily-monitoring\\2026-08-11\\benchmark\\instagram\\10-eduardocavalcanti-371c5c",
+      "status": "ok",
+      "status_reason": null,
+      "classification": {
+        "type": "video-short",
+        "engine": "VideoAnalyzer",
+        "subtype": "ig-reel"
+      },
+      "screenshots": 5
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# IMPÉRIO PRÊMIOS — VIDEO TEMPLATE REGISTRY
+# Segundo cliente do vertical "sorteios" a ganhar este arquivo (2026-10-18,
+# réplica da prova de conceito feita pro Garantido em 2026-10-10 — ver
+# squads/virals-marketing-squad/docs/pipeline-templates-video-escala-2026-10-10.md).
+# Mesmo schema de garantido-premios/video-templates.yaml — só o VOCABULÁRIO
+# dos presets muda (aqui é a peça "Ignição do Punho", não os 3 takes do
+# Garantido).
+#
+# Diferença real a registrar (igual ao aviso do Garantido): os ids de hook
+# abaixo NÃO passam pelo `resolveHook()` de src/lib/fxRegistry.ts (heurística
+# de regex pro vocabulário orgânico, não distingue direção de zoom). O script
+# de render desta peça (scripts/render-imperio-recipe.mjs) lê o campo
+# `camera` abaixo diretamente, reaproveitando `cameraTransform`/`CAMERAS` de
+# src/lib/fxCatalog.ts.
+#
+# Gap real (diferente do Garantido): o Império só tem 1 take real hoje
+# (take1_conformado.mov, pasta motion-transicao-2026-10-09) — não existe
+# ainda um segundo/terceiro take pra variar visual, só copy e câmera sobre o
+# mesmo clipe. E a transição Take→motion graphics aqui é a sequência fixa de
+# "ignição" (Comp01-03: flare, poeira, brasão) — não um pacote de transição
+# trocável como os 3 do Garantido (TransicaoAbraco/Chegada/Combinado). Os 2
+# primitivos (split dinâmico, split-screen) e um 2º take ficam como próximo
+# passo, não fingidos aqui.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "imperio-premios"
+  vertical: "sorteios"
+  last_updated: "2026-10-18"
+  status: "active"
+  palette_ref: "apps/video-studio/src/remotion/clients/imperio/ImperioIgnicaoPunho.tsx (dourado #e3a73e/#f4c869 + verde #3ddc6f/#2bb85a + fundo #0a0a0f — mesma paleta de apps/imperio-premios-lp/index.html :root)"
+
+# ── Packs de HOOK (0–4,7s, Take 1) — eixo de câmera no take real, independente de copy ─
+hook_packs:
+  - id: imperio-hook-zoom-in
+    label: "Zoom In no Take"
+    device: zoom-in
+    camera: zoom-in
+    description: "Câmera aproxima lentamente ao longo do Take 1 (CAMERAS.zoom-in, src/lib/fxCatalog.ts) — aproxima o espectador do punho erguido."
+    best_for_hook_types: [prova social, emoção genuína]
+  - id: imperio-hook-zoom-out
+    label: "Zoom Out no Take"
+    device: zoom-out
+    camera: zoom-out
+    description: "Câmera começa ampliada e assenta (CAMERAS.zoom-out) — revela mais contexto da cena ao longo do take."
+    best_for_hook_types: [prova social, emoção genuína]
+  - id: imperio-hook-parada
+    label: "Câmera Parada (controle, padrão atual)"
+    device: hard-cut
+    camera: parada
+    description: "Sem movimento de câmera — comportamento original da peça (ImperioIgnicaoPunho), baseline de controle pra comparar contra os 2 hooks de zoom."
+    best_for_hook_types: [controle A/B]
+
+# ── Estilos de LEGENDA / overlay sobre o take ───────────────────────────────
+# Fixo de propósito (não varia por receita ainda): os 2 overlays do Take 1
+# ("A CHANCE JÁ TÁ ABERTA." / "100 NÚMEROS. VÁRIAS RODADAS POR DIA.") são
+# genéricos o bastante pra caber com qualquer headline de fechamento abaixo,
+# então ficam fixos enquanto só existir 1 take — variar junto exigiria um
+# 2º take ou validação de coerência narrativa por peça, não é automático.
+caption_styles:
+  - id: imperio-cap-overlay-bar
+    label: "Overlay Bar sobre o Take"
+    style: bar-fade
+    color: "#ffffff"
+    description: "Fade + leve subida, barra com gradiente escuro atrás do texto (componente OverlayBar de ImperioIgnicaoPunho.tsx) — fixo, não varia por receita nesta versão."
+
+# ── Presets de MOTION GRAPHICS (Comp01-04: ignição → poeira → brasão → CTA) ─
+motion_presets:
+  - id: imperio-motion-crest-reveal
+    label: "Ignição + Brasão (Coroa/Wordmark) + CTA cinético"
+    kind: brand-reveal
+    description: "Sequência fixa de 4 beats (flare/flash → poeira ocre→dourado → partículas convergem na coroa → crest recua + headline + CTA com pulso) — não é um pacote trocável ainda, é a identidade da peça."
+
+# ── Recomendação por tipo de hook (scoring_match) ───────────────────────────
+scoring_match:
+  hook:
+    from_prova_social: [imperio-hook-zoom-in, imperio-hook-zoom-out]
+    from_controle: [imperio-hook-parada]
+  caption:
+    default: [imperio-cap-overlay-bar]
+  motion:
+    default: [imperio-motion-crest-reveal]

@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:02,666
+Os animais mais venenosos do mundo.
+
+2
+00:00:02,866 --> 00:00:04,643
+Número quatro: o polvo-de-anéis-azuis.
+
+3
+00:00:04,843 --> 00:00:14,620
+Ele cabe na palma da mão e os anéis só brilham quando ele está ameaçado. O veneno dele não tem antídoto conhecido.
+
+4
+00:00:14,820 --> 00:00:16,597
+Número três: o peixe-pedra.
+
+5
+00:00:16,797 --> 00:00:25,685
+Ele passa a vida imóvel no fundo, igualzinho a uma pedra. Quem pisa em cima acerta treze espinhos de veneno.
+
+6
+00:00:25,885 --> 00:00:27,662
+Número dois: a rã-dourada.
+
+7
+00:00:27,862 --> 00:00:36,306
+Ela tem uns cinco centímetros e a pele carrega veneno suficiente para matar vários adultos. Ela nem precisa morder.
+
+8
+00:00:36,506 --> 00:00:38,283
+Número um: a vespa-do-mar.
+
+9
+00:00:38,483 --> 00:00:46,038
+É uma água-viva quase transparente do Pacífico. O veneno dela ataca coração e sistema nervoso em minutos.
+
+10
+00:00:46,238 --> 00:00:50,682
+Comenta aí se tu já viu algum desses de perto.

@@ -1,0 +1,4570 @@
+{
+  "atualizado_em": "2026-11-16T09:53:34.064529-03:00",
+  "periodo_dias": 30,
+  "conta_anuncio_ativa": "act_28685818161087189",
+  "pedidos_reais": {
+    "_mock": false
+  },
+  "sorteios": [
+    {
+      "product_id": "6aee4039ab72242f6efbe5ee",
+      "titulo": "01º -  RAPIDINHA VALENDO R$ 3.000,00 EM 4 PRÊMIOS!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 38.0,
+      "premio": 3000.0,
+      "faturamento": 3838.0,
+      "pedidos": 38,
+      "lucro_bruto": 838.0,
+      "taxa_plataforma": 191.9,
+      "margem_contribuicao": 646.1,
+      "margem_pct": 16.8,
+      "primeiro_pedido": "2026-11-06T21:13:46.727000+00:00",
+      "ultimo_pedido": "2026-11-06T22:57:31.469000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6af4bddcab72242f6e0038ac",
+      "titulo": "01º - RAPIDINHA VALENDO R$ 3.000,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 38.0,
+      "premio": 3000.0,
+      "faturamento": 3800.0,
+      "pedidos": 41,
+      "lucro_bruto": 800.0,
+      "taxa_plataforma": 190.0,
+      "margem_contribuicao": 610.0,
+      "margem_pct": 16.1,
+      "primeiro_pedido": "2026-11-11T19:18:21.248000+00:00",
+      "ultimo_pedido": "2026-11-11T21:01:44.009000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af8b4b2ab72242f6e030dd2",
+      "titulo": "02º - RAPIDINHA VALENDO R$ 3.000,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 38.0,
+      "premio": 3000.0,
+      "faturamento": 3800.0,
+      "pedidos": 42,
+      "lucro_bruto": 800.0,
+      "taxa_plataforma": 190.0,
+      "margem_contribuicao": 610.0,
+      "margem_pct": 16.1,
+      "primeiro_pedido": "2026-11-14T19:29:54.678000+00:00",
+      "ultimo_pedido": "2026-11-14T21:18:55.797000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aea4bedab72242f6ef90bda",
+      "titulo": "08º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 49,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-03T21:13:18.123000+00:00",
+      "ultimo_pedido": "2026-11-04T00:02:57.599000+00:00",
+      "dia": "2026-11-03"
+    },
+    {
+      "product_id": "6af2377aab72242f6efe98f7",
+      "titulo": "09º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 40,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-09T21:18:09.065000+00:00",
+      "ultimo_pedido": "2026-11-10T00:29:16.542000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af38940ab72242f6eff7879",
+      "titulo": "10º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 44,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-10T21:15:56.686000+00:00",
+      "ultimo_pedido": "2026-11-10T23:41:24.203000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af47944ab72242f6e00029f",
+      "titulo": "11º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 34,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-11T14:24:04.308000+00:00",
+      "ultimo_pedido": "2026-11-11T17:09:43.031000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af5caeaab72242f6e00fc6a",
+      "titulo": "12º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 49,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-12T14:20:04.843000+00:00",
+      "ultimo_pedido": "2026-11-12T17:13:39.722000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af71ca0ab72242f6e01e320",
+      "titulo": "13º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 43,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-13T14:26:23.713000+00:00",
+      "ultimo_pedido": "2026-11-13T16:48:36.122000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6af86a17ab72242f6e02ce11",
+      "titulo": "14º - RAPIDINHA VALENDO R$ 1.500,00 EM 3 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 20.0,
+      "premio": 1500.0,
+      "faturamento": 2000.0,
+      "pedidos": 41,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 100.0,
+      "margem_contribuicao": 400.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-14T14:19:47.247000+00:00",
+      "ultimo_pedido": "2026-11-14T16:54:13.642000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aece3e7ab72242f6efafebc",
+      "titulo": "03º - RAPIDINHA VALENDO R$ 2.000,00 EM 4 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 25.0,
+      "premio": 2000.0,
+      "faturamento": 2500.0,
+      "pedidos": 35,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 125.0,
+      "margem_contribuicao": 375.0,
+      "margem_pct": 15.0,
+      "primeiro_pedido": "2026-11-05T20:22:07.893000+00:00",
+      "ultimo_pedido": "2026-11-05T22:00:29.999000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6af6210fab72242f6e014069",
+      "titulo": "05º - RAPIDINHA VALENDO R$ 2.000,00 EM 4 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 25.0,
+      "premio": 2000.0,
+      "faturamento": 2500.0,
+      "pedidos": 36,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 125.0,
+      "margem_contribuicao": 375.0,
+      "margem_pct": 15.0,
+      "primeiro_pedido": "2026-11-12T20:28:37.390000+00:00",
+      "ultimo_pedido": "2026-11-12T23:29:48.699000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af778bdab72242f6e022a2f",
+      "titulo": "06º - RAPIDINHA VALENDO R$ 2.000,00 EM 4 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 25.0,
+      "premio": 2000.0,
+      "faturamento": 2500.0,
+      "pedidos": 48,
+      "lucro_bruto": 500.0,
+      "taxa_plataforma": 125.0,
+      "margem_contribuicao": 375.0,
+      "margem_pct": 15.0,
+      "primeiro_pedido": "2026-11-13T21:17:04.303000+00:00",
+      "ultimo_pedido": "2026-11-13T23:36:06.817000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6aec9064ab72242f6efab97c",
+      "titulo": "09º - RAPIDINHA VALENDO R$ 1.000,00 EM 5 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 14.0,
+      "premio": 1000.0,
+      "faturamento": 1400.0,
+      "pedidos": 36,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 70.0,
+      "margem_contribuicao": 330.0,
+      "margem_pct": 23.6,
+      "primeiro_pedido": "2026-11-05T14:21:14.496000+00:00",
+      "ultimo_pedido": "2026-11-05T17:12:26.821000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6af3ac6dab72242f6eff90f2",
+      "titulo": "10º - RAPIDINHA VALENDO R$ 1.000,00 EM 5 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 14.0,
+      "premio": 1000.0,
+      "faturamento": 1400.0,
+      "pedidos": 45,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 70.0,
+      "margem_contribuicao": 330.0,
+      "margem_pct": 23.6,
+      "primeiro_pedido": "2026-11-11T17:16:03.642000+00:00",
+      "ultimo_pedido": "2026-11-11T19:13:15.368000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af739caab72242f6e01f619",
+      "titulo": "11º - RAPIDINHA VALENDO R$ 1.000,00 EM 5 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 14.0,
+      "premio": 1000.0,
+      "faturamento": 1400.0,
+      "pedidos": 42,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 70.0,
+      "margem_contribuicao": 330.0,
+      "margem_pct": 23.6,
+      "primeiro_pedido": "2026-11-13T16:35:54.532000+00:00",
+      "ultimo_pedido": "2026-11-13T19:13:03.194000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6af8e975ab72242f6e034940",
+      "titulo": "01º - RAPIDINHA VALENDO R$ 1.000,00 NA CABEÇA!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": null,
+      "preco_numero": 14.0,
+      "premio": 1000.0,
+      "faturamento": 1400.0,
+      "pedidos": 25,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 70.0,
+      "margem_contribuicao": 330.0,
+      "margem_pct": 23.6,
+      "primeiro_pedido": "2026-11-14T23:10:32.236000+00:00",
+      "ultimo_pedido": "2026-11-14T23:50:36.690000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aeb87e7ab72242f6ef9fc0e",
+      "titulo": "09º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 45,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-04T19:38:57.488000+00:00",
+      "ultimo_pedido": "2026-11-04T22:13:47.569000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6af3ad1aab72242f6eff9239",
+      "titulo": "10º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 50,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-10T23:50:15.736000+00:00",
+      "ultimo_pedido": "2026-11-11T11:47:41.055000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af50058ab72242f6e0082d8",
+      "titulo": "11º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 36,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-12T00:01:15.935000+00:00",
+      "ultimo_pedido": "2026-11-12T10:02:55.579000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af654caab72242f6e0176bd",
+      "titulo": "12º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 43,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-13T00:26:44.452000+00:00",
+      "ultimo_pedido": "2026-11-13T11:20:43.893000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af7a198ab72242f6e026427",
+      "titulo": "13º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 44,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-13T23:52:46.205000+00:00",
+      "ultimo_pedido": "2026-11-14T11:51:56.447000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6afa0951ab72242f6e03e908",
+      "titulo": "14º- RAPIDINHA VALENDO R$ 1.200,00 EM 6 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 6,
+      "preco_numero": 16.0,
+      "premio": 1200.0,
+      "faturamento": 1600.0,
+      "pedidos": 47,
+      "lucro_bruto": 400.0,
+      "taxa_plataforma": 80.0,
+      "margem_contribuicao": 320.0,
+      "margem_pct": 20.0,
+      "primeiro_pedido": "2026-11-15T20:01:28.205000+00:00",
+      "ultimo_pedido": "2026-11-16T12:14:42.336000+00:00",
+      "dia": "2026-11-15"
+    },
+    {
+      "product_id": "6af45136ab72242f6effe298",
+      "titulo": "01º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 45,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-11T11:36:38.707000+00:00",
+      "ultimo_pedido": "2026-11-11T14:14:19.869000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af4d776ab72242f6e005009",
+      "titulo": "02º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 42,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-11T21:02:28.291000+00:00",
+      "ultimo_pedido": "2026-11-11T22:04:09.743000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af5ad73ab72242f6e00e411",
+      "titulo": "03º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 41,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-12T12:17:52.678000+00:00",
+      "ultimo_pedido": "2026-11-12T14:15:59.065000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af5f355ab72242f6e011a78",
+      "titulo": "04º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 44,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-12T17:18:24.132000+00:00",
+      "ultimo_pedido": "2026-11-12T19:14:32.472000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af6fe00ab72242f6e01ceb7",
+      "titulo": "05º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 40,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-13T12:18:12.025000+00:00",
+      "ultimo_pedido": "2026-11-13T14:16:52.090000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6af85037ab72242f6e02bcaf",
+      "titulo": "06º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 49,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-14T12:17:21.862000+00:00",
+      "ultimo_pedido": "2026-11-14T14:14:56.588000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6af89247ab72242f6e02ece6",
+      "titulo": "07º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 1250.0,
+      "pedidos": 37,
+      "lucro_bruto": 350.0,
+      "taxa_plataforma": 62.5,
+      "margem_contribuicao": 287.5,
+      "margem_pct": 23.0,
+      "primeiro_pedido": "2026-11-14T17:03:56.960000+00:00",
+      "ultimo_pedido": "2026-11-14T19:13:05.366000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aeddf5aab72242f6efba47a",
+      "titulo": "10º - RAPIDINHA VALENDO R$ 800,00 EM 4 PRÊMIOS!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 11.0,
+      "premio": 800.0,
+      "faturamento": 1100.0,
+      "pedidos": 50,
+      "lucro_bruto": 300.0,
+      "taxa_plataforma": 55.0,
+      "margem_contribuicao": 245.0,
+      "margem_pct": 22.3,
+      "primeiro_pedido": "2026-11-06T14:16:58.926000+00:00",
+      "ultimo_pedido": "2026-11-06T17:15:40.883000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6aef3298ab72242f6efca225",
+      "titulo": "11º - RAPIDINHA VALENDO R$ 800,00 EM 4 PRÊMIOS!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 11.0,
+      "premio": 800.0,
+      "faturamento": 1100.0,
+      "pedidos": 44,
+      "lucro_bruto": 300.0,
+      "taxa_plataforma": 55.0,
+      "margem_contribuicao": 245.0,
+      "margem_pct": 22.3,
+      "primeiro_pedido": "2026-11-07T14:22:18.649000+00:00",
+      "ultimo_pedido": "2026-11-07T16:53:04.392000+00:00",
+      "dia": "2026-11-07"
+    },
+    {
+      "product_id": "6af0d42bab72242f6efdac4a",
+      "titulo": "12º - RAPIDINHA VALENDO R$ 800,00 EM 4 PRÊMIOS!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 11.0,
+      "premio": 800.0,
+      "faturamento": 1100.0,
+      "pedidos": 45,
+      "lucro_bruto": 300.0,
+      "taxa_plataforma": 55.0,
+      "margem_contribuicao": 245.0,
+      "margem_pct": 22.3,
+      "primeiro_pedido": "2026-11-08T20:03:31.176000+00:00",
+      "ultimo_pedido": "2026-11-09T12:13:50.024000+00:00",
+      "dia": "2026-11-08"
+    },
+    {
+      "product_id": "6aea14e6ab72242f6ef8ce3e",
+      "titulo": "29º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 35,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-03T17:13:55.781000+00:00",
+      "ultimo_pedido": "2026-11-03T19:17:00.014000+00:00",
+      "dia": "2026-11-03"
+    },
+    {
+      "product_id": "6aea74fcab72242f6ef93de3",
+      "titulo": "30º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 41,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-04T00:09:47.439000+00:00",
+      "ultimo_pedido": "2026-11-04T12:11:54.105000+00:00",
+      "dia": "2026-11-03"
+    },
+    {
+      "product_id": "6aeb6b8eab72242f6ef9e404",
+      "titulo": "31º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 31,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-04T17:31:26.912000+00:00",
+      "ultimo_pedido": "2026-11-04T19:15:37.057000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6aebcd43ab72242f6efa4008",
+      "titulo": "32º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 36,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-05T00:48:52.269000+00:00",
+      "ultimo_pedido": "2026-11-05T12:18:09.097000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6aecfcebab72242f6efb1a79",
+      "titulo": "33º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 24,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-05T22:08:08.995000+00:00",
+      "ultimo_pedido": "2026-11-05T22:28:47.419000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aee0ccfab72242f6efbc672",
+      "titulo": "34º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 38,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-06T17:27:46.262000+00:00",
+      "ultimo_pedido": "2026-11-06T19:15:19.493000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6aee6e64ab72242f6efc230a",
+      "titulo": "35º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 35,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-07T00:41:50.595000+00:00",
+      "ultimo_pedido": "2026-11-07T11:13:56.527000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6af26619ab72242f6efebdcd",
+      "titulo": "37º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 36,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-10T00:36:32.255000+00:00",
+      "ultimo_pedido": "2026-11-10T12:13:47.409000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af34e29ab72242f6eff4b24",
+      "titulo": "38º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 33,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-10T17:03:25.385000+00:00",
+      "ultimo_pedido": "2026-11-10T19:12:55.231000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af4ebe5ab72242f6e0068a8",
+      "titulo": "39º - RAPIDINHA VALENDO R$ 500,00 EM 5 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 5,
+      "preco_numero": 7.5,
+      "premio": 500.0,
+      "faturamento": 750.0,
+      "pedidos": 15,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 37.5,
+      "margem_contribuicao": 212.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-11T22:28:36.072000+00:00",
+      "ultimo_pedido": "2026-11-11T22:54:43.531000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6aeb36f2ab72242f6ef9aa58",
+      "titulo": "18º - RAPIDINHA VALENDO R$ 600,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 8.5,
+      "premio": 600.0,
+      "faturamento": 850.0,
+      "pedidos": 40,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 42.5,
+      "margem_contribuicao": 207.5,
+      "margem_pct": 24.4,
+      "primeiro_pedido": "2026-11-04T14:04:20.905000+00:00",
+      "ultimo_pedido": "2026-11-04T17:18:50.278000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6af31f88ab72242f6eff2024",
+      "titulo": "19º - RAPIDINHA VALENDO R$ 600,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 8.5,
+      "premio": 600.0,
+      "faturamento": 850.0,
+      "pedidos": 38,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 42.5,
+      "margem_contribuicao": 207.5,
+      "margem_pct": 24.4,
+      "primeiro_pedido": "2026-11-10T13:57:38.722000+00:00",
+      "ultimo_pedido": "2026-11-10T17:13:53.423000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af63878ab72242f6e01580c",
+      "titulo": "20º - RAPIDINHA VALENDO R$ 600,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 8.5,
+      "premio": 600.0,
+      "faturamento": 850.0,
+      "pedidos": 31,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 42.5,
+      "margem_contribuicao": 207.5,
+      "margem_pct": 24.4,
+      "primeiro_pedido": "2026-11-12T22:07:57.170000+00:00",
+      "ultimo_pedido": "2026-11-12T23:10:21.079000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af1d52eab72242f6efe46ca",
+      "titulo": "11º - RAPIDINHA VALENDO R$ 700,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 9.5,
+      "premio": 700.0,
+      "faturamento": 950.0,
+      "pedidos": 42,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 47.5,
+      "margem_contribuicao": 202.5,
+      "margem_pct": 21.3,
+      "primeiro_pedido": "2026-11-09T14:18:26.309000+00:00",
+      "ultimo_pedido": "2026-11-09T17:13:47.821000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af60e59ab72242f6e012f8a",
+      "titulo": "12º - RAPIDINHA VALENDO R$ 700,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 9.5,
+      "premio": 700.0,
+      "faturamento": 950.0,
+      "pedidos": 33,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 47.5,
+      "margem_contribuicao": 202.5,
+      "margem_pct": 21.3,
+      "primeiro_pedido": "2026-11-12T19:08:16.037000+00:00",
+      "ultimo_pedido": "2026-11-12T20:44:40.272000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af761a6ab72242f6e0217d4",
+      "titulo": "13º - RAPIDINHA VALENDO R$ 700,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 9.5,
+      "premio": 700.0,
+      "faturamento": 950.0,
+      "pedidos": 47,
+      "lucro_bruto": 250.0,
+      "taxa_plataforma": 47.5,
+      "margem_contribuicao": 202.5,
+      "margem_pct": 21.3,
+      "primeiro_pedido": "2026-11-13T19:19:13.704000+00:00",
+      "ultimo_pedido": "2026-11-13T21:13:46.675000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6aebaedaab72242f6efa2182",
+      "titulo": "40º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 600.0,
+      "pedidos": 41,
+      "lucro_bruto": 200.0,
+      "taxa_plataforma": 30.0,
+      "margem_contribuicao": 170.0,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-04T22:22:11.076000+00:00",
+      "ultimo_pedido": "2026-11-05T00:27:26.248000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6aedc119ab72242f6efb8f85",
+      "titulo": "41º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 600.0,
+      "pedidos": 40,
+      "lucro_bruto": 200.0,
+      "taxa_plataforma": 30.0,
+      "margem_contribuicao": 170.0,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-06T12:02:41.622000+00:00",
+      "ultimo_pedido": "2026-11-06T14:13:06.525000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6aee27ecab72242f6efbd746",
+      "titulo": "42º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 600.0,
+      "pedidos": 31,
+      "lucro_bruto": 200.0,
+      "taxa_plataforma": 30.0,
+      "margem_contribuicao": 170.0,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-06T19:20:54.955000+00:00",
+      "ultimo_pedido": "2026-11-06T21:01:42.994000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6aef168aab72242f6efc7ef9",
+      "titulo": "43º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 600.0,
+      "pedidos": 36,
+      "lucro_bruto": 200.0,
+      "taxa_plataforma": 30.0,
+      "margem_contribuicao": 170.0,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-07T12:23:37.093000+00:00",
+      "ultimo_pedido": "2026-11-07T14:14:42.457000+00:00",
+      "dia": "2026-11-07"
+    },
+    {
+      "product_id": "6af2009bab72242f6efe6ba9",
+      "titulo": "44º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 600.0,
+      "pedidos": 30,
+      "lucro_bruto": 200.0,
+      "taxa_plataforma": 30.0,
+      "margem_contribuicao": 170.0,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-09T17:22:39.273000+00:00",
+      "ultimo_pedido": "2026-11-09T19:13:19.595000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af8dac1ab72242f6e0335e8",
+      "titulo": "45º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 600.0,
+      "pedidos": 28,
+      "lucro_bruto": 200.0,
+      "taxa_plataforma": 30.0,
+      "margem_contribuicao": 170.0,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-14T22:13:16.380000+00:00",
+      "ultimo_pedido": "2026-11-14T22:59:41.056000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aea33ccab72242f6ef8e716",
+      "titulo": "39º -  RAPIDINHA VALENDO R$ 400,00 EM 4 PRÊMIOS!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 6.0,
+      "premio": 400.0,
+      "faturamento": 564.0,
+      "pedidos": 30,
+      "lucro_bruto": 164.0,
+      "taxa_plataforma": 28.2,
+      "margem_contribuicao": 135.8,
+      "margem_pct": 24.1,
+      "primeiro_pedido": "2026-11-03T19:23:55.060000+00:00",
+      "ultimo_pedido": "2026-11-03T21:10:05.940000+00:00",
+      "dia": "2026-11-03"
+    },
+    {
+      "product_id": "6aed3211ab72242f6efb4e84",
+      "titulo": "07º - RAPIDINHA VALENDO R$ 150,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.0,
+      "premio": 150.0,
+      "faturamento": 300.0,
+      "pedidos": 29,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 15.0,
+      "margem_contribuicao": 135.0,
+      "margem_pct": 45.0,
+      "primeiro_pedido": "2026-11-06T01:50:54.827000+00:00",
+      "ultimo_pedido": "2026-11-06T11:55:17.864000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aee63c1ab72242f6efc13b6",
+      "titulo": "08º - RAPIDINHA VALENDO R$ 150,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.0,
+      "premio": 150.0,
+      "faturamento": 300.0,
+      "pedidos": 14,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 15.0,
+      "margem_contribuicao": 135.0,
+      "margem_pct": 45.0,
+      "primeiro_pedido": "2026-11-06T23:42:00.273000+00:00",
+      "ultimo_pedido": "2026-11-07T00:10:50.549000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6aeefef6ab72242f6efc69ae",
+      "titulo": "09º - RAPIDINHA VALENDO R$ 150,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.0,
+      "premio": 150.0,
+      "faturamento": 300.0,
+      "pedidos": 18,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 15.0,
+      "margem_contribuicao": 135.0,
+      "margem_pct": 45.0,
+      "primeiro_pedido": "2026-11-07T11:14:17.598000+00:00",
+      "ultimo_pedido": "2026-11-07T12:13:48.461000+00:00",
+      "dia": "2026-11-07"
+    },
+    {
+      "product_id": "6aeb3b69ab72242f6ef9ae46",
+      "titulo": "43º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 32,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-04T14:19:42.148000+00:00",
+      "ultimo_pedido": "2026-11-04T17:19:16.593000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6aebcd59ab72242f6efa40a8",
+      "titulo": "44º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 28,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-05T00:36:28.441000+00:00",
+      "ultimo_pedido": "2026-11-05T12:13:58.728000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6aecd5d4ab72242f6efaf1fd",
+      "titulo": "45º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 30,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-05T19:17:44.395000+00:00",
+      "ultimo_pedido": "2026-11-05T20:14:22.578000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aed02e8ab72242f6efb2168",
+      "titulo": "46º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 21,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-05T22:30:22.701000+00:00",
+      "ultimo_pedido": "2026-11-05T23:04:07.051000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aed098fab72242f6efb2f5f",
+      "titulo": "47º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 17,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-05T23:06:29.069000+00:00",
+      "ultimo_pedido": "2026-11-06T01:45:12.632000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aee6e8dab72242f6efc23cf",
+      "titulo": "48º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 17,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-07T00:36:08.474000+00:00",
+      "ultimo_pedido": "2026-11-07T10:51:07.585000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6af0d444ab72242f6efdace0",
+      "titulo": "50º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 28,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-08T20:05:18.964000+00:00",
+      "ultimo_pedido": "2026-11-09T12:14:11.885000+00:00",
+      "dia": "2026-11-08"
+    },
+    {
+      "product_id": "6af1d500ab72242f6efe4627",
+      "titulo": "51º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 22,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-09T14:18:15.852000+00:00",
+      "ultimo_pedido": "2026-11-09T17:14:19.416000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af265f7ab72242f6efebd36",
+      "titulo": "52º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 26,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-10T00:36:50.031000+00:00",
+      "ultimo_pedido": "2026-11-10T12:14:06.576000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af321b0ab72242f6eff2249",
+      "titulo": "53º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 25,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-10T13:57:45.283000+00:00",
+      "ultimo_pedido": "2026-11-10T17:13:09.390000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af4e66eab72242f6e005e7e",
+      "titulo": "54º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 20,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-11T22:06:30.007000+00:00",
+      "ultimo_pedido": "2026-11-11T22:27:35.831000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af58f02ab72242f6e00d15e",
+      "titulo": "55º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 30,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-12T10:05:44.496000+00:00",
+      "ultimo_pedido": "2026-11-12T12:14:59.965000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af647b3ab72242f6e01685c",
+      "titulo": "56º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 25,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-12T23:12:33.270000+00:00",
+      "ultimo_pedido": "2026-11-13T00:20:12.259000+00:00",
+      "dia": "2026-11-12"
+    },
+    {
+      "product_id": "6af6e740ab72242f6e01bff8",
+      "titulo": "57º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 21,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-13T10:35:05.226000+00:00",
+      "ultimo_pedido": "2026-11-13T12:12:43.235000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6af83885ab72242f6e02ad62",
+      "titulo": "58º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 22,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-14T10:42:15.110000+00:00",
+      "ultimo_pedido": "2026-11-14T12:04:47.566000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6af8e86eab72242f6e034233",
+      "titulo": "59 - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 350.0,
+      "pedidos": 22,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 17.5,
+      "margem_contribuicao": 132.5,
+      "margem_pct": 37.9,
+      "primeiro_pedido": "2026-11-14T23:41:03.897000+00:00",
+      "ultimo_pedido": "2026-11-15T00:06:31.620000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aeb21f4ab72242f6ef995f5",
+      "titulo": "32º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 30,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-04T12:18:54.036000+00:00",
+      "ultimo_pedido": "2026-11-04T14:01:42.971000+00:00",
+      "dia": "2026-11-04"
+    },
+    {
+      "product_id": "6aec7486ab72242f6efaa3ea",
+      "titulo": "33º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 37,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-05T12:22:52.101000+00:00",
+      "ultimo_pedido": "2026-11-05T14:16:51.874000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aecbacfab72242f6efadcaf",
+      "titulo": "34º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 32,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-05T17:22:46.241000+00:00",
+      "ultimo_pedido": "2026-11-05T19:13:16.644000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aed097bab72242f6efb2ed0",
+      "titulo": "35º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 20,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-05T23:06:51.923000+00:00",
+      "ultimo_pedido": "2026-11-06T01:42:24.454000+00:00",
+      "dia": "2026-11-05"
+    },
+    {
+      "product_id": "6aee5952ab72242f6efc00ee",
+      "titulo": "36º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 25,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-06T23:04:02.204000+00:00",
+      "ultimo_pedido": "2026-11-06T23:32:10.337000+00:00",
+      "dia": "2026-11-06"
+    },
+    {
+      "product_id": "6aefa998ab72242f6efd195e",
+      "titulo": "37º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 36,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-07T22:47:47.485000+00:00",
+      "ultimo_pedido": "2026-11-08T00:09:04.701000+00:00",
+      "dia": "2026-11-07"
+    },
+    {
+      "product_id": "6af1abadab72242f6efe1030",
+      "titulo": "38º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 30,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-09T12:33:03.656000+00:00",
+      "ultimo_pedido": "2026-11-09T14:09:24.860000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af2166dab72242f6efe7d3d",
+      "titulo": "39º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 30,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-09T19:16:34.930000+00:00",
+      "ultimo_pedido": "2026-11-09T21:08:02.504000+00:00",
+      "dia": "2026-11-09"
+    },
+    {
+      "product_id": "6af30b0dab72242f6eff0e00",
+      "titulo": "40º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 34,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-10T12:19:10.070000+00:00",
+      "ultimo_pedido": "2026-11-10T14:15:25.181000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af36d90ab72242f6eff652c",
+      "titulo": "41º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 30,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-10T19:17:24.141000+00:00",
+      "ultimo_pedido": "2026-11-10T21:14:21.671000+00:00",
+      "dia": "2026-11-10"
+    },
+    {
+      "product_id": "6af4f28fab72242f6e0074f8",
+      "titulo": "42º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 21,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-11T23:01:19.259000+00:00",
+      "ultimo_pedido": "2026-11-11T23:55:46.590000+00:00",
+      "dia": "2026-11-11"
+    },
+    {
+      "product_id": "6af797feab72242f6e024be9",
+      "titulo": "43º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 26,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-13T23:15:21.952000+00:00",
+      "ultimo_pedido": "2026-11-13T23:50:24.299000+00:00",
+      "dia": "2026-11-13"
+    },
+    {
+      "product_id": "6af8d143ab72242f6e032bd5",
+      "titulo": "44º - RAPIDINHA VALENDO R$ 300,00 EM 3 PRÊMIOS!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 3,
+      "preco_numero": 4.5,
+      "premio": 300.0,
+      "faturamento": 450.0,
+      "pedidos": 21,
+      "lucro_bruto": 150.0,
+      "taxa_plataforma": 22.5,
+      "margem_contribuicao": 127.5,
+      "margem_pct": 28.3,
+      "primeiro_pedido": "2026-11-14T21:26:03.441000+00:00",
+      "ultimo_pedido": "2026-11-14T22:04:58.825000+00:00",
+      "dia": "2026-11-14"
+    },
+    {
+      "product_id": "6aef32aeab72242f6efca2bd",
+      "titulo": "49º - RAPIDINHA VALENDO R$ 200,00 EM 2 PRÊMIOS!!!",
+      "porte": "Pequeno (até R$300)",
+      "premios_qtd": 2,
+      "preco_numero": 3.5,
+      "premio": 200.0,
+      "faturamento": 318.5,
+      "pedidos": 23,
+      "lucro_bruto": 118.5,
+      "taxa_plataforma": 15.93,
+      "margem_contribuicao": 102.58,
+      "margem_pct": 32.2,
+      "primeiro_pedido": "2026-11-07T14:22:49.746000+00:00",
+      "ultimo_pedido": "2026-11-07T16:53:37.116000+00:00",
+      "dia": "2026-11-07"
+    },
+    {
+      "product_id": "6ae9ec3fab72242f6ef8a9fd",
+      "titulo": "10º - RAPIDINHA VALENDO R$ 700,00 EM 3 PRÊMIOS!!!",
+      "porte": "Médio (R$300 a R$800)",
+      "premios_qtd": 3,
+      "preco_numero": 9.5,
+      "premio": 700.0,
+      "faturamento": 769.5,
+      "pedidos": 30,
+      "lucro_bruto": 69.5,
+      "taxa_plataforma": 38.48,
+      "margem_contribuicao": 31.02,
+      "margem_pct": 4.0,
+      "primeiro_pedido": "2026-11-03T15:13:32.195000+00:00",
+      "ultimo_pedido": "2026-11-03T17:03:01.241000+00:00",
+      "dia": "2026-11-03"
+    },
+    {
+      "product_id": "6aef760aab72242f6efce6da",
+      "titulo": "04º - RAPIDINHA VALENDO R$ 2.000,00 EM 4 PRÊMIOS!!!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 25.0,
+      "premio": 2000.0,
+      "faturamento": 1950.0,
+      "pedidos": 45,
+      "lucro_bruto": -50.0,
+      "taxa_plataforma": 97.5,
+      "margem_contribuicao": -147.5,
+      "margem_pct": -7.6,
+      "primeiro_pedido": "2026-11-07T19:51:12.502000+00:00",
+      "ultimo_pedido": "2026-11-07T22:40:30.242000+00:00",
+      "dia": "2026-11-07"
+    },
+    {
+      "product_id": "6afaf295ab72242f6e0459ed",
+      "titulo": "08º - RAPIDINHA VALENDO R$ 900,00 EM 4 PRÊMIOS!",
+      "porte": "Grande (acima de R$800)",
+      "premios_qtd": 4,
+      "preco_numero": 12.5,
+      "premio": 900.0,
+      "faturamento": 150.0,
+      "pedidos": 5,
+      "lucro_bruto": -750.0,
+      "taxa_plataforma": 7.5,
+      "margem_contribuicao": -757.5,
+      "margem_pct": -505.0,
+      "primeiro_pedido": "2026-11-16T12:41:43.345000+00:00",
+      "ultimo_pedido": "2026-11-16T12:47:27.881000+00:00",
+      "dia": "2026-11-16"
+    }
+  ],
+  "pedidos_hora": [
+    {
+      "dia": "2026-11-03",
+      "hora": 12,
+      "pedidos": 11,
+      "faturamento": 247.0,
+      "lucro_estimado": 22.31
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 13,
+      "pedidos": 17,
+      "faturamento": 427.5,
+      "lucro_estimado": 38.61
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 14,
+      "pedidos": 22,
+      "faturamento": 507.5,
+      "lucro_estimado": 146.08
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 15,
+      "pedidos": 11,
+      "faturamento": 165.0,
+      "lucro_estimado": 55.0
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 16,
+      "pedidos": 14,
+      "faturamento": 346.5,
+      "lucro_estimado": 108.1
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 17,
+      "pedidos": 16,
+      "faturamento": 312.0,
+      "lucro_estimado": 90.72
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 18,
+      "pedidos": 19,
+      "faturamento": 778.0,
+      "lucro_estimado": 197.68
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 19,
+      "pedidos": 16,
+      "faturamento": 840.0,
+      "lucro_estimado": 210.0
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 20,
+      "pedidos": 16,
+      "faturamento": 420.0,
+      "lucro_estimado": 105.0
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 21,
+      "pedidos": 6,
+      "faturamento": 107.5,
+      "lucro_estimado": 32.5
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 22,
+      "pedidos": 5,
+      "faturamento": 90.0,
+      "lucro_estimado": 30.0
+    },
+    {
+      "dia": "2026-11-03",
+      "hora": 23,
+      "pedidos": 2,
+      "faturamento": 22.5,
+      "lucro_estimado": 7.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 3,
+      "pedidos": 1,
+      "faturamento": 7.5,
+      "lucro_estimado": 2.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 5,
+      "pedidos": 4,
+      "faturamento": 52.5,
+      "lucro_estimado": 17.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 6,
+      "pedidos": 1,
+      "faturamento": 7.5,
+      "lucro_estimado": 2.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 7,
+      "pedidos": 10,
+      "faturamento": 127.5,
+      "lucro_estimado": 42.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 8,
+      "pedidos": 10,
+      "faturamento": 165.0,
+      "lucro_estimado": 55.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 9,
+      "pedidos": 18,
+      "faturamento": 412.5,
+      "lucro_estimado": 137.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 10,
+      "pedidos": 15,
+      "faturamento": 238.5,
+      "lucro_estimado": 79.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 11,
+      "pedidos": 27,
+      "faturamento": 557.5,
+      "lucro_estimado": 177.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 12,
+      "pedidos": 16,
+      "faturamento": 208.5,
+      "lucro_estimado": 74.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 13,
+      "pedidos": 18,
+      "faturamento": 194.0,
+      "lucro_estimado": 66.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 14,
+      "pedidos": 22,
+      "faturamento": 391.5,
+      "lucro_estimado": 132.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 15,
+      "pedidos": 17,
+      "faturamento": 450.0,
+      "lucro_estimado": 150.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 16,
+      "pedidos": 14,
+      "faturamento": 653.5,
+      "lucro_estimado": 176.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 17,
+      "pedidos": 16,
+      "faturamento": 368.0,
+      "lucro_estimado": 92.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 18,
+      "pedidos": 15,
+      "faturamento": 496.0,
+      "lucro_estimado": 124.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 19,
+      "pedidos": 11,
+      "faturamento": 366.0,
+      "lucro_estimado": 102.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 20,
+      "pedidos": 19,
+      "faturamento": 258.0,
+      "lucro_estimado": 86.0
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 21,
+      "pedidos": 25,
+      "faturamento": 320.5,
+      "lucro_estimado": 112.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 22,
+      "pedidos": 12,
+      "faturamento": 311.5,
+      "lucro_estimado": 108.5
+    },
+    {
+      "dia": "2026-11-04",
+      "hora": 23,
+      "pedidos": 1,
+      "faturamento": 3.5,
+      "lucro_estimado": 1.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 0,
+      "pedidos": 2,
+      "faturamento": 57.5,
+      "lucro_estimado": 22.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 1,
+      "pedidos": 1,
+      "faturamento": 7.5,
+      "lucro_estimado": 2.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 3.5,
+      "lucro_estimado": 1.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 4,
+      "pedidos": 2,
+      "faturamento": 40.5,
+      "lucro_estimado": 14.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 5,
+      "pedidos": 4,
+      "faturamento": 29.0,
+      "lucro_estimado": 11.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 7,
+      "pedidos": 4,
+      "faturamento": 48.0,
+      "lucro_estimado": 17.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 8,
+      "pedidos": 18,
+      "faturamento": 299.0,
+      "lucro_estimado": 111.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 9,
+      "pedidos": 22,
+      "faturamento": 299.0,
+      "lucro_estimado": 104.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 10,
+      "pedidos": 18,
+      "faturamento": 256.5,
+      "lucro_estimado": 85.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 11,
+      "pedidos": 18,
+      "faturamento": 538.0,
+      "lucro_estimado": 158.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 12,
+      "pedidos": 14,
+      "faturamento": 378.0,
+      "lucro_estimado": 108.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 13,
+      "pedidos": 5,
+      "faturamento": 182.0,
+      "lucro_estimado": 52.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 14,
+      "pedidos": 19,
+      "faturamento": 581.0,
+      "lucro_estimado": 175.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 15,
+      "pedidos": 11,
+      "faturamento": 117.0,
+      "lucro_estimado": 39.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 16,
+      "pedidos": 29,
+      "faturamento": 389.0,
+      "lucro_estimado": 153.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 17,
+      "pedidos": 20,
+      "faturamento": 1655.0,
+      "lucro_estimado": 355.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 18,
+      "pedidos": 22,
+      "faturamento": 825.0,
+      "lucro_estimado": 165.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 19,
+      "pedidos": 44,
+      "faturamento": 1169.0,
+      "lucro_estimado": 401.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 20,
+      "pedidos": 16,
+      "faturamento": 528.5,
+      "lucro_estimado": 196.5
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 21,
+      "pedidos": 12,
+      "faturamento": 175.0,
+      "lucro_estimado": 69.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 22,
+      "pedidos": 13,
+      "faturamento": 167.5,
+      "lucro_estimado": 66.0
+    },
+    {
+      "dia": "2026-11-05",
+      "hora": 23,
+      "pedidos": 8,
+      "faturamento": 186.0,
+      "lucro_estimado": 93.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 0,
+      "pedidos": 1,
+      "faturamento": 3.0,
+      "lucro_estimado": 1.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 3,
+      "pedidos": 1,
+      "faturamento": 3.0,
+      "lucro_estimado": 1.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 4,
+      "pedidos": 2,
+      "faturamento": 9.0,
+      "lucro_estimado": 4.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 5,
+      "pedidos": 2,
+      "faturamento": 9.0,
+      "lucro_estimado": 4.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 6,
+      "pedidos": 4,
+      "faturamento": 18.0,
+      "lucro_estimado": 9.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 7,
+      "pedidos": 3,
+      "faturamento": 12.0,
+      "lucro_estimado": 6.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 8,
+      "pedidos": 6,
+      "faturamento": 45.0,
+      "lucro_estimado": 22.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 9,
+      "pedidos": 16,
+      "faturamento": 228.0,
+      "lucro_estimado": 76.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 10,
+      "pedidos": 12,
+      "faturamento": 162.0,
+      "lucro_estimado": 54.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 11,
+      "pedidos": 28,
+      "faturamento": 606.0,
+      "lucro_estimado": 178.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 12,
+      "pedidos": 19,
+      "faturamento": 319.0,
+      "lucro_estimado": 87.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 13,
+      "pedidos": 9,
+      "faturamento": 242.0,
+      "lucro_estimado": 66.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 14,
+      "pedidos": 22,
+      "faturamento": 420.5,
+      "lucro_estimado": 131.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 15,
+      "pedidos": 16,
+      "faturamento": 262.5,
+      "lucro_estimado": 87.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 16,
+      "pedidos": 23,
+      "faturamento": 510.0,
+      "lucro_estimado": 170.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 17,
+      "pedidos": 13,
+      "faturamento": 288.0,
+      "lucro_estimado": 96.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 18,
+      "pedidos": 25,
+      "faturamento": 2938.0,
+      "lucro_estimado": 642.87
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 19,
+      "pedidos": 14,
+      "faturamento": 912.0,
+      "lucro_estimado": 199.13
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 20,
+      "pedidos": 35,
+      "faturamento": 645.0,
+      "lucro_estimado": 247.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 21,
+      "pedidos": 10,
+      "faturamento": 160.5,
+      "lucro_estimado": 72.0
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 22,
+      "pedidos": 15,
+      "faturamento": 501.5,
+      "lucro_estimado": 183.5
+    },
+    {
+      "dia": "2026-11-06",
+      "hora": 23,
+      "pedidos": 6,
+      "faturamento": 121.0,
+      "lucro_estimado": 44.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 0,
+      "pedidos": 4,
+      "faturamento": 80.0,
+      "lucro_estimado": 30.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 5,
+      "pedidos": 3,
+      "faturamento": 25.5,
+      "lucro_estimado": 9.5
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 6,
+      "pedidos": 6,
+      "faturamento": 130.5,
+      "lucro_estimado": 49.5
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 7,
+      "pedidos": 9,
+      "faturamento": 126.0,
+      "lucro_estimado": 44.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 8,
+      "pedidos": 17,
+      "faturamento": 288.0,
+      "lucro_estimado": 134.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 9,
+      "pedidos": 16,
+      "faturamento": 276.0,
+      "lucro_estimado": 104.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 10,
+      "pedidos": 18,
+      "faturamento": 240.0,
+      "lucro_estimado": 80.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 11,
+      "pedidos": 28,
+      "faturamento": 651.0,
+      "lucro_estimado": 194.65
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 12,
+      "pedidos": 20,
+      "faturamento": 319.0,
+      "lucro_estimado": 94.65
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 13,
+      "pedidos": 25,
+      "faturamento": 604.5,
+      "lucro_estimado": 181.2
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 16,
+      "pedidos": 4,
+      "faturamento": 125.0,
+      "lucro_estimado": 0.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 17,
+      "pedidos": 19,
+      "faturamento": 750.0,
+      "lucro_estimado": 0.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 18,
+      "pedidos": 12,
+      "faturamento": 375.0,
+      "lucro_estimado": 0.0
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 19,
+      "pedidos": 25,
+      "faturamento": 911.5,
+      "lucro_estimado": 70.5
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 20,
+      "pedidos": 18,
+      "faturamento": 202.5,
+      "lucro_estimado": 67.5
+    },
+    {
+      "dia": "2026-11-07",
+      "hora": 21,
+      "pedidos": 3,
+      "faturamento": 36.0,
+      "lucro_estimado": 12.0
+    },
+    {
+      "dia": "2026-11-08",
+      "hora": 17,
+      "pedidos": 15,
+      "faturamento": 216.0,
+      "lucro_estimado": 72.0
+    },
+    {
+      "dia": "2026-11-08",
+      "hora": 18,
+      "pedidos": 8,
+      "faturamento": 303.5,
+      "lucro_estimado": 85.5
+    },
+    {
+      "dia": "2026-11-08",
+      "hora": 19,
+      "pedidos": 2,
+      "faturamento": 21.5,
+      "lucro_estimado": 7.5
+    },
+    {
+      "dia": "2026-11-08",
+      "hora": 20,
+      "pedidos": 6,
+      "faturamento": 50.5,
+      "lucro_estimado": 16.5
+    },
+    {
+      "dia": "2026-11-08",
+      "hora": 21,
+      "pedidos": 6,
+      "faturamento": 178.0,
+      "lucro_estimado": 66.0
+    },
+    {
+      "dia": "2026-11-08",
+      "hora": 22,
+      "pedidos": 6,
+      "faturamento": 109.5,
+      "lucro_estimado": 31.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 0,
+      "pedidos": 4,
+      "faturamento": 43.5,
+      "lucro_estimado": 13.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 1,
+      "pedidos": 1,
+      "faturamento": 10.5,
+      "lucro_estimado": 4.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 11.0,
+      "lucro_estimado": 3.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 4,
+      "pedidos": 1,
+      "faturamento": 22.0,
+      "lucro_estimado": 6.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 5,
+      "pedidos": 1,
+      "faturamento": 3.5,
+      "lucro_estimado": 1.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 6,
+      "pedidos": 2,
+      "faturamento": 14.5,
+      "lucro_estimado": 4.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 7,
+      "pedidos": 3,
+      "faturamento": 39.5,
+      "lucro_estimado": 13.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 8,
+      "pedidos": 13,
+      "faturamento": 182.0,
+      "lucro_estimado": 54.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 9,
+      "pedidos": 19,
+      "faturamento": 411.0,
+      "lucro_estimado": 126.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 10,
+      "pedidos": 10,
+      "faturamento": 193.5,
+      "lucro_estimado": 64.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 11,
+      "pedidos": 25,
+      "faturamento": 515.5,
+      "lucro_estimado": 160.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 12,
+      "pedidos": 24,
+      "faturamento": 380.0,
+      "lucro_estimado": 111.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 13,
+      "pedidos": 10,
+      "faturamento": 235.0,
+      "lucro_estimado": 74.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 14,
+      "pedidos": 19,
+      "faturamento": 397.5,
+      "lucro_estimado": 130.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 15,
+      "pedidos": 17,
+      "faturamento": 354.0,
+      "lucro_estimado": 118.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 16,
+      "pedidos": 16,
+      "faturamento": 279.0,
+      "lucro_estimado": 93.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 17,
+      "pedidos": 14,
+      "faturamento": 166.5,
+      "lucro_estimado": 55.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 18,
+      "pedidos": 18,
+      "faturamento": 832.5,
+      "lucro_estimado": 217.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 19,
+      "pedidos": 11,
+      "faturamento": 480.0,
+      "lucro_estimado": 120.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 20,
+      "pedidos": 8,
+      "faturamento": 520.0,
+      "lucro_estimado": 130.0
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 21,
+      "pedidos": 16,
+      "faturamento": 539.5,
+      "lucro_estimado": 165.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 22,
+      "pedidos": 21,
+      "faturamento": 272.5,
+      "lucro_estimado": 97.5
+    },
+    {
+      "dia": "2026-11-09",
+      "hora": 23,
+      "pedidos": 2,
+      "faturamento": 48.0,
+      "lucro_estimado": 17.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 0,
+      "pedidos": 1,
+      "faturamento": 3.5,
+      "lucro_estimado": 1.5
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 6,
+      "pedidos": 1,
+      "faturamento": 7.5,
+      "lucro_estimado": 2.5
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 7,
+      "pedidos": 8,
+      "faturamento": 88.0,
+      "lucro_estimado": 32.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 8,
+      "pedidos": 11,
+      "faturamento": 92.0,
+      "lucro_estimado": 33.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 9,
+      "pedidos": 27,
+      "faturamento": 630.5,
+      "lucro_estimado": 221.5
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 10,
+      "pedidos": 16,
+      "faturamento": 202.5,
+      "lucro_estimado": 67.5
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 11,
+      "pedidos": 22,
+      "faturamento": 381.0,
+      "lucro_estimado": 125.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 12,
+      "pedidos": 19,
+      "faturamento": 241.0,
+      "lucro_estimado": 77.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 13,
+      "pedidos": 16,
+      "faturamento": 308.0,
+      "lucro_estimado": 108.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 14,
+      "pedidos": 16,
+      "faturamento": 396.0,
+      "lucro_estimado": 132.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 15,
+      "pedidos": 17,
+      "faturamento": 360.0,
+      "lucro_estimado": 120.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 16,
+      "pedidos": 15,
+      "faturamento": 336.0,
+      "lucro_estimado": 112.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 17,
+      "pedidos": 16,
+      "faturamento": 252.0,
+      "lucro_estimado": 84.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 18,
+      "pedidos": 20,
+      "faturamento": 752.0,
+      "lucro_estimado": 194.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 19,
+      "pedidos": 22,
+      "faturamento": 780.0,
+      "lucro_estimado": 195.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 20,
+      "pedidos": 9,
+      "faturamento": 652.0,
+      "lucro_estimado": 163.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 21,
+      "pedidos": 18,
+      "faturamento": 400.0,
+      "lucro_estimado": 100.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 22,
+      "pedidos": 14,
+      "faturamento": 384.0,
+      "lucro_estimado": 96.0
+    },
+    {
+      "dia": "2026-11-10",
+      "hora": 23,
+      "pedidos": 2,
+      "faturamento": 288.0,
+      "lucro_estimado": 72.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 0,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 4,
+      "pedidos": 1,
+      "faturamento": 128.0,
+      "lucro_estimado": 32.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 6,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 7,
+      "pedidos": 4,
+      "faturamento": 96.0,
+      "lucro_estimado": 24.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 8,
+      "pedidos": 15,
+      "faturamento": 406.5,
+      "lucro_estimado": 109.5
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 9,
+      "pedidos": 13,
+      "faturamento": 250.0,
+      "lucro_estimado": 70.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 10,
+      "pedidos": 17,
+      "faturamento": 425.0,
+      "lucro_estimado": 119.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 11,
+      "pedidos": 18,
+      "faturamento": 1072.5,
+      "lucro_estimado": 277.5
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 12,
+      "pedidos": 9,
+      "faturamento": 340.0,
+      "lucro_estimado": 85.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 13,
+      "pedidos": 6,
+      "faturamento": 560.0,
+      "lucro_estimado": 140.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 14,
+      "pedidos": 28,
+      "faturamento": 872.0,
+      "lucro_estimado": 237.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 15,
+      "pedidos": 17,
+      "faturamento": 616.0,
+      "lucro_estimado": 176.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 16,
+      "pedidos": 26,
+      "faturamento": 2114.0,
+      "lucro_estimado": 464.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 17,
+      "pedidos": 21,
+      "faturamento": 1824.0,
+      "lucro_estimado": 384.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 18,
+      "pedidos": 41,
+      "faturamento": 1239.0,
+      "lucro_estimado": 339.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 19,
+      "pedidos": 37,
+      "faturamento": 1225.0,
+      "lucro_estimado": 435.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 20,
+      "pedidos": 21,
+      "faturamento": 450.0,
+      "lucro_estimado": 150.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 21,
+      "pedidos": 23,
+      "faturamento": 1104.0,
+      "lucro_estimado": 276.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 22,
+      "pedidos": 6,
+      "faturamento": 336.0,
+      "lucro_estimado": 84.0
+    },
+    {
+      "dia": "2026-11-11",
+      "hora": 23,
+      "pedidos": 3,
+      "faturamento": 80.0,
+      "lucro_estimado": 20.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 1,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 6,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 7,
+      "pedidos": 11,
+      "faturamento": 112.5,
+      "lucro_estimado": 42.5
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 8,
+      "pedidos": 11,
+      "faturamento": 178.5,
+      "lucro_estimado": 76.5
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 9,
+      "pedidos": 30,
+      "faturamento": 816.0,
+      "lucro_estimado": 242.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 10,
+      "pedidos": 10,
+      "faturamento": 287.5,
+      "lucro_estimado": 80.5
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 11,
+      "pedidos": 24,
+      "faturamento": 837.5,
+      "lucro_estimado": 216.5
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 12,
+      "pedidos": 8,
+      "faturamento": 200.0,
+      "lucro_estimado": 50.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 13,
+      "pedidos": 20,
+      "faturamento": 960.0,
+      "lucro_estimado": 240.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 14,
+      "pedidos": 33,
+      "faturamento": 1015.0,
+      "lucro_estimado": 277.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 15,
+      "pedidos": 14,
+      "faturamento": 325.0,
+      "lucro_estimado": 91.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 16,
+      "pedidos": 26,
+      "faturamento": 919.5,
+      "lucro_estimado": 244.5
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 17,
+      "pedidos": 23,
+      "faturamento": 1580.5,
+      "lucro_estimado": 327.5
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 18,
+      "pedidos": 18,
+      "faturamento": 925.0,
+      "lucro_estimado": 185.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 19,
+      "pedidos": 33,
+      "faturamento": 873.0,
+      "lucro_estimado": 245.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 20,
+      "pedidos": 23,
+      "faturamento": 446.0,
+      "lucro_estimado": 166.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 21,
+      "pedidos": 18,
+      "faturamento": 408.0,
+      "lucro_estimado": 112.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 22,
+      "pedidos": 15,
+      "faturamento": 656.0,
+      "lucro_estimado": 164.0
+    },
+    {
+      "dia": "2026-11-12",
+      "hora": 23,
+      "pedidos": 3,
+      "faturamento": 80.0,
+      "lucro_estimado": 20.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 0,
+      "pedidos": 2,
+      "faturamento": 288.0,
+      "lucro_estimado": 72.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 32.0,
+      "lucro_estimado": 8.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 6,
+      "pedidos": 3,
+      "faturamento": 64.0,
+      "lucro_estimado": 16.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 7,
+      "pedidos": 10,
+      "faturamento": 140.0,
+      "lucro_estimado": 40.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 8,
+      "pedidos": 11,
+      "faturamento": 173.5,
+      "lucro_estimado": 71.5
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 9,
+      "pedidos": 26,
+      "faturamento": 589.5,
+      "lucro_estimado": 189.5
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 10,
+      "pedidos": 15,
+      "faturamento": 375.0,
+      "lucro_estimado": 105.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 11,
+      "pedidos": 22,
+      "faturamento": 1250.0,
+      "lucro_estimado": 326.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 12,
+      "pedidos": 15,
+      "faturamento": 400.0,
+      "lucro_estimado": 100.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 13,
+      "pedidos": 15,
+      "faturamento": 912.0,
+      "lucro_estimado": 232.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 14,
+      "pedidos": 10,
+      "faturamento": 182.0,
+      "lucro_estimado": 52.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 15,
+      "pedidos": 21,
+      "faturamento": 966.0,
+      "lucro_estimado": 276.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 16,
+      "pedidos": 24,
+      "faturamento": 482.0,
+      "lucro_estimado": 130.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 17,
+      "pedidos": 26,
+      "faturamento": 522.5,
+      "lucro_estimado": 137.5
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 18,
+      "pedidos": 25,
+      "faturamento": 1060.5,
+      "lucro_estimado": 217.5
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 19,
+      "pedidos": 23,
+      "faturamento": 1375.0,
+      "lucro_estimado": 275.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 20,
+      "pedidos": 32,
+      "faturamento": 616.0,
+      "lucro_estimado": 184.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 21,
+      "pedidos": 6,
+      "faturamento": 192.0,
+      "lucro_estimado": 48.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 22,
+      "pedidos": 13,
+      "faturamento": 400.0,
+      "lucro_estimado": 100.0
+    },
+    {
+      "dia": "2026-11-13",
+      "hora": 23,
+      "pedidos": 4,
+      "faturamento": 96.0,
+      "lucro_estimado": 24.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 0,
+      "pedidos": 2,
+      "faturamento": 64.0,
+      "lucro_estimado": 16.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 1,
+      "pedidos": 2,
+      "faturamento": 320.0,
+      "lucro_estimado": 80.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 2,
+      "pedidos": 1,
+      "faturamento": 192.0,
+      "lucro_estimado": 48.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 5,
+      "pedidos": 1,
+      "faturamento": 32.0,
+      "lucro_estimado": 8.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 6,
+      "pedidos": 5,
+      "faturamento": 80.0,
+      "lucro_estimado": 20.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 7,
+      "pedidos": 12,
+      "faturamento": 256.5,
+      "lucro_estimado": 78.5
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 8,
+      "pedidos": 17,
+      "faturamento": 284.0,
+      "lucro_estimado": 116.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 9,
+      "pedidos": 20,
+      "faturamento": 480.0,
+      "lucro_estimado": 137.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 10,
+      "pedidos": 28,
+      "faturamento": 737.5,
+      "lucro_estimado": 206.5
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 11,
+      "pedidos": 21,
+      "faturamento": 1370.0,
+      "lucro_estimado": 344.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 12,
+      "pedidos": 10,
+      "faturamento": 240.0,
+      "lucro_estimado": 60.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 13,
+      "pedidos": 13,
+      "faturamento": 440.0,
+      "lucro_estimado": 110.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 14,
+      "pedidos": 14,
+      "faturamento": 512.5,
+      "lucro_estimado": 143.5
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 15,
+      "pedidos": 20,
+      "faturamento": 550.0,
+      "lucro_estimado": 154.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 16,
+      "pedidos": 16,
+      "faturamento": 1821.5,
+      "lucro_estimado": 396.5
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 17,
+      "pedidos": 23,
+      "faturamento": 1710.0,
+      "lucro_estimado": 360.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 18,
+      "pedidos": 24,
+      "faturamento": 825.0,
+      "lucro_estimado": 219.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 19,
+      "pedidos": 31,
+      "faturamento": 681.0,
+      "lucro_estimado": 227.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 20,
+      "pedidos": 42,
+      "faturamento": 1694.0,
+      "lucro_estimado": 526.0
+    },
+    {
+      "dia": "2026-11-14",
+      "hora": 21,
+      "pedidos": 5,
+      "faturamento": 56.0,
+      "lucro_estimado": 24.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 17,
+      "pedidos": 12,
+      "faturamento": 336.0,
+      "lucro_estimado": 84.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 18,
+      "pedidos": 3,
+      "faturamento": 96.0,
+      "lucro_estimado": 24.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 19,
+      "pedidos": 2,
+      "faturamento": 48.0,
+      "lucro_estimado": 12.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 20,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 21,
+      "pedidos": 5,
+      "faturamento": 432.0,
+      "lucro_estimado": 108.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 22,
+      "pedidos": 5,
+      "faturamento": 128.0,
+      "lucro_estimado": 32.0
+    },
+    {
+      "dia": "2026-11-15",
+      "hora": 23,
+      "pedidos": 1,
+      "faturamento": 16.0,
+      "lucro_estimado": 4.0
+    },
+    {
+      "dia": "2026-11-16",
+      "hora": 5,
+      "pedidos": 1,
+      "faturamento": 32.0,
+      "lucro_estimado": 8.0
+    },
+    {
+      "dia": "2026-11-16",
+      "hora": 6,
+      "pedidos": 2,
+      "faturamento": 32.0,
+      "lucro_estimado": 8.0
+    },
+    {
+      "dia": "2026-11-16",
+      "hora": 7,
+      "pedidos": 2,
+      "faturamento": 32.0,
+      "lucro_estimado": 8.0
+    },
+    {
+      "dia": "2026-11-16",
+      "hora": 8,
+      "pedidos": 11,
+      "faturamento": 288.0,
+      "lucro_estimado": 72.0
+    },
+    {
+      "dia": "2026-11-16",
+      "hora": 9,
+      "pedidos": 7,
+      "faturamento": 294.0,
+      "lucro_estimado": 36.0
+    }
+  ],
+  "pedidos_perfil": {
+    "por_quantidade": [
+      {
+        "dia": "2026-11-03",
+        "quantidade": 1,
+        "pedidos": 80
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 2,
+        "pedidos": 27
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 3,
+        "pedidos": 13
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 4,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 5,
+        "pedidos": 9
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 6,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 7,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 8,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 9,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 10,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 11,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-03",
+        "quantidade": 14,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 1,
+        "pedidos": 118
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 2,
+        "pedidos": 63
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 3,
+        "pedidos": 26
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 4,
+        "pedidos": 21
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 5,
+        "pedidos": 13
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 6,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 7,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 8,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 9,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 10,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 11,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 12,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 15,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-04",
+        "quantidade": 22,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 1,
+        "pedidos": 106
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 2,
+        "pedidos": 77
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 3,
+        "pedidos": 32
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 4,
+        "pedidos": 19
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 5,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 6,
+        "pedidos": 15
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 7,
+        "pedidos": 9
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 8,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 9,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 10,
+        "pedidos": 10
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 11,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 12,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 13,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 14,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 16,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 17,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 18,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 19,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 20,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 22,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-05",
+        "quantidade": 23,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 1,
+        "pedidos": 132
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 2,
+        "pedidos": 55
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 3,
+        "pedidos": 29
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 4,
+        "pedidos": 15
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 5,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 6,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 7,
+        "pedidos": 7
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 8,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 9,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 10,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 12,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 14,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 15,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 16,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 17,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 19,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-06",
+        "quantidade": 26,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 1,
+        "pedidos": 98
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 2,
+        "pedidos": 54
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 3,
+        "pedidos": 14
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 4,
+        "pedidos": 18
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 5,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 6,
+        "pedidos": 16
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 7,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 8,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 9,
+        "pedidos": 5
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 10,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 12,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-07",
+        "quantidade": 22,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 1,
+        "pedidos": 21
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 2,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 3,
+        "pedidos": 9
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 4,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 6,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 18,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-08",
+        "quantidade": 25,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 1,
+        "pedidos": 114
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 2,
+        "pedidos": 43
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 3,
+        "pedidos": 25
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 4,
+        "pedidos": 19
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 5,
+        "pedidos": 16
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 6,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 7,
+        "pedidos": 12
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 8,
+        "pedidos": 7
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 9,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 10,
+        "pedidos": 10
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 11,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 12,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 13,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 14,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-09",
+        "quantidade": 21,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 1,
+        "pedidos": 117
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 2,
+        "pedidos": 53
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 3,
+        "pedidos": 33
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 4,
+        "pedidos": 23
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 5,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 6,
+        "pedidos": 13
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 7,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 8,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 9,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 10,
+        "pedidos": 12
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 13,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 15,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-10",
+        "quantidade": 17,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 1,
+        "pedidos": 153
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 2,
+        "pedidos": 58
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 3,
+        "pedidos": 20
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 4,
+        "pedidos": 19
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 5,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 6,
+        "pedidos": 18
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 7,
+        "pedidos": 5
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 8,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 9,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 10,
+        "pedidos": 9
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 11,
+        "pedidos": 4
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 12,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 13,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 15,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 17,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 21,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-11",
+        "quantidade": 23,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 1,
+        "pedidos": 158
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 2,
+        "pedidos": 65
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 3,
+        "pedidos": 32
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 4,
+        "pedidos": 22
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 5,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 6,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 7,
+        "pedidos": 5
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 8,
+        "pedidos": 7
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 9,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 10,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 11,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 12,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 13,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 14,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 17,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 21,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 23,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-12",
+        "quantidade": 24,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 1,
+        "pedidos": 149
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 2,
+        "pedidos": 65
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 3,
+        "pedidos": 25
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 4,
+        "pedidos": 22
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 5,
+        "pedidos": 14
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 6,
+        "pedidos": 8
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 7,
+        "pedidos": 5
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 8,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 10,
+        "pedidos": 9
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 11,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 12,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 15,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 16,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-13",
+        "quantidade": 17,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 1,
+        "pedidos": 140
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 2,
+        "pedidos": 74
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 3,
+        "pedidos": 23
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 4,
+        "pedidos": 12
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 5,
+        "pedidos": 9
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 6,
+        "pedidos": 11
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 7,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 8,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 9,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 10,
+        "pedidos": 14
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 11,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 12,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 13,
+        "pedidos": 5
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 15,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 17,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 18,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 19,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-14",
+        "quantidade": 28,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-15",
+        "quantidade": 1,
+        "pedidos": 15
+      },
+      {
+        "dia": "2026-11-15",
+        "quantidade": 2,
+        "pedidos": 10
+      },
+      {
+        "dia": "2026-11-15",
+        "quantidade": 4,
+        "pedidos": 3
+      },
+      {
+        "dia": "2026-11-15",
+        "quantidade": 20,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-16",
+        "quantidade": 1,
+        "pedidos": 13
+      },
+      {
+        "dia": "2026-11-16",
+        "quantidade": 2,
+        "pedidos": 6
+      },
+      {
+        "dia": "2026-11-16",
+        "quantidade": 4,
+        "pedidos": 2
+      },
+      {
+        "dia": "2026-11-16",
+        "quantidade": 5,
+        "pedidos": 1
+      },
+      {
+        "dia": "2026-11-16",
+        "quantidade": 7,
+        "pedidos": 1
+      }
+    ],
+    "por_faixa_valor": [
+      {
+        "dia": "2026-11-03",
+        "faixa": "R$10-20",
+        "pedidos": 55,
+        "valor": 1005.0
+      },
+      {
+        "dia": "2026-11-03",
+        "faixa": "R$20-40",
+        "pedidos": 32,
+        "valor": 1035.0
+      },
+      {
+        "dia": "2026-11-03",
+        "faixa": "acima de R$40",
+        "pedidos": 21,
+        "valor": 1865.0
+      },
+      {
+        "dia": "2026-11-03",
+        "faixa": "até R$10",
+        "pedidos": 47,
+        "valor": 358.5
+      },
+      {
+        "dia": "2026-11-04",
+        "faixa": "R$10-20",
+        "pedidos": 89,
+        "valor": 1337.0
+      },
+      {
+        "dia": "2026-11-04",
+        "faixa": "R$20-40",
+        "pedidos": 45,
+        "valor": 1351.5
+      },
+      {
+        "dia": "2026-11-04",
+        "faixa": "acima de R$40",
+        "pedidos": 31,
+        "valor": 2193.0
+      },
+      {
+        "dia": "2026-11-04",
+        "faixa": "até R$10",
+        "pedidos": 107,
+        "valor": 708.0
+      },
+      {
+        "dia": "2026-11-05",
+        "faixa": "R$10-20",
+        "pedidos": 66,
+        "valor": 943.0
+      },
+      {
+        "dia": "2026-11-05",
+        "faixa": "R$20-40",
+        "pedidos": 63,
+        "valor": 1630.0
+      },
+      {
+        "dia": "2026-11-05",
+        "faixa": "acima de R$40",
+        "pedidos": 54,
+        "valor": 4624.0
+      },
+      {
+        "dia": "2026-11-05",
+        "faixa": "até R$10",
+        "pedidos": 120,
+        "valor": 734.5
+      },
+      {
+        "dia": "2026-11-06",
+        "faixa": "R$10-20",
+        "pedidos": 69,
+        "valor": 888.0
+      },
+      {
+        "dia": "2026-11-06",
+        "faixa": "R$20-40",
+        "pedidos": 70,
+        "valor": 2176.5
+      },
+      {
+        "dia": "2026-11-06",
+        "faixa": "acima de R$40",
+        "pedidos": 45,
+        "valor": 4760.0
+      },
+      {
+        "dia": "2026-11-06",
+        "faixa": "até R$10",
+        "pedidos": 98,
+        "valor": 590.5
+      },
+      {
+        "dia": "2026-11-07",
+        "faixa": "R$10-20",
+        "pedidos": 55,
+        "valor": 725.0
+      },
+      {
+        "dia": "2026-11-07",
+        "faixa": "R$20-40",
+        "pedidos": 75,
+        "valor": 1955.5
+      },
+      {
+        "dia": "2026-11-07",
+        "faixa": "acima de R$40",
+        "pedidos": 28,
+        "valor": 2024.5
+      },
+      {
+        "dia": "2026-11-07",
+        "faixa": "até R$10",
+        "pedidos": 69,
+        "valor": 435.5
+      },
+      {
+        "dia": "2026-11-08",
+        "faixa": "R$10-20",
+        "pedidos": 26,
+        "valor": 295.0
+      },
+      {
+        "dia": "2026-11-08",
+        "faixa": "R$20-40",
+        "pedidos": 7,
+        "valor": 186.0
+      },
+      {
+        "dia": "2026-11-08",
+        "faixa": "acima de R$40",
+        "pedidos": 4,
+        "valor": 373.5
+      },
+      {
+        "dia": "2026-11-08",
+        "faixa": "até R$10",
+        "pedidos": 6,
+        "valor": 24.5
+      },
+      {
+        "dia": "2026-11-09",
+        "faixa": "R$10-20",
+        "pedidos": 83,
+        "valor": 1320.5
+      },
+      {
+        "dia": "2026-11-09",
+        "faixa": "R$20-40",
+        "pedidos": 52,
+        "valor": 1545.0
+      },
+      {
+        "dia": "2026-11-09",
+        "faixa": "acima de R$40",
+        "pedidos": 28,
+        "valor": 2472.0
+      },
+      {
+        "dia": "2026-11-09",
+        "faixa": "até R$10",
+        "pedidos": 93,
+        "valor": 613.5
+      },
+      {
+        "dia": "2026-11-10",
+        "faixa": "R$10-20",
+        "pedidos": 97,
+        "valor": 1604.5
+      },
+      {
+        "dia": "2026-11-10",
+        "faixa": "R$20-40",
+        "pedidos": 45,
+        "valor": 1382.5
+      },
+      {
+        "dia": "2026-11-10",
+        "faixa": "acima de R$40",
+        "pedidos": 36,
+        "valor": 2927.5
+      },
+      {
+        "dia": "2026-11-10",
+        "faixa": "até R$10",
+        "pedidos": 92,
+        "valor": 639.5
+      },
+      {
+        "dia": "2026-11-11",
+        "faixa": "R$10-20",
+        "pedidos": 125,
+        "valor": 1819.0
+      },
+      {
+        "dia": "2026-11-11",
+        "faixa": "R$20-40",
+        "pedidos": 80,
+        "valor": 2554.5
+      },
+      {
+        "dia": "2026-11-11",
+        "faixa": "acima de R$40",
+        "pedidos": 82,
+        "valor": 8682.0
+      },
+      {
+        "dia": "2026-11-11",
+        "faixa": "até R$10",
+        "pedidos": 22,
+        "valor": 130.5
+      },
+      {
+        "dia": "2026-11-12",
+        "faixa": "R$10-20",
+        "pedidos": 119,
+        "valor": 1864.0
+      },
+      {
+        "dia": "2026-11-12",
+        "faixa": "R$20-40",
+        "pedidos": 80,
+        "valor": 2383.5
+      },
+      {
+        "dia": "2026-11-12",
+        "faixa": "acima de R$40",
+        "pedidos": 66,
+        "valor": 6033.0
+      },
+      {
+        "dia": "2026-11-12",
+        "faixa": "até R$10",
+        "pedidos": 58,
+        "valor": 387.5
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "R$10-20",
+        "pedidos": 108,
+        "valor": 1718.0
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "R$20-40",
+        "pedidos": 80,
+        "valor": 2406.5
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "acima de R$40",
+        "pedidos": 70,
+        "valor": 5641.0
+      },
+      {
+        "dia": "2026-11-13",
+        "faixa": "até R$10",
+        "pedidos": 46,
+        "valor": 350.5
+      },
+      {
+        "dia": "2026-11-14",
+        "faixa": "R$10-20",
+        "pedidos": 126,
+        "valor": 1868.0
+      },
+      {
+        "dia": "2026-11-14",
+        "faixa": "R$20-40",
+        "pedidos": 79,
+        "valor": 2510.0
+      },
+      {
+        "dia": "2026-11-14",
+        "faixa": "acima de R$40",
+        "pedidos": 65,
+        "valor": 7756.5
+      },
+      {
+        "dia": "2026-11-14",
+        "faixa": "até R$10",
+        "pedidos": 37,
+        "valor": 211.5
+      },
+      {
+        "dia": "2026-11-15",
+        "faixa": "R$10-20",
+        "pedidos": 15,
+        "valor": 240.0
+      },
+      {
+        "dia": "2026-11-15",
+        "faixa": "R$20-40",
+        "pedidos": 10,
+        "valor": 320.0
+      },
+      {
+        "dia": "2026-11-15",
+        "faixa": "acima de R$40",
+        "pedidos": 4,
+        "valor": 512.0
+      },
+      {
+        "dia": "2026-11-16",
+        "faixa": "R$10-20",
+        "pedidos": 13,
+        "valor": 197.5
+      },
+      {
+        "dia": "2026-11-16",
+        "faixa": "R$20-40",
+        "pedidos": 6,
+        "valor": 185.0
+      },
+      {
+        "dia": "2026-11-16",
+        "faixa": "acima de R$40",
+        "pedidos": 4,
+        "valor": 295.5
+      }
+    ]
+  },
+  "concentracao_compradores": {
+    "disponivel": true,
+    "pct_receita_top_n": 53.1,
+    "top_n": 15,
+    "receita_total": 92790.0,
+    "compradores_distintos": 245,
+    "compradores": [
+      {
+        "telefone_mascarado": "(11) 9****-5635",
+        "pedidos": 71,
+        "valor": 8714.5
+      },
+      {
+        "telefone_mascarado": "(11) 9****-7474",
+        "pedidos": 235,
+        "valor": 8053.0
+      },
+      {
+        "telefone_mascarado": "(47) 9****-3707",
+        "pedidos": 77,
+        "valor": 6756.5
+      },
+      {
+        "telefone_mascarado": "(84) 3****-4822",
+        "pedidos": 25,
+        "valor": 3729.5
+      },
+      {
+        "telefone_mascarado": "(11) 9****-2656",
+        "pedidos": 65,
+        "valor": 3603.0
+      },
+      {
+        "telefone_mascarado": "(35) 9****-0710",
+        "pedidos": 60,
+        "valor": 3403.5
+      },
+      {
+        "telefone_mascarado": "(11) 9****-6760",
+        "pedidos": 19,
+        "valor": 2467.5
+      },
+      {
+        "telefone_mascarado": "(37) 9****-4308",
+        "pedidos": 101,
+        "valor": 1990.5
+      },
+      {
+        "telefone_mascarado": "(99) 9****-2846",
+        "pedidos": 89,
+        "valor": 1857.0
+      },
+      {
+        "telefone_mascarado": "(42) 9****-9161",
+        "pedidos": 60,
+        "valor": 1854.5
+      },
+      {
+        "telefone_mascarado": "(27) 9****-6447",
+        "pedidos": 51,
+        "valor": 1671.5
+      },
+      {
+        "telefone_mascarado": "(11) 9****-9865",
+        "pedidos": 38,
+        "valor": 1372.0
+      },
+      {
+        "telefone_mascarado": "(65) 1****-6441",
+        "pedidos": 18,
+        "valor": 1329.0
+      },
+      {
+        "telefone_mascarado": "(77) 9****-1215",
+        "pedidos": 76,
+        "valor": 1262.5
+      },
+      {
+        "telefone_mascarado": "(12) 9****-6176",
+        "pedidos": 17,
+        "valor": 1244.5
+      }
+    ]
+  },
+  "produto_parametros": {
+    "taxa_plataforma_pct": 0.05,
+    "portes": [
+      "Pequeno (até R$300)",
+      "Médio (R$300 a R$800)",
+      "Grande (acima de R$800)"
+    ],
+    "faixas_preco": [
+      "até R$5",
+      "R$5-8",
+      "R$8-12",
+      "acima de R$12"
+    ]
+  }
+}

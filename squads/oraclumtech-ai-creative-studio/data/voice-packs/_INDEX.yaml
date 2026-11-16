@@ -1,0 +1,319 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# BANCO DE VOZES — catálogo por narrador
+#
+# Cada pasta é um NARRADOR. Dentro dela: a referência (quando houver) e as
+# amostras da MESMA frase, geradas em modelos diferentes, para comparação justa.
+#
+# Consumido por: @sound-designer (`audio`), @exec-producer (aprovação de uso)
+#
+# COMO USAR
+#   1. Ouça as amostras da pasta do narrador
+#   2. Confira `pode_publicar` antes de escolher — é o campo que decide
+#   3. A referência (`referencia.wav`) é o que se aponta no workflow de narração
+#
+# FRASE PADRÃO DE TESTE (todas as amostras dizem a mesma coisa):
+#   "Marco Aurélio governava o maior império do mundo. E escrevia, todas as
+#    noites, um diário que nunca pretendeu publicar. Nele, não há ordens.
+#    Há dúvidas. O homem mais poderoso de Roma passava as madrugadas tentando
+#    convencer a si mesmo a ser melhor no dia seguinte."
+#
+# WER = taxa de erro de palavra, medida transcrevendo o áudio gerado de volta
+#       com Whisper. Mede FIDELIDADE AO ROTEIRO, não qualidade estética nem
+#       sotaque — para isso, ouvido humano.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  total_narradores: 11
+  total_amostras: 14
+  engines_testados: ['ChatterBox 23-Lang v3', 'ChatterBox PT-BR (ResembleAI)', 'F5-TTS PT-BR']
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LEGENDA DOS CAMPOS
+legenda:
+  pode_publicar:
+    sim: 'Uso livre em peça publicada, inclusive monetizada'
+    nao: 'APENAS estudo e calibração de registro. Nunca publicar.'
+    a_definir: 'Depende de decisão ou contrato ainda não fechado'
+  origem:
+    embutida: 'Voz que vem no próprio modelo — não há referência, não pertence a ninguém'
+    banco_da_suite: 'Áudio de referência que acompanha a TTS-Audio-Suite'
+    clonada: 'Clonada a partir de gravação de terceiro'
+    propria: 'Gravada pelo founder ou contratada'
+
+# ─────────────────────────────────────────────────────────────────────────────
+narradores:
+
+  - id: '01-voz-casa-ptbr'
+    nome: 'Voz da Casa — PT-BR'
+    origem: embutida
+    modelo: 'ChatterBox PT-BR (ResembleAI)'
+    genero: 'a classificar de ouvido'
+    pode_publicar: sim
+    wer: '4,4%'
+    referencia: null
+    recomendacao: 'CANDIDATA PRINCIPAL para canal PT-BR'
+    por_que: >
+      Melhor fidelidade entre as opções publicáveis, sotaque de modelo dedicado ao
+      Brasil, e não depende de referência — some a questão de direito de voz.
+    nota: 'Cortou o WER pela metade contra o modelo genérico (8,9% → 4,4%)'
+
+  - id: '02-voz-casa-23lang'
+    nome: 'Voz da Casa — 23-Lang'
+    origem: embutida
+    modelo: 'ChatterBox 23-Lang v3'
+    genero: feminina
+    pode_publicar: sim
+    wer: '0,0%'
+    referencia: null
+    recomendacao: 'Escolhida pelo founder em 2026-08-29 para o formato de novela'
+    por_que: 'WER perfeito. Não depende de referência. Reprodutível para sempre.'
+    limite: 'Feminina — não serve para o registro grave do estoicismo'
+
+  - id: '03-male-02'
+    nome: 'Masculina genérica 02'
+    origem: banco_da_suite
+    modelo: ['ChatterBox 23-Lang v3', 'ChatterBox PT-BR']
+    genero: masculina
+    pode_publicar: sim
+    wer: '4,4% (no modelo PT-BR)'
+    referencia: 'referencia.wav'
+    nota: 'Falante de inglês — carrega sotaque estrangeiro na clonagem cross-lingual'
+
+  - id: '04-male-01'
+    nome: 'Masculina genérica 01'
+    origem: banco_da_suite
+    modelo: 'ChatterBox 23-Lang v3'
+    genero: masculina
+    pode_publicar: sim
+    referencia: 'referencia.wav'
+    nota: 'Mesma ressalva de sotaque do 03'
+
+  - id: '05-chadwick'
+    nome: 'Chadwick'
+    origem: banco_da_suite
+    modelo: 'ChatterBox 23-Lang v3'
+    genero: masculina
+    pode_publicar: sim
+    referencia: 'referencia.wav'
+    nota: 'Voz de personagem — timbre mais marcado que as genéricas'
+
+  - id: '06-en-man'
+    nome: 'Masculina genérica EN'
+    origem: banco_da_suite
+    modelo: 'ChatterBox 23-Lang v3'
+    genero: masculina
+    pode_publicar: sim
+    referencia: 'referencia.wav'
+
+  - id: '07-narrador-estoico-clonado'
+    nome: 'Narrador estoico (clonado)'
+    origem: clonada
+    modelo: ['ChatterBox 23-Lang v3', 'ChatterBox PT-BR']
+    genero: masculina
+    pode_publicar: sim
+    restricao_anterior_revogada:
+      era: 'pode_publicar: nao'
+      motivo_de_entao: >
+        Clonada de vídeo de terceiro. Se a voz de origem for de locutor humano,
+        há direito de personalidade. Se for TTS de catálogo, o caminho é
+        licenciar a voz original.
+    decisao_do_founder:
+      data: '2026-09-05'
+      escopo: 'todas as publicações — liberada sem restrição de formato'
+      decidiu: 'as vozes clonadas estão liberadas para publicação'
+      fundamento_do_founder: >
+        As vozes de origem NÃO são humanas — são TTS. Direito de personalidade
+        pressupõe pessoa identificável, e não há pessoa por trás delas.
+      o_que_a_medicao_apoia: >
+        A referência v1 tem DUAS pausas em 34 minutos, com variação de 8 wpm.
+        Isso não é respiração humana e é consistente com origem sintética.
+      registrado_por: 'run_batch.py → jobs curto-la1p1-narracao-*'
+    wer:
+      'modelo-23lang, ref 14s': '8,9%'
+      'modelo-23lang, ref 20s': '8,9%'
+      'modelo-ptbr, ref 20s': '20,0%'
+    referencia: null
+    valor: >
+      É a MELHOR referência de sotaque brasileiro do banco — foi ela que revelou
+      que a clonagem carrega o sotaque da fonte. Serve como alvo de qualidade a
+      ser alcançado por meio legítimo.
+    achado_nao_explicado: >
+      O modelo PT-BR PIOROU esta clonagem (20% contra 8,9%). Hipótese não
+      confirmada: o `ve.pt` que montei veio do repo base, não do pacote pt-br,
+      e clonagem depende dessa dupla. Testar antes de concluir qualquer coisa.
+
+  - id: '08-f5-ptbr'
+    nome: 'F5-TTS PT-BR'
+    origem: banco_da_suite
+    modelo: 'F5-TTS PT-BR'
+    genero: feminina
+    pode_publicar: sim
+    wer: '5,3% (com referência em PT-BR)'
+    referencia: 'referencia.wav'
+    vantagem: 'Cerca de 9x mais rápido que o ChatterBox'
+    limite_duro: >
+      SÓ funciona com referência em português. Com referência em inglês desmonta
+      (36,8% de WER) e satura o áudio. É modelo PT-BR treinado do zero, não multilíngue.
+
+  # ── RESTRITAS — estudo apenas ──────────────────────────────────────────────
+  - id: '90-RESTRITA-morgan-freeman'
+    nome: 'Morgan Freeman'
+    origem: banco_da_suite
+    genero: masculina
+    registro: 'grave, madura, autoridade'
+    pode_publicar: nao
+    motivo_da_restricao: 'Pessoa real identificável — direito de personalidade e de voz'
+    referencia: 'referencia.wav'
+    para_que_serve: 'Calibrar o registro grave que o founder busca. É o alvo estético, não o meio.'
+
+  - id: '91-RESTRITA-attenborough'
+    nome: 'David Attenborough'
+    origem: banco_da_suite
+    genero: masculina
+    registro: 'grave, madura, documental'
+    pode_publicar: nao
+    motivo_da_restricao: 'Pessoa real identificável'
+    wer: '5,3%'
+    referencia: 'referencia.wav'
+
+  - id: '92-RESTRITA-eastwood'
+    nome: 'Clint Eastwood'
+    origem: banco_da_suite
+    genero: masculina
+    registro: 'grave, rascante'
+    pode_publicar: nao
+    motivo_da_restricao: 'Pessoa real identificável'
+    referencia: 'referencia.wav'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# O QUE FALTA NO BANCO
+lacunas:
+  - id: voz-grave-masculina-publicavel
+    o_que_falta: 'Uma voz MASCULINA GRAVE que possa ser publicada'
+    por_que_importa: >
+      É o registro que o founder quer para estoicismo, e hoje as três vozes que o
+      têm são de pessoa real e não podem ir ao ar.
+    caminhos:
+      - 'Gravar uma referência própria (ou contratar locutor uma vez) e clonar'
+      - 'RVC sobre voz genérica — já instalado, move timbre e altura sem clonar pessoa'
+      - 'Referência de acervo em domínio público (LibriVox PT-BR) com narrador grave'
+      - 'Licenciar voz de catálogo comercial (ver data/bancos-de-voz.yaml)'
+  - id: teste-de-sotaque
+    o_que_falta: 'Julgamento de ouvido do founder sobre quais amostras soam PT-BR de verdade'
+    por_que_importa: 'WER mede fidelidade ao texto, NÃO mede sotaque. Só o ouvido decide isso.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+manutencao:
+  regra: >
+    Toda voz nova entra como pasta própria, com a MESMA frase de teste, para a
+    comparação continuar justa. Voz sem `pode_publicar` preenchido não entra em job.
+  script: 'O organizador vive no scratchpad; se virar rotina, mover para services/'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VALIDAÇÃO DO FOUNDER — 2026-08-29
+#
+# Esta seção é AUTORIDADE sobre os campos `recomendacao` acima: onde divergir,
+# vale o que está aqui. Foi ouvido, não medido.
+# ─────────────────────────────────────────────────────────────────────────────
+validacao_do_founder:
+
+  data: '2026-08-29'
+  documento: 'VALIDACAO.md (preenchido pelo founder)'
+
+  decisao_estrutural: >
+    NÃO haverá voz canônica única. O squad mantém um PORTFÓLIO validado, dividido
+    em dois conjuntos: um para GERAÇÕES OFICIAIS (publicável) e outro para ESTUDO
+    (clones aprovados esteticamente, mas ainda sem base de direito para publicar).
+    Cada peça escolhe a voz pelo caso, não por padrão.
+
+  # ── conjunto OFICIAL — aprovado e publicável ──────────────────────────────
+  oficial:
+  - id: '01-voz-casa-ptbr'
+    veredito: validado
+  - id: '02-voz-casa-23lang'
+    veredito: validado_com_observacao
+    observacao: 'Voz e personagem aprovados. O problema estava no timing stretch_to_fit, não na voz.'
+  - id: '03-male-02'
+    veredito: validado
+    nota: 'Aprovada nos DOIS modelos — 23-Lang e PT-BR'
+  - id: '06-en-man'
+    veredito: validado_com_observacao
+    observacao: 'Algumas palavras erraram a sílaba tônica ou saíram distorcidas'
+  - id: '09-female-01'
+    veredito: validado
+    nota: 'Aprovada no 23-Lang. No F5-TTS foi REJEITADA — mesma voz, engine pior.'
+  - id: '08-f5-ptbr'
+    veredito: validado_com_observacao
+    observacao: >
+      Textura e entonação com qualidade MENOR que o 23-Lang. Erro de entonação no
+      começo. Serve, mas não é a primeira escolha.
+
+  # ── REJEITADOS — saem do portfólio ────────────────────────────────────────
+  rejeitados:
+  - id: '04-male-01'
+    motivo: 'rejeitada pelo founder'
+  - id: '05-chadwick'
+    motivo: 'rejeitada pelo founder'
+  - id: '09-female-01 no engine F5-TTS'
+    motivo: '"muito ruim" — a MESMA voz é aprovada no 23-Lang, então o defeito é do engine'
+
+  # ── conjunto ESTUDO — bom de ouvido, mas não publicável ───────────────────
+  estudo:
+  - id: '07-narrador-estoico-clonado · 23-Lang · ref 20s'
+    veredito: validado
+    atencao: >
+      APROVAÇÃO ESTÉTICA, NÃO LIBERAÇÃO DE USO. Continua com `pode_publicar: nao`
+      — a restrição é de direito de voz, e ouvido não resolve direito. É o melhor
+      clone do banco e o alvo de qualidade a alcançar por meio legítimo.
+  - id: '07-narrador-estoico-clonado · 23-Lang · ref 14s'
+    veredito: validado_com_observacao
+    observacao: >
+      Sotaque português de Portugal em "noites" e "diário que"; o R final de
+      "maior" saiu deformado.
+  - id: '07-narrador-estoico-clonado · PT-BR · ref 20s'
+    veredito: validado_com_observacao
+    observacao: >
+      Ponto final indevido depois de "do mundo", que quebrou a continuidade com
+      "e escrevia todas as noites"; pausa sem sentido depois de "Nele".
+
+  # ── timing de SRT — decidido ──────────────────────────────────────────────
+  timing:
+    smart_natural: validado
+    pad_with_silence: validado
+    stretch_to_fit:
+      veredito: REJEITADO
+      motivo: 'atrasa a fala e distorce'
+      consequencia: >
+        SAI das opções do squad. Nenhum job novo deve usá-lo. A medição já
+        apontava (WER 15,8%) e o ouvido confirmou.
+
+  # ── registro grave: as três restritas ─────────────────────────────────────
+  registro_grave:
+    morgan_freeman: 'perto, mas não é — "voz boa, entonações ruins, não seguem a coerência das frases"'
+    attenborough: 'perto, INTERESSANTE APRIMORAR — "leve sotaque, mas salva para testes"'
+    eastwood: 'perto — "algumas palavras estranhas, mas aproveitável para mais aprimoramento"'
+    leitura: >
+      Nenhuma das três foi rejeitada por TIMBRE. As três foram ressalvadas por
+      ENTONAÇÃO. Ver a síntese abaixo.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# A SÍNTESE QUE MUDA A PRIORIDADE DO SQUAD
+sintese_da_validacao:
+  achado: >
+    Em 9 das 10 observações escritas pelo founder, a queixa é de PROSÓDIA — pausa
+    no lugar errado, sílaba tônica errada, ponto final onde não havia, entonação
+    que não segue a coerência da frase. Praticamente nenhuma queixa é de TIMBRE.
+  consequencia: >
+    O gargalo do pack de locução NÃO é escolher uma voz melhor. É dirigir melhor a
+    voz que já temos. Trocar de voz não resolve um problema de direção.
+  onde_esta_a_alavanca:
+  - 'O SRT é a partitura de prosódia — fronteira de cue decide respiração e ênfase (data/oratoria-e-prosodia.yaml)'
+  - 'Pontuação do texto de entrada: o modelo lê ponto final como queda de entonação. "do mundo." vs "do mundo," muda a frase inteira.'
+  - 'Palavra com sílaba tônica errada pode ser reescrita ou soletrada foneticamente na entrada'
+  proximo_teste_de_maior_retorno: >
+    Pegar a MESMA voz já aprovada (02-voz-casa-23lang ou 03-male-02) e variar só a
+    PONTUAÇÃO e as fronteiras de cue do SRT, nas frases exatas que o founder citou.
+    Isso isola prosódia de voz — que é o que nenhum teste até agora fez.

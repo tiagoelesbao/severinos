@@ -1,0 +1,73 @@
+handoff:
+  from_agent: "marketing-chief"
+  to_agent: "sm | architect (engenharia AIOX)"
+  date: "2026-05-16"
+  subject: "Redesenho da Etapa 1 do motor de produção de criativos (deep_modeler.py)"
+
+context:
+  trigger: >
+    Pipeline *design-creative executado sobre o benchmark
+    workspaces/businesses/virals/marketing/daily-monitoring/2026-05-16/benchmark/instagram/02-publicitarioscriativos-148f72.
+    Marketing Chief validou a Etapa 1 e a REPROVOU por falha estrutural.
+  decision: "Redesenho story-driven (@architect desenha, @dev implementa). Não é remendo."
+
+scope:
+  in_scope:
+    - "scripts/modeling/deep_modeler.py — Etapa 1 (modelagem → brief)"
+  adjacent_affected:
+    - "squads/virals-marketing-squad/scripts/orchestrate_carousel.py — Etapa 2 (resiliência)"
+    - "apps/creative-design/src/components/design-system/templates/ModeledCarouselSlide.tsx — layout/zonas"
+    - "squads/virals-marketing-squad/data/casey-brand-config.yaml — tokens de marca não consumidos"
+
+findings:
+  critical:
+    - id: C1
+      desc: "Lê só Transcrição.md. Ignora Análise.md (auditorias + gatilhos) e Screenshots/ (8 imagens reais). 1 de 3 insumos."
+    - id: C2
+      desc: "Zero análise. É regex (re.search) sobre rótulos — sem LLM, sem releitura semântica, sem leitura visual dos prints. Não há reanálise."
+    - id: C3
+      desc: "Extração de body_text 100% quebrada: regex casa só 'Body Text:' (EN); transcrição PT usa 'Corpo do texto:'. 8/8 bodies vazios."
+    - id: C4
+      desc: "Falha silenciosa: regex miss → placeholder ('CASE #2', body vazio) sem warning nem validação. Brief quebrado sai como sucesso."
+    - id: C5
+      desc: "Sem personalização Virals real. CTA e hook hardcoded; casey-brand-config.yaml referenciado como string mas nunca lido."
+  medium:
+    - id: M1
+      desc: "Headline extraction frágil: regex não cobre 'Texto principal:'/'Título:'. 4/8 headlines reais perdidas."
+    - id: M2
+      desc: "generate_contextual_prompt = if-chain hardcoded de marcas irrelevantes (havan/nubank/adidas/bic/açaí). Trunca headline em 30 chars no meio da palavra."
+    - id: M3
+      desc: "Slide final sempre vira CTA fixo 'ESTRATÉGIA É PODER'. Ignora o slide real do benchmark."
+  low:
+    - id: L1
+      desc: "UnicodeEncodeError no print final (emoji vs cp1252 Windows). Não bloqueia o brief, mas retorna exit 1."
+  layout_pain:
+    - id: LP1
+      desc: >
+        ModeledCarouselSlide.tsx tem zonas por variante (HOOK/CONTENT 65-35/IMAGE_FOCUS 20-80/CTA) e
+        getHeadlineSize() em 3 buckets. Mas body usa max-h overflow-hidden = CLIPA texto longo em vez de
+        reajustar. Proporções de zona são fixas, indiferentes ao volume de conteúdo.
+
+target_spec:
+  - "Ler os 3 insumos: Transcrição.md + Análise.md + Screenshots/ (releitura visual dos prints)."
+  - "Camada de análise real (LLM) que extrai estrutura vencedora e reanalisa conteúdo — não regex."
+  - "Schema de brief validado: campo vazio = erro explícito, nunca placeholder mascarado."
+  - "Parser PT/EN agnóstico de rótulo."
+  - "Personalização Virals real: estrutura do benchmark recastada com oferta/avatar Virals; consumir casey-brand-config.yaml."
+  - "Brief com rastreabilidade: cada campo aponta origem (slide N / fonte)."
+  - "Brief informa volume de texto → template escolhe zona/escala harmônica (resolve LP1)."
+  - "Encoding UTF-8 forçado."
+
+requester_intent: >
+  Usuário quer outputs que sigam padrão: criativos otimizados em distribuição de proporção nos
+  carrosséis, com placeholders demarcados para imagem / H1 / descrição, ajustados de forma harmônica
+  conforme a extensão dos textos.
+
+next_action: >
+  @sm: draftar story do redesenho da Etapa 1 a partir deste handoff.
+  @architect: desenhar arquitetura (3 insumos + camada de análise + schema de brief + contrato com o template).
+  Complexidade estimada: STANDARD a COMPLEX — considerar Spec Pipeline antes do SDC.
+
+reference_artifacts:
+  - "Auditorias dos top 3 criativos: daily-monitoring/2026-05-16/benchmark/instagram/{01,02,03}-*/Análise.md"
+  - "Brief defeituoso de exemplo: squads/virals-marketing-squad/data/brief-v4-02-publicitarioscriativos-148f72.yaml"

@@ -1,0 +1,54 @@
+{
+  "rank": 3,
+  "creator": "@rourke",
+  "url": "https://www.instagram.com/rourke/reel/DcBsFvrJJM7/",
+  "platform": "instagram",
+  "type": "video-short",
+  "subtype": "ig-reel",
+  "engine": "VideoAnalyzer",
+  "title": "Video by rourke",
+  "description": "AI can do all these VFX 🧟🔥\n\nComment “AI” to try it yourself on Magnific!\n\nSeedance 2.5 lets you take real filmed footage and change the background, relight the scene, add props, extras and full CGI elements without hiring a crew. Full creative control over the look of a shot after it’s already been captured, right down to the colour grade. Genuinely huge for filmmakers, advertisers and creators making big-budget visuals on small budgets.\n\n#Seedance25 #AIVFX #AIFilmmaking #VFXWithAI #CreativeAI",
+  "author": "Rourke Sefton-Minns",
+  "view_count": null,
+  "like_count": 13332,
+  "comment_count": null,
+  "duration_seconds": null,
+  "thumbnail": "https://instagram.fcpq7-1.fna.fbcdn.net/v/t51.82787-15/774597553_17971987968146282_7776601468821118687_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=100&ig_cache_key=Mzk2MzY0MzA1NTg5NjMwMjM5NTE3OTcxOTg3OTY1MTQ2Mjgy.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjEwODAuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=GRrRjOLj5H4Q7kNvwEKneR8&_nc_oc=Adp-ADw1ZFE6YGLXI8U_T3QR_GiaLFjK_KkEIfrt8aXArJIyXaAgylxvbOGjjcZxL8zAQdPccGhh7TR6VDg_e4Cc&_nc_zt=23&_nc_ht=instagram.fcpq7-1.fna&_nc_gid=LkNbUlywgGm5CMQoQFXmyg&_nc_ss=7b689&oh=00_AQEuZEBpRamGdJqD47TzDlzR6GnewNuVZJV06CoxXZVCyg&oe=6A88234A",
+  "screenshots_count": 5,
+  "key_moments": [
+    {
+      "time": 0,
+      "label": "Ah!"
+    },
+    {
+      "time": 6,
+      "label": "Now, if you have an idea, you "
+    },
+    {
+      "time": 20,
+      "label": "First, you need to restyle a b"
+    },
+    {
+      "time": 31,
+      "label": "This will give you a prompt th"
+    },
+    {
+      "time": 49,
+      "label": "So, if you want to try it out,"
+    }
+  ],
+  "cut_timestamps": [
+    20.27,
+    20.3,
+    23.73,
+    25.07,
+    26.6,
+    26.63,
+    44.43
+  ],
+  "download_status": "success",
+  "analyzer_status": "ok",
+  "processed_at": "2026-08-17T00:55:12.578Z",
+  "item_status": "ok",
+  "status_reason": null
+}

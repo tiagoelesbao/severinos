@@ -1,0 +1,12 @@
+template: ImperioIgnicaoPunho
+take_file: take1_conformado.mov
+headline:
+  text: "RESULTADO PÚBLICO, SEMPRE. VOCÊ CONFERE, NÃO SÓ CONFIA."
+  highlight_word: "CONFIA."
+hook: imperio-hook-zoom-in
+angulo: prova
+nota: >
+  Copy = headline do Ângulo 5 (Prova) em copy-angles-2026-10-09.md §5,
+  cross-aplicada no headline de fechamento. Mesma ressalva de
+  take1-confianca-zoomin.yaml quanto aos overlays de abertura (fixos,
+  genéricos). highlight_word = última palavra (convenção mecânica).

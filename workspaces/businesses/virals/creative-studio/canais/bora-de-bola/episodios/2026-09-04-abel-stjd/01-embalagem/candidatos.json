@@ -1,0 +1,48 @@
+[
+  {
+    "titulo": "AGORA! Abel fora, e o Palmeiras não aceita o veredito",
+    "thumb_texto": "ABSOLVIÇÃO VIROU CONDENAÇÃO",
+    "verificado": [
+      "duas partidas de suspensão por chutar um microfone na beira do campo",
+      "O julgamento de Abel Ferreira começou com um auditor pedindo absolvição",
+      "Depois da pausa para o almoço, os votos ficaram diferentes"
+    ],
+    "thumb": {
+      "linha1": "ABSOLVIÇÃO VIROU {CONDENAÇÃO}",
+      "linha2": "O PALMEIRAS NÃO ACEITOU",
+      "visual_esq": "../../_imagens/abel-recorte.jpg",
+      "visual_esq_foto": true,
+      "selo": "../../../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png"
+    }
+  },
+  {
+    "titulo": "AGORA! Abel fora, e o Palmeiras não aceita o veredito",
+    "thumb_texto": "A ABSOLVIÇÃO PIOROU TUDO",
+    "verificado": [
+      "duas partidas de suspensão por chutar um microfone na beira do campo",
+      "O julgamento de Abel Ferreira começou com um auditor pedindo absolvição"
+    ],
+    "thumb": {
+      "linha1": "A ABSOLVIÇÃO {PIOROU TUDO}",
+      "linha2": "ELE NÃO PEGA O BOTAFOGO",
+      "visual_esq": "../../_imagens/abel2-recorte.jpg",
+      "visual_esq_foto": true,
+      "selo": "../../../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png"
+    }
+  },
+  {
+    "titulo": "AGORA! Abel fora, e o Palmeiras não aceita o veredito",
+    "thumb_texto": "O QUE MUDOU NO ALMOÇO",
+    "verificado": [
+      "O julgamento de Abel Ferreira começou com um auditor pedindo absolvição",
+      "Depois da pausa para o almoço, os votos ficaram diferentes"
+    ],
+    "thumb": {
+      "linha1": "O QUE MUDOU {NO ALMOÇO}",
+      "linha2": "O VOTO ERA OUTRO ANTES",
+      "visual_esq": "../../_imagens/abel-recorte.jpg",
+      "visual_esq_foto": true,
+      "selo": "../../../../workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png"
+    }
+  }
+]

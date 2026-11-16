@@ -1,0 +1,537 @@
+{
+  "id": "ace57e91-2b46-4d08-8c73-0e6a9f4b21cc",
+  "revision": 0,
+  "last_node_id": 10,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        120,
+        120
+      ],
+      "size": [
+        400,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "ace_step_v1_3.5b.safetensors"
+      ],
+      "title": "ACE-Step v1 3.5B (all-in-one: model + umT5 + VAE)"
+    },
+    {
+      "id": 2,
+      "type": "TextEncodeAceStepAudio",
+      "pos": [
+        560,
+        120
+      ],
+      "size": [
+        440,
+        420
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            4,
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeAceStepAudio"
+      },
+      "widgets_values": [
+        "{{ESTILO}}",
+        "{{LETRA}}",
+        0.99
+      ],
+      "title": "tags = {{ESTILO}} | lyrics = {{LETRA}}"
+    },
+    {
+      "id": 3,
+      "type": "ConditioningZeroOut",
+      "pos": [
+        1040,
+        120
+      ],
+      "size": [
+        300,
+        46
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ConditioningZeroOut"
+      },
+      "widgets_values": [],
+      "title": "Negativo = positivo zerado"
+    },
+    {
+      "id": 4,
+      "type": "ModelSamplingSD3",
+      "pos": [
+        560,
+        600
+      ],
+      "size": [
+        360,
+        82
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingSD3"
+      },
+      "widgets_values": [
+        5.0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LatentOperationTonemapReinhard",
+      "pos": [
+        560,
+        730
+      ],
+      "size": [
+        360,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT_OPERATION",
+          "type": "LATENT_OPERATION",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LatentOperationTonemapReinhard"
+      },
+      "widgets_values": [
+        1.0
+      ]
+    },
+    {
+      "id": 6,
+      "type": "LatentApplyOperationCFG",
+      "pos": [
+        1040,
+        600
+      ],
+      "size": [
+        340,
+        66
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 7
+        },
+        {
+          "name": "operation",
+          "type": "LATENT_OPERATION",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LatentApplyOperationCFG"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "EmptyAceStepLatentAudio",
+      "pos": [
+        560,
+        860
+      ],
+      "size": [
+        360,
+        82
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyAceStepLatentAudio"
+      },
+      "widgets_values": [
+        "{{DURACAO_S}}",
+        1
+      ]
+    },
+    {
+      "id": 8,
+      "type": "KSampler",
+      "pos": [
+        1440,
+        200
+      ],
+      "size": [
+        360,
+        262
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 9
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        0,
+        "randomize",
+        50,
+        5.0,
+        "euler",
+        "simple",
+        1
+      ]
+    },
+    {
+      "id": 9,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        1860,
+        200
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 11
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "SaveAudio",
+      "pos": [
+        1860,
+        310
+      ],
+      "size": [
+        400,
+        112
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "audio/oraclum/{{JOB}}/{{FAIXA}}"
+      ],
+      "title": "Saida FLAC lossless (a faixa e o ativo)"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      4,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      1,
+      1,
+      2,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      1,
+      2,
+      9,
+      1,
+      "VAE"
+    ],
+    [
+      4,
+      2,
+      0,
+      3,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      5,
+      2,
+      0,
+      8,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      3,
+      0,
+      8,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      4,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      8,
+      5,
+      0,
+      6,
+      1,
+      "LATENT_OPERATION"
+    ],
+    [
+      9,
+      6,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      10,
+      7,
+      0,
+      8,
+      3,
+      "LATENT"
+    ],
+    [
+      11,
+      8,
+      0,
+      9,
+      0,
+      "LATENT"
+    ],
+    [
+      12,
+      9,
+      0,
+      10,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "frontendVersion": "1.48.7",
+    "oraclum": {
+      "workflow_id": "audio-musica-acestep",
+      "origem": "montado pelo squad a partir dos templates oficiais audio_ace_step_1_t2a_song.json e audio_ace_step_1_t2a_instrumentals.json (pacote comfyui-workflow-templates 0.11.41 instalado na maquina do founder) + schemas reais do /object_info do ComfyUI 0.33.1. Os dois templates oficiais tem o MESMO grafo - o que muda entre cancao e instrumental sao apenas os campos de texto - por isso aqui existe um workflow so.",
+      "quando_usar": "Musica COMPLETA com estrutura, letra e vocal - o substituto local do Suno. E o modelo do uso 'produto' da tabela de musica como capacidade transversal: o nicho dark de musica, onde a faixa e o ativo vendido e nao apoio de video. Para leito instrumental de peca publicitaria e SFX avulso, usar audio-trilha-sfx (Stable Audio Open) - e mais barato e foi treinado para isso.",
+      "config": "50 steps, cfg 5.0, sampler euler, scheduler simple, denoise 1.0, shift 5.0 no ModelSamplingSD3, tonemap Reinhard multiplier 1.0, lyrics_strength 0.99. Todos os valores sao os dos templates oficiais, mantidos sem alteracao.",
+      "os_dois_campos_sao_distintos": "tags e lyrics sao entradas SEPARADAS do TextEncodeAceStepAudio, e essa separacao e o recurso principal do modelo - e exatamente o fluxo de dois artefatos que a aula 3 ensinou. {{ESTILO}} vai em tags: lista curta de descritores separados por virgula (genero, timbre de voz, instrumentos, andamento, humor), na casa dos 200 caracteres. {{LETRA}} vai em lyrics, com a letra de verdade e marcadores estruturais entre colchetes. Jogar a letra dentro de tags, ou a descricao de estilo dentro de lyrics, quebra o modelo - nao e campo livre unico.",
+      "marcadores_de_estrutura": "lyrics aceita marcadores estruturais entre colchetes que dirigem o arranjo: [verse], [chorus], [bridge], [outro] e, para faixa sem voz, [instrumental], [break down], [drum fill]. Para instrumental puro, deixar {{LETRA}} com apenas [instrumental] mais os marcadores de arranjo - o campo NAO fica vazio.",
+      "lyrics_strength": "0.99 e o valor dos templates oficiais. Abaixo de 1.0 o modelo tem folga para ajustar a metrica da letra a melodia; forcar 1.0 tende a engessar o fraseado. Mexer so com motivo.",
+      "por_que_nao_precisa_de_encoder_separado": "Ao contrario do Stable Audio Open, este checkpoint e ALL-IN-ONE: o header safetensors tem 1903 tensores e inclui text_encoders.umt5base. O CheckpointLoaderSimple sozinho entrega MODEL, CLIP e VAE - nao existe CLIPLoader neste grafo, e isso esta correto.",
+      "duracao": "EmptyAceStepLatentAudio aceita ate 1000s; o template oficial de cancao usa 120s e o de instrumental 30s. Aqui a duracao e um placeholder unico ({{DURACAO_S}}) e NAO tem a armadilha de duplicacao do audio-trilha-sfx: o ACE-Step nao tem no de conditioning de duracao separado.",
+      "licenca": "Apache 2.0 - uso comercial liberado, sem asterisco e sem teto de faturamento. Diferente do Stable Audio Open, que e Stability AI Community License com limite de USD 1M/ano. Para o nicho dark de musica, onde a faixa e o produto monetizado, essa diferenca de licenca e o argumento decisivo a favor do ACE-Step.",
+      "o_que_a_licenca_local_NAO_resolve": "Geracao local sob Apache 2.0 elimina a PRIMEIRA das quatro ressalvas da aula 3 - a titularidade deixa de depender dos termos de uso de uma plataforma, porque nao ha plataforma entre o founder e o arquivo. As outras tres continuam de pe e este workflow NAO as resolve: protecao contestada de obra puramente gerada, possibilidade de reivindicacao de Content ID por semelhanca, e politica propria de distribuidora sobre IA.",
+      "placeholders": [
+        "{{ESTILO}}",
+        "{{LETRA}}",
+        "{{DURACAO_S}}",
+        "{{JOB}}",
+        "{{FAIXA}}"
+      ],
+      "saida": "audio/oraclum/{{JOB}}/{{FAIXA}} (FLAC)"
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,561 @@
+schema_version: '5.0'
+generated_at: '2026-08-12T19:45:12'
+archetype: news
+carousel_brief:
+  slug: v5-precision-48-eduardocavalcanti-abdc6c
+  source_benchmark: workspaces/businesses/oraclum/marketing/daily-monitoring/2026-08-11/benchmark/instagram/carrossels-imagens\48-eduardocavalcanti-abdc6c
+  source_url: https://www.instagram.com/eduardocavalcanti/p/Db5gy_9DWMZ/
+  tema: 'Modelagem de precisão: 48-eduardocavalcanti-abdc6c'
+  slide_count: 7
+  narrative_type: modelado-de-benchmark
+  brand_config: squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#08080C'
+    secondary: '#12121C'
+    accent: '#A855F7'
+    accent_alt: '#7E22CE'
+    accent_aurora: '#D8B4FE'
+    text_primary: '#FFFFFF'
+    text_secondary: '#A19DAF'
+    overlay_dark: '#0000008C'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F4F3F7'
+      text: '#08080C'
+      accent: '#A855F7'
+  accent: '#A855F7'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#D0CDE0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#08080C'
+      background: '#FFFFFF'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#A19DAF'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.55
+      dark_strong:
+        color: '#000000'
+        opacity: 0.75
+      brand_subtle:
+        color: '#08080C'
+        opacity: 0.35
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 8
+  benchmark_json: true
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 7.0/10 · **Classificação:** Bom 🟡 · **Veredito
+    dominante:** `ignorar` **Adaptações obrigatórias consolidadas (do painel):** -
+    Substituir a imagem surrealista do slide 01 por um print real da automação ativa
+    e trocar o foco em ''estatísticas de estrelas'' por ''ganho de eficiência/tempo
+    para o negócio''. - Remover o bordão motivacional final (''PRA CIMA'') e substituir
+    por um CTA p'
+  audits_present: true
+benchmark_caption: 'O Claude Code agora pode controlar o seu iPhone.
+
+
+  Não porque a Apple abriu o sistema.
+
+
+  Ele usa o Espelhamento do iPhone como olhos e mãos: captura a tela, lê o texto e
+  envia toque, digitação e swipe pelo Mac.
+
+
+  No vídeo oficial, o agente abre o Waymo, encontra uma corrida de US$ 41,40 e para
+  antes de contratar.
+
+
+  A tela virou caminho. O gasto continua com o humano.
+
+
+  O projeto bateu 1.423 estrelas em 3 dias e 11 horas.
+
+
+  Eu instalei no Mac. O comando oficial quebrou. Corrigi a dependência, rodei o diagnóstico
+  e confirmei a parte que vídeo viral costuma esconder: para funcionar, o terminal
+  precisa de Acessibilidade e Gravação de Tela.
+
+
+  É acesso pesado.
+
+
+  A tese não é “Claude entrou no iPhone”.
+
+
+  É outra:
+
+
+  Quando não existe API, o agente começa a operar a interface como gente.
+
+
+  API quando existe.
+
+  Tela quando precisa.
+
+  Humano antes do risco.
+
+
+  A IA ganhou alcance.
+
+  A responsabilidade continua sendo nossa.
+
+
+  Quer testar no seu Mac? Comenta IPHONE que eu te mando o projeto no direct.
+
+
+  Demonstração e projeto: @shawn_pana · phone-harness.
+
+
+  PRA CIMA. 🦞'
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: HOOK
+  screenshot_ref: Screenshots/slide_01.jpg
+  reference_headline: Eduardo Cavalcanti
+  reference_body: O Claude Code agora pode controlar o seu iPhone. SEM JAILBREAK ·
+    SEM XCODE · SEM API DO APP
+  headline: O CLAUDE CODE AGORA CONTROLA SEU IPHONE
+  sub_headline: A NOVA FRONTEIRA
+  body_text: Você pode automatizar qualquer app sem precisar de API ou gambiarras
+    técnicas. A IA agora opera o celular como se fosse você.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 39
+    body_chars: 125
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: person using iphone macbook
+  accent_color: '#A855F7'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Headline direta focada no benefício: como agentes de IA agora controlam
+      o iPhone sem precisar de API, Xcode ou Jailbreak. Foque na quebra da barreira
+      técnica.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+- slide_n: 2
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_02.jpg
+  reference_headline: Eduardo Cavalcanti
+  reference_body: 'O nome é phone-harness. O transporte inteiro é o Espelhamento do
+    iPhone no macOS Sequoia. Pro agente, seu telefone virou uma janela de vídeo no
+    Mac. "The Mac''s iPhone Mirroring window is the whole transport: screencapture
+    + Vision OCR for eyes, HID-level CGEvents for hands." A janela do espelhamento
+    é o transporte inteiro. ShawnPana/phone-harness · README.md · linhas 6–9'
+  headline: 'O MECANISMO POR TRÁS DO CONTROLE: PHONE-HARNESS'
+  sub_headline: O MECANISMO
+  body_text: A estratégia utiliza o espelhamento do iPhone no macOS Sequoia como base.
+    Para o agente de IA, o seu telefone torna-se uma janela de vídeo processável dentro
+    do Mac.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 47
+    body_chars: 165
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: macbook screen iphone mirroring
+  accent_color: '#A855F7'
+  source_slides:
+  - 2
+  personalization:
+    status: DONE
+    directive: Apresentar o 'phone-harness'. Explicar que o agente usa o espelhamento
+      do macOS Sequoia para transformar o telefone em uma janela de vídeo processável.
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+- slide_n: 3
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_03.jpg
+  reference_headline: Eduardo Cavalcanti
+  reference_body: Os olhos são uma captura de tela lida pelo OCR da Apple. As mãos
+    são eventos de mouse e teclado enviados como toque. Depois ele fotografa de novo
+    para confirmar se funcionou. screenshot tela real Vision OCR texto + coordenada
+    CGEvents HID tap · swipe · digitação verifica de novo nova captura é a verdade
+    final
+  headline: COMO O AGENTE ENXERGA E TOCA A TELA
+  sub_headline: OLHOS E MÃOS
+  body_text: O sistema utiliza OCR para interpretar cada screenshot e converter a
+    imagem em dados. As ações de toque são executadas através de eventos de mouse
+    e teclado.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 157
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: close up computer screen code
+  accent_color: '#A855F7'
+  source_slides:
+  - 3
+  personalization:
+    status: DONE
+    directive: 'Explicar a técnica: OCR para ''enxergar'' a tela e eventos de mouse/teclado
+      para ''tocar''. O agente tira screenshots para confirmar cada ação executada.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+- slide_n: 4
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_04.jpg
+  reference_headline: Eduardo Cavalcanti / Eduardo Cavalcanti
+  reference_body: É assim que ele usa um app que nunca abriu uma API. Não integrou
+    botão por botão. Leu pixels, encontrou texto e tocou na coordenada. API é contrato.
+    Tela é improviso. Agora o agente tem os dois caminhos. contrato · dados estruturados
+    rápida · previsível PRIMEIRA ESCOLHA TELA pixels · OCR · coordenadas frágil ·
+    mas alcança o fechado ROTA DE ESCAPE sem API não significa mais sem caminho A
+    internet entendeu o tamanho da brecha. O repositório chegou a 1.423 estrelas em
+    3 dias e 11 horas. Não porque tela é melhor que API. Porque app fechado deixou
+    de ser muro. GITHUB · 07 → 11 AGO 2026 1.423 estrelas em 3 dias e 11 horas repo
+    criado API consultada
+  headline: O FIM DA BARREIRA DAS APIS FECHADAS
+  sub_headline: API VS TELA
+  body_text: Diferente do contrato rígido de uma API, o agente lê pixels e encontra
+    coordenadas. Se o app é fechado, a IA simplesmente identifica o texto e interage
+    com a interface.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 35
+    body_chars: 168
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: software developer screen coding
+  accent_color: '#A855F7'
+  source_slides:
+  - 4
+  - 5
+  personalization:
+    status: DONE
+    directive: 'O grande insight técnico: a diferença entre o contrato rígido da API
+      e o improviso da interface. Se o app é fechado, o agente lê os pixels e encontra
+      o caminho.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+- slide_n: 5
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_06.jpg
+  reference_headline: Eduardo Cavalcanti
+  reference_body: Eu instalei no Mac. E o comando oficial do projeto quebrou. O pacote
+    pyobjc-framework-AppKit não existe no registro. Corrigi com Cocoa + instalação
+    sem dependências. Depois disso, o diagnóstico rodou. Demo viral nunca mostra essa
+    parte. x No solution found Because pyobjc-framework-appkit was not found
+  headline: IMPLEMENTAÇÃO REAL E RESOLUÇÃO DE BUGS
+  sub_headline: MÃO NA MASSA
+  body_text: A instalação exige ajustes técnicos, como a correção de dependências
+    no pacote pyobjc-framework-AppKit via Cocoa. A automação real exige diagnóstico
+    e correção de erros de ambiente.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 38
+    body_chars: 181
+    headline_tier: md
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: hands typing laptop keyboard
+  accent_color: '#A855F7'
+  source_slides:
+  - 6
+  personalization:
+    status: DONE
+    directive: 'Trazer a realidade da implementação: o erro no pacote pyobjc-framework-AppKit
+      e como a correção via Cocoa permitiu o diagnóstico rodar. Autoridade através
+      da resolução de bugs.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+- slide_n: 6
+  variant: CONTENT
+  role: INSIGHT
+  screenshot_ref: Screenshots/slide_07.jpg
+  reference_headline: Eduardo Cavalcanti
+  reference_body: Para enxergar e tocar, o terminal pede duas chaves pesadas do Mac.
+    Isso não é “conectou e pronto”. É acesso real ao seu telefone, com limites reais.
+    ACESSIBILIDADE taps + teclado GRAVAÇÃO DE TELA enxerga o telefone LIMITES DECLARADOS
+    PELO PROJETO sem Face ID/câmera · sem pinça/multitoque · DRM fica preto 1 telefone
+    por sessão · desbloquear o aparelho pausa o espelho README.md · Limits + install.md
+    · Requirements
+  headline: ATENÇÃO AOS RISCOS DE SEGURANÇA E PERMISSÕES
+  sub_headline: O RISCO
+  body_text: Esta não é uma ferramenta plug-and-play. O agente exige permissões críticas
+    de Acessibilidade e Gravação de Tela para operar o sistema com autonomia.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 44
+    body_chars: 149
+    headline_tier: md
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: security lock icon laptop
+  accent_color: '#A855F7'
+  source_slides:
+  - 7
+  personalization:
+    status: DONE
+    directive: 'Alerta necessário: para essa automação, o agente exige permissões
+      críticas de Acessibilidade e Gravação de Tela. Não é ''plug and play'', é acesso
+      real e sensível.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+- slide_n: 7
+  variant: CTA
+  role: PAYOFF
+  screenshot_ref: Screenshots/slide_08.jpg
+  reference_headline: Eduardo Cavalcanti
+  reference_body: 'A virada não é "Claude dentro do iPhone". É o fim da desculpa:
+    "esse sistema não tem API". API quando existe. Tela quando precisa. Humano antes
+    do risco. Quem governa essa ordem rege a IA. Me segue. 🦞 API quando existe TELA
+    quando precisa sempre verificando HUMANO antes do risco dar acesso não é reger
+    · governar a sequência é'
+  headline: O FIM DA DESCULPA DA FALTA DE API
+  sub_headline: A LIÇÃO
+  body_text: Se tem tela, tem automação. Agora o limite não é o sistema, mas a capacidade
+    da IA de enxergar e clicar onde você clica.
+  design_triggers: []
+  text_metrics:
+    headline_chars: 33
+    body_chars: 120
+    headline_tier: lg
+    body_tier: md
+    density: medium
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: modern office workspace tech
+  accent_color: '#A855F7'
+  source_slides:
+  - 8
+  personalization:
+    status: DONE
+    directive: 'Conclusão estratégica: a era do ''não tem API'' acabou. O agente agora
+      opera onde o humano opera. A escala de automação agora depende da capacidade
+      de ler interfaces, não apenas integrar sistemas.'
+    recast_model: openrouter:openrouter/free
+    recast_at: '2026-08-12T19:46:10'
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues:
+  - 'slide 1: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 2: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 3: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 4: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 5: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 6: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 7: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  - 'slide 8: texto via OCR da transcrição (sem rótulo) — copy modela o conteúdo real'
+  headlines_extracted: 0/8
+  bodies_extracted: 8/8
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A capacidade de agentes de IA (Claude Code) de operarem interfaces
+    de usuário (UI) via espelhamento de tela quando não há APIs disponíveis.
+  formato: Análise técnica de ferramenta (Case de Implementação)
+  arco_narrativo: O post parte de um gancho disruptivo (controle do iPhone), explica
+    a mecânica técnica (espelhamento/OCR), valida a tese através de prova social (GitHub),
+    humaniza o processo via relato de erro/correção, alerta sobre segurança e encerra
+    com uma tese filosófica sobre o futuro da automação.
+  estrutura:
+  - slide_n: 1
+    papel: Hook/Gancho de alta curiosidade e quebra de objeções imediatas
+    essencial: true
+  - slide_n: 2
+    papel: Apresentação da ferramenta e a 'ponte' técnica (Espelhamento)
+    essencial: true
+  - slide_n: 3
+    papel: Explicação do mecanismo de input/output (Olhos e Mãos)
+    essencial: true
+  - slide_n: 4
+    papel: 'Tese central: API (Contrato) vs Tela (Improviso)'
+    essencial: true
+  - slide_n: 5
+    papel: Prova social e validação de mercado via métricas do GitHub
+    essencial: false
+  - slide_n: 6
+    papel: Autoridade técnica através do relato de 'mão na massa' e resolução de bugs
+    essencial: true
+  - slide_n: 7
+    papel: Alerta de segurança/privacidade (Equilíbrio de expectativa)
+    essencial: true
+  - slide_n: 8
+    papel: Conclusão estratégica, síntese da tese e CTA
+    essencial: true
+  redundancias:
+  - 'Slide 5: As estatísticas de estrelas do GitHub são métricas de vaidade que não
+    adicionam valor ao entendimento da tecnologia e podem ser fundidas ao slide 2
+    ou 4.'
+  fatores_de_performance:
+  - Contraste forte entre 'API' e 'Tela', transformando um conceito técnico em uma
+    narrativa de 'superação de muros'.
+  - Uso de analogias simples ('olhos e mãos') para explicar processos complexos de
+    OCR e eventos de mouse.
+  - Construção de autoridade ao admitir que o comando quebrou e ele precisou consertar,
+    gerando confiança no leitor.
+  - Gancho inicial extremamente forte que ataca um desejo comum (controlar o iPhone
+    via IA) sem exigir processos complexos como Jailbreak.
+  recomendacao:
+    slides_ideais: 7
+    justificativa: A remoção do slide 5 (estatísticas) torna o fluxo mais ágil e focado
+      na utilidade/tese, movendo o leitor mais rapidamente da explicação técnica para
+      a aplicação prática e a conclusão estratégica.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-12T19:45:34'
+content_plan:
+  archetype: news
+  slide_count: 7
+  tema: Automação de interfaces via agentes de IA (Claude Code + iPhone Mirroring)
+  slides:
+  - slide_n: 1
+    role: HOOK
+    kicker: A NOVA FRONTEIRA
+    copy_direction: 'Headline direta focada no benefício: como agentes de IA agora
+      controlam o iPhone sem precisar de API, Xcode ou Jailbreak. Foque na quebra
+      da barreira técnica.'
+    image_direction: Interface do Claude Code interagindo com uma janela de espelhamento
+      de iPhone no macOS.
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: INSIGHT
+    kicker: O MECANISMO
+    copy_direction: Apresentar o 'phone-harness'. Explicar que o agente usa o espelhamento
+      do macOS Sequoia para transformar o telefone em uma janela de vídeo processável.
+    image_direction: 'Diagrama simples mostrando o fluxo: iPhone -> Espelhamento macOS
+      -> Agente de IA.'
+    source_slides:
+    - 2
+  - slide_n: 3
+    role: INSIGHT
+    kicker: OLHOS E MÃOS
+    copy_direction: 'Explicar a técnica: OCR para ''enxergar'' a tela e eventos de
+      mouse/teclado para ''tocar''. O agente tira screenshots para confirmar cada
+      ação executada.'
+    image_direction: 'Split screen: de um lado um screenshot do app, do outro o log
+      de coordenadas de toque/clique.'
+    source_slides:
+    - 3
+  - slide_n: 4
+    role: INSIGHT
+    kicker: API VS TELA
+    copy_direction: 'O grande insight técnico: a diferença entre o contrato rígido
+      da API e o improviso da interface. Se o app é fechado, o agente lê os pixels
+      e encontra o caminho.'
+    image_direction: Contraste visual entre um código de API (estruturado) e uma captura
+      de tela de um app (visual/pixels).
+    source_slides:
+    - 4
+    - 5
+  - slide_n: 5
+    role: INSIGHT
+    kicker: MÃO NA MASSA
+    copy_direction: 'Trazer a realidade da implementação: o erro no pacote pyobjc-framework-AppKit
+      e como a correção via Cocoa permitiu o diagnóstico rodar. Autoridade através
+      da resolução de bugs.'
+    image_direction: Print de um terminal com log de erro seguido pelo comando de
+      correção/instalação.
+    source_slides:
+    - 6
+  - slide_n: 6
+    role: INSIGHT
+    kicker: O RISCO
+    copy_direction: 'Alerta necessário: para essa automação, o agente exige permissões
+      críticas de Acessibilidade e Gravação de Tela. Não é ''plug and play'', é acesso
+      real e sensível.'
+    image_direction: Interface de permissões de segurança do macOS destacando 'Acessibilidade'
+      e 'Gravação de Tela'.
+    source_slides:
+    - 7
+  - slide_n: 7
+    role: PAYOFF
+    kicker: A LIÇÃO
+    copy_direction: 'Conclusão estratégica: a era do ''não tem API'' acabou. O agente
+      agora opera onde o humano opera. A escala de automação agora depende da capacidade
+      de ler interfaces, não apenas integrar sistemas.'
+    image_direction: Texto limpo e impactante sobre fundo escuro, focando na tese
+      final.
+    source_slides:
+    - 8
+  rationale: O plano reduz de 8 para 7 slides, fundindo a prova social (GitHub) ao
+    conceito de 'API vs Tela' para manter o ritmo. Segue o arco de descoberta (o que
+    é?), funcionamento (como?), realidade (bugs/riscos) e tese (o que isso muda no
+    mercado). A linguagem é técnica mas direta, focada em agentes e eficiência, alinhada
+    à voz da Virals.
+  planned_by: openrouter:google/gemma-4-26b-a4b-it:free
+  planned_at: '2026-08-12T19:45:59'
+central_theme: Automação de interfaces via agentes de IA (Claude Code + iPhone Mirroring)
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openrouter/free
+  recast_at: '2026-08-12T19:46:10'
+  slides: 7
+  central_theme: Automação de interfaces via agentes de IA (Claude Code + iPhone Mirroring)
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openrouter/free
+  checked_at: '2026-08-12T19:46:43'

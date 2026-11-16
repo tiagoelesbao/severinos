@@ -1,0 +1,36 @@
+storyId: VEX-03
+epic: EPIC-MKT-Video-Excellence
+title: "Confiabilidade do editor — atalhos core, guards de trabalho, persistência de preferências"
+gate: PASS
+reviewer: "Claude no papel @qa"
+date: "2026-07-03"
+
+acceptance_criteria:
+  AC1: { status: met, note: "Ctrl+Z/Ctrl+Shift+Z/Ctrl+Y; sliders com onPointerDown=beginEdit (1 gesto = 1 undo); undo/redo marcam dirty" }
+  AC2: { status: met, note: "guardedAutocut: confirmação com dirty no toggle E no slider; cancelar preserva estado" }
+  AC3: { status: met, note: "styleId salvo no studio-edit.json e restaurado no load quando persisted" }
+  AC4: { status: met, note: "Delete contextual (elemento de camada > clipe; min 1 clipe; ignora input/textarea/select)" }
+  AC5: { status: met, note: "beforeunload apenas com dirty" }
+
+tests:
+  suite: { total: 89, passed: 89, note: "sem regressão; tsc --noEmit + next build limpos" }
+  new_pure_functions: "nenhuma — story de wiring de UI + passthrough de API (justificado na story)"
+
+seven_checks:
+  code_review: "OK — dirty centralizado em apply/beginEdit/undo/redo; guard reutilizável; atalhos com guard de foco"
+  unit_tests: "OK (N/A novos) — suíte integral verde"
+  acceptance: "OK — AC1–AC5 por verificação de código/fluxo"
+  regression: "OK — 89/89; comportamentos existentes preservados (←/→=1s, Ctrl+S, Esc)"
+  performance: "OK — mudanças O(1) de estado/eventos"
+  security: "OK — sem superfícies novas"
+  documentation: "OK — desvios (Shift+setas, V, delete de cue) justificados no checklist"
+
+issues:
+  - severity: low
+    category: tests
+    description: "Sem E2E de browser para os atalhos (verificação de código apenas)."
+    recommendation: "Dono valida no uso real; VEX-10 (command palette) reusa o mapa e ganha cobertura."
+  - severity: low
+    category: requirements
+    description: "Delete de CUE de legenda não contemplado (sem semântica definida de remoção)."
+    recommendation: "Definir na VEX-08 (multi-seleção) se cue deletada = texto removido ou fusão com vizinha."

@@ -1,0 +1,26 @@
+post_brief:
+  slug: "mkt-media-02-ai-test"
+  tema: "Automação Criativa com IA"
+  objetivo: "educar"
+  
+  headline: "O futuro do design é automatizado."
+  body_text: "Feito com @casey-neistat-img"
+  cta_text: "Saiba Mais"
+  
+  publico_alvo: "Designers e Creators"
+  temperatura_audiencia: "morna"
+  
+  layout: "texto-over-imagem"
+  mood: "tecnológico"
+  
+  ai_prompt: "A futuristic robotic hand drawing on a digital tablet, neon lights, high tech laboratory, cinematic lighting, 8k resolution"
+  ai_negative_prompt: "blurry, text, watermark, low quality, distorted hands"
+  
+  formatos:
+    - "1:1"
+    - "4:5"
+    - "9:16"
+  
+  brand_config: "squads/virals-marketing-squad/data/clients/virals/brand-config.yaml"
+  aplicar_logo: true
+  posicao_logo: "default"

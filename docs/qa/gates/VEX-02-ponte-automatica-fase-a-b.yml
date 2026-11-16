@@ -1,0 +1,45 @@
+storyId: VEX-02
+epic: EPIC-MKT-Video-Excellence
+title: "Ponte automática Fase A→B — transcrição + assembly sem trabalho manual"
+gate: PASS
+reviewer: "Claude no papel @qa"
+date: "2026-07-02"
+
+acceptance_criteria:
+  AC1: { status: met, note: "Sandbox sem assembly manual → prepare gera assembly válido; Studio monta narração-driven (mesmo pipeline do criativo real)" }
+  AC2: { status: met, note: "Cache por size+mtime (_meta.files): re-run = 'transcript em dia (cache hit)'; arquivo alterado → só ele re-transcreve (staleFiles testado)" }
+  AC3: { status: met, note: "Score por âncora no _generated; confiança <0.4 vira aviso E1 (rota timeline) — modeling 0.31 flagada no E2E real" }
+  AC4: { status: met, note: "Protocolo do marketing-chief: 2A auto-lista benchmarks (Glob+Benchmark.json, fallback manual); Fase B → Studio (Preparar→Salvar→Exportar); DaVinci legado" }
+  AC5: { status: met, note: "Criativo real intocado (assembly manual preservado; prepare não sobrescreve sem --force-assembly); brief co-localizado tem precedência com fallback a data/" }
+
+tests:
+  unit: { total: 7, passed: 7, file: "apps/video-studio/src/lib/prepare.test.ts" }
+  python: { total: 10, passed: 10, note: "test_video_plan.py sem regressão + smoke do render_como_gravar_md" }
+  suite: { total: 89, passed: 89, note: "tsc --noEmit + next build limpos (/api/prepare registrada)" }
+  e2e_real:
+    sandbox: "transcript+brief REAIS (Chase Chappell), sem assembly → method=keywords; âncoras: Skill_activate←'segundos a'(0.5) · Site_modeling←'Brand Kit'(0.31, flagada) · Site_gen←'Com esses'(0.5) · Site_resultado←'A página'(0.52) — equivalentes às manuais"
+
+seven_checks:
+  code_review: "OK — matcher DP monotônico puro; âncora = palavras do transcript (casamento garantido por construção); worker com status; rota com SLUG guard/409"
+  unit_tests: "OK — 7 novos incl. contiguidade das janelas via computeMioloWindows real"
+  acceptance: "OK — AC1–AC5 com dados reais"
+  regression: "OK — 89/89 app + 10/10 python; consumidores existentes ignoram _meta naturalmente"
+  performance: "OK — whisper só no delta (cache); matcher O(n²k) trivial p/ narrações curtas"
+  security: "OK — SLUG nas rotas; execFile com args em array; windowsHide"
+  documentation: "OK — desvio (determinístico substitui fallback LLM) justificado na story"
+
+deviations:
+  - "Fallback LLM previsto na story substituído por matching determinístico + partição uniforme com confiança 0 + aviso E1 — mais barato, auditável e sem dependência de rede. Aprovação implícita recomendada ao dono."
+
+issues:
+  - severity: low
+    category: requirements
+    description: "Pareamento shotlist→inserts por contagem (n+2 ou n); contagens divergentes caem para tokens de filename (sinal fraco)."
+    recommendation: "Quando VEX-06 introduzir assembly.clips[] com papéis por plano, usar o pareamento explícito."
+  - severity: low
+    category: tests
+    description: "Caminho whisper real não exercitado no E2E (usado --skip-transcribe com transcript real; transcribe.py já validado na MVC-08)."
+    recommendation: "Exercitar num criativo novo de verdade no primeiro uso do dono (fluxo ⚙ Preparar)."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado nesta sessão."

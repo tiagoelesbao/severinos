@@ -1,0 +1,43 @@
+storyId: MVC-07
+epic: EPIC-MKT-Video-Creative
+phase: B
+title: "Scaffold apps/video-studio (Next.js + Remotion) + composição base"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-21"
+
+acceptance_criteria:
+  AC1: { status: met, note: "next build 'Compiled successfully' + tsc --noEmit limpo (re-verificado)" }
+  AC2: { status: met, note: "BaseComposition 1080x1920@30 (ffprobe: 90 frames/30fps=3,05s)" }
+  AC3: { status: met, note: "mp4 h264 válido (206KB)" }
+  AC4: { status: met, note: "accent do brand-config: tiago #FFB800 vs virals #FF3D68 (2 renders distintos)" }
+  AC5: { status: met, note: "outputs/<slug>/video-renders/ gitignored (git check-ignore)" }
+
+decision_honored: "Remotion standalone + UI Next separada — confirmado no scaffold."
+
+evidence:
+  typecheck: clean
+  build: "compiled successfully"
+  renders: { tiago-elesbao: "1080x1920", virals: "1080x1920" }
+  remotion_versions_consistent: "4.0.481 (remotion/cli/player/bundler/renderer)"
+
+issues:
+  - severity: low
+    category: code
+    description: "src/lib/brand.ts usa process.cwd() (linha 20) para resolver path dos clients — frágil quando a UI Next rodar de outro cwd."
+    recommendation: "Alinhar ao render.mjs (path absoluto via import.meta.url) antes da MVC-10 consumi-lo."
+    target: MVC-10
+  - severity: low
+    category: tests
+    description: "brand.ts (parse + fallback) sem unitário; validado indiretamente via render."
+    recommendation: "Adicionar teste quando virar dependência da UI."
+  - severity: low
+    category: deps
+    description: "2 vulnerabilidades moderate (transitivas, npm)."
+    recommendation: "npm audit periódico."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "MVC-08 (ingestão video-brief + material → timeline auto-montada). Push pendente → @devops."

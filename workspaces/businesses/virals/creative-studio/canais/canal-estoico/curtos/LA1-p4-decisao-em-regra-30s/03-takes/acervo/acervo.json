@@ -1,0 +1,65 @@
+{
+  "slug": "LA1-p4-decisao-em-regra-30s",
+  "takes": [
+    {
+      "arquivo": "t01-fumaca.mp4",
+      "etiqueta": "fumaca",
+      "consulta": "smoke black background slow motion",
+      "duracao": 16,
+      "largura": 720,
+      "altura": 1248,
+      "origem": "pexels",
+      "pexels_id": 7311792,
+      "autor": "ROMAN ODINTSOV",
+      "url": "https://www.pexels.com/video/string-of-smoke-7311792/",
+      "luma": 30.2,
+      "saturacao": 0.044,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-pedra.mp4",
+      "etiqueta": "pedra",
+      "consulta": "dark stone surface macro",
+      "duracao": 6,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 16097031,
+      "autor": "宇航 钱",
+      "url": "https://www.pexels.com/video/16097031/",
+      "luma": 44.5,
+      "saturacao": 0.039,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-agua.mp4",
+      "etiqueta": "agua",
+      "consulta": "water surface ripples dark",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 13692140,
+      "autor": "Abdulvahap Demir",
+      "url": "https://www.pexels.com/video/close-up-of-water-13692140/",
+      "luma": 49.0,
+      "saturacao": 0.025,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-vela.mp4",
+      "etiqueta": "vela",
+      "consulta": "candle flame dark background",
+      "duracao": 15,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 19997487,
+      "autor": "Rachit  Gupta",
+      "url": "https://www.pexels.com/video/a-candle-lit-in-the-dark-with-the-words-the-light-of-the-candle-19997487/",
+      "luma": 22.6,
+      "saturacao": 0.035,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

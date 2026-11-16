@@ -1,0 +1,159 @@
+# ClickUp IDs — Mapping para sync scripts
+# Source: services/clickup/clickup_advanced_metadata.json
+# Service: services/clickup/ (client.js, tasks.js, mapping.js)
+
+clickup:
+  service_path: "../../services/clickup"
+  api_version: "v2"
+
+  space:
+    name: "Comercial"
+    id: "901312526794"
+
+  # ────────────────────────────────────────────────────
+  # PIPELINE DE PROSPECÇÃO
+  # ────────────────────────────────────────────────────
+  prospection:
+    folder:
+      name: "Hunter ADS System"
+      id: "901317132090"
+    list:
+      name: "Prospecção"
+      id: "901325463808"
+
+    # Statuses do pipeline (ordem do funil)
+    statuses:
+      - { name: "discovered", label: "Descoberta", color: "#4A90D9" }
+      - { name: "extracted", label: "Dados Extraídos", color: "#7B68EE" }
+      - { name: "scored", label: "Scored", color: "#FFA500" }
+      - { name: "qualified", label: "Qualificada", color: "#32CD32" }
+      - { name: "contacted", label: "Contatada", color: "#FF6347" }
+      - { name: "negotiating", label: "Em Negociação", color: "#DA70D6" }
+      - { name: "contracted", label: "Contratada", color: "#228B22" }
+      - { name: "rejected", label: "Rejeitada", color: "#DC143C" }
+      - { name: "no_response", label: "Sem Resposta", color: "#808080" }
+
+    # Custom Fields existentes
+    custom_fields:
+      existing:
+        cliente:
+          id: "aac462ad-2ee8-40e2-bc92-3517275a293e"
+          type: "drop_down"
+
+      # Custom Fields a serem criados no ClickUp (setup manual)
+      # Após criar, atualizar os IDs aqui
+      pending_setup:
+        instagram_handle:
+          name: "Instagram Handle"
+          type: "short_text"
+          id: null  # TODO: preencher após criar no ClickUp
+        tiktok_handle:
+          name: "TikTok Handle"
+          type: "short_text"
+          id: null
+        nicho:
+          name: "Nicho"
+          type: "drop_down"
+          id: null
+          options: ["fitness", "beauty", "estudos", "lifestyle", "food", "tech", "moda", "pets"]
+        followers:
+          name: "Followers"
+          type: "number"
+          id: null
+        engagement_rate:
+          name: "Engagement Rate"
+          type: "number"
+          id: null
+        creator_score:
+          name: "Creator Score"
+          type: "number"
+          id: null
+        fonte:
+          name: "Fonte"
+          type: "drop_down"
+          id: null
+          options: ["hashtag", "competitor", "ads_library", "referral", "organic"]
+        link_perfil:
+          name: "Link Perfil"
+          type: "url"
+          id: null
+        data_discovery:
+          name: "Data Discovery"
+          type: "date"
+          id: null
+        notas:
+          name: "Notas"
+          type: "text"
+          id: null
+
+  # ────────────────────────────────────────────────────
+  # CRM DE CREATORS ATIVAS
+  # ────────────────────────────────────────────────────
+  crm:
+    folder:
+      name: "CRM Hunter"
+      id: "901317132094"
+    list:
+      name: "List"
+      id: "901325463813"
+
+    statuses:
+      - { name: "onboarding", label: "Onboarding", color: "#FFA500" }
+      - { name: "active", label: "Ativa", color: "#32CD32" }
+      - { name: "paused", label: "Pausada", color: "#808080" }
+      - { name: "churned", label: "Desligada", color: "#DC143C" }
+
+    custom_fields:
+      pending_setup:
+        cliente:
+          name: "Cliente"
+          type: "drop_down"
+          id: null
+        instagram_handle:
+          name: "Instagram Handle"
+          type: "short_text"
+          id: null
+        tiktok_handle:
+          name: "TikTok Handle"
+          type: "short_text"
+          id: null
+        nicho:
+          name: "Nicho"
+          type: "drop_down"
+          id: null
+        tipo_contrato:
+          name: "Tipo Contrato"
+          type: "drop_down"
+          id: null
+          options: ["starter", "growth", "premium"]
+        valor_base:
+          name: "Valor Base"
+          type: "currency"
+          id: null
+        comissao_pct:
+          name: "Comissão %"
+          type: "number"
+          id: null
+        data_contratacao:
+          name: "Data Contratação"
+          type: "date"
+          id: null
+        performance_score:
+          name: "Performance Score"
+          type: "number"
+          id: null
+        entregaveis_mes:
+          name: "Entregáveis/Mês"
+          type: "number"
+          id: null
+        status_creator:
+          name: "Status Creator"
+          type: "drop_down"
+          id: null
+          options: ["ativa", "pausada", "desligada"]
+
+  # Task types disponíveis no workspace
+  task_types:
+    prospect: { id: 1009, name: "Prospect" }
+    lead: { id: 1004, name: "Lead" }
+    cliente: { id: 1010, name: "Cliente" }

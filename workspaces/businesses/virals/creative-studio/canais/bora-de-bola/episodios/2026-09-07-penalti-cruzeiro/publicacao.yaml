@@ -1,0 +1,91 @@
+# ═══════════════════════════════════════════════════════════════════════
+# 2026-09-07-penalti-cruzeiro
+# Terceiro episódio do canal. Índice do episódio: cada estágio lê daqui.
+# ═══════════════════════════════════════════════════════════════════════
+
+episodio:
+  slug: 2026-09-07-penalti-cruzeiro
+  canal: bora-de-bola
+  n: 3
+  criado_em: '2026-09-07 14:45'
+  status: pronto-para-publicar   # em-producao | pronto-para-publicar | publicado
+
+decisoes:
+  titulo: 'A CASA CAIU NO CRUZEIRO: ENTENDA A TRETA ENTRE KAIO JORGE E MATHEUS PEREIRA'
+  thumb_texto: >
+    BRIGA PELO PÊNALTI (faixa) · VOCÊ NÃO FEZ O GOL (Kaio) ·
+    MOSTROU O DEDO DO MEIO E MANDOU A MERD4 (Matheus)
+  estilo_thumb: 'dois painéis, divisão no centro, legenda por jogador · fonte F3 (Segoe UI Black)'
+  nota_do_pontuador: '100/100 · 75 caracteres · 3 pilares antes do corte · risco B2'
+  promessa: >
+    Que Matheus Pereira é o cobrador oficial, que tinha perdido um pênalti no
+    primeiro tempo, que pediu a bola de volta e ouviu não de Kaio Jorge — e que
+    a discussão continuou depois do gol, diante da câmera.
+  aprovado_em: '2026-09-07'
+  aprovado_por: founder
+
+# ── A PAUTA DE HOJE, E POR QUE ESTA ─────────────────────────────────────
+pauta:
+  origem: '/pauta-futebol — 8 partidas varridas, 302 matérias lidas'
+  eixo: 'briga pelo pênalti no Cruzeiro (Kaio Jorge x Matheus Pereira)'
+  por_que_nao_o_topo_do_ranking: >
+    O ranking trouxe três expulsões e a reclamação de arbitragem do Abel com
+    nota alta. Mas os dois episódios anteriores do canal foram sobre
+    arbitragem e tribunal — um terceiro seguido seria canibalização. A treta do
+    Cruzeiro é tensão pessoal, tema novo para o canal, e tem vídeo.
+
+etapas:
+  '00-pauta':      { feito: true , responsavel: 'descobrir.py + apuração nas fontes' }
+  '01-embalagem':  { feito: true , responsavel: '/packaging — pilares.py + direção do founder' }
+  '02-roteiro':    { feito: true , responsavel: 'roteiro.md + claim-ledger.json (37 claims)' }
+  '03-narracao':   { feito: true , responsavel: 'narra_comfy.py + audita_narracao.py' }
+  '04-takes':      { feito: true , responsavel: 'acervo.py (16) + fotos_do_fato.py (74) + cartelas.py (26)' }
+  '05-audio':      { feito: true , responsavel: 'mixa.py' }
+  '06-final':      { feito: true , responsavel: 'monta.py + audita_camadas.py' }
+
+# ── O CUIDADO QUE ATRAVESSA ESTE EPISÓDIO ───────────────────────────────
+fidelidade:
+  ponto_critico: >
+    O diálogo que viralizou é LEITURA LABIAL, publicada pelo influenciador
+    Velloso — e o próprio autor declarou margem de erro e disse que trechos
+    ilegíveis foram retirados. Não é transcrição.
+  como_o_roteiro_trata: >
+    Toda vez que as frases entram, entram precedidas da atribuição. O BLOCO 3 é
+    inteiro dedicado a separar o que a leitura labial APONTA do que a
+    transmissão PROVA (discussão antes, discussão depois, dedo levantado).
+  como_as_cartelas_tratam: >
+    As duas cartelas de diálogo levam o rótulo
+    'leitura labial · velloso · com margem de erro declarada'.
+  o_que_o_canal_nao_afirma:
+    - que existe briga ou rompimento entre os dois
+    - que o diálogo foi dito exatamente daquele jeito
+    - que algum dos dois foi punido pelo clube
+    - que o Botafogo aceitou a proposta do Tigres (a fonte diz que avalia)
+  nota_sobre_a_thumb: >
+    A frase da thumb do painel direito é direção editorial do founder, decidida
+    por ele em 07/09 depois de eu levantar que a fonte não a sustenta. Fica
+    registrado aqui porque o claim-ledger é o lugar onde a diferença entre o
+    que se afirma no vídeo e o que se escreve na embalagem tem de estar visível.
+
+entrega:
+  arquivo: '06-final/video.mp4'
+  duracao: '10 min 56 s'
+  resolucao: 1920x1080
+  tamanho: '229,8 MB'
+  planos: 133
+  ritmo_real: '196,0 palavras/min (2.144 palavras em 656,2 s)'
+  auditoria_narracao: 'audita_narracao.py — 13 de 13 blocos OK, pior caso 10,7% (teto 12%)'
+  auditoria_camadas: 'audita_camadas.py — 26 de 26 cartelas aparecem e permanecem'
+  mix: 'voz a -16 LUFS, leito le-tensao-baixa a -30 com ducking · saída -16,3 LUFS'
+
+publicacao:
+  plataforma: youtube
+  gate_duracao: '10 minutos — CUMPRIDO com 10 min 56 s'
+  janela: 'o assunto morre em ~48h — publicar 07/09'
+  url: ''
+  publicado_em: ''
+  desempenho:
+    ctr: null
+    retencao_30s: null
+    visualizacoes: null
+    colhido_em: null

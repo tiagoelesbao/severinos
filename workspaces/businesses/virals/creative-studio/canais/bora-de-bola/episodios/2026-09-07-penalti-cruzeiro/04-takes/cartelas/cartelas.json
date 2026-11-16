@@ -1,0 +1,210 @@
+[
+  {
+    "n": 1,
+    "bloco": "GANCHO",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "Esta todo mundo falando de 15 segundos",
+    "arquivo": "c01-gancho.png"
+  },
+  {
+    "n": 2,
+    "bloco": "NÚMEROS",
+    "tipo": "escudos",
+    "modo": "painel",
+    "ancora": "Cruzeiro 3 Athletico Paranaense 1",
+    "arquivo": "c02-numeros.png"
+  },
+  {
+    "n": 3,
+    "bloco": "NÚMEROS",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "O Cruzeiro dominou a bola",
+    "arquivo": "c03-numeros.png"
+  },
+  {
+    "n": 4,
+    "bloco": "NÚMEROS",
+    "tipo": "linha_do_tempo",
+    "modo": "painel",
+    "ancora": "agora os dois numeros que sao o video inteiro",
+    "arquivo": "c04-numeros.png"
+  },
+  {
+    "n": 5,
+    "bloco": "NÚMEROS",
+    "tipo": "numero",
+    "modo": "faixa",
+    "ancora": "passaram 37 minutos de jogo",
+    "arquivo": "c05-numeros.png"
+  },
+  {
+    "n": 6,
+    "bloco": "ÍNDICE",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "Neste video voce vai entender quatro coisas",
+    "arquivo": "c06-indice.png"
+  },
+  {
+    "n": 7,
+    "bloco": "CTA",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "se inscreve no canal",
+    "arquivo": "c07-cta.png"
+  },
+  {
+    "n": 8,
+    "bloco": "BLOCO 1",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "E o goleiro Mycael defende",
+    "arquivo": "c08-bloco1.png"
+  },
+  {
+    "n": 9,
+    "bloco": "BLOCO 1",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "carrega uma coisa muito especifica pelo resto da partida",
+    "arquivo": "c09-bloco1.png"
+  },
+  {
+    "n": 10,
+    "bloco": "BLOCO 2",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "Kaio Jorge bate E faz",
+    "arquivo": "c10-bloco2.png"
+  },
+  {
+    "n": 11,
+    "bloco": "BLOCO 2",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "Artur Jorge explicou que o Cruzeiro tem uma ordem de batedores",
+    "arquivo": "c11-bloco2.png"
+  },
+  {
+    "n": 12,
+    "bloco": "BLOCO 3",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "Segundo essa leitura Matheus Pereira teria dito",
+    "arquivo": "c12-bloco3.png"
+  },
+  {
+    "n": 13,
+    "bloco": "BLOCO 3",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "a resposta atribuida a Kaio Jorge",
+    "arquivo": "c13-bloco3.png"
+  },
+  {
+    "n": 14,
+    "bloco": "BLOCO 3",
+    "tipo": "lista",
+    "modo": "faixa",
+    "ancora": "O que a gente sabe porque esta no video da transmissao",
+    "arquivo": "c14-bloco3.png"
+  },
+  {
+    "n": 15,
+    "bloco": "BLOCO 4",
+    "tipo": "frase",
+    "modo": "painel",
+    "ancora": "disse o seguinte eles se resolveram no vestiario",
+    "arquivo": "c15-bloco4.png"
+  },
+  {
+    "n": 16,
+    "bloco": "BLOCO 4",
+    "tipo": "numero",
+    "modo": "faixa",
+    "ancora": "so foi liberado mais de duas horas depois do apito",
+    "arquivo": "c16-bloco4.png"
+  },
+  {
+    "n": 17,
+    "bloco": "BLOCO 5",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "Os dois se manifestaram nas redes sociais",
+    "arquivo": "c17-bloco5.png"
+  },
+  {
+    "n": 18,
+    "bloco": "BLOCO 5",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "Isso nao prova que existe briga",
+    "arquivo": "c18-bloco5.png"
+  },
+  {
+    "n": 19,
+    "bloco": "BLOCO 6",
+    "tipo": "escudos",
+    "modo": "painel",
+    "ancora": "para a lanterna Chapecoense",
+    "arquivo": "c19-bloco6.png"
+  },
+  {
+    "n": 20,
+    "bloco": "BLOCO 6",
+    "tipo": "lista",
+    "modo": "painel",
+    "ancora": "O Corinthians teve 62 por cento de posse de bola",
+    "arquivo": "c20-bloco6.png"
+  },
+  {
+    "n": 21,
+    "bloco": "BLOCO 6",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "A frase dele foi eu fico constrangido",
+    "arquivo": "c21-bloco6.png"
+  },
+  {
+    "n": 22,
+    "bloco": "BLOCO 7",
+    "tipo": "numero",
+    "modo": "painel",
+    "ancora": "Em reais cerca de 41 milhoes",
+    "arquivo": "c22-bloco7.png"
+  },
+  {
+    "n": 23,
+    "bloco": "BLOCO 7",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "A janela de transferencias fecha na proxima sexta-feira",
+    "arquivo": "c23-bloco7.png"
+  },
+  {
+    "n": 24,
+    "bloco": "BLOCO 8",
+    "tipo": "numero",
+    "modo": "painel",
+    "ancora": "tres expulsoes e duas delas nos acrescimos",
+    "arquivo": "c24-bloco8.png"
+  },
+  {
+    "n": 25,
+    "bloco": "BLOCO 8",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "a expulsao do Marcal era clara",
+    "arquivo": "c25-bloco8.png"
+  },
+  {
+    "n": 26,
+    "bloco": "FECHO",
+    "tipo": "frase",
+    "modo": "faixa",
+    "ancora": "Kaio Jorge estava certo em bater",
+    "arquivo": "c26-fecho.png"
+  }
+]

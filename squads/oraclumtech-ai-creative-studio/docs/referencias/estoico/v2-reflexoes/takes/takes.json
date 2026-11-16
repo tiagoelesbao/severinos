@@ -1,0 +1,1102 @@
+{
+ "referencia": "10 REFLEXÕES ESTOICAS QUE VOCÊ PRECISA ESCUTAR TODAS AS MANHÃS ｜ Estoicismo.mp4",
+ "passo_de_amostragem_s": 2.0,
+ "segmentos_de_transicao_descartados": 56,
+ "duracao_s": 2536.0,
+ "amostras": 1269,
+ "takes_unicos": 88,
+ "tempo_medio_em_tela_s": 27.6,
+ "takes_que_repetem": 18,
+ "primeira_repeticao_em": "6:00",
+ "takes": [
+  {
+   "aparicoes": 6,
+   "tempo_em_tela_s": 220.0,
+   "duracao_media_s": 36.7,
+   "primeira_aparicao_s": 106.0,
+   "primeira_aparicao": "1:46",
+   "aparicoes_em": [
+    "1:46",
+    "7:48",
+    "14:10",
+    "18:12",
+    "23:32",
+    "33:30"
+   ],
+   "id": 1,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T01_f00057.jpg"
+  },
+  {
+   "aparicoes": 4,
+   "tempo_em_tela_s": 100.0,
+   "duracao_media_s": 25.0,
+   "primeira_aparicao_s": 670.0,
+   "primeira_aparicao": "11:10",
+   "aparicoes_em": [
+    "11:10",
+    "19:30",
+    "30:12",
+    "39:14"
+   ],
+   "id": 2,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T02_f00340.jpg"
+  },
+  {
+   "aparicoes": 4,
+   "tempo_em_tela_s": 90.0,
+   "duracao_media_s": 22.5,
+   "primeira_aparicao_s": 650.0,
+   "primeira_aparicao": "10:50",
+   "aparicoes_em": [
+    "10:50",
+    "15:52",
+    "20:30",
+    "37:40"
+   ],
+   "id": 3,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T03_f00330.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 88.0,
+   "duracao_media_s": 88.0,
+   "primeira_aparicao_s": 510.0,
+   "primeira_aparicao": "8:30",
+   "aparicoes_em": [
+    "8:30"
+   ],
+   "id": 4,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T04_f00277.jpg"
+  },
+  {
+   "aparicoes": 3,
+   "tempo_em_tela_s": 86.0,
+   "duracao_media_s": 28.7,
+   "primeira_aparicao_s": 910.0,
+   "primeira_aparicao": "15:10",
+   "aparicoes_em": [
+    "15:10",
+    "24:12",
+    "24:52"
+   ],
+   "id": 5,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T05_f00038.jpg"
+  },
+  {
+   "aparicoes": 3,
+   "tempo_em_tela_s": 62.0,
+   "duracao_media_s": 20.7,
+   "primeira_aparicao_s": 430.0,
+   "primeira_aparicao": "7:10",
+   "aparicoes_em": [
+    "7:10",
+    "38:34",
+    "39:32"
+   ],
+   "id": 6,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T06_f00220.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 60.0,
+   "duracao_media_s": 60.0,
+   "primeira_aparicao_s": 240.0,
+   "primeira_aparicao": "4:00",
+   "aparicoes_em": [
+    "4:00"
+   ],
+   "id": 7,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T07_f00135.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 60.0,
+   "duracao_media_s": 60.0,
+   "primeira_aparicao_s": 1550.0,
+   "primeira_aparicao": "25:50",
+   "aparicoes_em": [
+    "25:50"
+   ],
+   "id": 8,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T08_f00790.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 60.0,
+   "duracao_media_s": 60.0,
+   "primeira_aparicao_s": 1852.0,
+   "primeira_aparicao": "30:52",
+   "aparicoes_em": [
+    "30:52"
+   ],
+   "id": 9,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T09_f00941.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 58.0,
+   "duracao_media_s": 29.0,
+   "primeira_aparicao_s": 710.0,
+   "primeira_aparicao": "11:50",
+   "aparicoes_em": [
+    "11:50",
+    "35:14"
+   ],
+   "id": 10,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T10_f00365.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 58.0,
+   "duracao_media_s": 58.0,
+   "primeira_aparicao_s": 2054.0,
+   "primeira_aparicao": "34:14",
+   "aparicoes_em": [
+    "34:14"
+   ],
+   "id": 11,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T11_f01042.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 58.0,
+   "duracao_media_s": 29.0,
+   "primeira_aparicao_s": 2152.0,
+   "primeira_aparicao": "35:52",
+   "aparicoes_em": [
+    "35:52",
+    "38:54"
+   ],
+   "id": 12,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T12_f01086.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 52.0,
+   "duracao_media_s": 52.0,
+   "primeira_aparicao_s": 130.0,
+   "primeira_aparicao": "2:10",
+   "aparicoes_em": [
+    "2:10"
+   ],
+   "id": 13,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T13_f00078.jpg"
+  },
+  {
+   "aparicoes": 3,
+   "tempo_em_tela_s": 42.0,
+   "duracao_media_s": 14.0,
+   "primeira_aparicao_s": 62.0,
+   "primeira_aparicao": "1:02",
+   "aparicoes_em": [
+    "1:02",
+    "11:30",
+    "40:34"
+   ],
+   "id": 14,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T14_f00032.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 40.0,
+   "duracao_media_s": 40.0,
+   "primeira_aparicao_s": 300.0,
+   "primeira_aparicao": "5:00",
+   "aparicoes_em": [
+    "5:00"
+   ],
+   "id": 15,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T15_f00160.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 40.0,
+   "duracao_media_s": 40.0,
+   "primeira_aparicao_s": 750.0,
+   "primeira_aparicao": "12:30",
+   "aparicoes_em": [
+    "12:30"
+   ],
+   "id": 16,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T16_f00385.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 40.0,
+   "duracao_media_s": 40.0,
+   "primeira_aparicao_s": 1670.0,
+   "primeira_aparicao": "27:50",
+   "aparicoes_em": [
+    "27:50"
+   ],
+   "id": 17,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T17_f00845.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 40.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1774.0,
+   "primeira_aparicao": "29:34",
+   "aparicoes_em": [
+    "29:34",
+    "41:52"
+   ],
+   "id": 18,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T18_f00892.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 40.0,
+   "duracao_media_s": 40.0,
+   "primeira_aparicao_s": 1912.0,
+   "primeira_aparicao": "31:52",
+   "aparicoes_em": [
+    "31:52"
+   ],
+   "id": 19,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T19_f00966.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 38.0,
+   "duracao_media_s": 19.0,
+   "primeira_aparicao_s": 220.0,
+   "primeira_aparicao": "3:40",
+   "aparicoes_em": [
+    "3:40",
+    "21:14"
+   ],
+   "id": 20,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T20_f00115.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 36.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 200.0,
+   "primeira_aparicao": "3:20",
+   "aparicoes_em": [
+    "3:20",
+    "13:54"
+   ],
+   "id": 21,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T21_f00105.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 36.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1212.0,
+   "primeira_aparicao": "20:12",
+   "aparicoes_em": [
+    "20:12",
+    "40:54"
+   ],
+   "id": 22,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T22_f00611.jpg"
+  },
+  {
+   "aparicoes": 4,
+   "tempo_em_tela_s": 28.0,
+   "duracao_media_s": 7.0,
+   "primeira_aparicao_s": 120.0,
+   "primeira_aparicao": "2:00",
+   "aparicoes_em": [
+    "2:00",
+    "13:44",
+    "24:56",
+    "33:18"
+   ],
+   "id": 23,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T23_f00062.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 24.0,
+   "duracao_media_s": 12.0,
+   "primeira_aparicao_s": 82.0,
+   "primeira_aparicao": "1:22",
+   "aparicoes_em": [
+    "1:22",
+    "35:34"
+   ],
+   "id": 24,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T24_f00043.jpg"
+  },
+  {
+   "aparicoes": 4,
+   "tempo_em_tela_s": 22.0,
+   "duracao_media_s": 5.5,
+   "primeira_aparicao_s": 378.0,
+   "primeira_aparicao": "6:18",
+   "aparicoes_em": [
+    "6:18",
+    "10:02",
+    "33:22",
+    "37:34"
+   ],
+   "id": 25,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T25_f00191.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 22.0,
+   "duracao_media_s": 22.0,
+   "primeira_aparicao_s": 408.0,
+   "primeira_aparicao": "6:48",
+   "aparicoes_em": [
+    "6:48"
+   ],
+   "id": 26,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T26_f00210.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 22.0,
+   "duracao_media_s": 22.0,
+   "primeira_aparicao_s": 1390.0,
+   "primeira_aparicao": "23:10",
+   "aparicoes_em": [
+    "23:10"
+   ],
+   "id": 27,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T27_f00701.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 22.0,
+   "duracao_media_s": 22.0,
+   "primeira_aparicao_s": 1610.0,
+   "primeira_aparicao": "26:50",
+   "aparicoes_em": [
+    "26:50"
+   ],
+   "id": 28,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T28_f00811.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 22.0,
+   "duracao_media_s": 22.0,
+   "primeira_aparicao_s": 2472.0,
+   "primeira_aparicao": "41:12",
+   "aparicoes_em": [
+    "41:12"
+   ],
+   "id": 29,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T29_f01242.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 10.0,
+   "primeira_aparicao": "0:10",
+   "aparicoes_em": [
+    "0:10"
+   ],
+   "id": 30,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T30_f00010.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 610.0,
+   "primeira_aparicao": "10:10",
+   "aparicoes_em": [
+    "10:10"
+   ],
+   "id": 31,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T31_f00310.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 630.0,
+   "primeira_aparicao": "10:30",
+   "aparicoes_em": [
+    "10:30"
+   ],
+   "id": 32,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T32_f00320.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 790.0,
+   "primeira_aparicao": "13:10",
+   "aparicoes_em": [
+    "13:10"
+   ],
+   "id": 33,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T33_f00400.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 10.0,
+   "primeira_aparicao_s": 810.0,
+   "primeira_aparicao": "13:30",
+   "aparicoes_em": [
+    "13:30",
+    "33:12"
+   ],
+   "id": 34,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T34_f00409.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 990.0,
+   "primeira_aparicao": "16:30",
+   "aparicoes_em": [
+    "16:30"
+   ],
+   "id": 35,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T35_f00500.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1030.0,
+   "primeira_aparicao": "17:10",
+   "aparicoes_em": [
+    "17:10"
+   ],
+   "id": 36,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T36_f00520.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1332.0,
+   "primeira_aparicao": "22:12",
+   "aparicoes_em": [
+    "22:12"
+   ],
+   "id": 37,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T37_f00671.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1352.0,
+   "primeira_aparicao": "22:32",
+   "aparicoes_em": [
+    "22:32"
+   ],
+   "id": 38,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T38_f00681.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1512.0,
+   "primeira_aparicao": "25:12",
+   "aparicoes_em": [
+    "25:12"
+   ],
+   "id": 39,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T39_f00761.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1792.0,
+   "primeira_aparicao": "29:52",
+   "aparicoes_em": [
+    "29:52"
+   ],
+   "id": 40,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T40_f00901.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1952.0,
+   "primeira_aparicao": "32:32",
+   "aparicoes_em": [
+    "32:32"
+   ],
+   "id": 41,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T41_f00981.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 20.0,
+   "duracao_media_s": 20.0,
+   "primeira_aparicao_s": 1972.0,
+   "primeira_aparicao": "32:52",
+   "aparicoes_em": [
+    "32:52"
+   ],
+   "id": 42,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T42_f00991.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 182.0,
+   "primeira_aparicao": "3:02",
+   "aparicoes_em": [
+    "3:02"
+   ],
+   "id": 43,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T43_f00096.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 390.0,
+   "primeira_aparicao": "6:30",
+   "aparicoes_em": [
+    "6:30"
+   ],
+   "id": 44,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T44_f00200.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 450.0,
+   "primeira_aparicao": "7:30",
+   "aparicoes_em": [
+    "7:30"
+   ],
+   "id": 45,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T45_f00230.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 892.0,
+   "primeira_aparicao": "14:52",
+   "aparicoes_em": [
+    "14:52"
+   ],
+   "id": 46,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T46_f00451.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1012.0,
+   "primeira_aparicao": "16:52",
+   "aparicoes_em": [
+    "16:52"
+   ],
+   "id": 47,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T47_f00511.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1072.0,
+   "primeira_aparicao": "17:52",
+   "aparicoes_em": [
+    "17:52"
+   ],
+   "id": 48,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T48_f00541.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1132.0,
+   "primeira_aparicao": "18:52",
+   "aparicoes_em": [
+    "18:52"
+   ],
+   "id": 49,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T49_f00571.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1152.0,
+   "primeira_aparicao": "19:12",
+   "aparicoes_em": [
+    "19:12"
+   ],
+   "id": 50,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T50_f00581.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1192.0,
+   "primeira_aparicao": "19:52",
+   "aparicoes_em": [
+    "19:52"
+   ],
+   "id": 51,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T51_f00601.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1292.0,
+   "primeira_aparicao": "21:32",
+   "aparicoes_em": [
+    "21:32"
+   ],
+   "id": 52,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T52_f00651.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1312.0,
+   "primeira_aparicao": "21:52",
+   "aparicoes_em": [
+    "21:52"
+   ],
+   "id": 53,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T53_f00661.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1372.0,
+   "primeira_aparicao": "22:52",
+   "aparicoes_em": [
+    "22:52"
+   ],
+   "id": 54,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T54_f00691.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1532.0,
+   "primeira_aparicao": "25:32",
+   "aparicoes_em": [
+    "25:32"
+   ],
+   "id": 55,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T55_f00771.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1634.0,
+   "primeira_aparicao": "27:14",
+   "aparicoes_em": [
+    "27:14"
+   ],
+   "id": 56,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T56_f00822.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1736.0,
+   "primeira_aparicao": "28:56",
+   "aparicoes_em": [
+    "28:56"
+   ],
+   "id": 57,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T57_f00873.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 1754.0,
+   "primeira_aparicao": "29:14",
+   "aparicoes_em": [
+    "29:14"
+   ],
+   "id": 58,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T58_f00882.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2194.0,
+   "primeira_aparicao": "36:34",
+   "aparicoes_em": [
+    "36:34"
+   ],
+   "id": 59,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T59_f01102.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2214.0,
+   "primeira_aparicao": "36:54",
+   "aparicoes_em": [
+    "36:54"
+   ],
+   "id": 60,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T60_f01112.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2274.0,
+   "primeira_aparicao": "37:54",
+   "aparicoes_em": [
+    "37:54"
+   ],
+   "id": 61,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T61_f01142.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2294.0,
+   "primeira_aparicao": "38:14",
+   "aparicoes_em": [
+    "38:14"
+   ],
+   "id": 62,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T62_f01152.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2394.0,
+   "primeira_aparicao": "39:54",
+   "aparicoes_em": [
+    "39:54"
+   ],
+   "id": 63,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T63_f01202.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2414.0,
+   "primeira_aparicao": "40:14",
+   "aparicoes_em": [
+    "40:14"
+   ],
+   "id": 64,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T64_f01212.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 18.0,
+   "duracao_media_s": 18.0,
+   "primeira_aparicao_s": 2494.0,
+   "primeira_aparicao": "41:34",
+   "aparicoes_em": [
+    "41:34"
+   ],
+   "id": 65,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T65_f01252.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 16.0,
+   "duracao_media_s": 16.0,
+   "primeira_aparicao_s": 88.0,
+   "primeira_aparicao": "1:28",
+   "aparicoes_em": [
+    "1:28"
+   ],
+   "id": 66,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T66_f00048.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 16.0,
+   "duracao_media_s": 16.0,
+   "primeira_aparicao_s": 1654.0,
+   "primeira_aparicao": "27:34",
+   "aparicoes_em": [
+    "27:34"
+   ],
+   "id": 67,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T67_f00831.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 16.0,
+   "duracao_media_s": 16.0,
+   "primeira_aparicao_s": 1710.0,
+   "primeira_aparicao": "28:30",
+   "aparicoes_em": [
+    "28:30"
+   ],
+   "id": 68,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T68_f00859.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 14.0,
+   "duracao_media_s": 14.0,
+   "primeira_aparicao_s": 2234.0,
+   "primeira_aparicao": "37:14",
+   "aparicoes_em": [
+    "37:14"
+   ],
+   "id": 69,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T69_f01121.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 12.0,
+   "duracao_media_s": 6.0,
+   "primeira_aparicao_s": 360.0,
+   "primeira_aparicao": "6:00",
+   "aparicoes_em": [
+    "6:00",
+    "6:12"
+   ],
+   "id": 70,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T70_f00175.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 12.0,
+   "duracao_media_s": 12.0,
+   "primeira_aparicao_s": 1252.0,
+   "primeira_aparicao": "20:52",
+   "aparicoes_em": [
+    "20:52"
+   ],
+   "id": 71,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T71_f00629.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 10.0,
+   "duracao_media_s": 10.0,
+   "primeira_aparicao_s": 0.0,
+   "primeira_aparicao": "0:00",
+   "aparicoes_em": [
+    "0:00"
+   ],
+   "id": 72,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T72_f00003.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 10.0,
+   "duracao_media_s": 10.0,
+   "primeira_aparicao_s": 52.0,
+   "primeira_aparicao": "0:52",
+   "aparicoes_em": [
+    "0:52"
+   ],
+   "id": 73,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T73_f00029.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 8.0,
+   "duracao_media_s": 8.0,
+   "primeira_aparicao_s": 36.0,
+   "primeira_aparicao": "0:36",
+   "aparicoes_em": [
+    "0:36"
+   ],
+   "id": 74,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T74_f00020.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 8.0,
+   "duracao_media_s": 8.0,
+   "primeira_aparicao_s": 340.0,
+   "primeira_aparicao": "5:40",
+   "aparicoes_em": [
+    "5:40"
+   ],
+   "id": 75,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T75_f00172.jpg"
+  },
+  {
+   "aparicoes": 2,
+   "tempo_em_tela_s": 8.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 1050.0,
+   "primeira_aparicao": "17:30",
+   "aparicoes_em": [
+    "17:30",
+    "37:28"
+   ],
+   "id": 76,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T76_f00526.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 8.0,
+   "duracao_media_s": 8.0,
+   "primeira_aparicao_s": 1504.0,
+   "primeira_aparicao": "25:04",
+   "aparicoes_em": [
+    "25:04"
+   ],
+   "id": 77,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T77_f00754.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 6.0,
+   "duracao_media_s": 6.0,
+   "primeira_aparicao_s": 350.0,
+   "primeira_aparicao": "5:50",
+   "aparicoes_em": [
+    "5:50"
+   ],
+   "id": 78,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T78_f00177.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 6.0,
+   "duracao_media_s": 6.0,
+   "primeira_aparicao_s": 1064.0,
+   "primeira_aparicao": "17:44",
+   "aparicoes_em": [
+    "17:44"
+   ],
+   "id": 79,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T79_f00534.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 68.0,
+   "primeira_aparicao": "1:08",
+   "aparicoes_em": [
+    "1:08"
+   ],
+   "id": 80,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T80_f00035.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 598.0,
+   "primeira_aparicao": "9:58",
+   "aparicoes_em": [
+    "9:58"
+   ],
+   "id": 81,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T81_f00053.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 1264.0,
+   "primeira_aparicao": "21:04",
+   "aparicoes_em": [
+    "21:04"
+   ],
+   "id": 82,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T82_f00065.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 356.0,
+   "primeira_aparicao": "5:56",
+   "aparicoes_em": [
+    "5:56"
+   ],
+   "id": 83,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T83_f00179.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 1732.0,
+   "primeira_aparicao": "28:52",
+   "aparicoes_em": [
+    "28:52"
+   ],
+   "id": 84,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T84_f00194.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 1056.0,
+   "primeira_aparicao": "17:36",
+   "aparicoes_em": [
+    "17:36"
+   ],
+   "id": 85,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T85_f00529.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 1268.0,
+   "primeira_aparicao": "21:08",
+   "aparicoes_em": [
+    "21:08"
+   ],
+   "id": 86,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T86_f00635.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 2006.0,
+   "primeira_aparicao": "33:26",
+   "aparicoes_em": [
+    "33:26"
+   ],
+   "id": 87,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T87_f01004.jpg"
+  },
+  {
+   "aparicoes": 1,
+   "tempo_em_tela_s": 4.0,
+   "duracao_media_s": 4.0,
+   "primeira_aparicao_s": 2534.0,
+   "primeira_aparicao": "42:14",
+   "aparicoes_em": [
+    "42:14"
+   ],
+   "id": 88,
+   "unico": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\squads\\oraclumtech-ai-creative-studio\\docs\\referencias\\estoico\\v2-reflexoes\\takes\\unicos\\T88_f01268.jpg"
+  }
+ ]
+}

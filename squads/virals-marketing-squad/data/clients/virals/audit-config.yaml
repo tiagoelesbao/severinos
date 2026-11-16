@@ -1,0 +1,234 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# VIRALS — AUDIT CONFIG (Pipeline *audit-benchmark)
+# Lente de auditoria personalizada por agente, ancorada na brand-identity da
+# marca institucional @virals (arquétipo Mago + Criador + Herói, DNA GaryVee,
+# oferta "departamento de Growth · 1% revenue share").
+#
+# Consumido por: squads/virals-marketing-squad/scripts/run_audit_benchmark.py
+# Pré-requisito: *creative-benchmark já executado para a data/cliente alvo.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "virals"
+  brand_identity_ref: "brand-identity.yaml"
+  brand_config_ref: "brand-config.yaml"
+  last_updated: "2026-05-23"
+  status: "active"
+
+# ─────────────────────────────────────────────────────────────────────────────
+audit_panel:
+  default:
+    - mrbeast-mk
+    - garyvee-mk
+    - ladeira
+  designers_by_type:
+    carousel: casey-neistat-img
+    image: casey-neistat-img
+    image_single: casey-neistat-img
+    video: sam-kolder-vid
+    video_short: sam-kolder-vid
+    video_long: sam-kolder-vid
+    reel: sam-kolder-vid
+  strategic_optional:
+    - perry-marshall
+    - ezra-firestone
+    - fishkin-mk
+
+# ─────────────────────────────────────────────────────────────────────────────
+agents:
+
+  mrbeast-mk:
+    role: "Auditor de Retenção & Hooks"
+    persona_summary: |
+      Pensa em retenção como única métrica que importa. Avalia pattern interrupt,
+      open loops, micro-rewards, curva de energia, payoff. Mantra: "se o 1º
+      segundo não parou o scroll, falhou."
+    lens_for_client: |
+      Você está auditando para a marca INSTITUCIONAL @virals — DNA GaryVee,
+      arquétipo Mago + Criador + Herói. Avalie se o padrão de hook/retenção
+      do criativo funciona para conteúdo de aquisição B2B de uma operação de
+      Growth (cases, frameworks, ofertas, demonstração de skin in the game).
+      Open loops devem prometer dado concreto, framework ou case com número —
+      NUNCA promessa vazia (palavras-tabu no brand-identity: "segredo",
+      "guru", "fácil"). Conteúdo de "documentar > criar".
+    score_dimensions:
+      - "Pattern interrupt do primeiro frame/slide"
+      - "Open loops entre slides ou no decorrer do vídeo"
+      - "Micro-rewards (cases, gráficos, números, frameworks)"
+      - "Curva de energia mantém o founder D2C engajado até o fim"
+      - "Payoff cumprido com prova concreta"
+    score_anchor: |
+      10 = direto modelável para criativo institucional Virals.
+      7 = forte, requer adaptação de voz/oferta.
+      5 = estrutura aproveitável, conceito não cabe na marca.
+      3 = padrão contrário (vendedor de curso/genérico).
+      1 = não usar.
+    output_sections:
+      - "Pattern Interrupt (0-3s ou slide 1)"
+      - "Open Loops detectados"
+      - "Micro-rewards & Re-hooks"
+      - "Curva de Energia"
+      - "Payoff & Satisfaction"
+      - "Modelagem para Virals — o que manter, o que adaptar"
+
+  garyvee-mk:
+    role: "Auditor de Vibe & Brand Fit"
+    persona_summary: |
+      Vibe-checker cultural. Mede cultural relevance, audience empathy,
+      shareability, platform-native fit. Pensa em atenção como arbitragem.
+    lens_for_client: |
+      Você está auditando para a marca INSTITUCIONAL @virals (não confundir
+      com o perfil pessoal @tiagoelesbao). Voz Virals = GaryVee Style (Jab,
+      Jab, Jab, Right Hook), tom confiante e técnico. Bordões assinatura:
+      "CAC 60% menor via creators", "departamento de Growth", "skin in the
+      game · 1% revenue share", "Creators + Narrativas Virais = Nova Era do
+      D2C". Léxico-tabu (ver `restricoes`).
+    score_dimensions:
+      - "Cultural relevance para founder D2C brasileiro pós-PMF"
+      - "Audience empathy: pega dor real (CAC, criativo queimando, sono)?"
+      - "Shareability: founder D2C compartilharia?"
+      - "Platform-native fit"
+      - "Aderência à oferta Virals (AI UGC & Vídeos / Copy AI / Traffic AI / Dev AI)"
+    score_anchor: |
+      10 = vibe perfeita para conteúdo Virals.
+      7 = vibe alinhada, requer reframe.
+      5 = parcial — requer overhaul de tom.
+      3 = vibe contrária.
+      1 = não usar.
+    output_sections:
+      - "Vibe Classification"
+      - "Dor do avatar atingida"
+      - "Shareability trigger"
+      - "Aderência à oferta Virals"
+      - "Adaptação obrigatória de léxico/bordão"
+
+  ladeira:
+    role: "Auditor de Copy & Gatilhos"
+    persona_summary: |
+      Master copywriter direct response. Avalia headline, hook textual,
+      gatilhos mentais, framework (PAS, AIDA, story-based), CTA,
+      legibilidade do texto sobreposto em mobile.
+    lens_for_client: |
+      Você está auditando para a voz Virals: GaryVee-direta, técnica mas
+      acessível, ousada com pé no chão. CTA-style Virals aceita call-to-action
+      direto (com prova social anterior na thread), diferente do perfil
+      pessoal Tiago (que é call-to-think). Toda afirmação precisa vir com
+      número/case/dado. Léxico-tabu: ver `restricoes` do brand-identity.
+    score_dimensions:
+      - "Força e clareza da headline para founder D2C"
+      - "Estrutura persuasiva (framework detectado)"
+      - "Gatilhos mentais (autoridade real, novidade, prova social, urgência)"
+      - "CTA-style alinhado com a oferta Virals"
+      - "Legibilidade do texto sobreposto em mobile"
+      - "Léxico-tabu violado (flagar palavras)"
+    score_anchor: |
+      10 = copy modelável palavra-por-palavra.
+      7 = estrutura forte, requer rewrite de léxico.
+      5 = framework aproveitável, copy precisa reescrever.
+      3 = voz contrária.
+      1 = não usar.
+    output_sections:
+      - "Headline atual + rewrite na voz Virals"
+      - "Framework detectado"
+      - "Gatilhos mentais"
+      - "CTA analysis + adaptação"
+      - "Léxico-flags"
+
+  casey-neistat-img:
+    role: "Auditor de Design Visual (carrosséis & imagens)"
+    persona_summary: |
+      Diretor de imagem & carrossel. Avalia composição, hierarquia visual,
+      paleta, tipografia, layout mobile-first, design system, legibilidade.
+    lens_for_client: |
+      Você está auditando contra a identidade visual da @virals: paleta
+      navy + vermelho sinal (definida em brand-config.yaml), tipografia Outfit.
+      Diferenciação clara do perfil @tiagoelesbao (que usa preto + âmbar).
+      Padrão de carousel-slide / quote-slide / single-post da Virals.
+    score_dimensions:
+      - "Composição e hierarquia visual"
+      - "Paleta compatível ou adaptável para navy+vermelho sinal"
+      - "Tipografia (legibilidade mobile, Outfit compatível)"
+      - "Safe-zone respeitada e text-max-width adequado"
+      - "Aderência ao design system Virals"
+    score_anchor: |
+      10 = template direto para o pipeline *design-creative da Virals.
+      7 = estrutura modelável, requer reskin de paleta.
+      5 = layout aproveitável, design system contrário.
+      3 = visual incompatível.
+      1 = não usar.
+    output_sections:
+      - "Análise visual por slide"
+      - "Aderência à paleta Virals (navy + vermelho sinal)"
+      - "Recomendação de adaptação visual"
+      - "Template modelável (carousel-slide / quote-slide / single-post)"
+    applies_to_types: [carousel, image, image_single, ig-carousel, ig-image]
+
+  sam-kolder-vid:
+    role: "Auditor de Vídeo & Motion"
+    persona_summary: |
+      Diretor de vídeo & motion. Avalia hook visual (0-3s), ritmo,
+      color grading, B-roll, captions, formato 9:16, transições.
+    lens_for_client: |
+      Você está auditando contra a estética de vídeo Virals: cases,
+      depoimentos de creators, demonstração de framework. Color grading:
+      LUT cinemática navy+vermelho sinal (data/clients/virals/luts/). Accent
+      vermelho sinal em captions/elementos. Ritmo direto, sem música cheesy.
+    score_dimensions:
+      - "Hook visual nos 0-3s"
+      - "Ritmo de corte (silence cuts, jump cuts apropriados)"
+      - "Color grading compatível com LUT navy+vermelho sinal"
+      - "Captions: legibilidade + voz Virals"
+      - "B-roll: case real / framework ou estoque genérico?"
+      - "Aderência ao formato 9:16 nativo"
+    score_anchor: |
+      10 = template direto para *industrialize-video da Virals.
+      7 = bons elementos, requer reedição parcial.
+      5 = conceito aproveitável, técnica precisa overhaul.
+      3 = estética incompatível.
+      1 = não usar.
+    output_sections:
+      - "Hook visual (0-3s)"
+      - "Ritmo & cortes"
+      - "Color grading + adaptação para LUT Virals"
+      - "Captions + flags de léxico"
+      - "B-roll: modelável para case Virals?"
+    applies_to_types: [video, video_short, video_long, reel, ig-reel]
+
+# ─────────────────────────────────────────────────────────────────────────────
+scoring:
+  weights:
+    mrbeast-mk: 0.25
+    garyvee-mk: 0.20
+    ladeira: 0.20
+    casey-neistat-img: 0.20
+    sam-kolder-vid: 0.15
+  classification:
+    excelente: 8.0
+    bom: 6.0
+    mediano: 4.0
+    fraco: 0.0
+  veredito_decision_table:
+    - if_score_gte: 8.0
+      veredito: "modelar"
+    - if_score_gte: 6.0
+      veredito: "adaptar"
+    - if_score_gte: 4.0
+      veredito: "inspirar"
+    - if_score_gte: 0.0
+      veredito: "ignorar"
+
+# ─────────────────────────────────────────────────────────────────────────────
+output:
+  fill_analise_md: true
+  placeholder_marker: "## 🧠 Espaço para Auditorias Especializadas"
+  summary_file: "_audit-summary-{date}.md"
+  summary_json: "_audit-summary-{date}.json"
+
+# ─────────────────────────────────────────────────────────────────────────────
+context_inject:
+  always_load_from_brand_identity:
+    - oferta
+    - avatar
+    - tom_de_voz
+    - restricoes

@@ -1,0 +1,159 @@
+{
+  "slug": "CUR-l07-mudam-cor-40s",
+  "takes": [
+    {
+      "arquivo": "t01-quatro-ocamaleao.mp4",
+      "etiqueta": "quatro-ocamaleao",
+      "consulta": "chameleon on branch close up",
+      "duracao": 23,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 34649798,
+      "autor": "Ingrid Anderson",
+      "url": "https://www.pexels.com/video/green-chameleon-amidst-lush-foliage-34649798/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-quatro-ocamaleao.mp4",
+      "etiqueta": "quatro-ocamaleao",
+      "consulta": "chameleon on branch close up",
+      "duracao": 11,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 5088506,
+      "autor": "Samuel Gitahi",
+      "url": "https://www.pexels.com/video/chameleon-on-a-branch-5088506/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-quatro-ocamaleao.mp4",
+      "etiqueta": "quatro-ocamaleao",
+      "consulta": "chameleon on branch close up",
+      "duracao": 17,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 18174589,
+      "autor": "Prince lakra",
+      "url": "https://www.pexels.com/video/chameleon-18174589/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-tres-olinguado.png",
+      "etiqueta": "tres-olinguado",
+      "consulta": "flatfish camouflage sand seabed",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t05-tres-olinguado.png",
+      "etiqueta": "tres-olinguado",
+      "consulta": "flatfish camouflage sand seabed",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t06-tres-olinguado.png",
+      "etiqueta": "tres-olinguado",
+      "consulta": "flatfish camouflage sand seabed",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t07-dois-alebredoar.mp4",
+      "etiqueta": "dois-alebredoar",
+      "consulta": "arctic hare snow",
+      "duracao": 10,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 30613474,
+      "autor": "Алан Албегов",
+      "url": "https://www.pexels.com/video/winter-wildlife-hare-and-bird-in-snowy-forest-30613474/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t08-dois-alebredoar.png",
+      "etiqueta": "dois-alebredoar",
+      "consulta": "arctic hare snow",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t09-dois-alebredoar.png",
+      "etiqueta": "dois-alebredoar",
+      "consulta": "arctic hare snow",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t10-um-opolvo.png",
+      "etiqueta": "um-opolvo",
+      "consulta": "octopus camouflage reef",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t11-um-opolvo.png",
+      "etiqueta": "um-opolvo",
+      "consulta": "octopus camouflage reef",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t12-um-opolvo.png",
+      "etiqueta": "um-opolvo",
+      "consulta": "octopus camouflage reef",
+      "origem": "flux2-klein (gerada)",
+      "motivo": "o acervo nao entregou clipe fiel suficiente",
+      "licenca": "geracao propria"
+    },
+    {
+      "arquivo": "t13-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "coral reef underwater colorful",
+      "duracao": 8,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 36155360,
+      "autor": "JUN HO LEE",
+      "url": "https://www.pexels.com/video/stunning-underwater-coral-reef-scene-36155360/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t14-fecho.mp4",
+      "etiqueta": "fecho",
+      "consulta": "coral reef underwater colorful",
+      "duracao": 10,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 34227119,
+      "autor": "JUN HO LEE",
+      "url": "https://www.pexels.com/video/vibrant-coral-reef-underwater-scene-with-fish-34227119/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

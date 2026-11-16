@@ -1,0 +1,968 @@
+# Status vivo dos 5 Gates do Kickoff Kit — Império Prêmios
+# Framework: docs/meta_mba/MODULO_01_FUNDAMENTOS_OFICIAIS_ECOSSISTEMA_E_ESTRUTURA.md
+# seção 6.2. Atualizar conforme cada item avança — este arquivo é a fonte
+# que perry-meta-kickoff-audit.md lê pra reportar bloqueios.
+#
+# status possíveis por item: ok | pendente | bloqueado | nao_aplicavel
+
+ultima_atualizacao: "2026-10-07 (event_source_url corrigido no CAPI; Task Scheduler invisível; triagem completa da aba Ações do Events Manager)"
+
+gate_0_elegibilidade:
+  pergunta: "A oferta é permitida pela Meta e legal no país? Tem margem para anunciar?"
+  itens:
+    autorizacao_meta_jogos_online:
+      status: ok
+      nota: "Confirmado aprovada pelo founder em 2026-10-04."
+    parecer_juridico_lei_5768_1971:
+      status: pendente
+      nota: "Não bloqueia tracking/estrutura, mas deve ser resolvido antes de escalar."
+    meta_margem_liquida_definida:
+      status: pendente
+      nota: "10% vs 15% — decisão de negócio com o cliente, trava o CAC máximo real e o orçamento de Gate 3."
+
+gate_1a_governanca:
+  pergunta: "Pixel/Dataset e pagamento estão em BMs separadas da execução?"
+  itens:
+    bms_pixel_pagina_separadas_do_operador:
+      status: ok
+      nota: "Ver bm-map.yaml — Matriz-Pixel e Matriz-Página já separadas do Operador (IP Realiza)."
+    bm_pagamento_separada:
+      status: pendente
+      nota: "Não aparece no diagrama fornecido — confirmar onde está o cartão corporativo."
+    conta_contingencia:
+      status: pendente
+      nota: "Só existe 1 conta ativa (IP Realiza) — ponto único de falha."
+
+gate_1b_sinais:
+  pergunta: "Evento de otimização chega via Pixel+CAPI, deduplicado, EMQ >= 8.0?"
+  itens:
+    pipeline_extracao_migrado_e_seguro:
+      status: ok
+      nota: "services/Meta/imperio-premios/{client_api,collector,reports}.py — credencial fora do código, validado end-to-end em 2026-10-04 (571 pedidos, MC/ROAS batendo com a base de 90 dias)."
+    order_id_capturado_para_dedup:
+      status: ok
+      nota: "OrderId (Mongo _id do pedido) capturado em 100% da amostra — usado como event_id."
+    telefone_e164_correto:
+      status: ok
+      nota: "userId.phoneDetails.e164 usado direto da API (vem pronto com '+'), sem reinventar normalização."
+    capi_client_pronto:
+      status: ok
+      nota: "services/Meta/imperio-premios/capi_client.py — payload Purchase validado em dry-run (em/ph condicionais, fbp/fbc/ip/ua, event_id/event_time corretos)."
+    pixel_dataset_criado_no_business_manager:
+      status: ok
+      nota: "Pixel compartilhado com a BM Operador (IP Realiza), App criado lá dentro, Dataset ID preenchido em .env (2026-10-05)."
+    system_user_token_gerado:
+      status: ok
+      nota: "System User criado na BM Operador com ativos (incl. pixel) vinculados diretamente; token preenchido em META_IMPERIO_PREMIOS_ACCESS_TOKEN (2026-10-05)."
+    emq_medido_via_test_events:
+      status: ok
+      nota: "1º envio real confirmado 2026-10-05: 5 eventos Purchase, events_received=5 (fbtrace_id=AEgJxuCFkZnAEbsQiS6e1LO). Pipe ponta a ponta funcionando. EMQ numérico ainda não lido (leva minutos/horas pra popular no Events Manager) — conferir lá antes de escalar budget, mas não bloqueia o lançamento."
+    dedup_capi_nativa_vs_nosso_pipeline:
+      status: ok
+      nota: "RESOLVIDO 2026-10-07 — founder trouxe prints completos do Events Manager (aba Compra > Desduplicação de evento): 99,69% de cobertura via chave 'Identificação do evento' (event_id), 575 eventos de navegador + 254 de servidor, 'Atende às boas práticas'. send_backlog.py/capi_realtime.ps1 já rodam em agendamento contínuo (a cada 15min) sem risco de duplicação — confirmado, não só suposição. Histórico: achado original 2026-10-05 sobre CAPI nativa da plataforma com regra condicional por fbc, ver brief.yaml:tracking.capi_duplo_achado."
+
+gate_2_estrutura_criativo:
+  pergunta: "Orçamento cobre 50 eventos/7d? Há >=3 ângulos distintos e taxonomia de nomes?"
+  itens:
+    angulos_criativos_definidos:
+      status: ok
+      nota: "5 ângulos do Módulo 01 seção 7.3: Prêmio, Prova, Confiança, Acessibilidade, Comunidade."
+    criativos_produzidos:
+      status: pendente
+      nota: >
+        2026-10-06 — ACHADO CRÍTICO: os 5 criativos da leva anterior (telas
+        diretas do app de números/grid) foram REPROVADOS pela Meta em todos
+        os anúncios — cliente confirmou que são materiais sinalizados/
+        conhecidos por causar rejeição. Confirmado: só os ANÚNCIOS foram
+        reprovados, a conta de anúncio (CA IP Realiza) não foi restringida —
+        mas rejeição repetida em categoria gambling é exatamente o risco que
+        o Módulo 01 avisa que pode escalar pra restrição de conta/portfólio.
+        Nova estratégia 2026-10-06: abandonar vídeos que mostram a interface
+        de apostas diretamente (grid de números, "concorra agora" chamativo)
+        — trocar por "take de fundo" (ações sociais/institucionais da
+        empresa) + copy em texto sobreposto, formato mais "white". Fonte do
+        footage novo: videos enviados pelo cliente (Downloads/video*.mp4),
+        processando em services/Meta/imperio-premios/creative-tools/.
+        Pasta antiga (creatives/campanha-1-advantage-vendas/) NÃO deve ser
+        reutilizada como está — manter como registro histórico do que NÃO
+        funciona nesta categoria.
+        2026-10-06 (atualização): 1º criativo "white" pronto e renderizado —
+        creatives/campanha-1-whitelist-social/comunidade_nao-sorteia-so-premio_video_20261006.mp4,
+        copy do @ladeira ("A gente não sorteia só prêmio.").
+        2026-10-06 (v2): 2º criativo renderizado incorporando feedback do
+        founder — comunidade_100numeros-sorte_video_20261006.mp4, mesma
+        fonte/corte, caixa escura semi-transparente atrás do texto
+        (box=1:boxcolor=black@0.55), texto reposicionado pra zona segura
+        calculada (y=h*0.58, dentro da interseção dos cortes de todos os
+        posicionamentos Meta), copy nova "100 números e o da sorte pode ser
+        o seu" (emoji 🍀 omitido — ffmpeg drawtext não renderiza emoji
+        colorido). Verificado visualmente via frame extraído. v1 mantido
+        como registro; decisão v1 vs v2 (ou A/B) é do founder.
+        2026-10-06 (mudança de fluxo): founder vai legendar manualmente daqui
+        pra frente — entreguei 3 takes BRUTOS (sem texto) em
+        creatives/campanha-1-whitelist-social/takes-base/, 1 por vídeo-fonte,
+        cada um já verificado sem legenda pré-existente. Falta: founder
+        aplicar texto, escolher quais sobem no Ads Manager apontando pra LP
+        (não mais pro checkout direto).
+    landing_page_pre_lander:
+      status: ok
+      nota: >
+        apps/imperio-premios-lp/ — AO VIVO desde 2026-10-06:
+        https://imperio.vercel.app (link oficial, sem "premios" — projeto
+        renomeado a pedido do founder; org team_9PskGSSpzKF9gw5gpQDqesyL,
+        mesmo de apps/captura_ia). Pixel PageView+Lead configurado com o
+        Pixel ID real. CNPJ/razão social OMITIDO do rodapé por decisão
+        explícita do founder. termos.html e privacidade.html próprios
+        (LGPD, sem CNPJ). Logo real do cliente no header (coroa, fundo
+        removido) + favicon real (antes era SVG recriado). Mobile
+        confirmado OK via DevTools real do founder.
+        REVISÃO DE COPY 2026-10-06: v1 (headline "ver os números" + cards
+        de estatística R$7,4mi/164mil em destaque) foi validada com o
+        cliente e considerada agressiva demais. v2 (atual, no ar): headline
+        institucional, cards de estatística removidos, nova seção "Como
+        funciona" com mecânica em termos gerais (100 números, resultado em
+        horários fixos, mais de um ganhador por rodada) — SEM citar "jogo
+        do bicho" por nome e SEM valores de prêmio em R$. ACHADO: o cliente
+        sugeriu (via print de conversa) detalhar explicitamente "jogo do
+        bicho" + faixa de prêmio R$200-R$30mil + 30 rifas/dia — recusado
+        nessa forma por risco duplo: (1) associa a marca nominalmente a uma
+        loteria historicamente ilegal no Brasil (mesma Lei 5.768/1971 cujo
+        parecer jurídico segue pendente), (2) promessa de ganho explícita é
+        o padrão que a política de gambling do Meta mais pune — provável
+        candidato a repetir a rejeição da leva de criativos anterior.
+        Decisão foi do founder (versão moderada), registrada em
+        apps/imperio-premios-lp/README.md.
+        Pendência conhecida (não bloqueia): header usa coroa-imagem +
+        "IMPÉRIO" em texto HTML, não um lockup único, porque o arquivo de
+        logo do cliente não contém a escrita (confirmado pixel a pixel) —
+        trocar se/quando o cliente mandar um lockup completo.
+        2026-10-06 (v3 — ajustes do cliente via áudio + chat): (1) marca
+        "Prêmios" removida de toda a LP e das páginas de termos/privacidade
+        — só "Império" em diante; linguagem "jogue"/"ganhos"/"prêmio"
+        trocada por "participe"/"retorno", menos cassino-coded. (2)
+        Compactado pra 1 dobra só, sem scroll, botão de ação visível ao
+        carregar — pedido explícito por áudio do cliente (transcrito via
+        Whisper local). Layout usa 100dvh+flex+clamp(vh); testado sem corte
+        em alturas de 900px até 480px (pior caso de in-app browser) na
+        largura onde a ferramenta de screenshot headless é confiável
+        (560px) — largura estreita real (<480px) tem a mesma limitação de
+        ferramenta já documentada nesta sessão — abrir em celular real
+        antes da validação final com o cliente.
+    convencao_utm_definida:
+      status: ok
+      nota: >
+        utm-convention.md — pronta para colar nas URLs do Ads Manager. Achado
+        crítico original: 0% dos 164k pedidos tinham UTM até 2026-10-05.
+        AUDITORIA 2026-10-07: confirmado que o founder configurou `url_tags`
+        CORRETAMENTE nos 4 anúncios ativos (utm_source=meta,
+        utm_campaign=camp1-advantage-vendas-{{campaign.id}} etc.) — mas o UTM
+        CONTINUAVA chegando 0% nos pedidos reais (conferido nos 466 pedidos
+        das últimas 24h). Causa raiz encontrada: a landing page
+        (apps/imperio-premios-lp/index.html) tinha os 2 botões de CTA com
+        `href` ESTÁTICO — não repassava a query string de entrada
+        (UTM+fbclid) pro destino (grupo/site oficial), descartando o rastreio
+        no exato ponto de transição LP→site. CORRIGIDO e deployado em
+        2026-10-07: JS no load da página mescla `window.location.search` nos
+        hrefs dos 2 CTAs antes de qualquer clique. Verificado via DOM
+        renderizado com UTM+fbclid de teste — propaga certo agora. Pedidos
+        A PARTIR de 2026-10-07 devem vir com UTM preenchido; pedidos
+        anteriores a essa correção não têm e não vão ter retroativamente.
+    custom_audiences_segmentadas:
+      status: ok
+      nota: "audiences/ — alto_valor (420) e recompra (1.538), regeráveis via reports.py."
+    custom_audiences_upload_no_ads_manager:
+      status: ok
+      nota: "3 listas setadas em Configurações de Publicidade > Clientes Existentes: Clientes Alto Valor (420), Clientes Gerais/quentes (1.529, com coluna value), Clientes Desinteressados (550.763, base dormente). Confirmar em ad set que aparecem como Custom Audience selecionável, não só como classificação de conta."
+    estrutura_advantage_cbo_criada:
+      status: ok
+      nota: >
+        2026-10-06 — Campanha 1 criada e ATIVA de verdade pelo founder: conta
+        de anúncio nova act_2076716696539325 ("CA IP Realiza - 02", mesma BM
+        Operador "IP Realiza", business_id 3640550059575630 — o número que o
+        founder chamou de "BM" é na real o ID da conta de anúncio, confirmado
+        via API). 1 campanha Advantage+ Vendas (OUTCOME_SALES), 1 ad set
+        consolidado ("Conjunto 1 — Prospecção Ampla, BID -50% Clientes, LAL
+        1-3%"), 4 anúncios ativos (3 vídeos de take com copy diferente + 1
+        reaproveitando publicação orgânica do perfil do cliente). daily_budget
+        R$700 — bate com o baseline do plano.
+
+gate_3_lancamento:
+  pergunta: "Go-live com orçamento calculado?"
+  itens:
+    orcamento_minimo_calculado:
+      status: ok
+      nota: "Baseline operacional de R$1.000/dia definido com o cliente (hoje investindo isso, meta R$2-3k/dia). CAC máximo a 15% de margem (~R$2.814/dia nos 90d) já cobre a meta de escala com folga — ver campaign-plan-wave1.md seção 1."
+    test_events_validado:
+      status: pendente
+      nota: >
+        AUDITORIA 2026-10-07 (campanha rodando ~20h, R$285,59 gastos): achado
+        CRÍTICO — send_backlog.py (nosso pipeline CAPI) NUNCA rodou desde o
+        dry-run de validação em 2026-10-05 (nenhum checkpoint_capi existe).
+        Resultado prático: Ads Manager reporta só 8 "purchase" na campanha,
+        mas cruzando os pedidos reais da API do cliente (janela 24h, 466
+        pedidos totais) com Canal_Atribuicao="Meta Ads (clique confirmado)"
+        (fbc presente) aparecem 84 pedidos pagos somando R$6.277,00 — ROAS
+        real ~22x contra o 8-purchases que o Meta está vendo. Hipótese mais
+        provável: sem CAPI rodando, a conversão depende só do Pixel
+        client-side no site oficial (imperiopremioss.com), que sofre perda de
+        sinal normal (ad-block, ITP, iOS). RECOMENDAÇÃO ANTES DE ESCALAR AS
+        PRÓXIMAS 2 CAMPANHAS: (1) confirmar no Events Manager > Diagnostics
+        se a CAPI nativa da plataforma Sorteamos está mesmo ativa (achado
+        2026-10-05, nunca confirmado na prática); (2) se não estiver,
+        agendar send_backlog.py em modo incremental; (3) se estiver mas com
+        event_id diferente do nosso, resolve o item
+        dedup_capi_nativa_vs_nosso_pipeline antes de ligar os dois ao mesmo
+        tempo (risco de Purchase duplicado). Cada dia sem isso é sinal fraco
+        pro algoritmo de otimização — ele está aprendendo com 8 conversões
+        quando na real tem ~10x mais.
+        INVESTIGAÇÃO 2026-10-07 (prints do painel Analytics + Events Manager
+        do cliente): CAPI nativa CONFIRMADA ativa e saudável — EMQ 9,3/10 em
+        Purchase e InitiateCheckout (excelente), integração "Várias"
+        (Navegador+Servidor), "+100% de conversões a mais via CAPI nos
+        últimos 7 dias" segundo o próprio Meta. Founder trocou o dropdown
+        "Facebook Pixel - Enviar purchase" pra "Enviar sempre" (estava
+        condicional a bio/group/community/stories).
+        CORREÇÃO IMPORTANTE (retifica a leitura inicial deste achado): o
+        "gap" de 8 vs 84 pedidos NÃO era falta de CAPI. Events Manager aponta
+        há meses (detectado 28/jul/2026, 60 ad sets afetados) que "o servidor
+        está enviando um valor fbclid expirado no parâmetro fbc" — a
+        plataforma reenvia o MESMO fbc por semanas/meses em vez de capturar o
+        clique mais recente. Confirmado com dado concreto: o _fbc carrega
+        timestamp embutido (fb.1.<ts_ms>.<fbclid>); dos 84 pedidos que o
+        heurístico antigo (client_api.py::_classificar_canal) marcava como
+        "Meta Ads confirmado", só 3-4 tinham clique de fato recente (<=1-7
+        dias) — o resto tinha fbc de até 349 dias atrás (abril/2026!).
+        CORRIGIDO EM CÓDIGO (2026-10-07): client_api.py agora calcula a
+        idade do fbc relativa ao momento do PEDIDO (campo novo
+        Fbc_Idade_Dias) e só classifica "Meta Ads (clique confirmado)" se
+        <=7 dias (mesma janela attribution_spec CLICK_THROUGH do ad set
+        real, confirmada via API) — fbc mais velho cai em
+        "Meta Ads (fbc expirado, Nd — não atribuível)", explícito em vez de
+        contado errado. Recontagem pós-fix: 4 pedidos / R$351 nas últimas
+        24h — mesma ordem de grandeza do que o Ads Manager já mostrava (8
+        purchases / R$140,50), não um gap de 10x. A leitura anterior
+        ("R$6.277, ROAS~22x") estava inflada pelo mesmo bug e foi corrigida
+        junto ao founder no chat.
+        IMPLICAÇÃO MAIOR: os 24,5% de faturamento "clique confirmado" da
+        base histórica de 90 dias (brief.yaml) usam a MESMA lógica antiga —
+        provavelmente também inflados. Recomendado reprocessar a base de 90
+        dias com a lógica corrigida antes de usar esse número pra qualquer
+        decisão de negócio (CAC máximo, meta de ROAS etc.).
+        PENDENTE — fora do nosso escopo técnico: o bug de fbc congelado é da
+        PLATAFORMA do cliente (como ela captura/persiste o fbc no
+        backend/checkout), não do nosso pipeline nem do Ads Manager. Avisar
+        o founder pra escalar pro time que mantém api.imperiopremioss.com —
+        a captura de fbc deveria ler o cookie `_fbc` vigente a cada
+        sessão/compra, não reusar um valor salvo indefinidamente.
+        VERIFICAÇÃO DE DEDUP — RESOLVIDA (2026-10-07): founder trouxe prints
+        completos do Events Manager (aba Compra > Desduplicação de evento) —
+        99,69% de cobertura via chave "Identificação do evento" (event_id),
+        575 eventos de navegador + 254 de servidor, "Atende às boas
+        práticas". Dedup está saudável, não precisa de ação.
+        AUDITORIA COMPLETA DO EVENTO PURCHASE (2026-10-07, 11 telas
+        analisadas): cobertura de eventos 100%, qualidade de correspondência
+        9,3/10, todos os parâmetros (email/telefone/fbp/fbc/nome/país/IP/UA)
+        em 100% de envio. Único problema real confirmado continua sendo o
+        fbc obsoleto (ver bug-report-fbc-plataforma.md, criado 2026-10-07 —
+        causa provável + correção recomendada, pronto pra repassar ao dev da
+        plataforma). Achado secundário: CAPI envia eventos "por hora" (lote),
+        não em tempo real — Meta recomenda o mais próximo possível de
+        tempo real.
+        PERGUNTA DO FOUNDER RESPONDIDA: Google Tag Manager NÃO é a solução
+        pro bug do fbc — GTM gerencia disparo de tags no navegador; o bug é
+        no BACKEND (reenvio de fbc salvo indefinidamente no cadastro do
+        usuário).
+        RESOLVIDO SEM DEPENDER DO DEV DA PLATAFORMA (2026-10-07) — founder
+        recusou esperar por mudança de código do cliente e pediu solução
+        100% sob nosso controle. Construída: capi_client.py agora omite
+        `fbc` do payload sempre que a idade (calculada do timestamp
+        embutido) passa de 7 dias — nunca mais manda clique velho como se
+        fosse recente, no NOSSO envio. send_backlog.py tinha um bug real
+        achado no processo (checkpoint sendo gravado mesmo em --dry-run,
+        fazendo o backlog inteiro "sumir" sem nunca ter sido enviado de
+        verdade) — corrigido. PROVA REAL: 2.317 eventos Purchase do backlog
+        de 3 dias reenviados com sucesso (events_received=2317 confirmado
+        lote a lote, fbtrace_id de cada lote registrado). Automatizado via
+        Windows Task Scheduler ("CAPI-Imperio-Realtime",
+        capi_realtime.ps1), rodando a cada 15 min — também resolve de
+        quebra o achado secundário "atualidade dos dados: por hora" (agora
+        é a cada 15min, por nós, não mais dependente do lote horário da
+        plataforma).
+        COMPLEMENTAR (opcional, não bloqueia): pra eliminar 100% a chance
+        da CAPI nativa da plataforma "ganhar a corrida" de deduplicação
+        com um fbc velho antes da nossa (nosso envio roda 4x mais rápido
+        que o lote horário deles, então normalmente já vencemos — mas não
+        é garantido), o founder pode limpar o campo "Facebook Token
+        Conversion API" no painel Analytics da plataforma — é uma
+        configuração que ele mesmo já demonstrou saber mexer (trocou o
+        dropdown sozinho), não exige dev.
+        `bug-report-fbc-plataforma.md` mantido como registro histórico do
+        diagnóstico original, mas a ação dele (pedir pro dev) foi
+        substituída por esta correção própria.
+        CORREÇÃO 2026-10-07 (checagem contra PLANEJAMENTO_ESTRATEGICO_90DIAS.md,
+        a pedido do founder): o CAC_max do BI estava usando a fórmula errada
+        (diagrama genérico do Módulo 01 raiz, "Ticket × MC%") — a fórmula que
+        vale pra este cliente é a do plano de 90 dias seção 2
+        ("MC - Faturamento×%ML", teto de ORÇAMENTO TOTAL pro período, não
+        CAC por cliente). Corrigido, agora mostra os 2 cenários (10%/15% ML)
+        já que a meta de margem líquida ainda não foi decidida com o
+        cliente. Verificado também via API real: a Lookalike de alto valor
+        (facebook_audience_1500_quentes2.csv, 1-3%) está corretamente
+        configurada no conjunto ativo, batendo com campaign-plan-wave1.md
+        §2.1. A exclusão de `audiencia_recompra_90dias.csv` é pra Campanha 3
+        (Retargeting, ainda não criada), não pra Campanha 1 — não é uma
+        lacuna, é decisão documentada corretamente (Campanha 1 usa Regras
+        de Valor -50%, não exclusão, por desenho).
+        TRIAGEM COMPLETA DA ABA AÇÕES (2026-10-07, 7 itens): (1) "event_source_url
+        ausente" (achado do mesmo dia, 11% dos Purchase) — CORRIGIDO, capi_client.py
+        agora envia https://imperiopremioss.com/ em todo payload, testado. (2)
+        "Aproveite seus anúncios monitorando métricas" e (3) "Mais conversões
+        relatadas" — informativos, ignorados sem ação. (4) "fbclid expirado"
+        continua tecnicamente ativo — é a CAPI NATIVA da plataforma (regra
+        condicional não filtra por idade), não o nosso envio (já corrigido); não
+        marcar como resolvido, seria inexato. (5) Facebook Login ID — baixa
+        prioridade, exige captura de login no front-end do cliente. (6)-(7) baixa
+        cobertura de InitiateCheckout via CAPI (2 cards) — BLOQUEADO: a API do
+        cliente só devolve pedidos status=paid, não temos acesso a checkout
+        iniciado/abandonado pra montar esse evento nós mesmos.
+        TASK SCHEDULER — rodando invisível agora (2026-10-07): trocado de chamar
+        powershell.exe direto (abria janela visível a cada execução) pra disparar
+        via wscript.exe + .vbs (refresh_hidden.vbs /
+        capi_realtime_hidden.vbs) — roda em background sem popup, confirmado via
+        teste manual + log do ciclo automático.
+        ACHADO SECUNDÁRIO: Events Manager flagou 3 domínios novos não
+        verificados (imperiopremioss.com.br, sndflw.com,
+        brunaodaimperio.com) — recomendo verificar em Configurações de
+        Marca > Domínios, relevante pra AEM/iOS.
+
+        ACHADO CRÍTICO 2026-10-07 (depois da troca pra "Enviar sempre") —
+        REVERTIDO: o founder notou salto súbito de ROAS logo após a troca e
+        suspeitou de contaminação por vendas de clientes existentes via
+        grupo. CONFIRMADO com o breakdown por segmento do Ads Manager
+        (coluna "Detalhamento" por público) do dia 2026-10-07: de R$741,50
+        em "Valor de conversão" reportado, R$317,00 veio de "Clientes
+        existentes" (ROAS 6,45) + R$227,50 de "Público engajado" (ROAS
+        18,48) + R$178,00 "Sem categoria" (sem custo atribuído) — e só
+        R$19,00 veio de "Novo público" (ROAS 0,47, LUCRO NEGATIVO -R$21,17).
+        O filtro condicional antigo (FBC + não-bio/group/community/stories)
+        excluía DE PROPÓSITO vendas do grupo do CAPI — provavelmente
+        desenhado exatamente pra evitar essa contaminação. O ad set tem
+        "BID -50% Clientes" (reduz lance, mas NÃO exclui clientes
+        existentes do direcionamento), então o Meta pôde creditar vendas de
+        clientes antigos comprando pelo grupo à campanha de prospecção.
+        AÇÃO: founder revertendo o dropdown de volta pra condicional
+        (2026-10-07). Recomendação complementar (não executada ainda):
+        excluir "Clientes existentes" do direcionamento do ad set via
+        Custom Audience de exclusão, em vez de só reduzir lance — ataca o
+        problema pela segmentação, não só pela métrica.
+        IMPLICAÇÃO PRA ESCALAR: a performance real de PROSPECÇÃO (novo
+        público) está em ROAS 0,47 (prejuízo), não os ~7x que o painel
+        mostrava com o filtro aberto. Antes de subir as campanhas 2 e 3,
+        olhar resultado por "Novo público" especificamente, não o
+        agregado — é a métrica que reflete se a campanha está realmente
+        trazendo cliente novo de forma lucrativa.
+        FASE 5 — WEBHOOK TEMPO REAL (2026-10-07): a correção anterior
+        ("atualidade dos dados: por hora" resolvida via polling 15min) foi
+        reexaminada e estava incompleta — print fresco do Events Manager
+        ainda mostrava "Por hora", não "Tempo real". Polling periódico,
+        mesmo rápido, nunca satisfaz esse critério; só arquitetura
+        orientada a evento resolve. Construído e validado ponta a ponta:
+        apps/webhook-imperio-capi (Vercel, edge function) recebe o webhook
+        nativo `order.paid` da plataforma (painel.imperiopremioss.com/
+        dashboard/webhooks) e dispara Purchase pro Meta CAPI na hora,
+        sem esperar o ciclo do Task Scheduler. Payload real do webhook
+        difere do formato da API REST (usuário em data.user.id, não
+        userId._id; telefone já em E.164; fbc/fbp/ip/userAgent dentro de
+        data.params) — implementação ajustada ao payload real fornecido
+        pelo founder, não ao formato suposto inicialmente. event_id usa o
+        id do pedido (data.id), não params.eventId, deliberadamente, pra
+        preservar compatibilidade de dedup com o Pixel do navegador (dedup
+        hoje em 99,69%, não pode regredir). Inclui nativamente as
+        correções de event_source_url e external_id (Fase 3-4). Testado
+        com payload sintético fiel ao schema real: Meta respondeu
+        events_received=1 com fbtrace_id real; rejeição de autenticação
+        (401) também validada com secret errado. Endpoint em produção:
+        https://webhook-imperio-capi.vercel.app/api/order-paid, autenticado
+        via header X-AUTH-WEBHOOK comparado a um segredo compartilhado.
+        RESOLVIDO (2026-10-07): founder cadastrou a URL + segredo no
+        painel (painel.imperiopremioss.com/dashboard/webhooks). A partir
+        de agora o Purchase chega ao Meta no instante da confirmação de
+        pagamento, não mais em lote de 15min — o polling
+        (capi_realtime.ps1) continua ativo como rede de segurança
+        (reenvia qualquer pedido que o webhook eventualmente perder), mas
+        deixou de ser a via primária de tempo real.
+        FASE 6 — ENCURTADOR DE LINKS DO GRUPO (2026-10-07, pedido
+        paralelo do founder): links longos do site poluíam a mensagem do
+        grupo de WhatsApp; apps/link-imperio (Vercel) gera um link curto
+        (/l/{código}) que, ao ser clicado, redireciona (302) pra URL
+        original já com utm_source=whatsapp&utm_medium=community&
+        utm_campaign=grupo-principal anexado — sem precisar o operador do
+        cliente colar UTM manualmente. Armazenamento em Vercel Edge Config
+        (leitura de baixa latência). Redirecionamento (api/r.js) deployado
+        e validado end-to-end. RESOLVIDO (2026-10-07): founder gerou o
+        token pessoal da Vercel (Dashboard > Account Settings > Tokens) e
+        forneceu via .env.local do projeto; configurado como
+        VERCEL_API_TOKEN em produção e redeployado. Fluxo completo
+        validado de ponta a ponta com link real: POST /api/create devolveu
+        link_curto, e o clique nele redirecionou (302) pra URL original
+        com a UTM anexada. Página pública em
+        https://link-imperio.vercel.app no ar e funcional — o operador do
+        cliente já pode usar.
+        INCIDENTE 2026-10-07 14:55 (achado pelo founder, EMQ caiu de 9,3
+        pra 7,0/10 e Identificação externa/Nome/Sobrenome/País travaram em
+        20,52%) — CAUSA RAIZ: bug nosso, não da plataforma nem do webhook.
+        Ao adicionar a coluna UserId em client_api.py (Fase 3-4, ~12:21),
+        o collector.py continuou fazendo append no
+        dados_brutos_completos_3dias.csv (que já existia de ANTES da
+        mudança) sem checar se o header gravado ainda batia com as colunas
+        do DataFrame novo — linhas antigas ficaram com 29 campos, linhas
+        novas com 30, mesmo arquivo. send_backlog.py (chamado pelo
+        Task Scheduler a cada 15min) quebrava com ParserError logo no
+        pd.read_csv, TODO ciclo, desde 13:00 — confirmado no log
+        (capi_realtime.log): 8 ciclos consecutivos falhando, zero eventos
+        Purchase enviados pelo nosso pipeline server-side por >2h. Nesse
+        intervalo, só a CAPI nativa da plataforma (modo condicional,
+        ~20% dos eventos — não manda external_id/nome/sobrenome/país fora
+        dessa fatia) e o webhook recém-cadastrado (que nunca mandou
+        nome/sobrenome/país, só em/ph/external_id/fbp/fbc/ip/ua, por
+        desenho) sustentaram o evento Compra — daí o EMQ caído e os 4
+        parâmetros travados exatamente na fatia da CAPI nativa.
+        CORRIGIDO: (1) dados_brutos_completos_3dias.csv reparado linha a
+        linha (2.521 linhas antigas realinhadas pra 30 campos, UserId
+        vazio nelas por não existir na extração da época; backup do
+        arquivo corrompido mantido em .bak-corrompido); (2) collector.py
+        ganhou _alinhar_schema() — antes de todo append, compara o header
+        já gravado com as colunas do lote novo e migra o arquivo
+        automaticamente se mudou, em vez de corromper silenciosamente;
+        (3) send_backlog.py disparado manualmente na hora — 331 eventos
+        represados (os que ficariam perdidos até o próximo ciclo) enviados
+        com sucesso (events_received confirmado lote a lote); (4) ciclo
+        completo (collector+send_backlog) rodado de novo do zero pra
+        confirmar que não quebra mais. EMQ deve voltar a subir nos
+        próximos ciclos conforme a proporção de eventos com external_id
+        volta a refletir nosso pipeline (que manda em ~100% dos pedidos
+        com UserId presente), não só a fatia da CAPI nativa.
+        LIÇÃO: todo campo novo adicionado a client_api.py que alimenta um
+        CSV incremental via collector.py precisa desse tipo de checagem de
+        schema — risco de recorrência em qualquer client-side de squads
+        futuros que usem o mesmo padrão de append incremental.
+        EFEITO COLATERAL DO WEBHOOK — CORRIGIDO (2026-10-07): como o webhook
+        (apps/webhook-imperio-capi) roda isolado na Vercel, sem acesso ao
+        checkpoint local (capi_sent_ids_3dias.json), send_backlog.py
+        reenviava todo pedido 2x (uma vez pelo webhook, outra pelo polling)
+        — Meta deduplicava certo, mas era chamada de API em dobro à toa.
+        Corrigido com uma lista compartilhada no mesmo Edge Config
+        (chave "webhook_sent_ids", rolling window de 500 ids): o webhook
+        grava lá depois de cada envio bem-sucedido; send_backlog.py lê essa
+        lista antes de montar os pendentes e pula quem já foi coberto.
+        Testado ponta a ponta com payload sintético — confirmado que o id
+        aparece na lista compartilhada e que send_backlog.py o enxerga.
+        INVESTIGAÇÃO 2026-10-07 — PRÓXIMA FRENTE (InitiateCheckout e outros
+        eventos, pedido do founder): Events Manager mostra Desduplicação de
+        evento "Não atende às boas práticas" pro InitiateCheckout — só
+        19,92% de cobertura via Identificação do evento, mesmo com 100% dos
+        eventos (navegador E servidor) tendo ALGUM event_id — ou seja, os
+        dois lados têm ID, mas os IDs não batem na maioria das vezes.
+        Cobertura de eventos (pixel coberto por CAPI) também baixa: 21%
+        médio em 7 dias ("servidor enviando 10.563 eventos a menos que o
+        pixel"). ACHADO: a API do cliente expõe pedidos com filterStatus
+        diferente de "paid" — testado ao vivo, filterStatus="all" devolve
+        também status "expired" (checkout iniciado, pagamento expirou sem
+        confirmar — ex: 27 de 97 pedidos de uma amostra). Cada registro
+        (pago OU expirado) já vem com um campo `eventId` próprio (formato
+        "<n>.<timestamp_ms>.<n>", diferente do `_id` do pedido), presente
+        em 100% da amostra dos dois status — forte candidato a ser a MESMA
+        id que o Pixel do navegador usa no próprio InitiateCheckout, o que
+        resolveria o problema de dedup se replicado no nosso envio.
+        NÃO CONSTRUÍDO AINDA — essa suposição (eventId do pedido == event_id
+        do Pixel) não foi confirmada, só é consistente com o padrão
+        observado; construir o envio sem confirmar arrisca criar uma 4ª
+        fonte de evento (pixel + CAPI nativa + nosso Purchase + um novo
+        InitiateCheckout nosso) que piora a confusão se a suposição estiver
+        errada. Caminho recomendado antes de construir: validar com
+        test_event_code (Meta Test Events mostra "Deduplicado" na hora,
+        sem esperar dias) — precisa do founder disparando 1 Iniciar
+        Finalização de Compra real enquanto eu capturo o eventId do pedido
+        e mando um evento de teste casando o mesmo event_id. Alternativa
+        mais lenta (sem precisar do founder ao vivo): construir mesmo assim
+        e monitorar a métrica de Desduplicação ao longo de 24-48h — risco
+        baixo (InitiateCheckout não é métrica de receita, pior caso é
+        contagem duplicada temporária, não dado financeiro errado).
+        FN/LN/COUNTRY NO EVENTO COMPRA — CORRIGIDO (2026-10-07, prioridade
+        máxima do founder): EMQ do Compra estava CAINDO (7.0 -> 6.9) em vez
+        de subir mesmo depois da correção do external_id. Causa raiz: Nome
+        e País (phoneDetails.country) NUNCA eram mandados por nós — só pela
+        CAPI nativa da plataforma, numa fatia pequena e condicional.
+        Conforme nosso pipeline cresce em volume (webhook tempo real +
+        polling, ambos saudáveis agora), a fatia da CAPI nativa encolhe
+        proporcionalmente — diluindo esses campos no cálculo de EMQ em vez
+        de melhorar. Verificado ao vivo: Nome 100% preenchido na API,
+        phoneDetails.country 100% preenchido e sempre "br" (plataforma só
+        opera no Brasil). Implementado em capi_client.py (fn/ln via split
+        no primeiro espaço do Nome, country fixo do campo real) E no
+        webhook (mesma lógica, country fixo "br" pois o payload do webhook
+        não documenta country explicitamente — fn/ln só se `user.name`
+        vier, defensivo). client_api.py ganhou o campo `Pais` na extração.
+        Testado contra payload real antes de rodar em produção: 3 pedidos
+        reais confirmados com fn/ln/country no payload montado. Recoleta
+        completa da janela de 3 dias feita (3.503 pedidos, 100% com Pais
+        preenchido) e backlog pendente (282 eventos — 120 já cobertos pelo
+        webhook, dedup funcionando em produção) enviado com os campos
+        novos. EMQ deve voltar a subir nos próximos ciclos — mesma dinâmica
+        do external_id, leva horas/dias pra refletir na janela retroativa
+        do Events Manager, não é instantâneo.
+        OUTROS EVENTOS DO PIXEL — TRIAGEM 2026-10-07 (pedido do founder,
+        pra atacar junto no mesmo teste de validação):
+        - InitiateCheckout: já investigado acima (eventId do pedido,
+          aguardando validação com test_event_code).
+        - AddToCart (8.3/10, "atualização recomendada", ~2,5mi eventos):
+          mesmo padrão de alerta do InitiateCheckout, mas SEM fonte de
+          dado equivalente confirmada — o registro de pedido não tem um
+          timestamp separado de "carrinho" distinto de "checkout iniciado"
+          (os dois parecem ser o mesmo momento na UX deste site, selecionar
+          números = iniciar o pedido). Precisa confirmar durante o mesmo
+          teste ao vivo se o eventId do AddToCart do navegador bate com
+          algum campo do pedido, ou se é de fato não-construível por nós.
+        - ViewContent / PageView (20,6mi / 22,8mi eventos, maior volume de
+          todos): NÃO construível por nós — são visitas que não
+          necessariamente viram pedido, não existe registro equivalente na
+          API do cliente. Fica 100% dependente do Pixel do navegador e de
+          qualquer CAPI que a própria plataforma implemente (fora do nosso
+          controle, mesma categoria do bug de fbc).
+        - Lead (9 eventos) / ClickSorteios (1 evento): volume irrelevante
+          pra prioridade de negócio agora — não vale o esforço de
+          investigar antes dos eventos de volume real.
+        INVESTIGAÇÃO "CAMPANHA VALE MAIS QUE O SITE" (2026-10-07, founder
+        reportou campanha com R$27-29mil atribuído num dia em que o site
+        inteiro fez R$23mil) — DUAS causas raiz distintas, achadas e
+        corrigidas na mesma sessão:
+        (1) "Web Conversions API" (Easy Setup automático do próprio Meta,
+        business.facebook.com/web_conversions_api) — produto nativo do
+        Meta, diferente da nossa CAPI e da CAPI nativa manual da
+        plataforma, que o founder ativou sem saber que fazia esse papel
+        (toggle "Automatically connect only your datasets", ativado hoje
+        às 10:49 por conta vinculada "Mateus Santos"). Gera e envia evento
+        de Compra SOZINHO, com um token interno próprio (formato
+        "EII1|...", achado na amostra de atividades exportada do Events
+        Manager, SEM relação com nenhum OrderId nosso) — uma 4ª fonte,
+        gerando Compra sem nenhuma venda real correspondente (confirmado:
+        campanha subiu +35 compras/+R$1.432 em 24min enquanto a plataforma
+        não tinha NENHUM pedido novo no mesmo intervalo). Esse produto é
+        pensado como ALTERNATIVA pra quem não tem CAPI própria, não pra
+        rodar JUNTO com uma — não dá pra "incluir como dado extra e
+        deduplicar" porque é caixa-preta do Meta, sem event_id visível pra
+        nós. Founder removeu ("Remove Conversions API") — taxa de geração
+        caiu ~90% logo depois (de +1.432/15min pra +36/5min, resíduo de
+        fila esperado zerar sozinho).
+        (2) ACHADO AINDA MAIOR, SEPARADO — BUG DE PAGINAÇÃO CRÍTICO em
+        client_api.py::get_sorteios(): o endpoint /products é indexado a
+        partir de page=0, mas o método começava em page=1 — pulando SEMPRE
+        os ~25 sorteios mais recentemente criados, EM TODO CICLO, desde
+        que o pipeline existe. Confirmado ao vivo (page=0 trazia sorteios
+        de minutos atrás; page=1 já pulava ~10h de sorteios novos no meio
+        do dia). Founder flagrou comparando com o relatório nativo da
+        própria plataforma (painel.imperiopremioss.com/dashboard/reports):
+        R$95.236/1.619 compras reais às 19:06 contra R$23.586 que nosso
+        pipeline capturava — quase 75% do faturamento do dia estava sendo
+        PERDIDO, não só no BI mas também no envio de CAPI (collector.py e
+        bi_aggregator.py usam o mesmo método) — ou seja, pedidos de
+        sorteios recém-criados podiam nunca chegar a ser enviados como
+        Purchase pro Meta, ou chegar tarde demais se o sorteio vendesse
+        rápido e saísse da janela de dias antes de "subir" pra page=1.
+        CORRIGIDO: `page = 1` -> `page = 0` (1 linha). Validado
+        imediatamente: bi_aggregator.py recoletou e bateu com o relatório
+        real da plataforma (R$106.003 nosso às 19:13 vs R$95.236 deles às
+        19:06 — diferença exatamente explicada pelos 7 minutos a mais).
+        collector.py + send_backlog.py disparados na sequência pra
+        flushar o backlog de pedidos represados o dia inteiro por este bug.
+        ESTE ERA PROVAVELMENTE O BUG DE MAIOR IMPACTO DA SESSÃO INTEIRA —
+        afetava TODA métrica financeira do BI (faturamento, ROAS, lucro,
+        novo×recorrente) e a cobertura real de envio de CAPI, silenciosamente,
+        desde o início do pipeline, não só hoje.
+        INITIATECHECKOUT — CONSTRUÍDO E VALIDADO (2026-10-07, pedido do
+        founder de atacar os outros eventos do pixel): usando o achado do
+        campo `eventId` (client_api.py::get_participantes_sorteio ganhou
+        parâmetro status="all", capturando também "waiting-payment" e
+        "expired" — todo checkout iniciado, não só pago), novo script
+        services/Meta/imperio-premios/capi_initiatecheckout.py monta e
+        envia InitiateCheckout com event_id = eventId do pedido (mesma
+        lógica de hash de fn/ln/country/em/ph/external_id/fbp/fbc do
+        Purchase). Testado com --dry-run (payloads conferidos, 3 amostras
+        com todos os campos corretos) e enviado de verdade pra janela de 1
+        dia: 2.146 eventos (events_received confirmado lote a lote).
+        Agendado via Task Scheduler ("CAPI-Imperio-InitiateCheckout", a
+        cada 15min, mesmo padrão hidden-vbs do CAPI de Compra) — checkpoint
+        próprio (capi_initiatecheckout_sent_ids_Ndias.json) por OrderId,
+        nunca reenvia. PENDENTE DE VALIDAÇÃO FINAL: confirmar no Events
+        Manager, depois de alguns ciclos, se a Desduplicação de evento do
+        InitiateCheckout subiu de ~20% — a suposição do eventId bater com o
+        ID do navegador tem evidência forte (teste real 2026-10-07: só
+        1,16s de diferença entre o timestamp embutido e o createdAt do
+        pedido) mas não foi confirmada via Test Events em tempo real, só
+        por inferência.
+        MULTI-CAMPANHA — CONSTRUÍDO (2026-10-07, founder: "vamos subir mais
+        campanhas, não podemos ficar com BI atrelado a uma campanha
+        apenas"): bi_aggregator.py não tinha mais CAMPAIGN_ID fixo — agora
+        pull_campanhas() busca TODAS as campanhas ACTIVE/PAUSED da conta
+        (AD_ACCOUNT), e daily_insights/ads/ads_diario carregam
+        campanha_id/campanha_nome. Operacional ganhou um seletor de
+        campanha (só aparece quando há mais de 1). Validado ao vivo: já
+        detectou 2 campanhas reais (1 ativa, 1 pausada).
+        VÍDEO DO CRIATIVO NÃO REPRODUZIA — CORRIGIDO DE VERDADE NA 2ª TENTATIVA
+        (2026-10-07): primeira tentativa (`embed_html` do vídeo, o plugin
+        público do Facebook) continuou dando "Vídeo indisponível" — vídeo
+        de anúncio não é post público, nenhum embed público funciona nele,
+        não importa o formato. Causa raiz correta: vídeo de ANÚNCIO exige a
+        API DE PREVIEW DE ANÚNCIO (`/{ad_id}/previews?ad_format=
+        MOBILE_FEED_STANDARD`), não a API de vídeo — devolve um iframe
+        autenticado via business.facebook.com que mostra o anúncio real
+        (legenda, CTA, do jeito que roda), funciona pra vídeo E imagem
+        igual (unificou os dois caminhos em um só). Exige a pessoa logada
+        na Business Manager com acesso à conta pra renderizar — normal pra
+        quem usa este BI. Validado: todos os 5 anúncios (incluindo o da
+        campanha pausada) devolveram preview válido.
+        BUG DE FUSO HORÁRIO — CORRIGIDO (2026-10-07, founder flagrou: "já
+        está computando dia 8 e ainda estamos no dia 7"): todo ponto do
+        bi_aggregator.py que bucketiza pedido/evento por dia usava
+        `.dt.date` direto num timestamp UTC-aware — extrai a data em UTC,
+        que já virou o dia seguinte das 21h às 23h59 em horário de
+        Brasília (UTC-3). Corrigido nos 4 pontos (diario, canal_diario,
+        sorteios_por_dia, pixel_funil_diario): converter pra
+        America/Sao_Paulo ANTES de truncar a data. `atualizado_em`/
+        `periodo.fim` já usavam datetime.now() (hora local da máquina,
+        já correta) — não precisaram de ajuste. Validado: o bucket "2026-
+        10-08" sumiu do gráfico, tudo consolidado certo no dia 7.
+        QUEDA DE FBC NA EMQ — INVESTIGADA, NÃO É BUG (2026-10-07, founder
+        notou fbc caindo de 16,71%→7,58% na Compra junto com external_id/
+        nome/país subindo): confirmado com dado real — só 29 de 1.866
+        pedidos de hoje (1,55%) têm clique confirmado de verdade; mesmo
+        contando fbc velho (que nunca enviamos), é só 17,7%. A cobertura
+        real de clique sempre foi essa (negócio majoritariamente orgânico/
+        grupo) — só ficou visível agora que capturamos o volume completo
+        (antes o bug de paginação escondia mais da metade dos pedidos
+        reais). Não há nada pra corrigir no código aqui; é característica
+        real do tráfego, não falha de envio.
+
+gate_4_medicao:
+  pergunta: "Como saberemos se é incremental? Janelas definidas?"
+  itens:
+    dashboards_configurados:
+      status: ok
+      nota: >
+        2026-10-07 — apps/BI/imperio-premios/ no ar (URL protegida por SSO:
+        imperio-bi-tiagos-projects-78eb25bf.vercel.app). Consolida Meta Ads
+        Insights + pedidos reais + funil do Pixel + sorteios cruzados com
+        investimento. ROAS corrigido pra só contar pedidos a partir do
+        início real da campanha (CAMPANHA_INICIO em bi_aggregator.py) —
+        sem isso o ROAS aparecia inflado (~40x ao invés de ~3,5x real).
+        Cliente novo vs. recorrente calculado por telefone/CPF (API do
+        Meta não expõe esse corte via API, só na UI do Advantage+).
+        Refresh automático a cada 4h via Windows Task Scheduler
+        ("BI-Imperio-Refresh", apps/BI/imperio-premios/refresh.ps1).
+        Pendente: filtro de intervalo de data na UI (dado já é diário,
+        falta só o seletor); integração com SendFlow (gestão do grupo de
+        WhatsApp, mencionada pelo founder, sem credenciais ainda).
+        ClickUp 'Trackeamento & Dashboards' segue vazio — não substituído,
+        o BI web é a fonte de verdade agora.
+        CALIBRAÇÃO 2026-10-07 (founder apontou 6 problemas na primeira dobra
+        "Executiva" — refresh.log + dado ao vivo da API confirmaram cada
+        um antes de mexer em código): (1) "R$286 hoje" — NÃO era bug de
+        captura; era o snapshot de um instante muito cedo do dia (confirmado
+        batendo a API ao vivo contra o momento do refresh — 15:49 já
+        mostrava R$14.744 pro mesmo dia). O gráfico agora marca o dia
+        corrente como "(em andamento)" e o refresh passou de 4h pra 15min
+        (mesmo ritmo do CAPI-Imperio-Realtime) pra reduzir a janela de
+        defasagem. (2) Filtro de período construído na Executiva (Hoje/7
+        dias/desde o início da campanha/toda a janela) — bi_aggregator.py
+        agora exporta `diario[]` granular (gasto, valor Meta Ads,
+        novo/recorrente, lucro estimado por dia) e o frontend recalcula
+        ROAS/CAC/margem/lucro no navegador sem round-trip. CUIDADO
+        preservado: métricas de Ads (gasto/ROAS/CAC/margem/novo×recorrente)
+        sempre recortam a partir do início real da campanha mesmo quando o
+        período selecionado é maior — nunca reintroduzir o bug de
+        "gasto de N dias vs receita de janela maior" (mesmo achado de
+        2026-10-07 documentado acima) só porque virou filtro interativo;
+        validado com teste automatizado (4 presets × consistência
+        sorteios_por_dia-vs-diario, 15/15 dias batendo exato). (3) ROAS
+        "2,5x sem suporte" — card agora mostra "R$X atribuído ÷ R$Y
+        investido" junto do número. (4) CAC "—" sem contexto — virou texto
+        explícito ("sem cliente novo" com o detalhamento de gasto/pedidos),
+        não mais um traço ambíguo entre "zero genuíno" e "quebrado". (5)
+        "Margem de contribuição" parecia contradizer a intuição de que o
+        negócio está positivo — eram duas métricas diferentes com nome
+        parecido: a antiga é SÓ a fatia de receita atribuída a Ads menos
+        gasto de mídia (CAC muito concentrado em poucos clientes novos faz
+        ela ficar negativa mesmo o negócio sendo lucrativo). Card novo
+        "Lucro do site (período, após prêmio)" responde à pergunta real do
+        founder — usa valor_premio por sorteio (extrair_valor_premio, já
+        existia no collector.py pra base de 90 dias, nunca tinha chegado no
+        BI) ratado por pedido; no período da campanha (06-07/out) deu
+        +R$25.638 sobre R$115.827 de faturamento — confirma a intuição dele.
+        (6) Novo×Recorrente "não batia" com faturamento total — não era
+        bug, é escopo: aquele corte é só pedidos ATRIBUÍDOS A META ADS (R$
+        1.480 de R$98.627 totais), o resto é orgânico/grupo; adicionado
+        texto explícito "fatia Meta Ads é X% do faturamento total" pra não
+        parecer inconsistente. EXTRA entregue: clique no dia do gráfico
+        expande os sorteios daquele dia (faturamento+lucro+pedidos); abas
+        Faturamento/Lucro no gráfico diário. Sem acesso a browser nesta
+        sessão pra validação visual — lógica testada via replay em Node.js
+        contra o JSON real de produção (4 presets de período, consistência
+        soma sorteios-por-dia vs. diário em 15/15 dias), mas o founder deve
+        conferir visualmente no primeiro acesso.
+    plano_incrementalidade:
+      status: nao_aplicavel
+      nota: "GeoLift só se justifica depois que o gasto de mídia justificar (Módulo 11) — prematuro agora."
+    revalidacao_emq_fim_de_dia_2026_10_07:
+      status: resolvido_2026_10_07
+      nota: |
+        Founder reportou queda em Email/Nome/Sobrenome/Identificação
+        externa/País no evento Compra entre a manhã (100% em todos) e o
+        fim do dia (42,63%/40,36%/40,36%/59,08%/40,36%) — fbc também caiu
+        pra 7,58%. Investigado com dado real, não suposição:
+        (1) fbc em 7,58% NÃO é regressão — bate com o achado já validado
+        antes nesta mesma sessão (tráfego majoritariamente orgânico/
+        WhatsApp, não clique pago; 1,55%-17,7% é a faixa real).
+        (2) Nome/Sobrenome/País/external_id: o fix que passou a ENVIAR
+        esses campos (capi_client.py, achado "EMQ caindo pro evento
+        Compra") só foi escrito às 17:05 de hoje — confirmado por mtime
+        do arquivo, sem histórico de commit anterior. A métrica das 23h
+        é a média do DIA INTEIRO (~3.900 Purchase), e a maioria já tinha
+        sido enviada ANTES das 17:05 sem esses campos — o número sobe
+        sozinho amanhã puxado pelos eventos que já saem com o fix.
+        ACHADO EXTRA (hardening aplicado, não é causa do número de hoje):
+        client_api.py usava `user.get("login")` como fallback de nome e
+        `nome or "Anônimo"` como valor final — confirmado ao vivo (12/12
+        pedidos pagos recentes) que "login" é sempre o telefone formatado
+        e "name" já vem presente em 100% da amostra, então o fallback
+        arriscava hashear telefone como fn/ln, e "Anônimo" mandava um
+        placeholder inútil pro Meta em vez de simplesmente omitir o
+        campo. Removido o fallback de login e o placeholder "Anônimo" —
+        agora Nome vazio vira string vazia, e o guard `if fn:` existente
+        em capi_client.py/capi_initiatecheckout.py já pula o campo
+        corretamente nesse caso (_hash_nome_partes("") → None, None,
+        testado). Doc da Meta (customer-information-parameters) revisada:
+        nenhuma otimização de alto impacto ainda não aplicada — "fb_login_id"
+        não se aplica (plataforma não usa Login do Facebook) e a sugestão
+        de IPv6 no client_ip_address não é acionável do nosso lado (é o IP
+        real do comprador, como a API do cliente devolve). Scripts
+        agendados conferidos rodando sem erro no momento da auditoria
+        (capi_realtime.log: ciclo 23:00 concluído, 0 pendentes;
+        capi_initiatecheckout_realtime.log: ciclo 23:06 concluído, 12/12
+        eventos enviados).
+    initiatecheckout_dedup_causa_raiz_2026_10_08:
+      status: resolvido_2026_10_08
+      nota: |
+        Founder reportou (via Events Manager + CSV de amostras de
+        desduplicação + print do overview) que Iniciar Finalização da
+        Compra (75,9 mil/28d) continua maior que Adicionar ao Carrinho
+        (60,5 mil/28d), mesmo depois do capi_initiatecheckout.py (criado
+        em 2026-10-07) começar a enviar o evento via CAPI.
+
+        PRIMEIRA ANÁLISE (mais cedo em 2026-10-08, CORRIGIDA depois —
+        registro mantido por transparência, não apagar): baixei o CSV
+        "InitiateCheckout_EventDeduplicationSamples_ALL_DOMAINS" (100
+        amostras) e vi 100/100 com browser_events=1, server_events=0.
+        Concluí (ERRADO) que o event_id do nosso capi_initiatecheckout.py
+        nunca bateria com o do pixel, por ser gerado por nós e não pelo
+        site — e cheguei a DESABILITAR a tarefa agendada
+        "CAPI-Imperio-InitiateCheckout" por precaução.
+
+        CORREÇÃO (mesmo dia, antes de qualquer impacto real — a pausa
+        durou poucas horas): relendo o próprio capi_initiatecheckout.py,
+        o docstring already documentava que o script usa
+        `pedido.get("EventId")` — um campo que a API do cliente expõe
+        por pedido (formato "<n>.<timestamp_ms>.<n>"), testado ao vivo em
+        2026-10-07 como sendo A MESMA id que o navegador usa no seu
+        próprio InitiateCheckout. Ou seja, o mecanismo de dedup JÁ estava
+        implementado certo — não precisava de nenhum fix de frontend do
+        site. Confirmei 3 coisas com dado real antes de reverter:
+        (1) consultei 982 checkouts reais dos últimos 2 dias — eventId
+        presente em 100% deles, formato idêntico ao dos browser_events do
+        CSV; (2) decodifiquei o timestamp embutido no event_id de cada
+        uma das 100 amostras do CSV — são TODAS de 06/10 e madrugada de
+        07/10 (87 em 06/10, 13 em 07/10 antes das 02h20 BRT), ou seja,
+        de ANTES do capi_initiatecheckout.py sequer começar a rodar de
+        verdade (primeiro envio real foi às ~23h de 07/10); (3) ou seja,
+        as 100 amostras nunca TINHAM COMO ter um par do lado servidor —
+        não existíamos ainda nesse período. 0% de match não era bug de
+        ID, era 100% esperado dado o timing da amostra.
+        AÇÃO: reativei a tarefa agendada
+        (`schtasks /Change /TN "CAPI-Imperio-InitiateCheckout" /ENABLE`)
+        e rodei manualmente pra recuperar as poucas horas de pausa — 105
+        InitiateCheckout enviados com sucesso (events_received confirmado
+        em todos os lotes). Nenhum dado foi perdido (checkpoint por
+        OrderId, backlog sempre recuperável).
+        PRÓXIMO PASSO (não bloqueante): re-conferir a taxa de cobertura
+        de desduplicação no Events Manager depois de alguns dias de
+        volume real rodando (a amostra de hoje ainda vai estar poluída
+        pelo período pré-script) — só então dá pra validar se o eventId
+        compartilhado está realmente deduplicando na prática, não só na
+        teoria.
+        Risco correlato NÃO verificado ainda nesta sessão: o evento
+        Compra (capi_client.py) usa event_id = OrderId (não EventId) —
+        vale conferir se deveria usar o mesmo campo EventId por
+        consistência, embora Purchase não tenha apresentado o mesmo
+        sintoma de contagem invertida que motivou essa investigação.
+    utm_zero_na_plataforma_causa_raiz_2026_10_08:
+      status: bloqueado_depende_da_plataforma
+      nota: |
+        Founder perguntou se as UTMs das campanhas estão sendo trackeadas
+        e se os links do grupo de WhatsApp (ainda não lançados) vão
+        rastrear corretamente.
+        ACHADO 1 (manhã): `url_tags` dos 4 anúncios ativos confirmado
+        correto via Graph API real — `utm_source=meta&utm_medium=paid-
+        social&utm_campaign=...&utm_content={{ad.id}}&utm_term={{adset.id}}`.
+        Mesmo assim, 75/75 pedidos com clique confirmado (fbc fresco)
+        chegavam com UTM_Source vazio pela API REST — 0%.
+        ACHADO 2 (tarde): construído webhook de captura (`apps/webhook-
+        imperio-capi/api/order-paid.js` + tabela Supabase `pedido_utm` +
+        join em `bi_aggregator.py::enriquecer_com_utm_webhook`) pra
+        capturar `params.utmSource/utmCampaign/utmMedium/utmContent/
+        utmTerm` do payload do webhook `order.paid`, que o exemplo OFICIAL
+        do painel (dashboard/webhooks > Exemplos de payload) mostra como
+        existente. Implementado, testado (insert/backfill funcionando com
+        pedido real sintético), deployado.
+        ACHADO 3 (validação ao vivo, mesma tarde) — CAUSA RAIZ REAL: nem
+        o webhook real nem a API REST trazem UTM preenchida pra NENHUM
+        pedido de verdade. Confirmado com rigor: (a) log de debug
+        temporário no webhook capturou o payload CRU de 8 pedidos reais
+        em produção — 8/8 com as 5 chaves de UTM vazias; (b) consulta
+        direta à API REST filtrando por fbc genuinamente fresco (idade
+        <7 dias, alguns de minutos atrás) achou 25 pedidos reais — 25/25
+        com UTM vazia. Ou seja: a plataforma não anexa UTM a NENHUM
+        pedido, independente de canal, de ter clique de anúncio confirmado
+        ou não, nem de quão recente foi o clique. Não é perda de query
+        string na nossa LP (já confirmada funcionando) nem na navegação
+        da SPA do cliente antes do checkout (teoria anterior, descartada
+        por falta de evidência) — é a plataforma simplesmente não
+        capturando/persistindo UTM em lugar nenhum do fluxo real.
+        CONCLUSÃO: o webhook construído no Achado 2 está correto e pronto
+        — vai funcionar automaticamente no dia em que a plataforma passar
+        a enviar UTM de verdade — mas é condição necessária, não
+        suficiente. SEM uma camada de persistência first-party própria
+        (ex.: script via GTM, containers já existentes do cliente
+        confirmados: GTM-WKWZZWC8 web + GTM-NVDBCC63 server via Stape.io)
+        capturando UTM no momento da entrada e sobrevivendo à navegação
+        independente da plataforma cooperar, o rastreio por UTM — de
+        anúncio OU dos futuros links do grupo de WhatsApp — não deve
+        funcionar como está hoje. Não construído ainda (próximo passo,
+        aguardando decisão do founder sobre prioridade).
+
+resumo:
+  CAMPANHA_1_NO_AR: "2026-10-06, aprovada, ~20h rodando, R$285,59 gastos até a auditoria de 2026-10-07. Estrutura e budget batem com o plano. Performance real (pós-correção de atribuição): ~4 pedidos/R$351 em 24h, mesma ordem de grandeza do que o Ads Manager já reporta — não há gap escondido de 10x como a leitura inicial (errada) sugeriu."
+  bloqueios_antes_de_escalar_campanhas_2_e_3:
+    - "BUG DE FBC CONGELADO NA PLATAFORMA DO CLIENTE (achado 2026-10-07, prioridade máxima, fora do nosso código) — api.imperiopremioss.com reenvia o mesmo fbc por até 349 dias em vez de capturar o clique recente (Events Manager aponta desde 28/jul/2026, 60 ad sets afetados). Isso contamina QUALQUER atribuição baseada em fbc — nossa, da plataforma, e potencialmente a decisão de otimização do próprio Meta. Escalar pro time que mantém a plataforma antes de confiar OTIMIZAÇÃO POR VALOR (que depende de sinal de receita limpo) nas próximas campanhas."
+    - "dedup_capi_nativa_vs_nosso_pipeline — confirmar em Events Manager > Diagnostics > Deduplicação se Pixel+CAPI nativa batem pelo mesmo event_id. Não verificável via API."
+    - "Reprocessar a base histórica de 90 dias (brief.yaml) com a lógica de atribuição corrigida (client_api.py) antes de usar os 24,5% de 'clique confirmado' pra qualquer decisão de CAC/ROAS — provavelmente também inflados pelo mesmo bug."
+  resolvidos_2026_10_06_e_07:
+    - "business_verification — CONFIRMADO RESOLVIDO (verification_status=verified na BM via API, 2026-10-07). Campanha 1 ainda está em OFFSITE_CONVERSIONS (volume) — trocar pra otimização por VALOR é recomendado, mas só depois de confirmar que o sinal de fbc/receita não está contaminado (ver bloqueio acima)."
+    - "UTM propagação LP→destino — bug real encontrado e corrigido (ver convencao_utm_definida acima). Deployado 2026-10-07."
+    - "estrutura_advantage_cbo_criada — campanha real criada pelo founder, estrutura bate com o plano (1 campanha, 1 ad set, 4 anúncios)."
+    - "Lógica de atribuição Canal_Atribuicao em client_api.py — corrigida pra considerar idade do fbc (janela 7 dias) em vez de só 'existe ou não existe'."
+  nao_bloqueia_mas_fica_em_aberto:
+    - "dominio_verificado — não urgente, só afeta AEM/iOS; pedir ao cliente em paralelo"
+    - "Parecer jurídico (Lei 5.768/1971) — segue em aberto, fora do nosso escopo técnico"
+    - "CTR 0,76% — abaixo da mediana típica, mas amostra ainda pequena (23,5k impressões). Observar, não agir ainda."
+  resolvidos_2026_10_05:
+    - "age_gate_18 — confirmado ok, LP já adaptada"
+    - "ROAS histórico do cliente — não existe (campanhas pausadas por alguns dias); Wave 1 trata como cold start, não como continuidade"
+  proximo_passo_imediato: >
+    Campanha 2 (CBO Creative Testing) — próximo passo oficial da estrutura
+    padrão do Módulo 01 §4.3 (Campanha 1 Advantage+ 70-80% do budget +
+    Campanha 2 CBO Teste de Criativos 20-30%, vencedores migram). Já
+    nomeada em campaign-plan-wave1.md, ainda não criada no Ads Manager.
+    Auditoria MBA completa 2026-10-07 confirmou: nenhuma divergência grave
+    do framework, só essa peça ainda não executada — ver
+    auditoria-mba-2026-10-07.md.
+
+datalayer_funil_completo_achado_2026_10_09:
+  status: achado_alto_valor_nao_implementado
+  nota: |
+    Founder conectou a extensão Claude in Chrome e pediu pra seguir o ETL completo
+    (migrar funil pro GTM, nota 10/10 de EMQ). Antes de construir do zero, investiguei
+    o container GTM antigo (GTM-WKWZZWC8, "Imperio Premios", 2 anos de idade, hoje
+    dormente/não carrega no site) e descobri algo que muda o plano inteiro:
+    ACHADO 1 — o front-end da PLATAFORMA (não o GTM) já empurra pro window.dataLayer
+    os eventos padrão de ecommerce GA4 (view_item, add_to_cart, begin_checkout,
+    presumivelmente purchase — trigger "005-01 Purchase" existe no container antigo
+    com nome de evento "purchase") de forma totalmente independente de qual container
+    GTM está lendo. Validado AO VIVO: naveguei o site de verdade, selecionei número,
+    virou pedido real, e confirmei via `window.dataLayer` no console.
+    ACHADO 2 — esses eventos já vêm com user_data PRONTO pra Advanced Matching:
+    user_id, first_name, last_name, country, e telefone JÁ HASHEADO EM SHA-256
+    (ex.: "cafb4b8f...2e46d63", 64 hex chars). O begin_checkout também traz event_id
+    no formato exato que bate com o Pixel ("<n>.<timestamp_ms>.<n>", mesmo padrão já
+    confirmado em capi_initiatecheckout.py) e order_id — dedup e correlação nativos,
+    sem round-trip pela nossa API/CSV.
+    ACHADO 3 (fecha a investigação de UTM de 2026-10-08 com causa mais precisa) —
+    o schema do begin_checkout/add_to_cart TEM campos utm_source/utm_medium/
+    utm_campaign/utm_content, mas testei 2x ao vivo com UTM real na URL no momento
+    do clique e os 4 campos vieram undefined nos dois testes. Não é mais "a UTM se
+    perde em algum lugar do pipeline" — é um bug específico e localizável no
+    JavaScript do front-end que monta esse objeto (os campos existem, a lógica de
+    leitura da URL não funciona). Reprodutível, pronto pra virar bug report preciso.
+    ACHADO 4 — fbp/fbc NÃO aparecem em nenhum desses eventos (busca por regex no
+    objeto inteiro, resultado null nos dois casos). A captura via GTM construída
+    em 2026-10-08 (utm_touches, fbp/fbc genuínos) continua sendo a única fonte
+    confiável pra esses dois campos — não é redundante, é complementar.
+    IMPLICAÇÃO PRÁTICA: construir tags no GTM novo (GTM-58RGNFCK) usando Data Layer
+    Variables pra ler event/event_id/order_id/user_data.*/items/value/currency
+    diretamente — isso dá Advanced Matching de altíssima qualidade quase de graça,
+    sem precisar reconstruir essa lógica em Python. Ainda não implementado — é o
+    próximo passo concreto, maior alavanca disponível pra nota de EMQ.
+  nao_testado_ainda: "Evento purchase (não finalizei pagamento real pra não gastar dinheiro) — inferido pelo trigger do container antigo, não confirmado ao vivo nesta sessão."
+
+inflacao_resultados_reportados_causa_raiz_2026_10_08:
+  status: mitigado_parcial_2026_10_08
+  nota: |
+    Founder notou (com razão, confirmado com dado real) que o número de
+    "Compras" reportado no Ads Manager ficou MUITO acima do plausível
+    depois que o pipeline de CAPI ficou mais confiável nesta sessão —
+    não é afinação de janela de atribuição, é ordem de grandeza: conta
+    nova (act_2076716696539325) mostrou R$1.084,35 de gasto "gerando"
+    871 compras em 07/10 (CPA de R$1,24 — fisicamente impossível com
+    ticket médio de R$27+).
+    ACHADO 1 (Graph API ao vivo): checados os 6 ad sets ativos nas 2
+    contas — NENHUM tem excluded_custom_audiences configurado, apesar do
+    founder ter configurado exclusão de clientes existentes na interface.
+    O ad set novo (120260832886270537, criado 08/10 20:43) tem
+    attribution_spec CLICK_THROUGH 1 dia (correto, como pretendido) MAS
+    ainda com VIEW_THROUGH 1 dia + ENGAGED_VIDEO_VIEW 1 dia ativos — é o
+    preset padrão da interface quando se escolhe "1 dia", não existe
+    separação visível pra "só clique".
+    ACHADO 2 (causa raiz real, maior impacto): o bug de fbc congelado da
+    plataforma (ver bloqueio já registrado em resumo.bloqueios_antes_de_
+    escalar_campanhas_2_e_3 e bug-report-fbc-plataforma.md, achado
+    original 2026-10-07) faz todo Purchase enviado via CAPI carregar um
+    fbc que SEMPRE parece recente pra Meta, mesmo quando o clique real é
+    de meses atrás — o filtro de idade em capi_client.py::_fbc_fresco
+    nunca pega isso porque o campo de ENTRADA já vem corrompido pela API
+    do cliente. A correlação de timing é direta: o pipeline de CAPI
+    (capi_realtime.ps1, rodando quase em tempo real) ficou mais completo
+    HOJE (fix do dedup do InitiateCheckout, fix do event_id da Compra) —
+    mais pedidos contaminados por esse fbc agora chegam limpos até a
+    Meta, e CADA UM deles aparenta ser um clique fresco de hoje.
+    MITIGAÇÃO IMPLEMENTADA (não depende do dev da plataforma): GTM
+    (GTM-58RGNFCK) passou a capturar o cookie _fbc genuíno do navegador
+    direto (mesma tag que já captura _fbp/UTM — ver
+    apps/utm-capture-imperio/gtm-custom-html-tag.html), gravado com
+    NOSSO próprio captured_at em utm_touches (coluna fbc, requer
+    ALTER TABLE manual — pendente de confirmação do founder). capi_
+    client.py::buscar_fbc_confiavel busca por fbp o fbc mais recente
+    capturado por nós; build_purchase_event e capi_initiatecheckout.py::
+    build_initiatecheckout_event agora preferem essa fonte confiável
+    sobre pedido["Fbc"] (API do cliente), com fallback pro campo antigo
+    só quando ainda não existe captura própria pra aquele fbp. Mesma
+    limitação do bug da home (GTM não carrega lá) se aplica — cobertura
+    cresce com o tráfego que passa por páginas com GTM ativo.
+    NÃO RESOLVIDO ainda: (a) exclusão de clientes existentes não está
+    de fato aplicada em nenhum ad set — founder está testando a via
+    nativa "Customer Lifecycle Strategy" (Exclusões automáticas, mais
+    robusta que Custom Audience manual por usar dado de conversão, não só
+    lista); (b) VIEW_THROUGH/ENGAGED_VIDEO_VIEW ainda ativos nos ad sets
+    com CLICK_THROUGH 1 dia — não confirmado se a interface permite
+    desativar separadamente; founder testando campanha nova sem nenhum.
+    status "mitigado_parcial": a causa raiz mecânica (fbc sempre fresco)
+    tem contorno construído e ativo pro tráfego futuro, mas cobertura
+    ainda não validada com volume real, e os dois achados de configuração
+    de audience/attribution seguem em aberto.

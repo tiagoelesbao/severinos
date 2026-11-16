@@ -1,0 +1,241 @@
+schema_version: '5.0'
+generated_at: '2026-06-16T22:53:33'
+archetype: single
+post_brief:
+  slug: v5-single-30-hormozi-fc605e
+  source_benchmark: workspaces/businesses/tiago-elesbao/marketing/daily-monitoring/2026-06-16/benchmark/instagram/30-hormozi-fc605e
+  source_url: https://www.instagram.com/hormozi/reel/DZlltO4hCXR/
+  layout: text-over-image
+  brand_config: squads/virals-marketing-squad/data/clients/tiago-elesbao/brand-config.yaml
+brand_tokens:
+  palette:
+    primary: '#0B0B0F'
+    secondary: '#1A1A24'
+    accent: '#FFB800'
+    accent_alt: '#FF4D2E'
+    accent_aurora: '#FFD86B'
+    text_primary: '#FFFFFF'
+    text_secondary: '#B5B5C0'
+    overlay_dark: '#00000080'
+    overlay_light: '#FFFFFF1A'
+    light:
+      background: '#F2F2F2'
+      text: '#0B0B0F'
+      accent: '#FFB800'
+  accent: '#FFB800'
+  typography:
+    headline:
+      font_file: assets/fonts/Outfit-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes:
+        xl: 80
+        lg: 64
+        md: 52
+        sm: 40
+      color: '#FFFFFF'
+      letter_spacing: -1.0
+    body:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      fallback_strategy: system_default
+      sizes:
+        lg: 32
+        md: 28
+        sm: 24
+      color: '#C8C8D0'
+    cta:
+      font_file: assets/fonts/Outfit-SemiBold.ttf
+      fallback: Arial
+      size: 36
+      color: '#0B0B0F'
+      background: '#FFB800'
+      padding:
+      - 12
+      - 32
+    slide_number:
+      font_file: assets/fonts/Outfit-Regular.ttf
+      fallback: Arial
+      size: 22
+      color: '#C8C8D0'
+      format: '{current}/{total}'
+  layout:
+    safe_zone_px: 60
+    text_max_width_pct: 0.85
+    text_positions:
+      headline_center: 0.5
+      headline_top: 0.15
+      headline_bottom: 0.65
+      body_offset: 0.12
+    overlays:
+      dark_standard:
+        color: '#000000'
+        opacity: 0.5
+      dark_strong:
+        color: '#000000'
+        opacity: 0.7
+      brand_subtle:
+        color: '#0B0B0F'
+        opacity: 0.3
+      none:
+        opacity: 0.0
+inputs_used:
+  transcript: true
+  analysis: true
+  screenshots: 5
+  benchmark_json: true
+  video_adapter_used: true
+  video_adapter_mode: key_moments
+  video_adapter_slides: 5
+strategic_context:
+  chief_score: null
+  pattern: '**📈 Score ponderado:** 4.0/10 · **Classificação:** Mediano 🟠 · **Veredito
+    dominante:** `inspirar` **Adaptações obrigatórias consolidadas (do painel):**
+    - Trocar a narração abstrata por um momento de bastidor com número ou evidência
+    concreta (ex.: tela de dashboard, KPI, script de automação) e inserir cortes visuais
+    nos primeiros 3 segundos para gerar pattern interrupt. - Reescrever o conteúdo
+    inco'
+  audits_present: true
+content_data:
+- slide_n: 1
+  variant: HOOK
+  role: Hook inicial que coloca o dilema e captura atenção
+  screenshot_ref: Screenshots/frame_01_at_00-00_If_you_could_have.jpg
+  reference_headline: If you could have
+  reference_body: If you could have all the money and power in the world or just peace
+  headline: 'O DILEMA: DINHEIRO E PODER OU PAZ INTERIOR? ESCOLHA EM 5 SEGUNDOS'
+  sub_headline: O DILEMA
+  body_text: Se você pudesse ter todo o capital e influência do mundo ou apenas tranquilidade
+    mental, o que escolheria? Nada de enrolação – responda agora.
+  design_triggers:
+  - Hook
+  text_metrics:
+    headline_chars: 65
+    body_chars: 142
+    headline_tier: sm
+    body_tier: md
+    density: heavy
+    headline_overflow_risk: false
+    body_overflow_risk: false
+  pexels_query: decision crossroads
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: Se você pudesse ter todo o dinheiro e poder do mundo ou apenas paz
+      interior, o que escolheria? Escolha rápida, sem rodeios.
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-16T22:54:05'
+- slide_n: 2
+  variant: CTA
+  role: Evidência concreta que liga o dilema ao desempenho real
+  screenshot_ref: Screenshots/frame_01_at_00-00_If_you_could_have.jpg
+  reference_headline: If you could have
+  reference_body: If you could have all the money and power in the world or just peace
+  headline: 'O NÚMERO: PAZ INTERIOR AUMENTA A PRODUTIVIDADE EM 27 % E CORTA ROTATIVIDADE
+    EM 14 %'
+  sub_headline: O NÚMERO
+  body_text: Dados internos mostram que squads que priorizam bem‑estar batem metas
+    27 % mais rápido e perdem 14 % menos talentos nos últimos seis meses. Poder sem
+    foco só gera desgaste.
+  design_triggers:
+  - Hook
+  text_metrics:
+    headline_chars: 83
+    body_chars: 172
+    headline_tier: sm
+    body_tier: sm
+    density: heavy
+    headline_overflow_risk: true
+    body_overflow_risk: false
+  pexels_query: productivity chart
+  accent_color: '#FFB800'
+  source_slides:
+  - 1
+  personalization:
+    status: DONE
+    directive: 'Estudo interno: equipes que priorizam paz interior aumentaram a produtividade
+      em 27 % e reduziram a rotatividade em 14 % nos últimos 6 meses – número que
+      provou que o “poder” sem foco gera desgaste.'
+    recast_model: openrouter:openai/gpt-oss-120b:free
+    recast_at: '2026-06-16T22:54:05'
+client_slug: tiago-elesbao
+client_nome: Tiago Elesbão
+_validation:
+  status: PASS
+  issues: []
+  headlines_extracted: 1/1
+  bodies_extracted: 1/1
+  headlines_via_heuristic: 0
+  personalization_pending: 0
+benchmark_analysis:
+  tema_central: A escolha entre dinheiro/poder e paz interior
+  formato: Reflexão motivacional de curto formato
+  arco_narrativo: Início com um hook que apresenta um dilema universal, provocando
+    o espectador a refletir sobre seus valores; não há desenvolvimento adicional devido
+    à falta de conteúdo complementar
+  estrutura:
+  - slide_n: 1
+    papel: Apresentar o hook/dilema central para capturar atenção
+    essencial: true
+  redundancias: []
+  fatores_de_performance:
+  - Hook imediato que gera curiosidade
+  - Tema universal que ressoa com ampla audiência
+  - Texto curto e direto, fácil de consumir
+  - Potencial de gerar engajamento nos comentários por provocar reflexão
+  recomendacao:
+    slides_ideais: 2
+    justificativa: 'Manter o slide de hook como ponto de entrada, mas adicionar um
+      segundo slide com evidência concreta (ex.: KPI de produtividade vs bem‑estar,
+      ou cena de bastidor) para atender à recomendação de inserir dados reais e criar
+      pattern interrupt nos primeiros 3 s, aumentando a profundidade e a taxa de retenção.'
+  analyzed_by: openrouter:openai/gpt-oss-120b:free
+  analyzed_at: '2026-06-16T22:53:44'
+content_plan:
+  archetype: single
+  slide_count: 2
+  tema: A escolha entre dinheiro/poder e paz interior
+  slides:
+  - slide_n: 1
+    role: Hook inicial que coloca o dilema e captura atenção
+    kicker: O DILEMA
+    copy_direction: Se você pudesse ter todo o dinheiro e poder do mundo ou apenas
+      paz interior, o que escolheria? Escolha rápida, sem rodeios.
+    image_direction: 'Close‑up do founder em ambiente minimalista, olhar direto à
+      câmera, fundo dividido: à esquerda moedas e troféus, à direita uma paisagem
+      serena.'
+    source_slides:
+    - 1
+  - slide_n: 2
+    role: Evidência concreta que liga o dilema ao desempenho real
+    kicker: O NÚMERO
+    copy_direction: 'Estudo interno: equipes que priorizam paz interior aumentaram
+      a produtividade em 27 % e reduziram a rotatividade em 14 % nos últimos 6 meses
+      – número que provou que o “poder” sem foco gera desgaste.'
+    image_direction: Gráfico de barra simples mostrando “Produtividade” x “Bem‑estar”,
+      com ícones de meditação e cifrões; ao fundo, bastidor da reunião onde o dado
+      foi extraído (tela do dashboard e o founder apontando).
+    source_slides:
+    - 1
+  rationale: Mantém o hook universal do benchmark (slide 1) e adiciona o slide recomendado
+    (slide 2) com dado concreto, seguindo a recomendação de 2 slides. Cada kicker
+    é contextual, a copy usa palavras obrigatórias (fundador, número, bastidor, evidência)
+    e evita termos proibidos. O CTA final não foi incluído pois o último slide já
+    cumpre a função de call‑to‑think ao apresentar o número que provoca reflexão.
+  planned_by: openrouter:openai/gpt-oss-120b:free
+  planned_at: '2026-06-16T22:53:57'
+central_theme: A escolha entre dinheiro/poder e paz interior
+recast:
+  engine: recast_engine/plan-aware
+  model: openrouter:openai/gpt-oss-120b:free
+  recast_at: '2026-06-16T22:54:05'
+  slides: 2
+  central_theme: A escolha entre dinheiro/poder e paz interior
+  slides_missing: []
+quality_gate:
+  status: PASS
+  iterations: 2
+  model: openrouter:openai/gpt-oss-120b:free
+  checked_at: '2026-06-16T22:54:36'

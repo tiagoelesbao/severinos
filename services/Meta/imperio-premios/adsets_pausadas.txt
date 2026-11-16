@@ -1,0 +1,119 @@
+=== act_2076716696539325 / Campanha1 v2 (120260832886260537) ===
+{
+  "data": [
+    {
+      "id": "120260832886270537",
+      "name": "Conjunto 1 — Prospecção Ampla (Advantage+)  — BID: -50% Clientes — LAL 1-3% Clientes",
+      "status": "ACTIVE",
+      "effective_status": "CAMPAIGN_PAUSED",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVFVrZAHh2RFBpWW5VMkZAOd1hPSWVHWFZANODZA3S1FWVzliRkIxTTNCX1ZANaEhMV2ZAoTVhlZA0VnUWw5enpZAcWpEVmtENmdUYTFqSDdqMXlwdWxzaWN2aUx3",
+      "after": "QVFIVFVrZAHh2RFBpWW5VMkZAOd1hPSWVHWFZANODZA3S1FWVzliRkIxTTNCX1ZANaEhMV2ZAoTVhlZA0VnUWw5enpZAcWpEVmtENmdUYTFqSDdqMXlwdWxzaWN2aUx3"
+    }
+  }
+}
+
+=== act_2076716696539325 / Campanha1 (orig) (120260798037040537) ===
+{
+  "data": [
+    {
+      "id": "120260798037060537",
+      "name": "Conjunto 1 — Prospecção Ampla (Advantage+)  — BID: -50% Clientes — LAL 1-3% Clientes",
+      "status": "ACTIVE",
+      "effective_status": "CAMPAIGN_PAUSED",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVEk4NGRuWXZAqcC00NGtfYkk2bzZA0aVV5ZAEhlWk53Qms0NnhjM0ZAUc3FNeDNfY2ttWk92RGRfRUhLUDBXVTAzanpta1h4UHRETmZASSHFPNDRjYlZAvWnlB",
+      "after": "QVFIVEk4NGRuWXZAqcC00NGtfYkk2bzZA0aVV5ZAEhlWk53Qms0NnhjM0ZAUc3FNeDNfY2ttWk92RGRfRUhLUDBXVTAzanpta1h4UHRETmZASSHFPNDRjYlZAvWnlB"
+    }
+  }
+}
+
+=== act_2076716696539325 / Engajamento (pausada) (120260796401420537) ===
+{
+  "data": [
+    {
+      "id": "120260796401440537",
+      "name": "Novo objetivo Engajamento Conjunto de anúncios com configurações recomendadas",
+      "status": "ACTIVE",
+      "effective_status": "CAMPAIGN_PAUSED",
+      "optimization_goal": "PROFILE_AND_PAGE_ENGAGEMENT",
+      "promoted_object": {
+        "page_id": "548607351677498",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVDQ5Q3ZAMWVIzWlF5bnNmUkNFb1VnRFlrczVma2tRRVpfd3BnSEdTenIxXzR0SjAza1gya2k3QUtHTGM4MzlDMWx3Tm9zQ3BCT0Fxb21TTlBTNjdwYXBB",
+      "after": "QVFIVDQ5Q3ZAMWVIzWlF5bnNmUkNFb1VnRFlrczVma2tRRVpfd3BnSEdTenIxXzR0SjAza1gya2k3QUtHTGM4MzlDMWx3Tm9zQ3BCT0Fxb21TTlBTNjdwYXBB"
+    }
+  }
+}
+
+=== act_1809822716714730 / Campanha1 Copia (52598855759811) ===
+{
+  "data": [
+    {
+      "id": "52598855759611",
+      "name": "Conjunto 1 — Prospecção Ampla (Advantage+) - Reduzir 50% Bid Clientes Atuais - LaL 1-3% Clientes Gerais",
+      "status": "ACTIVE",
+      "effective_status": "CAMPAIGN_PAUSED",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVC11UFUtY0tkUU5RZAU1sVExJNG9kalJ0NnNpZA2E5dE1xdzBNQU5GX2NkX0RNTE5xYzlpYnJPaWxvTklsMEkzeDVnaGFLNjZAQVnhpNG9MRG1NeEk3YXpn",
+      "after": "QVFIVC11UFUtY0tkUU5RZAU1sVExJNG9kalJ0NnNpZA2E5dE1xdzBNQU5GX2NkX0RNTE5xYzlpYnJPaWxvTklsMEkzeDVnaGFLNjZAQVnhpNG9MRG1NeEk3YXpn"
+    }
+  }
+}
+
+=== act_1809822716714730 / Campanha1 (orig) (52598698261011) ===
+{
+  "data": [
+    {
+      "id": "52598698260611",
+      "name": "Conjunto 1 — Prospecção Ampla (Advantage+) - Reduzir 50% Bid Clientes Atuais - LaL 1-3% Clientes Gerais",
+      "status": "ACTIVE",
+      "effective_status": "CAMPAIGN_PAUSED",
+      "optimization_goal": "OFFSITE_CONVERSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "PURCHASE",
+        "smart_pse_enabled": false
+      }
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVE5iSURjanprcjJ3dnQzVkZAKeWU1UHREdEsySzZAhRGdBQ1RVWUJTWWtIWWFVSE44dExNSkh3X3hnQ0pOSmh4MXNlMzhzSHpBNkVnZA1YwcVJwUVpnUE5R",
+      "after": "QVFIVE5iSURjanprcjJ3dnQzVkZAKeWU1UHREdEsySzZAhRGdBQ1RVWUJTWWtIWWFVSE44dExNSkh3X3hnQ0pOSmh4MXNlMzhzSHpBNkVnZA1YwcVJwUVpnUE5R"
+    }
+  }
+}
+

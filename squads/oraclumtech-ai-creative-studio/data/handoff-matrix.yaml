@@ -1,0 +1,913 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM TECH · AI CREATIVE STUDIO — MATRIZ DE HANDOFF
+#
+# O contrato de cada artefato que atravessa um estágio. Existe porque a regra
+# central do squad é: **todo handoff é arquivo em disco, nunca contexto de
+# conversa** (_BLUEPRINT.md §3). Um estágio que "entendeu" o anterior mas não
+# recebeu arquivo não recebeu nada.
+#
+# Para cada artefato: nome, campos obrigatórios, formato, critério de aceite e
+# QUEM VALIDA. O validador nunca é quem produz — auto-aprovação não é gate.
+#
+# ARTEFATO CANÔNICO DA GERAÇÃO: `asset_direction` (Pacote de Direção, §3.2).
+# É o que os estágios `stills`, `takes` e a parte de voz de `audio` entregam.
+# Sob a regra de ouro (§3.1) o squad não gera asset — dirige a geração. Logo, o
+# handoff desses estágios NÃO é o arquivo gerado: é a direção que faz o operador
+# humano acertar na 1ª ou 2ª tentativa, mais o retorno dele e a avaliação.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-21'
+  squad: oraclumtech-ai-creative-studio
+  fonte: '_BLUEPRINT.md §3, §3.1, §3.2, §3.3'
+  raiz: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+
+# ═════════════════════════════════════════════════════════════════════════════
+regras_gerais:
+  formato_de_verdade: >
+    YAML/JSON para o que outro estágio lê como DADO (schema estável, campo a campo).
+    Markdown para o que um humano lê como DIREÇÃO (julgamento, nuance, porquê).
+    Escolher errado custa caro: schema em markdown vira parsing frágil; julgamento
+    em YAML vira campo `notes` gigante que ninguém lê.
+  nomenclatura: 'kebab-case, sem acento, sem espaço. O acento fica no conteúdo, não no path.'
+  imutabilidade: >
+    Artefato aprovado em gate não é editado no lugar. Correção gera `-v2` e o
+    job.json aponta o vigente. Editar por cima apaga o rastro de por que mudou.
+  degradacao_honesta: >
+    Artefato entregue incompleto é registrado em `{job}/_degraded.md` com o motivo.
+    Nunca se marca estágio como completo com artefato faltando — é a mesma armadilha
+    do pipeline que reportava "10 ok / 0 failed" com zero arquivo em disco.
+  quem_valida: >
+    O validador é sempre o estágio CONSUMIDOR ou o tier de qualidade. Produtor não
+    valida o próprio artefato.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 1 · ENTRADA E ESTADO
+# ═════════════════════════════════════════════════════════════════════════════
+handoffs:
+
+  - artefato: pedido.md
+    estagio: intake
+    produzido_por: studio-chief
+    consumido_por: [brief, research]
+    path: '{job}/00-intake/pedido.md'
+    formato: markdown
+    campos_obrigatorios:
+      - solicitante: 'quem pediu, com que autoridade'
+      - objetivo_declarado: 'o que a peça precisa fazer acontecer no negócio'
+      - genero_classificado: 'id de genre-catalog.yaml'
+      - cliente: 'interno-oraclum | farming | externo:{nome}'
+      - canal_destino: 'onde a peça vai viver'
+      - prazo: 'data'
+      - restricoes_conhecidas: 'lista, pode ser vazia — mas o campo existe'
+    criterio_de_aceite:
+      - 'O gênero classificado existe em genre-catalog.yaml com status active'
+      - 'O objetivo é verificável, não adjetivo ("gerar reunião" e não "ficar moderno")'
+      - 'Canal destino definido — ele determina formato, safe area e duração'
+    valida: brief-strategist
+    se_reprovado: 'Volta ao solicitante com perguntas fechadas. Não se abre job no escuro.'
+
+  - artefato: job.json
+    estagio: intake
+    produzido_por: studio-chief
+    atualizado_por: exec-producer
+    consumido_por: [todos]
+    path: '{job}/job.json'
+    formato: json
+    campos_obrigatorios:
+      - job_id: '{YYYY-MM-DD}-{genero}-{cliente}-{hash6}'
+      - genero: 'id do gênero'
+      - pipeline_ref: 'P1..P6'
+      - status: 'open | in_progress | blocked | delivered | cancelled'
+      - stage_atual: 'id de estágio canônico'
+      - stages: 'array {id, status, iniciado_em, concluido_em, executor, gate_result}'
+      - waivers: 'array {gate, motivo, autor, data} — vazio por padrão'
+      - degraded: 'array de itens degradados com motivo'
+      - human_cards: 'array {card_id, stage, emitido_em, devolvido_em, status}'
+    criterio_de_aceite:
+      - 'Todo estágio do pipeline_ref aparece em stages[], mesmo os não iniciados'
+      - 'Nenhum stage marcado done sem os artefatos do handoff existirem em disco'
+    valida: exec-producer
+    se_reprovado: 'Job travado. O manifesto é a única fonte de verdade do estado.'
+
+  - artefato: channel-brief.yaml
+    estagio: 'pré-requisito de P5'
+    produzido_por: brief-strategist
+    consumido_por: [intake, research, script, stills, takes, audio]
+    path: 'workspaces/businesses/oraclum/creative-studio/canais/{canal}/channel-brief.yaml'
+    formato: yaml
+    escopo: 'por CANAL, não por peça — escrito uma vez, revisado por temporada'
+    campos_obrigatorios:
+      - canal: 'nome e handle'
+      - nicho: 'recorte em uma frase'
+      - tese_editorial: 'o que este canal defende'
+      - voz: '{genero, idade_percebida, ritmo, sotaque, referencia_de_leitura}'
+      - assinatura_visual: '{paleta, tipografia, motif_de_abertura}'
+      - motif_sonoro: 'o som que identifica o canal'
+      - tabus: 'o que este canal nunca faz'
+      - fontes_aceitas: 'que tipo de fonte é aceitável para um claim'
+    criterio_de_aceite:
+      - 'A voz está descrita de forma que dois operadores diferentes cheguem ao mesmo resultado'
+      - 'Assinatura visual suficiente para reconhecer o canal no feed SEM rosto'
+    valida: studio-chief
+    se_reprovado: 'P5 não inicia. Canal sem assinatura não acumula reconhecimento.'
+    porque_existe: >
+      Sem ele cada episódio reinventa a voz e a paleta, e o público nunca reconhece
+      o canal. É o ativo do gênero dark-room — o episódio é descartável, o canal não.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 2 · PLANEJAMENTO
+# ═════════════════════════════════════════════════════════════════════════════
+
+  - artefato: brief.yaml
+    estagio: brief
+    produzido_por: brief-strategist
+    consumido_por: [research, concept, script, design]
+    path: '{job}/01-brief/brief.yaml'
+    formato: yaml
+    campos_obrigatorios:
+      - objetivo_de_negocio: 'o que muda no negócio se a peça funcionar'
+      - avatar: 'quem vê, com que dor, em que momento'
+      - insight_humano: 'a verdade sobre o avatar que a peça explora'
+      - kpi_primario: 'como se mede sucesso'
+      - canal_e_formato: '{canal, aspect, duracao_alvo, safe_area}'
+      - restricao_de_marca: 'referência ao brand-lock'
+      - o_que_a_peca_nao_e: 'delimitação explícita de escopo'
+    criterio_de_aceite:
+      - 'O insight humano não é uma repetição do objetivo de negócio'
+      - 'KPI mensurável no canal declarado'
+      - 'O campo o_que_a_peca_nao_e está preenchido — é o que evita escopo inflado no meio do job'
+    valida: creative-director
+    se_reprovado: 'Volta ao brief-strategist com o campo específico apontado.'
+
+  - artefato: brand-lock.yaml
+    estagio: brief
+    produzido_por: brief-strategist
+    consumido_por: [concept, script, design, look, stills, factcheck]
+    path: '{job}/01-brief/brand-lock.yaml'
+    formato: yaml
+    campos_obrigatorios:
+      - fonte: 'path do brand-identity usado (Oraclum ou do cliente externo)'
+      - versao_da_fonte: 'versão do arquivo no momento do snapshot'
+      - paleta: 'hex, do brand-config'
+      - tipografia: 'famílias e pesos'
+      - lexico_sempre_usar: 'lista'
+      - lexico_nunca_usar: 'lista — vira regra bloqueante no factcheck'
+      - restricoes_nunca_fazer: 'lista'
+      - arquetipo: 'tom da marca'
+    criterio_de_aceite:
+      - 'É um SNAPSHOT, não um ponteiro: o job precisa ser reproduzível mesmo se a fonte mudar depois'
+      - 'lexico_nunca_usar copiado integralmente — o factcheck depende dele'
+    valida: fact-checker
+    se_reprovado: 'Job não avança. Peça sem trava de marca é retrabalho garantido no gate.'
+    porque_snapshot: >
+      O brand-identity da Oraclum já mudou de v2 para v2.1 e a paleta do brand-config
+      foi realinhada em 2026-08-14. Um job que aponta para o arquivo vivo muda de regra
+      no meio da produção. O snapshot congela a regra vigente na abertura do job.
+
+  - artefato: dossie-referencia.md
+    estagio: research
+    produzido_por: research-scout
+    consumido_por: [concept, script, look, design]
+    path: '{job}/02-research/dossie-referencia.md'
+    formato: markdown
+    campos_obrigatorios:
+      - referencias: 'mínimo 3, cada uma com link, por que funciona e o código extraído'
+      - codigo_do_genero: 'o que se repete entre elas (o padrão, não a lista)'
+      - status_de_verificacao: 'verificada | nao-verificada por referência'
+    criterio_de_aceite:
+      - 'Cada referência traz o CÓDIGO (o que faz a peça funcionar), não só o link'
+      - 'Referência não-verificada está marcada como tal — nunca apresentada como fato'
+    valida: creative-director
+    se_reprovado: 'Volta ao research. Dossiê que só lista nome não orienta produção.'
+
+  - artefato: nao-copiar.md
+    estagio: research
+    produzido_por: research-scout
+    consumido_por: [concept, script, stills, gate]
+    path: '{job}/02-research/nao-copiar.md'
+    formato: markdown
+    campos_obrigatorios:
+      - clichês_da_categoria: 'o que todo mundo faz e por isso não diferencia'
+      - risco_de_plagio: 'elemento reconhecível que não pode ser reproduzido'
+      - proibido_pela_marca: 'cruzamento com brand-lock'
+    criterio_de_aceite:
+      - 'Lista acionável: cada item diz o que NÃO fazer, não uma reflexão'
+    valida: qa-critic
+    se_reprovado: 'Aceita-se lista curta; não se aceita lista vazia sem justificativa.'
+    porque_existe: >
+      O dossiê empurra para imitar. Este arquivo é o contrapeso — sem ele, benchmark
+      vira cópia e a peça nasce igual à do concorrente.
+
+  - artefato: moodboard/
+    estagio: research
+    produzido_por: research-scout
+    consumido_por: [concept, look, design, stills]
+    path: '{job}/02-research/moodboard/'
+    formato: 'diretório de imagens + INDEX.md'
+    campos_obrigatorios:
+      - INDEX.md: 'uma linha por imagem dizendo O QUE se extrai dela (luz? cor? enquadramento?)'
+    criterio_de_aceite:
+      - 'Nenhuma imagem sem legenda de intenção — moodboard sem legenda é decoração'
+    valida: art-director
+    se_reprovado: 'Volta para legendar. As imagens ficam.'
+
+  - artefato: territorio-criativo.md
+    estagio: concept
+    produzido_por: creative-director
+    consumido_por: [script, story, decupagem, look, design, gate]
+    path: '{job}/03-concept/territorio-criativo.md'
+    formato: markdown
+    precedido_por: 'rotas.md (3 rotas apresentadas para escolha humana)'
+    campos_obrigatorios:
+      - big_idea: 'a ideia em uma frase que não menciona formato'
+      - por_que_funciona: 'ligação explícita com o insight_humano do brief'
+      - desdobramentos: 'mínimo 3 — prova de que é território, não peça única'
+      - escolhido_por: 'nome de pessoa'
+      - escolhido_em: 'data'
+    criterio_de_aceite:
+      - 'A big idea sobrevive à troca de formato. Se só funciona em 9:16, é formato, não ideia.'
+      - 'Campos escolhido_por/escolhido_em preenchidos por HUMANO — este é ponto de parada'
+    valida: studio-chief
+    se_reprovado: 'Volta ao research com o motivo escrito. Não se gera 4ª rota com o mesmo insumo.'
+
+  - artefato: biblia.yaml
+    estagio: story
+    produzido_por: showrunner
+    consumido_por: [script, design, character, audio]
+    path: '{job}/04-story/biblia.yaml'
+    escopo: 'P3 apenas · persiste na temporada, não no job'
+    formato: yaml
+    campos_obrigatorios:
+      - personagens: 'array {nome, tique_reconhecivel, wardrobe, voz, o_que_nunca_faz}'
+      - universo: '{cenarios_fixos, props_recorrentes, regras_do_mundo}'
+      - arco_da_temporada: 'começo, virada, fim'
+      - continuidade: 'o que precisa ser igual entre episódios'
+      - lexico_da_bolha: 'jargão que o público reconhece'
+    criterio_de_aceite:
+      - 'Cada personagem tem UM tique reconhecível — o que permite identificá-lo em 2s'
+      - 'Continuidade lista o que trava (cor de parede, prop, wardrobe), não tudo'
+    valida: character-lead
+    se_reprovado: 'Piloto não avança. Bíblia fraca produz personagem diferente a cada episódio.'
+
+  - artefato: roteiro.md
+    estagio: script
+    produzido_por: head-of-copy
+    consumido_por: [decupagem, stills, takes, audio, assembly, factcheck]
+    path: '{job}/05-script/roteiro.md'
+    formato: markdown
+    campos_obrigatorios:
+      - hook: 'as variantes de abertura (3 em P2)'
+      - corpo: 'bloco a bloco, com duração estimada'
+      - cta: 'o que se pede, em uma frase'
+      - voz: 'referência ao brand-lock'
+    criterio_de_aceite:
+      - 'Nenhuma palavra de lexico_nunca_usar do brand-lock'
+      - 'Toda afirmação factual tem entrada correspondente no claim-ledger.json'
+      - 'Duração somada compatível com duracao_alvo do brief (±15%)'
+    valida: fact-checker
+    se_reprovado: 'A linha problemática sai. Não se produz peça com claim pendente.'
+
+  - artefato: claim-ledger.json
+    estagio: script
+    produzido_por: head-of-copy
+    consumido_por: [factcheck, gate]
+    path: '{job}/05-script/claim-ledger.json'
+    formato: json
+    campos_obrigatorios:
+      - claims: 'array {id, texto_no_roteiro, tipo, fonte, fonte_tipo, verificavel}'
+      - tipo: 'numero | atribuicao | comparacao | promessa | mecanismo'
+      - fonte_tipo: 'primaria | secundaria | inexistente'
+    criterio_de_aceite:
+      - 'Nenhum claim com fonte_tipo inexistente sobrevive ao gate-script'
+      - 'Todo número do roteiro tem entrada — número sem entrada é fabricação por omissão'
+    valida: fact-checker
+    se_reprovado: 'BLOQUEANTE. Sem ledger, o factcheck lá na frente vira opinião.'
+    porque_existe: >
+      É a defesa ANTECIPADA contra fabricação: o custo de descobrir um claim inventado
+      no estágio script é uma linha reescrita; descobrir depois do assembly é refazer
+      still, take, VO e montagem. Espelha o detect_fabricated_numbers/claims que o
+      quality_gate_video.py do virals-marketing-squad já aplica sobre o plano.
+
+  - artefato: mapa-broll.md
+    estagio: script
+    produzido_por: head-of-copy
+    consumido_por: [stills, takes, assembly]
+    path: '{job}/05-script/mapa-broll.md'
+    escopo: 'P5 apenas'
+    formato: markdown
+    campos_obrigatorios:
+      - blocos: 'array {locucao, imagem_que_acompanha, entra_em, duracao}'
+      - antecipacao: 'a imagem entra 0,5–1s ANTES da palavra que ela ilustra'
+    criterio_de_aceite:
+      - 'Nenhum bloco de locução sem imagem atribuída'
+      - 'Nenhum plano com mais de ~4s (teto do código do gênero)'
+    valida: motion-lead
+    se_reprovado: 'Volta ao script. Locução sem b-roll mapeado vira tela parada na montagem.'
+    porque_existe: 'P5 não convoca film-director — este mapa é o substituto econômico da decupagem.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 3 · DIREÇÃO
+# ═════════════════════════════════════════════════════════════════════════════
+
+  - artefato: storyboard.yaml
+    estagio: decupagem
+    produzido_por: film-director
+    consumido_por: [look, design, stills, takes, assembly]
+    path: '{job}/06-decupagem/storyboard.yaml'
+    formato: yaml
+    campos_obrigatorios:
+      - planos: 'array {id, cena, shot_type, framing, duracao_s, intencao, on_screen_text, movimento}'
+      - checkpoints_de_retencao: 'onde a atenção pode cair e o que segura'
+    criterio_de_aceite:
+      - 'Todo plano tem intenção declarada — plano sem intenção é plano decorativo'
+      - 'Nenhum plano impossível de obter por geração OU captação (plano fantasma)'
+      - 'A soma das durações bate com o roteiro'
+    valida: motion-lead
+    se_reprovado: 'Volta ao film-director com o plano específico apontado.'
+
+  - artefato: shotlist.md
+    estagio: decupagem
+    produzido_por: film-director
+    consumido_por: [stills, takes]
+    path: '{job}/06-decupagem/shotlist.md'
+    formato: markdown
+    campos_obrigatorios:
+      - por_plano: '{o_que_captar_ou_gerar, framing, audio, props, locacao, falas_chave}'
+      - rota: 'gerado | captado | acervo — decidido plano a plano'
+    criterio_de_aceite:
+      - 'Cada plano declara a rota; rota indefinida vira decisão improvisada no card humano'
+    valida: exec-producer
+    se_reprovado: 'Volta. A rota define o custo do job — sem ela não há orçamento.'
+
+  - artefato: edit-spec.json
+    estagio: decupagem
+    produzido_por: film-director
+    consumido_por: [assembly]
+    path: '{job}/06-decupagem/edit-spec.json'
+    formato: json
+    campos_obrigatorios:
+      - cortes: 'array {plano_id, entra_em, sai_em, tipo_de_corte, porque}'
+      - transicoes: 'onde e qual'
+      - legendas: 'estilo e posição'
+      - motion: 'onde entra lower-third, cartela, destaque'
+    criterio_de_aceite:
+      - 'Todo corte tem um porquê — é o que o editor usa para decidir quando o material não bate'
+    valida: editor
+    se_reprovado: 'Volta ao film-director.'
+
+  - artefato: look-book.md
+    estagio: look
+    produzido_por: dop
+    consumido_por: [design, stills, takes, assembly]
+    path: '{job}/07-look/look-book.md'
+    formato: markdown
+    campos_obrigatorios:
+      - paleta: 'com hex, ancorada no brand-lock'
+      - luz: 'qualidade, direção, contraste, por bloco'
+      - lente_e_camera: 'distância focal, altura, movimento'
+      - grade: 'referência de tratamento de cor'
+      - traducao_para_prompt: 'como cada decisão vira texto de prompt'
+      - traducao_para_gravacao: 'como cada decisão vira instrução de set (modo híbrido)'
+    criterio_de_aceite:
+      - 'Os DOIS campos de tradução preenchidos — o mesmo look precisa funcionar gerado e captado'
+    valida: image-lead
+    se_reprovado: 'Volta ao dop. Look que não vira prompt não chega no asset.'
+
+  - artefato: art-spec.yaml
+    estagio: design
+    produzido_por: art-director
+    consumido_por: [character, stills, assembly]
+    path: '{job}/08-design/art-spec.yaml'
+    formato: yaml
+    campos_obrigatorios:
+      - cenario: 'descrição reproduzível'
+      - props: 'lista'
+      - wardrobe: 'por personagem, quando houver'
+      - tipografia: 'família, peso, corpo, tracking — herdado do brand-lock'
+      - grid_e_safe_area: 'por formato de saída'
+    criterio_de_aceite:
+      - 'Nenhum conflito com brand-lock. Havendo conflito, a marca vence e a decisão fica registrada.'
+    valida: fact-checker
+    se_reprovado: 'Volta ao art-director; conflito de marca escala para studio-chief.'
+
+  - artefato: character-bible.yaml
+    estagio: character
+    produzido_por: character-lead
+    consumido_por: [stills, takes, audio]
+    path: '{job}/09-character/character-bible.yaml'
+    formato: yaml
+    campos_obrigatorios:
+      - personagem: '{nome, idade_percebida, etnia, biotipo, traco_distintivo}'
+      - wardrobe_travado: 'peça a peça'
+      - seed_ou_referencia: 'o mecanismo de consistência escolhido e por quê'
+      - sheets: 'paths dos reference sheets gerados'
+      - o_que_derivou_antes: 'histórico de deriva observada e o contorno aplicado'
+    criterio_de_aceite:
+      - 'Sheets existem em disco e cobrem no mínimo frente, perfil e plano médio'
+      - 'O mecanismo de consistência está declarado — não é "o modelo vai lembrar"'
+    valida: image-lead
+    se_reprovado: 'stills não inicia. Sem sheet aprovado o lote sai com N pessoas diferentes.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 4 · GERAÇÃO — o artefato canônico do squad
+# ═════════════════════════════════════════════════════════════════════════════
+
+  - artefato: asset_direction
+    apelido: 'Pacote de Direção'
+    canonico: true
+    estagio: [stills, takes, audio]
+    produzido_por: [image-lead, motion-lead, sound-designer]
+    consumido_por: 'OPERADOR HUMANO (via card de tarefa) + o próprio owner_agent na avaliação'
+    path:
+      stills: '{job}/11-stills/_direction/'
+      takes: '{job}/12-takes/_direction/'
+      voz: '{job}/13-audio/_direction/'
+      character_sheet: '{job}/09-character/_direction/'
+    formato: yaml
+    estrutura: 'uma entrada por asset, sob a chave assets[]'
+    campos_obrigatorios:
+      - asset_id: 'slug único no job'
+      - destino: 'plano do storyboard | thumb | key art | packshot | capa-ep | bloco de locução'
+      - ferramenta_recomendada: 'nome + versão/modelo quando aplicável'
+      - alternativa: 'a segunda opção E o critério para preferi-la'
+      - prompt: 'texto completo, pronto para colar — não um resumo do que pedir'
+      - prompt_negativo: 'quando a ferramenta suportar; ausente quando não'
+      - parametros: '{seed, aspect, steps, cfg, motion, duracao, resolucao} conforme a ferramenta'
+      - tecnica: 'lista — o COMO extrair o máximo daquela ferramenta neste asset'
+      - armadilhas_conhecidas: 'lista — o que ESTE modelo erra e como evitar'
+      - criterio_de_aceite: 'lista verificável — nunca "ficou bom"'
+      - quantas_variacoes: 'inteiro'
+      - pos_processamento: 'upscale, corte, grade, composição tipográfica'
+      - se_falhar: 'plano B concreto, não "tentar de novo"'
+    criterio_de_aceite:
+      - 'O prompt está PRONTO para colar. Instrução do tipo "descreva a cena" é reprovação.'
+      - 'criterio_de_aceite é verificável por terceiro que não participou da direção'
+      - 'armadilhas_conhecidas não está vazio — todo modelo erra algo; campo vazio significa que não se estudou o modelo'
+      - 'se_falhar aponta ferramenta ou rota alternativa nomeada'
+      - 'parametros compatíveis com a ferramenta_recomendada (aspect que ela aceita, seed se ela suporta)'
+    valida: exec-producer
+    se_reprovado: 'O card humano NÃO é emitido. Card sem pacote completo é retrabalho garantido.'
+    porque_existe: >
+      É a materialização da regra de ouro (§3.1). O squad não gera imagem nem vídeo —
+      dirige a geração. O valor do agente não está em apertar o botão, está em escolher
+      a ferramenta certa, escrever o prompt com a técnica correta, antecipar o que aquele
+      modelo erra, dar o parâmetro exato e dizer como avaliar o resultado. Este arquivo
+      é a diferença entre o operador acertar na 2ª tentativa e na 10ª.
+
+  - artefato: '_cards/card-{stage}-{n}.md'
+    apelido: 'Card de tarefa humana'
+    estagio: [stills, takes, audio, concept]
+    produzido_por: exec-producer
+    ou_na_ausencia_dele: studio-chief
+    consumido_por: 'operador humano'
+    path: '{job}/_cards/card-{stage}-{n}.md'
+    formato: markdown
+    campos_obrigatorios:
+      - o_que_gerar: 'uma frase'
+      - ferramenta: 'recomendada + alternativa + por que'
+      - prompt_para_colar: 'copiado do asset_direction, sem reescrita'
+      - parametros: 'copiados do asset_direction'
+      - quantas_variacoes: 'inteiro'
+      - criterio_de_aceite: 'copiado do asset_direction'
+      - onde_devolver: 'path exato + convenção de nome do arquivo'
+      - plano_b: 'copiado de se_falhar'
+      - prazo: 'data/hora'
+    criterio_de_aceite:
+      - 'O operador consegue executar sem abrir nenhum outro arquivo'
+      - 'O path de devolução existe (diretório criado antes de emitir o card)'
+    valida: 'o próprio operador, na devolução'
+    se_reprovado: 'Card reemitido. Operador travado é o gargalo mais caro do pipeline.'
+
+  - artefato: entregues/
+    estagio: [stills, takes, audio]
+    produzido_por: 'OPERADOR HUMANO'
+    consumido_por: [owner_agent para drift-check, estágio seguinte]
+    path: '{job}/{NN}-{stage}/entregues/'
+    formato: 'arquivos de mídia + _retorno.json'
+    campos_obrigatorios:
+      - _retorno.json: 'array {asset_id, arquivos[], ferramenta_usada, variacoes_geradas, observacao_do_operador}'
+    criterio_de_aceite:
+      - 'Arquivo existe no path declarado no card — a existência em disco é o gate'
+      - 'Nº de variações devolvidas ≥ quantas_variacoes, ou o item entra em degraded[]'
+      - 'ferramenta_usada registrada mesmo quando foi a alternativa (alimenta o model-routing)'
+    valida: 'owner_agent do estágio (image-lead / motion-lead / sound-designer)'
+    se_reprovado: 'Ciclo de retake: o agente reescreve o asset_direction apontando O QUE mudar, e um novo card é emitido. Teto de 3 ciclos.'
+    regra_dura: >
+      O agente NUNCA marca o estágio como concluído sem o arquivo. Não se simula
+      devolução humana, não se descreve o asset que "seria" gerado.
+
+  - artefato: drift-check.md
+    estagio: [stills, takes]
+    produzido_por: [image-lead, motion-lead]
+    executor: agent
+    consumido_por: [exec-producer, gate]
+    path: '{job}/{NN}-{stage}/drift-check.md'
+    formato: markdown
+    campos_obrigatorios:
+      - por_asset: '{asset_id, veredito, criterio_falhou, o_que_mudar_no_prompt}'
+      - veredito: 'aceito | retake | rota-alternativa'
+      - ciclo: 'inteiro, teto 3'
+    criterio_de_aceite:
+      - 'Veredito ancorado no criterio_de_aceite do asset_direction, não em impressão'
+      - 'Retake vem acompanhado da mudança CONCRETA no prompt/parâmetro'
+    valida: exec-producer
+    se_reprovado: 'Escala para studio-chief — em geral o problema está no estágio anterior, não no prompt.'
+    porque_existe: >
+      É a metade `agent` da geração. O humano gera; o agente avalia com critério
+      objetivo e dirige o retake. Sem isso o ciclo vira tentativa e erro sem memória.
+
+  - artefato: sound-spec.yaml
+    estagio: audio
+    produzido_por: sound-designer
+    consumido_por: [assembly]
+    path: '{job}/13-audio/sound-spec.yaml'
+    formato: yaml
+    campos_obrigatorios:
+      - vo: '{existe, direcao_de_leitura, ritmo, casting}'
+      - sfx: 'array {momento, categoria, intencao, intensidade}'
+      - trilha: '{recomendada, mood, energia, ducking, por_que}'
+      - mixagem: 'níveis alvo e onde o ducking entra — spec para o Premiere'
+    criterio_de_aceite:
+      - 'Trilha recomendada vem com justificativa; "porque sim" é reprovação'
+      - 'Mixagem descrita como instrução executável no Premiere, não como adjetivo'
+    valida: editor
+    se_reprovado: 'Volta ao sound-designer.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 5 · FINALIZAÇÃO (app próprio → After Effects → Premiere)
+# ═════════════════════════════════════════════════════════════════════════════
+
+  - artefato: autolegenda/
+    estagio: assembly
+    produzido_por: 'apps/video-studio (worker)'
+    consumido_por: [After Effects, Premiere]
+    path: '{job}/14-assembly/autolegenda/'
+    formato: 'arquivos de legenda + timeline auto-montada'
+    campos_obrigatorios:
+      - cues: 'timestamp por palavra'
+      - estilo: 'herdado do art-spec/brand-lock'
+    criterio_de_aceite:
+      - 'Sincronia por timestamp real, nunca por distribuição proporcional do texto'
+      - 'Estilo bate com a tipografia do brand-lock'
+    valida: editor
+    se_reprovado: 'Legenda vai como cue list para o Premiere. Não se digita legenda na mão.'
+    nota: 'Etapa 1 da cadeia de finalização. O que o app resolve aqui NÃO se refaz no AE/Premiere.'
+
+  - artefato: ae-comp-spec.md
+    estagio: assembly
+    produzido_por: editor
+    coautor: motion-lead
+    consumido_por: 'OPERADOR HUMANO no After Effects'
+    path: '{job}/14-assembly/ae-comp-spec.md'
+    formato: markdown
+    campos_obrigatorios:
+      - composicoes: 'array {nome, duracao, resolucao, o_que_faz}'
+      - camadas: 'por composição, com ordem e modo de mesclagem'
+      - animacao: '{propriedade, valor_inicial, valor_final, easing, duracao}'
+      - lower_third: 'spec no padrão da marca (paleta, tipografia, entrada/saída)'
+      - motion_graphics: 'cartelas, destaques, big number'
+      - importacao: 'pastas, bins e nomenclatura'
+      - ja_resolvido_pelo_app: 'o que NÃO refazer — legenda e tratamentos do video-studio'
+    criterio_de_aceite:
+      - 'Cada animação tem parâmetro numérico, não adjetivo ("300ms ease-out" e não "suave")'
+      - 'O campo ja_resolvido_pelo_app está preenchido — é o que evita trabalho duplicado'
+    valida: motion-lead
+    se_reprovado: 'Volta ao editor. Spec vaga vira improviso no AE e a peça sai fora da marca.'
+    nota: 'Etapa 2 da cadeia. O squad NÃO renderiza — entrega especificação executável.'
+
+  - artefato: premiere-cut-spec.md
+    estagio: assembly
+    produzido_por: editor
+    consumido_por: 'OPERADOR HUMANO no Premiere Pro'
+    path: '{job}/14-assembly/premiere-cut-spec.md'
+    formato: markdown
+    campos_obrigatorios:
+      - ordem_de_cortes: 'array {clipe, entra_em, sai_em, tipo, por_que}'
+      - bins: 'organização do projeto'
+      - audio: 'faixas, níveis, ducking, pontos de mixagem'
+      - export: 'array {canal, formato, codec, bitrate, resolucao, safe_area}'
+      - ja_resolvido_pelo_app: 'o que não refazer'
+    criterio_de_aceite:
+      - 'Todo corte tem timecode E justificativa'
+      - 'Preset de export por canal declarado — canal define a especificação, não o gosto'
+    valida: exec-producer
+    se_reprovado: 'Volta ao editor.'
+    nota: 'Etapa 3 da cadeia. Corte final, mix e master saem daqui.'
+
+  - artefato: master/
+    estagio: assembly
+    produzido_por: 'OPERADOR HUMANO (Premiere)'
+    consumido_por: [factcheck, gate, delivery]
+    path: '{job}/14-assembly/master/'
+    formato: 'arquivo(s) de vídeo'
+    campos_obrigatorios:
+      - _master.json: '{arquivo, duracao, resolucao, codec, canal_alvo, versao}'
+    criterio_de_aceite:
+      - 'Especificação bate com o preset de export declarado no premiere-cut-spec'
+      - 'Duração dentro da tolerância do brief'
+    valida: qa-critic
+    se_reprovado: 'Volta ao Premiere com o parâmetro específico apontado.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 6 · QUALIDADE E ENTREGA
+# ═════════════════════════════════════════════════════════════════════════════
+
+  - artefato: factcheck-report.md
+    estagio: factcheck
+    produzido_por: fact-checker
+    consumido_por: [gate, delivery]
+    path: '{job}/15-gate/factcheck-report.md'
+    formato: markdown
+    bloqueante: true
+    campos_obrigatorios:
+      - veredito: 'PASS | FAIL'
+      - claims_verificados: 'array {claim_id, fonte, status}'
+      - lexico: 'ocorrências de lexico_nunca_usar — precisa ser zero'
+      - direitos: 'imagem, voz, marca e obra de terceiro'
+      - regra_sem_case_fabricado: 'aplicada | nao_aplicavel'
+      - onde_corrigir: 'estágio de origem de cada problema'
+    criterio_de_aceite:
+      - 'Todo claim do ledger aparece verificado'
+      - 'FAIL aponta o ESTÁGIO de origem, não só o sintoma'
+    valida: 'ninguém — este é o gate terminal de fidelidade'
+    se_reprovado: 'Peça volta ao estágio apontado. WAIVER PROIBIDO.'
+
+  - artefato: gate-verdict.md
+    estagio: gate
+    produzido_por: qa-critic
+    consumido_por: [delivery, studio-chief]
+    path: '{job}/15-gate/gate-verdict.md'
+    formato: markdown
+    campos_obrigatorios:
+      - veredito: 'PASS | CONCERNS | FAIL | WAIVED'
+      - checklist_do_genero: 'item a item, com resultado'
+      - o_que_falta: 'lista acionável quando não é PASS'
+      - se_waived: '{motivo, autor, data}'
+    criterio_de_aceite:
+      - 'O que falta é acionável: aponta arquivo e estágio, não impressão'
+      - 'CONCERNS exige ciência registrada do solicitante antes da entrega'
+    valida: studio-chief
+    se_reprovado: 'FAIL devolve ao estágio apontado.'
+
+  - artefato: publishing-kit.md
+    estagio: delivery
+    produzido_por: exec-producer
+    ou: studio-chief
+    consumido_por: 'quem publica (interno, cliente ou squad de marketing)'
+    path: '{job}/16-delivery/publishing-kit.md'
+    formato: markdown
+    campos_obrigatorios:
+      - arquivos: 'o que está em entrega/ e para que serve cada um'
+      - copy_de_publicacao: 'legenda, hashtags, título'
+      - especificacao_por_canal: 'formato entregue por destino'
+      - restricoes: 'o que não pode ser alterado sem novo factcheck'
+      - degradacoes: 'o que saiu abaixo do planejado e por quê'
+    criterio_de_aceite:
+      - 'Quem publica consegue publicar sem perguntar nada'
+      - 'Degradações declaradas — entrega silenciosamente incompleta é a pior falha do pipeline'
+    valida: studio-chief
+    se_reprovado: 'Entrega travada.'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CADEIA DE DEPENDÊNCIA — quebrar um destes contratos quebra o pipeline inteiro,
+# não só o estágio que produz. Espelha o `phase_contracts` do farming squad.
+# ═════════════════════════════════════════════════════════════════════════════
+contratos_criticos:
+  intake_to_brief: 'pedido.md → genero_classificado válido em genre-catalog.yaml'
+  brief_to_tudo: 'brand-lock.yaml → snapshot congelado; muda a regra do job inteiro'
+  script_to_factcheck: 'claim-ledger.json → sem ele o factcheck não tem contra o que checar'
+  direcao_to_geracao: 'storyboard.yaml + look-book.md + art-spec.yaml → insumo do asset_direction'
+  geracao_to_humano: 'asset_direction → card → entregues/ → drift-check (o laço da regra de ouro)'
+  character_to_stills: 'sheets/ aprovados → sem isso o lote sai com pessoas diferentes'
+  assembly_to_finalizacao: 'autolegenda/ + ae-comp-spec.md + premiere-cut-spec.md → o humano monta a partir daqui'
+  gate_to_delivery: 'factcheck PASS obrigatório; gate PASS ou CONCERNS com ciência'
+
+# ═════════════════════════════════════════════════════════════════════════════
+# ARTEFATOS SECUNDÁRIOS
+#
+# Artefatos que o pipeline-profiles.yaml cita mas que NÃO têm contrato completo
+# acima, porque viajam junto de um artefato primário do mesmo estágio. Cada um
+# tem dono, formato e critério de aceite — o que basta para não ficarem órfãos.
+#
+# Existe porque a auditoria cruzada de 2026-08-22 encontrou artefatos citados em
+# pipeline-profiles.yaml sem contrapartida aqui. Um artefato citado e não
+# contratado é exatamente o tipo de buraco que só aparece quando alguém vai
+# escrever a task do estágio e descobre que ninguém definiu o que entregar.
+# ═════════════════════════════════════════════════════════════════════════════
+artefatos_secundarios:
+
+  # ── research ──────────────────────────────────────────────────────────────
+  - artefato: benchmark/
+    estagio: research
+    acompanha: dossie-referencia.md
+    produzido_por: research-scout
+    path: '{job}/02-research/benchmark/'
+    formato: 'diretório de saída bruta do ETL (frames, áudio, transcrição, metadados)'
+    criterio_de_aceite: 'Saída bruta preservada — é o que permite reauditar o dossiê sem rodar o ETL de novo'
+    valida: research-scout
+
+  - artefato: lexico-da-bolha.md
+    estagio: research
+    escopo: P3
+    acompanha: dossie-referencia.md
+    produzido_por: research-scout
+    path: '{job}/02-research/lexico-da-bolha.md'
+    formato: markdown
+    campos_obrigatorios: ['jargão com significado', 'dores hiperespecíficas', 'o que a bolha rejeita']
+    criterio_de_aceite: 'Termo que alguém de fora não entenderia sem explicação — se todos entendem, o recorte está largo'
+    valida: showrunner
+
+  - artefato: hooks-em-veiculacao.md
+    estagio: research
+    escopo: P2
+    acompanha: dossie-referencia.md
+    produzido_por: research-scout
+    path: '{job}/02-research/hooks-em-veiculacao.md'
+    formato: markdown
+    campos_obrigatorios: ['hook transcrito', 'anunciante', 'tempo em veiculação', 'código extraído']
+    criterio_de_aceite: 'Tempo em veiculação registrado — é o único proxy de performance disponível de fora'
+    valida: head-of-copy
+
+  - artefato: fontes.json
+    estagio: research
+    escopo: P5
+    acompanha: dossie-referencia.md
+    produzido_por: research-scout
+    path: '{job}/02-research/fontes.json'
+    formato: json
+    campos_obrigatorios:
+      - fontes: 'array {id, url, veiculo, data, tipo: primaria|secundaria, trecho_relevante}'
+    criterio_de_aceite:
+      - 'Toda fonte com data e tipo — fonte sem data envelhece sem avisar'
+      - 'É o insumo direto do claim-ledger.json: um claim só existe se apontar para um id daqui'
+    valida: fact-checker
+    criticidade: alta
+    nota: 'Em dark-room a pesquisa É a matéria-prima do roteiro. Sem fontes.json não há o que checar.'
+
+  - artefato: dossie-herdado.md
+    estagio: brief
+    escopo: P4
+    acompanha: brief.yaml
+    produzido_por: brief-strategist
+    path: '{job}/02-research/dossie-herdado.md'
+    formato: markdown
+    campos_obrigatorios: ['origem da referência', 'data da coleta', 'o que se aproveita', 'o que já envelheceu']
+    criterio_de_aceite: 'Aponta para o monitoramento diário do virals-marketing-squad com data — referência sem data não é referência'
+    valida: creative-director
+    nota: 'Substitui o estágio research no P4 (ver ARCHITECTURE.md ADR-005).'
+
+  # ── intake e concept ──────────────────────────────────────────────────────
+  - artefato: pauta.md
+    estagio: intake
+    escopo: P5
+    substitui: pedido.md
+    produzido_por: studio-chief
+    path: '{job}/00-intake/pauta.md'
+    formato: markdown
+    campos_obrigatorios: ['tese do episódio', 'ângulo', 'canal (aponta o channel-brief.yaml)', 'prazo']
+    criterio_de_aceite: 'O canal referenciado tem channel-brief.yaml vigente — sem isso o job vira fundação de canal'
+    valida: research-scout
+
+  - artefato: rotas.md
+    estagio: concept
+    precede: territorio-criativo.md
+    produzido_por: creative-director
+    ou_no_P3: showrunner
+    path: '{job}/03-concept/rotas.md'
+    formato: markdown
+    campos_obrigatorios:
+      - rotas: 'exatamente 3, cada uma com big idea, por que funciona e um desdobramento'
+      - recomendacao: 'qual o agente recomenda e por quê — a recomendação apoia, não substitui a escolha humana'
+    criterio_de_aceite:
+      - 'As 3 rotas são de fato distintas: se duas mudam só a execução, é uma rota só'
+      - 'Nenhuma rota depende de case, número ou depoimento que não exista'
+    valida: studio-chief
+    nota: 'É o material do PONTO DE PARADA HUMANO do estágio concept.'
+
+  # ── story ─────────────────────────────────────────────────────────────────
+  - artefato: arco-temporada.md
+    estagio: story
+    escopo: P3
+    acompanha: biblia.yaml
+    produzido_por: showrunner
+    path: '{job}/04-story/arco-temporada.md'
+    formato: markdown
+    campos_obrigatorios: ['episódio a episódio: conflito e virada', 'o que muda no personagem do ep 1 ao último']
+    criterio_de_aceite: 'O arco fecha no número de episódios previsto — arco esticado perde retenção no ep 3'
+    valida: studio-chief
+
+  - artefato: gancho-proximo-ep.md
+    estagio: story
+    escopo: P3
+    acompanha: biblia.yaml
+    produzido_por: showrunner
+    path: '{job}/04-story/gancho-proximo-ep.md'
+    formato: markdown
+    campos_obrigatorios: ['a última linha falada do episódio', 'o que ela promete', 'como o próximo ep paga']
+    criterio_de_aceite: 'O gancho promete algo que o próximo episódio de fato entrega'
+    valida: head-of-copy
+
+  # ── script ────────────────────────────────────────────────────────────────
+  - artefato: hooks.md
+    estagio: script
+    escopo: P2
+    acompanha: roteiro.md
+    produzido_por: head-of-copy
+    path: '{job}/05-script/hooks.md'
+    formato: markdown
+    campos_obrigatorios:
+      - hooks: 'array {id, fala, text_overlay (4-7 palavras), tipo: pattern_interrupt|curiosity_gap|bold_claim}'
+    criterio_de_aceite:
+      - 'Mínimo 3, todos plugáveis no MESMO corpo — se o corpo muda, a variável deixa de ser isolada'
+      - 'Hook do tipo bold_claim exige entrada correspondente no claim-ledger.json'
+    valida: qa-critic
+    nota: 'Materializa a estratégia 1 corpo × N hooks; é o ativo real do P2.'
+
+  # ── look e design ─────────────────────────────────────────────────────────
+  - artefato: grade-ref.md
+    estagio: look
+    acompanha: look-book.md
+    produzido_por: dop
+    path: '{job}/07-look/grade-ref.md'
+    formato: markdown
+    campos_obrigatorios: ['referência de tratamento de cor', 'contraste e saturação alvo', 'o que NÃO tratar']
+    criterio_de_aceite: 'Descrito de forma aplicável no Premiere — adjetivo não é instrução de grade'
+    valida: editor
+
+  - artefato: tipografia.md
+    estagio: design
+    acompanha: art-spec.yaml
+    produzido_por: art-director
+    path: '{job}/08-design/tipografia.md'
+    formato: markdown
+    campos_obrigatorios: ['família, peso, corpo, tracking e entrelinha por uso', 'hierarquia', 'safe area por formato']
+    criterio_de_aceite:
+      - 'Herdado do brand-lock; divergência exige registro e vence a marca'
+      - 'Corpo mínimo testado no menor formato de saída'
+    valida: editor
+
+  - artefato: layout.md
+    estagio: design
+    escopo: P6
+    acompanha: art-spec.yaml
+    produzido_por: art-director
+    path: '{job}/08-design/layout.md'
+    formato: markdown
+    campos_obrigatorios: ['grid', 'ponto focal', 'onde entra o texto', 'espaço negativo a pedir na geração']
+    criterio_de_aceite:
+      - 'O espaço negativo está declarado — é o que evita gerar cena e depois não ter onde pôr a headline'
+      - 'Layout validado no teste de 120px antes de virar Pacote de Direção'
+    valida: image-lead
+
+  - artefato: continuidade.md
+    estagio: design
+    escopo: P3
+    acompanha: art-spec.yaml
+    produzido_por: art-director
+    path: '{job}/08-design/continuidade.md'
+    formato: markdown
+    campos_obrigatorios: ['âncoras visuais travadas (mínimo 3)', 'o que pode variar', 'diferenças aceitas vs ep anterior']
+    criterio_de_aceite: 'As âncoras são reproduzíveis por outro operador sem consultar o episódio anterior'
+    valida: character-lead
+
+  # ── character e stills ────────────────────────────────────────────────────
+  - artefato: sheets/
+    estagio: character
+    acompanha: character-bible.yaml
+    produzido_por: 'OPERADOR HUMANO, dirigido por character-lead'
+    path: '{job}/09-character/sheets/'
+    formato: 'diretório de imagens'
+    criterio_de_aceite:
+      - 'Cobre no mínimo frente, perfil e plano médio'
+      - 'É a referência ORIGINAL de todo asset seguinte — nunca se gera a partir do último frame usado'
+    valida: image-lead
+    criticidade: alta
+
+  - artefato: finalizadas/
+    estagio: stills
+    escopo: P6
+    sucede: entregues/
+    produzido_por: 'OPERADOR HUMANO (composição), apoiado por apps/creative-design'
+    path: '{job}/11-stills/finalizadas/'
+    formato: 'diretório de imagens finais'
+    criterio_de_aceite:
+      - 'Tipografia e marca aplicadas em composição, nunca geradas pelo modelo'
+      - 'Passa no teste de leitura a 120px'
+      - 'Safe area do canal respeitada'
+    valida: qa-critic
+    nota: '`entregues/` é o cru do gerador; `finalizadas/` é o que vai ao cliente. A separação existe porque texto não se gera, se compõe.'
+
+  # ── delivery ──────────────────────────────────────────────────────────────
+  - artefato: entrega/
+    estagio: delivery
+    acompanha: publishing-kit.md
+    produzido_por: exec-producer
+    ou: studio-chief
+    path: '{job}/16-delivery/entrega/'
+    formato: 'diretório com os arquivos finais por canal'
+    criterio_de_aceite:
+      - 'Cada arquivo bate com o preset de export declarado no premiere-cut-spec.md'
+      - 'Nomenclatura por canal, sem ambiguidade sobre qual arquivo vai onde'
+    valida: qa-critic

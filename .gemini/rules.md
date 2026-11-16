@@ -85,6 +85,13 @@ Atalhos recomendados no Gemini:
 - `npm run validate:structure`
 - `npm run validate:agents`
 
+## Virals Creators Hunting Squad
+- **@hunter-chief**: Joe Gagliese (Orquestrador do pipeline ICP-C)
+- **@hunter-scout**: Mae Karwowski (Discovery e mineração Playwright)
+- **@hunter-analyst**: Gil Eyal (Qualificação e Creator Score)
+- **@hunter-closer**: Brittany Hennessy (Geração de Scripts de Abordagem)
+- **@hunter-manager**: Jason Falls (CRM Sync ClickUp e Relatórios L10)
+
 ## Virals Projetos Squad (v2.0)
 - **Shaping:** `@singer-proj` define o appetite e o escopo do projeto.
 - **Intelligence Council:** `@kaushik` e `@dalio` auditam o briefing para profundidade estratégica.

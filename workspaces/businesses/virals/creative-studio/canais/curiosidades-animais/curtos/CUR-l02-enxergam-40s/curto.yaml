@@ -1,0 +1,29 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CUR-l02-enxergam-40s · Animais que enxergam o que a gente não vê
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: CUR-l02-enxergam-40s
+  canal: curiosidades-animais
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  # Um take por bicho citado, na ordem da contagem. `exige` e o que a descricao
+  # do Pexels tem de citar; `imagem` gera quando o banco nao tem a especie.
+  consultas:
+    - {q: "mantis shrimp reef close up", etiqueta: "quatro-ocamaraolo", n: 3, exige: [mantis], ancora: "Numero Quatro o camarao-louva-a-deus",
+       imagem: "photorealistic macro photograph of a peacock mantis shrimp on a coral reef, bright green and orange shell, stalked eyes, clear blue water, wildlife documentary still, vertical composition"}
+    - {q: "bee on flower macro", etiqueta: "tres-aabelha", n: 3, exige: [bee, bees], ancora: "Numero Tres a abelha"}
+    - {q: "pit viper snake close up", etiqueta: "dois-acobradafa", n: 3, exige: [viper, rattlesnake], ancora: "Numero Dois a cobra da familia dos crotalineos",
+       imagem: "photorealistic macro photograph of a pit viper coiled on forest floor leaves at night, heat-sensing pit visible between eye and nostril, keeled scales, dark background, wildlife documentary still, vertical composition"}
+    - {q: "owl at night close up", etiqueta: "um-acoruja", n: 3, exige: [owl], ancora: "Numero Um a coruja"}
+    - {q: "night forest sky stars", etiqueta: "fecho", n: 2, exige: [forest, night, sky], ancora: "Comenta ai qual desses tu queria ter por um dia."}
+
+  # CTA do TikTok: SEGUE no meio, trio no fecho. Ver docs/CANAIS-TIKTOK-DARK.md
+  camadas:
+    - {tipo: emoji, glifo: "😱", px: 220, pos: topo, dur: 1.8,
+       ancora: "Animais que enxergam o que a gente nao ve."}
+    - {tipo: gesto, gesto: seguir, px: 250, pos: baixo, dur: 2.8,
+       ancora: "Numero Dois a cobra da familia dos crotalineos"}
+    - {tipo: gesto, gesto: [curtir, comentar, compartilhar], px: 185,
+       pos: 700, dur: 3.4, ancora: "Comenta ai qual desses tu queria ter por um dia."}

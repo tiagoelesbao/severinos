@@ -1,0 +1,38 @@
+# ═══════════════════════════════════════════════════════════════════════
+# AVI-l07-tsunami-40s · placa de rota de fuga de tsunami
+# ═══════════════════════════════════════════════════════════════════════
+curto:
+  slug: AVI-l07-tsunami-40s
+  canal: placas-de-aviso
+  criado_em: '2026-09-08'
+  status: rascunho
+
+visual:
+  consultas:
+    - {q: "empty seaside street town", etiqueta: "cenario-estrada", n: 3, exige: [street, coast, town, seaside], ancora: "Se voce ver essa placa numa cidade de praia, nao e decoracao."}
+    - {q: "dog looking at the sea", etiqueta: "reativo", n: 3, exige: [dog, puppy], ancora: "Bro, essa placa mostra uma onda em cima de gente correndo?"}
+    - {q: "birds flying away from shore", etiqueta: "fofo", n: 2, exige: [bird, birds, seagull], ancora: "Eu te conto, mas antes: se voce gosta de bicho, me segue aqui."}
+    - {q: "banco:inserts-emocionais", etiqueta: "dependente", n: 1, exige: [banco], continuo: true, ancora: "E olha so esse aqui. E exatamente o que essa placa tenta evitar: bicho que sente o que a gente ainda nao sentiu."}
+    - {q: "ocean waves crashing coast", etiqueta: "payoff", n: 2, exige: [wave, ocean, sea], ancora: "A placa e real e existe em toda a costa do Pacifico."}
+
+  # A placa e a assinatura do canal: entra nos primeiros segundos e VOLTA antes
+  # do payoff. A seta aponta PARA ela (angulo positivo, ver placa_aviso.py).
+  camadas:
+    - {tipo: placa, pict: pessoa-bracos, larg: 0.60, pos: meio, dur: 4.2,
+       ancora: "Se voce ver essa placa numa cidade de praia, nao e decoracao."}
+    # a seta sobe para 880: em 1010 ela encostava na legenda (centrada em 1114)
+    # e as duas brigavam pelo mesmo pedaco de quadro
+    - {tipo: seta, larg: 0.30, ang: 34, pos: 880, x: 0.08, dur: 3.4,
+       atraso: 0.6, ancora: "Se voce ver essa placa numa cidade de praia, nao e decoracao."}
+    - {tipo: emoji, glifo: "⁉️", px: 230, pos: topo, dur: 2.0,
+       ancora: "Bro, essa placa mostra uma onda em cima de gente correndo?"}
+    - {tipo: gesto, gesto: seguir, px: 260, pos: baixo, dur: 2.8,
+       ancora: "Eu te conto, mas antes: se voce gosta de bicho, me segue aqui."}
+    - {tipo: emoji, glifo: "😢", px: 200, pos: topo, dur: 2.2,
+       ancora: "Ninguem avisou ele. A placa e para a gente."}
+    - {tipo: emoji, glifo: "❤️❤️❤️", px: 150,
+       pos: acima-legenda, dur: 2.6, ancora: "Se voce acha isso triste, deixa um coracao nos comentarios."}
+    - {tipo: gesto, gesto: comentar, px: 250, pos: baixo, dur: 2.6,
+       atraso: 0.5, ancora: "Se voce acha isso triste, deixa um coracao nos comentarios."}
+    - {tipo: placa, pict: pessoa-bracos, larg: 0.46, pos: meio, dur: 2.4,
+       ancora: "A placa e real e existe em toda a costa do Pacifico."}

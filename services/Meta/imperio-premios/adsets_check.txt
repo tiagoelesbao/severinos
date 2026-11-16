@@ -1,0 +1,28 @@
+========== act_1809822716714730 / [CA2]Campanha 1 (52604268430211) ==========
+adsets -> 200
+{
+  "data": [
+    {
+      "id": "52604268430011",
+      "name": "Publico Aberto (Conquista de clientes)",
+      "status": "ACTIVE",
+      "effective_status": "ACTIVE",
+      "optimization_goal": "VALUE",
+      "billing_event": "IMPRESSIONS",
+      "promoted_object": {
+        "pixel_id": "2276849516022676",
+        "custom_event_type": "OTHER",
+        "custom_event_str": "PurchasePlataforma",
+        "smart_pse_enabled": false
+      },
+      "destination_type": "UNDEFINED"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIVDNnU3F4NXJnaVY2R0VKU3pNODJDVWVfRS00cEpWenFiU3I5TGxIV3NJVnVmVVkzVTB4eUF6V1FyT21JLWtZAUi1aUFJ3elJkUjVsT2NOdTRYOGpUU1F3",
+      "after": "QVFIVDNnU3F4NXJnaVY2R0VKU3pNODJDVWVfRS00cEpWenFiU3I5TGxIV3NJVnVmVVkzVTB4eUF6V1FyT21JLWtZAUi1aUFJ3elJkUjVsT2NOdTRYOGpUU1F3"
+    }
+  }
+}
+

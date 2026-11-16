@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    { "source": "/catalogo", "destination": "/catalogo.html" },
+    { "source": "/l/:code", "destination": "https://link-imperio.vercel.app/l/:code" },
+    { "source": "/estatisticas", "destination": "https://bicho-stats-imperio.vercel.app/estatisticas" },
+    { "source": "/estatisticas/", "destination": "https://bicho-stats-imperio.vercel.app/estatisticas/" },
+    { "source": "/estatisticas/:path*", "destination": "https://bicho-stats-imperio.vercel.app/estatisticas/:path*" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(woff2|webp|png|ico)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+      ]
+    }
+  ]
+}

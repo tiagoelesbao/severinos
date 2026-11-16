@@ -1,0 +1,483 @@
+schema_version: '1.0'
+generated_at: '2026-08-19T23:29:25'
+media_kind: video
+video_brief:
+  slug: video-39-realskytan-eb80d9
+  source_benchmark: C:\Users\Pichau\Desktop\Sistemas\Virals\severinos\workspaces\businesses\oraclum\marketing\daily-monitoring\2026-08-19\benchmark\instagram\39-realskytan-eb80d9
+source:
+  creator: '@realskytan'
+  platform: instagram
+  url: https://www.instagram.com/realskytan/reel/DcKpqu8GwiX/
+  type: video-short
+  caption: 'Hey what’s up 🙋 I''m Sky and 3 years ago I got OBSESSED with 1 question:
+
+
+    What makes some reels get 200 views and some reels 2,000,000 views?
+
+
+    And I tried everything under the sun 😩
+
+    - Posting at peak times
+
+    - Stealing viral hooks
+
+    - Spamming hashtags
+
+    - 🤐and maybe a dance here and there
+
+    Literally everything…
+
+
+    And over the last 3 years I learned none of that mattered 😂But I DID learn the
+    #1 factor to a 🏆Winning Personal Brand, after:
+
+    - Over 8,000 videos for your favourite experts (DAMN that’s a lot)
+
+    - 1 billion views
+
+    - 1m followers
+
+    - and 7 figures in revenue
+
+
+    The WINNING formula is….. good Topics + viral Formats + disciplined Testing
+
+
+    So I changed everything in my business to optimize for this
+
+
+    And today I run ClipCut now, a Done-For-You Content team behind your favorite
+    experts (think dog trainers, finance coaches) where we… strategize, research,
+    script, sometimes film ✈️, edit, post, track and adapt content to win
+
+
+    But a billion views later…. I’m still the same person, scrolling reels at 2am,
+    trying to figure out why a specific hook was so freakin’ good . 😂 Send help. 😁
+
+
+    But we’re just getting started
+
+
+    I post about winning tactics and strategies I and the best creators use
+
+
+    Comment "CONTENT" on any of my reels to 1) get my best free sauce OR 2) see how
+    we can work together
+
+
+    If that''s your thing, follow me 🤝'
+metadata:
+  view_count: null
+  like_count: 751
+  comment_count: null
+  duration_seconds: 68
+  cut_timestamps: null
+hook_raw: Hook, lead, body one, open loop one, body two, open loop two, body three,
+  optional CTA
+transcript:
+- start: 0
+  end: 6
+  text: Hook, lead, body one, open loop one, body two, open loop two, body three,
+    optional CTA
+- start: 6
+  end: 9
+  text: This is the perfect short form content structure
+- start: 9
+  end: 10
+  text: Let me explain each section
+- start: 10
+  end: 12
+  text: The hook is for grabbing that initial attention
+- start: 12
+  end: 17
+  text: The lead is to build on top of that interest, give a little bit more context
+    to the video and bridge to the body
+- start: 17
+  end: 23
+  text: For the body, I am just trying to offer as much value, whether that's emotional
+    or educational as possible
+- start: 23
+  end: 28
+  text: So this is telling a really good story, giving really helpful tactics, giving
+    examples to help people learn better
+- start: 28
+  end: 31
+  text: And these open loops are really just to keep people interested in the body
+- start: 31
+  end: 36
+  text: Because if you just share a piece of information into a piece of information
+    into a piece of information, no one's going to be interested
+- start: 36
+  end: 38
+  text: They need a reason to go into the next one
+- start: 38
+  end: 41
+  text: And the open loops are just really to keep the attention between bodies
+- start: 41
+  end: 45
+  text: Super important because people don't actually care, you have to keep looping
+    them back in so that they do care
+- start: 45
+  end: 48
+  text: This is where you use transition phrases like yet, but, therefore
+- start: 48
+  end: 53
+  text: These are the things that's going to connect your bodies together and without
+    them, your video is not going to have strong retention
+- start: 53
+  end: 57
+  text: And lastly, we have the CTA, so this is like comment a keyword to get this
+- start: 57
+  end: 61
+  text: And you want to make sure that this is integrated into your step and not just
+    some thing you have at the very end
+- start: 61
+  end: 64
+  text: So putting it between the open loops is a great idea
+- start: 64
+  end: 68
+  text: So this is the perfect short form content structure
+frames:
+- file: Screenshots/frame_01_at_00-00_Hook__lead__body_one__open_loo.jpg
+  timestamp: 00:00
+  t_seconds: 0
+- file: Screenshots/frame_02_at_00-12_The_lead_is_to_build_on_top_of.jpg
+  timestamp: 00:12
+  t_seconds: 12
+- file: Screenshots/frame_03_at_00-31_Because_if_you_just_share_a_pi.jpg
+  timestamp: 00:31
+  t_seconds: 31
+- file: Screenshots/frame_04_at_00-45_This_is_where_you_use_transiti.jpg
+  timestamp: 00:45
+  t_seconds: 45
+- file: Screenshots/frame_05_at_01-04_So_this_is_the_perfect_short_f.jpg
+  timestamp: 01:04
+  t_seconds: 64
+beats:
+- n: 1
+  start: 0
+  end: 12
+  text: Hook, lead, body one, open loop one, body two, open loop two, body three,
+    optional CTA This is the perfect short form content structure Let me explain each
+    section The hook is for grabbing that initial attention
+  role: hook
+- n: 2
+  start: 12
+  end: 31
+  text: The lead is to build on top of that interest, give a little bit more context
+    to the video and bridge to the body For the body, I am just trying to offer as
+    much value, whether that's emotional or educational as possible So this is telling
+    a really good story, giving really helpful tactics, giving examples to help people
+    learn better And these open loops are really just to keep people interested in
+    the body
+  role: build
+- n: 3
+  start: 31
+  end: 45
+  text: Because if you just share a piece of information into a piece of information
+    into a piece of information, no one's going to be interested They need a reason
+    to go into the next one And the open loops are just really to keep the attention
+    between bodies Super important because people don't actually care, you have to
+    keep looping them back in so that they do care
+  role: build
+- n: 4
+  start: 45
+  end: 64
+  text: This is where you use transition phrases like yet, but, therefore These are
+    the things that's going to connect your bodies together and without them, your
+    video is not going to have strong retention And lastly, we have the CTA, so this
+    is like comment a keyword to get this And you want to make sure that this is integrated
+    into your step and not just some thing you have at the very end So putting it
+    between the open loops is a great idea
+  role: build
+- n: 5
+  start: 64
+  end: 68
+  text: So this is the perfect short form content structure
+  role: cta
+analysis_raw_present: true
+client_slug: oraclum
+client_nome: Oraclum
+_validation:
+  status: PASS
+  issues: []
+  segments: 18
+  frames: 5
+  beats: 5
+  video_gate_status: CONCERNS
+visual_analysis: null
+benchmark_analysis:
+  hook_type: bold claim
+  pattern_interrupts:
+  - t: 0
+    device: visual+texto+fala
+    text: This is the perfect short form content structure
+  - t: 12
+    device: visual
+    text: Transição para o lead – nova cena e energia
+  - t: 31
+    device: visual
+    text: Mudança para body two – novo ângulo visual
+  - t: 45
+    device: visual
+    text: Inserção de transição "yet" – ritmo acelerado
+  - t: 64
+    device: visual
+    text: Aparece o CTA final – fechamento decisivo
+  cut_cadence:
+    avaliacao: Ritmo rápido com 18 segmentos em 68 s (≈3,8 s/segmento) supera o checkpoint
+      de retenção de 1,5‑2 s, mantendo alta energia e engajamento.
+    meets_retention_checkpoint: false
+    source: transcript-segments
+    segments: 18
+    duration_s: 68.0
+    avg_segment_s: 3.78
+  broll_strategy: B‑roll dinâmico com cortes rápidos, animações de texto e clipes
+    de exemplos que acompanham cada fala, reforçando pontos e mantendo o ritmo visual.
+  caption_style: Legendas em destaque, fonte grande, cores contrastantes, frases curtas
+    que reforçam o spoken‑word e aparecem a cada 2‑3 s, sincronizadas ao ritmo.
+  pacing_curve:
+  - window: 00-15s
+    densidade: alta
+  - window: 15-35s
+    densidade: média
+  - window: 35-55s
+    densidade: alta
+  - window: 55-68s
+    densidade: baixa
+  retention_devices:
+  - open loops
+  - callbacks
+  - escalada de valor
+  - payoff
+  - CTA final
+  recommendation: Manter o arco de 7 partes, trocar voz para tom mais energético no
+    CTA e usar legendas dinâmicas para reforçar o pattern interrupt.
+  analyzed_by: openrouter:openrouter/free
+  analyzed_at: '2026-08-19T23:30:09'
+content_plan:
+  tema: Estrutura de conteúdo curto com IA aplicada para aquisição e conversão
+  format_concept: tutorial
+  hook:
+    variants:
+    - pattern_interrupt: tela que desliza de texto estático para painel de workflow
+        dinâmico
+      text_overlay: IA que escala leads
+      spoken_open: Hoje vou mostrar como estruturar seu funil com IA aplicada
+    - pattern_interrupt: relógio que se fragmenta em gráficos de produtividade
+      text_overlay: Automação ativa em ação
+      spoken_open: 'Vamos direto ao ponto: a produtividade que seu workflow precisa'
+    - pattern_interrupt: seta rápida apontando de problema para solução integrada
+      text_overlay: Integração workflow de conversão
+      spoken_open: A ponte entre lead e conversão é um agente bem integrado
+  storyboard:
+  - beat_n: 1
+    scene: Gancho inicial e apresentação da estrutura
+    shot_type: médio
+    duration_s: 9
+    on_screen_text: Estrutura perfeita para converter
+    broll: capture de tela do sistema Oraclum inicial
+    motion: zoom-in
+  - beat_n: 2
+    scene: Lead construindo sobre o interesse e contexto
+    shot_type: médio
+    duration_s: 9
+    on_screen_text: Valor máximo no body
+    broll: registro de log de fluxo de leads no painel
+    motion: cut
+  - beat_n: 3
+    scene: Body dois com integração agente e CRM
+    shot_type: médio
+    duration_s: 10
+    on_screen_text: Integração agente e CRM
+    broll: animação de conexão entre agente e CRM
+    motion: wipe
+  - beat_n: 4
+    scene: Frases de transição que conectam os corpos
+    shot_type: médio
+    duration_s: 9
+    on_screen_text: Frases curtas que conectam
+    broll: montagem rápida de termos de conexão
+    motion: none
+  - beat_n: 5
+    scene: Body três mostrando workflow em execução prática
+    shot_type: médio
+    duration_s: 9
+    on_screen_text: Workflow efetivo e prático
+    broll: screen recording do workflow em execução
+    motion: zoom-in
+  - beat_n: 6
+    scene: 'Call-to-think: reflexão sobre própria estrutura de aquisição'
+    shot_type: médio
+    duration_s: 11
+    on_screen_text: Pense em sua estrutura
+    broll: gráfico de evolução de leads ao longo do funil
+    motion: zoom-out
+  - beat_n: 7
+    scene: 'CTA final: teste seu sistema e veja a diferença'
+    shot_type: médio
+    duration_s: 11
+    on_screen_text: Teste seu sistema agora
+    broll: botão de CTA destacado na tela
+    motion: pop
+  script: 'Essa é a estrutura perfeita para converter interesse em aquisição com IA
+    aplicada. O gancho pronta a atenção inicial. O lead constrói sobre esse interesse,
+    dando contexto necessário. No body, ofereço o máximo de valor, seja produtividade
+    ou dados reais, sempre com evidência prática na tela do software. Se eu só jogar
+    informação, ninguém acompanha. O open loop cria expectativa: o que vem a seguir
+    com o agente integrado? No segundo body, aprofundo a integração agente e CRM,
+    prometendo escala real na geração de leads. Outro open loop reforça a promessa
+    de conversão contínua. Aqui entra o yet, mas, portanto: essas conexões mantêm
+    o ritmo, conectando os corpos sem perda de retenção. No terceiro body, mostro
+    o workflow rodando na prática, a integração efetiva, o dado fluindo entre os sistemas,
+    apenas automação aplicada. Pense na sua própria estrutura de aquisição: onde um
+    open loop poderia aumentar as taxas de conversão? Essa é a estrutura perfeita.
+    Teste no seu sistema e veja a diferença que a automação faz na conversão.'
+  edit_spec:
+    zooms:
+    - beat 1 inicial
+    - beat 3 integração
+    - beat 5 workflow
+    - beat 7 CTA final
+    transitions:
+    - cut @ 9s para beat 2
+    - dissolve @ 19s para beat 3
+    - wipe @ 29s para beat 4
+    - cut @ 38s para beat 5
+    - zoom @ 47s para beat 6
+    - pop @ 58s para beat 7
+    inserts:
+    - b-roll de logs @ beat 2
+    - animação de conexão @ beat 3
+    - montagem de transições @ beat 4
+    - highlight de termos chave @ beat 5
+    - gráfico de CTA @ beat 6
+    captions: legendas dinâmicas, fonte grande, cores contrastantes, frases curtas
+      a cada 2-3s, sincronizadas ao ritmo
+    motion_graphics: setas de fluxo @ cada beat destacado, highlight de termos IA
+      aplicada agente workflow, transições yet/but/therefore em destaque
+    template_refs:
+      hook: hook-number-hardcut
+      caption: cap-cyan-pop
+      transition: trans-cut-dry
+      motion: motion-oraclum-lowerthird
+  shotlist:
+  - plano: primeira fala do gancho, tela compartilhada do dashboard Oraclum
+    framing: médio
+    audio: fala do cliente
+    props: nenhum
+    location: home office ou estúdio
+    key_phrases: Estrutura perfeita para converter; IA aplicada
+  - plano: close no rosto ao dizer 'open loop', com seta apontando tela
+    framing: close
+    audio: fala do cliente
+    props: apontador digital
+    location: mesma locação
+    key_phrases: open loop; expectativa
+  - plano: tela mostrando integração agente ao CRM durante o segundo body
+    framing: médio
+    audio: fala do cliente
+    props: tela compartilhada
+    location: home office
+    key_phrases: integração agente CRM; escala real
+  - plano: close no rosto ao dizer 'CTA final', destaque no botão
+    framing: close
+    audio: fala do cliente
+    props: nenhum
+    location: mesma locação
+    key_phrases: CTA final; teste seu sistema
+  sound_design:
+    sfx:
+    - moment: hook start
+      category: whoosh
+      intent: marcar a abertura decisiva
+      intensity: medium
+    - moment: open loop create
+      category: click
+      intent: reforçar o loop de expectativa
+      intensity: subtle
+    - moment: transition phrases
+      category: riser
+      intent: acelerar ritmo antes das transições
+      intensity: medium
+    - moment: CTA final
+      category: pop
+      intent: fechamento decisivo
+      intensity: strong
+    music:
+      recommended: true
+      mood: uplifting
+      energy: medium
+      genre: eletrônico suave
+      ducking: true
+      rationale: Trilha mantém energia média, suporta a fala do cliente sem ofuscar;
+        o ducking garante clareza da voz em todos os beats, essencial para o tom do
+        Sábio. A energia medium acompanha o ritmo ~1,5-2s sem gerar saturação.
+    rationale: 'Por que este plano modela o benchmark mantendo autenticidade: segue
+      a estrutura de 7 partes do benchmark (hook, lead, body, open loops, transições,
+      body três, CTA), usa a voz do cliente com lexicon autorizado (automação, agente,
+      IA aplicada, produtividade, escala, workflow, integração, eficiência, prático,
+      aquisição, conversão, CRM, dado), cita apenas fatos e termos já presentes no
+      discurso de benchmark ou do léxico do cliente, evita estatísticas inventadas,
+      respeita restrições de never_fazer e never_usar, e estrutura 3 variantes de
+      hook com pattern_interrupt visual e text_overlay para otener retenção nos primeiros
+      3s. O sound design usa SFX genéricos ancorados ao ritmo e trilha de fundo que
+      eleva energia sem desviar foco da voz, com ducking adequado para o Sábio.'
+  fidelity_check:
+    fabricated_numbers: []
+    status: PASS
+  planned_by: openrouter:openrouter/free
+  planned_at: '2026-08-19T23:32:24'
+quality_gate_video:
+  status: CONCERNS
+  iterations: 0
+  model: null
+  blocking_failures: []
+  soft_failures:
+  - V2_retencao
+  - V6_shotlist
+  checks:
+    V1_hook:
+      ok: true
+      blocking: false
+      detail:
+        variants: 3
+        overlay_acima_de_7_palavras: []
+        sem_pattern_interrupt: []
+    V2_retencao:
+      ok: false
+      blocking: false
+      detail:
+        avg_storyboard_s: 9.71
+        benchmark_meets: false
+    V3_fid_numeros:
+      ok: true
+      blocking: true
+      detail:
+        fabricados: []
+    V4_fid_qualitativa:
+      ok: true
+      blocking: true
+      detail:
+        atribuicoes_inventadas: []
+    V5_voz_tabu:
+      ok: true
+      blocking: true
+      detail:
+        palavras_tabu: []
+    V6_shotlist:
+      ok: false
+      blocking: false
+      detail:
+        total: 4
+        incompletos:
+        - 1
+        - 2
+        - 3
+        - 4
+    V7_cta:
+      ok: true
+      blocking: true
+      detail:
+        cta_proibido: []
+  checked_at: '2026-08-19T23:32:25'

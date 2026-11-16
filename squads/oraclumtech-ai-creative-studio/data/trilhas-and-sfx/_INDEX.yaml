@@ -1,0 +1,339 @@
+# ───────────────────────────────────────────────────────────────────────────
+# PACK DE TRILHAS, AMBIENCIAS E SFX — catalogo por segmento / tipo / intencao
+#
+# Cada peca foi GERADA localmente. Nao ha sample de terceiro aqui — o que
+# elimina de uma vez a questao de licenca de biblioteca musical.
+#
+# Consumido por: @sound-designer (`audio`), @editor (montagem), @exec-producer
+#
+# COMO USAR
+#   1. Ache o SEGMENTO pelo que a peca faz (trilha / leito / ambiencia / sfx)
+#   2. Dentro dele, o TIPO e o nicho ou a familia
+#   3. `intencao` diz em que momento do video a peca entra — e o campo que decide
+# ───────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  total_pecas: 21
+  origem: 'geracao local no ComfyUI — nenhum sample de terceiro'
+  regenerar: 'python assets/comfyui/run_batch.py --only aud-'
+
+engines:
+  ace:
+    nome: 'ACE-Step 3.5B'
+    licenca: 'Apache 2.0 — uso comercial livre, sem teto de faturamento'
+  sao:
+    nome: 'Stable Audio Open 1.0'
+    licenca: 'Stability Community License — comercial liberado abaixo de USD 1M/ano'
+
+# As pecas saem do gerador com niveis MUITO diferentes — as ambiencias vieram
+# a -42 dB de media, inaudiveis para julgar. O arquivo que esta aqui ja veio
+# nivelado; o cru continua em ComfyUI/output/pack-audio/.
+nivelamento:
+  aplicado_em: 'copias deste diretorio (as de audicao e uso)'
+  trilha_leito_ambiencia: 'loudnorm EBU R128, I=-18 LUFS, TP=-1.5 dBTP, LRA=11'
+  sfx: 'normalizacao de pico a -1 dBFS (transiente curto; loudnorm distorceria o ganho)'
+  atencao: >
+    Este e o nivel de AUDICAO, para comparacao justa. O nivel de MIXAGEM e outra
+    decisao e e do editor: leito e ambiencia entram bem abaixo da narracao. Regra
+    de partida: voz a -16 LUFS, leito 12 a 15 dB abaixo, ambiencia 18 a 22 abaixo.
+
+segmentos:
+  01-trilhas:
+    nome: 'Trilhas'
+    o_que_e: 'Musica COM estrutura e progressao. Tem inicio, meio e fim.'
+  02-leitos:
+    nome: 'Leitos'
+    o_que_e: 'Cama atmosferica SEM melodia. Sustenta fala sem disputar com ela.'
+  03-ambiencias:
+    nome: 'Ambiencias'
+    o_que_e: 'Som de LUGAR. Diz onde a cena acontece.'
+  04-sfx:
+    nome: 'SFX'
+    o_que_e: 'Pontuacao. Cai numa palavra ou num corte, nao se estende.'
+
+pecas:
+
+  - id: 'tr-estoico-solene'
+    caminho: '01-trilhas/dark-estoicismo/tr-estoico-solene.mp3'
+    segmento: '01-trilhas'
+    tipo: 'dark-estoicismo'
+    engine: 'ACE-Step 3.5B'
+    duracao_s: 60
+    intencao: >
+      Abertura de video estoico. Entra sob a narracao, nunca disputa com ela.
+    prompt: >
+      cinematic orchestral, solemn, stoic, low strings, sustained cello, distant french horn, slow tempo 60 bpm, minor key, contemplative, sparse, no drums, instrumental, film score
+
+  - id: 'tr-estoico-tensao'
+    caminho: '01-trilhas/dark-estoicismo/tr-estoico-tensao.mp3'
+    segmento: '01-trilhas'
+    tipo: 'dark-estoicismo'
+    engine: 'ACE-Step 3.5B'
+    duracao_s: 60
+    intencao: >
+      Meio do video, quando a narracao aperta o argumento. Sobe e nao resolve.
+    prompt: >
+      cinematic orchestral build, dark, tense, tremolo strings, low brass swell, timpani pulse, gradual crescendo, minor key, ominous, instrumental, film score
+
+  - id: 'tr-novela-suspense'
+    caminho: '01-trilhas/novela-recap/tr-novela-suspense.mp3'
+    segmento: '01-trilhas'
+    tipo: 'novela-recap'
+    engine: 'ACE-Step 3.5B'
+    duracao_s: 60
+    intencao: >
+      Recap de novela na parte do conflito. Melodica o bastante para prender.
+    prompt: >
+      dramatic television underscore, suspense, staccato strings, pizzicato pulse, piano ostinato, medium tempo, minor key, tense but melodic, instrumental
+
+  - id: 'tr-novela-revelacao'
+    caminho: '01-trilhas/novela-recap/tr-novela-revelacao.mp3'
+    segmento: '01-trilhas'
+    tipo: 'novela-recap'
+    engine: 'ACE-Step 3.5B'
+    duracao_s: 45
+    intencao: >
+      O momento em que a novela revela. Resolve harmonicamente — e o alivio.
+    prompt: >
+      dramatic orchestral reveal, emotional strings swell, piano melody, resolving chord progression, warm, cinematic, mid tempo, instrumental
+
+  - id: 'tr-hospedagem-tropical'
+    caminho: '01-trilhas/imobiliario-hospedagem/tr-hospedagem-tropical.mp3'
+    segmento: '01-trilhas'
+    tipo: 'imobiliario-hospedagem'
+    engine: 'ACE-Step 3.5B'
+    duracao_s: 60
+    intencao: >
+      Anuncio de hospedagem tropical brasileira. Corrige o leito antigo, que foi escrito para 'modern real estate' e soava americano e frio.
+    prompt: >
+      warm organic acoustic, nylon guitar, soft marimba, light hand percussion, brazilian bossa influence, relaxed, sunny, tropical, uplifting, mid tempo, instrumental, no vocals
+
+  - id: 'tr-marca-cinematografica'
+    caminho: '01-trilhas/institucional-marca/tr-marca-cinematografica.mp3'
+    segmento: '01-trilhas'
+    tipo: 'institucional-marca'
+    engine: 'ACE-Step 3.5B'
+    duracao_s: 60
+    intencao: >
+      Filme institucional de marca. Premium sem ser generico de banco de trilha.
+    prompt: >
+      modern cinematic brand score, hybrid orchestral and electronic, pulsing synth bass, soft piano motif, building strings, confident, premium, mid tempo, instrumental
+
+  - id: 'le-tensao-baixa'
+    caminho: '02-leitos/tensao-suspense/le-tensao-baixa.mp3'
+    segmento: '02-leitos'
+    tipo: 'tensao-suspense'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 45
+    intencao: >
+      Sustenta fala longa sem competir. Deixa a voz mandar.
+    prompt: >
+      dark ambient drone bed, low sustained pad, subtle sub bass, faint metallic shimmer, no melody, no drums, tense, seamless loop, cinematic underscore
+    loop: '02-leitos/tensao-suspense/le-tensao-baixa-LOOP.wav'
+
+  - id: 'le-tensao-alta'
+    caminho: '02-leitos/tensao-suspense/le-tensao-alta.mp3'
+    segmento: '02-leitos'
+    tipo: 'tensao-suspense'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 45
+    intencao: >
+      Onde a narracao vira ameaca. Ainda sem melodia, mas incomoda.
+    prompt: >
+      tense ambient bed, dissonant string cluster, pulsing low drone, rising atmospheric noise, unsettling, no melody, cinematic underscore
+    loop: '02-leitos/tensao-suspense/le-tensao-alta-LOOP.wav'
+
+  - id: 'le-contemplativo-mistico'
+    caminho: '02-leitos/contemplativo/le-contemplativo-mistico.mp3'
+    segmento: '02-leitos'
+    tipo: 'contemplativo'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 45
+    intencao: >
+      O leito que faltava para o estoicismo. Misterio sem drama.
+    prompt: >
+      mystical ambient bed, deep warm pad, soft choral texture, distant bowl resonance, slow evolving, spacious reverb, no percussion, meditative
+    loop: '02-leitos/contemplativo/le-contemplativo-mistico-LOOP.wav'
+
+  - id: 'le-resolucao-calorosa'
+    caminho: '02-leitos/esperanca-resolucao/le-resolucao-calorosa.mp3'
+    segmento: '02-leitos'
+    tipo: 'esperanca-resolucao'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 45
+    intencao: >
+      Fechamento. Entra quando a narracao chega na conclusao.
+    prompt: >
+      warm ambient bed, soft major pad, gentle piano resonance, airy strings, hopeful, calm, slow, spacious, no percussion
+    loop: null   # material sustentado curto demais para emendar
+
+  - id: 'am-quarto-noite-chuva'
+    caminho: '03-ambiencias/interior-noturno/am-quarto-noite-chuva.mp3'
+    segmento: '03-ambiencias'
+    tipo: 'interior-noturno'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 30
+    intencao: >
+      Interior noturno. Base de cena intimista.
+    prompt: >
+      interior room ambience at night, steady rain against a window, distant thunder, quiet, no music, field recording
+    loop: '03-ambiencias/interior-noturno/am-quarto-noite-chuva-LOOP.wav'
+
+  - id: 'am-templo-pedra-eco'
+    caminho: '03-ambiencias/interior-noturno/am-templo-pedra-eco.mp3'
+    segmento: '03-ambiencias'
+    tipo: 'interior-noturno'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 30
+    intencao: >
+      Casa exatamente com a imagem do templo noturno do pack estoico.
+    prompt: >
+      large empty stone temple interior, long natural reverb, faint wind through columns, distant echo, no music, field recording
+    loop: '03-ambiencias/interior-noturno/am-templo-pedra-eco-LOOP.wav'
+
+  - id: 'am-noite-grilos-vento'
+    caminho: '03-ambiencias/exterior-natureza/am-noite-grilos-vento.mp3'
+    segmento: '03-ambiencias'
+    tipo: 'exterior-natureza'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 30
+    intencao: >
+      Exterior noturno. Serve para dark de qualquer nicho.
+    prompt: >
+      night outdoor ambience, crickets, soft wind through grass, distant owl, no music, field recording
+    loop: '03-ambiencias/exterior-natureza/am-noite-grilos-vento-LOOP.wav'
+
+  - id: 'am-mar-ondas-suaves'
+    caminho: '03-ambiencias/exterior-natureza/am-mar-ondas-suaves.mp3'
+    segmento: '03-ambiencias'
+    tipo: 'exterior-natureza'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 30
+    intencao: >
+      Hospedagem litoranea. Casa com as fotos do Airbnb.
+    prompt: >
+      gentle ocean waves on a sandy beach, soft sea breeze, distant seagulls, calm, no music, field recording
+    loop: '03-ambiencias/exterior-natureza/am-mar-ondas-suaves-LOOP.wav'
+
+  - id: 'am-cidade-distante-noite'
+    caminho: '03-ambiencias/urbano/am-cidade-distante-noite.mp3'
+    segmento: '03-ambiencias'
+    tipo: 'urbano'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 30
+    intencao: >
+      Urbano sem poluir. Fundo de cena de janela.
+    prompt: >
+      distant city ambience at night from a high window, faint traffic hum, occasional far siren, quiet, no music, field recording
+    loop: '03-ambiencias/urbano/am-cidade-distante-noite-LOOP.wav'
+
+  - id: 'fx-whoosh-grave'
+    caminho: '04-sfx/transicao/fx-whoosh-grave.mp3'
+    segmento: '04-sfx'
+    tipo: 'transicao'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 6
+    intencao: >
+      Corte entre blocos. O mais usado do pack.
+    prompt: >
+      deep cinematic whoosh transition, low frequency sweep, short, clean, no music, sound effect
+
+  - id: 'fx-riser-tensao'
+    caminho: '04-sfx/transicao/fx-riser-tensao.mp3'
+    segmento: '04-sfx'
+    tipo: 'transicao'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 8
+    intencao: >
+      Antes de uma revelacao. Termina onde o impacto entra.
+    prompt: >
+      cinematic riser, rising tension sweep building to a peak, orchestral and synthetic layers, no music bed, sound effect
+
+  - id: 'fx-impacto-sub-boom'
+    caminho: '04-sfx/impacto-revelacao/fx-impacto-sub-boom.mp3'
+    segmento: '04-sfx'
+    tipo: 'impacto-revelacao'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 6
+    intencao: >
+      O golpe. Cai na palavra que importa.
+    prompt: >
+      deep cinematic impact boom, sub bass hit with short tail, trailer style, clean, sound effect
+
+  - id: 'fx-sino-revelacao'
+    caminho: '04-sfx/impacto-revelacao/fx-sino-revelacao.mp3'
+    segmento: '04-sfx'
+    tipo: 'impacto-revelacao'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 8
+    intencao: >
+      Revelacao que nao e violenta. Alternativa ao boom.
+    prompt: >
+      single bright bell chime with long shimmering tail, ethereal, reverb, revelation accent, sound effect
+
+  - id: 'fx-tick-contador'
+    caminho: '04-sfx/interface-ui/fx-tick-contador.mp3'
+    segmento: '04-sfx'
+    tipo: 'interface-ui'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 5
+    intencao: >
+      Contagem, lista, item que aparece na tela.
+    prompt: >
+      short mechanical tick click, dry, precise, single hit, ui sound effect
+
+  - id: 'fx-pop-legenda'
+    caminho: '04-sfx/interface-ui/fx-pop-legenda.mp3'
+    segmento: '04-sfx'
+    tipo: 'interface-ui'
+    engine: 'Stable Audio Open 1.0'
+    duracao_s: 5
+    intencao: >
+      Entrada de legenda ou selo. Discreto de proposito.
+    prompt: >
+      soft short pop sound, subtle, clean, single hit, ui notification, sound effect
+
+# ───────────────────────────────────────────────────────────────────────────
+# O Stable Audio Open recebe a duracao no condicionamento e compoe uma PECA com
+# arco — entra, sustenta e DESVANECE. Tres dos quatro leitos cairam de 20 a 35 dB
+# nos ultimos 15 s. Para uso como cama, o que serve e o LOOP, nao o arquivo cheio.
+loops:
+  formato: 'WAV 16 bits / 44,1 kHz — NAO mp3'
+  por_que_nao_mp3: >
+    MP3 carrega atraso de codificador e preenchimento nas bordas do arquivo, o que
+    insere um buraco audivel na volta do loop na maioria dos reprodutores.
+  como_foi_feito: 'maior janela estavel + crossfade de 2 s do fim sobre o comeco'
+  verificado: 'degrau na emenda medido 7 a 43 dB ABAIXO do degrau tipico do material'
+  regenerar: 'python assets/comfyui/faz_loops.py'
+
+lacunas:
+  - o_que_falta: 'Stems separados (grave / medio / agudo) das trilhas'
+    por_que_importa: 'Permite abaixar so o medio sob a narracao, em vez do volume inteiro'
+  - o_que_falta: 'Trilha de mais de 60s'
+    por_que_importa: >
+      O ACE-Step chega a alguns minutos, mas nao foi testado aqui. Ate testar,
+      a montagem repete e cruza blocos de 60s.
+
+manutencao:
+  regra: >
+    Peca nova entra pelo catalogo em assets/comfyui/pecas_audio.py e vem para ca
+    por `python assets/comfyui/organiza_audio.py`. Nao copiar arquivo na mao —
+    o INDEX e a VALIDACAO sao gerados a partir do catalogo.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VALIDAÇÃO DO FOUNDER — 2026-08-29
+validacao_do_founder:
+  data: '2026-08-29'
+  veredito: 'APROVADO EM BLOCO — as 21 peças, sem ressalva'
+  citacao: '"das trilhas nem vou precisar preencher, ta tudo perfeito e validado!"'
+  o_que_isso_libera: >
+    O pack inteiro entra em produção. Nenhuma peça fica pendente de decisão, e a
+    trilha do estoicismo (`tr-estoico-solene` para abertura, `tr-estoico-tensao`
+    para o meio) e o leito (`le-contemplativo-mistico-LOOP.wav`) já podem ser
+    montados na peça final.
+  o_que_NAO_muda: >
+    As lacunas continuam de pé — stems separados e trilha acima de 60 s ainda não
+    existem. Aprovar o que há não cria o que falta.

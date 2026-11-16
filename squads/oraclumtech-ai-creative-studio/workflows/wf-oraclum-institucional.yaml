@@ -1,0 +1,732 @@
+# WF-OCS-P4 — Institucional cinemático dor → solução (Oraclum)
+# Peça interna da própria marca. Sem research-scout e sem exec-producer.
+# Fonte: _BLUEPRINT.md §5 (P4) · Regra de ouro §3.1 · Pacote de Direção §3.2
+#        Finalização §3.3 · Convenções normativas: _CONVENTIONS.md
+# Perfil espelhado: data/pipeline-profiles.yaml → P4 · ADR-006
+
+workflow:
+  id: wf-oraclum-institucional
+  pipeline_id: oraclum-institucional
+  name: 'Institucional cinemático dor → solução (Oraclum)'
+  version: 1.0.0
+  squad: oraclumtech-ai-creative-studio
+  entry_agent: studio-chief
+  job_owner: studio-chief
+  genre_ref: 'data/genre-catalog.yaml#oraclum-institucional'
+  profile_ref: 'data/pipeline-profiles.yaml#P4'
+  handoff_contracts: 'data/handoff-matrix.yaml'
+  formato_master: '16:9'
+  derivados: ['9:16']
+  brand_lock: 'squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml'
+  description: >
+    A peça que vende a própria Oraclum. Autoridade por demonstração de método, nunca
+    por promessa de resultado — a marca não tem case de cliente e não vai inventar um.
+    É o pipeline onde o factcheck mais importa, porque a regra sem case fabricado É a
+    credibilidade do negócio.
+
+cast_note:
+  ref: 'ARCHITECTURE.md ADR-006'
+  sem_research_scout: >
+    A pesquisa da Oraclum já é permanente no virals-marketing-squad (daily-monitor e
+    creative-benchmark rodam diariamente). O brief herda o dossiê em vez de recoletar.
+  sem_exec_producer: >
+    Job interno de peça única. O studio-chief absorve intake e delivery. Se o job
+    crescer para campanha, reclassificar como lancamento-produto (backlog do
+    genre-catalog) e convocar o exec-producer.
+
+golden_rule:
+  ref: '_BLUEPRINT.md §3.1 · _CONVENTIONS.md §6'
+  statement: >
+    O squad NÃO gera imagem, vídeo nem voz. Os estágios stills e takes são
+    executor human, sempre. A geração de voz dentro de audio também.
+  three_phase_shape: >
+    direction (agent, escreve o Pacote de Direção) → human (human, gera e deposita;
+    o pipeline PARA aqui) → review (agent, drift-check e retake dirigido, teto 3).
+  coerencia_de_discurso: >
+    Aqui a regra tem peso extra: uma agência IA-first que finge que a IA gera sozinha
+    contradiz o próprio discurso. A peça institucional mostra o método real — agente
+    dirige, humano decide.
+
+inputs:
+  request:
+    type: text
+    required: true
+    description: 'Pedido do founder.'
+  servico_alvo:
+    type: enum
+    values: [oraclum-ai-gen, oraclum-x, plataforma, institucional-guarda-chuva]
+    required: false
+    description: 'Qual serviço do portfólio a peça vende. Vazio = o chief propõe.'
+  duration:
+    type: enum
+    values: ['30s', '60s', '90s', '120s']
+    default: '60s'
+  channel:
+    type: list
+    default: [youtube, linkedin, instagram-reels, site]
+  operator:
+    type: text
+    required: false
+    description: 'Quem executa os cards humanos de geração. Vazio = founder.'
+
+config:
+  client: oraclum
+  job: 'workspaces/businesses/oraclum/creative-studio/jobs/{job-id}'
+  job_id_format: '{YYYY-MM-DD}-oraclum-institucional-{slug}-{hash4}'
+  job_state: '{job}/job.json'
+  card_dir: '{job}/_cards/'
+  degraded_registry: '{job}/job.json → degraded[]'
+  waiver_registry: '{job}/job.json → waivers[]'
+  fail_fast: false
+  retake_ceiling: 3
+  paleta_travada:
+    fonte: 'squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml'
+    valores: ['#08080C', '#A855F7']
+    regra: 'Extraída do site real. Em conflito com qualquer outra referência, o brand-config vence.'
+
+gate_rule:
+  statement: 'Nenhum estágio começa sem o gate do anterior ter passado.'
+  enforcement: 'studio-chief valida job.json → stages[<anterior>].gate == PASS'
+  waiver:
+    allowed: true
+    except: [factcheck]
+    requires: [gate, motivo, autor, data]
+    recorded_in: '{job}/job.json → waivers[]'
+  blocking_stage: factcheck
+  blocking_note: >
+    factcheck é BLOQUEANTE e não admite waiver. Aqui o gate mais importante é
+    sem case fabricado — a regra que define a credibilidade da Oraclum.
+
+human_checkpoints:
+  - after: concept
+    id: cp-rota
+    who: founder
+    question: 'Qual rota vira a peça? A prova escolhida existe de verdade?'
+    rationale: >
+      A rota define qual prova a peça vai mostrar. Como não há case de cliente, a prova
+      é sempre o sistema rodando — e o founder é quem sabe qual parte está apresentável.
+    blocking: true
+    presents: ['{job}/03-concept/rotas.md', '{job}/03-concept/territorio-criativo.md']
+  - after: look
+    id: cp-preprod
+    who: founder
+    question: 'Storyboard, shotlist e look book aprovados para produção?'
+    rationale: 'Última parada antes de mandar alguém sentar para gerar asset.'
+    blocking: true
+    presents: ['{job}/06-decupagem/storyboard.yaml', '{job}/07-look/look-book.md']
+  - after: 'stills.human'
+    id: cp-stills
+    who: operator
+    type: execucao_humana
+    question: 'Stills gerados conforme o Pacote de Direção e depositados em 11-stills/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória.'
+    blocking: true
+    card: '{job}/_cards/card-stills-{n}.md'
+  - after: 'takes.human'
+    id: cp-takes
+    who: operator
+    type: execucao_humana
+    question: 'Takes gerados e depositados em 12-takes/entregues/?'
+    rationale: 'Regra de ouro §3.1 — parada obrigatória.'
+    blocking: true
+    card: '{job}/_cards/card-takes-{n}.md'
+  - after: 'audio.human'
+    id: cp-audio
+    who: founder
+    type: execucao_humana
+    question: 'VO gravado (voz do founder) e depositado em 13-audio/entregues/?'
+    rationale: >
+      Regra de ouro §3.1. Aqui o VO é preferencialmente a voz REAL do founder: voz
+      sintética não aprovada em peça institucional da própria marca contradiz o discurso.
+    blocking: true
+    card: '{job}/_cards/card-audio-{n}.md'
+  - after: 'assembly.human'
+    id: cp-montagem
+    who: operator
+    type: execucao_humana
+    question: 'Lower-third, big number e sublinhado montados no AE e corte fechado no Premiere?'
+    rationale: 'Finalização §3.3. Institucional vive do acabamento gráfico — é trabalho humano em AE.'
+    blocking: true
+    card: '{job}/_cards/card-montagem.md'
+  - after: gate
+    id: cp-entrega
+    who: founder
+    question: 'Veredito lido. Libera a entrega?'
+    blocking: true
+
+stages:
+
+  - id: intake
+    name: 'Intake e escolha do serviço-alvo'
+    owner_agent: studio-chief
+    task: tasks/intake.md
+    executor: agent
+    handon:
+      from: request
+      artifacts: ['(pedido do founder)']
+      contract: 'Serviço-alvo declarado, ou delegado ao chief'
+    handoff:
+      to: brief
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - '{job}/job.json'
+      gate: checklists/gate-intake.md
+    fallback: >
+      Pedido sem serviço-alvo → o studio-chief escolhe o serviço com maior lacuna de
+      comunicação no portfólio e propõe. Institucional sem serviço-alvo vira peça
+      bonita e inútil.
+    on_fail: halt
+
+  - id: brief
+    name: 'Brief institucional, trava de marca e dossiê herdado'
+    owner_agent: brief-strategist
+    task: tasks/brief.md
+    executor: agent
+    depends_on: [intake]
+    handon:
+      from: intake
+      artifacts:
+        - '{job}/00-intake/pedido.md'
+        - 'squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml'
+        - 'squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml'
+      contract: 'Serviço-alvo e dor do avatar declarados'
+    handoff:
+      to: concept
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{job}/01-brief/brand-lock.yaml'
+        - '{job}/02-research/dossie-herdado.md'
+      gate: checklists/gate-brief.md
+    dossie_herdado_note: >
+      Não há estágio research neste pipeline. O brief-strategist HERDA a referência do
+      monitoramento diário já rodando em
+      workspaces/businesses/oraclum/marketing/daily-monitoring/{date}/ e grava o recorte
+      relevante em 02-research/dossie-herdado.md. A pasta 02-research existe, o estágio não.
+    fallback: >
+      Referência herdada do monitoramento diário indisponível → o brief-strategist usa
+      data/craft-references.yaml § oraclum-institucional e marca como não-verificada.
+    on_fail: halt
+
+  - id: concept
+    name: 'Rotas e território criativo'
+    owner_agent: creative-director
+    task: tasks/concept.md
+    executor: agent
+    depends_on: [brief]
+    handon:
+      from: brief
+      artifacts:
+        - '{job}/01-brief/brief.yaml'
+        - '{job}/02-research/dossie-herdado.md'
+      contract: 'Brief com serviço-alvo, dor e prova disponível'
+    handoff:
+      to: script
+      artifacts:
+        - '{job}/03-concept/rotas.md'
+        - '{job}/03-concept/territorio-criativo.md'
+      gate: checklists/gate-concept.md
+    checkpoint: cp-rota
+    fallback: >
+      Nenhuma rota consegue provar sem case → volta ao brief para escolher outra prova
+      disponível. NUNCA se inventa case para fechar a rota.
+    on_fail: halt
+
+  - id: script
+    name: 'Roteiro dor → solução'
+    owner_agent: head-of-copy
+    task: tasks/script.md
+    executor: agent
+    depends_on: [concept]
+    handon:
+      from: concept
+      artifacts:
+        - '{job}/03-concept/territorio-criativo.md'
+        - '{job}/01-brief/brand-lock.yaml'
+      contract: 'Território aprovado pelo founder'
+    handoff:
+      to: decupagem
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/05-script/claim-ledger.json'
+      gate: checklists/gate-script.md
+    fallback: >
+      Roteiro escorrega para promessa de resultado → reescreve como demonstração de
+      método. É a regra central do brand-identity da Oraclum.
+    on_fail: halt
+
+  - id: decupagem
+    name: 'Storyboard, shotlist e edit_spec'
+    owner_agent: film-director
+    task: tasks/decupagem.md
+    executor: agent
+    worker_assist: 'python squads/virals-marketing-squad/scripts/plan_video_creative.py {job}/05-script/video-brief.yaml --client=oraclum'
+    worker_assist_note: >
+      O motor devolve hook com 3 variantes, storyboard por batida, shotlist com o que
+      gravar e a fala-chave, sound_design e fidelity_check dentro do próprio
+      video-brief.yaml. O film-director revisa e reescreve o genérico.
+    depends_on: [script]
+    handon:
+      from: script
+      artifacts: ['{job}/05-script/roteiro.md']
+      contract: 'Roteiro aprovado'
+    handoff:
+      to: look
+      artifacts:
+        - '{job}/06-decupagem/storyboard.yaml'
+        - '{job}/06-decupagem/shotlist.md'
+        - '{job}/06-decupagem/edit-spec.json'
+      gate: checklists/gate-decupagem.md
+    fallback: >
+      Prova em tela difícil de filmar → vira screen recording dirigido (zoom no cursor,
+      corte no clique, latência removida) declarado na shotlist.
+    on_fail: continue_and_report
+
+  - id: look
+    name: 'Fotografia, paleta e referência de grade'
+    owner_agent: dop
+    task: tasks/look.md
+    executor: agent
+    depends_on: [decupagem]
+    handon:
+      from: decupagem
+      artifacts:
+        - '{job}/06-decupagem/storyboard.yaml'
+        - 'squads/virals-marketing-squad/data/clients/oraclum/brand-config.yaml'
+      contract: 'Storyboard fechado'
+    handoff:
+      to: stills
+      artifacts:
+        - '{job}/07-look/look-book.md'
+        - '{job}/07-look/grade-ref.md'
+      gate: checklists/gate-look.md
+    dual_output:
+      generative: 'Bloco de câmera, lente e luz por plano, que entra direto no Pacote de Direção de stills e takes.'
+      live_action: 'Instrução de gravação real para os planos que forem filmados (founder em cena, screen recording).'
+      finishing: 'Referência de grade para a composição em After Effects. Sem LUT de DaVinci — DaVinci saiu do fluxo (§3.3).'
+    checkpoint: cp-preprod
+    fallback: >
+      Conflito de paleta entre peça e site → vence o brand-config (#08080C + #A855F7),
+      que é extraído do site real.
+    on_fail: continue_and_report
+
+  - id: stills
+    name: 'Key frames — direção, geração humana e avaliação'
+    owner_agent: image-lead
+    task: tasks/stills.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 / _CONVENTIONS.md §6. Decisão de negócio, não falta de script.'
+    depends_on: [look]
+    subroutine:
+      workflow: wf-image-lab.yaml
+      mode: embutido
+      quando: 'Key art da peça ou capa para o site.'
+      grava_em: '{job}/11-stills/subrotina-{asset}/'
+    handon:
+      from: look
+      artifacts:
+        - '{job}/06-decupagem/storyboard.yaml'
+        - '{job}/07-look/look-book.md'
+      contract: 'Storyboard e look book aprovados no cp-preprod'
+    substages:
+      - id: stills.direction
+        executor: agent
+        owner_agent: image-lead
+        name: 'Pacote de Direção por frame'
+        produces:
+          - '{job}/11-stills/_direction/{asset-id}.yaml'
+          - '{job}/11-stills/_direction/INDEX.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        must_include: [ferramenta_recomendada, prompt, prompt_negativo, parametros, tecnica, armadilhas_conhecidas, criterio_de_aceite, quantas_variacoes, pos_processamento, se_falhar]
+        routing_ref: 'data/model-routing.yaml#image'
+        brand_lock_note: >
+          O prompt_negativo carrega obrigatoriamente o clichê de IA proibido pelo
+          brand-identity: robô apertando mão humana, cérebro azul, circuito brilhante,
+          IA como mágica. Isso não é preferência estética — é trava de marca.
+      - id: stills.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-stills-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: studio-chief
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/11-stills/entregues/ — todo asset do INDEX com arquivo em disco'
+        checkpoint: cp-stills
+        resume_with: tasks/resume-job.md
+        note: 'Nunca simular. Se o operador não entregou, o job fica em waiting_human — não em falha.'
+      - id: stills.review
+        executor: agent
+        owner_agent: image-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/11-stills/entregues/'
+        produces:
+          - '{job}/11-stills/_review/review-r{n}.md'
+          - '{job}/11-stills/_direction/{asset-id}.r{n}.yaml'
+        checks: [aderencia_ao_criterio_de_aceite, paleta_conforme_brand_config, ausencia_de_cliche_de_ia, coerencia_com_look_book, texto_indesejado_na_imagem]
+        loop:
+          back_to: stills.human
+          max: 3
+          on_ceiling: 'escala para studio-chief com o diagnóstico do que o modelo não entrega'
+    handoff:
+      to: takes
+      artifacts:
+        - '{job}/11-stills/_direction/'
+        - '{job}/11-stills/entregues/'
+        - '{job}/11-stills/_review/'
+      gate: checklists/gate-stills.md
+    fallback: >
+      Imagem gerada cai no clichê de IA (robô, cérebro azul, circuito) → reprovação
+      automática pelo brand-lock; o image-lead redireciona para captura de tela real e
+      abstração geométrica.
+    on_fail: continue_and_report
+
+  - id: takes
+    name: 'Takes — direção, geração humana e avaliação'
+    owner_agent: motion-lead
+    task: tasks/takes.md
+    executor: human
+    regra_de_ouro: true
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1. Geração de vídeo é a que mais exige tentativa e descarte humanos.'
+    depends_on: [stills]
+    handon:
+      from: stills
+      artifacts:
+        - '{job}/11-stills/entregues/'
+        - '{job}/06-decupagem/edit-spec.json'
+        - '{job}/07-look/look-book.md'
+      contract: 'Stills aprovados no drift-check'
+    substages:
+      - id: takes.direction
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Pacote de Direção por take'
+        produces:
+          - '{job}/12-takes/_direction/{asset-id}.yaml'
+          - '{job}/12-takes/_direction/INDEX.md'
+          - '{job}/12-takes/_direction/ae-compositions.md'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction) · _CONVENTIONS.md §4'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#video'
+        technique_note: >
+          Image-to-video a partir do still aprovado, nunca text-to-video direto. Um
+          movimento por take. Institucional tolera bem plano gráfico: quando o I2V não
+          convence, movimento de câmera sobre still resolvido em AE é a rota preferida.
+        ae_note: 'ae-compositions.md lista as composições de AE por take: lower-third Oraclum, big number, sublinhado.'
+      - id: takes.human
+        executor: human
+        name: 'Geração pelo operador'
+        stop: true
+        card: '{job}/_cards/card-takes-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        card_emitted_by: studio-chief
+        card_task: tasks/emit-human-card.md
+        wait_for: '{job}/12-takes/entregues/ — todo take do INDEX com .mp4 em disco'
+        checkpoint: cp-takes
+        resume_with: tasks/resume-job.md
+      - id: takes.review
+        executor: agent
+        owner_agent: motion-lead
+        name: 'Drift-check e retake dirigido'
+        reads: '{job}/12-takes/entregues/'
+        produces:
+          - '{job}/12-takes/_review/review-r{n}.md'
+          - '{job}/12-takes/_direction/{asset-id}.r{n}.yaml'
+        checks: [duracao_conforme_edit_spec, movimento_conforme_direcao, artefato_de_morphing, paleta_preservada, coerencia_com_look_book]
+        loop:
+          back_to: takes.human
+          max: 3
+          on_ceiling: 'escala para studio-chief'
+    handoff:
+      to: audio
+      artifacts:
+        - '{job}/12-takes/_direction/'
+        - '{job}/12-takes/entregues/'
+        - '{job}/12-takes/_review/'
+      gate: checklists/gate-takes.md
+    fallback: >
+      Take de I2V inconsistente → movimento de câmera sobre still mais motion graphics
+      em AE. Institucional tolera bem plano gráfico.
+    on_fail: continue_and_report
+
+  - id: audio
+    name: 'VO, trilha e sound design'
+    owner_agent: sound-designer
+    task: tasks/audio.md
+    executor: human
+    human_by_design: true
+    human_by_design_reason: 'Regra de ouro §3.1 — vale também para voz. O sound-designer dirige; o humano grava.'
+    depends_on: [takes]
+    handon:
+      from: takes
+      artifacts:
+        - '{job}/05-script/roteiro.md'
+        - '{job}/12-takes/entregues/'
+      contract: 'Takes com duração real'
+    substages:
+      - id: audio.direction
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Pacote de Direção de VO e spec de mixagem'
+        produces:
+          - '{job}/13-audio/_direction/asset-direction-vo.yaml'
+          - '{job}/13-audio/sound-spec.yaml'
+        schema: '_BLUEPRINT.md §3.2 (asset_direction)'
+        template: templates/asset-direction-tmpl.yaml
+        routing_ref: 'data/model-routing.yaml#voice'
+        casting_note: >
+          Preferência declarada: voz REAL do founder. Voz sintética em peça
+          institucional da própria marca contradiz o discurso da casa. O pacote traz a
+          direção de leitura (ritmo, ênfase, onde respirar), não só o texto.
+        mix_note: 'sound-spec.yaml carrega a spec de mixagem para o Premiere (§3.3): níveis, ducking sob a voz, curva de trilha, ponto de SFX por timecode.'
+      - id: audio.human
+        executor: human
+        name: 'Gravação do VO pelo founder'
+        stop: true
+        card: '{job}/_cards/card-audio-{n}.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/13-audio/entregues/ preenchido'
+        checkpoint: cp-audio
+        resume_with: tasks/resume-job.md
+      - id: audio.review
+        executor: agent
+        owner_agent: sound-designer
+        name: 'Avaliação de leitura e sincronia'
+        worker_assist: 'python apps/video-studio/scripts/transcribe.py {job}/13-audio/entregues/*.wav'
+        worker_assist_note: >
+          transcribe.py (faster-whisper) devolve timestamps por palavra — a fonte da
+          legenda REAL, o que foi dito no tempo exato.
+        produces:
+          - '{job}/13-audio/captions.srt'
+          - '{job}/13-audio/_review/review-r{n}.md'
+        checks: [leitura_fiel_ao_roteiro, entonacao_conforme_direcao, ruido_e_respiracao, duracao_compativel_com_takes]
+        loop:
+          back_to: audio.human
+          max: 3
+    handoff:
+      to: assembly
+      artifacts:
+        - '{job}/13-audio/sound-spec.yaml'
+        - '{job}/13-audio/entregues/'
+        - '{job}/13-audio/captions.srt'
+      gate: checklists/gate-audio.md
+    fallback: >
+      Sem VO do founder → a peça vira corte com cartela e trilha, marcada em
+      job.json → degraded[]. Voz sintética não aprovada em peça institucional da
+      própria marca é contradição com o discurso.
+    on_fail: continue_and_report
+
+  - id: assembly
+    name: 'Montagem — app próprio, After Effects e Premiere'
+    owner_agent: editor
+    task: tasks/assembly.md
+    executor: worker
+    executor_notes: 'App próprio: autolegenda. AE: lower-third Oraclum, big number, sublinhado. Premiere: corte e master.'
+    davinci: 'REMOVIDO do fluxo (§3.3 · _CONVENTIONS.md §5). export_to_davinci.py é legado e não é chamado por este squad.'
+    depends_on: [audio]
+    handon:
+      from: audio
+      artifacts:
+        - '{job}/12-takes/entregues/'
+        - '{job}/13-audio/entregues/'
+        - '{job}/06-decupagem/edit-spec.json'
+        - '{job}/12-takes/_direction/ae-compositions.md'
+      contract: 'Takes e áudio entregues'
+    substages:
+      - id: assembly.auto
+        executor: worker
+        name: 'Timeline auto-montada, autolegenda e FX on-brand'
+        app: apps/video-studio
+        command: |
+          node apps/video-studio/scripts/ingest.ts oraclum {creative_slug}
+          node apps/video-studio/scripts/check-assembly.ts --autocut --maxgap=0.4
+          cd apps/video-studio && npm run studio
+          cd apps/video-studio && npm run render {brand_slug}
+        command_note: >
+          ingest.ts monta timeline.json a partir do video-brief e dos materiais.
+          check-assembly.ts audita a montagem e fecha gaps. npm run studio abre o
+          Remotion Studio para preview; npm run render faz o render headless on-brand.
+        known_gap:
+          issue: >
+            ingest.ts e check-assembly.ts esperam a convenção
+            outputs/{client}/video-plans/{creative}/. Um job do creative-studio vive em
+            workspaces/businesses/oraclum/creative-studio/jobs/{job-id}/. Além disso, o
+            render.mjs hoje resolve brand tokens só para os slugs virals e
+            tiago-elesbao — oraclum precisa de entrada equivalente.
+          bridge_required: 'Espelhar o job na convenção que o studio lê e registrar o slug oraclum no resolvedor de brand.'
+          worker_candidate: 'Ponte job → outputs/{client}/video-plans/{creative}/ + registro do slug oraclum no render.'
+          status: nao_implementado
+        produces:
+          - '{job}/14-assembly/autolegenda/'
+          - '{job}/14-assembly/rough-cut/'
+        fallback: 'Ponte indisponível → o editor entrega a timeline no template e o operador importa direto no Premiere. Registrado em job.json → degraded[].'
+      - id: assembly.spec
+        executor: agent
+        owner_agent: editor
+        name: 'Especificação executável em AE e Premiere'
+        produces:
+          - '{job}/14-assembly/ae-comp-spec.md'
+          - '{job}/14-assembly/premiere-cut-spec.md'
+          - '{job}/14-assembly/export-presets.yaml'
+        must_include:
+          - 'Ordem de cortes com timecode e o porquê de cada corte'
+          - 'Composições de After Effects: lower-third Oraclum, big number, sublinhado, com parâmetros de animação'
+          - 'Spec de legenda e motion graphics no padrão da marca'
+          - 'Pastas, nomenclatura de importação e organização de bins'
+          - 'Preset de export por canal (16:9 master + derivado 9:16): formato, codec, bitrate, resolução, safe area'
+          - 'O que o app próprio JÁ resolveu e não deve ser refeito na mão'
+        template: templates/edit-spec-tmpl.md
+      - id: assembly.human
+        executor: human
+        name: 'Composição no After Effects e corte final no Premiere'
+        stop: true
+        card: '{job}/_cards/card-montagem.md'
+        card_template: templates/human-task-card-tmpl.md
+        wait_for: '{job}/14-assembly/master/'
+        checkpoint: cp-montagem
+        resume_with: tasks/resume-job.md
+        chain: ['apps/video-studio (já feito em assembly.auto)', 'After Effects — lower-third, big number, sublinhado', 'Premiere Pro — corte, mix, master, derivado 9:16']
+      - id: assembly.review
+        executor: agent
+        owner_agent: editor
+        name: 'Revisão do corte'
+        reads: '{job}/14-assembly/master/'
+        produces: ['{job}/14-assembly/_review/review-r{n}.md']
+        checks: [ritmo_dor_para_solucao, sincronia_de_legenda, paleta_no_master, mix_conforme_sound_spec, safe_area_no_derivado_9x16, presets_de_export]
+        loop:
+          back_to: assembly.human
+          max: 3
+    handoff:
+      to: factcheck
+      artifacts:
+        - '{job}/14-assembly/autolegenda/'
+        - '{job}/14-assembly/ae-comp-spec.md'
+        - '{job}/14-assembly/premiere-cut-spec.md'
+        - '{job}/14-assembly/master/'
+      gate: checklists/gate-assembly.md
+    fallback: >
+      Preset de motion do video-templates.yaml em conflito com o brand-config → o editor
+      usa o brand-config e registra a divergência (o registry de templates está
+      defasado, ver ARCHITECTURE.md).
+    on_fail: continue_and_report
+
+  - id: factcheck
+    name: 'Checagem, compliance e a regra sem case fabricado'
+    owner_agent: fact-checker
+    task: tasks/factcheck.md
+    executor: agent
+    blocking: true
+    waiver_allowed: false
+    depends_on: [assembly]
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: >
+      Deste script o factcheck lê os checks BLOQUEANTES V3 (números fabricados),
+      V4 (atribuição ou evidência inventada), V5 (léxico proibido) e V7 (CTA proibido).
+      Exit 2 = FAIL. O V5 carrega o léxico proibido do brand-identity: fórmula mágica,
+      fique rico fácil, segredo infalível, revolução milagrosa, case de cliente.
+    mandatory_agent_review:
+      owner: fact-checker
+      covers:
+        - 'SEM CASE FABRICADO — a Oraclum não tem case de cliente. Nenhum depoimento, número ou resultado de cliente inventado.'
+        - 'Todo claim de produto rastreável ao que o sistema realmente faz hoje'
+        - 'Limitação de ferramenta não omitida'
+        - 'Direitos de imagem, voz, música e marca de terceiro'
+        - 'Nada de IA como mágica, robô apertando mão humana ou equivalente'
+      note: >
+        Aqui o gate mais importante é sem case fabricado — a regra que define a
+        credibilidade da Oraclum. Não é detectável por regex; o agente revisa sempre.
+    handon:
+      from: assembly
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/05-script/claim-ledger.json'
+        - 'squads/virals-marketing-squad/data/clients/oraclum/brand-identity.yaml'
+      contract: 'Peça montada'
+    handoff:
+      to: gate
+      artifacts:
+        - '{job}/15-gate/factcheck-report.md'
+      gate: checklists/gate-factcheck.md
+    fallback: 'NÃO EXISTE fallback que pule o estágio. Sem worker_assist, a revisão é integralmente manual.'
+    on_fail: halt
+
+  - id: gate
+    name: 'Quality gate e veredito de peça'
+    owner_agent: qa-critic
+    task: tasks/gate.md
+    executor: agent
+    depends_on: [factcheck]
+    worker_assist: 'python squads/virals-marketing-squad/scripts/quality_gate_video.py {job}/05-script/video-brief.yaml'
+    worker_assist_note: 'Deste script o gate lê V1 (hook), V2 (cadência de corte) e V6 (shotlist completa).'
+    handon:
+      from: factcheck
+      artifacts:
+        - '{job}/14-assembly/master/'
+        - '{job}/15-gate/factcheck-report.md'
+      contract: 'factcheck PASS'
+    handoff:
+      to: delivery
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+      gate: checklists/gate-oraclum-institucional.md
+    also_runs: checklists/gate-transversal-entrega.md
+    stage_gate: checklists/gate-qa.md
+    verdicts: [PASS, CONCERNS, FAIL, WAIVED]
+    verdict_routing:
+      PASS: delivery
+      CONCERNS: 'checkpoint cp-entrega — o founder decide entre corrigir e aceitar'
+      FAIL: 'volta ao estágio nomeado no gate-verdict.md'
+      WAIVED: 'segue com o waiver registrado em job.json → waivers[]'
+    checkpoint: cp-entrega
+    on_fail: halt
+
+  - id: delivery
+    name: 'Empacotamento e entrega'
+    owner_agent: studio-chief
+    task: tasks/delivery.md
+    executor: agent
+    depends_on: [gate]
+    owner_note: 'Sem exec-producer neste pipeline (ADR-006), o studio-chief empacota.'
+    worker_candidate: >
+      Empacotador de entrega: lê gate-verdict.md, copia master e derivados aprovados,
+      gera manifesto com hash por arquivo e monta o publishing-kit.
+    handon:
+      from: gate
+      artifacts:
+        - '{job}/15-gate/gate-verdict.md'
+        - '{job}/14-assembly/master/'
+      contract: 'Veredito PASS'
+    handoff:
+      to: null
+      artifacts:
+        - '{job}/16-delivery/entrega/'
+        - '{job}/16-delivery/publishing-kit.md'
+        - '{job}/job.json (status: delivered)'
+      gate: checklists/gate-delivery.md
+    fallback: >
+      Se o job crescer para campanha, reclassificar como lancamento-produto (backlog do
+      genre-catalog) e convocar o exec-producer. Entrega parcial só sai com o manifesto
+      declarando o que falta e por quê.
+    on_fail: halt
+
+reporting:
+  final_summary:
+    - peca_entregue
+    - servico_alvo
+    - prova_usada_e_sua_fonte
+    - waivers_registrados
+    - cards_humanos_emitidos_tempo_de_espera_e_rodadas_de_retake
+    - itens_degradados
+  degraded_registry: '{job}/job.json → degraded[]'
+  principle: >
+    O sumário é montado lendo o DISCO. E declara explicitamente qual prova a peça usou
+    e de onde ela vem — se a resposta não existir, a peça não deveria ter passado no
+    factcheck.
+
+handoff:
+  emit_to: '.aiox/handoffs/'
+  format: 'handoff-ocs-{job-id}-{stage}.yaml'
+  must_include: [job_id, pipeline_id, servico_alvo, stage_completed, gate_status, waiting_human, blockers, next_action]

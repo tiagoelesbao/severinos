@@ -1,0 +1,147 @@
+# =====================================================================
+#  PROJETO-MODELO · gera o MOVIE-BUILDER-AIOX-BASE.json
+# =====================================================================
+#
+#  Este arquivo existe para produzir o workflow-base da biblioteca: um
+#  grafo completo, ligado e conferido, com MARCADORES no lugar do
+#  conteudo. Ele nao gera peca nenhuma -- as referencias nao existem em
+#  input/ e os prompts descrevem o que preencher.
+#
+#  Para comecar um cliente de verdade, NAO edite este arquivo: copie o
+#  `_MODELO.yaml`, que e comentado campo a campo.
+#
+#      python monta_peca.py --projeto _base --saida MOVIE-BUILDER-AIOX-BASE.json
+#
+#  O que o grafo resultante contem:
+#    - motor de video LTX 2.3 em GGUF Q4 (cabe em 8 GB de VRAM)
+#    - pipeline de imagem Flux 2 Klein com 3 referencias por plano
+#    - ambiente 360 equirretangular com recorte por setor
+#    - seis planos, cada um olhando para uma direcao do mesmo lugar
+#    - geracao de video local, um estagio, com audio nativo
+# =====================================================================
+
+projeto:
+  nome: aiox-base
+  cliente: MODELO
+  peca: base
+
+personagem:
+  rosto: COLOQUE-SEU-ROSTO.png
+  corpo: COLOQUE-SEU-CORPO.png
+  voz: COLOQUE-SUA-VOZ.wav
+  voz_corte: 4
+  roupa: >-
+    DESCREVA A ROUPA e contradiga a referencia no que ela nao servir - se a
+    foto tiver casaco e a cena for quente, diga explicitamente no jacket
+
+estilo: >-
+  Style: DESCREVA O LOOK DA PECA - referencia fotografica, hora do dia,
+  paleta, grao. Esta linha se repete em todos os planos e e o que faz
+  seis takes parecerem o mesmo filme
+
+ambiente:
+  contexto: >-
+    A 360 degree view from the middle of DESCREVA O LUGAR at DESCREVA A LUZ.
+    Use SUBSTANTIVOS CONCRETOS - eles e que mudam o lugar. Adjetivos nao:
+    dizer "pobre" ou "bonito" nao muda nada, dizer "tijolo aparente
+    empilhado" e "caixa d agua azul na laje" muda tudo
+  panorama_pronto:
+  setores:
+    - chave: SETOR_1
+      angulo: 30
+      rotulo: primeiro lugar
+      erp: o que se ve nesta direcao, olhando de dentro do panorama
+      fundo: o mesmo lugar visto atras de uma pessoa, em plano fechado
+    - chave: SETOR_2
+      angulo: 90
+      rotulo: segundo lugar
+      erp: ...
+      fundo: ...
+    - chave: SETOR_3
+      angulo: 150
+      rotulo: terceiro lugar
+      erp: ...
+      fundo: ...
+    - chave: SETOR_4
+      angulo: 210
+      rotulo: quarto lugar
+      erp: ...
+      fundo: ...
+    - chave: SETOR_5
+      angulo: 270
+      rotulo: quinto lugar
+      erp: ...
+      fundo: ...
+    - chave: SETOR_6
+      angulo: 330
+      rotulo: sexto lugar
+      erp: ...
+      fundo: ...
+
+video:
+  frames: 121
+  passos_imagem: 8
+  upscale: false
+  voz_referencia: false
+
+takes:
+  - n: 1
+    setor: SETOR_1
+    enquadramento: >-
+      descreva O QUE OCUPA O QUADRO, nao o tipo de plano. "his face fills
+      the frame" funciona; "extreme close-up" perde para as referencias de
+      rosto, que puxam para plano medio
+    camera: o movimento de camera, em uma frase - abre o VISUAL de proposito
+    acao: >-
+      o que acontece, incluindo outras pessoas em cena e a POSTURA do
+      personagem. Confianca e corpo: queixo erguido, olhar travado, e a
+      negacao do que nao se quer (does not fidget)
+    fala: A PRIMEIRA FALA...
+    som: >-
+      TIMING: he speaks in the FIRST SECOND and then stops; the remaining
+      four seconds are silence. Around 90 words per minute. TOM. Depois a
+      ambiencia da cena
+  - n: 2
+    setor: SETOR_2
+    enquadramento: ...
+    camera: ...
+    acao: ...
+    fala: ...A CONTINUACAO DA FRASE.
+    som: >-
+      TIMING: half a second of silence, then he speaks from second one to
+      second four. Around 100 words per minute. TOM. Ambiencia
+  - n: 3
+    setor: SETOR_3
+    enquadramento: ...
+    camera: ...
+    acao: ...
+    fala: TERCEIRA FALA.
+    som: >-
+      TIMING: em que segundo entra e sai. Velocidade em wpm. Tom. Ambiencia
+  - n: 4
+    setor: SETOR_4
+    enquadramento: ...
+    camera: ...
+    acao: ...
+    fala: QUARTA FALA... COM PAUSA.
+    som: >-
+      TIMING: com a pausa posicionada - primeira parte, um segundo de
+      silencio, segunda parte. Velocidade em wpm. Tom. Ambiencia
+  - n: 5
+    setor: SETOR_5
+    enquadramento: ...
+    camera: ...
+    acao: ...
+    fala: QUINTA FALA.
+    som: >-
+      TIMING: em que segundo entra e sai. Velocidade em wpm. Tom. Ambiencia
+  - n: 6
+    setor: SETOR_6
+    enquadramento: ...
+    camera: ...
+    acao: ...
+    fala: FECHAMENTO... DA MARCA.
+    som: >-
+      TIMING: em que segundo entra e sai, com a PAUSA descrita - a fala tem
+      reticencias, e sem dizer aqui quanto dura o silencio o modelo le como
+      virgula. Velocidade em wpm. Tom de fechamento. Ambiencia

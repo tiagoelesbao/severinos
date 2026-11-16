@@ -1,0 +1,67 @@
+# Bora de Bola — Brand Config
+# Canal dark de futebol da Virals. A identidade completa (posicionamento, tabus,
+# regra de fonte, sistema de thumb, voz travada) vive em
+#   workspaces/businesses/virals/creative-studio/canais/bora-de-bola/
+# Este arquivo é o recorte que o pipeline de criativos consome.
+
+brand:
+  name: "Bora de Bola"
+  version: "1.0.0"
+  last_updated: "2026-09-04"
+
+# Cores EXTRAÍDAS das artes oficiais (logo e banner), não estimadas a olho.
+# O verde #0C240C é 66% do logo — é a cor-mãe, não um fundo qualquer.
+palette:
+  primary: "#0C240C"        # verde escuro — o fundo de tudo
+  secondary: "#0C3C0C"      # verde médio, para profundidade
+  accent: "#FCCC0C"         # AMARELO — carrega UMA coisa por peça
+  accent_alt: "#84B40C"     # verde-limão, só em detalhe
+  accent_aurora: "#246C0C"  # verde do gramado, textura de fundo
+  text_primary: "#FCFCFC"
+  text_secondary: "#9BB39B"
+  overlay_dark: "#0C0C0CB8"
+  overlay_light: "#FCFCFC1A"
+  alerta: "#E02020"         # só para X, proibido, cartão
+  light:
+    background: "#F2F6F2"
+    text: "#0C240C"
+    accent: "#8A6A00"
+
+typography:
+  headline:
+    font_file: "assets/fonts/Anton-Regular.ttf"
+    fallback: "Archivo Black"
+    fallback_strategy: system_default
+    sizes: { xl: 104, lg: 84, md: 62, sm: 44 }
+    color: "#FCFCFC"
+    letter_spacing: -1
+    uppercase: true
+    italic: true
+  body:
+    font_file: "assets/fonts/Archivo-Bold.ttf"
+    fallback: "Arial Bold"
+    fallback_strategy: system_default
+    sizes: { lg: 44, md: 34, sm: 26 }
+    color: "#FCCC0C"
+
+logo:
+  principal: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/logo.png"
+  selo: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png"
+  banner: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/banner.png"
+  posicao_padrao: "canto inferior esquerdo"
+  tamanho: 92
+
+formatos:
+  thumb_youtube:
+    largura: 1280
+    altura: 720
+    template: "apps/canal-futebol/thumb/template.html"
+    sistema: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/thumb-system.yaml"
+    regra_do_amarelo: "carrega UMA coisa por peça — a palavra marcada com {}"
+    max_palavras: 5
+    teste: "avaliar reduzida a 168px, o tamanho real no feed"
+
+referencias:
+  channel_brief: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/channel-brief.yaml"
+  thumb_system: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/thumb-system.yaml"
+  voice_lock: "workspaces/businesses/virals/creative-studio/canais/bora-de-bola/voice-lock.yaml"

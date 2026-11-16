@@ -1,0 +1,456 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PLAYBOOK — DARK NARRATIVO LONGO (nicho estoicismo)
+#
+# Consumido por: @head-of-copy (`script`), @sound-designer (`audio`),
+#                @image-lead (`stills`), @editor (`assembly`)
+#
+# POR QUE ISTO EXISTE
+# Uma peça de referência REAL desmontada — 34 minutos, formato validado no
+# mercado brasileiro. Não é teoria de curso: é engenharia reversa de algo que
+# funciona, medida em vez de imaginada.
+#
+# Fonte: vídeo "10 Práticas Estoicas Para Colocar Sua Vida Nos Eixos",
+#        34m16s, 5.230 palavras, 24 frames — transcrito por
+#        services/ETL/Transform/course-etl.js (slug `ref-estoicismo`).
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  pipeline: 'P5 dark-room — variante narrativo longo'
+  natureza: 'engenharia reversa de peça de referência escolhida pelo founder'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. OS NÚMEROS DA REFERÊNCIA
+metricas_da_referencia:
+  duracao: '34m16s'
+  palavras: 5230
+  ritmo_medio: '152 palavras por minuto'
+  leitura_do_ritmo: >
+    152 wpm é ritmo de AUDIOLIVRO, não de conversa (150–180) nem de vídeo curto
+    (180–200). É deliberadamente lento. O formato não compete por atenção rápida —
+    ele pede que o ouvinte desacelere junto. Acelerar isso destrói o gênero.
+  formato_de_video: '640×360, 30 fps — resolução BAIXA'
+  o_que_isso_ensina: >
+    A peça funciona a 360p. O ativo não é resolução: é voz, roteiro e ritmo.
+    Gastar orçamento em 4K neste formato é gastar no lugar errado.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. ARQUITETURA DA COPY
+#    A abertura tem 10 movimentos em menos de 2 minutos. Essa densidade é o
+#    que segura o espectador antes da primeira prática.
+estrutura:
+
+  abertura:
+    duracao: '~1m50s'
+    movimentos:
+      - n: 1
+        nome: 'Pergunta de promessa'
+        exemplo: '"Você quer ter mais sucesso em tudo que faz, mais paz, mais clareza e uma vida que finalmente faça sentido?"'
+        funcao: 'Abre com o DESEJO do espectador, não com o tema. Ninguém procura estoicismo; procura o que ele promete.'
+      - n: 2
+        nome: 'Redirecionamento imediato'
+        exemplo: '"Então olha ao seu redor, o que você tem feito todos os dias"'
+        funcao: 'Tira o olhar do futuro e joga no presente — cria desconforto útil'
+      - n: 3
+        nome: 'Tese em uma frase'
+        exemplo: '"não é o futuro distante que muda sua vida, é aquilo que você coloca em ordem hoje"'
+        funcao: 'A ideia inteira do vídeo cabe aqui. Tudo depois é desdobramento.'
+      - n: 4
+        nome: 'Diagnóstico'
+        exemplo: '"A desordem externa não é mais que o reflexo de uma confusão interna"'
+        funcao: 'Nomeia o problema do espectador melhor do que ele nomearia — é o que gera a sensação de "esse vídeo é sobre mim"'
+      - n: 5
+        nome: 'Virada de esperança'
+        exemplo: '"Mas quando você decide se focar unicamente em colocar ordem, algo poderoso acontece"'
+        funcao: 'O "mas" que salva. Sem ele o diagnóstico vira só peso.'
+      - n: 6
+        nome: 'Âncora de autoridade'
+        exemplo: 'Citação de Epicteto: "primeiro diga a si mesmo o que quer ser, depois faça o que tem que fazer"'
+        funcao: 'A citação NÃO abre o vídeo — ela confirma a tese que já foi dita. Ordem invertida em relação ao que a maioria faz.'
+      - n: 7
+        nome: 'Promessa do formato'
+        exemplo: '"vamos mergulhar em 10 práticas estoicas, verdadeiras ferramentas de guerra"'
+        funcao: 'Só aqui o espectador descobre o formato. Ele já está dentro.'
+      - n: 8
+        nome: 'CTA de comentário com frase PRONTA'
+        exemplo: '"Comenta aqui: Hoje eu crio resultados"'
+        funcao: >
+          Dar a frase pronta multiplica a taxa de comentário — remove o esforço de
+          formular. E a frase é uma AFIRMAÇÃO de identidade, não uma opinião sobre o vídeo.
+      - n: 9
+        nome: 'CTA de corrente social'
+        exemplo: '"este vídeo chegou até você porque alguém deu like, compartilhou e comentou. Faz o mesmo para que não quebremos essa corrente."'
+        funcao: 'Reciprocidade + pertencimento. Não pede favor: convida a manter algo vivo.'
+      - n: 10
+        nome: 'Transição para o corpo'
+        funcao: 'Sem pausa dramática. A abertura termina e a Prática 1 começa.'
+
+  corpo:
+    formato: '10 práticas numeradas'
+    anatomia_de_cada_pratica:
+      - 'Título numerado dito em voz alta — "Prática 1, treine sua concentração"'
+      - 'Princípio: a ideia central em 1–2 frases'
+      - 'ANEDOTA HISTÓRICA concreta — ex.: Sêneca numa casa barulhenta em Roma escrevendo a um amigo'
+      - 'Aplicação ao presente do espectador'
+      - 'DESAFIO PRÁTICO com prazo — "nos próximos sete dias, escreva…"'
+    o_que_faz_funcionar: >
+      A anedota histórica é o motor. Ela transforma preceito em cena, e cena é o que
+      a memória guarda. Prática sem anedota vira lista de conselhos — o gênero morre aí.
+    duracao_por_pratica: '~2 a 3 minutos'
+
+  meio:
+    like_pedido_em: '7:46 — cerca de 23% do vídeo'
+    por_que_nao_no_inicio: >
+      Pedido no minuto 8, depois de duas práticas entregues. O espectador já recebeu
+      valor; o pedido soa como troca e não como pedágio.
+    formulacao: '"Se este conteúdo está fazendo sentido para você, deixa o like aqui" — condicional, não imperativo.'
+
+  fecho:
+    cta_final: '"Clica no vídeo aparecendo na tela agora" — em 33:53, nos últimos 23 segundos'
+    funcao: 'Encadeia sessão. O objetivo do fecho não é converter, é reter no canal.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. GRAMÁTICA VISUAL
+#    (o founder pediu para desconsiderar legenda e efeitos sobre a imagem —
+#     o que importa é o TIPO de take)
+visual:
+  descricao: >
+    Estátua clássica de mármore branco — filósofo togado, barbado — isolada sobre
+    FUNDO PRETO ABSOLUTO. Alto contraste. Partículas e faíscas brancas dispersas,
+    arranhões de película, vinheta pesada. Praticamente monocromático.
+  composicao: 'Sujeito único, centralizado, plano fixo ou movimento muito lento'
+  variacoes_observadas:
+    - 'Estátua isolada em fundo preto (o padrão dominante)'
+    - 'Templo/colunata noturna com figura togada, mais atmosférica'
+  por_que_isto_e_uma_boa_notícia_para_nos: >
+    É exatamente o tipo de imagem que modelo de difusão faz BEM: sujeito único,
+    alto contraste, sem texto no pixel, sem mãos em primeiro plano, sem multidão,
+    sem arquitetura complexa em perspectiva. O gênero visual do estoicismo é o
+    caso mais fácil que existe para o FLUX.2 klein local.
+  consequencia_de_producao: >
+    A camada visual deste formato NÃO é o gargalo. Um lote de 30–40 estátuas em
+    fundo preto cobre um vídeo inteiro e pode ser reusado entre episódios com
+    variação mínima. O gargalo é a narração.
+  o_que_NAO_replicar:
+    - 'Legenda queimada no pixel — a nossa entra em pós (regra `texto_nao_e_geracao`)'
+    - 'Legenda bilíngue PT+EN — é escolha de alcance daquele canal, não do formato'
+    - 'Resolução 360p — herança de origem, não virtude'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. TRILHA E SOM
+audio:
+  trilha:
+    descricao_do_founder: '"música com apenas efeito de atmosfera mística suave por trás da narração"'
+    caracteristica: 'Leito atmosférico contínuo, sem melodia proeminente, sem percussão marcada, sem progressão que chame atenção'
+    funcao: 'Preencher o silêncio entre frases sem competir com a voz. Em narração lenta, o silêncio absoluto soa como falha técnica.'
+    nivel: 'Bem abaixo da narração — presença, não protagonismo'
+    duracao: 'Contínua do primeiro ao último minuto. Corte de trilha em peça longa quebra o transe.'
+    onde_gerar: 'Stable Audio Open (`audio-trilha-sfx.json`) — leito instrumental é exatamente o que ele faz melhor'
+  efeitos:
+    presenca: 'Praticamente ausentes'
+    licao: 'O gênero NÃO usa SFX. Whoosh e impacto pertencem a outro formato; aqui quebrariam a atmosfera.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. A NARRAÇÃO — e o diagnóstico da voz
+narracao:
+  registro_desejado: 'Masculina, grave, madura — peso de quem viveu'
+  ritmo: '152 wpm, constante'
+
+  medicao_acustica:
+    metodo: 'Três trechos de 12s em 2min, 15min e 30min'
+    volume_medio: ['-16,4 dB', '-17,2 dB', '-17,2 dB']
+    variacao: 'menos de 1 dB ao longo de 34 minutos'
+    pausas_por_trecho: [1, 5, 4]
+    conclusao_honesta: >
+      NÃO CONCLUSIVO. Volume plano é compatível com TTS, mas também com locução
+      humana comprimida — e compressão é praxe no gênero. O indício mais forte a
+      favor de TTS é outro: 34 minutos sem queda de energia. Locutor humano cansa,
+      e o cansaço aparece na segunda metade mesmo com compressor.
+    o_que_nao_foi_medido: 'Variância de F0, respiração assimétrica, micro-timing — exigiriam análise que não fizemos'
+
+  por_que_o_diagnostico_importa_menos_do_que_parece: >
+    Se for TTS de produto, o caminho é identificar e LICENCIAR — a voz passa a ser
+    sua por contrato e não pertence a pessoa identificável. Se for locutor humano,
+    clonar traz problema de direito de personalidade. Em NENHUM dos dois cenários
+    o caminho é clonar a voz do vídeo de referência.
+  o_caminho_recomendado:
+    - rota: 'Voz-casa sintética própria'
+      como: 'Gerar uma referência, congelar o arquivo, reusar em todo episódio'
+      por_que: >
+        Não pertence a ninguém, é sua para sempre, e — o ponto que mais importa —
+        reconhecimento acumulado é o ativo do canal. Ninguém acumula reconhecimento
+        numa voz que é de outro.
+    - rota: 'Gravar uma referência própria e clonar a partir dela'
+      por_que: 'A voz vira ativo do negócio, não empréstimo'
+    - rota: 'RVC sobre voz genérica'
+      como: 'A suíte já tem RVC instalado — move timbre e altura até o registro desejado'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. CORREÇÃO DA PROSÓDIA — o que o founder apontou
+correcao_de_pausas:
+  problema_relatado: '"o áudio não ficou fluido, houveram pausas que atrapalharam a experiência"'
+  causa_identificada: >
+    O SRT de teste foi escrito com cues de duração FOLGADA, e o `smart_natural`
+    preencheu a sobra com silêncio. Resultado: buraco, não pausa. Pausa dramática
+    funciona curta e intencional; 1,2s num trecho de 15s é tempo morto.
+  regra_corrigida:
+    - 'Escrever cada cue COLADO à duração natural da fala, não folgado'
+    - 'Abrir intervalo apenas nos 2–3 pontos onde a pausa significa algo'
+    - 'Intervalo útil: 0,4 a 0,8s. Acima de 1,0s começa a soar como falha.'
+    - 'Em narração longa e lenta, a trilha contínua já sustenta o silêncio — a pausa não precisa ser longa para existir'
+  onde_atualizar: 'data/oratoria-e-prosodia.yaml — técnica `pausa-dramatica`, campo `cuidado`'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. O QUE ISTO MUDA NO NOSSO PLANO
+implicacoes:
+  - item: 'O gargalo do formato é a VOZ, não a imagem'
+    consequencia: 'Priorizar a construção da voz-casa antes de investir em geração visual sofisticada'
+  - item: 'A camada visual é o caso mais fácil para o FLUX.2 klein'
+    consequencia: 'Lote de estátuas em fundo preto, reutilizável entre episódios. Custo marginal quase zero por episódio.'
+  - item: 'A abertura carrega o vídeo'
+    consequencia: '10 movimentos em 110 segundos. É onde o `head-of-copy` deve gastar o tempo dele.'
+  - item: 'Anedota histórica é obrigatória por prática'
+    consequencia: 'Vira item de gate: prática sem anedota concreta reprova — o gênero morre sem ela.'
+  - item: '152 wpm é lei do formato'
+    consequencia: 'O `sound-designer` calcula duração do episódio por contagem de palavras ÷ 152, não por estimativa.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CORREÇÃO POR TRANSCRIÇÃO COMPLETA — 2026-08-29
+#
+# O playbook acima foi escrito por AMOSTRAGEM: três trechos de 12 s e leitura da
+# estrutura. Agora as duas peças foram transcritas INTEIRAS (Whisper small), e um
+# número mudou de forma relevante.
+#
+# Artefatos: docs/referencias/estoico/{v1-praticas,v2-reflexoes}/
+#            transcricao.txt · transcricao.srt · segments.json · metricas.json
+# Rodar de novo: python assets/comfyui/transcreve_referencias.py small
+# ─────────────────────────────────────────────────────────────────────────────
+medicao_completa:
+
+  data: '2026-08-29'
+  metodo: 'transcrição integral com Whisper small, contagem de palavras sobre o texto real'
+
+  # ── O NÚMERO QUE ESTAVA ERRADO ────────────────────────────────────────────
+  correcao_do_ritmo:
+    o_que_o_playbook_dizia: '152 wpm é lei do formato — atribuído à peça v1'
+    o_que_a_medicao_mostra:
+      v1_praticas: '127,5 wpm (4368 palavras em 34m15s)'
+      v2_reflexoes: '151,1 wpm (6391 palavras em 42m17s)'
+    leitura: >
+      O 152 não era da v1 — bate com a v2. A v1 é MAIS LENTA do que o playbook
+      registrou: 127,5 wpm, quase ritmo de leitura litúrgica. A contagem antiga de
+      5230 palavras para a v1 não se sustenta contra o texto transcrito.
+    consequencia_pratica: >
+      Duração de episódio passa a ser calculada pelo ritmo DA ESTRUTURA, não por um
+      número único: estrutura A (práticas) a 127,5 wpm, estrutura B (reflexões) a
+      151,1. Um roteiro de 600 palavras dura 4m42s na A e 3m58s na B. Usar o número
+      errado erra a duração em quase um minuto.
+    status: 'corrigido — os campos de ritmo em metricas_da_referencia estão obsoletos'
+
+  # ── A DENSIDADE DE PAUSA, QUE É AINDA MAIS REVELADORA ─────────────────────
+  pausas:
+    v1_praticas:
+      pausas_acima_de_250ms: 2
+      em_34_minutos: 'duas. Praticamente nenhuma.'
+      wpm_por_bloco_de_5min: [127.2, 128.8, 126.4, 123.0, 130.6, 125.2, 131.9]
+      leitura: >
+        Variação de 8 wpm em 35 minutos e duas pausas no vídeo inteiro. Isso não é
+        respiração humana — é entrega contínua. Reforça muito a hipótese de TTS que
+        o playbook já levantava, agora por um indício mais forte que o volume plano.
+    v2_reflexoes:
+      pausas_acima_de_250ms: 16
+      pausa_mediana_s: 0.72
+      wpm_por_bloco_de_5min: [154.6, 157.0, 157.8, 159.2, 138.4, 141.6, 147.2, 151.8, 154.2]
+      leitura: >
+        Dezesseis pausas, mediana de 0,72 s, e uma QUEDA de ritmo no miolo
+        (159 para 138) com recuperação no fim. Muito mais parecido com fala dirigida
+        do que a v1.
+    o_que_isso_valida: >
+      A regra de pausa que já tínhamos — intervalo útil de 0,4 a 0,8 s — bate com a
+      mediana medida na v2 (0,72 s). O que o founder ouviu como buraco no nosso teste
+      era 1,2 s: fora da faixa das DUAS referências.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESTRUTURA B — a segunda peça, agora MODELADA (não mais proposta)
+#
+# "10 REFLEXÕES ESTOICAS QUE VOCÊ PRECISA ESCUTAR TODAS AS MANHÃS" — 42m17s.
+# É outro gênero dentro do mesmo nicho, e a diferença não é de tom: é de mecânica.
+# ─────────────────────────────────────────────────────────────────────────────
+estrutura_B_reflexoes:
+
+  fonte: 'docs/referencias/estoico/v2-reflexoes/'
+  duracao: '42m17s'
+  ritmo: '151,1 wpm'
+  unidade: '10 reflexões'
+
+  abertura:
+    duracao: '~110 s'
+    diferenca_central: >
+      A v1 abre com PERGUNTA de promessa. A v2 abre com AFIRMAÇÃO poética — "A cada
+      manhã, a vida nos dá uma nova oportunidade". A pergunta aparece depois, e vem
+      em par.
+    movimentos:
+    - 'Premissa universal, afirmativa e poética'
+    - 'Enquadramento do tema — o que o estoicismo diz sobre este momento do dia'
+    - 'Aposta — a maneira como você encara seus primeiros minutos pode determinar todo o rumo do dia'
+    - 'PAR de perguntas de dor — como começar com a mentalidade certa? Como evitar que a ansiedade roube sua paz antes de sair da cama?'
+    - 'Âncora COLETIVA — os estoicos, com sua sabedoria atemporal (não nomeia ninguém aqui)'
+    - 'Metáfora de preparo — afiar uma espada para enfrentar o mundo'
+    - 'Dicotomia de escolha — reclamações ou gratidão, hesitação ou propósito'
+    - 'Pergunta de compromisso — o que você fará com essa liberdade hoje?'
+    - 'Promessa do formato — neste vídeo você descobrirá dez reflexões'
+    - 'CTA EMPILHADO — comentário com frase pronta (Meu dia será incrível) + like + inscrição + compartilhar, tudo junto'
+    - 'Convite de entrada — vamos juntos? Comece a transformação agora'
+
+  anatomia_de_cada_reflexao:
+  - passo: 'Título numerado'
+    exemplo: '1. A primeira batalha é interna.'
+  - passo: 'CITAÇÃO NOMINAL como epígrafe, logo no início'
+    exemplo: 'Ninguém pode te ferir sem o seu consentimento. Marco Aurélio.'
+    diferenca_da_v1: >
+      NA V1 A CITAÇÃO VEM NO MEIO DA ABERTURA, confirmando a tese. Aqui ela ABRE
+      cada bloco. É a inversão mais importante entre as duas estruturas.
+  - passo: 'Instrução de imersão em segunda pessoa'
+    exemplo: 'Feche os olhos por um momento e respire fundo.'
+    funcao: 'O narrador conduz uma prática guiada. A v1 nunca faz isso.'
+  - passo: 'Cenário imaginado, concreto e cotidiano'
+    exemplo: 'talvez o trânsito esteja parado, talvez seu chefe esteja de mau humor'
+    funcao: 'Ocupa o lugar que a ANEDOTA HISTÓRICA ocupa na v1'
+  - passo: 'Pergunta socrática seguida da resposta'
+    exemplo: 'Qual é a única coisa nesse cenário que está sob seu controle? É você.'
+  - passo: 'Paralelismo retórico'
+    exemplo: 'Não é o trânsito que nos irrita, mas a nossa impaciência. Não é o chefe que nos abala, mas a nossa interpretação.'
+    funcao: 'É a assinatura sonora do formato — a figura se repete em toda reflexão'
+  - passo: 'Metáfora estendida'
+    exemplo: 'mar turbulento, ondas que não param, o que você pode fazer é ajustar as velas'
+  - passo: 'Visualização aplicada ao dia do espectador'
+    exemplo: 'ao invés de lutar contra o trânsito, você decide ouvir algo que te inspire'
+  - passo: 'Ressalva ética'
+    exemplo: 'isso não significa aceitar injustiças ou negligenciar problemas'
+    funcao: 'Protege o conselho de virar conformismo. A v1 não tem esse passo.'
+
+  o_que_a_estrutura_B_NAO_tem:
+  - 'Anedota histórica — o cenário imaginado ocupa o lugar dela'
+  - 'Desafio com PRAZO (nos próximos sete dias) — a v2 propõe uma postura, não uma tarefa datada'
+  - 'Pedido de like no miolo — todos os CTAs estão empilhados na abertura'
+
+  quando_usar_cada_uma:
+    estrutura_A: >
+      Quando o espectador procura o que FAZER. Prática numerada, anedota histórica
+      como prova, desafio com prazo. É conteúdo de ação.
+    estrutura_B: >
+      Quando o espectador procura como ESTAR. Reflexão guiada, citação como epígrafe,
+      metáfora e visualização. É conteúdo de estado — e é por isso que funciona como
+      escuta de manhã, sem exigir caneta na mão.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CORREÇÃO DA GRAMÁTICA VISUAL — 2026-08-29, por extração de takes reais
+#
+# A §3 acima foi escrita a partir de POUCOS frames. Com os takes extraídos das
+# duas peças inteiras (`assets/comfyui/extrai_takes_referencia.py`), a descrição
+# se revelou errada no ponto que mais importa para produção.
+#
+# Evidência: docs/referencias/estoico/{v1-praticas,v2-reflexoes}/takes/
+#            top20.jpg · contato.jpg · takes.json
+# ─────────────────────────────────────────────────────────────────────────────
+visual_corrigido:
+
+  data: '2026-08-29'
+  metodo: >
+    Amostragem uniforme a cada 2 s das duas peças (1028 e 1269 amostras),
+    segmentação por salto de hash entre amostras consecutivas, agrupamento
+    perceptual para achar reuso.
+
+  # ── O ERRO CENTRAL ────────────────────────────────────────────────────────
+  o_que_estava_errado:
+    afirmacao_antiga: 'Estátua isolada sobre FUNDO PRETO ABSOLUTO — o padrão dominante'
+    o_que_os_takes_mostram: >
+      Fundo preto absoluto é MINORIA. O padrão dominante nas duas peças é
+      ESTÁTUA DENTRO DE AMBIENTE ARQUITETÔNICO com profundidade real — colunata,
+      interior de templo, biblioteca, ruína sob céu estrelado. O sujeito tem
+      fundo, e o fundo tem camadas.
+    por_que_isso_muda_producao: >
+      Fundo preto foi tratado como "o caso mais fácil para o modelo". Verdade —
+      mas é o caso fácil de OUTRA imagem. Nosso pack de 39 saiu isolado em preto e
+      por isso NÃO se parece com a referência, mesmo estando tecnicamente correto.
+      Ambiente com perspectiva é mais caro de acertar e é o que dá a identidade.
+    consequencia_para_o_pack: >
+      As 39 imagens já geradas continuam boas — viram banco reutilizável. Mas não
+      servem como modelagem destas referências.
+
+  # ── A PALETA REAL ─────────────────────────────────────────────────────────
+  paleta:
+    afirmacao_antiga: 'praticamente monocromático'
+    medido: >
+      Nenhuma das duas é monocromática. As duas trabalham com ÂMBAR QUENTE de
+      recorte contra SOMBRA FRIA azul-esverdeada. A v2 acrescenta acento CARMESIM
+      em vários takes.
+    v1_praticas: 'mármore claro · âmbar quente + azul frio · céu estrelado frequente'
+    v2_reflexoes: 'figura em bronze/pedra escura · âmbar + teal + acento carmesim'
+
+  # ── O SUJEITO ─────────────────────────────────────────────────────────────
+  sujeito:
+    o_que_e: >
+      Não é estátua de museu. É figura masculina barbada de ANATOMIA HERÓICA —
+      musculatura marcada, torso à mostra sob a toga — em pose de contemplação:
+      sentado com cotovelo no joelho, de pé em três quartos, ou busto em perfil.
+    tratamento: 'pintura digital foto-realista, não fotografia de escultura real'
+    escala_no_quadro: 'ocupa de um terço a metade da altura; o ambiente completa'
+
+  # ── COMO A PEÇA ADMINISTRA O CUSTO VISUAL ─────────────────────────────────
+  economia_de_takes:
+    v1_praticas:
+      duracao: '34m14s'
+      takes_unicos: 99
+      takes_que_repetem: 14
+      tempo_medio_em_tela: '18,9 s'
+      primeira_reciclagem: '8:44'
+      cobertura_dos_20_maiores: '32% do vídeo'
+      cobertura_dos_30_maiores: '41%'
+    v2_reflexoes:
+      duracao: '42m16s'
+      takes_unicos: 88
+      takes_que_repetem: 18
+      tempo_medio_em_tela: '27,6 s'
+      primeira_reciclagem: '6:00'
+      cobertura_dos_20_maiores: '53% do vídeo'
+      cobertura_dos_30_maiores: '63%'
+      take_recordista: 'T01 — 220 s em tela em 6 aparições, numa peça de 42 min'
+    leitura: >
+      A reciclagem começa CEDO — antes dos 9 minutos nas duas. E a cauda é longa:
+      dezenas de takes aparecem uma vez só, por 20 s. Ou seja, a peça não precisa
+      de 90 imagens excelentes; precisa de ~20 muito boas, que carregam metade do
+      tempo, mais uma cauda de imagens que aparecem uma vez.
+    consequencia_de_orcamento: >
+      Para um episódio nosso de 40 min: **20 imagens de acabamento PRO** para os
+      takes que repetem e carregam o vídeo, **mais ~30 de acabamento LITE** para a
+      cauda. Isso é ~2 h de máquina em vez de ~9 h, e a diferença não aparece em
+      tela porque a cauda fica 20 s cada.
+
+  # ── MOVIMENTO E TRANSIÇÃO ─────────────────────────────────────────────────
+  movimento:
+    confirmado_pelo_founder: >
+      "usa transição de flares entre takes além de efeitos e movimentos de
+      keyframes de zoom in de leve, efeito de filme antigo de overlay sobre a tela"
+    confirmado_pela_extracao: >
+      A detecção de corte por diferença de cena devolveu ZERO cortes na v1. Isso
+      só acontece quando NÃO HÁ CORTE SECO: a peça dissolve. É evidência técnica
+      direta do que o founder observou.
+    implicacao_para_a_composicao: >
+      No `video-studio` a transição padrão do dark deve ser DISSOLVE, nunca corte.
+      O flare é uma camada por cima da dissolvência, não um tipo de corte.
+
+  # ── LEGENDA ───────────────────────────────────────────────────────────────
+  legenda_da_referencia:
+    v1_praticas: >
+      Bilíngue. Português em caixa alta na linha de cima, com CAIXA DE DESTAQUE
+      VIOLETA sobre a palavra-chave; tradução em inglês abaixo, branca sobre
+      barra escura.
+    v2_reflexoes: >
+      Só português, caixa alta, com CAIXA DE DESTAQUE CARMESIM sobre a palavra-chave.
+    o_padrao_reaproveitavel: >
+      O destaque colorido sobre UMA palavra por cue é o que dá ritmo de leitura, e
+      é reproduzível no nosso `Captions.tsx`. A cor do destaque vira variável de canal.
+    o_que_NAO_replicar: 'legenda bilíngue — é escolha de alcance daquele canal'

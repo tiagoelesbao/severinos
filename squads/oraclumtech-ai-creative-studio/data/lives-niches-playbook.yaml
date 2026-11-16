@@ -1,0 +1,757 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# ORACLUM TECH · AI CREATIVE STUDIO — PLAYBOOK DE NICHOS DE LIVE 24/7
+#
+# O QUE ESTE ARQUIVO É
+# Mineração de três aulas de um curso externo sobre "método das lives" no YouTube:
+# canal que roda transmissão contínua com conteúdo montado, em vez de publicar
+# vídeo por vídeo. Formato que o squad NÃO tem em nenhum pipeline hoje — o P5
+# dark-room é episódico, não contínuo.
+#
+# O QUE ESTE ARQUIVO NÃO É
+# Não é endosso do curso. Cada nicho está partido em duas listas explícitas:
+# `aproveitavel` (técnica de produção que sobrevive à auditoria e diz PARA QUE
+# serve aqui dentro) e `recusado` (manobra contra a plataforma ou contra o
+# espectador, registrada COM motivo para não voltar por engano em revisão futura).
+#
+# POR QUE O RECUSADO FICA ESCRITO
+# Conhecimento apagado volta. A aula 1 já teve itens recusados por decisão do
+# founder; na aula 2 os mesmos itens reapareceram em versão mais branda ("trocar
+# o título é tranquilo") e teriam passado se não houvesse registro. A lista de
+# recusados É o ativo — é ela que impede a reintrodução silenciosa.
+#
+# ⚠️ QUALIDADE DA FONTE
+# Transcrição Whisper `base` sobre live com ruído, gíria e áudio de fundo. Muito
+# trecho veio degradado. Todo item carrega `confianca`. Onde está `baixa`, o texto
+# é indício — não citar como fato, não usar como base de decisão sem reconferir.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-28'
+  squad: oraclumtech-ai-creative-studio
+  autor_da_mineracao: '@aiox-master (Orion)'
+  fonte:
+    curso: 'Dark Room — Método Lives (turma BLACK)'
+    aulas_mineradas:
+      - 'Aula 1 — Nicho TV Aberta / novelas (2h15)'
+      - 'Aula 2 — Nicho Esportes (1h47)'
+      - 'Aula 3 — Nicho Músicas (1h46)'
+    dossies: 'services/ETL/outputs/courses/dark-room-metodo-lives/raiz/'
+    transcritor: 'Whisper base — ver aviso de qualidade no cabeçalho'
+  status_geral: a_validar_no_estudio
+  consumido_por:
+    - '@research-scout — seleção de nicho e leitura de audiência'
+    - '@head-of-copy — arquitetura de título e promessa'
+    - '@exec-producer — economia de canal, cota de produção, calendário'
+    - '@sound-designer — trilha, leito sonoro, geração em Suno'
+    - '@editor — montagem de loop e composição de cena'
+    - '@fact-checker — é ele quem opera a lista `recusado` como bloqueio'
+  regra_de_uso: >
+    Nenhum item de `aproveitavel` entra em job sem passar pelo `fact-checker`, e
+    nenhum item de `recusado` entra em hipótese alguma. Item recusado que alguém
+    quiser reabrir precisa de decisão explícita do founder registrada AQUI, não de
+    interpretação nova da mesma transcrição.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# O QUE ATRAVESSA OS TRÊS NICHOS
+# ═════════════════════════════════════════════════════════════════════════════
+transversal:
+
+  o_formato_em_uma_frase: >
+    Um arquivo de vídeo curto (5–30 min) rodando em LOOP dentro do OBS,
+    transmitido como live contínua no YouTube. A audiência entra por busca ou
+    recomendação, fica, e as horas assistidas acumuladas viram métrica de
+    monetização e receita de anúncio.
+
+  por_que_o_loop_e_o_produto:
+    - 'A unidade de trabalho deixa de ser o vídeo e passa a ser o CANAL rodando.'
+    - 'Produção de um dia (ou de um domingo) alimenta a semana inteira.'
+    - 'O custo marginal de mais uma hora no ar é zero; o custo é montar o loop uma vez.'
+
+  restricoes_operacionais_citadas:
+    - regra: 'Antes de o canal estar monetizado, a live não deve passar de 11h59.'
+      motivo_citado: 'Acima de 12h o YouTube não contabilizaria as horas assistidas.'
+      confianca: media
+      nota: >
+        Repetido nas três aulas, o que dá consistência interna — mas é regra de
+        plataforma, muda sem aviso. Verificar na documentação do YouTube antes de
+        operar; não tratar como constante.
+    - regra: 'Depois de monetizado, a live pode ficar no ar indefinidamente (meses/anos).'
+      confianca: media
+    - regra: 'Receita demora 1–2 dias para aparecer no painel; a view já é contabilizada na entrada.'
+      confianca: baixa
+
+  aquecimento_antes_da_primeira_live:
+    o_que_e: >
+      Publicar alguns vídeos comuns antes de começar as lives, para o canal sair do
+      que ele chama de "chão de ban inicial" — o período em que o YouTube ainda não
+      distribui o canal. Sinal de saída: o painel começar a mostrar impressões e
+      recomendação em vez de views zeradas.
+    confianca: baixa
+    nota_de_transcricao: >
+      O termo aparece corrompido em toda a aula 2 ("chão doban", "aldoban",
+      "cheio do Banço"). A intenção — período inicial sem distribuição — é legível
+      pelo contexto; o nome exato que ele usa, não. Não citar como termo dele.
+
+  infraestrutura_citada:
+    - { item: 'OBS Studio', uso: 'composição de cena e envio da transmissão', confianca: alta }
+    - { item: 'VPS (ele cita Contabo)', uso: 'manter a live no ar sem depender da máquina local', confianca: alta }
+    - { item: 'CapCut', uso: 'montagem do loop antes de subir ao OBS', confianca: alta }
+    - { item: 'ClipChamp', uso: 'voz neural gratuita + edição (só no nicho de novelas)', confianca: alta }
+    - { item: 'remove.bg', uso: 'recortar o fundo do selo de "inscreva-se"', confianca: alta }
+
+  o_padrao_recusado_que_se_repete:
+    nome: 'Engenharia do artefato de revisão'
+    o_que_e: >
+      Em TODAS as três aulas o passo final é o mesmo: depois que a live termina,
+      trocar título e thumbnail e cortar a gravação no YouTube Studio, de modo que
+      quem revisa o pedido de monetização veja um artefato diferente do que foi
+      efetivamente transmitido. A frase da aula 1 é literal: "eles não vão ver as
+      12 horas de live... eles vão ver só o resumo".
+    por_que_esta_recusado: >
+      Não é edição, é apresentar à revisão humana um objeto construído para a
+      revisão. Vale igual em qualquer plataforma e não depende de a regra do YouTube
+      mudar: o problema é a intenção de que o avaliador julgue outra coisa.
+    versoes_mais_brandas_que_apareceram:
+      - 'Aula 2 — "mas trocar o título é tranquilo, pô, é só trocar o título"'
+      - 'Aula 2 — "recomendo fazer um vídeo à parte, subir no final da live... porque é bem mais fácil de aprovar a monetização"'
+      - 'Aula 3 — "na hora que for mandar para monetização, é só trocar igual das novelas, igual de sports"'
+    consequencia_para_o_squad: >
+      O `fact-checker` bloqueia qualquer entrega em que título/thumbnail publicados
+      não descrevam o que a peça contém. A regra é a mesma que já vale para
+      thumbnail no P5, só que aqui ela precisa cobrir também a fase pós-publicação.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# NICHOS
+# ═════════════════════════════════════════════════════════════════════════════
+nichos:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # NOVELAS / TV ABERTA
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: novelas
+    nome: 'Novelas e TV aberta (resumo narrado em loop)'
+    aula: 'Aula 1 — Nicho TV Aberta BLACK'
+    status_da_mineracao: 'minerado — núcleo aproveitado, manobras recusadas (decisão anterior do founder)'
+
+    formato:
+      duracao_do_loop: '5–10 min'
+      o_que_roda: 'vídeo montado: locução neural sobre imagens estáticas animadas, com transição a cada ~3s'
+      janela_de_transmissao: 'acompanha a faixa de horário da novela na TV — abre um pouco antes, fecha no fim da programação'
+      cadencia: '6–7 loops por semana, montados em bloco no sábado ou domingo'
+
+    o_que_e_transmitido: >
+      Conteúdo próprio: um resumo narrado dos capítulos da semana. NÃO é o sinal da
+      emissora — retransmitir a novela é exatamente o "jeito errado" que a própria
+      aula abre condenando, porque leva a strike e perda do canal.
+
+    insumos:
+      - 'Resumo textual dos capítulos da semana (portais de resumo de novela — ele cita UOL)'
+      - 'Roteiro de ~7 min gerado por LLM a partir do resumo, em texto corrido (sem separar por dia)'
+      - 'Imagens dos personagens colhidas em busca de imagens, escolhidas por AÇÃO (chorando, discutindo), não por retrato'
+
+    ferramentas:
+      - { nome: 'LLM de chat', papel: 'transformar resumo em roteiro de 7 min' }
+      - { nome: 'ClipChamp', papel: 'voz neural (gratuita) + edição do vídeo' }
+      - { nome: 'OBS Studio', papel: 'loop e transmissão' }
+
+    passo_a_passo_citado:
+      - '1. Montar o resumo/roteiro da semana a partir do portal + LLM'
+      - '2. Gerar a locução em voz neural'
+      - '3. Editar: uma imagem a cada ~3s, com espelhamento, zoom, filtro e transição entre elas'
+      - '4. Exportar e subir ao OBS em loop'
+      - '5. Configurar a live no YouTube (chave de transmissão) e transmitir'
+      - '6. Para reaproveitar o mesmo roteiro nos outros dias: parafrasear o texto e trocar efeitos/imagens'
+
+    economia_citada:
+      rpm: 'US$ 0,80–1,00 (mercado Brasil)'
+      receita_por_canal: 'US$ 400–500 por mês em canal estabilizado'
+      pico_citado: '~1 milhão de views na reta final de uma novela'
+      metrica_de_monetizacao: '400 espectadores simultâneos × 7h de live ≈ 2.800 h/dia — bate as 4.000 h em menos de 2 dias'
+      confianca: media
+      nota: >
+        Números ditos de cabeça, ao vivo, com conta feita na calculadora na tela e
+        vários erros de aritmética audíveis. Servem como ordem de grandeza — nunca
+        como base de projeção para cliente.
+
+    mercado_e_audiencia:
+      geografia: 'Brasil — é o único dos nichos do curso que ele diz ser mercado nacional'
+      observacao: 'Ele aponta filme e série como o equivalente para mercado externo, sem detalhar'
+
+    perfil_de_direitos:
+      classificacao: 'MISTO — núcleo defensável, insumos problemáticos'
+      o_que_e_limpo:
+        - 'O resumo narrado é obra derivada de fato jornalístico/sinopse pública, com texto e voz próprios'
+      o_que_e_arriscado:
+        - risco: 'Imagens dos personagens baixadas de busca de imagens'
+          por_que: >
+            São frames de obra audiovisual protegida e/ou fotos de terceiros. A aula
+            trata "aplicar edição" (espelhar, filtrar, cortar) como solução — isso
+            resolve detecção automática de duplicado, não resolve direito autoral.
+            É a distinção que a aula não faz e que o `fact-checker` precisa fazer.
+        - risco: 'Nome e imagem de atores e da emissora no título e na thumbnail'
+          por_que: 'Direito de imagem e marca de terceiro, sem qualquer vínculo'
+      veredito_para_o_squad: >
+        O formato é aproveitável; a fonte de imagem NÃO é. Para rodar aqui, a camada
+        visual teria que ser gerada ou licenciada, o que muda a economia do nicho —
+        e é exatamente por isso que ele precisa ser reavaliado antes de virar oferta.
+
+    aproveitavel:
+      - item: 'Resumo semanal em bloco alimentando 6–7 peças'
+        para_que_serve: >
+          É uma política de lote: uma sessão de produção no fim de semana cobre a
+          semana. Vira regra de cadência do `@exec-producer` no P5 dark-room, que
+          hoje orça episódio a episódio.
+        confianca: alta
+      - item: 'Roteiro corrido, sem separar por dia'
+        para_que_serve: >
+          Instrução de estrutura para o `@head-of-copy`: quebrar em capítulos devolve
+          ao espectador pontos naturais de saída. O corrido mantém o loop de
+          curiosidade aberto — é o mesmo princípio do `codigo_de_retencao` do
+          dark-room em craft-references.yaml, agora com um caso concreto.
+        confianca: alta
+      - item: 'Selecionar imagem por AÇÃO, não por retrato'
+        para_que_serve: >
+          Critério de escolha de still para o `@image-lead`: "chorando", "discutindo",
+          "descobrindo" carregam tensão; retrato neutro não. Aplica-se à geração
+          local também — é uma regra de prompt, não só de curadoria.
+        confianca: alta
+      - item: 'Troca de imagem a cada ~3s com micro-movimento'
+        para_que_serve: >
+          Confirma e aperta o `codigo_de_b_roll` do dark-room ("nenhum plano acima de
+          4s", "b-roll estático parece tela travada"). Vira parâmetro default do
+          `@editor` para peça de locução sobre still.
+        confianca: alta
+      - item: 'Voz neural gratuita como piso de produção'
+        para_que_serve: >
+          Referência de custo para o `@exec-producer`: existe um piso viável sem TTS
+          local nem API paga. Não substitui a rota do `local-generation-stack.yaml`,
+          mas define o "bom o bastante" contra o qual a rota local é comparada.
+        confianca: alta
+
+    recusado:
+      - item: 'Título-isca com marca de emissora ("Globo ao vivo HD", "Jornal Nacional")'
+        motivo: >
+          Sugere retransmissão do sinal de uma emissora. É uso de marca de terceiro
+          para captar audiência que veio buscar outra coisa — engana o espectador e
+          expõe a marca própria. RECUSADO POR DECISÃO ANTERIOR DO FOUNDER.
+      - item: 'Editar a live no YouTube Studio para esconder as horas de live antes da revisão de monetização'
+        motivo: >
+          Constrói um artefato para o revisor diferente do que foi transmitido. Ver
+          `transversal.o_padrao_recusado_que_se_repete`. RECUSADO POR DECISÃO
+          ANTERIOR DO FOUNDER.
+      - item: '"Aplicar edição" (espelhar, filtrar, cortar) sobre imagem de terceiro para não acusar conteúdo duplicado'
+        motivo: >
+          Trata detecção automática como se fosse o direito. Contorna o detector,
+          não o titular. O squad usa a regra inversa: se a origem não é licenciada
+          ou gerada, a peça não sai — nenhum tratamento muda isso.
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # ESPORTES
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: esportes
+    nome: 'Esportes (painel de estatísticas ao vivo)'
+    aula: 'Aula 2 — Nicho Esportes BLACK'
+    status_da_mineracao: 'minerado nesta rodada'
+
+    confirmacao_da_hipotese: >
+      CONFIRMADO pelo transcript, e com margem. O núcleo é transmitir um PAINEL DE
+      ESTATÍSTICAS montado ao vivo — placar, escalações, estatísticas da partida —
+      e explicitamente NÃO a partida. A aula abre com dez minutos condenando quem
+      retransmite o jogo ("de jeito nenhum, pessoal, transmite realmente a partida...
+      não sei se você quer perder o seu canal"), com o argumento correto: só quem tem
+      direito de transmissão pode passar o jogo. O que ele acrescenta e a hipótese
+      não previa: existe uma SEGUNDA variante, jogar a mesma partida no videogame
+      (FIFA / EA FC) e transmitir a gameplay própria em loop, com o placar real
+      sobreposto. As duas variantes compartilham o mesmo setup de OBS.
+
+    formato:
+      variante_a:
+        nome: 'Estatísticas'
+        o_que_roda: 'captura de janela do painel de estatísticas, atualizando em tempo real'
+        recomendacao_do_professor: 'é a que ele recomenda — não exige jogar nem gravar nada'
+      variante_b:
+        nome: 'Videogame'
+        o_que_roda: 'gravação própria de 10–20 min de gameplay do jogo simulado, em loop, com o placar real por cima'
+        custo: 'exige o jogo — ele cita EA FC / "game PES" a partir de ~R$ 44/mês'
+      janela_de_transmissao: 'abre 1h a 1h30 antes do apito, atravessa o jogo, fica ~1h depois — total 4–5h'
+
+    o_que_e_transmitido: >
+      Composição própria a partir de dados públicos de placar ao vivo. O sinal do
+      jogo nunca entra. A imagem é a interface do painel + elementos de retenção
+      montados por cima.
+
+    insumos:
+      - 'Calendário e seleção de partidas — ele usa SofaScore ("soft score" na transcrição)'
+      - 'Placar, escalações e estatísticas ao vivo — ele prefere FlashScore para capturar'
+      - 'Vídeo curto de "reação" em loop (ele usa um cachorro, do Pexels) — retenção sem rosto'
+      - 'Selo de "inscreva-se" recortado com remove.bg'
+      - 'Leito sonoro: som ambiente de torcida, sem trilha musical'
+
+    ferramentas:
+      - { nome: 'SofaScore', papel: 'escolher a partida por potencial de audiência' }
+      - { nome: 'FlashScore', papel: 'fonte visual do placar/escalação/estatística capturada por janela' }
+      - { nome: 'OBS Studio', papel: 'composição da cena e transmissão' }
+      - { nome: 'Pexels', papel: 'vídeo de reação em loop' }
+      - { nome: 'remove.bg', papel: 'recorte do selo de CTA' }
+      - { nome: 'CapCut', papel: 'edição da gameplay na variante B' }
+      - { nome: 'VPS (Contabo)', papel: 'manter a transmissão sem prender a máquina' }
+
+    montagem_do_painel_no_obs:
+      arquitetura: >
+        CENA = a composição no ar. FONTES = as camadas dentro dela. Trocar de cena
+        troca o layout inteiro — é assim que ele alterna entre "aquecimento",
+        "jogo" e "estatísticas puras" sem cortar a transmissão.
+      tipos_de_fonte_usados:
+        - { tipo: 'Fonte de mídia', para: 'todo vídeo (gameplay, reação)', regra: 'marcar loop SEMPRE' }
+        - { tipo: 'Imagem', para: 'selo de inscreva-se e elementos fixos' }
+        - { tipo: 'Captura de janela', para: 'os painéis de dados vivos vindos do navegador' }
+      o_recorte: >
+        Cada painel entra como a janela inteira do navegador e é recortado dentro do
+        OBS por `botão direito → Transformar → Editar transformação`, ajustando corte
+        de esquerda/direita/topo. Ele gasta vários minutos da aula acertando valores
+        (615, 780, 200...) e comenta que "é chato, mas depois costuma" — ou seja, é
+        trabalho de calibração manual que só se paga porque a cena é reutilizada
+        todos os dias.
+      camadas_que_ele_chama_de_essenciais:
+        - 'Placar ao vivo'
+        - 'Vídeo de reação em loop'
+        - 'Selo de inscreva-se'
+      camadas_opcionais:
+        - 'Escalações'
+        - 'Estatísticas da partida'
+        - 'Campo tático em tempo real (ele puxa de casa de apostas — ver `recusado`)'
+        - 'Cronômetro / contagem regressiva (ele tenta ao vivo e o recurso falha; fica sem demonstração)'
+
+    passo_a_passo_citado:
+      - '1. Selecionar a partida pelo calendário, por potencial de audiência'
+      - '2. Montar o vídeo/painel de estatísticas da live'
+      - '3. Configurar cena e fontes no OBS e a transmissão no YouTube'
+      - '4. Abrir a live 1h–1h30 antes e transmitir'
+      - '5. (passo 5 dele é a edição pós-live — ver `recusado`)'
+
+    economia_citada:
+      rpm_europa_asia: 'US$ 0,60–0,70 (ele converte para ~R$ 4 por mil views)'
+      rpm_estados_unidos: 'US$ 9–10 (ele converte para ~R$ 50 por mil views)'
+      exemplos_de_volume:
+        - '172 mil views em 5 dias em uma transmissão'
+        - '~300 mil views somando os canais em um único dia'
+        - '237 mil / 383 mil / perto de 1 milhão em jogos de Premier League'
+      metrica_de_monetizacao: '100 espectadores simultâneos × 5h = 500 h/dia — 4.000 h em ~8 dias'
+      mercado_de_canais: 'canal monetizado se vende por ~R$ 800 ou mais'
+      confianca: media
+      nota: >
+        A conversão dólar→real que ele faz na tela é inconsistente entre trechos
+        (chama US$ 9 de "50 reais" e também de "RPM 50"). A ordem de grandeza — EUA
+        vale ~10x Europa/Ásia no mesmo formato — é o que sobrevive; os números
+        exatos, não.
+
+    mercado_e_audiencia:
+      onde_performa: 'Ásia, África e Europa para futebol; Estados Unidos para NBA, futebol americano, MLB e NHL'
+      racional_citado: >
+        Onde o acesso à TV é menor, o público vai ao YouTube atrás do jogo — e fica
+        no painel de estatísticas quando não acha o jogo. Ele associa boa parte dessa
+        audiência a quem apostou na partida.
+      brasil: 'audiência existe, mas retenção menor — "o pessoal é mais impaciente" e entra e sai'
+      contraindicacao_explicita: 'Fórmula 1 — "o público é elitizado", já assiste por outros meios'
+      volume_de_oferta: 'ele conta ~50 jogos de futebol por dia, mais basquete e ligas americanas — o argumento contra saturação'
+      vantagem_estrutural: >
+        Sem narração, a peça atende qualquer idioma — o leito é só som de torcida.
+        É o mesmo princípio que no nicho de músicas leva a titular tudo em inglês.
+
+    perfil_de_direitos:
+      classificacao: 'FAVORÁVEL no núcleo — placar é fato, não obra'
+      o_que_e_limpo:
+        - 'Resultado, escalação e estatística são FATO. Fato não tem direito autoral.'
+        - 'Som ambiente de torcida evita inteiramente o problema de trilha.'
+        - 'Gameplay própria é material próprio.'
+      o_que_exige_atencao:
+        - ponto: 'A INTERFACE do provedor de dados é obra protegida'
+          detalhe: >
+            Capturar a janela do FlashScore transmite o layout, a marca e a base de
+            dados de terceiro — os termos de uso desses serviços tipicamente vedam
+            redistribuição. O dado é livre; a tela que o exibe não é. A aula não
+            faz essa distinção em momento nenhum.
+          saida_para_o_squad: >
+            Renderizar painel PRÓPRIO a partir de API de dados esportivos licenciada.
+            É mais trabalho e resolve o problema na raiz — e passa a ser design de
+            produto (`@art-director`), que é onde o squad tem vantagem.
+        - ponto: 'Nome de clube, liga e competição'
+          detalhe: 'Uso descritivo é defensável; uso que sugira transmissão oficial não é.'
+      veredito_para_o_squad: >
+        É o nicho de melhor perfil de direitos dos três, DESDE QUE o painel seja
+        nosso. Com painel de terceiro capturado, troca-se o risco de direito autoral
+        de vídeo pelo risco de violação de termos de serviço — menor, mas real.
+
+    aproveitavel:
+      - item: 'Painel de dados ao vivo como conteúdo original'
+        para_que_serve: >
+          É um gênero que o catálogo não tem: peça cujo conteúdo é dado atualizando,
+          não narrativa. Entra no `genre-catalog.yaml` como backlog `live-stats-panel`
+          e é o formato mais próximo de virar oferta vendável (painel de evento,
+          painel de lançamento, painel de campanha para cliente).
+        confianca: alta
+      - item: 'Arquitetura cena/fonte do OBS com captura de janela recortada'
+        para_que_serve: >
+          Receita operacional completa para o `@editor` montar QUALQUER transmissão
+          contínua. É o único conhecimento das três aulas que é puramente técnico e
+          reutilizável sem nenhuma ressalva ética.
+        confianca: alta
+      - item: 'Loop de reação sem rosto como dispositivo de retenção'
+        para_que_serve: >
+          Resolve para o P5 dark-room um problema que o `craft-references.yaml` já
+          nomeia mas não resolve: como criar presença sem expor rosto. Um elemento
+          vivo em loop no canto ocupa a função do reaction cam. Vira item de
+          `assinatura_substituta` no channel-brief.
+        confianca: alta
+      - item: 'Som ambiente no lugar de trilha'
+        para_que_serve: >
+          Regra de roteamento para o `@sound-designer`: em peça de longa duração, leito
+          ambiente elimina de uma vez o risco de Content ID e o custo de licenciamento.
+          Aplica-se ao P5 e a qualquer peça longa, não só a esporte.
+        confianca: alta
+      - item: 'Seleção de evento por potencial de audiência antes de produzir'
+        para_que_serve: >
+          Rotina de `@research-scout`: a decisão de produzir vem do calendário do
+          evento, não do calendário do estúdio. Inverte a ordem do briefing em
+          qualquer peça atrelada a acontecimento (jogo, lançamento, data).
+        confianca: alta
+      - item: 'Geografia da audiência como variável de orçamento'
+        para_que_serve: >
+          O mesmo formato vale ~10x mais em um mercado que em outro. Para o
+          `@exec-producer`, a pergunta "para quem isto vai aparecer" precede
+          "quanto custa produzir" — hoje o `*budget` não tem esse eixo.
+        confianca: media
+      - item: 'Vídeo de aquecimento publicado antes da transmissão'
+        para_que_serve: >
+          Peça curta legítima (informação da partida, escalação provável) publicada
+          antes para o canal ganhar distribuição. É estratégia de publicação normal e
+          cabe no P5 como "peça de abertura de temporada".
+        confianca: media
+        ressalva: >
+          O exemplo que ele dá dessa peça é uma notícia inventada — ver `recusado`.
+          A prática é boa; o conteúdo que ele sugere para ela, não.
+      - item: 'Nunca transmitir a partida'
+        para_que_serve: >
+          Vale registrar como CONFIRMAÇÃO: a aula chega sozinha ao princípio certo
+          (sem direito de transmissão, não se transmite) e o defende por 10 minutos.
+          É o pedaço do curso que já está alinhado ao `fact-checker`.
+        confianca: alta
+
+    recusado:
+      - item: 'Pegar trecho de jogo do YouTube e "espelhar, dividir, aplicar filtro" para não acusar duplicado'
+        motivo: >
+          Ele mesmo diz "não recomendo, mas quem quiser assumir o risco". É o mesmo
+          erro da aula 1: tratar o detector como se fosse o titular. Material de
+          terceiro tratado continua sendo material de terceiro.
+      - item: 'Trocar título e thumbnail depois da live para a revisão de monetização'
+        motivo: >
+          "Mas trocar o título é tranquilo, pô, é só trocar o título." Versão branda
+          do item recusado na aula 1, e por isso mais perigosa: passa como
+          conveniência operacional. Ver `transversal.o_padrao_recusado_que_se_repete`.
+      - item: 'Anexar um vídeo à parte no fim da live e cortar a gravação para deixar só ele'
+        motivo: >
+          A justificativa é explícita: "porque é bem mais fácil de aprovar a
+          monetização... não corre o risco de falar que é conteúdo que não agrega
+          valor por ser estatísticas". Ou seja, o próprio autor sabe que o conteúdo
+          real pode não passar, e constrói um substituto para a revisão.
+      - item: 'Título de "full match stream" / "partida completa" em transmissão que não é a partida'
+        motivo: >
+          Ele instrui a subir como "Man United vs Lyon — full match stream", "como se
+          fosse realmente a partida". O espectador clica para ver o jogo e recebe
+          uma tabela. Engano do espectador, independentemente de plataforma.
+      - item: 'Notícia inventada como clickbait no vídeo de aquecimento'
+        motivo: >
+          Ele redige ao vivo um conflito entre dois clubes e admite: "eu inventei
+          isso daqui, mano". Fabricar fato sobre pessoas e organizações reais é
+          bloqueio absoluto do `fact-checker`, sem exceção de formato.
+      - item: 'Painel de odds de casa de apostas embutido na transmissão'
+        motivo: >
+          Ele trata como bônus ("até bom que você tá fazendo propaganda pra bet").
+          É publicidade de aposta em canal aberto, sem contrato, sem verificação de
+          idade e sem os avisos que a regulação brasileira de apostas exige. Fora do
+          que o squad pode entregar a cliente ou operar em canal próprio.
+      - item: 'Navegador antidetect (Dolphin Anty) para separar canais no mesmo IP'
+        motivo: >
+          Separar perfis de navegador por canal é higiene operacional legítima. O uso
+          que ele descreve não é esse: é impedir que strike em um canal alcance os
+          outros — isto é, evitar que a plataforma correlacione contas que são do
+          mesmo operador. Isso é evasão de fiscalização, não organização.
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # MÚSICAS
+  # ───────────────────────────────────────────────────────────────────────────
+  - id: musicas
+    nome: 'Músicas (loop de faixas geradas por IA)'
+    aula: 'Aula 3 — Nicho Músicas'
+    status_da_mineracao: 'minerado nesta rodada'
+
+    formato:
+      duracao_do_loop: '~30 min (ele recomenda ~10 faixas)'
+      o_que_roda: 'faixas concatenadas no CapCut sobre uma imagem ou vídeo curto em movimento, tudo em loop no OBS'
+      janela_de_transmissao: 'contínua — ele cita canais com 3 anos e 4 meses de live ininterrupta'
+      montagem: >
+        Ele prefere juntar as faixas no CapCut e subir UM arquivo ao OBS, em vez de
+        empilhar 10 fontes de áudio no OBS. Menos pontos de falha em transmissão que
+        vai ficar meses no ar.
+
+    o_que_e_transmitido: >
+      Faixas geradas em Suno, com letra escrita por LLM. É o ponto central da aula:
+      a alternativa a subir fonograma de terceiro é PRODUZIR o fonograma.
+
+    sub_nichos:
+      - id: lofi
+        o_que_e: 'batida calma para estudo/concentração, imagem em loop'
+        nota_do_professor: 'concorrência alta e canais estabelecidos; "se fosse começar hoje, eu não começaria"'
+      - id: relaxante_natureza
+        o_que_e: 'som de água, chuva, ambiente'
+        nota_do_professor: 'concorrência menor que lofi'
+      - id: frequencias_binaurais
+        o_que_e: 'batidas em Hz associadas a foco, produtividade, sono'
+        nota_do_professor: 'o que ele chama de maior audiência entre os sub-nichos de som'
+        alerta: 'é onde os títulos viram promessa de saúde — ver `recusado`'
+      - id: musica_com_letra
+        o_que_e: 'sertanejo, gospel, pop internacional, infantil — faixas cantadas geradas em Suno'
+        nota_do_professor: 'o principal da aula; onde ele diz estar o volume'
+      - id: infantil
+        o_que_e: 'música infantil, inclusive infantil religiosa'
+        economia_particular: >
+          Reescuta. Ele estima que 10% de quem ouviu volta, e a mesma criança repete
+          a mesma faixa ~10x no mês. É o único sub-nicho cuja audiência se
+          multiplica sozinha.
+        alerta_do_squad: >
+          Conteúdo para criança tem regime próprio no YouTube (feito-para-crianças,
+          sem anúncio personalizado, sem comentários) — o que muda a economia que
+          ele descreve. Ele não menciona isso em nenhum momento.
+
+    insumos:
+      - 'Letra gerada por LLM a partir de um pedido de gênero + enredo'
+      - 'Prompt de estilo de até ~200 caracteres, também gerado pelo LLM'
+      - 'Imagem de fundo — Pexels, Pixabay ou geração (ele cita Leonardo AI), animada depois'
+      - 'Sons de natureza da Biblioteca de Áudio do YouTube quando a geração não resolve'
+
+    ferramentas:
+      - { nome: 'Suno', papel: 'geração das faixas — plano pago', custo_citado: 'a partir de ~R$ 50/mês, 2.500 créditos' }
+      - { nome: 'LLM de chat', papel: 'letra + prompt de estilo' }
+      - { nome: 'CapCut', papel: 'concatenar as faixas e montar o loop visual' }
+      - { nome: 'OBS Studio', papel: 'transmissão' }
+      - { nome: 'Biblioteca de Áudio do YouTube', papel: 'sons de natureza livres de uso' }
+      - { nome: 'Pexels / Pixabay / Leonardo AI', papel: 'imagem de fundo' }
+
+    passo_a_passo_citado:
+      - '1. Pedir ao LLM a letra (gênero + enredo + intenção) E um prompt de estilo de até 200 caracteres'
+      - '2. No Suno, abrir o modo customizado: colar a letra no campo de letra e o prompt no campo de estilos'
+      - '3. Gerar — o Suno devolve DUAS versões da mesma letra, com ritmo e arranjo diferentes'
+      - '4. Escolher a melhor; repetir até ter ~10 faixas'
+      - '5. Concatenar no CapCut sobre a imagem/vídeo de fundo em movimento'
+      - '6. Subir ao OBS em loop e transmitir'
+
+    economia_citada:
+      rpm: 'US$ 0,80–1,00 no Brasil; infantil na faixa de US$ 0,85–1,00; internacional mais alto'
+      canal_fraco: '7 mil views/dia ≈ 210 mil/mês ≈ R$ 1.200/mês'
+      caso_de_aluno: '15,5 milhões de views em um vídeo — ele calcula ~R$ 60–70 mil'
+      canal_lofi_de_referencia: '11–12 mil espectadores simultâneos, no ar desde 2022'
+      custo_de_producao: '~R$ 50/mês em créditos rendem 250–500 faixas'
+      confianca: media
+      nota: >
+        A conta dos R$ 60–70 mil é feita ao vivo, ele se perde duas vezes e chega ao
+        resultado por arredondamento. A relação que importa e que é robusta: o custo
+        de produção musical do nicho é desprezível perto da receita potencial.
+
+    mercado_e_audiencia:
+      idioma: 'tudo em inglês por padrão — sem narração, a peça atende o mundo todo e o RPM sobe'
+      brasil: 'ele afirma ver percentual relevante de brasileiros mesmo em canais internacionais'
+      generos_citados: ['sertanejo', 'gospel', 'pop internacional', 'infantil', 'funk']
+
+    perfil_de_direitos:
+      classificacao: 'O MAIS DELICADO DOS TRÊS — e o único em que o método foi desenhado ao redor do problema'
+      o_ponto_central: >
+        Música é o domínio com o titular mais agressivo que existe: o Content ID
+        varre fonograma e composição, casa trechos parciais e age sozinho. A aula
+        SABE disso — abre mostrando que subir faixa de artista derruba o canal, e
+        constrói todo o método em cima de não depender de fonograma de terceiro.
+      o_metodo_nao_depende_de_fonograma_de_terceiro: >
+        RESPOSTA DIRETA À PERGUNTA: não depende. As faixas são geradas em Suno pelo
+        próprio operador. Não há sample, não há cover, não há regravação. Essa é a
+        parte tecnicamente sólida da aula.
+      mas_as_ressalvas_que_a_aula_nao_faz:
+        - ressalva: 'A titularidade vem dos termos de uso do Suno, não de lei'
+          detalhe: >
+            Ele afirma "a música é literalmente sua" porque assinou o plano pago.
+            Isso é uma condição contratual de uma empresa privada, revisável a
+            qualquer momento. Tratar como propriedade estável é frágil.
+          o_que_o_squad_faz: 'reconferir os termos vigentes antes de qualquer operação, e registrar a data da conferência'
+        - ressalva: 'Obra puramente gerada por IA tem proteção autoral contestada'
+          detalhe: >
+            Em várias jurisdições, saída sem intervenção humana criativa suficiente
+            não é registrável. Consequência prática: pode ser impossível DEFENDER a
+            faixa contra quem a reutilizar — o inverso do risco, mas risco.
+        - ressalva: 'Content ID de terceiro pode reivindicar por semelhança'
+          detalhe: >
+            Nada impede que uma faixa gerada dispare correspondência com um catálogo
+            existente. A aula não cogita a hipótese.
+        - ressalva: 'Distribuição para Spotify e afins'
+          detalhe: 'Ele cita como possível. As distribuidoras têm política própria sobre conteúdo gerado por IA, frequentemente restritiva.'
+      biblioteca_do_youtube: >
+        Ponto correto e útil da aula: a Biblioteca de Áudio do YouTube é uso livre
+        dentro do YouTube. E ele alerta com razão contra sites que se anunciam "sem
+        direito autoral" e não são — "por mais que falem que é sem direito autoral,
+        dá problema".
+      veredito_para_o_squad: >
+        Nicho com o maior potencial de escala E a maior superfície de risco. O núcleo
+        (gerar a própria faixa) é o correto e é o que o squad já quer para trilha. O
+        que inviabiliza a operação como está não são os direitos da música — é a
+        camada de captação: clickbait com nome de artista e promessa de saúde.
+
+    aproveitavel:
+      - item: 'Prompt em dois artefatos: letra + prompt de estilo de até ~200 caracteres'
+        para_que_serve: >
+          Padrão de prompt concreto para o `@sound-designer` gerar trilha e motif de
+          canal. Entra no `prompt-architectures.yaml` como a arquitetura de prompt do
+          Suno, que hoje não existe lá — as cinco ferramentas mapeadas são todas de
+          imagem e vídeo. Fecha um vazio real.
+        confianca: alta
+      - item: 'Duas variantes por geração, mesma letra, ritmos diferentes'
+        para_que_serve: >
+          Confirma no áudio o que o squad já faz na imagem: `quantas_variacoes` +
+          `criterio_de_escolha`. O Suno entrega o A/B de graça; a decisão é humana e
+          por escuta, exatamente como a regra de ouro do blueprint exige.
+        confianca: alta
+      - item: 'Instrumental e ambiência são MAIS difíceis que faixa cantada no Suno'
+        para_que_serve: >
+          Achado de campo com evidência direta: ele tenta ao vivo gerar chuva e rio,
+          falha três vezes seguidas e admite "ficou ruim". Vira regra de roteamento
+          do `@sound-designer`: para SFX e ambiência, acervo primeiro (Biblioteca do
+          YouTube, banco próprio); gerador de música só para faixa com estrutura.
+          Reforça a nota do `local-generation-stack.yaml` sobre montar banco de SFX
+          em vez de gerar por take.
+        confianca: alta
+      - item: 'Diferenciação pela promessa, não pelo produto'
+        para_que_serve: >
+          O insight de copy da aula: todos os canais entregam som parecido, então o
+          título é o único diferencial. Ele reescreve "lofi beats para estudar e
+          relaxar" como uma promessa específica. Para o `@head-of-copy`, é a mesma
+          lógica do `curiosity gap` da thumbnail, aplicada a produto indiferenciado.
+        confianca: alta
+        teto_obrigatorio: >
+          Só vale enquanto a promessa é verificável ou subjetiva. No momento em que
+          vira efeito fisiológico prometido, é claim sem fonte e o `fact-checker`
+          bloqueia. Ver `recusado`.
+      - item: 'Inglês por padrão quando não há narração'
+        para_que_serve: >
+          Regra de decisão para o `@exec-producer` e o `@head-of-copy` no P5: peça sem
+          fala não tem custo de localização, então o idioma do título é escolha pura
+          de mercado. Casa com o mesmo achado no nicho de esportes.
+        confianca: alta
+      - item: 'Nunca imagem estática — fundo em movimento lento e contínuo'
+        para_que_serve: >
+          Confirma o `codigo_de_b_roll` do dark-room a partir de outro formato. Vira
+          parâmetro do loop visual: imagem viva, movimento lento, sem corte.
+        confianca: alta
+      - item: 'Montar o loop no editor, não no OBS'
+        para_que_serve: >
+          Regra de confiabilidade para transmissão longa: um arquivo pré-montado tem
+          menos pontos de falha que N fontes empilhadas. Serve ao `@editor` em
+          qualquer entrega que vá ficar dias no ar sem supervisão.
+        confianca: alta
+      - item: 'Economia de reescuta no infantil'
+        para_que_serve: >
+          Critério de seleção de nicho para o `@research-scout`: audiência que
+          reconsome multiplica o mesmo ativo. É uma variável que o `genre-catalog`
+          não considera hoje — ele classifica por KPI, não por reconsumo.
+        confianca: media
+      - item: 'Cautela com bancos "livres de direito autoral"'
+        para_que_serve: >
+          Regra do `@fact-checker`: origem só é aceita com licença nomeada e
+          verificável. "O site diz que é livre" não é procedência.
+        confianca: alta
+
+    recusado:
+      - item: 'Clickbait com nome de artista real (Bieber, Rihanna, Taylor Swift, Lady Gaga) em live de faixas geradas'
+        motivo: >
+          Instrução literal: "você poderia até gerar o clickbait, colocar a Lady...
+          Bieber, Rihanna, Taylor Swift, só para captar essa audiência". É a mesma
+          família do título-isca com marca de emissora recusado na aula 1 — usa o
+          nome de terceiro como isca para conteúdo que não é dele. Soma direito de
+          imagem, marca e engano do espectador.
+      - item: 'Não marcar a declaração de conteúdo gerado por IA'
+        motivo: >
+          "Eu gosto de colocar não, porque eu sinto que entrega mais." Omitir a
+          declaração exigida pela plataforma sobre conteúdo sintético, deliberadamente
+          e por vantagem de alcance. Para um squad cuja produção é toda gerada, isto
+          é inegociável: declaramos sempre.
+      - item: 'Título com promessa de efeito fisiológico ("batidas de 60 Hz para ativar sua mente", "liberar o hormônio da tranquilidade", "resolver seu estresse em 7 minutos")'
+        motivo: >
+          Claim de saúde sem qualquer fonte. Agravado pela instrução de usar números
+          quebrados (7, 12, 17, 23) para soar específico — ou seja, fabricar
+          precisão. O `fact-checker` já bloqueia claim sem fonte primária; este é o
+          caso-tipo.
+      - item: 'Trocar título e thumbnail antes da revisão de monetização'
+        motivo: >
+          "É só trocar igual das novelas, igual de sports." Terceira aparição do mesmo
+          padrão, agora dito como rotina consolidada. Ver
+          `transversal.o_padrao_recusado_que_se_repete`.
+      - item: 'Criar várias contas para colher créditos gratuitos'
+        motivo: >
+          Ele menciona de passagem ("você consegue criar várias contas e ele vai te
+          liberar um crédito de graça") antes de recomendar o plano pago. Burla de
+          camada gratuita, e além disso destrói justamente a titularidade que é o
+          fundamento do método — os créditos gratuitos não dão direito comercial.
+
+# ═════════════════════════════════════════════════════════════════════════════
+# COMPARATIVO E RECOMENDAÇÃO
+# ═════════════════════════════════════════════════════════════════════════════
+comparativo:
+  criterio: 'qual nicho atacar primeiro, se o squad decidir explorar o formato'
+
+  quadro:
+    - nicho: esportes
+      perfil_de_direitos: 'melhor — dado é fato'
+      dependencia_de_terceiro: 'a interface do provedor de dados (contornável com painel próprio)'
+      esforco_de_montagem: 'alto na primeira cena, ~zero nas seguintes'
+      recorrencia_de_producao: 'diária, atada ao calendário do evento'
+      itens_recusados: 7
+      encaixe_no_squad: 'alto — vira gênero novo e habilidade de OBS reutilizável'
+    - nicho: musicas
+      perfil_de_direitos: 'de risco alto para aceitável, porque o método gera o próprio fonograma'
+      dependencia_de_terceiro: 'termos de uso do Suno'
+      esforco_de_montagem: 'baixo'
+      recorrencia_de_producao: 'baixa — um loop roda meses'
+      itens_recusados: 5
+      encaixe_no_squad: 'médio no formato, ALTO na técnica (prompt de Suno serve a todos os pipelines)'
+    - nicho: novelas
+      perfil_de_direitos: 'pior — a camada visual inteira é de terceiro'
+      dependencia_de_terceiro: 'imagens de obra protegida'
+      esforco_de_montagem: 'médio'
+      recorrencia_de_producao: 'semanal em lote'
+      itens_recusados: 3
+      encaixe_no_squad: 'baixo como formato; a política de lote é o que sobra'
+
+  recomendacao:
+    primeiro: esportes
+    por_que: >
+      É o único cujo NÚCLEO permanece intacto depois de remover tudo o que está na
+      lista de recusados. Tira-se o título de "full match", a notícia inventada, o
+      painel de apostas e a edição pós-live, e ainda resta um produto inteiro:
+      composição própria sobre dado público, sem narração, sem trilha, sem rosto e
+      sem material de terceiro no vídeo. Nos outros dois, o que sobra depois da
+      remoção é menos: em músicas some a camada de captação que o próprio autor
+      considera decisiva ("o mais difícil é captar a audiência"); em novelas some a
+      base visual inteira.
+    segundo: musicas
+    por_que_segundo: >
+      A técnica vale mais que o formato. O padrão de prompt do Suno e a regra de que
+      ambiência é mais difícil que canção entram no squad HOJE, para trilha e motif
+      de canal, sem depender de decidir se vamos ou não operar canal de música.
+    terceiro: novelas
+    por_que_terceiro: >
+      Já minerado e já parcialmente recusado. Reabrir exigiria trocar a fonte de
+      imagem por geração ou licença, o que muda a economia e torna o nicho um
+      exercício de P5 comum — sem vantagem sobre o que o squad já sabe fazer.
+
+  onde_a_transcricao_nao_permitiu_concluir:
+    - 'Configuração de encoder/bitrate do OBS — ele delega a "pesquise no YouTube conforme seu PC" e não mostra valores.'
+    - 'Cronômetro / contagem regressiva na cena de esportes — o recurso falha ao vivo, ele desiste e a demonstração não acontece.'
+    - 'Nome exato do período inicial sem distribuição — a palavra vem corrompida em todas as ocorrências.'
+    - 'Configuração da VPS — adiada para uma aula futura que não está neste corpus.'
+    - 'Números de receita — a aritmética ao vivo é inconsistente; só a ordem de grandeza é aproveitável.'

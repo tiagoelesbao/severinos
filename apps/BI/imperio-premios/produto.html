@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI Império — Produto</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* Simplificada em 2026-11-06 (pedido do founder, mesmo padrão aplicado
+     primeiro no BI Garantido): sem Chart.js, sem dispersão log-log, sem
+     correlação/Pearson, sem curva de Lorenz. Só cards + barras horizontais
+     (.bars, do theme.css) e tabela — os mesmos achados de sempre (giro é o
+     recurso escasso, preço × tempo, prêmio × lucro/hora, horário, concentração
+     de receita), em linguagem direta. */
+  .bloco { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .bloco h3 { font-size: 13px; color: var(--text); margin-bottom: 2px; }
+  .bloco .pergunta { font-size: 12.5px; color: var(--gold-light); font-weight: 700; margin-bottom: 10px; }
+  .bloco .leitura { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .bloco .leitura strong { color: var(--text); }
+  .duas-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .duas-col { grid-template-columns: 1fr; } }
+
+  .bars-grande .bar-row { grid-template-columns: 210px 1fr 100px; }
+  .bar-row.melhor .bar-fill { background: linear-gradient(90deg, var(--green), var(--gold)); }
+  .bar-row.pior .bar-fill { background: var(--red); }
+  .bar-sub { font-size: 10.5px; color: var(--muted); margin-left: 4px; }
+
+  .pill-mini { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 10px; font-weight: 700; margin-right: 6px; }
+  .pill-mini.p { background: rgba(61,220,111,0.15); color: var(--green); }
+  .pill-mini.m { background: rgba(227,167,62,0.15); color: #e3a73e; }
+  .pill-mini.j { background: rgba(227,84,62,0.15); color: #ff9c8a; }
+  .pill-mini.s { background: rgba(164,164,176,0.15); color: var(--muted); }
+
+  #tabela-rodadas th { cursor: pointer; user-select: none; white-space: nowrap; }
+  #tabela-rodadas th:hover { color: var(--gold); }
+  #tabela-rodadas th.ord::after { content: ' ▾'; }
+  #tabela-rodadas th.ord.asc::after { content: ' ▴'; }
+  #tabela-rodadas td.tit { max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .vazio { padding: 26px; text-align: center; color: var(--muted); font-size: 12.5px; }
+  .nota-metodo { font-size: 11px; color: #7b7b87; line-height: 1.55; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<div id="nav-slot"></div>
+
+<main class="wrap">
+  <h1 class="titulo-pagina">Produto — as rodadas de sorteio</h1>
+  <p class="subtitulo-pagina">
+    O que vendeu mais rápido, o que deu mais lucro por hora e quando os clientes compram. Direto ao ponto, pra
+    decidir rápido a próxima rodada.
+  </p>
+
+  <div id="aviso-metodologia"></div>
+
+  <div id="filtro-periodo"></div>
+  <p class="periodo-label" id="periodo-label"></p>
+
+  <div id="corpo"></div>
+
+  <footer class="nota">BI Império · Produto · dado puxado da API do cliente (sorteios + pedidos pagos).</footer>
+</main>
+
+<script src="nav.js"></script>
+<script src="periodo.js"></script>
+<script>
+// ============================================================ constantes
+const PORTE_CLASSE = {
+  'Pequeno (até R$1k)': 'p',
+  'Médio (R$1k-5k)': 'm',
+  'Jackpot (acima de R$5k)': 'j',
+  'Sem prêmio identificável': 's',
+};
+const FAIXAS_PRECO = [
+  { max: 5, label: 'até R$5' }, { max: 10, label: 'R$5-10' }, { max: 20, label: 'R$10-20' },
+  { max: 40, label: 'R$20-40' }, { max: 80, label: 'R$40-80' }, { max: Infinity, label: 'R$80+' },
+];
+const faixaPreco = (p) => (FAIXAS_PRECO.find((f) => p < f.max) || FAIXAS_PRECO[FAIXAS_PRECO.length - 1]).label;
+
+let DADOS = null;
+
+// ============================================================ formatação
+const num = (a) => a.filter((v) => v !== null && v !== undefined && isFinite(v));
+const soma = (a) => num(a).reduce((x, y) => x + y, 0);
+const mediana = (a) => { const s = num(a).slice().sort((x, y) => x - y); if (!s.length) return null; const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const fBRL0 = (v) => (v === null || v === undefined || !isFinite(v)) ? '—' : 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+const fPct = (v, d = 1) => (v === null || v === undefined || !isFinite(v)) ? '—' : v.toFixed(d) + '%';
+function fHoras(h) {
+  if (h === null || h === undefined || !isFinite(h)) return '—';
+  if (h < 1) return Math.round(h * 60) + ' min';
+  if (h < 24) return h.toFixed(1).replace('.', ',') + ' h';
+  return (h / 24).toFixed(1).replace('.', ',') + ' d';
+}
+
+// barra horizontal simples (reaproveita .bars/.bar-row do theme.css)
+function montarBars(linhas, { max, classeExtra } = {}) {
+  const teto = max || Math.max(1, ...linhas.map((l) => Math.abs(l.valor)));
+  return `<div class="bars ${classeExtra || ''}">` + linhas.map((l) => {
+    const classe = l.classe || (l.valor < 0 ? 'pior' : '');
+    const corFill = l.valor < 0 ? 'background:var(--red);' : '';
+    return `
+    <div class="bar-row ${classe}">
+      <div>${l.rotulo}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(2, 100 * Math.abs(l.valor) / teto)}%;${corFill}"></div></div>
+      <div class="n" style="${l.valor < 0 ? 'color:var(--red);' : ''}">${l.rotuloValor !== undefined ? l.rotuloValor : fBRL0(l.valor)}</div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+// ============================================================ filtro
+function filtrar(inicio, fim) {
+  const d = DADOS;
+  const dentro = (dia) => dia >= inicio && dia <= fim;
+  return {
+    rodadas: (d.rodadas || []).filter((r) => dentro(r.dia)),
+    hora: (d.pedidos_hora || []).filter((r) => dentro(r.dia)),
+    qtd: ((d.pedidos_perfil || {}).por_quantidade_numeros || []).filter((r) => dentro(r.dia)),
+    faixaValor: ((d.pedidos_perfil || {}).por_faixa_valor || []).filter((r) => dentro(r.dia)),
+  };
+}
+
+// ============================================================ render
+function render(inicio, fim) {
+  const F = filtrar(inicio, fim);
+  const rodadas = F.rodadas;
+  const fechadas = rodadas.filter((r) => r.esgotou && r.horas_ate_esgotar);
+
+  document.getElementById('periodo-label').textContent =
+    `Período: ${inicio} até ${fim} — ${rodadas.length} rodada(s) criada(s), ${fechadas.length} já esgotada(s). `
+    + `Rodada entra no período pela data de CRIAÇÃO (fuso de Brasília), não pela data de venda.`;
+
+  if (!rodadas.length) {
+    document.getElementById('corpo').innerHTML = `<div class="table-wrap"><div class="vazio">Nenhuma rodada criada neste período. A janela puxada pelo pipeline é de ${DADOS.janela_dias_pedidos} dias — escolha um intervalo dentro dela.</div></div>`;
+    return;
+  }
+
+  document.getElementById('corpo').innerHTML = montarEsqueleto();
+
+  renderCards(rodadas, fechadas, F);
+  renderPorte(fechadas);
+  renderFaixaPreco(fechadas);
+  renderRanking(fechadas);
+  renderHorario(F.hora);
+  renderConcentracao();
+  renderPerfilPedido(F);
+  renderTabela(rodadas);
+}
+
+function montarEsqueleto() {
+  return `
+  <div class="cards" id="cards-resumo"></div>
+  <p class="nota-metodo" id="nota-motor" style="margin-bottom:14px;"></p>
+
+  <div class="duas-col">
+    <div class="bloco">
+      <h3>Qual tamanho de prêmio dá mais lucro por hora?</h3>
+      <div class="pergunta">Lucro por hora típico de cada faixa, rodadas já fechadas</div>
+      <div id="bars-porte"></div>
+      <div class="leitura" id="leitura-porte"></div>
+    </div>
+    <div class="bloco">
+      <h3>Qual preço por número dá mais lucro por hora?</h3>
+      <div class="pergunta">Lucro por hora típico de cada faixa, rodadas já fechadas</div>
+      <div id="bars-preco"></div>
+      <div class="leitura" id="leitura-preco"></div>
+    </div>
+  </div>
+
+  <div class="bloco">
+    <h3>As melhores e as piores rodadas do período</h3>
+    <div class="pergunta">Ordenado por lucro por hora (só rodadas já fechadas)</div>
+    <div id="bars-ranking"></div>
+    <div class="leitura" id="leitura-ranking"></div>
+  </div>
+
+  <div class="duas-col">
+    <div class="bloco">
+      <h3>Que horário vende mais?</h3>
+      <div class="pergunta">Top horários por faturamento, fuso de Brasília</div>
+      <div id="bars-horario"></div>
+      <div class="leitura" id="leitura-horario"></div>
+    </div>
+    <div class="bloco">
+      <h3>Poucos clientes sustentam boa parte da receita?</h3>
+      <div class="pergunta" id="pergunta-conc"></div>
+      <div id="bars-conc"></div>
+      <div class="leitura" id="leitura-conc"></div>
+    </div>
+  </div>
+
+  <div class="duas-col">
+    <div class="bloco">
+      <h3>Quantos números o cliente compra por pedido?</h3>
+      <div id="bars-qtd"></div>
+    </div>
+    <div class="bloco">
+      <h3>Quanto o cliente gasta por pedido?</h3>
+      <div id="bars-faixa-valor"></div>
+    </div>
+  </div>
+
+  <h2>Tabela de rodadas do período</h2>
+  <div class="table-wrap">
+    <table id="tabela-rodadas">
+      <thead><tr>
+        <th data-c="titulo">Rodada</th>
+        <th data-c="porte">Porte</th>
+        <th class="num" data-c="preco_numero">Preço/nº</th>
+        <th class="num" data-c="premio_total">Prêmio</th>
+        <th class="num" data-c="premios_qtd">Ganh.</th>
+        <th class="num" data-c="pedidos">Pedidos</th>
+        <th class="num" data-c="faturamento">Faturamento</th>
+        <th class="num" data-c="lucro">Lucro</th>
+        <th class="num" data-c="margem_pct">Margem</th>
+        <th class="num ord" data-c="lucro_por_hora">Lucro/hora</th>
+        <th class="num" data-c="horas_ate_esgotar">Esgotou em</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="nota-metodo">Clique no cabeçalho pra ordenar. "Lucro" já desconta prêmio e taxa de plataforma (4%). Rodada ainda aberta aparece sem "esgotou em" — ela ainda não tem ciclo fechado.</p>
+  `;
+}
+
+// -------------------------------------------------------------- resumo
+function renderCards(rodadas, fechadas, F) {
+  const horas = fechadas.map((r) => r.horas_ate_esgotar);
+  const lph = fechadas.map((r) => r.lucro_por_hora);
+  const precos = rodadas.map((r) => r.preco_numero).filter((v) => v > 0);
+  const payouts = rodadas.map((r) => r.payout_pct).filter((v) => v !== null);
+  const fatFechadas = soma(fechadas.map((r) => r.faturamento));
+  const lucroFechadas = soma(fechadas.map((r) => r.lucro));
+  const pedidos = soma(F.hora.map((h) => h.pedidos));
+  const receita = soma(F.hora.map((h) => h.faturamento));
+  const esgotPct = rodadas.length ? 100 * fechadas.length / rodadas.length : 0;
+
+  const cards = [
+    { label: 'Rodadas criadas no período', value: rodadas.length.toLocaleString('pt-BR'),
+      sub: `${fechadas.length} já esgotaram (${fPct(esgotPct, 0)}) · ${rodadas.length - fechadas.length} ainda abertas` },
+    { label: 'Tempo até esgotar (típico)', value: fHoras(mediana(horas)), cls: 'gold',
+      sub: `mais rápida ${fHoras(Math.min(...horas) || null)} · mais lenta ${fHoras(Math.max(...horas, 0))}` },
+    { label: 'Lucro por hora de rodada (típico)', value: fBRL0(mediana(lph)), cls: 'green', destaque: true,
+      sub: 'Lucro da rodada ÷ horas até fechar. Compara uma rapidinha rápida com um jackpot que demora mais.' },
+    { label: 'Margem (rodadas fechadas)', value: fPct(fatFechadas ? 100 * lucroFechadas / fatFechadas : null),
+      cls: lucroFechadas < 0 ? 'red' : 'green',
+      sub: `${fBRL0(lucroFechadas)} de lucro sobre ${fBRL0(fatFechadas)} faturados` },
+    { label: 'Preço típico por número', value: fBRL0(mediana(precos)),
+      sub: precos.length ? `de ${fBRL0(Math.min(...precos))} a ${fBRL0(Math.max(...precos))}` : '' },
+    { label: 'Pedidos pagos no período', value: pedidos.toLocaleString('pt-BR'),
+      sub: `${fBRL0(receita)} · ticket médio ${fBRL0(pedidos ? receita / pedidos : null)}` },
+  ];
+  document.getElementById('cards-resumo').innerHTML = cards.map((c) =>
+    `<div class="card ${c.destaque ? 'destaque' : ''}"><div class="label">${c.label}</div><div class="value ${c.cls || ''}">${c.value}</div>${c.sub ? `<div class="sub">${c.sub}</div>` : ''}</div>`
+  ).join('');
+
+  const todasEsgotam = esgotPct >= 95;
+  document.getElementById('nota-motor').textContent = todasEsgotam
+    ? `Quase toda rodada criada acaba esgotando os 100 números (${fPct(esgotPct, 0)} no período) — então o que separa uma rodada boa de uma ruim não é "vendeu ou não", é QUANTO TEMPO ela levou pra vender. Por isso os blocos abaixo comparam sempre lucro por hora, não só lucro total.`
+    : `${fPct(100 - esgotPct, 0)} das rodadas criadas neste período ainda não esgotaram (parte pode estar aberta agora). Os números de tempo e lucro por hora abaixo usam só as ${fechadas.length} rodadas já fechadas.`;
+}
+
+// -------------------------------------------------------------- porte do prêmio
+function renderPorte(fechadas) {
+  const portes = (DADOS.produto_parametros || {}).portes || [];
+  const linhas = portes.map((p) => {
+    const g = fechadas.filter((r) => r.porte === p);
+    const lph = mediana(g.map((r) => r.lucro_por_hora));
+    return { rotulo: `${p} <span class="bar-sub">(${g.length} rodada${g.length === 1 ? '' : 's'})</span>`, valor: lph || 0, rotuloValor: fBRL0(lph), n: g.length };
+  }).filter((l) => l.n > 0);
+
+  document.getElementById('bars-porte').innerHTML = linhas.length
+    ? montarBars(linhas, { classeExtra: 'bars-grande' })
+    : '<div class="vazio">Poucas rodadas fechadas neste período pra comparar.</div>';
+
+  const ordenado = linhas.slice().sort((a, b) => b.valor - a.valor);
+  const melhor = ordenado[0], pior = ordenado[ordenado.length - 1];
+  document.getElementById('leitura-porte').innerHTML = (!melhor || melhor === pior)
+    ? 'Poucas rodadas fechadas neste período pra comparar faixas de prêmio.'
+    : `<strong>${melhor.rotulo.split(' <span')[0]}</strong> rende mais por hora (${fBRL0(melhor.valor)}/h). `
+      + `<strong>${pior.rotulo.split(' <span')[0]}</strong> rende menos (${fBRL0(pior.valor)}/h).`;
+}
+
+// -------------------------------------------------------------- faixa de preço
+function renderFaixaPreco(fechadas) {
+  const grupos = {};
+  fechadas.filter((r) => r.preco_numero > 0).forEach((r) => {
+    const f = faixaPreco(r.preco_numero);
+    (grupos[f] = grupos[f] || []).push(r);
+  });
+  const linhas = FAIXAS_PRECO.map((f) => {
+    const g = grupos[f.label] || [];
+    const lph = mediana(g.map((r) => r.lucro_por_hora));
+    return { rotulo: `${f.label} <span class="bar-sub">(${g.length} rodada${g.length === 1 ? '' : 's'})</span>`, valor: lph || 0, rotuloValor: fBRL0(lph), n: g.length };
+  }).filter((l) => l.n > 0);
+
+  document.getElementById('bars-preco').innerHTML = linhas.length
+    ? montarBars(linhas, { classeExtra: 'bars-grande' })
+    : '<div class="vazio">Poucas rodadas fechadas neste período pra comparar.</div>';
+
+  const ordenado = linhas.slice().sort((a, b) => b.valor - a.valor);
+  const melhor = ordenado[0];
+  document.getElementById('leitura-preco').innerHTML = !melhor
+    ? 'Poucas rodadas neste período pra comparar faixas de preço.'
+    : `A faixa <strong>${melhor.rotulo.split(' <span')[0]}</strong> foi a que mais rendeu por hora no período (${fBRL0(melhor.valor)}/h).`;
+}
+
+// -------------------------------------------------------------- ranking
+function renderRanking(fechadas) {
+  const ordenado = fechadas.slice().sort((a, b) => b.lucro_por_hora - a.lucro_por_hora);
+  const top = ordenado.slice(0, 5);
+  const bottom = ordenado.slice(-5).reverse().filter((r) => !top.includes(r));
+
+  const teto = Math.max(1, ...ordenado.map((r) => Math.abs(r.lucro_por_hora)));
+  const linha = (r, classe) => ({
+    rotulo: `<span class="pill-mini ${PORTE_CLASSE[r.porte] || 's'}">${r.porte.split(' ')[0]}</span>${r.titulo}`,
+    valor: r.lucro_por_hora, rotuloValor: fBRL0(r.lucro_por_hora) + '/h', classe,
+  });
+
+  let html = '';
+  if (top.length) html += `<p class="nota-metodo" style="margin-bottom:6px;">Melhores</p>` + montarBars(top.map((r) => linha(r, 'melhor')), { max: teto, classeExtra: 'bars-grande' });
+  if (bottom.length) html += `<p class="nota-metodo" style="margin:14px 0 6px;">Piores</p>` + montarBars(bottom.map((r) => linha(r, 'pior')), { max: teto, classeExtra: 'bars-grande' });
+
+  document.getElementById('bars-ranking').innerHTML = html || '<div class="vazio">Poucas rodadas fechadas neste período.</div>';
+  document.getElementById('leitura-ranking').innerHTML = top.length
+    ? `<strong>${top[0].titulo}</strong> foi a rodada com mais lucro por hora do período (${fBRL0(top[0].lucro_por_hora)}/h).`
+      + (bottom.length ? ` <strong>${bottom[0].titulo}</strong> foi a que menos rendeu por hora (${fBRL0(bottom[0].lucro_por_hora)}/h).` : '')
+    : '';
+}
+
+// -------------------------------------------------------------- horário
+function renderHorario(hora) {
+  const porHora = Array.from({ length: 24 }, (_, h) => ({ h, pedidos: 0, fat: 0 }));
+  hora.forEach((r) => { porHora[r.hora].pedidos += r.pedidos; porHora[r.hora].fat += r.faturamento; });
+  const comVenda = porHora.filter((x) => x.fat > 0).sort((a, b) => b.fat - a.fat).slice(0, 6).sort((a, b) => a.h - b.h);
+
+  const janelas = (DADOS.produto_parametros || {}).janelas_extracao || [];
+  const siglasPorHora = {};
+  janelas.forEach((j) => { siglasPorHora[Math.floor(j.hora)] = j.sigla; });
+
+  const linhas = comVenda.map((x) => ({
+    rotulo: String(x.h).padStart(2, '0') + 'h' + (siglasPorHora[x.h] ? ` <span class="bar-sub">(${siglasPorHora[x.h]})</span>` : ''),
+    valor: x.fat, rotuloValor: fBRL0(x.fat),
+  }));
+  document.getElementById('bars-horario').innerHTML = linhas.length ? montarBars(linhas) : '<div class="vazio">Sem dado de horário neste período.</div>';
+
+  const top3 = porHora.slice().sort((a, b) => b.fat - a.fat).slice(0, 3).map((x) => String(x.h).padStart(2, '0') + 'h');
+  document.getElementById('leitura-horario').innerHTML = top3.length
+    ? `Os horários que mais vendem são <strong>${top3.join(', ')}</strong> — batem perto das janelas de extração do PT-Rio (PPT 09:35 · PTM 11:35 · PT 14:35 · PTV 16:35 · PTN 18:35 · COR 21:45). Vale concentrar lançamento de rodada nova perto desses horários.`
+    : '';
+}
+
+// -------------------------------------------------------------- concentração
+function renderConcentracao() {
+  const c = DADOS.concentracao;
+  document.getElementById('pergunta-conc').textContent = `Soma de TODA a janela puxada (${DADOS.janela_dias_pedidos} dias) — não muda com o filtro acima`;
+  if (!c || !c.top_pct) {
+    document.getElementById('bars-conc').innerHTML = '<div class="vazio">Sem comprador identificado ainda.</div>';
+    document.getElementById('leitura-conc').innerHTML = '';
+    return;
+  }
+  const t = c.top_pct;
+  const linhas = [
+    { chave: 'top1', rotulo: 'Top 1% dos compradores' },
+    { chave: 'top5', rotulo: 'Top 5% dos compradores' },
+    { chave: 'top10', rotulo: 'Top 10% dos compradores' },
+    { chave: 'top20', rotulo: 'Top 20% dos compradores' },
+  ].filter((l) => t[l.chave]).map((l) => ({
+    rotulo: `${l.rotulo} <span class="bar-sub">(${t[l.chave].compradores.toLocaleString('pt-BR')} pessoas)</span>`,
+    valor: t[l.chave].pct_receita, rotuloValor: fPct(t[l.chave].pct_receita),
+  }));
+  document.getElementById('bars-conc').innerHTML = montarBars(linhas, { max: 100 });
+  const top10 = t.top10;
+  document.getElementById('leitura-conc').innerHTML = top10
+    ? `Os <strong>10% de clientes</strong> que mais compraram (${top10.compradores.toLocaleString('pt-BR')} pessoas) respondem por <strong>${fPct(top10.pct_receita)}</strong> de toda a receita da janela `
+      + `(${c.compradores.toLocaleString('pt-BR')} compradores identificados no total, receita mediana de ${fBRL0(c.receita_mediana_por_comprador)} por pessoa). Esse grupo sustenta boa parte do negócio.`
+    : '';
+}
+
+// -------------------------------------------------------------- perfil do pedido
+function renderPerfilPedido(F) {
+  const porQtd = {};
+  F.qtd.forEach((r) => {
+    const k = r.quantidade >= 11 ? '11+' : r.quantidade >= 6 ? '6-10' : r.quantidade >= 3 ? '3-5' : String(r.quantidade);
+    porQtd[k] = (porQtd[k] || 0) + r.pedidos;
+  });
+  const ordemQtd = ['1', '2', '3-5', '6-10', '11+'];
+  const linhasQtd = ordemQtd.map((k) => ({ rotulo: `${k} número${k === '1' ? '' : 's'}`, valor: porQtd[k] || 0, rotuloValor: (porQtd[k] || 0).toLocaleString('pt-BR') })).filter((l) => l.valor > 0);
+  document.getElementById('bars-qtd').innerHTML = linhasQtd.length ? montarBars(linhasQtd) : '<div class="vazio">Sem dado neste período.</div>';
+
+  const ordemFaixa = (DADOS.pedidos_perfil || {}).faixas_valor_ordem || [];
+  const porFaixa = {};
+  F.faixaValor.forEach((r) => { porFaixa[r.faixa] = (porFaixa[r.faixa] || 0) + r.faturamento; });
+  const linhasFaixa = ordemFaixa.map((f) => ({ rotulo: f, valor: porFaixa[f] || 0, rotuloValor: fBRL0(porFaixa[f] || 0) })).filter((l) => l.valor > 0);
+  document.getElementById('bars-faixa-valor').innerHTML = linhasFaixa.length ? montarBars(linhasFaixa) : '<div class="vazio">Sem dado neste período.</div>';
+}
+
+// -------------------------------------------------------------- tabela
+let ORD = { col: 'lucro_por_hora', asc: false };
+function renderTabela(rodadas) {
+  const corpo = document.querySelector('#tabela-rodadas tbody');
+  const dados = rodadas.slice().sort((a, b) => {
+    const va = a[ORD.col], vb = b[ORD.col];
+    const na = (va === null || va === undefined), nb = (vb === null || vb === undefined);
+    if (na && nb) return 0;
+    if (na) return 1;
+    if (nb) return -1;
+    if (typeof va === 'string') return ORD.asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return ORD.asc ? va - vb : vb - va;
+  });
+  corpo.innerHTML = dados.slice(0, 200).map((r) => `<tr>
+    <td class="tit" title="${r.titulo.replace(/"/g, '&quot;')}">${r.titulo}</td>
+    <td><span class="pill-mini ${PORTE_CLASSE[r.porte] || 's'}">${r.porte.split(' ')[0]}</span></td>
+    <td class="num">${fBRL0(r.preco_numero)}</td>
+    <td class="num">${r.premio_total === null ? '—' : fBRL0(r.premio_total)}</td>
+    <td class="num">${r.premios_qtd || '—'}</td>
+    <td class="num">${r.pedidos}</td>
+    <td class="num">${fBRL0(r.faturamento)}</td>
+    <td class="num" style="color:${r.lucro < 0 ? 'var(--red)' : 'var(--green)'}">${fBRL0(r.lucro)}</td>
+    <td class="num">${fPct(r.margem_pct)}</td>
+    <td class="num">${r.lucro_por_hora === null ? '—' : fBRL0(r.lucro_por_hora)}</td>
+    <td class="num">${r.esgotou ? fHoras(r.horas_ate_esgotar) : `<span style="color:var(--muted)">aberta</span>`}</td>
+  </tr>`).join('') || '<tr><td colspan="11" class="vazio">sem rodada no período</td></tr>';
+
+  document.querySelectorAll('#tabela-rodadas th').forEach((th) => {
+    th.classList.toggle('ord', th.dataset.c === ORD.col);
+    th.classList.toggle('asc', th.dataset.c === ORD.col && ORD.asc);
+    th.onclick = () => {
+      if (ORD.col === th.dataset.c) ORD.asc = !ORD.asc;
+      else { ORD.col = th.dataset.c; ORD.asc = false; }
+      renderTabela(rodadas);
+    };
+  });
+}
+
+// ============================================================ boot
+async function carregar() {
+  await injetarNav('produto');
+  const res = await fetch('/api/dados?tipo=produto&t=' + Date.now());
+  DADOS = await res.json();
+
+  document.querySelector('.bi-nav').insertAdjacentHTML('afterend',
+    `<div class="meta wrap">Atualizado em ${new Date(DADOS.atualizado_em).toLocaleString('pt-BR')}</div>`);
+
+  document.getElementById('aviso-metodologia').innerHTML =
+    `<strong>Como ler esta página.</strong> Só pedidos PAGOS entram. "Prêmio" vem do que o cliente cadastrou na rodada, com reserva no título quando não identificado. `
+    + `"Lucro" já desconta prêmio e a taxa de plataforma de ${fPct(100 * ((DADOS.produto_parametros || {}).taxa_plataforma_pct || 0), 0)}. `
+    + `Quase toda rodada esgota os 100 números — por isso o que compara é SEMPRE lucro por hora (tempo até fechar), não se vendeu ou não. Datas e horas em fuso de Brasília.`;
+
+  const dias = DADOS.dias_com_dado || [];
+  montarFiltroPeriodo('filtro-periodo', {
+    campanhaInicio: DADOS.campanha_inicio,
+    min: dias[0] || DADOS.campanha_inicio,
+    max: dias[dias.length - 1] || DADOS.periodo.fim,
+    presets: ['hoje', 'ontem', '7d', '30d', 'tudo', 'custom'],
+    inicial: '7d',
+    onChange: render,
+  });
+}
+carregar().catch((err) => {
+  document.getElementById('aviso-metodologia').textContent = 'Erro ao carregar: ' + err.message;
+  console.error(err);
+});
+</script>
+
+</body>
+</html>

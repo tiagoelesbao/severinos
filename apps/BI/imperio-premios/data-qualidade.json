@@ -1,0 +1,229 @@
+{
+  "atualizado_em": "2026-11-16T09:38:42.600105",
+  "janela_dias_pedidos": 14,
+  "campanha_inicio": "2026-10-06",
+  "aviso_metodologia": "Primeira_Compra_Na_Janela é calculado só dentro da janela puxada (14 dias) — clientes cuja 1a compra real foi antes disso podem aparecer como 'novo' aqui. 'Novo público/Clientes existentes' do Meta não está disponível via API (recurso só de UI do Advantage+); esta classificação própria por telefone/CPF é o substituto. ROAS e novo-vs-recorrente usam só pedidos a partir de 2026-10-06 (início real da campanha) — comparar gasto da campanha contra pedidos de antes dela existir infla o ROAS artificialmente (achado 2026-10-07). Canal/sorteios/diário abaixo mostram a janela completa pra contexto de negócio, não são 'resultado da campanha'. O dia de hoje no gráfico diário está SEMPRE em andamento (parcial) até virar a meia-noite — não comparar com dias fechados sem considerar isso.",
+  "periodo": {
+    "inicio": "2026-10-06",
+    "fim": "2026-11-16",
+    "nota": "Os cards do topo e o corte Novo×Recorrente usam este intervalo (início real da campanha até agora) por padrão — use o filtro de período da página pra recalcular com outra janela."
+  },
+  "utm": {
+    "total_pedidos": 24139,
+    "com_utm": 21480,
+    "pct": 88.98,
+    "nota": "Pedidos somados aqui são majoritariamente anteriores à correção de UTM (LP + webhook, 2026-10-07/08) — ver pendência 'UTM — captura via webhook' na tabela abaixo. Este percentual deve subir de forma gradual, não é esperado ficar estático."
+  },
+  "fbc": {
+    "fresco": 4723,
+    "expirado": 7
+  },
+  "capi_realtime_status": {
+    "ultima_execucao": "2026-11-16T09:30:47.088711",
+    "eventos_no_checkpoint": 70002,
+    "log_tail": [
+      "🎉 COLETA COMPLETA! 1207 sorteios processados.",
+      "✅ C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\dados_brutos_completos_3dias.csv",
+      "✅ C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\detalhes_sorteios_3dias.csv",
+      "python.exe : C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\send_backlog.py:88:",
+      "DtypeWarning: Columns (18,27,28) have mixed types. Specify dtype option on import or set low_memory=False.",
+      "No C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\capi_realtime.ps1:40 caractere:19",
+      "+     $sendOutput = & python send_backlog.py $dias 2>&1",
+      "+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "+ CategoryInfo          : NotSpecified: (C:\\Users\\Pichau...w_memory=False.:String) [], RemoteException",
+      "+ FullyQualifiedErrorId : NativeCommandError",
+      "",
+      "df = pd.read_csv(raw_csv, sep=\";\", encoding=\"utf-8-sig\", dtype={c: str for c in str_cols})",
+      "📊 70029 pedidos no CSV | 70048 já enviados (500 via webhook) | 0 pendentes",
+      "✅ Nada pendente.",
+      "2026-11-16T09:30:47.0872070-03:00 ===== Ciclo concluido ====="
+    ]
+  },
+  "bi_refresh_status": {
+    "ultima_execucao": "2026-11-16T09:30:02.157011",
+    "log_tail": [
+      "✅ 24061 pedidos coletados",
+      "✅ UTM via webhook: 0 pedido(s) preenchido(s) a partir de 18803 registro(s) em pedido_utm.",
+      "✅ UTM via utm_touches (fbp): 2410 pedido(s) preenchido(s) a partir de 591 fbp(s) com touch registrado.",
+      "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-executiva.json (publicado no Supabase Storage)",
+      "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-operacional.json (publicado no Supabase Storage)",
+      "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-produto.json (publicado no Supabase Storage)",
+      "🎉 C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\services\\Meta\\imperio-premios\\..\\..\\..\\apps\\BI\\imperio-premios\\data-qualidade.json (publicado no Supabase Storage)",
+      "2026-11-16T09:08:52.0908931-03:00 data-*.json atualizados (local + Supabase Storage)",
+      "2026-11-16T09:08:52.0923968-03:00 ===== Refresh concluido =====",
+      "2026-11-16T09:30:02.1519117-03:00 ===== Iniciando refresh ====="
+    ]
+  },
+  "pendencias_events_manager": [
+    {
+      "item": "fbc expirado (CAPI nativa)",
+      "status": "resolvido_por_nos",
+      "data": "2026-10-07",
+      "nota": "capi_client.py omite fbc >7 dias; 2.317 eventos reenviados corretos, automatizado a cada 15min. Não reconfirmado ao vivo nesta atualização."
+    },
+    {
+      "item": "Deduplicação de evento (Compra)",
+      "status": "ja_estava_ok",
+      "data": "2026-10-07",
+      "nota": "99,69% via event_id, confirmado via prints do Events Manager em 2026-10-07. Não reconfirmado ao vivo nesta atualização (precisa de acesso live ao Events Manager)."
+    },
+    {
+      "item": "Cobertura de eventos (CAPI, Compra)",
+      "status": "ja_estava_ok",
+      "data": "2026-10-07",
+      "nota": "100% confirmado em 2026-10-07. Não reconfirmado ao vivo nesta atualização."
+    },
+    {
+      "item": "Qualidade de correspondência (EMQ, Compra)",
+      "status": "em_validacao",
+      "data": "2026-10-07",
+      "nota": "Era 9,3/10 na manhã de 2026-10-07; caiu pra 7,0/10 à tarde por um bug nosso (collector.py desalinhava o CSV ao adicionar a coluna UserId, 8 ciclos sem enviar Nome/Sobrenome/País). Bug corrigido e backlog represado reenviado no mesmo dia — EMQ deve voltar a subir nos ciclos seguintes, mas isso não foi reconfirmado ao vivo no Events Manager nesta atualização. Não repetir '9,3/10' como valor atual sem checar."
+    },
+    {
+      "item": "InitiateCheckout — dedup via EventId do pedido",
+      "status": "em_validacao",
+      "data": "2026-10-08",
+      "nota": "Tarefa agendada foi pausada por engano mais cedo hoje (suspeita de causa raiz que se mostrou incorreta) e reativada no mesmo dia depois de confirmar que o mecanismo (event_id = EventId do pedido, mesmo id usado pelo navegador) estava certo desde o início — 105 eventos represados reenviados com sucesso, nenhum dado perdido. Cobertura de desduplicação no Events Manager ainda não confirmada com volume pós-fix suficiente (amostra de hoje ainda carrega período anterior ao script) — próxima checagem em alguns dias, não-bloqueante."
+    },
+    {
+      "item": "Compra (capi_client.py) — event_id passou a usar EventId",
+      "status": "em_validacao",
+      "data": "2026-10-08",
+      "nota": "Mudado de event_id=OrderId para event_id=EventId (mesma lógica já validada no InitiateCheckout), incluindo fix no send_backlog.py (NaN de EventId vazio quebrava o fallback para OrderId). Testado em código com 2 casos reais (pedido com EventId e pedido antigo sem EventId). Ainda não totalmente validado no Events Manager — precisa de dias de volume novo para a métrica de desduplicação refletir o fix."
+    },
+    {
+      "item": "UTM — captura via webhook (order.paid real)",
+      "status": "resolvido_por_nos",
+      "data": "2026-10-07",
+      "nota": "Causa raiz do UTM zerado era a landing page não repassar a query string pro destino — corrigido na LP. Complementar: o webhook apps/webhook-imperio-capi agora captura params.utmSource/etc no pedido real e grava na tabela pedido_utm (Supabase), com join em bi_aggregator.py::enriquecer_com_utm_webhook(). O card de '% com UTM' abaixo é de PEDIDOS, majoritariamente anteriores a essas correções — vai subir de forma gradual nos próximos dias/semanas conforme pedidos novos passam pelos dois mecanismos, não é um número que deveria ficar parado."
+    },
+    {
+      "item": "'Web Conversions API' (order_id padrão EII1|...) ainda aparece em Compras recentes",
+      "status": "pendente",
+      "data": null,
+      "nota": "ACHADO NOVO, NÃO RESOLVIDO: o recurso nativo do Meta ('Web Conversions API', toggle de auto-conexão) foi removido pelo founder em 2026-10-07 após gerar Compras fantasma (sem pedido real correspondente). Amostras reais de hoje ainda mostram order_id no formato 'EII1|AQAAUP4...' — o mesmo padrão — em várias Compras recentes. Ou o recurso não foi de fato desativado por completo, ou outra fonte está gerando o mesmo padrão. Precisa de investigação direta no Events Manager antes de considerar fechado."
+    },
+    {
+      "item": "Domínios não verificados",
+      "status": "pendente",
+      "data": "2026-10-22",
+      "nota": "imperiopremioss.com.br, sndflw.com, brunaodaimperio.com (achado original) + rapidinhas24hr.com (domínio novo da plataforma, ainda não checado em Configurações de Marca) — verificar os 4."
+    },
+    {
+      "item": "Troca de domínio da plataforma (imperiopremioss.com -> rapidinhas24hr.com)",
+      "status": "em_validacao",
+      "data": "2026-10-22",
+      "nota": "Founder avisou a troca. Confirmado via DNS que o domínio antigo está morto (api.imperiopremioss.com = NXDOMAIN). CORRIGIDO NO NOSSO CÓDIGO: client_api.py (base_url, testado ao vivo — login+get_sorteios OK no domínio novo), bi_aggregator.py (SITE_SUFIXOS aceita os dois domínios), capi_client.py/capi_initiatecheckout.py/webhook order-paid.js (event_source_url), LPs (apps/imperio-premios-lp/*, link direto pro site + catalogo.html que monta URL de campanha), utm-capture-imperio/api/capture.js (CORS). AINDA PENDENTE (fora do nosso controle via código, precisa de ação no console): GTM (triggers de host podem estar presos ao domínio antigo — auditoria em andamento) e verificação do domínio novo em Configurações de Marca."
+    },
+    {
+      "item": "IPv4 -> IPv6 no Purchase",
+      "status": "pendente_baixa_prioridade",
+      "data": null,
+      "nota": null
+    },
+    {
+      "item": "Facebook Login ID / PII extra",
+      "status": "pendente_baixa_prioridade",
+      "data": null,
+      "nota": null
+    },
+    {
+      "item": "Direto/Orgânico/Desconhecido — é Meta Ads ou grupo disfarçado?",
+      "status": "investigado_nao_e_canal_oculto",
+      "data": "2026-10-15",
+      "nota": "Investigado a pedido do founder, agora que WhatsApp e catálogo estão bem trackeados (menos 'sobra' pra explicar). Por definição este canal já é 0% fbp/fbc/UTM/gclid/ttclid (é o fallback final de _classificar_canal, não achado novo). O que FOI checado: perfil de dispositivo — 89.6% iOS (iPhone/iPad) em 280 pedido(s) neste canal na janela atual, visivelmente diferente do mix majoritariamente Android dos canais confirmados (UTM: whatsapp, Meta Ads confirmado). Leitura mais defensável: ITP do Safari/iOS (ou webview in-app) apagando fbp/fbc antes do pixel registrar — limitação de navegador, não uma 3ª origem de tráfego escondida. NÃO reclassificar estes pedidos pra grupo ou Meta Ads sem evidência nova."
+    }
+  ],
+  "direto_desconhecido_diario": [
+    {
+      "dia": "2026-11-02",
+      "pedidos_direto": 5,
+      "pedidos_total": 1203,
+      "pct": 0.42
+    },
+    {
+      "dia": "2026-11-03",
+      "pedidos_direto": 5,
+      "pedidos_total": 1635,
+      "pct": 0.31
+    },
+    {
+      "dia": "2026-11-04",
+      "pedidos_direto": 1,
+      "pedidos_total": 1758,
+      "pct": 0.06
+    },
+    {
+      "dia": "2026-11-05",
+      "pedidos_direto": 14,
+      "pedidos_total": 1752,
+      "pct": 0.8
+    },
+    {
+      "dia": "2026-11-06",
+      "pedidos_direto": 6,
+      "pedidos_total": 2159,
+      "pct": 0.28
+    },
+    {
+      "dia": "2026-11-07",
+      "pedidos_direto": 56,
+      "pedidos_total": 1898,
+      "pct": 2.95
+    },
+    {
+      "dia": "2026-11-08",
+      "pedidos_direto": 52,
+      "pedidos_total": 1257,
+      "pct": 4.14
+    },
+    {
+      "dia": "2026-11-09",
+      "pedidos_direto": 90,
+      "pedidos_total": 1863,
+      "pct": 4.83
+    },
+    {
+      "dia": "2026-11-10",
+      "pedidos_direto": 4,
+      "pedidos_total": 1734,
+      "pct": 0.23
+    },
+    {
+      "dia": "2026-11-11",
+      "pedidos_direto": 18,
+      "pedidos_total": 1984,
+      "pct": 0.91
+    },
+    {
+      "dia": "2026-11-12",
+      "pedidos_direto": 2,
+      "pedidos_total": 1799,
+      "pct": 0.11
+    },
+    {
+      "dia": "2026-11-13",
+      "pedidos_direto": 2,
+      "pedidos_total": 1932,
+      "pct": 0.1
+    },
+    {
+      "dia": "2026-11-14",
+      "pedidos_direto": 16,
+      "pedidos_total": 1569,
+      "pct": 1.02
+    },
+    {
+      "dia": "2026-11-15",
+      "pedidos_direto": 9,
+      "pedidos_total": 1365,
+      "pct": 0.66
+    },
+    {
+      "dia": "2026-11-16",
+      "pedidos_direto": 0,
+      "pedidos_total": 231,
+      "pct": 0.0
+    }
+  ]
+}

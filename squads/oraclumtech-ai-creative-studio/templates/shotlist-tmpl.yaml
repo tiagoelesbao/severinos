@@ -1,0 +1,111 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TEMPLATE — SHOTLIST
+# Onde vive:  {job}/06-decupagem/shotlist.yaml
+# Quem preenche: @film-director (com @dop e @art-director)
+# Validado por:  checklists/gate-decupagem.md (DC-05)
+#
+# DIFERENÇA PARA O STORYBOARD: o storyboard descreve a PEÇA (o que o espectador vê,
+# em ordem). A shotlist descreve a PRODUÇÃO (o que precisa ser feito, por quem, com o
+# quê) — e por isso é agrupável por locação/setup, não pela ordem da peça.
+#
+# COLUNA CENTRAL: `executor`. Todo item declara human | worker | agent. Pela Regra de
+# Ouro (_BLUEPRINT.md §3.1), geração de still, take e voz é SEMPRE human.
+#
+# COMPATIBILIDADE: os campos `plano`, `framing`, `audio`, `props`, `locacao` e
+# `falas_chave` têm os mesmos nomes de `content_plan.shotlist[]` do `video-brief.yaml`
+# já usado no repositório. O V6 do quality_gate_video reprova item sem `plano` ou sem
+# `falas_chave` — por isso os dois são obrigatórios aqui.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  schema_version: "1.0"
+  job_id: "<job-id>"
+  pipeline_id: "<pipeline-id>"
+  criado_em: "<YYYY-MM-DD HH:MM>"
+  criado_por: "@film-director"
+  storyboard_ref: "{job}/06-decupagem/storyboard.yaml"
+
+# ── Legenda dos executores ───────────────────────────────────────────────────
+# human  → o estágio PARA e emite card em {job}/_cards/. Nunca simular execução humana.
+# worker → script/serviço determinístico (render, upscale, ETL). Exige `fallback`.
+# agent  → agente do squad executa com LLM (spec, avaliação, direção).
+executores_legenda:
+  human: "operador humano — geração em ferramenta, gravação real, captura de tela"
+  worker: "script/serviço determinístico"
+  agent: "agente do squad"
+
+# ── Itens ────────────────────────────────────────────────────────────────────
+shots:
+  - shot_id: "s01"
+    plano_id: "p01"                       # amarra ao storyboard
+    plano: "<descrição do plano — o que gravar/gerar>"     # [compat] obrigatório (V6)
+    framing: "<close | médio | geral | detalhe>"           # [compat]
+    audio: "<fala | ambiente | mudo | VO em off>"          # [compat]
+    props: "<objetos em cena>"                             # [compat]
+    locacao: "<Estúdio | Digital | Externa — endereço/ambiente>"  # [compat]
+    falas_chave: "<trecho falado neste plano>"             # [compat] obrigatório (V6)
+
+    # ── Produção ────────────────────────────────────────────────────────────
+    origem: "<gerar | captura_real | gravacao_real | reuso | acervo>"
+    executor: "human"                     # human | worker | agent
+    responsavel: "<@agente que DIRIGE>"   # quem pensa o item
+    operador: "<pessoa que EXECUTA, quando executor=human>"
+    card_ref: "{job}/_cards/<card-id>.md" # obrigatório quando executor=human
+    asset_id: "<asset-id | null>"
+    asset_direction: "{job}/<estagio>/_direction/<asset-id>.yaml"
+    personagem: "<character-id | null>"
+    wardrobe: "<referência ao art-spec>"
+    iluminacao: "<referência ao look-book>"
+    duracao_s: <n>
+    prioridade: "<alta | média | baixa>"
+    fallback: "<o que fazer se este item falhar — obrigatório em worker>"
+    status: "<pendente | em_execucao | devolvido | aceito | bloqueado>"
+    observacoes: "<...>"
+
+  - shot_id: "s02"
+    plano_id: "p02"
+    plano: "<...>"
+    framing: "<...>"
+    audio: "<...>"
+    props: "<...>"
+    locacao: "<...>"
+    falas_chave: "<...>"
+    origem: "captura_real"
+    executor: "human"
+    responsavel: "@image-lead"
+    operador: "<pessoa>"
+    card_ref: "{job}/_cards/<card-id>.md"
+    asset_id: "<asset-id>"
+    asset_direction: "{job}/11-stills/_direction/<asset-id>.yaml"
+    personagem: null
+    wardrobe: null
+    iluminacao: "<...>"
+    duracao_s: <n>
+    prioridade: "alta"
+    fallback: "<...>"
+    status: "pendente"
+    observacoes: "<dados sensíveis a mascarar antes de entregar>"
+
+# ── Agrupamento de produção (opcional, mas economiza tempo de execução) ─────
+# Agrupa shots que compartilham setup, locação, personagem ou lote de geração —
+# para o operador humano fazer tudo de uma vez em vez de alternar de contexto.
+agrupamentos:
+  - grupo_id: "g01"
+    criterio: "<mesma locação | mesmo personagem | mesmo lote de geração | mesmo setup de luz>"
+    shots: ["s01", "s03", "s07"]
+    executor: "human"
+    card_unico: true                      # true = um card cobre o grupo inteiro
+    card_ref: "{job}/_cards/<card-id>.md"
+    observacao: "<por que agrupar>"
+
+# ── Controle ─────────────────────────────────────────────────────────────────
+controle:
+  total_shots: <n>
+  por_executor:
+    human: <n>
+    worker: <n>
+    agent: <n>
+  cards_a_emitir: <n>
+  shots_sem_falas_chave: 0               # precisa ser 0 — V6 / gate-decupagem DC-05
+  shots_sem_plano: 0                     # precisa ser 0
+  shots_human_sem_card: 0                # precisa ser 0 antes de iniciar a produção

@@ -1,0 +1,141 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# BRIEF v5 — THUMB DE YOUTUBE · Bora de Bola
+#
+# POR QUE ESTE ARQUIVO EXISTE
+#   `/api/briefs` NÃO deriva a lista de clientes do registry: ela sai dos
+#   arquivos `brief-v5*.yaml` deste diretório, e o registry só enriquece o nome
+#   de exibição. Um cliente sem brief simplesmente não aparece no seletor —
+#   era exatamente o caso do bora-de-bola, que já estava registrado com
+#   brand-config e brand-identity e mesmo assim não tinha card.
+#
+#   Este brief é o primeiro criativo do canal: as quatro variantes de thumb do
+#   episódio 2026-09-04-abel-stjd, cada uma num dos estilos aprovados
+#   (thumb-system.yaml § templates.video_longo).
+#
+# ONDE MEXER
+#   · texto e realce: `headline` (a chave `{palavra}` marca o realce) e
+#     `sub_headline`
+#   · foto: `image_url` (e `image_b_url` no estilo de dois painéis)
+#   · estilo: `template_id` — thumb-e3 | thumb-e5 | thumb-e7 | thumb-e10
+#   O Creative Studio abre cada slide como camadas editáveis.
+#
+# As imagens são servidas por `/api/assets/file?p=<path relativo ao repo>`,
+# que lê o arquivo REAL do pack do episódio — sem cópia que envelhece sozinha.
+# ═══════════════════════════════════════════════════════════════════════════
+
+schema_version: '5.0'
+generated_at: '2026-09-04T21:00:00'
+archetype: thumb
+
+post_brief:
+  slug: v5-thumb-abel-stjd-boradebola
+  tema: 'Thumb do episódio: Abel suspenso pelo STJD'
+  formato: youtube-thumb
+  origem_episodio: workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd
+  brand_config: squads/virals-marketing-squad/data/clients/bora-de-bola/brand-config.yaml
+  sistema: workspaces/businesses/virals/creative-studio/canais/bora-de-bola/thumb-system.yaml
+  # A thumb diz o que o título NÃO disse (thumb-system § relacao_com_o_titulo).
+  titulo_do_video: 'AGORA! Abel fora, e o Palmeiras não aceita o veredito'
+
+# Cores EXTRAÍDAS das artes oficiais (logo e banner) — espelham brand-config.yaml.
+brand_tokens:
+  palette:
+    primary: '#0C240C'          # verde escuro — cor-mãe, 66% do logo
+    secondary: '#0C3C0C'
+    accent: '#FCCC0C'           # AMARELO — carrega UMA coisa por peça
+    accent_alt: '#84B40C'
+    accent_aurora: '#246C0C'
+    text_primary: '#FCFCFC'
+    text_secondary: '#9BB39B'
+    overlay_dark: '#0C0C0CB8'
+    overlay_light: '#FCFCFC1A'
+    light:
+      background: '#F2F6F2'
+      text: '#0C240C'
+      accent: '#8A6A00'
+  accent: '#FCCC0C'
+  typography:
+    headline:
+      font_file: assets/fonts/Anton-Regular.ttf
+      fallback: Archivo Black
+      fallback_strategy: system_default
+      sizes: { xl: 118, lg: 96, md: 78, sm: 62 }
+      color: '#FCFCFC'
+      letter_spacing: -1
+    body:
+      font_file: assets/fonts/Archivo-Bold.ttf
+      fallback: Arial Bold
+      fallback_strategy: system_default
+      sizes: { lg: 46, md: 40, sm: 34 }
+      color: '#FCCC0C'
+
+central_theme: 'Abel Ferreira suspenso por dois jogos pelo STJD'
+
+# ── OS QUATRO ESTILOS, com a MESMA copy aprovada ────────────────────────────
+# Comparar estilo com copy diferente compara copy, não estilo — por isso o
+# texto é o mesmo nos quatro. A copy é a do `01-embalagem/candidatos.json`,
+# aprovada pelo founder em 2026-09-04.
+content_data:
+  - slide_n: 1
+    variant: THUMB
+    template_id: thumb-e3
+    format: youtube-thumb
+    role: 'E3 — Etiqueta de canto + faixa (o padrão do dia a dia)'
+    headline: 'ABSOLVIÇÃO VIROU {CONDENAÇÃO}'
+    sub_headline: 'O PALMEIRAS NÃO ACEITOU'
+    label: 'POLÊMICA PESADA!'
+    image_url: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd/04-takes/abel-wide.jpg
+    image_pos_y: 42
+    seal_image: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png
+    accent_color: '#FCCC0C'
+
+  - slide_n: 2
+    variant: THUMB
+    template_id: thumb-e5
+    format: youtube-thumb
+    role: 'E5 — X sobre a pessoa (pauta de NEGAÇÃO: ele fica fora)'
+    headline: 'ABSOLVIÇÃO VIROU {CONDENAÇÃO}'
+    sub_headline: 'O PALMEIRAS NÃO ACEITOU'
+    image_url: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd/04-takes/abel-wide.jpg
+    image_pos_y: 42
+    seal_image: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png
+    accent_color: '#FCCC0C'
+
+  - slide_n: 3
+    variant: THUMB
+    template_id: thumb-e7
+    format: youtube-thumb
+    role: 'E7 — Dois painéis (o antes e o depois do mesmo personagem)'
+    headline: 'ABSOLVIÇÃO VIROU {CONDENAÇÃO}'
+    sub_headline: 'O PALMEIRAS NÃO ACEITOU'
+    label: 'O QUE MUDOU'
+    image_url: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd/04-takes/abel-wide.jpg
+    image_pos_y: 42
+    image_b_url: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd/04-takes/j10-stjd.jpg
+    image_b_pos_y: 30
+    seal_image: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png
+    accent_color: '#FCCC0C'
+
+  - slide_n: 4
+    variant: THUMB
+    template_id: thumb-e10
+    format: youtube-thumb
+    role: 'E10 — Texto gigante no topo (depende da foto ter céu/fundo limpo)'
+    headline: 'ABSOLVIÇÃO VIROU {CONDENAÇÃO}'
+    sub_headline: 'O PALMEIRAS NÃO ACEITOU'
+    image_url: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/episodios/2026-09-04-abel-stjd/04-takes/abel-wide.jpg
+    image_pos_y: 58
+    seal_image: /api/assets/file?p=workspaces/businesses/virals/creative-studio/canais/bora-de-bola/assets/selo.png
+    accent_color: '#FCCC0C'
+
+client_slug: bora-de-bola
+client_nome: Bora de Bola
+
+_validation:
+  status: PASS
+  issues: []
+  nota: >
+    Copy verificada contra as fontes de publicacao.yaml (ge.globo e UOL/PVC).
+    A thumb não repete o título: "ABSOLVIÇÃO VIROU CONDENAÇÃO" não usa nenhuma
+    das palavras de venda do título, ficando bem abaixo do teto de 35% de
+    repetição do thumb-system.

@@ -1,0 +1,115 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TIAGO ELESBÃO — TEMPLATE REGISTRY (Pipeline *design-creative)
+# Lista de templates disponíveis para o cliente, segregados por output_type.
+# Cada template aponta para um componente React em
+# apps/creative-design/src/components/design-system/templates/ — a paleta e
+# tipografia vêm do brand-config.yaml do cliente (preto + âmbar para Tiago).
+#
+# Consumido por: squads/virals-marketing-squad/scripts/design_creative.py
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: "1.0"
+  cliente: "tiago-elesbao"
+  last_updated: "2026-05-23"
+  status: "active"
+  notes: |
+    react_component → componente em apps/creative-design/.../templates/.
+    template_id_render → string usada no switch do app/render/page.tsx.
+    preview_status: 'ready' = visual dedicado; 'fase_b2_pending' = renderiza com
+      componente vizinho até dedicated React ser entregue na Fase B2.
+
+# ─────────────────────────────────────────────────────────────────────────────
+templates:
+
+  carousel:
+    - id: carousel-news
+      label: "Carrossel News / Digest"
+      description: "5-7 slides, cada um com uma notícia/insight. Hook no slide 1, CTA-think no último."
+      react_component: "ModeledCarouselSlide"
+      template_id_render: "carousel-slide"
+      best_for_bench_types: [carousel, video]
+      slide_count_range: [5, 8]
+      typical_use: "Compilado de tendências de mercado, news digest, observações do dia"
+      preview_status: "ready"
+
+    - id: carousel-quote-stack
+      label: "Carrossel Quote-Stack"
+      description: "Citações encadeadas em escala visual, 1 quote por slide, fonte gigante."
+      react_component: "QuoteSlide"
+      template_id_render: "quote-slide"
+      best_for_bench_types: [single, video]
+      slide_count_range: [3, 5]
+      typical_use: "Princípios, manifesto, frases de impacto"
+      preview_status: "ready"
+
+    - id: carousel-step
+      label: "Carrossel Step-List (Framework Numerado)"
+      description: "Framework 1/N → N/N. Cada slide um passo do bastidor ou processo. Número GIGANTE estilo Hormozi."
+      react_component: "StepListSlide"
+      template_id_render: "tiago-step"
+      best_for_bench_types: [video, carousel]
+      slide_count_range: [4, 7]
+      typical_use: "Bastidor de processo, framework de growth, lições numeradas"
+      preview_status: "ready"
+      variants: [HOOK, STEP, CTA_THINK]
+
+    - id: carousel-founder-diary
+      label: "Carrossel Founder-Diary (Polaroid Digital)"
+      description: "Foto raw bastidor em frame arredondado + frase curta + data + grain sutil. Photo-dump trend 2026."
+      react_component: "FounderDiarySlide"
+      template_id_render: "tiago-diary"
+      best_for_bench_types: [video, carousel, single]
+      slide_count_range: [4, 7]
+      typical_use: "Documentação recorrente do bastidor, série semanal do dia-a-dia"
+      preview_status: "ready"
+
+  single:
+    - id: single-insight
+      label: "Single Insight Card"
+      description: "Headline + body + visual de apoio. Post único de lição/insight."
+      react_component: "SinglePostSlide"
+      template_id_render: "single-post"
+      best_for_bench_types: [single, carousel]
+      typical_use: "Post único de insight de bastidor, lição rápida"
+      preview_status: "ready"
+
+    - id: single-quote
+      label: "Single Quote-Hero"
+      description: "Citação destacada em fonte gigante + atribuição @tiagoelesbao."
+      react_component: "QuoteSlide"
+      template_id_render: "quote-slide"
+      best_for_bench_types: [single, video]
+      typical_use: "Frase de impacto isolada, manifesto, princípio Herói"
+      preview_status: "ready"
+
+    - id: single-data
+      label: "Single Data Card (Número-Herói)"
+      description: "Número GIGANTE (220-320px) como herói + halo âmbar + unidade lateral + contexto + call-to-think."
+      react_component: "DataCardSlide"
+      template_id_render: "tiago-data"
+      best_for_bench_types: [video, carousel, single]
+      typical_use: "Métrica de bastidor, ROI/CAC real, antes/depois numérico"
+      preview_status: "ready"
+
+    - id: single-provocation
+      label: "Single Provocation-Hero"
+      description: "Quote provocativo em fonte gigante (até 130px) + assinatura formal (nome + role). Estilo call-to-think direto."
+      react_component: "ProvocationHeroSlide"
+      template_id_render: "tiago-provocation"
+      best_for_bench_types: [single, video]
+      typical_use: "Manifesto, crítica a status-quo, statement-âncora (pillar mindset-mitos)"
+      preview_status: "ready"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Recomendação automática quando o usuário escolhe output mas não template.
+# Ordem reflete prioridade — primeiro item da lista é o default.
+scoring_match:
+  carousel:
+    from_carousel: [carousel-news, carousel-quote-stack, carousel-step, carousel-founder-diary]
+    from_video:    [carousel-step, carousel-founder-diary, carousel-news, carousel-quote-stack]
+    from_single:   [carousel-quote-stack, carousel-founder-diary, carousel-news, carousel-step]
+  single:
+    from_single:   [single-insight, single-quote, single-data, single-provocation]
+    from_video:    [single-data, single-provocation, single-quote, single-insight]
+    from_carousel: [single-insight, single-data, single-provocation, single-quote]

@@ -1,0 +1,65 @@
+{
+  "slug": "FUT-c04-cabral-janela-30s",
+  "takes": [
+    {
+      "arquivo": "t01-torcida.mp4",
+      "etiqueta": "torcida",
+      "consulta": "soccer stadium crowd cheering vertical",
+      "duracao": 19,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 34466875,
+      "autor": "Earth Photart",
+      "url": "https://www.pexels.com/video/lively-football-crowd-in-moroccan-stadium-34466875/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t02-jogador.mp4",
+      "etiqueta": "jogador",
+      "consulta": "soccer player close up on pitch",
+      "duracao": 9,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 31430988,
+      "autor": "Ranjeet  Chauhan",
+      "url": "https://www.pexels.com/video/young-athlete-relaxing-on-soccer-field-31430988/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t03-bola.mp4",
+      "etiqueta": "bola",
+      "consulta": "soccer ball on grass close up",
+      "duracao": 7,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 37568235,
+      "autor": "Emmanuel Pius",
+      "url": "https://www.pexels.com/video/close-up-of-worn-soccer-ball-on-grass-37568235/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    },
+    {
+      "arquivo": "t04-estadio.mp4",
+      "etiqueta": "estadio",
+      "consulta": "soccer stadium floodlights night",
+      "duracao": 10,
+      "largura": 720,
+      "altura": 1280,
+      "origem": "pexels",
+      "pexels_id": 35970584,
+      "autor": "Aero Drone",
+      "url": "https://www.pexels.com/video/aerial-night-view-of-illuminated-sports-field-35970584/",
+      "luma": null,
+      "saturacao": null,
+      "licenca": "Pexels License — uso comercial livre, atribuição não obrigatória"
+    }
+  ]
+}

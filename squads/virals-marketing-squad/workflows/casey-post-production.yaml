@@ -1,0 +1,212 @@
+# WF-CASEY-POST-001: Pipeline de Produção de Post Único
+# Duration: 15-30 min por post
+# Best for: Posts de alto impacto para feed Instagram/LinkedIn
+# Key Agents: @casey-neistat-img
+# Stack: Pillow + OpenCV + PyCairo + FLUX.2/Diffusers
+
+workflow:
+  id: wf-casey-post-production
+  name: "Pipeline de Produção de Post Único"
+  version: "1.0"
+  orchestrator: "casey-neistat-img"
+  duration: "15-30 min"
+  description: |
+    Workflow completo para produção de um post único de alto impacto visual.
+    Fluxo: Briefing → Geração/Processamento de imagem → Composição → 
+    Export multi-formato → Validação final.
+
+    Output: outputs/posts/{slug}/
+    - post_1080x1080.png
+    - post_1080x1350.png
+    - post_1080x1920.png (stories)
+    - post_1080x1080.webp
+    - export_manifest.json
+
+  best_for:
+    - "Posts únicos de produto ou serviço"
+    - "Quotes visuais e conteúdo motivacional"
+    - "Anúncios e posts promocionais"
+    - "Conteúdo de data comemorativa"
+
+  decision_matrix_fit:
+    content_type: "Post único"
+    formats: "1:1, 4:5, 9:16"
+    ai_required: "Opcional"
+    brand_required: "Sim"
+
+  clone_combinations:
+    primary: "casey-neistat-img"
+    review_agents:
+      - "mrbeast-mk (validação de hook visual)"
+      - "ladeira (validação de copy)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: Briefing e Planejamento
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1-BRIEF
+    name: "Briefing e Planejamento Visual"
+    tier: 1
+    description: |
+      Coleta e validação do briefing. Define composição, paleta e tipografia
+      antes de qualquer execução. Elicita informações faltantes.
+
+    tasks:
+      - task_file: casey-post-single-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 1
+        description: "Ingerir briefing, validar brand config, definir layout"
+        output: "Plano de composição aprovado + brand tokens validados"
+
+    checkpoint:
+      criteria:
+        - "Tema e headline do post definidos?"
+        - "Brand config carregado e validado?"
+        - "Layout (imagem-first / texto-over / split) decidido?"
+        - "Formato alvo principal definido?"
+      human_review: true
+      message: "Aprovar plano de composição antes de iniciar geração."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: Geração / Processamento de Imagem Base
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2-IMAGE
+    name: "Geração ou Processamento da Imagem Base"
+    tier: 1
+    description: |
+      Gera imagem via IA (se ai_prompt fornecido) ou processa imagem existente.
+      Aplica correções de cor e crop para o formato alvo.
+
+    tasks:
+      - task_file: casey-ai-generate.md
+        agent: casey-neistat-img
+        required: false
+        condition: "ai_prompt presente no briefing"
+        description: "Gerar imagem base com FLUX.2 [klein] ou HF Inference API"
+        output: "generated_image.png + generation_metadata.json"
+        order: 1
+
+      - task_file: casey-post-single-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 3
+        description: "Processar imagem fornecida ou gerada (crop, resize, color)"
+        output: "Imagem base processada e pronta para composição"
+        order: 2
+
+    checkpoint:
+      criteria:
+        - "Imagem base tem resolução ≥ 1080px no menor lado?"
+        - "Se gerada via IA: ausência de artefatos graves ou watermarks?"
+        - "Crop aplicado sem cortar ponto de interesse?"
+      human_review: true
+      message: "Aprovar imagem base antes de composição final."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: Composição Final
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3-COMPOSE
+    name: "Composição Final com Layers"
+    tier: 1
+    description: |
+      Monta todos os layers do post via Pillow + PyCairo:
+      background → overlay → headline → body → CTA → logo → elementos vetoriais.
+
+    tasks:
+      - task_file: casey-post-single-create.md
+        agent: casey-neistat-img
+        required: true
+        step: 4
+        description: "Compor layers em ordem: bg, overlay, textos, logo, elementos vetoriais"
+        output: "Post composto em resolução nativa"
+
+    checkpoint:
+      criteria:
+        - "Headline legível com contrast ratio ≥ 4.5:1?"
+        - "Logo visível e proporcional?"
+        - "Nenhum texto cortado nas safe zones?"
+        - "Elementos vetoriais PyCairo renderizados nítidos?"
+      human_review: true
+      message: "VALIDAR COMPOSIÇÃO: Revisar visualmente o post antes de exportar em todos os formatos."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: Export Multi-Formato
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4-EXPORT
+    name: "Export em Todos os Formatos"
+    tier: 1
+    description: |
+      Exporta o post nos formatos configurados no brand_config.
+      Gera PNG e WebP para cada formato. Cria export_manifest.json.
+
+    tasks:
+      - task_file: casey-image-resize-export.md
+        agent: casey-neistat-img
+        required: true
+        description: "Reformatar e exportar 1:1, 4:5, 9:16 em PNG e WebP"
+        output: "outputs/posts/{slug}/ com todos os formatos"
+
+    checkpoint:
+      criteria:
+        - "Todos os formatos configurados exportados?"
+        - "PNG ≤ 2MB por formato?"
+        - "WebP ≤ 500KB por formato?"
+        - "export_manifest.json gerado com todos os paths?"
+      human_review: false
+      message: "Verificar tamanhos de arquivo antes de considerar concluído."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE:CASEY-POST-PRODUCTION</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-{{phase_id}}</promise>"
+blocked_signal: "<promise>BLOCKED:CASEY-POST-GARGALO</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT ARTIFACTS
+# ═══════════════════════════════════════════════════════════════════════════════
+outputs:
+  Per_Post:
+    - "post_1080x1080.png — Instagram Feed 1:1"
+    - "post_1080x1350.png — Instagram Feed 4:5"
+    - "post_1080x1920.png — Stories 9:16"
+    - "post_*.webp — Versões WebP otimizadas"
+    - "export_manifest.json — Manifesto de produção"
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - halt_workflow: true
+  on_ai_generation_failure:
+    - fallback_to_next_model: true
+    - model_priority: ["flux-klein", "sdxl-local", "hf-api", "together-ai"]
+
+quality_checklist:
+  Brief:
+    - "[ ] Tema e headline definidos"
+    - "[ ] Brand config validado"
+    - "[ ] Layout decidido"
+  Imagem:
+    - "[ ] Resolução ≥ 1080px"
+    - "[ ] Sem artefatos (se IA)"
+    - "[ ] Crop sem perda de ponto de interesse"
+  Composição:
+    - "[ ] Contrast ratio ≥ 4.5:1"
+    - "[ ] Logo visível"
+    - "[ ] Safe zones respeitadas"
+  Export:
+    - "[ ] Todos os formatos gerados"
+    - "[ ] Manifest JSON completo"
+
+metadata:
+  version: "1.0"
+  framework: "Virals Media Image Pipeline v1"
+  created: "2026-05-10"
+  primary_use_case: "Post único visual de alto impacto"
+  related_workflows:
+    - "casey-carousel-production.yaml"
+  related_checklists:
+    - "casey-post-visual-checklist.md"
+  related_templates:
+    - "casey-post-brief-tmpl.md"

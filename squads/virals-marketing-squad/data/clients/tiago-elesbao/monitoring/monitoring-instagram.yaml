@@ -1,0 +1,573 @@
+# Monitoring Profiles: Instagram
+# Squad: virals-marketing-squad
+# Frequency: Daily (Yesterday's posts)
+
+profiles:
+  instagram:
+    - handle: "@criativobruno"
+      url: "https://www.instagram.com/criativobruno/"
+      priority: medium
+    - handle: "@matheusmota"
+      url: "https://www.instagram.com/matheusmota/"
+      priority: medium
+    - handle: "@turbo.partners"
+      url: "https://www.instagram.com/turbo.partners/"
+      priority: medium
+    - handle: "@uana_amorim"
+      url: "https://www.instagram.com/uana_amorim/"
+      priority: medium
+    - handle: "@anibalriveros"
+      url: "https://www.instagram.com/anibalriveros/"
+      priority: medium
+    - handle: "@community_ca"
+      url: "https://www.instagram.com/community_ca/"
+      priority: medium
+    - handle: "@marcapropriabr"
+      url: "https://www.instagram.com/marcapropriabr/"
+      priority: medium
+    - handle: "@ecommercepuro"
+      url: "https://www.instagram.com/ecommercepuro/"
+      priority: medium
+    - handle: "@acelerai"
+      url: "https://www.instagram.com/acelerai/"
+      priority: medium
+    - handle: "@criadores.virais"
+      url: "https://www.instagram.com/criadores.virais/"
+      priority: medium
+    - handle: "@gustavo_siemsen"
+      url: "https://www.instagram.com/gustavo_siemsen/"
+      priority: medium
+    - handle: "@danielmarcapropria"
+      url: "https://www.instagram.com/danielmarcapropria/"
+      priority: medium
+    - handle: "@tay.ldantas"
+      url: "https://www.instagram.com/tay.ldantas/"
+      priority: medium
+    - handle: "@pandoriumdigital"
+      url: "https://www.instagram.com/pandoriumdigital/"
+      priority: medium
+    - handle: "@felipehatab"
+      url: "https://www.instagram.com/felipehatab/"
+      priority: medium
+    - handle: "@publicitarioscriativos"
+      url: "https://www.instagram.com/publicitarioscriativos/"
+      priority: medium
+    - handle: "@tabconselho"
+      url: "https://www.instagram.com/tabconselho/"
+      priority: medium
+    - handle: "@falajoaobranco"
+      url: "https://www.instagram.com/falajoaobranco/"
+      priority: medium
+    - handle: "@aceleramarca"
+      url: "https://www.instagram.com/aceleramarca/"
+      priority: medium
+    - handle: "@robsongalvao"
+      url: "https://www.instagram.com/robsongalvao/"
+      priority: medium
+    - handle: "@garyvee"
+      url: "https://www.instagram.com/garyvee/"
+      priority: medium
+    - handle: "@gretta"
+      url: "https://www.instagram.com/gretta/"
+      priority: medium
+    - handle: "@iamnicorojas"
+      url: "https://www.instagram.com/iamnicorojas/"
+      priority: medium
+    - handle: "@neilpatel"
+      url: "https://www.instagram.com/neilpatel/"
+      priority: medium
+    - handle: "@noahkagan"
+      url: "https://www.instagram.com/noahkagan/"
+      priority: medium
+    - handle: "@stack3dnews"
+      url: "https://www.instagram.com/stack3dnews/"
+      priority: medium
+    - handle: "@greglavslife"
+      url: "https://www.instagram.com/greglavslife/"
+      priority: medium
+    - handle: "@hormozi"
+      url: "https://www.instagram.com/hormozi/"
+      priority: medium
+    - handle: "@russellbrunson"
+      url: "https://www.instagram.com/russellbrunson/"
+      priority: medium
+    - handle: "@diegoalmeida.ia"
+      url: "https://www.instagram.com/diegoalmeida.ia/"
+      priority: medium
+    - handle: "@rafa.grandi"
+      url: "https://www.instagram.com/rafa.grandi/"
+      priority: medium
+    - handle: "@liloforte"
+      url: "https://www.instagram.com/liloforte/"
+      priority: medium
+    - handle: "@leonardo_aia"
+      url: "https://www.instagram.com/leonardo_aia/"
+      priority: medium
+    - handle: "@andreonedatacrazy"
+      url: "https://www.instagram.com/andreonedatacrazy/"
+      priority: medium
+    - handle: "@obrunookamoto"
+      url: "https://www.instagram.com/obrunookamoto/"
+      priority: medium
+    - handle: "@gabriel.adamuchi"
+      url: "https://www.instagram.com/gabriel.adamuchi/"
+      priority: medium
+    - handle: "@euchicopatricio"
+      url: "https://www.instagram.com/euchicopatricio/"
+      priority: medium
+    - handle: "@kauerodrigues.o"
+      url: "https://www.instagram.com/kauerodrigues.o/"
+      priority: medium
+    - handle: "@wellvaz_"
+      url: "https://www.instagram.com/wellvaz_/"
+      priority: medium
+    - handle: "@lucas.kochinski"
+      url: "https://www.instagram.com/lucas.kochinski/"
+      priority: medium
+    - handle: "@rodvincenzi"
+      url: "https://www.instagram.com/rodvincenzi/"
+      priority: medium
+    - handle: "@brunobracaioli"
+      url: "https://www.instagram.com/brunobracaioli/"
+      priority: medium
+    - handle: "@oyanmarques"
+      url: "https://www.instagram.com/oyanmarques/"
+      priority: medium
+    - handle: "@byfeliperocha"
+      url: "https://www.instagram.com/byfeliperocha/"
+      priority: medium
+    - handle: "@janinho.ia"
+      url: "https://www.instagram.com/janinho.ia/"
+      priority: medium
+    - handle: "@ecom.felipe"
+      url: "https://www.instagram.com/ecom.felipe/"
+      priority: medium
+    - handle: "@dericsoncalari"
+      url: "https://www.instagram.com/dericsoncalari/"
+      priority: medium
+    - handle: "@grecovini"
+      url: "https://www.instagram.com/grecovini/"
+      priority: medium
+    - handle: "@higorhalas"
+      url: "https://www.instagram.com/higorhalas/"
+      priority: medium
+    - handle: "@omatheuspalma"
+      url: "https://www.instagram.com/omatheuspalma/"
+      priority: medium
+    - handle: "@ronaldolimajunior"
+      url: "https://www.instagram.com/ronaldolimajunior/"
+      priority: medium
+    - handle: "@talesramiroart"
+      url: "https://www.instagram.com/talesramiroart/"
+      priority: medium
+    - handle: "@rodrigotadewald"
+      url: "https://www.instagram.com/rodrigotadewald/"
+      priority: medium
+    - handle: "@joaopaulodealmeidapradocosta"
+      url: "https://www.instagram.com/joaopaulodealmeidapradocosta/"
+      priority: medium
+    - handle: "@lucasmarte.ia"
+      url: "https://www.instagram.com/lucasmarte.ia/"
+      priority: medium
+    - handle: "@diegocbarreto"
+      url: "https://www.instagram.com/diegocbarreto/"
+      priority: medium
+    - handle: "@robertovalverde1"
+      url: "https://www.instagram.com/robertovalverde1/"
+      priority: medium
+    - handle: "@alansalesc"
+      url: "https://www.instagram.com/alansalesc/"
+      priority: medium
+    - handle: "@kenerryserain"
+      url: "https://www.instagram.com/kenerryserain/"
+      priority: medium
+    - handle: "@gabreiis_"
+      url: "https://www.instagram.com/gabreiis_/"
+      priority: medium
+    - handle: "@willian_wiebbelling"
+      url: "https://www.instagram.com/willian_wiebbelling/"
+      priority: medium
+    - handle: "@oandrelona"
+      url: "https://www.instagram.com/oandrelona/"
+      priority: medium
+    - handle: "@paulo.ia"
+      url: "https://www.instagram.com/paulo.ia/"
+      priority: medium
+    - handle: "@caiobesssa"
+      url: "https://www.instagram.com/caiobesssa/"
+      priority: medium
+    - handle: "@eusoukelvincleto"
+      url: "https://www.instagram.com/eusoukelvincleto/"
+      priority: medium
+    - handle: "@arthurpadrao"
+      url: "https://www.instagram.com/arthurpadrao/"
+      priority: medium
+    - handle: "@lucasarrial"
+      url: "https://www.instagram.com/lucasarrial/"
+      priority: medium
+    - handle: "@ipprod"
+      url: "https://www.instagram.com/ipprod/"
+      priority: medium
+    - handle: "@pctheonee"
+      url: "https://www.instagram.com/pctheonee/"
+      priority: medium
+    - handle: "@sidneyrodrigobr"
+      url: "https://www.instagram.com/sidneyrodrigobr/"
+      priority: medium
+    - handle: "@macmasi"
+      url: "https://www.instagram.com/macmasi/"
+      priority: medium
+    - handle: "@marinhonivaldojr"
+      url: "https://www.instagram.com/marinhonivaldojr/"
+      priority: medium
+    - handle: "@domicianobarros"
+      url: "https://www.instagram.com/domicianobarros/"
+      priority: medium
+    - handle: "@obrandingg"
+      url: "https://www.instagram.com/obrandingg/"
+      priority: medium
+    - handle: "@matheussanfer"
+      url: "https://www.instagram.com/matheussanfer/"
+      priority: medium
+    - handle: "@ericksonmonteiro"
+      url: "https://www.instagram.com/ericksonmonteiro/"
+      priority: medium
+    - handle: "@helbertparanhos"
+      url: "https://www.instagram.com/helbertparanhos/"
+      priority: medium
+    - handle: "@obarbosa.tr"
+      url: "https://www.instagram.com/obarbosa.tr/"
+      priority: medium
+    - handle: "@thelimaf"
+      url: "https://www.instagram.com/thelimaf/"
+      priority: medium
+    - handle: "@ogabrielpreuss"
+      url: "https://www.instagram.com/ogabrielpreuss/"
+      priority: medium
+    - handle: "@leosoares.ia"
+      url: "https://www.instagram.com/leosoares.ia/"
+      priority: medium
+    - handle: "@eumohamadizzat"
+      url: "https://www.instagram.com/eumohamadizzat/"
+      priority: medium
+    - handle: "@guicardosogc"
+      url: "https://www.instagram.com/guicardosogc/"
+      priority: medium
+    - handle: "@luandetoni_"
+      url: "https://www.instagram.com/luandetoni_/"
+      priority: medium
+    - handle: "@brasziw"
+      url: "https://www.instagram.com/brasziw/"
+      priority: medium
+    - handle: "@thaleswdias"
+      url: "https://www.instagram.com/thaleswdias/"
+      priority: medium
+    - handle: "@yuribarbosaoficial"
+      url: "https://www.instagram.com/yuribarbosaoficial/"
+      priority: medium
+    - handle: "@tristan_vncnt"
+      url: "https://www.instagram.com/tristan_vncnt/"
+      priority: medium
+    - handle: "@pedrosobral"
+      url: "https://www.instagram.com/pedrosobral/"
+      priority: medium
+    - handle: "@scheduardo"
+      url: "https://www.instagram.com/scheduardo/"
+      priority: medium
+    - handle: "@rogerioferreirasf"
+      url: "https://www.instagram.com/rogerioferreirasf/"
+      priority: medium
+    - handle: "@brunobaaker"
+      url: "https://www.instagram.com/brunobaaker/"
+      priority: medium
+    - handle: "@lucasrochaator"
+      url: "https://www.instagram.com/lucasrochaator/"
+      priority: medium
+    - handle: "@thaleslaray"
+      url: "https://www.instagram.com/thaleslaray/"
+      priority: medium
+    - handle: "@matheusbeirao"
+      url: "https://www.instagram.com/matheusbeirao/"
+      priority: medium
+    - handle: "@thiagobarros"
+      url: "https://www.instagram.com/thiagobarros/"
+      priority: medium
+    - handle: "@mateusrucci"
+      url: "https://www.instagram.com/mateusrucci/"
+      priority: medium
+    - handle: "@house.of.ag"
+      url: "https://www.instagram.com/house.of.ag/"
+      priority: medium
+    - handle: "@williancelso"
+      url: "https://www.instagram.com/williancelso/"
+      priority: medium
+    - handle: "@artificialintelligence.co"
+      url: "https://www.instagram.com/artificialintelligence.co/"
+      priority: medium
+    - handle: "@guidevendas"
+      url: "https://www.instagram.com/guidevendas/"
+      priority: medium
+    - handle: "@oreidotrafego"
+      url: "https://www.instagram.com/oreidotrafego/"
+      priority: medium
+    - handle: "@sergiozimermanoficial"
+      url: "https://www.instagram.com/sergiozimermanoficial/"
+      priority: medium
+    - handle: "@darlansousa"
+      url: "https://www.instagram.com/darlansousa/"
+      priority: medium
+    - handle: "@carlosbusch"
+      url: "https://www.instagram.com/carlosbusch/"
+      priority: medium
+    - handle: "@tiagorochabr"
+      url: "https://www.instagram.com/tiagorochabr/"
+      priority: medium
+    - handle: "@laschuk"
+      url: "https://www.instagram.com/laschuk/"
+      priority: medium
+    - handle: "@mktcomcaio"
+      url: "https://www.instagram.com/mktcomcaio/"
+      priority: medium
+    - handle: "@rodrigobindes"
+      url: "https://www.instagram.com/rodrigobindes/"
+      priority: medium
+    - handle: "@henriquetoledooficial"
+      url: "https://www.instagram.com/henriquetoledooficial/"
+      priority: medium
+    - handle: "@nicola.ai"
+      url: "https://www.instagram.com/nicola.ai/"
+      priority: medium
+    - handle: "@roihuntersoficial"
+      url: "https://www.instagram.com/roihuntersoficial/"
+      priority: medium
+    - handle: "@andrecoimbra"
+      url: "https://www.instagram.com/andrecoimbra/"
+      priority: medium
+    - handle: "@otonielmarcelo"
+      url: "https://www.instagram.com/otonielmarcelo/"
+      priority: medium
+    - handle: "@joaorebesquini"
+      url: "https://www.instagram.com/joaorebesquini/"
+      priority: medium
+    - handle: "@criativosdofuturo"
+      url: "https://www.instagram.com/criativosdofuturo/"
+      priority: medium
+    - handle: "@dieguinhodiloreto"
+      url: "https://www.instagram.com/dieguinhodiloreto/"
+      priority: medium
+    - handle: "@inhsieh"
+      url: "https://www.instagram.com/inhsieh/"
+      priority: medium
+    - handle: "@dihsantanabr"
+      url: "https://www.instagram.com/dihsantanabr/"
+      priority: medium
+    - handle: "@uxunicornio"
+      url: "https://www.instagram.com/uxunicornio/"
+      priority: medium
+    - handle: "@matheus.track"
+      url: "https://www.instagram.com/matheus.track/"
+      priority: medium
+    - handle: "@titopaolone"
+      url: "https://www.instagram.com/titopaolone/"
+      priority: medium
+    - handle: "@realchasechappell"
+      url: "https://www.instagram.com/realchasechappell/"
+      priority: medium
+    - handle: "@hernanvazquezmarketing"
+      url: "https://www.instagram.com/hernanvazquezmarketing/"
+      priority: medium
+    - handle: "@nelsontjunior"
+      url: "https://www.instagram.com/nelsontjunior/"
+      priority: medium
+    - handle: "@leojunckes_"
+      url: "https://www.instagram.com/leojunckes_/"
+      priority: medium
+    - handle: "@jorge_azev"
+      url: "https://www.instagram.com/jorge_azev/"
+      priority: medium
+    - handle: "@pablomarcal1"
+      url: "https://www.instagram.com/pablomarcal1/"
+      priority: medium
+    - handle: "@mineirodasvendas"
+      url: "https://www.instagram.com/mineirodasvendas/"
+      priority: medium
+    - handle: "@isakov.alekss"
+      url: "https://www.instagram.com/isakov.alekss/"
+      priority: medium
+    - handle: "@aivideoskool"
+      url: "https://www.instagram.com/aivideoskool/"
+      priority: medium
+    - handle: "@paidotrafego"
+      url: "https://www.instagram.com/paidotrafego/"
+      priority: medium
+    - handle: "@thiagoconceroficial"
+      url: "https://www.instagram.com/thiagoconceroficial/"
+      priority: medium
+    - handle: "@carolinaviudes"
+      url: "https://www.instagram.com/carolinaviudes/"
+      priority: medium
+    - handle: "@theartificialintelligence"
+      url: "https://www.instagram.com/theartificialintelligence/"
+      priority: medium
+    - handle: "@caiocarneiro"
+      url: "https://www.instagram.com/caiocarneiro/"
+      priority: medium
+    - handle: "@odavilouback"
+      url: "https://www.instagram.com/odavilouback/"
+      priority: medium
+    - handle: "@lasarodocarmojr"
+      url: "https://www.instagram.com/lasarodocarmojr/"
+      priority: medium
+    - handle: "@tmsproductions_"
+      url: "https://www.instagram.com/tmsproductions_/"
+      priority: medium
+    - handle: "@marcusmarquesoficial"
+      url: "https://www.instagram.com/marcusmarquesoficial/"
+      priority: medium
+    - handle: "@socialmlabs"
+      url: "https://www.instagram.com/socialmlabs/"
+      priority: medium
+    - handle: "@joesalvatore_"
+      url: "https://www.instagram.com/joesalvatore_/"
+      priority: medium
+    - handle: "@chatgptricks"
+      url: "https://www.instagram.com/chatgptricks/"
+      priority: medium
+    - handle: "@lucianogalhardonovo"
+      url: "https://www.instagram.com/lucianogalhardonovo/"
+      priority: medium
+    - handle: "@benheathmarketing"
+      url: "https://www.instagram.com/benheathmarketing/"
+      priority: medium
+    - handle: "@marcostrider"
+      url: "https://www.instagram.com/marcostrider/"
+      priority: medium
+    - handle: "@insta.fabiosoares"
+      url: "https://www.instagram.com/insta.fabiosoares/"
+      priority: medium
+    - handle: "@alvaro.schocair"
+      url: "https://www.instagram.com/alvaro.schocair/"
+      priority: medium
+    - handle: "@odanilogato"
+      url: "https://www.instagram.com/odanilogato/"
+      priority: medium
+    - handle: "@rourke"
+      url: "https://www.instagram.com/rourke/"
+      priority: medium
+    - handle: "@networkchuck"
+      url: "https://www.instagram.com/networkchuck/"
+      priority: medium
+    - handle: "@viverdeblog"
+      url: "https://www.instagram.com/viverdeblog/"
+      priority: medium
+    - handle: "@milliondollarbrandclub"
+      url: "https://www.instagram.com/milliondollarbrandclub/"
+      priority: medium
+    - handle: "@timkoda_"
+      url: "https://www.instagram.com/timkoda_/"
+      priority: medium
+    - handle: "@jhon_freitas"
+      url: "https://www.instagram.com/jhon_freitas/"
+      priority: medium
+    - handle: "@oneyaraujo"
+      url: "https://www.instagram.com/oneyaraujo/"
+      priority: medium
+    - handle: "@andremenezes"
+      url: "https://www.instagram.com/andremenezes/"
+      priority: medium
+    - handle: "@henriarmelin"
+      url: "https://www.instagram.com/henriarmelin/"
+      priority: medium
+    - handle: "@trafegocomvictor"
+      url: "https://www.instagram.com/trafegocomvictor/"
+      priority: medium
+    - handle: "@obernardopetty"
+      url: "https://www.instagram.com/obernardopetty/"
+      priority: medium
+    - handle: "@skyamaguchi"
+      url: "https://www.instagram.com/skyamaguchi/"
+      priority: medium
+    - handle: "@brendascalco"
+      url: "https://www.instagram.com/brendascalco/"
+      priority: medium
+    - handle: "@lohran"
+      url: "https://www.instagram.com/lohran/"
+      priority: medium
+    - handle: "@cmodobilhao"
+      url: "https://www.instagram.com/cmodobilhao/"
+      priority: medium
+    - handle: "@ricarddosilveira"
+      url: "https://www.instagram.com/ricarddosilveira/"
+      priority: medium
+    - handle: "@griggen_"
+      url: "https://www.instagram.com/griggen_/"
+      priority: medium
+    - handle: "@albertopompeu"
+      url: "https://www.instagram.com/albertopompeu/"
+      priority: medium
+    - handle: "@keenanlam"
+      url: "https://www.instagram.com/keenanlam/"
+      priority: medium
+    - handle: "@segredosdaaudiencia"
+      url: "https://www.instagram.com/segredosdaaudiencia/"
+      priority: medium
+    - handle: "@doctoralex"
+      url: "https://www.instagram.com/doctoralex/"
+      priority: medium
+    - handle: "@iamjustinprince"
+      url: "https://www.instagram.com/iamjustinprince/"
+      priority: medium
+    - handle: "@eufelipecintra"
+      url: "https://www.instagram.com/eufelipecintra/"
+      priority: medium
+    - handle: "@tailopez"
+      url: "https://www.instagram.com/tailopez/"
+      priority: medium
+    - handle: "@giubeckers"
+      url: "https://www.instagram.com/giubeckers/"
+      priority: medium
+    - handle: "@nicorauchenwald"
+      url: "https://www.instagram.com/nicorauchenwald/"
+      priority: medium
+    - handle: "@ai_guy_yt"
+      url: "https://www.instagram.com/ai_guy_yt/"
+      priority: medium
+    - handle: "@luanacarolina.s"
+      url: "https://www.instagram.com/luanacarolina.s/"
+      priority: medium
+    - handle: "@marketingharry"
+      url: "https://www.instagram.com/marketingharry/"
+      priority: medium
+    - handle: "@julianotorriani"
+      url: "https://www.instagram.com/julianotorriani/"
+      priority: medium
+    - handle: "@pradoclima"
+      url: "https://www.instagram.com/pradoclima/"
+      priority: medium
+    - handle: "@brunomotti"
+      url: "https://www.instagram.com/brunomotti/"
+      priority: medium
+    - handle: "@eagletrindade"
+      url: "https://www.instagram.com/eagletrindade/"
+      priority: medium
+    - handle: "@oeupresente"
+      url: "https://www.instagram.com/oeupresente/"
+      priority: medium
+    - handle: "@copfybr"
+      url: "https://www.instagram.com/copfybr/"
+      priority: medium
+    - handle: "@jordan.b.peterson"
+      url: "https://www.instagram.com/jordan.b.peterson/"
+      priority: medium
+    - handle: "@leandroaguiari"
+      url: "https://www.instagram.com/leandroaguiari/"
+      priority: medium
+    - handle: "@pelainteligencia"
+      url: "https://www.instagram.com/pelainteligencia/"
+      priority: medium
+    - handle: "@_daviribas_"
+      url: "https://www.instagram.com/_daviribas_/"
+      priority: medium
+    - handle: "@zachwillx"
+      url: "https://www.instagram.com/zachwillx/"
+      priority: medium

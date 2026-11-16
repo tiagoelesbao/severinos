@@ -1,0 +1,39 @@
+storyId: MVC-04
+epic: EPIC-MKT-Video-Creative
+title: "quality_gate_video (gate terminal: V1–V7 + self-healing + bloqueio)"
+gate: PASS
+reviewer: "@qa (Quinn)"
+date: "2026-06-20"
+
+acceptance_criteria:
+  AC1: { status: met, note: "Fato fabricado → FAIL + video_fidelity_unresolved (testado: offline → FAIL com 47%)" }
+  AC2: { status: met, note: "V1 sinaliza <3 variantes (bloqueante), overlay>7 e sem pattern_interrupt (soft)" }
+  AC3: { status: met, note: "Self-heal LLM máx 2; run real curou fabricação em 1 iteração → PASS" }
+  AC4: { status: met, note: "Plano limpo → PASS (testado + real)" }
+  AC5: { status: met, note: "12 testes V1–V7 + classificação + reparo + FAIL/PASS" }
+
+closes_concerns:
+  from: MVC-03
+  concern_1_qualitative_fidelity: { status: closed, note: "detect_fabricated_claims ligado e usado no V4 (bloqueante)" }
+  concern_2_enforcement: { status: closed, note: "FAIL → exit 2 + _validation.video_gate_status/video_fidelity_unresolved" }
+
+tests:
+  unit: { total: 12, passed: 12, file: "squads/virals-marketing-squad/scripts/test_quality_gate_video.py" }
+  real_data: { benchmark: "30-hormozi-fc605e", result: "V3 blocked → self-heal 1 iter → PASS, 0 fabricated remaining" }
+  regression: { status: clean, note: "MVC-01/02/03 + fact_fidelity 17/17 intactos" }
+
+issues:
+  - severity: low
+    category: code
+    description: "source_entities(pseudo_brief) é chamado mas descartado em '_' (linha 126) — não influencia decisão."
+    recommendation: "Remover a chamada decorativa OU usá-la (V4b: entidades/proper nouns ausentes da fonte)."
+  - severity: info
+    category: design
+    description: "V4 (claims) é pattern-based; anedotas inventadas muito específicas sem padrão de atribuição podem escapar."
+    recommendation: "Limitação herdada dos estáticos; aceitável. Vetor principal (números) coberto."
+  - severity: low
+    category: process
+    description: "CodeRabbit pré-commit não executado."
+    recommendation: "Rodar antes do push (via @devops)."
+
+next: "MVC-05 (video_plan.py) — orquestra 01→04, lê video_gate_status para bloquear saída, gera Plano-de-Criativo.md. Push pendente → @devops."

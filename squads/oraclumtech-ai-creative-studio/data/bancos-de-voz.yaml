@@ -1,0 +1,165 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# BANCOS DE VOZ — onde conseguir narração em PT-BR sem clonar ninguém
+#
+# Consumido por: @sound-designer (`audio`), @exec-producer (`budget`)
+#
+# POR QUE ISTO EXISTE
+# O founder quer um registro específico — masculino, grave, maduro — e a
+# tentação é clonar a voz de um vídeo de referência. Este arquivo existe para
+# tornar essa tentação desnecessária: mapeia TODAS as rotas legítimas, das
+# gratuitas às pagas, e o que cada uma custa em dinheiro e em liberdade.
+#
+# REGRA QUE ATRAVESSA TUDO
+# Voz de PRODUTO (sintética, de catálogo) é licenciável e não pertence a pessoa
+# identificável. Voz de PESSOA (clonada de alguém real) traz direito de
+# personalidade. A primeira é caminho; a segunda não é.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  versao: '1.0.0'
+  criado_em: '2026-08-29'
+  squad: oraclumtech-ai-creative-studio
+  status: a_validar_no_estudio
+  origem: >
+    Pedido do founder após ouvir as amostras locais e identificar que a voz do
+    vídeo de referência de estoicismo "é uma voz de IA bem famosa que aparece em
+    muitos vídeos". Se for voz de catálogo, ela é obtenível — muda tudo.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROTA 1 — GRATUITA E OFICIAL
+# ─────────────────────────────────────────────────────────────────────────────
+gratuitas:
+
+  - id: clipchamp
+    nome: 'Microsoft ClipChamp'
+    custo: 'Gratuito'
+    o_que_e: 'Editor de vídeo da Microsoft com gerador de narração por IA embutido'
+    vozes: 'Vozes neurais do Azure, incluindo o catálogo PT-BR'
+    saida: 'Exporta em MP3'
+    por_que_importa: >
+      É EXATAMENTE a rota que o curso de Método Lives ensina ("gerar voz neural
+      pelo ClipChamp"). Se o mercado brasileiro de canal dark usa ClipChamp em
+      massa, a chance de a voz do vídeo de referência estar nesse catálogo é alta.
+    limite: 'Interface manual — não é scriptável. Serve para peça avulsa, não para lote diário.'
+    licenca: 'Uso comercial permitido nos termos do produto Microsoft — verificar no plano em vigor'
+    prioridade_de_teste: 1
+
+  - id: edge-tts
+    nome: 'Edge TTS (vozes neurais da Microsoft)'
+    custo: 'Gratuito, sem chave de API'
+    vozes_ptbr: '~15 vozes neurais PT-BR — o mesmo motor por trás do ClipChamp'
+    o_que_ganha: 'Scriptável em Python. Roda em lote, integra no pipeline.'
+    ressalva_honesta: >
+      Acessa um endpoint da Microsoft por via não documentada. Funciona bem e é
+      largamente usado, mas os termos para uso comercial são CINZENTOS — não há
+      contrato explícito cobrindo isso. Para canal monetizado, tratar como rota de
+      teste e prototipagem, não como base de produção sem revisão.
+    prioridade_de_teste: 2
+
+  - id: azure-cognitive
+    nome: 'Azure AI Speech (oficial, com conta)'
+    custo: 'Free tier generoso; depois por caractere'
+    vozes_ptbr: 'Catálogo neural PT-BR completo, com vozes masculinas graves'
+    o_que_ganha: 'A MESMA voz do ClipChamp/Edge, só que com contrato comercial explícito e API estável'
+    por_que_e_a_rota_limpa: >
+      Se o teste no ClipChamp identificar a voz certa, esta é a forma de usá-la em
+      produção com respaldo. Mesma voz, contrato claro, escala por API.
+    prioridade_de_teste: 3
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROTA 2 — PAGA, MAIOR CATÁLOGO
+# ─────────────────────────────────────────────────────────────────────────────
+pagas:
+
+  - id: elevenlabs
+    nome: 'ElevenLabs'
+    catalogo: 'Voice Library com mais de 11.000 vozes; suporte a PT-BR com sotaque nativo'
+    por_que_e_a_suspeita_principal: >
+      É o padrão de fato do gênero. A qualidade do vídeo de referência — 34 minutos
+      sem queda de energia, prosódia natural em PT-BR — é compatível com o nível
+      da ElevenLabs mais do que com TTS gratuito.
+    categorias_uteis_para_o_nosso_registro:
+      - 'deep-voices'
+      - 'low-pitched'
+      - 'gravelly'
+      - 'burly'
+      - 'alpha-male'
+    candidato_nomeado:
+      voz: 'Eliel'
+      descricao_do_catalogo: 'Voz "gravelly" de homem de meia-idade, indicada para audiolivro, narração épica e documentário'
+      por_que_e_forte_candidata: 'O perfil descrito é exatamente o registro do vídeo de referência — e o uso indicado (audiolivro/documentário) casa com os 152 wpm medidos'
+      status: 'HIPÓTESE — não confirmada por comparação'
+    licenca: 'Uso comercial nos planos pagos. Ler os termos sobre vozes da Voice Library (criadas por terceiros) vs. vozes oficiais.'
+    prioridade_de_teste: 1
+
+  - id: outros_comerciais
+    nomes: ['Speechify', 'Murf.ai', 'PlayHT', 'Resemble AI']
+    nota: 'Alternativas com catálogo PT-BR. Só investigar se ElevenLabs e Azure não resolverem.'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROTA 3 — LOCAL (o que já está instalado na máquina)
+# ─────────────────────────────────────────────────────────────────────────────
+local_instalado:
+  engine: 'ChatterBox Official 23-Lang (MIT) — ver docs/NARRACAO-LOCAL.md'
+  banco_embutido:
+    caminho: 'ComfyUI/custom_nodes/TTS-Audio-Suite/voices_examples/'
+    vozes_genericas_sem_pessoa_identificavel:
+      - 'male/male_01.wav'
+      - 'male/male_02.wav'
+      - 'female/female_01.wav'
+      - 'female/female_02.wav'
+      - 'higgs_audio/en_man.wav'
+      - 'higgs_audio/chadwick.wav'
+      - 'higgs_audio/broom_salesman.wav'
+    vozes_de_pessoas_reais_NAO_USAR_EM_PUBLICACAO:
+      motivo: 'Clone de pessoa real identificável — direito de personalidade. Servem para calibrar registro, nunca para publicar.'
+      arquivos:
+        - 'Morgan_Freeman CC3.wav'
+        - 'David_Attenborough CC3.wav'
+        - 'Clint_Eastwood CC3 (enhanced2).wav'
+        - 'Sophie_Anderson CC3.wav'
+  voz_embutida_do_modelo:
+    o_que_e: 'A ChatterBox tem voz padrão que dispensa referência — foi a que o founder escolheu nas amostras'
+    vantagem: 'WER 0,0%, não pertence a ninguém, reprodutível para sempre'
+    limite: 'É feminina. Para o registro grave masculino do estoicismo, não serve.'
+  ferramenta_de_ajuste:
+    id: rvc
+    o_que_faz: 'Conversão de voz — move timbre e altura de uma voz existente'
+    onde_esta: 'Já instalado dentro da TTS-Audio-Suite'
+    uso_previsto: 'Pegar uma voz genérica e empurrar para o registro grave desejado, sem clonar pessoa'
+    status: a_validar_no_estudio
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMO IDENTIFICAR A VOZ DO VÍDEO DE REFERÊNCIA
+# ─────────────────────────────────────────────────────────────────────────────
+metodo_de_identificacao:
+  problema: >
+    Não dá para identificar uma voz de catálogo só pela análise acústica do áudio
+    final — ele passou por compressão, normalização e mixagem com trilha.
+  metodo_que_funciona:
+    - passo: 1
+      acao: 'Extrair 15 segundos limpos do vídeo de referência, de um trecho sem trilha ou com trilha baixa'
+    - passo: 2
+      acao: 'Pegar a MESMA frase e gerar nos candidatos: ElevenLabs (Eliel e as categorias deep/gravelly), e as vozes masculinas PT-BR do ClipChamp'
+    - passo: 3
+      acao: 'Comparar de ouvido, prestando atenção em: altura da voz, velocidade padrão, como trata vírgula e ponto, e o timbre da respiração (ou a ausência dela)'
+    - passo: 4
+      acao: 'Confirmada a voz, contratar o plano que libera uso comercial e registrar aqui'
+  atalho_possivel: >
+    Canais do gênero costumam citar as ferramentas na descrição do vídeo ou em
+    vídeos de bastidor do próprio canal. Vale olhar antes de testar por eliminação.
+
+# ─────────────────────────────────────────────────────────────────────────────
+recomendacao:
+  ordem_de_teste:
+    - 'ClipChamp — é grátis e é a rota que o mercado brasileiro do nicho usa. Testar primeiro custa zero.'
+    - 'ElevenLabs (Eliel + categorias deep/gravelly) — se a qualidade do ClipChamp não alcançar'
+    - 'Azure oficial — quando a voz estiver escolhida e for para produção em lote'
+  o_que_nao_muda: >
+    Qualquer que seja a escolhida, ela vira a VOZ CANÔNICA do canal e não muda
+    mais. O `craft-references.yaml` do dark-room já registra: trocar de locutor
+    entre episódios reseta o reconhecimento acumulado. A escolha é de uma vez.
+  nota_de_custo: >
+    Para 1 episódio diário de ~5.000 palavras, o volume mensal é ~150 mil palavras.
+    Isso coloca o job em plano pago de qualquer serviço comercial — o `exec-producer`
+    deve orçar isso como custo fixo mensal do canal, não como custo por peça.

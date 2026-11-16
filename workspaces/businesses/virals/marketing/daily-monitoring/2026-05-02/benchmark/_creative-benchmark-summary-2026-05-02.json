@@ -1,0 +1,31 @@
+{
+  "date": "2026-05-02",
+  "topN": 1,
+  "platforms": [
+    "youtube"
+  ],
+  "started_at": "2026-05-03T20:36:21.359Z",
+  "finished_at": "2026-05-03T20:38:18.479Z",
+  "duration_ms": 117120,
+  "total": 1,
+  "ok": 1,
+  "failed": 0,
+  "timeout": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "rank": 1,
+      "creator": "@AlexHormozi",
+      "url": "https://www.youtube.com/watch?v=3fsJFUvA6Ts",
+      "platform": "youtube",
+      "folder": "C:\\Users\\Pichau\\Desktop\\Sistemas\\Virals\\severinos\\workspaces\\businesses\\virals\\marketing\\daily-monitoring\\2026-05-02\\benchmark\\youtube\\01-alexhormozi-4a7d8a",
+      "status": "ok",
+      "classification": {
+        "type": "video-long",
+        "engine": "VideoAnalyzer",
+        "subtype": "youtube-long"
+      },
+      "screenshots": 5
+    }
+  ]
+}

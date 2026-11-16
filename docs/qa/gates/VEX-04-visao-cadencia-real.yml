@@ -1,0 +1,36 @@
+storyId: VEX-04
+epic: EPIC-MKT-Video-Excellence
+title: "Fase A com olhos — visão computacional no benchmark + cadência de cortes real"
+gate: PASS
+reviewer: "Claude no papel @qa"
+date: "2026-07-04"
+
+acceptance_criteria:
+  AC1: { status: met, note: "cut_cadence source=scene-detect, 18 shots, avg 2,03s no E2E; detectSceneCuts validado em vídeo real (0 cortes numa captura contínua = correto)" }
+  AC2: { status: met, note: "visual_analysis com 5 frames (shot_type/on_screen_text/has_captions) + caption_style + hook visual + shot_mix, via Gemini REAL" }
+  AC3: { status: met, note: "Degradação testada: sem chave → null + exit 0; normalize inutilizável → None; etapa 1b não-fatal no orquestrador" }
+  AC4: { status: met, note: "DNA visual injetado nos prompts MVC-02/03; análise LLM real consumiu; plano LLM completo a confirmar no 1º run de produção (Low)" }
+  AC5: { status: met, note: "Regra de não-fato explícita nos 2 prompts; gate V3/V4 a jusante intocado" }
+
+tests:
+  python: { total: 37, passed: 37, note: "8 novos (sampling/normalize/cadência) + suítes existentes sem regressão" }
+  e2e_real: "sandbox do benchmark Chase Chappell: deep_modeler → vision (Gemini) → analyze (LLM) com cadência scene-detect e DNA visual persistidos no brief; sandbox limpo após"
+
+seven_checks:
+  code_review: "OK — motor de visão separado (etapa 1 continua determinística); normalização com defaults; scene-detect não-fatal no ponto exato (antes do unlink do vídeo)"
+  unit_tests: "OK — parsing, degradação, preferência de fonte da cadência"
+  acceptance: "OK — AC1–AC5 com evidência real"
+  regression: "OK — 37/37 incl. testes antigos de analyze/deep_modeler/gate/plan"
+  performance: "OK — ≤8 frames por visão (custo controlado); scdet com timeout 120s"
+  security: "OK — chave via .env (dotenv); nenhum dado de cliente enviado à visão (só frames do benchmark público)"
+  documentation: "OK — suposição errada da auditoria (hook_raw) corrigida com verificação e nota honesta"
+
+issues:
+  - severity: low
+    category: requirements
+    description: "Threshold do scene-detect (0,30) calibrado por 1 amostra; reels com transições suaves podem sub-detectar."
+    recommendation: "Observar nos próximos *creative-benchmark; ajustar/parametrizar se necessário."
+  - severity: low
+    category: tests
+    description: "Plano LLM completo (MVC-03) com bloco visual não exercitado no E2E (custo); só a análise (MVC-02) consumiu visão em run real."
+    recommendation: "Confirmar no primeiro *industrialize-video de produção."
