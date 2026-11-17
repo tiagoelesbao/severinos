@@ -3,12 +3,18 @@
 Plataforma **white-label multi-tenant de sorteios**. Sucessora da Sorteamos — a
 plataforma que hoje roda o Império Prêmios em `painel.rapidinhas24hr.com`.
 
-> **Estado honesto, medido em 2026-11-16 e corrigido na baseline:** o esqueleto e o schema
-> estão certos; a profundidade varia muito por tela. **Uma** página do dashboard é vazia de
-> fato (`social`), `analytics` tem 20 linhas e o resto tem corpo. O que de fato trava é
-> outra coisa: o webhook de pagamento é um `TODO`, então **ninguém nunca comprou nada neste
-> sistema**. Mapa completo em `docs/research/2026-11-16-baseline-sorteamos/` e no
-> `EPIC-LTM-Imperio-Migration`.
+> **Estado honesto, medido em 2026-11-16 rodando as ferramentas — não contando linhas.**
+>
+> O app **não compilava**: dez arquivos-fonte estavam com 0 bytes, cinco deles importados por
+> código existente, incluindo a página onde o comprador escolhe o número. Consertado
+> (`LTM-00`); hoje `lint`, `typecheck` e `build` saem **0**.
+>
+> O que ainda trava a venda: o webhook de pagamento é um `TODO`, então **ninguém nunca comprou
+> nada neste sistema**. E no banco: **zero índice de performance em 33 tabelas** e **zero
+> migração versionada**.
+>
+> Mapa completo em `docs/research/2026-11-16-lotemania-build-health.md`,
+> `docs/research/2026-11-16-paysure-contrato.md` e no `EPIC-LTM-Imperio-Migration`.
 
 ## Stack
 
@@ -35,18 +41,27 @@ pnpm dev
 | Comando | O que faz |
 |---|---|
 | `pnpm dev` · `build` · `start` | ciclo normal do Next |
-| `pnpm lint` | ESLint |
+| `pnpm lint` | ESLint — sai 0 |
+| `pnpm typecheck` | `tsc --noEmit` — sai 0 |
 | `pnpm db:generate` · `db:push` · `db:studio` | Drizzle Kit |
 | `pnpm db:seed` | semeia tenant e admin a partir das `SEED_*` |
 
-**Não há `test` nem `typecheck`.** São 187 arquivos e 14.462 linhas sem um único teste —
-o primeiro item de dívida, e crítico porque vamos mexer em propriedade de cota e rateio
-de prêmio. É a story `LTM-05`.
+**Não há `test`.** São 187 arquivos e 14.462 linhas sem um único teste — o primeiro item
+de dívida, e crítico porque vamos mexer em propriedade de cota e rateio de prêmio. É a
+story `LTM-05`.
 
-> Nota de método: a primeira medição deste README contou só os `page.tsx` de cada pasta e
-> generalizou a partir disso — daí "três páginas vazias" e "reports com 22 linhas", ambos
-> errados. A baseline corrigiu contando a pasta inteira. Medir o arquivo de entrada e
-> concluir sobre a feature é o erro; a tela mora na pasta.
+> **Nota de método, porque este README errou duas vezes.** A primeira medição contou os
+> `page.tsx` e disse "três páginas vazias". A segunda contou a pasta inteira e "corrigiu"
+> para "só `social`". **A primeira estava certa** — `analytics`, `social` e `utm-links`
+> tinham `page.tsx` de 0 bytes; a segunda viu um `analytics-chart.tsx` de 20 linhas ao lado
+> da rota vazia e concluiu errado.
+>
+> A lição não é qual unidade contar. É que nenhuma contagem de linha responde *"isto
+> funciona?"*. Trinta segundos de `tsc --noEmit` responderam o que três rodadas de `wc -l`
+> não responderam — e a resposta foi pior que qualquer estimativa: o app não compilava.
+>
+> Daí o `typecheck` existir no `package.json` agora. **Script ausente não é verificação que
+> passa.**
 
 ## Estrutura
 
@@ -84,18 +99,19 @@ Resumo; o detalhe vive no epic.
 
 | Frente | Situação |
 |---|---|
-| `product_numbers` sem índice nenhum | o comentário no schema diz que existe; não existe |
+| Índices | **zero de performance em 33 tabelas.** Todo índice declarado é `uniqueIndex`, isto é, restrição de integridade. O comentário em `product_numbers` afirma um índice que não existe |
+| Migrações versionadas | **zero** — a pasta `drizzle/` não existe; só `db:push` contra banco ao vivo, sem histórico e sem volta |
 | Driver `neon-http` não faz transação | por isso há zero transações no código |
-| Webhook de pagamento | valida HMAC corretamente, depois tem um `TODO` no lugar de fechar o pedido |
+| Webhook de pagamento | para num `TODO` no lugar de fechar o pedido. E a verificação HMAC que ele faz **não serve para a Paysure, que não assina webhook nenhum** — ver `docs/research/2026-11-16-paysure-contrato.md` |
+| Gateway de produção | **`paysure` não existe em nenhuma das duas listas** (`pgEnum` e `PAYMENT_GATEWAY_PROVIDERS`), e o modelo de credencial guarda **um** campo onde a Paysure exige dois (`ci` + `cs`) |
 | Atribuição por pedido | **nada** — sem `fbc`, `fbp`, `gclid`, `ttclid`, `utm`. O export da Sorteamos tem todos |
 | API de leitura para o nosso ETL | não existe |
-| Paridade de telas | `social` vazia; `analytics` com 20 linhas. `reports` tem 149 linhas e 5 tipos — a Sorteamos tem 5 relatórios, não 3 |
-| Gateway de produção fora do enum | **`paysure`** é o provedor real em produção e não está no enum de `payment_gateways`; `pay2m` está |
+| Paridade de telas | `analytics`, `social` e `utm-links` têm placeholder honesto; construir de verdade é Frente B, **despriorizada** |
 | Testes | zero |
 
 ## Volume que precisa aguentar
 
-Medido no BI do Império, últimos 7 dias:
+Medido no BI do Império, **janela móvel de 7 dias — snapshot de 2026-11-16**. Os agregados andam a cada refresh; os estruturais (100 números por rodada, mediana de esgotamento) não.
 
 - **177 rodadas**, 174 esgotadas · **100 números cada**
 - Esgotamento típico em **1,8 h**; a mais rápida em **18 min** (~5,5 números/minuto)
