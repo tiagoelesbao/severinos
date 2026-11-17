@@ -1,6 +1,9 @@
 # LTM-02: Driver transacional e reserva atômica — fim do "desfaz na mão"
 
-**Status:** Ready
+**Status:** Draft
+> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17** pela revalidação do @po contra o
+> `ADR-0001`. Esta story e a `LTM-07` reescrevem **a mesma função do mesmo arquivo**, e o epic as
+> põe na mesma onda. Ver *Revalidação @po (2026-11-17)* ao fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F2**
 **Prioridade:** **P0** — é a fundação de tudo que mexe em dinheiro; a LTM-03 não pode ser feita antes
 **Complexidade:** L (Standard) — troca de driver + reescrita do caminho de reserva + prova de concorrência
@@ -127,8 +130,122 @@ Correções aplicadas nesta validação:
 
 **Não bloqueante, para ciência do @dev:** `product_numbers.order_id` não tem FK para `orders` (ver LTM-01, AC8). O invariante "número reservado apontando para pedido inexistente" do AC3 é, por isso, responsabilidade da aplicação e do verificador da LTM-05 — não do banco.
 
+## Revalidação @po (2026-11-17) — contra o `ADR-0001`
+
+**Veredicto: NO-GO — 6/10.** `Ready` → `Draft`.
+
+A suspeita do epic era "a reserva que ela torna transacional é a de metades". **Confirmada, com uma
+correção importante de ênfase:** a troca de driver e o envelope transacional não são afetados pela
+meia cota. O que é afetado é **o predicado da reserva** — e a frase do `ADR-0001` que diz que ele
+*"não muda de forma"* é, lida ao pé da letra, um convite a um bug de venda dupla.
+
+### A armadilha concreta, no código real
+
+`src/lib/actions/reserve.ts:150-160`:
+
+```ts
+.where(and(
+  eq(productNumbers.productId, product.id),
+  inArray(productNumbers.number, data.numbers),
+  eq(productNumbers.status, "available"),
+))
+.returning({ number: productNumbers.number });
+```
+
+Com a metade virando linha, `inArray(number, [42])` **casa as duas linhas do 42**. Quem pede
+*uma* metade do 42 reserva as duas — e a outra metade sai do mercado sem ninguém ter comprado,
+em silêncio, sem erro em lugar nenhum.
+
+O `ADR-0001` está certo sobre o que importa (a atomicidade mora em *cabe um dono por linha*, e isso
+se preserva), mas a afirmação *"o `UPDATE` condicional **não muda de forma**"* é falsa sobre o
+`WHERE`: `number IN (...)` tem que virar casamento de par `(number, half)`. Um @dev em YOLO que
+leia o ADR e mantenha o `inArray` entrega essa regressão com o ADR na mão como justificativa.
+
+Dois efeitos colaterais no mesmo bloco, igualmente concretos:
+
+| Linha | Hoje | Com metade |
+|---|---|---|
+| `.returning({ number })` | lista de números | devolve `[42, 42]` — perde qual metade foi tomada; precisa de `half` no `returning` |
+| `reserved.length < data.numbers.length` | contagem contra contagem | compara **linhas** com **números pedidos**; só volta a ser verdade se as duas pontas estiverem na mesma unidade |
+| `amount = data.numbers.length * Number(product.pricePerNumber)` (`:136`) | preço por título | em sorteio divisível é metade exata do preço, sem ágio (`GLOSSARY` → meia cota) |
+
+### Colisão de onda — e uma contradição dentro do epic
+
+O epic diz, em *Ordem recomendada*: `LTM-02` **+** `LTM-07` na mesma onda. E diz, na *Nota para
+formação de ondas*: **"Onda 2: `LTM-02` sozinha"**. As duas frases não podem ser verdade ao mesmo
+tempo, e a primeira viola `.claude/rules/parallel-waves.md`: as duas stories tocam
+`src/lib/actions/reserve.ts` — a **mesma função**, `reserveSelectedNumbers`. Conjuntos de arquivo
+não disjuntos não formam onda.
+
+Pior: a `LTM-07` reivindica explicitamente o `amount` e o formato do pedido como lista de metades,
+que é o mesmo bloco de linhas que esta story reescreve. Sem recorte, `reserve.ts` é reescrito duas
+vezes — exatamente o desperdício que o epic diz que o `/grill-with-docs` existiu para evitar.
+
+### A pergunta aberta do item 5 ficou mais difícil, não igual
+
+Registrei em 2026-11-16 que exclusão mútua *por linha* não garante, sozinha, o AC3 ("um vencedor com
+os 10 números"), e que o que decide isso é a **ordem de travamento**, ligada ao índice da `LTM-01`.
+Com a metade:
+
+- o índice mudou de `(product_id, number)` para `(product_id, number, half)` — a ordem de varredura
+  muda com ele;
+- comprar **10 títulos inteiros** passa a exigir **20 linhas** na mesma instrução, dobrando a
+  superfície do resultado ruim "dois desfazem, nenhum leva";
+- a contenção dobra no mesmo ponto (`ADR-0001`, *Contexto*).
+
+A tarefa de documentação do item 5 continua necessária e agora tem que responder na forma
+divisível. Não é um parágrafo a mais: é a diferença entre mecanismo e sorte, sob o dobro da
+disputa.
+
+### Correções exigidas antes de voltar a `Ready`
+
+1. **Recorte com a `LTM-07`, por escrito.** Quem reescreve `reserveSelectedNumbers`? Recomendação
+   do @po: **uma reescrita só**, e ela é desta story — a `LTM-02` passa a entregar a reserva
+   transacional **já na forma de metades**, e a `LTM-07` fica com schema, regras de divisibilidade,
+   geração dos títulos e rateio. A alternativa (a `LTM-07` reescreve e a `LTM-02` só troca o driver
+   e envolve em transação) também é legítima; o que não é legítimo é as duas reivindicarem a função.
+2. **Nomear a armadilha do `inArray`** no contexto da story, com AC próprio: reservar uma metade do
+   42 deixa a outra metade do 42 **disponível**. É um AC de uma linha que impede uma regressão de
+   venda dupla.
+3. **AC3 reescrito na unidade do sorteio** — "20 reservas disputando as mesmas 10 **unidades**", com
+   o caso de título inteiro (20 linhas, tudo-ou-nada) como cenário próprio, que é o AC2 da `LTM-07`.
+4. **AC4 e AC5** revistos: "5 números em que 2 já estão tomados" precisa dizer se são 5 metades, 5
+   títulos, ou um carrinho misturado — o `ADR-0001` diz que o carrinho misturado "sai de graça", e
+   isso merece ser provado, não presumido.
+5. **Dependência da `LTM-07` declarada** nos dois sentidos. Hoje a `LTM-07` declara depender desta;
+   esta não menciona a `LTM-07`.
+
+### O que **não** mudou e segue valendo
+
+- Tudo sobre o driver: `neon-http` → `neon-serverless` com `Pool`, teto explícito, **AC1**, **AC7**
+  e **AC8**. A meia cota não toca nenhum deles.
+- **AC6** (expiração e `simulatePayment` atômicos) continua válido. Conferido hoje: a varredura
+  libera por `inArray(productNumbers.orderId, expiredIds)` (`reserve.ts:110-113`), isto é, **por
+  pedido** — então as duas metades de um título inteiro, que vivem no mesmo pedido e recebem o mesmo
+  `reservedUntil` no mesmo `UPDATE`, sempre expiram juntas. **Não há aqui o risco de meia expiração
+  que eu esperava encontrar** — está mitigado por construção, e registro isso para ninguém inventar
+  a mitigação de um problema que não existe.
+- A evidência de 2026-11-16 (as 7 linhas de `db/index.ts`, a compensação manual em `:164-169`, as
+  três escritas soltas, as quatro de `simulatePayment`): reconferida, exata.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ❌ conjunto declarado colide com a `LTM-07` na mesma onda |
+| UI/Frontend | ➖ n/a |
+| Satisfação dos ACs | ⚠️ AC3/AC4/AC5 sem unidade declarada |
+| Instruções de teste | ⚠️ |
+| Segurança | ✅ |
+| Sequência de tarefas | ❌ mesma função reivindicada por duas stories |
+| Duplicação funcional | ❌ `reserve.ts` reescrito duas vezes se nada for decidido |
+| Anti-alucinação | ✅ |
+| Prontidão para @dev | ❌ a armadilha do `inArray` não está escrita em lugar nenhum |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Citação do driver completada; pergunta aberta sobre o mecanismo de vencedor único registrada no item 5. | @po (Pax) |
+| 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (6/10). Ready → Draft.** A armadilha do `inArray(number, ...)` casando as duas metades; colisão de onda e de função com a `LTM-07`; contradição interna do epic sobre a onda 2. Registrado que a expiração **não** tem o risco de meia expiração — está mitigada por construção. | @po (Pax) |

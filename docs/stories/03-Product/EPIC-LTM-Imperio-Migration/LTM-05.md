@@ -1,6 +1,10 @@
 # LTM-05: Testes no caminho do dinheiro — a rede antes do trapézio
 
-**Status:** Ready
+**Status:** Draft
+> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17** pela revalidação do @po contra o
+> `ADR-0001`. O verificador de invariantes — a peça que todas as outras stories herdam — nasceria
+> **chavado no número em vez de na unidade vendável**, e ficaria vermelho quando o sistema estivesse
+> certo. Ver *Revalidação @po (2026-11-17)* ao fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F5**
 **Prioridade:** **P0** — primeira da fila junto com a LTM-01; é pré-requisito das outras três
 **Complexidade:** L (Standard) — infraestrutura de teste + base real descartável + suíte do caminho do dinheiro + verificador de invariantes
@@ -121,8 +125,126 @@ _(preencher na implementação)_
 
 **Confirmado, não é armadilha:** a dependência circular aparente (LTM-03/04 → LTM-05 → "algo testável") não existe. A LTM-05 testa o código que **já está escrito**, incluindo seus defeitos — AC6 e AC7 são verdes contra o estado atual. A ordem do epic (`LTM-05` + `LTM-01` → `LTM-02` → `LTM-03` + `LTM-04`) resolve de fato.
 
+## Revalidação @po (2026-11-17) — contra o `ADR-0001`, com rigor extra
+
+**Veredicto: NO-GO — 5/10.** `Ready` → `Draft`. É a mais perigosa das quatro, como o epic
+suspeitava, mas **não pelo motivo que ele dá**.
+
+O epic diz: *"a suíte escrita para cota inteira provaria invariantes que deixam de valer"*. Isso é
+verdade e é o menor dos dois problemas. O maior é que o **verificador de invariantes** — descrito
+nesta própria story como *"a peça que dá valor composto: cada story nova herda a verificação sem
+reescrevê-la"* — nasceria chavado no **número**, e um verificador chavado no número **acusa erro
+quando o sistema está certo**.
+
+### O defeito grave: o AC5 ficaria vermelho com o sistema correto
+
+**AC5(c)**, como está: *"o mesmo número aparece associado a mais de um pedido"*.
+
+Em sorteio divisível, **o mesmo número associado a dois pedidos é o estado correto e desejado**: a
+metade A é de uma pessoa, a metade B é de outra. O verificador acusaria violação de invariante na
+venda normal da feature que o cliente pediu.
+
+Esta story nomeia, com todas as letras, qual é o pior resultado possível de uma suíte:
+
+> *"[Médio] Teste de concorrência intermitente — **o pior resultado possível, porque treina a
+> ignorar vermelho**."*
+
+Um invariante que fica vermelho quando o sistema está certo é **pior que intermitente**: é
+determinísticamente errado, e a primeira reação de qualquer pessoa é relaxar a asserção. A partir
+daí o verificador deixa de verificar — e ele é o que o portão **G4** usa como prova.
+
+**AC5(a)** tem o mesmo defeito de chave: `vendidos + reservados + disponíveis ≠ totalNumbers`. Em
+sorteio divisível as linhas de `product_numbers` são **2 × `totalNumbers`** (`ADR-0001`, *Decisão*).
+A soma nunca fecha, e falha por estar certa.
+
+**AC4** carrega a consequência: *"exatamente 100 números vendidos ou reservados"* vira 200 metades.
+
+### A correção é de uma palavra, e cabe nesta story **hoje**, sem schema novo
+
+O invariante correto não fala de número. Fala de **unidade vendável**, que é a **linha** de
+`product_numbers`:
+
+| AC | Como está | Como tem que estar |
+|---|---|---|
+| AC5(a) | soma por número = `totalNumbers` | soma de **linhas** = `totalNumbers` × metades por título |
+| AC5(c) | o mesmo **número** em mais de um pedido | a mesma **linha** (unidade vendável) em mais de um pedido |
+| AC4 | 100 números vendidos ou reservados | 100 **unidades** por produto, na unidade daquele sorteio |
+
+Isto é expressável **agora**, contra o schema de hoje, com "metades por título = 1" como caso
+degenerado — e continua correto depois da `LTM-07`, sem uma linha de reescrita. É exatamente o
+"valor composto" que a story promete; só precisa nascer na chave certa.
+
+### A porta nova pela qual o defeito de 2026-11-16 voltaria — confirmada
+
+O defeito que corrigi em 2026-11-16 era: ACs que davam a um @dev em YOLO a saída de **consertar
+`reserve.ts`** para fazer o AC3 ficar verde, roubando o escopo da `LTM-02` e destruindo a linha de
+base que a `LTM-02` usa como prova. As duas travas que fechei continuam no arquivo: a regra de
+verde/vermelho no AC1 e "código de produção" no OUT. **Nenhuma das duas foi desfeita.**
+
+Mas abriu-se uma porta nova, e ela leva ao mesmo lugar:
+
+1. A `LTM-07` declara *"Depende de `LTM-05` — AC1 a AC6 são todos de concorrência ou de invariante;
+   nenhum se verifica à mão"*, e o epic põe a modelagem antes da onda 2. A leitura natural é que a
+   suíte das metades nasce **aqui**.
+2. Um teste de metade não compila contra o schema atual: `half` não existe em
+   `src/db/schema/raffles.ts`. E `pnpm typecheck` passando é AC desta story (**AC1**).
+3. Um teste que não compila **não é um vermelho declarado** — é a suíte quebrada. A marcação de
+   falha esperada (`test.fails`) não cobre erro de tipo.
+4. A saída de menor resistência para um @dev em YOLO é **acrescentar a coluna `half` ao schema** —
+   que é código de produção (proibido pelo OUT desta story) e escopo da `LTM-01`/`LTM-07`, no
+   arquivo que as duas já disputam.
+
+**Mesma classe de defeito, porta diferente.** A trava de 2026-11-16 fechava a porta "consertar
+`reserve.ts`"; esta é a porta "acrescentar a coluna para o teste compilar".
+
+**Correção:** esta story **não escreve teste de meia cota**. Os ACs de metade nascem na `LTM-07`,
+com a marcação de falha esperada apontando para ela (`[vira verde na LTM-07]`), **depois** de a
+coluna existir. O que esta story entrega para a meia cota é só o **formato** do verificador — na
+chave da unidade vendável — para que a `LTM-07` o estenda em vez de reescrevê-lo. Isso tem que estar
+escrito no OUT, com a mesma clareza da proibição de 2026-11-16.
+
+### Uma imprecisão a corrigir (Artigo IV)
+
+A mitigação do último risco diz: *"o seed respeita as invariantes do schema (uma linha por número,
+**tamanho de `numbers` igual a `quantity`**)"*.
+
+**`orders` não tem coluna `numbers`.** Conferido hoje: `orders` (`src/db/schema/raffles.ts:93-117`)
+tem `quantity`, `amount`, `status`, `paymentGatewayProvider`, `paidAt`, `createdAt` — e os números
+do pedido vivem em `product_numbers.order_id`. O par `numbers`/`quantity` é invariante **do contrato
+da Sorteamos**, lido pelo ETL (`client_api.py:455-465`), não deste schema. A frase importou uma
+invariante de outro sistema. É pequena, mas é exatamente o tipo de frase que um @dev usa para
+escrever um seed que não corresponde à tabela.
+
+### O que **não** mudou e segue valendo
+
+- **AC2** (Postgres de verdade, descartável, sem mock), **AC8** (zero dado pessoal) e **AC9**
+  (reprodutível por outra pessoa): intocados.
+- **AC6** e **AC7**: continuam verdes contra o código de hoje. Reconferido: os ramos nomeados
+  existem — `DATABASE_URL` como asserção de não-nulo em `src/db/index.ts`, o telefone bloqueado e o
+  anti-spam em `reserve.ts:104-130`, `simulatePayment` com pedido não pendente em `checkout.ts:11`,
+  e o corpo que não é JSON na rota do webhook.
+- A **regra de verde e vermelho do AC1** é a melhor peça desta story e não se toca.
+- A medição de 2026-11-16 (187 arquivos, 14.462 linhas, `package.json` sem `test` e sem
+  `typecheck`): reconferida, exata.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ✅ `tests/`, `package.json`, config — disjunto e declarado |
+| UI/Frontend | ➖ n/a |
+| Satisfação dos ACs | ❌ AC4 e AC5 asseriam invariantes que ficam vermelhos com o sistema certo |
+| Instruções de teste | ⚠️ a regra de verde/vermelho é excelente e tem um buraco novo |
+| Segurança | ✅ AC8 |
+| Sequência de tarefas | ⚠️ |
+| Duplicação funcional | ⚠️ o verificador seria reescrito pela `LTM-07` |
+| Anti-alucinação | ❌ `orders.numbers` não existe |
+| Prontidão para @dev | ❌ a porta "acrescentar a coluna para compilar" está aberta |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Regra de verde/vermelho no AC1, código de produção posto em OUT, ramos de falha nomeados no AC7. | @po (Pax) |
+| 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (5/10). Ready → Draft.** O verificador de invariantes (AC5) ficaria vermelho com o sistema correto em sorteio divisível; correção é chavear na unidade vendável, não no número. Porta nova confirmada pela qual o defeito de YOLO voltaria ("acrescentar a coluna `half` para o teste compilar"). Imprecisão de `orders.numbers` registrada. | @po (Pax) |

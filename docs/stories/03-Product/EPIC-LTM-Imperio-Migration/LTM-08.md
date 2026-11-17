@@ -62,9 +62,20 @@ sai, e valor inflado é prática enganosa.
       R$ 100.000 nunca exibe "R$ 100.000" como o valor de uma compra de metade.
 - [ ] **AC4 (congelamento visível):** num sorteio com ao menos uma venda, o controle de
       divisibilidade aparece desabilitado **com o motivo escrito**, não apenas inerte.
-- [ ] **AC5 (relatório sem ambiguidade):** nos três exports e no "Meus títulos", uma metade sai
-      marcada e um título inteiro sai nu. Quem tem a metade do 42 e o 43 inteiro produz
-      `42 (metade)` e `43`. O cabeçalho traz a unidade do sorteio.
+- [ ] **AC5 (relatório sem ambiguidade):** em **todo artefato de saída que existir no fim desta
+      story**, uma metade sai marcada e um título inteiro sai nu. Quem tem a metade do 42 e o 43
+      inteiro produz `42 (metade)` e `43`. O cabeçalho traz a unidade do sorteio.
+  - **Recorte do @po (2026-11-17), porque o AC original era insatisfazível.** Dos quatro artefatos
+    citados, **um existe**: `src/app/loja/[tenant]/meus-titulos` (conferido). O relatório que
+    existe é `generateReport` (`src/lib/actions/reports.ts:15`, colunas
+    `Data, Pagos, Reservados, Expirados, Faturamento` — agregado por dia, **não lista número**).
+    Os **três exports por sorteio** (Vendas, Expirados, Participantes) **ainda não foram
+    construídos**: são Frente B, hoje despriorizada e com escopo "a definir" no epic. Um AC não
+    pode exigir marcação em export inexistente.
+    - **Nesta story:** "Meus títulos" e qualquer coluna de número que a story introduza.
+    - **Na Frente B:** a regra do `GLOSSARY` → *metade marcada* entra como **condição de aceite dos
+      três exports quando eles forem escritos**, e isso precisa ficar registrado lá — não aqui,
+      pendurado num AC que ninguém pode fechar.
 - [ ] **AC6 (o operador enxerga a órfã):** o painel de um sorteio divisível mostra quantos títulos
       têm metade órfã, **antes** do sorteio, na tela que o operador já abre — não atrás de um
       filtro. Teste monta o estado e confere o número.
@@ -74,12 +85,14 @@ sai, e valor inflado é prática enganosa.
 ## Escopo
 
 **IN:** grade partida; unidade nomeada em toda contagem exibida; anúncio dos dois valores; controle
-de divisibilidade no editor com congelamento e recusa; marcação da metade nos três exports e no
-"Meus títulos"; contagem de metades órfãs no painel.
+de divisibilidade no editor com congelamento e recusa; marcação da metade no "Meus títulos" e em
+qualquer saída que esta story introduza; contagem de metades órfãs no painel.
 
 **OUT:** o modelo de dados, a reserva e o rateio (`LTM-07`); construir de verdade `analytics`,
-`social` e `utm-links`, que são Frente B; qualquer mudança nos sorteios de cota inteira além da
-regressão que prova que **não** mudaram.
+`social` e `utm-links`, que são Frente B; **construir os três exports por sorteio** (Vendas,
+Expirados, Participantes) — são Frente B, e a regra da metade marcada entra como condição de aceite
+deles **lá** (ver nota do AC5); qualquer mudança nos sorteios de cota inteira além da regressão que
+prova que **não** mudaram.
 
 ## Dependências
 
@@ -108,8 +121,65 @@ _(preencher na implementação)_
 ### Notas
 _(preencher na implementação)_
 
+## Validação @po (2026-11-17)
+
+**Veredicto: GO condicional — 7/10.** Permanece `Draft` até **um** item ser fechado: o bloco
+`Files:`. A correção de escopo do AC5 já foi aplicada nesta validação.
+
+É uma story honesta e bem recortada. O AC3 (o anúncio não engana) e o AC1 (regressão da grade de
+cota inteira) são as duas travas certas nos dois lugares onde o erro é caro de verdade — um com
+consequência fora do software, outro com 5 rodadas simultâneas em produção. A invocação de
+`.claude/rules/claims-ledger.md` no anúncio é apropriada: valor inflado ao lado do preço da metade
+é prática enganosa, não só UX ruim.
+
+### Correção aplicada: o AC5 era insatisfazível
+
+Exigia marcação da metade *"nos três exports"* por sorteio. **Eles não existem.** Conferido hoje:
+`src/lib/actions/reports.ts` tem **uma** função, `generateReport`, e ela devolve um agregado por dia
+(`Data, Pagos, Reservados, Expirados, Faturamento`) — não lista número nenhum. Os três relatórios
+por sorteio estão listados no epic como **Frente B, despriorizada, "a definir"**.
+
+"Meus títulos" **existe** (`src/app/loja/[tenant]/meus-titulos`) e continua no AC. O resto migrou
+para condição de aceite da Frente B, registrada no OUT. Um AC que depende de trabalho não
+especificado em outra frente é um AC que trava a story sem defeito nenhum nela.
+
+### O item que falta
+
+**Bloco `Files:`/`Resources:`/`Depends-on:`**, no padrão da `LTM-03a`. A story diz, corretamente,
+que é disjunta de `03a`/`04` e que não gera migração — mas **não lista um arquivo**. Não vou
+inventar a lista a partir das tarefas: inferir conjunto de arquivo foi exatamente o que derrubou a
+`LTM-03`, quando a validação achou um terceiro consumidor
+(`src/lib/validations/payment-gateway.ts`) fora do conjunto suposto. Quem escreve a story declara.
+
+Não está no caminho crítico: esta story é bloqueada pela `LTM-07` de qualquer forma.
+
+### Dois pontos de atenção, não bloqueantes
+
+1. **AC2 não é automatizável como está.** *"Verificável por varredura dos rótulos"* é inspeção
+   humana. As seis configurações estão nomeadas, o que salva o AC — mas vale converter a varredura
+   numa lista enumerada no Dev Record, como o AC7 da `LTM-05` fez para os ramos de falha. Caixinha
+   marcável é o risco.
+2. **AC6 (o operador enxerga a órfã)** depende de a contagem de metades órfãs ser consultável, o que
+   depende da chave de unidade que a `LTM-07` ainda não fechou. Herdado, não defeito daqui.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ⚠️ sem bloco `Files:` |
+| Estrutura de arquivos / árvore | ⚠️ disjunção afirmada, conjunto não declarado |
+| UI/Frontend | ✅ é a força da story — grade, unidade, anúncio, congelamento visível |
+| Satisfação dos ACs | ✅ após a correção do AC5 |
+| Instruções de teste | ⚠️ AC2 por varredura manual |
+| Segurança | ✅ claims-ledger invocado onde devia |
+| Sequência de tarefas | ✅ |
+| Duplicação funcional | ✅ nenhum arquivo em disputa |
+| Anti-alucinação | ✅ as seis configurações e o `quickBuyCards` conferem com o código |
+| Prontidão para @dev | ⚠️ bloqueada pela `LTM-07` |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-17 | 1.0 | Nasce do `/grill-with-docs` com o founder, separada da `LTM-07` desde o início para não repetir o tamanho que derrubou a `LTM-03` na validação. | @aiox-master |
+| 2026-11-17 | 1.1 | **Validada — GO condicional (7/10). Permanece `Draft` até o bloco `Files:` ser declarado.** AC5 recortado: exigia marcação da metade em três exports que não existem (Frente B); fica com "Meus títulos", e a regra da metade marcada migra para condição de aceite da Frente B. | @po (Pax) |

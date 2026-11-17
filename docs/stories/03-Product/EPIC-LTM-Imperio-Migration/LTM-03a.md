@@ -1,6 +1,6 @@
 # LTM-03a: O caminho do dinheiro fecha o pedido — sem credencial, sem invenção
 
-**Status:** Draft
+**Status:** Ready
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha a **primeira metade** do problema **F3**
 **Prioridade:** **P0** — enquanto este `TODO` existir, **ninguém consegue comprar nada** no lotemania
 **Complexidade:** XL (Standard) — fechamento transacional + idempotência + modelo de credencial multi-campo + autenticidade de webhook
@@ -214,7 +214,12 @@ Agrupados por bloco. A rastreabilidade com a numeração da `LTM-03` original es
 - [ ] **AC-C2 (é transação, não sequência):** um teste que força falha **depois** de marcar o pedido como pago verifica que o pedido **não** ficou pago e que nenhuma das outras três escritas sobreviveu.
 - [ ] **AC-C3 (uma só implementação do fechamento):** a sequência "pedido pago + números vendidos + crédito bancário" aparece em **um** arquivo apenas. Verificável por busca. `simulatePayment` chama a mesma função.
 - [ ] **AC-C4 (`simulatePayment` também é idempotente):** chamada duas vezes no mesmo pedido fecha **uma** vez — 1 pedido pago, 1 crédito. Hoje a guarda é o `status !== "pending"` de `checkout.ts:12`; o teste prova que ela sobrevive à extração.
-- [ ] **AC-C5 (número já vendido nunca é sobrescrito):** aviso cujo fechamento marcaria como vendido um número já vendido por **outro** pedido falha, **não** altera o `order_id` daquele número, e deixa o pedido em estado de revisão manual com motivo nomeado. O teste monta exatamente esse estado.
+- [ ] **AC-C5 (unidade já vendida nunca é sobrescrita):** aviso cujo fechamento marcaria como vendida uma **unidade vendável** (linha de `product_numbers`) já vendida por **outro** pedido falha, **não** altera o `order_id` daquela linha, e deixa o pedido em estado de revisão manual com motivo nomeado. O teste monta exatamente esse estado.
+  - ⚠️ **A chave é a linha, não o número (@po, 2026-11-17 — `ADR-0001`).** Em sorteio divisível, "o
+    número 42 já está vendido por outro pedido" é **estado correto**: a outra metade do 42 pertence
+    legitimamente a outra pessoa. Uma guarda chavada no número recusaria o fechamento de um
+    pagamento válido e mandaria para revisão manual um pedido perfeito — com dinheiro já capturado.
+    A guarda tem que comparar a **unidade vendável**. Mesma correção aplicada ao AC5(c) da `LTM-05`.
 - [ ] **AC-C6 (pagamento atrasado tem uma única saída):** pagamento que chega depois de a reserva expirar e os números serem liberados segue **uma** política documentada, coberta por teste. O invariante verificado: não existe estado final em que o pagamento está registrado em `banking_transactions` e o comprador não tem nem o número nem um registro de estorno pendente. Política default registrada abaixo em *Decisões que precisam do dono do negócio*.
 
 ### D — idempotência
@@ -241,6 +246,12 @@ Agrupados por bloco. A rastreabilidade com a numeração da `LTM-03` original es
 
 - [ ] **AC-G1 (a rota antiga não aceita pagamento):** `POST /api/webhooks/payment/{tenant}/{provider}` **sem** token responde 410, registra a tentativa e não altera nada. A forma sem tenant (`/api/webhooks/payment/{provider}`) responde 404 — é a URL que a tela exibia errado.
 - [ ] **AC-G2 (dado pessoal não entra em claro):** o payload persistido por um aviso de cash-in **não contém** o CPF completo do pagador; a fixture usada no teste é sintética e mascarada; uma busca por padrão de CPF nos artefatos da story não encontra nada. Política de 2026-11-12 (`docs/ESTADO-ATUAL.md` §1-A).
+  - **O aviso traz dois dados pessoais, não um (@po, 2026-11-17).** A seção 5.4 do contrato
+    (`docs/research/2026-11-16-paysure-contrato.md:210-216`) nomeia `payer_name` **e**
+    `payer_document`. Este AC cobria só o CPF. A política de 2026-11-12 cobre nome, telefone,
+    e-mail e CPF — então **`payer_name` entra no mesmo tratamento**: nada no fechamento precisa
+    dele (o casamento é por `external_reference`), e a varredura do AC tem que procurar os dois.
+    Portão **G7**.
 - [ ] **AC-G3 (as decisões abertas ficam escritas):** o Dev Agent Record traz, respondidas: (i) token em segmento de caminho ou em parâmetro de consulta; (ii) mecanismo de reivindicação concorrente escolhido; (iii) política do AC-C6 e quem decidiu. Nenhuma delas pode ser herdada por omissão.
 - [ ] **AC-G4 (a porta de verificação continua verde):** `pnpm lint`, `pnpm typecheck` e `pnpm build` passam ao fim da story — pré-requisito do portão G1 estabelecido pela `LTM-00`.
 
@@ -366,8 +377,72 @@ _(se @architect decidir derivar o `z.enum` do `pgEnum`, registrar aqui que ficou
 ### Notas
 _(preencher na implementação)_
 
+## Validação @po (2026-11-17) — primeira validação, já contra o `ADR-0001`
+
+**Veredicto: GO — 8,5/10.** `Draft` → `Ready`. Correções aplicadas nesta validação (duas, abaixo).
+
+É a story mais bem construída do epic: conjunto de arquivos completo, recursos mutáveis declarados,
+aresta com a `LTM-04` resolvida por atribuição explícita, tabela de rastreabilidade com a `LTM-03`
+original, decisões abertas com default seguro embutido, e o portão G7 tratado por desenho em vez de
+por promessa. A divisão da `LTM-03` funcionou.
+
+### A suspeita do epic sobre esta story está **metade certa e metade errada**
+
+O epic diz: *"o fechamento marca metades como vendidas, e `quantity` passa a ter unidade"*.
+
+| Parte | Veredicto | Evidência |
+|---|---|---|
+| "o fechamento marca metades como vendidas" | ✅ **já funciona, sem uma linha de mudança** | o fechamento marca por pedido: `where(eq(productNumbers.orderId, orderId))` (`checkout.ts:22`). É chavado na **linha**, não no número — a forma do `ADR-0001` passa por ele intacta. É a melhor notícia da revalidação de hoje |
+| "`quantity` passa a ter unidade" | ❌ **não é aqui** | nenhum caminho desta story lê `orders.quantity`. O AC-E3 confere `value_cents` contra `orders.amount`, não contra a quantidade. A suspeita é verdadeira — mas pousa na `LTM-07` (que cria o campo de unidade) e na **`LTM-04`** (que emite `quantity` para o ETL e para o BI), e o epic **não lista a `LTM-04`** entre as afetadas |
+
+### Um risco que eu esperava encontrar e **não existe** — registrado para ninguém mitigar o que não há
+
+A seção 5.2 do contrato da Paysure amarra o relógio da cobrança ao da reserva
+(`expiration_seconds = 900`), e o `ADR-0001` promete *"expiração por metade, com relógio próprio"*.
+Parecia abrir o caso "uma metade do título inteiro expira e a outra não, e o pagamento chega no
+meio".
+
+**Não abre.** As duas metades de um título inteiro nascem no mesmo `UPDATE`, com o mesmo
+`reservedUntil`, e a varredura de expiração libera **por pedido**
+(`inArray(productNumbers.orderId, expiredIds)`, `reserve.ts:110-113`). Expiram juntas por
+construção. O **AC-C6** continua necessário para a corrida de segundos, e só para isso.
+
+### Correções aplicadas
+
+1. **AC-C5 rechavado na unidade vendável.** Era *"número já vendido"*. Em sorteio divisível, o
+   número 42 estar vendido por outro pedido é o estado **correto** — a outra metade é de outra
+   pessoa. A guarda como estava recusaria o fechamento de um pagamento válido e mandaria para
+   revisão manual um pedido perfeito, **com dinheiro já capturado**. É o mesmo defeito de chave do
+   AC5(c) da `LTM-05`, aqui com consequência financeira direta.
+2. **AC-G2 passa a cobrir `payer_name`, não só o CPF.** A seção 5.4 do contrato nomeia os dois
+   campos; a política de 2026-11-12 cobre nome além de CPF. O AC protegia metade do que chega.
+
+### O que fica como condição de despacho, não como defeito
+
+- **O banco de teste é recurso mutável compartilhado** com `LTM-04` e `LTM-05` — esta story é a
+  única das três que declara isso, e está certa: nome de branch não isola banco. Vale para a onda
+  inteira.
+- `drizzle/` ainda não existe. Depende de a `LTM-01` correr antes — e a `LTM-01` voltou para
+  `Draft` hoje. Não é defeito desta story; é sequenciamento do epic.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ✅ bloco `Files:` completo, `Resources:` e `Depends-on:` declarados |
+| UI/Frontend | ✅ o diálogo, a lista de eventos e a URL copiável têm AC de comportamento |
+| Satisfação dos ACs | ✅ após a correção do AC-C5 |
+| Instruções de teste | ✅ |
+| Segurança | ✅ token em tempo constante, G7 por desenho, `isActive` deixa de ser forçado |
+| Sequência de tarefas | ✅ blocos A-E coerentes com as dependências |
+| Duplicação funcional | ✅ AC-C3 proíbe a segunda cópia do fechamento; `bonus-play.ts` explicitamente fora |
+| Anti-alucinação | ✅ cada afirmação tem arquivo e linha; conferidas por amostragem hoje |
+| Prontidão para @dev | ⚠️ depende de três stories que voltaram para `Draft` |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-17 | 1.1 | Validada — GO (8,5/10). Draft → Ready. AC-C5 rechavado na unidade vendável (a guarda no número recusaria pagamento válido em sorteio divisível); AC-G2 estendido a `payer_name`. Registrado que o fechamento por `order_id` já é compatível com a metade e que a expiração não tem o risco de meia expiração. | @po (Pax) |
 | 2026-11-16 | 1.0 | Nasce da divisão da `LTM-03` após NO-GO do @po (6,5/10). Absorve o contrato real da Paysure (`docs/research/2026-11-16-paysure-contrato.md`): credencial de dois campos, ausência de assinatura, token por tenant, chave composta de idempotência, fronteira de centavos, `end_to_end`, CPF no aviso. Absorve a correção 2 do @po (o 404 vem de `lib/validations/payment-gateway.ts`). ACs reagrupados em blocos A-G com tabela de rastreabilidade — resolve a correção 4. Conjunto de arquivos declarado completo. | @pm (Morgan) |

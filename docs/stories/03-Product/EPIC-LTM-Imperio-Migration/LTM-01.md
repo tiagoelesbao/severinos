@@ -1,6 +1,9 @@
 # LTM-01: Índices em `product_numbers` e `orders` — o comentário do schema vira verdade
 
-**Status:** Ready
+**Status:** Draft
+> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17** pela revalidação do @po contra o
+> `ADR-0001`. A chave de unicidade desta story **proíbe a forma de dados que o ADR escolheu**.
+> Ver *Revalidação @po (2026-11-17)* ao fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F1**
 **Prioridade:** **P0** — toda reserva hoje faz varredura sequencial; o esgotamento medido mais rápido é de 18 min (~5,5 números/minuto) com 5 rodadas simultâneas
 **Complexidade:** M (Standard) — schema + migração + prova de plano de execução, sem lógica de aplicação
@@ -109,8 +112,92 @@ Correções aplicadas nesta validação:
 2. **AC1 destravado do limbo** — nota de sequenciamento: AC7 é a prova independente; `Done` continua exigindo o AC1.
 3. **AC8 novo** — a ausência de FK em `product_numbers.order_id` passa a ser decisão registrada. Esta story indexa a coluna; a decisão de FK é de @architect/@data-engineer e precisa ficar escrita.
 
+## Revalidação @po (2026-11-17) — contra o `ADR-0001`
+
+**Veredicto: NO-GO — 5/10.** `Ready` → `Draft`.
+
+A suspeita do epic era "o índice passa a ser sobre `(product_id, number, half)`". **Confirmada — e
+é pior do que uma troca de colunas.** Como está escrita, esta story **proíbe** a forma de dados que
+o `ADR-0001` escolheu.
+
+### Por que é NO-GO e não uma emenda
+
+O item 1 da decisão de arquitetura e o **AC1** estabelecem `uniqueIndex (product_id, number)` como
+*a invariante que sustenta "um dono por linha"*. Com a metade virando linha, **duas linhas com o
+mesmo `(product_id, number)` passam a ser o estado correto** de todo sorteio divisível. O AC1, como
+está, é satisfeito exatamente por um schema que torna a meia cota inserível **zero vezes**: a
+segunda metade do 42 viola a restrição.
+
+Não é ajuste de redação. É a invariante central da story apontando para o lado contrário da
+decisão.
+
+### Armadilha de Postgres que a correção precisa evitar — e que ninguém escreveu ainda
+
+`uniqueIndex (product_id, number, half)` **só protege se `half` for `NOT NULL`**. Em índice único,
+o Postgres trata `NULL` como distinto de `NULL`: com `half integer` nulável, duas linhas
+`(p, 42, NULL)` convivem e a restrição deixa de impedir a duplicação que o AC1 existe para
+impedir — silenciosamente, sem erro em nenhum lugar. O caso degenerado de cota inteira tem que ser
+`half = 1` (`NOT NULL`, com default), nunca `NULL`.
+
+Evidência de forma atual: `product_numbers` (`src/db/schema/raffles.ts:82-91`) tem
+`number: integer("number").notNull()` e nenhuma coluna de metade.
+
+### Dono do arquivo e da coluna: contestado
+
+A **`LTM-07`** reivindica, na sua lista de tarefas de schema, *"`product_numbers`: coluna `half` +
+`uniqueIndex` em `(product_id, number, half)`"* — isto é, **a mesma coluna, no mesmo arquivo
+(`src/db/schema/raffles.ts`), com a mesma migração**. Duas stories criando a mesma coluna é a classe
+de colisão que a `LTM-03a` ↔ `LTM-04` resolveu por atribuição explícita ("fica decidido aqui: a
+`LTM-03a` cria"). Aqui ainda não há decisão, e as duas geram migração sobre o mesmo
+`drizzle/meta/_journal.json`.
+
+### Correções exigidas antes de voltar a `Ready`
+
+1. **Decidir e escrever quem cria a coluna `half`** — esta story ou a `LTM-07`. Recomendação do
+   @po: **esta**, porque a forma da chave é o objeto da story e porque ela está na onda 1, antes de
+   qualquer código de reserva existir. Nesse caso a `LTM-07` passa a **ler** a coluna e a não tocar
+   `src/db/schema/raffles.ts` — simétrico ao que foi feito entre `03a` e `04`.
+2. **Item 1 da arquitetura e AC1 reescritos sobre `(product_id, number, half)`**, com `half`
+   `NOT NULL` e a razão do `NOT NULL` registrada (a semântica de `NULL` acima). O AC1 passa a
+   afirmar o que de fato é invariante: duas linhas com o mesmo `(product_id, number, half)` falham;
+   duas com o mesmo `(product_id, number)` e `half` diferente **são aceitas**, e isso também é
+   teste.
+3. **AC7 atualizado** — a lista de nomes esperados em `pg_indexes` muda.
+4. **AC2/AC3/AC5 redimensionados para a forma divisível.** O seed de 1 milhão de linhas deixa de
+   corresponder a "≈1 ano de 100 títulos": em sorteio divisível o mesmo ano são ~1,8 milhão de
+   linhas (`ADR-0001`, *Custos aceitos*). O número do seed não precisa dobrar, mas a conta citada
+   na tarefa precisa deixar de dizer o que deixou de ser verdade.
+5. **Declarar o bloco `Files:` completo** no padrão da `LTM-03a`. Esta story nunca o declarou — o
+   epic o declara por ela, e agora que o arquivo é disputado com a `LTM-07` isso deixa de ser
+   detalhe. Foi a omissão do conjunto de arquivos que derrubou a `LTM-03`.
+
+### O que **não** mudou e segue valendo
+
+- O índice `(order_id)` e o índice parcial de expiração `(status, reserved_until)`: **intocados**
+  pela decisão. Os quatro caminhos de acesso consultam por `order_id` e por `reserved_until`
+  independentemente de a linha ser título ou metade.
+- **AC4** (cada índice tem dono), **AC6** (o comentário para de mentir) e **AC8** (decisão de FK
+  registrada): válidos sem uma vírgula de mudança.
+- Toda a evidência de 2026-11-16 reconferida hoje: continua exata.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ❌ sem bloco `Files:`, e o arquivo é disputado |
+| UI/Frontend | ➖ n/a |
+| Satisfação dos ACs | ❌ AC1 afirma o contrário do `ADR-0001` |
+| Instruções de teste | ⚠️ dimensionadas para a forma antiga |
+| Segurança | ✅ |
+| Sequência de tarefas | ❌ cria coluna que a `LTM-07` também cria |
+| Duplicação funcional | ❌ a mesma migração em duas stories |
+| Anti-alucinação | ✅ evidência reconferida, zero imprecisão nova |
+| Prontidão para @dev | ❌ |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Evidência de `uniqueIndex` corrigida, AC1 com nota de sequenciamento, AC8 (decisão de FK) acrescentado. | @po (Pax) |
+| 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (5/10). Ready → Draft.** A chave `(product_id, number)` do AC1 proíbe a meia cota. Cinco correções exigidas, incluindo a semântica de `NULL` em índice único e a atribuição da coluna `half` entre esta story e a `LTM-07`. | @po (Pax) |

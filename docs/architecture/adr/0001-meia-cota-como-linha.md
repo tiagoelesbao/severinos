@@ -41,9 +41,28 @@ simultâneas**. Dividir o título **dobra a contenção** no ponto mais quente.
 vendável é a metade.** Cem títulos divisíveis são 200 linhas, com unicidade em
 `(product_id, number, half)`.
 
-Comprar o título inteiro é reservar **as duas linhas daquele número na mesma instrução**. O
-`UPDATE` condicional não muda de forma, e a conferência de contagem continua detectando perda de
-disputa sem alteração nenhuma.
+> **`half` é `NOT NULL`, inclusive no caso degenerado.** Num sorteio de cota inteira a linha tem
+> `half = 1`, não `NULL`. Isto não é estilo: o Postgres trata `NULL` como **distinto de si mesmo**
+> em índice único, então uma coluna nulável faria a restrição **parar de proteger em silêncio** —
+> seria possível inserir duas linhas `(produto, 42, NULL)` e ter dois donos do mesmo título sem
+> nenhum erro. Achado do @po na revalidação de 2026-11-17.
+
+Comprar o título inteiro é reservar **as duas linhas daquele número na mesma instrução**.
+
+### ⚠️ O que exatamente não muda — e o que muda
+
+Uma versão anterior deste ADR dizia que "o `UPDATE` condicional não muda de forma". **Isso estava
+errado o bastante para causar dano**, e o @po pegou na revalidação. A correção:
+
+| | |
+|---|---|
+| **Não muda** | a **atomicidade**: a condição `status = 'available'` dentro do próprio `UPDATE` continua fazendo o banco resolver a disputa, e `reserved.length < pedidos.length` continua detectando quem perdeu. Nenhum travamento novo, nenhuma leitura-antes-de-escrever |
+| **Muda, e é obrigatório** | o **predicado**. Hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:152`), que casa por **número**. Com duas linhas por número, esse predicado casa **as duas** — quem pede uma metade reserva as duas, e quem paga por uma leva duas |
+
+**O `WHERE` tem de passar a endereçar a unidade vendável, não o número.** Um `WHERE` por número
+num schema de metades é venda dupla silenciosa: o pedido é criado com `quantity` de uma metade, o
+comprador paga meia cota, e o sistema marca o título inteiro como dele. Não falha, não loga, não
+aparece em teste de caminho feliz — só desaparece um título do estoque a cada compra de metade.
 
 Num sorteio de cota inteira, a linha continua sendo uma por título — é o caso degenerado de uma
 metade só, e os 177 sorteios/semana que já rodam não mudam de forma.
@@ -82,10 +101,19 @@ irrelevante para Postgres **com índice**, e o índice é escopo da `LTM-01` de 
 
 - **`product_numbers` dobra de tamanho em sorteio divisível.** Aceito: é trivial para Postgres com
   índice, e o índice é pré-requisito independente.
-- **`quantity` do pedido passa a contar metades em sorteio divisível.** Isso muda o significado de
-  um campo que o BI, o ETL e o CAPI já consomem. **Mitigação obrigatória:** campo novo e explícito
-  no pedido, nunca reinterpretação silenciosa de `quantity` — mudança muda de significado em campo
-  que alimenta BI é erro que custa uma semana para descobrir.
+- **`quantity` do pedido.** Uma versão anterior deste ADR dizia, em frases consecutivas, que
+  `quantity` *"passa a contar metades"* e que *"nunca"* deve haver reinterpretação silenciosa de
+  `quantity`. **As duas não podem ser verdade**, e o @po mediu a consequência: o agregador do BI
+  faz `numeros_vendidos = ("Quantidade", "sum")` (`services/Meta/imperio-premios/bi_aggregator.py:1099`),
+  então "números vendidos" **dobraria** num sorteio divisível, em silêncio, num painel que decide
+  investimento de mídia.
+
+  **A decisão, agora sem ambiguidade:** `quantity` continua contando **o que o pedido contém**, que
+  num sorteio divisível são metades — porque é o que a reserva de fato criou e mentir ali
+  dessincroniza o pedido do estoque. O que **não** pode acontecer é o consumidor descobrir a
+  unidade por adivinhação: o pedido carrega **campo explícito de unidade**, e quem agrega tem de
+  lê-lo. A `LTM-07` (AC7) cobre o lado do contrato; o lado do BI é escopo do `ADR-0002`, onde o
+  pipeline novo nasce sabendo disto e o atual continua lendo a Sorteamos, intocado.
 - **Toda configuração de contagem fica ambígua** (`minPerReservation`, `maxPerReservation`,
   `maxPerBuyer`, `maxQuantityPerBuyer`, `initialPerReservation`, `quickBuyCards`). **Mitigação:**
   uma unidade por sorteio, sempre nomeada na interface — título em sorteio de cota inteira, metade
@@ -99,6 +127,25 @@ irrelevante para Postgres **com índice**, e o índice é escopo da `LTM-01` de 
 4. O rateio de um título sorteado soma **exatamente** o prêmio do título — nem centavo a mais, nem
    a menos.
 5. Metade órfã em título sorteado paga o prêmio **inteiro** a quem tem a metade vendida.
+
+> **Invariante 3 já está satisfeito por construção, e isso precisa ser dito** para ninguém mitigar
+> o que não existe: as duas metades de um mesmo pedido nascem no mesmo `UPDATE`, com o mesmo
+> `reservedUntil`, e a varredura de expiração libera **por pedido** (`reserve.ts:110-113`). Elas
+> nunca divergem. O invariante que vale provar é o de metades de **pedidos diferentes** — que é o
+> caso real, porque é o que acontece quando duas pessoas compram metades do mesmo título. Achado
+> do @po, que foi procurar o risco inverso e não achou.
+
+### Dois buracos de schema que os invariantes expõem
+
+Encontrados na revalidação, e nenhum deles estava neste ADR:
+
+1. **`winners` não tem onde marcar a metade.** A tabela tem `winning_number`, e nada mais. Duas
+   linhas para o mesmo número são indistinguíveis de duplicata acidental, e o feed público de
+   ganhadores só sabe dizer "42" — contra a regra **metade marcada** do `GLOSSARY.md`.
+2. **O rateio não fecha em `numeric(12,2)`.** `prize_amount` tem duas casas; metade de
+   R$ 100.000,01 é R$ 50.000,005, que **não é representável**. A política de arredondamento é
+   decisão de negócio (quem fica com o centavo), não de implementação, e tem de ser registrada
+   antes de o AC4 da `LTM-07` ser escrito como teste.
 
 ## Decisões de domínio que acompanham esta
 
