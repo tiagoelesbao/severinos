@@ -7,7 +7,6 @@ import {
   verifyAccessToken,
   generateRefreshToken,
   hashRefreshToken,
-  ACCESS_TOKEN_TTL_SECONDS,
   REFRESH_TOKEN_TTL_SECONDS,
   type AccessTokenPayload,
 } from "./jwt";
@@ -44,10 +43,21 @@ export async function createSession(
   });
 
   const cookieStore = await cookies();
+  // O cookie de acesso vive tanto quanto o de refresh, embora o JWT dentro
+  // dele expire em ACCESS_TOKEN_TTL_SECONDS. A autoridade sobre validade é o
+  // `exp` do próprio token, que verifyAccessToken sempre confere — o maxAge
+  // longo não afrouxa nada.
+  //
+  // Isso existe para o proxy conseguir distinguir dois casos que, com maxAge
+  // curto, são indistinguíveis (o navegador apaga o cookie ao expirar):
+  //   cookie ausente        → nunca entrou, manda para /login
+  //   cookie presente e inválido → sessão venceu, tenta renovar antes
+  // Sem essa diferença, todo acesso deslogado pagaria um salto inútil pela
+  // rota de refresh.
   cookieStore.set(ACCESS_COOKIE, accessToken, {
     ...baseCookieOptions,
     path: "/",
-    maxAge: ACCESS_TOKEN_TTL_SECONDS,
+    maxAge: REFRESH_TOKEN_TTL_SECONDS,
   });
   cookieStore.set(REFRESH_COOKIE, refreshToken, {
     ...baseCookieOptions,
@@ -83,10 +93,24 @@ export async function rotateSession(): Promise<boolean> {
     .limit(1);
   if (!user) return false;
 
-  await db
+  // Revogação condicional: só segue quem de fato virou a linha de não-revogada
+  // para revogada. Duas requisições concorrentes com o mesmo refresh token
+  // (duas abas do painel renovando ao mesmo tempo) chegariam aqui juntas; sem
+  // o `isNull` as duas emitiriam sessão a partir do mesmo token.
+  //
+  // LIMITAÇÃO CONHECIDA: quem perde a corrida recebe `false` e vai para o
+  // login, mesmo tendo credencial legítima. O remédio usual é uma janela de
+  // tolerância aceitando token revogado há poucos segundos — mas isso afrouxa
+  // a detecção de reúso de token roubado que o comentário acima promete, e
+  // essa é decisão de segurança, não de implementação. Fica registrada aqui
+  // para virar story em vez de ser escolhida em silêncio.
+  const revoked = await db
     .update(refreshTokens)
     .set({ revokedAt: new Date() })
-    .where(eq(refreshTokens.id, row.id));
+    .where(and(eq(refreshTokens.id, row.id), isNull(refreshTokens.revokedAt)))
+    .returning({ id: refreshTokens.id });
+
+  if (revoked.length === 0) return false;
 
   await createSession(user, {
     deviceId: row.deviceId ?? undefined,
