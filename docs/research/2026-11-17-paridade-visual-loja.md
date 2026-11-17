@@ -227,3 +227,51 @@ a tela. Fazer o contrário é escrever exceção à mão em cada tela para compe
 
 *Medido com `getComputedStyle` na loja real, viewport mobile. Nenhuma reserva criada, nenhum
 sorteio ativo alterado, nenhuma compra iniciada.*
+
+---
+
+## O catálogo tem TRÊS seções, não uma
+
+Observado nas telas do founder em 2026-11-17. Eu tinha modelado o catálogo como uma lista só de
+campanhas ativas. São três blocos empilhados:
+
+### 1. Campanhas ativas
+
+Primeira em destaque com arte grande (proporção **1,23**, raio 8px); as demais em linha com
+miniatura **90×110**. Badge verde **"Adquira Já!"** (`#198754`, 8px/600, `2.5s infinite blink`).
+
+### 2. Campanhas concluídas
+
+Mesma forma de linha, **badge cinza "Concluído"** no lugar do verde. Uma delas aparece com
+`RESULTADO NOS NOSSOS GRUPOS!!!` — é o `statusText` do sorteio, não um estado fixo.
+
+São sorteios **do dia que já fecharam** e ainda aguardam definição de ganhador. **Hoje o nosso
+catálogo filtra `status = 'active'` e simplesmente não os mostra** — o comprador perde a prova
+social de que a casa entrega.
+
+### 3. 🎉 Ganhadores sortudos
+
+Cartões com foto (placeholder quando não há), e:
+
+```
+Marcus ***                          ← nome mascarado
+🏆 01° RAPIDINHA VALENDO R$ 27.000,00!
+Prêmio: R$ 27.000,00
+Número da sorte: 58
+Data da premiação: 11/10/2026
+Telefone: (98) ****-****            ← telefone mascarado
+```
+
+> **O mascaramento é da Sorteamos**, não da captura. Nome e telefone saem truncados na página
+> pública. É decisão de produto deles e vale copiar: a lista de ganhadores é prova social, e prova
+> social não precisa de CPF nem de telefone inteiro.
+
+A tabela `winners` do lotemania **já tem** `winnerName`, `phone`, `prizeDescription`,
+`prizeAmount`, `winningNumber` e `announcedAt` — tudo o que esses cartões mostram. Falta a tela.
+
+### Dois defeitos nossos que isso expôs
+
+1. **O badge esticava a largura toda.** Era `<span>` dentro de um `flex-col`, então ele herdava
+   `align-items: stretch`. Corrigido com `w-fit self-start`. Pequeno, mas é o tipo de coisa que
+   faz a tela inteira parecer errada.
+2. **Os cartões da lista não tinham respiro lateral** — encostavam na borda. Corrigido com `mx-3`.

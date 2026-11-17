@@ -75,7 +75,7 @@ export default async function StorefrontHomePage({
             {featured.description && (
               <p className="text-sm font-normal text-white">{featured.description}</p>
             )}
-            <span className="inline-block animate-[pulse_2.5s_ease-in-out_infinite] rounded-[6px] bg-[#198754] px-2 py-[2px] text-[8px] font-semibold text-white">
+            <span className="w-fit self-start animate-[pulse_2.5s_ease-in-out_infinite] rounded-[6px] bg-[#198754] px-2 py-[2px] text-[8px] font-semibold text-white">
               Adquira Já!
             </span>
           </div>
@@ -90,7 +90,7 @@ export default async function StorefrontHomePage({
             /* Miniatura de 90x110 — RETRATO, medida. A nossa era um quadrado
                de 56px, que e o que fazia a lista parecer um menu em vez de um
                catalogo. */
-            className="mt-2 flex items-stretch gap-3 overflow-hidden rounded-2xl bg-card hover:bg-muted/20"
+            className="mx-3 mt-2 flex items-stretch gap-3 overflow-hidden rounded-2xl bg-[#212b36] hover:bg-[#212b36]/80"
           >
             {raffle.imageUrl && (
               // eslint-disable-next-line @next/next/no-img-element
@@ -107,7 +107,7 @@ export default async function StorefrontHomePage({
                   {raffle.description}
                 </p>
               )}
-              <span className="inline-block animate-[pulse_2.5s_ease-in-out_infinite] rounded-[6px] bg-[#198754] px-2 py-[2px] text-[8px] font-semibold text-white">
+              <span className="w-fit self-start animate-[pulse_2.5s_ease-in-out_infinite] rounded-[6px] bg-[#198754] px-2 py-[2px] text-[8px] font-semibold text-white">
                 Adquira Já!
               </span>
             </div>
