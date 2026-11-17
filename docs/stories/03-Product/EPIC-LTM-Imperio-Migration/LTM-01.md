@@ -40,7 +40,13 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 
 ## Decisão de arquitetura (proposta)
 
-1. **`uniqueIndex` em `(product_id, number)`** — não só índice: a unicidade é a **invariante que sustenta "um dono por linha"**, que é a razão pela qual o `UPDATE` condicional por status da reserva é atômico. Sem a restrição, um seed ou uma importação com bug duplica o número e o sistema vende o mesmo título duas vezes sem nunca reclamar.
+1. **`uniqueIndex` em `(product_id, number, half)`, com `half` `NOT NULL`** — não só índice: a unicidade é a **invariante que sustenta "um dono por linha"**, que é a razão pela qual o `UPDATE` condicional por status da reserva é atômico. Sem a restrição, um seed ou uma importação com bug duplica a unidade vendável e o sistema a vende duas vezes sem nunca reclamar.
+
+   **A chave é sobre a unidade vendável, não sobre o número** (`ADR-0001`). Num sorteio divisível, duas linhas com o mesmo `(product_id, number)` e `half` diferente **são o estado correto** — chavear só por `(product_id, number)` tornaria a meia cota impossível de inserir.
+
+   ⚠️ **`half` tem de ser `NOT NULL`, inclusive no caso degenerado.** Em índice único o Postgres trata `NULL` como **distinto de si mesmo**: com a coluna nulável, duas linhas `(p, 42, NULL)` conviveriam e a restrição **pararia de proteger em silêncio**, sem erro em lugar nenhum. Sorteio de cota inteira usa `half = 1`, com default, nunca `NULL`.
+
+   **Esta story cria a coluna `half`** — decidido aqui para encerrar a disputa com a `LTM-07`, simétrico ao que foi feito entre `LTM-03a` e `LTM-04`. A forma da chave é o objeto desta story, e ela está na onda 1, antes de existir qualquer código de reserva. A `LTM-07` passa a **ler** a coluna e **não toca** `src/db/schema/raffles.ts`.
 2. **Índice em `product_numbers(order_id)`** — três caminhos de código consultam por `orderId`.
 3. **Índice parcial para a varredura de expiração** — `(status, reserved_until)` restrito às linhas reservadas. Parcial porque as reservas vivas são sempre uma fração mínima da tabela; um índice cheio paga por 900 mil linhas para encontrar dezenas.
 4. **`orders`:** índices derivados dos acessos que existem no código, um a um — não um índice por coluna "por garantia". Cada um precisa de um `EXPLAIN` da consulta real que o justifique (ver AC4).
@@ -49,7 +55,7 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 
 ## Tarefas (Checklist)
 
-- [ ] `src/db/schema/raffles.ts`: terceiro argumento em `productNumbers` com `uniqueIndex` `(product_id, number)`, índice `(order_id)` e índice parcial de expiração.
+- [ ] `src/db/schema/raffles.ts`: coluna `half` (`integer`, `NOT NULL`, default `1`) em `productNumbers`, mais o terceiro argumento com `uniqueIndex` `(product_id, number, half)`, índice `(order_id)` e índice parcial de expiração.
 - [ ] `src/db/schema/raffles.ts`: índices em `orders` conforme os acessos comprovados por `EXPLAIN`.
 - [ ] Corrigir o comentário sobre indexação para refletir o que de fato existe.
 - [ ] Gerar a migração (`pnpm db:generate`) e revisar o SQL emitido à mão antes de aplicar — índice parcial e `uniqueIndex` são os dois pontos onde o Drizzle Kit costuma emitir algo diferente do pretendido.
@@ -59,7 +65,11 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 
 ## Critérios de Aceite
 
-- [ ] **AC1 (a invariante existe):** inserir duas linhas com o mesmo `(product_id, number)` falha com violação de unicidade. Comprovado por teste automatizado que espera o erro — não por inspeção visual do schema.
+- [ ] **AC1 (a invariante existe, e é sobre a unidade vendável):** duas afirmações, e **as duas são teste**:
+  - inserir duas linhas com o mesmo `(product_id, number, half)` **falha** com violação de unicidade;
+  - inserir duas linhas com o mesmo `(product_id, number)` e `half` **diferente** **é aceito** — porque é o estado correto de todo sorteio divisível.
+
+  Comprovado por teste automatizado que espera o erro no primeiro caso e o sucesso no segundo — não por inspeção visual do schema. A segunda metade é o que impede alguém de "consertar" a chave de volta para `(product_id, number)` e quebrar a meia cota sem nenhum teste reclamar.
   - **Nota de sequenciamento (@po, 2026-11-16):** este AC é o único que depende da base de teste da LTM-05, e as duas stories rodam na **mesma onda 1**. A prova independente de que os índices existem é o **AC7** (`pg_indexes`), que não depende de ninguém. Portanto: a story pode ser implementada e revisada em paralelo com a LTM-05, mas **não pode ser marcada `Done` com o AC1 pendente** — se a suíte da LTM-05 chegar depois, a LTM-01 fica em `InReview` até o teste rodar. "Pendência registrada" não substitui o AC.
 - [ ] **AC2 (reserva sem varredura):** numa base semeada com **1 milhão** de linhas em `product_numbers`, a consulta de reserva (um `product_id`, 10 números, status disponível) executa **sem `Seq Scan on product_numbers`** no plano. Prova: saída de `EXPLAIN (ANALYZE, BUFFERS)` colada no Dev Record, antes (com `Seq Scan`) e depois (com `Index Scan` ou `Bitmap Index Scan`).
 - [ ] **AC3 (invariância de escala):** a mesma consulta de reserva executada numa base de 10 mil linhas e numa de 1 milhão difere em menos de **2×** no tempo medido (`EXPLAIN ANALYZE`, mediana de 10 execuções). É este critério — e não um limite absoluto de milissegundos — que prova que o custo deixou de acompanhar o tamanho da tabela.
@@ -77,9 +87,40 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 ## Dependências
 
 - **Nenhuma bloqueante.** Pode rodar na Onda 1, em paralelo com a LTM-05.
-- **Habilita a LTM-02:** a unicidade `(product_id, number)` do AC1 é a premissa que torna o `UPDATE` condicional da reserva atômico. A LTM-02 constrói sobre ela.
+- **Habilita a LTM-02:** a unicidade `(product_id, number, half)` do AC1 é a premissa que torna o `UPDATE` condicional da reserva atômico. A LTM-02 constrói sobre ela — e, com a fusão decidida em 2026-11-17, já reescreve a reserva na forma de metades.
+- **Habilita a LTM-07:** esta story entrega a coluna `half`; a `LTM-07` a consome e não toca `src/db/schema/raffles.ts`.
 - O teste do AC1 precisa da base de teste da LTM-05 — se a LTM-05 não estiver pronta, o teste entra junto com ela e esta story registra a pendência.
 - ⚠️ **Recurso mutável compartilhado:** gera migração — o journal do Drizzle (`drizzle/meta/_journal.json`) não suporta duas gerações concorrentes. Serializar esse passo.
+
+## Files
+
+Conjunto **completo**, conferido no código em 2026-11-17 (`grep -rln productNumbers src/`), não inferido das tarefas — foi a inferência que derrubou a `LTM-03` na validação.
+
+**Escreve:**
+
+```
+apps/lotemania/src/db/schema/raffles.ts     coluna `half` + os tres indices
+apps/lotemania/drizzle/**                   migracao gerada (pasta ainda nao existe)
+apps/lotemania/package.json                 se o regime de migracao exigir script novo
+```
+
+**Lê `product_numbers` e portanto é afetado pela coluna nova — nenhum deles é editado por esta story, mas todos entram na conferência de regressão:**
+
+```
+apps/lotemania/src/lib/actions/reserve.ts
+apps/lotemania/src/lib/actions/checkout.ts
+apps/lotemania/src/lib/actions/products.ts
+apps/lotemania/src/lib/actions/my-titles.ts
+apps/lotemania/src/app/loja/[tenant]/page.tsx
+apps/lotemania/src/app/loja/[tenant]/[productSlug]/page.tsx
+apps/lotemania/src/app/loja/[tenant]/[productSlug]/pedido/[orderId]/page.tsx
+apps/lotemania/src/app/dashboard/products/page.tsx
+apps/lotemania/src/app/dashboard/products/[id]/orders/page.tsx
+```
+
+**Resources:** `drizzle/meta/_journal.json` — recurso mutável compartilhado com `LTM-03a`, `LTM-04` e `LTM-07`. **Serializar `pnpm db:generate`.** A pasta não existe ainda: esta story a cria, e é por isso que o regime de migração versionada é pré-requisito do primeiro índice.
+
+**Depends-on:** nenhuma. É a raiz da onda 1.
 
 ## Riscos
 

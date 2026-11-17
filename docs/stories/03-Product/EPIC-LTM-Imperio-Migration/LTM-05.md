@@ -61,8 +61,11 @@ São **187 arquivos e 14.462 linhas sem um único teste**. `apps/lotemania/packa
     - Se o AC4, executado contra o código atual, **passar** (é possível: o `UPDATE` condicional já é atômico por linha), registre isso no Dev Record como medição, mantenha o teste verde e **não** o marque como falha esperada. O que não é aceitável é o estado de cada teste ficar indefinido.
 - [ ] **AC2 (Postgres de verdade, descartável):** a suíte roda contra uma instância Postgres real provisionada pelo runner, e a instância é destruída ao final **inclusive quando a suíte falha**. Prova: duas execuções consecutivas da suíte completa dão o mesmo resultado sem nenhuma limpeza manual entre elas. Nenhum teste do caminho do dinheiro usa mock do `db` — verificável por inspeção: zero substituição do módulo de banco nos testes dessa área.
 - [ ] **AC3 (o vermelho existe e está registrado):** o teste de concorrência da reserva (20 operações paralelas sobre os mesmos 10 números) **falha** contra o código atual, e a saída dessa falha está no Dev Record desta story. Esse registro é o que a LTM-02 usa como linha de base.
-- [ ] **AC4 (cenário de carga com o volume medido):** 5 produtos de 100 números cada, 50 compradores concorrentes por produto, disputando até esgotar. Ao final, **para cada produto**: exatamente 100 números vendidos ou reservados, zero número com dois `order_id` distintos, zero pedido pendente com zero números, zero número reservado apontando para pedido que não existe. Asserções sobre invariantes — **nenhuma asserção de latência** (a latência é medida e registrada, e serve ao portão G4 do epic, mas não é critério aqui).
-- [ ] **AC5 (verificador de invariantes reusável):** existe uma função que, dado um `productId`, verifica e falha com mensagem nomeada quando: (a) `vendidos + reservados + disponíveis` ≠ `totalNumbers`; (b) algum número vendido pertence a pedido que não está pago; (c) o mesmo número aparece associado a mais de um pedido; (d) algum número reservado tem reserva vencida sem ter sido liberado. Ela é **chamada ao final de todos** os testes de concorrência — verificável por inspeção dos testes.
+- [ ] **AC4 (cenário de carga com o volume medido):** 5 produtos de 100 títulos cada, 50 compradores concorrentes por produto, disputando até esgotar. Ao final, **para cada produto**: todas as **unidades vendáveis** do produto vendidas ou reservadas, **zero unidade vendável com dois `order_id` distintos**, zero pedido pendente com zero unidades, zero unidade reservada apontando para pedido que não existe.
+  - **Rechaveado na unidade vendável em 2026-11-17 (@po + `ADR-0001`).** A redação anterior — *"exatamente 100 números vendidos"* e *"zero número com dois `order_id`"* — **fica falsa em sorteio divisível**, onde o mesmo número tem duas linhas e dois donos legítimos. "Unidade vendável" é a **linha de `product_numbers`**, e é verdadeira nos dois mundos: hoje uma por título, depois uma por metade. Expressável **agora**, sem depender da coluna `half`. Asserções sobre invariantes — **nenhuma asserção de latência** (a latência é medida e registrada, e serve ao portão G4 do epic, mas não é critério aqui).
+- [ ] **AC5 (verificador de invariantes reusável):** existe uma função que, dado um `productId`, verifica e falha com mensagem nomeada quando: (a) `vendidas + reservadas + disponíveis` ≠ total de **unidades vendáveis** do produto; (b) alguma unidade vendida pertence a pedido que não está pago; (c) **a mesma unidade vendável** aparece associada a mais de um pedido; (d) alguma unidade reservada tem reserva vencida sem ter sido liberada. Ela é **chamada ao final de todos** os testes de concorrência — verificável por inspeção dos testes.
+  - ⚠️ **O item (c) era o defeito mais perigoso desta story, e foi corrigido em 2026-11-17.** Ele dizia *"o mesmo **número** aparece associado a mais de um pedido"*. Em sorteio divisível isso **é o estado correto** — duas pessoas com as duas metades do 42 são dois pedidos no mesmo número. O verificador ficaria **vermelho com o sistema certo**, e esta mesma story nomeia *"ensinar a equipe a ignorar vermelho"* como o pior resultado possível. Pior ainda: é o verificador que o portão **G4** usa como prova, então um invariante determinísticamente errado aprovaria ou reprovaria a migração pelo motivo errado.
+  - O item (a) também mudou: `totalNumbers` conta **títulos**, e num sorteio divisível o total de unidades vendáveis é o dobro. A função deriva o total do próprio `product_numbers`, não do campo.
 - [ ] **AC6 (a suíte cobre o comportamento que existe hoje):** testes verdes contra o código atual para — reserva no caminho feliz; reserva com número já tomado (documentando o resíduo em `canceled` que a LTM-02 vai eliminar, para que a mudança de comportamento seja **deliberada e visível** no diff); varredura de expiração liberando números e incrementando o contador de reservas não pagas; bloqueio anti-spam disparando na terceira reserva não paga e expirando após o prazo; webhook com assinatura válida, com assinatura inválida (401 + evento gravado) e com assinatura de comprimento divergente (não derruba a rota).
 - [ ] **AC7 (ramo de falha de cada arquivo do caminho do dinheiro):** `src/db/index.ts`, `src/lib/actions/reserve.ts`, `src/lib/actions/checkout.ts` e a rota do webhook de pagamento têm, cada um, **pelo menos um** teste que exercita seu caminho de erro — não só o caminho feliz. A lista é enumerada no Dev Record com o nome do teste ao lado de cada arquivo.
   - **Ramos nomeados (@po, validação 2026-11-16)**, para o AC não virar caixinha marcada com teste vazio. `src/db/index.ts` tem **um** ramo de falha e só um: `process.env.DATABASE_URL!` é asserção de não-nulo — sem a variável, o módulo quebra na importação. O teste é esse: importar o módulo sem `DATABASE_URL` e verificar que a falha é alta e nomeada, não um `undefined` viajando até a primeira consulta. Os outros três: `reserve.ts` — operador/sorteio inexistente, telefone bloqueado, bloqueio anti-spam, e a reserva parcial; `checkout.ts` — `simulatePayment` com pedido inexistente ou já pago; rota do webhook — provedor desconhecido (404), operador desconhecido (404), assinatura inválida (401), corpo que não é JSON (hoje cai em `{ raw: rawBody }` e **não** derruba a rota — esse comportamento é testado como está).
@@ -77,9 +80,38 @@ São **187 arquivos e 14.462 linhas sem um único teste**. `apps/lotemania/packa
 - **Qualquer alteração em código de produção** (@po, 2026-11-16). Esta story toca `package.json`, configuração de teste e `tests/` — e nada mais. Consertar `reserve.ts`, `checkout.ts`, `db/index.ts` ou a rota do webhook para fazer um teste ficar verde é escopo da LTM-02 e da LTM-03. A suíte aqui **descreve** o que o código faz, inclusive quando o que ele faz está errado.
 - Testes das 27 páginas do dashboard e da loja — paridade de telas é Frente B, e testar tela que ainda vai mudar é desperdício.
 - Testes de navegador ponta a ponta — exceto o do AC4 da LTM-04, que é dela e nasce lá.
+- **Teste de meia cota (@po + `ADR-0001`, 2026-11-17).** Esta story **não escreve nenhum teste de metade**. Ela entrega a infraestrutura e os invariantes **chaveados na unidade vendável**, que já são corretos nos dois mundos — e por isso não precisam ser reescritos quando a coluna `half` chegar. Os testes de divisibilidade (duas metades, tudo-ou-nada do título inteiro, rateio, metade órfã) nascem na **LTM-07**.
+  - **Isto fecha a porta de trás que o @po encontrou.** Um teste de metade escrito aqui **não compila** sem a coluna `half` — e `typecheck` verde é AC desta story. Teste que não compila não é "vermelho declarado", é suíte quebrada, e `test.fails` não cobre erro de tipo. A saída de menor resistência passaria a ser **acrescentar a coluna ao schema**: código de produção, proibido pelo OUT acima, escopo da `LTM-01`. Mesmo destino do defeito corrigido em 2026-11-16, por entrada diferente.
 - Pipeline de integração contínua — a suíte roda localmente e por comando; automatizar execução é tarefa do `@devops` quando a suíte existir.
 - Meta de porcentagem de cobertura — substituída deliberadamente pelo AC7.
 - Correção de qualquer bug que a suíte revelar fora do caminho do dinheiro: **registrar, não corrigir aqui** (abrir item próprio, conforme a preferência da casa por tratar raiz em story dedicada em vez de contornar no meio de outra).
+
+## Files
+
+Conjunto **completo**, conferido no código em 2026-11-17.
+
+**Escreve:**
+
+```
+apps/lotemania/package.json                 scripts `test` (e `typecheck`, ja existe desde LTM-00)
+apps/lotemania/vitest.config.ts             (novo, ou equivalente do runner escolhido)
+apps/lotemania/tests/**                     toda a suite, helpers inclusos
+```
+
+**Lê, e não edita** — a suíte descreve o comportamento destes arquivos, inclusive quando está errado:
+
+```
+apps/lotemania/src/lib/actions/reserve.ts
+apps/lotemania/src/lib/actions/checkout.ts
+apps/lotemania/src/db/index.ts
+apps/lotemania/src/app/api/webhooks/payment/[tenant]/[provider]/route.ts
+```
+
+> ⚠️ `package.json` é tocado também pela `LTM-01` se o regime de migração exigir script novo. São chaves diferentes do mesmo arquivo — **serializar** se as duas rodarem na mesma onda, que é o caso.
+
+**Resources:** base Postgres descartável por execução. **Não** compartilha base com nenhuma outra story; teste de concorrência contaminado por execução anterior falha de forma intermitente, que é pior que não ter teste.
+
+**Depends-on:** nenhuma. É a raiz da onda 1, junto com a `LTM-01`.
 
 ## Dependências
 
