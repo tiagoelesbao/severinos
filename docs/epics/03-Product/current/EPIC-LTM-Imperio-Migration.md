@@ -103,7 +103,7 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 | **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01`, `02`, `03a`, `03b`, `04`, `05`, `06` | `03a` em **`Ready`**; `01`/`02`/`04`/`05` de volta em **`Draft`** (revalidação 2026-11-17); `03b` e `06` em `Draft` |
 | **C — Meia cota** | O que o cliente pediu e a Sorteamos não faz | `LTM-07`, `LTM-08` | ✅ **Modelada** (2026-11-17) — 17 decisões no `/grill-with-docs`, `ADR-0001` escrito. Validadas pelo @po: `07` NO-GO (6,5), `08` GO condicional (7). Ambas em `Draft` |
 | **D — Medição da frente nova** | Dashboard à parte para a frente nova, sem interferência no que roda hoje | `LTM-09` | 🆕 **Nasce em 2026-11-17** por decisão do founder — `Draft` |
-| **B — Paridade** | Fechar a distância funcional contra a Sorteamos: `social`, os 3 exports por sorteio, os 3 tipos de `/reports`, mídia em S3 | *a definir* | ⬇️ **Despriorizada** — volta a ser bloqueante só na migração de verdade. B1/B2 ainda pendem do founder; B3 já decidida |
+| **B — Paridade** | A superfície do operador e do comprador | `LTM-10` a `LTM-13` + catálogo | 🟡 **Reativada** (2026-11-17) — o founder pediu paridade visual **100%** e as ações do painel. Quatro stories nascidas da observação; B1/B2 ainda pendem dele |
 
 ### Frente A — Fundação (escopo deste epic)
 
@@ -117,6 +117,10 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 | **LTM-04** | **F4** — atribuição por pedido não existe; sem API de leitura para o ETL | P0 | `Draft` (NO-GO 6/10 em 17/11) |
 | **LTM-05** | **F5** — zero testes no caminho do dinheiro | P0 | `Draft` (NO-GO 5/10 em 17/11) |
 | **LTM-06** | **F6** — duas decisões de segurança de sessão deixadas em aberto de propósito | P1 | `Draft` |
+| **LTM-10** | **B1** — lista de compras: 5 abas, busca e as 5 ações por linha | P1 | `Draft` |
+| **LTM-11** | **B2** — o menu de 13 ações do sorteio | P1 | `Draft` |
+| **LTM-12** | **B3** — painel de controle por sorteio (11 cartões + gráfico) | P1 | `Draft` |
+| **LTM-13** | **B4** — os três exports (2 CSV + 1 PDF), contrato de 25 colunas | P1 | `Draft` |
 | **LTM-07** | **C1** — a meia cota: schema, reserva e rateio | P0 | `Draft` (NO-GO 6,5/10) |
 | **LTM-08** | **C2** — a meia cota: grade, unidade, anúncio, relatório | P0 | `Draft` (GO condicional 7/10) |
 | **LTM-09** | **D1** — BI próprio da frente nova, sem interferência no que roda hoje | P1 | `Draft` (nova) |
