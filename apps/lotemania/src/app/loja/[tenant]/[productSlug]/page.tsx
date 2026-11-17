@@ -149,9 +149,12 @@ export default async function RaffleDetailPage({
       {/* "Por apenas" 12px/600 branco; o valor com FUNDO PRETO, branco
           16px/700, raio 6px, padding 12px 8px — tudo medido na Sorteamos.
           A linha "Sorteio em ..." nao existe no original e saiu daqui. */}
-      <div className="flex items-center justify-center gap-2 px-5 py-3">
+      {/* Compacto: a linha toda ocupa a mesma altura da faixa de "Meus
+          titulos" (27px medidos). Antes o py-3 do badge empurrava o bloco para
+          ~40px e comia espaco vertical a toa. */}
+      <div className="flex items-center justify-center gap-2 px-5 py-1.5">
         <span className="text-xs font-semibold text-white">Por apenas</span>
-        <span className="rounded-[6px] bg-black px-2 py-3 text-base font-bold tabular-nums leading-none text-white">
+        <span className="rounded-[6px] bg-black px-2.5 py-1 text-sm font-bold tabular-nums text-white">
           {formatCurrency(Number(product.pricePerNumber))}
         </span>
       </div>

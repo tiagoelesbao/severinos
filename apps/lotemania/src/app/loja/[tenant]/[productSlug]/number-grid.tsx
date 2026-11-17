@@ -83,7 +83,7 @@ export function NumberGrid({
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3 pt-3">
       <div className="flex gap-2 text-xs font-medium">
         <span className="flex-1 rounded-[5px] bg-[#6c757d] px-3 py-2 text-center text-white">
           {counts.available} Livres
@@ -98,7 +98,9 @@ export function NumberGrid({
 
       <AvailabilityWarning available={counts.available} />
 
-      <div className="grid grid-cols-7 gap-1.5 sm:grid-cols-10">
+      {/* SEIS colunas, como no original — nao sete. Com menos colunas a celula
+          fica maior e o numero mais legivel, que e o efeito que se quer. */}
+      <div className="grid grid-cols-6 gap-1.5 sm:grid-cols-10">
         {numbers.map(({ number, status }) => {
           const isSelected = selected.includes(number);
           return (
@@ -107,7 +109,7 @@ export function NumberGrid({
               type="button"
               disabled={status !== "available"}
               onClick={() => toggle(number, status)}
-              className={`rounded-[4px] py-2 text-xs font-normal tabular-nums transition-colors duration-300 ease-in-out disabled:cursor-default shadow-[0_0_2px_rgba(0,0,0,0.2),0_12px_24px_-4px_rgba(0,0,0,0.12)] ${
+              className={`rounded-[4px] py-2.5 text-sm font-normal tabular-nums transition-colors duration-300 ease-in-out disabled:cursor-default shadow-[0_0_2px_rgba(0,0,0,0.2),0_12px_24px_-4px_rgba(0,0,0,0.12)] ${
                 isSelected ? colorFor.selected : colorFor[status]
               }`}
             >

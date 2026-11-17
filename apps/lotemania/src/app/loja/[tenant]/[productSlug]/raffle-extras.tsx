@@ -117,13 +117,16 @@ export function PrizesPanel({ prizes, title }: { prizes: string[]; title: string
   const [open, setOpen] = useState(false);
   if (prizes.length === 0) return null;
   return (
-    <div className="px-5">
+    <div className="px-5 pt-2">
       <button
         type="button"
         onClick={() => setOpen(true)}
-        /* 13px/700, altura 30px, padding 4px 10px — e o hover vai de #6c757d
-           para #198754 em 250ms, com a curva do Material. Tudo medido. */
-        className="flex h-[30px] w-full items-center justify-center gap-1.5 rounded-[5px] bg-[#6c757d] px-2.5 py-1 text-[13px] font-bold text-white shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),0_2px_2px_0_rgba(0,0,0,0.14),0_1px_5px_0_rgba(0,0,0,0.12)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#198754]"
+        /* 13px/700, altura 30px, padding 4px 10px, e a transicao de #6c757d
+           para #198754 em 250ms com a curva do Material — tudo medido.
+           `active:` ao lado de `hover:` NAO e redundancia: no celular nao
+           existe hover, entao sem ele o botao nunca animaria no toque, que e
+           justamente onde o founder o usa. */
+        className="flex h-[30px] w-full items-center justify-center gap-1.5 rounded-[5px] bg-[#6c757d] px-2.5 py-1 text-[13px] font-bold text-white shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),0_2px_2px_0_rgba(0,0,0,0.14),0_1px_5px_0_rgba(0,0,0,0.12)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#198754] active:bg-[#198754]"
       >
         <Trophy className="size-4" />
         Prêmios
