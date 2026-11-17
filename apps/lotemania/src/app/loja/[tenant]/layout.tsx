@@ -34,14 +34,23 @@ export default async function StorefrontLayout({
         <div className="mx-auto flex h-[70px] max-w-3xl items-center gap-2 px-4">
           <Link href={`/loja/${tenantSlug}`} className="flex items-center gap-2">
             {logoUrl ? (
+              /* A logo da Sorteamos ocupa 128x40 e JA CONTEM o nome — por isso
+                 substitui o par icone+texto em vez de acompanha-lo. Sem
+                 logoUrl, cai no par coroa+nome, que e o que existia antes. */
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={logoUrl} alt={siteName} className="size-7 object-contain" />
+              <img
+                src={logoUrl}
+                alt={siteName}
+                className="h-10 w-auto max-w-[128px] object-contain object-left"
+              />
             ) : (
-              <Crown className="size-6 fill-amber-400 text-amber-400" />
+              <>
+                <Crown className="size-6 fill-amber-400 text-amber-400" />
+                <span className="text-lg font-bold uppercase tracking-wide text-white">
+                  {siteName}
+                </span>
+              </>
             )}
-            <span className="text-lg font-bold uppercase tracking-wide text-white">
-              {siteName}
-            </span>
           </Link>
           <div className="flex-1" />
           <StorefrontNav tenantSlug={tenantSlug} siteName={siteName} logoUrl={logoUrl} />

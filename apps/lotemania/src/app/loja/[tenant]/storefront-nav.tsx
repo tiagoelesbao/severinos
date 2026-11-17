@@ -48,7 +48,9 @@ export function StorefrontNav({
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger render={<Button variant="ghost" size="icon" className="text-white" />}>
-        <Menu />
+        {/* strokeWidth 2.5 e size 26: o hamburguer da Sorteamos e visivelmente
+            mais encorpado que o padrao do lucide (1.5 / 24). */}
+        <Menu className="size-[26px]" strokeWidth={2.5} />
       </SheetTrigger>
       <SheetContent
         side="right"

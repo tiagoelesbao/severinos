@@ -99,12 +99,15 @@ export function FloatingSupportButtons({
 }
 
 export function MeusTitulosRow({ tenantSlug }: { tenantSlug: string }) {
+  // Faixa FINA (27px medidos) com gradiente horizontal do preto para o cinza,
+  // texto branco 13px/600 centralizado. Medido na Sorteamos em 2026-11-17 —
+  // antes era um bloco de 48px com fundo de cartao e borda embaixo.
   return (
     <Link
       href={`/loja/${tenantSlug}/meus-titulos`}
-      className="flex items-center justify-center gap-2 border-b border-border bg-card py-3 text-sm font-medium hover:bg-muted/40"
+      className="flex h-[27px] items-center justify-center gap-1.5 bg-gradient-to-r from-black to-[#2c2c2c] px-[5px] text-[13px] font-semibold text-white"
     >
-      <ShoppingCart className="size-4" />
+      <ShoppingCart className="size-[14px]" />
       Meus títulos
     </Link>
   );
@@ -118,7 +121,9 @@ export function PrizesPanel({ prizes, title }: { prizes: string[]; title: string
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex w-full items-center justify-center gap-2 rounded-[5px] bg-[#6c757d] py-2.5 text-sm font-medium text-white shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),0_2px_2px_0_rgba(0,0,0,0.14),0_1px_5px_0_rgba(0,0,0,0.12)] hover:bg-[#6c757d]/90"
+        /* 13px/700, altura 30px, padding 4px 10px — e o hover vai de #6c757d
+           para #198754 em 250ms, com a curva do Material. Tudo medido. */
+        className="flex h-[30px] w-full items-center justify-center gap-1.5 rounded-[5px] bg-[#6c757d] px-2.5 py-1 text-[13px] font-bold text-white shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),0_2px_2px_0_rgba(0,0,0,0.14),0_1px_5px_0_rgba(0,0,0,0.12)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#198754]"
       >
         <Trophy className="size-4" />
         Prêmios

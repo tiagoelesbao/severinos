@@ -13,7 +13,7 @@ import {
   awardedBoxCombos,
   winners,
 } from "@/db/schema";
-import { formatCurrency, formatDate } from "@/lib/format";
+import { formatCurrency } from "@/lib/format";
 import { productAdvancedSettingsSchema } from "@/lib/validations/product-settings";
 import { NumberGrid } from "./number-grid";
 import { BonusGamePlayer } from "./bonus-game-player";
@@ -116,8 +116,19 @@ export default async function RaffleDetailPage({
           <img
             src={product.imageUrl}
             alt={product.title}
-            className="aspect-video w-full object-cover"
+            /* 1.752 e a proporcao medida na arte da Sorteamos (543x310), mais
+               baixa que o 16/9 que estava aqui. Raio 8px, tambem medido. */
+            className="w-full rounded-lg object-cover"
+            style={{ aspectRatio: "1.752" }}
           />
+          {settings.statusText && (
+            /* Badge de status: o campo ja existia no schema com o default
+               "Adquira Ja!" e nunca tinha sido renderizado. Pulsa em opacidade,
+               como no original. */
+            <span className="pointer-events-none absolute left-3 top-3 animate-[pulse_2s_ease-in-out_infinite] rounded-[4px] bg-[#198754] px-2 py-1 text-[11px] font-bold uppercase text-white">
+              {settings.statusText}
+            </span>
+          )}
           <div className="absolute inset-x-0 bottom-0 bg-black/70 px-5 py-3">
             <p className="font-semibold text-white">{product.title}</p>
             {product.description && (
@@ -129,18 +140,14 @@ export default async function RaffleDetailPage({
 
       <MeusTitulosRow tenantSlug={tenantSlug} />
 
-      <div className="flex flex-col items-center gap-1 px-5 pb-2">
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">Por apenas</span>
-          <span className="rounded-md bg-foreground px-3 py-1 font-mono font-bold tabular-nums text-background">
-            {formatCurrency(Number(product.pricePerNumber))}
-          </span>
-        </div>
-        {product.drawDate && (
-          <p className="text-xs text-muted-foreground">
-            Sorteio em {formatDate(product.drawDate)}
-          </p>
-        )}
+      {/* "Por apenas" 12px/600 branco; o valor com FUNDO PRETO, branco
+          16px/700, raio 6px, padding 12px 8px — tudo medido na Sorteamos.
+          A linha "Sorteio em ..." nao existe no original e saiu daqui. */}
+      <div className="flex items-center justify-center gap-2 px-5 pb-1">
+        <span className="text-xs font-semibold text-white">Por apenas</span>
+        <span className="rounded-[6px] bg-black px-2 py-3 text-base font-bold tabular-nums leading-none text-white">
+          {formatCurrency(Number(product.pricePerNumber))}
+        </span>
       </div>
 
       {productWinners.length > 0 ? (
