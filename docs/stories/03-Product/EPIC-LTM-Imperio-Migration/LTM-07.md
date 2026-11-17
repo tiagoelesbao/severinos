@@ -58,8 +58,9 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
 
 ### Schema
 
-- [ ] `product_numbers`: coluna `half` (ordinal da metade dentro do título) + `uniqueIndex` em
-      `(product_id, number, half)`. Em sorteio de cota inteira existe uma metade só.
+- [ ] ~~`product_numbers`: coluna `half` + `uniqueIndex`~~ — **a `LTM-01` cria**, decidido em
+      2026-11-17. Esta story **lê** a coluna e **não toca** `src/db/schema/raffles.ts` nem
+      `src/lib/actions/reserve.ts`. Era a colisão que o @po apontou.
 - [ ] `products`: marcador de **sorteio divisível** e a **unidade** derivada dele.
 - [ ] `orders`: campo **explícito** para a unidade e para a contagem na unidade do sorteio.
       **Não reinterpretar `quantity`** — ver AC7.
@@ -75,11 +76,8 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
 
 ### Reserva
 
-- [ ] `reserve.ts`: o pedido passa a ser uma **lista de metades**; título inteiro são as duas
-      metades daquele número na mesma lista.
-- [ ] Expiração **por metade**, com relógio próprio.
-- [ ] Contador anti-spam conta **metades**, não títulos.
-- [ ] `amount` calculado na unidade do sorteio — metade custa **exatamente metade**, sem ágio.
+- [ ] ~~`reserve.ts`, expiração, anti-spam e `amount`~~ — **a `LTM-02` entrega**, numa reescrita
+      só, já na forma de metades. Recorte decidido em 2026-11-17.
 
 ### Rateio
 
@@ -94,15 +92,33 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
 - [ ] **AC2 (inteiro é tudo ou nada):** reservar o título inteiro reserva **as duas** metades ou
       **nenhuma**. Teste monta o estado em que a metade B já está reservada por outra pessoa e
       verifica que a metade A **não** ficou presa ao pedido perdedor.
-- [ ] **AC3 (expiração não contamina):** expirar a metade A não altera `status`, `order_id` nem
-      `reserved_until` da metade B. Contagens antes/depois.
-- [ ] **AC4 (o rateio fecha):** a soma dos `prize_amount` das linhas de `winners` de um título
-      sorteado é **exatamente** o prêmio do título. Nem um centavo a mais, nem a menos — teste com
-      valor que não divide redondo (ex.: R$ 100.000,01).
+- [ ] **AC3 (expiração não contamina — entre PEDIDOS, não dentro de um):** expirar a reserva do
+      **pedido X**, que tem a metade A do 42, não altera `status`, `order_id` nem `reserved_until`
+      da metade B do 42, que pertence ao **pedido Y**. Contagens antes/depois.
+  - ⚠️ **A redação anterior mandava provar algo falso** (@po, 2026-11-17). Ela dizia "expirar a
+    metade A não toca a metade B", sem qualificar. Metades do **mesmo** pedido nascem no mesmo
+    `UPDATE`, com o mesmo `reservedUntil`, e a varredura libera **por pedido**
+    (`reserve.ts:110-113`): elas expiram **juntas, sempre**, e devem. Um título inteiro que
+    expirasse pela metade seria o defeito. O caso que vale provar é o de pedidos **diferentes** —
+    que é o que acontece quando duas pessoas compram as duas metades do mesmo título.
+- [ ] **AC4 (o rateio fecha, com o centavo do lado certo):** a soma dos `prize_amount` das linhas
+      de `winners` de um título sorteado é **o prêmio**, ou **o prêmio + R$ 0,01** quando o prêmio
+      tem centavo ímpar. **Nunca menos.** Teste com R$ 100.000,01 → duas linhas de R$ 50.000,01.
+  - **Política decidida pelo founder em 2026-11-17: arredondar as duas metades para cima.** O
+    operador paga um centavo a mais; nenhum ganhador recebe a menos. A assimetria é deliberada —
+    um centavo a mais é custo, um centavo a menos é disputa. A redação anterior ("exatamente o
+    prêmio") ficaria **falsa com o sistema correto**, que é o defeito que o @po encontrou na
+    `LTM-05`.
 - [ ] **AC5 (metade órfã paga inteiro):** título com uma metade vendida e uma não vendida, sorteado
       → **uma** linha de `winners` com o prêmio **integral**.
 - [ ] **AC6 (duas metades do mesmo dono não se fundem):** quem compra as duas metades do 42 aparece
       como **dois** rateios, não um pagamento único.
+- [ ] **AC11 (`winners` sabe dizer qual metade):** duas linhas de `winners` com o mesmo
+      `winning_number` são **distinguíveis** — não ficam indistinguíveis de duplicata acidental, e
+      o feed público consegue exibir `42 (metade)` em vez de `42` nu, como manda a regra *metade
+      marcada* do `GLOSSARY.md`. Conferido: hoje `winners` tem `winning_number` e **nada** que
+      identifique a metade. Alternativa aceita: decisão **escrita** de que o rateio não precisa
+      distinguir — mas aí a regra do glossário tem de ser corrigida junto, não ignorada.
 - [ ] **AC7 (nenhum significado muda em silêncio):** num sorteio divisível, o consumidor do pedido
       consegue saber a unidade **sem inferir**. Teste de contrato: a leitura de um pedido de
       sorteio divisível e a de um de cota inteira se distinguem por campo explícito, não por
@@ -124,6 +140,33 @@ regras de recusa (prêmio não divisível, congelamento).
 dos dois valores, marcação da metade em relatório, contagem de metades órfãs no painel. É a
 `LTM-08`. Também fora: ágio sobre a metade (decidido: não existe), divisão em mais de duas partes,
 revenda ou transferência de metade, e qualquer automação do sorteio — que não é nosso.
+
+## Files
+
+Conferido em 2026-11-17, **depois** do recorte com `LTM-01` e `LTM-02`.
+
+**Escreve:**
+
+```
+apps/lotemania/src/db/schema/raffles.ts      SO o marcador de divisibilidade em `products` e,
+                                             se o AC11 exigir, o marcador de metade em `winners`
+apps/lotemania/src/lib/actions/products.ts   geracao dos titulos conforme a divisibilidade
+apps/lotemania/src/lib/validations/product.ts  regra de recusa (premio nao divisivel) e congelamento
+apps/lotemania/drizzle/**                    migracao
+```
+
+**NÃO toca** — e isto é o recorte, não uma observação:
+
+```
+src/lib/actions/reserve.ts    -> LTM-02 (reserva, expiracao, anti-spam, amount)
+a coluna `half` e a chave     -> LTM-01
+```
+
+⚠️ **`src/db/schema/raffles.ts` é disputado com a `LTM-01`**, que cria `half` e os índices. São
+blocos diferentes do mesmo arquivo e **as duas geram migração**: serializar `pnpm db:generate`, e
+a `LTM-01` vai primeiro por ser onda 1.
+
+**Depends-on:** `LTM-01` · `LTM-02` · `LTM-05`.
 
 ## Dependências
 

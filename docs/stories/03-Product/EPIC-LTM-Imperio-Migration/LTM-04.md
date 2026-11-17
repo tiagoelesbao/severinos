@@ -85,7 +85,18 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
   - **Lacuna já identificada na validação (@po, 2026-11-16), para não ser descoberta no meio da implementação.** O ETL lê `paymentId` e `paymentEndToEndId` (`client_api.py:508-509`) e `paymentAt` (`:545`). Hoje o lotemania **não tem onde guardar o identificador fim-a-fim**: `orders` tem `paymentGatewayProvider` e `paidAt`, e `banking_transactions` tem só `externalReference` (`src/db/schema/payments.ts`). Ou seja: este AC **exige um campo que ainda não existe no schema**, e ele mora no caminho de pagamento — território da LTM-03 (`settle-order`), não da tabela de atribuição desta story. Resolução: a story que chegar depois acrescenta o campo; se a LTM-04 chegar primeiro, ela o acrescenta e a LTM-03 o preenche. O que **não** pode acontecer é o AC1 ser marcado verde tendo removido `paymentEndToEndId` da lista enumerada — a lista é derivada do consumidor, e encurtá-la é falsificar o contrato.
   - **Nomes dos parâmetros do contrato**, lidos do ETL e não de memória: `page` (0-indexado), `rowsPerPage` (o ETL usa 25 em `/products` e 100 em pedidos) e `filters` como **string JSON** (`client_api.py:168`, `:256-260`). O AC3 cobre isso por comportamento; estão nomeados aqui para que a implementação não precise descobrir.
 - [ ] **AC2 (contrato do CAPI, campo por campo):** teste equivalente para o evento `order.paid`: todo caminho que `apps/webhook-imperio-capi/api/order-paid.js` lê (`data.id`, `data.total`, `data.user.{id,email,phone}`, `data.params.{fbc,fbp,ip,userAgent,utmSource,utmMedium,utmCampaign,utmContent,utmTerm,gclid,ttclid}`, `event`, `timestamp`, header de autenticação) está presente e no mesmo lugar.
-- [ ] **AC3 (o ETL migra trocando só a URL base):** o `client_api.py` apontado para o lotemania, **sem nenhuma outra alteração**, autentica, lista produtos e lista pedidos de um produto, e produz as linhas de dados brutos. Comprovado por execução real contra uma base semeada, com a saída registrada no Dev Record (**sem dado pessoal — usar dados sintéticos no seed**).
+- [ ] **AC3 (o ETL migra com UMA mudança declarada, não com zero):** tornar `base_url`
+      parametrizável em `client_api.py:74` — hoje é literal
+      (`self.base_url = "https://api.rapidinhas24hr.com/api"`), não variável de ambiente nem
+      argumento. Com essa **única** alteração, o ETL apontado para o lotemania autentica, lista
+      produtos e lista pedidos de um produto, e produz as linhas de dados brutos. Comprovado por
+      execução real contra base semeada, saída no Dev Record (**seed sintético, sem dado pessoal**).
+  - ⚠️ **A redação anterior era literalmente impossível** (@po, 2026-11-17). Ela exigia "sem
+    nenhuma outra alteração" enquanto o OUT da story proibia tocar o `client_api.py` — e a URL
+    está escrita dentro dele. Os dois se contradiziam no primeiro passo.
+  - Parametrizar a base é melhoria legítima e **necessária de qualquer forma** para a `LTM-09`, em
+    que a coleta da frente nova precisa de uma base própria **sem mexer na que roda hoje**
+    (`ADR-0002`).
 - [ ] **AC4 (a UTM sobrevive à navegação — o Achado A):** um teste de ponta a ponta entra na loja com os cinco parâmetros de UTM na URL, **navega internamente** até o sorteio, reserva e paga; o pedido resultante tem os cinco valores preenchidos. Este AC é o que separa "tem as colunas" de "tem o dado" — e é exatamente o cenário em que a Sorteamos falha em 100% dos pedidos.
 - [ ] **AC5 (identidade de clique preservada):** `fbc` e `fbp` lidos dos cookies do navegador chegam ao pedido com o **valor original**, sem reescrita de timestamp. Teste: cookie com `fbc` de 10 dias atrás → o pedido carrega aquele mesmo valor, e o cálculo de idade do clique a partir dele dá 10 dias. (A plataforma atual reescreve o `fbc` com timestamp sempre "fresco", o que inviabilizou o filtro de idade no `capi_client.py` — registrado em `capture.js`. Não repetir.)
 - [ ] **AC6 (paginação 0-indexada, em teste):** `GET /api/v1/products?page=0` retorna a **primeira** página, incluindo os registros mais recentes; nenhum registro é alcançável apenas por `page=1` e inalcançável por `page=0`. Teste com 25 produtos e página de 10 verifica cobertura total do conjunto ao percorrer de `page=0` até o fim. Este AC existe porque a suposição errada custou ~75% do faturamento capturado por um ciclo.
@@ -114,6 +125,29 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 - **Depende de LTM-05** — todos os ACs são automatizados.
 - **Onda 3, pode ir em paralelo com LTM-03.** Toca `src/db/schema/attribution.ts` (novo), `src/lib/actions/reserve.ts`, `src/app/loja/[tenant]/` e `src/app/api/v1/` (novo). Disjunto da LTM-03.
 - ⚠️ **Recurso mutável compartilhado com a LTM-03:** ambas geram migração. Serializar `pnpm db:generate`.
+
+## Files
+
+Conferido em 2026-11-17.
+
+**Escreve:**
+
+```
+apps/lotemania/src/db/schema/attribution.ts    order_attribution (novo)
+apps/lotemania/src/lib/actions/reserve.ts      grava a atribuicao na transacao do pedido
+apps/lotemania/src/app/loja/[tenant]/**        captura de primeiro toque no cliente
+apps/lotemania/src/app/api/v1/**               rotas de leitura (novas)
+apps/lotemania/drizzle/**                      migracao
+services/Meta/imperio-premios/client_api.py    SO a linha 74: base_url parametrizavel (AC3)
+```
+
+⚠️ **`reserve.ts` é escrito pela `LTM-02`** (reserva transacional em metades). Esta story
+**acrescenta** a gravação da atribuição na mesma transação — **serializar**, e a `LTM-02` vai
+primeiro. É a mesma classe de colisão que `LTM-01` ↔ `LTM-07` resolveu por atribuição explícita.
+
+⚠️ `drizzle/meta/_journal.json` é disputado com `LTM-01`, `LTM-03a` e `LTM-07`.
+
+**Depends-on:** `LTM-01` · `LTM-02` · `LTM-05`.
 
 ## Riscos
 

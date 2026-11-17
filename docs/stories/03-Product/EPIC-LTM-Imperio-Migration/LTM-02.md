@@ -76,9 +76,28 @@ A mesma ausência de atomicidade está em `expireStaleReservationsAndCheckSpam`,
 
 - [ ] **AC1 (transação funciona de verdade):** um teste abre `db.transaction()`, escreve em `orders` e em `product_numbers`, lança, e depois verifica que **nenhuma** das duas escritas persistiu. Hoje esse teste é impossível de passar — é a prova de que o driver mudou de fato.
 - [ ] **AC2 (a reserva é uma coisa só):** `reserveSelectedNumbers` executa pedido + números dentro de uma única transação, e o bloco de compensação manual não existe mais. Verificável por busca no arquivo: nenhum caminho de código devolve números a disponível ou marca pedido como cancelado para desfazer a própria operação.
-- [ ] **AC3 (concorrência — o teste que a LTM-05 escreve vermelho e esta story torna verde):** **20** reservas concorrentes disputando os **mesmos 10 números** terminam com: cada número com **exatamente um** `order_id`; a soma dos números reservados igual a 10; zero pedido pendente com zero números; zero número reservado apontando para pedido inexistente. O verificador de invariantes da LTM-05 passa ao final. O teste precisa ter sido demonstrado **falhando** no código anterior — as duas execuções ficam no Dev Record.
-- [ ] **AC4 (falha parcial não deixa resíduo):** uma reserva de 5 números em que 2 já estão tomados deixa a contagem de linhas em `orders` **idêntica** à de antes da chamada (zero pedido criado, nem mesmo em `canceled`), e os 3 números disponíveis continuam disponíveis. Medido por contagem antes/depois no teste.
+> ## ⚖️ Recorte com a `LTM-07`, decidido em 2026-11-17
+>
+> **`reserveSelectedNumbers` é reescrito UMA vez, e é aqui.** Esta story entrega a reserva
+> transacional **já na forma de metades**; a `LTM-07` fica com schema, regras de divisibilidade,
+> geração dos títulos e rateio, e **não toca** `src/lib/actions/reserve.ts`.
+>
+> Era a colisão que o @po apontou: as duas reivindicavam a mesma função. Reescrever o arquivo mais
+> delicado do sistema duas vezes é exatamente o desperdício que o grilling existiu para evitar.
+>
+> ### ⚠️ A armadilha do `inArray`, que o `ADR-0001` quase escondeu
+>
+> O ADR diz que o `UPDATE` condicional "não muda de forma". Verdade sobre a **atomicidade**, falso
+> sobre o **predicado**: hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:152`),
+> que casa por **número**. Com duas linhas por número, casa **as duas** — quem pede uma metade
+> reserva as duas e paga por uma. Não falha, não loga: só some um título do estoque a cada compra
+> de metade. **O `WHERE` tem de endereçar a unidade vendável.** É o AC9.
+
+- [ ] **AC3 (concorrência — o teste que a LTM-05 escreve vermelho e esta story torna verde):** **20** reservas concorrentes disputando as **mesmas 10 unidades vendáveis** terminam com: cada **unidade** com **exatamente um** `order_id`; a soma das unidades reservadas igual a 10; zero pedido pendente com zero unidades; zero unidade reservada apontando para pedido inexistente. O verificador de invariantes da LTM-05 passa ao final. O teste precisa ter sido demonstrado **falhando** no código anterior — as duas execuções ficam no Dev Record.
+- [ ] **AC4 (falha parcial não deixa resíduo):** uma reserva de **5 unidades** em que 2 já estão tomadas deixa a contagem de linhas em `orders` **idêntica** à de antes da chamada (zero pedido criado, nem mesmo em `canceled`), e as 3 disponíveis continuam disponíveis. Medido por contagem antes/depois.
+  - **Três cenários, não um** (@po, 2026-11-17): (a) 5 metades avulsas; (b) 5 títulos inteiros, isto é 10 unidades; (c) **carrinho misturado** — o 42 inteiro e metade do 43. O `ADR-0001` afirma que o carrinho misturado "sai de graça" com a metade virando linha; **isso merece ser provado, não presumido**.
 - [ ] **AC5 (morte no meio não deixa estado inválido):** teste que aborta a conexão entre a inserção do pedido e a tomada dos números (encerrando a transação à força) termina com zero linha nova em `orders` e zero número reservado.
+- [ ] **AC9 (o `WHERE` endereça a unidade, não o número):** reservar **uma** metade do 42 deixa a **outra metade do 42 disponível**. Teste de uma linha que impede a regressão de venda dupla descrita acima. Em sorteio de cota inteira o comportamento é idêntico ao de hoje — regressão.
 - [ ] **AC6 (expiração e pagamento também atômicos):** `expireStaleReservationsAndCheckSpam` e `simulatePayment` rodam em transação única — teste que falha no meio de cada uma verifica que nenhuma das escritas parciais persistiu (incluindo o contador anti-spam do usuário, que hoje pode ser atualizado sem que os números tenham sido liberados).
 - [ ] **AC7 (runtime real):** a reserva funciona em `pnpm build` + `pnpm start`, pelo caminho da loja pública, com o resultado registrado. Se algum runtime (por exemplo Edge) for incompatível com o driver WebSocket, isso está **documentado no arquivo** com a restrição explícita de onde o `db` pode ser importado.
 - [ ] **AC8 (pool contido):** após 200 reservas sequenciais, o número de conexões abertas ao Postgres permanece **igual ou abaixo** do teto configurado — medido por `pg_stat_activity` e registrado no Dev Record. Sem essa prova, a troca de driver troca varredura sequencial por esgotamento de conexão.
@@ -94,6 +113,25 @@ A mesma ausência de atomicidade está em `expireStaleReservationsAndCheckSpam`,
 - **Depende de LTM-05** — o teste de concorrência do AC3 é escrito lá e tem que existir vermelho antes.
 - **Bloqueia LTM-03** — fechar pedido sem transação recria exatamente este problema, agora com dinheiro já capturado.
 - **Onda 2, sozinha.** Toca `src/db/index.ts`, `src/lib/actions/reserve.ts`, `src/lib/actions/checkout.ts` e `package.json` — a LTM-04 também toca `reserve.ts` e a LTM-05 também toca `package.json`, então não compartilha onda com nenhuma das duas.
+
+## Files
+
+Conferido no código em 2026-11-17.
+
+**Escreve:**
+
+```
+apps/lotemania/src/db/index.ts                driver neon-http -> neon-serverless com Pool
+apps/lotemania/src/lib/actions/reserve.ts     a reserva, JA na forma de metades
+apps/lotemania/src/lib/actions/checkout.ts    simulatePayment transacional
+apps/lotemania/package.json                   dependencia do driver WebSocket
+```
+
+**Depends-on:** `LTM-01` (a coluna `half` e os índices) · `LTM-05` (a suíte que prova).
+
+⚠️ **`reserve.ts` é exclusivo desta story.** A `LTM-07` **não** o toca — recorte decidido em
+2026-11-17. `package.json` é disputado com a `LTM-05` (scripts de teste): chaves diferentes do
+mesmo arquivo, **serializar** se forem na mesma onda, que é o caso.
 
 ## Riscos
 
