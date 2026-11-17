@@ -1,6 +1,10 @@
 # LTM-01: Índices em `product_numbers` e `orders` — o comentário do schema vira verdade
 
-**Status:** Ready
+**Status:** InProgress
+> 🔨 **Em implementação desde 2026-11-17** (@dev). Schema, migração versionada e harness de
+> evidência na árvore. **Não pode ir a `Done`:** AC1, AC2, AC3, AC5 e AC7 exigem um Postgres com a
+> migração aplicada e a base de 1 milhão de linhas, e nenhuma execução contra banco foi autorizada
+> nesta sessão. Ver *Dev Agent Record → Notas*.
 > ✅ **De volta a `Ready` em 2026-11-17**, pela **segunda** revalidação do @po. As cinco correções
 > exigidas foram conferidas uma a uma **no código**, não na palavra de quem corrigiu: a chave é
 > `(product_id, number, half)` com `half NOT NULL` e a razão do `NOT NULL` escrita; a propriedade da
@@ -57,16 +61,16 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 
 ## Tarefas (Checklist)
 
-- [ ] `src/db/schema/raffles.ts`: coluna `half` (`integer`, `NOT NULL`, default `1`) em `productNumbers`, mais o terceiro argumento com `uniqueIndex` `(product_id, number, half)`, índice `(order_id)` e índice parcial de expiração.
-- [ ] `src/db/schema/raffles.ts`: **o marcador de divisibilidade em `products`** — subido para cá em 2026-11-17 por uma razão de custo, não de escopo: aqui ele entra na **mesma migração** que o `half`; na `LTM-07`, uma onda depois, seria migração nova sobre tabela que já começou a ser usada.
+- [x] `src/db/schema/raffles.ts`: coluna `half` (`integer`, `NOT NULL`, default `1`) em `productNumbers`, mais o terceiro argumento com `uniqueIndex` `(product_id, number, half)`, índice `(order_id)` e índice parcial de expiração.
+- [x] `src/db/schema/raffles.ts`: **o marcador de divisibilidade em `products`** — subido para cá em 2026-11-17 por uma razão de custo, não de escopo: aqui ele entra na **mesma migração** que o `half`; na `LTM-07`, uma onda depois, seria migração nova sobre tabela que já começou a ser usada.
   - **E ele destrava um ciclo que o @po encontrou.** O preço da meia cota caiu num vão: a `LTM-07` riscou `amount` dizendo "a `LTM-02` entrega", a `LTM-02` não o menciona, e cobrar metade exige saber se o sorteio é divisível — marcador que estava na `LTM-07`, **uma onda depois da `LTM-02`**. Com o marcador aqui, a `LTM-02` tem o que ler quando precisa.
   - Esta story **só cria a coluna**. As regras que a governam (recusar prêmio não divisível, congelar na primeira venda) continuam na `LTM-07`.
-- [ ] `src/db/schema/raffles.ts`: índices em `orders` conforme os acessos comprovados por `EXPLAIN`.
-- [ ] Corrigir o comentário sobre indexação para refletir o que de fato existe.
-- [ ] Gerar a migração (`pnpm db:generate`) e revisar o SQL emitido à mão antes de aplicar — índice parcial e `uniqueIndex` são os dois pontos onde o Drizzle Kit costuma emitir algo diferente do pretendido.
-- [ ] Script de seed de carga para o teste de plano: **1 milhão de linhas** em `product_numbers`. ⚠️ **A conta citada aqui mudou com o `ADR-0001`, e corrigi-la faz parte desta story:** o volume medido é 177 rodadas / 7 dias × 100 **títulos** ≈ 920 mil **títulos**/ano — o que em **unidades vendáveis** são ≈ 920 mil linhas/ano com tudo em cota inteira e ≈ 1,84 milhão se tudo fosse divisível. O seed permanece em 1 milhão de linhas: ele deixou de representar "um ano exato" e passa a representar **a ordem de grandeza de um ano**, que é o que o AC3 de fato mede (invariância de escala, não um limite absoluto).
-- [ ] Capturar e registrar no Dev Record o `EXPLAIN (ANALYZE, BUFFERS)` de cada consulta, **antes e depois**.
-- [ ] Teste de violação de unicidade (usa a base de teste da LTM-05).
+- [ ] **PARCIAL** — `src/db/schema/raffles.ts`: índices em `orders` conforme os acessos comprovados por `EXPLAIN`. Criado **um**, `orders_tenant_user_status_idx`, porque sem ele o **AC5** falha por `Seq Scan` no lado `orders` da junção. Os outros candidatos ficaram **de fora**, com a lista e o motivo no Dev Record: `EXPLAIN` é o que os justifica (AC4) e nenhum `EXPLAIN` foi possível nesta sessão.
+- [x] Corrigir o comentário sobre indexação para refletir o que de fato existe.
+- [x] Gerar a migração (`pnpm db:generate`) e revisar o SQL emitido à mão antes de aplicar — índice parcial e `uniqueIndex` são os dois pontos onde o Drizzle Kit costuma emitir algo diferente do pretendido.
+- [x] *(escrito, não executado — sem banco)* Script de seed de carga para o teste de plano: **1 milhão de linhas** em `product_numbers`. ⚠️ **A conta citada aqui mudou com o `ADR-0001`, e corrigi-la faz parte desta story:** o volume medido é 177 rodadas / 7 dias × 100 **títulos** ≈ 920 mil **títulos**/ano — o que em **unidades vendáveis** são ≈ 920 mil linhas/ano com tudo em cota inteira e ≈ 1,84 milhão se tudo fosse divisível. O seed permanece em 1 milhão de linhas: ele deixou de representar "um ano exato" e passa a representar **a ordem de grandeza de um ano**, que é o que o AC3 de fato mede (invariância de escala, não um limite absoluto).
+- [ ] **BLOQUEADO (sem banco)** — Capturar e registrar no Dev Record o `EXPLAIN (ANALYZE, BUFFERS)` de cada consulta, **antes e depois**.
+- [ ] **BLOQUEADO (base da LTM-05, onda 1 em paralelo)** — Teste de violação de unicidade (usa a base de teste da LTM-05). Conferência manual equivalente pronta em `scripts/ltm01-explain.sql`, seção AC1 — não substitui o AC.
 
 ## Critérios de Aceite
 
@@ -137,16 +141,172 @@ apps/lotemania/src/app/dashboard/products/[id]/orders/page.tsx
 ## Dev Agent Record
 
 ### Agent Model Used
-_(preencher na implementação)_
+
+@dev (Dex) · claude-opus-5 · 2026-11-17
 
 ### EXPLAIN — antes
-_(colar aqui)_
+
+**Não capturado — não havia banco autorizado nesta sessão.** Não é esquecimento: o comando que
+produz esta evidência está escrito e versionado em `apps/lotemania/scripts/ltm01-explain.sql`, para
+rodar contra uma base **sem** a migração aplicada. Enquanto esta seção estiver assim, **AC2 está
+aberto**.
 
 ### EXPLAIN — depois
-_(colar aqui)_
+
+**Não capturado**, pelo mesmo motivo. Exige `scripts/ltm01-carga.sql` + migração aplicada +
+`scripts/ltm01-explain.sql`. Enquanto esta seção estiver assim, **AC2, AC3 e AC5 estão abertos**.
+
+### O regime de migração versionada
+
+A pasta `drizzle/` **não existia**: `drizzle-kit generate` nunca havia rodado neste app, só
+`db:push` contra banco ao vivo. Então a primeira migração é **a linha de base do schema inteiro**,
+não o delta dos índices — 443 linhas, todas as 28 tabelas, com `half`, `is_divisible` e os quatro
+índices já dentro dela.
+
+```
+apps/lotemania/drizzle/0000_baseline_schema.sql
+apps/lotemania/drizzle/meta/0000_snapshot.json
+apps/lotemania/drizzle/meta/_journal.json      (1 entrada, idx 0)
+```
+
+Nome dado à mão (`--name=baseline_schema`) em vez do aleatório do Drizzle Kit
+(`0000_jazzy_hawkeye`), porque um baseline é a única migração do projeto que alguém vai procurar
+pelo nome.
+
+**Nada foi aplicado a banco nenhum.** `db:push` não rodou.
+
+### SQL emitido, conferido à mão
+
+Os dois pontos que a tarefa manda revisar saíram certos:
+
+```sql
+"half" integer DEFAULT 1 NOT NULL,
+
+CREATE UNIQUE INDEX "product_numbers_product_number_half_idx"
+  ON "product_numbers" USING btree ("product_id","number","half");
+CREATE INDEX "product_numbers_order_idx"
+  ON "product_numbers" USING btree ("order_id");
+CREATE INDEX "product_numbers_status_reserved_until_idx"
+  ON "product_numbers" USING btree ("status","reserved_until") WHERE status = 'reserved';
+CREATE INDEX "orders_tenant_user_status_idx"
+  ON "orders" USING btree ("tenant_id","user_id","status");
+
+"is_divisible" boolean DEFAULT false NOT NULL,
+```
+
+O predicado parcial saiu com a coluna **sem qualificação de tabela** (`WHERE status = 'reserved'`,
+não `WHERE "product_numbers"."status" = ...`), que é a forma válida em `CREATE INDEX`. O predicado
+foi escrito como SQL cru de propósito: interpolar a coluna do Drizzle ali arrisca sair qualificada.
+O `where` também ficou gravado no snapshot, então uma geração futura não derruba e recria o índice
+por diferença fantasma.
+
+### AC8 — a FK ausente em `product_numbers.order_id`: ABERTA, e por que eu não a fechei
+
+O AC pede a decisão **com quem decidiu**, e nomeia o dono: @architect/@data-engineer. Eu não sou
+nenhum dos dois, e inventar a autoria faria o registro valer menos que a omissão. O que entreguei é
+a decisão **instruída**, não tomada:
+
+- **Estado de hoje:** `orderId: uuid("order_id")` sem `.references()`. Órfão é alcançável, e só a
+  aplicação mais o verificador da LTM-05 impedem.
+- **O comentário no schema diz exatamente isso** — que é estado de hoje e questão aberta, não
+  decisão. A letra do AC8 ("se a decisão for não criar, o comentário diz isso em uma linha") ficou
+  cumprida pela metade honesta: a próxima pessoa não herda o silêncio.
+- **A decisão não é de uma linha.** Criar a FK obriga a escolher o `onDelete`: `set null` casa com o
+  código (`reserve.ts:53` já escreve `orderId: null` ao liberar), `cascade` apagaria títulos
+  vendidos junto com o pedido — perda de estoque — e `restrict` travaria qualquer exclusão de
+  pedido. É escolha de domínio, não de schema.
+- **Custo de postergar: baixo.** Acrescentar a FK depois é uma migração nova de uma linha, e os
+  índices desta story não mudam.
+
+### AC4 — dono de cada índice, e o que eu NÃO criei
+
+| Índice | Consulta real que o usa | `EXPLAIN` |
+|---|---|---|
+| `product_numbers_product_number_half_idx` | `reserve.ts:147-161` — `product_id` + `number IN (...)` + `status` | pendente |
+| `product_numbers_order_idx` | `reserve.ts:54`, `reserve.ts:167`, `checkout.ts:22` — três consumidores | pendente |
+| `product_numbers_status_reserved_until_idx` | ⚠️ **nenhum consumidor hoje** — ver o achado abaixo | pendente |
+| `orders_tenant_user_status_idx` | `reserve.ts:34-46` — `tenant_id` + `user_id` + `status = 'pending'` | pendente |
+
+**Candidatos em `orders` deliberadamente NÃO criados**, porque o que os justifica é o `EXPLAIN`
+(AC4) e nenhum foi possível — e porque nenhum está no caminho de reserva, que é o P0 da story:
+
+| Candidato | Quem pediria | Por que ficou fora |
+|---|---|---|
+| `(product_id, status, created_at)` | `app/dashboard/products/[id]/orders/page.tsx:64-81` | tela de operador, fora do caminho quente; `created_at desc` com filtro de status precisa de `EXPLAIN` para saber se o composto é escolhido ou se o sort domina |
+| `(tenant_id, created_at)` | `lib/actions/reports.ts:28-46`, `app/dashboard/transactions/page.tsx:34-58`, `app/dashboard/app/page.tsx:133-137` | três consultas por faixa de data; é o candidato mais forte da lista, e mesmo assim é relatório, não reserva |
+| `(affiliate_id)` | `app/dashboard/affiliates/page.tsx:44-61` | `leftJoin` por afiliado; volume de afiliados é pequeno |
+
+Cada índice a mais custa escrita em **10.550 pedidos/semana**. A story manda remover índice sem
+consulta comprovada; criar quatro sem prova seria violar o AC4 em nome de cumprir a tarefa.
+
+### ⚠️ Achado: o índice parcial de expiração nasce sem dono
+
+O índice é `WHERE status = 'reserved'`. O Postgres só usa índice parcial quando o predicado da
+consulta **implica** o do índice. A varredura de expiração de hoje (`reserve.ts:38-45`) filtra
+`orders.tenantId`, `orders.userId`, `orders.status` e `product_numbers.reservedUntil < now()` — e
+**não filtra `product_numbers.status`**. Logo:
+
+- este índice **não é alcançável** pela única consulta que existiria para usá-lo;
+- o **AC5** provavelmente passa de qualquer forma, mas pelos **outros dois** índices:
+  `orders_tenant_user_status_idx` no lado `orders` e `product_numbers_order_idx` na junção;
+- pela letra do **AC4**, um índice sem consulta que o justifique **é removido**.
+
+Mantido porque a story o pede nominalmente e porque a `LTM-02` reescreve essa varredura. **O que
+fecha isso é de uma linha, e é na `LTM-02`:** a varredura passa a filtrar `status = 'reserved' AND
+reserved_until < now()` em `product_numbers` — forma já pronta para medição em
+`scripts/ltm01-explain.sql`. Se a `LTM-02` não escrever esse predicado, o índice parcial deve cair.
+
+### Carga e prova (escritas, não executadas)
+
+```
+apps/lotemania/scripts/ltm01-carga.sql     1.000.000 de linhas por generate_series, em massa
+apps/lotemania/scripts/ltm01-explain.sql   as 7 consultas reais do codigo + pg_indexes + AC1 manual
+```
+
+A carga é parametrizada no alto do bloco `DO`: `qtd_rodadas` 10.000 ⇒ 1 milhão de linhas (AC2/AC5),
+100 ⇒ 10 mil (AC3), e `divisivel := true` dobra as linhas para medir a forma da meia cota. Ela
+apaga e recria só o tenant `ltm01-carga`, por cascade — e **não deve** rodar contra produção.
+
+Os dois arquivos ficaram **fora do bloco `Files:`** da story, que declara só `raffles.ts`,
+`drizzle/**` e `package.json`. A tarefa do seed de carga os exige, então o `Files:` subdeclarava.
+`scripts/` é diretório novo: zero colisão com a `LTM-05` (`tests/**`) ou com qualquer outra onda.
+
+`package.json` **não foi tocado** — `db:generate` e `db:push` já existiam, como o @po previu.
 
 ### Notas
-_(preencher na implementação)_
+
+**IDS — buscar antes de criar:**
+
+| Decisão | O quê |
+|---|---|
+| ADAPT | padrão de índice do próprio projeto (`core.ts:75-78`, `payments.ts:124`, `affiliates.ts:70`, `integrations.ts:45`, `settings.ts:103`, `raffles.ts:78`): terceiro argumento devolvendo array, nome `{tabela}_{colunas}_idx`. Os quatro índices novos seguem a convenção |
+| ADAPT | `index()` não era importado em schema nenhum do app — este é o primeiro índice **não** único. Importado de `drizzle-orm/pg-core`, junto com `sql` de `drizzle-orm` para o predicado parcial |
+| CREATE | `scripts/ltm01-carga.sql` e `scripts/ltm01-explain.sql` — não existia `scripts/` nem nada equivalente; `src/db/seed.ts` é seed de aplicação (tenant + admin), propósito diferente, e fica intocado |
+| REUSE | nada reaproveitável para carga de plano no repo |
+
+**Conferência de regressão nos 9 leitores de `product_numbers`:** nenhum quebrou. `half` tem
+default `1` e `is_divisible` default `false`, então as duas inserções que existem
+(`lib/actions/products.ts:36-42` e `:142-148`, geração e duplicação dos títulos) continuam válidas
+sem mudança. `npm run lint` 0 erros (6 avisos pré-existentes, nenhum em arquivo desta story),
+`tsc --noEmit` 0, `next build` 0 — os três depois de apagar `tsconfig.tsbuildinfo`, que mente com
+`incremental: true`.
+
+**Arquivos deliberadamente não tocados:** `src/lib/actions/reserve.ts`,
+`src/lib/actions/checkout.ts`, `src/db/index.ts` e `tests/**` — são `LTM-02` e `LTM-05`, e a
+`LTM-05` rodou em paralelo com esta.
+
+**O que falta para `Done`:** AC1 (teste na base da LTM-05), AC2, AC3, AC5 (carga + `EXPLAIN` contra
+banco), AC7 (`pg_indexes` em base limpa) e AC8 (decisão de @architect/@data-engineer). Fechados:
+**AC4** parcialmente (dono mapeado, `EXPLAIN` pendente) e **AC6** integralmente — `grep "Indexed
+by" src/db/schema/` não devolve nada.
+
+**Observações que não viraram mudança:**
+
+- `status` como primeira coluna do índice parcial é redundante com o próprio predicado (todas as
+  linhas do índice têm `status = 'reserved'`). Mantido porque a story especifica
+  `(status, reserved_until)` ao pé da letra. `(reserved_until)` sozinho, parcial, seria menor.
+- Não há `CHECK (half IN (1,2))`. A unicidade impede duplicata, não impede `half = 7`. Fora do
+  escopo e não criado — mas é migração de uma linha, se a `LTM-07` quiser a restrição.
 
 ## Validação @po (2026-11-16)
 
@@ -287,3 +447,4 @@ incompleto (a conta do seed) é de redação e está corrigido no arquivo.
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Evidência de `uniqueIndex` corrigida, AC1 com nota de sequenciamento, AC8 (decisão de FK) acrescentado. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (5/10). Ready → Draft.** A chave `(product_id, number)` do AC1 proíbe a meia cota. Cinco correções exigidas, incluindo a semântica de `NULL` em índice único e a atribuição da coluna `half` entre esta story e a `LTM-07`. | @po (Pax) |
 | 2026-11-17 | 1.3 | **Revalidada (2ª) — GO (8,5/10). Draft → Ready.** As cinco correções de 1.2 conferidas no código: chave `(product_id, number, half)` com `half NOT NULL` e a razão escrita, propriedade da coluna decidida aqui (e riscada na `LTM-07`), `Files:` idêntico ao `grep -rln productNumbers src/`. Corrigida nesta validação a única pendência remanescente: a conta do seed ainda dizia "≈ 1 ano" na forma não divisível (Artigo IV). | @po (Pax) |
+| 2026-11-17 | 1.4 | **Implementada — `Ready` → `InProgress`.** Coluna `half` (`NOT NULL` default 1), marcador `is_divisible` em `products`, `uniqueIndex (product_id, number, half)`, `(order_id)`, parcial `(status, reserved_until)` e `orders(tenant_id, user_id, status)`. Regime de migração versionada estabelecido: `drizzle/0000_baseline_schema.sql` (a pasta não existia). Nada aplicado a banco. **Não vai a `InReview`:** AC1/AC2/AC3/AC5/AC7 exigem banco e a base da LTM-05; AC8 exige decisão de @architect/@data-engineer. Achado: o índice parcial de expiração não é alcançável pela varredura atual, que não filtra `product_numbers.status` — fecha na LTM-02. | @dev (Dex) |
