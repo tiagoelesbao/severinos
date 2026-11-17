@@ -49,15 +49,26 @@
 }
 
 :root {
-  /* Lotemania admin is always-dark (navy + emerald), matching the
-   * original Sorteamos panel — there is no light mode here. */
-  --background: #0d1117;
+  /* Sempre escuro; nao existe modo claro aqui.
+   *
+   * Os valores marcados [medido] foram lidos com getComputedStyle na loja e
+   * no painel reais da Sorteamos em 2026-11-17 — ver
+   * docs/research/2026-11-17-paridade-visual-loja.md. Antes disso a paleta
+   * era generica (dark do GitHub + esmeralda do Tailwind) e divergia da
+   * Sorteamos na raiz: TODA tela que usa bg-background, bg-card ou
+   * text-primary herdava o desvio, e era a causa da queixa sobre o painel,
+   * onde nao ha hex escrito a mao para compensar.
+   *
+   * Os NAO marcados continuam sendo o palpite original e ainda precisam de
+   * medicao: --muted, --muted-foreground, --border, --input, --secondary,
+   * --accent e a familia --sidebar-*. Nao os ajuste de olho. */
+  --background: #161c24; /* [medido] body da loja e do painel */
   --foreground: #e6e9ee;
-  --card: #171e2b;
+  --card: #212b36; /* [medido] background.paper do Minimal UI */
   --card-foreground: #e6e9ee;
-  --popover: #171e2b;
+  --popover: #212b36;
   --popover-foreground: #e6e9ee;
-  --primary: #10b981;
+  --primary: #198754; /* [medido] verde dos CTAs da loja */
   --primary-foreground: #06201a;
   --secondary: #1f2937;
   --secondary-foreground: #e6e9ee;
@@ -68,7 +79,7 @@
   --destructive: #ef4444;
   --border: #242d3b;
   --input: #1b2435;
-  --ring: #10b981;
+  --ring: #198754;
   --chart-1: #10b981;
   --chart-2: #f59e0b;
   --chart-3: #3b82f6;
@@ -77,22 +88,22 @@
   --radius: 0.625rem;
   --sidebar: #0f1521;
   --sidebar-foreground: #e6e9ee;
-  --sidebar-primary: #10b981;
+  --sidebar-primary: #198754;
   --sidebar-primary-foreground: #06201a;
-  --sidebar-accent: #171e2b;
+  --sidebar-accent: #212b36;
   --sidebar-accent-foreground: #e6e9ee;
   --sidebar-border: #242d3b;
-  --sidebar-ring: #10b981;
+  --sidebar-ring: #198754;
 }
 
 .dark {
-  --background: #0d1117;
+  --background: #161c24;
   --foreground: #e6e9ee;
-  --card: #171e2b;
+  --card: #212b36;
   --card-foreground: #e6e9ee;
-  --popover: #171e2b;
+  --popover: #212b36;
   --popover-foreground: #e6e9ee;
-  --primary: #10b981;
+  --primary: #198754;
   --primary-foreground: #06201a;
   --secondary: #1f2937;
   --secondary-foreground: #e6e9ee;
@@ -103,7 +114,7 @@
   --destructive: #ef4444;
   --border: #242d3b;
   --input: #1b2435;
-  --ring: #10b981;
+  --ring: #198754;
   --chart-1: #10b981;
   --chart-2: #f59e0b;
   --chart-3: #3b82f6;
@@ -111,9 +122,9 @@
   --chart-5: #ef4444;
   --sidebar: #0f1521;
   --sidebar-foreground: #e6e9ee;
-  --sidebar-primary: #10b981;
+  --sidebar-primary: #198754;
   --sidebar-primary-foreground: #06201a;
-  --sidebar-accent: #171e2b;
+  --sidebar-accent: #212b36;
   --sidebar-accent-foreground: #e6e9ee;
   --sidebar-border: #242d3b;
   --sidebar-ring: oklch(0.556 0 0);

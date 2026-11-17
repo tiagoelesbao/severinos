@@ -27,7 +27,8 @@ export default async function StorefrontLayout({
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <header className="bg-black">
-        <div className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-3">
+        {/* h-[70px]: altura medida no cabecalho da loja da Sorteamos. */}
+        <div className="mx-auto flex h-[70px] max-w-3xl items-center gap-2 px-4">
           <Link href={`/loja/${tenantSlug}`} className="flex items-center gap-2">
             {logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element

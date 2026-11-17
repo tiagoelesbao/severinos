@@ -105,9 +105,13 @@ export default async function RaffleDetailPage({
   const settings = productAdvancedSettingsSchema.parse(product.advancedSettings ?? {});
 
   return (
-    <div className="flex flex-col gap-4 overflow-hidden rounded-xl bg-card">
+    <div className="flex flex-col gap-3 bg-card">
+      {/* A arte sangra de borda a borda e o titulo mora SOBRE ela: na loja da
+          Sorteamos a imagem e o topo da pagina, nao uma figura dentro de um
+          cartao. As margens negativas cancelam o `px-4 py-6` do <main> do
+          layout, sem alterar as outras telas da loja. */}
       {product.imageUrl && (
-        <div className="relative">
+        <div className="relative -mx-4 -mt-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.imageUrl}
