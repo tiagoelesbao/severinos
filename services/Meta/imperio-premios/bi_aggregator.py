@@ -183,26 +183,44 @@ def pull_meta_insights(dias):
         cid, cnome = camp["id"], camp.get("name", camp["id"])
         conta_id, conta_nome = camp.get("conta_id"), camp.get("conta_nome")
 
-        daily = graph_get(
-            f"/{cid}/insights",
-            {"fields": "spend,impressions,clicks,reach,actions,action_values", "time_increment": 1, "date_preset": "maximum"},
-        ).get("data", [])
-        for d in daily:
-            d["campanha_id"], d["campanha_nome"] = cid, cnome
-            d["conta_id"], d["conta_nome"] = conta_id, conta_nome
-        daily_all.extend(daily)
+        # Achado 2026-11-17: não é só /previews que pode devolver 400 — a
+        # LISTAGEM de anúncios de uma campanha (/{cid}/ads) também devolveu
+        # 400 pra uma campanha específica (motivo não confirmado: campanha
+        # removida/sem permissão/estado inconsistente do lado da Meta), e
+        # isso travou o refresh de horas (task "tinha sucesso" porque o
+        # .vbs não espera o PowerShell terminar — Task Scheduler nunca via
+        # o erro real). Todo o corpo do loop por campanha agora é
+        # best-effort: campanha com erro é pulada e logada, as outras
+        # (inclusive o faturamento real, que não depende disto) seguem.
+        try:
+            daily = graph_get(
+                f"/{cid}/insights",
+                {"fields": "spend,impressions,clicks,reach,actions,action_values", "time_increment": 1, "date_preset": "maximum"},
+            ).get("data", [])
+            for d in daily:
+                d["campanha_id"], d["campanha_nome"] = cid, cnome
+                d["conta_id"], d["conta_nome"] = conta_id, conta_nome
+            daily_all.extend(daily)
 
-        by_ad = graph_get(
-            f"/{cid}/ads",
-            {"fields": "id,name,status,effective_status,creative{thumbnail_url,image_url,video_id,object_type}"},
-        ).get("data", [])
+            by_ad = graph_get(
+                f"/{cid}/ads",
+                {"fields": "id,name,status,effective_status,creative{thumbnail_url,image_url,video_id,object_type}"},
+            ).get("data", [])
+        except requests.exceptions.HTTPError as e:
+            print(f"⚠️ campanha {cid} ({cnome}) falhou ao puxar insights/ads: {e} — pulando esta campanha.")
+            continue
+
         for ad in by_ad:
             ad["campanha_id"], ad["campanha_nome"] = cid, cnome
             ad["conta_id"], ad["conta_nome"] = conta_id, conta_nome
-            ins = graph_get(
-                f"/{ad['id']}/insights",
-                {"fields": "spend,impressions,clicks,actions,action_values", "time_increment": 1, "date_preset": "maximum"},
-            ).get("data", [])
+            try:
+                ins = graph_get(
+                    f"/{ad['id']}/insights",
+                    {"fields": "spend,impressions,clicks,actions,action_values", "time_increment": 1, "date_preset": "maximum"},
+                ).get("data", [])
+            except requests.exceptions.HTTPError as e:
+                print(f"⚠️ insights indisponível pro anúncio {ad['id']} ({ad.get('name')}): {e} — seguindo sem insights.")
+                ins = []
             ad["insights_diario"] = ins
             # achado 2026-10-07: embed público (/video/embed, embed_html do
             # vídeo) dá "Vídeo indisponível" — vídeo de anúncio não é post
@@ -212,8 +230,19 @@ def pull_meta_insights(dias):
             # business.facebook.com que mostra o anúncio real (funciona
             # pra vídeo E imagem, com legenda/CTA do jeito que roda).
             creative = ad.get("creative") or {}
-            preview = graph_get(f"/{ad['id']}/previews", {"ad_format": "MOBILE_FEED_STANDARD"}).get("data", [])
-            creative["preview_html"] = preview[0]["body"] if preview else None
+            # Achado 2026-11-17: anúncio pausado/rejeitado/com criativo removido
+            # devolve 400 nesta chamada — sem try/except isso derrubava o
+            # refresh INTEIRO (inclusive faturamento real, que não depende
+            # disto), deixando o BI travado na última execução que não
+            # esbarrou num anúncio nesse estado. Preview é só nice-to-have
+            # pro clique "ver anúncio real" no frontend — nunca pode travar
+            # o pipeline principal.
+            try:
+                preview = graph_get(f"/{ad['id']}/previews", {"ad_format": "MOBILE_FEED_STANDARD"}).get("data", [])
+                creative["preview_html"] = preview[0]["body"] if preview else None
+            except requests.exceptions.HTTPError as e:
+                print(f"⚠️ preview indisponível pro anúncio {ad['id']} ({ad.get('name')}): {e} — seguindo sem preview.")
+                creative["preview_html"] = None
         by_ad_all.extend(by_ad)
 
     return daily_all, by_ad_all, campanhas
