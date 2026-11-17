@@ -130,11 +130,37 @@ característica à direita. Hoje usamos `grid-cols-7` fixo.
 
 ---
 
-## O modal de Checkout
+## O modal de Checkout — **medido** em 2026-11-17
 
-Capturado das telas do founder, **não** medido — abrir o modal num sorteio ativo exige verificar
-se ele cria reserva no servidor, e isso não foi feito. **Os valores abaixo são leitura visual e
-precisam ser confirmados por medição** antes de virarem critério de aceite.
+Autorizado pelo founder. Fluxo exercitado até o modal abrir e **parado ali**: o "Concluir
+Reserva" **não** foi clicado, o modal foi fechado pelo X e a seleção desfeita. Conferido ao final:
+zero células selecionadas, zero reserva criada.
+
+> **Confirmado de passagem:** abrir o modal **não** reserva. A reserva só nasce no "Concluir
+> Reserva" — o "Conectando no Servidor..." da barra inferior é identificação de comprador, não
+> bloqueio de número.
+
+| Elemento | Valor medido |
+|---|---|
+| **Overlay** | `rgba(0,0,0,0)` — **transparente**, sem `backdrop-filter`. O escurecimento que se vê nas telas vem do `box-shadow` do painel, não de um véu |
+| **Painel** | `rgb(33,43,54)` → **`#212B36`**, raio **16px**, `padding: 0`, largura máx. **600px** |
+| **Sombra do painel** | `rgba(0,0,0,0.24) -40px 40px 80px -8px` — deslocada para a **esquerda e para baixo**, é a assinatura do Minimal UI |
+| **Título "Checkout"** | **18px / peso 700**, branco |
+| **Banner (identificado)** | fundo `rgb(8,102,13)` → **`#08660D`**, texto `rgb(233,252,212)` → **`#E9FCD4`**, raio **8px**, padding `6px 16px`, 14px / peso 400 |
+| **Nome do comprador** | **18px / peso 700**, branco |
+| **"Concluir Reserva"** | `#198754`, raio **5px**, altura **48px**, **15px / peso 700**, `text-transform: capitalize`, largura total, elevação 2 do Material |
+| **"Alterar conta"** | `#198754`, **14px / peso 600**, sem sublinhado |
+
+**`#212B36` é o `background.paper` do Minimal UI**, e `#E9FCD4` sobre `#08660D` é o par
+`success.lighter` / `success.darker` do mesmo tema. O modal não é estilizado à mão — é o tema do
+template aplicado.
+
+### O que continua sem medir no modal
+
+O estado **não identificado** (banner azul com ⓘ, campo de telefone com seletor de país, banner
+âmbar de aviso) não apareceu, porque a sessão do founder já identifica o comprador. Os valores
+daquele estado seguem sendo **leitura das telas**, não medição — e precisam de uma passada em
+janela anônima para fechar.
 
 **Cabeçalho:** ícone de carrinho + "**Checkout**" + X, com divisória abaixo.
 
@@ -158,6 +184,34 @@ verde. Depois, botão verde **"Concluir Reserva"** com seta circular à direita.
 > **"Título de capitalização" é vocabulário jurídico, não decoração.** Precisa sair igual.
 
 ---
+
+---
+
+## 🔴 A paleta base nunca foi alinhada — e é o achado de maior alcance
+
+A grade e o rodapé eu já consertei com valores exatos. Mas eles são **exceções escritas à mão por
+cima de um tema que diverge na raiz**. Em `apps/lotemania/src/app/globals.css`:
+
+| Token | lotemania | Sorteamos (medido) | |
+|---|---|---|---|
+| `--background` | `#0d1117` | **`#161C24`** | dark do GitHub contra o do Minimal UI |
+| `--card` | `#171e2b` | **`#212B36`** | `background.paper` do Minimal UI |
+| `--primary` | `#10b981` | **`#198754`** | esmeralda do Tailwind contra o verde da loja |
+| `--muted` | `#1a2230` | — | sem correspondente direto |
+| `--font-sans` | genérica | **Montserrat** (loja) · **Public Sans** (painel) | duas famílias, uma por app |
+
+**Nenhuma destas foi ajustada.** Conferido em 2026-11-17: `D:	est` (o projeto original) está
+**idêntico** ao que importamos, exceto pelos quatro arquivos que mexemos hoje — não existe um
+conjunto de ajustes perdido para recuperar.
+
+**Por que isto importa mais que a grade:** toda tela que usa `bg-background`, `bg-card`,
+`text-primary` ou `border` herda o desvio. É a explicação para a queixa sobre o **dashboard**, onde
+não há valores hex escritos à mão para compensar — lá o tema é tudo o que existe.
+
+**Consequência para o plano:** alinhar `globals.css` aos valores medidos é **uma edição de um
+arquivo** que aproxima dezenas de telas de uma vez, e deve vir **antes** de qualquer paridade tela
+a tela. Fazer o contrário é escrever exceção à mão em cada tela para compensar um tema errado — que
+é precisamente como a grade acabou com `bg-muted`.
 
 ## O que falta medir
 
