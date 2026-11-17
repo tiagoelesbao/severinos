@@ -105,31 +105,37 @@ export default async function RaffleDetailPage({
   const settings = productAdvancedSettingsSchema.parse(product.advancedSettings ?? {});
 
   return (
-    <div className="flex flex-col gap-3 bg-card">
-      {/* A arte sangra de borda a borda e o titulo mora SOBRE ela: na loja da
-          Sorteamos a imagem e o topo da pagina, nao uma figura dentro de um
-          cartao. As margens negativas cancelam o `px-4 py-6` do <main> do
-          layout, sem alterar as outras telas da loja. */}
+    /* A PAGINA INTEIRA sangra de borda a borda. As margens negativas cancelam
+       o `px-4 py-6` do <main> do layout, e so aqui — as outras telas da loja
+       seguem com a caixa centralizada. Sem `gap`: no original os blocos sao
+       colados um no outro, e e isso que da a sensacao de continuidade entre a
+       arte, a faixa de titulo e a de "Meus titulos". */
+    <div className="-mx-4 -mt-6 flex flex-col bg-card">
       {product.imageUrl && (
-        <div className="relative -mx-4 -mt-6">
+        <div className="relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.imageUrl}
             alt={product.title}
             /* 1.752 e a proporcao medida na arte da Sorteamos (543x310), mais
                baixa que o 16/9 que estava aqui. Raio 8px, tambem medido. */
-            className="w-full rounded-lg object-cover"
+            className="w-full object-cover"
             style={{ aspectRatio: "1.752" }}
           />
-          {settings.statusText && (
-            /* Badge de status: o campo ja existia no schema com o default
-               "Adquira Ja!" e nunca tinha sido renderizado. Pulsa em opacidade,
-               como no original. */
-            <span className="pointer-events-none absolute left-3 top-3 animate-[pulse_2s_ease-in-out_infinite] rounded-[4px] bg-[#198754] px-2 py-1 text-[11px] font-bold uppercase text-white">
-              {settings.statusText}
-            </span>
-          )}
-          <div className="absolute inset-x-0 bottom-0 bg-black/70 px-5 py-3">
+          {/* A faixa do titulo e `relative` para o badge poder se ancorar NELA.
+              O gradiente desce ate o preto solido no rodape, e a faixa de
+              "Meus titulos" encosta logo abaixo — a continuidade do degrade e
+              o que o original faz. */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-b from-black/60 to-black px-5 pb-3 pt-4">
+            {settings.statusText && (
+              /* Centro do badge SOBRE a linha de topo do gradiente, alinhado a
+                 esquerda — nao no canto da imagem. O campo `statusText` ja
+                 existia no schema com o default "Adquira Ja!" e nunca tinha
+                 sido renderizado. */
+              <span className="pointer-events-none absolute left-4 top-0 -translate-y-1/2 animate-[pulse_2s_ease-in-out_infinite] rounded-[4px] bg-[#198754] px-2 py-1 text-[11px] font-bold uppercase leading-none text-white">
+                {settings.statusText}
+              </span>
+            )}
             <p className="font-semibold text-white">{product.title}</p>
             {product.description && (
               <p className="text-sm text-white/70">{product.description}</p>
@@ -143,7 +149,7 @@ export default async function RaffleDetailPage({
       {/* "Por apenas" 12px/600 branco; o valor com FUNDO PRETO, branco
           16px/700, raio 6px, padding 12px 8px — tudo medido na Sorteamos.
           A linha "Sorteio em ..." nao existe no original e saiu daqui. */}
-      <div className="flex items-center justify-center gap-2 px-5 pb-1">
+      <div className="flex items-center justify-center gap-2 px-5 py-3">
         <span className="text-xs font-semibold text-white">Por apenas</span>
         <span className="rounded-[6px] bg-black px-2 py-3 text-base font-bold tabular-nums leading-none text-white">
           {formatCurrency(Number(product.pricePerNumber))}
@@ -191,7 +197,10 @@ export default async function RaffleDetailPage({
         </div>
       )}
 
-      <div className="px-5 pb-5">
+      {/* px-2, nao px-5: no original a legenda e a grade vao quase ate a borda
+          da tela. O container estreito era o que deixava aquelas faixas
+          escuras nas laterais. */}
+      <div className="px-2 pb-5">
         <NumberGrid
           tenantSlug={tenantSlug}
           productSlug={productSlug}
