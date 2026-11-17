@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Crown } from "lucide-react";
+import { lojaSans } from "@/app/layout";
 import { getTenantBySlug } from "@/lib/tenant";
 import { db } from "@/db";
 import { pageViews } from "@/db/schema";
@@ -25,7 +26,9 @@ export default async function StorefrontLayout({
   const logoUrl = tenant.settings?.logoUrl ?? null;
 
   return (
-    <div className="flex min-h-svh flex-col bg-background">
+    // A loja roda em Montserrat; o painel fica em Public Sans. Reaplicar a
+    // variavel aqui troca a familia so no escopo da loja.
+    <div className={`${lojaSans.variable} flex min-h-svh flex-col bg-background`}>
       <header className="bg-black">
         {/* h-[70px]: altura medida no cabecalho da loja da Sorteamos. */}
         <div className="mx-auto flex h-[70px] max-w-3xl items-center gap-2 px-4">

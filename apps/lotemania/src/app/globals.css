@@ -59,41 +59,48 @@
    * text-primary herdava o desvio, e era a causa da queixa sobre o painel,
    * onde nao ha hex escrito a mao para compensar.
    *
+   * DOIS VERDES, de proposito. O tema (--primary) e o #00ab55 do Minimal UI,
+   * medido no painel: botao primario, item ativo do menu e foco. Os botoes de
+   * COMPRA da loja ("Quero participar", "Concluir Reserva") sao #198754, um
+   * verde diferente, pintado a mao na loja — eles ficam como classe explicita
+   * no componente, nao como token. Unificar os dois quebraria uma das duas
+   * aplicacoes.
+   *
    * Os NAO marcados continuam sendo o palpite original e ainda precisam de
-   * medicao: --muted, --muted-foreground, --border, --input, --secondary,
-   * --accent e a familia --sidebar-*. Nao os ajuste de olho. */
+   * medicao: --muted, --input, --secondary, --accent e o restante da familia
+   * --sidebar-*. Nao os ajuste de olho. */
   --background: #161c24; /* [medido] body da loja e do painel */
   --foreground: #e6e9ee;
   --card: #212b36; /* [medido] background.paper do Minimal UI */
   --card-foreground: #e6e9ee;
   --popover: #212b36;
   --popover-foreground: #e6e9ee;
-  --primary: #198754; /* [medido] verde dos CTAs da loja */
+  --primary: #00ab55; /* [medido] primary do painel (Minimal UI) */
   --primary-foreground: #06201a;
   --secondary: #1f2937;
   --secondary-foreground: #e6e9ee;
   --muted: #1a2230;
-  --muted-foreground: #8b96a5;
+  --muted-foreground: #919eab; /* [medido] text.secondary */
   --accent: #1f2937;
   --accent-foreground: #e6e9ee;
   --destructive: #ef4444;
-  --border: #242d3b;
+  --border: rgba(145, 158, 171, 0.24); /* [medido] divider */
   --input: #1b2435;
-  --ring: #198754;
+  --ring: #00ab55;
   --chart-1: #10b981;
   --chart-2: #f59e0b;
   --chart-3: #3b82f6;
   --chart-4: #a855f7;
   --chart-5: #ef4444;
-  --radius: 0.625rem;
-  --sidebar: #0f1521;
+  --radius: 0.5rem; /* [medido] 8px em botao, input e item de menu */
+  --sidebar: #161c24; /* [medido] a sidebar usa o mesmo fundo do body */
   --sidebar-foreground: #e6e9ee;
-  --sidebar-primary: #198754;
+  --sidebar-primary: #00ab55;
   --sidebar-primary-foreground: #06201a;
   --sidebar-accent: #212b36;
   --sidebar-accent-foreground: #e6e9ee;
-  --sidebar-border: #242d3b;
-  --sidebar-ring: #198754;
+  --sidebar-border: rgba(145, 158, 171, 0.24);
+  --sidebar-ring: #00ab55;
 }
 
 .dark {
@@ -103,30 +110,30 @@
   --card-foreground: #e6e9ee;
   --popover: #212b36;
   --popover-foreground: #e6e9ee;
-  --primary: #198754;
+  --primary: #00ab55;
   --primary-foreground: #06201a;
   --secondary: #1f2937;
   --secondary-foreground: #e6e9ee;
   --muted: #1a2230;
-  --muted-foreground: #8b96a5;
+  --muted-foreground: #919eab; /* [medido] text.secondary */
   --accent: #1f2937;
   --accent-foreground: #e6e9ee;
   --destructive: #ef4444;
-  --border: #242d3b;
+  --border: rgba(145, 158, 171, 0.24); /* [medido] divider */
   --input: #1b2435;
-  --ring: #198754;
+  --ring: #00ab55;
   --chart-1: #10b981;
   --chart-2: #f59e0b;
   --chart-3: #3b82f6;
   --chart-4: #a855f7;
   --chart-5: #ef4444;
-  --sidebar: #0f1521;
+  --sidebar: #161c24; /* [medido] a sidebar usa o mesmo fundo do body */
   --sidebar-foreground: #e6e9ee;
-  --sidebar-primary: #198754;
+  --sidebar-primary: #00ab55;
   --sidebar-primary-foreground: #06201a;
   --sidebar-accent: #212b36;
   --sidebar-accent-foreground: #e6e9ee;
-  --sidebar-border: #242d3b;
+  --sidebar-border: rgba(145, 158, 171, 0.24);
   --sidebar-ring: oklch(0.556 0 0);
 }
 
