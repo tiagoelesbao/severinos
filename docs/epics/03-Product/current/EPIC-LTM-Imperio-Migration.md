@@ -6,7 +6,23 @@ Levar o **Império Prêmios** da **Sorteamos** (hoje em `painel.rapidinhas24hr.c
 
 O lotemania é a sucessora da Sorteamos: mesma operação, plataforma própria, multi-tenant white-label. A troca só acontece quando o lotemania aguentar o que a Sorteamos já aguenta — e isso é medível, não opinável.
 
-## Status: ✅ VALIDADO PARCIALMENTE (@po, 2026-11-16) — 4 de 5 stories em `Ready`, LTM-03 em `Draft` (NO-GO)
+## Status: 🟢 FUNDAÇÃO EM EXECUÇÃO — `LTM-00` **Done**, 4 stories em `Ready`, `LTM-03` repartida em `03a`/`03b`
+
+> ## ⚠️ O objetivo mudou em 2026-11-16
+>
+> Decisão do founder: a meta **deixou de ser "paridade com a Sorteamos"** e passou a ser
+> **colocar o lotemania operacional o mais rápido possível para um primeiro sorteio de teste do
+> Império, já com a meia cota**.
+>
+> | | Antes | Agora |
+> |---|---|---|
+> | Meta | substituir a Sorteamos sem perder nada | **primeiro sorteio de teste rodando** |
+> | Frente B (paridade) | bloqueante do corte | **desce de prioridade** — volta a ser bloqueante só na migração de verdade |
+> | Frente C (meia cota) | "não vire story agora" | **entra junto com a fundação** — o cliente pediu, e ela define o formato de `reserve.ts` |
+> | Gateways | 19 da Sorteamos | **só `paysure`** |
+>
+> O cliente **ainda não repassou `ci`/`cs` reais** e **nenhuma venda real aconteceu**. Isso é
+> libertador: dá para mudar o modelo de dados sem migração de histórico.
 
 **Epic ID:** LTM
 **Owner:** @pm (Morgan) · implementação @dev · schema @data-engineer
@@ -25,22 +41,36 @@ Fonte: `apps/lotemania/README.md` (levantamento de 2026-11-16) e leitura direta 
 | | |
 |---|---|
 | Arquivos / linhas | 187 · 14.462 |
-| Páginas de dashboard | 27 — **1 vazia de fato** (`social`); `analytics` tem 20 linhas; `reports` tem **149 linhas em 2 arquivos** |
-| Gateway de produção | **`paysure` não existe no enum** — o lotemania não consegue nem representar quem recebe o dinheiro |
+| **Compila?** | ✅ **sim, desde 2026-11-16** (`LTM-00`). Antes **não compilava**: dez arquivos-fonte de 0 bytes, cinco importados por código existente |
+| `lint` · `typecheck` · `build` | ✅ **0 · 0 · 0** — 43 rotas, 32 páginas estáticas |
+| Páginas de dashboard | 27 — **três** `page.tsx` estavam com 0 bytes (`analytics`, `social`, `utm-links`) e hoje têm placeholder honesto |
+| Gateway de produção | **`paysure` não existe em NENHUMA das duas listas** — e o modelo de credencial guarda **um** campo onde a paysure exige dois (`ci` + `cs`) |
 | Transações no banco | **zero** `db.transaction()` em 14.462 linhas |
-| Índices em `product_numbers` | **nenhum** (o comentário no schema afirma que existe) |
+| Índices de performance | **zero em 33 tabelas** — todo índice declarado é `uniqueIndex`, isto é, restrição de integridade |
+| Migrações versionadas | **zero** — a pasta `drizzle/` não existe; só `db:push` contra banco ao vivo |
 | Pedidos pagos de verdade | **zero** — o webhook de pagamento é um `TODO` |
 | Atribuição por pedido | **nenhuma** — sem `utm_*`, `fbc`, `fbp`, `gclid`, `ttclid` |
 | API de leitura para o ETL | **não existe** (só `auth/*` e o webhook) |
+| Sessão do painel | ✅ renova desde 2026-11-16; antes morria 15 min depois do login (`LTM-06` fecha as bordas) |
 | Testes | **zero** |
 
-É um **andaime**. O esqueleto e o schema estão certos; a profundidade não existe.
+É um **andaime** — mas um andaime que agora compila e cuja loja pública funciona em produção.
 
-> **Correção de medição (2026-11-16).** A primeira versão desta tabela dizia "3 páginas vazias" e "`reports` com 22 linhas". Estava errado: a medição contou só o `page.tsx` de cada pasta e generalizou. Recontado pela pasta inteira, **só `social` é vazia** e `reports` tem 149 linhas. O erro foi medir o arquivo de entrada e concluir sobre a feature — a tela mora na pasta. Registrado aqui porque três documentos propagaram o número errado antes da correção.
+> **Duas correções de medição, nesta ordem, e a lição que elas deixam (2026-11-16).**
+>
+> | Afirmação | Veredicto |
+> |---|---|
+> | "3 páginas de dashboard são arquivos vazios" *(medição original)* | **certa** |
+> | "só `social` é vazia; `analytics` tem 20 linhas" *(minha correção)* | **errada** — contei a pasta e vi o `analytics-chart.tsx`, mas o `page.tsx`, que é a rota, tinha 0 bytes |
+>
+> **A lição não é qual unidade contar.** É que nenhuma contagem de linha responde *"isto
+> funciona?"*. Trinta segundos de `tsc --noEmit` responderam o que três rodadas de `wc -l` não
+> responderam — e deram uma resposta pior que qualquer estimativa: **o app não compilava**.
+> Detalhe em `docs/research/2026-11-16-lotemania-build-health.md`.
 
 ### O que a migração tem que aguentar
 
-Medido no BI do Império, últimos 7 dias:
+Medido no BI do Império, **janela móvel de 7 dias, snapshot de 2026-11-16**. O @po reconferiu contra `apps/BI/imperio-premios/data-produto.json`: os números estruturais batem exatamente (100 números em 100% das rodadas, mediana 1,748 h, mínimo 0,3 h). Os agregados andam a cada refresh — com o de 2026-11-16 a janela já dava 193 rodadas e ≈ R$ 701 mil. **Deriva é esperada; não leia como erro de medição.**
 
 | | |
 |---|---|
@@ -64,19 +94,31 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 
 | Frente | Objetivo | Stories | Status |
 |---|---|---|---|
-| **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01` a `LTM-05` | **Validada (@po 2026-11-16)** — 01/02/04/05 em `Ready`; `LTM-03` NO-GO, segue `Draft` |
-| **B — Paridade** | Fechar a distância funcional contra a Sorteamos: `social`, os 3 exports por sorteio, os 3 tipos de `/reports`, mídia em S3 | *a definir* | **Escopo aberto** — baseline fechada o bastante para desenhar, mas **3 decisões de produto pendentes** (B1/B2/B3 abaixo) e as 14 abas do editor ainda não observadas |
-| **C — Features novas** | O que o cliente pediu e a Sorteamos não faz — começando pela **cota dividida** | *a definir* | **Bloqueada** por modelagem (`/grill-with-docs`) **e** pela Frente A |
+| **0 — Compilar** | O app tem que buildar para qualquer AC ser verificável | `LTM-00` | ✅ **Done** (2026-11-16) |
+| **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01`, `02`, `03a`, `03b`, `04`, `05`, `06` | 01/02/04/05 em `Ready`; `03a`/`03b` e `06` em `Draft`, aguardando @po |
+| **C — Meia cota** | O que o cliente pediu e a Sorteamos não faz | *nasce do grilling* | ⏳ **Promovida** — entra no primeiro sorteio de teste. Aguarda só o `/grill-with-docs` do founder |
+| **B — Paridade** | Fechar a distância funcional contra a Sorteamos: `social`, os 3 exports por sorteio, os 3 tipos de `/reports`, mídia em S3 | *a definir* | ⬇️ **Despriorizada** — volta a ser bloqueante só na migração de verdade. B1/B2 ainda pendem do founder; B3 já decidida |
 
 ### Frente A — Fundação (escopo deste epic)
 
-| Story | Problema que fecha | Prioridade |
-|---|---|---|
-| **LTM-01** | **F1** — `product_numbers` e `orders` sem índice nenhum; comentário do schema mente | P0 |
-| **LTM-02** | **F2** — driver `neon-http` não faz transação; reserva desfaz "na mão" | P0 |
-| **LTM-03** | **F3** — webhook valida HMAC e para num `TODO`; sem idempotência | P0 |
-| **LTM-04** | **F4** — atribuição por pedido não existe; sem API de leitura para o ETL | P0 |
-| **LTM-05** | **F5** — zero testes no caminho do dinheiro | P0 |
+| Story | Problema que fecha | Prioridade | Status |
+|---|---|---|---|
+| **LTM-00** | **F0** — o app não compilava; dez arquivos-fonte de 0 bytes | P0 | ✅ **Done** |
+| **LTM-01** | **F1** — **zero índice de performance em 33 tabelas** e **zero migração versionada**; o comentário do schema mente | P0 | `Ready` |
+| **LTM-02** | **F2** — driver `neon-http` não faz transação; reserva desfaz "na mão" | P0 | `Ready` |
+| **LTM-03a** | **F3a** — webhook para num `TODO`; sem idempotência; `paysure` irrepresentável nas duas listas e na credencial | P0 | `Draft` |
+| **LTM-03b** | **F3b** — o adaptador da Paysure: criar cobrança e entender o aviso | P0 | `Draft` |
+| **LTM-04** | **F4** — atribuição por pedido não existe; sem API de leitura para o ETL | P0 | `Ready` |
+| **LTM-05** | **F5** — zero testes no caminho do dinheiro | P0 | `Ready` |
+| **LTM-06** | **F6** — duas decisões de segurança de sessão deixadas em aberto de propósito | P1 | `Draft` |
+
+> **A `LTM-01` cresceu depois de medida.** O problema não é "falta o índice de `product_numbers`":
+> **nenhuma consulta deste sistema tem índice**, exceto onde um `uniqueIndex` criou um por efeito
+> colateral. São 33 tabelas, 10 restrições de unicidade, **zero** `index()`. E a pasta `drizzle/`
+> **não existe** — `drizzle-kit generate` nunca rodou, só `db:push` contra banco ao vivo, sem
+> histórico. Isso **impede cumprir o portão G6** (plano de volta exercitado) como está: sem
+> migração versionada, o "plano de volta" do schema é restaurar backup. O regime de migração tem
+> que ser estabelecido **antes** do primeiro índice, senão o índice também nasce sem histórico.
 
 ### Frente B — Paridade (fora deste epic)
 
@@ -96,7 +138,7 @@ Clonar isso seria clonar andaime. A tela `analytics` do lotemania, com suas 20 l
 
 #### B3 — O escopo de integrações encolheu por decisão do founder
 
-A Sorteamos expõe 104 endpoints, incluindo 19 gateways e integrações de WhatsApp, SMS e push. **Decisão do founder em 2026-11-16: só a `paysure` importa agora.** z-api, wizebot, onesignal, paposms, liguelead, dxmidia e nexopro **saem da paridade**. O que sobra de gateway vira um item da `LTM-03`, não uma frente.
+A Sorteamos expõe 104 endpoints, incluindo 19 gateways e integrações de WhatsApp, SMS e push. **Decisão do founder em 2026-11-16: só a `paysure` importa agora.** z-api, wizebot, onesignal, paposms, liguelead, dxmidia e nexopro **saem da paridade**. O que sobra de gateway vira item da `LTM-03a` (representar a credencial) e da `LTM-03b` (falar com ela), não uma frente.
 
 #### O que de fato sobra para a Frente B
 
@@ -111,46 +153,69 @@ A Sorteamos expõe 104 endpoints, incluindo 19 gateways e integrações de Whats
 
 **Bloqueio restante:** as 14 abas do editor e o modal de Faturamento continuam não observados. A passada de observação parou porque **a sessão do painel expirou** — precisa do founder logado para continuar.
 
-### Frente C — Features novas: a cota dividida (escopo futuro, **não vire story agora**)
+### Frente C — A meia cota: **promovida**, e agora vem antes da reescrita
 
 O Império quer **dividir a cota em dois**: cada número pode ser comprado inteiro ou em duas metades, por duas pessoas. Quem compra inteiro leva tudo; duas metades dividem o prêmio. Permite prêmios maiores (100k, 200k) sobre os mesmos 100 números — é a razão de negócio da feature.
 
-**Por que ela não pode ser story hoje:**
+**O que mudou em 2026-11-16.** O founder decidiu que a meia cota entra **no primeiro sorteio de teste**, e escolheu *modelar antes de reescrever*. A ordem se inverteu — e por um motivo que não é preferência:
 
-1. **Quebra a premissa de um dono por linha.** Hoje `product_numbers` tem uma linha por número e a reserva é um `UPDATE ... WHERE status = 'available'` — atômico *porque* cabe exatamente um dono. Com metades, a linha passa a ter dois donos possíveis e três estados de ocupação (vazio / meio / cheio), e o `UPDATE` condicional atual deixa de ser suficiente.
-2. **Dobra a contenção.** O mesmo número passa a ser disputável duas vezes. Com esgotamento medido em 18 min no pior caso, isso dobra a pressão exatamente no ponto que `LTM-01` e `LTM-02` estão consertando.
-3. **Muda o rateio de prêmio**, que é dinheiro do ganhador — território onde mexer sem a suíte de `LTM-05` é irresponsável.
+> As três razões que antes a bloqueavam continuam todas verdadeiras. A diferença é que elas
+> deixaram de ser argumento para **adiar** e passaram a ser argumento para **antecipar**:
+>
+> 1. **Quebra a premissa de um dono por linha.** Hoje `product_numbers` tem uma linha por número e a reserva é um `UPDATE ... WHERE status = 'available'` — atômico *porque* cabe exatamente um dono. Com metades, a linha ganha três estados de ocupação (vazio / meio / cheio) e o `UPDATE` condicional deixa de bastar. **A `LTM-02` vai reescrever exatamente esse código.** Reescrever para um dono e depois reescrever de novo para dois é fazer o trabalho duas vezes no ponto mais delicado do sistema.
+> 2. **Dobra a contenção**, no mesmo lugar que a `LTM-01` e a `LTM-02` estão consertando. Então o conserto precisa ser dimensionado para a carga final, não para a atual.
+> 3. **Muda o rateio de prêmio**, que é dinheiro do ganhador. A suíte da `LTM-05` tem que nascer já cobrindo o rateio — testes escritos para cota inteira não provam nada sobre metades.
+>
+> E há um fato que torna isso barato agora e caro depois: **nenhuma venda real aconteceu ainda** e
+> o cliente **não repassou credencial**. Não há histórico para migrar. A janela para mexer no
+> modelo de dados é esta.
 
-**Dependência explícita:** a modelagem passa por `/grill-with-docs` **depois** de `LTM-01`, `LTM-02` e `LTM-05` estarem Done. Só então vira story.
+**Pré-requisito que continua de pé:** a modelagem passa por `/grill-with-docs` **antes** de virar story — é invocação explícita do founder, não automatizável. As perguntas que decidem o modelo: preço da metade contra o inteiro, o que acontece se só uma metade vender até o sorteio, como o prêmio é rateado, se a metade pode ser revendida, e se um comprador pode levar as duas metades do mesmo número.
+
+**Impacto nas stories existentes:** `LTM-01` (índice sobre a nova forma), `LTM-02` (a reserva atômica **é** a feature), `LTM-05` (invariantes de posse e rateio) e `LTM-03a` (o fechamento de pedido marca posse). A modelagem precisa sair **antes** de a onda 2 começar.
 
 ---
 
 ## Sequenciamento e dependências
 
 ```
-LTM-05 (testes) ──┬─► LTM-02 (transação) ──┬─► LTM-03 (webhook fecha pedido)
-LTM-01 (índices) ─┘                        └─► LTM-04 (atribuição + API de leitura)
+LTM-00 (compilar) ✅ ──► tudo o mais
 
-Frente A completa ──► Frente C (cota dividida, após /grill-with-docs)
-Baseline Sorteamos ──► Frente B (paridade)
+/grill-with-docs (meia cota)  ◄── PORTA: define a forma de product_numbers
+        │
+        ├──────────────────────────────┐
+        ▼                              ▼
+LTM-05 (testes) ──┬─► LTM-02 (reserva) ──┬─► LTM-03a (fecha pedido) ──► LTM-03b (Paysure)
+LTM-01 (schema) ──┘                      └─► LTM-04 (atribuição + API)
+
+LTM-06 (sessão) ── independente, qualquer onda depois da LTM-05
+Frente B (paridade) ── despriorizada
 ```
 
-**Ordem de execução recomendada:** `LTM-05` + `LTM-01` → `LTM-02` → `LTM-03` + `LTM-04`.
+**Ordem recomendada:** `/grill-with-docs` → `LTM-01` + `LTM-05` → `LTM-02` → `LTM-03a` + `LTM-04` → `LTM-03b`.
+
+> **Por que o grilling virou porta de entrada e não etapa final.** A `LTM-01` define a forma de
+> `product_numbers` e a `LTM-02` reescreve a reserva. Se a meia cota entra depois, esses dois
+> arquivos são reescritos **duas vezes** no ponto mais delicado do sistema — e a suíte da `LTM-05`
+> nasce provando invariantes que deixarão de valer. Com zero venda real e zero histórico, mudar o
+> modelo agora custa uma conversa; depois custa migração de dados com dinheiro em trânsito.
 
 ### Por que esta ordem
 
 | Aresta | Razão |
 |---|---|
 | `LTM-05` antes de `LTM-02` | O teste de concorrência da reserva é **o critério de aceite** da LTM-02: ele tem que falhar antes e passar depois. Sem a suíte, "ficou atômico" é afirmação sem prova. |
-| `LTM-02` antes de `LTM-03` | Fechar pedido sem transação recria o problema que a LTM-02 resolve — marcar `orders.paid` + `product_numbers.sold` + `banking_transactions` em três `UPDATE` soltos é a mesma classe de bug, agora com dinheiro já capturado. |
+| `LTM-02` antes de `LTM-03a` | Fechar pedido sem transação recria o problema que a LTM-02 resolve — marcar `orders.paid` + `product_numbers.sold` + `banking_transactions` em três `UPDATE` soltos é a mesma classe de bug, agora com dinheiro já capturado. |
 | `LTM-01` independente | Só toca schema e migração. Pode rodar em paralelo com a LTM-05. |
-| `LTM-03` e `LTM-04` em paralelo | Arquivos-fonte disjuntos (ver nota de ondas abaixo). |
+| `LTM-03a` e `LTM-04` em paralelo | Arquivos-fonte disjuntos (ver nota de ondas abaixo). |
+| `LTM-03b` depois da `LTM-03a` | O adaptador se encaixa no arcabouço que a `03a` cria; antes dele não há onde plugar. |
 
 ### Nota para formação de ondas (`.claude/rules/parallel-waves.md`)
 
 - **Onda 1:** `LTM-05` (`tests/`, `package.json`, config de teste) + `LTM-01` (`src/db/schema/raffles.ts`, migração). Arquivos disjuntos.
 - **Onda 2:** `LTM-02` sozinha (`src/db/index.ts`, `src/lib/actions/reserve.ts`, `src/lib/actions/checkout.ts`, `package.json`).
-- **Onda 3:** `LTM-03` (`src/app/api/webhooks/...`, `src/db/schema/payments.ts`) + `LTM-04` (schema de atribuição, `src/lib/actions/reserve.ts`, rotas novas em `src/app/api/v1/`).
+- **Onda 3:** `LTM-03a` + `LTM-04`. ⚠️ **Os conjuntos de arquivo completos vivem nas próprias stories** — foi exatamente a omissão deles que derrubou a `LTM-03` na validação do @po, que achou um terceiro consumidor (`src/lib/validations/payment-gateway.ts`) fora do conjunto declarado.
+- **Onda 4:** `LTM-03b` sozinha. `LTM-06` é independente e cabe em qualquer onda a partir da 2.
 - ⚠️ **Recurso mutável compartilhado:** o journal do Drizzle (`drizzle/meta/_journal.json`) é tocado por qualquer story que gere migração. Duas `drizzle-kit generate` concorrentes colidem. **Serializar o passo de geração de migração** mesmo quando as stories rodam em paralelo.
 
 ---
@@ -161,26 +226,38 @@ Baseline Sorteamos ──► Frente B (paridade)
 |---|---|---|---|
 | LTM-01 (índices) | 9/10 | **GO** | `Ready` |
 | LTM-02 (transação) | 9/10 | **GO** | `Ready` |
-| LTM-03 (webhook) | 6,5/10 | **NO-GO** | `Draft` — 4 correções obrigatórias na própria story |
+| LTM-03 (webhook) | 6,5/10 | **NO-GO** | ✅ **resolvido** — repartida em `LTM-03a` + `LTM-03b` em 2026-11-16 |
 | LTM-04 (atribuição) | 9/10 | **GO** | `Ready` |
 | LTM-05 (testes) | 9/10 | **GO** | `Ready` |
 
 **A onda 1 está liberada.** `LTM-05` e `LTM-01` passaram com rigor extra justamente porque travam a cadeia; a onda 2 (`LTM-02`) também está `Ready`. O NO-GO da `LTM-03` está na **onda 3** e não atrasa nada antes dela — mas precisa de decisão **antes** do despacho da onda 3, e uma das saídas é externa (ver abaixo).
 
-### Contradição de portão que este epic precisa resolver
+### A contradição de portão que existia — e como se desfez
 
-**G5 não pode vir depois de G1 para a `LTM-03`.** O AC11 da `LTM-03` exige que o adaptador da `paysure` nasça de um **aviso real capturado**. Capturar exige credencial ligada — que este epic coloca em **G5**. E G5 vem depois de **G1 (LTM-01 a LTM-05 em Done)**, que contém a `LTM-03`. Ciclo fechado: a story não pode ficar Done.
+O @po apontou um ciclo fechado: o AC11 da `LTM-03` exigia que o adaptador da `paysure` nascesse de um **aviso real capturado**; capturar exigia credencial ligada, que o epic punha em **G5**; e G5 vinha depois de **G1**, que continha a `LTM-03`. A story não podia ficar Done.
 
-A saída que não passa por G5: a `paysure` **já está em produção na Sorteamos**, então o aviso real existe hoje, do outro lado — é captura por observação, não por engenharia. Mas `05-pendente-de-observacao.md` e `06-observacao-ao-vivo.md` registram que a observação parou porque **a sessão do painel expirou**. Portanto:
+**Desfeito em 2026-11-16 pela documentação oficial da Paysure** (`docs/research/2026-11-16-paysure-contrato.md`): o contrato inteiro está publicado — autenticação, payload dos três fluxos, status, reentrega, idempotência, limites e erros. O aviso real passou de **pré-requisito** a **conferência pós-implementação**.
 
-> **Bloqueio externo, dono: founder.** Capturar um aviso real da `paysure` (corpo, cabeçalhos e esquema de verificação) é **pré-requisito da `LTM-03`**, não produto do G5. Enquanto não houver data para isso, a recomendação do @po é **dividir a story** (`LTM-03a` sem a paysure, testável hoje; `LTM-03b` só o adaptador), para a onda 3 não ficar esperando um login.
+E o que a documentação revelou mudou o desenho, não só o cronograma:
+
+| Premissa que estava no código | O que a documentação diz |
+|---|---|
+| assinatura HMAC-SHA256 em `x-webhook-signature` | **não existe assinatura nenhuma** — a orientação é validar o IP de origem da Cloudflare. O HMAC rejeitaria 100% dos avisos |
+| credencial é uma `apiKey` | são **dois** cabeçalhos, `ci` + `cs` |
+| o operador digita um `webhookSecret` | esse segredo **não tem destinatário**: não há onde informá-lo na Paysure |
+| idempotência a inventar | **já existe nos dois sentidos**: `external_id` na saída (409 em repetido) e `reference_code` na entrada |
+
+A substituição da assinatura: como a `postbackUrl` vai **por cobrança**, a autenticidade mora na URL — token opaco por tenant. A rota já tem a forma `[tenant]/[provider]`.
+
+> **O que continua bloqueado, e só isso:** o `ci`/`cs` do Império, que o cliente ainda não repassou. Isso é o portão **G5** e trava o **primeiro pagamento real**, não a implementação. A `LTM-03b` é escrevível hoje.
 
 ### Achados que o epic não registrava
 
 1. **`product_numbers.order_id` não tem FK para `orders`.** É por isso que "número órfão" é alcançável — e é o invariante que `LTM-02` (AC3) e `LTM-05` (AC5-d) verificam por asserção. Criar ou não a FK é decisão de @architect/@data-engineer; passou a ser AC8 da `LTM-01` **registrar a decisão**.
 2. **A lista de provedores existe em duplicata.** `PAYMENT_GATEWAY_PROVIDERS` (`src/lib/validations/payment-gateway.ts`) é uma segunda cópia dos 18 provedores e é **ela** que produz o 404 do webhook, além de alimentar a validação da credencial e a tela de integrações. Acrescentar `paysure` só no `pgEnum` não resolve nada dos três.
-3. **`paymentId`/`paymentEndToEndId` não têm onde morar.** O ETL os lê (`client_api.py:508-509`), e o lotemania só tem `externalReference` em `banking_transactions`. É uma aresta `LTM-03` ↔ `LTM-04` que não estava mapeada, e as duas estão na mesma onda gerando migração.
-4. **B3 não é decisão pendente.** A tabela de Frentes diz que a Frente B tem "3 decisões de produto pendentes (B1/B2/B3)", mas o próprio texto do B3 registra a decisão **já tomada** pelo founder em 2026-11-16 (só `paysure`). Pendentes são B1 e B2.
+3. **`paymentId`/`paymentEndToEndId` não têm onde morar.** O ETL os lê (`client_api.py:508-509`), e o lotemania só tem `externalReference` em `banking_transactions`. É uma aresta `LTM-03a` ↔ `LTM-04` que não estava mapeada, e as duas estão na mesma onda gerando migração. **Confirmado pela documentação da Paysure:** o aviso traz `end_to_end`, então o campo de origem existe e tem nome.
+6. **O aviso da Paysure traz dado pessoal.** `payer_name` e `payer_document` (**CPF**) chegam no corpo, e o corpo inteiro é gravado em `payment_webhook_events.payload`. É dado pessoal entrando no banco por um caminho que ninguém declarou — **portão G7**, e precisa de decisão de retenção **antes** do primeiro aviso real, não depois.
+4. ✅ **B3 não era decisão pendente — corrigido.** A tabela de Frentes diz que a Frente B tem "3 decisões de produto pendentes (B1/B2/B3)", mas o próprio texto do B3 registra a decisão **já tomada** pelo founder em 2026-11-16 (só `paysure`). Pendentes são B1 e B2.
 5. **Os números do BI são uma janela móvel de 7 dias.** Conferidos hoje contra `apps/BI/imperio-premios/data-produto.json`: os estruturais batem exatamente — `numeros_total` = 100 em 100% das rodadas, mediana de esgotamento **1,748 h** (≈ 1,8 h) e mínimo **0,3 h** (18 min ⇒ ~5,5 números/minuto). Já as contagens agregadas andaram com o refresh de hoje (a janela de 7 dias agora dá 193 rodadas e ≈ R$ 701 mil, contra as 177 e R$ 639.325 registradas aqui). **Nada está errado** — é janela móvel. Recomendação: marcar a tabela com a data do snapshot, para a deriva não ser lida como erro de medição mais tarde.
 
 ## Critérios de "pronto para migrar o cliente"
@@ -189,7 +266,8 @@ A migração do Império só é autorizada quando **todos** os sete portões aba
 
 | Portão | Critério | Como se comprova |
 |---|---|---|
-| **G1 — Fundação** | `LTM-01` a `LTM-05` em Done | Suíte verde; o verificador de invariantes da LTM-05 passa no cenário de concorrência |
+| **G0 — Compila** | ✅ **cumprido** — `lint`, `typecheck` e `build` verdes | `LTM-00` Done em 2026-11-16 |
+| **G1 — Fundação** | `LTM-01`, `02`, `03a`, `03b`, `04`, `05` em Done | Suíte verde; o verificador de invariantes da LTM-05 passa no cenário de concorrência |
 | **G2 — Paridade** | Zero tela vazia no caminho do operador do Império; os exports da Sorteamos reproduzidos | Checklist derivado da baseline (`docs/research/2026-11-16-baseline-sorteamos/`), item a item |
 | **G3 — Atribuição e BI** | O ETL (`services/Meta/imperio-premios/client_api.py`) e o CAPI leem o lotemania **sem perda de campo** | Janela de leitura dupla: mesmo período lido das duas plataformas produz o mesmo faturamento e a mesma contagem de pedidos pagos |
 | **G4 — Carga** | Cenário medido executado em staging: 5 rodadas simultâneas de 100 números, esgotando no ritmo do pior caso real (~5,5 números/minuto) | Zero oversell, zero pedido órfão, zero número com dois donos — verificador de invariantes da LTM-05 ao final |
@@ -219,7 +297,10 @@ A migração do Império só é autorizada quando **todos** os sete portões aba
 | Perda de atribuição no dia do corte cega o CAPI e o BI | **Alto** | G3 exige janela de leitura dupla antes do corte, não depois |
 | Criação de índice em tabela grande no momento da importação do histórico | **Médio** | Criar os índices **antes** de importar histórico, com a tabela vazia (ver LTM-01) |
 | Migração de dados pessoais do Império para artefato versionado | **Médio** | G7 — política já escrita no `.gitignore` desde 2026-11-12 |
-| Cota dividida entrar antes da fundação fechar | **Médio** | Frente C explicitamente bloqueada por A; registrado acima |
+| Meia cota modelada **depois** de `LTM-01`/`LTM-02` | **Alto** | Invertido em 2026-11-16: o `/grill-with-docs` virou **porta de entrada**. Reescrever a reserva para um dono e depois para dois é refazer o ponto mais delicado do sistema, e a suíte da `LTM-05` nasceria provando invariantes que deixariam de valer |
+| Meia cota entrar sem a suíte de teste pronta | **Alto** | A `LTM-05` continua antes da implementação. O que mudou foi a **modelagem** vir antes, não a implementação pular o teste |
+| Adaptador da Paysure escrito sobre premissa errada | **Médio** | Já aconteceu uma vez nesta base (o `x-webhook-signature` inventado). Mitigado pelo contrato documentado e pela conferência contra o primeiro aviso real, que a `LTM-03b` exige registrar |
+| CPF do pagador entrando em `payment_webhook_events` sem política | **Médio** | Portão G7; decisão de retenção antes do primeiro aviso real |
 | Driver WebSocket (`neon-serverless`) se comportar diferente no runtime do Next | **Médio** | LTM-02 exige smoke em `next build` + `next start`, não só em teste |
 
 ---
