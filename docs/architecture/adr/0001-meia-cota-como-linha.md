@@ -131,8 +131,8 @@ irrelevante para Postgres **com índice**, e o índice é escopo da `LTM-01` de 
    as duas metades de um **mesmo** pedido, que expiram juntas por construção e devem. Escrita sem
    qualificar, ela produz o mesmo defeito do invariante 4: um teste que falha com o sistema
    correto. Ver a nota abaixo.
-4. O rateio de um título sorteado soma **o prêmio**, ou **o prêmio + R$ 0,01** quando o prêmio tem
-   centavo ímpar — **nunca menos**. Ver a decisão de arredondamento abaixo.
+4. O rateio de um título sorteado soma **exatamente** o prêmio do título — nem centavo a mais, nem
+   a menos. Ver a decisão sobre prêmio divisível abaixo.
 5. Metade órfã em título sorteado paga o prêmio **inteiro** a quem tem a metade vendida.
 
 > **Invariante 3 já está satisfeito por construção, e isso precisa ser dito** para ninguém mitigar
@@ -150,24 +150,30 @@ Encontrados na revalidação, e nenhum deles estava neste ADR:
 1. **`winners` não tem onde marcar a metade.** A tabela tem `winning_number`, e nada mais. Duas
    linhas para o mesmo número são indistinguíveis de duplicata acidental, e o feed público de
    ganhadores só sabe dizer "42" — contra a regra **metade marcada** do `GLOSSARY.md`.
-2. **O rateio não fecha em `numeric(12,2)`.** `prize_amount` tem duas casas; metade de
-   R$ 100.000,01 é R$ 50.000,005, que **não é representável**.
+2. **O rateio precisa de prêmio divisível — e isso virou restrição, não arredondamento.**
+   `prize_amount` tem duas casas; metade de R$ 100.000,01 seria R$ 50.000,005, que não é
+   representável.
 
-   **Decidido pelo founder em 2026-11-17: arredondar os dois para cima.** Prêmio com centavo ímpar
-   produz duas metades de R$ 50.000,01 — o operador paga **R$ 0,01 a mais** que o prêmio
-   anunciado, e nenhum ganhador recebe a menos.
+   **Decidido pelo founder em 2026-11-17, em duas etapas.** A primeira decisão foi arredondar as
+   duas metades para cima. Depois ele corrigiu a **premissa**: na operação do Império os prêmios
+   são **sempre valores cheios**, de divisão limpa quando há dois ganhadores. Um prêmio com
+   centavo ímpar não é um caso raro a tratar — é um caso que **não existe**.
 
-   ⚠️ **Isto reescreve o invariante 4.** A redação anterior — *"a soma dos rateios é **exatamente**
-   o prêmio"* — passa a ser **falsa** por um centavo quando o prêmio é ímpar. Mantê-la produziria
-   um teste que falha com o sistema correto, que é precisamente o defeito que o @po encontrou na
-   `LTM-05`. A forma verdadeira e testável:
+   Isso torna disponível uma saída melhor que arredondar: **o sistema recusa habilitar
+   divisibilidade em sorteio cujo prêmio não divida exato em centavos.** A verificação é a mesma
+   família da que já existe (recusar prêmio não monetário), e o ganho é grande:
 
-   > A soma dos rateios de um título sorteado é **o prêmio**, ou **o prêmio + R$ 0,01** quando o
-   > prêmio tem centavo ímpar. **Nunca menos.** Nenhum ganhador recebe menos que a sua fração
-   > arredondada para cima.
+   - o **invariante 4 volta à forma forte** — a soma é *exatamente* o prêmio, sem exceção e sem
+     ramo condicional no teste;
+   - some a assimetria "o operador paga um centavo a mais", que era custo pequeno mas real;
+   - some a pergunta "quem fica com o centavo", que seria reaberta por todo mundo que lesse o
+     código depois.
 
-   A assimetria é deliberada: o erro cai do lado do operador, nunca do ganhador. Um centavo a mais
-   é custo; um centavo a menos é disputa.
+   **Regra de desenho que isto deixa:** quando o dono do negócio diz que um caso não ocorre, a
+   resposta boa raramente é tratá-lo com uma política de desempate — é **proibi-lo na entrada** e
+   manter o invariante limpo. Tratar faz o sistema carregar para sempre a complexidade de um caso
+   que nunca chega; proibir faz a restrição aparecer na hora em que alguém tentar criar o caso,
+   que é quando a decisão ainda é barata.
 
 ## Decisões de domínio que acompanham esta
 

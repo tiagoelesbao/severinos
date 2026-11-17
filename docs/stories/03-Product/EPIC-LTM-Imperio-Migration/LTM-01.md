@@ -58,6 +58,9 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 ## Tarefas (Checklist)
 
 - [ ] `src/db/schema/raffles.ts`: coluna `half` (`integer`, `NOT NULL`, default `1`) em `productNumbers`, mais o terceiro argumento com `uniqueIndex` `(product_id, number, half)`, índice `(order_id)` e índice parcial de expiração.
+- [ ] `src/db/schema/raffles.ts`: **o marcador de divisibilidade em `products`** — subido para cá em 2026-11-17 por uma razão de custo, não de escopo: aqui ele entra na **mesma migração** que o `half`; na `LTM-07`, uma onda depois, seria migração nova sobre tabela que já começou a ser usada.
+  - **E ele destrava um ciclo que o @po encontrou.** O preço da meia cota caiu num vão: a `LTM-07` riscou `amount` dizendo "a `LTM-02` entrega", a `LTM-02` não o menciona, e cobrar metade exige saber se o sorteio é divisível — marcador que estava na `LTM-07`, **uma onda depois da `LTM-02`**. Com o marcador aqui, a `LTM-02` tem o que ler quando precisa.
+  - Esta story **só cria a coluna**. As regras que a governam (recusar prêmio não divisível, congelar na primeira venda) continuam na `LTM-07`.
 - [ ] `src/db/schema/raffles.ts`: índices em `orders` conforme os acessos comprovados por `EXPLAIN`.
 - [ ] Corrigir o comentário sobre indexação para refletir o que de fato existe.
 - [ ] Gerar a migração (`pnpm db:generate`) e revisar o SQL emitido à mão antes de aplicar — índice parcial e `uniqueIndex` são os dois pontos onde o Drizzle Kit costuma emitir algo diferente do pretendido.
@@ -90,7 +93,7 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 
 - **Nenhuma bloqueante.** Pode rodar na Onda 1, em paralelo com a LTM-05.
 - **Habilita a LTM-02:** a unicidade `(product_id, number, half)` do AC1 é a premissa que torna o `UPDATE` condicional da reserva atômico. A LTM-02 constrói sobre ela — e, com a fusão decidida em 2026-11-17, já reescreve a reserva na forma de metades.
-- **Habilita a LTM-07:** esta story entrega a coluna `half`; a `LTM-07` a consome e não toca `src/db/schema/raffles.ts`.
+- **Habilita a LTM-07 e a LTM-02:** esta story entrega a coluna `half` **e o marcador de divisibilidade**; a `LTM-07` consome os dois e não toca `src/db/schema/raffles.ts`, e a `LTM-02` lê o marcador para calcular o preço da unidade.
 - O teste do AC1 precisa da base de teste da LTM-05 — se a LTM-05 não estiver pronta, o teste entra junto com ela e esta story registra a pendência.
 - ⚠️ **Recurso mutável compartilhado:** gera migração — o journal do Drizzle (`drizzle/meta/_journal.json`) não suporta duas gerações concorrentes. Serializar esse passo.
 

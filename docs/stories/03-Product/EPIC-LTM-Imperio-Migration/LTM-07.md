@@ -91,7 +91,8 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
 
 ### Regras
 
-- [ ] Habilitar divisibilidade **recusa** sorteio cujo prêmio não seja em dinheiro.
+- [ ] Habilitar divisibilidade **recusa** sorteio cujo prêmio não seja em dinheiro **nem divida
+      exato em centavos** — as duas recusas, com motivos distintos.
 - [ ] Divisibilidade vira **somente-leitura na primeira venda**.
 - [ ] Geração dos títulos do sorteio cria uma ou duas linhas por número conforme a divisibilidade.
 
@@ -124,14 +125,13 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
     validação): elas expiram **juntas, sempre**, e devem. Um título inteiro que
     expirasse pela metade seria o defeito. O caso que vale provar é o de pedidos **diferentes** —
     que é o que acontece quando duas pessoas compram as duas metades do mesmo título.
-- [ ] **AC4 (o rateio fecha, com o centavo do lado certo):** a soma dos `prize_amount` das linhas
-      de `winners` de um título sorteado é **o prêmio**, ou **o prêmio + R$ 0,01** quando o prêmio
-      tem centavo ímpar. **Nunca menos.** Teste com R$ 100.000,01 → duas linhas de R$ 50.000,01.
-  - **Política decidida pelo founder em 2026-11-17: arredondar as duas metades para cima.** O
-    operador paga um centavo a mais; nenhum ganhador recebe a menos. A assimetria é deliberada —
-    um centavo a mais é custo, um centavo a menos é disputa. A redação anterior ("exatamente o
-    prêmio") ficaria **falsa com o sistema correto**, que é o defeito que o @po encontrou na
-    `LTM-05`.
+- [ ] **AC4 (o rateio fecha exato):** a soma dos `prize_amount` das linhas de `winners` de um
+      título sorteado é **exatamente** o prêmio do título. Nem um centavo a mais, nem a menos.
+  - **A política de arredondamento foi substituída por uma restrição** (founder, 2026-11-17). Ele
+    corrigiu a premissa: na operação do Império os prêmios são **sempre valores cheios**, de
+    divisão limpa. Prêmio com centavo ímpar não é caso raro — é caso que **não existe**. Então o
+    sistema o **recusa na entrada** (AC12) em vez de desempatar na saída, e este AC volta à forma
+    forte, sem ramo condicional.
 - [ ] **AC5 (metade órfã paga inteiro):** título com uma metade vendida e uma não vendida, sorteado
       → **uma** linha de `winners` com o prêmio **integral**.
 - [ ] **AC6 (duas metades do mesmo dono não se fundem):** quem compra as duas metades do 42 aparece
@@ -150,8 +150,12 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
       passa sem alteração. É o que garante que as 5 rodadas/dia do Império não mudam de forma.
 - [ ] **AC9 (congelamento):** tentar alterar a divisibilidade de um sorteio com pelo menos uma
       venda falha com motivo nomeado, e **não** altera nada.
-- [ ] **AC10 (prêmio divisível):** habilitar divisibilidade em sorteio cujo prêmio não é dinheiro
-      falha com motivo nomeado.
+- [ ] **AC10 (prêmio em dinheiro):** habilitar divisibilidade em sorteio cujo prêmio não é
+      dinheiro falha com motivo nomeado.
+- [ ] **AC12 (prêmio divisível em centavos):** habilitar divisibilidade em sorteio cujo prêmio
+      **não divide exato em centavos** falha com motivo nomeado, dizendo qual é o prêmio e por que
+      ele não serve. Teste com R$ 100.000,01 → recusa; com R$ 100.000,00 → aceita. É o que mantém
+      o AC4 na forma exata.
 
 ## Escopo
 
@@ -229,7 +233,7 @@ As quatro abaixo estão em `Ready` ou `Draft` com escopo escrito **antes** desta
 ### Agent Model Used
 _(preencher na implementação)_
 
-### Política de arredondamento escolhida para o AC4
+### Prêmio divisível — decisão registrada (AC12)
 _(registrar a decisão e quem decidiu)_
 
 ### Notas

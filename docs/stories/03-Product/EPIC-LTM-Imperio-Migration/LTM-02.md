@@ -130,7 +130,9 @@ apps/lotemania/src/lib/actions/checkout.ts    simulatePayment transacional
 apps/lotemania/package.json                   dependencia do driver WebSocket
 ```
 
-**Depends-on:** `LTM-01` (a coluna `half` e os índices) · `LTM-05` (a suíte que prova).
+**Depends-on:** `LTM-01` (a coluna `half`, **o marcador de divisibilidade** e os índices) · `LTM-05` (a suíte que prova).
+
+> **O preço da unidade é desta story, e isso fecha um ciclo.** O @po encontrou `amount` num vão: a `LTM-07` o riscou dizendo "a `LTM-02` entrega", e esta story não o mencionava. Cobrar metade exige saber se o sorteio é divisível — por isso o marcador subiu para a `LTM-01` em 2026-11-17, e esta story passa a lê-lo. **Acrescentar à checklist:** `amount` calculado na unidade do sorteio, metade custando exatamente metade, sem ágio.
 
 ⚠️ **`reserve.ts` é exclusivo desta story.** A `LTM-07` **não** o toca — recorte decidido em
 2026-11-17. `package.json` é disputado com a `LTM-05` (scripts de teste): chaves diferentes do
