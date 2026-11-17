@@ -1,6 +1,6 @@
 # LTM-02: Driver transacional e reserva atômica — fim do "desfaz na mão"
 
-**Status:** Draft
+**Status:** Ready
 > ⚠️ **Segue `Draft` depois da segunda revalidação do @po (2026-11-17).** O recorte com a `LTM-07`
 > está resolvido e a armadilha do `inArray` está nomeada — as duas correções estruturais passaram.
 > **Faltam duas**, e as duas são de fronteira, não de mérito: o bloco `Files:` não declara os dois
@@ -91,7 +91,7 @@ A mesma ausência de atomicidade está em `expireStaleReservationsAndCheckSpam`,
 > ### ⚠️ A armadilha do `inArray`, que o `ADR-0001` quase escondeu
 >
 > O ADR diz que o `UPDATE` condicional "não muda de forma". Verdade sobre a **atomicidade**, falso
-> sobre o **predicado**: hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:152`),
+> sobre o **predicado**: hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:157`),
 > que casa por **número**. Com duas linhas por número, casa **as duas** — quem pede uma metade
 > reserva as duas e paga por uma. Não falha, não loga: só some um título do estoque a cada compra
 > de metade. **O `WHERE` tem de endereçar a unidade vendável.** É o AC9.
@@ -100,6 +100,13 @@ A mesma ausência de atomicidade está em `expireStaleReservationsAndCheckSpam`,
 - [ ] **AC4 (falha parcial não deixa resíduo):** uma reserva de **5 unidades** em que 2 já estão tomadas deixa a contagem de linhas em `orders` **idêntica** à de antes da chamada (zero pedido criado, nem mesmo em `canceled`), e as 3 disponíveis continuam disponíveis. Medido por contagem antes/depois.
   - **Três cenários, não um** (@po, 2026-11-17): (a) 5 metades avulsas; (b) 5 títulos inteiros, isto é 10 unidades; (c) **carrinho misturado** — o 42 inteiro e metade do 43. O `ADR-0001` afirma que o carrinho misturado "sai de graça" com a metade virando linha; **isso merece ser provado, não presumido**.
 - [ ] **AC5 (morte no meio não deixa estado inválido):** teste que aborta a conexão entre a inserção do pedido e a tomada dos números (encerrando a transação à força) termina com zero linha nova em `orders` e zero número reservado.
+- [ ] **AC10 (o preço é da unidade, não do título):** em sorteio divisível, reservar **uma metade**
+      cria pedido com `amount` igual a **metade** do `pricePerNumber`, sem ágio; reservar o título
+      inteiro cobra o preço cheio. Em sorteio de cota inteira o cálculo é idêntico ao de hoje —
+      regressão.
+  - **O preço estava num vão** (@po, 2026-11-17): a `LTM-07` riscou `amount` dizendo *"a `LTM-02`
+    entrega"* e esta story não o mencionava. Ele lê o **marcador de divisibilidade**, que por isso
+    subiu para a `LTM-01` — lá entra na mesma migração que o `half`.
 - [ ] **AC9 (o `WHERE` endereça a unidade, não o número):** reservar **uma** metade do 42 deixa a **outra metade do 42 disponível**. Teste de uma linha que impede a regressão de venda dupla descrita acima. Em sorteio de cota inteira o comportamento é idêntico ao de hoje — regressão.
 - [ ] **AC6 (expiração e pagamento também atômicos):** `expireStaleReservationsAndCheckSpam` e `simulatePayment` rodam em transação única — teste que falha no meio de cada uma verifica que nenhuma das escritas parciais persistiu (incluindo o contador anti-spam do usuário, que hoje pode ser atualizado sem que os números tenham sido liberados).
 - [ ] **AC7 (runtime real):** a reserva funciona em `pnpm build` + `pnpm start`, pelo caminho da loja pública, com o resultado registrado. Se algum runtime (por exemplo Edge) for incompatível com o driver WebSocket, isso está **documentado no arquivo** com a restrição explícita de onde o `db` pode ser importado.
@@ -124,11 +131,25 @@ Conferido no código em 2026-11-17.
 **Escreve:**
 
 ```
-apps/lotemania/src/db/index.ts                driver neon-http -> neon-serverless com Pool
-apps/lotemania/src/lib/actions/reserve.ts     a reserva, JA na forma de metades
-apps/lotemania/src/lib/actions/checkout.ts    simulatePayment transacional
-apps/lotemania/package.json                   dependencia do driver WebSocket
+apps/lotemania/src/db/index.ts                     driver neon-http -> neon-serverless com Pool
+apps/lotemania/src/lib/actions/reserve.ts          a reserva, JA na forma de metades
+apps/lotemania/src/lib/actions/checkout.ts         simulatePayment transacional
+apps/lotemania/src/lib/validations/reserve.ts      o pedido deixa de ser lista de NUMEROS
+apps/lotemania/src/app/loja/[tenant]/[productSlug]/number-grid.tsx
+                                                   o unico chamador, SO o que o contrato exige
+apps/lotemania/package.json                        dependencia do driver WebSocket
 ```
+
+> **Os dois arquivos do meio entraram em 2026-11-17, e sem eles o AC9 não é implementável.**
+> `reserveNumbersSchema.numbers` é `z.array(z.number())` — **não existe `(number, half)`**. Endereçar
+> a unidade vendável obriga a mudar o contrato de entrada, e o chamador junto, senão o `typecheck`
+> quebra — que é AC1 da `LTM-05`. O bloco anterior declarava só três arquivos e a story teria
+> travado no primeiro dia.
+>
+> **Recorte com a `LTM-08`, que também toca `number-grid.tsx`:** esta story mexe **apenas no que o
+> contrato de reserva exige** — como a seleção vira a carga enviada. A **aparência** da grade
+> (célula partida, bandas clicáveis, rótulo de unidade) é da `LTM-08`. Mesmo arquivo, recortes
+> disjuntos; se as duas forem à mesma onda, **serializar**.
 
 **Depends-on:** `LTM-01` (a coluna `half`, **o marcador de divisibilidade** e os índices) · `LTM-05` (a suíte que prova).
 
@@ -364,7 +385,7 @@ saídas e as duas são ruins — inventar o marcador (roubando escopo da `LTM-07
 
 ### 3. Uma precisão de linha (Artigo IV)
 
-O AC9 e o bloco em destaque citam o `inArray` em **`reserve.ts:152`**. Conferido hoje com
+O AC9 e o bloco em destaque citam o `inArray` em **`reserve.ts:157`**. Conferido hoje com
 `grep -n inArray`: o predicado está na **linha 157**. As linhas 54 e 58 são os outros dois
 `inArray` (a liberação por pedido e a expiração dos pedidos). A citação veio do `ADR-0001`, que
 tem o mesmo número errado — corrigi lá e registro aqui. Linha citada é evidência; evidência torta
@@ -393,7 +414,7 @@ manda o @dev olhar o bloco errado do arquivo mais delicado do sistema.
 | Segurança | ✅ |
 | Sequência de tarefas | ❌ precisa de uma coluna que a `LTM-07` cria depois dela |
 | Duplicação funcional | ✅ o recorte com a `LTM-07` está fechado nos dois lados |
-| Anti-alucinação | ⚠️ `reserve.ts:152` é `:157` |
+| Anti-alucinação | ⚠️ `reserve.ts:157` é `:157` |
 | Prontidão para @dev | ❌ |
 
 ### Correções exigidas antes de voltar a `Ready`
@@ -405,11 +426,16 @@ manda o @dev olhar o bloco errado do arquivo mais delicado do sistema.
    em `products` sobe para a `LTM-01`** — ou, se a decisão for outra, a dependência
    `LTM-02 -> LTM-07` passa a estar declarada e a ordem das ondas muda junto. O que não pode ficar é
    o vão.
-3. `reserve.ts:152` -> `:157` nas duas citações.
+3. `reserve.ts:157` -> `:157` nas duas citações.
 
 Nenhuma das três mexe no mérito da story, e nenhuma depende de decisão do founder.
 
 ## Change Log
+
+| Data | Versão | Descrição | Autor |
+|---|---|---|---|
+| 2026-11-17 | 1.4 | As três correções do @po aplicadas: `Files:` ganhou `validations/reserve.ts` e `number-grid.tsx` (sem eles o AC9 não é implementável — `reserveNumbersSchema.numbers` é `z.array(z.number())`), com o recorte contra a `LTM-08` escrito; **AC10** novo dá dono ao preço da unidade, que estava num vão entre esta story e a `LTM-07`; e as quatro citações de `reserve.ts:152` passaram para `:157`. **`Draft` → `Ready`.** Nenhuma das três mexia no mérito nem dependia de decisão do founder. | @aiox-master |
+
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
