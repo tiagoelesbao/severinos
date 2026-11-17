@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { CircleCheck } from "lucide-react";
 import { formatCurrency } from "@/lib/format";
 import { reserveSelectedNumbers } from "@/lib/actions/reserve";
 import { AvailabilityWarning } from "./raffle-extras";
@@ -70,23 +71,27 @@ export function NumberGrid({
     });
   }
 
+  // Valores medidos na loja da Sorteamos com getComputedStyle, nao escolhidos.
+  // Ver docs/research/2026-11-17-paridade-visual-loja.md. Tokens semanticos do
+  // Tailwind (bg-muted, bg-yellow-400, bg-emerald-500) foram o que causou a
+  // divergencia visual: sao cores parecidas, nao as mesmas.
   const colorFor: Record<NumberStatus | "selected", string> = {
-    available: "bg-muted hover:bg-muted/70 text-muted-foreground",
-    reserved: "bg-yellow-400 text-black",
-    sold: "bg-emerald-500 text-white",
-    selected: "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background",
+    available: "bg-[#37495d] text-white hover:bg-[#37495d]/80",
+    reserved: "bg-[#ffeb3b] text-black",
+    sold: "bg-[#4caf50] text-black",
+    selected: "bg-[#266c58] text-white",
   };
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2 text-xs font-medium">
-        <span className="flex-1 rounded-full bg-muted px-3 py-2 text-center text-muted-foreground">
+        <span className="flex-1 rounded-[5px] bg-[#6c757d] px-3 py-2 text-center text-white">
           {counts.available} Livres
         </span>
-        <span className="flex-1 rounded-full bg-yellow-400 px-3 py-2 text-center text-black">
+        <span className="flex-1 rounded-[5px] bg-[#ffeb3b] px-3 py-2 text-center text-black">
           {counts.reserved} Reservados
         </span>
-        <span className="flex-1 rounded-full bg-emerald-500 px-3 py-2 text-center text-white">
+        <span className="flex-1 rounded-[5px] bg-[#4caf50] px-3 py-2 text-center text-black">
           {counts.sold} Pagos
         </span>
       </div>
@@ -102,7 +107,7 @@ export function NumberGrid({
               type="button"
               disabled={status !== "available"}
               onClick={() => toggle(number, status)}
-              className={`rounded-md py-2 text-xs font-mono font-medium tabular-nums transition-colors disabled:cursor-default ${
+              className={`rounded-[4px] py-2 text-xs font-normal tabular-nums transition-colors duration-300 ease-in-out disabled:cursor-default shadow-[0_0_2px_rgba(0,0,0,0.2),0_12px_24px_-4px_rgba(0,0,0,0.12)] ${
                 isSelected ? colorFor.selected : colorFor[status]
               }`}
             >
@@ -112,31 +117,36 @@ export function NumberGrid({
         })}
       </div>
 
+      {/* Fixa no rodape, nao `sticky` dentro do fluxo: na loja da Sorteamos
+          isto e a barra do app, com topo arredondado e sem borda. Medido. */}
       {selected.length > 0 && (
-        <div className="sticky bottom-4 flex items-center justify-between gap-4 rounded-lg border bg-background p-3 shadow-lg">
+        <div className="fixed inset-x-0 bottom-0 z-[999] flex flex-col gap-2 rounded-t-2xl bg-[#161c24] px-4 pb-4 pt-3">
           <div className="flex flex-wrap gap-1">
             {selected.slice(0, 8).map((n) => (
               <span
                 key={n}
-                className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-xs text-primary"
+                className="rounded-[6px] bg-[#198754] px-2 py-0.5 text-xs text-white"
               >
                 {String(n).padStart(2, "0")}
               </span>
             ))}
             {selected.length > 8 && (
-              <span className="text-xs text-muted-foreground">
-                +{selected.length - 8}
-              </span>
+              <span className="text-xs text-white/70">+{selected.length - 8}</span>
             )}
           </div>
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-sm font-semibold tabular-nums">
+          <button
+            type="button"
+            onClick={() => setCheckoutOpen(true)}
+            className="flex h-[60px] w-full items-center justify-between rounded-[5px] bg-[#198754] px-4 text-white shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),0_2px_2px_0_rgba(0,0,0,0.14),0_1px_5px_0_rgba(0,0,0,0.12)]"
+          >
+            <span className="flex items-center gap-2 text-base font-normal">
+              <CircleCheck className="size-5" />
+              Quero participar
+            </span>
+            <span className="text-base font-semibold tabular-nums">
               {formatCurrency(total)}
             </span>
-            <Button size="sm" onClick={() => setCheckoutOpen(true)}>
-              Quero participar
-            </Button>
-          </div>
+          </button>
         </div>
       )}
 
