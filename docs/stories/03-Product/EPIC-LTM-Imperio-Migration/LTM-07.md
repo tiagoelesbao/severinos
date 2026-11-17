@@ -1,6 +1,10 @@
 # LTM-07: A meia cota — o domínio
 
 **Status:** Draft
+> ⚠️ **Segue `Draft` depois da segunda validação do @po (2026-11-17).** O recorte, o AC3, o AC4 e o
+> AC11 fecharam. **Faltam três**, e a primeira é grave: o *Contexto* desta story ainda repete, como
+> se fosse verdade, a frase que o `ADR-0001` corrigiu hoje por *"estar errada o bastante para causar
+> dano"* — e é o Contexto que o @dev lê antes de implementar. Ver *Validação 2 @po (2026-11-17)*.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente C — a feature que o cliente pediu)
 **Prioridade:** **P0** — entra no primeiro sorteio de teste, e define a forma de `reserve.ts` antes de a `LTM-02` reescrevê-lo
 **Complexidade:** L — schema, reserva e rateio. A superfície está na `LTM-08`
@@ -44,8 +48,18 @@ driver `neon-http` não suporta), sem leitura-antes-de-escrever. A condição de
 
 **A metade é uma linha, não uma coluna** (ADR-0001). Num sorteio divisível, `product_numbers` tem
 uma linha por metade — 100 títulos são 200 linhas — e comprar inteiro é reservar as duas linhas
-daquele número **na mesma instrução**. O `UPDATE` condicional **não muda de forma** e a
-conferência de contagem continua valendo sem alteração.
+daquele número **na mesma instrução**.
+
+⚠️ **Atenção ao que muda e ao que não muda — a redação anterior deste parágrafo estava errada**
+(@po, 2026-11-17; o `ADR-0001` foi corrigido no mesmo sentido):
+
+| | |
+|---|---|
+| **Não muda** | a **atomicidade**. A condição `status = 'available'` dentro do próprio `UPDATE` continua fazendo o banco resolver a disputa, e `reserved.length < pedidos.length` continua detectando quem perdeu. Sem travamento novo, sem leitura-antes-de-escrever |
+| **Muda, e é obrigatório** | o **predicado**. Hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:157`), que casa por **número** — com duas linhas por número, casa **as duas**: quem pede uma metade reserva as duas e paga por uma. O `WHERE` tem de endereçar a **unidade vendável**. Quem implementa isso é a **`LTM-02`** (AC9 de lá), por força do recorte abaixo |
+
+A frase anterior — *"o `UPDATE` condicional não muda de forma"* — lida ao pé da letra por um @dev
+em YOLO, entrega venda dupla silenciosa com o ADR na mão como justificativa.
 
 Sorteio de cota inteira é o caso degenerado de uma metade só: segue com uma linha por título.
 
@@ -62,8 +76,15 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
       2026-11-17. Esta story **lê** a coluna e **não toca** `src/db/schema/raffles.ts` nem
       `src/lib/actions/reserve.ts`. Era a colisão que o @po apontou.
 - [ ] `products`: marcador de **sorteio divisível** e a **unidade** derivada dele.
-- [ ] `orders`: campo **explícito** para a unidade e para a contagem na unidade do sorteio.
-      **Não reinterpretar `quantity`** — ver AC7.
+- [ ] `orders`: campo **explícito de unidade**. ⚠️ **A decisão está fechada no `ADR-0001` e esta
+      linha ainda dizia o contrário** (@po, 2026-11-17). A forma decidida é: **`quantity` continua
+      contando o que o pedido contém** — que num sorteio divisível são **metades**, porque é o que a
+      reserva de fato criou, e mentir ali dessincroniza o pedido do estoque — **e o pedido carrega
+      um campo explícito de unidade** para que nenhum consumidor descubra a unidade por adivinhação.
+      A redação anterior (*"não reinterpretar `quantity`"*) implicava o oposto: `quantity` contando
+      títulos e a contagem de metades num campo novo. As duas formas são defensáveis; **só uma está
+      no ADR**, e divergir dela em silêncio é o que cega o BI (`bi_aggregator.py:1099` soma
+      `"Quantidade"`). Ver AC7, que passa a ter de afirmar **qual** forma, não só "é distinguível".
 - [ ] `winners`: já comporta uma linha por ganhador; confirmar que nada no código assume uma
       linha por `winning_number`.
 - [ ] Migração versionada — depende do regime da `LTM-01`.
@@ -97,8 +118,10 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
       da metade B do 42, que pertence ao **pedido Y**. Contagens antes/depois.
   - ⚠️ **A redação anterior mandava provar algo falso** (@po, 2026-11-17). Ela dizia "expirar a
     metade A não toca a metade B", sem qualificar. Metades do **mesmo** pedido nascem no mesmo
-    `UPDATE`, com o mesmo `reservedUntil`, e a varredura libera **por pedido**
-    (`reserve.ts:110-113`): elas expiram **juntas, sempre**, e devem. Um título inteiro que
+    `UPDATE`, com o mesmo `reservedUntil`, e a varredura libera **por pedido** —
+    `inArray(productNumbers.orderId, expiredIds)`, em **`reserve.ts:51-58`** (a citação anterior,
+    `:110-113`, estava errada: aquele bloco é a conferência de telefone bloqueado. Corrigido na 2ª
+    validação): elas expiram **juntas, sempre**, e devem. Um título inteiro que
     expirasse pela metade seria o defeito. O caso que vale provar é o de pedidos **diferentes** —
     que é o que acontece quando duas pessoas compram as duas metades do mesmo título.
 - [ ] **AC4 (o rateio fecha, com o centavo do lado certo):** a soma dos `prize_amount` das linhas
@@ -326,9 +349,103 @@ na story (ex.: o centavo ímpar vai para a metade de menor ordinal), confirmáve
 | Anti-alucinação | ✅ ancorada no `ADR-0001` e no código; zero número sem fonte |
 | Prontidão para @dev | ❌ |
 
+## Validação 2 @po (2026-11-17) — quatro fecharam, três abertas
+
+**Veredicto: NO-GO — 6,5/10.** Permanece `Draft`. **Onda 3 ou posterior** — não atrasa a onda 1.
+
+| Correção exigida na 1ª validação | Estado |
+|---|---|
+| 1. Bloco `Files:`/`Resources:`/`Depends-on:` + recorte escrito | ✅ e exemplar: o recorte está **riscado nas duas listas de tarefas**, aqui e na `LTM-02`, e o bloco "**NÃO toca**" nomeia os dois arquivos que saíram com o motivo. É o padrão que eu quero ver nas outras |
+| 2. AC3 entre **pedidos diferentes** | ✅ e com a razão escrita, que é o que impede alguém de "consertar" a expiração do título inteiro |
+| 3. Armadilha do `inArray` nomeada | ⚠️ **deslocada, não resolvida aqui** — ver item 1 abaixo |
+| 4a. `quantity`: escolher uma das duas formas | ❌ o ADR escolheu; **esta story ainda diz o contrário** — ver item 2 |
+| 4b. `winners` com marcador de metade | ✅ **AC11**, com a alternativa aceita explicitada (decidir que não distingue, mas então corrigir o `GLOSSARY` junto, não ignorá-lo) |
+| 5. Política de arredondamento no AC4 | ✅ **e melhor do que eu pedi.** Eu sugeri "o centavo ímpar vai para a metade de menor ordinal"; o founder decidiu **arredondar as duas para cima**, e essa decisão é superior: a minha deixava uma metade recebendo um centavo menos que a outra, isto é, o erro caindo sobre **um ganhador**. A do founder faz o erro cair sobre o **operador**. Um centavo a mais é custo; um centavo a menos é disputa. Registro a mudança de opinião: o invariante 4 do ADR reescrito está certo e o meu estava pior |
+
+### 1. O *Contexto* ainda ensina o erro que o ADR corrigiu hoje
+
+O `ADR-0001` foi corrigido nesta data e diz, sobre a própria frase anterior: *"isso estava errado o
+bastante para causar dano"*. A frase era *"o `UPDATE` condicional não muda de forma"*.
+
+**Ela continuava aqui, no *Contexto*, palavra por palavra** — seguida de *"e a conferência de
+contagem continua valendo sem alteração"*. O Contexto é o que o @dev lê **antes** de implementar; o
+histórico de validação é o que ele lê depois, se ler. A correção do ADR não se propaga sozinha.
+
+**Corrigido nesta validação**, com a tabela "não muda / muda" e o ponteiro para o AC9 da `LTM-02`.
+Aceito que a armadilha seja **implementada** lá (foi o recorte, e está certo) — o que não podia
+continuar é esta story afirmando que não existe armadilha.
+
+### 2. `quantity`: o ADR fechou e a lista de tarefas ficou com a forma oposta
+
+A tarefa dizia: *"`orders`: campo explícito para a unidade **e para a contagem na unidade** do
+sorteio. **Não reinterpretar `quantity`**"* — isto é, `quantity` continua contando títulos.
+
+O `ADR-0001`, depois da correção de hoje, decide o contrário e sem ambiguidade: **`quantity` conta
+o que o pedido contém** (metades, em sorteio divisível) **mais um campo explícito de unidade**.
+
+As duas formas são defensáveis — eu disse isso na 1ª validação e mantenho. **O que não é
+defensável é a story e o ADR apontarem para lados opostos**, porque a consequência não é teórica:
+`bi_aggregator.py:1099` faz `numeros_vendidos = ("Quantidade", "sum")`, e as duas formas produzem
+números diferentes no painel que decide investimento de mídia.
+
+Reescrevi a tarefa na forma do ADR. **Fica uma correção para o autor da story:** o **AC7** ainda
+afirma apenas que a unidade é *"distinguível por campo explícito"* — o que é verdade nas duas
+formas, e portanto não testa a decisão. O AC7 tem de afirmar **qual** forma: num pedido de sorteio
+divisível de 3 metades, `quantity` vale **3** e o campo de unidade diz **metade**.
+
+### 3. O `Files:` subdeclara o que esta story escreve no arquivo disputado
+
+O bloco diz, sobre `src/db/schema/raffles.ts`: *"**SÓ** o marcador de divisibilidade em `products`
+e, se o AC11 exigir, o marcador de metade em `winners`"*.
+
+Mas a lista de tarefas também cria **o campo de unidade em `orders`** — e `orders` vive no **mesmo
+arquivo** (`raffles.ts:93`). Subdeclarar o que se escreve num arquivo **disputado com a `LTM-01`** é
+como se forma colisão de onda achando que não há colisão. São blocos diferentes do mesmo arquivo, a
+serialização já está declarada, e o conserto é de uma linha — mas tem de ser feito.
+
+### Um ponto que recomendo mover, e que não é correção minha para impor
+
+O marcador de divisibilidade em `products` é **pré-requisito do preço da metade**, que o recorte
+atribuiu à `LTM-02` — e a `LTM-02` vem **antes** desta na ordem do epic. Como está, a onda 2 precisa
+de uma coluna da onda 3. **Recomendação:** a **forma** (a coluna) sobe para a `LTM-01`, na onda 1,
+junto com `half`; as **regras** (recusa de prêmio não-dinheiro, congelamento, geração dos títulos)
+ficam aqui. Registrado também na `LTM-02`, que é onde o vão dói.
+
+### O que está certo e não se toca
+
+- Os ACs de concorrência e invariante (**AC1**, **AC2**, **AC5**, **AC8**, **AC9**, **AC10**).
+- **AC8** (regressão de cota inteira) continua sendo a trava que protege as 5 rodadas em produção.
+- O recorte domínio × superfície com a `LTM-08`.
+- A nota de que **nada escreve em `winners`** porque o sorteio é externo: reconferida.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ `Files:`/`Resources:`/`Depends-on:` entregues |
+| Estrutura de arquivos / árvore | ⚠️ subdeclara o campo de `orders` no arquivo disputado |
+| UI/Frontend | ✅ fora por desenho (é a `LTM-08`) |
+| Satisfação dos ACs | ⚠️ AC4 e AC11 fecharam; o AC7 não testa a decisão que o ADR tomou |
+| Instruções de teste | ✅ |
+| Segurança | ➖ n/a |
+| Sequência de tarefas | ⚠️ o marcador de divisibilidade está uma onda depois de quem precisa dele |
+| Duplicação funcional | ✅ recorte fechado nos dois lados |
+| Anti-alucinação | ❌ -> ⚠️ o Contexto repetia a frase que o ADR retirou hoje; corrigida aqui, junto com `reserve.ts:110-113` -> `:51-58` |
+| Prontidão para @dev | ❌ |
+
+### Correções exigidas antes de ir a `Ready`
+
+1. **AC7 afirma qual forma** `quantity` assume (a do `ADR-0001`), com o caso numérico.
+2. **`Files:` declara o campo de unidade em `orders`** dentro de `raffles.ts`.
+3. **Decidir onde nasce o marcador de divisibilidade** — recomendação: `LTM-01`, onda 1. Se ficar
+   aqui, a ordem das ondas muda e a `LTM-02` passa a declarar dependência desta.
+
+Os itens 1 e 2 são de redação. O 3 é de sequenciamento e precisa ser combinado com a `LTM-02`.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-17 | 1.0 | Nasce do `/grill-with-docs` com o founder: 17 decisões, fronteira fechada. Forma dos dados em `ADR-0001`; vocabulário em `GLOSSARY.md`. | @aiox-master |
 | 2026-11-17 | — | **Validada — NO-GO (6,5/10). Permanece `Draft`.** Sem bloco `Files:` com dois arquivos disputados; AC3 manda provar que metades do mesmo pedido expiram separadas (não expiram, e não devem); armadilha do `inArray` não nomeada; `quantity` ambíguo no próprio ADR; `winners` sem onde marcar a metade; AC4 sem política de arredondamento. | @po (Pax) |
+| 2026-11-17 | 1.1 | **Validada (2a) — NO-GO (6,5/10). Permanece `Draft`.** Fecharam: `Files:` com recorte riscado nas duas stories, AC3 entre pedidos diferentes, AC11 (`winners` com marcador) e AC4 com a política do founder (arredondar as duas para cima — superior à minha sugestão anterior, que punha o centavo sobre um ganhador). Corrigidos nesta validação: o *Contexto* repetia a frase *"o `UPDATE` condicional não muda de forma"* que o `ADR-0001` retirou hoje, a tarefa de `quantity` apontava para o lado oposto ao do ADR, e a citação `reserve.ts:110-113` (é `:51-58`). Abertas: AC7 sem afirmar a forma de `quantity`, `Files:` subdeclarando o campo de `orders`, e o marcador de divisibilidade uma onda depois de quem precisa dele. | @po (Pax) |

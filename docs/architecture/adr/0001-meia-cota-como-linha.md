@@ -4,7 +4,10 @@
 **Data:** 2026-11-17
 **Decisores:** founder (decisão) · @aiox-master (condução do grilling)
 **Contexto da decisão:** sessão de `/grill-with-docs` sobre a meia cota do lotemania, 17 decisões
-**Afeta:** `LTM-01`, `LTM-02`, `LTM-03a`, `LTM-05` e a Frente C do `EPIC-LTM-Imperio-Migration`
+**Afeta:** `LTM-01`, `LTM-02`, `LTM-03a`, `LTM-04`, `LTM-05`, `LTM-07`, `LTM-08` (Frente C) do `EPIC-LTM-Imperio-Migration`
+> `LTM-04` acrescentada em 2026-11-17 (@po): é nela que o custo aceito de `quantity` aterrissa — o
+> ETL lê `numbers` com `len == quantity` (`client_api.py:455-465`) e `bi_aggregator.py:1099` soma
+> `"Quantidade"`. A lista original não a citava.
 
 ---
 
@@ -57,7 +60,7 @@ errado o bastante para causar dano**, e o @po pegou na revalidação. A correç�
 | | |
 |---|---|
 | **Não muda** | a **atomicidade**: a condição `status = 'available'` dentro do próprio `UPDATE` continua fazendo o banco resolver a disputa, e `reserved.length < pedidos.length` continua detectando quem perdeu. Nenhum travamento novo, nenhuma leitura-antes-de-escrever |
-| **Muda, e é obrigatório** | o **predicado**. Hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:152`), que casa por **número**. Com duas linhas por número, esse predicado casa **as duas** — quem pede uma metade reserva as duas, e quem paga por uma leva duas |
+| **Muda, e é obrigatório** | o **predicado**. Hoje é `inArray(productNumbers.number, data.numbers)` (`reserve.ts:157`), que casa por **número**. Com duas linhas por número, esse predicado casa **as duas** — quem pede uma metade reserva as duas, e quem paga por uma leva duas |
 
 **O `WHERE` tem de passar a endereçar a unidade vendável, não o número.** Um `WHERE` por número
 num schema de metades é venda dupla silenciosa: o pedido é criado com `quantity` de uma metade, o
@@ -123,14 +126,19 @@ irrelevante para Postgres **com índice**, e o índice é escopo da `LTM-01` de 
 
 1. Nenhuma metade tem dois donos.
 2. Reservar título inteiro reserva **as duas** metades ou **nenhuma** — nunca uma.
-3. Expirar uma metade não toca na outra.
+3. Expirar a metade de um pedido não toca a metade do **outro** pedido. ⚠️ **Reescrito em
+   2026-11-17 (@po):** a forma anterior — *"expirar uma metade não toca na outra"* — é **falsa** para
+   as duas metades de um **mesmo** pedido, que expiram juntas por construção e devem. Escrita sem
+   qualificar, ela produz o mesmo defeito do invariante 4: um teste que falha com o sistema
+   correto. Ver a nota abaixo.
 4. O rateio de um título sorteado soma **o prêmio**, ou **o prêmio + R$ 0,01** quando o prêmio tem
    centavo ímpar — **nunca menos**. Ver a decisão de arredondamento abaixo.
 5. Metade órfã em título sorteado paga o prêmio **inteiro** a quem tem a metade vendida.
 
 > **Invariante 3 já está satisfeito por construção, e isso precisa ser dito** para ninguém mitigar
 > o que não existe: as duas metades de um mesmo pedido nascem no mesmo `UPDATE`, com o mesmo
-> `reservedUntil`, e a varredura de expiração libera **por pedido** (`reserve.ts:110-113`). Elas
+> `reservedUntil`, e a varredura de expiração libera **por pedido** — `inArray(productNumbers.orderId,
+> expiredIds)`, em **`reserve.ts:51-58`**. Elas
 > nunca divergem. O invariante que vale provar é o de metades de **pedidos diferentes** — que é o
 > caso real, porque é o que acontece quando duas pessoas compram metades do mesmo título. Achado
 > do @po, que foi procurar o risco inverso e não achou.

@@ -1,9 +1,11 @@
 # LTM-01: Índices em `product_numbers` e `orders` — o comentário do schema vira verdade
 
-**Status:** Draft
-> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17** pela revalidação do @po contra o
-> `ADR-0001`. A chave de unicidade desta story **proíbe a forma de dados que o ADR escolheu**.
-> Ver *Revalidação @po (2026-11-17)* ao fim do arquivo.
+**Status:** Ready
+> ✅ **De volta a `Ready` em 2026-11-17**, pela **segunda** revalidação do @po. As cinco correções
+> exigidas foram conferidas uma a uma **no código**, não na palavra de quem corrigiu: a chave é
+> `(product_id, number, half)` com `half NOT NULL` e a razão do `NOT NULL` escrita; a propriedade da
+> coluna está decidida nesta story; o bloco `Files:` confere com `grep -rln productNumbers src/`.
+> Ver *Revalidação 2 @po (2026-11-17)* ao fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F1**
 **Prioridade:** **P0** — toda reserva hoje faz varredura sequencial; o esgotamento medido mais rápido é de 18 min (~5,5 números/minuto) com 5 rodadas simultâneas
 **Complexidade:** M (Standard) — schema + migração + prova de plano de execução, sem lógica de aplicação
@@ -13,7 +15,7 @@
 
 **Como** operador do Império vendendo 100 números que esgotam em minutos
 **Eu quero** que cada reserva encontre o número por índice, não varrendo a tabela inteira
-**Para que** o custo de uma reserva não cresça junto com o histórico de ~900 mil linhas/ano.
+**Para que** o custo de uma reserva não cresça junto com o histórico — ≈ 920 mil linhas/ano em sorteio de cota inteira, e até ≈ 1,84 milhão se todos fossem divisíveis (`ADR-0001`, *Custos aceitos*).
 
 ## Contexto (evidência lida no código, 2026-11-16)
 
@@ -59,7 +61,7 @@ Comparação de referência: `products` **tem** `uniqueIndex` declarado no **mes
 - [ ] `src/db/schema/raffles.ts`: índices em `orders` conforme os acessos comprovados por `EXPLAIN`.
 - [ ] Corrigir o comentário sobre indexação para refletir o que de fato existe.
 - [ ] Gerar a migração (`pnpm db:generate`) e revisar o SQL emitido à mão antes de aplicar — índice parcial e `uniqueIndex` são os dois pontos onde o Drizzle Kit costuma emitir algo diferente do pretendido.
-- [ ] Script de seed de carga para o teste de plano: 1 milhão de linhas em `product_numbers` (≈ 1 ano do volume medido: 177 rodadas / 7 dias × 100 números ≈ 920 mil/ano).
+- [ ] Script de seed de carga para o teste de plano: **1 milhão de linhas** em `product_numbers`. ⚠️ **A conta citada aqui mudou com o `ADR-0001`, e corrigi-la faz parte desta story:** o volume medido é 177 rodadas / 7 dias × 100 **títulos** ≈ 920 mil **títulos**/ano — o que em **unidades vendáveis** são ≈ 920 mil linhas/ano com tudo em cota inteira e ≈ 1,84 milhão se tudo fosse divisível. O seed permanece em 1 milhão de linhas: ele deixou de representar "um ano exato" e passa a representar **a ordem de grandeza de um ano**, que é o que o AC3 de fato mede (invariância de escala, não um limite absoluto).
 - [ ] Capturar e registrar no Dev Record o `EXPLAIN (ANALYZE, BUFFERS)` de cada consulta, **antes e depois**.
 - [ ] Teste de violação de unicidade (usa a base de teste da LTM-05).
 
@@ -236,9 +238,49 @@ de colisão que a `LTM-03a` ↔ `LTM-04` resolveu por atribuição explícita ("
 | Anti-alucinação | ✅ evidência reconferida, zero imprecisão nova |
 | Prontidão para @dev | ❌ |
 
+## Revalidação 2 @po (2026-11-17) — as correções fecharam
+
+**Veredicto: GO — 8,5/10.** `Draft` → **`Ready`**.
+
+Conferi as cinco correções **no código**, não na descrição de quem corrigiu.
+
+| Correção exigida em 1.2 | Estado | Como conferi |
+|---|---|---|
+| 1. Decidir quem cria a coluna `half` | ✅ | Decisão de arquitetura, item 1: *"Esta story cria a coluna `half`"*, e a `LTM-07` traz a contrapartida riscada na própria lista de tarefas (*"a `LTM-01` cria"*) — a disputa está fechada nos **dois** arquivos, não só neste |
+| 2. Item 1 e AC1 sobre `(product_id, number, half)`, `NOT NULL` com razão | ✅ | AC1 tem **duas** afirmações e as duas são teste: mesmo `(number, half)` falha, mesmo `number` com `half` diferente **passa**. É a segunda que impede alguém de "consertar" a chave de volta — a trava certa |
+| 3. AC7 atualizado | ✅ | AC7 nunca enumerou nomes literais: exige `pg_indexes` listando *"os índices acima"*, e "acima" mudou com a correção 2. Continua verdadeiro |
+| 4. AC2/AC3/AC5 e a conta do seed | ⚠️ → ✅ | **Estava aberta**: a tarefa do seed ainda dizia *"≈ 1 ano do volume medido … ≈ 920 mil/ano"*, que deixou de ser verdade em sorteio divisível. **Corrigida nesta validação** (Artigo IV), junto com a mesma conta na seção *Story*. AC2/AC3/AC5 não precisavam de mudança: medem `Seq Scan` e razão de tempo, não unidade |
+| 5. Bloco `Files:` completo | ✅ | `grep -rln productNumbers src/` devolve **exatamente** os 10 arquivos declarados — `raffles.ts` mais os 9 leitores. Nenhum a mais, nenhum a menos |
+
+### O que conferi além da lista
+
+- **A armadilha de `NULL` está escrita onde o @dev vai ler** — na decisão de arquitetura, não só no histórico de validação. Era o ponto em que a correção podia nascer certa e ser implementada errada.
+- **`half integer NOT NULL default 1` não quebra nenhum dos 9 leitores.** Conferido: nenhum deles insere em `product_numbers` sem default possível, e nenhum depende da forma do `returning`. A lista de regressão da story é a conferência certa, e é suficiente.
+- **`package.json` provavelmente nem é tocado.** Os scripts `db:generate` e `db:push` **já existem** (conferido no `package.json`), então a condicional *"se o regime de migração exigir script novo"* tende a não disparar. Isso é bom: reduz a sobreposição com a `LTM-05` a zero na prática, e a serialização declarada passa a ser precaução, não dependência.
+- **A pasta `drizzle/` de fato não existe** (conferido). Esta story a cria, como declara.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ✅ `Files:` confere com `grep`; disputa com a `LTM-07` resolvida nos dois lados |
+| UI/Frontend | ➖ n/a |
+| Satisfação dos ACs | ✅ AC1 virou duas afirmações, e a segunda é a que protege a meia cota |
+| Instruções de teste | ✅ |
+| Segurança | ✅ |
+| Sequência de tarefas | ✅ onda 1, raiz, sem dono disputado |
+| Duplicação funcional | ✅ uma migração, uma dona |
+| Anti-alucinação | ⚠️ → ✅ a conta do seed ficou para trás e foi corrigida aqui |
+| Prontidão para @dev | ✅ |
+
+**Nada do que eu exigi em 1.2 ficou aberto depois desta validação.** O único item que chegou
+incompleto (a conta do seed) é de redação e está corrigido no arquivo.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Evidência de `uniqueIndex` corrigida, AC1 com nota de sequenciamento, AC8 (decisão de FK) acrescentado. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (5/10). Ready → Draft.** A chave `(product_id, number)` do AC1 proíbe a meia cota. Cinco correções exigidas, incluindo a semântica de `NULL` em índice único e a atribuição da coluna `half` entre esta story e a `LTM-07`. | @po (Pax) |
+| 2026-11-17 | 1.3 | **Revalidada (2ª) — GO (8,5/10). Draft → Ready.** As cinco correções de 1.2 conferidas no código: chave `(product_id, number, half)` com `half NOT NULL` e a razão escrita, propriedade da coluna decidida aqui (e riscada na `LTM-07`), `Files:` idêntico ao `grep -rln productNumbers src/`. Corrigida nesta validação a única pendência remanescente: a conta do seed ainda dizia "≈ 1 ano" na forma não divisível (Artigo IV). | @po (Pax) |

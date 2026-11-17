@@ -1,10 +1,11 @@
 # LTM-04: Atribuição por pedido e API de leitura — o contrato já existe, só não é emitido
 
 **Status:** Draft
-> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17.** Não estava na lista de revalidação do
-> epic, e precisava estar: o **AC3 é literalmente impossível** como está escrito, e a frase "trocar
-> a URL base e nada mais" não se sustenta contra o código do ETL. A decisão do founder sobre o
-> dashboard próprio virou story nova (**`LTM-09`**). Ver *Revalidação @po (2026-11-17)*.
+> ⚠️ **Segue `Draft` depois da segunda revalidação do @po (2026-11-17).** Das **oito** correções
+> exigidas em 1.2, **uma** foi aplicada (o AC3) — e ela entrou contradizendo o `OUT`, que continua
+> proibindo por escrito a mudança que o AC3 agora exige. As outras sete seguem abertas, incluindo a
+> autenticação inteira, o caminho da rota de pedidos e o vocabulário de status. Ver *Revalidação 2
+> @po (2026-11-17)*.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F4**
 **Prioridade:** **P0** — sem isso o corte cega o CAPI do Meta e o BI inteiro no mesmo dia
 **Complexidade:** L (Standard) — captura na origem + colunas novas + API de leitura com contrato fixo + payload de saída
@@ -111,7 +112,8 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 
 **OUT:**
 - **Desligar `apps/utm-capture-imperio`** — ele serve o Império na Sorteamos até o corte. O sucesso aqui é o lotemania não precisar dele; a desativação é item do corte.
-- **Alterar o `client_api.py` ou o `order-paid.js`** — o AC3 prova que não é necessário. Se a implementação exigir mudar algum dos dois, o contrato está errado e é a nossa API que se ajusta.
+- **Alterar o `order-paid.js`** — o contrato de saída é lido dele, não negociado com ele. Se a implementação exigir mudá-lo, o contrato está errado e é a **nossa** API que se ajusta.
+- **Alterar o `client_api.py` além da linha 74.** ⚠️ **Revogação parcial escrita em 2026-11-17 (@po).** O OUT anterior proibia tocar o `client_api.py` *"porque o AC3 prova que não é necessário"* — e o AC3 corrigido **exige** tocá-lo, porque a `base_url` é literal dentro do arquivo (`client_api.py:74`). Os dois se contradiziam no primeiro passo. **Fica autorizada uma única mudança: tornar a `base_url` parametrizável**, que é melhoria legítima e é pré-requisito independente da `LTM-09` (`ADR-0002`). Qualquer outra alteração no ETL continua fora: a lista de campos, os parâmetros e o vocabulário são **contrato lido**, e é a nossa API que se ajusta a eles.
 - Modelo de atribuição multi-toque, janela de atribuição configurável, relatórios de canal no painel — nada disso está no diagnóstico nem no contrato atual. O ETL e o BI fazem essa conta hoje e continuam fazendo.
 - Migração do histórico de atribuição da Sorteamos (é da fase de corte, e envolve dado pessoal — portão G7 do epic).
 
@@ -352,9 +354,67 @@ atual continua lendo a Sorteamos, intocado, até o corte.
 | Anti-alucinação | ❌ "trocar a URL base e nada mais" não se sustenta; eu mesmo generalizei `filters` errado em 2026-11-16 |
 | Prontidão para @dev | ❌ |
 
+## Revalidação 2 @po (2026-11-17) — uma de oito
+
+**Veredicto: NO-GO — 5,5/10.** Permanece `Draft`. **Onda 3** — não atrasa a onda 1 nem a onda 2.
+
+Fui conferir as oito correções que exigi em 1.2. Resultado, item por item:
+
+| # | Correção exigida | Estado | Evidência de hoje |
+|---|---|---|---|
+| 1 | `base_url` parametrizável sai do `OUT` | ⚠️ **meia** | O **AC3** foi reescrito e está certo: `base_url` é literal em `client_api.py:74` (reconferido com `grep -n`), e a story autoriza a mudança. Mas o `OUT` **continuava** dizendo *"Alterar o `client_api.py` ou o `order-paid.js` — o AC3 prova que não é necessário"*. A contradição não foi removida: **mudou de lugar**. Era a correção nº 1 da lista, e é a única da lista que foi mexida. **Revoguei o OUT por escrito nesta validação**, com a autorização restrita à linha 74 |
+| 2 | Rota de pedidos em **`product`** singular | ❌ | A tarefa segue dizendo `src/app/api/v1/products/[id]/orders/route.ts` (plural). O ETL chama `{base}/product/{product_id}/orders` — reconferido em `client_api.py:266`. Como está, o AC3 responde **404** no segundo endpoint. O bloco `Files:` novo não corrige: declara o glob `src/app/api/v1/**`, que acomoda o nome errado sem reclamar |
+| 3 | Tarefa e AC de **autenticação por token portador** | ❌ | Não existe tarefa nem AC. Reconferido no ETL: `POST {base}/auth/login` com `{"email","password"}` (`:108-109`), token lido do **corpo** (`accessToken` ou `token`, `:114`), `Authorization: Bearer` em todo GET (`:118`) e reautenticação automática no 401 (`:131-139`). O lotemania usa `username`, devolve `{ user }` e transporta a sessão em cookie `HttpOnly`. **Três incompatibilidades, zero tarefa.** O AC3 para no login, antes do primeiro campo |
+| 4 | Os `filterX` planos, `filterStatus`, `"null"` literal, envelope `orders` | ❌ | O AC1 ainda carrega a minha generalização errada: *"`filters` como string JSON (`client_api.py:168`, `:256-260`)"*. Reconferido: `/products` usa `filters` JSON (`:168`); `/product/{id}/orders` usa **filtros planos** (`:260-265`), com `filterStartDate`/`filterEndDate` chegando como a string literal `"null"`, e o envelope de resposta é **`orders`** (`:279`) |
+| 5 | `approvedBy`, `expiredBy`, `eventId`, `price`, `discount`, `status` no AC1 | ❌ | A lista enumerada do AC1 não os cita. `approvedBy` separa **baixa manual** (`"admin"`) de gateway e é métrica que o cliente usa |
+| 6 | AC novo de **vocabulário de status** | ❌ | Não existe. O AC1 cobre nome de campo; `pending` != `waiting-payment` é **valor**, e é no valor que o funil do BI se reclassifica sozinho |
+| 7 | A decisão sobre `numbers`/`quantity` em sorteio divisível | ❌ | Não aparece em nenhum AC. E agora há decisão de referência para seguir: o `ADR-0001` fechou em *"`quantity` conta o que o pedido contém (metades em sorteio divisível) + campo explícito de unidade"*. Esta story é onde esse custo aterrissa — `bi_aggregator.py:1099` soma `"Quantidade"` |
+| 8 | Bloco `Files:` completo | ✅ | Existe agora, no padrão da `LTM-03a`, com `client_api.py` declarado e com a ressalva de que `reserve.ts` é escrito pela `LTM-02`. **Só herda o nome errado da rota** (correção 2) |
+
+**Uma de oito fechada, uma meia, seis intocadas.** Não é discordância de mérito: é correção não
+aplicada. A story continua sendo a mais bem ancorada do epic na **intenção** — e continua sem o
+contrato que a intenção promete.
+
+### Uma imprecisão minha, corrigida (Artigo IV)
+
+Em 1.2 eu escrevi *"**onze** parâmetros planos"* no endpoint de pedidos. Contados hoje no código
+(`client_api.py:260-265`), são **dez** `filterX`: `filterName`, `filterNumber`, `filterAffiliate`,
+`filterPaymentId`, `filterPhone`, `filterOrderId`, `filterStatus`, `filterPaymentEndToEndId`,
+`filterStartDate`, `filterEndDate` — mais `page` e `rowsPerPage`, que não são filtro. **Dez**, e a
+correção nº 4 lê-se com esse número.
+
+### O que **não** mudou e segue sendo a força desta story
+
+- **Achado A** e **Achado B**; **AC4** (a UTM sobrevive à navegação) e **AC7** (distinguir vazio de
+  nunca gravado) continuam sendo os dois critérios certos contra o risco central.
+- **AC5**, **AC6**, **AC8** e **AC10**: intocados e válidos.
+- A aresta de `paymentId`/`endToEndId` com a `LTM-03a` segue resolvida pela `03a`.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ bloco `Files:` entregue |
+| Estrutura de arquivos / árvore | ❌ rota de pedidos ainda plural; o glob esconde o erro |
+| UI/Frontend | ➖ |
+| Satisfação dos ACs | ❌ AC1 com lista curta e parâmetro errado; sem AC de autenticação, de vocabulário nem de unidade |
+| Instruções de teste | ⚠️ |
+| Segurança | ❌ nenhuma credencial portadora especificada, e o ETL só sabe falar `Bearer` |
+| Sequência de tarefas | ❌ a autenticação inteira continua ausente |
+| Duplicação funcional | ✅ |
+| Anti-alucinação | ⚠️ -> ✅ "onze" era dez; `base_url:74` reconferido e **está certo** |
+| Prontidão para @dev | ❌ |
+
+### Correções exigidas antes de voltar a `Ready`
+
+As **sete** que sobraram de 1.2 (itens 2 a 7 da tabela acima, mais o fecho do item 1 — já aplicado
+por mim no `OUT` desta validação). Nenhuma delas depende de decisão do founder; todas são leitura
+do `client_api.py`, que está no repositório.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Lacuna de `paymentEndToEndId` no AC1 registrada, aresta com a LTM-03 mapeada, parâmetros do contrato nomeados. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada — NO-GO (6/10). Ready → Draft.** `base_url` é literal no ETL (AC3 impossível); rota de pedidos é `product` singular; autenticação incompatível em três pontos e sem tarefa; onze `filterX` planos em vez de `filters` JSON (corrige a minha própria generalização de 2026-11-16); `approvedBy`/`expiredBy` sem origem; vocabulário de status divergente; `numbers`/`quantity` colidem com o `ADR-0001` e com o `GLOSSARY`. Dashboard do founder vira `LTM-09`. | @po (Pax) |
+| 2026-11-17 | 1.3 | **Revalidada (2a) — NO-GO (5,5/10). Permanece `Draft`.** Das oito correções de 1.2, uma aplicada (AC3) e ela entrou contradizendo o `OUT`, que seguia proibindo tocar o `client_api.py`; **revoguei o OUT nesta validação**, restrito à linha 74. Seguem abertas: rota `product` singular, autenticação por token portador (3 incompatibilidades), os dez `filterX` planos, `approvedBy`/`expiredBy`/`eventId`/`price`/`discount`/`status` no AC1, AC de vocabulário de status, e a decisão `numbers`/`quantity` contra o `ADR-0001`. Corrigida minha imprecisão: eram dez `filterX`, não onze. | @po (Pax) |

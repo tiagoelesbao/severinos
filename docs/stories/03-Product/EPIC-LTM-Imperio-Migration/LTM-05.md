@@ -1,10 +1,11 @@
 # LTM-05: Testes no caminho do dinheiro — a rede antes do trapézio
 
-**Status:** Draft
-> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17** pela revalidação do @po contra o
-> `ADR-0001`. O verificador de invariantes — a peça que todas as outras stories herdam — nasceria
-> **chavado no número em vez de na unidade vendável**, e ficaria vermelho quando o sistema estivesse
-> certo. Ver *Revalidação @po (2026-11-17)* ao fim do arquivo.
+**Status:** Ready
+> ✅ **De volta a `Ready` em 2026-11-17**, pela **segunda** revalidação do @po. O verificador de
+> invariantes nasce chavado na **unidade vendável** (a linha de `product_numbers`), que é verdadeira
+> nos dois mundos, e o teste de meia cota está **em `OUT` com a razão escrita** — é o que fecha a
+> porta "acrescentar a coluna `half` para o teste compilar". Ver *Revalidação 2 @po (2026-11-17)*
+> ao fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F5**
 **Prioridade:** **P0** — primeira da fila junto com a LTM-01; é pré-requisito das outras três
 **Complexidade:** L (Standard) — infraestrutura de teste + base real descartável + suíte do caminho do dinheiro + verificador de invariantes
@@ -18,7 +19,7 @@
 
 ## Contexto (evidência lida no código, 2026-11-16)
 
-São **187 arquivos e 14.462 linhas sem um único teste**. `apps/lotemania/package.json` não tem `test` nem `typecheck` — só `dev`, `build`, `start`, `lint` e os comandos do Drizzle. O próprio README do app chama isso de "o primeiro item de dívida, e crítico porque vamos mexer em propriedade de cota e rateio de prêmio".
+São **187 arquivos e 14.462 linhas sem um único teste**. `apps/lotemania/package.json` não tem `test`. ⚠️ **`typecheck` passou a existir** na `LTM-00` (Done em 2026-11-16, AC4 de lá) — conferido hoje, os scripts são `dev`, `build`, `start`, `lint`, `typecheck`, `db:generate`, `db:push`, `db:studio`, `db:seed`. Esta story **cria `test`** e **mantém `typecheck` verde**; ela não cria o `typecheck`, e a redação anterior ("não tem `test` nem `typecheck`") ficou obsoleta com a `LTM-00` — corrigida em 2026-11-17 (Artigo IV). O próprio README do app chama isso de "o primeiro item de dívida, e crítico porque vamos mexer em propriedade de cota e rateio de prêmio".
 
 **Por que esta story vem no começo e não no fim:**
 
@@ -30,7 +31,7 @@ São **187 arquivos e 14.462 linhas sem um único teste**. `apps/lotemania/packa
 
 ## Decisão de arquitetura (proposta)
 
-1. **`pnpm test` e `pnpm typecheck` passam a existir** — hoje nenhum dos dois existe, e `typecheck` é baratíssimo num projeto TypeScript de 14 mil linhas que nunca foi verificado.
+1. **`pnpm test` passa a existir e `pnpm typecheck` passa a ser exigido verde como gate** — `test` não existe; `typecheck` existe desde a `LTM-00` e desde então nenhum critério de aceite o exigia. Num projeto TypeScript de 14 mil linhas, manter o gate é baratíssimo e impede a regressão silenciosa que a `LTM-00` acabou de pagar para limpar (55 erros de tipo).
 2. **Base Postgres descartável por execução**, provisionada e destruída pelo próprio runner (branch Neon efêmera ou container local). Sem base compartilhada entre execuções: teste de concorrência contaminado por estado de execução anterior é pior que não ter teste, porque falha de forma intermitente e ensina a equipe a ignorar vermelho.
 3. **Um verificador de invariantes reusável**, chamado ao final de **todo** teste de concorrência. É a peça que dá valor composto: cada story nova herda a verificação sem reescrevê-la.
 4. **O teste de concorrência da reserva nasce vermelho**, deliberadamente, e a execução vermelha fica registrada. Ele é a evidência de aceite da LTM-02.
@@ -52,7 +53,7 @@ São **187 arquivos e 14.462 linhas sem um único teste**. `apps/lotemania/packa
 
 ## Critérios de Aceite
 
-- [ ] **AC1 (os comandos existem e passam):** `pnpm test` e `pnpm typecheck` existem, rodam sem intervenção manual e terminam com código de saída 0 com a suíte abaixo completa. `pnpm typecheck` passando é AC por si: o projeto nunca foi verificado e qualquer erro encontrado é corrigido ou registrado nesta story.
+- [ ] **AC1 (os comandos existem e passam):** `pnpm test` e `pnpm typecheck` existem, rodam sem intervenção manual e terminam com código de saída 0 com a suíte abaixo completa. `pnpm typecheck` passando é AC por si: o projeto foi verificado **uma vez**, na `LTM-00`, e desde então nenhum critério de aceite o exigia — qualquer erro encontrado é corrigido ou registrado nesta story.
 
   - **Regra de verde e vermelho (@po, validação 2026-11-16) — resolve o conflito entre este AC e os AC3/AC4.** A suíte desta story contém, deliberadamente, testes de **duas naturezas**, e `pnpm test` sair 0 significa que **cada teste está no estado declarado**, não que todo teste passou:
     1. **Verdes agora** (AC6, AC7, AC8): descrevem o comportamento que o código **tem hoje**, inclusive os defeitos — e por isso passam contra o código atual.
@@ -126,7 +127,8 @@ apps/lotemania/src/app/api/webhooks/payment/[tenant]/[provider]/route.ts
 - **[Médio] Teste de concorrência intermitente** — o pior resultado possível, porque treina a ignorar vermelho. Mitigação: asserções só sobre invariantes (nunca sobre ordem de vencedores nem sobre tempo); base limpa por execução; repetir o teste de concorrência 10× na validação e exigir 10 verdes.
 - **[Médio] Branch Neon efêmera depender de rede e credencial**, quebrando a suíte por motivo alheio ao código. Mitigação: suportar Postgres local em container como alternativa, com a mesma aplicação de schema.
 - **[Baixo] `pnpm typecheck` revelar muitos erros de uma vez** num projeto nunca verificado. Mitigação: se o volume for grande, corrigir o que está no caminho do dinheiro e registrar o resto como item próprio — mas `typecheck` **passa** ao final desta story, nem que seja com exclusões explícitas e nomeadas.
-- **[Baixo] Seed sintético divergir da forma do dado real** e dar falso verde. Mitigação: o seed respeita as invariantes do schema (uma linha por número, tamanho de `numbers` igual a `quantity`); a conferência com dado real acontece no portão G3 do epic, com leitura dupla.
+- **[Baixo] Seed sintético divergir da forma do dado real** e dar falso verde. Mitigação: o seed respeita as invariantes **que este schema de fato tem** — uma linha de `product_numbers` por **unidade vendável**, e `orders.quantity` igual ao número de unidades que o pedido tomou. A conferência com dado real acontece no portão G3 do epic, com leitura dupla.
+  - ⚠️ **Corrigido em 2026-11-17 (Artigo IV).** A redação anterior dizia *"uma linha por número, tamanho de `numbers` igual a `quantity`"*. **`orders` não tem coluna `numbers`** — conferido: `orders` (`src/db/schema/raffles.ts:93`) tem `tenantId`, `userId`, `productId`, `affiliateId`, `quantity`, `amount`, `status`, `paymentGatewayProvider`, `paidAt`, `createdAt`, e os números do pedido vivem em `product_numbers.order_id`. O par `numbers`/`quantity` é invariante **do contrato da Sorteamos**, lido pelo ETL (`client_api.py:455-465`), não deste schema. A frase importava uma invariante de outro sistema, e é exatamente o tipo de frase com que se escreve um seed que não corresponde à tabela.
 
 ## Dev Agent Record
 
@@ -274,9 +276,64 @@ escrever um seed que não corresponde à tabela.
 | Anti-alucinação | ❌ `orders.numbers` não existe |
 | Prontidão para @dev | ❌ a porta "acrescentar a coluna para compilar" está aberta |
 
+## Revalidação 2 @po (2026-11-17) — as correções fecharam
+
+**Veredicto: GO — 8,5/10.** `Draft` -> **`Ready`**. Rigor extra mantido: é a raiz da onda 1 e
+pré-requisito de quatro stories.
+
+| Correção exigida em 1.2 | Estado | Como conferi |
+|---|---|---|
+| AC5(a) e AC5(c) rechaveados na unidade vendável | ✅ | AC5(c) agora diz *"a mesma unidade vendável aparece associada a mais de um pedido"*, e o AC traz **a razão** do rechaveamento — não só a troca de palavra. O item (a) deriva o total do próprio `product_numbers` em vez de `totalNumbers`, que é a correção certa: `products.totalNumbers` conta **títulos** (conferido em `raffles.ts:44-79`) e não conta unidades |
+| AC4 na unidade vendável | ✅ | *"todas as unidades vendáveis do produto vendidas ou reservadas, zero unidade vendável com dois `order_id`"* — verdadeiro hoje (uma linha por título) e depois da `LTM-07` (duas por título), sem reescrita |
+| Teste de meia cota em `OUT`, com a razão | ✅ | E a razão escrita é a correta e completa: o teste **não compila** sem `half`, `typecheck` verde é AC desta story, `test.fails` não cobre erro de tipo, e a saída de menor resistência seria acrescentar a coluna — código de produção, proibido pelo OUT, escopo da `LTM-01`. É a mesma trava de 2026-11-16 aplicada à porta nova |
+| A imprecisão de `orders.numbers` | ⚠️ -> ✅ | **Estava aberta.** A mitigação do último risco ainda dizia *"tamanho de `numbers` igual a `quantity`"* — e `orders` não tem essa coluna. **Corrigida nesta validação**, com a origem real do par (`client_api.py:455-465`) nomeada para ninguém reimportá-la |
+
+### Duas imprecisões que eu mesmo deixei passar em 2026-11-16, e corrigi agora
+
+1. **"`package.json` não tem `test` nem `typecheck`"** — era verdade quando escrevi, e deixou de
+   ser com a `LTM-00` (AC4 de lá declarou `typecheck`). Conferido hoje no arquivo. A story agora
+   diz o que é: cria `test`, **mantém** `typecheck` verde. O bloco `Files:` já estava certo nisso;
+   o Contexto e a decisão de arquitetura não estavam.
+2. **"o projeto nunca foi verificado"** no AC1 — foi, uma vez, na `LTM-00`, que pagou 55 erros de
+   tipo. O que é verdade é que **nenhum critério de aceite o exigia desde então**, e é isso que
+   esta story transforma em gate.
+
+### O que conferi além da lista
+
+- **A regra de verde e vermelho do AC1 continua intacta**, e segue sendo a melhor peça do epic.
+- **AC6 e AC7 continuam verdes contra o código de hoje.** Reconferidos os ramos nomeados:
+  `process.env.DATABASE_URL!` como asserção de não-nulo (`src/db/index.ts:5`, arquivo de 7 linhas);
+  telefone bloqueado (`reserve.ts:100-109`) e bloqueio anti-spam (`reserve.ts:126-131`).
+  ⚠️ **Precisão:** em 1.2 eu citei esses dois como `reserve.ts:104-130`. O intervalo exato é
+  `100-131`. Não muda nada do AC — registro porque linha citada é evidência, e evidência torta vira
+  teste escrito no lugar errado.
+- **Nenhuma das duas travas de 2026-11-16 foi desfeita** ao aplicar as correções de hoje: a regra
+  de verde/vermelho e "código de produção" no OUT estão as duas no arquivo, e o OUT **ganhou** o
+  terceiro item em vez de perder os dois primeiros.
+- **O conjunto de arquivos é disjunto do da `LTM-01` na prática.** A `LTM-01` só toca
+  `package.json` *"se o regime de migração exigir script novo"*, e `db:generate`/`db:push` **já
+  existem** — a condicional tende a não disparar. A serialização declarada vira precaução, não
+  dependência.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ✅ `tests/`, `vitest.config.ts`, `package.json` — declarado e disjunto |
+| UI/Frontend | ➖ n/a |
+| Satisfação dos ACs | ✅ AC4 e AC5 verdadeiros nos dois mundos, sem reescrita futura |
+| Instruções de teste | ✅ a regra de verde/vermelho, agora sem a porta de trás |
+| Segurança | ✅ AC8 |
+| Sequência de tarefas | ✅ |
+| Duplicação funcional | ✅ o verificador nasce na chave certa e a `LTM-07` o **estende** |
+| Anti-alucinação | ⚠️ -> ✅ `orders.numbers` e duas imprecisões minhas corrigidas aqui |
+| Prontidão para @dev | ✅ |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Regra de verde/vermelho no AC1, código de produção posto em OUT, ramos de falha nomeados no AC7. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (5/10). Ready → Draft.** O verificador de invariantes (AC5) ficaria vermelho com o sistema correto em sorteio divisível; correção é chavear na unidade vendável, não no número. Porta nova confirmada pela qual o defeito de YOLO voltaria ("acrescentar a coluna `half` para o teste compilar"). Imprecisão de `orders.numbers` registrada. | @po (Pax) |
+| 2026-11-17 | 1.3 | **Revalidada (2a) — GO (8,5/10). Draft -> Ready.** AC4/AC5 rechaveados na unidade vendável, com a razão escrita; teste de meia cota em `OUT` com a porta "acrescentar a coluna para compilar" fechada; as duas travas de 2026-11-16 intactas. Corrigidas nesta validação: a invariante importada `orders.numbers` (não existe) e duas imprecisões minhas de 2026-11-16 (`typecheck` já existe desde a `LTM-00`; o projeto já foi verificado uma vez). | @po (Pax) |

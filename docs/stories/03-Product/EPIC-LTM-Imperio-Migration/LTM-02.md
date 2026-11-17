@@ -1,9 +1,12 @@
 # LTM-02: Driver transacional e reserva atômica — fim do "desfaz na mão"
 
 **Status:** Draft
-> ⚠️ **Revertida de `Ready` para `Draft` em 2026-11-17** pela revalidação do @po contra o
-> `ADR-0001`. Esta story e a `LTM-07` reescrevem **a mesma função do mesmo arquivo**, e o epic as
-> põe na mesma onda. Ver *Revalidação @po (2026-11-17)* ao fim do arquivo.
+> ⚠️ **Segue `Draft` depois da segunda revalidação do @po (2026-11-17).** O recorte com a `LTM-07`
+> está resolvido e a armadilha do `inArray` está nomeada — as duas correções estruturais passaram.
+> **Faltam duas**, e as duas são de fronteira, não de mérito: o bloco `Files:` não declara os dois
+> arquivos sem os quais o **AC9 não é implementável**, e o preço da metade (`amount`) ficou **sem
+> dono e sem AC** entre esta story e a `LTM-07`, dependendo de uma coluna que ninguém criou na onda
+> certa. Ver *Revalidação 2 @po (2026-11-17)* ao fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F2**
 **Prioridade:** **P0** — é a fundação de tudo que mexe em dinheiro; a LTM-03 não pode ser feita antes
 **Complexidade:** L (Standard) — troca de driver + reescrita do caminho de reserva + prova de concorrência
@@ -281,9 +284,133 @@ disputa.
 | Anti-alucinação | ✅ |
 | Prontidão para @dev | ❌ a armadilha do `inArray` não está escrita em lugar nenhum |
 
+## Revalidação 2 @po (2026-11-17) — duas fecharam, duas abriram
+
+**Veredicto: NO-GO — 6,5/10.** Permanece `Draft`. **Onda 2** — não atrasa a onda 1.
+
+As correções que eu pedi foram aplicadas, e bem. O NO-GO é por duas consequências **novas** do
+próprio recorte, que não existiam na versão anterior porque a versão anterior não tinha AC9.
+
+| Correção exigida em 1.2 | Estado |
+|---|---|
+| 1. Recorte com a `LTM-07`, por escrito | ✅ e **nos dois arquivos**: o bloco em destaque aqui diz *"reescrito UMA vez, e é aqui"*, e a `LTM-07` traz a contrapartida riscada (*"a `LTM-02` entrega"*). É assim que recorte se fecha |
+| 2. Armadilha do `inArray` nomeada, com AC próprio | ✅ **AC9** é a melhor peça nova do epic hoje: uma linha de teste contra uma venda dupla silenciosa |
+| 3. AC3 na unidade do sorteio | ✅ *"as mesmas 10 unidades vendáveis"*, com título inteiro remetido ao AC2 da `LTM-07` |
+| 4. AC4/AC5 com a unidade declarada | ✅ e melhor do que pedi: três cenários, com o **carrinho misturado** provado em vez de presumido — o `ADR-0001` diz que ele "sai de graça", e "de graça" é exatamente o tipo de afirmação que merece teste |
+| 5. Dependência da `LTM-07` nos dois sentidos | ❌ **a mais importante, e segue aberta** — ver item 2 abaixo |
+
+### 1. O `Files:` não declara os dois arquivos que o AC9 exige — e é a classe de defeito que derrubou a `LTM-03`
+
+**AC9:** *"reservar **uma** metade do 42 deixa a **outra metade do 42 disponível**"*.
+
+Para pedir *uma metade do 42*, a entrada precisa dizer **qual**. Conferido hoje, o contrato de
+entrada não tem onde carregar isso:
+
+```ts
+// src/lib/validations/reserve.ts
+numbers: z.array(z.number().int().min(0)).min(1, "Selecione ao menos um número"),
+```
+
+É uma lista de inteiros. Não existe `(number, half)`. Então:
+
+- **`src/lib/validations/reserve.ts`** tem que mudar — é lá que `ReserveNumbersInput` nasce, e é o
+  tipo que `reserveSelectedNumbers(input)` consome (`reserve.ts:77`);
+- **`src/app/loja/[tenant]/[productSlug]/number-grid.tsx`** tem que mudar junto. É o **único**
+  chamador (conferido: `grep -rn reserveSelectedNumbers src/` devolve a importação na linha 18 e a
+  chamada na linha 59, e nada mais). Mudar o tipo de entrada e não mudar o chamador **quebra o
+  `typecheck`** — que é AC1 da `LTM-05` e gate desta fundação.
+
+Nenhum dos dois está no bloco `Files:`. Foi exatamente a omissão do conjunto de arquivos que
+derrubou a `LTM-03` em 2026-11-16, e eu não tenho como aplicar um critério para ela e outro aqui.
+
+**E tem colisão nova embutida:** a grade é da **`LTM-08`** (AC1 de lá: *"cada título renderiza duas
+bandas"*). Então `number-grid.tsx` é disputado, e o recorte tem que ser escrito como o da
+`reserve.ts` foi:
+
+> **Recomendação do @po:** esta story muda o **contrato de entrada** e faz o chamador atual
+> **compilar e continuar correto** — a grade de hoje passa a enviar o título inteiro como **as duas
+> metades**, sem mudar um pixel. A `LTM-08` faz a **célula partida** e a seleção de metade avulsa.
+> Assim `number-grid.tsx` é tocado duas vezes, mas por razões disjuntas e em ondas diferentes — e a
+> segunda não desfaz a primeira.
+
+### 2. O preço da metade ficou sem dono, sem AC, e depende de uma coluna que ninguém cria na onda certa
+
+Três fatos, cada um conferido:
+
+1. A **`LTM-07`** risca o `amount` da sua lista de tarefas com *"a `LTM-02` entrega"*.
+2. Esta story **não menciona `amount`** em nenhuma tarefa e em nenhum AC. A única aparição é na
+   **tabela de efeitos colaterais** da minha revalidação de 1.2 — isto é, no histórico, não no
+   escopo. Entre as duas stories, **o preço da meia cota caiu no vão**.
+3. Para cobrar metade, a reserva precisa saber que o sorteio é divisível. Conferido:
+   **`products` não tem marcador de divisibilidade** (`src/db/schema/raffles.ts:44-79`; a
+   configuração dos ~12 painéis vive no blob `advancedSettings`), e criar esse marcador é escopo
+   declarado da **`LTM-07`** — que vem **depois** desta na ordem do epic.
+
+Isto é um ciclo: a onda 2 precisa de uma coluna da onda 3. Como está, o @dev da `LTM-02` tem duas
+saídas e as duas são ruins — inventar o marcador (roubando escopo da `LTM-07`, no arquivo que a
+`LTM-01` acabou de tocar) ou deixar o preço errado em sorteio divisível, que é dinheiro.
+
+> **Recomendação do @po:** o marcador de divisibilidade em `products` passa para a **`LTM-01`**,
+> junto com a coluna `half`. É **uma coluna** no arquivo que a `LTM-01` já possui na **onda 1**,
+> antes de existir qualquer código de reserva — exatamente o argumento que fechou a disputa do
+> `half`. A `LTM-07` continua dona das **regras** (recusa de prêmio não-dinheiro, congelamento na
+> primeira venda, geração dos títulos); só a **forma** sobe para a onda 1.
+>
+> E esta story ganha o AC que falta: **AC10 (o preço da unidade)** — em sorteio divisível, reservar
+> uma metade cobra **exatamente metade** do `pricePerNumber`, sem ágio (`GLOSSARY` -> meia cota); em
+> sorteio de cota inteira o valor é idêntico ao de hoje. Medido no `amount` do pedido, não na tela.
+
+### 3. Uma precisão de linha (Artigo IV)
+
+O AC9 e o bloco em destaque citam o `inArray` em **`reserve.ts:152`**. Conferido hoje com
+`grep -n inArray`: o predicado está na **linha 157**. As linhas 54 e 58 são os outros dois
+`inArray` (a liberação por pedido e a expiração dos pedidos). A citação veio do `ADR-0001`, que
+tem o mesmo número errado — corrigi lá e registro aqui. Linha citada é evidência; evidência torta
+manda o @dev olhar o bloco errado do arquivo mais delicado do sistema.
+
+### O que **não** mudou e segue valendo
+
+- Tudo sobre o driver: `neon-http` -> `neon-serverless` com `Pool`, teto explícito, **AC1**, **AC7**,
+  **AC8**. A meia cota não toca nenhum deles.
+- A **pergunta aberta do item 5** (qual mecanismo garante o vencedor único, e não "todos desfazem,
+  ninguém leva") continua necessária e continua sem resposta — e agora sobre 20 linhas em vez de 10
+  quando o pedido é de títulos inteiros. Não é parágrafo a mais: é a diferença entre mecanismo e
+  sorte.
+- **AC6** e o registro de que a expiração **não** tem risco de meia expiração (ela libera por
+  pedido, `reserve.ts:51-58`): reconferido no código, exato.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ❌ faltam `validations/reserve.ts` e `number-grid.tsx`, e o segundo é disputado com a `LTM-08` |
+| UI/Frontend | ⚠️ a story muda o contrato que a grade chama e não diz o que acontece com a grade |
+| Satisfação dos ACs | ⚠️ AC9 não é implementável dentro do conjunto declarado; o preço da metade não tem AC |
+| Instruções de teste | ✅ os três cenários do AC4 são o padrão certo |
+| Segurança | ✅ |
+| Sequência de tarefas | ❌ precisa de uma coluna que a `LTM-07` cria depois dela |
+| Duplicação funcional | ✅ o recorte com a `LTM-07` está fechado nos dois lados |
+| Anti-alucinação | ⚠️ `reserve.ts:152` é `:157` |
+| Prontidão para @dev | ❌ |
+
+### Correções exigidas antes de voltar a `Ready`
+
+1. **`Files:` ganha `src/lib/validations/reserve.ts` e
+   `src/app/loja/[tenant]/[productSlug]/number-grid.tsx`**, com o recorte da grade escrito contra a
+   `LTM-08` (recomendação acima).
+2. **O preço da metade ganha dono e AC** (`AC10` proposto acima), e o **marcador de divisibilidade
+   em `products` sobe para a `LTM-01`** — ou, se a decisão for outra, a dependência
+   `LTM-02 -> LTM-07` passa a estar declarada e a ordem das ondas muda junto. O que não pode ficar é
+   o vão.
+3. `reserve.ts:152` -> `:157` nas duas citações.
+
+Nenhuma das três mexe no mérito da story, e nenhuma depende de decisão do founder.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Citação do driver completada; pergunta aberta sobre o mecanismo de vencedor único registrada no item 5. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada contra o `ADR-0001` — NO-GO (6/10). Ready → Draft.** A armadilha do `inArray(number, ...)` casando as duas metades; colisão de onda e de função com a `LTM-07`; contradição interna do epic sobre a onda 2. Registrado que a expiração **não** tem o risco de meia expiração — está mitigada por construção. | @po (Pax) |
+| 2026-11-17 | 1.3 | **Revalidada (2a) — NO-GO (6,5/10). Permanece `Draft`.** Recorte com a `LTM-07` e armadilha do `inArray` (AC9): fechados. Abertos: `Files:` sem `validations/reserve.ts` nem `number-grid.tsx` (sem eles o AC9 não é implementável e o `typecheck` quebra), e o preço da metade sem dono nem AC, dependendo de um marcador de divisibilidade que a `LTM-07` cria depois desta onda. | @po (Pax) |

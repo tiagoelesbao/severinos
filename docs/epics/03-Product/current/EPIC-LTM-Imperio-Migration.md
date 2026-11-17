@@ -6,7 +6,7 @@ Levar o **Império Prêmios** da **Sorteamos** (hoje em `painel.rapidinhas24hr.c
 
 O lotemania é a sucessora da Sorteamos: mesma operação, plataforma própria, multi-tenant white-label. A troca só acontece quando o lotemania aguentar o que a Sorteamos já aguenta — e isso é medível, não opinável.
 
-## Status: 🟠 FUNDAÇÃO REABERTA — `LTM-00` **Done**, `LTM-03a` **Ready**, cinco stories de volta em `Draft` após a revalidação do @po contra o `ADR-0001` (2026-11-17)
+## Status: 🟢 ONDA 1 LIBERADA — `LTM-00` **Done**; `LTM-01`, `LTM-03a` e `LTM-05` em **`Ready`**; `LTM-02`, `LTM-04` e `LTM-07` em `Draft` com correções escritas (2ª revalidação do @po, 2026-11-17)
 
 > **A onda 1 está fechada de novo, e isso é o processo funcionando.** O `ADR-0001` mudou a unidade
 > vendável depois de quatro stories terem sido validadas. `LTM-01`, `LTM-02`, `LTM-04`, `LTM-05` e
@@ -103,7 +103,7 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 | **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01`, `02`, `03a`, `03b`, `04`, `05`, `06` | `03a` em **`Ready`**; `01`/`02`/`04`/`05` de volta em **`Draft`** (revalidação 2026-11-17); `03b` e `06` em `Draft` |
 | **C — Meia cota** | O que o cliente pediu e a Sorteamos não faz | `LTM-07`, `LTM-08` | ✅ **Modelada** (2026-11-17) — 17 decisões no `/grill-with-docs`, `ADR-0001` escrito. Validadas pelo @po: `07` NO-GO (6,5), `08` GO condicional (7). Ambas em `Draft` |
 | **D — Medição da frente nova** | Dashboard à parte para a frente nova, sem interferência no que roda hoje | `LTM-09` | 🆕 **Nasce em 2026-11-17** por decisão do founder — `Draft` |
-| **B — Paridade** | A superfície do operador e do comprador | `LTM-10` a `LTM-13` + catálogo | 🟡 **Reativada** (2026-11-17) — o founder pediu paridade visual **100%** e as ações do painel. Quatro stories nascidas da observação; B1/B2 ainda pendem dele |
+| **B — Paridade** | A superfície do operador e do comprador | `LTM-10` a `LTM-15` | 🟡 **Reativada** (2026-11-17) — o founder pediu paridade visual **100%** e as ações do painel. Quatro stories nascidas da observação; B1/B2 ainda pendem dele |
 
 ### Frente A — Fundação (escopo deste epic)
 
@@ -121,6 +121,8 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 | **LTM-11** | **B2** — o menu de 13 ações do sorteio | P1 | `Draft` |
 | **LTM-12** | **B3** — painel de controle por sorteio (11 cartões + gráfico) | P1 | `Draft` |
 | **LTM-13** | **B4** — os três exports (2 CSV + 1 PDF), contrato de 25 colunas | P1 | `Draft` |
+| **LTM-14** | **B5** — o fluxo de compra do comprador: reserva, PIX e espera | **P0** | `Draft` (faltava nesta tabela — @po, 2026-11-17) |
+| **LTM-15** | **B6** — as duas seções que faltam no catálogo | P2 | `Draft` (faltava nesta tabela — @po, 2026-11-17) |
 | **LTM-07** | **C1** — a meia cota: schema, reserva e rateio | P0 | `Draft` (NO-GO 6,5/10) |
 | **LTM-08** | **C2** — a meia cota: grade, unidade, anúncio, relatório | P0 | `Draft` (GO condicional 7/10) |
 | **LTM-09** | **D1** — BI próprio da frente nova, sem interferência no que roda hoje | P1 | `Draft` (nova) |
@@ -175,7 +177,14 @@ O Império quer **dividir a cota em dois**: cada número pode ser comprado intei
 > As três razões que antes a bloqueavam continuam todas verdadeiras. A diferença é que elas
 > deixaram de ser argumento para **adiar** e passaram a ser argumento para **antecipar**:
 >
-> 1. **Quebra a premissa de um dono por linha.** Hoje `product_numbers` tem uma linha por número e a reserva é um `UPDATE ... WHERE status = 'available'` — atômico *porque* cabe exatamente um dono. Com metades, a linha ganha três estados de ocupação (vazio / meio / cheio) e o `UPDATE` condicional deixa de bastar. **A `LTM-02` vai reescrever exatamente esse código.** Reescrever para um dono e depois reescrever de novo para dois é fazer o trabalho duas vezes no ponto mais delicado do sistema.
+> 1. **Mexe na premissa de um dono por linha.** Hoje `product_numbers` tem uma linha por número e a reserva é um `UPDATE ... WHERE status = 'available'` — atômico *porque* cabe exatamente um dono. **A `LTM-02` vai reescrever exatamente esse código.** Reescrever para um dono e depois reescrever de novo para dois é fazer o trabalho duas vezes no ponto mais delicado do sistema.
+>    ⚠️ **Corrigido em 2026-11-17 (@po).** A redação anterior dizia *"a linha ganha três estados de
+>    ocupação (vazio / meio / cheio) e o `UPDATE` condicional deixa de bastar"*. Essa é a
+>    **alternativa que o `ADR-0001` rejeitou**, e exatamente pelo motivo descrito ali. Na forma
+>    decidida — **a metade é uma linha** — continua cabendo um dono por linha e o `UPDATE`
+>    condicional **continua bastando**; o que muda obrigatoriamente é o **predicado** (`WHERE` por
+>    unidade vendável, não por número). O epic estava descrevendo o modelo descartado como se fosse
+>    o escolhido.
 > 2. **Dobra a contenção**, no mesmo lugar que a `LTM-01` e a `LTM-02` estão consertando. Então o conserto precisa ser dimensionado para a carga final, não para a atual.
 > 3. **Muda o rateio de prêmio**, que é dinheiro do ganhador. A suíte da `LTM-05` tem que nascer já cobrindo o rateio — testes escritos para cota inteira não provam nada sobre metades.
 >
@@ -238,7 +247,17 @@ LTM-06 (sessão) ── independente, qualquer onda depois da LTM-05
 Frente B (paridade) ── despriorizada
 ```
 
-**Ordem recomendada:** ~~`/grill-with-docs`~~ ✅ → `LTM-01` + `LTM-05` (na forma do `ADR-0001`) → `LTM-02` + `LTM-07` → `LTM-03a` + `LTM-04` → `LTM-03b` + `LTM-08`.
+**Ordem recomendada:** ~~`/grill-with-docs`~~ ✅ → `LTM-01` + `LTM-05` (na forma do `ADR-0001`) → `LTM-02` **sozinha** → `LTM-03a` + `LTM-04` + `LTM-07` → `LTM-03b` + `LTM-08`.
+
+> ⚠️ **Contradição interna resolvida em 2026-11-17 (@po).** Esta linha dizia `LTM-02` **+**
+> `LTM-07` na mesma onda, enquanto a *Nota para formação de ondas* dizia **"Onda 2: `LTM-02`
+> sozinha"**. As duas não podiam ser verdade, e a primeira violava
+> `.claude/rules/parallel-waves.md`: as duas stories tocavam `src/lib/actions/reserve.ts` — a mesma
+> função. Com o recorte de 2026-11-17 (a `LTM-02` é a **única** a reescrever
+> `reserveSelectedNumbers`; a `LTM-07` não toca o arquivo), a `LTM-07` sai da onda 2 e passa para a
+> onda 3, onde seu conjunto de arquivos (`products.ts`, `validations/product.ts`, blocos próprios de
+> `raffles.ts`) é disjunto do da `LTM-03a` e do da `LTM-04` — **com a geração de migração
+> serializada**, que já era regra.
 
 > **Por que o grilling virou porta de entrada e não etapa final.** A `LTM-01` define a forma de
 > `product_numbers` e a `LTM-02` reescreve a reserva. Se a meia cota entra depois, esses dois
@@ -260,7 +279,7 @@ Frente B (paridade) ── despriorizada
 
 - **Onda 1:** `LTM-05` (`tests/`, `package.json`, config de teste) + `LTM-01` (`src/db/schema/raffles.ts`, migração). Arquivos disjuntos.
 - **Onda 2:** `LTM-02` sozinha (`src/db/index.ts`, `src/lib/actions/reserve.ts`, `src/lib/actions/checkout.ts`, `package.json`).
-- **Onda 3:** `LTM-03a` + `LTM-04`. ⚠️ **Os conjuntos de arquivo completos vivem nas próprias stories** — foi exatamente a omissão deles que derrubou a `LTM-03` na validação do @po, que achou um terceiro consumidor (`src/lib/validations/payment-gateway.ts`) fora do conjunto declarado.
+- **Onda 3:** `LTM-03a` + `LTM-04` + `LTM-07` (a `LTM-07` entra aqui desde o recorte de 2026-11-17 — ela deixou de tocar `reserve.ts`, que era a colisão com a onda 2). ⚠️ **Os conjuntos de arquivo completos vivem nas próprias stories** — foi exatamente a omissão deles que derrubou a `LTM-03` na validação do @po, que achou um terceiro consumidor (`src/lib/validations/payment-gateway.ts`) fora do conjunto declarado.
 - **Onda 4:** `LTM-03b` sozinha. `LTM-06` é independente e cabe em qualquer onda a partir da 2.
 - ⚠️ **Recurso mutável compartilhado:** o journal do Drizzle (`drizzle/meta/_journal.json`) é tocado por qualquer story que gere migração. Duas `drizzle-kit generate` concorrentes colidem. **Serializar o passo de geração de migração** mesmo quando as stories rodam em paralelo.
 
@@ -323,13 +342,19 @@ que nunca lê `quantity`. Pousa na `LTM-07` e, principalmente, na **`LTM-04`** �
 3. **A `LTM-04` faltava na lista de afetadas** pela meia cota, e é onde o custo aceito pelo ADR
    (*"`quantity` ... campo que o BI, o ETL e o CAPI já consomem"*) de fato aterrissa.
 
-### Uma incoerência no `ADR-0001`, para o @architect decidir
+### Uma incoerência no `ADR-0001` — ✅ **fechada em 2026-11-17**
 
-Em *Custos aceitos*: *"`quantity` do pedido **passa a contar metades**"*. Na frase seguinte, a
-mitigação: *"campo novo e explícito no pedido, **nunca reinterpretação silenciosa de `quantity`**"*.
-As duas não podem valer juntas. A consequência é medível: `bi_aggregator.py:1099` faz
-`numeros_vendidos = ("Quantidade", "sum")` — na segunda leitura, "números vendidos" no BI dobra em
-sorteio divisível. A `LTM-07` tem que escolher uma das duas formas.
+Era: em *Custos aceitos*, *"`quantity` do pedido **passa a contar metades**"*; na frase seguinte,
+*"**nunca reinterpretação silenciosa de `quantity`**"*. As duas não podiam valer juntas, e a
+consequência é medível — `bi_aggregator.py:1099` faz `numeros_vendidos = ("Quantidade", "sum")`.
+
+**O `ADR-0001` foi corrigido e decidiu:** `quantity` conta **o que o pedido contém** (metades, em
+sorteio divisível), **e** o pedido carrega **campo explícito de unidade**, que quem agrega tem de
+ler. O lado do BI é escopo do `ADR-0002`; o pipeline atual continua lendo a Sorteamos, intocado.
+
+⚠️ **Mas a decisão não chegou nas stories.** Na 2ª revalidação (2026-11-17) a `LTM-07` ainda trazia
+na lista de tarefas a forma **oposta** (*"não reinterpretar `quantity`"*), e a `LTM-04` — onde o
+custo de fato aterrissa — não tem nenhum AC sobre isso. Correção registrada nas duas stories.
 
 ### Caminho mais curto de volta à onda 1
 
@@ -348,6 +373,43 @@ sorteio divisível. A `LTM-07` tem que escolher uma das duas formas.
 5. `LTM-04`: as oito correções listadas na própria story — sendo a primeira que `base_url` é
    **literal** no `client_api.py:74`, o que torna o AC3 ("trocar a URL base e nada mais")
    impossível como está escrito.
+
+## Revalidação 2 do @po (2026-11-17) — depois das correções
+
+| Story | Pontuação | Veredicto | Status aplicado |
+|---|---|---|---|
+| LTM-01 (índices) | **8,5/10** | **GO** | `Draft` → **`Ready`** |
+| LTM-05 (testes) | **8,5/10** | **GO** | `Draft` → **`Ready`** |
+| LTM-02 (transação) | **6,5/10** | **NO-GO** | permanece `Draft` (2 correções) |
+| LTM-07 (meia cota — domínio) | **6,5/10** | **NO-GO** | permanece `Draft` (3 correções) |
+| LTM-04 (atribuição + API) | **5,5/10** | **NO-GO** | permanece `Draft` (7 das 8 correções seguem abertas) |
+
+### ✅ A onda 1 está liberada — e agora pelo motivo certo
+
+`LTM-01` + `LTM-05`, as duas raízes, passaram. O que conferi antes de liberar:
+
+- **Conjuntos de arquivo disjuntos.** `LTM-01` escreve `src/db/schema/raffles.ts` + `drizzle/**`;
+  `LTM-05` escreve `tests/**` + `vitest.config.ts`. O único encontro é `package.json`, e ele
+  **tende a não acontecer**: a `LTM-01` só o toca *"se o regime de migração exigir script novo"*, e
+  `db:generate`/`db:push` **já existem** no arquivo. A serialização declarada vira precaução.
+- **Recursos independentes.** `LTM-01` usa `drizzle/meta/_journal.json`; `LTM-05` usa base Postgres
+  descartável por execução, declaradamente não compartilhada. Sem colisão de porta nem de base.
+- **A dependência cruzada é de teste, não de arquivo.** O AC1 da `LTM-01` roda sobre a base da
+  `LTM-05`, e a `LTM-01` já traz a regra: pode ser implementada em paralelo, **não** pode ser
+  marcada `Done` com o AC1 pendente.
+- **A coluna `half` não quebra os 9 leitores de `product_numbers`** (`integer NOT NULL default 1`).
+
+### O que trava, e o que não trava
+
+| | |
+|---|---|
+| **Não trava nada** | os três NO-GO estão nas ondas **2 e 3**. A onda 1 pode ser despachada hoje |
+| **Trava a onda 2** | as 2 correções da `LTM-02` — e uma delas é de **sequenciamento**: o marcador de divisibilidade em `products` precisa descer para a onda 1 (recomendação: `LTM-01`), senão a onda 2 depende de uma coluna da onda 3 |
+| **Trava a onda 3** | as 7 correções abertas da `LTM-04` (autenticação, rota, parâmetros, vocabulário) e as 3 da `LTM-07` |
+
+> ⚠️ **Decisão que vale tomar antes de despachar a onda 1**, porque é mais barata agora: se o
+> marcador de divisibilidade em `products` for subir para a `LTM-01`, ele entra na **mesma migração**
+> que a coluna `half`. Depois da onda 1, é migração nova.
 
 ### O portão G4 precisa ser reescrito
 
