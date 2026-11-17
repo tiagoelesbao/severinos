@@ -1,6 +1,19 @@
 # LTM-03: O webhook fecha o pedido — com idempotência
 
-**Status:** Draft
+> # ⛔ SUPERSEDED — não implemente esta story
+>
+> **Dividida em `LTM-03a` e `LTM-03b` em 2026-11-16**, acatando a recomendação (b) do NO-GO do @po.
+>
+> | Story | O que ficou lá |
+> |---|---|
+> | **[`LTM-03a`](LTM-03a.md)** | `paysure` nas duas listas, credencial multi-campo, token de webhook, `settle-order` transacional, idempotência, fronteira de dinheiro, fail-loud, lista do operador, reuso em `simulatePayment`. **Testável sem nenhuma credencial.** |
+> | **[`LTM-03b`](LTM-03b.md)** | o adaptador da Paysure (entrada e saída). **Escrevível agora** — só o primeiro pagamento real espera `ci`/`cs`, que é o portão G5. |
+>
+> **O AC11 circular deixou de existir:** o contrato da Paysure foi lido da documentação oficial e está em `docs/research/2026-11-16-paysure-contrato.md` — payload dos três fluxos, autenticação, status, reentrega, idempotência, limites. O aviso real em produção passou de **pré-requisito** a **conferência pós-implementação**.
+>
+> Este arquivo é mantido **apenas** como trilha: o diagnóstico original e a validação completa do @po vivem aqui. Nada abaixo deve ser executado.
+
+**Status:** Superseded (era `Draft`) — ver `LTM-03a` e `LTM-03b`
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F3**
 **Prioridade:** **P0** — enquanto este `TODO` existir, **ninguém consegue comprar nada** no lotemania
 **Complexidade:** L (Standard) — fechamento transacional do pedido + chave de idempotência + fail-loud no não-casado
