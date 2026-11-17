@@ -124,8 +124,8 @@ irrelevante para Postgres **com índice**, e o índice é escopo da `LTM-01` de 
 1. Nenhuma metade tem dois donos.
 2. Reservar título inteiro reserva **as duas** metades ou **nenhuma** — nunca uma.
 3. Expirar uma metade não toca na outra.
-4. O rateio de um título sorteado soma **exatamente** o prêmio do título — nem centavo a mais, nem
-   a menos.
+4. O rateio de um título sorteado soma **o prêmio**, ou **o prêmio + R$ 0,01** quando o prêmio tem
+   centavo ímpar — **nunca menos**. Ver a decisão de arredondamento abaixo.
 5. Metade órfã em título sorteado paga o prêmio **inteiro** a quem tem a metade vendida.
 
 > **Invariante 3 já está satisfeito por construção, e isso precisa ser dito** para ninguém mitigar
@@ -143,9 +143,23 @@ Encontrados na revalidação, e nenhum deles estava neste ADR:
    linhas para o mesmo número são indistinguíveis de duplicata acidental, e o feed público de
    ganhadores só sabe dizer "42" — contra a regra **metade marcada** do `GLOSSARY.md`.
 2. **O rateio não fecha em `numeric(12,2)`.** `prize_amount` tem duas casas; metade de
-   R$ 100.000,01 é R$ 50.000,005, que **não é representável**. A política de arredondamento é
-   decisão de negócio (quem fica com o centavo), não de implementação, e tem de ser registrada
-   antes de o AC4 da `LTM-07` ser escrito como teste.
+   R$ 100.000,01 é R$ 50.000,005, que **não é representável**.
+
+   **Decidido pelo founder em 2026-11-17: arredondar os dois para cima.** Prêmio com centavo ímpar
+   produz duas metades de R$ 50.000,01 — o operador paga **R$ 0,01 a mais** que o prêmio
+   anunciado, e nenhum ganhador recebe a menos.
+
+   ⚠️ **Isto reescreve o invariante 4.** A redação anterior — *"a soma dos rateios é **exatamente**
+   o prêmio"* — passa a ser **falsa** por um centavo quando o prêmio é ímpar. Mantê-la produziria
+   um teste que falha com o sistema correto, que é precisamente o defeito que o @po encontrou na
+   `LTM-05`. A forma verdadeira e testável:
+
+   > A soma dos rateios de um título sorteado é **o prêmio**, ou **o prêmio + R$ 0,01** quando o
+   > prêmio tem centavo ímpar. **Nunca menos.** Nenhum ganhador recebe menos que a sua fração
+   > arredondada para cima.
+
+   A assimetria é deliberada: o erro cai do lado do operador, nunca do ganhador. Um centavo a mais
+   é custo; um centavo a menos é disputa.
 
 ## Decisões de domínio que acompanham esta
 
