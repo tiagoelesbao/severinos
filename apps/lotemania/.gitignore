@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...menos o exemplo: ele documenta quais variaveis o codigo le e nao
+# carrega valor nenhum. Sem esta excecao ele nunca entra no repo — foi o
+# que aconteceu ate 2026-11-17.
+!.env.example
 
 # vercel
 .vercel
@@ -42,3 +46,8 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# ...menos o exemplo: ele documenta quais variaveis o codigo le e nao carrega
+# valor nenhum. Sem esta excecao ele nunca entra no repo - foi o que
+# aconteceu ate 2026-11-17.
+!.env.example

@@ -10,11 +10,36 @@ import { hashPassword } from "../lib/auth/password";
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql, { schema });
 
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    console.error(
+      `\n${name} não está definida.\n\n` +
+        `O seed cria a conta de administrador do tenant. Defina as duas em\n` +
+        `.env.local antes de rodar:\n\n` +
+        `  SEED_ADMIN_EMAIL=voce@exemplo.com\n` +
+        `  SEED_ADMIN_PASSWORD=<senha forte, gerada, não reaproveitada>\n`,
+    );
+    process.exit(1);
+  }
+  return value;
+}
+
 async function main() {
   const tenantSlug = process.env.SEED_TENANT_SLUG ?? "imperio";
   const tenantName = process.env.SEED_TENANT_NAME ?? "Imperio";
-  const email = process.env.SEED_ADMIN_EMAIL ?? "admin@imperio.local";
-  const password = process.env.SEED_ADMIN_PASSWORD ?? "TrocarSenha123!";
+
+  // Sem valor padrão para e-mail e senha do admin, de propósito.
+  //
+  // Este repositório é PÚBLICO. Um fallback em literal aqui significa que o par
+  // usuário/senha do primeiro admin está publicado: quem rodar o seed sem
+  // definir as variáveis cria uma conta administrativa cuja credencial
+  // qualquer pessoa consegue ler no GitHub. "É só um placeholder" não ajuda —
+  // o que vale é o que fica no banco quando ninguém lê o comentário.
+  //
+  // Falhar aqui é barato; descobrir depois, não.
+  const email = requireEnv("SEED_ADMIN_EMAIL");
+  const password = requireEnv("SEED_ADMIN_PASSWORD");
 
   let [tenant] = await db
     .select()
