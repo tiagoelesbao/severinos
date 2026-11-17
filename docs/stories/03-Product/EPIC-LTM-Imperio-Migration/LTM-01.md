@@ -131,6 +131,27 @@ apps/lotemania/src/app/dashboard/products/[id]/orders/page.tsx
 
 **Depends-on:** nenhuma. É a raiz da onda 1.
 
+## Verificação contra Postgres real (2026-11-17)
+
+Branch efêmera do Neon `ltm-test` (projeto `neon-alizarin-anchor`, **Postgres 18**), criada para
+isto e isolada do banco que o app no ar usa. Schema aplicado pela migração desta story.
+
+| Afirmação | Resultado |
+|---|---|
+| Duas linhas `(produto, 42, half=1)` e `(produto, 42, half=2)` | ✅ **aceitas** — é o estado correto de sorteio divisível |
+| Terceira linha `(produto, 42, half=1)` | ✅ **recusada** por violação de unicidade |
+| `insert` com `half = NULL` | ✅ **recusado** — a restrição não se burla com `NULL` |
+| `products.is_divisible` existe | ✅ |
+| `pg_indexes` em `product_numbers` | ✅ `product_number_half_idx`, `order_idx`, `status_reserved_until_idx` (+ `pkey`) |
+
+**Fecha o AC1 e o AC7**, que estavam abertos por falta de banco autorizado.
+
+A segunda linha é a que carrega o peso: ela impede que alguém "conserte" a chave de volta para
+`(product_id, number)` e quebre a meia cota **sem nenhum teste reclamar**.
+
+> A credencial da branch vive em `apps/lotemania/.env.test.local`, coberto pela regra `.env*` do
+> `.gitignore` do app — conferido, não entra no repositório.
+
 ## Riscos
 
 - **[Médio] Dado duplicado pré-existente impede criar o `uniqueIndex`** quando o histórico do Império for importado. Mitigação: criar o índice **antes** da importação (tabela vazia hoje) — a importação passa a falhar alto no duplicado em vez de absorvê-lo em silêncio, que é o comportamento desejado.
