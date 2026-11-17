@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Crown } from "lucide-react";
 import { lojaSans } from "@/app/layout";
 import { getTenantBySlug } from "@/lib/tenant";
 import { db } from "@/db";
 import { pageViews } from "@/db/schema";
 import { StorefrontNav } from "./storefront-nav";
+import { StoreLogo } from "./store-logo";
 
 export default async function StorefrontLayout({
   children,
@@ -33,24 +33,7 @@ export default async function StorefrontLayout({
         {/* h-[70px]: altura medida no cabecalho da loja da Sorteamos. */}
         <div className="mx-auto flex h-[70px] max-w-3xl items-center gap-2 px-4">
           <Link href={`/loja/${tenantSlug}`} className="flex items-center gap-2">
-            {logoUrl ? (
-              /* A logo da Sorteamos ocupa 128x40 e JA CONTEM o nome — por isso
-                 substitui o par icone+texto em vez de acompanha-lo. Sem
-                 logoUrl, cai no par coroa+nome, que e o que existia antes. */
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={logoUrl}
-                alt={siteName}
-                className="h-10 w-auto max-w-[128px] object-contain object-left"
-              />
-            ) : (
-              <>
-                <Crown className="size-6 fill-amber-400 text-amber-400" />
-                <span className="text-lg font-bold uppercase tracking-wide text-white">
-                  {siteName}
-                </span>
-              </>
-            )}
+            <StoreLogo tenantSlug={tenantSlug} siteName={siteName} logoUrl={logoUrl} />
           </Link>
           <div className="flex-1" />
           <StorefrontNav tenantSlug={tenantSlug} siteName={siteName} logoUrl={logoUrl} />
