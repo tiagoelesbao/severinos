@@ -96,7 +96,7 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 |---|---|---|---|
 | **0 — Compilar** | O app tem que buildar para qualquer AC ser verificável | `LTM-00` | ✅ **Done** (2026-11-16) |
 | **A — Fundação** | O caminho do dinheiro: índice, atomicidade, fechamento de pedido, atribuição, testes | `LTM-01`, `02`, `03a`, `03b`, `04`, `05`, `06` | 01/02/04/05 em `Ready`; `03a`/`03b` e `06` em `Draft`, aguardando @po |
-| **C — Meia cota** | O que o cliente pediu e a Sorteamos não faz | *nasce do grilling* | ⏳ **Promovida** — entra no primeiro sorteio de teste. Aguarda só o `/grill-with-docs` do founder |
+| **C — Meia cota** | O que o cliente pediu e a Sorteamos não faz | `LTM-07`, `LTM-08` | ✅ **Modelada** (2026-11-17) — 17 decisões no `/grill-with-docs`, `ADR-0001` escrito, duas stories em `Draft` |
 | **B — Paridade** | Fechar a distância funcional contra a Sorteamos: `social`, os 3 exports por sorteio, os 3 tipos de `/reports`, mídia em S3 | *a definir* | ⬇️ **Despriorizada** — volta a ser bloqueante só na migração de verdade. B1/B2 ainda pendem do founder; B3 já decidida |
 
 ### Frente A — Fundação (escopo deste epic)
@@ -111,6 +111,8 @@ Hoje o lotemania **não consegue vender**, e se conseguisse venderia errado: sem
 | **LTM-04** | **F4** — atribuição por pedido não existe; sem API de leitura para o ETL | P0 | `Ready` |
 | **LTM-05** | **F5** — zero testes no caminho do dinheiro | P0 | `Ready` |
 | **LTM-06** | **F6** — duas decisões de segurança de sessão deixadas em aberto de propósito | P1 | `Draft` |
+| **LTM-07** | **C1** — a meia cota: schema, reserva e rateio | P0 | `Draft` |
+| **LTM-08** | **C2** — a meia cota: grade, unidade, anúncio, relatório | P0 | `Draft` |
 
 > **A `LTM-01` cresceu depois de medida.** O problema não é "falta o índice de `product_numbers`":
 > **nenhuma consulta deste sistema tem índice**, exceto onde um `uniqueIndex` criou um por efeito
@@ -170,7 +172,40 @@ O Império quer **dividir a cota em dois**: cada número pode ser comprado intei
 > o cliente **não repassou credencial**. Não há histórico para migrar. A janela para mexer no
 > modelo de dados é esta.
 
-**Pré-requisito que continua de pé:** a modelagem passa por `/grill-with-docs` **antes** de virar story — é invocação explícita do founder, não automatizável. As perguntas que decidem o modelo: preço da metade contra o inteiro, o que acontece se só uma metade vender até o sorteio, como o prêmio é rateado, se a metade pode ser revendida, e se um comprador pode levar as duas metades do mesmo número.
+### ✅ Modelada em 2026-11-17
+
+O `/grill-with-docs` rodou: **17 decisões em quatro rodadas, fronteira fechada**. A decisão difícil de reverter virou **[`ADR-0001`](../../../architecture/adr/0001-meia-cota-como-linha.md)** e o vocabulário virou o **`GLOSSARY.md`** da raiz, que não existia antes.
+
+**A decisão central:** a metade é uma **linha**, não uma coluna. `product_numbers` passa a ter uma linha por unidade vendável; num sorteio divisível a unidade é a metade, e comprar inteiro é reservar as duas linhas na mesma instrução. Isso preserva **intacta** a propriedade que torna a reserva correta hoje — um dono por linha — em vez de substituí-la por travamento explícito justo quando a contenção dobra.
+
+| | |
+|---|---|
+| Prêmio | só em sorteio de **dinheiro**; o sistema recusa os outros |
+| Preço | metade custa **metade exata**, sem ágio |
+| Escopo | **por sorteio**, nunca por título |
+| Fusão | duas metades do mesmo dono **não se fundem** |
+| Metade órfã | quem tem a metade vendida leva o **prêmio inteiro** |
+| Congelamento | divisibilidade vira somente-leitura **na primeira venda** |
+| Ganhador | **uma linha de `winners` por pessoa**, valor já rateado |
+| Unidade | **uma por sorteio, sempre nomeada** na interface |
+| Grade | **célula partida** — um botão por título, dividido ao meio |
+| Relatório | metade **sempre marcada**, nunca número nu |
+| Anúncio | os **dois** valores lado a lado; nunca o grande sozinho numa tela de metade |
+
+**Dois fatos levantados na sessão que mataram perguntas antes de serem feitas:** nada no código escreve em `winners` — o sorteio é externo e o operador registra depois —, e jogos bônus são comprados à parte, com combos próprios, então metades não os tocam.
+
+### ⚠️ Quatro stories em `Ready` foram escritas antes desta decisão
+
+`LTM-01`, `LTM-02`, `LTM-05` e `LTM-03a` têm escopo anterior ao `ADR-0001` e **precisam de revalidação do @po**:
+
+| Story | O que muda |
+|---|---|
+| `LTM-01` | o índice é sobre `(product_id, number, half)`, não `(product_id, number)` |
+| `LTM-02` | a reserva que ela torna transacional é a de metades |
+| `LTM-05` | **a suíte escrita para cota inteira provaria invariantes que deixam de valer** |
+| `LTM-03a` | o fechamento marca metades como vendidas, e `quantity` tem unidade |
+
+E o portão **G4** (carga) precisa ser refeito na forma divisível: 5 rodadas de **200 metades**, não de 100 títulos.
 
 **Impacto nas stories existentes:** `LTM-01` (índice sobre a nova forma), `LTM-02` (a reserva atômica **é** a feature), `LTM-05` (invariantes de posse e rateio) e `LTM-03a` (o fechamento de pedido marca posse). A modelagem precisa sair **antes** de a onda 2 começar.
 
@@ -192,7 +227,7 @@ LTM-06 (sessão) ── independente, qualquer onda depois da LTM-05
 Frente B (paridade) ── despriorizada
 ```
 
-**Ordem recomendada:** `/grill-with-docs` → `LTM-01` + `LTM-05` → `LTM-02` → `LTM-03a` + `LTM-04` → `LTM-03b`.
+**Ordem recomendada:** ~~`/grill-with-docs`~~ ✅ → `LTM-01` + `LTM-05` (na forma do `ADR-0001`) → `LTM-02` + `LTM-07` → `LTM-03a` + `LTM-04` → `LTM-03b` + `LTM-08`.
 
 > **Por que o grilling virou porta de entrada e não etapa final.** A `LTM-01` define a forma de
 > `product_numbers` e a `LTM-02` reescreve a reserva. Se a meia cota entra depois, esses dois
