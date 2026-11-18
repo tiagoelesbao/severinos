@@ -8,7 +8,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import { reserveSelectedNumbers } from "@/lib/actions/reserve";
 
-import { errorOf, orderIdOf } from "../helpers/actions";
+import { errorOf, orderIdOf, titulos } from "../helpers/actions";
 import { assertProductInvariants } from "../helpers/invariants";
 import {
   blockPhone,
@@ -38,7 +38,7 @@ describe("reserveSelectedNumbers", () => {
     const outcome = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [0, 1, 2],
+      units: titulos(0, 1, 2),
       phone,
     });
     const orderId = orderIdOf(outcome);
@@ -70,7 +70,7 @@ describe("reserveSelectedNumbers", () => {
     const outcome = await reserveSelectedNumbers({
       tenantSlug: `operador-que-nao-existe-${Date.now()}`,
       productSlug: raffle.slug,
-      numbers: [0],
+      units: titulos(0),
       phone: syntheticPhone(),
     });
 
@@ -87,7 +87,7 @@ describe("reserveSelectedNumbers", () => {
     const outcome = await reserveSelectedNumbers({
       tenantSlug: inactive.slug,
       productSlug: otherRaffle.slug,
-      numbers: [0],
+      units: titulos(0),
       phone: syntheticPhone(),
     });
 
@@ -105,7 +105,7 @@ describe("reserveSelectedNumbers", () => {
     const outcome = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: draft.slug,
-      numbers: [0],
+      units: titulos(0),
       phone: syntheticPhone(),
     });
 
@@ -121,7 +121,7 @@ describe("reserveSelectedNumbers", () => {
     const outcome = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [0, 1],
+      units: titulos(0, 1),
       phone,
     });
 
@@ -130,15 +130,24 @@ describe("reserveSelectedNumbers", () => {
     await assertProductInvariants(raffle.id, "telefone bloqueado");
   });
 
-  it("ramo de falha: reserva parcial é tudo-ou-nada, e DEIXA RESÍDUO em canceled", async () => {
-    // Este teste é verde hoje e documenta um defeito de propósito. Quando a
-    // LTM-02 tornar a reserva atômica, o pedido do perdedor deixa de nascer
-    // e ESTE TESTE QUEBRA — que é o ponto: a mudança de comportamento tem de
-    // ser deliberada e visível no diff, não silenciosa.
+  it("AC4: reserva parcial é tudo-ou-nada e NÃO deixa resíduo em canceled", async () => {
+    // ⚠️ REESCRITO NA LTM-02, e a reescrita é o aceite.
+    //
+    // A LTM-05 deixou este teste verde afirmando o DEFEITO — "deixa resíduo
+    // em canceled" — com a instrução escrita de que ele quebraria quando a
+    // reserva virasse atômica, e que a quebra tinha de ser deliberada e
+    // visível no diff. Foi o que aconteceu: medido contra o código novo, a
+    // disputa perdida passou a produzir 1 pedido em vez de 2.
+    //
+    // O que mudou de fato: o pedido do perdedor não chega a NASCER, porque
+    // pedido e unidades são escritos na mesma transação e a perda da
+    // disputa desfaz as duas. Antes, cada disputa perdida deixava um pedido
+    // `canceled` no extrato de um comprador que nunca pediu cancelamento —
+    // e com esgotamento a ~5,5 unidades/minuto, disputa perdida é rotina.
     const primeiro = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [0, 1],
+      units: titulos(0, 1),
       phone: syntheticPhone(),
     });
     const vencedor = orderIdOf(primeiro);
@@ -146,7 +155,7 @@ describe("reserveSelectedNumbers", () => {
     const segundo = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [1, 2, 3],
+      units: titulos(1, 2, 3),
       phone: syntheticPhone(),
     });
 
@@ -163,25 +172,33 @@ describe("reserveSelectedNumbers", () => {
       expect(unit.reserved_until).toBeNull();
     }
 
-    // O RESÍDUO: o pedido do perdedor existe, com `quantity` 3 e zero
-    // unidade. Aparece no extrato do comprador como pedido cancelado que
-    // ele nunca fez de propósito.
+    // ZERO resíduo: só o pedido do vencedor existe. A contagem de linhas em
+    // `orders` é a medida do AC4, e ela é IDÊNTICA à de antes da chamada
+    // perdida.
     const orders = await readOrders(raffle.id);
-    expect(orders).toHaveLength(2);
-    const residuo = orders.find((o) => o.id !== vencedor);
-    expect(residuo?.status).toBe("canceled");
-    expect(residuo?.quantity).toBe(3);
+    expect(orders.map((o) => ({ id: o.id, status: o.status }))).toHaveLength(1);
+    expect(orders[0].id).toBe(vencedor);
+    expect(orders[0].status).toBe("pending");
+    expect(
+      orders.filter((o) => o.status === "canceled"),
+      "pedido em canceled aqui é o resíduo que esta story existiu para eliminar",
+    ).toHaveLength(0);
 
-    await assertProductInvariants(raffle.id, "reserva parcial com resíduo");
+    await assertProductInvariants(raffle.id, "reserva parcial sem resíduo");
   });
 
-  it("ramo de falha: número que não existe no sorteio recusa e deixa o mesmo resíduo", async () => {
+  it("ramo de falha: número que não existe no sorteio recusa e não cria pedido", async () => {
+    // ⚠️ REESCRITO NA LTM-02 (era "...e deixa o mesmo resíduo"). O que mudou
+    // é a mesma coisa do teste acima: o pedido não nasce. O que NÃO mudou, e
+    // continua registrado: o código não distingue "número inexistente" de
+    // "número já tomado" — a mesma recusa sai nos dois casos, porque a
+    // contagem exata de unidades tomadas é o único critério. Mensagem nova
+    // seria mudança de UX que nenhum AC pediu.
     const outcome = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      // O sorteio tem 0..9; 999 não existe, e o código não distingue
-      // "inexistente" de "já tomado" — a mesma recusa sai nos dois casos.
-      numbers: [0, 999],
+      // O sorteio tem 0..9; 999 não existe.
+      units: titulos(0, 999),
       phone: syntheticPhone(),
     });
 
@@ -189,10 +206,10 @@ describe("reserveSelectedNumbers", () => {
 
     const units = await readUnits(raffle.id);
     expect(units.filter((u) => u.status !== "available")).toHaveLength(0);
-
-    const orders = await readOrders(raffle.id);
-    expect(orders).toHaveLength(1);
-    expect(orders[0].status).toBe("canceled");
+    expect(
+      await readOrders(raffle.id),
+      "nem mesmo um pedido em canceled: a tentativa inteira foi desfeita",
+    ).toHaveLength(0);
 
     await assertProductInvariants(raffle.id, "número inexistente no sorteio");
   });

@@ -10,7 +10,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import { reserveSelectedNumbers } from "@/lib/actions/reserve";
 
-import { orderIdOf } from "../helpers/actions";
+import { orderIdOf, titulos } from "../helpers/actions";
 import { assertProductInvariants } from "../helpers/invariants";
 import {
   createRaffle,
@@ -40,7 +40,7 @@ describe("expiração de reserva", () => {
       await reserveSelectedNumbers({
         tenantSlug: tenant.slug,
         productSlug: raffle.slug,
-        numbers: [0, 1],
+        units: titulos(0, 1),
         phone,
       }),
     );
@@ -53,7 +53,7 @@ describe("expiração de reserva", () => {
       await reserveSelectedNumbers({
         tenantSlug: tenant.slug,
         productSlug: raffle.slug,
-        numbers: [5],
+        units: titulos(5),
         phone,
       }),
     );
@@ -86,7 +86,7 @@ describe("expiração de reserva", () => {
       await reserveSelectedNumbers({
         tenantSlug: tenant.slug,
         productSlug: raffle.slug,
-        numbers: [0],
+        units: titulos(0),
         phone: abandonador,
       }),
     );
@@ -94,7 +94,7 @@ describe("expiração de reserva", () => {
       await reserveSelectedNumbers({
         tenantSlug: tenant.slug,
         productSlug: raffle.slug,
-        numbers: [1],
+        units: titulos(1),
         phone: outro,
       }),
     );
@@ -104,7 +104,7 @@ describe("expiração de reserva", () => {
     await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [2],
+      units: titulos(2),
       phone: abandonador,
     });
 

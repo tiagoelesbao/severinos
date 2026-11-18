@@ -1,25 +1,27 @@
-// `src/db/index.ts` — o ramo de falha dele (LTM-05, AC7).
+// `src/db/index.ts` — o ramo de falha dele (LTM-05, AC7; reescrito na LTM-02).
 //
-// O arquivo tem 7 linhas e um único ramo de falha: `process.env.DATABASE_URL!`
-// é asserção de não-nulo, então nada no código checa se a variável existe.
+// ⚠️ REESCRITO PORQUE O DRIVER MUDOU, e a mensagem de erro mudou com ele.
 //
-// ⚠️ ACHADO QUE CONTRARIA A PREMISSA DO AC7. O AC esperava que "sem a
-// variável, o módulo quebra na importação" e que o teste verificasse que "a
-// falha é alta e nomeada, não um undefined viajando até a primeira
-// consulta".
+// A LTM-05 mediu, contra `neon-http`, que o módulo NÃO quebra na importação
+// e que o `undefined` de `DATABASE_URL` viaja até a primeira consulta — e
+// que o erro que chega lá (`Wrong URL scheme or missing user, host or
+// database in connection parameters`, embrulhado pelo Drizzle) não nomeia a
+// variável que falta.
 //
-// Medido: o módulo NÃO quebra na importação. `neon()` do
-// @neondatabase/serverless@1.2.0 trata argumento não-string como se fosse o
-// objeto de opções (`typeof r != "string" && (e = r ?? {}, r = void 0)`) e
-// resolve a string de conexão só na hora da consulta. O `undefined` VIAJA
-// até a primeira consulta — exatamente o cenário que o AC chamava de pior —
-// e o erro que chega lá é `NeonDbError: Wrong URL scheme or missing user,
-// host or database in connection parameters`, que não nomeia
-// `DATABASE_URL`, não nomeia o app e não diz o que fazer.
+// Medido de novo em 2026-11-17 contra `neon-serverless` com `Pool`:
 //
-// Os dois testes abaixo são VERDES e descrevem esse comportamento como ele
-// é. Consertar é código de produção, proibido no escopo desta story
-// (registrar, não corrigir — ver Dev Record da LTM-05).
+//   • o módulo continua NÃO quebrando na importação — `new Pool({
+//     connectionString: undefined })` é construção válida, e o pool só tenta
+//     conectar na primeira consulta;
+//   • a mensagem melhorou um pouco e continua insuficiente. Agora é "No
+//     database host or connection string was set, and key parameters have
+//     default values (host: localhost, user: ..., db: ..., password: null).
+//     Is an environment variable missing?" — ela ao menos SUGERE variável de
+//     ambiente, mas não diz QUAL, e continua embrulhada em "Failed query".
+//
+// Os dois testes abaixo descrevem o comportamento novo como ele é. Dar nome
+// à variável que falta continua sendo melhoria sem AC em nenhuma story —
+// registrar, não inventar escopo.
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -60,13 +62,9 @@ describe("src/db/index.ts — ramo de falha: DATABASE_URL ausente", () => {
 
     expect(captured, "a consulta tinha de falhar sem string de conexão").toBeDefined();
 
-    // O Drizzle EMBRULHA o erro do driver: o que chega ao chamador é
-    // "Failed query: SELECT 1", e o NeonDbError original fica no `cause`.
-    // Medido em 2026-11-17 — a primeira redação deste teste assertava a
-    // mensagem do driver e falhava, porque mirava na camada de baixo.
-    //
-    // Isso torna o achado PIOR, não melhor: além de o erro não nomear a
-    // variável que falta, a camada de cima esconde até a pista do driver.
+    // O Drizzle EMBRULHA o erro do driver: o que chega ao chamador começa
+    // em "Failed query: SELECT 1". Com `neon-http` a causa real ficava no
+    // `cause`; com o `Pool` ela vem anexada à própria mensagem.
     expect(captured?.message).toMatch(/Failed query/i);
 
     const cadeia = [
@@ -76,8 +74,11 @@ describe("src/db/index.ts — ramo de falha: DATABASE_URL ausente", () => {
       .filter(Boolean)
       .join(" | ");
 
-    // A causa de verdade só aparece se alguém souber abrir o `cause`.
-    expect(cadeia).toMatch(/missing user, host or database/i);
+    // A causa, na forma que o driver novo dá. O trecho com host, usuário e
+    // banco varia por máquina (ele cai nos padrões do sistema operacional),
+    // então a asserção fica nas partes estáveis da frase.
+    expect(cadeia).toMatch(/no database host or connection string was set/i);
+    expect(cadeia).toMatch(/environment variable missing/i);
 
     // O ponto do teste: em NENHUMA camada a falha diz qual variável falta.
     expect(cadeia).not.toMatch(/DATABASE_URL/);

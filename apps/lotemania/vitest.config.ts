@@ -1,9 +1,27 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { config as loadEnvFile } from "dotenv";
 import { defineConfig } from "vitest/config";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// As credenciais da base descartável vêm de `.env.test.local`, e é ESTE
+// arquivo que as carrega.
+//
+// ⚠️ Achado da LTM-02, medido em 2026-11-17: o Vitest 5 NÃO carrega
+// `.env*` em `process.env` — nem no processo principal (onde o
+// `globalSetup` roda), nem no worker. Medido com um teste-sonda que
+// imprimia `Boolean(process.env.LTM_TEST_NEON_API_KEY)` sem este `config()`:
+// `false` nas duas camadas. Sem isto, `pnpm test` morre em
+// `missingEnvironmentError` com o arquivo de credenciais no lugar, e só
+// roda para quem exportar as variáveis à mão — o que contraria o AC1 da
+// LTM-05 ("rodam sem intervenção manual").
+//
+// Mesmo padrão de `drizzle.config.ts` e `src/db/seed.ts`, que já carregam
+// `.env.local` assim. `override: false` deixa variável exportada no shell
+// ganhar do arquivo, que é o que se espera em CI.
+loadEnvFile({ path: path.resolve(dirname, ".env.test.local"), quiet: true });
 
 // Suíte do caminho do dinheiro (LTM-05). Três escolhas aqui não são estilo:
 //

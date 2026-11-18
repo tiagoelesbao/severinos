@@ -56,13 +56,29 @@ export function NumberGrid({
   function submit() {
     setError(null);
     startTransition(async () => {
+      // O contrato de reserva deixou de ser lista de números e passou a ser
+      // lista de UNIDADES VENDÁVEIS (LTM-02, AC9). `half: null` quer dizer
+      // "o título inteiro": num sorteio de cota inteira é a única linha que
+      // existe, e num sorteio divisível são as duas metades, tomadas juntas.
+      //
+      // É só isto que muda aqui, e de propósito: esta grade continua
+      // vendendo título inteiro e não mudou um pixel. A célula partida e a
+      // seleção de metade avulsa são da LTM-08.
       const result = await reserveSelectedNumbers({
         tenantSlug,
         productSlug,
-        numbers: selected,
+        units: selected.map((number) => ({ number, half: null })),
         phone,
       });
-      if (result?.error) {
+      // `"error" in result` em vez de `result?.error`: o retorno da action é
+      // uma união de `{ orderId }` com `{ error }`, e o `typecheck` passa a
+      // exigir o estreitamento explícito — o mesmo padrão que
+      // `tests/helpers/actions.ts` já usa. Antes o TypeScript normalizava a
+      // união (acrescentando `error?: undefined` a cada ramo) porque todos
+      // os `return` eram literais no mesmo corpo de função; agora um dos
+      // ramos vem de dentro de `db.transaction()` e a normalização não se
+      // aplica mais.
+      if ("error" in result) {
         setError(result.error);
         return;
       }

@@ -12,7 +12,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import { reserveSelectedNumbers } from "@/lib/actions/reserve";
 
-import { errorOf, orderIdOf } from "../helpers/actions";
+import { errorOf, orderIdOf, titulos } from "../helpers/actions";
 import { assertProductInvariants } from "../helpers/invariants";
 import {
   createRaffle,
@@ -43,7 +43,7 @@ describe("anti-spam", () => {
       await reserveSelectedNumbers({
         tenantSlug: tenant.slug,
         productSlug: raffle.slug,
-        numbers: [numero],
+        units: titulos(numero),
         phone,
       }),
     );
@@ -66,7 +66,7 @@ describe("anti-spam", () => {
     const bloqueado = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [3],
+      units: titulos(3),
       phone,
     });
 
@@ -99,14 +99,14 @@ describe("anti-spam", () => {
     await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [3],
+      units: titulos(3),
       phone,
     });
 
     const segundaTentativa = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [4],
+      units: titulos(4),
       phone,
     });
 
@@ -123,7 +123,7 @@ describe("anti-spam", () => {
     await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [3],
+      units: titulos(3),
       phone,
     });
 
@@ -136,7 +136,7 @@ describe("anti-spam", () => {
     const liberado = await reserveSelectedNumbers({
       tenantSlug: tenant.slug,
       productSlug: raffle.slug,
-      numbers: [4],
+      units: titulos(4),
       phone,
     });
 
