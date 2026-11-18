@@ -290,6 +290,52 @@ Agrupados por bloco. A rastreabilidade com a numeração da `LTM-03` original es
 
 > **Nota de escopo (founder, 2026-11-16):** o único gateway que importa agora é a **paysure**. z-api, wizebot, onesignal, paposms, liguelead, dxmidia e nexopro estão **fora da paridade**. Decisão tomada, não pendente.
 
+## Files
+
+Conferido no código em 2026-11-17 com `grep -rln`, não inferido das tarefas — foi a inferência que
+derrubou a `LTM-03` na validação.
+
+**Escreve:**
+
+```
+apps/lotemania/src/db/schema/payments.ts              paysure no pgEnum, externalEventId,
+                                                      estado de casamento, uniqueIndex
+apps/lotemania/src/lib/validations/payment-gateway.ts a SEGUNDA copia da lista de provedores
+                                                      — e dela que vem o 404 do webhook
+apps/lotemania/src/lib/payments/settle-order.ts       (novo) o fechamento transacional
+apps/lotemania/src/lib/payments/providers/**          (novo) o arcabouco de adaptador
+apps/lotemania/src/app/api/webhooks/payment/[tenant]/[provider]/route.ts
+apps/lotemania/src/lib/actions/checkout.ts            simulatePayment passa a chamar settle-order
+apps/lotemania/src/app/dashboard/integrations/payments/**
+                                                      a tela nao lista paysure hoje; e o terceiro
+                                                      consumidor da lista duplicada
+apps/lotemania/drizzle/**                             migracao
+apps/lotemania/tests/money-path/**                    os ACs
+```
+
+### ⚠️ A terceira cópia do fechamento, que nenhuma versão desta story mencionava
+
+`src/lib/actions/bonus-play.ts` **espelha a sequência de fechamento** — o próprio comentário dele
+diz *"mirrors simulatePayment for raffle orders"* (`:80`) e ele insere direto em
+`bankingTransactions` (`:105`).
+
+O **AC9** exige que a sequência de marcar pedido pago + unidades vendidas + crédito bancário
+exista em **um arquivo apenas**, verificável por busca. Com `bonus-play.ts` fora do conjunto, o AC
+**falha na própria verificação que ele define** — havendo duas implementações, não uma.
+
+**Decisão a tomar na implementação, e registrar:** ou `bonus-play.ts` passa a chamar
+`settle-order` também (preferível — é o espírito do AC9), ou o AC9 é reescrito para dizer
+explicitamente que o fechamento de **jogo bônus** é outro fluxo e tem permissão de ter o seu. O que
+não pode é a verificação do AC9 encontrar duas cópias e ninguém ter decidido.
+
+**Resources:** `drizzle/meta/_journal.json` — compartilhado com `LTM-04` e `LTM-07`. **Serializar
+`pnpm db:generate`.**
+
+**Depends-on:** `LTM-01` (schema e índices) · `LTM-02` (transação — sem ela o fechamento vira três
+escritas soltas com dinheiro já capturado) · `LTM-05` (a suíte).
+
+**Precede:** `LTM-03b` (o adaptador da Paysure se encaixa no arcabouço que esta cria).
+
 ## Dependências
 
 - **Depende de `LTM-00` (satisfeita).** O app compila desde `90c8ca59`; `lint`, `typecheck` e `build` estão verdes. Sem isso nenhum AC daqui seria verificável.
