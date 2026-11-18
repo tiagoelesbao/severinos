@@ -45,7 +45,12 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["tests/**/*.test.ts"],
+    // `.tsx` entrou na LTM-03a: os ACs A3 e B1 exigem verificação do RENDER
+    // ("o diálogo renderiza exatamente os campos do provedor", "a URL é
+    // extraída do render, não comparada com string escrita à mão"). O render
+    // é feito com `react-dom/server` em ambiente `node` — sem jsdom, sem
+    // biblioteca de teste de componente, sem dependência nova.
+    include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
     globalSetup: ["./tests/setup/global-setup.ts"],
     setupFiles: ["./tests/setup/test-env.ts"],
     fileParallelism: false,

@@ -203,20 +203,140 @@ export async function createPaymentGateway(opts: {
   tenantId: string;
   provider: string;
   webhookSecret?: string | null;
+  /**
+   * O token da URL de webhook (LTM-03a). `null` monta o estado "gateway sem
+   * token", que a rota tem de recusar — é um caso de teste, não um descuido.
+   */
+  webhookToken?: string | null;
   isActive?: boolean;
-}): Promise<{ id: string; webhookSecret: string | null }> {
-  // Segredo gerado por execução, nunca literal de credencial de provedor.
+}): Promise<{
+  id: string;
+  webhookSecret: string | null;
+  webhookToken: string | null;
+}> {
+  // Segredo e token gerados por execução, nunca literal de credencial de
+  // provedor. O token sintético imita a FORMA do real (base64url, 43
+  // caracteres) sem ser produzido pelo código sob teste.
   const webhookSecret =
     opts.webhookSecret === undefined
       ? `segredo-sintetico-${uniqueSuffix()}`
       : opts.webhookSecret;
+  const webhookToken =
+    opts.webhookToken === undefined
+      ? `tok-sintetico-${uniqueSuffix()}-${Math.random().toString(36).slice(2, 10)}`
+      : opts.webhookToken;
   const row = await queryOne<{ id: string }>(
-    `INSERT INTO payment_gateways (tenant_id, provider, webhook_secret, is_active)
-     VALUES ($1, $2, $3, $4)
+    `INSERT INTO payment_gateways
+       (tenant_id, provider, webhook_secret, webhook_token, is_active)
+     VALUES ($1, $2, $3, $4, $5)
      RETURNING id`,
-    [opts.tenantId, opts.provider, webhookSecret, opts.isActive ?? true],
+    [
+      opts.tenantId,
+      opts.provider,
+      webhookSecret,
+      webhookToken,
+      opts.isActive ?? true,
+    ],
   );
-  return { id: row.id, webhookSecret };
+  return { id: row.id, webhookSecret, webhookToken };
+}
+
+export async function readPaymentGateway(
+  tenantId: string,
+  provider: string,
+): Promise<{
+  id: string;
+  credentials_encrypted: string | null;
+  webhook_secret: string | null;
+  webhook_token: string | null;
+  is_active: boolean;
+} | null> {
+  const rows = await query<{
+    id: string;
+    credentials_encrypted: string | null;
+    webhook_secret: string | null;
+    webhook_token: string | null;
+    is_active: boolean;
+  }>(
+    `SELECT id, credentials_encrypted, webhook_secret, webhook_token, is_active
+       FROM payment_gateways
+      WHERE tenant_id = $1 AND provider = $2`,
+    [tenantId, provider],
+  );
+  return rows[0] ?? null;
+}
+
+export async function setGatewayActive(
+  tenantId: string,
+  provider: string,
+  isActive: boolean,
+): Promise<void> {
+  await query(
+    `UPDATE payment_gateways SET is_active = $3
+      WHERE tenant_id = $1 AND provider = $2`,
+    [tenantId, provider, isActive],
+  );
+}
+
+/**
+ * Transfere a unidade vendável para OUTRO pedido, já vendida.
+ *
+ * Monta exatamente o estado do AC-C5: a linha que o pedido original tomou
+ * agora pertence a outro pedido, que a pagou. Mexe só no dado da base —
+ * quem tem de decidir o que fazer com esse estado é o código de produção.
+ */
+export async function reassignUnitToOrder(opts: {
+  productId: string;
+  number: number;
+  half: number;
+  orderId: string;
+  status?: "available" | "reserved" | "sold";
+}): Promise<void> {
+  await query(
+    `UPDATE product_numbers
+        SET order_id = $4, status = $5, reserved_until = NULL
+      WHERE product_id = $1 AND number = $2 AND half = $3`,
+    [
+      opts.productId,
+      opts.number,
+      opts.half,
+      opts.orderId,
+      opts.status ?? "sold",
+    ],
+  );
+}
+
+/**
+ * Devolve as unidades do pedido ao estoque, como a varredura de expiração
+ * faz (`reserve.ts:149-156`) — inclusive apagando o `order_id`.
+ *
+ * ⚠️ Apagar o `order_id` é o que torna a primeira metade da política default
+ * do AC-C6 ("se o número ainda estiver disponível, reservar e fechar")
+ * inimplementável: depois da expiração não existe registro de QUAIS unidades
+ * eram daquele pedido. Está registrado no Dev Agent Record da LTM-03a.
+ */
+export async function releaseUnitsOfOrder(orderId: string): Promise<void> {
+  await query(
+    `UPDATE product_numbers
+        SET status = 'available', order_id = NULL, reserved_until = NULL
+      WHERE order_id = $1`,
+    [orderId],
+  );
+}
+
+export async function setOrderStatus(
+  orderId: string,
+  status: "pending" | "paid" | "expired" | "refunded" | "canceled",
+): Promise<void> {
+  await query(`UPDATE orders SET status = $2 WHERE id = $1`, [orderId, status]);
+}
+
+export async function countBankingTransactions(tenantId: string): Promise<number> {
+  const rows = await query<{ total: string }>(
+    `SELECT count(*)::text AS total FROM banking_transactions WHERE tenant_id = $1`,
+    [tenantId],
+  );
+  return Number(rows[0].total);
 }
 
 // ── Leituras de conferência, usadas pelas asserções ─────────────────────
@@ -299,28 +419,46 @@ export async function setBlockedUntil(userId: string, when: Date | null): Promis
   await query(`UPDATE users SET blocked_until = $2 WHERE id = $1`, [userId, when]);
 }
 
-export async function readWebhookEvents(tenantId: string): Promise<
-  {
-    id: string;
-    provider: string;
-    signature_valid: boolean;
-    payload: unknown;
-  }[]
-> {
-  return query(
-    `SELECT id, provider, signature_valid, payload
+export interface WebhookEventRow {
+  id: string;
+  provider: string;
+  signature_valid: boolean;
+  payload: unknown;
+  external_event_id: string | null;
+  match_state: string;
+  match_reason: string | null;
+  delivery_count: number;
+  amount_cents: number | null;
+  order_id: string | null;
+}
+
+export async function readWebhookEvents(
+  tenantId: string,
+): Promise<WebhookEventRow[]> {
+  return query<WebhookEventRow>(
+    `SELECT id, provider, signature_valid, payload, external_event_id,
+            match_state, match_reason, delivery_count, amount_cents, order_id
        FROM payment_webhook_events
       WHERE tenant_id = $1
-      ORDER BY received_at`,
+      ORDER BY received_at, id`,
     [tenantId],
   );
 }
 
 export async function readBankingTransactions(orderId: string): Promise<
-  { id: string; type: string; amount: string; description: string | null }[]
+  {
+    id: string;
+    type: string;
+    amount: string;
+    description: string | null;
+    external_reference: string | null;
+    payment_id: string | null;
+    end_to_end_id: string | null;
+  }[]
 > {
   return query(
-    `SELECT id, type, amount, description
+    `SELECT id, type, amount, description, external_reference,
+            payment_id, end_to_end_id
        FROM banking_transactions
       WHERE order_id = $1`,
     [orderId],

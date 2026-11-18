@@ -8,6 +8,13 @@
       "when": 1794939564432,
       "tag": "0000_baseline_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794971318264,
+      "tag": "0001_ltm03a_caminho_do_dinheiro",
+      "breakpoints": true
     }
   ]
 }

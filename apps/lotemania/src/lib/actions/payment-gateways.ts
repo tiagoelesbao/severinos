@@ -1,39 +1,22 @@
 "use server";
 
-import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { db } from "@/db";
-import { paymentGateways } from "@/db/schema";
+
 import {
-  paymentGatewaySchema,
-  type PaymentGatewayInput,
-} from "@/lib/validations/payment-gateway";
-import { encryptSecret } from "@/lib/crypto";
+  savePaymentGatewayForTenant,
+  setPaymentGatewayActiveForTenant,
+} from "@/lib/payments/gateway-config";
+import { type PaymentGatewayInput } from "@/lib/validations/payment-gateway";
 import { requireAdmin } from "@/lib/auth/require-user";
+
+// ⚠️ Toda exportação deste arquivo é um endpoint chamável pelo cliente (é o
+// que `"use server"` significa). Por isso ele é só a casca de autorização:
+// a decisão de gravação mora em `lib/payments/gateway-config.ts`, que não é
+// `"use server"` e portanto não é exposto.
 
 export async function savePaymentGateway(input: PaymentGatewayInput) {
   const user = await requireAdmin();
-  const data = paymentGatewaySchema.parse(input);
-
-  await db
-    .insert(paymentGateways)
-    .values({
-      tenantId: user.tenantId,
-      provider: data.provider,
-      credentialsEncrypted: encryptSecret(data.apiKey),
-      webhookSecret: data.webhookSecret,
-      isActive: true,
-    })
-    .onConflictDoUpdate({
-      target: [paymentGateways.tenantId, paymentGateways.provider],
-      set: {
-        credentialsEncrypted: encryptSecret(data.apiKey),
-        webhookSecret: data.webhookSecret,
-        isActive: true,
-        updatedAt: new Date(),
-      },
-    });
-
+  await savePaymentGatewayForTenant(user.tenantId, input);
   revalidatePath("/dashboard/integrations/payments");
 }
 
@@ -42,14 +25,6 @@ export async function togglePaymentGatewayActive(
   isActive: boolean,
 ) {
   const user = await requireAdmin();
-  await db
-    .update(paymentGateways)
-    .set({ isActive, updatedAt: new Date() })
-    .where(
-      and(
-        eq(paymentGateways.provider, provider as never),
-        eq(paymentGateways.tenantId, user.tenantId),
-      ),
-    );
+  await setPaymentGatewayActiveForTenant(user.tenantId, provider, isActive);
   revalidatePath("/dashboard/integrations/payments");
 }

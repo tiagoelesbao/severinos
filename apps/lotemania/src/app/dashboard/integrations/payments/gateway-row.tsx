@@ -6,14 +6,21 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { togglePaymentGatewayActive } from "@/lib/actions/payment-gateways";
-import { ConfigureGatewayDialog } from "./configure-gateway-dialog";
+import {
+  ConfigureGatewayDialog,
+  WebhookUrlHint,
+} from "./configure-gateway-dialog";
 
 export function GatewayRow({
   provider,
+  tenantSlug,
+  webhookToken,
   configured,
   isActive,
 }: {
   provider: string;
+  tenantSlug: string;
+  webhookToken: string | null;
   configured: boolean;
   isActive: boolean;
 }) {
@@ -27,6 +34,16 @@ export function GatewayRow({
         <Badge variant={configured ? "secondary" : "outline"}>
           {configured ? "Configurado" : "Não configurado"}
         </Badge>
+      </TableCell>
+      <TableCell>
+        {/* A URL de recebimento vem do MESMO componente que o diálogo usa.
+            Antes a tela e o diálogo escreviam o endereço à mão, cada um de um
+            jeito, e o do diálogo estava errado (sem o tenant). AC-B1. */}
+        <WebhookUrlHint
+          tenantSlug={tenantSlug}
+          provider={provider}
+          token={webhookToken}
+        />
       </TableCell>
       <TableCell>
         <Switch
@@ -44,6 +61,8 @@ export function GatewayRow({
       </TableCell>
       <ConfigureGatewayDialog
         provider={provider}
+        tenantSlug={tenantSlug}
+        webhookToken={webhookToken}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         configured={configured}

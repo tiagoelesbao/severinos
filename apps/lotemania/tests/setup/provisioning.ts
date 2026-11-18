@@ -131,28 +131,43 @@ function pgClient(connectionString: string): Client {
   );
 }
 
+interface JournalEntry {
+  idx: number;
+  tag: string;
+}
+
 /**
- * Aplica a linha de base versionada da LTM-01.
+ * As migrações versionadas, na ordem do journal do Drizzle.
  *
- * Deliberadamente NÃO é `drizzle-kit push`: push compara o schema vivo com o
- * arquivo TypeScript e decide o que fazer, o que é bom em desenvolvimento e
- * ruim num runner — o que a suíte precisa é da mesma forma, byte a byte, em
- * toda execução. A linha de base é o artefato versionado que a LTM-01
- * entregou para isso.
+ * ⚠️ Lê o JOURNAL, nunca a listagem do diretório (LTM-03a). A primeira
+ * versão disto aplicava `0000_baseline_schema.sql` por caminho fixo, e a
+ * consequência apareceu na hora em que a LTM-03a gerou a segunda migração: a
+ * suíte montava a base no schema da LTM-01 e os testes do schema novo
+ * falhavam com "column does not exist" — defeito no RUNNER, com o código de
+ * produção correto. É a pior forma de vermelho, porque manda consertar o
+ * lugar errado.
+ *
+ * O journal é a ordem canônica; ordenar por nome de arquivo funcionaria até
+ * a décima migração e quebraria na `0010` contra a `0002`.
  */
-export async function applyBaselineSchema(databaseUrl: string): Promise<number> {
-  const baselinePath = path.resolve(dirname, "../../drizzle/0000_baseline_schema.sql");
-  let sqlText: string;
+async function migrationFilesInJournalOrder(): Promise<
+  { tag: string; sql: string }[]
+> {
+  const drizzleDir = path.resolve(dirname, "../../drizzle");
+  const journalPath = path.join(drizzleDir, "meta/_journal.json");
+
+  let journal: { entries?: JournalEntry[] };
   try {
-    sqlText = await readFile(baselinePath, "utf8");
+    journal = JSON.parse(await readFile(journalPath, "utf8")) as {
+      entries?: JournalEntry[];
+    };
   } catch {
     throw new Error(
       [
-        `Linha de base do schema não encontrada em ${baselinePath}.`,
+        `Journal de migrações não encontrado em ${journalPath}.`,
         "",
-        "Ela é o artefato da LTM-01 e é o que a suíte aplica na base",
-        "descartável. Se o arquivo não existe neste clone, gere a migração",
-        "antes de rodar os testes:",
+        "Ele é o artefato versionado que a suíte aplica na base descartável.",
+        "Se não existe neste clone, gere a migração antes de rodar os testes:",
         "",
         "  pnpm db:generate",
         "",
@@ -160,10 +175,51 @@ export async function applyBaselineSchema(databaseUrl: string): Promise<number> 
     );
   }
 
-  const statements = sqlText
-    .split("--> statement-breakpoint")
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
+  const entries = [...(journal.entries ?? [])].sort((a, b) => a.idx - b.idx);
+  if (entries.length === 0) {
+    throw new Error(
+      `O journal em ${journalPath} não tem nenhuma migração. Rode \`pnpm db:generate\`.`,
+    );
+  }
+
+  const files: { tag: string; sql: string }[] = [];
+  for (const entry of entries) {
+    const file = path.join(drizzleDir, `${entry.tag}.sql`);
+    try {
+      files.push({ tag: entry.tag, sql: await readFile(file, "utf8") });
+    } catch {
+      throw new Error(
+        `O journal cita a migração "${entry.tag}" e o arquivo ${file} não existe. ` +
+          `Journal e arquivos divergiram — a base de teste não pode ser montada ` +
+          `a partir de um conjunto incompleto.`,
+      );
+    }
+  }
+  return files;
+}
+
+/**
+ * Aplica TODAS as migrações versionadas, na ordem do journal.
+ *
+ * Deliberadamente NÃO é `drizzle-kit push`: push compara o schema vivo com o
+ * arquivo TypeScript e decide o que fazer, o que é bom em desenvolvimento e
+ * ruim num runner — o que a suíte precisa é da mesma forma, byte a byte, em
+ * toda execução. As migrações são os artefatos versionados que existem para
+ * isso.
+ *
+ * O nome ficou `applyBaselineSchema` por compatibilidade com os dois pontos
+ * de chamada; o que ele faz é aplicar a cadeia inteira.
+ */
+export async function applyBaselineSchema(databaseUrl: string): Promise<number> {
+  const migrations = await migrationFilesInJournalOrder();
+
+  const statements = migrations.flatMap((migration) =>
+    migration.sql
+      .split("--> statement-breakpoint")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0)
+      .map((sql) => ({ sql, tag: migration.tag })),
+  );
 
   const client = pgClient(databaseUrl);
   await client.connect();
@@ -184,12 +240,12 @@ export async function applyBaselineSchema(databaseUrl: string): Promise<number> 
 
     for (let i = 0; i < statements.length; i++) {
       try {
-        await client.query(statements[i]);
+        await client.query(statements[i].sql);
       } catch (error) {
-        const head = statements[i].slice(0, 160).replace(/\s+/g, " ");
+        const head = statements[i].sql.slice(0, 160).replace(/\s+/g, " ");
         throw new Error(
-          `Falha ao aplicar a instrução ${i + 1}/${statements.length} da linha de base ` +
-            `("${head}..."): ${(error as Error).message}`,
+          `Falha ao aplicar a instrução ${i + 1}/${statements.length} da migração ` +
+            `"${statements[i].tag}" ("${head}..."): ${(error as Error).message}`,
         );
       }
     }
