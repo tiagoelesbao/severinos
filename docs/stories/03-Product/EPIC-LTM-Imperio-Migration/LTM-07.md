@@ -1,10 +1,14 @@
 # LTM-07: A meia cota — o domínio
 
 **Status:** Draft
-> ⚠️ **Segue `Draft` depois da segunda validação do @po (2026-11-17).** O recorte, o AC3, o AC4 e o
-> AC11 fecharam. **Faltam três**, e a primeira é grave: o *Contexto* desta story ainda repete, como
-> se fosse verdade, a frase que o `ADR-0001` corrigiu hoje por *"estar errada o bastante para causar
-> dano"* — e é o Contexto que o @dev lê antes de implementar. Ver *Validação 2 @po (2026-11-17)*.
+> ⚠️ **Segue `Draft`, mas as três correções exigidas foram endereçadas em 2026-11-18 — aguarda a 3ª
+> validação do @po.** A transição `Draft → Ready` é dele, não minha.
+>
+> | Correção exigida (2ª validação) | Estado em 2026-11-18 |
+> |---|---|
+> | 1. AC7 afirma **qual** forma `quantity` assume | ✅ reescrito com o caso numérico (3 metades → `quantity` = 3 + unidade = metade), e com a consequência no BI do Império nomeada como item solto |
+> | 2. `Files:` declara o campo de unidade em `orders` | ✅ o bloco agora nomeia **dois** blocos de `raffles.ts`, e diz qual **saiu** |
+> | 3. Onde nasce o marcador de divisibilidade | ✅ **já resolvido no código**: a `LTM-01` criou `isDivisible` (`raffles.ts:74`). O vão de sequenciamento que o @po apontou não existe mais |
 **Epic:** EPIC-LTM-Imperio-Migration (Frente C — a feature que o cliente pediu)
 **Prioridade:** **P0** — entra no primeiro sorteio de teste, e define a forma de `reserve.ts` antes de a `LTM-02` reescrevê-lo
 **Complexidade:** L — schema, reserva e rateio. A superfície está na `LTM-08`
@@ -75,7 +79,10 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
 - [ ] ~~`product_numbers`: coluna `half` + `uniqueIndex`~~ — **a `LTM-01` cria**, decidido em
       2026-11-17. Esta story **lê** a coluna e **não toca** `src/db/schema/raffles.ts` nem
       `src/lib/actions/reserve.ts`. Era a colisão que o @po apontou.
-- [ ] `products`: marcador de **sorteio divisível** e a **unidade** derivada dele.
+- [ ] ~~`products`: marcador de **sorteio divisível**~~ — **a `LTM-01` já criou**, conferido em
+      2026-11-18: `src/db/schema/raffles.ts:74`, `isDivisible` com default `false`. Era a
+      recomendação de sequenciamento do @po (item 3 da 2ª validação) e ela está cumprida no código,
+      não só no papel. Esta story **lê** o marcador e aplica as **regras** sobre ele.
 - [ ] `orders`: campo **explícito de unidade**. ⚠️ **A decisão está fechada no `ADR-0001` e esta
       linha ainda dizia o contrário** (@po, 2026-11-17). A forma decidida é: **`quantity` continua
       contando o que o pedido contém** — que num sorteio divisível são **metades**, porque é o que a
@@ -142,10 +149,25 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
       marcada* do `GLOSSARY.md`. Conferido: hoje `winners` tem `winning_number` e **nada** que
       identifique a metade. Alternativa aceita: decisão **escrita** de que o rateio não precisa
       distinguir — mas aí a regra do glossário tem de ser corrigida junto, não ignorada.
-- [ ] **AC7 (nenhum significado muda em silêncio):** num sorteio divisível, o consumidor do pedido
-      consegue saber a unidade **sem inferir**. Teste de contrato: a leitura de um pedido de
-      sorteio divisível e a de um de cota inteira se distinguem por campo explícito, não por
-      heurística sobre `quantity`.
+- [ ] **AC7 (a forma do `ADR-0001`, com o caso numérico):** num sorteio divisível, um pedido de
+      **3 metades** tem `quantity` = **3** e o campo de unidade dizendo **metade**. Num sorteio de
+      cota inteira, um pedido de 3 títulos tem `quantity` = **3** e o campo de unidade dizendo
+      **título**. Duas asserções, uma por sorteio, sobre os **dois** campos.
+
+      > Correção exigida pelo @po na 2ª validação, item 1, e ela era necessária: a redação anterior
+      > (*"se distinguem por campo explícito, não por heurística sobre `quantity`"*) é verdadeira
+      > nas **duas** formas possíveis — a do ADR e a oposta — e portanto **não testava a decisão**.
+      > `quantity` conta **o que o pedido contém**, que num sorteio divisível são metades, porque é
+      > o que a reserva de fato criou; e o campo de unidade existe para que ninguém descubra isso
+      > por adivinhação.
+      >
+      > ⚠️ **A consequência fora deste repositório é medida, não hipotética:**
+      > `services/Meta/imperio-premios/bi_aggregator.py:1099` faz
+      > `numeros_vendidos = ("Quantidade", "sum")`. Sob esta forma, **"números vendidos" no BI do
+      > Império passa a contar metades** em sorteio divisível — e é o painel pelo qual a operação
+      > decide investimento de mídia. **Isto não se conserta aqui**: o conserto é do lado do BI, que
+      > precisa ler o campo de unidade. Fica registrado como item solto para o @po, nomeado, em vez
+      > de ser descoberto quando o número dobrar.
 - [ ] **AC8 (cota inteira intacta):** regressão — todo teste de reserva de sorteio não divisível
       passa sem alteração. É o que garante que as 5 rodadas/dia do Império não mudam de forma.
 - [ ] **AC9 (congelamento):** tentar alterar a divisibilidade de um sorteio com pelo menos uma
@@ -175,12 +197,37 @@ Conferido em 2026-11-17, **depois** do recorte com `LTM-01` e `LTM-02`.
 **Escreve:**
 
 ```
-apps/lotemania/src/db/schema/raffles.ts      SO o marcador de divisibilidade em `products` e,
-                                             se o AC11 exigir, o marcador de metade em `winners`
+apps/lotemania/src/db/schema/raffles.ts      DOIS blocos, nao um:
+                                               1. `orders` -> o campo explicito de UNIDADE (AC7)
+                                               2. `winners` -> o marcador de metade, se o AC11 exigir
+                                             O marcador de divisibilidade em `products` NAO entra:
+                                             a LTM-01 ja o criou (ver abaixo)
 apps/lotemania/src/lib/actions/products.ts   geracao dos titulos conforme a divisibilidade
 apps/lotemania/src/lib/validations/product.ts  regra de recusa (premio nao divisivel) e congelamento
 apps/lotemania/drizzle/**                    migracao
 ```
+
+> **Correção exigida pelo @po na 2ª validação, item 3 — e era real.** O bloco anterior dizia *"**SÓ**
+> o marcador de divisibilidade em `products`"*, enquanto a lista de tarefas criava **também** o campo
+> de unidade em `orders` — e `orders` vive no **mesmo arquivo**, que é disputado com a `LTM-01`.
+> Subdeclarar o que se escreve num arquivo disputado é exatamente como se forma colisão de onda
+> achando que não há colisão.
+
+> ### A recomendação do @po sobre o marcador de divisibilidade **já está cumprida no código**
+>
+> O @po recomendou que o marcador subisse para a `LTM-01` (onda 1), porque o preço da metade — que
+> é da `LTM-02`, onda 2 — depende dele, e esta story é onda 3 ou posterior. Uma onda precisando de
+> coluna de uma onda futura.
+>
+> **Conferido em 2026-11-18: a `LTM-01` já criou.** `src/db/schema/raffles.ts:74` tem
+> `isDivisible: boolean("is_divisible").notNull().default(false)`, junto de `half` em
+> `product_numbers`. O vão de sequenciamento **não existe mais**, e esta story fica com o que o @po
+> queria que ela tivesse: as **regras** (recusa, congelamento, geração dos títulos), não a **forma**.
+>
+> O que **ainda não existe** é o campo de unidade em `orders` — conferido na mesma data: as colunas
+> de `orders` são `id`, `tenant_id`, `user_id`, `product_id`, `affiliate_id`, `quantity`, `amount`,
+> `status`, `payment_gateway_provider`, `paid_at`, `created_at`. Nenhuma de unidade. Esse campo é
+> desta story, e é por isso que ela continua tocando `raffles.ts`.
 
 **NÃO toca** — e isto é o recorte, não uma observação:
 
@@ -192,6 +239,16 @@ a coluna `half` e a chave     -> LTM-01
 ⚠️ **`src/db/schema/raffles.ts` é disputado com a `LTM-01`**, que cria `half` e os índices. São
 blocos diferentes do mesmo arquivo e **as duas geram migração**: serializar `pnpm db:generate`, e
 a `LTM-01` vai primeiro por ser onda 1.
+
+**Resources:**
+
+```
+banco de teste        — COMPARTILHADO com toda a suite. Base/esquema proprio por tarefa,
+                        ou serializacao. Nome de branch nao isola banco.
+pnpm db:generate      — escreve drizzle/meta/_journal.json. RECURSO UNICO: serializar com
+                        LTM-01, LTM-03a, LTM-03b, LTM-04, LTM-12 e LTM-16, que tambem geram.
+relogio do teste      — AC9 (congelamento) e AC1/AC2 medem estado, nao tempo: sem relogio falso.
+```
 
 **Depends-on:** `LTM-01` · `LTM-02` · `LTM-05`.
 
@@ -452,4 +509,5 @@ Os itens 1 e 2 são de redação. O 3 é de sequenciamento e precisa ser combina
 |---|---|---|---|
 | 2026-11-17 | 1.0 | Nasce do `/grill-with-docs` com o founder: 17 decisões, fronteira fechada. Forma dos dados em `ADR-0001`; vocabulário em `GLOSSARY.md`. | @aiox-master |
 | 2026-11-17 | — | **Validada — NO-GO (6,5/10). Permanece `Draft`.** Sem bloco `Files:` com dois arquivos disputados; AC3 manda provar que metades do mesmo pedido expiram separadas (não expiram, e não devem); armadilha do `inArray` não nomeada; `quantity` ambíguo no próprio ADR; `winners` sem onde marcar a metade; AC4 sem política de arredondamento. | @po (Pax) |
+| 2026-11-18 | 1.2 | **As tres correcoes da 2a validacao endereçadas; aguarda 3a validacao do @po.** (1) AC7 reescrito para afirmar a forma do `ADR-0001` com caso numerico — 3 metades dao `quantity` = 3 e unidade = metade — e a consequencia medida no BI do Imperio (`bi_aggregator.py:1099`) fica nomeada como item solto, porque o conserto e do lado do BI. (2) O bloco `Files:` passa a declarar **dois** blocos de `raffles.ts`, incluindo o campo de unidade em `orders`, que e o que o @po apontou como subdeclarado num arquivo disputado. (3) O marcador de divisibilidade **ja existe**: conferido que a `LTM-01` criou `isDivisible` em `raffles.ts:74`, entao o vao de sequenciamento apontado pelo @po nao existe mais e esta story fica so com as regras. Acrescentado o bloco `Resources:`, que faltava. | @aiox-master |
 | 2026-11-17 | 1.1 | **Validada (2a) — NO-GO (6,5/10). Permanece `Draft`.** Fecharam: `Files:` com recorte riscado nas duas stories, AC3 entre pedidos diferentes, AC11 (`winners` com marcador) e AC4 com a política do founder (arredondar as duas para cima — superior à minha sugestão anterior, que punha o centavo sobre um ganhador). Corrigidos nesta validação: o *Contexto* repetia a frase *"o `UPDATE` condicional não muda de forma"* que o `ADR-0001` retirou hoje, a tarefa de `quantity` apontava para o lado oposto ao do ADR, e a citação `reserve.ts:110-113` (é `:51-58`). Abertas: AC7 sem afirmar a forma de `quantity`, `Files:` subdeclarando o campo de `orders`, e o marcador de divisibilidade uma onda depois de quem precisa dele. | @po (Pax) |
