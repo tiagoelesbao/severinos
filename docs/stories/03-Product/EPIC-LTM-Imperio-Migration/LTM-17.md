@@ -1,6 +1,11 @@
 # LTM-17: O relógio da reserva passa a ser do operador
 
-**Status:** Ready
+**Status:** Draft
+> ❌ **`Ready` → `Draft` em 2026-11-18, 1ª validação do @po — NO-GO (6,5/10).** O `Ready` anterior foi
+> posto pelo @aiox-master, que não tem essa autoridade (`.claude/rules/story-lifecycle.md`), e
+> **revertê-lo era o certo mesmo com a autoridade correta**: o bloco `Files:` nomeia o arquivo errado
+> para a única mudança que esta story faz, e omite o arquivo real — que pertence a outra story.
+> Três das quatro correções são de redação. Ver a validação no fim do arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o relógio que a `LTM-03b` amarrou
 **Prioridade:** **P1** — pedido direto do founder, e é o que faz a divergência de 15 contra 30 minutos deixar de ser decisão de engenharia
 **Complexidade:** **S** — a tela existe, o campo existe, o esquema existe. **Falta a leitura.**
@@ -171,8 +176,165 @@ Depends-on: LTM-03b (total), LTM-02 (transitiva)
 - **[Baixo] Opção fora da faixa da Paysure** ser acrescentada ao seletor depois. AC5 cobre pela
   lista, não por valor escolhido.
 
+## Validação @po (2026-11-18) — **NO-GO, 6,5/10. `Ready` → `Draft`**
+
+**Veredicto: NO-GO — 6,5/10.** Volta a `Draft`. **Não bloqueia nada**: ela depende da `LTM-03b`, que
+ainda está em implementação, então o atraso é zero. As quatro correções são pequenas e três são de
+redação pura.
+
+### Primeiro, a autoridade
+
+O `Ready` foi posto pelo @aiox-master. A transição `Draft → Ready` é minha
+(`.claude/rules/story-lifecycle.md`, e o passo 12 do `validate-next-story.md` manda eu **parar** se o
+status não for `Draft` ao chegar). Reverti — e registro que **eu teria revertido de todo modo**: a
+story tem um defeito que a torna indespachável. A violação de processo e o defeito são
+independentes; o segundo é o que importa.
+
+### O defeito que decide o NO-GO
+
+**O `Files:` nomeia o arquivo errado para a única mudança que esta story faz.**
+
+O bloco diz:
+
+```
+apps/lotemania/src/lib/actions/reserve.ts    (o corpo da funcao)
+```
+
+**`reservationMinutesFor` não mora lá.** Mora em **`src/lib/validations/reserve.ts:149`** —
+conferido, e com a razão inteira escrita no próprio arquivo (`:95-145`): `actions/reserve.ts` é
+`"use server"` e exportar valor não-assíncrono de lá faz o módulo perder **todas** as exportações no
+grafo do cliente e `pnpm build` morrer em `number-grid.tsx`. O @dev mediu isso contra `next build`
+em 2026-11-18. Ou seja: **o lugar certo já está decidido e provado, e esta story aponta para o lugar
+que foi descartado.**
+
+E o arquivo real **não aparece em nenhuma linha do bloco**. Isso é subdeclaração — a direção
+perigosa pela `.claude/rules/parallel-waves.md`, porque o conjunto declarado é o que decide se duas
+tarefas podem rodar juntas. Pior: **`src/lib/validations/reserve.ts` é declarado pela `LTM-02`**
+(`LTM-02.md:137`). O arquivo é disputado, e a disputa está invisível no bloco.
+
+> **Este é exatamente o defeito pelo qual eu reprovei a `LTM-02` em 2026-11-17, com estes mesmos
+> 6,5/10**: *"`Files:` sem `validations/reserve.ts`"*. Mesmo arquivo, mesmo epic, mesma omissão. Dar
+> GO aqui tornaria aquele veredicto arbitrário.
+
+E o efeito prático é o oposto do pretendido: a story declara ⛔ não poder compartilhar onda com
+`LTM-03b`, `LTM-04` e `LTM-14` *"porque todas tocam `reserve.ts`"* — uma restrição em cima de um
+arquivo que ela talvez não precise tocar — enquanto a colisão que **existe de verdade**, com a
+`LTM-02` em `validations/reserve.ts`, não está declarada.
+
+### O segundo defeito: a story descreve um código que já não existe
+
+A seção *"O que já existe — e é quase tudo"* diz:
+
+> *"`src/lib/actions/reserve.ts` usa `RESERVATION_MINUTES = 15` cravado, e a tela de pedido repete
+> 'por 15 minutos' escrito à mão (`pedido/[orderId]/page.tsx:63`)."*
+
+**As duas metades já são falsas**, e foi a `LTM-03b` em curso que as desfez:
+
+| A story diz | O código (conferido 2026-11-18) |
+|---|---|
+| `actions/reserve.ts` tem `RESERVATION_MINUTES = 15` | ❌ `:375` chama `reservationMinutesFor(product)`. A constante sobrou só como comentário em `:25` — *"Era `const RESERVATION_MINUTES = 15` aqui"* |
+| a tela repete "por 15 minutos" à mão, `page.tsx:63` | ❌ `page.tsx:98` renderiza `por {reservationMinutes} minutos`; o comentário em `:50` registra *"O texto dizia '15 minutos'"* |
+| (não dito) `paysure-client.ts` | já chama `reservationMinutesFor(product) * 60` em `:54` |
+| `reservedUntil` gravado em `reserve.ts:353` | ❌ é `:375` |
+
+**A story contradiz a si mesma**: a seção *"O que já existe"* descreve o mundo **antes** da
+`LTM-03b`, e a *Decisão de arquitetura §1* descreve o mundo **depois** dela — corretamente. Um @dev
+que leia na ordem vai caçar uma constante que não está lá, e é a primeira coisa que ele lê.
+
+A consequência boa dessa descoberta: **os três consumidores já consultam a função única.** O
+trabalho que resta é **um corpo de função** mais testes. Três das cinco tarefas da checklist ("o
+texto da tela deriva do mesmo valor", "a cobrança PIX passa a usar o valor do sorteio") já estão
+feitas — elas passam a ser verdade **automaticamente** quando a função ler o sorteio. O `S` de
+complexidade está certo; a superfície declarada é que está inflada, e foi ela que produziu o
+`Files:` errado.
+
+### O terceiro: o AC6 não fecha com a lista de tarefas que existe
+
+**AC6:** *"busca por `15` como literal de minutos de reserva não encontra nenhuma declaração fora do
+`.default(15)` do zod."*
+
+Mas `validations/reserve.ts:113` declara `const RESERVATION_MINUTES_DEFAULT = 15;`. Quando a função
+passar a ler o sorteio via `productAdvancedSettingsSchema.parse`, essa constante fica **morta** — o
+`.default(15)` do zod assume o papel dela. Ela tem de ser **apagada**, e nenhuma tarefa diz isso, no
+arquivo que o `Files:` não declara. **Como está, o AC6 é inexequível pela própria checklist.**
+
+### A pergunta do escopo OUT: a resposta é que está certo
+
+Me foi perguntado se *"não reduzir a lista de 5 valores a 15 e 30"* contraria o pedido do founder.
+**Não contraria — é a leitura correta do pedido, e eu manteria essa linha.**
+
+O founder pediu **a capacidade de escolher**, e citou os dois valores que tinha em mente. Ele não
+pediu para **remover** 10, 60 e 120. São coisas diferentes: manter os cinco **satisfaz o pedido
+estritamente** (15 e 30 estão na lista) e custa zero. Remover três opções que já estão no ar é
+subtrair superfície do operador, e só quem sabe se algum sorteio vivo usa 10 ou 120 hoje pode
+decidir isso — e não sou eu. Conferido, de resto, que os cinco valores existem mesmo
+(`advanced-settings-tabs.tsx:423`, `[10, 15, 30, 60, 120]`) e que os cinco cabem na faixa da Paysure.
+**A linha fica. É decisão do founder, registrada, não limpeza de escopo.**
+
+### O que está certo e não se toca
+
+- **As quatro citações de "o que já existe" estão exatas, linha por linha.** `product-settings.ts:24`
+  é `reservationExpiryMinutes: z.coerce.number().int().positive().default(15)` na seção *Títulos*; o
+  seletor *"Tempo para uma reserva pendente expirar"* está em `advanced-settings-tabs.tsx:413-430`
+  com exatamente 10/15/30/60/120; `raffles.ts:82` é
+  `advancedSettings: jsonb("advanced_settings").notNull().default({})`. **A descoberta central da
+  story — o campo e a tela existem e ninguém lê o valor — é verdadeira e bem documentada.** É o
+  melhor desta story.
+- **§2 (ler pelo zod, nunca pelo jsonb cru) é a decisão certa, e o risco é real:** sorteio antigo tem
+  `advanced_settings = {}`, acesso cru devolve `undefined`, e `undefined * 60` é `NaN`. Uma
+  `reservedUntil` inválida **não falha alto**: ela grava, e o número fica preso ou livre na hora
+  errada, no caminho mais quente do produto. **O AC2 é o AC mais importante da story** e está na
+  forma certa.
+- **§3 + AC4 (não recalcular reserva viva)** é a regressão certa contra um "conserto" que parece
+  consistência e é mudar o relógio debaixo de quem está pagando.
+- **AC3** compara os três relógios **entre si**, não contra um literal. É a forma certa de provar
+  "são um só".
+- **AC5** testa **sobre a lista do seletor**, não sobre valores escolhidos à mão — então uma opção
+  nova fora da faixa derruba o teste. Essa escolha é melhor que o óbvio.
+- **A tabela das três ocorrências do padrão** (`showQrCodeByDefault`, `paymentGatewayProvider`,
+  `reservationExpiryMinutes`) e o diagnóstico de que é *"o custo de um painel reconstruído a partir
+  da aparência da Sorteamos, tela antes de comportamento"*. **Aceito o item solto e ele é meu.**
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Título claro e objetivo | ✅ |
+| Descrição completa | ⚠️ a descoberta central está certa e bem provada, mas *"O que o código faz hoje"* descreve um estado que já não existe, e contradiz a §1 da própria story |
+| ACs testáveis | ⚠️ AC1-AC5 e AC7 bem formados (AC2 e AC3 são os melhores); **AC6 inexequível** pela checklist atual |
+| Escopo IN/OUT | ✅ e o OUT de não reduzir os cinco valores está **certo** — é decisão do founder, não limpeza |
+| Dependências mapeadas | ❌ `Files:` aponta `actions/reserve.ts` para o corpo da função, que mora em `validations/reserve.ts:149`; o arquivo real **não é declarado** e é da `LTM-02` |
+| Complexidade | ✅ S, e correto — mas a checklist infla a superfície |
+| Valor de negócio | ✅ pedido direto do founder, e hoje a tela **mente** para quem a usa |
+| Riscos documentados | ✅ o `NaN` é o risco real e está nomeado como tal |
+| Critérios de Done | ✅ AC7 fecha a porta de verificação |
+| Anti-alucinação / alinhamento | ❌ duas afirmações de código já falsas e duas citações de linha envelhecidas (`reserve.ts:353` → `:375`, `page.tsx:63` → `:98`) |
+
+**6,5/10.** Confiança de implementação: **média** — alta no desenho, baixa no despacho.
+
+### Correções exigidas antes de ir a `Ready`
+
+1. **`Files:` nomeia `apps/lotemania/src/lib/validations/reserve.ts`** como o arquivo do corpo da
+   função, e **registra que ele é declarado pela `LTM-02`** (`LTM-02.md:137`) — essa é a colisão
+   real. Reavaliar na mesma passada se `actions/reserve.ts`, `page.tsx`, `paysure-client.ts` e
+   `pix-charge.ts` precisam mesmo ser **editados** ou se só entram como **cobertos por teste**: hoje
+   os quatro já consultam a função única. A lista ⛔ de ondas sai dessa reavaliação, não da anterior.
+2. **Reescrever *"O que já existe"* contra o código de hoje.** A constante não está mais em
+   `actions/reserve.ts` (só o comentário em `:25`), a tela já deriva o valor (`page.tsx:98`), e
+   `paysure-client.ts:54` também. A seção precisa descrever o mundo pós-`LTM-03b`, que é o mundo em
+   que esta story vai rodar — e assim ela deixa de contradizer a própria §1.
+3. **Uma tarefa para apagar `RESERVATION_MINUTES_DEFAULT`** (`validations/reserve.ts:113`), sem a
+   qual o **AC6 não fecha**. É a linha que o AC6 está mandando procurar.
+4. **Corrigir as duas citações envelhecidas:** `reserve.ts:353` → **`:375`** e `page.tsx:63` →
+   **`:98`**.
+
+As quatro são pequenas. A 1 e a 3 mudam o que o @dev faz; a 2 e a 4 mudam o que ele lê antes de
+fazer — e nesta base já perdi conferências o bastante com número de linha envelhecido para tratar as
+duas com o mesmo peso.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-18 | 1.1 | **Validada (1ª) — NO-GO (6,5/10). `Ready` → `Draft`.** O `Ready` havia sido posto pelo @aiox-master, que não tem essa autoridade — e a reversão se sustenta pelo mérito: o `Files:` aponta `actions/reserve.ts` para o corpo de `reservationMinutesFor`, que mora em `validations/reserve.ts:149` (o @dev provou que `"use server"` impede o contrário), e **não declara** o arquivo real, que é da `LTM-02`. É o mesmo defeito, no mesmo arquivo, pelo qual a `LTM-02` levou 6,5 em 17-11. Também: *"O que já existe"* descreve um código que a `LTM-03b` já mudou (a constante saiu, a tela já deriva o valor, `paysure-client.ts:54` também), o que faz a story contradizer a própria §1; o **AC6 é inexequível** porque `RESERVATION_MINUTES_DEFAULT` (`validations/reserve.ts:113`) teria de ser apagado e nenhuma tarefa diz isso; e duas citações envelheceram (`reserve.ts:353` → `:375`, `page.tsx:63` → `:98`). **Confirmado como certo:** o OUT de não reduzir os cinco valores a 15 e 30 — o founder pediu a capacidade de escolher, não a remoção de três opções no ar, e manter os cinco satisfaz o pedido. As quatro citações de "o que já existe" estão exatas, e AC2/AC3 são os ACs mais bem formados da story. | @po (Pax) |
 | 2026-11-18 | 1.0 | Nasce do pedido do founder de deixar o relógio configurável na aba de edição do sorteio. Ao conferir, **o campo, a tela e os cinco valores já existiam** — `reservationExpiryMinutes` (`product-settings.ts:24`) e o seletor "Tempo para uma reserva pendente expirar" (`advanced-settings-tabs.tsx:414`) — e **nada lê o valor**. A story deixa de ser "construir a flag" e passa a ser "ligar a flag que já está no ar", que é a terceira ocorrência deste padrão na base. | @aiox-master |

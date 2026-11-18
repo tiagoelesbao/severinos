@@ -1,14 +1,17 @@
 # LTM-07: A meia cota — o domínio
 
-**Status:** Draft
-> ⚠️ **Segue `Draft`, mas as três correções exigidas foram endereçadas em 2026-11-18 — aguarda a 3ª
-> validação do @po.** A transição `Draft → Ready` é dele, não minha.
+**Status:** Ready
+> ✅ **`Draft` → `Ready` em 2026-11-18, 3ª validação do @po — GO (9/10).** As três correções exigidas
+> na 2ª validação foram conferidas **no código e no arquivo**, não na palavra de quem as aplicou.
 >
-> | Correção exigida (2ª validação) | Estado em 2026-11-18 |
+> | Correção exigida (2ª validação) | Conferido pelo @po em 2026-11-18 |
 > |---|---|
-> | 1. AC7 afirma **qual** forma `quantity` assume | ✅ reescrito com o caso numérico (3 metades → `quantity` = 3 + unidade = metade), e com a consequência no BI do Império nomeada como item solto |
-> | 2. `Files:` declara o campo de unidade em `orders` | ✅ o bloco agora nomeia **dois** blocos de `raffles.ts`, e diz qual **saiu** |
-> | 3. Onde nasce o marcador de divisibilidade | ✅ **já resolvido no código**: a `LTM-01` criou `isDivisible` (`raffles.ts:74`). O vão de sequenciamento que o @po apontou não existe mais |
+> | 1. AC7 afirma **qual** forma `quantity` assume | ✅ e o caso numérico **discrimina**: 3 metades dando `quantity` = 3 só é verdade na forma do ADR — na forma oposta o mesmo pedido daria 1,5 título. Era disso que o AC anterior não dava conta |
+> | 2. `Files:` declara o campo de unidade em `orders` | ✅ dois blocos de `raffles.ts` nomeados, e o que **saiu** dito por escrito. `Resources:` acrescentado |
+> | 3. Onde nasce o marcador de divisibilidade | ✅ **conferido na linha**: `raffles.ts:74` tem `isDivisible: boolean("is_divisible").notNull().default(false)`, e o comentário de lá já atribui as **regras** a esta story. O vão de sequenciamento não existe mais |
+>
+> Conferido também o que não me foi pedido conferir: as 11 colunas de `orders` (`raffles.ts:157-193`)
+> são exatamente as declaradas, e **nenhuma é de unidade**. O campo é desta story.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente C — a feature que o cliente pediu)
 **Prioridade:** **P0** — entra no primeiro sorteio de teste, e define a forma de `reserve.ts` antes de a `LTM-02` reescrevê-lo
 **Complexidade:** L — schema, reserva e rateio. A superfície está na `LTM-08`
@@ -90,7 +93,7 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
       um campo explícito de unidade** para que nenhum consumidor descubra a unidade por adivinhação.
       A redação anterior (*"não reinterpretar `quantity`"*) implicava o oposto: `quantity` contando
       títulos e a contagem de metades num campo novo. As duas formas são defensáveis; **só uma está
-      no ADR**, e divergir dela em silêncio é o que cega o BI (`bi_aggregator.py:1099` soma
+      no ADR**, e divergir dela em silêncio é o que cega o BI (`bi_aggregator.py:1128` soma
       `"Quantidade"`). Ver AC7, que passa a ter de afirmar **qual** forma, não só "é distinguível".
 - [ ] `winners`: já comporta uma linha por ganhador; confirmar que nada no código assume uma
       linha por `winning_number`.
@@ -162,7 +165,7 @@ o resultado depois. O rateio desta story é **registro de resultado**, não cál
       > por adivinhação.
       >
       > ⚠️ **A consequência fora deste repositório é medida, não hipotética:**
-      > `services/Meta/imperio-premios/bi_aggregator.py:1099` faz
+      > `services/Meta/imperio-premios/bi_aggregator.py:1128` faz
       > `numeros_vendidos = ("Quantidade", "sum")`. Sob esta forma, **"números vendidos" no BI do
       > Império passa a contar metades** em sorteio divisível — e é o painel pelo qual a operação
       > decide investimento de mídia. **Isto não se conserta aqui**: o conserto é do lado do BI, que
@@ -503,10 +506,89 @@ ficam aqui. Registrado também na `LTM-02`, que é onde o vão dói.
 
 Os itens 1 e 2 são de redação. O 3 é de sequenciamento e precisa ser combinado com a `LTM-02`.
 
+## Validação 3 @po (2026-11-18) — **GO, 9/10. `Draft` → `Ready`**
+
+**Veredicto: GO — 9/10.** As três correções fecharam, e fecharam de verdade. Conferi cada uma
+**no artefato**, não na tabela que as declara fechadas — que é a regra que eu mesmo escrevi depois
+da `LTM-03b`.
+
+| Correção | Conferência |
+|---|---|
+| 1. AC7 afirma qual forma | ✅ e é melhor do que eu pedi. Eu exigi "afirmar qual forma"; o AC entrega **duas asserções sobre dois campos, uma por tipo de sorteio**. E discrimina: `quantity` = 3 para 3 metades é falso na forma oposta (lá o pedido valeria 1,5 título, que nem é inteiro). O AC anterior passava nas duas formas — este só passa na do ADR |
+| 2. `Files:` declara `orders` | ✅ `raffles.ts` aparece com os **dois** blocos, o que saiu está nomeado com motivo, e o bloco "**NÃO toca**" continua sendo o padrão do epic. `Resources:` acrescentado, com `pnpm db:generate` nomeado como recurso único e a lista de quem serializa |
+| 3. Marcador de divisibilidade | ✅ **cumprido no código, não no papel.** `raffles.ts:74`: `isDivisible: boolean("is_divisible").notNull().default(false)`. O comentário da coluna atribui as **regras** a esta story e diz por que a **forma** nasceu na `LTM-01` — "porque a `LTM-02` precisa dela para cobrar metade do preço". É exatamente o sequenciamento que eu recomendei, e está escrito no lugar onde quem mexer na coluna vai ler |
+
+### O que conferi além do que me foi pedido
+
+- **As colunas de `orders`.** A afirmação era que não existe campo de unidade. Li o bloco inteiro
+  (`raffles.ts:157-193`): `id`, `tenant_id`, `user_id`, `product_id`, `affiliate_id`, `quantity`,
+  `amount`, `status`, `payment_gateway_provider`, `paid_at`, `created_at`. Onze colunas, nenhuma de
+  unidade. **A afirmação está certa, coluna por coluna.**
+- **`half` e a chave.** `raffles.ts:127` (`half: integer("half").notNull().default(1)`) e
+  `uniqueIndex("product_numbers_product_number_half_idx")` em `:137-140`. A `LTM-01` entregou.
+- **`winners`.** `raffles.ts:251-267`: `winnerName`, `phone`, `prizeDescription`, `prizeAmount`,
+  `winningNumber`, `announcedAt`. **Nada identifica a metade**, e nada referencia `orders` nem
+  `product_numbers`. O AC11 continua necessário e continua com a alternativa certa escrita.
+- **A dependência `LTM-02`.** Está entregue e commitada (`b4d8765b`), com o contrato já endereçado à
+  unidade (`validations/reserve.ts` tem `HALVES_PER_DIVISIBLE_TITLE` e `reserveUnitSchema` com
+  `half`). O `Depends-on` desta story está satisfeito no código — **mas a `LTM-02` segue com status
+  `Ready`**, o que é deriva de ciclo de vida de @dev, não desta story. Registrado como item solto.
+
+### O um ponto que custa o décimo
+
+**A citação do BI estava errada por 29 linhas.** A story dizia `bi_aggregator.py:1099`; a linha real
+é **`:1128`** (`numeros_vendidos=("Quantidade", "sum")`). A 1099 cai dentro do *docstring* de
+`montar_rodadas`. **A substância está certa** — eu conferi o `groupby`, e "números vendidos" no BI do
+Império de fato soma `"Quantidade"`, então a consequência nomeada no AC7 é real e medida.
+**Corrigido por mim nesta validação** nos dois lugares vivos (tarefa de `orders` e nota do AC7); as
+ocorrências nas seções de validação 1 e 2 ficam como estavam, porque são registro histórico do que
+eu escrevi na época e reescrever histórico é pior que conviver com ele.
+
+É a terceira citação de linha errada nesta story (`reserve.ts:110-113` → `:51-58`,
+`reserve.ts:152` → `:157`, e agora esta). Nenhuma mudou uma decisão; todas custaram uma conferência.
+O padrão vale mais que cada ocorrência: **número de linha envelhece, e nesta base ele envelhece em
+dias.** Citar o símbolo junto do número é o que torna a citação recuperável quando ela envelhece.
+
+### Uma lacuna no Change Log, não no escopo
+
+O AC4 mudou de forma — política de arredondamento **substituída** pela restrição de entrada (AC12) —
+e **nenhuma linha do Change Log registra essa mudança**. A linha 1.1 ainda descreve a política do
+founder ("arredondar as duas para cima") como se estivesse em vigor, e ela não está: a forma atual
+recusa o prêmio indivisível na entrada e deixa o AC4 exato. A forma atual é a certa. O registro é
+que ficou devendo. As linhas também estão fora de ordem (1.0, —, 1.2, 1.1). Não bloqueia: é
+arrumação, e o commit `32203f64` guarda o quê e o quando.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Título claro e objetivo | ✅ |
+| Descrição completa | ✅ o *Contexto* agora ensina o que muda **e** o que não muda, com a tabela que impede a leitura ao pé da letra |
+| ACs testáveis | ✅ doze ACs, todos de invariante ou de estado. AC7 passou a discriminar a decisão |
+| Escopo IN/OUT | ✅ o recorte domínio × superfície com a `LTM-08`, e o OUT nomeando o que **não existe** (ágio, mais de duas partes, revenda, automação) |
+| Dependências mapeadas | ✅ `Files:`/`Resources:`/`Depends-on:` + bloco "NÃO toca" com motivo por arquivo |
+| Complexidade | ✅ L, e justificada |
+| Valor de negócio | ✅ é a feature que o cliente pediu, e o prêmio cresce sobre os mesmos 100 títulos |
+| Riscos documentados | ✅ quatro, e o do `quantity` é **medido** no BI, não hipotético |
+| Critérios de Done | ✅ |
+| Alinhamento com epic/ADR | ⚠️ substância alinhada; uma citação de linha envelhecida (corrigida aqui) e o Change Log devendo a mudança do AC4 |
+
+**9/10.** Confiança de implementação: **alta** — com a ressalva de sequenciamento abaixo, que não é
+defeito da story.
+
+### A ressalva que vai com o GO
+
+`Ready` aqui significa **despachável quando as dependências pousarem**, não "despachável agora". O
+`Depends-on` é `LTM-01` (InProgress) · `LTM-02` (entregue, status à frente do código) · `LTM-05`
+(`Ready`). **A `LTM-05` é a que importa:** AC1 a AC6 são todos de concorrência ou de invariante, e
+"ficou atômico" sem a suíte é afirmação sem prova no caminho do dinheiro. Isso já está escrito como
+risco Alto na própria story, e é o que mantém a ordem honesta. **Onda 3 ou posterior.**
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-18 | 1.3 | **Validada (3ª) — GO (9/10). `Draft` → `Ready`.** As três correções da 2ª validação conferidas no artefato: AC7 agora discrimina a forma do `ADR-0001` (3 metades → `quantity` = 3, que é falso na forma oposta); `Files:` declara os dois blocos de `raffles.ts` com `Resources:`; e `isDivisible` conferido em `raffles.ts:74`, com o comentário da coluna atribuindo as regras a esta story. Conferidas também as 11 colunas de `orders` (nenhuma de unidade — a afirmação do autor está certa), `half` em `:127` com o `uniqueIndex` em `:137-140`, e `winners` em `:251-267` (sem marcador de metade, AC11 segue necessário). Corrigido por mim: `bi_aggregator.py:1099` → **`:1128`** nos dois lugares vivos — a substância do `numeros_vendidos=("Quantidade", "sum")` está certa, a linha estava 29 à frente. Fica devendo (não bloqueia): o Change Log não registra a troca da política de arredondamento do AC4 pela restrição do AC12, e suas linhas estão fora de ordem. | @po (Pax) |
 | 2026-11-17 | 1.0 | Nasce do `/grill-with-docs` com o founder: 17 decisões, fronteira fechada. Forma dos dados em `ADR-0001`; vocabulário em `GLOSSARY.md`. | @aiox-master |
 | 2026-11-17 | — | **Validada — NO-GO (6,5/10). Permanece `Draft`.** Sem bloco `Files:` com dois arquivos disputados; AC3 manda provar que metades do mesmo pedido expiram separadas (não expiram, e não devem); armadilha do `inArray` não nomeada; `quantity` ambíguo no próprio ADR; `winners` sem onde marcar a metade; AC4 sem política de arredondamento. | @po (Pax) |
 | 2026-11-18 | 1.2 | **As tres correcoes da 2a validacao endereçadas; aguarda 3a validacao do @po.** (1) AC7 reescrito para afirmar a forma do `ADR-0001` com caso numerico — 3 metades dao `quantity` = 3 e unidade = metade — e a consequencia medida no BI do Imperio (`bi_aggregator.py:1099`) fica nomeada como item solto, porque o conserto e do lado do BI. (2) O bloco `Files:` passa a declarar **dois** blocos de `raffles.ts`, incluindo o campo de unidade em `orders`, que e o que o @po apontou como subdeclarado num arquivo disputado. (3) O marcador de divisibilidade **ja existe**: conferido que a `LTM-01` criou `isDivisible` em `raffles.ts:74`, entao o vao de sequenciamento apontado pelo @po nao existe mais e esta story fica so com as regras. Acrescentado o bloco `Resources:`, que faltava. | @aiox-master |

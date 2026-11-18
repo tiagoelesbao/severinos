@@ -1,0 +1,197 @@
+# LTM-19: O inventário completo da Sorteamos
+
+**Status:** Draft
+**Epic:** EPIC-LTM-Imperio-Migration (Frente B — Paridade Total) · **primeira entrega do mandato de 2026-11-18**
+**Prioridade:** **P0** — é o que transforma *"absolutamente tudo"* de intenção em lista
+**Complexidade:** **L** — não é difícil, é longo e exige disciplina de registro
+**Criada por:** @aiox-master · 2026-11-18, a partir da decisão do founder
+**Evidência de partida:** `docs/research/2026-11-16-baseline-sorteamos/`, `2026-11-17-painel-sorteamos-editor.md`, `2026-11-17-painel-acoes-por-sorteio.md`, `2026-11-17-paridade-visual-loja.md`
+
+## Por que esta story existe
+
+O founder decidiu em 2026-11-18: **implementar as 36 configurações inertes e tudo que a Sorteamos
+tem — absolutamente tudo replicado.**
+
+**Não se replica o que ninguém enumerou.** Hoje o que existe são quatro documentos de pesquisa, cada
+um feito para responder a uma pergunta específica: o editor, as ações por sorteio, a loja, a
+baseline. Juntos eles cobrem uma parte — e **ninguém sabe qual parte**, porque nunca houve a lista
+contra a qual comparar.
+
+Sem inventário, *"absolutamente tudo"* tem dois destinos, os dois ruins:
+
+1. **Trabalho sem fim conhecido** — cada descoberta nova vira escopo novo, e a frente nunca fecha
+   porque não há definição de fechada.
+2. **Implementação por dedução** — alguém encontra uma chave chamada `instantPrizesEnabled`,
+   imagina o que ela fazia, e constrói isso. É inventar no caminho do prêmio, que é o oposto de
+   replicar. O `AC7` da `LTM-18` existe contra isso, e **esta story é a fonte que ele consulta**.
+
+### O teste que o próprio founder deu
+
+Na mesma frase em que mandou replicar tudo, ele deu o critério: *"não será impedimento para
+**cadastrarmos tudo que tem na Sorteamos atualmente**"*.
+
+Isso é melhor que qualquer lista de features, porque **passa ou falha**: pegar os sorteios que a
+Sorteamos tem hoje, com a configuração que têm hoje, recriá-los no lotemania, e cada controle se
+comportar igual. É o portão **G8** do epic, e esta story levanta o material que ele exige.
+
+## Story
+
+**Como** quem vai construir a paridade total
+**Eu quero** uma lista fechada de tudo que a Sorteamos faz — tela, controle, ação e comportamento
+**Para que** "absolutamente tudo" tenha um fim conhecido, e nada seja construído por dedução.
+
+## Escopo
+
+**IN — o inventário, em quatro camadas:**
+
+| Camada | O que registrar |
+|---|---|
+| **Telas** | toda rota do painel e da loja: caminho, título, a que serve |
+| **Controles** | todo campo, chave, seletor e botão de cada tela: rótulo exato, tipo, valores possíveis, valor padrão |
+| **Comportamento** | o que cada controle **faz** quando muda — observado, não suposto |
+| **Dados** | a configuração real dos sorteios que o Império tem hoje, que é o material do portão G8 |
+
+**OUT:**
+
+- **Implementar qualquer coisa.** Esta story não escreve uma linha de `apps/lotemania/src/`.
+- **Decidir o que entra na paridade.** O inventário registra o que existe; **o founder decide** o
+  que é replicado e em que ordem. Lista não é backlog.
+- **A API e o banco da Sorteamos.** Isto é inventário do que se **vê e se faz**, não engenharia
+  reversa da implementação dela.
+
+## Como observar — e os limites que o founder já impôs
+
+O founder autorizou a navegação com duas regras, registradas e **mantidas**:
+
+> *"só não faça ações que impactam diretamente em sorteios ativos, de resto pode clicar e
+> visualizar tudo que for preciso, inclusive fazer downloads, gerar relatórios"*
+>
+> *"pode navegar clicando para ver o que cada ação faz, só não altere nada"*
+
+**O que isso permite:** abrir toda tela, ler todo controle, baixar relatório, gerar export.
+
+**O que isso proíbe, e é onde o inventário vai doer:** as ações **mutantes** não podem ser
+executadas em sorteio ativo. Já são conhecidas duas — *"Ativar títulos premiados"* e *"Revisar
+pagamentos"* (`LTM-11`, itens 11 e 13) — e vai haver mais.
+
+**A saída, e ela precisa da decisão do founder:** observar as mutantes **num sorteio concluído ou
+num sorteio criado só para isso**. Sem essa saída, elas ficam permanentemente `[CONFIRMAR]` — e aí
+*"absolutamente tudo"* tem um buraco estrutural, não um atraso. **Esta é a pergunta mais importante
+desta story**, e está no fim, em *Decisão pendente*.
+
+## Tarefas (Checklist)
+
+- [ ] **Mapa de rotas:** toda tela do painel e da loja da Sorteamos, com caminho e propósito.
+- [ ] **Inventário de controles**, tela a tela, aba a aba: rótulo exato (com acento), tipo, valores,
+      padrão.
+- [ ] **Comportamento observado** de cada controle que puder ser observado sem mutar sorteio ativo.
+- [ ] **Lista das ações mutantes** não executáveis, cada uma com o que falta para observá-la.
+- [ ] **Configuração real dos sorteios de hoje** do Império — o material do portão G8.
+- [ ] **Comparação com o lotemania:** para cada item, existe / existe mas não funciona / não existe.
+- [ ] **Consolidar as quatro pesquisas já feitas** no inventário, marcando o que elas já cobrem —
+      para não remedir o que foi medido.
+
+## Critérios de Aceite
+
+- [ ] **AC1 (toda tela listada tem caminho):** cada entrada do inventário traz a rota literal. Tela
+      citada sem rota não é inventário, é lembrança.
+- [ ] **AC2 (rótulo exato, com acento):** os rótulos são transcritos como aparecem, não
+      parafraseados. É o que permite a comparação byte a byte que a `LTM-13` já exigiu do CSV.
+- [ ] **AC3 (observado × suposto, sempre separados):** todo item diz qual dos dois é. Um item sem
+      marca é defeito do inventário. **É o AC central desta story:** um inventário que mistura o que
+      se viu com o que se imagina é pior que inventário nenhum, porque dá confiança falsa a quem
+      implementa depois.
+- [ ] **AC4 (as mutantes aparecem como buraco nomeado):** toda ação que não pôde ser executada está
+      listada **com o motivo e com o que falta**. Ela não some da lista por não ter sido observada.
+- [ ] **AC5 (a comparação é tripla, não binária):** cada item é *existe e funciona*, *existe e não
+      funciona*, ou *não existe*. A coluna do meio é a que esta frente inteira descobriu que existe
+      — 36 campos moram nela — e um inventário de duas colunas a esconderia.
+- [ ] **AC6 (o material do G8 está levantado):** a configuração dos sorteios reais de hoje está
+      registrada, campo a campo, pronta para o exercício de recriação.
+- [ ] **AC7 (nada é alterado na Sorteamos):** nenhuma ação mutante executada em sorteio ativo.
+      Registrar, no documento, o que foi clicado — a trilha protege a operação do cliente **e** quem
+      navegou.
+- [ ] **AC8 (dado pessoal não entra no inventário):** relatórios baixados durante a observação
+      contêm CPF, telefone e e-mail de compradores reais (`LTM-13`: sete das 25 colunas). O
+      inventário registra **estrutura** — nome de coluna, formato, separador — **nunca conteúdo**, e
+      os arquivos baixados não entram no repositório. A política de 2026-11-12 vale integralmente, e
+      este repositório é **público**.
+
+## Entregável
+
+```
+docs/research/2026-11-18-inventario-sorteamos/
+├── README.md              índice e método; o que cada arquivo cobre
+├── rotas.md               o mapa de telas
+├── painel/*.md            inventário de controles, uma tela por arquivo
+├── loja/*.md              idem, lado do comprador
+├── comportamento.md       o que cada controle faz — observado
+├── nao-observado.md       as mutantes e o que falta para cada uma
+└── comparacao.md          Sorteamos × lotemania, nas três colunas do AC5
+```
+
+## Dependências
+
+- **Independe de tudo no código.** Não toca `apps/lotemania/`.
+- **Bloqueia a implementação dos grupos B e C da `LTM-18`** — são 19 itens que ninguém sabe
+  descrever sem observar.
+- **Não bloqueia o grupo A** (15 campos): o comportamento esperado deles é dedutível do próprio
+  nome e do schema, e a `LTM-18` já os tem descritos.
+- **Não bloqueia a Frente A.** A fundação segue na frente; sem fechar pedido pago, nenhuma
+  configuração faz o lotemania vender.
+
+### Nota de formação de ondas (`.claude/rules/parallel-waves.md`)
+
+```
+Files:
+  docs/research/2026-11-18-inventario-sorteamos/**    (novo, so documentacao)
+
+Resources:
+  painel da Sorteamos  — RECURSO EXTERNO E COMPARTILHADO: e o sistema de PRODUCAO do cliente.
+                         Uma sessao de observacao por vez. Nenhuma acao mutante em sorteio ativo.
+  sessao do founder    — a navegacao depende do login dele estar ativo
+
+Depends-on: none
+```
+
+- ✅ **Pode correr em paralelo com qualquer story de código.** Conjunto de arquivos totalmente
+  disjunto — é a única story do epic que não disputa nada em `apps/lotemania/`.
+- ⚠️ **O painel da Sorteamos é produção do cliente.** Duas observações simultâneas não se atrapalham
+  tecnicamente, mas duplicam carga e risco numa operação que movimenta ~R$ 90 mil/dia. **Uma de
+  cada vez.**
+
+## Riscos
+
+- **[Alto] O inventário misturar observado com suposto.** É o modo de falhar que anula a story
+  inteira: quem implementa depois confia, e constrói o imaginado. AC3 é a única defesa, e ela
+  depende de disciplina de registro, não de ferramenta.
+- **[Alto] Dado pessoal de comprador real entrar no repositório público.** Os relatórios têm CPF. Já
+  aconteceu nesta casa — 320 MB de dado pessoal quase entraram no git. AC8 é o mínimo.
+- **[Médio] As mutantes ficarem permanentemente não observadas.** Sem a decisão do founder sobre o
+  sorteio de teste na Sorteamos, 2 ou mais itens nunca saem de `[CONFIRMAR]`, e *"absolutamente
+  tudo"* fica com buraco estrutural.
+- **[Médio] O inventário envelhecer antes de ser usado.** A Sorteamos é um produto vivo. O
+  inventário é **fotografia datada**, e tem de dizer isso na primeira linha de cada arquivo.
+- **[Baixo] Remedir o que já foi medido.** As quatro pesquisas existentes cobrem parte; a tarefa de
+  consolidação existe para que elas sejam aproveitadas em vez de refeitas.
+
+## Decisão pendente — do founder
+
+**Como observar as ações que mudam estado?** As mutantes não podem rodar em sorteio ativo, e são
+justamente as que mais importam descrever (mexem em título premiado e em pagamento).
+
+| Caminho | O que custa | O que resolve |
+|---|---|---|
+| **Sorteio concluído** na Sorteamos | nada — já existem | pode não aceitar todas as ações |
+| **Criar um sorteio de teste** na Sorteamos | um sorteio a mais no painel do cliente | observa tudo, com segurança |
+| **Não observar** | zero | as ações ficam `[CONFIRMAR]` e a paridade fica incompleta **por decisão**, não por esquecimento |
+
+**Recomendação:** criar um sorteio de teste na Sorteamos, com valor simbólico e sem divulgação. É o
+único caminho que entrega o *"absolutamente tudo"* sem adivinhação — mas **criar um sorteio no
+painel do cliente é ação que altera o sistema dele**, e por isso é decisão do founder, não minha.
+
+## Change Log
+
+| Data | Versão | Descrição | Autor |
+|---|---|---|---|
+| 2026-11-18 | 1.0 | Nasce da decisão do founder de replicar **absolutamente tudo** da Sorteamos. É a primeira entrega do mandato, porque não se replica o que ninguém enumerou — e porque o `AC7` da `LTM-18` (*"nenhum comportamento inventado"*) precisa de uma fonte para consultar. O critério de fim veio da própria frase do founder: recriar no lotemania os sorteios que a Sorteamos tem hoje (portão **G8**). | @aiox-master |

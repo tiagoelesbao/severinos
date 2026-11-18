@@ -29,6 +29,48 @@ O lotemania é a sucessora da Sorteamos: mesma operação, plataforma própria, 
 > O cliente **ainda não repassou `ci`/`cs` reais** e **nenhuma venda real aconteceu**. Isso é
 > libertador: dá para mudar o modelo de dados sem migração de histórico.
 
+> ## 🔁 O objetivo mudou de novo em 2026-11-18 — e esta decisão substitui a de 11-16
+>
+> Decisão do founder, textual: *"quero que implemente **todas as 36 features** e **tudo que tem na
+> Sorteamos** — absolutamente tudo deve ser replicado"*.
+>
+> | | Decisão de 2026-11-16 | **Decisão de 2026-11-18** |
+> |---|---|---|
+> | Frente B (paridade) | desce de prioridade; volta a ser bloqueante só na migração | **volta a ser o mandato**, e agora é explícito: *absolutamente tudo* |
+> | As 36 configurações inertes | triagem em três grupos: ligar / esconder / marcar | **implementar as 36.** Sem esconder, sem marcar como não implementado |
+> | Sorteios hoje no lotemania | obstáculo: valores gravados passariam a valer de repente | **descartáveis — são todos de teste.** Podem ser excluídos |
+> | O que "paridade" significa | lista aberta, discutida caso a caso | **recriar no lotemania tudo que a Sorteamos tem hoje** |
+>
+> ### Por que a parte dos sorteios descartáveis importa mais do que parece
+>
+> Era o risco **[Alto]** da `LTM-18`: sorteio existente tem configuração gravada que **nunca teve
+> efeito**, e ligar os leitores faria esses valores passarem a valer de uma hora para outra — um
+> `maxPerBuyer` = 1 salvo por engano recusaria a segunda compra de todo mundo. O @po havia elevado
+> isso a **condição de entrada** da `18b`/`18c`.
+>
+> **A decisão do founder elimina o risco inteiro**, não o mitiga: sem sorteio real no banco, não há
+> configuração herdada para obedecer. É o mesmo tipo de liberdade que a ausência de venda real deu
+> ao modelo de dados em 11-16 — e ela tem **prazo**: vale até o primeiro sorteio de verdade existir.
+>
+> ### O que "absolutamente tudo" passa a significar, de forma verificável
+>
+> Uma lista de features é discutível e nunca termina. O founder deu, na mesma frase, o teste que a
+> encerra: *"não será impedimento para **cadastrarmos tudo que tem na Sorteamos atualmente**"*.
+>
+> **Portão de paridade (novo, `G8`):** pegar os sorteios que a Sorteamos tem **hoje**, com a
+> configuração que eles têm **hoje**, recriá-los no lotemania, e **cada controle se comportar
+> igual**. Não é opinião sobre o que falta — é um exercício que passa ou falha.
+>
+> Isso torna a primeira entrega desta frente **o inventário completo da Sorteamos** (`LTM-19`): não
+> dá para replicar o que ninguém enumerou, e "absolutamente tudo" sem lista vira trabalho sem fim e
+> sem fim conhecido.
+>
+> ### O que **não** muda
+>
+> O primeiro sorteio de teste continua sendo a meta mais próxima, e a fundação (Frente A) continua
+> na frente: sem fechar pedido pago, nenhuma configuração do mundo faz o lotemania vender. A
+> paridade total passa a ser **o destino**; a fundação continua sendo **o caminho**.
+
 **Epic ID:** LTM
 **Owner:** @pm (Morgan) · implementação @dev · schema @data-engineer
 **Priority:** **Critical** — é o caminho do dinheiro de um cliente em produção

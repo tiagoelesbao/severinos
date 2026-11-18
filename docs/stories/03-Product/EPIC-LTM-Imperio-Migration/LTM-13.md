@@ -116,7 +116,7 @@ tela, outra story; export agendado; envio por e-mail.
 ## Dependências
 
 - ⚠️ **O AC7 depende da `LTM-16`.** `Aprovado por` não tem origem: não existe coluna `approved_by`
-  em `orders` nem trilha de ação de operador em nenhuma das 22 tabelas (conferido em 2026-11-18).
+  em `orders` nem trilha de ação de operador em nenhuma das 34 tabelas (conferido em 2026-11-18; a contagem "22" da v1.1 estava errada e foi corrigida pelo @po).
   A `LTM-16` entrega a trilha e a leitura por pedido. **Sem ela a coluna sai vazia** — o que o AC7
   permite, e é melhor que inventada, mas não é paridade.
 - **Depende da `LTM-10`** para existir a ação de aprovação que gera o registro.

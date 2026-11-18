@@ -127,23 +127,34 @@ conteúdo ocupar visivelmente mais altura.
       linha, corpo e cor do rótulo, dimensão da chave, espaçamento de bloco, largura do campo.
 - [ ] Inventário tela-a-tela: para **cada** controle do editor, em qual das 14 abas ele vive.
 
-### Decidir, controle a controle
+### ~~Decidir, controle a controle~~ — **decidido em 2026-11-18: implementar os 36**
 
-- [ ] Para cada um dos 36: **ligar**, **esconder** ou **marcar como não implementado**. A decisão
-      é do founder/@po; a recomendação é minha (ver *Decisão pendente*).
+A tarefa de triagem deixou de existir. O que resta de "decidir" não é **se**, é **o quê**: o
+comportamento de cada campo dos grupos B e C vem da observação da `LTM-19`, nunca de dedução.
 
 ### Executar
 
-- [ ] Grupo A: a leitura de cada campo, no lugar onde ele deveria ter efeito.
-- [ ] Grupos B e C: a decisão aplicada — nenhum deles fica como está.
+- [ ] **Grupo A (15):** a leitura de cada campo, no lugar onde ele deveria ter efeito.
+- [ ] **Grupo B (8):** construir a tela de loja que cada chave liga — stories próprias.
+- [ ] **Grupo C (11):** construir a feature que cada chave liga — stories próprias, a partir da
+      `LTM-19`.
+- [ ] **`reservationModel`:** os dois modos de escolha de número — story própria.
+- [ ] A varredura vira **teste versionado** (AC1), para o 43º campo não nascer inerte.
 - [ ] Ajuste visual conforme a medição.
 
 ## Critérios de Aceite
 
-- [ ] **AC1 (nenhum controle inerte sobra na tela):** ao fim da story, todo controle visível no
-      editor **ou** governa alguma coisa, **ou** está marcado na própria interface como ainda não
-      implementado. Teste: a varredura que gerou esta story roda de novo e o conjunto "sem leitor E
-      visível E sem marcação" fica **vazio**. É o AC que impede a situação de hoje de voltar.
+- [ ] **AC1 (nenhum controle inerte, ponto):** ao fim da frente, **todo** controle do editor governa
+      alguma coisa. Teste: a varredura que gerou esta story vira **script versionado** e roda na
+      suíte; o conjunto "campo declarado sem nenhum leitor" fica **vazio**.
+  - ⚠️ **Endurecido pela decisão de 2026-11-18.** A redação anterior aceitava *"ou está marcado na
+    interface como não implementado"* — a saída de escape que a triagem previa. Com a decisão de
+    implementar as 36, **essa saída deixa de existir**: marcar virou admissão de trabalho não feito,
+    não estado aceitável.
+  - 💡 **A varredura precisa virar teste, não ficar como medição de uma vez.** Ela é o que impede o
+    43º campo de nascer inerte amanhã. Um `expect(camposSemLeitor).toEqual([])` custa um arquivo e
+    fecha o defeito **de forma permanente** — sem isso, a `LTM-18` conserta o passado e não protege
+    o futuro.
 - [ ] **AC2 (`requiredFields` governa o formulário):** ligar CPF faz a loja **exigir** CPF na
       reserva; desligar faz parar de exigir. Telefone ligado continua obrigatório. Teste com três
       configurações diferentes, conferindo a recusa e a aceitação — não a aparência do formulário.
@@ -158,44 +169,75 @@ conteúdo ocupar visivelmente mais altura.
       rodadas diárias do Império rodam com configuração gravada antes desta story.
 - [ ] **AC6 (o visual sai da medição, não da impressão):** cada valor alterado no editor aponta
       para a linha do documento de pesquisa que o mediu. Valor sem origem documentada não entra.
-- [ ] **AC7 (nenhuma decisão de produto tomada por dedução):** nenhum campo dos grupos B e C é
-      implementado sem decisão escrita de quem decide. O que não for decidido fica **marcado**, não
-      adivinhado.
+- [ ] **AC7 (nenhum comportamento inventado):** nenhum campo dos grupos B e C é implementado sem
+      **observação registrada** do que ele faz na Sorteamos. O que não puder ser observado **espera
+      a observação** — não é adivinhado.
+  - ⚠️ **Este AC sobrevive à decisão de implementar tudo, e fica mais importante por causa dela.**
+    "Implementar as 36" responde **se** construir; não responde **o quê**. `instantPrizesEnabled`
+    ligado sem saber o que ele fazia na Sorteamos é inventar comportamento no caminho do prêmio —
+    e o founder pediu réplica, que é o oposto de invenção. A fonte é a `LTM-19`.
 - [ ] **AC8 (a porta de verificação continua verde):** `pnpm lint`, `pnpm typecheck`, `pnpm build` e
       `npm run test` passam.
 
-## Decisão pendente — e é do founder, não minha
+## Decisão do founder — 2026-11-18: **as 36, todas**
 
-**Os 36 não cabem numa story, e dois deles não cabem em nenhuma sem virarem produto.** A pergunta a
-responder antes de implementar:
+Eu recomendei triagem: ligar o grupo A, esconder o B, marcar o C como não implementado. **O founder
+decidiu o contrário, e a decisão está tomada:** *"quero que implemente todas as 36 features e tudo
+que tem na Sorteamos — absolutamente tudo deve ser replicado"*.
 
-| Grupo | Recomendação | Por quê |
+| Grupo | Minha recomendação | **Decisão** |
 |---|---|---|
-| **A** (15) | **Ligar**, nesta story ou nas suas filhas | O caminho existe; é o que o sorteio de teste precisa, e é onde a tela mais mente |
-| **B** (8) | **Esconder** do editor até a tela existir | Esconder é reversível e honesto. Marcar como "em breve" numa tela de operador é ruído permanente |
-| **C** (11) | **Marcar como não implementado**, visível | Esconder aqui apagaria o mapa do que falta para a paridade. A chave fica, cinza, dizendo o que é |
-| **D** (`reservationModel`) | **Decisão própria** | Muda o fluxo de compra; não é chave, é funcionalidade |
+| **A** (15) | ligar | **implementar** |
+| **B** (8) | esconder até a tela existir | **construir a tela e ligar** |
+| **C** (11) | marcar como não implementado | **construir a feature e ligar** |
+| **D** (`reservationModel`) | story própria | **implementar os dois modos** |
 
-> **Não vou reduzir a lista por conta própria.** O pedido foi *"todas as ações realmente
-> manipularem variáveis do sorteio"*, e a resposta honesta é que 11 delas exigem construir a feature
-> antes. O que está acima é o recorte que entrega o máximo do pedido sem inventar comportamento.
+**O que isso muda na natureza desta story:** ela deixa de ser *"fazer a tela parar de mentir"* e
+passa a ser *"construir o que a tela promete"*. Os grupos B e C **não são configuração** — são
+oito telas de loja e onze features. Isso não cabe numa story nem em três; vira a espinha da Frente
+B, e o recorte abaixo muda de acordo.
+
+### E o risco [Alto] desapareceu
+
+O founder também decidiu: **os sorteios hoje cadastrados no lotemania são todos de teste e podem
+ser excluídos.**
+
+Isso **elimina**, não mitiga, o risco que eu registrara como [Alto] e que o @po elevara a condição
+de entrada da `18b`/`18c`: sorteio existente com configuração gravada que nunca teve efeito
+passando a obedecê-la de repente (`maxPerBuyer` = 1 salvo por engano recusando a segunda compra de
+todo mundo). **Sem sorteio real no banco, não há configuração herdada para obedecer.**
+
+> ⚠️ **Esta liberdade tem prazo.** Ela vale enquanto não existir sorteio de verdade. No dia em que
+> o primeiro sorteio real for cadastrado, o risco volta inteiro — e aí a conferência do que está
+> gravado deixa de ser dispensável. Registrado para não ser esquecido quando a condição mudar.
 
 ## Escopo
 
 **IN:** a medição visual; o inventário por aba; a decisão aplicada aos 36; a implementação do
 grupo A; o ajuste visual.
 
-**OUT:**
+**OUT desta story — mas DENTRO do mandato, em stories próprias (decisão de 2026-11-18):**
 
-- **Construir as features do grupo C.** Upsell, promoções, títulos premiados, capitalizadora,
-  alertas e afiliados são epics próprios. Esta story decide o que a **chave** faz enquanto eles não
-  existem.
-- **As telas do grupo B.** Barra de progresso, rankings e cartões de compra rápida são paridade de
-  loja — parente da `LTM-15`, não desta.
-- **O `reservationModel`.** Story própria.
+As três linhas abaixo saíram daqui porque **não são configuração** e não cabem numa story de
+editor. Nenhuma delas está fora do escopo do epic — todas foram mandadas construir.
+
+- **As 8 telas do grupo B.** Barra de progresso, rankings, cartões de compra rápida, vídeo, ebook,
+  CTA de grupo. São loja, parentes da `LTM-15`. **Construir** — a chave do editor só faz sentido
+  depois que a tela existe.
+- **As 11 features do grupo C.** Upsell, promoções, promoção dobrada, títulos premiados,
+  capitalizadora, alertas, campanha gratuita, taxa, afiliados, mecanismo de sorteio. **Construir** —
+  cada uma com story própria, e cinco delas já têm tabela de apoio no banco (`capitalizers`,
+  `affiliates`, `awarded_boxes`, `scratch_cards`, `reward_spins`), o que muda o tamanho mas não a
+  natureza do trabalho.
+- **O `reservationModel`** (manual × aleatório). **Construir os dois modos** — muda o fluxo de
+  compra, então é story própria por tamanho, não por dúvida.
+
+**OUT do mandato — por ora:**
+
 - **As configurações fora do editor de sorteio** (configurações do site, integrações, gateways).
-  Mesmo defeito, outra tela: `showQrCodeByDefault` é o exemplo conhecido. **Fica registrado como
-  item solto** — a varredura de "campo de configuração sem leitor" que o @po já tem em mãos.
+  Mesmo defeito, outra tela: `showQrCodeByDefault` é o exemplo conhecido. O mandato de 2026-11-18
+  diz *"tudo que tem na Sorteamos"*, então isto provavelmente **entra** — mas entra pelo inventário
+  da `LTM-19`, não por dedução minha aqui.
 
 ## Dependências
 
@@ -230,30 +272,95 @@ Depends-on: LTM-02, LTM-03b, LTM-04, LTM-17 (todas donas de reserve.ts)
 
   | Filha | Conteúdo | Arquivos | Onda |
   |---|---|---|---|
-  | **18a** | A medição + o inventário + a marcação dos grupos B e C no editor | só `advanced-settings-tabs.tsx` e o doc | **pode ir já** |
+  | **18a** | A medição visual + o inventário por aba + **a varredura virando teste** (AC1) | `advanced-settings-tabs.tsx`, o doc, `tests/` | **pode ir já** |
   | **18b** | As chaves de **exibição** do grupo A | `[productSlug]/page.tsx`, `loja/[tenant]/page.tsx` | depende só de não colidir com `LTM-12`/`LTM-15` |
   | **18c** | Os campos que tocam **a reserva** (limites, DDD, anti-spam, `requiredFields`) | `reserve.ts`, `validations/reserve.ts` | **depois** de `LTM-02`, `LTM-03b`, `LTM-04` e `LTM-17` |
 
-  A **18a** é a que entrega o maior valor mais cedo: ela não liga nada, mas **faz a tela parar de
-  mentir** — que é o pedido original.
+  **A 18a mudou de natureza com a decisão de 2026-11-18.** Ela não marca mais nada como "não
+  implementado" — essa era a saída que a triagem previa. O que sobra nela é mais valioso: a medição
+  visual e, sobretudo, **a varredura virando teste versionado**, que é o que impede o defeito de
+  voltar depois que as 36 estiverem ligadas.
+
+  ⚠️ **As três filhas não dão conta do mandato.** Elas cobrem o **grupo A**. Os grupos B (8 telas) e
+  C (11 features) e o `reservationModel` são stories próprias, nascidas do inventário da `LTM-19` —
+  ver a seção de escopo. Chamar isso de "LTM-18 dividida em três" seria subdeclarar o trabalho do
+  mesmo jeito que o `Files:` subdeclarado que o @po reprovou duas vezes neste epic.
 
 ## Riscos
 
-- **[Alto] Ligar uma chave e mudar o comportamento de sorteio que já está no ar.** Sorteio existente
-  tem valores gravados que **nunca tiveram efeito**; passar a obedecê-los muda o comportamento de
-  uma hora para outra, sem ninguém ter pedido. Exemplo concreto: um sorteio com `maxPerBuyer` = 1
-  salvo por engano passa a recusar a segunda compra de todo mundo. **AC5 cobre o caso do
-  `advanced_settings` vazio, mas não este.** Antes de ligar o grupo A, conferir que valores estão
-  gravados nos sorteios reais do Império — é consulta, não suposição.
+- ~~**[Alto] Ligar uma chave e mudar o comportamento de sorteio que já está no ar.**~~
+  **ELIMINADO em 2026-11-18 por decisão do founder:** os sorteios hoje no lotemania são todos de
+  teste e **podem ser excluídos**. Sem sorteio real no banco, não há configuração herdada para
+  obedecer. O @po havia elevado isto a condição de entrada da `18b`/`18c`; a condição caiu.
+  ⚠️ **Com prazo:** volta inteiro no dia em que existir o primeiro sorteio de verdade.
 - **[Alto] Decidir por dedução no grupo C.** "Ligar" `instantPrizesEnabled` sem saber o que ele
-  fazia na Sorteamos é inventar feature no caminho do prêmio. AC7 existe por isso.
+  fazia na Sorteamos é inventar feature no caminho do prêmio. **A decisão de implementar tudo não
+  diminui este risco — aumenta**, porque remove a saída de "marcar como não implementado" que antes
+  absorvia o desconhecido. AC7 e a `LTM-19` existem por isso.
 - **[Médio] Ajustar o visual por impressão.** Já produziu regressão em produção nesta migração. AC6
   é a trava.
 - **[Médio] A story virar depósito.** 43 controles numa story é o que o @po chamou de "menu grande
   vira depósito" na `LTM-11`. A divisão proposta existe para isso.
 
+## Priorização @po (2026-11-18) — **o item solto fecha aqui**
+
+> ⚠️ **Isto não é a validação desta story.** A `LTM-18` não me foi atribuída nesta rodada e segue
+> `Draft`. O que registro aqui é **priorização**, que é minha, e o fechamento de um item solto.
+
+### O item solto que me foi passado é esta story
+
+A `LTM-17` abriu, como item solto para o @po, *"uma varredura de **campo de configuração sem
+leitor**"*, com três ocorrências conhecidas — `showQrCodeByDefault` (`LTM-14`),
+`paymentGatewayProvider` (`LTM-03b`) e `reservationExpiryMinutes` (`LTM-17`) — **todas descobertas
+por acaso**. Era a quarta ocorrência que se queria procurar de propósito.
+
+**A varredura foi feita, e a resposta é 36, não 4.** Aceito o item como **fechado por esta story**:
+ele deixa de ser item de backlog e passa a ser escopo medido. O que eu registro é o reenquadramento
+de prioridade que a medição força:
+
+| | Ao abrir o item solto (`LTM-17`) | Depois da medição (`LTM-18`) |
+|---|---|---|
+| Tamanho | 3 ocorrências conhecidas, tamanho desconhecido | **36 de 43 campos sem leitor**; a loja lê **5 linhas** |
+| Natureza | padrão recorrente a vigiar | **informação falsa na tela que o operador usa para montar o sorteio de teste** |
+| Prioridade | item solto, sem dono | **P0, com dono** |
+
+O argumento que move isso de "vigiar" para P0 é o da própria story, e eu o subscrevo: **controle
+ausente é falta de paridade; controle inerte é informação falsa.** O operador configura, confere, e
+segue confiando. O caso que o founder fotografou é o retrato: ele liga CPF em *"Campos requeridos
+para realizar a reserva"*, e `validations/reserve.ts:176` exige telefone e nada mais. A chave gira e
+nada acontece.
+
+### A divisão proposta: **aceita, com a ordem invertida no que importa**
+
+A story me propõe três filhas. **Aceito as três**, e priorizo assim:
+
+| Filha | Prioridade @po | Por quê |
+|---|---|---|
+| **18a** — medição + inventário + marcação dos grupos B e C | **P0, e vai primeiro** | É a única que **não liga nada** e já **faz a tela parar de mentir**. Toca um arquivo só (`advanced-settings-tabs.tsx`) e o doc, `Depends-on: none` de fato. Entrega o pedido original do founder sem esperar ninguém |
+| **18b** — chaves de exibição do grupo A | **P1** | Conjunto pequeno, e a única aresta é não colidir com `LTM-12`/`LTM-15` em `[productSlug]/page.tsx` |
+| **18c** — campos que tocam a reserva | **P1, por último** | Atrás de `LTM-02`, `LTM-03b`, `LTM-04` e `LTM-17`, todas donas de `reserve.ts`. É a fila mais longa do epic e não há como furá-la |
+
+**A `18a` é o maior valor por unidade de risco de todo o epic hoje:** um arquivo, zero migração,
+zero dependência, e o defeito que o founder viu deixa de existir visualmente no mesmo dia. Marcar um
+controle como "não implementado" é honestidade de interface, e ela não espera a implementação.
+
+### A ressalva que vale mais que a divisão
+
+O risco **[Alto]** de *"ligar uma chave e mudar o comportamento de sorteio que já está no ar"* está
+corretamente identificado e **não é coberto por nenhum AC** — a própria story diz isso do AC5. Fica
+registrado como **condição de entrada da `18b` e da `18c`**, não como risco a conviver:
+
+> **Antes de ligar qualquer campo do grupo A, consultar que valores estão gravados em
+> `advanced_settings` nos sorteios reais do Império.** É consulta ao banco, não suposição. Um
+> `maxPerBuyer` = 1 salvo por engano num sorteio vivo passa a recusar a segunda compra de todo mundo
+> no instante em que o leitor existir — e ninguém pediu isso.
+
+A `18a` não tem essa condição, porque não liga nada. É mais uma razão para ela ir primeiro.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-18 | — | **Priorização @po** (não é validação; a story segue `Draft`). O item solto *"varredura de campo de configuração sem leitor"*, aberto pela `LTM-17` com 3 ocorrências conhecidas, **fecha aqui**: a medição achou **36 de 43**, o que o move de "padrão a vigiar" para **P0 com dono**. Divisão em `18a`/`18b`/`18c` **aceita**, com a `18a` primeiro — um arquivo, `Depends-on: none`, e faz a tela parar de mentir sem ligar nada. Registrada como **condição de entrada** da `18b`/`18c` (não como risco a conviver) a consulta aos valores já gravados em `advanced_settings` dos sorteios reais do Império antes de qualquer campo do grupo A ganhar leitor. | @po (Pax) |
+| 2026-11-18 | 1.1 | **Decisao do founder substitui a triagem: as 36, todas.** Eu recomendei ligar o grupo A, esconder o B e marcar o C como nao implementado; o founder decidiu implementar tudo, mais "tudo que tem na Sorteamos". A story muda de natureza — deixa de ser "fazer a tela parar de mentir" e passa a ser "construir o que a tela promete" —, os grupos B (8 telas) e C (11 features) viram stories proprias nascidas do inventario da `LTM-19`, o AC1 perde a saida de escape ("ou marcado como nao implementado") e ganha a exigencia de a varredura virar TESTE versionado, e o AC7 ("nenhum comportamento inventado") fica mais importante, nao menos: implementar tudo responde SE construir, nao O QUE. O risco [Alto] de ligar chave em sorteio existente foi **eliminado** — o founder declarou os sorteios atuais descartaveis — com prazo ate o primeiro sorteio real. | @aiox-master |
 | 2026-11-18 | 1.0 | Nasce do pedido do founder depois do impasse da flag do relógio: *"verificar todas as ações configuráveis de edição do sorteio e corrigi-las visual e funcionalmente"*. A medição confirmou a suspeita e a superou: **36 dos 43 campos não têm leitor nenhum**, e a loja lê exatamente cinco linhas de configuração. O caso que o founder fotografou — "Campos requeridos para realizar a reserva", seis chaves — é inerte: `reserve.ts:176` exige telefone e nada mais. | @aiox-master |
