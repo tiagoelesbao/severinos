@@ -1,0 +1,3 @@
+- [EPIC-LTM: Império → lotemania](project_lotemania_imperio_migration.md) — andaime, não clone; contenção é o gargalo; cota dividida bloqueada até a fundação fechar.
+- [Sorteamos nunca gravou UTM](project_sorteamos_nunca_gravou_utm.md) — campos declarados e vazios em 100% dos pedidos; paridade com ela é o piso errado para atribuição.
+- [Contrato existente antes de inventar](feedback_contrato_existente_antes_de_inventar.md) — procurar quem já consome o formato antes de especificar um novo.

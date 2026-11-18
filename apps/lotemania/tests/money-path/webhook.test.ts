@@ -33,6 +33,7 @@ import type { NextRequest } from "next/server";
 import { POST as POST_TOKENIZADA } from "@/app/api/webhooks/payment/[tenant]/[provider]/[token]/route";
 import { POST as POST_APOSENTADA } from "@/app/api/webhooks/payment/[tenant]/[provider]/route";
 import { reserveSelectedNumbers } from "@/lib/actions/reserve";
+import { adapterFor, providersWithoutAdapter } from "@/lib/payments/providers";
 import { REDACTED } from "@/lib/payments/redact";
 import { webhookPath } from "@/lib/payments/webhook-url";
 
@@ -561,16 +562,36 @@ describe("POST /api/webhooks/payment/[tenant]/[provider]/[token]", () => {
     }
   });
 
-  it("AC-F2: provedor sem adaptador é recusado EM VOZ ALTA, nomeando o provedor", async () => {
-    // É o estado da `paysure` até a LTM-03b — e o AC prova que esse estado é
-    // visível, não silencioso. Na versão anterior do app este mesmo pedido
-    // respondia 404 porque `paysure` não existia em nenhuma das duas listas.
+  // ⚠️ REESCRITO PELA LTM-03b.
+  //
+  // O enunciado anterior era "provedor sem adaptador é recusado EM VOZ ALTA,
+  // nomeando o provedor", e o corpo do teste usava a `paysure` como exemplo
+  // — porque ela ERA o provedor sem adaptador. A LTM-03b entrega o
+  // adaptador dela, e `providersWithoutAdapter()` fica vazia: nenhum
+  // provedor da lista cai mais no ramo `unsupported_provider`, e o ramo
+  // passa a ser inalcançável pela rota.
+  //
+  // Isso NÃO é regressão do AC-F2 — é a dívida que ele media sendo paga. O
+  // que sobra para verificar aqui, e que continua sendo a propriedade de
+  // valor, é a mesma de antes com o ramo novo: aviso da paysure que a rota
+  // não consegue processar sai com estado NOMEADO e motivo, pedido intocado,
+  // item na lista do operador, resposta 200 e nunca `{ ok: true }` pelado.
+  //
+  // A diferença é de qual portão o recusa: antes era o portão 4 (sem
+  // adaptador), agora é o portão 6 (o adaptador da paysure não reconhece
+  // este corpo — o envelope de referência da plataforma NÃO é o formato
+  // dela). O estado `unsupported_provider` continua no schema e continua
+  // coberto por `webhook-events-list.test.tsx`.
+  it("aviso que a rota não processa sai com estado NOMEADO, nunca em silêncio", async () => {
     const gateway = await createPaymentGateway({
       tenantId: tenant.id,
       provider: SEM_ADAPTADOR,
       webhookSecret: null,
     });
     const orderId = await reservar([8]);
+    // O envelope de referência da PLATAFORMA, que é nosso e não é de
+    // provedor nenhum — em particular não é o da paysure, que ramifica por
+    // chave de topo (`cashin`/`cashout`/`refund`).
     const body = aviso({ orderId, amountCents: 1000 });
 
     const response = await chamarTokenizada({
@@ -582,20 +603,26 @@ describe("POST /api/webhooks/payment/[tenant]/[provider]/[token]", () => {
 
     expect(response.status).toBe(200);
     const corpo = (await response.json()) as Record<string, unknown>;
-    expect(corpo).toMatchObject({
-      processed: false,
-      state: "unsupported_provider",
-      provider: SEM_ADAPTADOR,
-    });
-    expect(String(corpo.reason)).toContain(SEM_ADAPTADOR);
+    expect(corpo).toMatchObject({ processed: false, state: "invalid_payload" });
+    expect(Object.keys(corpo).sort()).not.toEqual(["ok"]);
+    expect(String(corpo.reason)).toContain("chave de topo");
 
     // O pedido fica intocado.
     expect((await readOrder(orderId)).status).toBe("pending");
     expect(await readBankingTransactions(orderId)).toHaveLength(0);
 
     const evento = (await readWebhookEvents(tenant.id))[0];
-    expect(evento.match_state).toBe("unsupported_provider");
-    expect(evento.match_reason).toContain(SEM_ADAPTADOR);
+    expect(evento.match_state).toBe("invalid_payload");
+    expect(evento.match_reason).toBeTruthy();
+  });
+
+  it("AC-F2: o mecanismo de provedor sem adaptador continua existindo", () => {
+    // A lista está vazia, e é isso que se afirma: não há provedor
+    // representável sem tradutor. A guarda do portão 4 fica para o provedor
+    // que alguém acrescentar às listas sem escrever o adaptador — ela é a
+    // resposta a essa pergunta, não andaime da paysure.
+    expect(providersWithoutAdapter()).toEqual([]);
+    expect(adapterFor(SEM_ADAPTADOR)).not.toBeNull();
   });
 
   it("AC-F3: status não acionável é registrado, não ignorado", async () => {

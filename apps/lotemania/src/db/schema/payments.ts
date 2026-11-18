@@ -303,6 +303,79 @@ export const paymentWebhookEvents = pgTable(
   ],
 );
 
+// A cobrança PIX criada no provedor (LTM-03b, item 4 da arquitetura).
+//
+// ════════════════════════════════════════════════════════════════════════
+// POR QUE ESTA TABELA EXISTE: O 409 DA PAYSURE É IRRECUPERÁVEL SEM ELA
+//
+// `external_id` repetido devolve **409** — *"Já existe uma transação com
+// esse ID Externo"* (§3 do contrato). Isso é idempotência de graça do lado
+// do provedor, e o desenho a usa em vez de reimplementá-la. O problema é o
+// que o 409 **não** traz: o `content`, isto é, o BR Code.
+//
+// E a consulta não salva: `POST /v1/pix/cashin/consult` existe (confirmado
+// em 2026-11-18, §9.1) e devolve `status`, `reference_code`, `value_cents`,
+// `end_to_end` e `payment_date` — **não devolve `content`**. Então, sem a
+// nossa linha, um retry deixa o comprador com uma tela sem código para
+// pagar e sem caminho de recuperação.
+//
+// Criar a cobrança passa a ser: ler a nossa linha; se não houver, chamar o
+// provedor e gravar. O 409 vira um caminho COM saída — ler o que já temos.
+// Se não tivermos (estado que só ocorre se a gravação falhar depois da
+// chamada), falha alto para o operador, nunca tela sem código.
+//
+// As duas unicidades fazem trabalhos diferentes:
+//   (order_id)                              uma cobrança por pedido — é o
+//                                           espelho do `external_id` único
+//                                           que mandamos
+//   (tenant_id, provider, reference_code)   a referência do provedor não se
+//                                           repete dentro do operador
+// ════════════════════════════════════════════════════════════════════════
+export const pixCharges = pgTable(
+  "pix_charges",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    // `orders.id` é o `external_id` que foi para a Paysure. Um pedido, uma
+    // cobrança.
+    orderId: uuid("order_id")
+      .notNull()
+      .references(() => orders.id, { onDelete: "cascade" }),
+    provider: paymentGatewayProviderEnum("provider").notNull(),
+    /** `qrcode.reference_code` — o id da cobrança no provedor. */
+    referenceCode: text("reference_code").notNull(),
+    /**
+     * `qrcode.content` — o BR Code copia-e-cola.
+     *
+     * É o artefato que o comprador de fato usa, e é o único campo que NÃO
+     * dá para recuperar depois: nem o 409 nem a consulta o devolvem.
+     */
+    brCode: text("br_code").notNull(),
+    /**
+     * Quando a cobrança expira no provedor.
+     *
+     * Derivado de `expiration_seconds`, que por sua vez deriva de
+     * `RESERVATION_MINUTES` — é a amarração dos dois relógios (AC7). Sem
+     * ela o QR dura 24 h (ou 1 h, o padrão da API) para um número que
+     * deixou de ser do comprador em 15 minutos.
+     */
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("pix_charges_order_idx").on(table.orderId),
+    uniqueIndex("pix_charges_tenant_provider_reference_idx").on(
+      table.tenantId,
+      table.provider,
+      table.referenceCode,
+    ),
+  ],
+);
+
 export const capitalizers = pgTable("capitalizers", {
   id: uuid("id").primaryKey().defaultRandom(),
   tenantId: uuid("tenant_id")

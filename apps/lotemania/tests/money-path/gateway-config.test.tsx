@@ -96,13 +96,34 @@ describe("as duas listas de provedores (AC-A1)", () => {
     ]);
   });
 
-  it("paysure está na lista e deliberadamente SEM adaptador (LTM-03b)", () => {
-    expect(providersWithoutAdapter()).toContain(PAYSURE);
-    expect(adapterFor(PAYSURE)).toBeNull();
-    // E todos os outros têm.
+  // ⚠️ REESCRITO PELA LTM-03b, e a razão é o próprio enunciado anterior.
+  //
+  // Este teste dizia "paysure está na lista e deliberadamente SEM adaptador
+  // (LTM-03b)" — ele nomeava a story que o invalidaria. A LTM-03a entregou a
+  // paysure representável e recusada EM VOZ ALTA; a LTM-03b entrega o
+  // adaptador dela, e com isso `providersWithoutAdapter()` fica VAZIA.
+  //
+  // O que se verifica agora é a condição mais forte: TODO provedor da lista
+  // tem adaptador, e a paysure tem um PRÓPRIO — escrito contra a
+  // documentação dela, declarando `signature: "none"` — em vez do HMAC de
+  // referência que os 17 herdados usam.
+  //
+  // O mecanismo de "provedor sem adaptador" NÃO foi apagado: ele é a
+  // resposta a "e quando alguém acrescentar provedor às listas sem escrever
+  // o adaptador?". Ver o bloco de comentário em `lib/payments/providers/index.ts`.
+  it("todo provedor da lista tem adaptador, e a paysure tem um PRÓPRIO", () => {
+    expect(providersWithoutAdapter()).toEqual([]);
+
+    for (const provider of PAYMENT_GATEWAY_PROVIDERS) {
+      expect(adapterFor(provider), `${provider} sem adaptador`).not.toBeNull();
+    }
+
+    // O adaptador da paysure é o único que declara não assinar — porque é o
+    // único cujo provedor de fato não assina.
+    expect(adapterFor(PAYSURE)?.signsWebhooks).toBe(false);
     for (const provider of PAYMENT_GATEWAY_PROVIDERS) {
       if (provider === PAYSURE) continue;
-      expect(adapterFor(provider)).not.toBeNull();
+      expect(adapterFor(provider)?.signsWebhooks).toBe(true);
     }
   });
 

@@ -116,7 +116,13 @@ describe("AC-F4: a lista existe e mostra o que importa", () => {
       }),
     });
 
-    // AC-F2 — provedor na lista, sem adaptador.
+    // ⚠️ AJUSTADO PELA LTM-03b. Este bloco produzia um item
+    // `unsupported_provider` porque a `paysure` era o provedor sem
+    // adaptador. Ela passou a ter adaptador próprio, então o MESMO corpo
+    // (um `cashin` sem `status`) agora é recusado pelo tradutor dela, com
+    // `invalid_payload`. O que o AC-F4 verifica — a lista mostra data,
+    // provedor, valor, estado e MOTIVO de cada item — não mudou; mudou qual
+    // estado este item carrega.
     await entregar({
       provider: SEM_ADAPTADOR,
       token: paysureToken,
@@ -153,9 +159,9 @@ describe("AC-F4: a lista existe e mostra o que importa", () => {
 
     expect(eventos).toHaveLength(3);
     expect(eventos.map((e) => e.matchState).sort()).toEqual([
+      "invalid_payload",
       "not_actionable",
       "unmatched",
-      "unsupported_provider",
     ]);
 
     const markup = renderToStaticMarkup(<WebhookEventsTable eventos={eventos} />);
@@ -167,7 +173,7 @@ describe("AC-F4: a lista existe e mostra o que importa", () => {
     expect(markup).toContain("R$ 61.00"); // valor, convertido de centavos
     expect(markup).toContain("R$ 5.00");
     expect(markup).toContain('data-event-state="unmatched"'); // estado
-    expect(markup).toContain('data-event-state="unsupported_provider"');
+    expect(markup).toContain('data-event-state="invalid_payload"');
     expect(markup).toContain('data-event-state="not_actionable"');
 
     // Motivo: cada um tem o seu, e o do provedor sem adaptador NOMEIA o
@@ -183,7 +189,13 @@ describe("AC-F4: a lista existe e mostra o que importa", () => {
       expect(evento.matchReason).toBeTruthy();
       expect(texto).toContain(evento.matchReason as string);
     }
-    expect(texto).toContain(`O provedor "${SEM_ADAPTADOR}"`);
+    // O motivo de `unsupported_provider` nomeava o provedor no texto, e o
+    // de `invalid_payload` nomeia o DEFEITO do corpo — qual campo faltou.
+    // O provedor continua visível na lista: é a coluna própria, verificada
+    // acima com `toContain(SEM_ADAPTADOR)`. Cada item tem motivo escrito, o
+    // que é o que torna a lista fila de revisão em vez de registro mudo.
+    const invalido = eventos.find((e) => e.matchState === "invalid_payload");
+    expect(invalido?.matchReason).toContain("status");
   });
 
   it("estado desconhecido não derruba a lista", async () => {

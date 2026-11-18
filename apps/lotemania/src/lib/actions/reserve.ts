@@ -13,12 +13,30 @@ import {
 import {
   reserveNumbersSchema,
   HALVES_PER_DIVISIBLE_TITLE,
+  reservationMinutesFor,
   type ReserveNumbersInput,
 } from "@/lib/validations/reserve";
 
 const ANTI_SPAM_THRESHOLD = 3;
 const ANTI_SPAM_BLOCK_MINUTES = 30;
-const RESERVATION_MINUTES = 15;
+
+// ⚠️ A JANELA DA RESERVA NÃO É UM NÚMERO DESTE ARQUIVO (LTM-03b, AC14).
+//
+// Era `const RESERVATION_MINUTES = 15` aqui, e a tarefa da story pedia para
+// EXPORTÁ-LA. As duas coisas estão erradas, por razões diferentes:
+//
+//   • exportar é IMPOSSÍVEL. Este arquivo é `"use server"`, e num arquivo
+//     `"use server"` o Next só admite exportação de função assíncrona.
+//     Exportar a constante faz o módulo perder TODAS as exportações no
+//     grafo do cliente e `pnpm build` morrer em `number-grid.tsx`. Medido
+//     contra `next build` em 2026-11-18.
+//
+//   • constante é a forma ERRADA. A janela vai virar configuração POR
+//     SORTEIO (o campo já existe na tela e ninguém o lê), então ela é
+//     função do sorteio, não do módulo.
+//
+// A fonte única é `reservationMinutesFor(product)`, em
+// `@/lib/validations/reserve` — módulo puro, com a razão inteira escrita.
 
 const CONFLITO =
   "Algum dos números escolhidos acabou de ser reservado por outra pessoa. Atualize a página e tente de novo.";
@@ -350,7 +368,12 @@ export async function reserveSelectedNumbers(input: ReserveNumbersInput) {
         .set({
           status: "reserved",
           orderId: order.id,
-          reservedUntil: new Date(Date.now() + RESERVATION_MINUTES * 60 * 1000),
+          // A janela vem do SORTEIO, nunca de um número deste arquivo —
+          // é a mesma função que a tela do pedido e o
+          // `expiration_seconds` da cobrança PIX consultam (AC14).
+          reservedUntil: new Date(
+            Date.now() + reservationMinutesFor(product) * 60 * 1000,
+          ),
         })
         .where(
           and(

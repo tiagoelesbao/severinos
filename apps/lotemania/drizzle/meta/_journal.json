@@ -15,6 +15,13 @@
       "when": 1794971318264,
       "tag": "0001_ltm03a_caminho_do_dinheiro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795021914123,
+      "tag": "0002_ltm03b_pix_charges",
+      "breakpoints": true
     }
   ]
 }

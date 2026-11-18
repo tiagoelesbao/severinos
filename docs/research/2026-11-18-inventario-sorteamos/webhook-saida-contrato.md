@@ -18,6 +18,35 @@ E ele é a resposta a uma pergunta que estava aberta: **o Império já tem um we
 assinando `order.paid` e apontando para um serviço próprio que alimenta a **CAPI da Meta**. Ou seja,
 este contrato não é teoria: é o cano por onde a conversão do Império chega ao anúncio hoje.
 
+> ## ⚠️ O contrato existe. O dado, não.
+>
+> **Correção aplicada a este documento em 2026-11-18**, a partir de medição anterior do @pm
+> (2026-10-08) que eu não tinha em mãos ao escrevê-lo.
+>
+> A Sorteamos **declara** `utmSource/Medium/Campaign/Content/Term` no `order.paid` e na API REST — e
+> **entrega vazio em 100% dos pedidos reais**, inclusive em 25 pedidos com clique de anúncio
+> confirmado e recente. Pela API REST, `UTM_Source` vem vazio em **99,6%**.
+>
+> **É o mesmo padrão dos 36 campos inertes do editor** (`LTM-18`), agora no contrato de saída: a
+> plataforma descreve um campo que ela não preenche. Declarar não é entregar.
+>
+> Duas consequências que mudam a leitura de tudo abaixo:
+>
+> 1. **Paridade com a Sorteamos é o piso errado para atribuição.** "Tem as colunas" não é
+>    entregável; "o dado chega preenchido depois de navegação interna" é. É o risco central da
+>    `LTM-04`.
+> 2. **`apps/utm-capture-imperio` existe por causa disto** — um beacon por GTM que grava
+>    `{fbp, fbc, utm_*, landing_url}` no Supabase **por `fbp`**, não por pedido, porque no momento
+>    da captura o pedido ainda não existe. É remendo de produção contra um buraco a montante, não
+>    arquitetura escolhida.
+>
+> E um detalhe que já custou caro: a Sorteamos **reescreve o `fbc` com timestamp sempre fresco**, o
+> que inviabilizou o filtro de idade do clique no `capi_client.py`. No lotemania, o valor original
+> do cookie tem de chegar **intacto** ao pedido.
+>
+> **Então o valor deste documento não é "o que o Império recebe hoje".** É o **vocabulário** — os
+> nomes, os tipos e a forma que o lotemania deve preencher **de verdade**.
+
 ---
 
 ## As quatro assinaturas
@@ -91,24 +120,62 @@ User.Create · Order.Create · Order.Paid · Order.Expired
     "expirationAt": "2025-03-12T15:00:00.000Z",
     "affiliate": "AFF123",
 
-    "<objeto de rastreio>": {          // nome da chave NÃO OBSERVADO — o scroll cortou a linha
-      "ttp":        "2AHtBz-1234-5678-90ab-cdef12345678",
-      "fbc":        "fb.1.1700000000000.1234567890",
-      "fbp":        "fb.1.1700000000000.0987654321",
-      "eventId":    "evt-1234567890",
-      "userAgent":  "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "utmContent":  "banner-azul",
-      "utmSource":   "google",
-      "utmCampaign": "promocao-marco",
-      "utmMedium":   "cpc",
-      "utmTerm":     "curso",
-      "ip":          "192.168.0.1"
-    },
+    "createdAt": "2025-03-11T14:55:00.000Z",
+    "createdAtUNIX": 1741704900,
+
+    "params": { /* os 13 campos de rastreio — ver abaixo */ },
 
     "numbers": [1234, 1235, 1236]
   }
 }
 ```
+
+### `params` — o objeto de rastreio, **treze** campos
+
+Idêntico nos quatro eventos. Lido completo na aba `Order.Create`:
+
+```jsonc
+"params": {
+  "gclid":       "Cj0KCQiA_1234567890",                      // Google
+  "ttclid":      "E.C.P.tt-1234567890",                      // TikTok (click id)
+  "ttp":         "2AHtBz-1234-5678-90ab-cdef12345678",       // TikTok (cookie)
+  "fbc":         "fb.1.1700000000000.1234567890",            // Meta (clique)
+  "fbp":         "fb.1.1700000000000.0987654321",            // Meta (navegador)
+  "eventId":     "evt-1234567890",                           // deduplicação Pixel ↔ CAPI
+  "userAgent":   "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+  "utmContent":  "banner-azul",
+  "utmSource":   "google",
+  "utmCampaign": "promocao-marco",
+  "utmMedium":   "cpc",
+  "utmTerm":     "curso",
+  "ip":          "192.168.0.1"
+}
+```
+
+Nota da própria tela: *"`data.params` — Dados de rastreio: gclid, ttclid, ttp, fbc, fbp, UTMs, IP e
+user agent"*.
+
+---
+
+## Os quatro eventos, lado a lado
+
+Os quatro compartilham a **mesma forma**. O que muda:
+
+| | `User.Create` | `Order.Create` | `Order.Paid` | `Order.Expired` |
+|---|---|---|---|---|
+| `data.status` | — | **`waiting-payment`** | **`paid`** | **`expired`** |
+| `data.numbers` | — | **não enviado** | **enviado** | **não enviado** |
+| `data.awards` | — | `[]` | preenchido quando houve | — |
+| `data.params` | — | ✅ 13 campos | ✅ | ✅ |
+| `data.pixCode` | — | ✅ *"PIX copia e cola gerado para o pedido"* | ✅ | ✅ |
+| `createdAtUNIX` | — | ✅ *"createdAt em timestamp UNIX (segundos)"* | ✅ | ✅ |
+
+> **O vocabulário de status do pedido fica estabelecido:** `waiting-payment` · `paid` · `expired`.
+> O lotemania usa `pending` · `paid` · `expired` · `canceled`. **`waiting-payment` contra
+> `pending`** é divergência de nome, e `canceled` não tem evento correspondente lá.
+>
+> **`numbers` só em `order.paid`** é decisão de desenho, não omissão: o número só é do comprador
+> depois do pagamento. Faz sentido e vale copiar.
 
 ### As três notas de rodapé da própria tela
 
@@ -124,18 +191,29 @@ User.Create · Order.Create · Order.Paid · Order.Expired
 
 ### 1. A `LTM-04` ganha a lista exata de campos de atribuição
 
-O bloco de rastreio tem **onze** campos, e eles respondem a pergunta "de onde veio esta venda":
+O `params` tem **treze** campos, e eles respondem a pergunta "de onde veio esta venda":
 
 | Campo | O que é |
 |---|---|
 | `fbc` / `fbp` | cookies de clique e de navegador da Meta — **o par que a CAPI exige** |
-| `ttp` | o equivalente do TikTok |
+| `gclid` | click id do Google |
+| `ttclid` / `ttp` | click id e cookie do TikTok |
 | `eventId` | **deduplicação** entre Pixel do navegador e CAPI do servidor. Sem ele, a Meta conta a conversão duas vezes |
 | `userAgent` + `ip` | exigidos pela CAPI para casar o evento |
 | `utmSource/Medium/Campaign/Content/Term` | os cinco UTMs canônicos |
 
 O lotemania tem **nenhum** deles em `orders`. E `eventId` é o mais fácil de esquecer e o mais caro:
 é o que impede conversão contada em dobro.
+
+> **Três plataformas de clique, não uma.** `gclid` (Google), `ttclid`+`ttp` (TikTok) e `fbc`+`fbp`
+> (Meta) — coerente com a tela de Analytics, que aceita pixel de Meta, GA, TikTok, Kwai e GTM. A
+> `LTM-04` foi escrita falando de `utm_*`, `fbc`, `fbp`, `gclid`, `ttclid`; **os cinco estão aqui, e
+> faltam `ttp`, `eventId`, `userAgent` e `ip` na lista dela.**
+>
+> ⚠️ **Mas copiar a lista não basta — ver o aviso no topo.** A Sorteamos tem estes treze campos
+> declarados e os entrega vazios. O entregável da `LTM-04` é o campo **preenchido**, o que exige
+> capturar na origem e carregar o valor através da navegação interna até o pedido. O `AC4` dela já
+> diz isso; este contrato dá os **nomes**, não a prova de que funciona.
 
 ### 2. `awards` confirma a estrutura dos títulos premiados
 

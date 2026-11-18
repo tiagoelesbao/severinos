@@ -1,0 +1,4 @@
+- [EPIC-LTM: quatro validações](project_epic_ltm_validation.md) — ADR-0001 reabriu 5 stories; a 4ª rodada fechou LTM-07 (9/10) e LTM-16, reverteu LTM-17, e a LTM-18 achou 36 de 43 campos sem leitor.
+- [Conferir contrato no código, não na lista](feedback_po_conferir_contrato_no_codigo.md) — "o contrato já existe" exige ler a chamada inteira do consumidor: base URL, auth, caminho, parâmetros, vocabulário de valor.
+- [Conferir se a correção foi de fato aplicada](feedback_po_conferir_correcao_aplicada.md) — tabela correção × estado × evidência; correção pela metade deixa a story afirmando as duas coisas.
+- [Conferir o número marcado como medido](feedback_po_conferir_o_numero_medido.md) — "22 tabelas" eram 34 e três citações de linha envelheceram em 48h; conclusão certa não salva número errado.

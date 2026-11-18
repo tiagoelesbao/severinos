@@ -24,3 +24,11 @@ mesmo com o coordenador autorizando). Levar ao founder com as opcoes: (a) regra 
 para o comando especifico, (b) a variavel no bloco `env` das settings, feita por ele, (c) ele
 mesmo executa os dois comandos. Deixar tudo pronto e fast-forward antes de pedir — merge resolvido
 e commitado localmente — para que a liberacao custe um comando, nao uma sessao nova.
+
+**Recorrencia 2026-11-17 (lotemania):** o impasse se repetiu identico — hook inalterado desde
+`392659f3`, mesma negativa `Current agent: @unknown`. O preparo prescrito funcionou e virou receita:
+fast-forward por **movimento de ref** (`git branch -f master <branch>`), nunca
+`git checkout master && git merge --ff-only`. O movimento de ref nao toca a arvore de trabalho, o
+que importa neste repo porque quase sempre ha `apps/BI/*/data-*.json` modificado por job agendado
+na arvore — um checkout os carregaria entre branches sem necessidade. Deixa a liberacao em dois
+comandos para o founder e zero risco de `git add` acidental.
