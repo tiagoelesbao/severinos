@@ -23,7 +23,7 @@ exclusivamente no sorteio de teste.
 | Privacidade | **Privado** |
 | Início das vendas | **Agendado — 18/11/2027** |
 | Cotas / preço | 10 · R$ 1,00 |
-| Estado em que esta sessão terminou | **AINDA EXISTE — pendente de exclusão** (a sessão do painel caiu) |
+| Estado em que esta sessão terminou | **AINDA EXISTE — e não há como excluir pelo painel.** Ver *§2* e *§10* |
 
 ### As duas travas funcionaram, e foram verificadas
 
@@ -161,8 +161,29 @@ Privado (selo/cadeado) · Em breve (status, com seta) · Destaque · Copiar link
 **Menu ⋮ da linha — 4 itens** [OBSERVADO]: `QR Code` · `Salvar cópia` · `Ordenação: 0` ·
 **`Definir ganhadores`**.
 
-> ⚠️ **Não há "Excluir" neste menu.** Onde se exclui um sorteio ficou **[NÃO OBSERVADO]** — a sessão
-> caiu antes. É o que falta para fechar o ciclo do sorteio de teste.
+**Vocabulário de status do filtro** [OBSERVADO]: `Todos` · `Ativos` · `Em breve` · `Encerrados` —
+**quatro**, e **nenhum** deles é estado de exclusão.
+
+### ⛔ A Sorteamos não exclui sorteio pelo painel [OBSERVADO]
+
+Procurado em **seis** lugares, na sessão de 2026-11-18 19h:
+
+| Onde | O que tem |
+|---|---|
+| Ações da linha (9 botões) | Privado · Em breve · Destaque · Copiar link · Editar · Resumo das Vendas · Links de Campanha · Visualizar página · Compras |
+| Menu ⋮ da linha (4 itens) | QR Code · Salvar cópia · Ordenação · Definir ganhadores |
+| Página de edição | nenhum controle de exclusão |
+| Seletor de status da linha | **não abre** para sorteio `Em breve` |
+| Filtro de status | 4 estados, nenhum de exclusão |
+| Cabeçalho e menu ⋮ da lista de compras (7 ícones + 14 itens) | nenhum |
+
+**Conclusão: um sorteio criado é permanente do ponto de vista do operador.** Ele pode ser encerrado,
+despromovido, tornado privado — não apagado. Isso explica os **10.774** sorteios na conta do
+Império: eles se acumulam desde sempre porque não há como remover.
+
+> **Consequência direta para o lotemania:** se a paridade for estrita, o lotemania também não
+> ofereceria exclusão — o que é uma decisão de produto séria, não um detalhe copiado. E é o motivo
+> pelo qual o sorteio de teste **não pôde ser excluído** nesta sessão. Ver *§10*.
 
 ---
 
@@ -176,6 +197,25 @@ com contador. Confirma a `LTM-10`.
 **Cabeçalho do sorteio** [OBSERVADO]: miniatura, título, descrição, preço, selo de estado, barra de
 progresso, e três contadores — `N Livres` · `N Reservados` · `N Pagos` — mais dois cartões,
 `Pagos` e `Reservados`, com contagem e total em R$.
+
+### Os 7 ícones do cabeçalho, com rótulo [OBSERVADO]
+
+```
+Mostrar · Visualizar Página · Ranking de Compras · Títulos Premiados
+· Caixas Surpresas · Roletas Premiadas · Raspadinhas Premiadas · ⋮
+```
+
+> **Quatro mecânicas de premiação, não uma.** `Títulos Premiados`, `Caixas Surpresas`, `Roletas
+> Premiadas` e `Raspadinhas Premiadas` são features distintas, cada uma com tela própria a partir
+> daqui. E elas **já têm tabela no lotemania**: `awarded_boxes` / `awarded_box_combos`,
+> `reward_spins` / `reward_spin_combos`, `scratch_cards` / `scratch_card_combos`, `bonus_game_plays`.
+>
+> Isso muda o tamanho do grupo C da `LTM-18`: `instantPrizesEnabled` não é **uma** feature — é a
+> porta de **quatro**. [NÃO OBSERVADO] o que cada uma faz por dentro.
+
+**Barra de busca** [OBSERVADO]: `Nome` (texto) · `Título` (**numérico**) · `Buscar` · `Filtros` ·
+`Limpar`. Note que a busca por título é por **número do título**, não pelo nome do sorteio — a
+`LTM-10` já tinha lido assim, e está confirmado.
 
 ### O menu ⋮ tem **14 itens, não 13** [OBSERVADO]
 
@@ -303,3 +343,46 @@ registrando a cada passo, porque o estado não sobrevive a uma pausa.
 
 **Nenhuma compra foi feita, nenhum dado pessoal foi coletado, nenhum relatório foi baixado nesta
 sessão** — logo não há material sujeito ao `AC8` da `LTM-19` neste diretório.
+
+---
+
+## 10. O sorteio de teste: o que foi feito, e o que ficou
+
+**Ele não pôde ser excluído porque a Sorteamos não exclui sorteio** (§2). Não foi falta de tentativa
+nem de sessão: foi procurado em seis lugares e não existe.
+
+### O que ele é hoje
+
+| | |
+|---|---|
+| Id | `6afde6282bfd48a5b86b14b9` |
+| Privacidade | **Privado** — fora do catálogo público, verificado |
+| Status | **Em breve** |
+| Início das vendas | **18/11/2027** |
+| Caminho de compra na loja | **não existe** — verificado na URL direta |
+| Títulos | 10, sendo 1 trancado pelo teste de "Ativar títulos premiados" |
+| Compras | zero |
+
+**Ninguém consegue comprar nele**, nem com o link na mão. O risco que o founder nomeou ao autorizar
+— *"o sorteio acabar ficando público e alguém de fato comprar"* — **não se materializou e não pode
+se materializar** enquanto a data de início estiver em 2027.
+
+### O que resta, e é do founder
+
+Três caminhos, nenhum urgente:
+
+1. **Deixar como está.** Custo: uma linha a mais numa lista de 10.774, invisível ao público,
+   claramente nomeada `ZZ TESTE TECNICO - NAO COMPRAR`. É o caminho de menor risco.
+2. **Pedir a exclusão ao suporte da Sorteamos.** O painel orienta falar com o suporte por WhatsApp
+   para cadastrar banco; é plausível que exclusão siga o mesmo caminho. **Não foi tentado** — abrir
+   chamado no suporte do fornecedor do cliente é decisão dele, não minha.
+3. **Encerrá-lo**, se o estado `Encerrados` for alcançável a partir de `Em breve`. O seletor de
+   status **não abriu** para este sorteio; pode ser regra (agendado não encerra) ou pode ser que
+   encerrar exija a data chegar. [NÃO OBSERVADO]
+
+### A lição que fica para a `LTM-19`
+
+**Verificar o caminho de saída antes de criar, não depois.** O protocolo da `LTM-19` cobria
+invisibilidade e compra — as duas coisas que podiam dar errado com o público — e **não cobria "como
+desfazer"**. Deu certo: nada vazou. Mas a pergunta *"como eu apago isto?"* tinha de ter sido
+respondida **antes** do primeiro clique em "Criar Sorteio", e passa a fazer parte do protocolo.
