@@ -57,6 +57,34 @@ O menu vive na **Lista de Compras** (`/dashboard/invoice/{productId}/orders`), n
 **IN:** o menu, os itens 1-3, e a observação dirigida dos demais.
 **OUT:** os exports (`LTM-13`); o dashboard por sorteio (`LTM-12`); implementar qualquer `[CONFIRMAR]` sem observação.
 
+## Dependências
+
+- ⚠️ **O AC4 depende da `LTM-16`.** *"Gravam autor e horário"* pressupõe a trilha de ação de operador, que **não existe** (ver `LTM-16`). É a segunda das três stories a pedir a mesma peça.
+- **Depende da `LTM-12`** para o item 2 (Dashboard) ter para onde navegar, e da **`LTM-13`** para os itens 8, 9 e 10 baixarem algo.
+- **Depende de observação dirigida** para os itens 4, 5, 6, 7, 11, 12 e 13 — e isso é bloqueio de informação, não de código. O AC3 existe para que nenhum deles chegue a `Done` por dedução.
+
+### Nota de formação de ondas (`.claude/rules/parallel-waves.md`)
+
+```
+Files:
+  apps/lotemania/src/app/dashboard/products/[id]/orders/page.tsx            (onde o menu mora)
+  apps/lotemania/src/app/dashboard/products/[id]/orders/raffle-actions-menu.tsx  (novo — o menu de 13)
+  apps/lotemania/src/app/dashboard/products/[id]/orders/top10-dialog.tsx    (novo — item 3)
+  apps/lotemania/src/lib/actions/raffle-actions.ts                          (novo — itens mutantes 11 e 13)
+  apps/lotemania/tests/dashboard/raffle-actions/**                          (novo)
+
+Resources:
+  banco de teste    — COMPARTILHADO com toda a suite. Base/esquema proprio por tarefa.
+  NENHUMA migracao  — presumido. Se algum [CONFIRMAR] exigir coluna nova, o conjunto MUDA e
+                      a story passa a disputar drizzle/meta/_journal.json: revalidar antes de despachar.
+
+Depends-on: LTM-12 (item 2), LTM-13 (itens 8-10), LTM-16 (AC4), observacao dirigida (itens 4-7, 11-13)
+```
+
+- ⛔ **Não pode compartilhar onda com a `LTM-10`:** as duas editam `orders/page.tsx`. A `LTM-10` vem primeiro — ela reestrutura a tela, e o menu se encaixa no que ela deixar.
+- ⚠️ **Esta story é XL e candidata a divisão.** O corte natural não é por item: é por **natureza** — o menu com os itens já observados (1, 2, 3) de um lado, os sete `[CONFIRMAR]` de outro, e os dois mutantes (11, 13) num terceiro, porque esses dois mexem em dinheiro e merecem revisão própria. Decisão do @po.
+- ⚠️ **O conjunto de arquivos acima é PRESUMIDO para os sete itens não observados.** Um `[CONFIRMAR]` respondido pode trazer tela nova, rota nova ou coluna nova. Pela regra de ondas, conjunto incerto **degrada para serial** — então, enquanto os sete estiverem abertos, esta story vai sozinha na onda dela.
+
 ## Riscos
 
 - **[Alto] Implementar "Revisar pagamentos" por dedução.** O subtítulo diz *"reprocessar todas compras expiradas"* — se isso reabrir pedidos ou recobrar, errar mexe em dinheiro. Só com observação.
@@ -66,4 +94,5 @@ O menu vive na **Lista de Compras** (`/dashboard/invoice/{productId}/orders`), n
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-18 | 1.1 | Acrescenta o bloco `Files:` e a secao Dependencias, que nao existia. O AC4 passa a depender da `LTM-16`. Registra que o conjunto de arquivos e PRESUMIDO para os sete itens `[CONFIRMAR]` -- e que conjunto incerto degrada para serial pela regra de ondas. Sugere o corte da divisao por natureza, nao por item. | @aiox-master |
 | 2026-11-17 | 1.0 | Nasce da observação com o founder; seis itens ficam `[CONFIRMAR]` e dois não foram executados por serem mutantes. | @aiox-master |

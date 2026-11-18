@@ -46,6 +46,38 @@ manual, a coluna sai vazia e a conferência perde rastro.
 **Sete das 25 colunas são dado pessoal** — Nome, Telefone, País, E-mail, CPF, Nome Social, Data de
 Nascimento. **O export é, por desenho, um arquivo de dado pessoal.**
 
+### Correção de premissa — 2026-11-18, conferida no código
+
+A v1.0 listava *"Rota de export por sorteio e por tipo"* como se não houvesse nada. **Há** — e o que
+existe é mais perigoso que o vazio, porque tem os mesmos nomes e entrega outra coisa.
+
+`src/lib/actions/reports.ts` já implementa `relatorio_vendas`, `relatorio_expirados` e
+`relatorio_participantes`. Quatro divergências concretas com o arquivo que o cliente usa:
+
+| | Hoje (`reports.ts`) | O que o cliente usa |
+|---|---|---|
+| Colunas de Vendas | **4** — `Sorteio`, `Data`, `Quantidade`, `Valor` (`:67`) | **25** |
+| Formato de saída | `{ columns, rows }` para a tela (`src/app/dashboard/reports/reports-form.tsx`) | **arquivo** CSV baixado, `;`, sem BOM |
+| Recorte | por **intervalo de datas**, sorteio opcional (`:15-19`) | por **sorteio**, sem data |
+| Participantes | tabela de agregados, e a coluna "Participante" é **`userId.slice(0, 8)`** (`:105`) — um pedaço de UUID | **PDF**, uma linha por participante |
+
+**O que isso muda:**
+
+1. **Não é "criar o export", é "o export existente tem o nome certo e o conteúdo errado".** Um
+   operador do Império que clicar em "Relatório de Vendas" hoje recebe um arquivo com 4 das 25
+   colunas e acha que migrou. O risco não é ausência, é **falsa paridade**.
+2. **O recorte é incompatível.** O da Sorteamos é por sorteio e baixa direto, sem modal. O nosso
+   exige intervalo de datas numa tela própria (`/dashboard/reports`). São dois produtos diferentes
+   com o mesmo rótulo, e esta story tem de decidir se substitui ou se convive — **decisão para o
+   @po**, registrada aqui e não resolvida por conta própria.
+3. **`userId.slice(0, 8)` como "Participante" é um achado por si.** Não é nome, não é identificador
+   estável para o cliente, e não serve para pagar ninguém.
+4. **Já existe um caminho de CSV nesta base** para reusar em vez de inventar:
+   `src/app/dashboard/users/export-users-button.tsx:24` monta `Blob` com
+   `text/csv;charset=utf-8;`. ⚠️ **Note o `charset=utf-8` sem BOM** — e o AC5 desta story diz que a
+   Sorteamos **não** manda BOM. Conferir se esse caminho existente abre certo no Excel pt-BR **antes**
+   de copiá-lo é parte do trabalho, não detalhe.
+
 ## Tarefas (Checklist)
 
 - [ ] Rota de export por sorteio e por tipo.
@@ -81,8 +113,51 @@ Nascimento. **O export é, por desenho, um arquivo de dado pessoal.**
 **OUT:** os relatórios da barra lateral (`sales_by_day`, `top10_buyers`, `top10_regions`) — outra
 tela, outra story; export agendado; envio por e-mail.
 
+## Dependências
+
+- ⚠️ **O AC7 depende da `LTM-16`.** `Aprovado por` não tem origem: não existe coluna `approved_by`
+  em `orders` nem trilha de ação de operador em nenhuma das 22 tabelas (conferido em 2026-11-18).
+  A `LTM-16` entrega a trilha e a leitura por pedido. **Sem ela a coluna sai vazia** — o que o AC7
+  permite, e é melhor que inventada, mas não é paridade.
+- **Depende da `LTM-10`** para existir a ação de aprovação que gera o registro.
+
+### Nota de formação de ondas (`.claude/rules/parallel-waves.md`)
+
+```
+Files:
+  apps/lotemania/src/app/api/reports/[productId]/[type]/route.ts   (novo — baixa direto, sem modal)
+  apps/lotemania/src/lib/reports/vendas-csv.ts                     (novo — as 25 colunas, ";", sem BOM)
+  apps/lotemania/src/lib/reports/expirados-csv.ts                  (novo)
+  apps/lotemania/src/lib/reports/participantes-pdf.ts              (novo)
+  apps/lotemania/src/lib/actions/reports.ts                        (DECISAO do @po: substituir ou conviver)
+  apps/lotemania/tests/reports/**                                  (novo)
+
+Resources:
+  banco de teste    — COMPARTILHADO com toda a suite. Base/esquema proprio por tarefa.
+  NENHUMA migracao  — a coluna "Aprovado por" vem da LTM-16, nao daqui
+  geracao de PDF    — se entrar dependencia nova de PDF, ela toca package.json e pnpm-lock.yaml:
+                      RECURSO COMPARTILHADO com qualquer story que instale pacote. Serializar.
+
+Depends-on: LTM-10 (a acao de aprovar), LTM-16 (AC7)
+```
+
+- ⚠️ **`src/lib/actions/reports.ts` está no conjunto porque a decisão do @po pode mandar editá-lo.**
+  Se a decisão for *conviver*, o arquivo sai do conjunto e esta story fica só com arquivos novos —
+  o que a libera para quase qualquer onda. Enquanto a decisão não existir, o conjunto é o de cima e
+  **esta story não compartilha onda com nada que toque `reports.ts`** (hoje: a tela
+  `/dashboard/reports`).
+- ⚠️ **A dependência de PDF é a armadilha de onda desta story.** Instalar pacote escreve
+  `package.json` e `pnpm-lock.yaml`, que são recurso único do app inteiro. Se a geração de PDF
+  exigir biblioteca nova, **a instalação é passo serializado**, declarado antes do despacho — não
+  algo que um implementador faz no meio da onda.
+- ✅ **Pode compartilhar onda com a `LTM-14` e a `LTM-15`** — conjuntos disjuntos (loja), nenhuma
+  gera migração.
+
 ## Riscos
 
+- **[Alto] Falsa paridade do que já existe.** Hoje "Relatório de Vendas" entrega 4 das 25 colunas
+  com o rótulo certo. Um operador conclui que migrou. É o risco mais provável desta story e **não
+  era conhecido na v1.0** — ver a correção de premissa.
 - **[Alto] Vazar o CSV.** Sete colunas de dado pessoal, incluindo CPF. AC6 é o mínimo; a política
   de 2026-11-12 vale integralmente.
 - **[Alto] `Aprovado por` preenchido por dedução** seria registro falso de quem aprovou um
@@ -94,4 +169,5 @@ tela, outra story; export agendado; envio por e-mail.
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-18 | 1.1 | Acrescenta o bloco `Files:` e **corrige a premissa**: `src/lib/actions/reports.ts` JA implementa os tres relatorios, com 4 colunas em vez de 25, saida de tela em vez de arquivo e recorte por data em vez de por sorteio. O risco passa a ser **falsa paridade**, nao ausencia. O AC7 depende da `LTM-16`. Registra a armadilha de onda da dependencia de PDF (`pnpm-lock.yaml`). | @aiox-master |
 | 2026-11-17 | 1.0 | Nasce da medição do CSV baixado com autorização do founder. | @aiox-master |
