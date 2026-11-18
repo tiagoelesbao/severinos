@@ -79,6 +79,81 @@ num sorteio criado só para isso**. Sem essa saída, elas ficam permanentemente 
 *"absolutamente tudo"* tem um buraco estrutural, não um atraso. **Esta é a pergunta mais importante
 desta story**, e está no fim, em *Decisão pendente*.
 
+## O sorteio de observação — protocolo
+
+**Autorizado pelo founder em 2026-11-18:** *"pode criar então, se for preciso, um sorteio privado
+sem divulgação, e na sequência já exclua ele rápido… cuidado para não fazer nada que comprometa o
+sistema ou acarrete em confusões, por exemplo o sorteio acabar ficando público e alguém de fato
+comprar ou algo desse tipo"*.
+
+O risco que ele nomeou é o risco certo, e é o único que importa: **um sorteio de teste virar
+comprável.** Se isso acontecer, não é um incidente nosso — é um cliente real pagando por um título
+que não existe, no sistema de um negócio que movimenta ~R$ 90 mil/dia.
+
+### A regra que torna o protocolo seguro
+
+**Verificar a invisibilidade ANTES de criar, não depois.** A ordem importa: conferir depois é
+descobrir o vazamento com ele já no ar. Então a primeira ação não é criar — é **abrir o formulário
+de criação e ler quais controles decidem a visibilidade**, sem submeter.
+
+> ⛔ **Se não for possível garantir que o sorteio nasce invisível, o sorteio NÃO é criado.** Essa é
+> a trava, e ela vale mesmo ao custo de as ações mutantes ficarem `[CONFIRMAR]`. Buraco no
+> inventário é um problema nosso; comprador pagando por título inexistente é um problema do cliente.
+
+### Antes de criar
+
+- [ ] Ler o formulário de criação **sem submeter**, e identificar **todo** controle que afeta
+      visibilidade: status do sorteio, "mostrar na página inicial", início das vendas, data do
+      sorteio, publicação.
+- [ ] Conferir **em qual estado um sorteio nasce** — se nasce ativo, qual é o caminho para que não
+      nasça.
+- [ ] Abrir a **loja pública** e registrar o catálogo **antes**, para ter a linha de base de
+      comparação.
+
+### Ao criar
+
+- [ ] Status: **o mais inativo que o sistema aceitar** (rascunho/inativo). Nunca "ativo".
+- [ ] "Mostrar na página inicial": **desligado**.
+- [ ] Início das vendas: **agendado para data futura**, nunca "imediatamente" — é a segunda camada,
+      independente do status, e o que salva se o status não bastar.
+- [ ] Título inequívoco: algo como `ZZ TESTE TECNICO - NAO COMPRAR - <data>`. Se vazar, pelo menos
+      vaza dizendo o que é.
+- [ ] Menor quantidade de números e menor valor que o sistema aceitar.
+- [ ] **Nenhuma divulgação**: link não sai daqui, não vai a grupo, não vai a rede social.
+
+### Logo depois de criar — a conferência que não pode ser pulada
+
+- [ ] Abrir a **loja pública** e confirmar que o sorteio **não aparece** no catálogo.
+- [ ] Tentar abrir a **URL direta** do sorteio e registrar o que acontece — se abrir e permitir
+      selecionar número, **a invisibilidade falhou** e o sorteio é excluído **imediatamente**, antes
+      de qualquer observação.
+
+### A observação
+
+- [ ] Executar as ações mutantes **somente neste sorteio**, uma de cada vez, registrando antes e
+      depois.
+- [ ] **Nenhuma ação em qualquer outro sorteio** — a regra do founder vale integralmente.
+
+### A exclusão
+
+- [ ] Excluir **assim que a observação terminar**, na mesma sessão. Não deixar para depois: sorteio
+      de teste esquecido no painel é exatamente a "confusão" que o founder pediu para evitar.
+- [ ] Confirmar a exclusão na lista de sorteios.
+- [ ] Conferir a loja pública **de novo**, depois da exclusão.
+- [ ] Registrar no inventário **tudo** que foi criado, clicado e excluído, com horário.
+
+### O que este sorteio **não** vai conseguir mostrar
+
+Honestidade sobre o limite, para a expectativa não ser frustrada depois: um sorteio recém-criado
+tem **zero compras**. Então *"Revisar pagamentos"* — cujo subtítulo é *"reprocessar todas as compras
+expiradas"* — provavelmente **não terá o que reprocessar**, e vai mostrar o fluxo da ação, não o
+efeito dela.
+
+Observar o **efeito** exigiria uma compra expirada no sorteio de teste, isto é, reservar números e
+deixar expirar. Isso é factível — a reserva não cobra ninguém —, mas é **passo a mais, com decisão
+própria do founder**, e não está autorizado por enquanto. Fica registrado como o que falta para
+aquele item específico sair de `[CONFIRMAR]`.
+
 ## Tarefas (Checklist)
 
 - [ ] **Mapa de rotas:** toda tela do painel e da loja da Sorteamos, com caminho e propósito.
