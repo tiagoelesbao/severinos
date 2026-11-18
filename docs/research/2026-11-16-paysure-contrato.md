@@ -174,6 +174,32 @@ Resposta **201**:
 
 `qrcode.content` é o BR Code copia-e-cola, e também o que vira o QR visual.
 
+### 4.1 Obrigatoriedade campo a campo (lido em 2026-11-18)
+
+O exemplo acima traz **todos** os campos, o que não diz qual é obrigatório. A página do endpoint
+diz:
+
+| Campo | Obrigatório | Tipo | Restrição declarada |
+|---|---|---|---|
+| `external_id` | **sim** | string | único por transação; é a idempotência de saída |
+| `value_cents` | **sim** | inteiro | **mínimo 100** (R$ 1,00) |
+| `postbackUrl` | **sim** | URI | HTTPS |
+| `generator_name` | **não** | string | *"Nome do pagador (cliente final). Opcional."* |
+| `generator_document` | **não** | string | *"CPF ou CNPJ do pagador. Opcional."* |
+| `description` | não | string | máx. 255 caracteres |
+| `expiration_seconds` | não | inteiro | **60 a 86 400**, padrão **3600** |
+| `splits` | não | array | máx. 10 itens |
+
+**Duas consequências que mudam decisão:**
+
+1. **`generator_name` e `generator_document` são opcionais.** O formulário da loja **não** muda, e
+   o lotemania **não** precisa coletar CPF para criar a cobrança. Era o `[CONFIRMAR]` que bloqueava
+   parcialmente a `LTM-03b`; está resolvido, e a resposta é a que evita pedir dado pessoal sem
+   necessidade.
+2. **`expiration_seconds` aceita 900.** O piso é 60 e o teto 86 400, então amarrar a cobrança ao
+   relógio da reserva (`RESERVATION_MINUTES × 60`) cabe no contrato. O padrão de 3600 — e não as
+   24 h que a página de webhooks menciona para QR expirado — é o que vale se não mandarmos nada.
+
 ---
 
 ## 5. Quatro divergências concretas com o lotemania
@@ -243,6 +269,34 @@ Paysure antes do primeiro sorteio** — não é dado que se possa supor.
 Erros relevantes: **409** `external_id` duplicado · **422** validação (inclui splits > 100%) ·
 **429** com `Retry-After` · **503** provedor indisponível.
 
+### 7.1 A tabela completa de códigos (lida em 2026-11-18)
+
+| Código | Significado declarado |
+|---|---|
+| 200 | sucesso (consulta, preview) |
+| 201 | recurso criado (cobrança, pagamento) |
+| 401 | não autenticado / credenciais inválidas |
+| 403 | conta inativa ou acesso negado |
+| 404 | recurso não encontrado |
+| 409 | conflito (ex.: `external_id` duplicado) |
+| 422 | falha de validação |
+| 429 | limite de taxa — **`Retry-After` em segundos vem no cabeçalho, confirmado na documentação** |
+| 500 | erro interno |
+| 501 | **operação não disponível para este recurso** |
+| 503 | provedor temporariamente indisponível |
+
+Três códigos que o desenho da `LTM-03b` não tinha previsto: **404**, **500** e **501**. O 501 é o
+mais traiçoeiro — não é falha transitória, é *"esta conta/recurso não faz isso"*, e retry nunca
+resolve. Trata-se como 422: falha alto, sem retry, nomeando a causa.
+
+### 7.2 O limite do `POST /v1/pix/qrcode` é *por conta*, e isso muda a pergunta
+
+A documentação não omite o limite por descuido: ela diz **"definido por chave/conta"**. Não existe
+número publicado porque **não existe número único** — ele é atributo da conta do Império. A pergunta
+deixa de ser *"qual é o limite da API?"* (sem resposta possível na documentação) e passa a ser
+**"qual é o limite da nossa conta?"**, que só o painel ou o suporte da Paysure responde, junto com
+o `ci`/`cs`. Continua `[CONFIRMAR]`, agora com o destinatário certo.
+
 ---
 
 ## 8. O que ainda falta — e é pouco
@@ -250,12 +304,89 @@ Erros relevantes: **409** `external_id` duplicado · **422** validação (inclui
 | Item | Como se resolve |
 |---|---|
 | Corpo literal de um aviso **real** em produção | a trilha em `payment_webhook_events` grava antes de decidir — o primeiro aviso de teste já serve |
-| Limite de taxa de `POST /v1/pix/qrcode` | perguntar à Paysure |
+| ~~Limite de taxa de `POST /v1/pix/qrcode`~~ | **reformulado em 2026-11-18:** é *por conta*, não por API (§7.2). Pergunta vai junto com o `ci`/`cs` |
+| ~~Obrigatoriedade de `generator_name` / `generator_document`~~ | **RESOLVIDO em 2026-11-18: são opcionais** (§4.1). O formulário da loja não muda |
+| ~~Consulta de cobrança por `external_id`~~ | **RESOLVIDO em 2026-11-18: existe** (§9). `POST /v1/pix/cashin/consult` aceita `external_reference` |
 | Se a whitelist de IP por chave será usada | decisão de operação; se sim, o IP de saída do Vercel precisa ser conhecido |
 | `ci`/`cs` reais do Império | o cliente ainda não repassou — é o portão **G5**, não engenharia |
 
 **O adaptador da Paysure pode ser escrito agora.** O que falta não bloqueia a implementação:
 bloqueia o primeiro pagamento de verdade.
+
+---
+
+## 9. Addendum 2026-11-18 — a consulta existe, e os status não batem entre si
+
+Lido direto do índice oficial (`https://paysure.mintlify.site/llms.txt`) e das páginas
+`api-reference/cashin/create-qrcode.md`, `api-reference/cashin/consult.md`, `concepts/errors.md` e
+`concepts/webhooks.md`.
+
+### 9.1 `POST /v1/pix/cashin/consult` — a cobrança pode ser consultada
+
+```
+POST https://api.paysurebr.com/v1/pix/cashin/consult
+corpo: { "reference_code": "PSR-..." }   OU   { "external_reference": "<o nosso orders.id>" }
+```
+
+Um dos dois basta. A resposta é um objeto `cashin`:
+
+| Campo | Observação |
+|---|---|
+| `reference_code` | o id da Paysure |
+| `external_reference` | o nosso |
+| `value_cents` | inteiro |
+| `status` | `pending` · `paid` · `expired` · `refunded` · **`failed`** |
+| `payment_date` | anulável |
+| `end_to_end` | anulável |
+| `payer_name`, `payer_document` | anuláveis — **dado pessoal**, mesma política do §5.4 |
+
+**404** quando não existe.
+
+> ⚠️ **A consulta NÃO devolve `content`.** Ela dá status e `reference_code`, não o BR Code. Então ela
+> **não substitui** a gravação da nossa cobrança: um 409 com nossa linha perdida continua deixando o
+> comprador sem código para pagar. A tabela `pix_charges` proposta na `LTM-03b` segue necessária, e
+> o AC9 segue como está. O que a consulta acrescenta é **reconciliação** — descobrir o estado real de
+> uma cobrança quando o aviso não chegou — e isso é valor próprio, não conserto do 409.
+
+### 9.2 Os status divergem entre duas páginas da mesma documentação
+
+| Fonte | Status enumerados |
+|---|---|
+| `concepts/webhooks.md` (o aviso) | `paid` · `refunded` · `expired` — **três** |
+| `api-reference/cashin/consult.md` (a consulta) | `pending` · `paid` · `expired` · `refunded` · **`failed`** — **cinco** |
+
+`pending` e `failed` existem no modelo e **não** aparecem na lista de avisos. Duas leituras possíveis:
+a Paysure não avisa esses dois, ou a página de webhooks está incompleta. **Não dá para saber qual, e
+a diferença importa:** se um aviso chegar com `failed`, um `parse` que só conhece três status ou
+estoura ou — pior — cai num ramo genérico e trata como coisa nenhuma.
+
+**Consequência de desenho:** o `parse` enumera os status que conhece e, para qualquer outro,
+**falha alto e registra o valor literal**. Nunca ignora, nunca assume. É o AC1 estendido: não basta
+recusar corpo sem chave de topo conhecida; status desconhecido também é recusa nomeada.
+
+### 9.3 O corpo do aviso tem dois campos que não estavam mapeados
+
+A página de webhooks lista, no cash-in: `reference_code`, `external_reference`, `value_cents`,
+`status`, `payer_name`, `payer_document`, `payment_date`, **`registration_date`** e **`content`**.
+
+- **`content`** — o BR Code vem **também** no aviso. Não muda o fluxo (a cobrança já foi exibida
+  antes), mas é uma segunda fonte do mesmo valor; se divergir do gravado, é sinal de que estamos
+  olhando outra cobrança. Vale guardar no evento, que já é gravado cru.
+- **`registration_date`** — quando a cobrança nasceu, distinto de `payment_date`.
+
+### 9.4 O aviso de refund é o cash-in **com um evento em cima**
+
+O `refund`/MED não tem corpo próprio: ele é a estrutura do cash-in **mais** `event` (ex.:
+`"med_block"`), `reason` e `occurred_at`. Ou seja, **ramificar pela chave de topo não é suficiente
+para o refund** — dentro dele, `event` é o que diz o que aconteceu. O cash-out, sim, tem corpo
+magro próprio: `reference_code`, `external_reference`, `status`, `end_to_end`, `occurred_at`.
+
+### 9.5 A assinatura HMAC está anunciada como "em breve"
+
+A página de webhooks não documenta cabeçalho de assinatura nenhum e registra validação HMAC como
+**"em breve"**. Isso confirma, de uma terceira fonte, que `signature: "none"` é o estado do contrato
+— e avisa que ele **vai mudar**. Quando mudar, o adaptador ganha verificação de assinatura **além**
+do token da URL, não em lugar dele.
 
 ---
 
