@@ -24,6 +24,31 @@ nível), procurando leitor de cada campo **fora** da própria declaração e da 
 | Ganhando leitor agora, pela `LTM-03b`/`LTM-17` | 2 — `reservationExpiryMinutes`, `paymentGatewayProvider` |
 | **Não têm nenhum leitor** | **36** |
 
+> ### Atualização 2026-11-19 — o esquema tem **45** campos, e os 36 continuam 36
+>
+> A `LTM-07` acrescentou **dois** campos ao mesmo esquema: **`prizeKind`** (`cash` | `other`) e
+> **`prizeAmount`**. Eles **nascem com leitor** — `src/lib/raffles/divisibility.ts`,
+> `prize-split.ts`, `winners.ts`, `validations/product.ts` e `actions/products.ts` — então **não**
+> entram na conta dos inertes.
+>
+> | | Antes | Agora |
+> |---|---|---|
+> | Total de campos | 43 | **45** |
+> | Com leitor | 5 (+2 em curso) | **9** |
+> | **Sem leitor** | **36** | **36** |
+>
+> **A manchete não muda; o denominador sim.** Importa para o `AC1`, que manda a varredura rodar
+> como teste: ela mede o conjunto *"campo declarado sem nenhum leitor"*, e esse conjunto tem de
+> ficar vazio — independente de quantos campos existam no total.
+>
+> **E é a primeira vez que um campo novo nasce ligado nesta base.** Era exatamente o que o `AC1`
+> existe para tornar obrigatório.
+>
+> ⚠️ **Colisão de nome que vale conhecer:** `advancedSettings.prizeAmount` é o **prêmio do
+> sorteio**; `winners.prize_amount` (`raffles.ts:297`) é o **valor que um ganhador recebeu**. Em
+> sorteio divisível o segundo é metade do primeiro — é o rateio. Nomes iguais, camadas diferentes,
+> e o rateio é literalmente a função que leva de um ao outro.
+
 A loja lê exatamente cinco linhas de configuração
 (`src/app/loja/[tenant]/[productSlug]/page.tsx:130, 136, 165, 215, 219-220`). Todo o resto do
 editor grava no banco e **nada consulta**.
