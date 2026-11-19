@@ -1,3 +1,5 @@
 - [EPIC-LTM: Império → lotemania](project_lotemania_imperio_migration.md) — andaime, não clone; contenção é o gargalo; cota dividida bloqueada até a fundação fechar.
 - [Sorteamos nunca gravou UTM](project_sorteamos_nunca_gravou_utm.md) — campos declarados e vazios em 100% dos pedidos; paridade com ela é o piso errado para atribuição.
 - [Contrato existente antes de inventar](feedback_contrato_existente_antes_de_inventar.md) — procurar quem já consome o formato antes de especificar um novo.
+- [Manutenção de epic](feedback_epic_maintenance.md) — cortar o envelhecido, nomear o que estava errado; não mexer em Status de story; não rodar test/build com implementação em curso.
+- [EPIC-LTM: três premissas falsas](project_ltm_premissas_falsas.md) — gateway não é só Paysure, atribuição por paridade é piso errado, paridade estrita traz decisão de produto embutida.
