@@ -58,6 +58,29 @@ A varredura só libera as reservas **de quem está reservando agora**.
 **Um sorteio em que isso acontece não esgota.** As 5 rodadas diárias do Império esgotam em ~18
 minutos; qualquer reserva abandonada vira um buraco permanente no estoque.
 
+### A demonstração, medida na Sorteamos em 2026-11-19
+
+Não é raciocínio: foi observado, por acidente, no mesmo dia.
+
+Durante a observação do fluxo de compra (`docs/research/2026-11-18-inventario-sorteamos/fluxo-de-compra.md`)
+foi criada uma reserva real no número **95** da campanha `46º RAPIDINHA`, às **08:33:19**, com
+expiração às **09:02:49**. **O pagamento não foi feito** — a reserva foi abandonada de propósito.
+
+Ao reabrir a campanha depois do prazo:
+
+```
+1 Livres   ·   0 Reservados   ·   99 Pagos
+```
+
+**A rodada esgotou**, e o **único** número livre é o 95 — o abandonado, **devolvido ao estoque pela
+Sorteamos**. O contador de reservados zerou.
+
+> **O mesmo caso no lotemania teria terminado assim:** o 95 ficaria **travado para sempre**, a
+> rodada pararia em **99 de 100**, e o sorteio **nunca** esgotaria. Uma pessoa que desistiu de uma
+> compra de R$ 4,00 teria impedido o fechamento da rodada inteira.
+>
+> **É o custo exato do defeito, numa rodada real, com números reais.**
+
 ### Por que o teste não pegou
 
 A suíte da `LTM-05` tem teste de expiração, e ele **passa** — porque exercita a expiração
