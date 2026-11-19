@@ -42,6 +42,22 @@ export const orderStatusEnum = pgEnum("order_status", [
   "canceled",
 ]);
 
+// A UNIDADE em que `orders.quantity` conta (GLOSSARY → Unidade; LTM-07,
+// AC7).
+//
+// ⚠️ Isto NÃO é redundante com `products.is_divisible`, e a diferença é de
+// confiança, não de normalização. `is_divisible` é o estado ATUAL do
+// sorteio; `orders.unit` é a unidade em que AQUELE pedido foi contado e
+// cobrado, no momento em que nasceu. Derivar a unidade de um pedido antigo
+// a partir do sorteio é pedir que o passado seja relido pela configuração
+// do presente — e a divisibilidade é congelada justamente para esse
+// relato nunca mudar.
+//
+// `title` é o default porque é o que todo pedido já existente é: 177
+// sorteios/semana de cota inteira. Nenhuma linha antiga precisa ser
+// reescrita, e nenhuma vira `half` por omissão.
+export const orderUnitEnum = pgEnum("order_unit", ["title", "half"]);
+
 // A raffle (sorteio): numbered tickets sold toward a prize draw.
 export const products = pgTable(
   "products",
@@ -168,7 +184,26 @@ export const orders = pgTable(
       .notNull()
       .references(() => products.id),
     affiliateId: uuid("affiliate_id"),
+    // `quantity` conta O QUE O PEDIDO CONTÉM — unidades vendáveis, nunca
+    // títulos (ADR-0001, custo aceito; LTM-07, AC7). Num sorteio divisível,
+    // 3 metades são `quantity = 3`; o título inteiro é `quantity = 2`,
+    // porque foram duas linhas de `product_numbers` que a reserva tomou.
+    // Num sorteio de cota inteira, 3 títulos são `quantity = 3`.
+    //
+    // Contar títulos aqui dessincronizaria o pedido do estoque, e isso não é
+    // abstrato: `settle-order.ts:220` recusa o fechamento quando
+    // `units.length !== order.quantity`. Um pedido que conta títulos e um
+    // estoque que conta metades se desencontram em TODA meia cota paga.
     quantity: integer("quantity").notNull(),
+    // A unidade em que o `quantity` acima está contado (GLOSSARY →
+    // Unidade). Existe para que nenhum consumidor descubra a unidade por
+    // adivinhação — e o consumidor que mais importa está fora deste
+    // repositório: `services/Meta/imperio-premios/bi_aggregator.py:1128` faz
+    // `numeros_vendidos = ("Quantidade", "sum")`. Sob a forma do ADR-0001,
+    // "números vendidos" no BI do Império passa a contar METADES em sorteio
+    // divisível. O conserto é do lado do BI; esta coluna é o que o torna
+    // possível em vez de obrigá-lo a uma heurística sobre o sorteio.
+    unit: orderUnitEnum("unit").notNull().default("title"),
     amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
     status: orderStatusEnum("status").notNull().default("pending"),
     paymentGatewayProvider: varchar("payment_gateway_provider", {
@@ -261,6 +296,24 @@ export const winners = pgTable("winners", {
   prizeDescription: text("prize_description").notNull(),
   prizeAmount: numeric("prize_amount", { precision: 12, scale: 2 }),
   winningNumber: integer("winning_number"),
+  // QUAL metade do título ganhou (LTM-07, AC11). `null` = o título
+  // inteiro; 1 ou 2 = uma meia cota nomeada.
+  //
+  // Sem isto, duas linhas de `winners` com o mesmo `winning_number` — que é
+  // o estado CORRETO de um título divisível sorteado com as duas metades
+  // vendidas — ficam indistinguíveis de uma duplicata acidental, e o feed
+  // público só sabe dizer "42", contra a regra *metade marcada* do
+  // GLOSSARY. Quem EXIBE `42 (metade)` é a LTM-08; aqui fica o dado que
+  // torna a exibição possível.
+  //
+  // ⚠️ NULÁVEL de propósito, e o contraste com `product_numbers.half`
+  // (NOT NULL, `:127`) é deliberado, não incoerência. Lá o `NULL` seria
+  // fatal porque a coluna participa de um ÍNDICE ÚNICO, e em índice único o
+  // Postgres trata `NULL` como distinto de si mesmo — a restrição pararia
+  // de proteger em silêncio. Aqui não há índice único nenhum, e `NULL`
+  // carrega informação real: "não foi meia cota". Marcar 1 num título
+  // inteiro seria registrar uma metade que nunca existiu.
+  winningHalf: integer("winning_half"),
   announcedAt: timestamp("announced_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

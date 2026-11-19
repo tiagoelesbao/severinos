@@ -10,6 +10,7 @@ import {
   productNumbers,
   blockedNumbers,
 } from "@/db/schema";
+import { raffleUnitOf } from "@/lib/validations/product";
 import {
   reserveNumbersSchema,
   HALVES_PER_DIVISIBLE_TITLE,
@@ -327,6 +328,16 @@ export async function reserveSelectedNumbers(input: ReserveNumbersInput) {
           // unidades vendáveis (ADR-0001, custo aceito). Num sorteio
           // divisível, dois títulos inteiros são 4.
           quantity: targetUnits.length,
+          // A UNIDADE em que o `quantity` acima está contado (LTM-07, AC7).
+          //
+          // ⚠️ Esta é a ÚNICA linha que a LTM-07 acrescentou a este arquivo,
+          // que é da LTM-02. Ela não muda a reserva: muda o que o PEDIDO diz
+          // sobre si. A coluna existe para que nenhum consumidor — o BI do
+          // Império em primeiro lugar — descubra a unidade por adivinhação,
+          // e ela só tem valor se quem cria o pedido a preencher. Não há
+          // outro lugar: o default da coluna é `title`, e ele está certo
+          // para todo pedido que já existe.
+          unit: raffleUnitOf(product),
           amount,
           status: "pending",
         })

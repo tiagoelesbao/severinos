@@ -38,6 +38,45 @@ export const productAdvancedSettingsSchema = z.object({
   // Prêmios (do próprio sorteio, distintos dos jogos bônus)
   prizes: z.array(z.string()).default([]),
   showPrizes: z.boolean().default(true),
+
+  // ── O PRÊMIO, NA FORMA QUE A MEIA COTA PRECISA SABER (LTM-07) ─────────
+  //
+  // `prizes` acima é DESCRIÇÃO livre ("Um Fiat Argo 2026", "R$ 100 mil").
+  // Texto não responde às duas perguntas que a divisibilidade faz, e as duas
+  // estão no ADR-0001:
+  //
+  //   • é prêmio em DINHEIRO? (só nele existe meia cota)
+  //   • ele DIVIDE EXATO em centavos? (o AC4 exige soma exata, sem política
+  //     de desempate — a restrição na entrada substituiu o arredondamento)
+  //
+  // Por que aqui e não como coluna de `products`: o comentário de
+  // `raffles.ts:77-82` registra a decisão de que a configuração das abas do
+  // editor — a de Prêmios inclusive — vive em `advanced_settings` em vez de
+  // virar dezenas de colunas. Esta é a aba de Prêmios. A exceção que já
+  // existe (`is_divisible` virou coluna) é de campo lido no caminho quente
+  // da reserva; o prêmio não é lido em reserva nenhuma.
+  //
+  // ⚠️ Lido SEMPRE por `productAdvancedSettingsSchema.parse(...)`, nunca por
+  // acesso cru ao jsonb: sorteio antigo tem `advanced_settings = {}` e são
+  // os defaults abaixo que entregam o valor. Mesma razão escrita em
+  // `validations/reserve.ts:56-60`.
+  //
+  // O default `"other"` é conservador de propósito: um sorteio que nunca
+  // declarou o prêmio NÃO pode virar divisível, e a recusa diz exatamente
+  // isso em vez de deixar passar por omissão.
+  prizeKind: z.enum(["cash", "other"]).default("other"),
+  /**
+   * O valor do prêmio em reais, como STRING decimal de até duas casas —
+   * a mesma forma de `orders.amount` e `products.price_per_number`, e lida
+   * pelo mesmo `toCents` de `lib/payments/money.ts`.
+   *
+   * String, e não `number`, pela razão já escrita em `money.ts:36-39`:
+   * `number` chega aqui tendo passado por ponto flutuante, e depois do fato
+   * não há como distinguir "o dado tem três casas" de "o binário deixou
+   * resíduo". É exatamente a distinção de que o AC12 depende —
+   * R$ 100.000,01 recusa, R$ 100.000,00 aceita.
+   */
+  prizeAmount: z.string().nullable().default(null),
   ebookEnabled: z.boolean().default(false),
   groupCta: z
     .object({

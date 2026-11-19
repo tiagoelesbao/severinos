@@ -120,6 +120,15 @@ export interface CreateRaffleOptions {
    */
   isDivisible?: boolean;
   halvesPerTitle?: number;
+  /**
+   * O premio, na forma que a aba Premios guarda (LTM-07).
+   *
+   * Vai para `products.advanced_settings` como jsonb PARCIAL, so as duas
+   * chaves. E de proposito: `productAdvancedSettingsSchema.parse` preenche
+   * o resto com os defaults, e e esse caminho que o codigo de producao usa.
+   * Gravar o blob inteiro aqui esconderia um default quebrado.
+   */
+  prize?: { kind: "cash" | "other"; amount: string | null };
 }
 
 export async function createRaffle(opts: CreateRaffleOptions): Promise<SeededRaffle> {
@@ -130,8 +139,9 @@ export async function createRaffle(opts: CreateRaffleOptions): Promise<SeededRaf
 
   const product = await queryOne<{ id: string }>(
     `INSERT INTO products
-       (tenant_id, title, slug, status, price_per_number, total_numbers, is_divisible)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)
+       (tenant_id, title, slug, status, price_per_number, total_numbers,
+        is_divisible, advanced_settings)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8::jsonb)
      RETURNING id`,
     [
       opts.tenantId,
@@ -141,6 +151,9 @@ export async function createRaffle(opts: CreateRaffleOptions): Promise<SeededRaf
       pricePerNumber,
       totalNumbers,
       opts.isDivisible ?? false,
+      opts.prize
+        ? JSON.stringify({ prizeKind: opts.prize.kind, prizeAmount: opts.prize.amount })
+        : "{}",
     ],
   );
 
@@ -363,6 +376,8 @@ export interface OrderRow {
   id: string;
   status: string;
   quantity: number;
+  /** A unidade em que `quantity` esta contado: "title" ou "half" (AC7). */
+  unit: string;
   amount: string;
   paid_at: string | null;
   user_id: string;
@@ -370,7 +385,7 @@ export interface OrderRow {
 
 export async function readOrders(productId: string): Promise<OrderRow[]> {
   return query<OrderRow>(
-    `SELECT id, status, quantity, amount, paid_at, user_id
+    `SELECT id, status, quantity, unit, amount, paid_at, user_id
        FROM orders
       WHERE product_id = $1
       ORDER BY created_at`,
@@ -380,7 +395,7 @@ export async function readOrders(productId: string): Promise<OrderRow[]> {
 
 export async function readOrder(orderId: string): Promise<OrderRow> {
   return queryOne<OrderRow>(
-    `SELECT id, status, quantity, amount, paid_at, user_id
+    `SELECT id, status, quantity, unit, amount, paid_at, user_id
        FROM orders WHERE id = $1`,
     [orderId],
   );
@@ -462,5 +477,59 @@ export async function readBankingTransactions(orderId: string): Promise<
        FROM banking_transactions
       WHERE order_id = $1`,
     [orderId],
+  );
+}
+
+// ── Leituras e montagens da meia cota (LTM-07) ──────────────────────────
+
+export interface WinnerRow {
+  id: string;
+  winner_name: string;
+  phone: string | null;
+  prize_description: string;
+  prize_amount: string | null;
+  winning_number: number | null;
+  /** `null` = titulo inteiro; 1 ou 2 = a metade nomeada (AC11). */
+  winning_half: number | null;
+}
+
+export async function readWinners(productId: string): Promise<WinnerRow[]> {
+  return query<WinnerRow>(
+    `SELECT id, winner_name, phone, prize_description, prize_amount,
+            winning_number, winning_half
+       FROM winners
+      WHERE product_id = $1
+      ORDER BY winning_number, winning_half NULLS FIRST, id`,
+    [productId],
+  );
+}
+
+export interface RaffleRow {
+  is_divisible: boolean;
+  price_per_number: string;
+  advanced_settings: Record<string, unknown>;
+}
+
+export async function readRaffle(productId: string): Promise<RaffleRow> {
+  return queryOne<RaffleRow>(
+    `SELECT is_divisible, price_per_number, advanced_settings
+       FROM products WHERE id = $1`,
+    [productId],
+  );
+}
+
+/**
+ * Troca o premio do sorteio na aba Premios, sem passar pelo codigo de
+ * producao — monta o estado, nao o exercita.
+ */
+export async function setRafflePrize(
+  productId: string,
+  prize: { kind: "cash" | "other"; amount: string | null },
+): Promise<void> {
+  await query(
+    `UPDATE products
+        SET advanced_settings = advanced_settings || $2::jsonb
+      WHERE id = $1`,
+    [productId, JSON.stringify({ prizeKind: prize.kind, prizeAmount: prize.amount })],
   );
 }
