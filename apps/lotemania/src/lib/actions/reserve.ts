@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, and, or, sql, inArray } from "drizzle-orm";
+import { eq, and, or, inArray } from "drizzle-orm";
 import { db } from "@/db";
 import {
   tenants,
@@ -10,6 +10,7 @@ import {
   productNumbers,
   blockedNumbers,
 } from "@/db/schema";
+import { releaseExpiredAndCheckBuyerBlock } from "@/lib/raffles/expire-reservations";
 import { raffleUnitOf } from "@/lib/validations/product";
 import {
   reserveNumbersSchema,
@@ -17,9 +18,6 @@ import {
   reservationMinutesFor,
   type ReserveNumbersInput,
 } from "@/lib/validations/reserve";
-
-const ANTI_SPAM_THRESHOLD = 3;
-const ANTI_SPAM_BLOCK_MINUTES = 30;
 
 // ⚠️ A JANELA DA RESERVA NÃO É UM NÚMERO DESTE ARQUIVO (LTM-03b, AC14).
 //
@@ -81,9 +79,17 @@ const CONFLITO =
 // `LTM02_AC3_RODADAS=10`. É a diferença entre mecanismo e sorte.
 //
 // Não há risco de emparelhamento cruzado com a varredura de expiração: ela
-// só mexe em linhas `reserved` de pedidos vencidos DO PRÓPRIO comprador, e
-// a reserva só mexe em linhas `available`. Os conjuntos são disjuntos por
-// construção — uma linha não está nos dois estados.
+// só mexe em linhas `reserved`, e a reserva só mexe em linhas `available`.
+// Os conjuntos são disjuntos por construção — uma linha não está nos dois
+// estados. E as duas rodam em TRANSAÇÕES SEPARADAS: a varredura commita
+// antes de a reserva abrir a dela.
+//
+// ⚠️ Este parágrafo dizia "de pedidos vencidos DO PRÓPRIO comprador" até a
+// LTM-20. Deixou de ser verdade de propósito: a varredura é GLOBAL agora, e
+// era justamente o "do próprio comprador" que travava o número da Ana para o
+// Bruno até ela voltar — ver `lib/raffles/expire-reservations.ts`. O que não
+// mudou é o que este parágrafo de fato garante: os conjuntos de linhas
+// continuam disjuntos por status.
 // ════════════════════════════════════════════════════════════════════════
 
 /** A unidade vendável que a reserva de fato vai tomar: o par, sempre resolvido. */
@@ -117,80 +123,27 @@ function titleCents(pricePerNumber: string): number {
   return Math.round(parsed * 100);
 }
 
-// Releases this user's numbers whose reservation already expired, and
-// tallies how many unpaid reservations they've abandoned in a row —
-// mirrors the original's "Anti Spam": too many no-pay reservations in a
-// row gets you temporarily blocked from reserving more.
+// ════════════════════════════════════════════════════════════════════════
+// A VARREDURA DE EXPIRAÇÃO SAIU DAQUI (LTM-20)
 //
-// As três escritas (liberar unidades → expirar pedidos → atualizar o
-// contador do comprador) rodam numa transação só (AC6). Antes eram soltas,
-// e a ordem importava do jeito errado: dava para o contador anti-spam subir
-// — bloqueando o comprador — sem que as unidades dele tivessem sido
-// liberadas, o que é o pior dos dois mundos.
-async function expireStaleReservationsAndCheckSpam(
-  tenantId: string,
-  userId: string,
-): Promise<{ blocked: boolean; blockedUntil?: Date }> {
-  return db.transaction(async (tx) => {
-    const [user] = await tx.select().from(users).where(eq(users.id, userId)).limit(1);
-    if (!user) return { blocked: false };
-
-    if (user.blockedUntil && user.blockedUntil > new Date()) {
-      return { blocked: true, blockedUntil: user.blockedUntil };
-    }
-
-    const expiredOrders = await tx
-      .select({ id: orders.id })
-      .from(orders)
-      .innerJoin(productNumbers, eq(productNumbers.orderId, orders.id))
-      .where(
-        and(
-          eq(orders.tenantId, tenantId),
-          eq(orders.userId, userId),
-          eq(orders.status, "pending"),
-          // `status = 'reserved'` não é filtro redundante: é o predicado do
-          // índice parcial que a LTM-01 criou
-          // (`product_numbers_status_reserved_until_idx ... WHERE status =
-          // 'reserved'`). Sem ele o Postgres não alcança o índice e a
-          // varredura fica fora do plano para o qual o índice foi feito —
-          // o índice existiria órfão. Comportamento idêntico: unidade com
-          // prazo vencido e status diferente de `reserved` pertence a
-          // pedido pago, que o filtro `orders.status = 'pending'` já exclui.
-          eq(productNumbers.status, "reserved"),
-          sql`${productNumbers.reservedUntil} < now()`,
-        ),
-      )
-      .groupBy(orders.id);
-
-    if (expiredOrders.length === 0) return { blocked: false };
-
-    const expiredIds = expiredOrders.map((o) => o.id);
-    await tx
-      .update(productNumbers)
-      .set({ status: "available", orderId: null, reservedUntil: null })
-      .where(inArray(productNumbers.orderId, expiredIds));
-    await tx
-      .update(orders)
-      .set({ status: "expired" })
-      .where(inArray(orders.id, expiredIds));
-
-    const newCount = user.consecutiveUnpaidReservations + expiredOrders.length;
-    if (newCount >= ANTI_SPAM_THRESHOLD) {
-      const blockedUntil = new Date(Date.now() + ANTI_SPAM_BLOCK_MINUTES * 60 * 1000);
-      await tx
-        .update(users)
-        .set({ consecutiveUnpaidReservations: 0, blockedUntil })
-        .where(eq(users.id, userId));
-      return { blocked: true, blockedUntil };
-    }
-
-    await tx
-      .update(users)
-      .set({ consecutiveUnpaidReservations: newCount })
-      .where(eq(users.id, userId));
-    return { blocked: false };
-  });
-}
+// Era `expireStaleReservationsAndCheckSpam(tenantId, userId)`, e ela fazia
+// DUAS coisas de escopos diferentes numa função só: liberava as unidades
+// vencidas E contava o abandono do comprador. O filtro
+// `eq(orders.userId, userId)` valia para as duas — e para a liberação ele
+// era o defeito: reserva abandonada só saía do estoque se QUEM A FEZ
+// voltasse e tentasse reservar de novo. Até lá o número ficava amarelo para
+// todo mundo, e o sorteio não esgotava.
+//
+// A liberação virou GLOBAL e mora em `lib/raffles/expire-reservations.ts`,
+// que é módulo puro — a grade do sorteio também a chama, e exportá-la deste
+// arquivo `"use server"` a transformaria num endpoint POST público.
+//
+// ⚠️ A contagem do anti-spam NÃO foi junto. Ela continua por comprador, e
+// agora é debitada de QUEM ABANDONOU, pedido a pedido, pela própria
+// expiração. Fundir os dois escopos — tirar o `user_id` do filtro inteiro —
+// faria o comprador ser bloqueado pelo abandono de estranhos, que é defeito
+// pior que o original.
+// ════════════════════════════════════════════════════════════════════════
 
 /**
  * Resolve a seleção do comprador em unidades vendáveis concretas.
@@ -304,7 +257,19 @@ export async function reserveSelectedNumbers(input: ReserveNumbersInput) {
           .returning()
       )[0].id;
 
-  const spamCheck = await expireStaleReservationsAndCheckSpam(tenant.id, userId);
+  // CAMINHO A da LTM-20: a varredura roda aqui, GLOBAL — libera a reserva
+  // vencida de qualquer comprador, não só a de quem está reservando agora.
+  // É o que conserta a disputa real pelo número: o 42 abandonado pela Ana
+  // está de volta ao estoque quando o `UPDATE ... WHERE status =
+  // 'available'` logo abaixo for procurá-lo.
+  //
+  // O recorte é o OPERADOR inteiro, não este sorteio: a ficha do anti-spam
+  // sempre contou o abandono do comprador em todos os sorteios do operador,
+  // e estreitar aqui perderia o abandono no sorteio vizinho.
+  const spamCheck = await releaseExpiredAndCheckBuyerBlock(
+    { tenantId: tenant.id },
+    userId,
+  );
   if (spamCheck.blocked) {
     return {
       error: `Muitas reservas sem pagamento. Tente novamente após ${spamCheck.blockedUntil?.toLocaleTimeString("pt-BR")}.`,

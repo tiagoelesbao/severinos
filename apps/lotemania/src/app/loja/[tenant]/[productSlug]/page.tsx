@@ -14,6 +14,7 @@ import {
   winners,
 } from "@/db/schema";
 import { formatCurrency } from "@/lib/format";
+import { releaseExpiredReservations } from "@/lib/raffles/expire-reservations";
 import { productAdvancedSettingsSchema } from "@/lib/validations/product-settings";
 import { NumberGrid } from "./number-grid";
 import { BonusGamePlayer } from "./bonus-game-player";
@@ -61,6 +62,26 @@ export default async function RaffleDetailPage({
     })
     .from(winners)
     .where(eq(winners.productId, product.id));
+
+  // ══════════════════════════════════════════════════════════════════════
+  // CAMINHO B da LTM-20: a grade não pode mentir.
+  //
+  // ANTES de ler o estoque, libera o que venceu NESTE sorteio — de qualquer
+  // comprador. Sem isto, o número abandonado continua AMARELO na tela
+  // enquanto já está livre de direito, e o comprador que clica nele leva
+  // "reservado por outra pessoa" sobre uma reserva morta. O caminho A
+  // (dentro da reserva) conserta a disputa; este conserta o que o comprador
+  // VÊ, que é o que gera a reclamação.
+  //
+  // ⚠️ É ESCRITA NO CAMINHO DE LEITURA, e isso é deliberado. O lotemania não
+  // tem agendador — nenhum job, nenhum cron, nenhuma rota agendada —, e sem
+  // alguém varrendo, sorteio parado nunca se conserta sozinho. O custo é
+  // pago só quando há o que liberar: `releaseExpiredReservations` faz uma
+  // sonda amparada pelo índice parcial da LTM-01 e, no caso comum (nada
+  // vencido), volta sem abrir transação e sem escrever uma linha. Quando o
+  // agendador existir, ele substitui esta chamada.
+  // ══════════════════════════════════════════════════════════════════════
+  await releaseExpiredReservations({ tenantId: tenant.id, productId: product.id });
 
   const numbers = await db
     .select({ number: productNumbers.number, status: productNumbers.status })

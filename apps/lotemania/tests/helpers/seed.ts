@@ -430,6 +430,26 @@ export async function expireReservation(orderId: string): Promise<void> {
   );
 }
 
+/**
+ * Põe o prazo da reserva de um pedido num instante ESCOLHIDO (LTM-20).
+ *
+ * `expireReservation` acima só sabe empurrar para o passado. Este helper
+ * existe para o caso em que a diferença ENTRE dois prazos é o que está sob
+ * teste — dois sorteios com janelas diferentes, um vencido e outro ainda
+ * vivo. Quando a `LTM-17` tornar a janela configurável por sorteio, é este
+ * helper que monta os dois estados sem precisar de duas configurações.
+ *
+ * ⚠️ Semear, nunca adiantar o relógio: o predicado da varredura é
+ * `reserved_until < now()` EM SQL, e `now()` é do Postgres. Relógio falso de
+ * JS não o move um segundo.
+ */
+export async function setReservedUntil(orderId: string, when: Date): Promise<void> {
+  await query(
+    `UPDATE product_numbers SET reserved_until = $2 WHERE order_id = $1`,
+    [orderId, when],
+  );
+}
+
 export async function setBlockedUntil(userId: string, when: Date | null): Promise<void> {
   await query(`UPDATE users SET blocked_until = $2 WHERE id = $1`, [userId, when]);
 }
