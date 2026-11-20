@@ -1,6 +1,13 @@
 # LTM-08: A meia cota — a superfície
 
-**Status:** Draft
+**Status:** Ready
+> ✅ **Revalidada pelo @po em 2026-11-20 — GO (8/10). `Draft` → `Ready`.** O **único** item que a
+> travava em 11-17 era o bloco `Files:`, e ele foi recusado então por uma razão certa: *"não vou
+> inventar a lista a partir das tarefas"*. **Hoje ela não se inventa, se mede** — a `LTM-07` está
+> entregue (`4d18f17a`), as superfícies existem no disco e cada caminho abaixo foi conferido um a um.
+> A dependência bloqueante **caiu**, e a story saiu de *"não está no caminho crítico"* para **dentro
+> dele**: o founder mandou que o ensaio ponta a ponta **inclua meia cota**, e hoje a meia cota é
+> **inalcançável pela interface em três pontos**, não um. Ver *Revalidação @po (2026-11-20)*.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente C)
 **Prioridade:** **P0** — a feature existe quando o comprador consegue comprar e o operador consegue conferir
 **Complexidade:** M — grade, unidade na interface, anúncio, relatório, aviso de órfã
@@ -55,8 +62,17 @@ sai, e valor inflado é prática enganosa.
       metade. Em sorteio de cota inteira a grade renderiza **exatamente como hoje** — regressão
       visual.
 - [ ] **AC2 (nenhum número solto):** nenhuma contagem exibida ao comprador ou ao operador aparece
-      sem o nome da unidade. Verificável por varredura dos rótulos das seis configurações, dos
-      cartões e do resumo.
+      sem o nome da unidade. Verificável por varredura dos rótulos das seis configurações e do
+      resumo do carrinho.
+  - **Recorte do @po (2026-11-20), mesma classe de correção do AC5.** O AC citava *"os cartões de
+    compra rápida"*. **Eles não existem**: `quickBuyCards` aparece em **um** arquivo em todo o
+    repositório — a própria declaração, `product-settings.ts:30` — e em nenhuma tela. É um dos **8**
+    campos do **grupo B** da `LTM-18` (*"prometem uma tela que não existe"*). A unidade nomeada nos
+    cartões entra como **condição de aceite da story que construir os cartões**, e está registrada
+    no `OUT`.
+    - **Nesta story:** as seis configurações (que existem em
+      `advanced-settings-tabs.tsx`), a barra de progresso **se e quando existir**, e o resumo do
+      carrinho na grade.
 - [ ] **AC3 (o anúncio não engana):** numa tela onde se compra metade, o valor que a metade
       concorre aparece **junto** do preço da metade. Teste: a página de um sorteio divisível de
       R$ 100.000 nunca exibe "R$ 100.000" como o valor de uma compra de metade.

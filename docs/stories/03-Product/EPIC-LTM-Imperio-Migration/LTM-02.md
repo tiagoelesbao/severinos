@@ -1,12 +1,22 @@
 # LTM-02: Driver transacional e reserva atômica — fim do "desfaz na mão"
 
 **Status:** Ready
-> ⚠️ **Segue `Draft` depois da segunda revalidação do @po (2026-11-17).** O recorte com a `LTM-07`
-> está resolvido e a armadilha do `inArray` está nomeada — as duas correções estruturais passaram.
-> **Faltam duas**, e as duas são de fronteira, não de mérito: o bloco `Files:` não declara os dois
-> arquivos sem os quais o **AC9 não é implementável**, e o preço da metade (`amount`) ficou **sem
-> dono e sem AC** entre esta story e a `LTM-07`, dependendo de uma coluna que ninguém criou na onda
-> certa. Ver *Revalidação 2 @po (2026-11-17)* ao fim do arquivo.
+> ✅ **Contradição de cabeçalho resolvida pelo @po em 2026-11-20.** Este bloco dizia *"segue `Draft`"*
+> **ao lado de** `Status: Ready`, e sobreviveu à correção que ele mesmo exigia — a v1.4 do Change Log
+> aplicou as duas pendências e o aviso não foi apagado. **As duas fecharam, conferidas no arquivo e
+> no código hoje:**
+>
+> | A pendência de 17-11 | Onde está fechada, hoje |
+> |---|---|
+> | `Files:` sem os dois arquivos do AC9 | o bloco `Files:` declara `src/lib/validations/reserve.ts` e `number-grid.tsx`, com o recorte contra a `LTM-08` escrito. Os **6** caminhos existem no disco (conferidos um a um) |
+> | preço da metade sem dono e sem AC | **AC10** existe e é desta story: *"em sorteio divisível, reservar uma metade cria pedido com `amount` igual a metade do `pricePerNumber`, sem ágio"* |
+>
+> **`Ready` é a verdade; o aviso era o resíduo.** O `reserveUnitSchema` com `half` nullable está em
+> `validations/reserve.ts:159-162` — ou seja, o contrato que o AC9 exigia **não é mais hipótese**.
+>
+> ⚠️ **E `Ready` já está atrasado, não adiantado.** O epic §7 registra código desta story commitado
+> em `b4d8765b`. A transição `Ready → InProgress → InReview` é do @dev (`story-lifecycle.md`), não
+> minha — fica apontada aqui para quem passar por este arquivo não concluir que a fundação não começou.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F2**
 **Prioridade:** **P0** — é a fundação de tudo que mexe em dinheiro; a LTM-03 não pode ser feita antes
 **Complexidade:** L (Standard) — troca de driver + reescrita do caminho de reserva + prova de concorrência
@@ -435,6 +445,7 @@ Nenhuma das três mexe no mérito da story, e nenhuma depende de decisão do fou
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-17 | 1.4 | As três correções do @po aplicadas: `Files:` ganhou `validations/reserve.ts` e `number-grid.tsx` (sem eles o AC9 não é implementável — `reserveNumbersSchema.numbers` é `z.array(z.number())`), com o recorte contra a `LTM-08` escrito; **AC10** novo dá dono ao preço da unidade, que estava num vão entre esta story e a `LTM-07`; e as quatro citações de `reserve.ts:152` passaram para `:157`. **`Draft` → `Ready`.** Nenhuma das três mexia no mérito nem dependia de decisão do founder. | @aiox-master |
+| 2026-11-20 | 1.5 | **Contradição de cabeçalho resolvida — `Ready` confirmado.** O aviso *"segue `Draft`"* convivia com `Status: Ready` desde a v1.4: ele listava duas pendências que a própria v1.4 fechou e ninguém apagou o aviso. Conferido hoje: **AC10 existe** no corpo dos critérios; o bloco `Files:` declara os **6** caminhos e **todos existem no disco**; `reserveUnitSchema` com `half` nullable está em `validations/reserve.ts:159-162`. Nenhum AC, escopo ou título alterado — só o bloco de status. Registrada a divergência inversa (código commitado em `b4d8765b` sobre story `Ready`), que é do @dev corrigir. | @po (Pax) |
 
 
 | Data | Versão | Descrição | Autor |
