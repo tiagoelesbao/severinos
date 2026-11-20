@@ -123,7 +123,15 @@ export async function settleOrderInTransaction(
   // ── 2. Travar as unidades ANTES do pedido.
   //
   // ⚠️ A ORDEM DAS DUAS TRAVAS NÃO É ESTILO. A varredura de expiração
-  // (`reserve.ts:149-156`) escreve em `product_numbers` e DEPOIS em `orders`.
+  // escreve em `product_numbers` (`raffles/expire-reservations.ts:277`) e
+  // DEPOIS em `orders` (`:302`).
+  //
+  // ⭕ A referência era `reserve.ts:149-156`, e a `LTM-20` mudou a varredura
+  // de lugar sem atualizar este comentário — achado pelo @qa no portão da
+  // `LTM-20`. Lá hoje há outra função, e quem fosse conferir a justificativa
+  // não encontraria varredura nenhuma no destino. **É esta linha, e só ela,
+  // que protege a ordem**: a conclusão natural de quem não a encontra é que o
+  // comentário virou lixo, e inverter a ordem traz o impasse de volta.
   // Travar aqui na ordem inversa (pedido, depois unidades) criaria
   // emparelhamento cruzado com ela: o Postgres detectaria o impasse e
   // abortaria uma das duas — o webhook responderia 500 e o provedor
