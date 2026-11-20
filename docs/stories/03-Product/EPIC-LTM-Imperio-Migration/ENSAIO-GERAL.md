@@ -6,6 +6,8 @@ no lotemania, do começo ao fim, sem buraco.
 ou falha**. Enquanto um item estiver vermelho, a validação não começa.
 **Criado por:** @aiox-master · 2026-11-19, a pedido do founder
 **Medido:** leitura direta do código em 2026-11-19, depois do commit `4dd7ae7d`.
+**Revisto:** 2026-11-20, depois de `38874fba` (`LTM-23`) e `1df81ebe` (`LTM-14`). **Dois elos
+fecharam e a lacuna do fim da corrente ganhou story** (`LTM-27`) — ver o Change Log ao fim.
 
 ---
 
@@ -23,13 +25,13 @@ ou falha**. Enquanto um item estiver vermelho, a validação não começa.
 | 8 | **Checkout** confirma antes de reservar | 🔴 **não existe** o passo | `LTM-21` |
 | 9 | A **reserva** nasce, atômica | ✅ entregue (`LTM-02`) | — |
 | 10 | A **cobrança PIX** é criada | ✅ entregue (`LTM-03b`) | — |
-| 11 | A tela de **espera** mostra código, QR e contagem | 🟡 em implementação | `LTM-14` |
+| 11 | A tela de **espera** mostra código, QR e contagem | ✅ entregue (`LTM-14`, `1df81ebe`) | — |
 | 12 | A reserva **vence e devolve** o número | ✅ entregue (`LTM-20`) | — |
 | 13 | O **aviso do gateway** fecha o pedido | ✅ entregue (`LTM-03a`) | — |
 | 14 | Os números viram **vendidos** | ✅ entregue | — |
 | 15 | O operador **encerra** o sorteio | ✅ existe (`Finalizar` → `finished`) | — |
-| 16 | O operador **registra o ganhador** | 🔴 **não existe tela nem ação** | ver abaixo |
-| 17 | O **rateio** da meia cota acontece | 🔴 **código existe, ninguém chama** | ver abaixo |
+| 16 | O operador **registra o ganhador** | 🔴 **não existe tela nem ação** | `LTM-27` |
+| 17 | O **rateio** da meia cota acontece | 🔴 **código existe, ninguém chama** | `LTM-27` |
 | 18 | O ganhador **aparece** na loja | ✅ existe (`/ganhadores`) | — |
 
 ---
@@ -52,7 +54,16 @@ E não há tela: `find src/app/dashboard -iname "*winner*"` devolve **nada**.
 > **É o elo que falta para "ponta a ponta" ser literal.** Sem ele, a validação termina no encerramento,
 > que é meio sorteio.
 
-**Não existe story para isto.** É a lacuna que este documento descobriu.
+~~**Não existe story para isto.**~~ **Virou a `LTM-27` em 2026-11-19**, modelada de quatro
+capturas do modal `Ganhadores` da Sorteamos que o founder forneceu. As três perguntas que este
+documento deixou abertas estão respondidas lá (secao *As três perguntas, respondidas*), e a story
+achou uma quarta que a Sorteamos **não responde**: num sorteio de meia cota, o número sorteado tem
+**duas** pessoas, e o modal de lá não tem onde dizer isso.
+
+> **Conferido de novo em 2026-11-20, e continua verdade:** `grep -rn recordWinnersForDrawnTitle`
+> em `src/` e `tests/` devolve o próprio arquivo e **um teste** — nada mais. A função está
+> **inteira** (transação, recusas nomeadas, rateio), e `src/app/dashboard/` não tem uma linha que
+> mencione ganhador. **O que falta é a fiação e a tela, não o domínio.**
 
 ### 🔴 2. A meia cota não pode ser comprada
 
@@ -78,29 +89,33 @@ campos com endereço. É a `LTM-21`.
 
 | Prioridade | O quê | Story |
 |---|---|---|
-| **P0** | registrar ganhador + acionar o rateio | **não existe** — ver abaixo |
+| **P0** | registrar ganhador + acionar o rateio | **`LTM-27`** — criada em 11-19 |
 | **P0** | meia cota na grade | `LTM-08` |
 | **P0** | entrar, cadastrar, checkout | `LTM-21` |
 | **P0** | os 15 controles do grupo A | `LTM-18` |
-| P1 | tela de espera | `LTM-14` — **em implementação** |
-| P1 | o 500 da primeira compra | `LTM-23` — **em implementação** |
+| ✅ | tela de espera | `LTM-14` — **entregue** em `1df81ebe` |
+| ✅ | o 500 da primeira compra | `LTM-23` — **entregue** em `38874fba` |
 | P1 | janela de reserva configurável | `LTM-17` |
 | **externo** | `ci`/`cs` reais do Império | bloqueia **só o pagamento real** |
 
-### A story que falta: registrar ganhador
+### A story que faltava: registrar ganhador — hoje é a `LTM-27`
 
-Ela precisa existir, e tem três perguntas que **nenhum documento responde hoje**:
+As três perguntas abaixo eram as que **nenhum documento respondia**. Em 2026-11-19 o founder
+forneceu **quatro capturas** do modal `Ganhadores` da Sorteamos, e as três passaram a ter resposta
+**observada** em vez de deduzida:
 
-1. **Quem informa o número sorteado?** O sorteio acontece **fora** do sistema (loteria federal,
-   grupo de WhatsApp). O operador digita? Importa de algum lugar?
-2. **O sistema valida que o número foi vendido?** Registrar ganhador num número que ninguém comprou
-   é erro caro — e num sorteio divisível, **duas pessoas** podem ter o mesmo número.
-3. **O rateio é automático ou confirmado?** `winners.ts` sabe dividir. Quem aperta o botão vê o
-   resultado antes de gravar?
+| | A pergunta | A resposta medida |
+|---|---|---|
+| 1 | Quem informa o número sorteado? | **O operador digita.** O sorteio corre fora do sistema; o modal tem campo de número e `Data do sorteio` editável |
+| 2 | O sistema valida que o número foi vendido? | **Sim, e resolve sozinho** — o operador digita `42` e a plataforma acha o comprador. Ele não escolhe a pessoa |
+| 3 | O rateio é automático ou confirmado? | A Sorteamos **não tem a pergunta**, porque não tem meia cota. É decisão nossa, e está na `LTM-27` |
 
-**Nenhuma dessas se responde por dedução.** A `Definir ganhadores` da Sorteamos **não foi observada**
-— é ação mutante, e o sorteio de teste de lá não tinha vendas. É o item mais importante que ficou de
-fora do inventário.
+> **E a modelagem achou uma quarta que a Sorteamos não responde:** num sorteio de meia cota o número
+> sorteado tem **duas** pessoas, e o modal de lá não tem onde dizer isso. É o item que a `LTM-27`
+> decide por conta própria, e o único ponto da story que **não** é paridade.
+
+**Isto deixou de ser lacuna e passou a ser trabalho enfileirado.** A `LTM-27` está em `Draft`, P0, e
+é a primeira da fila do ensaio junto com a `LTM-08`.
 
 ---
 
@@ -139,4 +154,5 @@ Roteiro do que deve ser executado, na ordem, num tenant de teste do lotemania:
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.1 | Revisto depois de `38874fba` e `1df81ebe`. **Dois elos fecharam** (11, a tela de espera; e o 500 da primeira compra), e **a lacuna do fim da corrente virou a `LTM-27`** — o founder forneceu quatro capturas do modal `Ganhadores` e as três perguntas abertas ganharam resposta observada. Reconferido no código que `recordWinnersForDrawnTitle` **continua com um único importador, e ele é um teste**: o domínio está inteiro, falta a fiação e a tela. Os elos vermelhos que sobram para o ensaio são **quatro**: `LTM-27` (registrar ganhador), `LTM-08` (meia cota na grade), `LTM-21` (entrar/cadastrar/checkout) e `LTM-18` grupo A (os 15 controles que o operador marca e o sistema ignora). | @aiox-master |
 | 2026-11-19 | 1.0 | Criado a pedido do founder, que quer *"chegar logo no momento de validação de sorteios init to end"*. Mapear a corrente revelou **uma lacuna sem story**: não existe como registrar ganhador nem quem acione o rateio que a `LTM-07` entregou — o fim da corrente está aberto, e a página pública de ganhadores ficaria vazia para sempre. | @aiox-master |
