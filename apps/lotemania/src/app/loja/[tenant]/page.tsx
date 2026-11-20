@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Zap } from "lucide-react";
 import { db } from "@/db";
 import { products, productNumbers, tenants } from "@/db/schema";
+import { CampaignCard } from "@/components/loja/campaign-card";
 
 export default async function StorefrontHomePage({
   params,
@@ -84,34 +85,17 @@ export default async function StorefrontHomePage({
 
       <div className="flex flex-col">
         {rest.map((raffle) => (
-          <Link
-            key={raffle.id}
-            href={`/loja/${tenantSlug}/${raffle.slug}`}
-            /* Miniatura de 90x110 — RETRATO, medida. A nossa era um quadrado
-               de 56px, que e o que fazia a lista parecer um menu em vez de um
-               catalogo. */
-            className="mx-3 mt-2 flex items-stretch gap-3 overflow-hidden rounded-2xl bg-[#212b36] hover:bg-[#212b36]/80"
-          >
-            {raffle.imageUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={raffle.imageUrl}
-                alt={raffle.title}
-                className="h-[110px] w-[90px] shrink-0 object-cover"
-              />
-            )}
-            <div className="flex min-w-0 flex-col justify-center gap-1 py-2 pr-3">
-              <p className="line-clamp-2 text-sm font-semibold text-white">{raffle.title}</p>
-              {raffle.description && (
-                <p className="line-clamp-2 text-xs font-normal text-white/90">
-                  {raffle.description}
-                </p>
-              )}
-              <span className="w-fit self-start animate-[pulse_2.5s_ease-in-out_infinite] rounded-[6px] bg-[#198754] px-2 py-[2px] text-[8px] font-semibold text-white">
-                Adquira Já!
-              </span>
-            </div>
-          </Link>
+          /* O cartao do catalogo e o MESMO da tela de pedido (bloco 6 da
+             LTM-14). A marcacao saiu de inline para `components/loja/
+             campaign-card.tsx` para as duas telas lerem as mesmas medidas. */
+          <div key={raffle.id} className="mx-3 mt-2">
+            <CampaignCard
+              title={raffle.title}
+              subtitle={raffle.description}
+              imageUrl={raffle.imageUrl}
+              href={`/loja/${tenantSlug}/${raffle.slug}`}
+            />
+          </div>
         ))}
       </div>
     </div>
