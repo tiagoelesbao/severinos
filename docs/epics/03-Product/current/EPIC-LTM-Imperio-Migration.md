@@ -170,9 +170,11 @@ Três coisas que o inventário de 2026-11-18 revelou e que mudam tamanho, não d
 
 ---
 
-## 4. As decisões do founder — nove respondidas em 2026-11-19
+## 4. As decisões do founder — treze respondidas, e a fila zerou
 
-As sete decisões que esperavam o founder foram respondidas, mais duas que não estavam nesta seção: a grade da loja (**D4**) e o mascaramento do telefone na tela do pedido (**D9**). **A seção deixou de ser uma fila de espera e passou a ser um registro.**
+As sete decisões que esperavam o founder foram respondidas em **2026-11-19**, mais duas que não estavam nesta seção: a grade da loja (**D4**) e o mascaramento do telefone na tela do pedido (**D9**). Em **2026-11-20** vieram mais quatro — **D10 a D13** — e com elas **as três pendências que esta seção listava fecharam**.
+
+**A seção deixou de ser uma fila de espera e passou a ser um registro.** O que sobra em aberto não é decisão do founder: é **uma observação** que falta fazer na Sorteamos (o `fbc` com código de afiliado, `LTM-04` AC14, cuja fonte é a `LTM-19`) e **uma pergunta que ainda não foi feita** (o modal de Checkout — ver abaixo).
 
 > ### ⚠️ A numeração mudou, e confundir as duas custa escopo
 >
@@ -189,6 +191,10 @@ As sete decisões que esperavam o founder foram respondidas, mais duas que não 
 | **D7** | D4 | Exclusão de sorteio — a Sorteamos **não exclui**, e é o que explica os 10.774 sorteios na conta | **Permitir excluir sorteio sem vendas** — diverge da Sorteamos **a favor do operador** | **`LTM-26`** (nova) |
 | **D8** | D5 (metade B2) | Analytics / atribuição | **Junto com a `LTM-04`, antes do corte** | `LTM-04`: a tela de Analytics entra no escopo, e com ela os **13** campos de `params` |
 | **D9** | — | Mascaramento do **telefone** do comprador. A paridade aqui aponta para o lado **contrário**: a Sorteamos **mascara** nas duas telas públicas | **Telefone inteiro, mas só na tela do próprio pedido.** Cartão de ganhador **continua mascarado** | `LTM-14` (AC5, em implementação). Pergunta em aberto no modal de Checkout da `LTM-21` |
+| **D10** | — | O **nome** do comprador na tela do próprio pedido. A D9 falou de número e a implementação não estendeu por conta — a tela ficou com `Comprador ***` ao lado do telefone inteiro, para a mesma pessoa, na mesma linha | **Nome inteiro também.** Mesma razão da D9 | ✅ **Entregue** em `c9238e0d`. Cartão de ganhador **não mudou** |
+| **D11** | — | Quantos ganhadores por sorteio. A pergunta nasceu do `AC11` da `LTM-27`: o domínio rateia **um** valor por sorteio e receberia **um** número por chamada, logo N chamadas pagariam o prêmio N vezes | **Vários números sorteados**, e **até 2 ganhadores por número, só em sorteio de meia cota** | `LTM-27`. ⬇️ **Reduziu o escopo** — ver abaixo |
+| **D12** | — | Autorização para o ensaio: deixar uma reserva **vencer de propósito** e acionar o `Revisar pagamentos` | **Autorizadas as duas**, no tenant de teste do lotemania | `ENSAIO-GERAL.md` passo 7 · `LTM-19` |
+| **D13** | B1 | **Identidade visual** da loja — a metade da antiga D5 que a D8 não respondeu. Era **a última pendência real** da §4 | **Cópia do que está no ar hoje** | ⚠️ **Converte divergência registrada em trabalho** — ver abaixo |
 
 ### A D6 foi confirmada, e isso merece ficar escrito
 
@@ -225,15 +231,40 @@ A `LTM-14` está **em implementação agora**, com o @dev escrevendo o Dev Recor
 | **O que NÃO muda, parte 2** | `src/lib/mask.ts` continua existindo, e o **cartão de ganhador** continua usando a máscara `(DD) ****-****` |
 | **Quem reconcilia** | o agente que coordena, quando a `LTM-14` sair de implementação |
 
+### A `D11` reduziu o escopo da `LTM-27`, e isso é raro o bastante para ficar escrito
+
+A pergunta nasceu de um achado do @po: o `AC3` mandava renderizar **um campo por prêmio**, e o domínio rateia **um** valor por sorteio recebendo **um** número por chamada. Três lugares salvos = três rateios do valor cheio. **O sorteio pagaria 3× o prêmio, e nada no código impedia.**
+
+A resposta do founder — *vários números, e até 2 ganhadores por número só em meia cota* — **é exatamente o que o domínio já faz**:
+
+| O que a D11 pede | O que já existe |
+|---|---|
+| vários números sorteados | a guarda `already_recorded` é chaveada em `(productId, winningNumber)`, logo **cada lugar é um número diferente e passa** |
+| até 2 ganhadores por número, em meia cota | **uma** chamada devolve `recorded[]` com 1 ou 2 linhas, cada uma com seu `winning_half` |
+
+> ⛔ **O que a D11 deixou de fora, e o custo que isso evitou:** vários ganhadores **no mesmo número** além das duas metades. Aí a guarda bloquearia, e quem distinguiria as linhas é `winning_half`, que só tem `1`, `2` ou nulo — três pessoas no mesmo número **pediriam coluna de ordem em `winners`, migração e um mecanismo novo para o `AC11`**. A decisão do founder tornou a mudança **aditiva**: um parâmetro opcional de valor, e nada mais.
+
+> **O limite que continua valendo, escrito com a palavra certa:** nada soma os prêmios já registrados contra o prêmio declarado do sorteio. Pagar o valor cheio várias vezes deixou de ser **automático** e continua **possível — por digitação, não por construção**. Se o founder quiser trava, é story própria.
+
 > ⚠️ **E isto não é a `LTM-25`.** As duas decisões chegaram no mesmo dia e as duas são *"parar de mascarar"*, mas são **mecanismos diferentes em arquivos diferentes**: a **D6** é **retenção** em `payment_webhook_events.payload` (`src/lib/payments/redact.ts`); a **D9** é **exibição** na tela do pedido (`src/lib/mask.ts`). **Não há sobreposição de arquivo entre elas**, e fundi-las removeria a máscara do cartão de ganhador — página pública, dado de terceiro, que **nenhuma das duas decisões autorizou**.
 
-### O que ainda está pendente dele — três coisas
+### As três pendências fecharam — e duas delas mudaram escopo
 
-**1. A identidade visual (a metade B1 da antiga D5).** A D8 respondeu a metade *Analytics*; a metade *identidade visual* **não foi perguntada e não foi respondida**. A identidade da Sorteamos **é o Minimal UI** — template admin comercial com paleta verde por cima, provado pelos `ic_*.svg`, pela Public Sans e pela rota de demonstração `/user/reece-chung/edit` deixada no bundle. Adotar o mesmo template, ou tratar *"idêntico"* como *"equivalente em função"*? Enquanto não houver resposta, a divergência de tokens medida em `2026-11-17-paridade-visual-loja.md` (`--background`, `--card`, `--primary`, `--font-sans`) fica registrada e **não é corrigida por palpite**.
+**1. A identidade visual: `D13`, cópia do que está no ar hoje.** ⚠️ **E isto converte uma divergência registrada em trabalho.** Enquanto não havia resposta, a divergência de tokens medida em `2026-11-17-paridade-visual-loja.md` (`--background`, `--card`, `--primary`, `--font-sans`) ficava **registrada e não corrigida por palpite**. Com a D13, ela deixa de ser divergência tolerada e passa a ser **defeito a consertar**: *"cópia do que está no ar"* tem alvo medido, e cada token que não casa é um item de trabalho, não uma escolha nossa.
 
-**2. O nome na tela do pedido** — a incoerência da D9, acima. Uma linha.
+> **A pergunta que a D13 responde por tabela, e vale dizer qual é:** a identidade da Sorteamos **é o Minimal UI** — template admin comercial com paleta verde por cima, provado pelos `ic_*.svg`, pela Public Sans e pela rota de demonstração `/user/reece-chung/edit` deixada no bundle. *"Cópia do que está no ar"* **não** significa adotar o template: significa que **a loja que o comprador vê** tem de sair igual. O painel do operador não foi mencionado, e **não se estende por dedução**.
 
-**3. O modal de Checkout.** Ele mostra **o mesmo telefone mascarado**, para **a mesma pessoa, antes de o pedido existir** — é materialmente o mesmo caso da tela do pedido, e a D9 nomeou **só a tela do pedido**. **Não foi decidido por extensão**, e está registrado como pergunta na `LTM-21`.
+**2. O nome na tela do pedido: `D10`, entregue.** Era a incoerência que a D9 deixou, e era uma linha — `c9238e0d`. ⛔ **O cartão de ganhador continua mascarado**, e esse é o limite das duas decisões: página pública, dado de terceiro.
+
+**3. O modal de Checkout — ⚠️ CONTINUA EM ABERTO, e discordo de quem o considerou fechado.** O @po registrou em 11-20 que ele *"cai junto com a D10"*. **A leitura é defensável e eu não a adoto**: as duas decisões do founder nomearam, textualmente e duas vezes, **"a tela do próprio pedido"** — e o modal de Checkout **não é ela**: acontece **antes de o pedido existir**. O argumento de que é *materialmente* o mesmo caso é exatamente o argumento que eu **recusei** na D9 quando deixei o nome mascarado, e recusar naquela direção e aceitar nesta seria escolher a conveniência em vez do critério.
+   - **Não bloqueia nada:** é `LTM-21`, que não está em implementação. A pergunta se faz quando ela entrar, em uma linha.
+
+### O que sobra em aberto, e nenhum item é decisão
+
+| O que | Por que não é do founder | Onde |
+|---|---|---|
+| A transcrição do `fbc` com código de afiliado | **É observação, não decisão** — falta medir na Sorteamos. ⚠️ E errar isso **muda para quem o cliente paga comissão** | `LTM-04` AC14, fonte na `LTM-19` |
+| O modal de Checkout | Pergunta ainda **não feita**, e sem urgência | `LTM-21` |
 
 ### Uma decisão já tomada, com uma consequência que fica aberta
 
@@ -290,7 +321,7 @@ Cada item abaixo era afirmação deste documento. Está aqui porque apagar em si
 
 5. **A tabela de estado de 2026-11-16** — **envelhecida inteira**, e isso é o processo funcionando. "Zero índice", "zero transação", "zero teste", "zero migração", "o webhook é um `TODO`", "`paysure` não existe em nenhuma das duas listas": **todas falsas hoje**. Ficam registradas em §1 como coluna "antes", porque são a linha de base contra a qual o progresso se mede.
 
-6. **"Frente B: 3 decisões pendentes (B1/B2/B3)"** — B3 era decisão **já tomada** (e agora corrigida pelo item 1). B2 (Analytics) foi respondida em 11-19 pela decisão **D8**. **B1 (identidade visual) continua pendente** — é um dos dois itens abertos em §4.
+6. **"Frente B: 3 decisões pendentes (B1/B2/B3)"** — B3 era decisão **já tomada** (e agora corrigida pelo item 1). B2 (Analytics) foi respondida em 11-19 pela decisão **D8**. B1 (identidade visual) **foi respondida em 11-20 pela decisão `D13`** — *cópia do que está no ar hoje*. **A fila de decisões do founder zerou**; o que resta em §4 é uma observação a fazer e uma pergunta a formular.
 
 7. **"A grade do lotemania tem 6 colunas"** — **meia verdade, e a metade falsa é a que o comprador vê no desktop.** `number-grid.tsx:119` é `grid grid-cols-6 gap-1.5 sm:grid-cols-10`: **6 no celular, 10 a partir de `sm`**. A instrução de 11-17 foi *"primeiro quero apenas 6 colunas conforme modelo original"*, e a decisão **D4** de 11-19 foi **manter 6** — mas 6 só vale abaixo de 640px, e acima dela a grade tem **dez**. A loja da Sorteamos é **desenhada para o celular e apenas centralizada no desktop** (`loja-comprador.md`), o que torna o `sm:grid-cols-10` uma divergência própria, **nunca observada do outro lado**. Registrado, não corrigido: corrigir é mudar a loja por dedução, e o `grid-cols-10` pode ter sido escolha deliberada de quem importou. **A `D4` fecha a pergunta de 6 contra 7; não fecha a de 6 contra 10.**
 
