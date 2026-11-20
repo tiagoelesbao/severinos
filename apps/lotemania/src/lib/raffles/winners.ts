@@ -62,6 +62,24 @@ export interface RecordWinnersInput {
   readonly winningNumber: number;
   /** Vai para `winners.prize_description`. */
   readonly prizeDescription?: string;
+  /**
+   * O valor DESTE lugar de prêmio, em reais (string decimal, duas casas) —
+   * acrescentado pela LTM-27 por decisão do founder de 2026-11-20
+   * (*"devo poder cadastrar quantos [ganhadores] eu quiser"*).
+   *
+   * AUSENTE (ou vazio) = comportamento de antes, intacto: o valor vem de
+   * `advanced_settings.prizeAmount` e as recusas são as mesmas. É isso que
+   * faz esta mudança ser aditiva — nenhum chamador anterior muda de
+   * comportamento, e nenhum teste da LTM-07 precisou ser tocado.
+   *
+   * PRESENTE = é este o valor rateado. Com mais de um lugar de prêmio, o
+   * sorteio tem mais de um valor, e `advanced_settings` guarda UM só; ler o
+   * mesmo valor N vezes pagaria N× o prêmio. Dividir o valor declarado
+   * entre os lugares, ou assumir que o 2º vale metade, seria inventar no
+   * caminho do prêmio — `prizes` é descrição livre SEM valor
+   * (`product-settings.ts:39`). A única fonte sem invenção é o operador.
+   */
+  readonly prizeAmount?: string | null;
   readonly announcedAt?: Date;
 }
 
@@ -99,8 +117,36 @@ export async function recordWinnersForDrawnTitle(
       product.advancedSettings ?? {},
     );
     const prizeKind = settings.success ? settings.data.prizeKind : "other";
-    const prizeAmount = settings.success ? settings.data.prizeAmount : null;
-    if (prizeKind !== "cash" || prizeAmount === null || prizeAmount.trim() === "") {
+    const declaredAmount = settings.success ? settings.data.prizeAmount : null;
+    // ── O VALOR INFORMADO PULA A RECUSA DE `prizeKind` (LTM-27) ────────
+    //
+    // Pular, e não contornar. O default de `prizeKind` é `"other"`
+    // (`product-settings.ts:67`), conservador de propósito — então sorteio
+    // com `advanced_settings` vazio, que é O CASO COMUM, cai nele. Se o
+    // valor explícito tivesse de atravessar esta condição, o operador
+    // informaria quanto o 2º lugar paga e levaria `prize_not_rateable` na
+    // cara exatamente nos sorteios que mais precisam da capacidade.
+    //
+    // O rigor não se perde: o caminho do valor informado atravessa o MESMO
+    // `centsOrNull` e a MESMA recusa de valor ≤ 0, logo abaixo. E ele é
+    // STRING decimal, nunca `number`, pela razão de `money.ts:36-39` —
+    // `number` chega tendo passado por ponto flutuante, e depois do fato não
+    // se distingue "o dado tem três casas" de "o binário deixou resíduo".
+    //
+    // Sem valor informado, a condição abaixo é a de antes, caractere por
+    // caractere.
+    const informedAmount =
+      input.prizeAmount !== undefined &&
+      input.prizeAmount !== null &&
+      input.prizeAmount.trim() !== ""
+        ? input.prizeAmount.trim()
+        : null;
+    const prizeAmount = informedAmount ?? declaredAmount;
+    if (
+      (informedAmount === null && prizeKind !== "cash") ||
+      prizeAmount === null ||
+      prizeAmount.trim() === ""
+    ) {
       return {
         ok: false,
         refusal: {

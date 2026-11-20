@@ -1,6 +1,6 @@
 # LTM-27: Definir ganhadores — o último elo da corrente
 
-**Status:** Ready
+**Status:** InReview
 > ✅ **Validada pelo @po em 2026-11-20 — GO (8,5/10). `Draft` → `Ready`.** Conferi o fim aberto no
 > código: `recordWinnersForDrawnTitle` tem **um** importador em todo o repositório e **é um teste**
 > (`tests/money-path/half-quota-domain.test.ts:42`). A tela não existe. A story está certa no
@@ -150,12 +150,12 @@ registrada no cadastro pode não ser a da extração real.
 
 ## Tarefas (Checklist)
 
-- [ ] Item **`Definir ganhadores`** no menu ⋮ da linha do sorteio.
-- [ ] Modal `Ganhadores`: data do sorteio editável, **um campo por prêmio**, aviso de dígitos.
-- [ ] Resolver número → comprador(es), **acionando `src/lib/raffles/winners.ts`**.
-- [ ] Gravar `winners`, incluindo `winning_half` em sorteio divisível.
-- [ ] A lista de sorteios mostra o ganhador inline depois de salvo.
-- [ ] **Mostrar as quatro recusas do domínio** com a razão de cada uma (AC2).
+- [x] Item **`Definir ganhadores`** no menu ⋮ da linha do sorteio.
+- [x] Modal `Ganhadores`: data do sorteio editável, **uma linha por ganhador** (número, descrição e valor), aviso de dígitos e botão `Acrescentar ganhador` — a forma do `AC3` v1.2.
+- [x] Resolver número → comprador(es), **acionando `src/lib/raffles/winners.ts`**.
+- [x] Gravar `winners`, incluindo `winning_half` em sorteio divisível.
+- [x] A lista de sorteios mostra o ganhador inline depois de salvo.
+- [x] **Mostrar as quatro recusas do domínio** com a razão de cada uma (AC2) — mais três próprias da entrada: dígitos, valor ilegível e data ilegível.
 - [ ] ~~`[CONFIRMAR]` com o founder: **dá para corrigir um ganhador já definido?**~~
       **Metade respondida pelo código** (@po, 2026-11-20): `winners.ts:131-152` já **recusa** a
       segunda gravação do mesmo título (`already_recorded`), *"nada foi alterado"*. Então o
@@ -167,7 +167,7 @@ registrada no cadastro pode não ser a da extração real.
 
 ## Critérios de Aceite
 
-- [ ] **AC1 (o número acha o dono):** operador digita um número **vendido**; o sistema grava um
+- [x] **AC1 (o número acha o dono):** operador digita um número **vendido**; o sistema grava um
       ganhador com o comprador daquele número, e a lista mostra nome e data da compra.
   - ⚠️ **A data da compra não está em `winners`** (@po, 2026-11-20). A tabela tem `winner_name`,
     `phone`, `prize_description`, `prize_amount`, `winning_number`, `winning_half` e `announced_at`
@@ -175,7 +175,7 @@ registrada no cadastro pode não ser a da extração real.
     juntar `product_numbers.order_id → orders.created_at` **na hora de exibir**. É alcançável e não
     pede coluna nova; está escrito aqui porque descobrir isso no meio da implementação é o que faz
     um AC virar "mostra o que der".
-- [ ] **AC2 (toda recusa é nomeada, e são quatro):** o domínio entregue já recusa em **quatro**
+- [x] **AC2 (toda recusa é nomeada, e são quatro):** o domínio entregue já recusa em **quatro**
       situações, e a tela tem de mostrar **a razão de cada uma**, nunca um erro genérico:
       `no_sold_units` (ninguém comprou o título), `already_recorded` (o título já tem ganhador),
       `prize_not_rateable` (prêmio não é dinheiro, ou o valor não se lê) e `raffle_not_found`.
@@ -185,7 +185,7 @@ registrada no cadastro pode não ser a da extração real.
     **ensaio ponta a ponta vai encontrar primeiro** se o sorteio de teste não tiver `prizeKind`
     `cash` **com valor declarado** — e aí a tela recusa com razão certa e o operador acha que a
     funcionalidade está quebrada.
-- [ ] **AC3 (quantos ganhadores o operador quiser — decisão do founder, 2026-11-20):** o modal
+- [x] **AC3 (quantos ganhadores o operador quiser — decisão do founder, 2026-11-20):** o modal
       permite cadastrar **N ganhadores**, um por prêmio, e **o operador decide quantos**. Sorteio com
       3 prêmios cadastra 3; se ele quiser cadastrar mais, cadastra. O número de campos **parte** dos
       prêmios configurados (`prizes`, `product-settings.ts:39`) e **não é teto**.
@@ -197,18 +197,18 @@ registrada no cadastro pode não ser a da extração real.
     mudou de *recusar* para *pedir o valor*. É decisão informada, não desconhecimento.
   - ⚠️ **Cada ganhador cadastrado precisa do seu próprio valor** — ver `AC11`. Sem isso, N
     cadastros pagam N× o prêmio do sorteio.
-- [ ] **AC4 (a meia cota gera dois ganhadores):** sorteio divisível, número com **as duas metades
+- [x] **AC4 (a meia cota gera dois ganhadores):** sorteio divisível, número com **as duas metades
       vendidas a pessoas diferentes** → **duas** linhas de `winners`, cada uma com seu
       `winning_half`, e os prêmios **somando exatamente** o prêmio do lugar. É o AC que prova a
       feature que o cliente pediu, ponta a ponta.
-- [ ] **AC5 (metade órfã leva tudo):** sorteio divisível, só **uma** metade vendida → **uma** linha,
+- [x] **AC5 (metade órfã leva tudo):** sorteio divisível, só **uma** metade vendida → **uma** linha,
       **prêmio integral**. É a regra do `ADR-0001` exercitada pela tela.
-- [ ] **AC6 (a validação de dígitos):** sorteio de 100 números recusa `042` e `7`? **[CONFIRMAR]** o
+- [x] **AC6 (a validação de dígitos):** sorteio de 100 números recusa `042` e `7`? **[CONFIRMAR]** o
       comportamento exato da Sorteamos — ela **avisa** (*"Utilize os dígitos corretos"*); se ela
       recusa ou só orienta, não foi observado. Na dúvida, **recusar** é mais seguro que aceitar.
-- [ ] **AC7 (a data do sorteio é editável e é a gravada):** a data informada no modal é a que vai
+- [x] **AC7 (a data do sorteio é editável e é a gravada):** a data informada no modal é a que vai
       para `winners.announced_at`, não a data do clique.
-- [ ] **AC8 (aparece na loja):** depois de salvo, o ganhador aparece na página pública
+- [x] **AC8 (aparece na loja):** depois de salvo, o ganhador aparece na página pública
       **`/loja/{tenant}/ganhadores`** e na página da campanha concluída — **com nome e telefone
       mascarados**, como a `LTM-15` exige. O painel mostra inteiro; a loja, não.
   - ✅ **A metade mascarada deste AC já está construída** (@po, 2026-11-20):
@@ -223,7 +223,7 @@ registrada no cadastro pode não ser a da extração real.
 - [ ] **AC9 (ação mutante tem rastro):** quem definiu o ganhador e quando ficam registrados.
       Depende da `LTM-16`; enquanto ela não existir, o AC fica aberto e **declarado**.
 - [ ] **AC10 (porta verde):** `pnpm lint`, `pnpm typecheck`, `pnpm build`, `npm run test`.
-- [ ] **AC11 (o valor de cada lugar é digitado, nunca deduzido — reescrito em 2026-11-20 pela
+- [x] **AC11 (o valor de cada lugar é digitado, nunca deduzido — reescrito em 2026-11-20 pela
       decisão do founder):** cada ganhador cadastrado carrega **o valor do seu prêmio, informado pelo
       operador no modal**. O rateio da meia cota opera **sobre esse valor**, não sobre o do sorteio.
       Teste: dois lugares com valores diferentes produzem linhas de `winners` com
@@ -385,10 +385,145 @@ roubaria metade do prêmio de quem pagou. `AC4` e `AC5` existem por isso, e o ra
   2026-11-20:** o operador digita o valor de cada lugar no modal. Ver `AC11` reescrito.
 - **`winning_half` na loja** é da `LTM-08`.
 
+## Dev Agent Record
+
+**Agente:** @dev (Dex) · **Data:** 2026-11-20 · **Status:** `Ready` → `InProgress` → `InReview`
+
+### O que a story errou no tamanho, e para menos
+
+O diagnóstico estava certo e o recorte também: **faltava a fiação e a tela, não o domínio**.
+`recordWinnersForDrawnTitle` estava inteiro — transação, quatro recusas nomeadas, rateio de meia
+cota — e tinha **um** importador no repositório, que era um teste. Nada em `src/` o chamava. Esta
+story não escreveu rateio nenhum: ela construiu o caminho de produção até ele.
+
+### IDS — as decisões de reuso, uma por arquivo
+
+| Alvo | Decisão | Razão |
+|---|---|---|
+| `recordWinnersForDrawnTitle` | **REUSE** (+1 parâmetro aditivo) | o rateio, a transação e as quatro recusas já estavam entregues e testados |
+| `splitPrizeAmongHalves`, `centsOrNull`, `toCents` | **REUSE** | a fronteira de dinheiro mora num lugar só |
+| `productAdvancedSettingsSchema` | **REUSE** | `prizes` e `prizeAmount` lidos por `safeParse`, nunca por jsonb cru |
+| `Dialog`/`Input`/`Label`/`Button`/`DropdownMenu`, `formatDate` | **REUSE** | zero componente novo de UI |
+| `src/lib/raffles/define-winners.ts` | **CREATE** | a decisão precisa ser verificável contra o Postgres sem mockar `cookies()` — molde de `divisibility.ts`, `gateway-config.ts`, `expire-reservations.ts` |
+| `src/lib/actions/winners.ts` | **CREATE** | a casca `"use server"` que autoriza e revalida |
+| `winners-dialog.tsx` | **CREATE** | não existia tela de ganhador em `src/app/dashboard/` |
+
+### O sexto arquivo, e por que ele não cabia nos cinco declarados
+
+O bloco `Files:` previa cinco. Entreguei **seis** — `src/lib/raffles/define-winners.ts` — e a razão
+é estrutural, não conveniência:
+
+1. **`"use server"` só exporta função assíncrona.** Exportar tipo, constante ou helper de
+   `actions/winners.ts` zeraria **todas** as exportações dele no grafo do cliente — `lint` e
+   `typecheck` passam e só `next build` acusa, num outro arquivo. Já aconteceu três vezes nesta base.
+2. **Mockar `cookies()` para verificar regra de prêmio verificaria o dublê.** A razão está escrita
+   em `gateway-config.test.tsx:17-22`, e foi por ela que `divisibility.ts` e `gateway-config.ts`
+   existem. A validação de dígitos, a leitura do valor e a junta da data da compra moram lá e são
+   testadas contra o banco de verdade.
+
+### Três defeitos achados no caminho, nenhum previsto pela story
+
+**1. `42702` — a coluna ambígua que derrubaria a lista inteira de sorteios.** A junta do `AC1`
+(`product_numbers.order_id → orders.created_at`) é subconsulta correlacionada. Em consulta de
+**tabela única** o drizzle emite a coluna **sem qualificar** (`"product_id"`), e dentro da
+subconsulta — que tem `product_numbers pn` no escopo, com uma `product_id` também — a referência
+fica ambígua. O Postgres responde `42702` e **toda a página `/dashboard/products` morre**, não só a
+exibição do ganhador. Pior: `alias(winners, "w")` **não resolve sozinho** — ele qualifica a consulta
+de fora (`"w"."tenant_id"`) mas não o que é interpolado **dentro** do template `sql`. Medido duas
+vezes: 20 verdes com 2 vermelhos na primeira, os mesmos 2 vermelhos depois do `alias`. O conserto é
+qualificar **literalmente** no template (`w."product_id"`). Os dois testes vermelhos eram
+**exatamente os dois que gravam ganhador de verdade** — AC1/AC8 e a meia cota do AC4.
+
+**2. A metade tem de entrar na junta, e isso não é cosmético.** Num título divisível com as duas
+metades vendidas, casar ganhador ↔ compra **sem** `winning_half` casa as **duas** linhas com a
+**mesma** compra: a data de uma pessoa aparece ao lado do nome da outra, no painel, no caminho do
+prêmio. O teste do `AC4` afirma metade 1 → pedido da Ana e metade 2 → pedido do Bruno, e é a
+asserção que discrimina.
+
+**3. `prizeKind` tem default `"other"`, e isso quase matou a capacidade nova.** Um sorteio com
+`advanced_settings = {}` — **o caso comum** — cai no default conservador. Se o valor digitado pelo
+operador tivesse de atravessar a recusa `prize_not_rateable`, ele informaria quanto o 2º lugar paga e
+levaria *"este sorteio tem prêmio other sem valor"* na cara, justamente nos sorteios que mais
+precisam da capacidade. O caminho do valor informado **pula** aquela recusa — e atravessa o **mesmo**
+`centsOrNull` e a **mesma** recusa de valor ≤ 0.
+
+### A mudança no domínio foi aditiva, por construção
+
+`recordWinnersForDrawnTitle` ganhou `prizeAmount?: string | null`:
+
+- **ausente ou vazio** — a condição é a de antes, **caractere por caractere**. Nenhum chamador
+  anterior muda de comportamento e **nenhum teste da `LTM-07` foi tocado**;
+- **presente** — é esse o valor rateado, e a meia cota opera sobre ele.
+
+String decimal e nunca `number`, pela razão de `money.ts:36-39`: `number` chega tendo passado por
+ponto flutuante e depois do fato não se distingue *"o dado tem três casas"* de *"o binário deixou
+resíduo"*.
+
+### O que **não** foi implementado, declarado e não contornado
+
+| Item | Situação |
+|---|---|
+| **`AC9`** (trilha de auditoria) | **ABERTO.** Depende da `LTM-16`; nenhuma das tabelas de hoje serve de trilha. Nada foi inventado — não há registro de quem definiu o ganhador |
+| **`AC10`** (porta verde) | **PARCIAL por protocolo de onda.** `pnpm typecheck` verde, `pnpm lint` 0 erros (5 avisos pré-existentes), `definir-ganhadores.test.ts` **22/22**. `pnpm build` e a suíte inteira são do controlador na árvore combinada — `.next` e a cota do Neon são recursos compartilhados |
+| **`AC11`, trava 2** (prêmio não monetário grava descrição **sem** valor) | **A proibição foi honrada; a capacidade, não.** Nada escreve `0,00` nem valor deduzido. Mas registrar *"uma moto"* com `prize_amount` nulo **continua recusado** (`prize_not_rateable`): habilitar isso exige mudar as recusas de `winners.ts`, que é domínio da `LTM-07` sob portaria do @qa agora — passa do *"parâmetro opcional + um if"* autorizado. **O que seria possível:** um `prizeKind: "other"` explícito na linha do modal que gravasse descrição com valor nulo, pulando o rateio. É story própria, e o teste de hoje **fixa a recusa** para que a mudança seja deliberada |
+| **Mais de 2 ganhadores no mesmo número** | **FORA por decisão do founder** (2026-11-20), não por limitação. A guarda `already_recorded` **não foi tocada** |
+| **`winning_half` na loja pública** | Da `LTM-08`. Não toquei `ganhadores/page.tsx` |
+
+### Decisões autônomas, registradas
+
+- **[AUTO-DECISION]** *Sorteio sem prêmio descrito renderiza quantas linhas?* → **uma**, rotulada
+  `Prêmio 1` (razão: `prizes` é descrição livre e **opcional**; zero linhas deixaria a
+  funcionalidade inalcançável exatamente no caso do ensaio ponta a ponta, que declara `prizeAmount`
+  e nenhuma descrição — e a captura da Sorteamos mostra um campo).
+- **[AUTO-DECISION]** *`Prêmio 1` vai para `winners.prize_description`?* → **nunca** (razão: é
+  rótulo de tela; gravar texto que ninguém escreveu é invenção no caminho do prêmio. Sem descrição
+  digitada nem configurada, quem escreve é o domínio: `Prêmio do título N`).
+- **[AUTO-DECISION]** *`maxLength` no campo do número?* → **não** (razão: cortaria `042` em `04` e
+  registraria ganhador do título 4 **em silêncio**; a recusa com razão nomeada é o `AC6`).
+- **[AUTO-DECISION]** *Valor digitado como `100.000,00`?* → **recusa nomeada**, sem normalizar
+  (razão: `"1.000"` é mil ou é um? Adivinhar no caminho do prêmio é pior que pedir de novo).
+- **[AUTO-DECISION]** *`router.refresh()` depois de salvar?* → **não** (razão: o `revalidatePath` da
+  action já devolve a lista nova na mesma resposta; e `useRouter` tornaria o formulário
+  irrenderizável fora do contexto do app router, que é onde o teste do `AC3` o renderiza).
+- **[AUTO-DECISION]** *A action lança quando falha?* → **nunca** (razão: `find src/app -name
+  error.tsx` devolve vazio; um throw deixa o modal mudo — o defeito da `LTM-26`. Até a falha não
+  prevista volta como `unexpected_error` com mensagem).
+
+### Debug Log
+
+| Porta | Resultado |
+|---|---|
+| `pnpm typecheck` (com `tsconfig.tsbuildinfo` apagado antes) | ✅ verde |
+| `pnpm lint` | ✅ **0 erros**, 5 avisos — os mesmos 5 pré-existentes, nenhum nos arquivos desta story |
+| `npx vitest run tests/money-path/definir-ganhadores.test.ts` | ✅ **22 passed (22)**, 98,8 s |
+
+A suíte inteira e `pnpm build` **não** foram rodados aqui, por protocolo de onda: `.next`,
+`tsconfig.tsbuildinfo` e a cota do Neon são compartilhados com os outros agentes da onda.
+
+### Completion Notes
+
+O último elo fechou: o número que o operador digita chega ao rateio, as duas metades saem com
+`winning_half`, a metade órfã leva o prêmio inteiro, e a linha nasce com o `tenant_id` que a
+página pública filtra — a máscara de lá já estava construída e o que faltava era a linha existir.
+Sete recusas chegam à tela com a razão de cada uma, e nenhuma delas passa por um `throw`.
+
+### File List
+
+| Arquivo | O que |
+|---|---|
+| `apps/lotemania/src/lib/raffles/define-winners.ts` | **novo** — a decisão: dígitos, valor por lugar, data, aciona o rateio, lê o painel |
+| `apps/lotemania/src/lib/actions/winners.ts` | **novo** — a casca `"use server"`: autoriza, delega, revalida, nunca lança |
+| `apps/lotemania/src/app/dashboard/products/winners-dialog.tsx` | **novo** — `WinnersForm` + `WinnersDialog`, com `Acrescentar ganhador` |
+| `apps/lotemania/tests/money-path/definir-ganhadores.test.ts` | **novo** — 22 testes |
+| `apps/lotemania/src/app/dashboard/products/product-row-actions.tsx` | item `Definir ganhadores` no menu ⋮ (que tinha **um** item, e era `Excluir`) |
+| `apps/lotemania/src/app/dashboard/products/page.tsx` | o ganhador inline na linha, com metade e data da compra |
+| `apps/lotemania/src/lib/raffles/winners.ts` | **+1 parâmetro aditivo** (`prizeAmount?`), autorizado pelo controlador em 2026-11-20 |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.3 | **Implementada. `Ready` → `InReview`.** Seis arquivos, e o quinto não estava no bloco `Files:`: `raffles/define-winners.ts` existe porque `"use server"` só exporta função assíncrona e porque mockar `cookies()` para verificar regra de prêmio verificaria o dublê. **Três defeitos achados que a story não previa:** (1) `42702` — a junta da `Data da compra` é subconsulta correlacionada e o drizzle emite coluna não qualificada em consulta de tabela única, derrubando **toda** a `/dashboard/products`; `alias()` não resolve o que é interpolado dentro do template `sql`, e os dois testes vermelhos eram os dois que gravam ganhador de verdade; (2) ignorar `winning_half` na junta casaria as duas metades com a **mesma** compra — a data de uma pessoa ao lado do nome da outra; (3) `prizeKind` tem default `"other"`, então o valor digitado tem de **pular** `prize_not_rateable` ou a capacidade nova morreria no caso comum. `winners.ts` ganhou `prizeAmount?` **aditivo** — ausente, a condição é a de antes caractere por caractere. **Fica aberto e declarado:** `AC9` (espera a `LTM-16`), `AC10` (build e suíte inteira são do controlador) e a **trava 2 do `AC11`** — a proibição de inventar valor foi honrada, mas registrar prêmio não monetário com valor nulo continua recusado, porque habilitar exige mudar as recusas da `LTM-07`. Portas: `typecheck` verde, `lint` 0 erros, `definir-ganhadores.test.ts` **22/22**. | @dev (Dex) |
 | 2026-11-20 | 1.2 | **`AC3` e `AC11` reescritos por decisão do founder.** Ele respondeu à objeção do `AC11` reafirmando a capacidade: *"assim como na sorteamos, aqui devemos poder como usuário definir mais de um ganhador, devo poder cadastrar quantos eu quiser"* — **decisão informada, tomada depois de ouvir o risco do prêmio pago N vezes**. `AC3` passa a exigir **N ganhadores, quantos o operador quiser**, com os prêmios configurados como ponto de partida e **não** como teto. `AC11` troca de remédio: em vez de **recusar** o 2º lugar, **o operador digita o valor de cada lugar no modal** — a única fonte sem invenção, já que `prizes` é `z.array(z.string())` sem valor. Forma autorizada: **parâmetro opcional de valor** em `recordWinnersForDrawnTitle` (ausente lê `prizeAmount` como hoje, e os testes existentes seguem verdes; presente usa o dado), retrocompatível por construção. **As duas travas da medição original continuam inteiras:** (1) não dividir o `prizeAmount` do sorteio entre os lugares — assumir que o 2º vale metade é inventar no caminho do prêmio; (2) **`prize_amount` é nulável de propósito** (`raffles.ts:297`, conferido sem `.notNull()`), então prêmio não monetário grava descrição **sem valor** e **nunca 0,00** — zero é um valor, e R$ 0,00 na página pública é pior que nenhum. O rateio da meia cota passa a operar sobre o valor **daquele lugar**: a metade órfã leva o prêmio inteiro **do lugar dela**. **A pergunta *"como se declara o valor do 2º prêmio"* está respondida** e sai das pendências. | @po (Pax) |
 | 2026-11-20 | 1.1 | **Validada — GO (8,5/10). `Draft` → `Ready`.** Fim aberto confirmado por medição: `recordWinnersForDrawnTitle` tem **um** importador e é um teste. Corrigi quatro ACs contra o domínio entregue e acrescentei o **AC11**: `AC3` manda um campo por prêmio, mas o domínio rateia **um** `prizeAmount` por sorteio e recebe **um** número por chamada — N campos salvos pagariam **N× o prêmio**, e nada no código impede. A trava é **recusar o 2º lugar com razão nomeada**, nunca dividir o valor por dedução; o valor por lugar vira pergunta de uma linha ao founder. `AC2` passou a cobrir as **quatro** recusas de `winners.ts:30-38` (a redação cobria uma, e a que o ensaio encontra primeiro é `prize_not_rateable`: sorteio sem prêmio em dinheiro declarado é recusado). `AC8` corrigido para a rota literal `/loja/{tenant}/ganhadores`, com o registro de que a máscara **já está construída** lá (`page.tsx:62`, `:81`) e de que `winning_half` não é exibido — aresta da `LTM-08`. `AC1` ganhou a junta `product_numbers.order_id → orders.created_at`, porque `winners` não guarda a data da compra. O `[CONFIRMAR]` do ganhador já definido está **metade respondido pelo código**: `already_recorded` recusa a segunda gravação. | @po (Pax) |
 | 2026-11-19 | 1.0 | Nasce do mapeamento da corrente ponta a ponta, que achou o fim aberto: o rateio da `LTM-07` existe e **ninguém o chama**. Eu havia registrado três perguntas como *"não se respondem por dedução"*; **o founder respondeu mandando a tela da Sorteamos**, que eu deveria ter modelado no inventário e não modelei — `Definir ganhadores` é ação mutante e ficou de fora. As quatro capturas respondem as três perguntas: o operador **digita o número**, há **um campo por prêmio**, e o sistema **resolve número → comprador** sozinho. O que a Sorteamos **não** responde é a meia cota: lá o número tem um dono, aqui pode ter dois. | @aiox-master |

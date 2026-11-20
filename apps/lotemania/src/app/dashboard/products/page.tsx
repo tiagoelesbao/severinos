@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { formatDate } from "@/lib/format";
 import { requireUser } from "@/lib/auth/require-user";
+import {
+  digitsForRaffle,
+  prizePlacesFor,
+  readRecordedWinnersForRaffles,
+} from "@/lib/raffles/define-winners";
+import { productAdvancedSettingsSchema } from "@/lib/validations/product-settings";
 import { ProductStatusSelect } from "./product-status-select";
 import { ProductRowActions } from "./product-row-actions";
 import { ProgressRing } from "./progress-ring";
@@ -52,6 +58,10 @@ export default async function ProductsPage({
       createdAt: products.createdAt,
       totalNumbers: products.totalNumbers,
       isFavorite: products.isFavorite,
+      // Lido por `safeParse` abaixo, nunca por acesso cru ao jsonb: sorteio
+      // antigo tem `advanced_settings = {}` e sao os defaults que entregam
+      // `prizes` (`product-settings.ts:59-62`).
+      advancedSettings: products.advancedSettings,
       sold: sql<string>`count(${productNumbers.id}) filter (where ${productNumbers.status} = 'sold')`,
       reserved: sql<string>`count(${productNumbers.id}) filter (where ${productNumbers.status} = 'reserved')`,
       available: sql<string>`count(${productNumbers.id}) filter (where ${productNumbers.status} = 'available')`,
@@ -63,6 +73,18 @@ export default async function ProductsPage({
     .orderBy(desc(products.isFavorite), desc(products.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
+
+  // ── OS GANHADORES JA REGISTRADOS (LTM-27, AC1) ────────────────────────
+  //
+  // UMA consulta para a pagina inteira, e nao uma por linha: cinco sorteios
+  // por pagina viram cinco idas ao banco por render, e a lista e a tela mais
+  // aberta do painel. A `Data da compra` sai da junta
+  // `product_numbers.order_id -> orders.created_at` — `winners` nao guarda o
+  // pedido, e a junta mora no modulo de dominio para ser verificavel.
+  const recordedWinners = await readRecordedWinnersForRaffles(
+    user.tenantId,
+    rows.map((row) => row.id),
+  );
 
   const total = Number(totalCount);
   const from = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
@@ -97,6 +119,13 @@ export default async function ProductsPage({
           const reserved = Number(row.reserved);
           const available = Number(row.available);
           const progress = Math.round((sold / Math.max(1, row.totalNumbers)) * 100);
+          const settings = productAdvancedSettingsSchema.safeParse(
+            row.advancedSettings ?? {},
+          );
+          const prizePlaces = prizePlacesFor(
+            settings.success ? settings.data.prizes : [],
+          );
+          const winnersOfRow = recordedWinners.filter((w) => w.productId === row.id);
           return (
             <div
               key={row.id}
@@ -119,6 +148,38 @@ export default async function ProductsPage({
                   {row.drawDate && <>Sorteio: {formatDate(row.drawDate)} · </>}
                   Cadastro: {formatDate(row.createdAt)}
                 </p>
+
+                {/*
+                  O PAINEL MOSTRA O NOME INTEIRO, e esta certo: quem le e o
+                  operador. A LOJA mascara (`loja/[tenant]/ganhadores/page.tsx:62`,
+                  `:81`), e a divisao e a do AC8 da LTM-27.
+
+                  A metade aparece aqui porque sem ela um titulo divisivel
+                  sorteado produz DUAS linhas identicas — `Titulo: 42` duas
+                  vezes — e o operador nao tem como saber que sao duas pessoas.
+                */}
+                {winnersOfRow.length > 0 && (
+                  <div
+                    className="mt-1 flex flex-col gap-0.5 text-xs text-muted-foreground"
+                    data-winners-inline
+                  >
+                    {winnersOfRow.map((ganhador) => (
+                      <p key={ganhador.id}>
+                        <span className="font-medium text-foreground">
+                          Ganhador: {ganhador.winnerName}
+                        </span>
+                        {" · "}
+                        Titulo: {ganhador.winningNumber}
+                        {ganhador.winningHalf !== null && (
+                          <> (metade {ganhador.winningHalf})</>
+                        )}
+                        {ganhador.purchasedAt && (
+                          <> · Data da compra: {formatDate(ganhador.purchasedAt)}</>
+                        )}
+                      </p>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <ProductStatusSelect productId={row.id} status={row.status} />
@@ -133,6 +194,9 @@ export default async function ProductsPage({
                 reserved={reserved}
                 sold={sold}
                 total={row.totalNumbers}
+                prizePlaces={prizePlaces}
+                digits={digitsForRaffle(row.totalNumbers)}
+                drawDateIso={row.drawDate ? row.drawDate.toISOString() : null}
               />
 
               <ProgressRing percent={progress} />

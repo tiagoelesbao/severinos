@@ -13,6 +13,7 @@ import {
   ShoppingCart,
   MoreVertical,
   Trash2,
+  Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -34,6 +35,8 @@ import {
   duplicateProduct,
   deleteProduct,
 } from "@/lib/actions/products";
+import type { PrizePlace } from "@/lib/raffles/define-winners";
+import { WinnersDialog } from "./winners-dialog";
 
 export function ProductRowActions({
   productId,
@@ -45,6 +48,9 @@ export function ProductRowActions({
   reserved,
   sold,
   total,
+  prizePlaces,
+  digits,
+  drawDateIso,
 }: {
   productId: string;
   tenantSlug: string;
@@ -55,10 +61,17 @@ export function ProductRowActions({
   reserved: number;
   sold: number;
   total: number;
+  /** Os premios configurados — o ponto de partida do modal (LTM-27, AC3). */
+  prizePlaces: readonly PrizePlace[];
+  /** Quantos digitos tem o titulo deste sorteio (AC6 da LTM-27). */
+  digits: number;
+  /** A data do sorteio cadastrada, que o modal deixa corrigir (AC7). */
+  drawDateIso: string | null;
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [statsOpen, setStatsOpen] = useState(false);
+  const [winnersOpen, setWinnersOpen] = useState(false);
   const storeUrl = `/loja/${tenantSlug}/${productSlug}`;
 
   function copyLink() {
@@ -172,6 +185,16 @@ export function ProductRowActions({
           <MoreVertical className="size-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          {/*
+            `Definir ganhadores` e a ENTRADA desta funcionalidade, e ate a
+            LTM-27 este menu tinha UM item, e era `Excluir`. O sorteio podia
+            nascer, vender, receber pagamento e encerrar — e nao existia como
+            dizer quem ganhou.
+          */}
+          <DropdownMenuItem onClick={() => setWinnersOpen(true)}>
+            <Trophy />
+            Definir ganhadores
+          </DropdownMenuItem>
           <DropdownMenuItem
             variant="destructive"
             onClick={() =>
@@ -186,6 +209,16 @@ export function ProductRowActions({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <WinnersDialog
+        open={winnersOpen}
+        onOpenChange={setWinnersOpen}
+        title={title}
+        productId={productId}
+        prizePlaces={prizePlaces}
+        digits={digits}
+        drawDateIso={drawDateIso}
+      />
     </div>
   );
 }
