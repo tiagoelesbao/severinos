@@ -8,8 +8,9 @@
 > @po (2026-11-17)*.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F4**
 **Prioridade:** **P0** — sem isso o corte cega o CAPI do Meta e o BI inteiro no mesmo dia
-**Complexidade:** L (Standard) — captura na origem + colunas novas + API de leitura com contrato fixo + payload de saída
+**Complexidade:** **L → XL** — captura na origem + colunas novas + API de leitura com contrato fixo + payload de saída, **e desde 11-19 a tela de Analytics (decisão D8)**
 **Criada por:** @pm (Morgan) · 2026-11-16
+**Atualizada:** @pm (Morgan) · 2026-11-19, aplicando a decisão **D8** do founder
 
 ## Story
 
@@ -56,6 +57,98 @@ Esta é a economia desta story: não há formato a inventar. O lotemania tem que
 
 Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a partir de `page=0`** — assumir `page=1` custou ~75% do faturamento capturado por um ciclo inteiro (achado de 2026-10-07, documentado no `client_api.py`). O contrato da nossa API precisa ser 0-indexado e isso precisa estar em teste, não em comentário.
 
+## Decisão do founder — 2026-11-19: **a tela de Analytics entra aqui, antes do corte**
+
+> **A decisão, textual (D8):** *"Junto com a `LTM-04`, antes do corte."*
+
+A pergunta era se a tela de Analytics da Sorteamos seria replicada e por quem. Ela tinha duas metades,
+e **a decisão responde as duas de um jeito que reduz trabalho em vez de aumentar**:
+
+| A tela | O que é | O que a D8 decide |
+|---|---|---|
+| `/dashboard/analytics` | **o demo do Minimal UI, intocado** — "Weekly Sales 714000", "Bug Reports 234", séries "Team A/B/C", eixo "Jan '03 a Oct '03" ([AO VIVO], `2026-11-16-baseline-sorteamos/06-observacao-ao-vivo.md`). **Nenhum número ali vem do Império** | **não se clona.** Clonar andaime não é paridade — era o diagnóstico de 11-16 e a D8 o confirma pela via positiva: o que se constrói é analytics de verdade |
+| **`/dashboard/settings/analytics`** | a tela **real** de configuração de pixel e atribuição, [OBSERVADO] em 11-18 (`painel-telas.md` §9). **O lotemania não tem nenhum destes campos** | **entra no escopo desta story** |
+
+⚠️ **As duas se chamam "Analytics" e são coisas opostas** — uma é andaime de template, a outra é a
+configuração que o Império usa para atribuir venda a anúncio. O lotemania tem um
+`src/app/dashboard/analytics/page.tsx` que era **um dos dez arquivos de 0 byte** recuperados pela
+`LTM-00` (`2026-11-16-lotemania-build-health.md`): ele é a cópia do **primeiro**, do lado errado.
+
+### O contrato da tela — observado, não deduzido
+
+`painel-telas.md` §9. **Isto é o escopo da `LTM-04` desenhado por quem já opera:**
+
+| Campo | O que decide |
+|---|---|
+| **Persistir UTMs por 24h** | a **janela de atribuição** — e é exatamente o que o `AC4` desta story mede sem nomear |
+| **Facebook Pixel ID** | *"Utilize vírgula `,` para separar mais pixels"* — **múltiplos**, não um |
+| **Facebook Token Conversion API** | idem, múltiplos, guardados por conta |
+| **Facebook Pixel - Enviar `purchase`** | duas opções: *"Quando conter FBC e não for de campanhas de links bio, group, community, stories"* · *"Enviar sempre"* |
+| **Considerar `fbc` quando conter código de afiliado** | chave, com explicação própria na tela |
+| **Ativar UTMify** | chave |
+| **Google Analytics ID** · **TikTok Pixel ID** · **Kwai Pixel ID** · **Google Tag Manager ID** | um campo cada |
+
+**Cinco plataformas de pixel**, token de CAPI por conta, janela de UTM de 24 h, e **uma regra de
+negócio explícita sobre o conflito entre `fbc` e código de afiliado** — que é literalmente a pergunta
+*"de quem foi a venda"* que a atribuição existe para responder. O lotemania não tem **nenhum** destes
+campos.
+
+### Os **treze** campos de `params` — e os dois que esta story não enumerava
+
+`webhook-saida-contrato.md` documenta `params` **completo, lido na aba `Order.Create`**: são
+**treze**, idênticos nos quatro eventos. A nota da própria tela da Sorteamos diz
+*"`data.params` — Dados de rastreio: gclid, ttclid, ttp, fbc, fbp, UTMs, IP e user agent"*.
+
+| # | Campo | Enumerado no AC2 desta story? |
+|---|---|---|
+| 1 | `gclid` | ✅ |
+| 2 | `ttclid` | ✅ |
+| 3 | **`ttp`** | ❌ **faltava** — cookie do TikTok, par do `ttclid` |
+| 4 | `fbc` | ✅ |
+| 5 | `fbp` | ✅ |
+| 6 | **`eventId`** | ❌ **faltava** — ver o aviso abaixo |
+| 7 | `userAgent` | ✅ |
+| 8 | `utmContent` | ✅ |
+| 9 | `utmSource` | ✅ |
+| 10 | `utmCampaign` | ✅ |
+| 11 | `utmMedium` | ✅ |
+| 12 | `utmTerm` | ✅ |
+| 13 | `ip` | ✅ |
+
+**Faltavam dois, não quatro.** `ip` e `userAgent` já estavam no `AC2` e na tabela de Contexto desta
+story — o `order-paid.js` os lê como `client_ip_address` e `client_user_agent`. **Os ausentes são
+`ttp` e `eventId`**, e os dois entram na lista enumerada do `AC2`.
+
+> ### ⚠️ `eventId` — o mais caro de esquecer, e o mais perigoso de "consertar"
+>
+> **O que ele é:** a chave que deduplica o mesmo `Purchase` chegando por dois caminhos — o Pixel do
+> navegador e a CAPI do servidor. Sem chave comum, o Meta conta a venda duas vezes, o ROAS mente
+> para cima e a otimização da campanha aprende com número inflado.
+>
+> **E é aqui que esta base contradiz a leitura óbvia.** O nosso consumidor **ignora
+> `params.eventId` de propósito** — `apps/webhook-imperio-capi/api/order-paid.js:223-227`:
+>
+> ```js
+> // Mesmo event_id que o restante do nosso pipeline usa pro pedido (id do
+> // pedido, não params.eventId) — precisa bater com o que o Pixel do
+> // navegador usa pra deduplicação funcionar (confirmado 99%+ de dedup
+> // usando o id do pedido como chave, ver gates-status.yaml).
+> event_id: orderId,
+> ```
+>
+> **Então, com precisão:**
+>
+> 1. **A deduplicação que funciona hoje é chaveada em `orderId`, não em `params.eventId`** — e isso
+>    foi **medido** em 99%+, não suposto.
+> 2. `params.eventId` entra na lista do `AC2` por **paridade de payload** (a Sorteamos o declara, e o
+>    mandato de 11-18 é replicar tudo), **não** porque a dedup dependa dele.
+> 3. ⛔ **Ninguém "corrige" o `order-paid.js` para passar a usar `params.eventId`.** Fazer isso
+>    quebraria um acordo que vale 99%+ de dedup com o Pixel do navegador, que usa o id do pedido. Se
+>    o lotemania emitir `params.eventId`, ele tem de emitir **o id do pedido ali**, ou declarar
+>    explicitamente que são chaves diferentes com propósitos diferentes.
+> 4. E vale o Achado A de novo: a Sorteamos **declara** os treze e os entrega **vazios em 100%** dos
+>    pedidos reais. Emitir `eventId` vazio é paridade satisfeita e dedup nenhuma.
+
 ## Decisão de arquitetura (proposta)
 
 1. **Capturar na criação do pedido**, dentro da mesma transação que cria o pedido (LTM-02). Atribuição gravada depois é atribuição que se perde quando algo falha no meio.
@@ -80,12 +173,37 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 - [ ] Teste de contrato que percorre a lista de campos que o `client_api.py` lê e o `order-paid.js` lê, campo por campo.
 - [ ] Documentar os dois endpoints e o payload do evento no README do app.
 
+### Tarefas que a decisão **D8** acrescentou (2026-11-19)
+
+- [ ] **Esquema de configuração de atribuição por tenant** — os campos de `painel-telas.md` §9:
+      janela de persistência de UTM, `Facebook Pixel ID` (**lista**), `Facebook Token Conversion
+      API` (**lista**), modo de envio do `purchase` (duas opções), a chave de `fbc` com afiliado,
+      `Ativar UTMify`, e os quatro ids simples (GA, TikTok, Kwai, GTM).
+      ⚠️ **Token de CAPI é credencial** — mesmo tratamento do `cs` da Paysure: nunca em claro, nunca
+      no cliente, nunca em log.
+- [ ] **Tela `/dashboard/settings/analytics`** no lotemania, com os rótulos transcritos.
+- [ ] A **janela de atribuição** passa a vir dessa configuração, não de constante — é o que amarra o
+      `AC12` ao `AC4`.
+- [ ] **Transcrever a explicação da chave *"Considerar `fbc` quando conter código de afiliado"*** da
+      tela da Sorteamos. **Pré-requisito do `AC14`** — sem a transcrição, implementar essa regra é
+      inventar no caminho da comissão do afiliado.
+- [ ] Decidir o destino de `src/app/dashboard/analytics/page.tsx` (dado do tenant, ou fora do menu).
+
 ## Critérios de Aceite
 
 - [ ] **AC1 (contrato do ETL, campo por campo):** um teste de contrato enumera **todos** os campos que `services/Meta/imperio-premios/client_api.py` consome de um pedido e falha se **qualquer um** estiver ausente da resposta de `GET /api/v1/products/{id}/orders`. A lista do teste é derivada do código do ETL (arquivo e linha citados no teste), não de memória.
   - **Lacuna já identificada na validação (@po, 2026-11-16), para não ser descoberta no meio da implementação.** O ETL lê `paymentId` e `paymentEndToEndId` (`client_api.py:508-509`) e `paymentAt` (`:545`). Hoje o lotemania **não tem onde guardar o identificador fim-a-fim**: `orders` tem `paymentGatewayProvider` e `paidAt`, e `banking_transactions` tem só `externalReference` (`src/db/schema/payments.ts`). Ou seja: este AC **exige um campo que ainda não existe no schema**, e ele mora no caminho de pagamento — território da LTM-03 (`settle-order`), não da tabela de atribuição desta story. Resolução: a story que chegar depois acrescenta o campo; se a LTM-04 chegar primeiro, ela o acrescenta e a LTM-03 o preenche. O que **não** pode acontecer é o AC1 ser marcado verde tendo removido `paymentEndToEndId` da lista enumerada — a lista é derivada do consumidor, e encurtá-la é falsificar o contrato.
   - **Nomes dos parâmetros do contrato**, lidos do ETL e não de memória: `page` (0-indexado), `rowsPerPage` (o ETL usa 25 em `/products` e 100 em pedidos) e `filters` como **string JSON** (`client_api.py:168`, `:256-260`). O AC3 cobre isso por comportamento; estão nomeados aqui para que a implementação não precise descobrir.
 - [ ] **AC2 (contrato do CAPI, campo por campo):** teste equivalente para o evento `order.paid`: todo caminho que `apps/webhook-imperio-capi/api/order-paid.js` lê (`data.id`, `data.total`, `data.user.{id,email,phone}`, `data.params.{fbc,fbp,ip,userAgent,utmSource,utmMedium,utmCampaign,utmContent,utmTerm,gclid,ttclid}`, `event`, `timestamp`, header de autenticação) está presente e no mesmo lugar.
+  - ⚠️ **Estendido em 2026-11-19 pela decisão D8:** a lista passa a ser **os treze campos de
+    `params`** documentados em `webhook-saida-contrato.md`, não os onze que o nosso consumidor lê.
+    Entram **`ttp`** (cookie do TikTok, par do `ttclid`) e **`eventId`**. A fonte do AC2 deixa de ser
+    só o consumidor e passa a ser **o consumidor ∪ o contrato observado da Sorteamos** — porque o
+    mandato de 11-18 é replicar o payload, e um campo que a origem declara e nós omitimos é um
+    consumidor futuro quebrado em silêncio.
+  - ⛔ **`eventId` não altera a chave de deduplicação.** `order-paid.js:223-227` usa **`orderId`** de
+    propósito, com 99%+ de dedup medido contra o Pixel do navegador. Emitir `params.eventId` é
+    paridade de payload; **trocar a chave do consumidor não é escopo desta story e não é melhoria.**
 - [ ] **AC3 (o ETL migra com UMA mudança declarada, não com zero):** tornar `base_url`
       parametrizável em `client_api.py:74` — hoje é literal
       (`self.base_url = "https://api.rapidinhas24hr.com/api"`), não variável de ambiente nem
@@ -105,6 +223,33 @@ Terceiro achado relevante ao contrato: `/products` da Sorteamos é **indexado a 
 - [ ] **AC8 (atribuição na mesma transação):** um teste que falha a transação da reserva depois de gravar a atribuição verifica que **nem** o pedido **nem** a atribuição persistiram.
 - [ ] **AC9 (nada aberto):** os dois endpoints respondem **401** sem credencial e **não** retornam pedido de outro tenant com credencial de tenant diferente. Teste com dois tenants semeados.
 - [ ] **AC10 (trilha do evento de saída):** cada emissão de `order.paid` fica registrada em `outbound_webhook_deliveries` com o status de resposta; falha de entrega não desfaz nem bloqueia o fechamento do pedido, e fica visível como entrega falha.
+
+### Os ACs que a decisão **D8** acrescentou (2026-11-19)
+
+- [ ] **AC11 (a tela de Analytics existe e governa):** os campos de `/dashboard/settings/analytics`
+      da Sorteamos existem no lotemania, com os rótulos transcritos de `painel-telas.md` §9, e
+      **cada um é lido por alguém**. ⚠️ Esta tela nasce sob o `AC1` da `LTM-18` — campo de
+      configuração **sem leitor** é o defeito que a `LTM-18` mede, e seria a **quarta** ocorrência do
+      padrão se nascesse inerte. Teste: a varredura da `LTM-18` inclui esta tela e o conjunto
+      "campo declarado sem leitor" continua **vazio**.
+- [ ] **AC12 (a janela de atribuição é configurável, não cravada):** a chave *"Persistir UTMs por
+      24h"* governa por quanto tempo o primeiro toque sobrevive. Dois testes com janelas diferentes:
+      visita com UTM, espera além da janela, reserva — o pedido **não** carrega a UTM; dentro da
+      janela, carrega. **Este AC é o `AC4` com relógio**: hoje o AC4 prova que a UTM sobrevive à
+      navegação e não diz **por quanto tempo**.
+- [ ] **AC13 (múltiplos pixels e múltiplos tokens):** `Facebook Pixel ID` e
+      `Facebook Token Conversion API` aceitam **lista separada por vírgula** e o envio alcança
+      **todos**. Teste com dois pixels: duas chamadas, não uma. Um campo que aceita vírgula e usa só
+      o primeiro valor é pior que um campo único — ele parece funcionar.
+- [ ] **AC14 (a regra do `fbc` com código de afiliado está implementada, não inferida):** a chave
+      *"Considerar `fbc` quando conter código de afiliado"* muda o resultado da atribuição nos dois
+      estados. ⚠️ **A tela tem explicação própria para esta chave, e ela não foi transcrita** — a
+      implementação **espera a transcrição** (`AC7` da `LTM-18`: nenhum comportamento inventado). É
+      a pergunta "de quem foi a venda" quando o clique e o afiliado disputam o crédito, e **errar
+      isso muda para quem o cliente paga comissão**.
+- [ ] **AC15 (o andaime não é clonado):** nenhuma tela do lotemania exibe dado fictício de template.
+      O `src/app/dashboard/analytics/page.tsx` — um dos dez arquivos de 0 byte da `LTM-00` — ou
+      passa a mostrar dado do tenant, ou sai do menu. **"Bug Reports 234" não é paridade.**
 
 ## Escopo
 
@@ -135,12 +280,18 @@ Conferido em 2026-11-17.
 **Escreve:**
 
 ```
-apps/lotemania/src/db/schema/attribution.ts    order_attribution (novo)
-apps/lotemania/src/lib/actions/reserve.ts      grava a atribuicao na transacao do pedido
-apps/lotemania/src/app/loja/[tenant]/**        captura de primeiro toque no cliente
-apps/lotemania/src/app/api/v1/**               rotas de leitura (novas)
-apps/lotemania/drizzle/**                      migracao
-services/Meta/imperio-premios/client_api.py    SO a linha 74: base_url parametrizavel (AC3)
+apps/lotemania/src/db/schema/attribution.ts         order_attribution (novo)
+apps/lotemania/src/lib/actions/reserve.ts           grava a atribuicao na transacao do pedido
+apps/lotemania/src/app/loja/[tenant]/**             captura de primeiro toque no cliente
+apps/lotemania/src/app/api/v1/product/[id]/orders/  rota de pedidos — SINGULAR (correcao 2 do @po)
+apps/lotemania/src/app/api/v1/products/             rota de listagem — plural, confere com o ETL
+apps/lotemania/drizzle/**                           migracao
+services/Meta/imperio-premios/client_api.py         SO a linha 74: base_url parametrizavel (AC3)
+
+D8 (2026-11-19) — a tela de Analytics:
+apps/lotemania/src/app/dashboard/settings/analytics/**   a tela (nova)
+apps/lotemania/src/lib/validations/analytics-settings.ts o esquema (novo)
+apps/lotemania/src/app/dashboard/analytics/page.tsx      o andaime do template — AC15 decide o destino
 ```
 
 ⚠️ **`reserve.ts` é escrito pela `LTM-02`** (reserva transacional em metades). Esta story
@@ -415,6 +566,7 @@ do `client_api.py`, que está no repositório.
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-19 | 1.4 | **Decisão D8 do founder aplicada: a tela de Analytics entra nesta story, antes do corte.** Distinguidas as **duas** telas que se chamam "Analytics": `/dashboard/analytics` é o **demo do Minimal UI intocado** ("Bug Reports 234", eixo Jan '03–Oct '03) e **não se clona**; `/dashboard/settings/analytics` é a configuração **real** de pixel e atribuição ([OBSERVADO], `painel-telas.md` §9) e **entra no escopo**. Contrato transcrito: janela de UTM de 24 h, Pixel ID e Token de CAPI **múltiplos por vírgula**, duas opções de envio do `purchase`, a chave de `fbc` com código de afiliado, UTMify, e os quatro ids simples. **Os 13 campos de `params`** de `webhook-saida-contrato.md` entram no `AC2` — e **faltavam dois, não quatro**: `ip` e `userAgent` já estavam enumerados; os ausentes eram **`ttp`** e **`eventId`**. ⛔ **Registrado em destaque que a dedup desta instalação é chaveada em `orderId`, não em `params.eventId`** — `order-paid.js:223-227`, 99%+ medido —, então `eventId` entra por paridade de payload e **ninguém troca a chave do consumidor**. ACs novos: **AC11** (a tela existe e governa, sob o `AC1` da `LTM-18` para não nascer inerte), **AC12** (janela de atribuição configurável — o `AC4` com relógio), **AC13** (múltiplos pixels e tokens), **AC14** (a regra do `fbc` com afiliado, **que espera a transcrição da explicação da tela** — `AC7` da `LTM-18`), **AC15** (o andaime não é clonado). Bloco `Files:` corrigido na rota de pedidos para **`product` singular** (correção 2 do @po, aberta desde 11-17) e acrescido dos arquivos da tela. **As sete correções do @po de 11-17 continuam abertas** — esta edição não as fecha e **aumenta** a story; a revalidação é do @po. | @pm (Morgan) |
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Lacuna de `paymentEndToEndId` no AC1 registrada, aresta com a LTM-03 mapeada, parâmetros do contrato nomeados. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada — NO-GO (6/10). Ready → Draft.** `base_url` é literal no ETL (AC3 impossível); rota de pedidos é `product` singular; autenticação incompatível em três pontos e sem tarefa; onze `filterX` planos em vez de `filters` JSON (corrige a minha própria generalização de 2026-11-16); `approvedBy`/`expiredBy` sem origem; vocabulário de status divergente; `numbers`/`quantity` colidem com o `ADR-0001` e com o `GLOSSARY`. Dashboard do founder vira `LTM-09`. | @po (Pax) |
 | 2026-11-17 | 1.3 | **Revalidada (2a) — NO-GO (5,5/10). Permanece `Draft`.** Das oito correções de 1.2, uma aplicada (AC3) e ela entrou contradizendo o `OUT`, que seguia proibindo tocar o `client_api.py`; **revoguei o OUT nesta validação**, restrito à linha 74. Seguem abertas: rota `product` singular, autenticação por token portador (3 incompatibilidades), os dez `filterX` planos, `approvedBy`/`expiredBy`/`eventId`/`price`/`discount`/`status` no AC1, AC de vocabulário de status, e a decisão `numbers`/`quantity` contra o `ADR-0001`. Corrigida minha imprecisão: eram dez `filterX`, não onze. | @po (Pax) |

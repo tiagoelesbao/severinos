@@ -125,6 +125,15 @@ Promoções · Alertas · Upsell · Anti Spam · Suporte · Capitalizadora · Re
 > O founder pediu *"15 ou 30"*. **30 existe nas duas**; 15 é invenção nossa. Paridade estrita manda
 > adotar as oito opções da Sorteamos — o que **remove** o 15. É decisão do founder, e está
 > registrada aqui em vez de ser resolvida por conta própria.
+>
+> ### ✅ Decidido em 2026-11-19 (**`D2`**): **adotar as oito, e o 15 sai**
+>
+> As oito viram o seletor do lotemania, com os rótulos desta coluna. O **default** passa de 15 para
+> **30** — o único valor nas duas listas, o que o founder nomeou, e o **medido em produção** (a
+> campanha ao vivo de 11-19 abriu a contagem em `29:17`, ver `fluxo-de-compra.md`).
+>
+> Conferido contra a faixa de `expiration_seconds` da Paysure (**60 a 86 400**): os oito cabem, e
+> **`1 Dia` dá exatamente 86 400 — o teto, sem folga nenhuma.** Aplicado na `LTM-17`.
 
 ### Aba Pagamento [OBSERVADO]
 
@@ -184,6 +193,20 @@ Império: eles se acumulam desde sempre porque não há como remover.
 > **Consequência direta para o lotemania:** se a paridade for estrita, o lotemania também não
 > ofereceria exclusão — o que é uma decisão de produto séria, não um detalhe copiado. E é o motivo
 > pelo qual o sorteio de teste **não pôde ser excluído** nesta sessão. Ver *§10*.
+>
+> ### ✅ Decidido em 2026-11-19 (**`D7`**): **o lotemania diverge e permite excluir sorteio sem vendas**
+>
+> > **Textual:** *"Permitir excluir sorteio sem vendas."*
+>
+> **Divergência deliberada**, a favor do operador: o caso de uso é o rascunho criado por engano.
+> *"Sem vendas"* foi definido na **`LTM-26`** como **zero pedidos em qualquer estado** — não "zero
+> pagos" — mais zero ganhadores, porque `pending` pode ser alguém pagando agora e `expired` é o
+> denominador do funil que o ETL lê.
+>
+> ⚠️ **Ao escrever a `LTM-26` descobriu-se que o lotemania JÁ exclui sorteio** —
+> `src/lib/actions/products.ts:211`, ligado à interface em dois lugares, **sem guarda nenhuma**. A
+> única coisa que impede apagar um sorteio com faturamento é uma chave estrangeira sem `onDelete`.
+> **A divergência já existia, indeclarada.** A `D7` a torna deliberada e segura.
 
 ---
 
@@ -260,6 +283,34 @@ Abre um painel sobre a barra, com:
 > **Não é decisão de engenharia, e não vou tomá-la por conta própria** — está registrado aqui,
 > nomeado pelo que é, para o founder decidir. Nenhuma das duas respostas é obviamente errada:
 > paridade é o pedido, e o risco é do negócio dele.
+>
+> ### ✅ Decidido em 2026-11-19 (**`D3`**): **replicar — é ferramenta do cliente**
+>
+> > **Textual:** *"Replicar, é ferramenta do cliente."*
+>
+> A `Porcentagem` sai do terreno de dúvida e entra no **escopo de construção**, no grupo C da
+> `LTM-18`. **O que ela é continua escrito acima, sem eufemismo** — é o registro que importa manter.
+>
+> **Sobre a `.claude/rules/claims-ledger.md`, sem moralizar:** a regra **continua valendo
+> integralmente para material que nós produzimos** — anúncio, DM, proposta, legenda, página. Esta é
+> **ferramenta de operação do cliente**, dentro do sistema dele, e **a decisão de usá-la é dele**.
+> Construir a ferramenta não é fazer a alegação.
+>
+> **O que permanece nosso:** o dado **gravado** continua sendo o real — o ajuste é camada de
+> **exibição**, nunca reescrita de `product_numbers` ou `orders`. A barra passa a poder mentir; o
+> banco não.
+>
+> ⚠️ **Ela atravessa três lugares, e construir um só não cumpre a decisão:** a barra na loja
+> (`showSalesProgressBar`, grupo **B** — e a barra sozinha é **honesta**), a persistência do ajuste e
+> da fixação (grupo **C** — é aqui que mora a decisão) e o controle no menu ⋮ da lista de compras
+> (item 4 de 14, **`LTM-11`**). Detalhado na `LTM-18`.
+>
+> ⚠️ **E ela não é campo de `product-settings.ts`**, então **não entra na conta dos 36** nem na
+> varredura do `AC1` da `LTM-18`. O grupo C passa a ser *11 campos + 1 ferramenta*.
+>
+> **Mesmo gênero, mesma leitura:** o `alertEnabled` (*"cronômetro de início e fim"* na página de
+> vendas, `editor-14-abas.md` §5) — cronômetro com prazo que não seja real cai sob a mesma regra, e
+> a mesma distinção se aplica.
 
 ---
 
@@ -367,18 +418,22 @@ nem de sessão: foi procurado em seis lugares e não existe.
 — *"o sorteio acabar ficando público e alguém de fato comprar"* — **não se materializou e não pode
 se materializar** enquanto a data de início estiver em 2027.
 
-### O que resta, e é do founder
+### ✅ Decidido pelo founder em 2026-11-19 (**`D5`**): **deixar como está**
 
-Três caminhos, nenhum urgente:
+> **Textual:** *"Deixar como está."*
 
-1. **Deixar como está.** Custo: uma linha a mais numa lista de 10.774, invisível ao público,
-   claramente nomeada `ZZ TESTE TECNICO - NAO COMPRAR`. É o caminho de menor risco.
-2. **Pedir a exclusão ao suporte da Sorteamos.** O painel orienta falar com o suporte por WhatsApp
-   para cadastrar banco; é plausível que exclusão siga o mesmo caminho. **Não foi tentado** — abrir
-   chamado no suporte do fornecedor do cliente é decisão dele, não minha.
-3. **Encerrá-lo**, se o estado `Encerrados` for alcançável a partir de `Em breve`. O seletor de
-   status **não abriu** para este sorteio; pode ser regra (agendado não encerra) ou pode ser que
-   encerrar exija a data chegar. [NÃO OBSERVADO]
+**Dos três caminhos que estavam aqui, sobrou um.** Ficam registrados os dois que caíram, com o motivo:
+
+| Caminho | Estado |
+|---|---|
+| **Deixar como está** | ✅ **a decisão.** Custo: uma linha a mais numa lista de 10.774, invisível ao público, claramente nomeada `ZZ TESTE TECNICO - NAO COMPRAR`. É o caminho de menor risco |
+| ~~Pedir a exclusão ao suporte da Sorteamos~~ | ❌ **fora.** Abrir chamado no suporte do fornecedor **do cliente** era decisão dele, e ele decidiu não abrir |
+| ~~Encerrá-lo~~ | ❌ **fora.** E continuava `[NÃO OBSERVADO]`: o seletor de status **não abriu** para este sorteio — pode ser regra (agendado não encerra) ou exigir a data chegar |
+
+**O motivo da decisão é o achado do §2 deste documento: a Sorteamos não exclui sorteio**, procurado
+em seis lugares. Não há como apagá-lo, e os dois contornos custam mais do que a linha custa.
+
+Registrado também na `LTM-19`, que é onde o protocolo de observação vive.
 
 ### A lição que fica para a `LTM-19`
 

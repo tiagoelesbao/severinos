@@ -161,6 +161,34 @@ centro, **total correndo** à direita. **Acima dela**, uma pílula com **cada n�
 > no momento da compra. O aceite não é detalhe: a letra miúda enquadra a compra como **título de
 > capitalização**.
 
+#### ❓ Pergunta em aberto — o telefone aqui, depois da `D9` (2026-11-19)
+
+A decisão **D9** do founder foi: **telefone inteiro, mas só na tela do próprio pedido**
+(`/compra/{orderId}`); o **cartão de ganhador continua mascarado**. A razão da divisão é *quem está
+vendo o dado de quem*: a tela do pedido mostra o dado **da própria pessoa, para ela mesma**; o cartão
+de ganhador é página **pública** com dado de **terceiro**.
+
+**Pelo critério da D9, este modal cai do mesmo lado da tela do pedido:**
+
+| | Tela do pedido | **Modal de Checkout** | Cartão de ganhador |
+|---|---|---|---|
+| De quem é o dado | da própria pessoa | **da própria pessoa** | de terceiro |
+| Quem vê | ela mesma, autenticada | **ela mesma, autenticada** | qualquer um, página indexável |
+| D9 decidiu | **inteiro** | **não nomeada** | **mascarado** |
+
+> ⛔ **Não está decidido, e não foi estendido por dedução.** A D9 nomeou **só a tela do pedido**, e o
+> founder não falou deste modal. Materialmente é o mesmo caso — mesma pessoa, mesmo dado, mesma
+> autenticação, só **antes** de o pedido existir — mas *"materialmente o mesmo"* não é *"decidido"*,
+> e esta base já pagou por estender decisão de founder além do que ela dizia.
+>
+> **A pergunta é de uma linha:** *"o telefone inteiro vale também no modal de Checkout, antes de o
+> pedido existir?"* Fica registrada aqui e em §4 do epic. **Até a resposta, o modal segue o que a
+> Sorteamos faz: `(DD) 9****-****`** — paridade é o default correto na ausência de decisão.
+>
+> ⚠️ **E a mesma incoerência da tela do pedido aparece aqui:** o **nome** segue mascarado e o
+> telefone (se a resposta for "sim") não. O founder falou de número, não de nome. Duas perguntas,
+> não uma.
+
 ### 4.3 O erro de conflito **nomeia o número**
 
 Observado ao vivo, quando outra pessoa tomou o número entre a seleção e o envio:
@@ -183,6 +211,8 @@ tomado continuou pintado como livre e os contadores não mudaram. É defeito del
 - [ ] Tela de **Cadastro** com os 14 campos, incluindo endereço e UF/Cidade dependentes.
 - [ ] Separar **`requiredFields` da reserva** dos **campos do cadastro** — são dois conjuntos.
 - [ ] **Modal de Checkout** entre a grade e o pagamento.
+      ⚠️ **O telefone exibido aqui é pergunta em aberto depois da `D9`** — ver §4.2. Até a resposta,
+      **paridade**: `(DD) 9****-****`.
 - [ ] Mensagem de conflito **nomeando os números** perdidos.
 - [ ] A grade **se atualiza** depois do conflito (divergir da Sorteamos, a favor do comprador).
 
@@ -291,4 +321,5 @@ Depends-on: LTM-18 (separacao de requiredFields)
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-19 | 1.1 | **Registrada pergunta em aberto no modal de Checkout, aberta pela decisão `D9`.** A D9 decidiu **telefone inteiro só na tela do próprio pedido**, mantendo o cartão de ganhador mascarado — e o critério dela (*quem está vendo o dado de quem*) põe **este modal do mesmo lado da tela do pedido**: dado da própria pessoa, para ela mesma, autenticada. **Mas a D9 não o nomeou, e não foi estendida por dedução.** A pergunta está escrita em §4.2 com a tabela de três colunas que a torna respondível em uma linha, e o default até a resposta é **paridade** (`(DD) 9****-****`). Registrada também a mesma incoerência da tela do pedido: o founder falou de **número**, não de **nome** — então são **duas** perguntas, não uma. **Nada de código mudou nesta edição.** | @pm (Morgan) |
 | 2026-11-19 | 1.0 | Nasce de relato do founder, e **tudo foi observado ao vivo no mesmo dia** com autorização dele: menu nas duas formas, login como modal por telefone, cadastro de 14 campos com endereço completo, e o modal de Checkout que falta entre a grade e o pagamento. Dois achados mudam o modelo: o endereço obrigatório **não está** em `requiredFields` (são dois conjuntos, e o lotemania trata como um), e o cadastro cria **senha** enquanto o login pede **telefone**. | @aiox-master |

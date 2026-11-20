@@ -15,14 +15,18 @@ O lotemania é a sucessora da Sorteamos: mesma operação, plataforma própria, 
 
 ## Status — 2026-11-19
 
-**A fundação saiu do papel.** Em três dias o caminho do dinheiro passou de andaime a código commitado e testado: seis stories entregues, **263 testes verdes contra Postgres real** (eram zero), `lint`/`typecheck`/`build` em 0. O que trava agora **não é mais a fundação** — são duas coisas: um defeito P0 em implementação (`LTM-20`) e **sete decisões que esperam o founder**.
+**A fundação saiu do papel.** Em três dias o caminho do dinheiro passou de andaime a código commitado e testado: seis stories entregues, **263 testes verdes contra Postgres real** (eram zero), `lint`/`typecheck`/`build` em 0. O que trava agora **não é mais a fundação** — é um defeito P0 em implementação (`LTM-20`) e a superfície que o sorteio de teste exige.
+
+**As sete decisões que esperavam o founder foram respondidas em 2026-11-19** (§4), mais duas que nem estavam na lista. Três delas **criaram story nova** — `LTM-24`, `LTM-25`, `LTM-26`. A `LTM-25` nasceu travada e **foi destravada no mesmo dia**: o founder decidiu sobre ela sem saber que a proteção em questão já estava construída, foi avisado, e **confirmou**.
 
 | A pergunta | A resposta curta | Onde |
 |---|---|---|
 | O que já funciona? | reserva atômica, fechamento de pedido, PIX na Paysure, meia cota no domínio, suíte real, migração versionada | §1 |
-| O que falta para o **sorteio de teste**? | `LTM-20` (defeito P0), `LTM-08`, `LTM-14`, `LTM-17`, `LTM-18` grupo A, `LTM-21` — e o `ci`/`cs` do cliente | §2 |
-| O que falta para a **paridade total**? | o inventário (`LTM-19`) primeiro; depois 9 stories de superfície e as 36 chaves inertes | §3 |
-| Que decisões estão **esperando o founder**? | sete, e duas delas mudam escopo de verdade | §4 |
+| O que falta para o **sorteio de teste**? | `LTM-20` (defeito P0), `LTM-08`, `LTM-14`, `LTM-17`, `LTM-18` grupo A, `LTM-21`, **`LTM-27`** — e o `ci`/`cs` do cliente | §2 |
+| Qual a lacuna **nova**, de 11-19? | **não existe como registrar ganhador.** O rateio da `LTM-07` está escrito e **ninguém o chama** | §2-A |
+| O que falta para a **paridade total**? | o inventário (`LTM-19`) primeiro; depois 12 stories de superfície e as 36 chaves inertes | §3 |
+| O que o founder **decidiu** em 11-19? | **nove** decisões, três delas viram story nova | §4 |
+| O que **continua** pendente dele? | **três**, e duas são de uma linha: a identidade visual, o nome na tela do pedido, e o telefone no modal de Checkout | §4 |
 
 ---
 
@@ -59,6 +63,7 @@ Fonte: leitura direta do código em 2026-11-19 (`find`/`grep` sobre `apps/lotema
 | API de leitura para o ETL | não existe | **ainda não existe** — só `auth/*` e o webhook |
 | Editor de sorteio | não medido | **45 campos, 36 sem nenhum leitor** |
 | Reserva vencida | não medido | **não volta ao estoque** — `LTM-20`, P0, em implementação |
+| **Registro de ganhador** | não medido | **domínio pronto, acionador inexistente** — `recordWinnersForDrawnTitle` só é importado por um teste. `LTM-27`, P0 (§2-A) |
 
 Deixou de ser andaime. É um caminho do dinheiro completo que ainda **não recebeu dinheiro real**.
 
@@ -90,9 +95,41 @@ A meta mais próxima continua sendo **um sorteio de teste do Império rodando no
 | 3 | **`LTM-14`** · o fluxo de compra | É a tela que o comprador vê depois de pagar. Sem ela o ciclo não fecha | P0 |
 | 4 | **`LTM-21`** · a loja do comprador | Entrar e se cadastrar. Sem ela não há por onde entrar comprador novo | P0 |
 | 5 | **`LTM-18` grupo A** | O operador configura o sorteio de teste nesta tela, e ela **aceita qualquer coisa sem obedecer** | P0 |
-| 6 | **`LTM-17`** · relógio da reserva | Pedido direto do founder. Depende da decisão **D3** (§4) | P1 |
+| 6 | **`LTM-17`** · relógio da reserva | Pedido direto do founder. **Destravada** pela decisão **D2** de 11-19 (§4): adota as 8 janelas da Sorteamos e remove o 15 | P1 |
 | 7 | **`LTM-01`** fechar AC2/AC3/AC5 | Os ACs de carga exigem base de 1 milhão de linhas. AC1 e AC7 já foram provados contra Postgres real em branch efêmera | P0 |
-| 8 | **`ci`/`cs` do Império** | **Externo.** Trava o primeiro pagamento real (portão **G5**), não a implementação | bloqueio do cliente |
+| 8 | **`LTM-27`** · **registrar o ganhador** | **Não existe como registrar ganhador no lotemania.** O rateio da `LTM-07` está escrito e **ninguém o chama** — ver §2-A | **P0** |
+| 9 | **`ci`/`cs` do Império** | **Externo.** Trava o primeiro pagamento real (portão **G5**), não a implementação | bloqueio do cliente |
+
+### 2-A. A lacuna que o ensaio geral descobriu — **`LTM-27`**
+
+O ensaio da corrente ponta a ponta (`docs/stories/03-Product/EPIC-LTM-Imperio-Migration/ENSAIO-GERAL.md`, commit `34100633`) encontrou o elo que falta, e ele não está no meio da corrente — **está no fim**.
+
+**Não existe caminho de produção que registre um ganhador.** Medido no código em 2026-11-19:
+
+| | |
+|---|---|
+| A função existe | `recordWinnersForDrawnTitle` — `src/lib/raffles/winners.ts:68` |
+| O rateio existe | `splitPrizeAmongHalves` — `src/lib/raffles/prize-split.ts:77`, chamado em `winners.ts:204` |
+| A escrita existe | `insert(winners)` — `winners.ts:211` |
+| A loja **já lê** os ganhadores | `loja/[tenant]/ganhadores/page.tsx:34` e `loja/[tenant]/[productSlug]/page.tsx:63` |
+| **Quem chama a função, em produção** | **ninguém.** O **único** importador em todo o repositório é um teste: `tests/money-path/half-quota-domain.test.ts:42` |
+
+**Então o estado é este:** o domínio do prêmio foi entregue pela `LTM-07` — `winners.winning_half`, `prizeKind`/`prizeAmount`, geração por unidade, rateio da metade órfã — **e não tem acionador**. Nenhuma tela, nenhuma server action, nenhuma rota. A loja tem duas páginas que consultam `winners` e **que sempre mostrariam vazio**.
+
+> **Por que isto é P0 e não P1.** O sorteio de teste tem a meia cota como objetivo declarado do founder, e **o prêmio rateado é a razão pela qual a meia cota existe** (`ADR-0001`: *metade órfã → quem tem a metade vendida leva o prêmio inteiro*; *uma linha de `winners` por pessoa, valor já rateado*). Sem acionador, **o ensaio ponta a ponta termina no encerramento do sorteio — que é meio sorteio.** Vende, cobra, fecha o pedido, e não entrega o prêmio a ninguém.
+>
+> E é a mesma classe de defeito que esta frente já catalogou três vezes (`LTM-17`, tabela das três ocorrências) com um grau a mais: ali eram **campos de configuração sem leitor**; aqui é **domínio de negócio sem acionador**. A `LTM-18` cunhou a frase que serve: *controle ausente é falta de paridade; controle inerte é informação falsa.* Uma loja que anuncia uma seção de ganhadores permanentemente vazia é a versão pública disso.
+
+**A story está sendo escrita agora pelo agente que fez o ensaio**, modelada nas telas da Sorteamos que o founder enviou. O que este epic registra é o **lugar dela**: `LTM-27`, **P0 da Frente A**, e o que ela tem de alcançar:
+
+- o acionador que falta — a tela/ação do operador que o `Definir ganhadores` da Sorteamos ocupa (menu ⋮ da linha do sorteio, item 4 de 4 — `README.md` §2 do inventário);
+- chamar `recordWinnersForDrawnTitle` **de produção**, não de teste;
+- fazer as duas páginas de loja que já leem `winners` passarem a ter o que mostrar.
+
+⚠️ **Duas arestas já conhecidas, para a story não as descobrir no meio:**
+
+1. **`Definir ganhadores` é ação mutante na Sorteamos** e **nunca foi observada por dentro** — ela cria ganhador. A `LTM-19` registra que o sorteio de observação existe e **continua no ar pela decisão `D5`**, então há instrumento para observá-la. **`AC7` da `LTM-18` vale aqui:** nada de comportamento inventado no caminho do prêmio.
+2. **`winners.product_id` tem `onDelete: "cascade"`** (`raffles.ts`), e a **`LTM-26`** depende disso: excluir sorteio apagaria ganhador em silêncio. As duas stories se encontram nessa linha, e o `AC5` da `LTM-26` já a nomeia.
 
 **O que não bloqueia o sorteio de teste:** `LTM-04` (atribuição e API), `LTM-09` (BI da frente nova), `LTM-06` (bordas de sessão) e toda a Frente B de paridade. Eles bloqueiam **o corte**.
 
@@ -114,9 +151,12 @@ O mandato de 2026-11-18 é *"absolutamente tudo"* (§5). O que torna isso finito
 | **`LTM-18`** | os 36 controles inertes do editor, em três grupos: A (ligar), B (8 telas), C (11 features) | P0 | `Draft` |
 | `LTM-21` | a loja do comprador: entrar, cadastrar, navegar | P0 | `Draft` |
 | **`LTM-22`** | verificação do telefone por SMS — **pós-lançamento por decisão do founder** | P3 | `Draft` |
-| `LTM-04` | atribuição por pedido + API de leitura — **é o portão G3** | P0 | `Draft` |
+| `LTM-04` | atribuição por pedido + API de leitura — **é o portão G3**. **Cresceu em 11-19** (decisão **D8**): a tela de Analytics e os **13** campos de `params` entram no escopo | P0 | `Draft` |
 | `LTM-09` | BI próprio da frente nova (`ADR-0002`) | P1 | `Draft` |
 | `LTM-06` | as duas bordas de sessão que ficaram abertas | P1 | `Draft` |
+| **`LTM-24`** | **o adaptador do segundo gateway** — decisão **D1** de 11-19. Irmã da `LTM-03b`, sobre o arcabouço da `LTM-03a`. A primeira tarefa é **descobrir qual é o provedor** | **P0** | `Draft` |
+| **`LTM-25`** | **remover o mascaramento do dado pessoal do aviso** — decisão **D6** de 11-19, **confirmada**. Vale executar **antes do primeiro aviso real** | P2 | `Draft` |
+| **`LTM-26`** | **excluir sorteio sem vendas** — decisão **D7** de 11-19. **Diverge da Sorteamos de propósito** | P2 | `Draft` |
 
 **Fora deste epic, mas acoplado a ele:** `docs/stories/02-Platform/OPS-01-tarefas-agendadas-cegas.md` — as tarefas agendadas do ETL reportam sucesso enquanto falham. Importa aqui porque a evidência do portão **G3** (janela de leitura dupla) é produzida por esse mesmo agendamento. Um pipeline que mente sobre falhar não serve de prova de nada.
 
@@ -130,19 +170,70 @@ Três coisas que o inventário de 2026-11-18 revelou e que mudam tamanho, não d
 
 ---
 
-## 4. Decisões esperando o founder
+## 4. As decisões do founder — nove respondidas em 2026-11-19
 
-Nenhuma destas é escolha de engenharia. Estão aqui nomeadas pelo que são, com o que já foi medido sobre cada uma, para serem decididas em vez de descobertas no corte.
+As sete decisões que esperavam o founder foram respondidas, mais duas que não estavam nesta seção: a grade da loja (**D4**) e o mascaramento do telefone na tela do pedido (**D9**). **A seção deixou de ser uma fila de espera e passou a ser um registro.**
 
-| # | Decisão | O que está medido | O que depende dela |
-|---|---|---|---|
-| **D1** | **A segunda rota de pagamento.** O Império **não roda tudo na Paysure** | O BR Code de uma rodada observada ao vivo aponta para **`pix.banprime.com.br`**. O painel tem **dois** bancos cadastrados — `Banco paysure` e `PAY2M` — e a escolha é **por sorteio, obrigatória na criação** | Se as duas rotas precisam continuar, **falta um adaptador** que ninguém escreveu. Muda o escopo da Frente A e o portão **G5** |
-| **D2** | **A barra de progresso editável** (`Porcentagem`) | Na Sorteamos, o operador ajusta e **fixa** a porcentagem de vendas exibida ao comprador, diferente da real | Replicar é **construir deliberadamente prova social fabricada**, e colide com `.claude/rules/claims-ledger.md`. O mandato manda replicar tudo; o risco é do negócio do cliente |
-| **D3** | **O relógio da reserva** | Sorteamos: 3, 4, 5, 10, **30** min, 1 h, 3 h, 1 dia (oito). lotemania: 10, **15**, 30, 60, 120 (cinco). **O 15 é invenção nossa** — não existe na Sorteamos. O founder pediu *"15 ou 30"*; **30 existe nas duas** | Paridade estrita adota as oito e **remove o 15**. É o AC1 da `LTM-17` |
-| **D4** | **Exclusão de sorteio** | **A Sorteamos não exclui sorteio** — procurado em seis lugares. Um sorteio criado é permanente para o operador. É o que explica os **10.774** sorteios na conta do Império | Paridade estrita significa o lotemania **também** não oferecer exclusão. É decisão de produto séria, não detalhe copiado |
-| **D5** | **Identidade visual (B1) e Analytics (B2)** | A identidade da Sorteamos **é o Minimal UI**, template admin comercial com paleta verde por cima (provado pelos `ic_*.svg`, pela Public Sans e pela rota de demonstração deixada no bundle). A tela `/dashboard/analytics` exibe **dados fictícios do template, intocados** — "Bug Reports 234", Jan '03 a Oct '03 | B1: adotar o mesmo template, ou tratar "idêntico" como "equivalente em função". B2: clonar andaime não é paridade — construir analytics de verdade ou remover o item do menu |
-| **D6** | **Retenção do dado pessoal do aviso de pagamento** | `payer_name` e `payer_document` (**CPF**) chegam no corpo do aviso da Paysure, e o corpo inteiro é gravado em `payment_webhook_events.payload` | Portão **G7**. Precisa ser decidido **antes do primeiro aviso real**, não depois |
-| **D7** | **O sorteio de teste deixado na Sorteamos** | `ZZ TESTE TECNICO - NAO COMPRAR` existe, privado, agendado para **18/11/2027**, sem caminho de compra. **Não pôde ser excluído porque a Sorteamos não exclui** | Três caminhos: deixar como está (menor risco), pedir ao suporte do fornecedor, ou encerrar. Abrir chamado no fornecedor **do cliente** é decisão dele |
+> ### ⚠️ A numeração mudou, e confundir as duas custa escopo
+>
+> O founder respondeu numerando de **D1 a D8** na ordem em que as perguntas lhe foram feitas — que **não é** a ordem em que esta seção as listava. A tabela abaixo é a numeração **dele**, que passa a ser a canônica, com a antiga ao lado. Qualquer referência a *"D3"* escrita antes de 2026-11-19 neste repositório significa **o relógio da reserva**, que hoje é a **D2**.
+
+| # | Era | A decisão | **A resposta, 2026-11-19** | Onde aterrissa |
+|---|---|---|---|---|
+| **D1** | D1 | A segunda rota de pagamento. O Império **não roda tudo na Paysure** | **Construir o segundo adaptador** | **`LTM-24`** (nova). Portão **G5** passa a exigir evidência **por rota contratada** |
+| **D2** | D3 | O relógio da reserva — Sorteamos tem oito valores, lotemania tem cinco, e **o 15 é invenção nossa** | **Adotar as 8 da Sorteamos** (3, 4, 5, 10, 30 min, 1 h, 3 h, 1 dia) — **remove o 15** | `LTM-17`: muda o seletor, o default e o AC da faixa da Paysure |
+| **D3** | D2 | A barra de progresso editável (`Porcentagem`) | **Replicar — é ferramenta do cliente** | `LTM-18`, grupo **C** (era terreno de dúvida; vira escopo de construção) |
+| **D4** | — | As colunas da grade da loja. **Medi 7** em duas campanhas de 100 números; a instrução de 11-17 era 6 | **Manter 6 colunas** | `loja-comprador.md`. A hipótese da grade responsiva **continua não confirmada** e **deixa de ser bloqueio** |
+| **D5** | D7 | O sorteio de teste deixado na Sorteamos (`ZZ TESTE TECNICO`), que não pôde ser excluído porque a Sorteamos não exclui | **Deixar como está** | `LTM-19` e `README.md` §10 do inventário. Dos três caminhos, sobrou um |
+| **D6** | D6 | Retenção do CPF e do nome do pagador que chegam no aviso de pagamento | **Igual à Sorteamos, sem mascarar nada** — e **confirmado** depois de ser avisado de que isso significa remover proteção já entregue | **`LTM-25`** (nova). ✅ **Destravada** — ver abaixo |
+| **D7** | D4 | Exclusão de sorteio — a Sorteamos **não exclui**, e é o que explica os 10.774 sorteios na conta | **Permitir excluir sorteio sem vendas** — diverge da Sorteamos **a favor do operador** | **`LTM-26`** (nova) |
+| **D8** | D5 (metade B2) | Analytics / atribuição | **Junto com a `LTM-04`, antes do corte** | `LTM-04`: a tela de Analytics entra no escopo, e com ela os **13** campos de `params` |
+| **D9** | — | Mascaramento do **telefone** do comprador. A paridade aqui aponta para o lado **contrário**: a Sorteamos **mascara** nas duas telas públicas | **Telefone inteiro, mas só na tela do próprio pedido.** Cartão de ganhador **continua mascarado** | `LTM-14` (AC5, em implementação). Pergunta em aberto no modal de Checkout da `LTM-21` |
+
+### A D6 foi confirmada, e isso merece ficar escrito
+
+O founder respondeu *"igual à Sorteamos, sem mascarar nada"* **antes** de saber que o mascaramento **já existia, já estava implementado e já estava coberto por teste** desde a `LTM-03a` (`src/lib/payments/redact.ts`, `AC-G2`, marcado `[x]`). Ele foi informado disso **depois** de responder, com todas as letras: a decisão não é *"deixar de construir uma proteção"* — é **remover uma proteção entregue**, e ele podia reverter sem custo nenhum.
+
+> **Ele manteve a decisão:** *"pode remover o mascaramento, confirmo a decisão do CPF."*
+>
+> **A `LTM-25` está destravada.** E o registro do desdobramento **fica no corpo dela**, não resumido aqui: é o que distingue uma decisão tomada de um descuido, e é a resposta pronta para quem reabrir o assunto num gate de QA ou numa revisão de segurança.
+
+### A D9, e por que ela divide as duas telas
+
+O founder pediu também remover o mascaramento **do telefone**. A pergunta de volta foi **onde**, porque aqui a paridade aponta para o lado contrário: a Sorteamos **mascara** nas duas telas, em **dois formatos distintos** (medido três vezes), e remover nos deixaria expondo **mais** que a plataforma que estamos substituindo.
+
+| Tela | Antes | **Depois da D9** |
+|---|---|---|
+| `/compra/{orderId}` — o próprio pedido | `(DD) 9****-****` | **telefone inteiro** |
+| Cartão de ganhador — loja pública | `(DD) ****-****` | **continua mascarado** |
+
+**A razão da divisão é a melhor parte da decisão, e vale escrever:** a tela do pedido mostra o dado **da própria pessoa, para ela mesma** — ela já sabe o próprio telefone, e esconder metade dele dela mesma não protege ninguém. O cartão de ganhador é **página pública e indexável**, expondo **terceiros que não escolheram aparecer**. A D9 separa as duas pelo que de fato importa: **quem está vendo o dado de quem.**
+
+> ⚠️ **E sobra uma incoerência que alguém vai topar com ela, então está aqui em vez de escondida:** na tela do pedido o **nome continua mascarado** (`Tiago ***`) e o **telefone passa a estar inteiro**. **Mesma pessoa, mesma linha, um escondido e o outro à mostra.**
+>
+> O founder falou de **número**, não de nome, e **o que ele não disse não foi estendido**. É uma pergunta de uma linha para ele — *"o nome também?"* — e fica visível em vez de resolvida por dedução.
+
+#### Nota de reconciliação — o `AC5` da `LTM-14` (escrita aqui de propósito)
+
+A `LTM-14` está **em implementação agora**, com o @dev escrevendo o Dev Record dela. O `@pm` **não toca o arquivo da story** enquanto isso (`.claude/rules/parallel-waves.md`: o arquivo tem dono). Então a mudança que a D9 provoca nela fica registrada **aqui**, para ser reconciliada quando ele terminar:
+
+| | |
+|---|---|
+| **O que muda** | o `AC5` da `LTM-14` deixa de exigir telefone mascarado na tela do pedido e passa a exigir **telefone inteiro** |
+| **Onde, no código** | **uma** chamada: `maskPhoneKeepingNinth` em `src/app/loja/[tenant]/[productSlug]/pedido/[orderId]/order-view.ts:220` |
+| **O que NÃO muda** | `maskName` na linha `:219` — o nome segue mascarado (`Tiago ***`), e é a incoerência registrada acima |
+| **O que NÃO muda, parte 2** | `src/lib/mask.ts` continua existindo, e o **cartão de ganhador** continua usando a máscara `(DD) ****-****` |
+| **Quem reconcilia** | o agente que coordena, quando a `LTM-14` sair de implementação |
+
+> ⚠️ **E isto não é a `LTM-25`.** As duas decisões chegaram no mesmo dia e as duas são *"parar de mascarar"*, mas são **mecanismos diferentes em arquivos diferentes**: a **D6** é **retenção** em `payment_webhook_events.payload` (`src/lib/payments/redact.ts`); a **D9** é **exibição** na tela do pedido (`src/lib/mask.ts`). **Não há sobreposição de arquivo entre elas**, e fundi-las removeria a máscara do cartão de ganhador — página pública, dado de terceiro, que **nenhuma das duas decisões autorizou**.
+
+### O que ainda está pendente dele — três coisas
+
+**1. A identidade visual (a metade B1 da antiga D5).** A D8 respondeu a metade *Analytics*; a metade *identidade visual* **não foi perguntada e não foi respondida**. A identidade da Sorteamos **é o Minimal UI** — template admin comercial com paleta verde por cima, provado pelos `ic_*.svg`, pela Public Sans e pela rota de demonstração `/user/reece-chung/edit` deixada no bundle. Adotar o mesmo template, ou tratar *"idêntico"* como *"equivalente em função"*? Enquanto não houver resposta, a divergência de tokens medida em `2026-11-17-paridade-visual-loja.md` (`--background`, `--card`, `--primary`, `--font-sans`) fica registrada e **não é corrigida por palpite**.
+
+**2. O nome na tela do pedido** — a incoerência da D9, acima. Uma linha.
+
+**3. O modal de Checkout.** Ele mostra **o mesmo telefone mascarado**, para **a mesma pessoa, antes de o pedido existir** — é materialmente o mesmo caso da tela do pedido, e a D9 nomeou **só a tela do pedido**. **Não foi decidido por extensão**, e está registrado como pergunta na `LTM-21`.
 
 ### Uma decisão já tomada, com uma consequência que fica aberta
 
@@ -159,6 +250,7 @@ Nenhuma destas é escolha de engenharia. Estão aqui nomeadas pelo que são, com
 | **2026-11-16** | A meta deixa de ser paridade e passa a ser **sorteio de teste rodando**, com a meia cota. Só `paysure`. Frente B desce de prioridade | **Parcialmente superada.** O sorteio de teste continua sendo a meta mais próxima (§2). O "só paysure" foi **medido falso como premissa** — ver §6.1. A despriorização da Frente B foi revertida em 11-18 |
 | **2026-11-18** | *"quero que implemente **todas as 36 features** e **tudo que tem na Sorteamos** — absolutamente tudo deve ser replicado"*. Os sorteios hoje no lotemania são **descartáveis** | **Vigente.** Frente B volta a ser o mandato. O portão **G8** é o teste que encerra a lista. `LTM-19` é a primeira entrega |
 | **2026-11-19** | **SMS fica para depois do lançamento** (`LTM-22`). Login por telefone + senha | **Vigente.** E traz a consequência do telefone não verificado (§4) |
+| **2026-11-19** | **As nove decisões de §4.** Segundo adaptador: construir. Janelas de reserva: as 8 da Sorteamos, sem o 15. `Porcentagem`: replicar. Grade: 6 colunas. Sorteio de teste na Sorteamos: deixar. CPF: igual à Sorteamos, sem mascarar. Exclusão de sorteio: permitir sem vendas. Analytics: junto com a `LTM-04`. **Telefone inteiro, só na tela do próprio pedido** | **Vigente, e a ressalva fechou:** a decisão do CPF foi tomada sem a informação de que o mascaramento já existia — o founder foi avisado e **confirmou**. Três stories novas: `LTM-24`, `LTM-25`, `LTM-26`. **Duas perguntas de uma linha sobraram** (o nome na tela do pedido; o telefone no modal de Checkout) |
 
 **Por que os sorteios descartáveis importam mais do que parece.** Era o risco **[Alto]** da `LTM-18`: sorteio existente tem configuração gravada que **nunca teve efeito**, e ligar os leitores faria esses valores passarem a valer de repente — um `maxPerBuyer = 1` salvo por engano recusaria a segunda compra de todo mundo. A decisão **elimina o risco inteiro**, não o mitiga: sem sorteio real no banco, não há configuração herdada para obedecer. E **tem prazo**: vale até o primeiro sorteio de verdade existir. É o mesmo tipo de liberdade que a ausência de venda real deu ao modelo de dados em 11-16 — e aquela janela **já foi usada** pelo `ADR-0001`.
 
@@ -186,7 +278,9 @@ A metade é uma **linha**, não uma coluna. `product_numbers` tem uma linha por 
 
 Cada item abaixo era afirmação deste documento. Está aqui porque apagar em silêncio uma afirmação errada é perder a razão pela qual ela era crível.
 
-1. **"Só a `paysure` importa"** *(B3, decisão de 2026-11-16)* — **errada como premissa, não como decisão.** O founder decidiu reduzir o escopo de 19 gateways para um; o que o epic supôs em seguida é que a Paysure **cobre a operação do Império**. Não cobre: o BR Code de uma rodada observada ao vivo em 2026-11-19 aponta para `pix.banprime.com.br`, e o painel tem `Banco paysure` **e** `PAY2M`. A `LTM-03b` entregou a Paysure; se as duas rotas continuam, **falta um adaptador** (decisão **D1**).
+1. **"Só a `paysure` importa"** *(B3, decisão de 2026-11-16)* — **errada como premissa, não como decisão.** O founder decidiu reduzir o escopo de 19 gateways para um; o que o epic supôs em seguida é que a Paysure **cobre a operação do Império**. Não cobre: o BR Code de uma rodada observada ao vivo em 2026-11-19 aponta para `pix.banprime.com.br`, e o painel tem `Banco paysure` **e** `PAY2M`. A `LTM-03b` entregou a Paysure; faltava um adaptador, e a decisão **D1** de 11-19 mandou construí-lo (**`LTM-24`**).
+
+   > **E há uma segunda metade desta, descoberta ao escrever a `LTM-24`:** `pay2m` **já está nas duas listas de provedores** (`src/db/schema/payments.ts:132` e `src/lib/validations/payment-gateway.ts:38`) e **já tem adaptador atribuído** — o HMAC genérico, por `LEGACY_HMAC_SPEC`. Ou seja: não é um provedor recusado em voz alta esperando adaptador, como a `paysure` era. É um provedor **que o sistema acha que sabe falar**, com um esquema de autenticidade que ninguém leu da documentação de ninguém. É pior que o estado anterior da `paysure`, porque o `unsupported_provider` era honesto.
 
 2. **"A `LTM-07` não toca `reserve.ts`"** — **errada.** Esse recorte foi o argumento que tirou a `LTM-07` da onda 2 e a pôs na onda 3. Na implementação, o @dev precisou de **uma linha** em `reserve.ts` para o AC7 passar (preço indivisível, que `reserve.ts:264-267` delegava à `LTM-07` sem a story mencionar). O recorte sobreviveu por **sorte** — as duas não rodaram juntas —, mas a premissa que formou a onda era falsa. Serializar `reserve.ts` por ondas deixou de ser precaução e passou a ser a regra (§8).
 
@@ -196,7 +290,9 @@ Cada item abaixo era afirmação deste documento. Está aqui porque apagar em si
 
 5. **A tabela de estado de 2026-11-16** — **envelhecida inteira**, e isso é o processo funcionando. "Zero índice", "zero transação", "zero teste", "zero migração", "o webhook é um `TODO`", "`paysure` não existe em nenhuma das duas listas": **todas falsas hoje**. Ficam registradas em §1 como coluna "antes", porque são a linha de base contra a qual o progresso se mede.
 
-6. **"Frente B: 3 decisões pendentes (B1/B2/B3)"** — B3 era decisão **já tomada** (e agora corrigida pelo item 1). Pendentes são B1 e B2, hoje consolidadas em **D5**.
+6. **"Frente B: 3 decisões pendentes (B1/B2/B3)"** — B3 era decisão **já tomada** (e agora corrigida pelo item 1). B2 (Analytics) foi respondida em 11-19 pela decisão **D8**. **B1 (identidade visual) continua pendente** — é um dos dois itens abertos em §4.
+
+7. **"A grade do lotemania tem 6 colunas"** — **meia verdade, e a metade falsa é a que o comprador vê no desktop.** `number-grid.tsx:119` é `grid grid-cols-6 gap-1.5 sm:grid-cols-10`: **6 no celular, 10 a partir de `sm`**. A instrução de 11-17 foi *"primeiro quero apenas 6 colunas conforme modelo original"*, e a decisão **D4** de 11-19 foi **manter 6** — mas 6 só vale abaixo de 640px, e acima dela a grade tem **dez**. A loja da Sorteamos é **desenhada para o celular e apenas centralizada no desktop** (`loja-comprador.md`), o que torna o `sm:grid-cols-10` uma divergência própria, **nunca observada do outro lado**. Registrado, não corrigido: corrigir é mudar a loja por dedução, e o `grid-cols-10` pode ter sido escolha deliberada de quem importou. **A `D4` fecha a pergunta de 6 contra 7; não fecha a de 6 contra 10.**
 
 ### Correções de rumo que já se fecharam
 
@@ -231,8 +327,14 @@ LTM-00 (compila) ✅ ──► LTM-01 + LTM-05 ✅ ──► LTM-02 ✅ ──�
                                                         └──► LTM-07 ✅
 AGORA:  LTM-20 (defeito P0, sozinha)
         ├─► depois, EM SÉRIE: LTM-04 → LTM-17 → LTM-21 → LTM-18 grupo A
-        └─► EM PARALELO (arquivos disjuntos): LTM-08, LTM-14, LTM-16, LTM-09, LTM-19
+        ├─► EM PARALELO (arquivos disjuntos): LTM-08, LTM-14, LTM-16, LTM-09, LTM-19, LTM-24
+        └─► EM SÉRIE entre si (dashboard/products + winners): LTM-27 → LTM-26
 ```
+
+> **`LTM-27` vem antes da `LTM-26`**, e não é só por arquivo: a `LTM-26` tem um AC (`AC5`) sobre
+> **não excluir sorteio com ganhador**, e hoje ele só é testável semeando `winners` à mão, porque
+> nenhum caminho de produção cria a linha. Com a `LTM-27` entregue, esse AC passa a ser exercitável
+> pelo caminho real — e o `AC5` deixa de ser teórico.
 
 ### `reserve.ts` é o recurso disputado — e isso define as ondas
 
@@ -259,6 +361,11 @@ AGORA:  LTM-20 (defeito P0, sozinha)
 | Paralela | **`LTM-14`** (telas do fluxo de compra) | ⚠️ toca `pedido/[orderId]/page.tsx`, compartilhado com `LTM-17` |
 | Paralela | **`LTM-09`** (`services/Meta/`, `apps/BI/`) | três árvores disjuntas de `apps/lotemania/`; `ADR-0002` |
 | Paralela | **`LTM-19`** (pesquisa, zero código) | só escreve em `docs/research/` |
+| Paralela | **`LTM-24`** (adaptador do 2º gateway) | `src/lib/payments/providers/` + as duas listas de provedores. **Não toca `reserve.ts`.** ⚠️ Colide com a `LTM-25` em `providers/` e nas rotas de webhook |
+| **Serializada com a `LTM-24`** | **`LTM-25`** (remover o mascaramento) | `src/lib/payments/redact.ts` + as **duas** rotas de webhook + 4 arquivos de teste. ✅ Destravada em 11-19. ⚠️ **Não compartilha onda com a `LTM-23`** se ela tocar as rotas de webhook |
+| ⚠️ **Em curso, com dono** | **`LTM-14`** aplicando a **D9** | `order-view.ts:220` — **uma** chamada de `maskPhoneKeepingNinth`. **Não é a `LTM-25`**: `mask.ts` e `redact.ts` são mecanismos distintos, em arquivos distintos. **Zero sobreposição** |
+| Paralela | **`LTM-27`** (registrar ganhador) | `dashboard/products/**` + `src/lib/raffles/winners.ts` (que **nenhuma** story aberta reivindica). ⚠️ Colide com a **`LTM-26`** em `dashboard/products/**` e na cascata de `winners` — **serializar** |
+| Paralela | **`LTM-26`** (excluir sorteio sem vendas) | `dashboard/products/`, `actions/products.ts`, migração. **Depende da `LTM-16`** — exclusão sem trilha é irreversível e inexplicável |
 
 - ⚠️ **Recurso mutável compartilhado:** `drizzle/meta/_journal.json`. Qualquer story que gere migração o toca, e dois `drizzle-kit generate` concorrentes colidem. **Serializar a geração de migração** mesmo quando as stories rodam em paralelo.
 - ⚠️ **Base de dados:** a suíte usa branch Neon efêmera por execução. **A cota de branches do Neon é recurso finito** — duas ondas rodando a suíte ao mesmo tempo disputam o mesmo recurso. Declarar na brief de cada implementador.
@@ -272,13 +379,13 @@ A migração do Império só é autorizada quando os portões abaixo estiverem v
 | Portão | Critério | Como se comprova | Estado |
 |---|---|---|---|
 | **G0 — Compila** | `lint`, `typecheck` e `build` verdes | `LTM-00` Done | ✅ |
-| **G1 — Fundação** | `LTM-01`, `02`, `03a`, `03b`, `04`, `05`, **`20`** em Done | suíte verde + verificador de invariantes passando no cenário de concorrência | 🟡 código entregue em 6 de 7; nenhuma em Done; `LTM-20` em implementação |
+| **G1 — Fundação** | `LTM-01`, `02`, `03a`, `03b`, `04`, `05`, **`20`**, **`27`** em Done | suíte verde + verificador de invariantes passando no cenário de concorrência | 🟡 código entregue em 6 de 8; nenhuma em Done; `LTM-20` em implementação; **`LTM-27` sendo escrita** (§2-A) |
 | **G2 — Superfície do operador** | zero tela vazia no caminho do operador; os três exports reproduzidos | checklist item a item | ⬜ |
 | **G3 — Atribuição e BI** | o ETL e o CAPI leem o lotemania com **campo preenchido**, não apenas declarado | janela de leitura dupla: mesmo período, mesmo faturamento, mesma contagem de pedidos pagos **e taxa de preenchimento de atribuição maior que a da Sorteamos** (que é ~0%). Evidência mora na `LTM-09` (`ADR-0002`) | ⬜ |
 | **G4 — Carga** | cenário medido em staging: **5 rodadas simultâneas de 200 metades**, esgotando no ritmo do pior caso real (~5,5 unidades/minuto) | zero oversell, zero pedido órfão, **zero unidade vendável com dois donos** — não "zero número": em sorteio divisível o mesmo número tem dois donos legítimos. Verificador da `LTM-05`, **chavado na unidade** | ⬜ |
-| **G5 — Dinheiro real** | ao menos **um** pedido pago ponta a ponta com PIX real, em produção, em sorteio de teste | pedido `paid`, unidades `sold`, `banking_transactions` com o crédito, aviso casado | ⬜ bloqueado pelo `ci`/`cs` do cliente |
+| **G5 — Dinheiro real** | ao menos **um** pedido pago ponta a ponta com PIX real, em produção, em sorteio de teste — **e um por rota de gateway contratada**, não um total | pedido `paid`, unidades `sold`, `banking_transactions` com o crédito, aviso casado. **Dois provedores em produção ⇒ duas evidências** (decisão **D1**) | ⬜ bloqueado pelo `ci`/`cs` do cliente, e agora também pela `LTM-24` |
 | **G6 — Reversão** | plano de volta à Sorteamos escrito **e exercitado uma vez** | registro do ensaio com tempo medido | ⬜ |
-| **G7 — Dado pessoal** | a política de 2026-11-12 respeitada (`docs/ESTADO-ATUAL.md` §1-A) e a **retenção do CPF do aviso decidida** (D6) | nenhum CPF, telefone, e-mail ou nome em artefato versionado; varredura antes de cada commit | ⬜ |
+| **G7 — Dado pessoal** | a política de 2026-11-12 respeitada (`docs/ESTADO-ATUAL.md` §1-A) e a **retenção do CPF do aviso decidida** (**D6**) | nenhum CPF, telefone, e-mail ou nome em **artefato versionado**; varredura antes de cada commit | 🟡 **a metade "decidida" está fechada**: D6 = não mascarar, **confirmada em 11-19** com o founder ciente de que é remoção de proteção entregue. A política vigente passa a ser *"guardar como recebido"*, executada pela `LTM-25`. A metade "artefato versionado" **segue valendo integralmente e não é afetada** — banco de produção não é artefato versionado, e fixture de teste continua sintética |
 | **G8 — Paridade total** | pegar os sorteios que a Sorteamos tem **hoje**, com a configuração que têm **hoje**, recriá-los no lotemania, e **cada controle se comportar igual** | exercício que passa ou falha, contra a lista da `LTM-19`. Não é opinião sobre o que falta | ⬜ |
 
 **G1 a G5 são bloqueantes para o corte. G6 e G7 são bloqueantes para o commit do corte. G8 é o que encerra a lista do mandato de 2026-11-18** — e não bloqueia o sorteio de teste.
@@ -312,6 +419,7 @@ A migração do Império só é autorizada quando os portões abaixo estiverem v
 - [x] Suíte roda contra Postgres de verdade e cobre o ramo de falha de cada arquivo do caminho do dinheiro — **263 verdes, 2 pulados**
 - [ ] Um sorteio consegue **esgotar**: toda reserva vencida volta ao estoque sem depender de quem a fez voltar — **`LTM-20`**
 - [ ] Cada controle do editor que o operador vira muda alguma coisa de verdade — **36 ainda não mudam nada**
+- [ ] **Um sorteio consegue terminar:** o operador define o ganhador, a linha de `winners` nasce com o valor já rateado, e as duas páginas de loja que já consultam `winners` mostram alguém — **`LTM-27`**. Hoje `recordWinnersForDrawnTitle` só é chamada por um teste, e a seção de ganhadores da loja é permanentemente vazia
 
 ---
 
@@ -319,13 +427,17 @@ A migração do Império só é autorizada quando os portões abaixo estiverem v
 
 | Risco | Severidade | Mitigação |
 |---|---|---|
-| **A segunda rota de pagamento descoberta no corte** | **Alto** | D1 (§4). O Império usa `pix.banprime.com.br` numa campanha ao vivo; a Paysure sozinha não cobre a operação |
+| **A segunda rota de pagamento descoberta no corte** | **Alto** | **Decidido em 11-19 (D1): construir o adaptador — `LTM-24`.** O risco migra de "descoberta tardia" para "adaptador escrito contra o provedor errado": o BR Code diz `pix.banprime.com.br`, o painel diz `PAY2M`, e **ninguém sabe se são o mesmo**. A `LTM-24` AC1 é descobrir qual é |
+| **`pay2m` tem adaptador HMAC genérico sem contrato lido** | **Alto** | Não é provedor esperando adaptador — é provedor com adaptador **suposto**. É a repetição exata do `x-webhook-signature` inventado da `LTM-03`, que rejeitaria 100% dos avisos. `LTM-24` AC2: ou o adaptador é escrito contra documentação, ou `pay2m` volta para `UNSUPPORTED` e recusa em voz alta |
 | Perda de atribuição no dia do corte cega o CAPI e o BI | **Alto** | G3 exige janela de leitura dupla **antes** do corte, e agora mede **preenchimento**, não declaração |
 | Corte com paridade incompleta derruba o faturamento do cliente | **Alto** | G8 bloqueante do corte; `LTM-19` transforma "absolutamente tudo" em lista conferível |
+| **Domínio entregue sem acionador passar por "pronto"** | **Alto** | **Já aconteceu:** o rateio do prêmio da `LTM-07` está escrito, testado e **sem um único chamador de produção** (§2-A). Compila, os testes passam, e o sorteio não entrega prêmio. A `LTM-27` fecha este caso; o **gênero** pede varredura própria — é a `LTM-17` (campo sem leitor) um nível acima |
 | **`reserve.ts` reescrito por duas stories na mesma onda** | **Alto** | Série obrigatória (§8). Já houve uma premissa falsa de disjunção neste arquivo (§6.2) |
 | **Telefone não verificado sendo a identidade do comprador** | **Médio** | Escolha consciente de prazo (founder, 11-19). `LTM-22` fecha depois do lançamento |
-| CPF do pagador em `payment_webhook_events` sem política de retenção | **Médio** | G7 + D6, antes do primeiro aviso real |
-| Replicar a barra de progresso editável | **Médio** | D2. Nomeado pelo que é; a decisão é do dono do negócio |
+| **CPF e nome do pagador em claro em `payment_webhook_events`** | **Médio → Alto** | **A decisão D6 de 11-19 elevou este risco em vez de fechá-lo, e foi confirmada sabendo disso.** A política de retenção passa a existir e a ser *"não mascarar"*; a **`LTM-25`** executa. **Mitigação que resta: executar antes do primeiro aviso real**, enquanto o conjunto de CPFs na trilha é **vazio** — depois do corte são ~1.500 pedidos pagos/dia, e a reversão deixa de ser só código. Base que migra: **183.381** usuários |
+| **"Sem mascarar nada" ser lido além do que foi decidido** | **Médio** | Duas decisões de 11-19 são *"parar de mascarar"* e são **mecanismos diferentes**: a **D6** é retenção em `payment_webhook_events.payload` (`redact.ts`); a **D9** é exibição na tela do próprio pedido (`mask.ts`). Fundi-las remove a máscara do **cartão de ganhador** — página pública, dado de **terceiro**, que **nenhuma das duas autorizou**. Declarado na `LTM-25` (OUT e risco) e em §4 |
+| Replicar a barra de progresso editável | **Médio** | **Decidido em 11-19 (D3): replicar.** Entra no grupo C da `LTM-18`, nomeada pelo que é. `.claude/rules/claims-ledger.md` continua valendo para material que **nós** produzimos; o uso desta ferramenta é do cliente |
+| **Excluir sorteio apagar histórico de alguém** | **Médio** | **A `LTM-26` diverge da Sorteamos de propósito**, e o critério de *"sem vendas"* é o que separa apagar rascunho de apagar histórico. Decidido na story: **zero pedidos, em qualquer estado** — e a exclusão depende da trilha da `LTM-16` |
 | Índice criado em tabela grande na importação do histórico | **Médio** | criar os índices **antes** de importar, com a tabela vazia (feito na `LTM-01`) |
 | Adaptador de gateway escrito sobre premissa errada | **Médio** | já aconteceu uma vez nesta base (o `x-webhook-signature` inventado). A `LTM-03b` exige conferir contra o primeiro aviso real |
 | Decidir o grupo C da `LTM-18` por dedução | **Médio** | `instantPrizesEnabled` é a porta de quatro mecânicas, nenhuma observada por dentro. `LTM-19` antes de ligar |

@@ -109,7 +109,7 @@ quickBuyCards          popularCardIndex    groupCta
 videoEnabled           ebookEnabled
 ```
 
-### Grupo C — prometem uma feature inteira (11)
+### Grupo C — prometem uma feature inteira (11 campos + 1 ferramenta)
 
 Aqui a chave não é o trabalho; é o rótulo de um trabalho. `upsellEnabled` não se "liga": upsell se
 constrói.
@@ -119,6 +119,49 @@ upsellEnabled      promotionsEnabled    doublePromoEnabled    instantPrizesEnabl
 capitalizerEnabled capitalizerCode      alertEnabled          freeCampaign
 hasFee             allowAffiliates      drawMechanism
 ```
+
+#### + `Porcentagem` — decisão **D3** do founder, 2026-11-19: **replicar**
+
+> **A decisão, textual:** *"Replicar, é ferramenta do cliente."*
+
+**O que ela é, dito sem rodeio** (`README.md` §4 do inventário, [OBSERVADO] em 2026-11-18): um painel
+com a barra de progresso real, um campo **"Ajuste de porcentagem"**, uma caixa **"Fixar
+porcentagem"** e os botões `Salvar`/`Fechar`. **É um controle para exibir ao comprador uma
+porcentagem de vendas diferente da real, e para travá-la nesse valor.**
+
+Ela entra no grupo C porque **não é configuração, é feature** — e porque exige três peças que hoje
+não existem, nenhuma das quais basta sozinha:
+
+| Peça | Onde mora | Grupo | Estado |
+|---|---|---|---|
+| A **barra de progresso** na loja | `[productSlug]/page.tsx` — `showSalesProgressBar` | **B** | não existe |
+| O **ajuste e a fixação** (o valor exibido deixa de ser o real) | persistência nova + o cálculo que a barra lê | **C** | não existe |
+| O **controle do operador** que abre o painel | menu ⋮ da lista de compras, item 4 de 14 | **`LTM-11`** | não existe |
+
+> ⚠️ **`Porcentagem` NÃO é um campo de `product-settings.ts`**, e isso importa para o **AC1**: a
+> varredura que ele manda virar teste mede *"campo declarado sem nenhum leitor"*, e esta ferramenta
+> não é campo declarado. **Ela não entra na conta dos 36** — nem antes, nem depois. O grupo C passa a
+> ter **11 campos + 1 ferramenta**, e os dois números têm de andar separados ou a medição se corrompe.
+>
+> ⚠️ **E a peça do meio é a que carrega a decisão.** Construir só a barra (grupo B) entrega uma barra
+> **honesta**, que mostra o real. É o `showSalesProgressBar` e nada mais. A D3 é sobre a **segunda**
+> peça: a que faz o número exibido divergir do número verdadeiro. Quem implementar a barra sem o
+> ajuste não cumpriu a D3 — e quem implementar o ajuste sem a barra construiu um controle sem efeito,
+> que é o defeito que esta story inteira existe para acabar.
+
+**A relação com a `.claude/rules/claims-ledger.md`, registrada sem moralizar.** A regra proíbe
+escassez e urgência que não correspondam ao fato, e **continua valendo integralmente para material
+que nós produzimos** — anúncio, DM, proposta, legenda, página. O que a D3 decide é diferente: esta é
+uma **ferramenta de operação do cliente**, dentro do sistema dele, e **quem decide usá-la ou não é
+ele**. Construir a ferramenta não é fazer a alegação.
+
+O que **permanece** nosso, e não é afetado pela D3:
+
+- nenhum material de marketing nosso cita número de vendas do Império que venha desta barra;
+- o que o lotemania **grava** continua sendo o real — o ajuste é camada de exibição, nunca
+  reescrita do dado. `product_numbers` e `orders` não mentem; a barra é que passa a poder.
+- a mesma leitura vale para o `alertEnabled` (*"cronômetro de início e fim"* na página de vendas,
+  `editor-14-abas.md` §5), que é do mesmo gênero e foi registrado junto.
 
 > Algumas têm tabela de apoio no banco (`capitalizers`, `affiliates`, `awarded_boxes`,
 > `scratch_cards`, `reward_spins`) — o que significa que **parte** do caminho existe, não que a
@@ -214,8 +257,14 @@ que tem na Sorteamos — absolutamente tudo deve ser replicado"*.
 |---|---|---|
 | **A** (15) | ligar | **implementar** |
 | **B** (8) | esconder até a tela existir | **construir a tela e ligar** |
-| **C** (11) | marcar como não implementado | **construir a feature e ligar** |
+| **C** (11 + 1) | marcar como não implementado | **construir a feature e ligar** |
 | **D** (`reservationModel`) | story própria | **implementar os dois modos** |
+
+> **2026-11-19 — a `Porcentagem` fecha o único item do grupo C que ainda era dúvida de produto.** A
+> decisão de 11-18 (*"as 36, todas"*) respondia **se** construir os campos do editor; ela não
+> alcançava a `Porcentagem`, que **não é campo do editor** e estava registrada à parte como pergunta
+> ao founder, por colidir com a `claims-ledger`. A decisão **D3** respondeu: **replicar, é ferramenta
+> do cliente.** Ver o detalhamento no grupo C.
 
 **O que isso muda na natureza desta story:** ela deixa de ser *"fazer a tela parar de mentir"* e
 passa a ser *"construir o que a tela promete"*. Os grupos B e C **não são configuração** — são
@@ -249,11 +298,15 @@ editor. Nenhuma delas está fora do escopo do epic — todas foram mandadas cons
 - **As 8 telas do grupo B.** Barra de progresso, rankings, cartões de compra rápida, vídeo, ebook,
   CTA de grupo. São loja, parentes da `LTM-15`. **Construir** — a chave do editor só faz sentido
   depois que a tela existe.
-- **As 11 features do grupo C.** Upsell, promoções, promoção dobrada, títulos premiados,
-  capitalizadora, alertas, campanha gratuita, taxa, afiliados, mecanismo de sorteio. **Construir** —
-  cada uma com story própria, e cinco delas já têm tabela de apoio no banco (`capitalizers`,
-  `affiliates`, `awarded_boxes`, `scratch_cards`, `reward_spins`), o que muda o tamanho mas não a
-  natureza do trabalho.
+- **As 11 features do grupo C, mais a `Porcentagem`.** Upsell, promoções, promoção dobrada, títulos
+  premiados, capitalizadora, alertas, campanha gratuita, taxa, afiliados, mecanismo de sorteio —
+  **e o ajuste/fixação da barra de progresso, por decisão D3 do founder em 2026-11-19**.
+  **Construir** — cada uma com story própria, e cinco delas já têm tabela de apoio no banco
+  (`capitalizers`, `affiliates`, `awarded_boxes`, `scratch_cards`, `reward_spins`), o que muda o
+  tamanho mas não a natureza do trabalho.
+  > A `Porcentagem` é a única das doze que **atravessa três lugares**: a barra na loja (grupo B), a
+  > persistência do ajuste (grupo C) e o controle no menu ⋮ da `LTM-11`. A story própria dela tem de
+  > declarar os três, ou ela nasce entregando um terço.
 - **O `reservationModel`** (manual × aleatório). **Construir os dois modos** — muda o fluxo de
   compra, então é story própria por tamanho, não por dúvida.
 
@@ -386,6 +439,7 @@ A `18a` não tem essa condição, porque não liga nada. É mais uma razão para
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-19 | 1.2 | **Decisão D3 do founder aplicada: a `Porcentagem` entra no grupo C — *"replicar, é ferramenta do cliente"*.** Ela sai do terreno de dúvida e entra no escopo de construção, com o que ela é mantido escrito: um painel que exibe ao comprador porcentagem de vendas **diferente da real** e permite **travá-la** ([OBSERVADO], `README.md` §4 do inventário). Registrado que ela atravessa **três** lugares — a barra na loja (`showSalesProgressBar`, grupo B), a persistência do ajuste (grupo C) e o controle no menu ⋮ da `LTM-11` —, e que **construir só a barra não cumpre a D3**: a barra sozinha é honesta; a decisão é sobre a peça que faz o exibido divergir do real. Registrado também que ela **não é campo de `product-settings.ts`** e portanto **não entra na conta dos 36** nem na varredura do `AC1` — o grupo C passa a ser *11 campos + 1 ferramenta*, e os dois números andam separados. Sobre a `.claude/rules/claims-ledger.md`: a regra **continua valendo para material que nós produzimos**; esta é ferramenta de operação do cliente e a decisão de uso é dele. O que permanece nosso: o dado gravado continua sendo o real — o ajuste é camada de exibição, nunca reescrita de `product_numbers`/`orders`. Mesma leitura vale para o `alertEnabled`. **Edição de @pm aplicando decisão de founder; escopo é do @po.** | @pm (Morgan) |
 | 2026-11-18 | — | **Priorização @po** (não é validação; a story segue `Draft`). O item solto *"varredura de campo de configuração sem leitor"*, aberto pela `LTM-17` com 3 ocorrências conhecidas, **fecha aqui**: a medição achou **36 de 43**, o que o move de "padrão a vigiar" para **P0 com dono**. Divisão em `18a`/`18b`/`18c` **aceita**, com a `18a` primeiro — um arquivo, `Depends-on: none`, e faz a tela parar de mentir sem ligar nada. Registrada como **condição de entrada** da `18b`/`18c` (não como risco a conviver) a consulta aos valores já gravados em `advanced_settings` dos sorteios reais do Império antes de qualquer campo do grupo A ganhar leitor. | @po (Pax) |
 | 2026-11-18 | 1.1 | **Decisao do founder substitui a triagem: as 36, todas.** Eu recomendei ligar o grupo A, esconder o B e marcar o C como nao implementado; o founder decidiu implementar tudo, mais "tudo que tem na Sorteamos". A story muda de natureza — deixa de ser "fazer a tela parar de mentir" e passa a ser "construir o que a tela promete" —, os grupos B (8 telas) e C (11 features) viram stories proprias nascidas do inventario da `LTM-19`, o AC1 perde a saida de escape ("ou marcado como nao implementado") e ganha a exigencia de a varredura virar TESTE versionado, e o AC7 ("nenhum comportamento inventado") fica mais importante, nao menos: implementar tudo responde SE construir, nao O QUE. O risco [Alto] de ligar chave em sorteio existente foi **eliminado** — o founder declarou os sorteios atuais descartaveis — com prazo ate o primeiro sorteio real. | @aiox-master |
 | 2026-11-18 | 1.0 | Nasce do pedido do founder depois do impasse da flag do relógio: *"verificar todas as ações configuráveis de edição do sorteio e corrigi-las visual e funcionalmente"*. A medição confirmou a suspeita e a superou: **36 dos 43 campos não têm leitor nenhum**, e a loja lê exatamente cinco linhas de configuração. O caso que o founder fotografou — "Campos requeridos para realizar a reserva", seis chaves — é inerte: `reserve.ts:176` exige telefone e nada mais. | @aiox-master |

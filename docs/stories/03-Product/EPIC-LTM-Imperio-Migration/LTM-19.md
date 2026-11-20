@@ -242,31 +242,73 @@ Depends-on: none
   depende de disciplina de registro, não de ferramenta.
 - **[Alto] Dado pessoal de comprador real entrar no repositório público.** Os relatórios têm CPF. Já
   aconteceu nesta casa — 320 MB de dado pessoal quase entraram no git. AC8 é o mínimo.
-- **[Médio] As mutantes ficarem permanentemente não observadas.** Sem a decisão do founder sobre o
-  sorteio de teste na Sorteamos, 2 ou mais itens nunca saem de `[CONFIRMAR]`, e *"absolutamente
-  tudo"* fica com buraco estrutural.
+- ~~**[Médio] As mutantes ficarem permanentemente não observadas.**~~ **MITIGADO em 2026-11-18**: o
+  founder autorizou o sorteio de teste, ele foi criado e `Ativar títulos premiados` foi observado com
+  efeito medido. **E a D5 de 11-19 o mantém no ar**, então o instrumento de observação continua
+  disponível. Resta **um** item (`Revisar pagamentos`), e o que falta para ele não é decisão sobre o
+  sorteio — é autorização para deixar uma reserva expirar nele.
 - **[Médio] O inventário envelhecer antes de ser usado.** A Sorteamos é um produto vivo. O
   inventário é **fotografia datada**, e tem de dizer isso na primeira linha de cada arquivo.
 - **[Baixo] Remedir o que já foi medido.** As quatro pesquisas existentes cobrem parte; a tarefa de
   consolidação existe para que elas sejam aproveitadas em vez de refeitas.
 
-## Decisão pendente — do founder
+## Decisões do founder — as duas que esta story esperava estão fechadas
 
-**Como observar as ações que mudam estado?** As mutantes não podem rodar em sorteio ativo, e são
-justamente as que mais importam descrever (mexem em título premiado e em pagamento).
+### 1. Como observar as ações mutantes — **respondido em 2026-11-18: criar o sorteio de teste**
 
-| Caminho | O que custa | O que resolve |
-|---|---|---|
-| **Sorteio concluído** na Sorteamos | nada — já existem | pode não aceitar todas as ações |
-| **Criar um sorteio de teste** na Sorteamos | um sorteio a mais no painel do cliente | observa tudo, com segurança |
-| **Não observar** | zero | as ações ficam `[CONFIRMAR]` e a paridade fica incompleta **por decisão**, não por esquecimento |
+Era a pergunta mais importante desta story, e a recomendação era criar um sorteio privado sem
+divulgação. **O founder autorizou, o sorteio foi criado, o protocolo acima foi seguido e as duas
+travas funcionaram** — nada vazou para o catálogo público e não existe caminho de compra. Ver
+`README.md` §10 do inventário para o registro do que foi criado, clicado e verificado.
 
-**Recomendação:** criar um sorteio de teste na Sorteamos, com valor simbólico e sem divulgação. É o
-único caminho que entrega o *"absolutamente tudo"* sem adivinhação — mas **criar um sorteio no
-painel do cliente é ação que altera o sistema dele**, e por isso é decisão do founder, não minha.
+### 2. O que fazer com o sorteio de teste que sobrou — **decisão D5, 2026-11-19: deixar como está**
+
+> **A decisão, textual:** *"Deixar como está."*
+
+**O motivo é o mesmo achado que criou o problema: a Sorteamos não exclui sorteio.** Procurado em seis
+lugares em 11-18 (ações da linha, menu ⋮ da linha, página de edição, seletor de status, filtro de
+status, cabeçalho e menu da lista de compras) — **não existe exclusão**. Um sorteio criado é
+permanente para o operador, e é o que explica os **10.774** sorteios na conta do Império.
+
+O que fica no painel do cliente, e por que é aceitável:
+
+| | |
+|---|---|
+| Id | `6afde6282bfd48a5b86b14b9` |
+| Título | `ZZ TESTE TECNICO - NAO COMPRAR` — nomeado para que, se vazar, vaze dizendo o que é |
+| Privacidade | **Privado** — fora do catálogo público, verificado |
+| Status · início das vendas | **Em breve** · **18/11/2027** |
+| Caminho de compra na loja | **não existe** — verificado na URL direta |
+| Compras | **zero** |
+
+**Ninguém consegue comprar nele, nem com o link na mão**, enquanto a data de início estiver em 2027.
+O risco que o founder nomeou ao autorizar a criação — *"o sorteio acabar ficando público e alguém de
+fato comprar"* — **não se materializou e não pode se materializar** nesse estado.
+
+**O custo da decisão, declarado:** uma linha a mais numa lista de 10.774, invisível ao público. Os
+outros dois caminhos que estavam na mesa — pedir exclusão ao suporte do fornecedor, ou encerrá-lo —
+**saem da lista**: abrir chamado no suporte do fornecedor **do cliente** era decisão dele, e ele
+decidiu não abrir.
+
+### A lição de protocolo continua valendo, e ganhou força
+
+**Verificar o caminho de saída antes de criar, não depois.** O protocolo desta story cobria
+invisibilidade e compra — as duas coisas que podiam dar errado com o público — e **não cobria "como
+desfazer"**. Deu certo: nada vazou. Mas a D5 só existiu como pergunta porque *"como eu apago isto?"*
+não foi respondida antes do primeiro clique em "Criar Sorteio". **Passa a fazer parte do protocolo**,
+e vale para qualquer sorteio de observação futuro: o caminho de saída se confere primeiro.
+
+### O que continua em aberto nesta story — e não é decisão de founder
+
+**`Revisar pagamentos`** (item 14 de 14 do menu ⋮) segue `[NÃO OBSERVADO]`: a sessão caiu no clique.
+Observar o **efeito** dele exigiria uma compra expirada no sorteio de teste — reservar números e
+deixar expirar, o que não cobra ninguém. Isso é **passo a mais com decisão própria**, e não está
+autorizado. Fica registrado como o que falta para aquele item sair de `[CONFIRMAR]`, e **não é
+bloqueado pela D5**: o sorteio de teste continua existindo e continua disponível para isso.
 
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-19 | 1.1 | **Decisão D5 do founder aplicada: o sorteio de teste fica na Sorteamos como está.** A seção *Decisão pendente* deixa de existir e vira **Decisões fechadas**, com as duas: a de 11-18 (criar o sorteio de observação — autorizada, executada, travas verificadas) e a D5 de 11-19. **O motivo da D5 está escrito: a Sorteamos não exclui sorteio**, procurado em seis lugares. Dos três caminhos que estavam na mesa sobrou **um** — pedir exclusão ao suporte do fornecedor do cliente e encerrá-lo **saem da lista**, porque abrir chamado no fornecedor dele era decisão dele e ele decidiu não abrir. Registrado o estado em que o sorteio fica (privado, `Em breve`, vendas em 18/11/2027, zero compras, sem caminho de compra verificado) e o custo declarado (uma linha numa lista de 10.774). Risco das mutantes não observadas rebaixado a **mitigado**: o instrumento continua no ar. **`Revisar pagamentos` segue o único item aberto**, e o que falta nele não é a D5 — é autorização para deixar uma reserva expirar. | @pm (Morgan) |
 | 2026-11-18 | 1.0 | Nasce da decisão do founder de replicar **absolutamente tudo** da Sorteamos. É a primeira entrega do mandato, porque não se replica o que ninguém enumerou — e porque o `AC7` da `LTM-18` (*"nenhum comportamento inventado"*) precisa de uma fonte para consultar. O critério de fim veio da própria frase do founder: recriar no lotemania os sorteios que a Sorteamos tem hoje (portão **G8**). | @aiox-master |
