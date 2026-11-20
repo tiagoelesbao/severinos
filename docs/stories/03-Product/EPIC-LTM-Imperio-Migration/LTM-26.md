@@ -56,6 +56,13 @@ export async function deleteProduct(id: string) {
 **E está ligada à interface em dois lugares:** `dashboard/products/product-row-actions.tsx:179` e
 `dashboard/products/[id]/status-actions.tsx:52`.
 
+> **O contraste com a Sorteamos é exato, e inverte o que se esperaria.** Lá o menu ⋮ da linha tem
+> **quatro** itens e **nenhum** é exclusão. Aqui ele tem **um só item, e é `Excluir`** — destrutivo,
+> em um clique, sem confirmação. É também **o mesmo menu** onde o `Definir ganhadores` da `LTM-27`
+> vai entrar, o que reforça a serialização já declarada em *Dependências*.
+
+
+
 Não há verificação de pedido, de pagamento, de ganhador, de nada. **A única coisa que separa o
 operador de apagar um sorteio com faturamento é uma chave estrangeira.** E o que as FKs fazem é
 desigual de um jeito que ninguém escolheu:
@@ -74,8 +81,31 @@ desigual de um jeito que ninguém escolheu:
    mudança de schema que acrescente `onDelete: "cascade"` em `orders` — por simetria com as outras,
    que é exatamente o tipo de "arrumação" que parece certa — **destrói o histórico de pedidos pagos
    sem um erro em lugar nenhum.**
-2. **A falha é feia.** O operador clica, e recebe um erro de restrição de banco. Não um
-   *"este sorteio tem 1.482 compras e não pode ser excluído"*.
+2. ~~**A falha é feia.** O operador clica, e recebe um erro de restrição de banco.~~
+   ⚠️ **CORRIGIDO em 2026-11-20, e o erro era para o lado pior: ele não recebe NADA.** Medido nos
+   dois pontos de chamada, que são idênticos nisto:
+
+   ```ts
+   startTransition(async () => {
+     await deleteProduct(productId);
+     toast.success("Sorteio excluído.");   // ← nunca alcançado quando a FK recusa
+   });
+   ```
+
+   Sem `try`/`catch` e sem conferir retorno, a recusa do Postgres **rejeita a promessa dentro da
+   transição**, a linha do `toast` não roda, e **`find src/app -name "error.tsx"` devolve vazio** —
+   não existe fronteira de erro em nenhum nível da aplicação. O operador clica em `Excluir`, o botão
+   volta a habilitar, o sorteio continua na lista, e **nenhuma mensagem aparece**.
+
+   **Falha silenciosa é pior que erro cru**, e muda o que o `AC3` tem de provar: não é só *"trocar a
+   mensagem do banco por uma de negócio"*, é **fazer aparecer uma mensagem onde hoje não há
+   nenhuma**. O `status-actions.tsx:52` agrava: ali o sucesso também navega
+   (`router.push("/dashboard/products")`), então na falha o operador fica parado na mesma tela sem
+   nenhum sinal de que algo foi tentado.
+
+   > **E isto é maior que esta story:** sem fronteira de erro, **qualquer** rejeição de server action
+   > no painel é silenciosa. Fica registrado aqui porque foi aqui que apareceu; a fronteira de erro
+   > em si está **OUT** desta story.
 3. **`winners` cascateia.** A linha de `winners` é a **prova de quem ganhou o quê** — `LTM-07`
    entregou `winning_half` e o valor rateado ali. Em teoria ela só existe se houver pedido, o que a
    FK de `orders` já barra; mas a cascata está declarada e **depende de outra tabela para não ser
@@ -284,4 +314,5 @@ _(preencher na implementação)_
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.1 | Conferência do @aiox-master nos dois pontos de chamada. **Uma afirmação da v1.0 estava errada, e para o lado pior:** a story dizia que o operador *"recebe erro cru de FK"*; ele **não recebe nada**. As duas chamadas são `await deleteProduct(); toast.success(...)` sem `try`/`catch` e sem conferir retorno, e **não existe `error.tsx` em nenhum nível de `src/app`** — a rejeição morre dentro da transição e a tela não muda. Isso muda o que o `AC3` tem de provar: **fazer aparecer mensagem onde não há nenhuma**, não trocar uma mensagem por outra. Registrado também que o menu ⋮ do lotemania tem **um único item e ele é destrutivo**, contra quatro itens não-destrutivos na Sorteamos — e é o mesmo menu que a `LTM-27` vai ocupar. A ausência de fronteira de erro no painel é maior que esta story e fica **OUT**. | @aiox-master |
 | 2026-11-19 | 1.0 | Nasce da decisão **D7** do founder: *"permitir excluir sorteio sem vendas"* — **divergência deliberada** da Sorteamos, que não exclui (procurado em seis lugares, [OBSERVADO] 11-18, e é o que explica os 10.774 sorteios da conta). **Achado que mudou a natureza da story:** `deleteProduct` (`products.ts:211-217`) **já existe, já está ligado à interface em dois lugares e não tem guarda nenhuma** — a única coisa que separa o operador de apagar um sorteio com faturamento é a FK de `orders` sem `onDelete`, enquanto `product_numbers`, **`winners`**, `awarded_boxes`, `reward_spins` e `scratch_cards` têm `onDelete: "cascade"`. Então a story é *"pôr critério e mensagem numa exclusão que já está no ar sem nenhum dos dois"*, e a guarda é **P1** mesmo com o recurso sendo P2. **Critério decidido: zero pedidos em qualquer estado, mais zero ganhadores** — e não "zero pagos", com as quatro razões escritas (`pending` é alguém pagando agora, com até 1 dia de janela depois da `LTM-17`; `expired` é o denominador do funil que o ETL lê com `filterStatus: "all"`; `refunded` é dinheiro que saiu e disputa MED que pode vir; `canceled` é decisão de alguém). Custo declarado: sorteio com uma reserva abandonada fica permanentemente não-excluível — **que é exatamente o comportamento da Sorteamos**, logo divergência mínima. `archived` fica como recomendação do @pm e **OUT**: responde a outra pergunta. Depende da **`LTM-16`** — exclusão sem trilha é irreversível e inexplicável. | @pm (Morgan) |
