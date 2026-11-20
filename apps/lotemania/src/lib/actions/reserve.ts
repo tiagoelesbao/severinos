@@ -175,6 +175,87 @@ function resolveTargetUnits(
   return { units };
 }
 
+// ════════════════════════════════════════════════════════════════════════
+// A IDENTIDADE DO COMPRADOR NOVO, IDEMPOTENTE NO BANCO (LTM-23)
+//
+// Era `SELECT` e depois `INSERT` cru, no corpo da própria ação — e isso é
+// check-then-act sobre `users_tenant_phone_idx` (`db/schema/core.ts:77`).
+// Duas reservas simultâneas do MESMO telefone AINDA SEM CADASTRO: as duas
+// não acham nada no `SELECT`, as duas tentam inserir, uma vence e a outra
+// estoura em `duplicate key value violates unique constraint`. A ação
+// relançava, e o comprador levava 500 por ter batido duas vezes em
+// "Reservar" — na PRIMEIRA COMPRA DA VIDA dele, porque na segunda o
+// cadastro já existe e o `SELECT` o acha. Quem já é cliente estava imune.
+//
+// Medido com sonda descartável durante a LTM-20, 5 rodadas × 6 operações
+// entrelaçadas: 6 rejeições SEM identidade pré-criada, 0 COM.
+//
+// ── O ALVO DO `ON CONFLICT` É NOMEADO, E ISSO É CORREÇÃO DE IDENTIDADE
+//
+// `users` tem QUATRO índices únicos por operador: `email`, `username`,
+// `phone` e `affiliate_code` (`core.ts:75-80`). `ON CONFLICT DO NOTHING`
+// SEM coluna alvo casa com QUALQUER UM DOS QUATRO — engoliria em silêncio
+// uma colisão de e-mail como se fosse de telefone. Trocar a identidade do
+// comprador é defeito muito pior que o 500 que esta função conserta, então
+// o alvo é explícito: `(tenant_id, phone)`. Colisão em qualquer outro
+// índice CONTINUA estourando, e é o certo — é estado que ninguém previu, e
+// engoli-lo seria inventar uma resposta para ele.
+//
+// ── POR QUE `DO NOTHING` + RELEITURA, E NÃO `DO UPDATE ... RETURNING`
+//
+// Mesmo idioma de `pix-charge.ts:377`. `DO UPDATE` obriga a escrever
+// alguma coluna da linha QUE JÁ EXISTE — e a linha que já existe é a do
+// comprador, com a ficha do anti-spam (`consecutive_unpaid_reservations`)
+// dentro. A LTM-20 acabou de mover a contagem para dentro da expiração
+// justamente para ela não se perder; um `SET` descuidado aqui a zeraria, e
+// o anti-spam voltaria a ser contornável criando corrida. `DO NOTHING` não
+// escreve NADA na linha alheia: a sobrevivência da ficha deixa de depender
+// de alguém ter escolhido bem o `SET`.
+//
+// ── A IDENTIDADE CONTINUA FORA DA TRANSAÇÃO DA RESERVA
+//
+// Decisão da LTM-02, e ela PERMANECE. Nenhuma ida ao banco aqui abre
+// transação, e esta função não recebe `tx`: amarrá-la à transação da
+// reserva faria o cadastro de quem perdeu a disputa ser desfeito junto com
+// o pedido que não nasceu — e com ele a ficha do anti-spam.
+//
+// ── O LAÇO NÃO É PARANOIA
+//
+// `DO NOTHING` que colide devolve ZERO linha, e aí quem diz o `id` é a
+// releitura da volta seguinte: sob READ COMMITTED ela é um instantâneo
+// novo e vê a linha que a vencedora commitou. O caso que EXIGE a segunda
+// volta é o outro — a vencedora nos fez esperar e depois ABORTOU, a linha
+// não existe, e insistir uma vez transforma isso em sucesso em vez de
+// erro. O teto é teto, não expectativa: duas voltas sem resolver não
+// acontecem sem algo errado no banco, e aí o erro tem de aparecer em vez
+// de virar laço infinito num caminho de dinheiro.
+// ════════════════════════════════════════════════════════════════════════
+async function ensureBuyerIdentity(tenantId: string, phone: string): Promise<string> {
+  const TENTATIVAS = 3;
+
+  for (let tentativa = 1; tentativa <= TENTATIVAS; tentativa++) {
+    const [existing] = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(and(eq(users.tenantId, tenantId), eq(users.phone, phone)))
+      .limit(1);
+    if (existing) return existing.id;
+
+    const [created] = await db
+      .insert(users)
+      .values({ tenantId, phone, role: "subscriber" })
+      .onConflictDoNothing({ target: [users.tenantId, users.phone] })
+      .returning({ id: users.id });
+    if (created) return created.id;
+  }
+
+  throw new Error(
+    `Não foi possível resolver a identidade do comprador em ${TENTATIVAS} tentativas ` +
+      `(tenant ${tenantId}). A linha de \`users\` não existia na leitura e o ` +
+      `\`INSERT ... ON CONFLICT (tenant_id, phone) DO NOTHING\` colidiu em todas.`,
+  );
+}
+
 export async function reserveSelectedNumbers(input: ReserveNumbersInput) {
   const data = reserveNumbersSchema.parse(input);
 
@@ -238,24 +319,16 @@ export async function reserveSelectedNumbers(input: ReserveNumbersInput) {
     return { error: "Este número está bloqueado. Entre em contato com o suporte." };
   }
 
-  const [existingUser] = await db
-    .select()
-    .from(users)
-    .where(and(eq(users.tenantId, tenant.id), eq(users.phone, data.phone)))
-    .limit(1);
-
   // A identidade do comprador fica FORA da transação da reserva, de
   // propósito: ela não é parte do pedido, é quem o faz. Desfazê-la junto
   // apagaria o cadastro de quem perdeu uma disputa — e com ele a ficha do
   // anti-spam, que é por comprador.
-  const userId = existingUser
-    ? existingUser.id
-    : (
-        await db
-          .insert(users)
-          .values({ tenantId: tenant.id, phone: data.phone, role: "subscriber" })
-          .returning()
-      )[0].id;
+  //
+  // O `SELECT` + `INSERT` cru que vivia AQUI virou `ensureBuyerIdentity`
+  // (LTM-23) — ler o bloco de lá antes de mexer: ele era check-then-act
+  // sobre um índice único, e devolvia 500 na primeira compra da vida do
+  // comprador.
+  const userId = await ensureBuyerIdentity(tenant.id, data.phone);
 
   // CAMINHO A da LTM-20: a varredura roda aqui, GLOBAL — libera a reserva
   // vencida de qualquer comprador, não só a de quem está reservando agora.

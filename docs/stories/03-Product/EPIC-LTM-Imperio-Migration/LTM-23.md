@@ -1,6 +1,6 @@
 # LTM-23: Duas reservas simultâneas do mesmo telefone novo derrubam uma delas
 
-**Status:** Draft
+**Status:** InReview
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação)
 **Prioridade:** **P1** — não trava a rodada como a `LTM-20`, mas quebra **a primeira compra da vida** do comprador
 **Complexidade:** S — o conserto é pequeno e conhecido; o cuidado está em não recriar o que a `LTM-20` acabou de arrumar
@@ -82,28 +82,28 @@ defeito só existe quando são **o mesmo comprador novo**.
 
 ## Tarefas (Checklist)
 
-- [ ] A criação da identidade vira idempotente no banco, com alvo explícito em `(tenant_id, phone)`.
-- [ ] Teste de **duas reservas simultâneas do mesmo telefone novo**.
-- [ ] Conferir se o mesmo padrão existe em `signup.ts` e `affiliate-signup.ts` — **[CONFIRMAR]**, a
+- [x] A criação da identidade vira idempotente no banco, com alvo explícito em `(tenant_id, phone)`.
+- [x] Teste de **duas reservas simultâneas do mesmo telefone novo**.
+- [x] Conferir se o mesmo padrão existe em `signup.ts` e `affiliate-signup.ts` — **[CONFIRMAR]**, a
       mesma identidade pode ser criada por mais de um caminho.
 
 ## Critérios de Aceite
 
-- [ ] **AC1 (o defeito):** N reservas simultâneas do **mesmo telefone sem cadastro** → **todas**
+- [x] **AC1 (o defeito):** N reservas simultâneas do **mesmo telefone sem cadastro** → **todas**
       resolvem para **um** `users.id`, **nenhuma** estoura. Hoje são N−1 falhas.
-- [ ] **AC2 (uma identidade, não N):** depois da corrida, existe **exatamente uma** linha em `users`
+- [x] **AC2 (uma identidade, não N):** depois da corrida, existe **exatamente uma** linha em `users`
       para aquele `(tenant_id, phone)`. O índice único já garante; o teste prova que o código não
       tenta contorná-lo.
-- [ ] **AC3 (a ficha sobrevive):** comprador **com** `consecutive_unpaid_reservations` > 0 que entra
+- [x] **AC3 (a ficha sobrevive):** comprador **com** `consecutive_unpaid_reservations` > 0 que entra
       numa corrida de reserva **mantém** a ficha. Regressão contra o conserto que recria o usuário —
       e contra desfazer o que a `LTM-20` arrumou.
-- [ ] **AC4 (o conflito certo):** o `ON CONFLICT` tem alvo `(tenant_id, phone)`. Teste: conflito de
+- [x] **AC4 (o conflito certo):** o `ON CONFLICT` tem alvo `(tenant_id, phone)`. Teste: conflito de
       **e-mail** com telefone diferente **não** é engolido — ele deve falhar, não devolver um
       usuário alheio. É o AC que impede o conserto de virar um defeito de identidade.
-- [ ] **AC5 (a identidade continua fora da transação):** reserva que falha **não** apaga o cadastro
+- [x] **AC5 (a identidade continua fora da transação):** reserva que falha **não** apaga o cadastro
       recém-criado. Teste: comprador novo perde a disputa pelo número e **continua cadastrado**.
-- [ ] **AC6 (regressão):** a suíte inteira continua verde.
-- [ ] **AC7 (porta verde):** `pnpm lint`, `pnpm typecheck`, `pnpm build`, `npm run test`.
+- [x] **AC6 (regressão):** a suíte inteira continua verde.
+- [x] **AC7 (porta verde):** `pnpm lint`, `pnpm typecheck`, `pnpm build`, `npm run test`.
 
 ## Escopo
 
@@ -150,8 +150,187 @@ Depends-on: LTM-20
 - **[Baixo] O mesmo padrão existir em outro caminho de cadastro** e esta story consertar só um.
   A tarefa de `[CONFIRMAR]` cobre.
 
+## Dev Agent Record
+
+**Agente:** @dev (Dex) - claude-opus-5 - 2026-11-19 - modo YOLO
+**Base:** commit `4dd7ae7d` (suite em 276 testes verdes)
+
+### O defeito foi CONFIRMADO, nao refeito
+
+A story mandou confirmar e nao remedir. Confirmado nas duas pontas:
+
+| Afirmacao da story | Estado no codigo |
+|---|---|
+| `reserve.ts:245-258` faz `SELECT` e depois `INSERT` sem `onConflict` | VERDADEIRO, literal |
+| o alvo e `uniqueIndex("users_tenant_phone_idx")` em `core.ts:77` | VERDADEIRO |
+| `users` tem QUATRO indices unicos por tenant | VERDADEIRO (`core.ts:75-80`) |
+| nenhuma migracao e necessaria | VERDADEIRO. O indice ja esta no baseline versionado, `drizzle/0000_baseline_schema.sql:435`. Nenhum arquivo em `drizzle/` foi tocado |
+
+E foi confirmado por EXECUCAO, nao por leitura. Com o conserto temporariamente
+removido do arquivo (uma linha: o `.onConflictDoNothing`), o teste novo fica
+VERMELHO com a mensagem exata do defeito:
+
+```
+AssertionError: excecoes vazadas (antes da LTM-23: 5):
+  ["Error: Failed query: insert into "users" ... params: 7a32e86a-...,55000000001,subscriber", x5]
+  expected [ Array(5) ] to have a length of +0 but got 5
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 passed (6)
+```
+
+5 excecoes em 6 abas - exatamente o N-1 que a story previu. O conserto foi
+restaurado em seguida e a suite confirmada verde. Teste que nao fica vermelho
+sem o conserto nao prova conserto nenhum.
+
+### A decisao: `DO NOTHING` + releitura, em laco limitado
+
+`src/lib/actions/reserve.ts` ganhou `ensureBuyerIdentity(tenantId, phone)`,
+privada do modulo, com o bloco de razao inteiro escrito. O idioma e
+
+```
+INSERT INTO users (tenant_id, phone, role)
+VALUES (...) ON CONFLICT (tenant_id, phone) DO NOTHING RETURNING id
+```
+
+e nao `DO UPDATE ... RETURNING`. A razao e o AC3, e ela e estrutural:
+
+> `DO UPDATE` OBRIGA a escrever alguma coluna da linha que ja existe - e a
+> linha que ja existe e a do comprador, com `consecutive_unpaid_reservations`
+> dentro. `DO NOTHING` nao escreve NADA na linha alheia. A sobrevivencia da
+> ficha do anti-spam deixa de depender de alguem ter escolhido bem o `SET`.
+
+O `SELECT` anterior ficou: o comprador que JA existe (o caso comum) nunca
+chega ao `INSERT`, e portanto nunca tem a linha tocada. O laco de 3 voltas
+cobre o unico caso que a releitura sozinha nao cobre - a vencedora que nos
+fez esperar e depois ABORTOU, deixando a linha inexistente. Teto, nao
+expectativa: esgotado, lanca com mensagem que nomeia o estado, em vez de
+virar laco infinito num caminho de dinheiro.
+
+IDS: o idioma nao foi inventado. `pix-charge.ts:377` ja usava `DO NOTHING` com
+alvo + releitura, com a razao escrita, e
+`api/webhooks/payment/.../route.ts:283` usa a forma com alvo composto.
+Decisao: **ADAPT** desses dois, nao CREATE.
+
+### AC por AC, com o teste que prova
+
+Tudo em `tests/money-path/identidade-concorrente.test.ts` (6 testes, novos).
+
+| AC | Prova | Como |
+|---|---|---|
+| **AC1** | `AC1/AC2: 6 reservas simultaneas do mesmo telefone SEM cadastro...` | `fanOut(6)` sobre `reserveSelectedNumbers`, mesmo telefone sem cadastro, NUMEROS DISTINTOS. 0 excecoes, 0 recusas, e os 6 pedidos com o MESMO `user_id`. Os numeros sao distintos de proposito: com todas as abas no mesmo numero, 5 recusas por disputa de unidade seriam indistinguiveis de 5 falhas de identidade, e o teste ficaria verde pelo motivo errado |
+| **AC2** | o mesmo teste, item (c) | exatamente UMA linha em `users` para `(tenant_id, phone)` depois da corrida |
+| **AC3** | `AC3: comprador com ficha do anti-spam > 0 entra na corrida...` | comprador semeado com ficha 2 (um abaixo do limite de 3), 6 reservas simultaneas. Asserta o `id` ANTES da ficha - um conserto que apagasse e reinserisse o usuario passaria na ficha zerada e seria pego no id. Ficha continua 2, `blocked_until` nulo |
+| **AC4** | `AC4 (forma)` + `AC4 (comportamento)` | duas camadas, ver abaixo |
+| **AC5** | `AC5: comprador novo cuja reserva FALHA continua cadastrado` + `AC5 (na corrida real)` | o deterministico: numero ja tomado, novato recusado, cadastro dele permanece. E a corrida de verdade: dois telefones novos sobre o unico numero, um vence, e os DOIS continuam cadastrados. Nenhuma assercao sobre QUEM vence - seria intermitente |
+| **AC6** | suite inteira | 332 passed, 2 skipped, exit 0 |
+| **AC7** | as quatro portas | exit 0 nas quatro |
+
+### AC4 - o risco [Alto], e a premissa que teve de ser ajustada
+
+O AC4 pede teste de "conflito de e-mail com telefone diferente nao e
+engolido". **Esse estado e inalcancavel por `reserveSelectedNumbers`**, e isso
+e um fato do codigo, nao uma esquiva: o `INSERT` da identidade escreve
+`(tenant_id, phone, role)` e nada mais, entao `email` nasce `NULL` - e o
+Postgres trata cada `NULL` como distinto, de modo que `users_tenant_email_idx`
+nunca e tocado por este caminho. Nao existe entrada da acao que produza o
+cenario.
+
+O AC foi provado onde ele de fato vive, em duas camadas:
+
+1. **A forma do codigo** (`AC4 (forma)`) - varredura da fonte de `reserve.ts`
+   com o COMENTARIO REMOVIDO antes de qualquer assercao. O bloco de
+   documentacao de `ensureBuyerIdentity` escreve a forma proibida para
+   condena-la; varrer o texto cru daria vermelho contra a propria explicacao
+   do conserto. Asserta: existe UM unico `.insert(users)` no arquivo (se
+   alguem acrescentar outro, o teste para junto), ele tem alvo
+   `[users.tenantId, users.phone]`, e a forma sem alvo NAO aparece.
+2. **O comportamento do Postgres** (`AC4 (comportamento)`) - contra a tabela
+   real, com um comprador alheio de e-mail preenchido. `ON CONFLICT
+   (tenant_id, phone) DO NOTHING` com e-mail colidente **ESTOURA**, e o teste
+   casa o nome do indice de verdade (`users_tenant_email_idx`). A mesma
+   insercao SEM alvo devolve **zero linha e zero erro** - a colisao
+   desaparece. E a diferenca que o alvo nomeado compra, medida, nao afirmada.
+
+Estourar e o certo: e um estado que ninguem previu, e engoli-lo seria inventar
+uma resposta para ele. Devolver um usuario alheio seria trocar a identidade do
+comprador.
+
+### AC5 - a decisao da LTM-02 permanece, e esta amarrada
+
+`ensureBuyerIdentity` **nao recebe `tx`** e nao abre transacao. Isso nao e
+detalhe de assinatura: e o que torna o AC5 impossivel de quebrar por descuido.
+Amarra-la a transacao da reserva faria o cadastro de quem perdeu a disputa ser
+desfeito junto com o pedido que nao nasceu - e com ele a ficha do anti-spam. O
+comentario de `reserve.ts:247-250` foi preservado no lugar da chamada.
+
+### As quatro portas, saida real
+
+Todas em `apps/lotemania`.
+
+| Porta | Saida | Exit |
+|---|---|---|
+| `pnpm lint` | `5 problems (0 errors, 5 warnings)` - as 5 warnings sao PREEXISTENTES e em arquivos que esta story nao toca (`products/new/page.tsx`, `blocked-numbers-card.tsx`, `bonus-game-player.tsx`, `site-config.ts` x2). Zero achado nos meus dois arquivos | **0** |
+| `pnpm typecheck` | `tsc --noEmit`, sem saida | **0** |
+| `pnpm build` | tabela de rotas completa, 38 rotas, `Proxy (Middleware)` | **0** |
+| `pnpm test` | `Test Files 25 passed / 2 skipped (27)` - `Tests 332 passed / 2 skipped (334)` - suite 590344 ms | **0** |
+
+**O typecheck foi conferido duas vezes, de proposito.** `tsconfig.json` tem
+`incremental: true` e o `tsconfig.tsbuildinfo` e compartilhado com outro
+agente trabalhando em paralelo - cache quente sub-reporta. Alem de
+`pnpm typecheck`, rodei `npx tsc --noEmit --incremental false` (varredura
+completa, sem ler nem escrever cache): **exit 0** tambem.
+
+**A contagem de 332 nao e minha, e a aritmetica fecha.** A base era 276.
+Durante a execucao da suite, o agente que trabalha em paralelo acrescentou
+`tests/loja/pedido/` com tres arquivos (26 + 20 + 4 = 50 testes). 276 + 6
+(meus) + 50 (deles) = **332**. Nenhum teste preexistente regrediu; nenhum dos
+50 e meu, e nao os reivindico.
+
+### [CONFIRMAR] - o mesmo padrao em outros caminhos de cadastro
+
+A tarefa mandava olhar `signup.ts` e `affiliate-signup.ts`. Olhei - e a
+varredura por `.insert(users)` achou **mais dois caminhos que a story nao
+nomeia**. Nenhum foi consertado: todos sao acao propria, fora do caminho da
+reserva e fora do `Files:` desta story.
+
+| Caminho | Mesmo padrao? | Veredito |
+|---|---|---|
+| **`bonus-play.ts:48-61`** | **SIM - copia byte-a-byte** | **O achado mais grave.** Mesmo `SELECT` por `(tenantId, phone)`, mesmo `INSERT` com os mesmos `values({ tenantId, phone, role: "subscriber" })`, mesmo `.returning()[0].id`. E a MESMA criacao de identidade contra o MESMO indice, no caminho do comprador na loja. Duas batidas em "comprar" de um comprador novo = o mesmo 500. A story procurou nos dois lugares onde o conserto e DIFICIL e passou ao lado do unico onde ele e mecanicamente identico |
+| `signup.ts:29-58` | SIM, mas o conserto e outro | `SELECT ... WHERE phone = P OR email = E` e depois `INSERT` com phone E email. Duas submissoes simultaneas estouram em `users_tenant_phone_idx` ou `users_tenant_email_idx`. `ON CONFLICT (tenant_id, phone)` aqui seria ERRADO: a colisao pode ser legitimamente de e-mail, e a resposta certa e a mensagem que o proprio arquivo ja tem ("Ja existe uma conta com este telefone ou email"), nao idempotencia silenciosa. Exige decisao de produto sobre o que a segunda submissao deve VER |
+| `affiliate-signup.ts:25-47` | SIM, e tem dois defeitos a mais | `SELECT` so por e-mail e `INSERT` escrevendo `phone` sem nunca te-lo conferido: e-mail novo com telefone JA USADO estoura em `users_tenant_phone_idx` **sem concorrencia nenhuma**, deterministico. E `affiliateCode: randomBytes(4).toString("hex")` sao 8 hex sorteados sem conferencia nem repeticao contra `users_tenant_affiliate_code_idx` |
+| `affiliates.ts:25-54` | SIM, mesma forma de `affiliate-signup.ts` | caminho do painel do operador. Mesmo `randomBytes(4)` para `affiliateCode`, mesmo `phone` escrito sem conferencia |
+
+**Recomendacao de forma, para quem pegar isso:** `ensureBuyerIdentity` resolve
+`bonus-play.ts` sem uma linha de logica nova - mas ela **nao pode ser
+exportada de `reserve.ts`**, que e `"use server"` (exportar a transformaria em
+endpoint POST publico, e e a mesma razao pela qual a LTM-20 mudou a varredura
+para `lib/raffles/expire-reservations.ts`). O caminho e um modulo puro, no
+molde daquele.
+
+### Arquivos tocados
+
+| Arquivo | O que |
+|---|---|
+| `apps/lotemania/src/lib/actions/reserve.ts` | +87 / -14. `ensureBuyerIdentity` nova e privada; o `SELECT`+`INSERT` cru do corpo da acao virou uma chamada. O comentario da LTM-02 sobre a identidade fora da transacao foi preservado |
+| `apps/lotemania/tests/money-path/identidade-concorrente.test.ts` | novo, 6 testes |
+| `docs/stories/03-Product/EPIC-LTM-Imperio-Migration/LTM-23.md` | este registro |
+
+Nenhuma migracao. Nenhum arquivo em `drizzle/`. Nada tocado em
+`src/lib/mask.ts` nem em `pedido/[orderId]/*`, que sao do agente paralelo.
+
+### Premissas da story conferidas contra o codigo
+
+| Premissa | Veredito |
+|---|---|
+| o defeito, o indice, as 4 unicidades, nenhuma migracao | VERDADEIRAS, uma por uma |
+| `reserve-concurrency.test.ts:66` usa um telefone por disputante | VERDADEIRO - e o comentario de la JA DIZ a razao ("20 pessoas disputando, nao uma pessoa clicando 20 vezes"). O buraco nao foi descuido: foi um caso que nao ocorre a quem modela atores distintos |
+| AC4: provar o conflito de e-mail pela acao de producao | **PREMISSA FALSA.** Inalcancavel: a reserva nunca escreve `email`, e `NULL` nao colide com `NULL`. Provado em duas camadas no lugar - ver acima |
+| o `[CONFIRMAR]` cobre os caminhos que criam usuario | **INCOMPLETA.** Nomeia 2 de 4. `bonus-play.ts` e `affiliates.ts` ficaram de fora, e o primeiro e copia exata do defeito |
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
 | 2026-11-19 | 1.0 | Nasce de medição do @dev durante a `LTM-20`, com sonda descartável: 5 rodadas × 6 operações, **6 rejeições sem identidade pré-criada e 0 com**. Não foi consertado lá porque nenhum AC daquela story o cobria e mexer em criação de identidade merece decisão própria. A suíte não pega porque `reserve-concurrency.test.ts:66` usa um telefone por disputante — **terceira vez neste epic em que o buraco mora onde o teste não olha**. | @aiox-master |
+| 2026-11-19 | 1.1 | Implementada. `ensureBuyerIdentity` com `ON CONFLICT (tenant_id, phone) DO NOTHING` + releitura em laco limitado; `SELECT` preservado para o comprador que ja existe nunca ter a linha tocada. 6 testes novos em `identidade-concorrente.test.ts`. Vermelho provado removendo a linha do conserto: 5 excecoes em 6 abas. Quatro portas em exit 0. Duas premissas corrigidas: o AC4 e inalcancavel pela acao de producao (a reserva nunca escreve `email`), e o `[CONFIRMAR]` nomeia 2 de 4 caminhos - `bonus-play.ts:48-61` e copia byte-a-byte do defeito e segue sem conserto, fora do escopo. | @dev |
