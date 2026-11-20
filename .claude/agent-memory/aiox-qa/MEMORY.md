@@ -1,0 +1,2 @@
+- [Ponto cego da suíte do lotemania](project_lotemania_test_blindspot.md) — três defeitos no mesmo lugar: atores distintos bem modelados, o MESMO ator em paralelo mal. Vale para a LTM-28.
+- [Evidência num portão do lotemania](project_lotemania_gate_evidencia.md) — suíte cheia estoura o Bash; relógio falso não move o `now()` do Postgres; varredura de fonte tem de ler código, não comentário.

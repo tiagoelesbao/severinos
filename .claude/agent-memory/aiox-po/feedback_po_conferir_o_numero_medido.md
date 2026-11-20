@@ -1,6 +1,6 @@
 ---
 name: feedback-po-conferir-o-numero-medido
-description: Número marcado como "conferido" na story tem de ser recontado, não aceito — e no lotemania número de linha envelhece em dias; conferir a conclusão não substitui conferir o número
+description: Número marcado como "conferido" na story tem de ser recontado, não aceito — em arquivo da fila serial do lotemania a linha envelhece em DIAS (as duas que eu corrigi em 11-18 moveram de novo em 48 h), então citação sem nome de símbolo não se escreve
 metadata:
   type: feedback
 ---
@@ -16,8 +16,8 @@ isso que passaram:
 |---|---|---|
 | "as 22 tabelas de `src/db/schema/`" | **34** | `LTM-16`, propagado para `LTM-10` (×2) e `LTM-13` |
 | `bi_aggregator.py:1099` | **:1128** | `LTM-07`, 3ª ocorrência de citação velha na mesma story |
-| `reserve.ts:353` (`reservedUntil`) | **:375** | `LTM-17` |
-| `pedido/[orderId]/page.tsx:63` | **:98** | `LTM-17` |
+| `reserve.ts:353` (`reservedUntil`) | **:375** — e **`:423-424`** 48 h depois | `LTM-17` |
+| `pedido/[orderId]/page.tsx:63` | **:98** — e **`:117`** 48 h depois | `LTM-17` |
 
 O dano não é o número: é que um número apresentado como medido e que está 12 fora gasta a confiança
 em **todos os outros números do mesmo artefato** — e aí a validação seguinte tem de reconferir tudo,
@@ -27,6 +27,14 @@ viajado para três stories antes de alguém recontar.
 Causa estrutural, nesta base: **número de linha envelhece em dias.** `reserve.ts` e
 `validations/reserve.ts` foram reescritos duas vezes em 48 horas por `LTM-02` e `LTM-03b`; toda
 citação escrita antes disso mentia depois, sem ninguém errar nada.
+
+**E em 2026-11-20 as duas linhas da tabela acima envelheceram de novo** — `:375` virou `:423-424` e
+`:98` virou `:117`, porque `LTM-20` e `LTM-23` entraram em `reserve.ts` no intervalo. **As correções
+que eu mesmo apliquei em 11-18 duraram dois dias**, e esta memória, que as registrava como "o
+valor real", passou a mentir junto. Isso promove a regra 2 de boa prática a **obrigatória**: em
+arquivo da fila serial, **citação sem símbolo não se escreve** — não porque é imprecisa, porque tem
+prazo de validade medido em dias. Na mesma rodada, a citação que **não** envelheceu foi a única
+ancorada em nome de função (`reservationMinutesFor`, `validations/reserve.ts:149`).
 
 **How to apply:**
 

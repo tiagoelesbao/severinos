@@ -1,6 +1,6 @@
 ---
 name: epic-ltm-validation
-description: EPIC-LTM (migração Império → lotemania) — histórico das validações do @po; o ADR-0001 (meia cota é linha) reabriu 5 stories, a 3ª rodada liberou a onda 1, e em 2026-11-18 a LTM-07 fechou (GO 9/10) junto com a LTM-16; LTM-17 NO-GO e LTM-18 revelou 36 de 43 campos do editor sem leitor
+description: EPIC-LTM (migração Império → lotemania) — histórico das 5 rodadas de validação do @po; ADR-0001 reabriu 5 stories, e a 5ª rodada (11-20) pôs 6 em Ready, achou o prêmio que seria pago N vezes, a meia cota inalcançável pela UI em 3 pontos, e falha silenciosa onde a story prometia erro 500
 metadata:
   type: project
 ---
@@ -40,6 +40,33 @@ revertida de `Ready` (posto pelo @aiox-master sem autoridade) para `Draft`: o `F
 nasceu e fechou o item solto "campo de configuração sem leitor": a varredura achou **36 de 43**
 campos do editor de sorteio sem leitor nenhum, e a loja lê 5 linhas de configuração — divisão em
 `18a`/`18b`/`18c` aceita, `18a` primeiro porque não liga nada e já faz a tela parar de mentir.
+
+**2026-11-20 (5ª)** — rodada de 9 stories. **GO:** `LTM-02` (contradição de cabeçalho resolvida —
+`Ready` era a verdade, o aviso de `Draft` era resíduo da v1.4), `LTM-27` 8,5, `LTM-08` 8 (o bloco
+`Files:` que a travava desde 11-17 **se mede** agora que a `LTM-07` entregou), `LTM-19` 8,5,
+`LTM-28` 8,5, `LTM-17` 8,5 (as 4 correções aplicadas; o `Files:` aponta
+`validations/reserve.ts:149`). **NO-GO:** `LTM-04` 6 (5,5 das 7 correções de 11-17 ainda abertas; eu
+converti 5 em AC verificável — `AC16` dialetos dos dois endpoints, `AC17` token portador, `AC18`
+vocabulário de status, `AC19` unidade pelo `ADR-0001`), `LTM-18` 6 (**indespachável**: 8 entradas em
+`Files:`, `Depends-on` de 4 stories — o que destrava é a divisão `18a/18b/18c` **existir como
+arquivo**, e criar story é do @sm).
+
+**Os três achados que valem mais que os veredictos:**
+1. **O prêmio pago N vezes** (`LTM-27`): o `AC3` mandava um campo por prêmio; o domínio lê **um**
+   `prizeAmount` por sorteio e recebe **um** número por chamada, então N cadastros ratearia o valor
+   cheio N vezes. Eu propus **recusar**; levada a objeção ao founder, ele reafirmou que cadastrar N
+   ganhadores é requisito, e o remédio virou **o operador digitar o valor de cada lugar**. **A
+   medição sobreviveu à troca de remédio** — o valor dela não era a recusa, era saber que o valor por
+   lugar não existia em lugar nenhum.
+2. **A meia cota é inalcançável pela interface em TRÊS pontos** (`LTM-08`), não um: além de
+   `number-grid.tsx` mandar sempre `half: null`, **nenhum sorteio pode ser marcado como divisível**
+   (`setProductDivisibility` com zero chamadores, nenhum formulário envia `isDivisible`,
+   `productSchema` resolve `false`) e o ganhador da metade não se registra. Consequência: três ACs
+   da `LTM-07` guardam transição que **nenhum caminho de produção dispara**.
+3. **Falha silenciosa, não erro 500** (`LTM-28`): a story descrevia *"erro 500"* nos caminhos do
+   comprador; medido, a pessoa **não vê nada** — os dois componentes tratam `{ error }` e **não têm
+   `try`/`catch`**, e **não existe `error.tsx` em nenhum nível de `src/app`**. O único caminho com
+   mensagem é o do **operador**, o de menor estrago.
 
 **Why:** mudar a unidade vendável depois de validar invalida todo AC escrito sobre "número".
 O caso mais instrutivo é a `LTM-05`: o verificador de invariantes que todas as stories herdam

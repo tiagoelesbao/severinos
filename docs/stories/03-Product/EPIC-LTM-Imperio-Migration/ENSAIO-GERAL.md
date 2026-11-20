@@ -131,7 +131,7 @@ Roteiro do que deve ser executado, na ordem, num tenant de teste do lotemania:
 | 4 | Cadastrar comprador novo | conta criada, sessão aberta |
 | 5 | Comprar **uma metade** | 1 unidade reservada, a metade irmã **intacta** |
 | 6 | Conferir a tela de espera | contagem de `reservedUntil`, BR Code copiável, QR |
-| 7 | **Deixar vencer** | a unidade volta a livre **sem ninguém tentar reservar** |
+| 7 | **Deixar vencer** — ✅ **autorizado pelo founder (`D12`, 11-20)** | a unidade volta a livre **sem ninguém tentar reservar** |
 | 8 | Comprar de novo e **pagar** | pedido `paid`, unidade `sold`, **um** crédito |
 | 9 | Segundo comprador leva **a outra metade** do mesmo número | duas pessoas, mesmo número, metades diferentes |
 | 10 | Encerrar o sorteio | status `finished` |
@@ -140,6 +140,27 @@ Roteiro do que deve ser executado, na ordem, num tenant de teste do lotemania:
 
 > **O passo 11 é o que não existe hoje**, e é justamente o que prova que a meia cota funciona de
 > ponta a ponta. Um ensaio que pare no passo 10 não valida a feature que o cliente pediu.
+
+### O que a `D12` autorizou, e por que isso importa para o passo 7
+
+O founder autorizou, em 2026-11-20, **duas** coisas no tenant de teste: **deixar uma reserva vencer
+de propósito** e **acionar o `Revisar pagamentos`**.
+
+A primeira destrava o passo 7 — e ele é o passo que **prova o defeito que o próprio founder
+reportou**: *"reservas expiradas não saem da reserva disponibilizando o número novamente"*. A
+`LTM-20` consertou e o portão do @qa fechou `PASS`, mas **o que o portão prova é o código**; o passo 7
+prova o produto.
+
+⚠️ **O `Revisar pagamentos` só se aciona no lotemania.** Na Sorteamos ele é **silencioso** — sem
+confirmação e sem retorno visual (`menu-lista-de-compras.md`) — e a instrução permanente do founder
+sobre a conta dele é *"não altere nada"*. A autorização é para o nosso tenant de teste, e só.
+
+### E o `11` ganhou uma exigência a mais com a `D11`
+
+A decisão de 11-20 é **vários números sorteados, e até 2 ganhadores por número só em meia cota**.
+Então o passo 11 do ensaio passa a ter de provar **os dois eixos ao mesmo tempo**: mais de um número
+sorteado, **e** um deles partido em duas pessoas. Um ensaio que registre um ganhador só prova metade
+da `D11`.
 
 ### O que o ensaio **não** prova
 
