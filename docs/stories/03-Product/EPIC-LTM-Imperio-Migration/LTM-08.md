@@ -118,6 +118,80 @@ prova que **não** mudaram.
   do painel, contra rotas de API e schema de pagamento/atribuição).
 - **Não gera migração** — não disputa o journal do Drizzle.
 
+### Nota de formação de ondas (`.claude/rules/parallel-waves.md`)
+
+**Declarado pelo @po em 2026-11-20, medido caminho por caminho.** Era o último item que travava a
+story, e em 11-17 ele foi corretamente recusado como dedução a partir das tarefas. Hoje a `LTM-07`
+está entregue e cada superfície existe no disco — então a lista abaixo é **medição**, com a linha
+citada onde a linha é o alvo.
+
+```
+Files (escreve):
+  apps/lotemania/src/app/loja/[tenant]/[productSlug]/number-grid.tsx
+      a celula partida e a banda clicavel. :70 e a linha que TRAVA a meia cota hoje
+      (`units: selected.map((number) => ({ number, half: null }))`), e o comentario
+      de :60-66 JA ATRIBUI a esta story a selecao de metade avulsa
+  apps/lotemania/src/app/loja/[tenant]/[productSlug]/page.tsx
+      o anuncio dos dois valores lado a lado (AC3)
+  apps/lotemania/src/app/loja/[tenant]/meus-titulos/lookup-form.tsx
+      a metade marcada no que o comprador consulta. O numero sai em :88; o tipo
+      `numbers: number[]` em :18 NAO tem onde carregar a metade
+  apps/lotemania/src/lib/actions/my-titles.ts
+      A FONTE do defeito do AC5: :35 faz `.select({ number: productNumbers.number })`
+      e DESCARTA `half` na consulta. Marcar a metade so no componente e impossivel
+  apps/lotemania/src/app/dashboard/products/[id]/advanced-settings-tabs.tsx
+      a unidade nomeada nas seis configuracoes + o marcador de divisibilidade com
+      o congelamento visivel (AC4) e a recusa de premio nao divisivel (AC7)
+  apps/lotemania/src/app/dashboard/products/[id]/page.tsx
+      a contagem de metades orfas no painel do sorteio (AC6). E a tela `Editar
+      Sorteio` (:88), que e a que o operador ja abre
+  apps/lotemania/src/app/loja/[tenant]/ganhadores/page.tsx
+      `winning_half` no cartao publico. A mascara ja esta la (:62, :81); o que falta
+      e `42 (metade)` em vez de `42` — regra *metade marcada* do GLOSSARY
+  apps/lotemania/src/lib/raffles/orphan-halves.ts                      (NOVO)
+      a consulta de metade orfa, que nao existe: `grep -rn "orf\|orphan" src` = ZERO
+  apps/lotemania/tests/loja/meia-cota-superficie/**                    (NOVO)
+
+Cobertos, NAO editados:
+  apps/lotemania/src/lib/actions/products.ts
+      `setProductDivisibility` (:179) JA EXISTE e e a porta do marcador. Esta story
+      a CHAMA; quem valida o congelamento e a recusa e `raffles/divisibility.ts`,
+      que e da LTM-07 e esta em InReview — NAO editar nenhum dos dois
+  apps/lotemania/src/lib/raffles/divisibility.ts, prize-split.ts, winners.ts
+      o dominio da LTM-07. Esta story e so superficie
+
+Resources:
+  banco de teste      — COMPARTILHADO. Base/esquema proprio por tarefa.
+  NENHUMA migracao    — `is_divisible` (raffles.ts:90) e `half` ja existem
+  branch Neon efemera — cota finita; nao rodar a suite em duas ondas ao mesmo tempo
+
+Depends-on: LTM-07 (ENTREGUE, 4d18f17a — a dependencia bloqueante caiu)
+```
+
+#### ⚠️ A aresta com a `LTM-27`, declarada antes do despacho
+
+**As duas tocam `dashboard/products/`, e os arquivos são diferentes** — mas a diferença é de **um
+segmento de caminho**, que é o tipo de coisa que se confunde ao abrir o editor:
+
+| | `LTM-08` (esta) | `LTM-27` (ganhadores) |
+|---|---|---|
+| no painel | `products/**[id]**/page.tsx` e `products/**[id]**/advanced-settings-tabs.tsx` | `products/page.tsx`, `products/product-row-actions.tsx`, `products/winners-dialog.tsx` |
+| na loja | `ganhadores/page.tsx` — **`winning_half`** | — (o `AC8` dela **atribui a exibição da metade a esta story**) |
+| em `src/lib` | `raffles/orphan-halves.ts` (novo) | `actions/winners.ts` (novo) |
+
+✅ **Os conjuntos são disjuntos arquivo por arquivo, então as duas PODEM compartilhar onda.**
+⛔ **Com uma condição:** se a `LTM-27` precisar entrar em `products/[id]/**` — ou esta em
+`products/*.tsx` da raiz —, **a onda se rompe e serializa**. `products/page.tsx` e
+`products/[id]/page.tsx` são arquivos distintos com o mesmo nome de arquivo, e nenhum dos dois
+blocos usa glob justamente por isso.
+⚠️ **`ganhadores/page.tsx` é o único ponto onde as duas encostam no mesmo resultado** e não no mesmo
+arquivo: a `LTM-27` **cria a linha** de `winners`, esta **marca a metade** nela. A `LTM-27` pode ir
+primeiro sem esperar; o cartão sai com `42` até esta chegar, o que é o estado de hoje.
+⛔ **Não compartilha onda com a `LTM-17` nem com a `LTM-18a`/`18c`** — as três querem
+`advanced-settings-tabs.tsx`.
+⛔ **Não compartilha onda com a `LTM-02`** — `number-grid.tsx` é declarado por ela (o recorte do
+contrato de entrada); esta story mexe na **aparência** do mesmo arquivo.
+
 ## Riscos
 
 - **[Alto] Anúncio ambíguo.** É o risco com consequência fora do software: cliente que compra
@@ -126,8 +200,13 @@ prova que **não** mudaram.
 - **[Médio] Export ambíguo.** `42` para uma metade vira disputa na hora de pagar o prêmio. AC5.
 - **[Médio] Regressão na grade dos sorteios atuais.** São 5 rodadas simultâneas em produção. AC1
   exige a regressão explícita.
-- **[Baixo] Grade partida no celular.** A banda de cada metade precisa continuar clicável num alvo
-  de toque usável — a grade já é de sete colunas.
+- **[Baixo → Médio] Grade partida no celular.** A banda de cada metade precisa continuar clicável
+  num alvo de toque usável. ⚠️ **Correção do @po (2026-11-20): a grade não é "de sete colunas".**
+  `number-grid.tsx:119` é `grid grid-cols-6 gap-1.5 sm:grid-cols-10` — **6 no celular, 10 a partir
+  de 640px**. Partir ao meio uma célula de **uma grade de dez** no desktop é metade do alvo de toque
+  que o número de "sete" sugeria, e é o lado que a decisão **D4** do founder (manter 6) **não
+  fecha** — ela decidiu 6 contra 7, não 6 contra 10 (epic §6, item 7). **Esta story não muda o
+  número de colunas**: mudá-lo por dedução é o que o epic registrou como não-corrigido de propósito.
 
 ## Dev Agent Record
 
@@ -138,6 +217,10 @@ _(preencher na implementação)_
 _(preencher na implementação)_
 
 ## Validação @po (2026-11-17)
+
+> ✅ **Histórico — o item que faltava foi fechado em 2026-11-20.** O bloco `Files:` está declarado na
+> seção *Dependências*, medido caminho por caminho. Esta seção fica como registro do que foi exigido
+> e por quê; o veredito vigente é o de **2026-11-20**, ao fim do arquivo.
 
 **Veredicto: GO condicional — 7/10.** Permanece `Draft` até **um** item ser fechado: o bloco
 `Files:`. A correção de escopo do AC5 já foi aplicada nesta validação.
@@ -159,7 +242,7 @@ por sorteio estão listados no epic como **Frente B, despriorizada, "a definir"*
 para condição de aceite da Frente B, registrada no OUT. Um AC que depende de trabalho não
 especificado em outra frente é um AC que trava a story sem defeito nenhum nela.
 
-### O item que falta
+### O item que falta — **fechado em 2026-11-20**
 
 **Bloco `Files:`/`Resources:`/`Depends-on:`**, no padrão da `LTM-03a`. A story diz, corretamente,
 que é disjunta de `03a`/`04` e que não gera migração — mas **não lista um arquivo**. Não vou
@@ -182,8 +265,8 @@ Não está no caminho crítico: esta story é bloqueada pela `LTM-07` de qualque
 
 | Eixo | Nota |
 |---|---|
-| Completude de template | ⚠️ sem bloco `Files:` |
-| Estrutura de arquivos / árvore | ⚠️ disjunção afirmada, conjunto não declarado |
+| Completude de template | ⚠️ sem bloco `Files:` — ✅ **fechado em 11-20** |
+| Estrutura de arquivos / árvore | ⚠️ disjunção afirmada, conjunto não declarado — ✅ **declarado em 11-20** |
 | UI/Frontend | ✅ é a força da story — grade, unidade, anúncio, congelamento visível |
 | Satisfação dos ACs | ✅ após a correção do AC5 |
 | Instruções de teste | ⚠️ AC2 por varredura manual |
@@ -193,9 +276,89 @@ Não está no caminho crítico: esta story é bloqueada pela `LTM-07` de qualque
 | Anti-alucinação | ✅ as seis configurações e o `quickBuyCards` conferem com o código |
 | Prontidão para @dev | ⚠️ bloqueada pela `LTM-07` |
 
+## Revalidação @po (2026-11-20) — **GO, 8/10. `Draft` → `Ready`**
+
+O veredito de 11-17 foi *GO condicional, travado em **um** item*: o bloco `Files:`. **Ele está
+declarado.** E a razão pela qual ele podia ser declarado hoje e não então é a parte que importa: em
+11-17 recusei inventá-lo a partir das tarefas — *"inferir conjunto de arquivo foi exatamente o que
+derrubou a `LTM-03`"* — e isso continua certo. O que mudou é que a `LTM-07` **entregou**
+(`4d18f17a`), as superfícies existem no disco, e **lista medida não é lista inferida**.
+
+### A story saiu de "não está no caminho crítico" para dentro dele
+
+Em 11-17 eu fechei com *"não está no caminho crítico: esta story é bloqueada pela `LTM-07` de
+qualquer forma"*. **As duas metades dessa frase caíram:** a `LTM-07` entregou, e o founder mandou
+que o ensaio ponta a ponta **inclua meia cota**. Ela é P0 e é agora.
+
+### O que eu medi, e é pior do que a story supunha
+
+A meia cota não está **inalcançável pela interface em um ponto. São três** — e isso é o achado
+desta revalidação:
+
+| # | O que não dá para fazer pela tela | Medição |
+|---|---|---|
+| **1** | **Marcar um sorteio como divisível** | `setProductDivisibility` (`actions/products.ts:179`) tem **zero chamadores** — só comentários e testes. Nenhum formulário expõe `isDivisible`: `grep -rn "isDivisible" src/app --include=*.tsx` = **zero**. E `productSchema` o resolve para **`false`** (`validations/product.ts:25`, `z.boolean().default(false)`), então **todo sorteio criado pela tela nasce indivisível, sem ninguém escolher isso** |
+| **2** | **Comprar uma metade** | `number-grid.tsx:70` envia sempre `half: null` |
+| **3** | **Registrar o ganhador da metade** | `recordWinnersForDrawnTitle` tem um importador, e é um teste — é a `LTM-27` |
+
+> **O ponto 1 é o que ninguém tinha nomeado, e é o primeiro da fila.** Mesmo com a grade partida
+> pronta, **nenhum sorteio pode ser divisível** — a porta existe no servidor e não tem maçaneta na
+> tela. É a tarefa *"Editor do sorteio: o marcador de divisibilidade"*, que a story já tinha, e que
+> acabou de passar de *"configuração a mais"* para **pré-requisito do ensaio**.
+>
+> A boa notícia é que o trabalho é pequeno e **nenhuma lógica nova é necessária**: a ação, o
+> congelamento na primeira venda e a recusa de prêmio não divisível **já estão construídos e
+> testados** pela `LTM-07` (`raffles/divisibility.ts`). Falta o controle que os chama.
+>
+> ⚠️ **E isso tem uma consequência para o portão da `LTM-07`, registrada aqui porque o arquivo dela é
+> do @qa agora:** três ACs dela guardam uma transição que **ninguém pode disparar fora de teste**. Os
+> testes provam a regra; **nenhum caminho de produção a exercita**. Não é defeito da `LTM-07` — o
+> domínio é dela, a superfície é desta story —, mas é o tipo de cobertura que parece completa e não é.
+> **Esta story é o que torna aqueles três ACs exercitáveis pelo caminho real.**
+
+### A segunda correção de escopo, da mesma classe da de 11-17
+
+O `AC2` exigia unidade nomeada *"nos cartões de compra rápida"*. **Eles não existem** —
+`quickBuyCards` aparece em **um** arquivo, a própria declaração, e é **grupo B da `LTM-18`**
+(*"prometem uma tela que não existe"*). É o mesmo defeito que o `AC5` tinha com os três exports, e
+o conserto é o mesmo: a regra migra para condição de aceite de quem construir a tela.
+
+**Duas vezes a mesma classe de defeito na mesma story diz algo sobre o epic, não sobre a story:**
+nesta base, *"a configuração existe"* não autoriza concluir *"a tela existe"*. São 36 campos nessa
+situação, e é a razão de a `LTM-18` ser P0.
+
+### A citação de linha que eu corrigi
+
+O risco *[Baixo] Grade partida no celular* dizia *"a grade já é de sete colunas"*. **É
+`grid-cols-6 sm:grid-cols-10`** (`number-grid.tsx:119`): seis no celular, **dez** no desktop. Partir
+uma célula de dez ao meio é metade do alvo de toque que "sete" sugeria — e é exatamente o lado que a
+**D4** do founder não fechou.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ bloco `Files:`/`Resources:`/`Depends-on:` declarado |
+| Estrutura de arquivos / árvore | ✅ 9 caminhos medidos; a aresta com a `LTM-27` escrita antes do despacho |
+| UI/Frontend | ✅ segue sendo a força da story |
+| Satisfação dos ACs | ✅ depois do recorte do `AC2`; `AC6` ganhou arquivo próprio (`orphan-halves.ts`) |
+| Instruções de teste | ⚠️ `AC2` ainda é varredura de rótulo — vale enumerar no Dev Record |
+| Segurança | ✅ `claims-ledger` invocado no anúncio, onde devia |
+| Sequência de tarefas | ⚠️ → ✅ **com uma ordem interna obrigatória**: o marcador de divisibilidade **antes** da grade partida, ou não há sorteio divisível para testar a grade contra |
+| Duplicação funcional | ✅ colisões declaradas: `LTM-02` (`number-grid.tsx`), `LTM-17`/`LTM-18` (`advanced-settings-tabs.tsx`), `LTM-27` (disjunta, com condição) |
+| Anti-alucinação | ✅ as seis configurações conferem; corrigida a grade de "sete" colunas |
+| Prontidão para @dev | ✅ `LTM-07` entregue; nada bloqueia |
+
+### A ordem interna, que vale mais que a nota
+
+**O marcador de divisibilidade vai primeiro.** Sem ele não existe sorteio divisível no banco, e sem
+sorteio divisível a grade partida não tem contra o que ser testada — o `AC1` viraria inspeção visual
+em vez de teste.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.2 | **Revalidada — GO (8/10). `Draft` → `Ready`.** O único item que a travava desde 11-17 — o bloco `Files:` — **está declarado**, medido caminho por caminho, com `Resources:` e `Depends-on:`; a dependência bloqueante caiu com a `LTM-07` entregue (`4d18f17a`). **Achado da revalidação: a meia cota é inalcançável pela interface em TRÊS pontos, não um.** Além de `number-grid.tsx:70` (`half: null` sempre), **nenhum sorteio pode ser marcado como divisível** — `setProductDivisibility` (`actions/products.ts:179`) tem **zero chamadores** e nenhum formulário expõe `isDivisible` — e o ganhador da metade não se registra (é a `LTM-27`). Isso impõe **ordem interna**: o marcador de divisibilidade antes da grade partida, ou o `AC1` não tem sorteio contra o que ser testado. **`AC2` recortado** pela mesma razão que o `AC5` foi em 11-17: exigia unidade nomeada *"nos cartões de compra rápida"*, que **não existem** (`quickBuyCards` aparece só na própria declaração; é grupo B da `LTM-18`) — a regra migra para condição de aceite de quem construir os cartões. Corrigido o risco que afirmava *"a grade já é de sete colunas"*: é `grid-cols-6 sm:grid-cols-10` (`:119`). Declarada a aresta com a `LTM-27` **antes do despacho**: conjuntos disjuntos arquivo por arquivo (`products/[id]/**` aqui × `products/*.tsx` lá), podem compartilhar onda, e `ganhadores/page.tsx` — a exibição de `winning_half` — **é desta story**, conforme o `AC8` da `LTM-27` e o comentário de `raffles.ts:306`. | @po (Pax) |
 | 2026-11-17 | 1.0 | Nasce do `/grill-with-docs` com o founder, separada da `LTM-07` desde o início para não repetir o tamanho que derrubou a `LTM-03` na validação. | @aiox-master |
 | 2026-11-17 | 1.1 | **Validada — GO condicional (7/10). Permanece `Draft` até o bloco `Files:` ser declarado.** AC5 recortado: exigia marcação da metade em três exports que não existem (Frente B); fica com "Meus títulos", e a regra da metade marcada migra para condição de aceite da Frente B. | @po (Pax) |

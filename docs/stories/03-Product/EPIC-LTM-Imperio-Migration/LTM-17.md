@@ -1,11 +1,19 @@
 # LTM-17: O relógio da reserva passa a ser do operador
 
-**Status:** Draft
-> ❌ **`Ready` → `Draft` em 2026-11-18, 1ª validação do @po — NO-GO (6,5/10).** O `Ready` anterior foi
-> posto pelo @aiox-master, que não tem essa autoridade (`.claude/rules/story-lifecycle.md`), e
-> **revertê-lo era o certo mesmo com a autoridade correta**: o bloco `Files:` nomeia o arquivo errado
-> para a única mudança que esta story faz, e omite o arquivo real — que pertence a outra story.
-> Três das quatro correções são de redação. Ver a validação no fim do arquivo.
+**Status:** Ready
+> ✅ **Revalidada pelo @po em 2026-11-20 — GO (8,5/10). `Draft` → `Ready`.** As **quatro** correções
+> do NO-GO de 11-18 estão aplicadas, e a nº 1 — a que decidiu aquele NO-GO — está aplicada **no
+> lugar certo**: o bloco `Files:` declara `src/lib/validations/reserve.ts` **com a linha do corpo
+> (`:149`)** e **não** aponta mais `actions/reserve.ts` para a mudança. Conferido no código hoje:
+> `reservationMinutesFor` está em `validations/reserve.ts:149-157` e faz literalmente
+> `void product; return RESERVATION_MINUTES_DEFAULT` — **o relógio recebe o sorteio e o descarta.**
+> A decisão **D2** do @pm está bem aplicada e o default 30 está **medido**, não escolhido.
+> **Corrigi quatro citações de linha que envelheceram de novo** (incluindo duas que a validação
+> anterior já havia corrigido uma vez). Ver *Revalidação @po (2026-11-20)*.
+>
+> ⚠️ **Histórico:** o `Ready` de 11-18 havia sido posto pelo @aiox-master, que não tem essa
+> autoridade (`.claude/rules/story-lifecycle.md`). O `Ready` de hoje é meu, e vem com o bloco
+> `Files:` conferido arquivo por arquivo.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o relógio que a `LTM-03b` amarrou
 **Prioridade:** **P1** — pedido direto do founder, e é o que faz a divergência de 15 contra 30 minutos deixar de ser decisão de engenharia
 **Complexidade:** **S → M** — a tela existe, o campo existe, o esquema existe. Faltava a leitura; a decisão **D2** de 11-19 acrescenta **trocar a lista de valores**
@@ -30,11 +38,30 @@ Conferido no código em 2026-11-18. **Isto não é uma story de construir; é um
 | Onde o valor é guardado | `products.advancedSettings` (jsonb, `src/db/schema/raffles.ts:82`) | ✅ existe |
 | **Quem lê o valor** | — | ❌ **ninguém** |
 
-O que o código faz hoje: `src/lib/actions/reserve.ts` usa `RESERVATION_MINUTES = 15` cravado, e a
-tela de pedido repete *"por 15 minutos"* escrito à mão (`pedido/[orderId]/page.tsx:63`).
+O que o código faz hoje — ⚠️ **corrigido pelo @po em 2026-11-20; a redação original descrevia o
+código de antes da `LTM-03b` e já havia sido apontada como falsa em 11-18:**
+
+```ts
+// src/lib/validations/reserve.ts:149-157
+export function reservationMinutesFor(
+  product?: ReservationWindowProduct | null,
+): number {
+  void product;                        // <- recebe o sorteio
+  return RESERVATION_MINUTES_DEFAULT;  // <- e devolve 15 de qualquer forma
+}
+```
+
+**A `LTM-03b` já fez a parte difícil:** não há mais constante espalhada nem texto escrito à mão. Os
+**três** relógios (a reserva, o texto da tela e o `expiration_seconds` da Paysure) já consultam
+**esta** função. O que falta é o corpo dela ler o sorteio que ela já recebe.
 
 **Ou seja: o operador já pode escolher 30 minutos, a escolha é salva no banco, e o sistema continua
-reservando por 15.** A tela mente para quem a usa.
+reservando por 15.** A tela mente para quem a usa — e o `void product` é essa mentira em uma linha.
+
+> 💡 **O @qa chegou no mesmo lugar pelo outro lado.** O portão da `LTM-03b` saiu **`CONCERNS`**
+> porque o `AC14` dela afirma **uma** declaração do número de minutos e existem **duas** — e a
+> segunda é justamente o campo que o operador vê e que nada lê. **Esta story é o fecho daquele
+> `CONCERNS`**, e é a melhor confirmação de que o recorte entre as duas está no lugar certo.
 
 > ### A terceira vez que este padrão aparece nesta base
 >
@@ -107,7 +134,8 @@ A leitura é `productAdvancedSettingsSchema.parse(product.advancedSettings)`, qu
 
 ### 3. Mudar a configuração não mexe em reserva já feita
 
-`reservedUntil` é gravado **no momento da reserva** (`reserve.ts:353`). Uma reserva feita com 15
+`reservedUntil` é gravado **no momento da reserva** (`actions/reserve.ts:423-424`, conferido em
+2026-11-20 — a citação `:353`, e depois `:375`, envelheceram as duas). Uma reserva feita com 15
 minutos continua expirando em 15 minutos, mesmo que o operador troque para 30 um segundo depois.
 
 Isto não é limitação — é o comportamento correto, e é o único que não quebra a promessa já feita ao
@@ -148,7 +176,7 @@ O seletor é fechado **e o zod passa a ser** (ver a decisão acima) — então a
       `.map()` do `SelectContent`. As duas têm de mudar, ou a tela fica incoerente consigo mesma.
 - [ ] **(D2)** `product-settings.ts:24`: `.default(15)` → **`.default(30)`**, e o campo passa a ser
       **lista fechada** no zod (os oito valores), não `int().positive()` solto.
-- [ ] **(D2)** Apagar `RESERVATION_MINUTES_DEFAULT = 15` (`validations/reserve.ts:113`) — é a linha
+- [ ] **(D2)** Apagar `RESERVATION_MINUTES_DEFAULT = 15` (**`validations/reserve.ts:114`**) — é a linha
       que o **AC6** manda procurar, e sem esta tarefa o AC6 é inexequível (@po, 11-18).
 - [ ] O texto da tela de pedido deriva do mesmo valor, para aquele sorteio.
 - [ ] A criação da cobrança PIX (`LTM-03b`) passa a usar o valor do sorteio do pedido.
@@ -185,7 +213,7 @@ O seletor é fechado **e o zod passa a ser** (ver a decisão acima) — então a
     cálculo depois (carência, arredondamento, margem) estoura em **422** no caminho do dinheiro.
 - [ ] **AC6 (os oito são a única lista, e o 15 não sobrou em lugar nenhum):** busca por `15` como
       literal de minutos de reserva não encontra nenhuma declaração — **nem no default**, que passou
-      a ser 30. Inclui `RESERVATION_MINUTES_DEFAULT` (`validations/reserve.ts:113`), que fica morto
+      a ser 30. Inclui `RESERVATION_MINUTES_DEFAULT` (**`validations/reserve.ts:114`**), que fica morto
       e tem de ser apagado. É o AC14 da `LTM-03b` levado até o fim.
 - [ ] **AC7 (a porta de verificação continua verde):** `pnpm lint`, `pnpm typecheck`, `pnpm build` e
       `npm run test` passam.
@@ -237,14 +265,14 @@ os testes acima.
 
 ```
 Files:
-  apps/lotemania/src/lib/validations/reserve.ts                                 (O CORPO da funcao - :149; e apagar :113)
+  apps/lotemania/src/lib/validations/reserve.ts                                 (O CORPO da funcao - :149-157; e apagar :114)
   apps/lotemania/src/lib/validations/product-settings.ts                        (D2: default 30 + lista fechada - :24)
   apps/lotemania/src/app/dashboard/products/[id]/advanced-settings-tabs.tsx     (D2: as 8 opcoes - :414-430, DUAS copias)
   apps/lotemania/tests/reserva/janela/**                                        (novo)
 
 Cobertos por teste, NAO editados (os tres ja consultam a funcao unica desde a LTM-03b):
-  apps/lotemania/src/lib/actions/reserve.ts                                    (:375 - ja chama reservationMinutesFor)
-  apps/lotemania/src/app/loja/[tenant]/[productSlug]/pedido/[orderId]/page.tsx (:98 - ja deriva o valor)
+  apps/lotemania/src/lib/actions/reserve.ts                                    (:424 - ja chama reservationMinutesFor)
+  apps/lotemania/src/app/loja/[tenant]/[productSlug]/pedido/[orderId]/page.tsx (:117 - ja deriva o valor)
   apps/lotemania/src/lib/payments/paysure-client.ts                            (:54 - ja multiplica por 60)
 
 Resources:
@@ -255,8 +283,14 @@ Resources:
 Depends-on: LTM-03b (total), LTM-02 (dona de validations/reserve.ts)
 ```
 
-> ⚠️ **`src/lib/validations/reserve.ts` é declarado pela `LTM-02`** (`LTM-02.md:137`) — **esta é a
-> colisão real**, e era a correção nº 1 exigida pelo @po em 11-18. O bloco acima a declara.
+> ✅ **Conferido pelo @po em 2026-11-20: a correção nº 1 está aplicada, e é a que importava.** O
+> bloco acima aponta `validations/reserve.ts` para o corpo da função e **não** aponta mais
+> `actions/reserve.ts` — era esse exato erro que custou o NO-GO de 11-18, e é a mesma classe de
+> defeito que custou 6,5 à `LTM-02` em 17-11.
+>
+> ⚠️ **`src/lib/validations/reserve.ts` é declarado pela `LTM-02`** (`LTM-02.md`, bloco `Files:`) —
+> **esta é a colisão real**. A `LTM-02` está **entregue** (código em `b4d8765b`), então a
+> serialização já aconteceu de fato: esta story chega depois.
 >
 > ⚠️ **`advanced-settings-tabs.tsx` é declarado pela `LTM-18`** (bloco `Files:` da `18a`). A D2
 > acrescenta esta colisão, que não existia antes: a `LTM-17` passou a mexer na tela do editor.
@@ -462,10 +496,105 @@ As quatro são pequenas. A 1 e a 3 mudam o que o @dev faz; a 2 e a 4 mudam o que
 fazer — e nesta base já perdi conferências o bastante com número de linha envelhecido para tratar as
 duas com o mesmo peso.
 
+## Revalidação @po (2026-11-20) — **GO, 8,5/10. `Draft` → `Ready`**
+
+Duas causas: o @pm aplicou a decisão **D2** do founder aqui, e as quatro correções do meu NO-GO de
+11-18 precisavam ser conferidas **no arquivo**.
+
+### As quatro correções de 11-18, conferidas
+
+| # | Correção exigida | Estado |
+|---|---|---|
+| 1 | `Files:` declarar `validations/reserve.ts` e **parar de apontar** `actions/reserve.ts` | ✅ **aplicada, e é a que decidia o NO-GO.** O bloco aponta o corpo em `:149` e lista `actions/reserve.ts` na seção *"cobertos por teste, NÃO editados"* |
+| 2 | *"O que já existe"* parar de descrever código que a `LTM-03b` mudou | ⚠️ **meia → fechada por mim hoje.** A tabela foi atualizada, mas o parágrafo logo abaixo dela continuava dizendo *"usa `RESERVATION_MINUTES = 15` cravado"* e *"a tela repete 'por 15 minutos' escrito à mão"*. **Reescrito com o corpo real da função** |
+| 3 | Tarefa para apagar `RESERVATION_MINUTES_DEFAULT`, sem a qual o `AC6` é inexequível | ✅ **aplicada**, e o `AC6` a referencia |
+| 4 | Corrigir as duas citações envelhecidas | ⚠️ **aplicada em 11-19 e envelhecida de novo** — ver abaixo |
+
+### O alvo está confirmado, e é uma linha
+
+```ts
+// src/lib/validations/reserve.ts:149-157
+void product;                        // recebe o sorteio
+return RESERVATION_MINUTES_DEFAULT;  // devolve 15 de qualquer forma
+```
+
+**É a story mais bem recortada do epic hoje**, e por uma razão estrutural: a `LTM-03b` já amarrou os
+**três** relógios a esta função, então mudar o corpo dela muda os três **de uma vez**, sem tocar em
+nenhum dos três chamadores. Conferi os três: `actions/reserve.ts:424`,
+`pedido/[orderId]/page.tsx:117` e `paysure-client.ts:54`. **Nenhum precisa ser editado.**
+
+> 💡 **E o @qa chegou nisso pelo outro lado:** o portão da `LTM-03b` saiu **`CONCERNS`** porque o
+> `AC14` dela afirma **uma** declaração de minutos e existem **duas**. Esta story fecha aquele
+> `CONCERNS`. Duas rotas independentes achando o mesmo defeito é o melhor sinal de que o recorte
+> entre as duas stories está certo.
+
+### A D2 está bem aplicada, e o default 30 é a melhor parte
+
+O @pm não só trocou a lista — ele **justificou o default com três razões independentes**, e a
+terceira é a que vale: **30 é o medido em produção** (a campanha `46º RAPIDINHA`, observada ao vivo,
+abriu a contagem em `29:17`). Não é *"escolhemos 30"*, é *"o Império usa 30"*. Isso é o oposto de um
+`[CONFIRMAR]` disfarçado de decisão.
+
+**E a conferência da faixa da Paysure valor por valor é trabalho que raramente se faz antes:** os
+oito cabem, e `1 Dia` dá **exatamente 86 400 s**, o teto. O `AC5` exigindo asserção **inclusiva**
+(`<= 86 400`, nunca `<`) com o aviso de que *"qualquer folga somada depois devolve 422 no caminho do
+dinheiro"* é precisão de quem leu o contrato, não de quem o supôs.
+
+✅ **E o `OUT` revogado está revogado do jeito certo:** com o raciocínio antigo preservado e a razão
+da queda escrita — *"ela dizia que mexer na lista era decisão do founder, e o founder decidiu"*. É
+assim que se desfaz uma decisão sem apagar por que ela era crível.
+
+### As quatro citações que eu corrigi — e por que a terceira vez importa
+
+| Citação na story | Linha real hoje |
+|---|---|
+| `reserve.ts:353` → corrigida para `:375` em 11-18 | **`:423-424`** |
+| `page.tsx:63` → corrigida para `:98` em 11-18 | **`:117`** |
+| `validations/reserve.ts:113` (`RESERVATION_MINUTES_DEFAULT`) | **`:114`** |
+| `validations/reserve.ts:149` (o corpo) | ✅ **exata** — e é a única que **tinha** de estar certa |
+
+> **Duas destas eu já corrigi uma vez, em 11-18, e envelheceram de novo em 48 horas** — porque
+> `reserve.ts` recebeu a `LTM-02`, a `LTM-20` e a `LTM-23` nesse intervalo. **A lição não é "medir de
+> novo"; é que citar linha de arquivo em fila serial tem prazo de validade curto.** O que não
+> envelhece é citar **o nome da função** — `reservationMinutesFor`, `RESERVATION_MINUTES_DEFAULT` —, e
+> é por isso que as duas que importam para o despacho (o corpo e a constante a apagar) estão
+> ancoradas em nome **e** linha.
+>
+> ⚠️ **Nota para quem ler as validações antigas deste arquivo:** elas citam `:375` e `:98` como
+> *corretas*. **Eram, em 11-18.** Não corrigi o histórico — corrigir registro de validação passada
+> apagaria a evidência de que o arquivo se move.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ✅ **a correção que decidia o NO-GO está aplicada**; 3 editados, 3 cobertos e não editados, com as colisões da D2 declaradas |
+| UI/Frontend | ✅ as **duas cópias** da lista no mesmo componente (`:416` e `:424`) estão nomeadas, e o `AC9` existe por isso |
+| Satisfação dos ACs | ✅ `AC8` (lista fechada no servidor) é o que faz o `AC5` provar o dado em vez da tela |
+| Instruções de teste | ✅ `Resources:` declara **tempo falso isolado por arquivo**, que os `AC1`/`AC2`/`AC4` exigem |
+| Segurança | ➖ |
+| Sequência de tarefas | ✅ |
+| Duplicação funcional | ⚠️ três arquivos disputados (`LTM-02` entregue; `LTM-18a`/`18c` **não existem ainda**) |
+| Anti-alucinação | ✅ depois das quatro correções; a afirmação falsa de *"o que o código faz hoje"* foi reescrita |
+| Prontidão para @dev | ✅ a `LTM-03b` está `InReview` com o portão em `CONCERNS` — e esta story é o fecho dele |
+
+### A ordem que eu recomendo, e ela mudou
+
+A `LTM-17` é **P1**, mas é **S→M**, toca **três** arquivos e **fecha um `CONCERNS` aberto do @qa**. A
+`LTM-04`, que o epic põe antes dela na fila de `reserve.ts`, é **XL, cresceu com a D8 e segue
+`Draft`**. ⚠️ **E esta story não edita mais `actions/reserve.ts`** — então a razão original de ela
+estar atrás da `LTM-04` **deixou de existir**.
+
+> **Recomendo inverter: `LTM-17` antes da `LTM-04`.** Ela sai em uma onda, destrava o pedido direto
+> do founder, fecha o `CONCERNS` da `LTM-03b` e **não disputa `actions/reserve.ts` com ninguém**. A
+> única serialização real que resta para ela é contra a `LTM-18a`/`18c`, que **ainda não existem**.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.3 | **Revalidada — GO (8,5/10). `Draft` → `Ready`.** As quatro correções de 11-18 conferidas no arquivo: a **nº 1 está aplicada e era a que decidia o NO-GO** — o `Files:` aponta `validations/reserve.ts:149` para o corpo e lista `actions/reserve.ts` como *coberto, não editado*. Alvo confirmado no código: `reservationMinutesFor` em `validations/reserve.ts:149-157` faz `void product; return RESERVATION_MINUTES_DEFAULT` — **recebe o sorteio e o descarta**. **Fechei a correção nº 2, que estava meia:** a tabela *"O que já existe"* tinha sido atualizada, mas o parágrafo abaixo dela seguia afirmando *"`actions/reserve.ts` usa `RESERVATION_MINUTES = 15` cravado"* e *"a tela repete 'por 15 minutos' à mão"* — as duas falsas desde a `LTM-03b`; reescrito com o corpo real. **Quatro citações de linha corrigidas**, duas delas pela **segunda** vez (`reserve.ts:353`→`:375`→**`:423-424`**; `page.tsx:63`→`:98`→**`:117`**; `RESERVATION_MINUTES_DEFAULT` `:113`→**`:114`**), o que registra a lição: **linha de arquivo em fila serial tem prazo de validade curto — ancorar em nome de função**. A **D2** do @pm está bem aplicada, com o default **30 medido em produção** (contagem de `29:17` na campanha ao vivo) e a faixa da Paysure conferida valor por valor (`1 Dia` = **exatamente** o teto de 86 400 s, daí a asserção inclusiva do `AC5`). **Recomendação de ordem alterada: `LTM-17` antes da `LTM-04`** — esta não edita mais `actions/reserve.ts`, então a razão de estar atrás dela deixou de existir, e ela **fecha o `CONCERNS` do portão da `LTM-03b`**. | @po (Pax) |
 | 2026-11-19 | 1.2 | **Decisão D2 do founder aplicada: as 8 janelas da Sorteamos substituem as 5 do lotemania, e o 15 sai.** A story deixa de ser só "ligar a leitura" e passa a trocar também a lista: o seletor (`advanced-settings-tabs.tsx:414-430`, **duas cópias da lista no mesmo componente**), o default (`product-settings.ts:24`: `.default(15)` → **`.default(30)`**) e o esquema, que passa de `int().positive()` solto a **lista fechada**. O default 30 é **decidido, não `[CONFIRMAR]`**: é o único valor nas duas listas, é o que o founder nomeou, e é o medido na campanha ao vivo de 11-19 (29:17 de contagem, 29 min 30 s de janela). Conferidos os 8 contra a faixa da Paysure: **todos cabem, e `1 Dia` dá exatamente 86 400 s, o teto** — AC5 passa a exigir asserção inclusiva, porque qualquer folga somada depois devolve 422. ACs mexidos: AC2 (15 → 30), AC4 (15/30 → 10/30), AC5 (5 → 8 valores), AC6 (o 15 não sobra nem no default); **AC8 e AC9 novos** (lista fechada no servidor; as duas cópias do seletor coerentes). O `OUT` de *"não reduzir a lista"* foi **revogado** — ele dizia que mexer era decisão do founder, e o founder decidiu. Bloco `Files:` corrigido conforme a correção nº 1 do @po (o corpo mora em `validations/reserve.ts:149`, declarado pela `LTM-02`) e **acrescido de duas colisões novas com a `LTM-18`**. Registrado o efeito colateral: sorteio com `reservationExpiryMinutes = 15` gravado fica com valor fora da lista — hoje barato (nenhum sorteio real), depois não. **Esta é edição de @pm aplicando decisão de founder; AC e escopo são do @po — a story precisa de revalidação antes de ir a `Ready`.** | @pm (Morgan) |
 | 2026-11-18 | 1.1 | **Validada (1ª) — NO-GO (6,5/10). `Ready` → `Draft`.** O `Ready` havia sido posto pelo @aiox-master, que não tem essa autoridade — e a reversão se sustenta pelo mérito: o `Files:` aponta `actions/reserve.ts` para o corpo de `reservationMinutesFor`, que mora em `validations/reserve.ts:149` (o @dev provou que `"use server"` impede o contrário), e **não declara** o arquivo real, que é da `LTM-02`. É o mesmo defeito, no mesmo arquivo, pelo qual a `LTM-02` levou 6,5 em 17-11. Também: *"O que já existe"* descreve um código que a `LTM-03b` já mudou (a constante saiu, a tela já deriva o valor, `paysure-client.ts:54` também), o que faz a story contradizer a própria §1; o **AC6 é inexequível** porque `RESERVATION_MINUTES_DEFAULT` (`validations/reserve.ts:113`) teria de ser apagado e nenhuma tarefa diz isso; e duas citações envelheceram (`reserve.ts:353` → `:375`, `page.tsx:63` → `:98`). **Confirmado como certo:** o OUT de não reduzir os cinco valores a 15 e 30 — o founder pediu a capacidade de escolher, não a remoção de três opções no ar, e manter os cinco satisfaz o pedido. As quatro citações de "o que já existe" estão exatas, e AC2/AC3 são os ACs mais bem formados da story. | @po (Pax) |
 | 2026-11-18 | 1.0 | Nasce do pedido do founder de deixar o relógio configurável na aba de edição do sorteio. Ao conferir, **o campo, a tela e os cinco valores já existiam** — `reservationExpiryMinutes` (`product-settings.ts:24`) e o seletor "Tempo para uma reserva pendente expirar" (`advanced-settings-tabs.tsx:414`) — e **nada lê o valor**. A story deixa de ser "construir a flag" e passa a ser "ligar a flag que já está no ar", que é a terceira ocorrência deste padrão na base. | @aiox-master |

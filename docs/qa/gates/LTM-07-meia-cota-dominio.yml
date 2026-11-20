@@ -99,3 +99,61 @@ top_issues:
     suggested_action: '@po: o conserto é do lado do BI (ler orders.unit). Item solto já nomeado na story; não se conserta aqui.'
 
 waiver: { active: false }
+
+resposta_ao_coordenador_parametro_opcional_de_valor:
+  pergunta: >-
+    O parametro opcional de valor em recordWinnersForDrawnTitle cabe sem mexer no rateio nem nas
+    quatro recusas?
+  veredito: 'CABE no rateio. NAO cabe sem mexer nas recusas — e uma das quatro e bloqueio de verdade.'
+  o_rateio_esta_livre: >-
+    splitPrizeAmongHalves recebe prizeCents como NUMERO inteiro de centavos (prize-split.ts:67-74,
+    SplitPrizeInput) e e chamado em winners.ts:204-208. Ele nao sabe de onde o valor veio e nao le
+    advanced_settings. Trocar a ORIGEM do prizeCents nao toca uma linha do rateio nem do
+    PrizeShare. Aqui o lead esta certo: aditivo de verdade.
+  mas_duas_coisas_tem_de_mudar:
+    - item: 'As duas recusas prize_not_rateable tem de ser PULADAS quando o valor vier dado, nao apenas contornadas'
+      severidade: 'bloqueante para a feature, se ignorado'
+      razao: >-
+        winners.ts:103-115 recusa quando prizeKind nao e cash. E o default do schema e "other"
+        (product-settings.ts:67), conservador de proposito. Sorteio com advanced_settings vazio —
+        que e o caso comum — tem prizeKind "other" e prizeAmount null. Se o parametro for
+        acrescentado e esse bloco continuar rodando antes dele, o operador informa o valor
+        explicito e leva prize_not_rateable na cara, exatamente nos sorteios que mais precisam da
+        capacidade. O caminho do valor explicito precisa da sua propria validacao e nao pode
+        consultar prizeKind.
+      como_fazer_sem_perder_rigor: >-
+        O valor dado tem de atravessar o MESMO centsOrNull (validations/product.ts:125-133) e a
+        mesma recusa por valor menor ou igual a zero de winners.ts:117-127. E tem de ser STRING
+        decimal, nunca number: a razao esta escrita em product-settings.ts:73-78 e money.ts:36-39 —
+        number chega tendo passado por ponto flutuante e depois do fato nao se distingue "o dado
+        tem tres casas" de "o binario deixou residuo". E a distincao de que o AC12 depende.
+    - item: 'already_recorded e onde a exigencia do founder de fato mora, e UM parametro nao a entrega'
+      severidade: 'decidir ANTES de o @dev escrever codigo'
+      razao: >-
+        winners.ts:134-154 recusa se JA EXISTE qualquer linha de winners para o par
+        (productId, winningNumber). Entao depende do que "quantos ganhadores eu quiser" significa,
+        e os dois casos tem custos muito diferentes.
+      caso_A_varios_numeros_sorteados: >-
+        1o premio no 42, 2o no 7, 3o no 95. A guarda e chaveada no winningNumber, logo cada chamada
+        e um numero diferente e PASSA. O parametro opcional de valor e exatamente o que falta, e a
+        mudanca e aditiva como o lead descreveu. Nada mais precisa mudar.
+      caso_B_varios_ganhadores_no_MESMO_numero: >-
+        Alem das duas metades. A guarda BLOQUEIA a segunda chamada, e o parametro de valor nao
+        ajuda em nada — a feature nasce morta. E mexer na guarda nao e barato: ela existe para
+        sustentar o AC11 (duas linhas com o mesmo winning_number nao podem ficar indistinguiveis de
+        duplicata acidental), e hoje quem as distingue e winning_half, que so tem 1, 2 ou nulo. Tres
+        ganhadores no mesmo numero nao tem como se distinguir com a coluna que existe.
+      recomendacao: >-
+        Perguntar ao founder qual dos dois casos a Sorteamos faz, antes de escrever. Se for A, uma
+        linha de parametro resolve. Se for B, o escopo e outro: precisa de coluna de ordem ou de
+        faixa de premio em winners, e o AC11 precisa de um mecanismo novo — nao e mais aditivo.
+  caveat_que_nao_e_defeito_de_codigo: >-
+    Nada na funcao soma os premios ja registrados contra o premio declarado do sorteio. Com o valor
+    por chamada, o operador pode declarar o valor cheio em tres faixas de um premio unico, e nenhum
+    invariante reclama. A objecao que o lead levou ao founder (N chamadas ratearia o valor cheio N
+    vezes) deixa de ser automatica, mas continua POSSIVEL — por digitacao, nao por construcao.
+    Decisao de produto. Se o founder quiser trava, ela e story propria e nao cabe neste parametro.
+  efeito_neste_portao: >-
+    Nenhum. O veredito CONCERNS vale para commit:1df81ebe, onde o parametro nao existe. Esta
+    resposta esta aqui porque a pergunta chegou com o arquivo aberto na minha frente, e e mais
+    barato responder agora que desfazer depois.

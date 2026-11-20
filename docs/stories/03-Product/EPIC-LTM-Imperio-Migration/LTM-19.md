@@ -1,6 +1,12 @@
 # LTM-19: O inventário completo da Sorteamos
 
-**Status:** Draft
+**Status:** Ready
+> ✅ **Validada pelo @po em 2026-11-20 — GO (8,5/10). `Draft` → `Ready`.** E ela já está **em
+> curso**: a sessão 1 entregou **7 arquivos, 1 590 linhas**, com a marca `[OBSERVADO]`/`[SUPOSTO]`
+> aplicada de verdade — o `AC3`, que é o AC central, está sendo cumprido no artefato e não só
+> prometido. Corrigi o bloco **Entregável**, que descrevia uma árvore que ninguém construiu; a forma
+> real é outra, e **dois entregáveis não existem em forma nenhuma** — `comparacao.md` (`AC5`) e a
+> configuração dos sorteios reais (`AC6`, o material do portão **G8**). Ver *Validação @po* ao fim.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente B — Paridade Total) · **primeira entrega do mandato de 2026-11-18**
 **Prioridade:** **P0** — é o que transforma *"absolutamente tudo"* de intenção em lista
 **Complexidade:** **L** — não é difícil, é longo e exige disciplina de registro
@@ -194,16 +200,43 @@ aquele item específico sair de `[CONFIRMAR]`.
 
 ## Entregável
 
+⚠️ **Árvore corrigida pelo @po em 2026-11-20 contra o que existe no disco.** A árvore anterior era
+**prescrição**, e a sessão 1 entregou **outra forma** — achatada, por assunto, em vez de por camada.
+Isso não é defeito: a forma que apareceu é mais fácil de ler. O defeito era a story continuar
+prometendo uma árvore que ninguém construiu, porque **AC se fecha contra arquivo, não contra
+intenção**.
+
+**O que existe hoje — 7 arquivos, 1 590 linhas, conferido um a um:**
+
 ```
 docs/research/2026-11-18-inventario-sorteamos/
-├── README.md              índice e método; o que cada arquivo cobre
-├── rotas.md               o mapa de telas
-├── painel/*.md            inventário de controles, uma tela por arquivo
-├── loja/*.md              idem, lado do comprador
-├── comportamento.md       o que cada controle faz — observado
-├── nao-observado.md       as mutantes e o que falta para cada uma
-└── comparacao.md          Sorteamos × lotemania, nas três colunas do AC5
+├── README.md                    443 linhas · indice, metodo, e as 10 secoes da sessao 1
+├── painel-telas.md              218 · o mapa de rotas do painel      (cobre o AC1)
+├── editor-14-abas.md            154 · as 14 abas do editor
+├── menu-lista-de-compras.md     141 · os 14 itens do menu da lista
+├── loja-comprador.md            185 · o lado do comprador
+├── fluxo-de-compra.md           193 · a compra observada ao vivo
+└── webhook-saida-contrato.md    256 · o payload de saida (fonte do AC2 da LTM-04)
 ```
+
+**O que a árvore prometia e ainda não existe — e é o que falta para fechar os ACs:**
+
+| Prometido | Estado | Qual AC depende |
+|---|---|---|
+| `rotas.md` | ✅ **entregue com outro nome** — `painel-telas.md` | `AC1` |
+| `comportamento.md` | ✅ **entregue dentro do `README.md`** (§4, §5, §6 — todas `[OBSERVADO]`) | `AC3` |
+| `nao-observado.md` | ✅ **entregue dentro do `README.md`** (§9, *"O que falta — e por quê"*) | `AC4` |
+| **`comparacao.md`** | ❌ **não existe em nenhuma forma** | **`AC5`** — as três colunas |
+| **configuração dos sorteios reais** | ❌ **não existe em nenhuma forma** | **`AC6`** — o material do G8 |
+
+> **Os dois buracos são os dois ACs mais caros da story, e não é coincidência.** `comparacao.md` e o
+> material do G8 são os únicos entregáveis que exigem **cruzar** a Sorteamos com o lotemania, em vez
+> de só transcrever o que se vê. Transcrever é o que uma sessão de observação produz naturalmente;
+> comparar é trabalho à parte, e é por isso que ficou para trás.
+
+**A forma que vale a partir daqui** — nome livre, conteúdo obrigatório: cada arquivo novo abre com
+a data e com a marca de fotografia datada, e os dois que faltam (`comparacao.md` e o material do G8)
+**são arquivos próprios**, não seções do `README.md`, porque os dois crescem por sorteio e por item.
 
 ## Dependências
 
@@ -306,9 +339,75 @@ deixar expirar, o que não cobra ninguém. Isso é **passo a mais com decisão p
 autorizado. Fica registrado como o que falta para aquele item sair de `[CONFIRMAR]`, e **não é
 bloqueado pela D5**: o sorteio de teste continua existindo e continua disponível para isso.
 
+## Validação @po (2026-11-20) — **GO, 8,5/10. `Draft` → `Ready`**
+
+A story que menos precisa de mim e a que mais precisava de uma conferência de artefato: ela **não
+toca uma linha de código**, então o risco dela não é técnico — é de disciplina de registro. E essa é
+exatamente a parte que só se valida **abrindo o que foi escrito**.
+
+### O artefato cumpre o AC central, e isso é o que eu vim conferir
+
+`AC3` (*observado × suposto, sempre separados*) é a razão de a story existir. Conferido no
+`README.md`: a regra está declarada na abertura (*"um item sem marca é defeito deste documento"*) e
+as seções mutantes — §4 `Porcentagem`, §5 `Horário Premiado`, §6 `Ativar títulos premiados` — saem
+todas marcadas `[OBSERVADO]`. **A disciplina pegou.** É dela que saíram as decisões **D3** e **D5** do
+founder, e uma decisão tomada sobre item marcado como observado é de outra qualidade que uma tomada
+sobre item deduzido.
+
+### O que eu medi e corrigi
+
+| Afirmação | Medição de hoje |
+|---|---|
+| a árvore do Entregável | ❌ **7 arquivos, nenhum com o nome prometido**. 3 dos 7 entregáveis existem com outro nome ou dentro do `README.md`; **2 não existem** |
+| `AC4` (as mutantes como buraco nomeado) | ✅ é a §9 do `README.md`, com o motivo de cada uma |
+| `AC1` (toda tela com rota) | ✅ `painel-telas.md`, 218 linhas |
+| `AC7` (nada alterado na Sorteamos) | ✅ declarado e circunscrito ao sorteio de teste |
+| `AC8` (dado pessoal) | ✅ e **melhor que o AC pedia**: a §9 registra que *nenhum relatório foi baixado*, então não há material sujeito a ele neste diretório |
+| o sorteio de teste e a **D5** | ✅ estado registrado campo a campo (privado, `Em breve`, vendas em 18/11/2027, zero compras) |
+
+### O tamanho que falta, dito em número em vez de em adjetivo
+
+A §9 do próprio inventário é honesta sobre o que não foi visto, e quando se conta dá o tamanho real
+da story: **10 das 14 abas** do editor não foram abertas, **~19 telas** do painel não foram visitadas,
+e **5 itens** do menu da lista de compras seguem não observados. Somado aos dois entregáveis
+inexistentes (`AC5`, `AC6`), a story está perto de **um terço** do caminho — e é `L` por isso, não
+por dificuldade.
+
+**Nada disso é defeito de especificação**, e é por isso que o veredito é GO: o protocolo está escrito,
+o método está provado em sessão real, e o que falta é execução de mais sessões.
+
+### A lição de protocolo que esta story ganhou vale para o epic inteiro
+
+*"Verificar o caminho de saída antes de criar, não depois."* Ela nasceu de um custo real — a **D5**
+só existiu como pergunta porque *"como eu apago isto?"* não foi respondida antes do primeiro clique.
+**Subscrevo, e estendo:** vale para qualquer ação mutante em produção de cliente, não só para criar
+sorteio.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ⚠️ → ✅ **corrigida nesta validação** (a árvore prescrita não existia) |
+| UI/Frontend | ➖ |
+| Satisfação dos ACs | ✅ 6 de 8 têm artefato; `AC5` e `AC6` sem nenhum, e agora **declarado** |
+| Instruções de teste | ➖ story de pesquisa; o protocolo faz esse papel e é o melhor do epic |
+| Segurança | ✅ `AC8` + repositório público nomeado + a política de 2026-11-12 invocada |
+| Sequência de tarefas | ✅ |
+| Duplicação funcional | ✅ a única story do epic que não disputa nada em `apps/lotemania/` |
+| Anti-alucinação | ✅ é a função da story, e o artefato a exerce |
+| Prontidão para @dev | ✅ `Depends-on: none` de fato |
+
+### O que continua dependendo de autorização, e não de mim
+
+**`Revisar pagamentos`** precisa de uma reserva deixada expirar no sorteio de teste. Não cobra
+ninguém, não toca sorteio ativo, e é **o último** item do menu de 14 a sair de `[NÃO OBSERVADO]`.
+Pergunta de uma linha ao founder.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.2 | **Validada — GO (8,5/10). `Draft` → `Ready`.** Conferido no artefato, não na lista: a sessão 1 entregou **7 arquivos / 1 590 linhas** e o `AC3` está sendo cumprido de verdade (`[OBSERVADO]` aplicado nas três seções mutantes, que são a origem das decisões **D3** e **D5**). **Bloco `Entregável` corrigido contra o disco:** a árvore prescrita (`rotas.md`, `painel/*.md`, `loja/*.md`, `comportamento.md`, `nao-observado.md`, `comparacao.md`) **não existe com nenhum desses nomes** — três dos entregáveis foram cumpridos com outro nome ou dentro do `README.md` (`painel-telas.md` fecha o `AC1`; §4-§6 fecham o `AC3`; §9 fecha o `AC4`), e **dois não existem em forma nenhuma**: `comparacao.md` (`AC5`, as três colunas) e a configuração dos sorteios reais (`AC6`, o material do portão **G8**). Os dois buracos são justamente os entregáveis que exigem **cruzar** as duas plataformas em vez de transcrever uma. Tamanho que falta, medido: **10 das 14 abas** do editor, **~19 telas** do painel e **5 itens** do menu seguem não observados. Nenhum AC alterado no mérito. | @po (Pax) |
 | 2026-11-19 | 1.1 | **Decisão D5 do founder aplicada: o sorteio de teste fica na Sorteamos como está.** A seção *Decisão pendente* deixa de existir e vira **Decisões fechadas**, com as duas: a de 11-18 (criar o sorteio de observação — autorizada, executada, travas verificadas) e a D5 de 11-19. **O motivo da D5 está escrito: a Sorteamos não exclui sorteio**, procurado em seis lugares. Dos três caminhos que estavam na mesa sobrou **um** — pedir exclusão ao suporte do fornecedor do cliente e encerrá-lo **saem da lista**, porque abrir chamado no fornecedor dele era decisão dele e ele decidiu não abrir. Registrado o estado em que o sorteio fica (privado, `Em breve`, vendas em 18/11/2027, zero compras, sem caminho de compra verificado) e o custo declarado (uma linha numa lista de 10.774). Risco das mutantes não observadas rebaixado a **mitigado**: o instrumento continua no ar. **`Revisar pagamentos` segue o único item aberto**, e o que falta nele não é a D5 — é autorização para deixar uma reserva expirar. | @pm (Morgan) |
 | 2026-11-18 | 1.0 | Nasce da decisão do founder de replicar **absolutamente tudo** da Sorteamos. É a primeira entrega do mandato, porque não se replica o que ninguém enumerou — e porque o `AC7` da `LTM-18` (*"nenhum comportamento inventado"*) precisa de uma fonte para consultar. O critério de fim veio da própria frase do founder: recriar no lotemania os sorteios que a Sorteamos tem hoje (portão **G8**). | @aiox-master |

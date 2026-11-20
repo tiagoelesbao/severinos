@@ -1,11 +1,17 @@
 # LTM-04: Atribuição por pedido e API de leitura — o contrato já existe, só não é emitido
 
 **Status:** Draft
-> ⚠️ **Segue `Draft` depois da segunda revalidação do @po (2026-11-17).** Das **oito** correções
-> exigidas em 1.2, **uma** foi aplicada (o AC3) — e ela entrou contradizendo o `OUT`, que continua
-> proibindo por escrito a mudança que o AC3 agora exige. As outras sete seguem abertas, incluindo a
-> autenticação inteira, o caminho da rota de pedidos e o vocabulário de status. Ver *Revalidação 2
-> @po (2026-11-17)*.
+> ❌ **NO-GO do @po em 2026-11-20 — 6/10. Permanece `Draft`, na terceira revalidação.** Das sete
+> correções que sobraram de 11-17, **uma e meia fecharam** (a rota `product` singular, no `Files:`
+> mas **não** na checklist) e **cinco e meia seguem abertas** — a autenticação por token portador
+> continua sem tarefa e sem AC, os dez `filterX` planos continuam descritos como `filters` JSON, e
+> não existe AC de vocabulário de status nem decisão sobre `numbers`/`quantity`. **E a story cresceu
+> no meio disso:** a decisão **D8** acrescentou a tela de Analytics e cinco ACs novos, o que o @pm
+> declarou honestamente que **não fecha** as pendências. Ver *Revalidação 3 @po (2026-11-20)*.
+>
+> ⚠️ **Isto é a story mais bem ancorada do epic na intenção e a mais longe de despachável.** Ela é o
+> portão **G3**, está na fila serial de `reserve.ts`, e **não é o gargalo do ensaio ponta a ponta** —
+> o ensaio não precisa de atribuição para o sorteio de teste rodar.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha o problema **F4**
 **Prioridade:** **P0** — sem isso o corte cega o CAPI do Meta e o BI inteiro no mesmo dia
 **Complexidade:** **L → XL** — captura na origem + colunas novas + API de leitura com contrato fixo + payload de saída, **e desde 11-19 a tela de Analytics (decisão D8)**
@@ -168,7 +174,25 @@ story — o `order-paid.js` os lê como `client_ip_address` e `client_user_agent
 - [ ] `src/db/schema/attribution.ts` (novo): `order_attribution` um-para-um com `orders` — `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `fbc`, `fbp`, `gclid`, `ttclid`, `ip`, `user_agent`, `landing_url`, `first_touch_at`. Índice por `order_id`.
 - [ ] Captura de primeiro toque no cliente da loja (`src/app/loja/[tenant]/`): persistir os parâmetros de atribuição na entrada e carregá-los até a reserva.
 - [ ] `src/lib/actions/reserve.ts`: receber e gravar a atribuição na mesma transação do pedido.
-- [ ] `src/app/api/v1/products/route.ts` (novo) e `src/app/api/v1/products/[id]/orders/route.ts` (novo): paginação 0-indexada, filtros equivalentes, autenticação, escopo por tenant.
+- [ ] `src/app/api/v1/products/route.ts` (novo) e **`src/app/api/v1/product/[id]/orders/route.ts`**
+      (novo, **`product` SINGULAR**): paginação 0-indexada, filtros equivalentes, autenticação,
+      escopo por tenant.
+  - ⚠️ **Corrigido pelo @po em 2026-11-20, e era a correção nº 2 aberta desde 11-17.** O `Files:`
+    tinha sido corrigido pelo @pm na v1.4; **esta linha não**, e a story afirmava as duas coisas em
+    dois lugares. O ETL chama `{base}/product/{product_id}/orders` — reconferido hoje em
+    **`client_api.py:266`**. A listagem é `{base}/products`, **plural** (`:169`): os dois nomes
+    divergem **na origem**, e espelhar isso é paridade, não inconsistência nossa.
+  - ⚠️ **Os parâmetros dos dois endpoints NÃO são o mesmo formato** — ver o `AC16`.
+- [ ] **Autenticação por token portador, no formato que o ETL já fala** (correção nº 3 do @po,
+      aberta desde 11-17 — **a story não tinha tarefa nenhuma de autenticação**). Reconferido hoje em
+      `client_api.py`: `POST {base}/auth/login` com `{"email","password"}` (`:108-109`), token lido do
+      **corpo** da resposta, `Authorization: Bearer` em todo GET, e **reautenticação automática no
+      401**. O lotemania autentica por `username` e transporta sessão em **cookie `HttpOnly`**. São
+      **três incompatibilidades**, e sem esta tarefa o `AC3` para no login, antes do primeiro campo.
+- [ ] **Vocabulário de status conciliado** (correção nº 6): decidir e documentar o mapa
+      `pending`/`paid`/`canceled`/`expired` do lotemania contra o que o `filterStatus` do ETL envia e
+      o que o BI reclassifica. **Nome de campo igual com valor diferente é o funil do BI
+      reclassificando sozinho, em silêncio.**
 - [ ] Emissão do evento `order.paid` via `outbound_webhooks` no fechamento do pedido, com `data.params` no formato lido pelo `order-paid.js`, autenticado pelo header de segredo compartilhado.
 - [ ] Teste de contrato que percorre a lista de campos que o `client_api.py` lê e o `order-paid.js` lê, campo por campo.
 - [ ] Documentar os dois endpoints e o payload do evento no README do app.
@@ -193,7 +217,22 @@ story — o `order-paid.js` os lê como `client_ip_address` e `client_user_agent
 
 - [ ] **AC1 (contrato do ETL, campo por campo):** um teste de contrato enumera **todos** os campos que `services/Meta/imperio-premios/client_api.py` consome de um pedido e falha se **qualquer um** estiver ausente da resposta de `GET /api/v1/products/{id}/orders`. A lista do teste é derivada do código do ETL (arquivo e linha citados no teste), não de memória.
   - **Lacuna já identificada na validação (@po, 2026-11-16), para não ser descoberta no meio da implementação.** O ETL lê `paymentId` e `paymentEndToEndId` (`client_api.py:508-509`) e `paymentAt` (`:545`). Hoje o lotemania **não tem onde guardar o identificador fim-a-fim**: `orders` tem `paymentGatewayProvider` e `paidAt`, e `banking_transactions` tem só `externalReference` (`src/db/schema/payments.ts`). Ou seja: este AC **exige um campo que ainda não existe no schema**, e ele mora no caminho de pagamento — território da LTM-03 (`settle-order`), não da tabela de atribuição desta story. Resolução: a story que chegar depois acrescenta o campo; se a LTM-04 chegar primeiro, ela o acrescenta e a LTM-03 o preenche. O que **não** pode acontecer é o AC1 ser marcado verde tendo removido `paymentEndToEndId` da lista enumerada — a lista é derivada do consumidor, e encurtá-la é falsificar o contrato.
-  - **Nomes dos parâmetros do contrato**, lidos do ETL e não de memória: `page` (0-indexado), `rowsPerPage` (o ETL usa 25 em `/products` e 100 em pedidos) e `filters` como **string JSON** (`client_api.py:168`, `:256-260`). O AC3 cobre isso por comportamento; estão nomeados aqui para que a implementação não precise descobrir.
+  - ⚠️ **Corrigido pelo @po em 2026-11-20 — era a correção nº 4, e a redação anterior carregava uma
+    generalização minha de 11-16 que é falsa.** Os **dois endpoints não usam o mesmo formato de
+    filtro**, e tratá-los como um só faz o segundo responder vazio:
+    | Endpoint | Parâmetros | Envelope |
+    |---|---|---|
+    | `GET {base}/products` | `page` (0-indexado), `rowsPerPage` (**25**), e `filters` como **string JSON** — `client_api.py:169` | `products` / `data` / `items` / … |
+    | `GET {base}/product/{id}/orders` | `page`, `rowsPerPage` (**100**), e **dez `filterX` PLANOS** — `client_api.py:259-265` | **`orders`** (`:279`) |
+    Os dez: `filterName`, `filterNumber`, `filterAffiliate`, `filterPaymentId`, `filterPhone`,
+    `filterOrderId`, `filterStatus`, `filterPaymentEndToEndId`, `filterStartDate`, `filterEndDate`.
+    ⛔ **`filterStartDate` e `filterEndDate` chegam como a string literal `"null"`** (`:264`), não
+    ausentes e não `null` de JSON. Uma API que trate `"null"` como data inválida devolve **400** em
+    toda chamada do ETL.
+  - ⚠️ **Os seis campos que faltam na lista enumerada** (correção nº 5): `approvedBy`, `expiredBy`,
+    `eventId`, `price`, `discount` e `status`. O `approvedBy` **não é detalhe**: ele separa **baixa
+    manual** (`"admin"`) de pagamento por gateway, é o que `bi_aggregator.py:1379-1395` usa, e o
+    cliente **pediu essa métrica** — 647 números em 10 dias, 11 deles ganhando o prêmio do dia.
 - [ ] **AC2 (contrato do CAPI, campo por campo):** teste equivalente para o evento `order.paid`: todo caminho que `apps/webhook-imperio-capi/api/order-paid.js` lê (`data.id`, `data.total`, `data.user.{id,email,phone}`, `data.params.{fbc,fbp,ip,userAgent,utmSource,utmMedium,utmCampaign,utmContent,utmTerm,gclid,ttclid}`, `event`, `timestamp`, header de autenticação) está presente e no mesmo lugar.
   - ⚠️ **Estendido em 2026-11-19 pela decisão D8:** a lista passa a ser **os treze campos de
     `params`** documentados em `webhook-saida-contrato.md`, não os onze que o nosso consumidor lê.
@@ -250,6 +289,35 @@ story — o `order-paid.js` os lê como `client_ip_address` e `client_user_agent
 - [ ] **AC15 (o andaime não é clonado):** nenhuma tela do lotemania exibe dado fictício de template.
       O `src/app/dashboard/analytics/page.tsx` — um dos dez arquivos de 0 byte da `LTM-00` — ou
       passa a mostrar dado do tenant, ou sai do menu. **"Bug Reports 234" não é paridade.**
+
+### Os ACs que a revalidação 3 do @po acrescentou (2026-11-20)
+
+Os três abaixo não são escopo novo: são as correções 3, 4 e 6 de 11-17 ganhando **critério
+verificável** em vez de só aparecerem na lista de pendências. Sem eles, as correções se "fechariam"
+por alguém dizer que leu.
+
+- [ ] **AC16 (os dois endpoints falam o dialeto de cada um):** o teste de contrato chama
+      `/products` com `filters` **string JSON** e `/product/{id}/orders` com os **dez `filterX`
+      planos**, e **aceita `filterStartDate=filterEndDate="null"`** como "sem filtro de data" — nunca
+      400, nunca 500. O envelope de pedidos responde na chave **`orders`**.
+      **Um único formato para os dois é o jeito de passar o AC1 e cegar o BI no dia do corte.**
+- [ ] **AC17 (o ETL autentica contra o lotemania sem mudar de idioma):** `POST /auth/login` aceita o
+      corpo `{"email","password"}` que o ETL envia, devolve o token **no corpo** da resposta, aceita
+      `Authorization: Bearer` em todo GET, e **devolve 401 de verdade** quando o token vence — porque
+      o ETL reautentica sozinho no 401, e um 403 ou um redirecionamento o deixa em laço.
+      ⚠️ **A credencial é de serviço, escopada ao tenant, e nunca a sessão de um operador humano.**
+      Tratamento de segredo igual ao `cs` da Paysure: nunca em claro, nunca no cliente, nunca em log.
+- [ ] **AC18 (o vocabulário de status é mapa explícito, não coincidência):** existe um mapa escrito,
+      em teste, entre o status do lotemania e o valor que o ETL/BI espera. Teste que percorre **todos**
+      os estados e falha se algum chegar como valor que o BI não classifica. `pending` ≠
+      `waiting-payment` é **valor**, não nome de campo — e é no valor que o funil se reclassifica.
+- [ ] **AC19 (a unidade do pedido não corrompe o BI — `ADR-0001`):** em sorteio divisível, o contrato
+      legado continua emitindo `numbers`/`quantity` na forma de hoje **só para cota inteira**, e a
+      metade viaja em **campo novo e explícito** (`orders.unit`, entregue pela `LTM-07`). Teste: um
+      pedido de "metade do 42 + o 43 inteiro" **não** emite `42|43|43` nem `42|43` no campo legado.
+      ⛔ **É a mitigação obrigatória do `ADR-0001`** (*"campo novo e explícito, nunca reinterpretação
+      silenciosa"*), e era a correção nº 7, aberta desde 11-17. Sem ela o mapa de números frios conta
+      o 43 duas vezes e `numeros_vendidos` dobra.
 
 ## Escopo
 
@@ -439,9 +507,15 @@ consomem"*) efetivamente aterrissa:
 
 - o ETL lê `numbers` como *"lista de strings de 2 dígitos, 1 entrada por número comprado, sempre com
   `len == quantity`"* (`:455-465`) e serializa com `|`;
-- `bi_aggregator.py:1099` faz `numeros_vendidos = ("Quantidade", "sum")`;
-- `bi_aggregator.py:1107-1113` monta a **sequência de venda dos números** por rodada a partir de
-  `Numeros`, e `:1372-1382` conta número de baixa manual e casa com o mapa de prêmios por número.
+- `bi_aggregator.py:1128` faz `numeros_vendidos=("Quantidade", "sum")`;
+- `bi_aggregator.py:1133-1141` monta a **sequência de venda dos números** por rodada a partir de
+  `Numeros`; o mapa de prêmios por número fica em `:1370-1376` e `_anexar_baixa_manual` em `:1379`,
+  decidindo por `ApprovedBy == "admin"` em `:1395`.
+  > ⚠️ **Três citações corrigidas pelo @po em 2026-11-20** (Artigo IV). Eram `:1099`, `:1107-1113` e
+  > `:1372-1382` — **a substância de todas as três está certa**, as linhas estavam ~29 à frente. É o
+  > mesmo deslocamento que a `LTM-07` já tinha corrigido de `:1099` para `:1128` em 11-18, e que
+  > **sobreviveu aqui** porque ninguém releu a story ao lado do arquivo. O ETL lê `numbers` em
+  > `client_api.py:459-466` (o comentário começa em `:455`).
 
 Em sorteio divisível, "metade do 42 + o 43 inteiro" emite `42|43|43` ou `42|43` — e o `GLOSSARY` →
 **metade marcada** proíbe as duas: *"export que devolve `42` para uma metade é ambiguidade que vira
@@ -519,7 +593,7 @@ Fui conferir as oito correções que exigi em 1.2. Resultado, item por item:
 | 4 | Os `filterX` planos, `filterStatus`, `"null"` literal, envelope `orders` | ❌ | O AC1 ainda carrega a minha generalização errada: *"`filters` como string JSON (`client_api.py:168`, `:256-260`)"*. Reconferido: `/products` usa `filters` JSON (`:168`); `/product/{id}/orders` usa **filtros planos** (`:260-265`), com `filterStartDate`/`filterEndDate` chegando como a string literal `"null"`, e o envelope de resposta é **`orders`** (`:279`) |
 | 5 | `approvedBy`, `expiredBy`, `eventId`, `price`, `discount`, `status` no AC1 | ❌ | A lista enumerada do AC1 não os cita. `approvedBy` separa **baixa manual** (`"admin"`) de gateway e é métrica que o cliente usa |
 | 6 | AC novo de **vocabulário de status** | ❌ | Não existe. O AC1 cobre nome de campo; `pending` != `waiting-payment` é **valor**, e é no valor que o funil do BI se reclassifica sozinho |
-| 7 | A decisão sobre `numbers`/`quantity` em sorteio divisível | ❌ | Não aparece em nenhum AC. E agora há decisão de referência para seguir: o `ADR-0001` fechou em *"`quantity` conta o que o pedido contém (metades em sorteio divisível) + campo explícito de unidade"*. Esta story é onde esse custo aterrissa — `bi_aggregator.py:1099` soma `"Quantidade"` |
+| 7 | A decisão sobre `numbers`/`quantity` em sorteio divisível | ❌ | Não aparece em nenhum AC. E agora há decisão de referência para seguir: o `ADR-0001` fechou em *"`quantity` conta o que o pedido contém (metades em sorteio divisível) + campo explícito de unidade"*. Esta story é onde esse custo aterrissa — `bi_aggregator.py:1128` soma `"Quantidade"` (linha corrigida em 11-20) |
 | 8 | Bloco `Files:` completo | ✅ | Existe agora, no padrão da `LTM-03a`, com `client_api.py` declarado e com a ressalva de que `reserve.ts` é escrito pela `LTM-02`. **Só herda o nome errado da rota** (correção 2) |
 
 **Uma de oito fechada, uma meia, seis intocadas.** Não é discordância de mérito: é correção não
@@ -562,10 +636,100 @@ As **sete** que sobraram de 1.2 (itens 2 a 7 da tabela acima, mais o fecho do it
 por mim no `OUT` desta validação). Nenhuma delas depende de decisão do founder; todas são leitura
 do `client_api.py`, que está no repositório.
 
+## Revalidação 3 @po (2026-11-20) — **NO-GO, 6/10. Permanece `Draft`**
+
+Terceira revalidação, e por duas causas: o @pm aplicou a decisão **D8** do founder aqui (escopo novo
+exige minha revalidação), e as sete correções de 11-17 precisavam ser conferidas **no arquivo**, não
+na lista de quem disse que as aplicou.
+
+### As sete, item por item — conferidas hoje
+
+| # | Correção exigida em 11-17 | Estado | Evidência de hoje |
+|---|---|---|---|
+| 1 | `base_url` parametrizável sai do `OUT` | ✅ **fechada** | O `AC3` está certo e o `OUT` foi revogado por escrito, restrito à linha 74. Reconferido: `client_api.py:74` é `self.base_url = "https://api.rapidinhas24hr.com/api"`, literal |
+| 2 | Rota de pedidos em **`product`** singular | ⚠️ **meia → fechada por mim hoje** | O @pm corrigiu o `Files:` na v1.4 e **não corrigiu a checklist**, que seguia dizendo `products/[id]/orders` plural. **A story afirmava as duas coisas em dois lugares.** Corrigi a tarefa. Reconferido: o ETL chama `/product/{id}/orders` em `:266` e `/products` em `:169` — os dois nomes divergem **na origem** |
+| 3 | Tarefa e AC de **autenticação por token portador** | ❌ **aberta → endereçada por mim hoje** | Não havia **nenhuma** tarefa de autenticação e nenhum AC. Acrescentei a tarefa e o **AC17**. As três incompatibilidades seguem reais: corpo `{"email","password"}` (`:108-109`), token lido do **corpo**, `Bearer` em todo GET, reautenticação no **401** — contra `username` + cookie `HttpOnly` do lotemania |
+| 4 | Os `filterX` planos, `"null"` literal, envelope `orders` | ❌ **aberta → endereçada por mim hoje** | O `AC1` ainda carregava a minha generalização errada de 11-16 (*"`filters` como string JSON"* para os dois). Reconferido: `/products` usa `filters` JSON (`:169`); `/product/{id}/orders` usa **dez planos** (`:259-265`) com `filterStartDate`/`filterEndDate` como a string literal **`"null"`** (`:264`), envelope **`orders`** (`:279`). Virou **AC16** |
+| 5 | `approvedBy`, `expiredBy`, `eventId`, `price`, `discount`, `status` no `AC1` | ❌ **aberta → nomeada por mim hoje** | A lista enumerada não os citava. Os seis entraram como nota do `AC1`, com o motivo do `approvedBy` escrito: é a **baixa manual**, métrica que o cliente pediu |
+| 6 | AC de **vocabulário de status** | ❌ **aberta → endereçada por mim hoje** | Não existia. Virou tarefa + **AC18** |
+| 7 | A decisão sobre `numbers`/`quantity` em sorteio divisível | ❌ **aberta → endereçada por mim hoje** | Não aparecia em nenhum AC. Virou **AC19**, e agora tem contrato de referência para seguir: o `ADR-0001` fechou em *"campo novo e explícito"*, e a `LTM-07` **já entregou `orders.unit`** |
+
+**Uma fechada por outro agente, uma meia que eu fechei, cinco que eu converti em AC verificável.**
+Não é discordância de mérito em nenhum dos sete pontos — é correção que não foi aplicada por três
+rodadas, e que agora tem critério em vez de recado.
+
+### Por que ainda é NO-GO depois de eu ter escrito os ACs que faltavam
+
+Porque **escrever o AC não é satisfazê-lo**, e três coisas continuam de fora do alcance da story:
+
+1. **O `AC1` exige um campo que não existe no schema.** `paymentEndToEndId` não tem onde morar
+   (`orders` tem `paymentGatewayProvider` e `paidAt`; `banking_transactions` tem `externalReference`),
+   e ele pertence ao caminho de pagamento. A story diz isso corretamente e deixa a aresta **combinada
+   entre duas stories** — mas a combinação ainda não aconteceu.
+2. **O `AC14` espera uma transcrição que ninguém fez.** A regra *"considerar `fbc` quando conter
+   código de afiliado"* tem explicação própria na tela da Sorteamos e **ela não foi transcrita**.
+   O próprio @pm marcou isso. ⛔ **Implementar por dedução aqui muda para quem o cliente paga
+   comissão** — é o caso mais caro de invenção em todo o epic, e o `AC7` da `LTM-18` o proíbe.
+3. **A story é XL e está na fila serial de `reserve.ts`**, atrás da `LTM-02` (entregue) e junto com
+   `LTM-17`, `LTM-21`, `LTM-28` e `LTM-18` grupo A. A D8 a fez crescer **mais**: 5 ACs novos e uma
+   tela inteira.
+
+### A D8 está bem aplicada, e a melhor parte dela é uma distinção
+
+O @pm separou **duas telas que se chamam a mesma coisa**: `/dashboard/analytics` é o **demo do Minimal
+UI** (*"Bug Reports 234"*, eixo Jan '03–Oct '03) e **não se clona**; `/dashboard/settings/analytics` é
+a configuração real de pixel e atribuição e **entra no escopo**. Sem essa distinção, "replicar
+Analytics" significaria clonar um andaime de template — e o `AC15` existe exatamente para isso não
+acontecer.
+
+⛔ **E o travamento que ele pôs em destaque é o certo:** `params.eventId` entra por **paridade de
+payload**, e **a chave de dedup do consumidor não se troca** (`order-paid.js:223-227` usa `orderId`,
+com 99%+ medido). Emitir campo novo é paridade; mexer na chave do consumidor seria uma "melhoria" que
+quebra o que funciona.
+
+### O recado que importa para o ensaio ponta a ponta
+
+**Esta story não é o gargalo do ensaio, e tratá-la como tal custaria dias.** O sorteio de teste roda
+sem atribuição: ninguém precisa saber de qual anúncio veio o comprador para o pedido fechar, o PIX
+pagar e o ganhador ser registrado. O `G3` é portão **do corte**, não do ensaio.
+
+> **O que o ensaio de fato exige desta story é zero.** O que o **corte** exige é tudo — e é por isso
+> que ela não pode ser esquecida depois do ensaio: no dia em que o lotemania vira a plataforma do
+> Império, o ETL e o CAPI apontam para cá ou o BI inteiro cega no mesmo dia.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ `Files:` presente e agora coerente com a checklist |
+| Estrutura de arquivos / árvore | ⚠️ → ✅ a rota singular ficou igual nos **dois** lugares |
+| UI/Frontend | ⚠️ a tela da D8 tem os rótulos transcritos; o `AC14` espera **uma** transcrição que falta |
+| Satisfação dos ACs | ⚠️ 4 ACs novos meus dão critério ao que era lista de pendência; `AC1` ainda exige campo que não existe no schema |
+| Instruções de teste | ✅ depois do `AC16`/`AC17`/`AC18` |
+| Segurança | ⚠️ → ✅ o `AC17` nomeia credencial de serviço escopada ao tenant, e o token de CAPI já tinha tratamento de segredo |
+| Sequência de tarefas | ❌ XL na fila serial de `reserve.ts`, e crescendo |
+| Duplicação funcional | ✅ arestas com `LTM-02`, `LTM-03` e `LTM-18` declaradas |
+| Anti-alucinação | ✅ corrigidas **quatro** citações de linha (três no `bi_aggregator.py`, uma no `client_api.py`) |
+| Prontidão para @dev | ❌ |
+
+### Correções exigidas antes de ir a `Ready`
+
+1. **Combinar com a `LTM-03` quem cria `paymentEndToEndId`** — hoje a story diz *"quem chegar
+   primeiro cria"*, e isso não é uma decisão, é um empate. A `LTM-03a`/`03b` já foram entregues:
+   **então é esta story que cria.** Precisa estar escrito como tarefa, não como aresta.
+2. **A transcrição da explicação do `fbc` com código de afiliado** — é observação, não decisão de
+   founder, e a `LTM-19` é a fonte. Enquanto não existir, o `AC14` fica **declaradamente aberto** e
+   não se implementa por dedução.
+3. **Dividir.** A story é XL, virou XL+ com a D8, e tem duas metades com `Files:` quase disjuntos: a
+   **atribuição** (schema, captura, `reserve.ts`, os dois endpoints, o `order.paid`) e a **tela de
+   configuração** (`dashboard/settings/analytics/**`, o esquema novo). A segunda **não toca
+   `reserve.ts`** e sairia da fila serial inteira. **É do @sm criar**, como na `LTM-18`.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.5 | **Revalidada (3ª) — NO-GO (6/10). Permanece `Draft`.** Das sete correções de 11-17: **uma fechada** (o `OUT` do `base_url`), **uma meia que eu fechei** (a rota `product` singular estava corrigida no `Files:` e **não** na checklist — a story afirmava as duas coisas), e **cinco convertidas em AC verificável** por mim: **AC16** (os dois endpoints falam dialetos diferentes — `filters` JSON em `/products:169` × **dez `filterX` planos** em `/product/{id}/orders:259-265`, com `filterStartDate`/`filterEndDate` chegando como a string literal **`"null"`** e envelope `orders`), **AC17** (autenticação por token portador: corpo `{"email","password"}`, token no corpo, `Bearer`, **401 de verdade** porque o ETL reautentica sozinho), **AC18** (vocabulário de status como mapa explícito em teste) e **AC19** (`numbers`/`quantity` em sorteio divisível pela mitigação obrigatória do `ADR-0001`, agora que `orders.unit` foi entregue pela `LTM-07`). Os seis campos faltantes do `AC1` nomeados, com o motivo do `approvedBy` escrito (baixa manual, métrica pedida pelo cliente). **Quatro citações de linha corrigidas** (Artigo IV): `bi_aggregator.py:1099 → :1128`, `:1107-1113 → :1133-1141`, `:1372-1382 → :1370-1376` + `:1379`/`:1395`, e o `numbers` do ETL em `client_api.py:459-466`. A **D8** do @pm está bem aplicada, com a distinção certa entre o demo do Minimal UI (não se clona) e `/dashboard/settings/analytics` (entra), e o travamento de **não trocar a chave de dedup** subscrito. **Segue NO-GO por três razões fora do alcance da redação:** o `AC1` exige `paymentEndToEndId`, que não existe no schema; o `AC14` espera uma transcrição que ninguém fez (e implementar por dedução muda **para quem o cliente paga comissão**); e a story é XL na fila serial de `reserve.ts`, tendo crescido com a D8. **Registrado que ela não é gargalo do ensaio ponta a ponta** — o `G3` é portão do corte. | @po (Pax) |
 | 2026-11-19 | 1.4 | **Decisão D8 do founder aplicada: a tela de Analytics entra nesta story, antes do corte.** Distinguidas as **duas** telas que se chamam "Analytics": `/dashboard/analytics` é o **demo do Minimal UI intocado** ("Bug Reports 234", eixo Jan '03–Oct '03) e **não se clona**; `/dashboard/settings/analytics` é a configuração **real** de pixel e atribuição ([OBSERVADO], `painel-telas.md` §9) e **entra no escopo**. Contrato transcrito: janela de UTM de 24 h, Pixel ID e Token de CAPI **múltiplos por vírgula**, duas opções de envio do `purchase`, a chave de `fbc` com código de afiliado, UTMify, e os quatro ids simples. **Os 13 campos de `params`** de `webhook-saida-contrato.md` entram no `AC2` — e **faltavam dois, não quatro**: `ip` e `userAgent` já estavam enumerados; os ausentes eram **`ttp`** e **`eventId`**. ⛔ **Registrado em destaque que a dedup desta instalação é chaveada em `orderId`, não em `params.eventId`** — `order-paid.js:223-227`, 99%+ medido —, então `eventId` entra por paridade de payload e **ninguém troca a chave do consumidor**. ACs novos: **AC11** (a tela existe e governa, sob o `AC1` da `LTM-18` para não nascer inerte), **AC12** (janela de atribuição configurável — o `AC4` com relógio), **AC13** (múltiplos pixels e tokens), **AC14** (a regra do `fbc` com afiliado, **que espera a transcrição da explicação da tela** — `AC7` da `LTM-18`), **AC15** (o andaime não é clonado). Bloco `Files:` corrigido na rota de pedidos para **`product` singular** (correção 2 do @po, aberta desde 11-17) e acrescido dos arquivos da tela. **As sete correções do @po de 11-17 continuam abertas** — esta edição não as fecha e **aumenta** a story; a revalidação é do @po. | @pm (Morgan) |
 | 2026-11-16 | 1.1 | Validada — GO (9/10). Draft → Ready. Lacuna de `paymentEndToEndId` no AC1 registrada, aresta com a LTM-03 mapeada, parâmetros do contrato nomeados. | @po (Pax) |
 | 2026-11-17 | 1.2 | **Revalidada — NO-GO (6/10). Ready → Draft.** `base_url` é literal no ETL (AC3 impossível); rota de pedidos é `product` singular; autenticação incompatível em três pontos e sem tarefa; onze `filterX` planos em vez de `filters` JSON (corrige a minha própria generalização de 2026-11-16); `approvedBy`/`expiredBy` sem origem; vocabulário de status divergente; `numbers`/`quantity` colidem com o `ADR-0001` e com o `GLOSSARY`. Dashboard do founder vira `LTM-09`. | @po (Pax) |

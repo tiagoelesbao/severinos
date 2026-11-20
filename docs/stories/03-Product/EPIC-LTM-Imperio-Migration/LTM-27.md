@@ -126,6 +126,16 @@ divisível e quantas pessoas aquele número tem:
 > Isso **não inventa tela** — mantém a da Sorteamos — e **usa o domínio que já existe**. O operador
 > não precisa saber se o sorteio é divisível: ele digita o número, como sempre fez.
 
+> ### ⚠️ E o rateio opera sobre o valor DAQUELE lugar, não sobre o do sorteio
+>
+> Decisão do founder de 2026-11-20 (`AC3`/`AC11`): **são N ganhadores, quantos o operador quiser**, e
+> **cada lugar tem o seu valor, digitado no modal**. Então a tabela acima se lê assim: onde está
+> *"prêmio"*, entenda **o valor daquele lugar** — a metade órfã leva o prêmio **inteiro do lugar
+> dela**, não o do sorteio.
+>
+> **O `prizeAmount` do sorteio continua sendo o padrão**, usado quando o operador não informa valor —
+> que é o caso de um sorteio de prêmio único, o mais comum, e o do ensaio ponta a ponta.
+
 ### 3. A validação de dígitos é da Sorteamos e vale copiar
 
 *"Essa campanha é de N dígitos"* — derivado de `totalNumbers`. Evita o operador digitar `042` num
@@ -175,12 +185,18 @@ registrada no cadastro pode não ser a da extração real.
     **ensaio ponta a ponta vai encontrar primeiro** se o sorteio de teste não tiver `prizeKind`
     `cash` **com valor declarado** — e aí a tela recusa com razão certa e o operador acha que a
     funcionalidade está quebrada.
-- [ ] **AC3 (um campo por prêmio):** sorteio com 3 prêmios mostra **3** campos; com 1, mostra 1. O
-      número de campos vem dos prêmios configurados (`prizes`, `product-settings.ts:39`), não de
-      constante.
-  - ⚠️ **Observado × deduzido** (@po, 2026-11-20): a captura mostra **um** campo, rotulado
-    `Ganhador: Prêmio 1`. *"Três prêmios → três campos"* é **dedução razoável a partir do rótulo**,
-    não observação. Fica marcado como tal, e o **AC11** governa o que acontece a partir do segundo.
+- [ ] **AC3 (quantos ganhadores o operador quiser — decisão do founder, 2026-11-20):** o modal
+      permite cadastrar **N ganhadores**, um por prêmio, e **o operador decide quantos**. Sorteio com
+      3 prêmios cadastra 3; se ele quiser cadastrar mais, cadastra. O número de campos **parte** dos
+      prêmios configurados (`prizes`, `product-settings.ts:39`) e **não é teto**.
+  - **A decisão, textual** (founder, 2026-11-20): *"assim como na sorteamos, aqui devemos poder como
+    usuário definir mais de um ganhador, devo poder cadastrar quantos eu quiser assim como também é
+    possível na sorteamos"*.
+  - ✅ **Tomada depois de ouvir o risco.** A objeção do `AC11` — o prêmio ratear o valor cheio a cada
+    chamada — foi levada a ele **antes** da resposta. Ele reafirmou a capacidade, então o remédio
+    mudou de *recusar* para *pedir o valor*. É decisão informada, não desconhecimento.
+  - ⚠️ **Cada ganhador cadastrado precisa do seu próprio valor** — ver `AC11`. Sem isso, N
+    cadastros pagam N× o prêmio do sorteio.
 - [ ] **AC4 (a meia cota gera dois ganhadores):** sorteio divisível, número com **as duas metades
       vendidas a pessoas diferentes** → **duas** linhas de `winners`, cada uma com seu
       `winning_half`, e os prêmios **somando exatamente** o prêmio do lugar. É o AC que prova a
@@ -207,20 +223,32 @@ registrada no cadastro pode não ser a da extração real.
 - [ ] **AC9 (ação mutante tem rastro):** quem definiu o ganhador e quando ficam registrados.
       Depende da `LTM-16`; enquanto ela não existir, o AC fica aberto e **declarado**.
 - [ ] **AC10 (porta verde):** `pnpm lint`, `pnpm typecheck`, `pnpm build`, `npm run test`.
-- [ ] **AC11 (o prêmio do lugar tem valor, ou a tela recusa — @po, 2026-11-20):** o domínio rateia
-      **um** valor por sorteio — `advanced_settings.prizeAmount`, lido em `winners.ts:106-116` — e
-      `recordWinnersForDrawnTitle` recebe **um** número por chamada. Então, num sorteio com **mais de
-      um** prêmio em `prizes`, salvar os N campos faria **N chamadas rateando o valor cheio N vezes**:
-      o sorteio pagaria N× o prêmio, e **nada no código de hoje impede isso**.
-      Nesta story, o comportamento exigido é: **o segundo campo preenchido em diante é recusado com a
-      razão nomeada** — *"este sorteio declara um valor de prêmio só; o valor do 2º lugar não existe
-      no cadastro"* — e **nenhuma linha de `winners` é gravada** para ele.
-  - ⛔ **Não inventar o valor por lugar.** Dividir o `prizeAmount` entre os lugares, ou assumir que o
-    2º vale metade, é inventar no caminho do prêmio. `prizes` é `z.array(z.string())` — **descrição
-    livre, sem valor** (`product-settings.ts:39-44`).
-  - ❓ **Pergunta de uma linha para o founder, registrada e não deduzida:** *"como se declara o valor
-    do 2º e do 3º prêmio?"* Enquanto ela não for respondida, sorteio de **um** prêmio em dinheiro é o
-    caminho completo — e é o caso do ensaio ponta a ponta, que não fica bloqueado por ela.
+- [ ] **AC11 (o valor de cada lugar é digitado, nunca deduzido — reescrito em 2026-11-20 pela
+      decisão do founder):** cada ganhador cadastrado carrega **o valor do seu prêmio, informado pelo
+      operador no modal**. O rateio da meia cota opera **sobre esse valor**, não sobre o do sorteio.
+      Teste: dois lugares com valores diferentes produzem linhas de `winners` com
+      `prize_amount` **diferentes**, e a soma dos ganhadores de um mesmo lugar é **exatamente** o
+      valor daquele lugar.
+  - **O defeito que este AC existe para impedir, medido antes de a decisão chegar** (@po,
+    2026-11-20): o domínio lê **um** valor por sorteio — `advanced_settings.prizeAmount`, em
+    `winners.ts:106-116` — e `recordWinnersForDrawnTitle` recebe **um** número por chamada. Com N
+    cadastros e nenhum valor por lugar, **o sorteio pagaria N× o prêmio**, e nada no código impede.
+    Foi esse achado que fez o valor por lugar virar requisito de desenho em vez de bug futuro.
+  - **A forma autorizada:** `recordWinnersForDrawnTitle` ganha um **parâmetro opcional de valor** —
+    **ausente**, lê `prizeAmount` como hoje (todos os testes existentes seguem verdes);
+    **presente**, usa o valor dado. ✅ **Retrocompatível por construção**, que é o que permite a
+    mudança sem reabrir a `LTM-07`.
+  - ⛔ **As duas travas que continuam valendo, e não são negociáveis:**
+    1. **Não dividir o `prizeAmount` do sorteio entre os lugares.** Assumir que o 2º vale metade, ou
+       repartir o total pelo número de prêmios, é **inventar no caminho do prêmio**. `prizes` é
+       `z.array(z.string())` — **descrição livre, sem valor** (`product-settings.ts:39-44`).
+    2. **Prêmio não monetário grava descrição sem valor.** `winners.prize_amount` é **nulável de
+       propósito** (`raffles.ts:297`, sem `.notNull()`), e é o que permite registrar *"uma moto"* sem
+       forçar um número que ninguém declarou. **Não preencher 0,00** — zero é um valor, e um prêmio
+       de R$ 0,00 na página pública é pior que um prêmio sem valor.
+  - ✅ **A pergunta *"como se declara o valor do 2º prêmio"* está RESPONDIDA:** pelo operador, no ato
+    de definir o ganhador. Era a única fonte possível sem invenção, e é também o que a Sorteamos
+    faz — o campo do modal é por prêmio, não por sorteio.
 
 ---
 
@@ -313,8 +341,15 @@ custa dinheiro de verdade.
 1. **`AC11` novo — o prêmio pago N vezes.** É o achado desta validação. `AC3` manda renderizar um
    campo por prêmio; o domínio rateia **um valor por sorteio** e recebe **um número por chamada**.
    Três campos salvos = três rateios do valor cheio. Não é bug de implementação futura: é um AC
-   mandando fazer uma coisa que o domínio executa errado por construção. A trava é recusar, **não**
-   dividir por dedução.
+   mandando fazer uma coisa que o domínio executa errado por construção.
+   > 🔄 **Atualização do mesmo dia: o remédio que eu propus foi trocado pelo founder, e o achado
+   > sobreviveu.** Eu propus **recusar** o 2º lugar; levada a objeção a ele, ele respondeu que
+   > cadastrar **quantos ganhadores quiser** é requisito — *"assim como também é possível na
+   > sorteamos"*. **Decisão informada, tomada depois de ouvir o risco, e ela vale.** O remédio passou
+   > a ser **o operador digitar o valor de cada lugar**, que é a única fonte sem invenção. As duas
+   > travas que eu pus continuam inteiras: não dividir o `prizeAmount` por dedução, e `prize_amount`
+   > **nulável** para prêmio não monetário em vez de 0,00. **O valor da medição não era a recusa — era
+   > saber que o valor por lugar não existia em lugar nenhum.**
 2. **`AC2` cobria uma de quatro recusas.** As outras três estão em
    `winners.ts:30-38`, e uma delas (`prize_not_rateable`) é a que o ensaio encontra primeiro.
 3. **`AC8` citava `/ganhadores`;** a rota é `/loja/{tenant}/ganhadores`, e a máscara que ele exige
@@ -346,13 +381,14 @@ roubaria metade do prêmio de quem pagou. `AC4` e `AC5` existem por isso, e o ra
 ### O que fica aberto, declarado
 
 - **`AC9`** espera a `LTM-16` (trilha). Não bloqueia o ensaio.
-- **O valor do 2º prêmio** é pergunta de uma linha ao founder (`AC11`). Não bloqueia o ensaio, que
-  roda com um prêmio em dinheiro.
+- ~~**O valor do 2º prêmio** é pergunta de uma linha ao founder (`AC11`).~~ ✅ **RESPONDIDA em
+  2026-11-20:** o operador digita o valor de cada lugar no modal. Ver `AC11` reescrito.
 - **`winning_half` na loja** é da `LTM-08`.
 
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.2 | **`AC3` e `AC11` reescritos por decisão do founder.** Ele respondeu à objeção do `AC11` reafirmando a capacidade: *"assim como na sorteamos, aqui devemos poder como usuário definir mais de um ganhador, devo poder cadastrar quantos eu quiser"* — **decisão informada, tomada depois de ouvir o risco do prêmio pago N vezes**. `AC3` passa a exigir **N ganhadores, quantos o operador quiser**, com os prêmios configurados como ponto de partida e **não** como teto. `AC11` troca de remédio: em vez de **recusar** o 2º lugar, **o operador digita o valor de cada lugar no modal** — a única fonte sem invenção, já que `prizes` é `z.array(z.string())` sem valor. Forma autorizada: **parâmetro opcional de valor** em `recordWinnersForDrawnTitle` (ausente lê `prizeAmount` como hoje, e os testes existentes seguem verdes; presente usa o dado), retrocompatível por construção. **As duas travas da medição original continuam inteiras:** (1) não dividir o `prizeAmount` do sorteio entre os lugares — assumir que o 2º vale metade é inventar no caminho do prêmio; (2) **`prize_amount` é nulável de propósito** (`raffles.ts:297`, conferido sem `.notNull()`), então prêmio não monetário grava descrição **sem valor** e **nunca 0,00** — zero é um valor, e R$ 0,00 na página pública é pior que nenhum. O rateio da meia cota passa a operar sobre o valor **daquele lugar**: a metade órfã leva o prêmio inteiro **do lugar dela**. **A pergunta *"como se declara o valor do 2º prêmio"* está respondida** e sai das pendências. | @po (Pax) |
 | 2026-11-20 | 1.1 | **Validada — GO (8,5/10). `Draft` → `Ready`.** Fim aberto confirmado por medição: `recordWinnersForDrawnTitle` tem **um** importador e é um teste. Corrigi quatro ACs contra o domínio entregue e acrescentei o **AC11**: `AC3` manda um campo por prêmio, mas o domínio rateia **um** `prizeAmount` por sorteio e recebe **um** número por chamada — N campos salvos pagariam **N× o prêmio**, e nada no código impede. A trava é **recusar o 2º lugar com razão nomeada**, nunca dividir o valor por dedução; o valor por lugar vira pergunta de uma linha ao founder. `AC2` passou a cobrir as **quatro** recusas de `winners.ts:30-38` (a redação cobria uma, e a que o ensaio encontra primeiro é `prize_not_rateable`: sorteio sem prêmio em dinheiro declarado é recusado). `AC8` corrigido para a rota literal `/loja/{tenant}/ganhadores`, com o registro de que a máscara **já está construída** lá (`page.tsx:62`, `:81`) e de que `winning_half` não é exibido — aresta da `LTM-08`. `AC1` ganhou a junta `product_numbers.order_id → orders.created_at`, porque `winners` não guarda a data da compra. O `[CONFIRMAR]` do ganhador já definido está **metade respondido pelo código**: `already_recorded` recusa a segunda gravação. | @po (Pax) |
 | 2026-11-19 | 1.0 | Nasce do mapeamento da corrente ponta a ponta, que achou o fim aberto: o rateio da `LTM-07` existe e **ninguém o chama**. Eu havia registrado três perguntas como *"não se respondem por dedução"*; **o founder respondeu mandando a tela da Sorteamos**, que eu deveria ter modelado no inventário e não modelei — `Definir ganhadores` é ação mutante e ficou de fora. As quatro capturas respondem as três perguntas: o operador **digita o número**, há **um campo por prêmio**, e o sistema **resolve número → comprador** sozinho. O que a Sorteamos **não** responde é a meia cota: lá o número tem um dono, aqui pode ter dois. | @aiox-master |

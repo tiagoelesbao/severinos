@@ -134,8 +134,49 @@ story constrói os sete blocos praticamente do zero.
 - [x] **AC5 (dado pessoal mascarado):** nome e telefone saem mascarados no mesmo formato
       (`Primeiro ***`, `(DD) 9****-****`), e o **telefone completo não aparece no HTML servido** —
       nem em atributo, nem em JSON de hidratação. Teste varre o HTML.
-- [ ] **AC6 (pedido de outro comprador):** abrir a URL de um pedido alheio **não** revela dado
-      pessoal. `[CONFIRMAR]` o que a Sorteamos faz; na dúvida, recusar.
+- [x] **AC6 (o que a tela NÃO entrega — reescrito pelo @po em 2026-11-20, 2ª vez no dia, pela D10):**
+      a tela do pedido **não revela nenhum dos quatro campos que nenhuma decisão do founder
+      liberou**: **e-mail**, **CPF**, **CEP** e **data de nascimento**. A varredura é no **HTML
+      servido** — não na tela renderizada —, incluindo atributo e JSON de hidratação, porque o que
+      viaja para o cliente é o que vazou.
+  - ✅ **O que a tela entrega, por decisão e não por descuido:** **nome e telefone inteiros**
+      (`order-view.ts:272-273`, conferido: `input.buyer?.name ?? "—"` e `formatPhone(...)`, sem
+      máscara). **D9** (2026-11-19) soltou o telefone; **D10** (2026-11-20) soltou o nome, porque
+      `Comprador ***` ao lado do telefone inteiro era **meia proteção e nenhuma** — mesma pessoa,
+      linhas vizinhas, um escondido e o outro à mostra.
+  - ⛔ **O custo que permanece, nomeado:** a página é endereçável por `orderId` e **não há sessão de
+      comprador**. **Quem tiver o link vê nome e telefone completos** — não só a própria pessoa. O
+      `orderId` é UUID (não adivinhável) e a página não é indexável, mas o link é **compartilhável**:
+      um print num grupo leva os dois dados com ele. É escolha do founder, com prazo — ver abaixo.
+  - ✅ **O limite das duas decisões, conferido e intacto:** o **cartão de ganhador** na loja pública
+      **continua mascarado** — `maskName` e `maskPhone` em `loja/[tenant]/ganhadores/page.tsx:62` e
+      `:81`. Nem a D9 nem a D10 o tocaram, e a razão é a divisão que elas fizeram: **quem vê o dado
+      de quem.** Ali o dado é de **terceiro que não escolheu aparecer**, em página pública e
+      indexável.
+  - 🔜 **Por que este AC vale MAIS depois das duas decisões, não menos.** Ele deixou de prender o
+      nome e o telefone e passou a prender **os quatro campos que a `LTM-21` vai começar a coletar**:
+      o cadastro de 14 campos tem `cpf`, `email`, `birthDate` e `zipCode`, e as quatro colunas **já
+      existem** em `users` (`src/db/schema/core.ts:38-43`) — hoje vazias no checkout rápido, que só
+      grava telefone. **Quando a `LTM-21` chegar, é esta asserção que impede o dado novo de aparecer
+      numa tela sem sessão.** Um AC que prende o que ainda não existe é exatamente o que não se
+      descobre tarde.
+  - ⚠️ **Dois limites da varredura, medidos, que o AC declara em vez de prometer:**
+      | Campo | Como a varredura o procura, e por quê |
+      |---|---|
+      | **CPF** | **só na forma pontuada** (`000.000.000-00`). A crua, 11 dígitos seguidos, **não se distingue do BR Code**, que começa com `00020126580014…`. ✅ E a coluna guarda a pontuada: `cpf` é `varchar(14)` (`core.ts:38`) — 14 é o tamanho **com** pontos |
+      | **CEP** | **com fronteira de palavra** (`\b`). O UUID da fixture é todo de `1`, e `11111111-1111` casaria sem ela. ✅ A coluna também é a pontuada: `zip_code` é `varchar(9)` (`core.ts:41`) — `00000-000` |
+      **Um AC que promete mais do que a varredura entrega é caixinha marcável**, então os dois
+      limites ficam escritos aqui e não no comentário do teste.
+  - 🔜 **O prazo desta redação:** a `LTM-21` traz cadastro com senha e a `LTM-22` a verificação de
+      telefone. **No dia em que existir sessão de comprador, o AC volta a poder exigir recusa** —
+      pedido alheio passa a ter dono, e *"na dúvida, recusar"* deixa de ser impossível e passa a ser
+      obrigatório. **Fica registrado como condição de entrada da `LTM-21`**, junto com os quatro
+      campos acima.
+  - ⚠️ **Por que a redação original não podia ficar.** Ela dizia *"abrir a URL de um pedido alheio
+      **não** revela dado pessoal; `[CONFIRMAR]` o que a Sorteamos faz; na dúvida, recusar"* — e
+      **o código não cumpre**: não há sessão, logo não há quem autorizar, e as D9/D10 mandam mostrar.
+      AC que o código não cumpre, marcado verde, é pior que AC aberto. O @dev deixou o quadradinho
+      desmarcado e devolveu a decisão; estava certo.
 - [x] **AC7 (sem PIX ainda, não mente):** enquanto a cobrança não existir no gateway, a tela diz
       que está gerando — **nunca** mostra campo de código vazio nem um código falso.
 
@@ -204,6 +245,7 @@ Depends-on: LTM-02 (reservedUntil confiavel), LTM-03b (o BR Code real) — ver c
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.4 | **`AC6` reescrito pela 2ª vez no dia, pela decisão D10, e NADA MAIS neste arquivo** — a story está `InReview` e o portão é do @qa. A **D10** (founder, 2026-11-20) soltou também o **nome** na tela do próprio pedido, porque `Comprador ***` ao lado do telefone inteiro era **meia proteção e nenhuma**. Conferido o implementado (`c9238e0d`): `order-view.ts:272-273` entrega nome e telefone **sem máscara**. **O AC mudou de alvo, não ficou vazio:** passa a prender os **quatro** campos que nenhuma decisão liberou — **e-mail, CPF, CEP e data de nascimento** —, que são exatamente os que a **`LTM-21`** vai coletar no cadastro de 14 campos e cujas colunas **já existem** em `users` (`core.ts:38-43`), hoje vazias porque o checkout rápido só grava telefone. É a asserção que impede o dado novo de vazar numa tela endereçável por `orderId` sem sessão. **Dois limites da varredura declarados no AC em vez de prometidos:** CPF só na forma **pontuada** (a crua, 11 dígitos, não se distingue do BR Code `00020126580014…`) e CEP com **fronteira `\b`** (o UUID da fixture é todo de `1`); as duas colunas guardam justamente a forma pontuada (`varchar(14)` e `varchar(9)`). **Limite das duas decisões conferido e intacto:** o cartão de ganhador segue mascarado (`ganhadores/page.tsx:62`, `:81`), porque ali o dado é de terceiro. **Custo nomeado:** quem tem o link vê nome e telefone, por decisão, enquanto não houver sessão de comprador — condição de entrada da `LTM-21`. | @po (Pax) |
 | 2026-11-20 | 1.2 | **Implementada.** As quatro portas verdes; 4 arquivos de teste, **64 testes** novos (suite 276 → 346, e os 6 restantes sao do agente paralelo). **Tres premissas da story sairam falsas** — a constante que o achado 1 cita ja nao existe nesse lugar, a colisao anunciada com a `LTM-03b` em `payment-status.tsx` **nao aconteceu** (o arquivo nao foi tocado), e o "mesmo componente do catalogo" do bloco 6 **nao era um componente**, era marcacao inline. **O AC5 foi revisado por decisao do founder (D9, 2026-11-19):** telefone **inteiro** na tela do proprio pedido, nome segue mascarado — o que deixa o **AC6 parcialmente superado** e por isso ele fica **aberto** para o @po reescrever. Ver Dev Agent Record. | @dev (Dex) |
 | 2026-11-18 | 1.1 | Acrescenta o bloco `Files:` e tres achados: (1) **o relogio da Sorteamos e de 30 min e o nosso de 15** -- divergencia de produto que ninguem decidiu, item aberto para o founder; (2) a Sorteamos usa **duas** mascaras de telefone e `mask.ts` tem uma, o que poe este arquivo em disputa com a `LTM-15`; (3) confirmado que `showQrCodeByDefault` nao e lido por nada. Registra a **colisao direta com a `LTM-03b`** em dois arquivos. | @aiox-master |
 | 2026-11-17 | 1.0 | Nasce das telas que o founder capturou do fluxo real de compra. | @aiox-master |

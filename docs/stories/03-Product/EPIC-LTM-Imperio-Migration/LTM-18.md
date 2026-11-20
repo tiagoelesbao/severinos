@@ -1,6 +1,14 @@
 # LTM-18: O editor de sorteio tem 43 controles e 5 funcionam
 
 **Status:** Draft
+> ❌ **NO-GO do @po em 2026-11-20 — 6/10. Permanece `Draft`, e a razão não é de mérito.** A story
+> está certa no diagnóstico, certa na medição e certa na divisão que ela mesma propõe — e **é
+> indespachável como está**: um conjunto `Files:` de 8 entradas que atravessa a fila serial de
+> `reserve.ts`, com `Depends-on: LTM-02, LTM-03b, LTM-04, LTM-17`, não forma onda em nenhuma
+> combinação (`parallel-waves.md`, condição 2). **O que falta é a divisão em `18a`/`18b`/`18c`
+> existir como arquivo**, e criar story é do @sm — não minha. A `18a` sai `Ready` no dia em que
+> nascer. Revalidada também a decisão **D3** (aplicada pelo @pm) e **corrigida a conta dos 36**:
+> a classificação cobre **35**. Ver *Revalidação @po (2026-11-20)*.
 **Epic:** EPIC-LTM-Imperio-Migration (Frente B — Paridade)
 **Prioridade:** **P0** — o operador configura o sorteio de teste nesta tela, e ela aceita qualquer coisa sem obedecer
 **Complexidade:** **XL** — candidata a divisão; o recorte proposto está no fim
@@ -168,11 +176,31 @@ O que **permanece** nosso, e não é afetado pela D3:
 > feature exista. Confirmar caso a caso é trabalho de análise, não suposição: nenhuma destas entra
 > em escopo sem o @architect dizer o que já há.
 
-### Grupo D — o `reservationModel` é um caso à parte
+### Grupo D — o `reservationModel` é um caso à parte **— e ele tem um par (2)**
 
 `reservationModel: "manual" | "random"` decide se o comprador escolhe o número ou se o sistema
 sorteia. **Não é cosmético: muda o fluxo de compra inteiro**, e hoje a loja só faz manual. Fica
 classificado separado para não ser confundido com uma chave de exibição do grupo A.
+
+> ### ⚠️ O 36º campo não estava em grupo nenhum — `showRandomSelectionOption`
+>
+> **Achado do @po em 2026-11-20, contando os grupos contra o esquema.** A classificação soma
+> **A (15) + B (8) + C (11) + D (1) = 35**, e os campos sem leitor são **36**. O que faltava:
+>
+> | | |
+> |---|---|
+> | Campo | **`showRandomSelectionOption`** (`product-settings.ts:18`) |
+> | Leitor fora da declaração e do editor | **nenhum** — só `advanced-settings-tabs.tsx:360-361`, que é a própria tela de edição e não conta pelo método desta story |
+> | Grupo | **D**, com o `reservationModel` — é o **par** dele: um decide se o sistema sorteia o número, o outro decide se o comprador **vê a opção** de pedir que sorteiem |
+>
+> **Por que isto importa além da aritmética:** o `AC1` manda a varredura virar teste com o conjunto
+> *"campo sem leitor"* **vazio**. Um campo fora de todos os grupos é um campo que **nenhuma tarefa
+> reivindica** — ele sobreviveria às três filhas e **faria o `AC1` falhar no fim da frente**, sem
+> dono para consertá-lo. Era o 43º campo nascendo inerte **antes** de a story acabar.
+>
+> E ele é o par do `reservationModel` por razão de produto, não de arrumação: ligar o modo aleatório
+> sem a opção na tela entrega uma feature que ninguém alcança — **o mesmo defeito, um nível acima**,
+> que é o defeito que esta story inteira existe para acabar.
 
 ## O lado visual
 
@@ -435,10 +463,107 @@ registrado como **condição de entrada da `18b` e da `18c`**, não como risco a
 
 A `18a` não tem essa condição, porque não liga nada. É mais uma razão para ela ir primeiro.
 
+## Revalidação @po (2026-11-20) — **NO-GO, 6/10. Permanece `Draft`**
+
+Esta revalidação tem duas causas: o @pm aplicou a decisão **D3** do founder nesta story, e mudança de
+escopo por outro agente exige minha revalidação. E eu nunca a tinha **validado** — em 11-18 registrei
+**priorização**, que é outra coisa, e disse isso com todas as letras no próprio arquivo.
+
+### A D3 está bem aplicada, e a parte mais difícil dela está certa
+
+> *"Replicar, é ferramenta do cliente."*
+
+O @pm fez três coisas que eu subscrevo sem ressalva:
+
+1. **Manteve escrito o que a ferramenta é** — *"um controle para exibir ao comprador uma porcentagem
+   de vendas diferente da real, e para travá-la"*, `[OBSERVADO]`. Decisão registrada com o que ela
+   faz, não com um nome neutro.
+2. **Separou a barra do ajuste.** *"Construir só a barra entrega uma barra honesta... quem implementar
+   a barra sem o ajuste não cumpriu a D3"* — é a distinção que impede a story de nascer entregando um
+   terço, e ela atravessa **três** lugares (grupo B, grupo C, menu da `LTM-11`).
+3. **Tirou a `Porcentagem` da conta dos 36.** Ela **não é campo** de `product-settings.ts`, então não
+   entra na varredura do `AC1`. Conferido: o grupo C é *11 campos + 1 ferramenta*, e os dois números
+   andando juntos corromperiam a medição.
+
+**Sobre a `claims-ledger.md`, concordo com o enquadramento e acrescento o limite.** A regra governa
+**material que nós produzimos**; construir ferramenta de operação do cliente não é fazer a alegação, e
+a decisão de uso é dele. O que permanece nosso está escrito e eu reforço: **o dado gravado continua
+sendo o real** — `product_numbers` e `orders` não mentem, a barra é que passa a poder. ⚠️ **E uma
+consequência que vale ficar aqui:** no dia em que algum material nosso citar número de vendas do
+Império, a fonte **não pode ser essa barra**. É o tipo de atalho que ninguém decide tomar — se toma
+por não saber que o número é ajustável.
+
+### Por que é NO-GO, e o que exatamente destrava
+
+**Não é discordância. É despachabilidade.** O bloco `Files:` da própria story declara 8 entradas,
+três delas na fila serial de `reserve.ts`, e `Depends-on: LTM-02, LTM-03b, LTM-04, LTM-17`.
+
+| Condição da `parallel-waves.md` | Esta story |
+|---|---|
+| 1. sem dependência transitiva | ❌ atrás de **quatro** stories |
+| 2. conjuntos `Files` disjuntos | ❌ `reserve.ts`, `validations/reserve.ts`, `advanced-settings-tabs.tsx`, `product-settings.ts` e `[productSlug]/page.tsx` são todos disputados |
+| 3. recursos independentes | ✅ nenhuma migração |
+
+A story **já sabe disso** e propõe a saída: `18a` / `18b` / `18c`. Eu **aceitei a divisão em
+2026-11-18** e priorizei a `18a` primeiro. **O que não aconteceu é a divisão existir como arquivo** —
+e criar story é do @sm (`.claude/rules/agent-authority.md`), não minha. Marcar esta `Ready` seria
+despachar um XL que colide com cinco stories e depende de quatro.
+
+> **A `18a` é a maior relação valor/risco do epic hoje, e isso não mudou:** um arquivo
+> (`advanced-settings-tabs.tsx`) mais o documento de medição, **`Depends-on: none` de fato**, e dentro
+> dela **a varredura virando teste versionado** — que é o que impede o 46º campo de nascer inerte
+> amanhã. Ela sai `Ready` no mesmo dia em que nascer.
+>
+> ⚠️ **Com uma colisão nova que a D2 criou e que a `18a` herda:** `advanced-settings-tabs.tsx` e
+> `product-settings.ts` passaram a ser da **`LTM-17`** também. **`18a` e `LTM-17` não formam onda**, e
+> a `LTM-17` vem antes — é P1 com pedido direto do founder e um escopo de três arquivos.
+
+### O que eu medi e corrigi
+
+| Afirmação | Medição de hoje |
+|---|---|
+| *"o esquema tem **45** campos"* (v1.1) | ✅ **45**, contados no `z.object` de `product-settings.ts` |
+| *"**36** sem leitor"* | ✅ 45 − 9 com leitor = **36** |
+| a classificação cobre os 36 | ❌ **cobre 35.** `showRandomSelectionOption` não estava em grupo nenhum — **corrigido**, entra no grupo **D** |
+| `support` tem leitor de verdade | ✅ `[productSlug]/page.tsx:240-241` |
+| `prizeKind`/`prizeAmount` nascem com leitor | ✅ `divisibility.ts`, `prize-split.ts`, `winners.ts`, `validations/product.ts`, `actions/products.ts` |
+| *"`reserve.ts:176` exige telefone e nada mais"* | ⚠️ **a linha envelheceu** — o arquivo foi reescrito pela `LTM-02`/`LTM-23`. **A substância está intacta:** `requiredFields` (`product-settings.ts:19`) não tem **nenhum** leitor fora do editor, então a chave do CPF que o founder fotografou continua inerte |
+
+### A ressalva de 11-18 continua valendo, e ganhou prazo
+
+*"Antes de ligar qualquer campo do grupo A, consultar que valores estão gravados em
+`advanced_settings` nos sorteios reais do Império."* O risco foi **eliminado** pela decisão de os
+sorteios serem descartáveis — **com prazo**: ele volta inteiro no dia do primeiro sorteio real. A
+`18a` não tem essa condição porque não liga nada; a `18b`/`18c` têm.
+
+### Pontuação
+
+| Eixo | Nota |
+|---|---|
+| Completude de template | ✅ |
+| Estrutura de arquivos / árvore | ❌ conjunto correto e **indespachável como um só** |
+| UI/Frontend | ✅ a medição visual exigida antes do ajuste é a trava certa (`AC6`) |
+| Satisfação dos ACs | ⚠️ `AC1` era insatisfazível pelo campo fora de grupo — **corrigido**; `AC7` é o melhor AC do epic contra invenção |
+| Instruções de teste | ✅ a varredura virando teste é a melhor peça da story |
+| Segurança | ✅ `claims-ledger` enquadrado com o limite escrito |
+| Sequência de tarefas | ❌ *Executar* mistura grupo A (aqui) com B/C (stories próprias que não existem) |
+| Duplicação funcional | ❌ cinco arquivos disputados |
+| Anti-alucinação | ✅ 45/36 conferem; corrigidos o campo fora de grupo e a linha `:176` envelhecida |
+| Prontidão para @dev | ❌ atrás de quatro stories |
+
+### Correções exigidas antes de ir a `Ready`
+
+1. **A divisão existir como arquivo** — `LTM-18a`, `LTM-18b`, `LTM-18c`, cada uma com seu `Files:`.
+   **É do @sm.** Esta story passa a ser a **medição e o índice** das três, ou é substituída por elas.
+2. **A seção *Executar* parar de misturar** o que é desta story (grupo A) com o que são stories
+   próprias (B, C, `reservationModel`, `Porcentagem`) — hoje a mesma checklist pede as duas coisas.
+3. **Nenhuma depende de decisão do founder.** As três são de recorte.
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.3 | **Revalidada — NO-GO (6/10). Permanece `Draft`.** Primeira **validação** de fato (11-18 foi priorização, e o arquivo dizia isso). A decisão **D3** aplicada pelo @pm está **bem aplicada** e subscrita nos três pontos: o que a ferramenta é fica escrito, a barra é separada do ajuste (*"construir só a barra não cumpre a D3"*), e a `Porcentagem` fica **fora** da conta dos 36 porque não é campo do esquema. Acrescentado o limite do `claims-ledger`: no dia em que material nosso citar vendas do Império, **a fonte não pode ser essa barra**. **Corrigida a conta: a classificação cobria 35 dos 36.** `showRandomSelectionOption` (`product-settings.ts:18`) não estava em grupo nenhum — sem leitor fora do editor, entra no grupo **D** como par do `reservationModel`; sem isso ele sobreviveria às três filhas e faria o `AC1` falhar **sem dono**. Conferidos 45 campos no `z.object`, 9 com leitor, 36 sem. Registrado que a citação *"`reserve.ts:176` exige telefone e nada mais"* **envelheceu** (o arquivo foi reescrito pela `LTM-02`/`LTM-23`) e que a **substância está intacta**: `requiredFields` segue sem leitor. **O NO-GO é de despachabilidade, não de mérito:** 8 entradas em `Files:`, cinco arquivos disputados, `Depends-on` de quatro stories — não forma onda em nenhuma combinação. O que destrava é a divisão `18a`/`18b`/`18c` **existir como arquivo**, e criar story é do **@sm**. A `18a` sai `Ready` no dia em que nascer, com a colisão nova que a D2 lhe deu: `advanced-settings-tabs.tsx` e `product-settings.ts` agora são da `LTM-17` também, e a `LTM-17` vem antes. | @po (Pax) |
 | 2026-11-19 | 1.2 | **Decisão D3 do founder aplicada: a `Porcentagem` entra no grupo C — *"replicar, é ferramenta do cliente"*.** Ela sai do terreno de dúvida e entra no escopo de construção, com o que ela é mantido escrito: um painel que exibe ao comprador porcentagem de vendas **diferente da real** e permite **travá-la** ([OBSERVADO], `README.md` §4 do inventário). Registrado que ela atravessa **três** lugares — a barra na loja (`showSalesProgressBar`, grupo B), a persistência do ajuste (grupo C) e o controle no menu ⋮ da `LTM-11` —, e que **construir só a barra não cumpre a D3**: a barra sozinha é honesta; a decisão é sobre a peça que faz o exibido divergir do real. Registrado também que ela **não é campo de `product-settings.ts`** e portanto **não entra na conta dos 36** nem na varredura do `AC1` — o grupo C passa a ser *11 campos + 1 ferramenta*, e os dois números andam separados. Sobre a `.claude/rules/claims-ledger.md`: a regra **continua valendo para material que nós produzimos**; esta é ferramenta de operação do cliente e a decisão de uso é dele. O que permanece nosso: o dado gravado continua sendo o real — o ajuste é camada de exibição, nunca reescrita de `product_numbers`/`orders`. Mesma leitura vale para o `alertEnabled`. **Edição de @pm aplicando decisão de founder; escopo é do @po.** | @pm (Morgan) |
 | 2026-11-18 | — | **Priorização @po** (não é validação; a story segue `Draft`). O item solto *"varredura de campo de configuração sem leitor"*, aberto pela `LTM-17` com 3 ocorrências conhecidas, **fecha aqui**: a medição achou **36 de 43**, o que o move de "padrão a vigiar" para **P0 com dono**. Divisão em `18a`/`18b`/`18c` **aceita**, com a `18a` primeiro — um arquivo, `Depends-on: none`, e faz a tela parar de mentir sem ligar nada. Registrada como **condição de entrada** da `18b`/`18c` (não como risco a conviver) a consulta aos valores já gravados em `advanced_settings` dos sorteios reais do Império antes de qualquer campo do grupo A ganhar leitor. | @po (Pax) |
 | 2026-11-18 | 1.1 | **Decisao do founder substitui a triagem: as 36, todas.** Eu recomendei ligar o grupo A, esconder o B e marcar o C como nao implementado; o founder decidiu implementar tudo, mais "tudo que tem na Sorteamos". A story muda de natureza — deixa de ser "fazer a tela parar de mentir" e passa a ser "construir o que a tela promete" —, os grupos B (8 telas) e C (11 features) viram stories proprias nascidas do inventario da `LTM-19`, o AC1 perde a saida de escape ("ou marcado como nao implementado") e ganha a exigencia de a varredura virar TESTE versionado, e o AC7 ("nenhum comportamento inventado") fica mais importante, nao menos: implementar tudo responde SE construir, nao O QUE. O risco [Alto] de ligar chave em sorteio existente foi **eliminado** — o founder declarou os sorteios atuais descartaveis — com prazo ate o primeiro sorteio real. | @aiox-master |
