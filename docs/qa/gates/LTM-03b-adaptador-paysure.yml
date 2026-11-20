@@ -1,0 +1,61 @@
+schema: 1
+story: 'LTM-03b'
+story_title: 'O adaptador da Paysure — cobrança criada e aviso entendido'
+gate: CONCERNS
+status_reason: 'O adaptador, o cliente e as nove classes de erro conferem linha a linha; a ressalva é o AC14, que afirma UMA declaração do número de minutos e existem duas — a segunda é o campo que o operador vê e que nada lê.'
+reviewer: 'Quinn (Test Architect)'
+reviewed_revision: 'commit:1df81ebe'
+updated: '2026-11-20T12:10:00Z'
+
+ancoras_lidas:
+  - ac: 'AC7 — os dois relógios amarrados'
+    arquivo: 'src/lib/payments/paysure-client.ts:54 — `return reservationMinutesFor(product) * 60`. Não há literal 900 no caminho.'
+  - ac: 'AC10 — as classes distinguidas, sem retry onde não se deve'
+    arquivo: 'paysure-client.ts:262ff (classify): 404 retriable:false (:284-294), 422 retriable:false (:307-316), 501 retriable:false (:336ff), 429 retriable:true com Retry-After (:317-326). O enum PaysureFailureKind tem 13 variantes nomeadas (:124-150) — nada cai em ramo genérico.'
+  - ac: 'AC10c — nenhum campo opcional inventado'
+    arquivo: 'paysure-client.ts:97-108 (o tipo tem exatamente 5 campos) + :381-385 (o corpo monta exatamente esses 5). generator_name, generator_document e splits aparecem SÓ em comentário (:77, :87), condenados.'
+  - ac: 'AC8/AC9 — gravar antes de mostrar, e o 409 tem saída'
+    arquivo: 'src/lib/actions/pix-charge.ts:363-400 — insert em pix_charges com onConflictDoNothing de alvo NOMEADO (:377), releitura obrigatória (:391-399); o 409 sem linha gravada recusa alto em :334-351 em vez de devolver tela sem código.'
+  - ac: 'AC12 — o provedor do pedido fica registrado'
+    arquivo: 'pix-charge.ts:383-386 — update de orders.paymentGatewayProvider, na MESMA transação da cobrança. A coluna (raffles.ts:209) era morta até aqui.'
+  - ac: 'AC1/AC5/AC6b/AC6c — a chave de idempotência cobre o ciclo de vida'
+    arquivo: 'src/lib/payments/providers/paysure.ts:354-357 — externalEventId = `{flow}:{referenceCode}:{status}`, e no refund com `{event}` por cima. Status fora da enumeração é recusa NOMEADA com o valor literal (:288-296); refund com event desconhecido também (:304-316).'
+  - ac: 'AC4 — não há assinatura e isso está declarado'
+    arquivo: 'providers/paysure.ts — verify sem HMAC; a autenticidade é o token da URL (webhook-token.ts:52-60), e o portão 3 da rota vem ANTES do portão 5 do provedor (route.ts:155-186 vs :208-233).'
+
+top_issues:
+  - id: 'REQ-001'
+    severity: medium
+    finding: >-
+      AC14 afirma: "uma busca por 15 como número de minutos de reserva encontra UMA declaração".
+      Existem DUAS. A primeira é `RESERVATION_MINUTES_DEFAULT = 15` em
+      src/lib/validations/reserve.ts:114, que é a fonte única dos três consumidores — essa parte
+      está certa. A segunda é `reservationExpiryMinutes: z.coerce.number().int().positive().default(15)`
+      em src/lib/validations/product-settings.ts:24, ligada ao seletor de 5 opções em
+      advanced-settings-tabs.tsx:413-430. O operador escolhe 30 minutos, a reserva continua
+      durando 15, e nada avisa. O teste do AC (tests/payments/paysure/screen.test.tsx:148-173)
+      não pega porque varre 6 arquivos nomeados e procura o identificador
+      `RESERVATION_MINUTES\s*=\s*\d+` — recorte que o segundo 15 não casa.
+    suggested_action: >-
+      Não é regressão desta story (o 15 cravado é anterior, e ela reduziu três fontes a uma) e o
+      dono está nomeado no próprio código: a LTM-17 faz reservationMinutesFor ler
+      reservationExpiryMinutes via productAdvancedSettingsSchema.parse. Pedido ao @po: até a
+      LTM-17 entrar, tratar o seletor como decorativo em qualquer ensaio — não prometer ao
+      founder que mudar para 30 minutos muda algo.
+
+achados:
+  - id: 'TEST-001'
+    severity: low
+    tipo: 'acerto, registrado para não ser desfeito'
+    finding: >-
+      tests/payments/paysure/source.ts:51-63 (codigoDe) remove comentários E literais de string
+      antes de qualquer varredura de fonte, com a medição que justifica: 6 das 12 primeiras
+      falhas eram o comentário de classify citando a forma proibida para condená-la. A alternativa
+      — piorar o comentário para o teste passar — foi rejeitada por escrito.
+    suggested_action: 'Nenhuma. É o idioma correto para varredura de fonte nesta base; quem escrever o próximo teste de inspeção deve usar codigoDe, nunca fonteDe.'
+  - id: 'DOC-002'
+    severity: low
+    finding: 'A tela do pedido não renderiza o QR visual (declarado como lacuna no Change Log 1.2 — exige dependência fora do conjunto de arquivos). O BR Code copia-e-cola existe.'
+    suggested_action: '@po: confirmar com o founder se o ensaio de sorteio aceita copia-e-cola sem QR na imagem. A LTM-14 entregou a tela; o QR é item solto.'
+
+waiver: { active: false }

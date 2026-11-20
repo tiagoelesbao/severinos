@@ -1,0 +1,55 @@
+schema: 1
+story: 'LTM-03a'
+story_title: 'O caminho do dinheiro fecha o pedido — sem credencial, sem invenção'
+gate: PASS
+status_reason: 'Os 25 ACs têm âncora de código verificada; a idempotência é reivindicação por inserção com alvo nomeado, e o fechamento existe em um arquivo só com a guarda chaveada na unidade vendável.'
+reviewer: 'Quinn (Test Architect)'
+reviewed_revision: 'commit:1df81ebe'
+updated: '2026-11-20T12:10:00Z'
+
+evidence:
+  portas:
+    fonte: '@lead, árvore combinada pós-LTM-14 + LTM-23'
+    typecheck: 'limpo (tsbuildinfo apagado antes — incremental sub-reporta)'
+    lint: '0 erros, 5 warnings pré-existentes de no-unused-vars'
+    build: 'next build completo'
+    test: '346 passed | 2 skipped (348), exit 0, 613s'
+  verificacao_propria:
+    comando: 'npx vitest run tests/money-path/{identidade-concorrente,expiracao-entre-compradores,anti-spam}.test.ts'
+    resultado: '3 arquivos, 22 testes, 22 passed, 147,88s'
+
+ancoras_lidas:
+  - ac: 'AC-A1 — paysure nas duas listas'
+    arquivo: 'apps/lotemania/src/db/schema/payments.ts:133 (enum) + src/lib/validations/payment-gateway.ts:44 (PAYMENT_GATEWAY_PROVIDERS)'
+  - ac: 'AC-A4 — isActive deixa de ser forçado'
+    arquivo: 'src/lib/payments/gateway-config.ts:66-73 (fora do values) e :86-88 (fora do set do onConflictDoUpdate, alvo nomeado em :76)'
+  - ac: 'AC-B2 — comparação em tempo constante'
+    arquivo: 'src/lib/payments/webhook-token.ts:52-60 — o único === é sobre o comprimento do buffer (:59), com a razão escrita; timingSafeEqual em :60'
+  - ac: 'AC-C3 — uma só implementação do fechamento'
+    arquivo: 'src/lib/payments/settle-order.ts:94-288; chamadores: route.ts:360 e lib/actions/checkout.ts'
+  - ac: 'AC-C5 — a guarda é a LINHA, não o número'
+    arquivo: 'src/lib/payments/settle-order.ts:219-228 (units.length vs order.quantity) e :230-240 (alreadySold por unidade, com number/half no detalhe)'
+  - ac: 'AC-C6 — pagamento atrasado tem uma só saída'
+    arquivo: 'settle-order.ts:170-178 (order_expired, sem escrita) + route.ts:66-70 (REFUSAL_TO_STATE → refund_pending); nenhum insert em bankingTransactions nesse caminho'
+  - ac: 'AC-D2 — idempotência concorrente real'
+    arquivo: 'route.ts:272-290 — a reivindicação É a inserção, com onConflictDoNothing de alvo nomeado (tenantId, provider, externalEventId); não há consulta antes da escrita'
+  - ac: 'AC-D4 — duplicata não desaparece'
+    arquivo: 'route.ts:296-312 — deliveryCount + 1 e firstOutcome devolvidos no corpo'
+  - ac: 'AC-E3 — valor divergente não fecha'
+    arquivo: 'settle-order.ts:190-201'
+  - ac: 'AC-F1/F2 — nada é aceito em silêncio'
+    arquivo: 'route.ts:188-208 (unsupported_provider nomeando o provedor, 200 com corpo) — não existe NextResponse.json({ok:true}) pelado no arquivo'
+
+achados:
+  - id: 'SEC-001'
+    severity: low
+    tipo: 'acerto não pedido — registrado para ninguém desfazer'
+    finding: 'recordRejection grava externalEventId NULO de propósito (route.ts:84-103). Se um aviso recusado reservasse a chave de idempotência, bastaria adivinhar um reference_code para BLOQUEAR o pagamento verdadeiro que chegasse depois — negação de serviço de graça. Nenhum AC pedia isso.'
+    suggested_action: 'Nenhuma. Não remover sem substituir o mecanismo; vale um teste de regressão próprio se alguém mexer em recordRejection.'
+  - id: 'DOC-001'
+    severity: low
+    finding: 'settle-order.ts:126 cita `reserve.ts:149-156` como o lugar da varredura de expiração. A LTM-20 moveu a varredura para lib/raffles/expire-reservations.ts; reserve.ts:149-156 é hoje resolveTargetUnits. É a âncora que um dev futuro segue para entender a ORDEM DAS TRAVAS que impede impasse com o webhook.'
+    suggested_action: '@dev: trocar por `raffles/expire-reservations.ts:264-284`. Comentário, não comportamento.'
+
+top_issues: []
+waiver: { active: false }
