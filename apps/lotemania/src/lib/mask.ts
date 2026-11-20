@@ -13,11 +13,19 @@
 // observado. Então existem as duas, cada uma com o nome da tela a que
 // pertence, e `maskName` serve às duas sem mudança.
 //
-// ⚠️ A TELA DE PEDIDO SAIU DESTA LISTA por decisão do founder em 2026-11-19:
-// nela o telefone do comprador aparece INTEIRO, porque é o número da própria
-// pessoa numa tela que ela abriu sobre a compra dela. A decisão foi
-// explicitamente *"só na tela do próprio pedido"* — o cartão de ganhador é
-// página pública, expõe terceiros, e continua mascarado.
+// ⚠️ A TELA DE PEDIDO SAIU DESTA LISTA INTEIRA, por duas decisões do founder
+// em dias seguidos: 2026-11-19 soltou o TELEFONE, 2026-11-20 soltou o NOME.
+// A razão é a mesma para os dois — são os dados da própria pessoa, numa tela
+// que ela abriu sobre a compra dela. A primeira decisão foi explicitamente
+// *"só na tela do próprio pedido"*, e a segunda nasceu de a incoerência ter
+// sido levada a ele: a tela mostrava `Comprador ***` ao lado do telefone
+// inteiro, meia proteção e nenhuma.
+//
+// ⛔ **O CARTÃO DE GANHADOR NÃO MUDOU, e é por isso que este arquivo continua
+// existindo.** `maskName` e `maskPhone` são aplicados em
+// `loja/[tenant]/ganhadores/page.tsx:62` e `:81`: página pública, dado de
+// terceiro que não escolheu aparecer. **Nenhuma das duas decisões a tocou**, e
+// quem for estender "coerência" até lá estará decidindo pelo founder.
 //
 // ⚠️ O 9 QUE APARECE É O DÍGITO REAL, NÃO UM "9" ESCRITO À MÃO. Cravar o
 // caractere `9` faria a tela afirmar que o número é celular mesmo quando não

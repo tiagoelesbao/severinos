@@ -17,7 +17,7 @@
 // `raffles/expire-reservations.ts`, pela mesma razão registrada lá.
 //
 // ════════════════════════════════════════════════════════════════════════
-// O DADO PESSOAL: O NOME É CORTADO AQUI, O TELEFONE NÃO (AC5, revisado)
+// O DADO PESSOAL: NESTA TELA NÃO SE CORTA NADA (AC5, revisado 2x)
 //
 // ⚠️ DECISÃO DO FOUNDER, 2026-11-19: nesta tela — a do PRÓPRIO pedido — o
 // telefone aparece INTEIRO. O raciocínio dele: é o número da própria pessoa,
@@ -27,19 +27,24 @@
 // expõe terceiros que não escolheram aparecer, e segue mascarado por
 // `maskPhone` (LTM-15).
 //
-// O NOME continua mascarado (`Primeiro ***`), e isso não é descuido: a
-// decisão falou de NÚMERO, e estender o que o founder não disse é decidir
-// por ele. O resultado é visivelmente incoerente — a tela mostra
-// `Tiago ***` ao lado de `(11) 98765-4321`, nome escondido e telefone à
-// mostra, para a mesma pessoa, na mesma linha. Está levado ao founder e
-// registrado no Dev Agent Record da LTM-14; soltar o nome também é uma linha
-// aqui, quando ele decidir.
+// ⚠️ SEGUNDA DECISÃO DO FOUNDER, 2026-11-20: o NOME também sai inteiro.
+// A primeira decisão falou só de número, e a implementação não estendeu por
+// conta — o que deixou a tela mostrando `Tiago ***` ao lado de
+// `(11) 98765-4321`, nome escondido e telefone à mostra, para a MESMA pessoa,
+// na MESMA linha. Levada ao founder como incoerência, ele resolveu na direção
+// de soltar: *"nome inteiro também"*, pela mesma razão do telefone — é a tela
+// que a própria pessoa abriu sobre a compra dela.
+//
+// **O cartão de ganhador NÃO muda**, e isto é o limite das duas decisões:
+// `maskName` e `maskPhone` continuam sendo aplicados lá (LTM-15), porque é
+// página pública e expõe terceiros que não escolheram aparecer. As duas
+// decisões foram sobre A TELA DO PRÓPRIO PEDIDO, nunca sobre a loja.
 //
 // O que o `OrderView` CONTINUA não tendo: e-mail, CPF, endereço, data de
 // nascimento. Não é convenção, é o tipo — e é o que mantém a varredura de
-// HTML com conteúdo. O nome inteiro também não entra, e
-// `tests/loja/pedido/order-screen.test.tsx` varre o HTML renderizado para
-// provar.
+// HTML com conteúdo. O nome saiu da lista de proibidos; os outros quatro
+// continuam nela, e `tests/loja/pedido/order-screen.test.tsx` varre o HTML
+// renderizado para provar.
 //
 // ⚠️ O CUSTO QUE A DECISÃO TEM, escrito aqui porque ninguém o apaga depois:
 // a página é endereçável por `orderId` e não há sessão de comprador. Quem
@@ -49,7 +54,6 @@
 // ════════════════════════════════════════════════════════════════════════
 
 import { formatCurrency } from "@/lib/format";
-import { maskName } from "@/lib/mask";
 
 /**
  * Em que estado a tela está.
@@ -265,7 +269,7 @@ export function buildOrderView(input: OrderViewInput): OrderView {
         }
       : null,
     details: {
-      buyerName: input.buyer?.name ? maskName(input.buyer.name) : "—",
+      buyerName: input.buyer?.name ?? "—",
       buyerPhone: formatPhone(input.buyer?.phone ?? null),
       situation: SITUACAO[state],
       createdAt: formatMoment(input.order.createdAt),

@@ -203,28 +203,37 @@ describe("AC2: no zero, a tela muda de estado sem esperar o banco", () => {
   });
 });
 
-describe("AC5 (revisado em 2026-11-19): nome mascarado, telefone inteiro", () => {
-  // ⚠️ DECISÃO DO FOUNDER, 2026-11-19: na tela do PRÓPRIO pedido o telefone
-  // aparece inteiro — é o número da própria pessoa, numa tela que ela abriu
-  // sobre a compra dela. O cartão de ganhador, que é público e expõe
-  // terceiros, continua mascarado por `maskPhone` (LTM-15).
+describe("AC5 (revisado 2x): nome e telefone inteiros nesta tela", () => {
+  // ⚠️ DUAS DECISÕES DO FOUNDER, em dias seguidos, na mesma direção:
   //
-  // O nome continua mascarado porque a decisão falou de NÚMERO, e estender o
-  // que o founder não disse seria decidir por ele. O par resultante é
-  // incoerente de propósito, e está registrado no Dev Agent Record.
+  //   2026-11-19  o TELEFONE sai inteiro na tela do próprio pedido
+  //   2026-11-20  o NOME também
+  //
+  // A primeira falou só de número, e a implementação não estendeu por conta —
+  // deixando a tela com `Comprador ***` ao lado de `(00) 98765-4321`, para a
+  // mesma pessoa, na mesma linha. Levada ao founder como incoerência, ele
+  // resolveu soltando o nome, pela mesma razão: é a tela que a própria pessoa
+  // abriu sobre a compra dela.
+  //
+  // ⛔ **O LIMITE DAS DUAS DECISÕES É ESTA TELA.** O cartão de ganhador é
+  // página pública e expõe terceiros: `maskName` e `maskPhone` continuam
+  // aplicados lá (LTM-15), e `tests/loja/mascaras.test.ts` prende as duas
+  // formas. Se algum dia alguma destas asserções mudar, é porque houve uma
+  // TERCEIRA decisão — não porque "ficou coerente".
 
-  it("o nome sai mascarado e o telefone sai inteiro, formatado", () => {
+  it("o nome e o telefone saem inteiros, o telefone formatado", () => {
     const view = buildOrderView(entrada());
-    expect(view.details.buyerName).toBe("Comprador ***");
+    expect(view.details.buyerName).toBe(NOME);
     expect(view.details.buyerPhone).toBe("(00) 98765-4321");
   });
 
-  it("o NOME inteiro não está em nenhum campo do objeto exibido", () => {
+  it("o nome vai no objeto exibido — e é a decisão, não um vazamento", () => {
     // É o objeto que a página renderiza e que viaja para os componentes de
-    // cliente — logo, é o que o payload de hidratação pode carregar.
+    // cliente, logo é o que o payload de hidratação carrega. Mascarar na
+    // exibição e mandar inteiro no payload seria vazamento com aparência de
+    // proteção; aqui as duas pontas dizem a mesma coisa, de propósito.
     const serializado = JSON.stringify(buildOrderView(entrada()));
-    expect(serializado).not.toContain(NOME);
-    expect(serializado).not.toContain("Sintetico Da Suite");
+    expect(serializado).toContain(NOME);
   });
 
   it("e-mail, CPF e endereço continuam fora do tipo — não há como vazá-los", () => {

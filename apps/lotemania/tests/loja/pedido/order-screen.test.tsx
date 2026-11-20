@@ -256,32 +256,43 @@ describe("AC4: o QR começa oculto ou visível conforme `showQrCodeByDefault`", 
   });
 });
 
-describe("AC5 (revisado em 2026-11-19): o NOME não sai no HTML, o telefone sai", () => {
+describe("AC5 (revisado 2x): nome e telefone saem no HTML desta tela", () => {
   const markup = renderiza(viewDe());
 
-  it("o nome vai mascarado e o telefone vai inteiro — na mesma linha", () => {
-    // ⚠️ Incoerência DELIBERADA, e registrada: a decisão do founder de
-    // 2026-11-19 soltou o NÚMERO na tela do próprio pedido e não falou do
-    // nome. Estender a decisão ao nome seria decidir por ele.
-    expect(markup).toContain("Comprador ***");
+  it("o nome e o telefone vão inteiros — na mesma linha", () => {
+    // Duas decisões do founder na mesma direção: 11-19 soltou o NÚMERO, 11-20
+    // soltou o NOME. A incoerência que a primeira deixou — `Comprador ***`
+    // ao lado do telefone inteiro — foi levada a ele e resolvida soltando.
+    expect(markup).toContain(NOME);
     expect(markup).toContain("(00) 98765-4321");
   });
 
-  it("varre o HTML servido: o nome inteiro não está lá, nem em atributo", () => {
-    expect(markup, "nome inteiro no HTML").not.toContain(NOME);
-    expect(markup).not.toContain("Sintetico Da Suite");
+  it("varre o HTML servido: os QUATRO que nunca saem continuam fora", () => {
+    // ⚠️ O nome saiu desta lista por decisão; os quatro abaixo NÃO, e nenhuma
+    // decisão os tocou. Eles não estão no tipo `OrderView`, e esta varredura
+    // é o que prova que não entraram por outro caminho — texto, atributo ou
+    // payload.
+    expect(markup, "e-mail no HTML").not.toMatch(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i);
+    // \u26a0\ufe0f CPF s\u00f3 na forma PONTUADA. A forma crua \u2014 11 d\u00edgitos seguidos \u2014 n\u00e3o
+    // \u00e9 distingu\u00edvel do BR Code, que come\u00e7a com `00020126580014...` e casaria
+    // com qualquer regex de 11 d\u00edgitos. Ent\u00e3o esta varredura pega CPF
+    // EXIBIDO, n\u00e3o CPF vazado em campo t\u00e9cnico; a defesa contra o segundo \u00e9 o
+    // tipo `OrderView` n\u00e3o ter a coluna, que `order-view.test.ts` prende.
+    expect(markup, "CPF no HTML").not.toMatch(/\d{3}\.\d{3}\.\d{3}-\d{2}/);
+    // A fronteira `\b` nao e enfeite: o UUID do pedido na fixture e todo de
+    // `1`, e `11111111-1111` casa com cinco digitos + hifen + tres sem ela.
+    expect(markup, "CEP no HTML").not.toMatch(/\b\d{5}-\d{3}\b/);
+    expect(markup, "data de nascimento no HTML").not.toContain("nascimento");
   });
 
   it("o que viaja para o cliente é o `OrderView` — e ele é a fronteira", () => {
     // O payload de hidratação carrega as PROPS dos componentes de cliente, e
-    // as props saem daqui. Mascarar na exibição e mandar o valor inteiro no
-    // payload seria vazamento com aparência de proteção — é esta
-    // serialização que distingue os dois casos.
+    // as props saem daqui. O par exibição/payload tem de dizer a MESMA coisa:
+    // mascarar na tela e mandar inteiro no payload seria vazamento com
+    // aparência de proteção, e mandar mascarado o que a tela mostra inteiro
+    // seria a tela mentir sobre a própria fonte.
     const serializado = JSON.stringify(viewDe());
-    expect(serializado).not.toContain(NOME);
-    // O telefone está aqui porque a tela o MOSTRA. Se um dia ele voltar a ser
-    // mascarado, é esta asserção que muda junto com a de cima — e é de
-    // propósito que as duas estão no mesmo arquivo.
+    expect(serializado).toContain(NOME);
     expect(serializado).toContain("(00) 98765-4321");
   });
 });
@@ -293,14 +304,21 @@ describe("AC6: pedido alheio — o que a tela revela e o que ela não revela", (
     // A defesa é o dado que entra no `OrderView`, e ele não tem e-mail, CPF,
     // endereço nem data de nascimento.
     //
-    // ⚠️ O TELEFONE É A EXCEÇÃO, por decisão do founder de 2026-11-19 — quem
-    // tiver o link do pedido vê o número inteiro. O AC6 original dizia "na
-    // dúvida, recusar"; a decisão é posterior e explícita, então ela vale, e
-    // o custo está escrito em `order-view.ts` e no Dev Agent Record.
+    // ⚠️ O NOME E O TELEFONE SÃO A EXCEÇÃO, por duas decisões do founder —
+    // 2026-11-19 o número, 2026-11-20 o nome. Quem tiver o link do pedido vê
+    // os dois inteiros. O AC6 original dizia "na dúvida, recusar"; as duas
+    // decisões são posteriores e explícitas, então elas valem, e o custo está
+    // escrito em `order-view.ts` e no Dev Agent Record.
+    //
+    // **O AC6 não ficou vazio por isso** — ele mudou de alvo: o que ele prende
+    // agora são os QUATRO campos que nenhuma decisão tocou, e que a `LTM-21`
+    // vai passar a coletar no cadastro de 14 campos. Quando ela chegar, esta
+    // asserção é a que impede o dado novo de vazar nesta tela de tabela.
     const markup = renderiza(viewDe());
-    expect(markup).not.toContain(NOME);
-    expect(markup).not.toMatch(/@example\.invalid/);
-    expect(markup).not.toMatch(/\d{3}\.\d{3}\.\d{3}-\d{2}/);
+    expect(markup, "e-mail").not.toMatch(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i);
+    expect(markup, "CPF").not.toMatch(/\d{3}\.\d{3}\.\d{3}-\d{2}/);
+    expect(markup, "CEP").not.toMatch(/\b\d{5}-\d{3}\b/);
+    expect(markup, "nascimento").not.toContain("nascimento");
   });
 });
 
