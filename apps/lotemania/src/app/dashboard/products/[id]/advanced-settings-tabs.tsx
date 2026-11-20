@@ -36,8 +36,20 @@ import {
   productAdvancedSettingsSchema,
   type ProductAdvancedSettings,
 } from "@/lib/validations/product-settings";
+import { formatCurrency } from "@/lib/format";
 import { updateProductSettings } from "@/lib/actions/product-settings";
-import { updateProduct } from "@/lib/actions/products";
+import { setProductDivisibility, updateProduct } from "@/lib/actions/products";
+// ⚠️ TIPO, não valor. `orphan-halves.ts` importa `@/db`, e `@/db` abre
+// WebSocket com o pacote `ws` — importar aquele módulo AQUI o arrastaria para
+// o pacote do navegador. `import type` é apagado na compilação; o nome da
+// unidade chega pela PROP `unitNames`, montada no componente de servidor
+// (`page.tsx`), e nenhuma linha de banco entra no cliente.
+import type { UnitName } from "@/lib/raffles/orphan-halves";
+import type { RaffleUnit } from "@/lib/validations/product";
+// Módulo PURO (zod, sem `@/db` e sem `"use server"`), então entra no cliente
+// sem arrastar nada. `2` cravado aqui seria a terceira cópia da mesma
+// constante — e o ADR-0001 diz duas metades, nunca outra.
+import { HALVES_PER_DIVISIBLE_TITLE } from "@/lib/validations/reserve";
 import { slugify } from "@/lib/slugify";
 import { ProductEditTabsBar, type EditTab } from "./product-edit-tabs-bar";
 import { BonusGameSection, type Game } from "./bonus-game-section";
@@ -50,6 +62,19 @@ const RESERVATION_MODEL_ITEMS = {
   random: "Números Aleatórios",
 };
 const DRAW_MECHANISM_ITEMS = { manual: "Sorteio manual", lottery: "Baseado em Loteria Federal" };
+// O prêmio na forma que a MEIA COTA lê (`product-settings.ts:42-79`), que é
+// distinta da descrição livre de `prizes` ("Um Fiat Argo 2026").
+//
+// ⚠️ SEM ESTE PAR NA TELA, `prizeKind` fica para sempre no default `"other"`
+// e habilitar a meia cota é recusado em TODO sorteio criado pelo painel, com
+// `prize_not_cash`. Medido em 2026-11-20: `prizeKind`/`prizeAmount` não
+// apareciam em nenhum `.tsx` deste repositório. Era o quarto ponto em que a
+// meia cota era inalcançável pela interface — ver o Dev Agent Record da
+// LTM-08.
+const PRIZE_KIND_ITEMS = {
+  cash: "Valor em dinheiro",
+  other: "Outro (carro, imóvel, produto)",
+};
 const DESCRIPTION_MODE_ITEMS = { collapsed: "Colapsado/Retraído", expanded: "Expandido" };
 const SALES_START_ITEMS = { immediate: "Imediatamente", scheduled: "Agendado" };
 const WIDGET_TYPE_ITEMS = { icon_text: "Ícone e texto", icon_only: "Apenas ícone" };
@@ -88,6 +113,102 @@ function SwitchRow({
   );
 }
 
+// ════════════════════════════════════════════════════════════════════════
+// O MARCADOR DE DIVISIBILIDADE (LTM-08: AC4 e AC7)
+//
+// Até esta story a meia cota era INALCANÇÁVEL pela tela:
+// `setProductDivisibility` (`actions/products.ts:179`) existia com ZERO
+// chamadores, nenhum formulário enviava `isDivisible`, e `productSchema:25`
+// o resolve para `false` — todo sorteio criado pelo painel nascia
+// indivisível sem ninguém escolher isso. Este controle é a maçaneta que
+// faltava na porta que já existia.
+//
+// NENHUMA REGRA NOVA MORA AQUI, e isso é o ponto. O congelamento na primeira
+// venda (AC9), a recusa de prêmio não monetário (AC10) e a de prêmio que não
+// divide exato em centavos (AC12) são da LTM-07 e vivem em
+// `raffles/divisibility.ts` + `validations/product.ts`, verificadas contra o
+// Postgres de verdade. O controle só:
+//
+//   • mostra o MOTIVO do congelamento quando ele existe (AC4) — texto vindo
+//     de `sellingFreezeRefusal`, a mesma função que o domínio usa para
+//     recusar, nunca uma segunda redação que possa divergir dela;
+//   • mostra a recusa NOMEADA que o servidor devolveu (AC7), em vez de "não
+//     foi possível habilitar".
+//
+// PURO de propósito — sem `useState`, sem `useTransition`, sem `useRouter`.
+// É o que o torna renderizável por `renderToStaticMarkup` no teste, o mesmo
+// padrão que `gateway-config.test.tsx` e `order-screen.test.tsx`
+// estabeleceram nesta base. O estado fica em quem o usa.
+// ════════════════════════════════════════════════════════════════════════
+
+export function DivisibilityControl({
+  divisible,
+  freezeReason,
+  refusal,
+  halfPriceText,
+  unitNames,
+  pending,
+  onChange,
+}: {
+  divisible: boolean;
+  /** Motivo do congelamento (AC9 da LTM-07), ou `null` se ainda é editável. */
+  freezeReason: string | null;
+  /** A recusa nomeada que o servidor devolveu na última tentativa. */
+  refusal: string | null;
+  /** Preço da metade, string decimal. `null` = o preço não divide exato. */
+  halfPriceText: string | null;
+  unitNames: Record<RaffleUnit, UnitName>;
+  pending?: boolean;
+  onChange: (next: boolean) => void;
+}) {
+  const frozen = freezeReason !== null;
+  return (
+    <div className="flex flex-col gap-2 rounded-lg border border-input p-3">
+      <label className="flex items-center gap-2.5 text-sm">
+        <Switch
+          checked={divisible}
+          disabled={frozen || pending}
+          onCheckedChange={onChange}
+        />
+        Meia cota — cada título vendido em duas metades
+      </label>
+
+      <p className="text-xs text-muted-foreground">
+        Habilitada, a unidade deste sorteio passa a ser a{" "}
+        <b>{unitNames.half.one}</b>: as contagens abaixo passam a contar{" "}
+        {unitNames.half.many}, e cada {unitNames.half.one} custa exatamente
+        metade do preço do título, sem ágio. Só existe em sorteio de prêmio em
+        dinheiro que divida exato em centavos — declare o prêmio na aba
+        Prêmios antes de habilitar.
+      </p>
+
+      {divisible && halfPriceText !== null && (
+        <p className="text-xs text-muted-foreground">
+          Hoje a {unitNames.half.one} custa{" "}
+          <b className="tabular-nums">{formatCurrency(Number(halfPriceText))}</b>.
+        </p>
+      )}
+
+      {/* AC4 — desabilitado COM O MOTIVO ESCRITO, não apenas inerte. */}
+      {frozen && (
+        <p className="rounded-md bg-amber-500/10 p-2 text-xs text-amber-500">
+          {freezeReason}
+        </p>
+      )}
+
+      {/* AC7 — a recusa nomeada, na redação do servidor. */}
+      {refusal !== null && (
+        <p
+          role="alert"
+          className="rounded-md bg-destructive/10 p-2 text-xs text-destructive"
+        >
+          {refusal}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function AdvancedSettingsTabs({
   productId,
   title: initialTitle,
@@ -99,6 +220,10 @@ export function AdvancedSettingsTabs({
   drawDate: initialDrawDate,
   imageUrl: initialImageUrl,
   category: initialCategory,
+  isDivisible: initialIsDivisible,
+  freezeReason,
+  halfPriceText,
+  unitNames,
   initial,
   awardedBoxGames,
   rewardSpinGames,
@@ -114,6 +239,10 @@ export function AdvancedSettingsTabs({
   drawDate: Date | null;
   imageUrl: string | null;
   category: string | null;
+  isDivisible: boolean;
+  freezeReason: string | null;
+  halfPriceText: string | null;
+  unitNames: Record<RaffleUnit, UnitName>;
   initial: ProductAdvancedSettings;
   awardedBoxGames: Game[];
   rewardSpinGames: Game[];
@@ -134,6 +263,49 @@ export function AdvancedSettingsTabs({
     initialDrawDate ? new Date(initialDrawDate).toISOString().slice(0, 16) : "",
   );
   const [imageUrl, setImageUrl] = useState(initialImageUrl ?? "");
+
+  // ── A meia cota (LTM-08) ──────────────────────────────────────────────
+  //
+  // `isDivisible` NÃO vai em `updateProduct` e NÃO é salva pelo botão Salvar
+  // — a omissão é a regra, escrita em `actions/products.ts:133-140`. Mudar a
+  // divisibilidade REESCREVE `product_numbers` (uma linha por título vira
+  // duas) e tem de passar pelo congelamento e pelas recusas de prêmio. A
+  // porta é `setProductDivisibility`, e ela aplica na hora: o operador não
+  // fica com uma grade partida pendente de um Salvar que ele pode nunca dar.
+  const [divisible, setDivisible] = useState(initialIsDivisible);
+  const [divisibilityRefusal, setDivisibilityRefusal] = useState<string | null>(null);
+
+  // A UNIDADE DO SORTEIO (GLOSSARY → Unidade): o que os rótulos de contagem
+  // escrevem em vez de deixar o número solto (AC2). Sai do estado LOCAL, e
+  // não da prop, porque quem acabou de habilitar a meia cota tem de ver os
+  // rótulos mudarem no mesmo clique.
+  const unit = divisible ? unitNames.half : unitNames.title;
+
+  function toggleDivisibility(next: boolean) {
+    setDivisibilityRefusal(null);
+    startTransition(async () => {
+      const result = await setProductDivisibility(productId, next);
+      // `"error" in result` com o `!== undefined` colado: o retorno é união de
+      // `{ error, code }` com `{ isDivisible, changed, sellableUnits }`, e os
+      // dois `return` são literais no MESMO corpo de função — então o
+      // TypeScript normaliza a união acrescentando `error?: undefined` ao ramo
+      // de sucesso, e `in` sozinho deixa o tipo em `string | undefined`.
+      // Medido: `TS2345` em `setDivisibilityRefusal(result.error)`. A mesma
+      // normalização está documentada em `number-grid.tsx:73-80`, pelo lado
+      // oposto (lá ela deixou de valer).
+      if ("error" in result && result.error !== undefined) {
+        setDivisibilityRefusal(result.error);
+        return;
+      }
+      setDivisible(result.isDivisible);
+      const nome = result.isDivisible ? unitNames.half.many : unitNames.title.many;
+      toast.success(
+        result.changed
+          ? `Meia cota ${result.isDivisible ? "habilitada" : "desabilitada"} — ${result.sellableUnits} ${nome} à venda.`
+          : "Nada a alterar: o sorteio já estava nesse estado.",
+      );
+    });
+  }
 
   function set<K extends keyof ProductAdvancedSettings>(key: K, value: ProductAdvancedSettings[K]) {
     setS((prev) => ({ ...prev, [key]: value }));
@@ -399,18 +571,54 @@ export function AdvancedSettingsTabs({
 
         {activeTab === "titulos" && (
           <div className="flex flex-col gap-4">
+            {/* O marcador vem PRIMEIRO na aba, antes de preço e contagens, e
+                não é arrumação: é ele que decide em que UNIDADE tudo abaixo é
+                contado (GLOSSARY → Unidade). Lido depois dos limites, o
+                operador já teria lido "10" sem saber se são dez títulos ou
+                dez metades. */}
+            <DivisibilityControl
+              divisible={divisible}
+              freezeReason={freezeReason}
+              refusal={divisibilityRefusal}
+              halfPriceText={halfPriceText}
+              unitNames={unitNames}
+              pending={isPending}
+              onChange={toggleDivisibility}
+            />
+
             <div className="grid gap-3 sm:grid-cols-3">
-              <FormField label="Preço da cota">
-                <FieldInput
-                  type="number"
-                  step="0.01"
-                  value={price}
-                  onChange={(e) => setPrice(Number(e.target.value))}
-                />
-              </FormField>
-              <FormField label="Quantidade de cotas">
-                <FieldInput value={totalNumbers} disabled className="opacity-70" />
-              </FormField>
+              <div>
+                <FormField label="Preço do título">
+                  <FieldInput
+                    type="number"
+                    step="0.01"
+                    value={price}
+                    onChange={(e) => setPrice(Number(e.target.value))}
+                  />
+                </FormField>
+                {divisible && halfPriceText !== null && (
+                  <FieldHint>
+                    A {unitNames.half.one} custa{" "}
+                    {formatCurrency(Number(halfPriceText))} — metade exata, sem ágio.
+                  </FieldHint>
+                )}
+              </div>
+              <div>
+                <FormField label="Quantidade de títulos">
+                  <FieldInput value={totalNumbers} disabled className="opacity-70" />
+                </FormField>
+                {/* O título é o que se numera na grade; a METADE é o que se
+                    vende num sorteio divisível. Mostrar os dois números juntos
+                    é o que impede "100" de ser lido como 100 unidades à venda
+                    quando são 200. */}
+                {divisible && (
+                  <FieldHint>
+                    {totalNumbers} títulos ={" "}
+                    {totalNumbers * HALVES_PER_DIVISIBLE_TITLE} {unitNames.half.many} à
+                    venda.
+                  </FieldHint>
+                )}
+              </div>
               <FormField label="Tempo para uma reserva pendente expirar">
                 <Select
                   items={{ "10": "10 Minutos", "15": "15 Minutos", "30": "30 Minutos", "60": "60 Minutos", "120": "120 Minutos" }}
@@ -440,9 +648,20 @@ export function AdvancedSettingsTabs({
               <SwitchRow label="Adicionar taxa" checked={s.hasFee} onChange={(v) => set("hasFee", v)} />
             </div>
 
+            {/* ── AC2: NENHUM NÚMERO SOLTO ───────────────────────────────
+                Todo rótulo de contagem nomeia O QUE conta. Num sorteio
+                divisível "máximo 10 por reserva" significa dez METADES —
+                cinco títulos —, e o rótulo antigo deixava o comprador e o
+                operador adivinharem qual das duas coisas era.
+
+                `maxPerBuyer` conta COMPRAS, não unidades (está na dica que já
+                existia: "limites de compras"), então ele nomeia "compras" e
+                NÃO acompanha a unidade do sorteio. Trocar o nome dele junto
+                com os outros seria o erro oposto: dizer que são metades uma
+                contagem que nunca contou metades. */}
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
-                <FormField label="Quantidade por Comprador">
+                <FormField label="Quantidade de compras por comprador">
                   <FieldInput
                     type="number"
                     value={s.maxPerBuyer}
@@ -452,33 +671,35 @@ export function AdvancedSettingsTabs({
                 <FieldHint>Coloque 0 para não ter limites de compras</FieldHint>
               </div>
               <div>
-                <FormField label="Quantidade de cotas por comprador">
+                <FormField label={`Quantidade de ${unit.many} por comprador`}>
                   <FieldInput
                     type="number"
                     value={s.maxQuantityPerBuyer}
                     onChange={(e) => set("maxQuantityPerBuyer", Number(e.target.value))}
                   />
                 </FormField>
-                <FieldHint>Coloque 0 para não ter limites de cotas por comprador</FieldHint>
+                <FieldHint>
+                  Coloque 0 para não ter limites de {unit.many} por comprador
+                </FieldHint>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3">
-              <FormField label="Quantidade mínima por reserva" required>
+              <FormField label={`Quantidade mínima de ${unit.many} por reserva`} required>
                 <FieldInput
                   type="number"
                   value={s.minPerReservation}
                   onChange={(e) => set("minPerReservation", Number(e.target.value))}
                 />
               </FormField>
-              <FormField label="Quantidade máxima por reserva" required>
+              <FormField label={`Quantidade máxima de ${unit.many} por reserva`} required>
                 <FieldInput
                   type="number"
                   value={s.maxPerReservation}
                   onChange={(e) => set("maxPerReservation", Number(e.target.value))}
                 />
               </FormField>
-              <FormField label="Quantidade inicial por reserva">
+              <FormField label={`Quantidade inicial de ${unit.many} por reserva`}>
                 <FieldInput
                   type="number"
                   value={s.initialPerReservation}
@@ -539,6 +760,61 @@ export function AdvancedSettingsTabs({
           <div className="flex flex-col gap-4">
             <div className="rounded-md bg-sky-500/10 p-3 text-sm text-sky-400">
               Informe quais os prêmios os participantes estarão concorrendo. Você pode informar até 10 prêmios.
+            </div>
+
+            {/* ── O PRÊMIO QUE A MEIA COTA LÊ (LTM-08) ──────────────────────
+                A lista de prêmios abaixo é DESCRIÇÃO LIVRE ("Um Fiat Argo
+                2026", "R$ 100 mil"). Texto não responde às duas perguntas que
+                a divisibilidade faz, e as duas estão no ADR-0001: é dinheiro?
+                divide exato em centavos? Estes dois campos são as respostas, e
+                sem eles o par `prizeKind`/`prizeAmount` ficava para sempre no
+                default `("other", null)` — tornando a meia cota impossível de
+                habilitar em qualquer sorteio criado pelo painel. */}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <FormField label="Tipo do prêmio">
+                <Select
+                  items={PRIZE_KIND_ITEMS}
+                  value={s.prizeKind}
+                  onValueChange={(v) => set("prizeKind", v as "cash" | "other")}
+                >
+                  <SelectTrigger className="h-7 w-full border-none px-0">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(PRIZE_KIND_ITEMS).map(([value, label]) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormField>
+              <div>
+                <FormField label="Valor do prêmio em dinheiro">
+                  <FieldInput
+                    inputMode="decimal"
+                    placeholder="100000.00"
+                    value={s.prizeAmount ?? ""}
+                    onChange={(e) =>
+                      // STRING, nunca `number`, e o `type="text"` é parte
+                      // disso. A razão está em `money.ts:36-39` e em
+                      // `product-settings.ts:73-78`: `number` chegaria aqui
+                      // tendo passado por ponto flutuante, e depois do fato
+                      // não se distingue "o dado tem três casas" de "o binário
+                      // deixou resíduo". É a distinção de que o AC12 depende —
+                      // R$ 100.000,01 recusa, R$ 100.000,00 aceita. Campo
+                      // vazio volta a `null` ("não declarado"), que não é o
+                      // mesmo que zero.
+                      set("prizeAmount", e.target.value.trim() === "" ? null : e.target.value)
+                    }
+                  />
+                </FormField>
+                <FieldHint>
+                  Decimal com até duas casas e ponto como separador (ex.:
+                  100000.00). Mais de duas casas é recusado em vez de
+                  arredondado. Só é usado quando o tipo é valor em dinheiro.
+                </FieldHint>
+              </div>
             </div>
             <SwitchRow
               label="Disponibilizar E-book"

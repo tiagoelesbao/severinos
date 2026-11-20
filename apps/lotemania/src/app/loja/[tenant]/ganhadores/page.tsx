@@ -4,6 +4,22 @@ import { db } from "@/db";
 import { winners, products, tenants } from "@/db/schema";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { maskName, maskPhone } from "@/lib/mask";
+import { markedUnitLabel } from "@/lib/raffles/orphan-halves";
+
+// ════════════════════════════════════════════════════════════════════════
+// A METADE MARCADA NO CARTÃO PÚBLICO (LTM-08, AC5 / AC8 da LTM-27)
+//
+// Decisão do founder, 2026-11-20: um sorteio com meia cota pode ter ATÉ DOIS
+// ganhadores por número sorteado. Sem a marcação, esse estado — que é o
+// estado CORRETO de um título divisível com as duas metades vendidas — sai
+// como `42` para DUAS pessoas diferentes no mesmo feed, e fica
+// indistinguível de uma duplicata acidental.
+//
+// `winners.winning_half` é nulável de propósito (`raffles.ts:306-316`):
+// `null` carrega "não foi meia cota", 1 ou 2 nomeiam a metade. O dado já
+// existia; o que faltava era exibi-lo — e o comentário da coluna já atribuía
+// a exibição a esta story.
+// ════════════════════════════════════════════════════════════════════════
 
 export default async function WinnersPage({
   params,
@@ -27,6 +43,7 @@ export default async function WinnersPage({
       prizeDescription: winners.prizeDescription,
       prizeAmount: winners.prizeAmount,
       winningNumber: winners.winningNumber,
+      winningHalf: winners.winningHalf,
       announcedAt: winners.announcedAt,
       productTitle: products.title,
       productImageUrl: products.imageUrl,
@@ -70,7 +87,13 @@ export default async function WinnersPage({
               )}
               {row.winningNumber !== null && (
                 <p className="text-xs text-muted-foreground">
-                  Número da sorte: <b>{String(row.winningNumber).padStart(2, "0")}</b>
+                  Número da sorte:{" "}
+                  <b>
+                    {markedUnitLabel({
+                      number: row.winningNumber,
+                      isHalf: row.winningHalf !== null,
+                    })}
+                  </b>
                 </p>
               )}
               <p className="text-xs text-muted-foreground">

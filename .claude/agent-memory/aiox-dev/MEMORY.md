@@ -6,3 +6,5 @@
 - [Laço de feedback da suíte do lotemania](project_lotemania_suite_feedback_loop.md) — arquivo ~38s, suíte inteira ~590s e estoura o teto de 10 min do Bash; com agente paralelo a contagem de testes não é sua.
 - [Varredura global mata o contador](project_global_sweep_kills_the_counter.md) — tornar global o que contava "na próxima visita do dono" apaga a penalidade em silêncio; verde na suíte, feature morta.
 - [Defeitos de identidade do comprador no lotemania](project_lotemania_reserve_known_defects.md) — a reserva foi consertada (LTM-23); `bonus-play.ts` tem cópia byte-a-byte do mesmo check-then-act; varredura sem teto de lote.
+- [Comentario que afirma sem prova](feedback_comment_claims_need_proof.md) — `alias()` nao qualifica o que e interpolado dentro de template `sql`; o comentario dizia resolvido e o teste provou que nao.
+- [Portas de verificacao do lotemania](project_lotemania_verification_ports.md) — a suite provisiona branch do Neon por execucao; em onda paralela rode so o seu diretorio e apague o `tsbuildinfo` compartilhado.

@@ -15,6 +15,7 @@ import {
 } from "@/db/schema";
 import { formatCurrency } from "@/lib/format";
 import { releaseExpiredReservations } from "@/lib/raffles/expire-reservations";
+import { buildRaffleAnnouncement } from "@/lib/raffles/orphan-halves";
 import { productAdvancedSettingsSchema } from "@/lib/validations/product-settings";
 import { NumberGrid } from "./number-grid";
 import { BonusGamePlayer } from "./bonus-game-player";
@@ -83,11 +84,25 @@ export default async function RaffleDetailPage({
   // ══════════════════════════════════════════════════════════════════════
   await releaseExpiredReservations({ tenantId: tenant.id, productId: product.id });
 
-  const numbers = await db
-    .select({ number: productNumbers.number, status: productNumbers.status })
+  // ⚠️ `half` ENTRA NA CONSULTA, e sem isto a grade partida é impossível
+  // (LTM-08, AC1).
+  //
+  // A consulta antiga pedia `number, status` e descartava a metade na própria
+  // leitura. Num sorteio divisível isso devolve DUAS linhas com o mesmo
+  // número e nenhuma forma de dizer qual é qual: a grade renderizaria o 42
+  // duas vezes, e o estado de uma metade apareceria como se fosse o do
+  // título. Marcar a metade no componente não resolveria — o dado não
+  // chegava lá. É a mesma classe de defeito que `actions/my-titles.ts:35`
+  // tinha, e os dois foram consertados na consulta, não na tela.
+  const units = await db
+    .select({
+      number: productNumbers.number,
+      half: productNumbers.half,
+      status: productNumbers.status,
+    })
     .from(productNumbers)
     .where(eq(productNumbers.productId, product.id))
-    .orderBy(productNumbers.number);
+    .orderBy(productNumbers.number, productNumbers.half);
 
   const [spins, scratch, boxes] = await Promise.all([
     db
@@ -124,6 +139,15 @@ export default async function RaffleDetailPage({
 
   const hasExtras = spins.length > 0 || scratch.length > 0 || boxes.length > 0;
   const settings = productAdvancedSettingsSchema.parse(product.advancedSettings ?? {});
+
+  // AC3 — os dois valores, derivados no servidor e nunca escritos na tela.
+  // Vai inteiro para a grade como prop: `NumberGrid` é componente de cliente
+  // e não pode importar `raffles/orphan-halves.ts`, que fala com o banco.
+  const announcement = buildRaffleAnnouncement({
+    isDivisible: product.isDivisible,
+    pricePerNumber: product.pricePerNumber,
+    advancedSettings: product.advancedSettings,
+  });
 
   return (
     /* A PAGINA INTEIRA sangra de borda a borda. As margens negativas cancelam
@@ -173,11 +197,33 @@ export default async function RaffleDetailPage({
       {/* Compacto: a linha toda ocupa a mesma altura da faixa de "Meus
           titulos" (27px medidos). Antes o py-3 do badge empurrava o bloco para
           ~40px e comia espaco vertical a toa. */}
+      {/* AC3 — O PREÇO QUE SE ANUNCIA É O DA UNIDADE.
+          Em sorteio divisível, "Por apenas R$ 4,00" seria o preço do TÍTULO
+          numa tela onde o que se vende é a metade por R$ 2,00 — e ao lado do
+          prêmio cheio isso é a indução a erro que o risco [Alto] da story
+          nomeia. Em cota inteira a linha é a de hoje, medida na Sorteamos,
+          sem um pixel de diferença. */}
       <div className="flex items-center justify-center gap-2 px-5 py-1.5">
         <span className="text-xs font-semibold text-white">Por apenas</span>
         <span className="rounded-[6px] bg-black px-2.5 py-1 text-sm font-bold tabular-nums text-white">
-          {formatCurrency(Number(product.pricePerNumber))}
+          {formatCurrency(
+            Number(announcement.unitPriceText ?? product.pricePerNumber),
+          )}
         </span>
+        {announcement.isDivisible && (
+          <span className="text-xs font-semibold text-white">
+            a {announcement.unit.one}
+            {announcement.unitPrizeText !== null && (
+              <>
+                {" "}
+                · concorre a{" "}
+                <span className="tabular-nums">
+                  {formatCurrency(Number(announcement.unitPrizeText))}
+                </span>
+              </>
+            )}
+          </span>
+        )}
       </div>
 
       {productWinners.length > 0 ? (
@@ -228,8 +274,8 @@ export default async function RaffleDetailPage({
         <NumberGrid
           tenantSlug={tenantSlug}
           productSlug={productSlug}
-          pricePerNumber={Number(product.pricePerNumber)}
-          numbers={numbers}
+          numbers={units}
+          announcement={announcement}
         />
       </div>
 

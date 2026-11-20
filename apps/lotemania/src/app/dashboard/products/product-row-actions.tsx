@@ -44,6 +44,7 @@ export function ProductRowActions({
   productSlug,
   title,
   isFavorite,
+  isDivisible,
   available,
   reserved,
   sold,
@@ -57,6 +58,7 @@ export function ProductRowActions({
   productSlug: string;
   title: string;
   isFavorite: boolean;
+  isDivisible: boolean;
   available: number;
   reserved: number;
   sold: number;
@@ -73,6 +75,11 @@ export function ProductRowActions({
   const [statsOpen, setStatsOpen] = useState(false);
   const [winnersOpen, setWinnersOpen] = useState(false);
   const storeUrl = `/loja/${tenantSlug}/${productSlug}`;
+  // O nome da unidade vendável, para a contagem nunca sair sem ele. Os
+  // mesmo valor plural de `UNIT_NAMES` em `raffles/orphan-halves.ts` — ver o
+  // comentário no diálogo para a razão de não ser importado de lá. Só o
+  // plural, porque as três contagens deste diálogo são sempre de conjunto.
+  const unidade = isDivisible ? { many: "metades" } : { many: "títulos" };
 
   function copyLink() {
     const full = `${window.location.origin}${storeUrl}`;
@@ -138,18 +145,37 @@ export function ProductRowActions({
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
           <Progress value={Math.round((sold / Math.max(1, total)) * 100)} />
+          {/* ⚠️ A CONTAGEM NUNCA SAI SEM O NOME DA UNIDADE (AC2 da LTM-08).
+              Num sorteio divisível estes três números são METADES, e
+              apresentá-los como títulos faz o operador ler metade do
+              sorteio como sorteio inteiro — na tela por onde ele decide
+              mídia.
+
+              O nome não vem de `raffles/orphan-halves.ts`, que é a fonte
+              dele (`unitNamesFor`), e isso não é duplicação por descuido:
+              aquele módulo importa `@/db`, e este arquivo é `"use client"`
+              — importá-lo arrastaria o banco para o pacote do cliente. O
+              que atravessa a fronteira é `isDivisible`, que é um booleano
+              serializável, e a flexão fica aqui porque os adjetivos
+              concordam em gênero com a unidade: metade é feminino. */}
           <div className="grid grid-cols-3 gap-3 text-center text-sm">
             <div>
               <p className="text-lg font-semibold">{available}</p>
-              <p className="text-muted-foreground">Disponíveis</p>
+              <p className="text-muted-foreground">
+                {unidade.many} disponíveis
+              </p>
             </div>
             <div>
               <p className="text-lg font-semibold text-amber-500">{reserved}</p>
-              <p className="text-muted-foreground">Reservados</p>
+              <p className="text-muted-foreground">
+                {unidade.many} {isDivisible ? "reservadas" : "reservados"}
+              </p>
             </div>
             <div>
               <p className="text-lg font-semibold text-emerald-500">{sold}</p>
-              <p className="text-muted-foreground">Pagos</p>
+              <p className="text-muted-foreground">
+                {unidade.many} {isDivisible ? "pagas" : "pagos"}
+              </p>
             </div>
           </div>
         </DialogContent>

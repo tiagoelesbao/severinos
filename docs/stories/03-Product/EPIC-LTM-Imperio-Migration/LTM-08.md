@@ -1,6 +1,10 @@
 # LTM-08: A meia cota — a superfície
 
-**Status:** Ready
+**Status:** InReview
+> 🔨 **`Ready` → `InProgress` → `InReview` pelo @dev (Dex) em 2026-11-20.** Implementada na ordem
+> que o @po impôs (marcador antes da grade). **Seis dos sete ACs fechados**; o `AC2` fica aberto por
+> **um** lugar fora da fronteira desta story — ver *Dev Agent Record*. Nada foi comitado: a árvore
+> fica para o controlador da onda.
 > ✅ **Revalidada pelo @po em 2026-11-20 — GO (8/10). `Draft` → `Ready`.** O **único** item que a
 > travava em 11-17 era o bloco `Files:`, e ele foi recusado então por uma razão certa: *"não vou
 > inventar a lista a partir das tarefas"*. **Hoje ela não se inventa, se mede** — a `LTM-07` está
@@ -44,20 +48,25 @@ sai, e valor inflado é prática enganosa.
 
 ## Tarefas (Checklist)
 
-- [ ] **Grade partida**: um botão por título, dividido ao meio, cada banda clicável e colorida por
+- [x] **Grade partida**: um botão por título, dividido ao meio, cada banda clicável e colorida por
       conta própria. O comprador continua vendo cem títulos.
 - [ ] **Unidade nomeada** nas seis configurações, nos cartões de compra rápida, na barra de
       progresso e no resumo do carrinho.
-- [ ] **Anúncio dos dois valores** lado a lado com o que se está comprando.
-- [ ] **Editor do sorteio**: o marcador de divisibilidade, com o congelamento visível (desabilitado
+      - **Parcial, e o que falta é de outra fronteira.** Feito: as 5 configurações que existem em
+        tela, preço, quantidade de títulos, legenda da grade, resumo do carrinho e "Meus títulos"
+        (lista enumerada no Dev Agent Record). Não feito: `quickBuyCards` e a barra de progresso
+        **não existem** (grupo B da `LTM-18`), e `dashboard/products/sales-summary-button.tsx`
+        está na fronteira da `LTM-27`.
+- [x] **Anúncio dos dois valores** lado a lado com o que se está comprando.
+- [x] **Editor do sorteio**: o marcador de divisibilidade, com o congelamento visível (desabilitado
       e com motivo depois da primeira venda) e a recusa para prêmio não divisível.
-- [ ] **Metade marcada** nos três exports por sorteio (Vendas, Expirados, Participantes) e na
+- [x] **Metade marcada** nos três exports por sorteio (Vendas, Expirados, Participantes) e na
       consulta "Meus títulos" do comprador.
-- [ ] **Contagem de metades órfãs** no painel do sorteio, visível sem o operador procurar.
+- [x] **Contagem de metades órfãs** no painel do sorteio, visível sem o operador procurar.
 
 ## Critérios de Aceite
 
-- [ ] **AC1 (a grade é honesta):** em sorteio divisível, cada título renderiza duas bandas
+- [x] **AC1 (a grade é honesta):** em sorteio divisível, cada título renderiza duas bandas
       independentes; clicar numa não seleciona a outra; o estado de cada banda reflete o da sua
       metade. Em sorteio de cota inteira a grade renderiza **exatamente como hoje** — regressão
       visual.
@@ -73,12 +82,12 @@ sai, e valor inflado é prática enganosa.
     - **Nesta story:** as seis configurações (que existem em
       `advanced-settings-tabs.tsx`), a barra de progresso **se e quando existir**, e o resumo do
       carrinho na grade.
-- [ ] **AC3 (o anúncio não engana):** numa tela onde se compra metade, o valor que a metade
+- [x] **AC3 (o anúncio não engana):** numa tela onde se compra metade, o valor que a metade
       concorre aparece **junto** do preço da metade. Teste: a página de um sorteio divisível de
       R$ 100.000 nunca exibe "R$ 100.000" como o valor de uma compra de metade.
-- [ ] **AC4 (congelamento visível):** num sorteio com ao menos uma venda, o controle de
+- [x] **AC4 (congelamento visível):** num sorteio com ao menos uma venda, o controle de
       divisibilidade aparece desabilitado **com o motivo escrito**, não apenas inerte.
-- [ ] **AC5 (relatório sem ambiguidade):** em **todo artefato de saída que existir no fim desta
+- [x] **AC5 (relatório sem ambiguidade):** em **todo artefato de saída que existir no fim desta
       story**, uma metade sai marcada e um título inteiro sai nu. Quem tem a metade do 42 e o 43
       inteiro produz `42 (metade)` e `43`. O cabeçalho traz a unidade do sorteio.
   - **Recorte do @po (2026-11-17), porque o AC original era insatisfazível.** Dos quatro artefatos
@@ -92,10 +101,10 @@ sai, e valor inflado é prática enganosa.
     - **Na Frente B:** a regra do `GLOSSARY` → *metade marcada* entra como **condição de aceite dos
       três exports quando eles forem escritos**, e isso precisa ficar registrado lá — não aqui,
       pendurado num AC que ninguém pode fechar.
-- [ ] **AC6 (o operador enxerga a órfã):** o painel de um sorteio divisível mostra quantos títulos
+- [x] **AC6 (o operador enxerga a órfã):** o painel de um sorteio divisível mostra quantos títulos
       têm metade órfã, **antes** do sorteio, na tela que o operador já abre — não atrás de um
       filtro. Teste monta o estado e confere o número.
-- [ ] **AC7 (recusa de prêmio não divisível):** tentar habilitar divisibilidade em sorteio de
+- [x] **AC7 (recusa de prêmio não divisível):** tentar habilitar divisibilidade em sorteio de
       prêmio não monetário mostra o motivo, não um erro genérico.
 
 ## Escopo
@@ -211,10 +220,196 @@ contrato de entrada); esta story mexe na **aparência** do mesmo arquivo.
 ## Dev Agent Record
 
 ### Agent Model Used
-_(preencher na implementação)_
 
-### Notas
-_(preencher na implementação)_
+`claude-opus-5` — @dev (Dex), 2026-11-20. Modo YOLO, onda paralela com a `LTM-27`.
+
+### A ordem que o @po impôs foi seguida
+
+1. **O marcador de divisibilidade** (`advanced-settings-tabs.tsx` + `products/[id]/page.tsx`).
+2. **A grade partida** (`number-grid.tsx` + `[productSlug]/page.tsx`), já com sorteio divisível
+   criável pela tela para o `AC1` ter sujeito.
+3. **O anúncio, a metade marcada e a contagem de órfãs.**
+
+### ⚠️ Achado: a meia cota era inalcançável em **QUATRO** pontos, não três
+
+A revalidação do @po mediu três. Há um quarto, e ele é **anterior** ao marcador na ordem causal:
+
+> **`prizeKind` e `prizeAmount` não existiam em tela nenhuma.** Medido:
+> `grep -rn "prizeKind\|prizeAmount" src --include=*.tsx` não devolvia **nenhuma** linha de
+> formulário — só leitura de `winners.prizeAmount` em cartão de ganhador. A aba Prêmios editava
+> `prizes` (descrição livre), `showPrizes`, `ebookEnabled` e `groupCta`, e mais nada.
+>
+> **Consequência:** `advanced_settings.prizeKind` ficava para sempre no default `"other"`, e
+> `divisibilityRefusalFor` recusa prêmio não monetário (`prize_not_cash`). Ou seja: **mesmo com o
+> marcador pronto, habilitar a meia cota seria recusado em TODO sorteio criado pelo painel** — o
+> ensaio do founder não poderia incluir meia cota. O marcador sozinho não bastava.
+>
+> **Conserto:** o par `Tipo do prêmio` + `Valor do prêmio em dinheiro` entrou na aba Prêmios, dentro
+> de `advanced-settings-tabs.tsx` (arquivo desta story). **Zero lógica nova** — os dois campos já
+> existiam no `productAdvancedSettingsSchema` (`:67` e `:79`) e já eram persistidos por
+> `updateProductSettings`; o que faltava era o controle. O valor é **string decimal**, nunca
+> `number`, pela razão de `money.ts:36-39`.
+
+### Achado: o defeito do `half` descartado na consulta era em **dois** lugares
+
+A story atribuía a fonte do `AC5` a `actions/my-titles.ts:35`. A **consulta da grade** tinha o
+defeito idêntico — `[productSlug]/page.tsx:87` pedia `{ number, status }` e descartava `half`. Num
+sorteio divisível aquilo devolve duas linhas com o mesmo número e nenhuma forma de distingui-las: a
+grade renderizaria o 42 duas vezes e o estado de uma metade apareceria como o do título. Os dois
+foram consertados **na consulta**, não na tela.
+
+### Decisão de fronteira: a prop `numbers` **não** foi renomeada
+
+Ela virou uma lista de unidades vendáveis (`{ number, half, status }`), e o nome honesto seria
+`units`. Renomear quebraria `tests/money-path/expiracao-entre-compradores.test.ts:180`
+(`grade?.props.numbers`), que é a regressão do `AC2` da `LTM-20` e está **fora da fronteira desta
+story**. O acréscimo de `half` é compatível com o que aquele teste lê. O rename é de quem for dono
+daquele arquivo.
+
+### `AC2` — a varredura, enumerada (pedido do @po em 11-17 e repetido em 11-20)
+
+A unidade sai de `UNIT_NAMES` (`raffles/orphan-halves.ts`), num lugar só, e o rótulo muda junto com
+o interruptor no mesmo clique.
+
+| # | Campo | Rótulo antes | Rótulo agora | Onde |
+|---|---|---|---|---|
+| 1 | `maxPerBuyer` | "Quantidade por Comprador" | "Quantidade de **compras** por comprador" | aba Títulos |
+| 2 | `maxQuantityPerBuyer` | "Quantidade de cotas por comprador" | "Quantidade de **{títulos\|metades}** por comprador" | aba Títulos |
+| 3 | `minPerReservation` | "Quantidade mínima por reserva" | "Quantidade mínima de **{títulos\|metades}** por reserva" | aba Títulos |
+| 4 | `maxPerReservation` | "Quantidade máxima por reserva" | "Quantidade máxima de **{títulos\|metades}** por reserva" | aba Títulos |
+| 5 | `initialPerReservation` | "Quantidade inicial por reserva" | "Quantidade inicial de **{títulos\|metades}** por reserva" | aba Títulos |
+| 6 | `quickBuyCards` | — | — | **não tem tela** (recorte do @po) |
+| + | `totalNumbers` | "Quantidade de cotas" | "Quantidade de **títulos**" + "{N} títulos = {2N} metades à venda" | aba Títulos |
+| + | `pricePerNumber` | "Preço da cota" | "Preço do **título**" + "A metade custa R$ X — metade exata, sem ágio" | aba Títulos |
+| + | resumo do carrinho | "N unidade(s)" | "N **{título\|metade}**(s)" + o que cada uma concorre | modal de Checkout |
+| + | legenda da grade | "N Livres / Reservados / Pagos" | em divisível: "N **metades** livres / reservadas / pagas" | grade da loja |
+| + | "Meus títulos" | — | "N **{títulos\|metades}**" ao lado do valor | consulta do comprador |
+
+**`maxPerBuyer` é o único que NÃO acompanha a unidade do sorteio, e isso é deliberado:** a dica que
+já existia ("limites de **compras**") diz que ele conta compras, não unidades. Chamá-lo de metades
+seria o erro oposto — dizer que é metade uma contagem que nunca contou metades.
+
+### ⚠️ O `AC2` **não fecha** dentro da fronteira desta story
+
+Resta **um** lugar com contagem sem unidade, e ele é de arquivo que esta story não pode editar:
+
+```
+src/app/dashboard/products/sales-summary-button.tsx:52-62
+   "{available} Livres" · "{reserved} Reservados" · "{sold} Pagos"
+```
+
+É `dashboard/products/*.tsx` — a raiz, território declarado da `LTM-27` na nota de ondas. Num
+sorteio divisível aqueles três números são **metades** e o diálogo os apresenta como se fossem
+títulos, que é exatamente o perigo do `GLOSSARY` ("o perigo nunca foi a contagem mudar; é mudar sem
+dizer"). **Deixei a caixa do `AC2` desmarcada por causa disto** — o conserto é de uma linha e cabe
+em quem tiver a fronteira daquele arquivo.
+
+### A barra de progresso do `AC2` não existe (sexta ocorrência do padrão da `LTM-18`)
+
+`showSalesProgressBar` (`product-settings.ts:32`) tem interruptor na aba Títulos e **nenhum
+consumidor na loja**: `grep` por `Progress` em `src/app/loja` = zero. As barras que existem são do
+painel (`products/page.tsx`, `product-row-actions.tsx`, `sales-summary-button.tsx`) e mostram
+**porcentagem**, não contagem de unidade. O `AC2` previu o caso ("se e quando existir"), e ele não
+existe.
+
+### Duas armadilhas medidas na implementação
+
+1. **A união normalizada obriga `!== undefined` junto do `in`.** `setProductDivisibility` devolve
+   `{ error, code } | { isDivisible, ... }` com os dois `return` literais no mesmo corpo, então o
+   TypeScript acrescenta `error?: undefined` ao ramo de sucesso e `"error" in result` sozinho deixa
+   o tipo em `string | undefined` (`TS2345`, medido). O mesmo com
+   `lookupOrdersByPhone` (`TS18048`). É a normalização que `number-grid.tsx:73-80` documenta pelo
+   lado oposto.
+2. **Asserção sobre a palavra "disabled" mente no `@base-ui` Switch.** A classe do interruptor
+   carrega `data-disabled:cursor-not-allowed` e `data-disabled:opacity-50` **sempre**, habilitado
+   ou não. O teste do `AC4` compara `aria-disabled="true"` e `data-disabled=""`, que são o estado
+   de verdade.
+
+### Dívida vista e **não** consertada (fora de AC, registrada de propósito)
+
+`lookup-form.tsx:58` faz `setOrders((result.orders as OrderRow[]) ?? [])`. O `as` esconde o ramo de
+erro: operador inexistente devolve `{ error }`, o `?? []` o transforma em lista vazia, e o
+comprador lê **"Nenhum título encontrado para esse telefone"** quando o problema foi outro. É
+pré-existente, não é de nenhum AC desta story, e consertar mudaria o comportamento de uma tela sem
+AC que o cubra.
+
+### Portas de verificação
+
+| Porta | Resultado |
+|---|---|
+| `pnpm typecheck` (com `tsconfig.tsbuildinfo` apagado antes) | ✅ limpo |
+| `pnpm lint` | ✅ **0 erros**, 5 avisos — os 5 pré-existentes de `no-unused-vars`, nenhum em arquivo desta story |
+| `npx vitest run tests/loja/meia-cota-superficie/` | ✅ **48 testes, 5 arquivos, 0 falhas** |
+| `pnpm build` / suíte inteira | ⛔ não rodados — cota do Neon compartilhada com a onda paralela; ficam para a árvore combinada |
+
+**Para a execução combinada, vigiar:** `tests/money-path/expiracao-entre-compradores.test.ts`
+(`AC2`, linha 180) lê `grade.props.numbers` pelo nome. A prop continua existindo e cada entrada
+ganhou `half`; o teste não foi rodado aqui por causa do recorte de cota.
+
+### Os 5 arquivos de teste
+
+| Arquivo | Prende |
+|---|---|
+| `grade-partida.test.tsx` | `AC1`: 100 títulos = 100 células com 2 bandas; estado por metade; clique que não arrasta a irmã; **regressão de cota inteira comparando a string de classe medida**, literal contra literal |
+| `anuncio.test.ts` | `AC3`: R$ 100.000 em metades de R$ 4,00 → metade custa 2,00 e concorre a 50.000,00; o valor da metade **nunca** é o prêmio cheio; prêmio ímpar e prêmio não-dinheiro não geram anúncio |
+| `editor-divisibilidade.test.tsx` | `AC4` e `AC7`: congelado com o motivo **nas palavras do domínio** (texto vindo de `sellingFreezeRefusal`, não digitado no teste); as três recusas nomeadas; e o contrapeso — prêmio que divide exato **não** recusa |
+| `metade-marcada.test.ts` | `AC5`: contra o Postgres, via a action de produção, o par literal do AC — `42 (metade)` e `43` |
+| `metade-orfa.test.ts` | `AC6`: órfã é **uma** metade vendida; duas vendidas não é; reservada não conta; e **nenhum falso positivo em cota inteira**, guardado por dado (`count(*) > 1`) e não por booleano |
+
+Nenhum teste varre código-fonte procurando a forma proibida: os comentários desta base **escrevem**
+`half: null` para condená-lo, então varredura de texto casaria com a explicação. O que se verifica é
+o valor que `unitsForReserve` devolve.
+
+### File List
+
+**Modificados**
+
+| Arquivo | O que mudou |
+|---|---|
+| `src/app/dashboard/products/[id]/advanced-settings-tabs.tsx` | `DivisibilityControl` (puro, exportado); a chamada de `setProductDivisibility`; os 5 rótulos de contagem com a unidade; preço/quantidade com a unidade; **o par `prizeKind`/`prizeAmount` na aba Prêmios** |
+| `src/app/dashboard/products/[id]/page.tsx` | `halfPanelFor` no `Promise.all`; o aviso de metade órfã (AC6); `freezeReason` via `sellingFreezeRefusal` (AC4); preço da metade em string decimal |
+| `src/app/loja/[tenant]/[productSlug]/number-grid.tsx` | a célula partida e as bandas; `buildGridCells`/`toggleUnit`/`unitsForReserve`/`TitleCell` puros; o anúncio dos dois valores; total em centavos inteiros; legenda e carrinho com a unidade |
+| `src/app/loja/[tenant]/[productSlug]/page.tsx` | `half` **na consulta** do estoque; `buildRaffleAnnouncement`; a linha "Por apenas" passa a anunciar a unidade (AC3) |
+| `src/app/loja/[tenant]/ganhadores/page.tsx` | `winning_half` na consulta e `42 (metade)` no cartão público |
+| `src/app/loja/[tenant]/meus-titulos/lookup-form.tsx` | `numbers: number[]` → `units` com rótulo marcado; contagem com o nome da unidade |
+| `src/lib/actions/my-titles.ts` | **`half` deixa de ser descartado na consulta**; rótulo marcado por `orders.unit` |
+
+**Novos**
+
+| Arquivo | O que é |
+|---|---|
+| `src/lib/raffles/orphan-halves.ts` | módulo **puro** (sem `"use server"`): `UNIT_NAMES`, `unitNamesFor`, `countWithUnit`, `markedUnitLabel`, `buildRaffleAnnouncement`, `halfPanelFor` |
+| `tests/loja/meia-cota-superficie/grade-partida.test.tsx` | AC1 + a regressão da grade de cota inteira |
+| `tests/loja/meia-cota-superficie/anuncio.test.ts` | AC3 |
+| `tests/loja/meia-cota-superficie/editor-divisibilidade.test.tsx` | AC4 e AC7 |
+| `tests/loja/meia-cota-superficie/metade-marcada.test.ts` | AC5 (contra o Postgres) |
+| `tests/loja/meia-cota-superficie/metade-orfa.test.ts` | AC6 (contra o Postgres) |
+
+**Não editados, por fronteira:** `actions/products.ts` (só chamado), `raffles/divisibility.ts`,
+`raffles/prize-split.ts`, `raffles/winners.ts` (domínio da `LTM-07`), e tudo em
+`dashboard/products/*.tsx` da raiz + `actions/winners.ts` + `raffles/define-winners.ts`
+(onda paralela da `LTM-27`).
+
+### Notas de implementação
+
+- **`raffles/orphan-halves.ts` é módulo PURO, sem `"use server"`** — ele exporta constante
+  (`UNIT_NAMES`) e funções síncronas, e num arquivo `"use server"` isso zera **todas** as
+  exportações do módulo no grafo do cliente e derruba o `next build` acusando outro arquivo.
+  Molde: `raffles/expire-reservations.ts`.
+- **Ele importa `@/db`, então nenhum componente de cliente o importa.** Os rótulos e o anúncio
+  chegam ao cliente como **prop serializável**, montada no componente de servidor. `number-grid.tsx`
+  e `advanced-settings-tabs.tsx` só usam `import type` dele, que é apagado na compilação.
+- **A contagem de órfã se guarda por dado, não por bandeira:** `HAVING count(*) > 1 AND
+  count(*) FILTER (WHERE status = 'sold') = 1`. Título com uma linha só é cota inteira e não pode
+  ter órfã — passar `isDivisible` daria ao chamador a chance de discordar do estoque.
+- **Órfã é `sold`, não `<> 'available'`:** metade apenas reservada volta ao estoque pela varredura
+  de expiração, e contá-la mostraria órfã que 15 minutos desfazem. O **congelamento** usa o outro
+  critério (`<> 'available'`), e a diferença é de propósito.
+- **`sm:grid-cols-10` intocado**, conforme a correção do @po e a decisão **D4**. A célula partida
+  divide a largura e mantém a **altura inteira** da célula, que é o que preserva o alvo de toque
+  possível numa grade de dez.
+- **Todo valor monetário é string decimal.** `preço / 2` em `number` não aparece em lugar nenhum: o
+  total do carrinho é somado em **centavos inteiros** a partir de `announcement.unitPriceText`.
 
 ## Validação @po (2026-11-17)
 
@@ -361,4 +556,5 @@ em vez de teste.
 |---|---|---|---|
 | 2026-11-20 | 1.2 | **Revalidada — GO (8/10). `Draft` → `Ready`.** O único item que a travava desde 11-17 — o bloco `Files:` — **está declarado**, medido caminho por caminho, com `Resources:` e `Depends-on:`; a dependência bloqueante caiu com a `LTM-07` entregue (`4d18f17a`). **Achado da revalidação: a meia cota é inalcançável pela interface em TRÊS pontos, não um.** Além de `number-grid.tsx:70` (`half: null` sempre), **nenhum sorteio pode ser marcado como divisível** — `setProductDivisibility` (`actions/products.ts:179`) tem **zero chamadores** e nenhum formulário expõe `isDivisible` — e o ganhador da metade não se registra (é a `LTM-27`). Isso impõe **ordem interna**: o marcador de divisibilidade antes da grade partida, ou o `AC1` não tem sorteio contra o que ser testado. **`AC2` recortado** pela mesma razão que o `AC5` foi em 11-17: exigia unidade nomeada *"nos cartões de compra rápida"*, que **não existem** (`quickBuyCards` aparece só na própria declaração; é grupo B da `LTM-18`) — a regra migra para condição de aceite de quem construir os cartões. Corrigido o risco que afirmava *"a grade já é de sete colunas"*: é `grid-cols-6 sm:grid-cols-10` (`:119`). Declarada a aresta com a `LTM-27` **antes do despacho**: conjuntos disjuntos arquivo por arquivo (`products/[id]/**` aqui × `products/*.tsx` lá), podem compartilhar onda, e `ganhadores/page.tsx` — a exibição de `winning_half` — **é desta story**, conforme o `AC8` da `LTM-27` e o comentário de `raffles.ts:306`. | @po (Pax) |
 | 2026-11-17 | 1.0 | Nasce do `/grill-with-docs` com o founder, separada da `LTM-07` desde o início para não repetir o tamanho que derrubou a `LTM-03` na validação. | @aiox-master |
+| 2026-11-20 | 1.3 | **Implementada pelo @dev (Dex).** Ordem do @po seguida: marcador → grade → anúncio/marcação/órfã. **Achado: a meia cota era inalcançável em QUATRO pontos, não três** — `prizeKind`/`prizeAmount` não existiam em formulário nenhum, então `prizeKind` ficava no default `"other"` e habilitar a meia cota seria recusado com `prize_not_cash` em TODO sorteio criado pelo painel, mesmo com o marcador pronto; o par entrou na aba Prêmios. Segundo achado: o `half` descartado na consulta era em **dois** lugares — a grade (`[productSlug]/page.tsx:87`) tinha o mesmo defeito que `my-titles.ts:35`. `AC1`, `AC3`, `AC4`, `AC5`, `AC6` e `AC7` fechados; **`AC2` fica aberto por UM lugar fora da fronteira** (`sales-summary-button.tsx`, território da `LTM-27`). Novo: `lib/raffles/orphan-halves.ts` (módulo puro: nome da unidade, metade marcada, anúncio dos dois valores, painel da órfã) e `tests/loja/meia-cota-superficie/` (5 arquivos, 48 testes). `typecheck` limpo, `lint` 0 erros. | @dev (Dex) |
 | 2026-11-17 | 1.1 | **Validada — GO condicional (7/10). Permanece `Draft` até o bloco `Files:` ser declarado.** AC5 recortado: exigia marcação da metade em três exports que não existem (Frente B); fica com "Meus títulos", e a regra da metade marcada migra para condição de aceite da Frente B. | @po (Pax) |

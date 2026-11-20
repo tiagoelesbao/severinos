@@ -58,6 +58,11 @@ export default async function ProductsPage({
       createdAt: products.createdAt,
       totalNumbers: products.totalNumbers,
       isFavorite: products.isFavorite,
+      // A contagem do dialogo de estatisticas conta UNIDADES VENDAVEIS, e num
+      // sorteio divisivel elas sao METADES. Sem este marcador o dialogo diz
+      // "40 / Reservados" sobre 40 metades, que e meio sorteio apresentado
+      // como sorteio inteiro (AC2 da LTM-08).
+      isDivisible: products.isDivisible,
       // Lido por `safeParse` abaixo, nunca por acesso cru ao jsonb: sorteio
       // antigo tem `advanced_settings = {}` e sao os defaults que entregam
       // `prizes` (`product-settings.ts:59-62`).
@@ -190,6 +195,7 @@ export default async function ProductsPage({
                 productSlug={row.slug}
                 title={row.title}
                 isFavorite={row.isFavorite}
+                isDivisible={row.isDivisible}
                 available={available}
                 reserved={reserved}
                 sold={sold}

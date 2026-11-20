@@ -8,15 +8,36 @@ import { FormField, FieldInput } from "@/components/ui/form-field";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { lookupOrdersByPhone } from "@/lib/actions/my-titles";
 
+// A UNIDADE DO PEDIDO (LTM-08, AC5). `numbers: number[]` não tinha onde
+// carregar a metade — era um inteiro, e inteiro não diz se é o título 42 ou
+// uma das metades dele. O rótulo (`42 (metade)` ou `43`) chega PRONTO do
+// servidor: a convenção *metade marcada* mora em `raffles/orphan-halves.ts`,
+// que fala com o banco e não pode entrar num componente de cliente.
+type OrderUnit = {
+  number: number;
+  half: number;
+  /** `42 (metade)` ou `43` — regra *metade marcada* do GLOSSARY. */
+  label: string;
+};
+
 type OrderRow = {
   id: string;
   status: string;
   amount: string;
+  quantity: number;
+  /** A unidade em que ESTE pedido foi contado e cobrado quando nasceu. */
+  unit: "title" | "half";
   createdAt: string | Date;
   productTitle: string;
   productSlug: string;
-  numbers: number[];
+  units: OrderUnit[];
 };
+
+/** Nome da unidade do pedido, para nenhuma contagem sair solta (AC2). */
+function unitNameOf(order: OrderRow): string {
+  if (order.unit === "half") return order.units.length === 1 ? "metade" : "metades";
+  return order.units.length === 1 ? "título" : "títulos";
+}
 
 const statusLabel: Record<string, string> = {
   pending: "Aguardando pagamento",
@@ -83,14 +104,21 @@ export function LookupForm({ tenantSlug }: { tenantSlug: string }) {
               </div>
               <p className="mt-1 font-mono text-sm tabular-nums">
                 {formatCurrency(Number(order.amount))}
+                <span className="ml-2 font-sans text-xs text-muted-foreground">
+                  {order.units.length} {unitNameOf(order)}
+                </span>
               </p>
               <div className="mt-2 flex flex-wrap gap-1">
-                {order.numbers.map((n) => (
+                {order.units.map((unit) => (
                   <span
-                    key={n}
+                    // Chave por número E metade: as duas metades do mesmo
+                    // título compradas pela mesma pessoa continuam sendo duas
+                    // metades (GLOSSARY → Meia cota), então o número sozinho
+                    // não é único dentro do pedido.
+                    key={`${unit.number}:${unit.half}`}
                     className="rounded-md border border-border bg-muted px-2 py-0.5 font-mono text-xs"
                   >
-                    {String(n).padStart(2, "0")}
+                    {unit.label}
                   </span>
                 ))}
               </div>
