@@ -1,6 +1,6 @@
 # LTM-20: O número reservado e abandonado nunca volta ao estoque
 
-**Status:** InReview
+**Status:** Done
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação)
 **Prioridade:** **P0 — defeito de correção no caminho do dinheiro.** Com ele, um sorteio **não consegue esgotar**
 **Complexidade:** M — o conserto é pequeno; decidir **onde** ele roda é a parte difícil
@@ -203,10 +203,74 @@ Depends-on: LTM-02 (entregue)
 - **[Médio] Liberar unidade de pedido que acabou de ser pago**, numa corrida entre o aviso do
   gateway e a varredura. AC4 e AC5 cobrem; o filtro `orders.status = 'pending'` é a defesa.
 
+## QA Results
+
+### Review Date: 2026-11-20
+
+### Reviewed By: Quinn (Test Architect)
+
+**Veredito: PASS** — `InReview` → `Done`
+
+#### A pergunta que me foi feita primeiro, respondida primeiro
+
+Fui avisada de que *"a minha versão da story **afirmava** que a guarda existia, e o `UPDATE` era `WHERE orderId IN (...)` sem checagem de estado nenhuma"*. Conferi no código, não na story.
+
+**A guarda existe hoje, e nos dois `UPDATE`:**
+
+- unidades — `src/lib/raffles/expire-reservations.ts:282`: `eq(productNumbers.status, "reserved")` no `WHERE`, por cima de uma trava ordenada que também filtra por `reserved` (`:264-274`);
+- pedido — `:304`: `eq(orders.status, "pending")`, também por cima de trava ordenada (`:294-299`).
+
+A dupla guarda não é redundância, e vale dizer por quê: a trava **escolhe** as linhas; o `WHERE` do `UPDATE` as **reavalia** depois de o Postgres liberar a trava da transação concorrente (EvalPlanQual). Sem a segunda, uma unidade recém-vendida voltaria a `available` com o pedido pago.
+
+#### Os outros quatro pontos de desconfiança
+
+| Ponto | Veredito | Âncora |
+|---|---|---|
+| `reserved_until < now()` é SQL — fake timer de JS não move o `now()` do Postgres | **correto, e nenhum teste do repositório finge relógio** | o predicado está em `:147` com o aviso ao lado (`:143-146`); a semeadura é SQL de verdade em `tests/helpers/seed.ts:424-431` e `:446-451`. Varredura no repositório inteiro por `useFakeTimers`/`setSystemTime`/`advanceTimers`: **zero** ocorrências em `src/` e `tests/` |
+| A armadilha do `"use server"` | **limpo em todo o app, não só aqui** | `expire-reservations.ts` é módulo puro de propósito, com a razão escrita em `:23-32` (a grade também o chama, e exportá-lo de um arquivo de server action o viraria endpoint POST público). Varri os **19** arquivos cujo primeiro caractere é a diretiva: nenhum exporta `const`/`let`/`var`/`class`/`enum`/`default` — só função assíncrona |
+| Varredura de fonte casando com comentário | **tratado, e com a medição que justifica** | `tests/payments/paysure/source.ts:51-63` remove bloco, linha e literais antes de qualquer asserção; `:16-19` registra que **6 das 12** primeiras falhas eram isso, em quatro arquivos. A regra: asserção sobre código usa `codigoDe`, sobre prosa usa `fonteDe` |
+| O par LTM-20 + LTM-23 — um `SET` descuidado zeraria a ficha | **não se cruzam** | a LTM-20 só toca `users` em `applyAbandonmentStrikes` (`:202-241`), e só a linha de **quem abandonou**, travada (`:218`) e em ordem de `userId` (`:317`) para não haver impasse entre duas varreduras. A LTM-23 é `DO NOTHING`, não `DO UPDATE` (`reserve.ts:247`), e nunca escreve na linha alheia. O outro escritor da ficha é o pagamento, que a zera de propósito (`settle-order.ts:277-280`) |
+
+#### AC por AC
+
+| AC | Âncora lida |
+|---|---|
+| AC1 (global) | `abandonedOrderFilter` (`:132-149`) não tem filtro por `userId`; o recorte é `tenantId` obrigatório + `productId` opcional (`:107-110`). Era o `eq(orders.userId, userId)` que travava o 42 da Ana para o Bruno até ela voltar |
+| AC2 (a grade) | `src/app/loja/[tenant]/[productSlug]/page.tsx:84`. A sonda fora de transação (`:179-188`) garante que sem nada a liberar nenhuma transação é aberta — é o que torna a chamada no caminho de leitura mais quente da loja pagável |
+| AC3 (abandono alheio não bloqueia) | `releaseExpiredAndCheckBuyerBlock` (`:361-379`) libera de todos e **lê** a ficha de um só; `reserve.ts:342-350` passa o recorte largo de propósito, porque a ficha sempre contou o abandono no operador inteiro |
+| AC4 (pago nunca é tocado) | as duas guardas + a ordem `product_numbers` → `orders`, que casa com `settle-order.ts:131-150`. É mecanismo: se o pagamento chega primeiro, a varredura reavalia as guardas e não casa nada |
+| AC5 (duas varreduras simultâneas) | a ficha sai do que o `UPDATE` de `orders` **devolve** (`:301-307`), nunca da lista de candidatos — a transição `pending → expired` é o ponto de serialização |
+| AC6 (prazo por sorteio, e fronteira do operador) | `tests/money-path/expiracao-entre-compradores.test.ts:490-531` e `:538-558` |
+
+#### O achado de desenho que a story não pediu — contestei, e ele está certo
+
+O @dev marcou como *"a única coisa aqui que a story não pediu, e a que mais merece contestação"*: a ficha do anti-spam passou a ser debitada **pela expiração**, não pela próxima reserva do abandonador.
+
+**Confirmo, e a mudança era obrigatória.** Com a varredura global, quem expira o pedido da Ana é a visita do Bruno. Se a contagem continuasse pendurada na próxima tentativa **da Ana**, ela nunca encontraria nada para contar — o pedido já estaria `expired` — e o anti-spam morreria em silêncio, com todo mundo de ficha limpa para sempre. Verde na suíte, feature morta. A transição `pending → expired` **é** o evento de abandono.
+
+#### Verificação própria
+
+`npx vitest run tests/money-path/identidade-concorrente.test.ts tests/money-path/expiracao-entre-compradores.test.ts tests/money-path/anti-spam.test.ts` → **3 arquivos, 22 testes, 22 passed, 147,88s**. Branch efêmera `ltm05-202611201145342wrivr` provisionada e destruída.
+
+Portões da árvore combinada (do @lead, não repetidos): `typecheck` limpo, `lint` 0 erros, `build` completo, `346 passed | 2 skipped`, exit 0.
+
+#### O que fica (não bloqueia)
+
+- **`DOC-001` [low]** — `src/lib/payments/settle-order.ts:126` cita `reserve.ts:149-156` como o lugar da varredura, para justificar por que a **ordem das travas** não pode ser invertida. Esta story moveu a varredura; `reserve.ts:149-156` é hoje o cabeçalho de `resolveTargetUnits`. Cenário concreto: um dev lê a justificativa, não acha varredura no destino, conclui que o comentário é lixo e inverte a ordem — o Postgres aborta uma das duas, o webhook responde 500, e o provedor reentrega contra o mesmo impasse. **Quem resolve:** @dev, trocando por `raffles/expire-reservations.ts:264-284`.
+- **`MNT-001` [low]** — a varredura não tem teto de lote: `candidateIds` entra inteiro no `inArray` dos dois `UPDATE`. Com importação em massa do Império — cenário **deste** epic — uma varredura disparada pela grade pode travar muitas linhas numa transação só. Já nomeado pelo @dev. Story própria quando houver agendador, que é também quando a chamada na grade sai.
+- **`REL-002` [low]** — o defeito adjacente que o @dev mediu e **não** consertou continua aberto; a decisão de escopo é dele e eu concordo. **@po:** decidir se vira story antes do ensaio ponta a ponta.
+
+### Gate Status
+
+Gate: PASS → `docs/qa/gates/LTM-20-expiracao-global-reserva.yml`
+
+---
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.2 | **QA Gate PASS — Status: InReview → Done.** A guarda de estado que a story AFIRMAVA ter e o codigo nao tinha agora EXISTE nos dois UPDATE: status reserved nas unidades (expire-reservations.ts:282) e status pending no pedido (:304), cada um por cima de trava ordenada — a trava escolhe as linhas e o WHERE as reavalia depois do EvalPlanQual, e sem a segunda uma unidade recem-vendida voltaria a available com o pedido pago. Conferido que o predicado do prazo e SQL (:147) e que a semeadura tambem e SQL de verdade (seed.ts:424-431 e :446-451): varredura por useFakeTimers, setSystemTime e advanceTimers no repositorio inteiro devolve ZERO. Varridos os 19 arquivos com a diretiva de server action: nenhum exporta valor nao-assincrono, e esta funcao mora em modulo puro de proposito porque a grade tambem a chama. O par com a LTM-23 conferido JUNTO, como pedido: nao se cruzam — a LTM-20 so toca a linha de quem abandonou (:202-241, travada e ordenada por userId contra impasse) e a LTM-23 e DO NOTHING. O achado de desenho que o @dev marcou para contestacao — a ficha debitada PELA expiracao — foi contestado e esta certo: sem ele a varredura global mataria o anti-spam em silencio, com todos de ficha limpa para sempre. Verificacao propria: 22 testes em 3 arquivos, 22 passed, 147,88s. Ficam duas low: settle-order.ts:126 aponta a varredura no lugar antigo, e a varredura nao tem teto de lote (limite ja nomeado pelo @dev). | @qa (Quinn) |
 | 2026-11-19 | 1.1 | Implementada. A varredura saiu de `actions/reserve.ts` para `lib/raffles/expire-reservations.ts`, partida em duas responsabilidades, e roda nos dois pontos (A + B). **O desenho mudou num ponto que a story não previa:** a ficha do anti-spam passou a ser debitada **pela própria expiração**, do dono do pedido — sem isso, a varredura global teria **matado o anti-spam em silêncio**. Ver Dev Agent Record. | @dev (Dex) |
 | 2026-11-19 | 1.0 | Nasce de relato do founder usando o produto, e o diagnóstico foi confirmado no código na mesma data: a varredura é chamada **em um lugar** (`reserve.ts:306`) e filtra **por um comprador** (`eq(orders.userId, userId)`). Logo, reserva abandonada só é liberada se **quem a fez** voltar e tentar reservar de novo — e enquanto isso o número fica travado para todo mundo. Um sorteio com isso **não esgota**. A suíte não pegou porque o teste de expiração exercita o caminho de um ator só. | @aiox-master |
 

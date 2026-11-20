@@ -1,0 +1,101 @@
+schema: 1
+story: 'LTM-07'
+story_title: 'A meia cota — o domínio'
+gate: CONCERNS
+status_reason: 'O domínio está correto e provado contra Postgres real, mas nenhum caminho de produção alcança o rateio: o único importador de recordWinnersForDrawnTitle em todo o repositório é um teste, e a porta da divisibilidade não tem chamador em src/app.'
+reviewer: 'Quinn (Test Architect)'
+reviewed_revision: 'commit:1df81ebe'
+updated: '2026-11-20T12:40:00Z'
+
+a_duvida_que_originou_a_revisao:
+  pergunta: 'prizeKind/prizeAmount têm LEITOR, ou a LTM-07 só escreveu? (o padrão da LTM-18: 36 de 45 campos sem leitor)'
+  resposta: >-
+    Têm leitor, e leitor que DECIDE, não que exibe. src/lib/raffles/winners.ts:101-116 lê os dois
+    e recusa com `prize_not_rateable` quando o prêmio não é dinheiro ou está sem valor;
+    winners.ts:116-124 converte em centavos e recusa `prize_amount_invalid` se não for valor
+    exato. src/lib/validations/product.ts:155-226 lê os mesmos dois campos para as recusas AC10 e
+    AC12. src/lib/raffles/divisibility.ts:150-152 os lê na porta da divisibilidade. E o
+    `winners.prizeAmount` que sai disso é EXIBIDO em
+    src/app/loja/[tenant]/ganhadores/page.tsx:66-68 e raffle-extras.tsx:236-238.
+    Não é o padrão write-only da LTM-18 — por isso não é FAIL.
+  mas: >-
+    O leitor existe e nada em produção o alcança. `grep -rn "raffles/winners" src/` devolve ZERO.
+    O único importador de recordWinnersForDrawnTitle é tests/money-path/half-quota-domain.test.ts:42.
+
+ancoras_lidas:
+  - ac: 'AC7 — orders.unit, a unidade declarada e não adivinhada'
+    arquivo: 'src/db/schema/raffles.ts:59 (orderUnitEnum) e :206 (coluna, default title); ESCRITA em src/lib/actions/reserve.ts:378 via raffleUnitOf(product) — sem essa linha a coluna seria o default para sempre. Migração drizzle/0003_ltm07_meia_cota_dominio.sql.'
+  - ac: 'AC11 — winners sabe dizer qual metade'
+    arquivo: 'raffles.ts:316 (winningHalf, nulável); escrita por src/lib/raffles/prize-split.ts:124 (null em cota inteira) e :150 (a metade concreta) → winners.ts:222; relida em winners.ts:230/243.'
+  - ac: 'AC4/AC5/AC6 — o rateio fecha exato'
+    arquivo: 'src/lib/raffles/prize-split.ts:63-151; provado em tests/money-path/half-quota-domain.test.ts:595-668 (soma em centavos, 50000.00+50000.00 e 100000.00 integral na metade órfã).'
+  - ac: 'AC9 — congelamento antes de qualquer escrita'
+    arquivo: 'src/lib/raffles/divisibility.ts:119-126 — a contagem e o sellingFreezeRefusal vêm ANTES dos dois tx.execute de reescrita (:158-178), dentro de uma transação que trava a linha do produto com .for("update") (:93).'
+  - ac: 'AC10/AC12 — as recusas de prêmio, nas DUAS portas'
+    arquivo: 'divisibility.ts:137-156 (a porta normal) e src/lib/actions/products.ts:81-93 (a criação — nascer divisível sem passar pelas recusas seria a porta dos fundos). As duas chamam o mesmo divisibilityRefusalFor (validations/product.ts:155-226).'
+  - ac: 'AC8 — cota inteira intacta'
+    arquivo: 'halvesPerTitleOf (validations/product.ts:56-57) devolve 1 sem isDivisible; o caso de cota inteira é o degenerado de uma metade só, e products.ts:38-47 gera uma linha por título.'
+
+nota_de_frescor:
+  observado_em: '2026-11-20, durante esta revisão'
+  fato: >-
+    O ARCH-001 abaixo está sendo fechado ENQUANTO este portão era escrito. Apareceram na árvore de
+    trabalho, ainda NÃO COMITADOS, os arquivos da LTM-27: src/lib/raffles/define-winners.ts,
+    src/lib/actions/winners.ts, src/app/dashboard/products/winners-dialog.tsx e
+    tests/money-path/definir-ganhadores.test.ts. E define-winners.ts:43 importa
+    recordWinnersForDrawnTitle e o chama em :380 — exatamente a fiação que faltava.
+  consequencia: >-
+    O veredito CONCERNS vale para a revisão declarada (commit:1df81ebe), onde o acionador de fato
+    não existia. Não revisei a LTM-27: código não comitado não é objeto de portão. Quando ela
+    entrar em InReview, o ARCH-001 deve ser reconferido lá e, se o caminho estiver fechado e
+    coberto, ele morre — sem necessidade de reabrir a LTM-07.
+
+top_issues:
+  - id: 'ARCH-001'
+    severity: medium
+    finding: >-
+      O rateio não tem acionador em produção. `recordWinnersForDrawnTitle`
+      (src/lib/raffles/winners.ts:68) é exportada e correta, e `grep -rn "raffles/winners" src/`
+      devolve zero importadores — só tests/money-path/half-quota-domain.test.ts:42. Cenário de
+      falha concreto: o founder roda o sorteio de teste, a rodada esgota, o título é sorteado, e
+      não existe caminho no app que registre o ganhador nem rateie o prêmio entre as duas
+      metades. O domínio está pronto e a corrente termina antes do último elo.
+    suggested_action: >-
+      Quem resolve é a LTM-27 (Definir ganhadores — hoje Ready, P0), que é exatamente a fiação.
+      Nenhuma ação para o @dev nesta story. Registrado aqui para o veredito não ser lido como
+      "o rateio funciona na loja".
+  - id: 'ARCH-002'
+    severity: medium
+    finding: >-
+      A divisibilidade não tem porta na interface. `grep -rni "divis" src/app/` devolve três
+      comentários e nenhum uso: `setProductDivisibility` (src/lib/actions/products.ts:179) não é
+      chamada por nenhuma tela, e nenhum formulário envia `isDivisible` — o productSchema
+      (validations/product.ts:25) o resolve para `false` por default. Cenário de falha concreto:
+      o operador não consegue criar nem converter um sorteio de meia cota pelo produto, então
+      AC9, AC10 e AC12 guardam uma transição que ninguém pode disparar fora de teste.
+    suggested_action: >-
+      É o Escopo OUT declarado da story ("tudo que o comprador e o operador veem … é a LTM-08") e
+      a LTM-08 existe em Draft, P0. @po: a LTM-08 é pré-requisito do ensaio de meia cota, não um
+      polimento posterior.
+  - id: 'REL-001'
+    severity: low
+    finding: >-
+      O congelamento do AC9 é chaveado em `ne(productNumbers.status, "available")`
+      (divisibility.ts:119-124), isto é, qualquer unidade fora de "available" congela — inclusive
+      uma apenas RESERVADA e já vencida que a varredura ainda não liberou. O AC diz "com pelo
+      menos uma venda". Cenário: um comprador abandona uma reserva, o operador tenta corrigir a
+      divisibilidade antes de a rodada vender nada, e leva recusa por uma reserva morta.
+    suggested_action: >-
+      Conservador na direção segura, então não bloqueia. Se o founder quiser a alternância
+      utilizável no meio da campanha: chavear em `sold`/pedido pago, ou rodar
+      releaseExpiredReservations antes da contagem. Decisão de produto, não defeito de código.
+  - id: 'REQ-002'
+    severity: low
+    finding: >-
+      A consequência que o próprio AC7 nomeia continua aberta e é fora deste repositório:
+      services/Meta/imperio-premios/bi_aggregator.py:1128 faz `numeros_vendidos=("Quantidade","sum")`,
+      e sob a forma do ADR-0001 isso passa a contar METADES em sorteio divisível — no painel pelo
+      qual a operação decide investimento de mídia.
+    suggested_action: '@po: o conserto é do lado do BI (ler orders.unit). Item solto já nomeado na story; não se conserta aqui.'
+
+waiver: { active: false }

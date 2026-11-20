@@ -1,6 +1,6 @@
 # LTM-23: Duas reservas simultâneas do mesmo telefone novo derrubam uma delas
 
-**Status:** InReview
+**Status:** Done
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação)
 **Prioridade:** **P1** — não trava a rodada como a `LTM-20`, mas quebra **a primeira compra da vida** do comprador
 **Complexidade:** S — o conserto é pequeno e conhecido; o cuidado está em não recriar o que a `LTM-20` acabou de arrumar
@@ -328,9 +328,64 @@ Nenhuma migracao. Nenhum arquivo em `drizzle/`. Nada tocado em
 | AC4: provar o conflito de e-mail pela acao de producao | **PREMISSA FALSA.** Inalcancavel: a reserva nunca escreve `email`, e `NULL` nao colide com `NULL`. Provado em duas camadas no lugar - ver acima |
 | o `[CONFIRMAR]` cobre os caminhos que criam usuario | **INCOMPLETA.** Nomeia 2 de 4. `bonus-play.ts` e `affiliates.ts` ficaram de fora, e o primeiro e copia exata do defeito |
 
+## QA Results
+
+### Review Date: 2026-11-20
+
+### Reviewed By: Quinn (Test Architect)
+
+**Veredito: PASS** — `InReview` → `Done`
+
+#### Os dois riscos que me mandaram desconfiar, conferidos no código
+
+**1. `ON CONFLICT` sem alvo engoliria colisão de e-mail como se fosse de telefone — trocaria a identidade do comprador, defeito pior que o 500 que esta story conserta.**
+
+**Alvo nomeado, e a colisão em outro índice continua estourando.** `src/lib/actions/reserve.ts:247` é `onConflictDoNothing({ target: [users.tenantId, users.phone] })`. Os quatro índices únicos por operador estão em `src/db/schema/core.ts:73-81` (`email`, `username`, `phone`, `affiliate_code`).
+
+E não é só a forma — o **comportamento** é provado contra o Postgres de verdade em `tests/money-path/identidade-concorrente.test.ts:271-300`: com alvo, um `INSERT` de telefone novo com e-mail já existente é rejeitado **com o nome do índice real**, `users_tenant_email_idx`; sem alvo, a mesma colisão devolve **zero linha e zero erro** (`:290-300`) — que é exatamente o defeito nomeado. Varri o app inteiro: o único `onConflict` sem alvo que resta é `src/db/seed.ts:63`, semeadura de desenvolvimento, não caminho de comprador.
+
+**2. Um `SET` descuidado zeraria `consecutive_unpaid_reservations` em silêncio — verde na suíte, feature morta.**
+
+**Impossível por construção: é `DO NOTHING`, não `DO UPDATE`.** `reserve.ts:247` não tem cláusula `set`, e a escolha está justificada por escrito em `:204-213` — `DO UPDATE` obriga a escrever alguma coluna da linha **que já existe**, e essa linha é a do comprador, com a ficha do anti-spam dentro. A LTM-20 acabou de mover a contagem para a expiração justamente para ela não se perder. Com `DO NOTHING`, a sobrevivência da ficha deixa de depender de alguém ter escolhido bem o `SET`.
+
+A regressão está presa em `identidade-concorrente.test.ts:172-224`, e o **desenho** dela merece registro: ela assere o **id antes da ficha** (`:206-212`). Um conserto que apagasse e reinserisse o usuário passaria na asserção da ficha — id novo, ficha zerada, tudo verde. Asserir o id primeiro fecha essa saída.
+
+#### AC por AC
+
+| AC | Âncora lida |
+|---|---|
+| AC1/AC2 | `ensureBuyerIdentity` (`reserve.ts:233-257`); provado em `identidade-concorrente.test.ts:123-168` com **6 abas** — o número da sonda que mediu o defeito, mantido igual de propósito — e cada aba pedindo um **número diferente**: com todas no mesmo número, as N−1 recusas por disputa de unidade seriam indistinguíveis das N−1 falhas de identidade, e o teste ficaria verde pelo motivo errado |
+| AC3 | `identidade-concorrente.test.ts:172-224`, com ficha semeada em 2 — um abaixo do limite de 3, para o comprador ainda reservar |
+| AC4 (forma) | `identidade-concorrente.test.ts:244-246` remove bloco e comentário de linha **antes** de qualquer asserção, com a razão escrita (`:231-242`): o bloco de documentação de `ensureBuyerIdentity` **escreve a forma proibida para condená-la**, e varrer o texto cru daria vermelho contra a própria explicação do conserto. E `:248-254` conta os `INSERT` em `users` do arquivo, para a asserção deixar de cobrir o arquivo inteiro — e o teste parar junto — se alguém acrescentar um segundo |
+| AC5 | a identidade fica **fora** da transação da reserva (`reserve.ts:322-331`; a função não recebe `tx`, de propósito — `:215-220`), porque amarrá-la desfaria o cadastro de quem perdeu a disputa junto com o pedido que não nasceu, e com ele a ficha. Provado nos dois cenários: `:325-363` (recusa determinística) e `:365-404` (a corrida real, dois novatos sobre o único número, os dois ficam cadastrados) |
+| o laço | `reserve.ts:234-256` — três tentativas, e **estoura com mensagem nomeada** em vez de virar laço infinito num caminho de dinheiro. O caso que exige a segunda volta está escrito (`:222-231`): a vencedora nos fez esperar e depois abortou, a linha não existe, e insistir uma vez transforma isso em sucesso em vez de erro |
+
+#### A lição de desenho de teste, que vale mais que esta story
+
+`reserve-concurrency.test.ts:66` usa **um telefone por disputante** — 20 atores distintos — e por isso nunca viu este defeito. A suíte modela atores distintos bem e **o mesmo ator em paralelo** mal. É a terceira vez neste epic em que o buraco mora onde o teste não olha (LTM-20 era "dois compradores", esta é "o mesmo comprador, duas abas"). O padrão vale mais que a ocorrência, e o arquivo novo o registra no topo.
+
+#### Verificação própria
+
+`npx vitest run tests/money-path/identidade-concorrente.test.ts tests/money-path/expiracao-entre-compradores.test.ts tests/money-path/anti-spam.test.ts` → **3 arquivos, 22 testes, 22 passed, 147,88s**.
+
+Portões da árvore combinada (do @lead, não repetidos): `typecheck` limpo, `lint` 0 erros, `build` completo, `346 passed | 2 skipped`, exit 0.
+
+#### O que fica (não bloqueia)
+
+- **`REQ-001` [low] — premissa da story corrigida pelo @dev, e a correção está certa.** O AC4 como escrito (*"conflito de e-mail com telefone diferente não é engolido"*) é **inalcançável** pela ação de produção: `ensureBuyerIdentity` escreve só `(tenant_id, phone, role)`, então `email` nasce `NULL` e o Postgres trata cada `NULL` como distinto — `users_tenant_email_idx` nunca é tocado por esse caminho. Conferido em `reserve.ts:246-248` contra `core.ts:70-73`. Ele provou o AC onde ele de fato vive e registrou a premissa ajustada. Registro aqui para o veredito não ser lido como complacência com AC reescrito: a conduta correta é esta — não forçar o cenário inalcançável nem marcar o AC sem prova.
+- **`REL-001` [low]** — o mesmo padrão check-then-act sobre índice único sobrevive em **cinco** outros caminhos de criação de identidade, e um deles (`bonus-play.ts:48-61`) é **cópia byte a byte** do defeito consertado aqui, no caminho do comprador na loja. Encontrado pelo próprio `[CONFIRMAR]` desta story, que mandou olhar dois e a varredura achou seis. **Quem resolve:** `LTM-28`, já criada e enfileirada (P1). Fora do escopo desta story, corretamente.
+- **`MNT-001` [low]** — `src/db/seed.ts:63` é o único `onConflictDoNothing()` sem alvo que resta, e não está entre os cinco caminhos da LTM-28. Se ela passar perto, vale varrer junto para o idioma ser um só.
+
+### Gate Status
+
+Gate: PASS → `docs/qa/gates/LTM-23-identidade-idempotente.yml`
+
+---
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.2 | **QA Gate PASS — Status: InReview → Done.** Os dois riscos do portao conferidos no codigo. (1) O alvo do ON CONFLICT e NOMEADO — reserve.ts:247 com target tenantId e phone, contra os quatro indices unicos de core.ts:73-81 — e a colisao em outro indice CONTINUA estourando, provado contra o Postgres real em identidade-concorrente.test.ts:271-300: com alvo o erro traz o nome users_tenant_email_idx, sem alvo a colisao devolve zero linha E zero erro. (2) A ficha do anti-spam nao pode ser zerada porque nao existe SET: e DO NOTHING, com a razao escrita em :204-213. A regressao em :172-224 assere o ID ANTES da ficha, que e o que fecha a saida de um conserto que apagasse e reinserisse o usuario (passaria verde com id novo e ficha zerada). Varri o app inteiro: o unico onConflict sem alvo que resta e src/db/seed.ts:63, semeadura de desenvolvimento. Registrada a premissa que o @dev corrigiu e fez bem em corrigir: o AC4 e inalcancavel pela acao de producao porque email nasce NULL e NULL nao colide com NULL no Postgres — ele provou o AC onde ele de fato vive em vez de forcar o cenario ou marcar sem prova. Verificacao propria: 22 testes em 3 arquivos, 22 passed. Os cinco caminhos restantes do mesmo defeito, um deles copia byte a byte no caminho do comprador na loja, sao a LTM-28, ja enfileirada. | @qa (Quinn) |
 | 2026-11-19 | 1.0 | Nasce de medição do @dev durante a `LTM-20`, com sonda descartável: 5 rodadas × 6 operações, **6 rejeições sem identidade pré-criada e 0 com**. Não foi consertado lá porque nenhum AC daquela story o cobria e mexer em criação de identidade merece decisão própria. A suíte não pega porque `reserve-concurrency.test.ts:66` usa um telefone por disputante — **terceira vez neste epic em que o buraco mora onde o teste não olha**. | @aiox-master |
 | 2026-11-19 | 1.1 | Implementada. `ensureBuyerIdentity` com `ON CONFLICT (tenant_id, phone) DO NOTHING` + releitura em laco limitado; `SELECT` preservado para o comprador que ja existe nunca ter a linha tocada. 6 testes novos em `identidade-concorrente.test.ts`. Vermelho provado removendo a linha do conserto: 5 excecoes em 6 abas. Quatro portas em exit 0. Duas premissas corrigidas: o AC4 e inalcancavel pela acao de producao (a reserva nunca escreve `email`), e o `[CONFIRMAR]` nomeia 2 de 4 caminhos - `bonus-play.ts:48-61` e copia byte-a-byte do defeito e segue sem conserto, fora do escopo. | @dev |

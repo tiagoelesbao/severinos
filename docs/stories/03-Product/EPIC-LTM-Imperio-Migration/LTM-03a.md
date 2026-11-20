@@ -1,6 +1,6 @@
 # LTM-03a: O caminho do dinheiro fecha o pedido — sem credencial, sem invenção
 
-**Status:** InReview
+**Status:** Done
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha a **primeira metade** do problema **F3**
 **Prioridade:** **P0** — enquanto este `TODO` existir, **ninguém consegue comprar nada** no lotemania
 **Complexidade:** XL (Standard) — fechamento transacional + idempotência + modelo de credencial multi-campo + autenticidade de webhook
@@ -758,10 +758,58 @@ construção. O **AC-C6** continua necessário para a corrida de segundos, e só
 | Anti-alucinação | ✅ cada afirmação tem arquivo e linha; conferidas por amostragem hoje |
 | Prontidão para @dev | ⚠️ depende de três stories que voltaram para `Draft` |
 
+## QA Results
+
+### Review Date: 2026-11-20
+
+### Reviewed By: Quinn (Test Architect)
+
+**Veredito: PASS** — `InReview` → `Done`
+
+#### O que eu de fato li, e onde
+
+Nenhuma linha abaixo é paráfrase da story. Cada uma é arquivo e linha que abri.
+
+| AC | Âncora lida | Veredito |
+|---|---|---|
+| AC-A1 | `src/db/schema/payments.ts:133` (enum) + `src/lib/validations/payment-gateway.ts:44` (`PAYMENT_GATEWAY_PROVIDERS`) | a `paysure` está nas **duas** listas |
+| AC-A4 | `src/lib/payments/gateway-config.ts:66-73` e `:86-88` | `isActive` fora do `values` **e** fora do `set` do `onConflictDoUpdate` (alvo nomeado em `:76`) — ligar voltou a ser ato do operador |
+| AC-B2 | `src/lib/payments/webhook-token.ts:52-60` | o único `===` é sobre o **comprimento** do buffer (`:59`), obrigatório porque `timingSafeEqual` lança com tamanhos diferentes; a comparação do segredo é `:60` |
+| AC-C3 | `src/lib/payments/settle-order.ts:94-288` | uma implementação, um arquivo; chamadores são a rota (`route.ts:360`) e `actions/checkout.ts` |
+| AC-C5 | `settle-order.ts:219-228` e `:230-240` | a guarda é a **linha** de `product_numbers`, com `number/half` no detalhe — não o número. Em sorteio divisível, "o 42 já está vendido" é estado correto |
+| AC-C6 | `settle-order.ts:170-178` + `route.ts:66-70` | `order_expired` → `refund_pending`, e **nenhum** insert em `banking_transactions` nesse caminho. O invariante é mecanismo, não promessa |
+| AC-D2 | `route.ts:272-290` | a reivindicação **é** a inserção, com alvo nomeado `(tenantId, provider, externalEventId)`. Não há consulta antes da escrita — é o que separa idempotência real de "consultei antes de escrever" |
+| AC-D4 | `route.ts:296-312` | duplicata incrementa `deliveryCount` e devolve `firstOutcome` no corpo |
+| AC-E3 | `settle-order.ts:190-201` | valor divergente recusa com `amount_mismatch` |
+| AC-F1/F2 | `route.ts:188-208` | `unsupported_provider` **nomeando** o provedor, 200 com corpo. Não existe `{ ok: true }` pelado no arquivo |
+
+#### Os portões
+
+Rodados pelo @lead na árvore combinada (pós-LTM-14 + LTM-23), e eu não os repeti: `typecheck` limpo (com `tsconfig.tsbuildinfo` apagado antes — `incremental: true` sub-reporta), `lint` com **0 erros** e os 5 avisos pré-existentes de `no-unused-vars`, `next build` completo, `npm run test` em **346 passed | 2 skipped (348)**, exit 0.
+
+Verificação própria, para ter evidência de primeira mão no par de stories de maior risco: `npx vitest run` nos três arquivos de `money-path` que cercam identidade, expiração e anti-spam — **22 testes, 22 passed, 147,88s**.
+
+#### Um acerto que nenhum AC pediu, registrado para ninguém desfazer
+
+`recordRejection` grava `externalEventId` **nulo** de propósito (`route.ts:84-103`). A razão está escrita lá e é de segurança: se um aviso **recusado** reservasse a chave de idempotência, bastaria adivinhar um `reference_code` e mandar uma entrega falsa para **bloquear o pagamento de verdade** que chegasse depois. Negação de serviço de graça. Em índice único o Postgres trata `NULL` como distinto de si mesmo, então qualquer número de recusas convive sem travar nada.
+
+Isto não estava em AC nenhum. Quem mexer em `recordRejection` precisa substituir o mecanismo, não só o código.
+
+#### O que fica (não bloqueia)
+
+- **`DOC-001` [low]** — `settle-order.ts:126` cita `reserve.ts:149-156` como o lugar da varredura de expiração, para justificar por que a **ordem das travas** não pode ser invertida. A LTM-20 moveu a varredura; `reserve.ts:149-156` é hoje o cabeçalho de `resolveTargetUnits`. Cenário concreto: um dev lê a justificativa, não encontra varredura no destino, conclui que o comentário é lixo e inverte a ordem — que é exatamente o que faz o Postgres abortar uma das duas transações, o webhook responder 500 e o provedor reentregar contra o mesmo impasse. **Quem resolve:** @dev, trocando por `raffles/expire-reservations.ts:264-284`. Comentário, zero comportamento.
+
+### Gate Status
+
+Gate: PASS → `docs/qa/gates/LTM-03a-arcabouco-gateway-pagamento.yml`
+
+---
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.3 | **QA Gate PASS — Status: InReview → Done.** Os 25 ACs conferidos por ancora de codigo LIDA, nunca por parafrase da story. A idempotencia concorrente e reivindicacao por insercao com alvo nomeado (route.ts:272-290) — nao existe consulta antes da escrita; o fechamento existe em um arquivo so (settle-order.ts:94-288) com a guarda chaveada na UNIDADE vendavel e nao no numero (:219-240); a comparacao de token e em tempo constante, com o unico === sobre o COMPRIMENTO do buffer (webhook-token.ts:59). Registrado um acerto que nenhum AC pediu e que ninguem deve desfazer: recordRejection grava externalEventId NULO (route.ts:84-103) — se um aviso recusado reservasse a chave de idempotencia, bastaria adivinhar um reference_code para BLOQUEAR o pagamento verdadeiro que chegasse depois. Uma ressalva low: settle-order.ts:126 cita reserve.ts:149-156 como o lugar da varredura de expiracao, que a LTM-20 moveu — e e justamente a ancora que justifica a ORDEM DAS TRAVAS contra impasse com o webhook. | @qa (Quinn) |
 | 2026-11-18 | 1.2 | **Implementada.** Ready → InReview. 44 itens marcados (tarefas + ACs); todos os 25 ACs cobertos por teste automatizado. Suíte de 40 → 123 testes, 0 falhas, 2 skips declarados; `lint`, `typecheck` e `build` em 0. Decisões do AC-G3 registradas no Dev Agent Record: token em **segmento de caminho** (consulta rejeitada por escrito), reivindicação por **inserção com unicidade na mesma transação** (não o `UPDATE` do `rotateSession`, com a razão), e política do AC-C6 (**revisão manual com estorno pendente**, sem lançamento bancário). Aresta do bloco `Files:` resolvida: `bonus-play.ts` **não** tem a sequência do AC-C3 — duas das três peças não existem lá — e a verificação por busca foi executada como teste. Dois defeitos encontrados fora da lista da story e corrigidos: `crypto.ts` derrubava a importação sem `CREDENTIALS_ENCRYPTION_KEY`, e a suíte aplicava só a primeira migração (o runner, não o código). Um limite registrado: a 1ª ramificação do default do AC-C6 é inimplementável porque a expiração apaga `order_id` — é `reserve.ts`, fora de escopo. | @dev (Dex) |
 | 2026-11-17 | 1.1 | Validada — GO (8,5/10). Draft → Ready. AC-C5 rechavado na unidade vendável (a guarda no número recusaria pagamento válido em sorteio divisível); AC-G2 estendido a `payer_name`. Registrado que o fechamento por `order_id` já é compatível com a metade e que a expiração não tem o risco de meia expiração. | @po (Pax) |
 | 2026-11-16 | 1.0 | Nasce da divisão da `LTM-03` após NO-GO do @po (6,5/10). Absorve o contrato real da Paysure (`docs/research/2026-11-16-paysure-contrato.md`): credencial de dois campos, ausência de assinatura, token por tenant, chave composta de idempotência, fronteira de centavos, `end_to_end`, CPF no aviso. Absorve a correção 2 do @po (o 404 vem de `lib/validations/payment-gateway.ts`). ACs reagrupados em blocos A-G com tabela de rastreabilidade — resolve a correção 4. Conjunto de arquivos declarado completo. | @pm (Morgan) |

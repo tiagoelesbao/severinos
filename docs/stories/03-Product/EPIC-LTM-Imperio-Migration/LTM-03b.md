@@ -1,6 +1,6 @@
 # LTM-03b: O adaptador da Paysure — cobrança criada e aviso entendido
 
-**Status:** InReview
+**Status:** Done
 **Epic:** EPIC-LTM-Imperio-Migration (Frente A — Fundação) · fecha a **segunda metade** do problema **F3**
 **Prioridade:** **P0** — é o último elo entre o comprador e o título; sem ela o lotemania representa a paysure e não fala com ela
 **Complexidade:** L (Standard) — um adaptador de entrada + um cliente de saída, sobre o arcabouço da `LTM-03a`
@@ -396,10 +396,63 @@ Nenhuma asserção ainda válida foi relaxada. O estado `unsupported_provider` *
 4. Já registradas no Escopo OUT e confirmadas pela implementação: reconciliação por `POST /v1/pix/cashin/consult`, validação de `product_settings.paymentGatewayProvider` contra a lista, processar `cashout`/`refund`, splits.
 
 
+## QA Results
+
+### Review Date: 2026-11-20
+
+### Reviewed By: Quinn (Test Architect)
+
+**Veredito: CONCERNS** — `InReview` → `Done`, com uma ressalva registrada e dono nomeado
+
+#### O que eu de fato li, e onde
+
+| AC | Âncora lida | Veredito |
+|---|---|---|
+| AC7 | `src/lib/payments/paysure-client.ts:54` | `chargeExpirationSecondsFor` devolve `reservationMinutesFor(product) * 60`. Não existe o literal `900` no caminho — mudar a função muda a cobrança |
+| AC10 | `paysure-client.ts:262ff` (`classify`) | **404** `retriable: false` (`:284-294`), **422** `retriable: false` (`:307-316`), **501** `retriable: false` (`:336ff`), **429** `retriable: true` com `Retry-After` (`:317-326`). O enum `PaysureFailureKind` tem 13 variantes nomeadas (`:124-150`) — nada cai em ramo genérico, e o 501 permanente não entra em laço eterno |
+| AC10c | `paysure-client.ts:97-108` + `:381-385` | o tipo declara **exatamente** 5 campos e o corpo monta exatamente esses 5. `generator_name`, `generator_document` e `splits` aparecem **só em comentário** (`:77`, `:87`), condenados — é a regra "não inventar valor de preenchimento" virando tipo |
+| AC8/AC9 | `src/lib/actions/pix-charge.ts:363-400` e `:334-351` | grava **antes** de devolver, com alvo nomeado `pixCharges.orderId` (`:377`) e releitura obrigatória (`:391-399`). O 409 **sem** linha gravada recusa alto com motivo nomeado em vez de devolver tela sem código de pagamento |
+| AC12 | `pix-charge.ts:383-386` | `orders.payment_gateway_provider` escrito, na **mesma transação** da cobrança. A coluna (`raffles.ts:209`) era morta até aqui |
+| AC1/AC5/AC6b/AC6c | `src/lib/payments/providers/paysure.ts:354-357` | a chave de idempotência é `{fluxo}:{reference_code}:{status}`, e no refund com `{event}` por cima — é o que impede a chave de **engolir o estorno**. Status fora da enumeração é recusa nomeada com o valor literal (`:288-296`); refund com `event` desconhecido também (`:304-316`) |
+| AC4 | `webhook-token.ts:52-60` + `route.ts:155-186` vs `:208-233` | não há assinatura, e a autenticidade é o token da URL. O portão da **plataforma** vem antes do portão do **provedor** |
+
+#### A ressalva — `REQ-001` [medium]
+
+**O AC14 afirma uma coisa que o código não cumpre, e o teste do AC não pega porque o recorte dele passa ao lado.**
+
+O AC diz: *"uma busca por `15` como número de minutos de reserva encontra **uma** declaração"*. Existem **duas**:
+
+1. `RESERVATION_MINUTES_DEFAULT = 15` em `src/lib/validations/reserve.ts:114` — a fonte única dos três consumidores. **Essa parte está certa e é o ganho real da story.**
+2. `reservationExpiryMinutes: z.coerce.number().int().positive().default(15)` em `src/lib/validations/product-settings.ts:24`, ligada ao seletor de cinco opções em `advanced-settings-tabs.tsx:413-430`.
+
+E o relógio **recebe** o sorteio e **descarta**: `reservationMinutesFor` (`validations/reserve.ts:149-158`) faz `void product; return RESERVATION_MINUTES_DEFAULT`. O operador escolhe 30 minutos na tela, a reserva continua durando 15, e nada avisa.
+
+O teste do AC (`tests/payments/paysure/screen.test.tsx:148-173`) não encontra isso porque varre **6 arquivos nomeados** procurando o identificador `RESERVATION_MINUTES\s*=\s*\d+` — recorte que o segundo `15` não casa. Não é teste desonesto; é teste com escopo mais estreito do que a frase do AC.
+
+**Não é regressão desta story** — o 15 cravado é anterior, e ela reduziu três fontes desalinhadas a uma. **Quem resolve:** a `LTM-17`, nomeada no próprio código (`validations/reserve.ts:55-60`), que faz esta função ler `reservationExpiryMinutes` via `productAdvancedSettingsSchema.parse` — nunca por acesso cru ao jsonb, porque sorteio antigo tem `advanced_settings = {}` e é o `.default(15)` do zod que entrega o valor.
+
+**Pedido ao @po:** até a LTM-17 entrar, o seletor de tempo de reserva é decorativo. Não prometer ao founder que mudar para 30 minutos muda algo — nem no ensaio.
+
+#### O que fica (não bloqueia)
+
+- **`TEST-001` [low] — acerto, registrado para não ser desfeito.** `tests/payments/paysure/source.ts:51-63` (`codigoDe`) remove comentários **e** literais de string antes de qualquer varredura de fonte, com a medição que justifica (`:16-19`): 6 das 12 primeiras falhas eram o comentário de `classify` citando a forma proibida para condená-la. A alternativa — piorar o comentário para o teste passar — foi rejeitada por escrito. É o idioma correto nesta base; quem escrever o próximo teste de inspeção usa `codigoDe`, nunca `fonteDe`.
+- **`DOC-002` [low]** — a tela do pedido não renderiza o QR **visual** (lacuna já declarada no Change Log 1.2: exige dependência fora do conjunto de arquivos). O BR Code copia-e-cola existe. **@po:** confirmar com o founder se o ensaio aceita copia-e-cola sem a imagem.
+
+#### Os portões
+
+Rodados pelo @lead na árvore combinada: `typecheck` limpo, `lint` 0 erros, `build` completo, `346 passed | 2 skipped`, exit 0. Não repetidos por mim.
+
+### Gate Status
+
+Gate: CONCERNS → `docs/qa/gates/LTM-03b-adaptador-paysure.yml`
+
+---
+
 ## Change Log
 
 | Data | Versão | Descrição | Autor |
 |---|---|---|---|
+| 2026-11-20 | 1.3 | **QA Gate CONCERNS — Status: InReview → Done.** Adaptador, cliente e as nove classes de erro conferem linha a linha: corpo com exatamente cinco chaves (paysure-client.ts:97-108 e :381-385, sem generator_name, generator_document nem splits), 404/422/501 com retriable falso e 429 respeitando Retry-After (classify, :262ff), chave de idempotencia carregando o status e o event do refund (providers/paysure.ts:354-357), 409 com saida e recusa ALTA quando nao ha linha gravada (pix-charge.ts:334-351), e orders.payment_gateway_provider finalmente escrito (:383-386). RESSALVA [medium] no AC14: ele afirma UMA declaracao do numero de minutos e existem DUAS — RESERVATION_MINUTES_DEFAULT (validations/reserve.ts:114) e reservationExpiryMinutes com default 15 (validations/product-settings.ts:24), ligada ao seletor de advanced-settings-tabs.tsx:413-430. E reservationMinutesFor (:149-158) faz void product e devolve o padrao: o operador escolhe 30 minutos e a reserva dura 15, sem aviso. O teste do AC (screen.test.tsx:148-173) nao pega porque varre 6 arquivos nomeados procurando outro identificador. NAO e regressao desta story — ela reduziu tres fontes desalinhadas a uma. Dono: LTM-17, nomeada no proprio codigo. | @qa (Quinn) |
 | 2026-11-18 | 1.2 | **Ready → InReview. Implementada.** 19 ACs atendidos; `pnpm lint` (0 erros), `pnpm typecheck`, `pnpm build` e `npm run test` (238 passed, 2 skipped) com código de saída 0. Três premissas da story encontradas falsas no código e registradas no Dev Agent Record: (i) `RESERVATION_MINUTES` **não pode** ser exportada de `actions/reserve.ts` — arquivo `"use server"`, build morre com *"The module has no exports at all"*; a janela virou `reservationMinutesFor(product)` em `validations/reserve.ts`; (ii) o campo de configuração da janela **já existe na tela** (`reservationExpiryMinutes`) e nada o lê — terceira ocorrência do padrão nesta base, fica para a `LTM-17`; (iii) o bloco `Files:` estava incompleto — três testes da LTM-03a afirmavam o estado que esta story encerra, ajustados minimamente. QR visual **não** renderizado (exige dependência fora do conjunto de arquivos) — lacuna declarada. | @dev (Dex) |
 | 2026-11-18 | 1.1 | **Draft → Ready.** Releitura profunda da documentação oficial responde dois dos três `[CONFIRMAR]` e reformula o terceiro: `generator_*` são **opcionais** (risco [Alto] eliminado, decisão é omiti-los), a consulta por `external_id` **existe** mas não devolve o BR Code (AC9 inalterado; reconciliação vai para OUT), e o limite de taxa é **por conta**, não por API. Três fatos novos entram: os status divergem entre duas páginas da mesma documentação (AC6b), o refund é o cash-in com um `event` em cima (AC6c), e existem 404/500/501 além das seis classes previstas (AC10 vira oito casos). Acrescentados AC10b (mínimo de 100 centavos) e AC10c (nenhum campo opcional inventado). | @aiox-master |
 | 2026-11-16 | 1.0 | Nasce da divisão da `LTM-03` após NO-GO do @po (6,5/10). O AC11 circular da `LTM-03` deixa de existir: o contrato da Paysure está documentado (`docs/research/2026-11-16-paysure-contrato.md`), então o adaptador é escrevível agora e só o **pagamento real** espera o `ci`/`cs` — que é o portão G5 e não critério de aceite. Acrescenta o cliente de saída, `expiration_seconds` amarrado ao relógio da reserva, `pix_charges` para recuperar o 409, as seis classes de erro e três `[CONFIRMAR]` nomeados. | @pm (Morgan) |

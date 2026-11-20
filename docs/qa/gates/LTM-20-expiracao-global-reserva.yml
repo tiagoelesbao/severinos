@@ -1,0 +1,131 @@
+schema: 1
+story: 'LTM-20'
+story_title: 'O número reservado e abandonado nunca volta ao estoque'
+gate: PASS
+status_reason: 'A guarda de estado que a story afirmava e não tinha agora EXISTE nos dois UPDATE, a expiração é medida pelo relógio do Postgres e não do JS, e a ficha do anti-spam é debitada de quem abandonou — conferido linha a linha e com suíte própria rodada por mim.'
+reviewer: 'Quinn (Test Architect)'
+reviewed_revision: 'commit:1df81ebe'
+updated: '2026-11-20T12:40:00Z'
+
+verificacao_propria:
+  comando: 'npx vitest run tests/money-path/identidade-concorrente.test.ts tests/money-path/expiracao-entre-compradores.test.ts tests/money-path/anti-spam.test.ts'
+  resultado: '3 arquivos | 22 testes | 22 passed | 147,88s | branch efêmera ltm05-202611201145342wrivr provisionada e destruída'
+
+os_cinco_pontos_que_o_lead_mandou_desconfiar:
+  - ponto: 'A guarda de estado no UPDATE da expiração — a story AFIRMAVA que existia e o código fazia WHERE orderId IN (...) sem checagem nenhuma'
+    veredito: 'EXISTE HOJE, nos DOIS UPDATE'
+    ancora: >-
+      src/lib/raffles/expire-reservations.ts:276-284 — o UPDATE das unidades tem
+      eq(productNumbers.status, "reserved") no WHERE (linha 282), por cima de uma trava ordenada
+      que também filtra por "reserved" (linhas 264-274). E o UPDATE do pedido tem
+      eq(orders.status, "pending") (linha 304), também por cima de trava ordenada (linhas 294-299).
+      A dupla guarda não é redundância: a trava escolhe as linhas, e o WHERE do UPDATE as reavalia
+      depois de o Postgres liberar a trava da transação concorrente (EvalPlanQual).
+  - ponto: 'reserved_until < now() é SQL — fake timer de JS não move o now() do Postgres'
+    veredito: 'CORRETO, e nenhum teste do repositório finge relógio'
+    ancora: >-
+      O predicado está em expire-reservations.ts:147, com o aviso escrito ao lado (143-146).
+      A semeadura é SQL de verdade: tests/helpers/seed.ts:424-431 (expireReservation empurra
+      reserved_until para now() menos um minuto) e 446-451 (setReservedUntil, para quando a
+      DIFERENÇA entre dois prazos é o que está sob teste). Varredura no repositório inteiro por
+      useFakeTimers, setSystemTime e advanceTimers: ZERO ocorrências em src/ e tests/.
+  - ponto: 'A armadilha do use server — exportar valor não-assíncrono zera TODAS as exportações do módulo'
+    veredito: 'LIMPO em todo o app, não só aqui'
+    ancora: >-
+      expire-reservations.ts é módulo PURO de propósito, com a razão escrita nas linhas 23-32: a
+      grade do sorteio também o chama, e exportá-lo de um arquivo de server action o transformaria
+      num endpoint POST público e chamável por qualquer um — ela não é ação do comprador, é
+      manutenção de estoque. Varri os 19 arquivos cujo primeiro caractere é a diretiva: nenhum
+      exporta const, let, var, class, enum ou default — só função assíncrona. Os interfaces e
+      types que aparecem numa varredura ingênua estão em arquivos que apenas CITAM a diretiva em
+      comentário, e type é apagado na compilação de todo modo.
+  - ponto: 'Varredura de fonte em teste casando com comentário (o comentário escreve a forma proibida para condená-la)'
+    veredito: 'TRATADO, e com a medição que justifica'
+    ancora: >-
+      tests/payments/paysure/source.ts:51-63 remove bloco de comentário, comentário de linha e
+      literais de string antes de qualquer asserção, e as linhas 16-19 registram a medição: 6 das
+      12 primeiras falhas eram exatamente isso, em quatro arquivos distintos. A regra está
+      escrita: asserção sobre CÓDIGO usa codigoDe, asserção sobre o que o arquivo EXPLICA usa
+      fonteDe. A alternativa — piorar o comentário para o teste passar — foi rejeitada por escrito.
+  - ponto: 'O par LTM-20 + LTM-23 — um SET descuidado na identidade zeraria a ficha que a LTM-20 moveu para a expiração'
+    veredito: 'NÃO SE CRUZAM — conferidas juntas, como pedido'
+    ancora: >-
+      A LTM-20 só toca users dentro de applyAbandonmentStrikes (expire-reservations.ts:202-241),
+      e só a linha de QUEM ABANDONOU, travada com for update (linha 218) e em ordem de userId
+      (linha 317) para não haver impasse entre duas varreduras. A LTM-23 nunca escreve na linha
+      alheia: é DO NOTHING, não DO UPDATE (reserve.ts:247). O único outro escritor da ficha é o
+      pagamento, que a zera de propósito (settle-order.ts:277-280). A regressão está presa em
+      tests/money-path/identidade-concorrente.test.ts:218-224.
+
+ancoras_lidas:
+  - ac: 'AC1 — a liberação é GLOBAL, de qualquer comprador'
+    arquivo: >-
+      abandonedOrderFilter (expire-reservations.ts:132-149) não tem filtro por userId; o recorte é
+      tenantId obrigatório e productId opcional (ReleaseScope, linhas 107-110). Era justamente o
+      eq(orders.userId, userId) que travava o número da Ana para o Bruno até ela voltar.
+  - ac: 'AC2 — a grade conserta o que o comprador VÊ'
+    arquivo: >-
+      src/app/loja/[tenant]/[productSlug]/page.tsx:84 chama releaseExpiredReservations com tenant
+      e produto. A sonda barata fora de transação (expire-reservations.ts:179-188) garante que sem
+      nada a liberar nenhuma transação é aberta e nenhuma linha é escrita — é o que torna a
+      chamada no caminho de leitura mais quente da loja pagável.
+  - ac: 'AC3 — o abandono alheio não bloqueia quem está reservando'
+    arquivo: >-
+      releaseExpiredAndCheckBuyerBlock (expire-reservations.ts:361-379) libera de todos e LÊ a
+      ficha de um só; src/lib/actions/reserve.ts:342-350 é o chamador, com recorte largo (só
+      tenantId) de propósito — estreitar para o sorteio perderia o abandono em sorteio vizinho.
+  - ac: 'AC4 — pedido pago nunca é tocado'
+    arquivo: >-
+      As duas guardas de estado (282 e 304) mais a ordem product_numbers e depois orders, que casa
+      com settle-order.ts:131-150. É mecanismo, não esperança: se o pagamento chega primeiro ele
+      trava as unidades e marca sold e paid, e a varredura reavalia as guardas e não casa nada.
+  - ac: 'AC5 — duas varreduras simultâneas não erram nem contam em dobro'
+    arquivo: >-
+      A ficha sai do que o UPDATE de orders DEVOLVE (expire-reservations.ts:301-307), nunca da
+      lista de candidatos — a transição pending para expired é o ponto de serialização do abandono.
+  - ac: 'AC6 — cada sorteio pelo SEU prazo, e sem atravessar o operador'
+    arquivo: 'tests/money-path/expiracao-entre-compradores.test.ts:490-531 e 538-558.'
+
+o_achado_de_desenho_que_a_story_nao_pediu:
+  afirmacao_do_dev: 'A ficha do anti-spam passou a ser debitada PELA EXPIRAÇÃO, não pela próxima reserva do abandonador.'
+  meu_veredito: 'CONFIRMADO, e a mudança era obrigatória — não cosmética.'
+  razao: >-
+    Com a varredura global, quem expira o pedido da Ana é a visita do Bruno. Se a contagem
+    continuasse pendurada na próxima tentativa DA ANA, ela nunca encontraria nada para contar — o
+    pedido já estaria expired — e o anti-spam morreria em silêncio, com todo mundo de ficha limpa
+    para sempre. Verde na suíte, feature morta. A transição pending para expired é o evento de
+    abandono, e é onde a ficha pertence. O @dev marcou isto como o item que mais merece
+    contestação; contestei e ele está certo.
+
+achados:
+  - id: 'DOC-001'
+    severity: low
+    finding: >-
+      Âncora envelhecida, e justamente na que importa: src/lib/payments/settle-order.ts:126 cita
+      reserve.ts:149-156 como o lugar da varredura de expiração, para explicar por que a ORDEM DAS
+      TRAVAS não pode ser invertida. A LTM-20 moveu a varredura; reserve.ts:149-156 é hoje o
+      cabeçalho de resolveTargetUnits. Cenário de falha concreto: um dev futuro lê a justificativa
+      da ordem das travas, não encontra varredura nenhuma no destino, conclui que o comentário é
+      lixo e inverte a ordem — que é exatamente o que faz o Postgres abortar uma das duas
+      transações, o webhook responder 500 e o provedor reentregar contra o mesmo impasse.
+    suggested_action: '@dev: trocar por raffles/expire-reservations.ts:264-284. Uma linha de comentário, zero comportamento.'
+  - id: 'MNT-001'
+    severity: low
+    tipo: 'limite declarado pelo @dev, confirmado por mim'
+    finding: >-
+      A varredura não tem teto de lote: candidateIds entra inteiro no inArray dos dois UPDATE. Com
+      importação em massa do Império — cenário DESTE epic — uma varredura disparada pela grade pode
+      travar muitas linhas numa transação só.
+    suggested_action: >-
+      Já nomeado no Dev Agent Record. Vale story própria quando houver agendador, que é também
+      quando a chamada na grade sai.
+  - id: 'REL-002'
+    severity: low
+    tipo: 'defeito adjacente que o @dev encontrou, mediu e NÃO consertou'
+    finding: >-
+      Registrado por ele como fora de escopo, e concordo com a decisão de escopo. Não entra neste
+      veredito porque nenhum AC desta story o cobre.
+    suggested_action: '@po: decidir se vira story própria antes do ensaio ponta a ponta.'
+
+top_issues: []
+waiver: { active: false }
